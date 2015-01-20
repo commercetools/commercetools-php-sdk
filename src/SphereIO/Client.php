@@ -57,7 +57,7 @@ class Client
 
         $data = [
             'grant_type' => 'client_credentials',
-            'scope' => 'manage-project:' . $config->getProject()
+            'scope' => 'manage_project:' . $config->getProject()
         ];
 
         $result = $client->post(
@@ -67,7 +67,7 @@ class Client
                 'auth' => [$config->getClientId(), $config->getClientSecret()]
             ]
         );
-        
+
         return $result->json();
     }
 }
