@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Jens Schulze <jens.schulze@commercetools.de>
- * Date: 19.01.15
- * Time: 17:06
+ * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @created 19.01.15, 17:06
  */
 
 namespace SphereIO\Cache;

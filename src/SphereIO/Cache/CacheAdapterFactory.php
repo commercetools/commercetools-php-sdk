@@ -1,30 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Jens Schulze <jens.schulze@commercetools.de>
- * Date: 19.01.15
- * Time: 17:17
+ * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @created 19.01.15, 17:17
  */
 
 namespace SphereIO\Cache;
 
 class CacheAdapterFactory
 {
-    protected static $instance;
-
     protected $callbacks = [];
-
-    /**
-     * @return CacheAdapterFactory
-     */
-    public static function getInstance()
-    {
-        if (is_null(static::$instance)) {
-            static::$instance = new static();
-        }
-
-        return static::$instance;
-    }
 
     /**
      * @param $callback
