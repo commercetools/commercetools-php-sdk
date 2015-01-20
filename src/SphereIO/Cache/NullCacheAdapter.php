@@ -12,21 +12,43 @@ namespace SphereIO\Cache;
  */
 class NullCacheAdapter extends AbstractCacheAdapter
 {
+    /**
+     * @param $key
+     * @param $options
+     * @return bool
+     */
     public function has($key, $options = null)
     {
         return false;
     }
 
-    public function get($key, $options = null)
+    /**
+     * @param $key
+     * @param $options
+     * @return bool
+     */
+    public function fetch($key, $options = null)
     {
         return false;
     }
 
+    /**
+     * @param $key
+     * @param $data
+     * @param $lifeTime
+     * @param $options
+     * @return bool
+     */
     public function store($key, $data, $lifeTime = null, $options = null)
     {
         return true;
     }
 
+    /**
+     * @param $key
+     * @param $options
+     * @return bool
+     */
     public function remove($key, $options = null)
     {
         return true;

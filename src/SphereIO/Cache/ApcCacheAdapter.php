@@ -11,8 +11,8 @@ class ApcCacheAdapter extends AbstractCacheAdapter
 {
     /**
      * @param $key
-     * @param mixed $options
-     * @return bool
+     * @param null $options
+     * @return bool|\string[]
      */
     public function has($key, $options = null)
     {
@@ -22,9 +22,9 @@ class ApcCacheAdapter extends AbstractCacheAdapter
     /**
      * @param $key
      * @param mixed $options
-     * @return mixed|null
+     * @return mixed|false
      */
-    public function get($key, $options = null)
+    public function fetch($key, $options = null)
     {
         return apc_fetch($key);
     }

@@ -38,7 +38,7 @@ class DoctrineCacheAdapter extends AbstractCacheAdapter
      * @param mixed $options
      * @return mixed|bool
      */
-    public function get($key, $options = null)
+    public function fetch($key, $options = null)
     {
         return $this->getCache()->fetch($key);
     }

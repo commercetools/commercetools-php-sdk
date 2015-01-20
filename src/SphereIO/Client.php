@@ -16,6 +16,9 @@ class Client
      */
     protected $cache;
 
+    /**
+     * @var \GuzzleHttp\Client
+     */
     protected $client;
 
     /**

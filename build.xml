@@ -104,7 +104,7 @@
         <exec executable="${toolsdir}phpmd">
             <arg path="${basedir}/src" />
             <arg value="text" />
-            <arg value="cleancode,codesize,controversial,naming,unusedcode"/>
+            <arg value="codesize,controversial,design,naming,unusedcode"/>
             <arg path="${basedir}/build/phpmd.xml" />
         </exec>
     </target>
@@ -115,7 +115,7 @@
         <exec executable="${toolsdir}phpmd">
             <arg path="${basedir}/src" />
             <arg value="xml" />
-            <arg value="cleancode,codesize,controversial,naming,unusedcode"/>
+            <arg value="codesize,controversial,design,naming,unusedcode"/>
             <arg path="${basedir}/build/phpmd.xml" />
             <arg value="--reportfile" />
             <arg path="${basedir}/build/logs/pmd.xml" />

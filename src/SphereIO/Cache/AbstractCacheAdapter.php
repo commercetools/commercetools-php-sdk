@@ -12,10 +12,14 @@ namespace SphereIO\Cache;
  */
 abstract class AbstractCacheAdapter implements CacheAdapterInterface
 {
+    /**
+     * holds the instance of the application cache
+     * @var mixed
+     */
     protected $cache;
 
     /**
-     * returns the cache adapter
+     * returns the application cache instance
      *
      * @return mixed
      */

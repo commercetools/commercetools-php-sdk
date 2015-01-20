@@ -8,9 +8,14 @@ namespace SphereIO\Cache;
 
 class CacheAdapterFactory
 {
+    /**
+     * @var array
+     */
     protected $callbacks = [];
 
     /**
+     * registers a callback to resolve a cache adapter interface
+     *
      * @param $callback
      */
     public function registerCallback($callback)
@@ -19,6 +24,8 @@ class CacheAdapterFactory
     }
 
     /**
+     * returns the cache adapter interface for the application cache
+     *
      * @param $cache
      * @return CacheAdapterInterface
      * @throws \InvalidArgumentException
@@ -29,24 +36,26 @@ class CacheAdapterFactory
             $cache = $this->getDefaultCache();
         }
         if (!is_object($cache)) {
-            throw new \InvalidArgumentException();
+            throw new \InvalidArgumentException("Cache needs to be an object");
         }
 
         if ($cache instanceof CacheAdapterInterface) {
             return $cache;
         }
 
-        foreach($this->callbacks as $callBack) {
+        foreach ($this->callbacks as $callBack) {
             $result = call_user_func($callBack, $cache);
             if ($result instanceof CacheAdapterInterface) {
                 return $result;
             }
         }
 
-        throw new \InvalidArgumentException();
+        throw new \InvalidArgumentException("No valid CacheAdapterInterface found");
     }
 
     /**
+     * creates a default cache adapter if no cache has been provided
+     *
      * @return CacheAdapterInterface
      */
     protected function getDefaultCache()
