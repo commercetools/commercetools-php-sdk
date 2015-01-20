@@ -2,29 +2,15 @@
 /**
  * Created by PhpStorm.
  * User: Jens Schulze <jens.schulze@commercetools.de>
- * Date: 19.01.15
- * Time: 17:36
+ * Date: 20.01.15
+ * Time: 13:42
  */
 
 namespace SphereIO\Cache;
 
-use Doctrine\Common\Cache\Cache;
 
-/**
- * Class DoctrineCacheAdapter
- * @package SphereIO\Cache
- */
-class DoctrineCacheAdapter extends AbstractCacheAdapter
+class ApcCacheAdapter extends AbstractCacheAdapter
 {
-
-    /**
-     * @param \Doctrine\Common\Cache\Cache $cache
-     */
-    public function __construct(Cache $cache)
-    {
-        $this->cache = $cache;
-    }
-
     /**
      * @param $key
      * @param mixed $options
@@ -32,29 +18,29 @@ class DoctrineCacheAdapter extends AbstractCacheAdapter
      */
     public function has($key, $options = null)
     {
-        return $this->getCache()->contains($key);
+        return apc_exists($key);
     }
 
     /**
      * @param $key
      * @param mixed $options
-     * @return mixed|bool
+     * @return mixed|null
      */
     public function get($key, $options = null)
     {
-        return $this->getCache()->fetch($key);
+        return apc_fetch($key);
     }
 
     /**
      * @param $key
      * @param $data
-     * @param mixed $lifeTime
-     * @param mixed $options
+     * @param $lifeTime
+     * @param $options
      * @return bool
      */
     public function store($key, $data, $lifeTime = null, $options = null)
     {
-        return $this->getCache()->save($key, $data, $lifeTime);
+        return apc_store($key, $data, $lifeTime);
     }
 
     /**
@@ -64,6 +50,7 @@ class DoctrineCacheAdapter extends AbstractCacheAdapter
      */
     public function remove($key, $options = null)
     {
-        return $this->getCache()->delete($key);
+        return apc_delete($key);
     }
+
 }

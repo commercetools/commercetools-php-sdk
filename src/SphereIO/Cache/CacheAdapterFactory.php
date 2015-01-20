@@ -39,8 +39,11 @@ class CacheAdapterFactory
      * @return CacheAdapterInterface
      * @throws \InvalidArgumentException
      */
-    public function get($cache)
+    public function get($cache = null)
     {
+        if (is_null($cache)) {
+            $cache = $this->getDefaultCache();
+        }
         if (!is_object($cache)) {
             throw new \InvalidArgumentException();
         }
@@ -57,5 +60,17 @@ class CacheAdapterFactory
         }
 
         throw new \InvalidArgumentException();
+    }
+
+    /**
+     * @return CacheAdapterInterface
+     */
+    protected function getDefaultCache()
+    {
+        if (extension_loaded('apc')) {
+            return new ApcCacheAdapter();
+        }
+
+        return new NullCacheAdapter();
     }
 }

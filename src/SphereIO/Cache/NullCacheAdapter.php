@@ -21,7 +21,7 @@ class NullCacheAdapter extends AbstractCacheAdapter
 
     public function get($key, $options = null)
     {
-        return null;
+        return false;
     }
 
     public function store($key, $data, $lifeTime = null, $options = null)

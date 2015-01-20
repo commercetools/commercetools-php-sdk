@@ -24,7 +24,7 @@ interface CacheAdapterInterface
     /**
      * @param $key
      * @param mixed $options
-     * @return mixed|null
+     * @return mixed|bool
      */
     public function get($key, $options = null);
 
