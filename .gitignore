@@ -1,0 +1,5 @@
+.vagrant
+.idea
+vendor
+build
+tools/puppet

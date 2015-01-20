@@ -1,0 +1,23 @@
+{
+    "name": "commercetools/sphere-php-sdk",
+    "type": "project",
+    "description": "The SphereIO PHP SDK",
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+        "php": ">=5.4",
+        "guzzlehttp/guzzle": "~5.0"
+    },
+    "require-dev": {
+        "psr/log": "~1.0",
+        "phpunit/phpunit": "~4.0",
+        "phpmd/phpmd": "~1.0",
+        "squizlabs/php_codesniffer": "~1.0",
+        "theseer/phpdox": "0.6.*",
+        "pdepend/pdepend": "1.1.*",
+        "phploc/phploc": "2.0.*",
+        "sebastian/phpcpd": "1.4.*",
+        "covex-nn/phpcb": "1.0.4.*"
+    }
+}
