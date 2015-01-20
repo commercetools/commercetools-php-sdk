@@ -9,7 +9,6 @@ namespace SphereIO;
 
 use SphereIO\Cache\CacheAdapterFactory;
 use SphereIO\Cache\CacheAdapterInterface;
-use SphereIO\Cache\NullCacheAdapter;
 
 class Factory
 {

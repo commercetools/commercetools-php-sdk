@@ -27,9 +27,8 @@ class Client
     public function __construct(CacheAdapterInterface $cache)
     {
         $this->cache = $cache;
-        $client = $this->getHttpClient();
 
-        $response = $client->get('http://www.commercetools.de');
+        $this->getToken();
     }
 
     /**
@@ -42,5 +41,33 @@ class Client
         }
 
         return $this->client;
+    }
+
+    protected function getToken()
+    {
+        $config = [
+            'oauth_url' => 'https://auth.sphere.io/oauth/token',
+            'client_id' => 'oFxxBr0Fz4MgBJZBS-8CycWA',
+            'client_secret' => 'yJ9J2rD90SEJD3z8sEL4idegrLeNmR57',
+            'project' => 'phpsphere-82'
+        ];
+
+        $config = (new Config())->fromArray($config);
+        $client = $this->getHttpClient();
+
+        $data = [
+            'grant_type' => 'client_credentials',
+            'scope' => 'manage-project:' . $config->getProject()
+        ];
+
+        $result = $client->post(
+            $config->getOauthUrl(),
+            [
+                'body' => $data,
+                'auth' => [$config->getClientId(), $config->getClientSecret()]
+            ]
+        );
+        
+        return $result->json();
     }
 }
