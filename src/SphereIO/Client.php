@@ -28,7 +28,7 @@ class Client
     {
         $this->cache = $cache;
 
-        $this->getToken();
+        //$this->getToken();
     }
 
     /**
@@ -46,10 +46,6 @@ class Client
     protected function getToken()
     {
         $config = [
-            'oauth_url' => 'https://auth.sphere.io/oauth/token',
-            'client_id' => 'oFxxBr0Fz4MgBJZBS-8CycWA',
-            'client_secret' => 'yJ9J2rD90SEJD3z8sEL4idegrLeNmR57',
-            'project' => 'phpsphere-82'
         ];
 
         $config = (new Config())->fromArray($config);

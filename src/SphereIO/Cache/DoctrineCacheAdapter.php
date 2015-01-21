@@ -20,7 +20,7 @@ class DoctrineCacheAdapter extends AbstractCacheAdapter
      */
     public function __construct(Cache $cache)
     {
-        $this->cache = $cache;
+        parent::__construct($cache);
     }
 
     /**
