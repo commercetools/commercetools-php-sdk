@@ -1,7 +1,7 @@
 {
     "name": "commercetools/sphere-php-sdk",
     "type": "project",
-    "description": "The SphereIO PHP SDK",
+    "description": "The Sphere.IO PHP SDK",
     "autoload": {
         "psr-0": { "": "src/" }
     },
