@@ -17,11 +17,11 @@ class ApcCacheAdapterTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->adapter = new ApcCacheAdapter();
+        $this->adapter->store('test', ['key' => 'value']);
     }
 
     public function testHas()
     {
-        $this->adapter->store('test', ['key' => 'value']);
         $this->assertTrue($this->adapter->has('test'));
     }
 
@@ -32,7 +32,6 @@ class ApcCacheAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testFetch()
     {
-        $this->adapter->store('test', ['key' => 'value']);
         $this->assertArrayHasKey('key', $this->adapter->fetch('test'));
     }
 
@@ -48,7 +47,6 @@ class ApcCacheAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testRemove()
     {
-        $this->adapter->store('test', ['key' => 'value']);
         $this->assertTrue($this->adapter->remove('test'));
     }
 

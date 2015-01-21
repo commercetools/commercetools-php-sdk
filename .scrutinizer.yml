@@ -3,5 +3,9 @@ tools:
     php_pdepend: true
     php_analyzer: true
 
+build:
+    dependencies:
+        before:
+            - sudo apt-get install php5-apcu
 filter:
     excluded_paths: [build/*, tools/*, tests/*, public/*]
