@@ -6,6 +6,6 @@ tools:
 build:
     dependencies:
         before:
-            - sudo apt-get install php5-apcu
+            - sudo apt-get -y install php5-apcu
 filter:
     excluded_paths: [build/*, tools/*, tests/*, public/*]
