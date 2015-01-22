@@ -7,8 +7,8 @@ build:
     dependencies:
         before:
             #Only 5.4 uses APC
-            - if [ "`phpenv version-name`" == "5.4" ] && [ "`phpenv version-name`" != "hhvm" ]; then echo -e "extension = apc.so\napc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+            - if [ "`phpenv version-name`" =~ "^5.4" ] && [ "`phpenv version-name`" != "hhvm" ]; then echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
             #+5.5 uses APCU
-            - if [ "`phpenv version-name`" != "5.4" ] && [ "`phpenv version-name`" != "hhvm" ]; then printf "\n"| pecl install apcu-beta && echo -e "extension = apcu.so\napc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+            - if [ "`phpenv version-name`" !=~ "^5.4" ] && [ "`phpenv version-name`" != "hhvm" ]; then printf "\n"| echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
 filter:
     excluded_paths: [build/*, tools/*, tests/*, public/*]
