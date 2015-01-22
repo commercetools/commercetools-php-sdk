@@ -7,7 +7,6 @@
 namespace SphereIO;
 
 
-use GuzzleHttp\Message\ResponseInterface;
 use SphereIO\Cache\CacheAdapterInterface;
 use SphereIO\OAuth\Manager;
 
@@ -74,7 +73,7 @@ class Client extends AbstractHttpClient
 
         $client = $this->getHttpClient();
         $result = $client->get(
-            'https://' . $this->getConfig()->getApiUrl() . '/' . $this->getConfig()->getProject() . '/categories',
+            $this->getConfig()->getApiUrl() . '/' . $this->getConfig()->getProject() . '/categories',
             [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $token->getToken()

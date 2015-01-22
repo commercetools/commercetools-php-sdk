@@ -84,7 +84,7 @@ class Factory
     {
         $this->setCacheAdapter($cache);
         if (is_array($config)) {
-            $this->setConfig((new Config())->fromArray($cache));
+            $this->setConfig((new Config())->fromArray($config));
         }
     }
 
