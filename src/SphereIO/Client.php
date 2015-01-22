@@ -7,63 +7,81 @@
 namespace SphereIO;
 
 
+use GuzzleHttp\Message\ResponseInterface;
 use SphereIO\Cache\CacheAdapterInterface;
+use SphereIO\OAuth\Manager;
 
-class Client
+class Client extends AbstractHttpClient
 {
+    const TOKEN_CACHE_KEY = 'sphere-io-bearer-token';
+
     /**
      * @var CacheAdapterInterface
      */
     protected $cache;
 
     /**
-     * @var \GuzzleHttp\Client
+     * @var Config
      */
-    protected $client;
+    protected $config;
 
     /**
      * @param CacheAdapterInterface $cache
      */
-    public function __construct(CacheAdapterInterface $cache)
+    public function __construct(Config $config, CacheAdapterInterface $cache)
     {
         $this->cache = $cache;
-
-        //$this->getToken();
+        $this->config = $config;
     }
 
     /**
-     * @return \GuzzleHttp\Client
+     * @return Config
      */
-    protected function getHttpClient()
+    public function getConfig()
     {
-        if (is_null($this->client)) {
-            $this->client = new \GuzzleHttp\Client();
-        }
-
-        return $this->client;
+        return $this->config;
     }
 
-    protected function getToken()
+    /**
+     * @param Config $config
+     */
+    public function setConfig($config)
     {
-        $config = [
-        ];
+        $this->config = $config;
+    }
 
-        $config = (new Config())->fromArray($config);
+    /**
+     * @return CacheAdapterInterface
+     */
+    public function getCache()
+    {
+        return $this->cache;
+    }
+
+    /**
+     * @param CacheAdapterInterface $cache
+     */
+    public function setCache($cache)
+    {
+        $this->cache = $cache;
+    }
+
+    public function submit($request = null)
+    {
+        $manager = new Manager($this->getConfig(), $this->getCache());
+
+        $token = $manager->getToken();
+
         $client = $this->getHttpClient();
-
-        $data = [
-            'grant_type' => 'client_credentials',
-            'scope' => 'manage_project:' . $config->getProject()
-        ];
-
-        $result = $client->post(
-            $config->getOauthUrl(),
+        $result = $client->get(
+            'https://' . $this->getConfig()->getApiUrl() . '/' . $this->getConfig()->getProject() . '/categories',
             [
-                'body' => $data,
-                'auth' => [$config->getClientId(), $config->getClientSecret()]
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token->getToken()
+                ]
             ]
         );
 
-        return $result->json();
+        var_dump($result);
     }
 }

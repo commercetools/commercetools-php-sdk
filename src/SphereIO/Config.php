@@ -7,24 +7,52 @@
 namespace SphereIO;
 
 
+use SphereIO\Cache\CacheAdapterInterface;
+
 class Config
 {
     const OAUTH_URL = 'oauth_url';
     const CLIENT_ID = 'client_id';
     const CLIENT_SECRET = 'client_secret';
     const PROJECT = 'project';
+    const API_URL = 'api_url';
 
+    /**
+     * @var string
+     */
     protected $clientSecret;
+
+    /**
+     * @var string
+     */
     protected $clientId;
+
+    /**
+     * @var string
+     */
     protected $project;
+
+    /**
+     * @var string
+     */
     protected $oauthUrl;
 
+    /**
+     * @var string
+     */
+    protected $apiUrl;
+
+    /**
+     * @param array $config
+     * @return $this
+     */
     public function fromArray(array $config)
     {
         $this->setClientId($config[static::CLIENT_ID])
             ->setClientSecret($config[static::CLIENT_SECRET])
             ->setProject($config[static::PROJECT])
-            ->setOauthUrl($config[static::OAUTH_URL]);
+            ->setOauthUrl($config[static::OAUTH_URL])
+            ->setApiUrl($config[static::API_URL]);
 
         return $this;
     }
@@ -103,5 +131,21 @@ class Config
         $this->oauthUrl = $oauthUrl;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiUrl()
+    {
+        return $this->apiUrl;
+    }
+
+    /**
+     * @param string $apiUrl
+     */
+    public function setApiUrl($apiUrl)
+    {
+        $this->apiUrl = $apiUrl;
     }
 }

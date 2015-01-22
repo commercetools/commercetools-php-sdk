@@ -12,8 +12,39 @@ use SphereIO\Cache\CacheAdapterInterface;
 
 class Factory
 {
+    /**
+     * @var Config
+     */
+    protected $config;
+
+    /**
+     * @var CacheAdapterInterface
+     */
     protected $cacheAdapter;
+
+    /**
+     * @var CacheAdapterFactory
+     */
     protected $cacheAdapterFactory;
+
+    /**
+     * @return Config $this
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param Config $config
+     * @return $this
+     */
+    public function setConfig(Config $config)
+    {
+        $this->config = $config;
+
+        return $this;
+    }
 
     /**
      * @return CacheAdapterFactory
@@ -47,14 +78,18 @@ class Factory
 
     /**
      * @param $cache
+     * @param array $config
      */
-    public function __construct($cache = null)
+    public function __construct($cache = null, array $config = null)
     {
         $this->setCacheAdapter($cache);
+        if (is_array($config)) {
+            $this->setConfig((new Config())->fromArray($cache));
+        }
     }
 
     public function getClient()
     {
-        return new Client($this->getCacheAdapter());
+        return new Client($this->getConfig(), $this->getCacheAdapter());
     }
 }
