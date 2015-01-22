@@ -48,13 +48,34 @@ class Config
      */
     public function fromArray(array $config)
     {
-        $this->setClientId($config[static::CLIENT_ID])
-            ->setClientSecret($config[static::CLIENT_SECRET])
-            ->setProject($config[static::PROJECT])
-            ->setOauthUrl($config[static::OAUTH_URL])
-            ->setApiUrl($config[static::API_URL]);
+        array_walk(
+            $config,
+            function ($value, $key) {
+                $functionName = 'set' . $this->camelize($key);
+                if (!is_callable([$this, $functionName])) {
+                    throw new \InvalidArgumentException('Setter for key ' . $key . ' not implemented.');
+                }
+                $this->$functionName($value);
+            }
+        );
 
         return $this;
+    }
+
+    protected function camelize($scored)
+    {
+        return lcfirst(
+            implode(
+                '',
+                array_map(
+                    'ucfirst',
+                    array_map(
+                        'strtolower',
+                        explode('_', $scored)
+                    )
+                )
+            )
+        );
     }
 
     /**

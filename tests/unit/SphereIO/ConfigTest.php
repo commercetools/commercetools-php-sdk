@@ -13,8 +13,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         return [
                 Config::CLIENT_ID => 'id',
                 Config::CLIENT_SECRET => 'secret',
-                Config::OAUTH_URL => 'url',
-                Config::PROJECT => 'project'
+                Config::OAUTH_URL => 'oauthUrl',
+                Config::PROJECT => 'project',
+                Config::API_URL => 'apiUrl'
         ];
     }
 
@@ -28,5 +29,27 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($testConfig[Config::CLIENT_SECRET], $config->getClientSecret());
         $this->assertEquals($testConfig[Config::OAUTH_URL], $config->getOauthUrl());
         $this->assertEquals($testConfig[Config::PROJECT], $config->getProject());
+        $this->assertEquals($testConfig[Config::API_URL], $config->getApiUrl());
+    }
+
+    public function testEmptyArray()
+    {
+        $config = new Config();
+        $config->fromArray([]);
+
+        $this->assertEmpty($config->getClientId());
+        $this->assertEmpty($config->getClientSecret());
+        $this->assertEmpty($config->getOauthUrl());
+        $this->assertEmpty($config->getProject());
+        $this->assertEmpty($config->getApiUrl());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testUnknownEntry()
+    {
+        $config = new Config();
+        $config->fromArray(['key' => 'value']);
     }
 }

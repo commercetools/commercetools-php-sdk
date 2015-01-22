@@ -50,5 +50,4 @@ class ApcCacheAdapter extends AbstractCacheAdapter
     {
         return apc_delete($key);
     }
-
 }

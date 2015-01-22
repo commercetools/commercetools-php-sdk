@@ -7,11 +7,11 @@
     <!-- <property name="toolsdir" value="${basedir}/vendor/bin/"/> -->
 
     <target name="build"
-            depends="prepare,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,phpdox"
+            depends="prepare,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,apigen"
             description=""/>
 
     <target name="build-parallel"
-            depends="prepare,lint,tools-parallel,phpunit,phpdox"
+            depends="prepare,lint,tools-parallel,phpunit,apigen"
             description=""/>
 
     <target name="tools-parallel" description="Run tools in parallel">
@@ -33,7 +33,6 @@
         <delete dir="${basedir}/build/coverage"/>
         <delete dir="${basedir}/build/logs"/>
         <delete dir="${basedir}/build/pdepend"/>
-        <delete dir="${basedir}/build/phpdox"/>
         <property name="clean.done" value="true"/>
     </target>
 
@@ -45,7 +44,6 @@
         <mkdir dir="${basedir}/build/coverage"/>
         <mkdir dir="${basedir}/build/logs"/>
         <mkdir dir="${basedir}/build/pdepend"/>
-        <mkdir dir="${basedir}/build/phpdox"/>
         <property name="prepare.done" value="true"/>
     </target>
 
@@ -172,9 +170,14 @@
         </exec>
     </target>
 
-    <target name="phpdox"
-            depends="phploc-ci,phpcs-ci,phpmd-ci"
-            description="Generate project documentation using phpDox">
-        <exec executable="${basedir}/${toolsdir}phpdox" dir="${basedir}/build/"/>
+    <target name="apigen"
+            description="Generate project documentation using phpDocumentor">
+        <exec executable="${basedir}/${toolsdir}apigen" dir="${basedir}/build/">
+            <arg value="generate"/>
+            <arg value="--source"/>
+            <arg path="${basedir}/src"/>
+            <arg value="--destination"/>
+            <arg path="${basedir}/build/docs/html"/>
+        </exec>
     </target>
 </project>

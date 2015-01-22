@@ -96,7 +96,8 @@ class Manager extends AbstractHttpClient
         )->json();
 
         if (isset($result[static::ERROR])) {
-            $message = isset($result[static::ERROR_DESCRIPTION]) ? $result[static::ERROR_DESCRIPTION] : $result[static::ERROR];
+            $message = isset($result[static::ERROR_DESCRIPTION]) ?
+                $result[static::ERROR_DESCRIPTION] : $result[static::ERROR];
             throw new AuthorizeException($message);
         }
 

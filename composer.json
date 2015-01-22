@@ -19,6 +19,7 @@
         "phploc/phploc": "2.0.*",
         "sebastian/phpcpd": "1.4.*",
         "covex-nn/phpcb": "1.0.4.*",
-        "doctrine/cache": "~1.4"
+        "doctrine/cache": "~1.4",
+        "apigen/apigen": "~4.0"
     }
 }

@@ -79,7 +79,7 @@ class Client extends AbstractHttpClient
                     'Authorization' => 'Bearer ' . $token->getToken()
                 ]
             ]
-        );
+        )->json();
 
         var_dump($result);
     }
