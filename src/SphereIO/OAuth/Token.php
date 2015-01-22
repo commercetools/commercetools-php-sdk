@@ -11,6 +11,13 @@ class Token
 {
     protected $token;
     protected $validTo;
+    protected $ttl;
+
+    public function __construct($token = null, $ttl = null)
+    {
+        $this->token = $token;
+        $this->ttl = $ttl;
+    }
 
     /**
      * @return mixed
@@ -21,11 +28,14 @@ class Token
     }
 
     /**
-     * @param mixed $token
+     * @param string $token
+     * @return $this
      */
     public function setToken($token)
     {
         $this->token = $token;
+
+        return $this;
     }
 
     /**
@@ -37,10 +47,29 @@ class Token
     }
 
     /**
-     * @param mixed $validTo
+     * @param \DateTime $validTo
+     * @return $this
      */
-    public function setValidTo($validTo)
+    public function setValidTo(\DateTime $validTo)
     {
         $this->validTo = $validTo;
+
+        return $this;
+    }
+
+    /**
+     * @return null
+     */
+    public function getTtl()
+    {
+        return $this->ttl;
+    }
+
+    /**
+     * @param null $ttl
+     */
+    public function setTtl($ttl)
+    {
+        $this->ttl = $ttl;
     }
 }

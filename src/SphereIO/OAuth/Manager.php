@@ -13,6 +13,8 @@ use SphereIO\Config;
 
 class Manager extends AbstractHttpClient
 {
+    const TOKEN_CACHE_KEY = 'sphere-io-bearer-token';
+
     const ACCESS_TOKEN = 'access_token';
     const EXPIRES_IN = 'expires_in';
     const ERROR = 'error';
@@ -23,9 +25,31 @@ class Manager extends AbstractHttpClient
      */
     protected $config;
 
-    public function __construct(Config $config)
+    /**
+     * @var CacheAdapterInterface
+     */
+    protected $cache;
+
+    public function __construct(Config $config, CacheAdapterInterface $cache)
     {
+        $this->cache = $cache;
         $this->config = $config;
+    }
+
+    /**
+     * @return CacheAdapterInterface
+     */
+    public function getCache()
+    {
+        return $this->cache;
+    }
+
+    /**
+     * @param CacheAdapterInterface $cache
+     */
+    public function setCache($cache)
+    {
+        $this->cache = $cache;
     }
 
     /**
@@ -42,7 +66,13 @@ class Manager extends AbstractHttpClient
      */
     public function getToken()
     {
-        return $this->getBearerToken();
+        if ($token = $this->getCache()->fetch(static::TOKEN_CACHE_KEY)) {
+            return new Token($token);
+        }
+        $token = $this->getBearerToken();
+        $this->getCache()->store(static::TOKEN_CACHE_KEY, $token->getToken(), $token->getTtl());
+
+        return $token;
     }
 
     /**
@@ -70,8 +100,7 @@ class Manager extends AbstractHttpClient
             throw new AuthorizeException($message);
         }
 
-        $token = new Token();
-        $token->setToken($result[static::ACCESS_TOKEN]);
+        $token = new Token($result[static::ACCESS_TOKEN], $result[static::EXPIRES_IN]);
         $token->setValidTo(new \DateTime('now +' . $result[static::EXPIRES_IN] . ' seconds'));
 
         return $token;
