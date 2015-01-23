@@ -4,7 +4,7 @@
  * @created: 22.01.15, 14:10
  */
 
-namespace SphereIO\OAuth;
+namespace Sphere\Core\OAuth;
 
 
 class AuthorizeException extends \Exception

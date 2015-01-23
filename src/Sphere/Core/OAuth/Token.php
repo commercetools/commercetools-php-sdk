@@ -4,7 +4,7 @@
  * @created: 22.01.15, 11:41
  */
 
-namespace SphereIO\OAuth;
+namespace Sphere\Core\OAuth;
 
 
 class Token

@@ -4,10 +4,10 @@
  * @created: 20.01.15, 17:54
  */
 
-namespace SphereIO;
+namespace Sphere\Core;
 
 
-use SphereIO\Cache\CacheAdapterInterface;
+use Sphere\Core\Cache\CacheAdapterInterface;
 
 class Config
 {
@@ -35,12 +35,12 @@ class Config
     /**
      * @var string
      */
-    protected $oauthUrl;
+    protected $oauthUrl = 'https://auth.sphere.io';
 
     /**
      * @var string
      */
-    protected $apiUrl;
+    protected $apiUrl = 'https://api.sphere.io';
 
     /**
      * @param array $config
@@ -168,5 +168,25 @@ class Config
     public function setApiUrl($apiUrl)
     {
         $this->apiUrl = $apiUrl;
+    }
+
+    /**
+     * @return bool
+     */
+    public function check()
+    {
+        if (is_null($this->getClientId())) {
+            throw new \InvalidArgumentException('No client id set');
+        }
+
+        if (is_null($this->getClientSecret())) {
+            throw new \InvalidArgumentException('No client secret set');
+        }
+
+        if (is_null($this->getProject())) {
+            throw new \InvalidArgumentException('No project set');
+        }
+
+        return true;
     }
 }

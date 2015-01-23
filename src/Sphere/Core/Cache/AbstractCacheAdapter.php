@@ -4,11 +4,11 @@
  * @created 19.01.15, 17:10
  */
 
-namespace SphereIO\Cache;
+namespace Sphere\Core\Cache;
 
 /**
  * Class AbstractCacheAdapter
- * @package SphereIO\Cache
+ * @package Sphere\Core\Cache
  */
 abstract class AbstractCacheAdapter implements CacheAdapterInterface
 {

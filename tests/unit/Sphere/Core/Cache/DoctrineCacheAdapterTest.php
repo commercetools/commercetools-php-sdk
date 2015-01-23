@@ -1,22 +1,26 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 21.01.15, 15:37
+ * @created: 22.01.15, 10:46
  */
 
-namespace SphereIO\Cache;
+namespace Sphere\Core\Cache;
 
 
-class ApcCacheAdapterTest extends \PHPUnit_Framework_TestCase
+use Doctrine\Common\Cache\ApcCache;
+
+class DoctrineCacheAdapterTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
-     * @var ApcCacheAdapter
+     * @var DoctrineCacheAdapter
      */
     protected $adapter;
-
+    
     public function setUp()
     {
-        $this->adapter = new ApcCacheAdapter();
+        $cache = new ApcCache();
+        $this->adapter = new DoctrineCacheAdapter($cache);
         $this->adapter->store('test', ['key' => 'value']);
     }
 

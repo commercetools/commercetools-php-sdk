@@ -4,7 +4,7 @@
  * @created 19.01.15, 17:17
  */
 
-namespace SphereIO\Cache;
+namespace Sphere\Core\Cache;
 
 class CacheAdapterFactory
 {
@@ -35,9 +35,6 @@ class CacheAdapterFactory
         if (is_null($cache)) {
             $cache = $this->getDefaultCache();
         }
-        if (!is_object($cache)) {
-            throw new \InvalidArgumentException("Cache needs to be an object");
-        }
 
         if ($cache instanceof CacheAdapterInterface) {
             return $cache;
@@ -56,7 +53,7 @@ class CacheAdapterFactory
     /**
      * creates a default cache adapter if no cache has been provided
      *
-     * @return CacheAdapterInterface
+     * @return CacheAdapterInterface|null
      */
     protected function getDefaultCache()
     {
@@ -64,6 +61,6 @@ class CacheAdapterFactory
             return new ApcCacheAdapter();
         }
 
-        return new NullCacheAdapter();
+        return null;
     }
 }

@@ -4,7 +4,7 @@
  * @created: 21.01.15, 15:53
  */
 
-namespace SphereIO\Cache;
+namespace Sphere\Core\Cache;
 
 
 class NullCacheAdapterTest extends \PHPUnit_Framework_TestCase

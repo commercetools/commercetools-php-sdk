@@ -4,7 +4,7 @@
  * @created: 22.01.15, 10:30
  */
 
-namespace SphereIO;
+namespace Sphere\Core;
 
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,14 +23,16 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $testConfig = $this->getConfig();
         $config = new Config();
-        $this->assertInstanceOf('\SphereIO\Config', $config->fromArray($testConfig));
+        $this->assertInstanceOf('\Sphere\Core\Config', $config->fromArray($testConfig));
 
         $this->assertEquals($testConfig[Config::CLIENT_ID], $config->getClientId());
         $this->assertEquals($testConfig[Config::CLIENT_SECRET], $config->getClientSecret());
         $this->assertEquals($testConfig[Config::OAUTH_URL], $config->getOauthUrl());
         $this->assertEquals($testConfig[Config::PROJECT], $config->getProject());
         $this->assertEquals($testConfig[Config::API_URL], $config->getApiUrl());
+
     }
+
 
     public function testEmptyArray()
     {
@@ -39,9 +41,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEmpty($config->getClientId());
         $this->assertEmpty($config->getClientSecret());
-        $this->assertEmpty($config->getOauthUrl());
         $this->assertEmpty($config->getProject());
-        $this->assertEmpty($config->getApiUrl());
+        $this->assertEquals('https://auth.sphere.io', $config->getOauthUrl());
+        $this->assertEquals('https://api.sphere.io', $config->getApiUrl());
     }
 
     /**
@@ -51,5 +53,45 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $config = new Config();
         $config->fromArray(['key' => 'value']);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidConfig()
+    {
+        $config = new Config();
+        $config->fromArray([]);
+        $config->check();
+    }
+
+    public function mandatoryConfig()
+    {
+        return [
+            [Config::CLIENT_ID],
+            [Config::CLIENT_SECRET],
+            [Config::PROJECT],
+        ];
+    }
+
+    /**
+     * @dataProvider mandatoryConfig
+     * @expectedException \InvalidArgumentException
+     */
+    public function testNoClientIdSet($mandatoryField)
+    {
+        $testConfig = $this->getConfig();
+        unset($testConfig[$mandatoryField]);
+        $config = new Config();
+        $config->fromArray($testConfig);
+        $config->check();
+    }
+
+    public function testValidConfig()
+    {
+        $testConfig = $this->getConfig();
+        $config = new Config();
+        $config->fromArray($testConfig);
+        $this->assertTrue($config->check());
     }
 }

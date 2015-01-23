@@ -4,13 +4,13 @@
  * @created 19.01.15, 17:36
  */
 
-namespace SphereIO\Cache;
+namespace Sphere\Core\Cache;
 
 use Doctrine\Common\Cache\Cache;
 
 /**
  * Class DoctrineCacheAdapter
- * @package SphereIO\Cache
+ * @package Sphere\Core\Cache
  */
 class DoctrineCacheAdapter extends AbstractCacheAdapter
 {

@@ -4,11 +4,12 @@
  * @created 19.01.15, 15:31
  */
 
-namespace SphereIO;
+namespace Sphere\Core;
 
 
-use SphereIO\Cache\CacheAdapterFactory;
-use SphereIO\Cache\CacheAdapterInterface;
+use Sphere\Core\Cache\CacheAdapterFactory;
+use Sphere\Core\Cache\CacheAdapterInterface;
+use Sphere\Core\OAuth\Manager;
 
 class Factory
 {
@@ -28,20 +29,33 @@ class Factory
     protected $cacheAdapterFactory;
 
     /**
+     * @var Manager
+     */
+    protected $manager;
+
+    /**
      * @return Config $this
      */
     public function getConfig()
     {
+        if (is_null($this->config)) {
+            $this->config = new Config();
+        }
         return $this->config;
     }
 
     /**
-     * @param Config $config
+     * @param Config|array $config
      * @return $this
      */
-    public function setConfig(Config $config)
+    public function setConfig($config)
     {
-        $this->config = $config;
+        if ($config instanceof Config) {
+            $this->config = $config;
+        } elseif (is_array($config)) {
+            $this->getConfig()->fromArray($config);
+        }
+        $this->getConfig()->check();
 
         return $this;
     }
@@ -77,19 +91,33 @@ class Factory
     }
 
     /**
+     * @param Config|array $config
      * @param $cache
-     * @param array $config
      */
-    public function __construct($cache = null, array $config = null)
+    public function __construct($config, $cache = null)
     {
+        $this->setConfig($config);
         $this->setCacheAdapter($cache);
-        if (is_array($config)) {
-            $this->setConfig((new Config())->fromArray($config));
-        }
+
     }
 
+    /**
+     * @return Client
+     */
     public function getClient()
     {
-        return new Client($this->getConfig(), $this->getCacheAdapter());
+        return new Client($this);
+    }
+
+    /**
+     * @return Manager
+     */
+    public function getOAuthManager()
+    {
+        if (is_null($this->manager)) {
+            $this->manager = new Manager($this);
+        }
+
+        return $this->manager;
     }
 }

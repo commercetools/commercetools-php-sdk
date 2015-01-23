@@ -4,75 +4,55 @@
  * @created: 22.01.15, 12:34
  */
 
-namespace SphereIO\OAuth;
+namespace Sphere\Core\OAuth;
 
 
-use SphereIO\AbstractHttpClient;
-use SphereIO\Cache\CacheAdapterInterface;
-use SphereIO\Config;
+use Sphere\Core\AbstractHttpClient;
 
 class Manager extends AbstractHttpClient
 {
-    const TOKEN_CACHE_KEY = 'sphere-io-bearer-token';
+    const TOKEN_CACHE_KEY = 'sphere-io-access-token';
 
     const ACCESS_TOKEN = 'access_token';
     const EXPIRES_IN = 'expires_in';
     const ERROR = 'error';
     const ERROR_DESCRIPTION = 'error_description';
 
-    /**
-     * @var Config
-     */
-    protected $config;
+    protected $cacheKeys;
 
-    /**
-     * @var CacheAdapterInterface
-     */
-    protected $cache;
-
-    public function __construct(Config $config, CacheAdapterInterface $cache)
+    public function __construct()
     {
-        $this->cache = $cache;
-        $this->config = $config;
-    }
-
-    /**
-     * @return CacheAdapterInterface
-     */
-    public function getCache()
-    {
-        return $this->cache;
-    }
-
-    /**
-     * @param CacheAdapterInterface $cache
-     */
-    public function setCache($cache)
-    {
-        $this->cache = $cache;
-    }
-
-    /**
-     * @return Config
-     */
-    public function getConfig()
-    {
-        return $this->config;
+        $this->cacheKeys = [];
     }
 
     /**
      * @return Token
      * @throws AuthorizeException
      */
-    public function getToken()
+    public function getToken($scope = 'manage_project')
     {
-        if ($token = $this->getCache()->fetch(static::TOKEN_CACHE_KEY)) {
+        if ($token = $this->getCache()->fetch($this->getCacheKey($scope))) {
             return new Token($token);
         }
-        $token = $this->getBearerToken();
-        $this->getCache()->store(static::TOKEN_CACHE_KEY, $token->getToken(), $token->getTtl());
+        $token = $this->getBearerToken($scope);
+        // ensure token to be invalidated in cache before TTL
+        $ttl = max(1, floor($token->getTtl()/2));
+        $this->getCache()->store($this->getCacheKey($scope), $token->getToken(), $ttl);
 
         return $token;
+    }
+
+    /**
+     * @param $scope
+     * @return string
+     */
+    protected function getCacheKey($scope)
+    {
+        if (!isset($this->cacheKeys[$scope])) {
+            $this->cacheKeys[$scope] = static::TOKEN_CACHE_KEY . '-' . sha1($scope . '-' . $this->getConfig()->getProject());
+        }
+
+        return $this->cacheKeys[$scope];
     }
 
     /**
@@ -80,7 +60,7 @@ class Manager extends AbstractHttpClient
      * @return Token
      * @throws AuthorizeException
      */
-    protected function getBearerToken($scope = 'manage_project')
+    protected function getBearerToken($scope)
     {
         $data = [
             'grant_type' => 'client_credentials',

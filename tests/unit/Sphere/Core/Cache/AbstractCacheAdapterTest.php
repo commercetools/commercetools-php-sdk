@@ -4,7 +4,7 @@
  * @created: 21.01.15, 15:58
  */
 
-namespace SphereIO\Cache;
+namespace Sphere\Core\Cache;
 
 
 class AbstractCacheAdapterTest extends \PHPUnit_Framework_TestCase
@@ -16,7 +16,7 @@ class AbstractCacheAdapterTest extends \PHPUnit_Framework_TestCase
         /**
          * @var AbstractCacheAdapter $adapter
          */
-        $adapter = $this->getMockBuilder('\SphereIO\Cache\AbstractCacheAdapter')
+        $adapter = $this->getMockBuilder('\Sphere\Core\Cache\AbstractCacheAdapter')
             ->setConstructorArgs([['key' => 'value']])
             ->getMockForAbstractClass();
         $this->assertEquals(['key' => 'value'], $adapter->getCache());

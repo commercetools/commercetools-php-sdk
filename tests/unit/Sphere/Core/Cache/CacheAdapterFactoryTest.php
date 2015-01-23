@@ -4,7 +4,7 @@
  * @created: 21.01.15, 14:28
  */
 
-namespace SphereIO\Cache;
+namespace Sphere\Core\Cache;
 
 function extension_loaded($value) {
     if ($value === 'apc') {
@@ -26,16 +26,17 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
     public function testApcDefault()
     {
         static::$apcLoaded = true;
-        $this->assertInstanceOf('\SphereIO\Cache\ApcCacheAdapter', $this->getFactory()->get());
+        $this->assertInstanceOf('\Sphere\Core\Cache\ApcCacheAdapter', $this->getFactory()->get());
     }
 
     /**
-     * test if null cache is default cache adapter and APC module is not available
+     * test if no cache adapter is given and APC module is not available
+     * @expectedException \InvalidArgumentException
      */
     public function testNullDefault()
     {
         static::$apcLoaded = false;
-        $this->assertInstanceOf('\SphereIO\Cache\NullCacheAdapter', $this->getFactory()->get());
+        $this->getFactory()->get();
     }
 
     /**
@@ -43,7 +44,8 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testAdapterInterface()
     {
-        $this->assertInstanceOf('\SphereIO\Cache\CacheAdapterInterface', $this->getFactory()->get());
+        static::$apcLoaded = true;
+        $this->assertInstanceOf('\Sphere\Core\Cache\CacheAdapterInterface', $this->getFactory()->get());
     }
 
     /**
@@ -54,7 +56,7 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = $this->getFactory();
         $factory->registerCallback(function () { return new NullCacheAdapter(); });
 
-        $this->assertInstanceOf('\SphereIO\Cache\NullCacheAdapter', $factory->get(new \ArrayObject()));
+        $this->assertInstanceOf('\Sphere\Core\Cache\NullCacheAdapter', $factory->get(new \ArrayObject()));
     }
 
     /**

@@ -4,11 +4,11 @@
  * @created 19.01.15, 17:02
  */
 
-namespace SphereIO\Cache;
+namespace Sphere\Core\Cache;
 
 /**
  * Interface CacheAdapterInterface
- * @package SphereIO\Cache
+ * @package Sphere\Core\Cache
  */
 interface CacheAdapterInterface
 {

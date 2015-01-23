@@ -1,5 +1,5 @@
 {
-    "name": "commercetools/sphere-php-sdk",
+    "name": "sphere/php-sdk",
     "type": "project",
     "description": "The Sphere.IO PHP SDK",
     "autoload": {

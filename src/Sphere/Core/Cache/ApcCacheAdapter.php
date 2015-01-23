@@ -1,35 +1,32 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created 19.01.15, 17:06
+ * @created 20.01.15, 13:42
  */
 
-namespace SphereIO\Cache;
+namespace Sphere\Core\Cache;
 
-/**
- * Class NullCacheAdapter
- * @package SphereIO\Cache
- */
-class NullCacheAdapter extends AbstractCacheAdapter
+
+class ApcCacheAdapter extends AbstractCacheAdapter
 {
     /**
      * @param $key
-     * @param $options
-     * @return bool
+     * @param null $options
+     * @return bool|\string[]
      */
     public function has($key, $options = null)
     {
-        return false;
+        return apc_exists($key);
     }
 
     /**
      * @param $key
-     * @param $options
-     * @return bool
+     * @param mixed $options
+     * @return mixed|false
      */
     public function fetch($key, $options = null)
     {
-        return false;
+        return apc_fetch($key);
     }
 
     /**
@@ -41,16 +38,16 @@ class NullCacheAdapter extends AbstractCacheAdapter
      */
     public function store($key, $data, $lifeTime = null, $options = null)
     {
-        return true;
+        return apc_store($key, $data, $lifeTime);
     }
 
     /**
      * @param $key
-     * @param $options
+     * @param mixed $options
      * @return bool
      */
     public function remove($key, $options = null)
     {
-        return true;
+        return apc_delete($key);
     }
 }
