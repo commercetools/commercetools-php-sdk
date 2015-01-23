@@ -12,15 +12,20 @@ use Sphere\Core\Model\Category\Query\CategoryQuery;
 
 class Client extends AbstractHttpClient
 {
+    /**
+     * @return string
+     */
     protected function getBaseUrl()
     {
         return $this->getConfig()->getApiUrl() . '/' . $this->getConfig()->getProject() . '/';
     }
 
+    /**
+     * @param ClientRequest $request
+     * @return array
+     */
     public function execute(ClientRequest $request)
     {
-        $request = CategoryQuery::of();
-
         $token = $this->getFactory()->getOAuthManager()->getToken();
 
         $client = $this->getHttpClient();
@@ -37,6 +42,6 @@ class Client extends AbstractHttpClient
         $httpRequest = $client->createRequest($method, $request->httpRequest()->getPath(), $options);
         $result = $client->send($httpRequest)->json();
 
-        var_dump($result);
+        return $result;
     }
 }
