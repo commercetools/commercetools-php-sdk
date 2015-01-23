@@ -8,6 +8,8 @@ namespace Sphere\Core\OAuth;
 
 
 use Sphere\Core\AbstractHttpClient;
+use Sphere\Core\Cache\CacheAdapterFactory;
+use Sphere\Core\Cache\CacheAdapterInterface;
 use Sphere\Core\Factory;
 
 class Manager extends AbstractHttpClient
@@ -21,10 +23,51 @@ class Manager extends AbstractHttpClient
 
     protected $cacheKeys;
 
-    public function __construct(Factory $factory)
+    /**
+     * @var CacheAdapterInterface
+     */
+    protected $cacheAdapter;
+
+    /**
+     * @var CacheAdapterFactory
+     */
+    protected $cacheAdapterFactory;
+
+    public function __construct($config, $cache = null)
     {
-        parent::__construct($factory);
+        parent::__construct($config);
         $this->cacheKeys = [];
+        $this->setCacheAdapter($cache);
+    }
+
+    /**
+     * @return CacheAdapterFactory
+     */
+    public function getCacheAdapterFactory()
+    {
+        if (is_null($this->cacheAdapterFactory)) {
+            $this->cacheAdapterFactory = new CacheAdapterFactory();
+        }
+        return $this->cacheAdapterFactory;
+    }
+
+    /**
+     * @param $cache
+     * @return $this
+     */
+    public function setCacheAdapter($cache)
+    {
+        $this->cacheAdapter = $this->getCacheAdapterFactory()->get($cache);
+
+        return $this;
+    }
+
+    /**
+     * @return CacheAdapterInterface
+     */
+    public function getCacheAdapter()
+    {
+        return $this->cacheAdapter;
     }
 
     /**
@@ -33,13 +76,13 @@ class Manager extends AbstractHttpClient
      */
     public function getToken($scope = 'manage_project')
     {
-        if ($token = $this->getCache()->fetch($this->getCacheKey($scope))) {
+        if ($token = $this->getCacheAdapter()->fetch($this->getCacheKey($scope))) {
             return new Token($token);
         }
         $token = $this->getBearerToken($scope);
         // ensure token to be invalidated in cache before TTL
         $ttl = max(1, floor($token->getTtl()/2));
-        $this->getCache()->store($this->getCacheKey($scope), $token->getToken(), $ttl);
+        $this->getCacheAdapter()->store($this->getCacheKey($scope), $token->getToken(), $ttl);
 
         return $token;
     }

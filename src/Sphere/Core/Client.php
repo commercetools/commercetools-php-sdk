@@ -8,10 +8,39 @@ namespace Sphere\Core;
 
 
 use Sphere\Core\Http\ClientRequest;
-use Sphere\Core\Model\Category\Query\CategoryQuery;
+use Sphere\Core\OAuth\Manager;
 
 class Client extends AbstractHttpClient
 {
+    /**
+     * @var Manager
+     */
+    protected $oauthManager;
+
+    public function __construct($config, $cache = null)
+    {
+        parent::__construct($config);
+
+        $manager = new Manager($config, $cache);
+        $this->setOauthManager($manager);
+    }
+
+    /**
+     * @return Manager
+     */
+    public function getOauthManager()
+    {
+        return $this->oauthManager;
+    }
+
+    /**
+     * @param Manager $oauthManager
+     */
+    public function setOauthManager(Manager $oauthManager)
+    {
+        $this->oauthManager = $oauthManager;
+    }
+
     /**
      * @return string
      */
@@ -26,7 +55,7 @@ class Client extends AbstractHttpClient
      */
     public function execute(ClientRequest $request)
     {
-        $token = $this->getFactory()->getOAuthManager()->getToken();
+        $token = $this->getOAuthManager()->getToken();
 
         $client = $this->getHttpClient();
         $method = $request->httpRequest()->getHttpMethod();
