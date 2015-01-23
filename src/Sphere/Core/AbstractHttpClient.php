@@ -7,13 +7,13 @@
 namespace Sphere\Core;
 
 
-use GuzzleHttp\Client;
+use GuzzleHttp\Client as HttpClient;
 use Sphere\Core\Cache\CacheAdapterInterface;
 
 abstract class AbstractHttpClient
 {
     /**
-     * @var \GuzzleHttp\Client
+     * @var HttpClient
      */
     protected $httpClient;
 
@@ -23,7 +23,7 @@ abstract class AbstractHttpClient
     protected $factory;
 
     /**
-     * @param CacheAdapterInterface $cache
+     * @param Factory $factory
      */
     public function __construct(Factory $factory)
     {
@@ -55,14 +55,6 @@ abstract class AbstractHttpClient
     }
 
     /**
-     * @param Config $config
-     */
-    public function setConfig($config)
-    {
-        $this->config = $config;
-    }
-
-    /**
      * @return CacheAdapterInterface
      */
     public function getCache()
@@ -71,12 +63,12 @@ abstract class AbstractHttpClient
     }
 
     /**
-     * @return \GuzzleHttp\Client
+     * @return HttpClient
      */
     public function getHttpClient()
     {
         if (is_null($this->httpClient)) {
-            $this->httpClient = new Client();
+            $this->httpClient = new HttpClient();
         }
 
         return $this->httpClient;

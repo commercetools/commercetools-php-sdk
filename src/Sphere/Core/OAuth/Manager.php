@@ -8,6 +8,7 @@ namespace Sphere\Core\OAuth;
 
 
 use Sphere\Core\AbstractHttpClient;
+use Sphere\Core\Factory;
 
 class Manager extends AbstractHttpClient
 {
@@ -20,8 +21,9 @@ class Manager extends AbstractHttpClient
 
     protected $cacheKeys;
 
-    public function __construct()
+    public function __construct(Factory $factory)
     {
+        parent::__construct($factory);
         $this->cacheKeys = [];
     }
 
