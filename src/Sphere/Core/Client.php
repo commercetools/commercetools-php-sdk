@@ -14,7 +14,7 @@ class Client extends AbstractHttpClient
 {
     protected function getBaseUrl()
     {
-        return $this->getConfig()->getApiUrl();
+        return $this->getConfig()->getApiUrl() . '/' . $this->getConfig()->getProject() . '/';
     }
 
     public function execute(ClientRequest $request)

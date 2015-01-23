@@ -16,6 +16,6 @@ class CategoriesEndpoint
      */
     public static function endpoint()
     {
-        return JsonEndpoint::of('/categories');
+        return JsonEndpoint::of('categories');
     }
 }

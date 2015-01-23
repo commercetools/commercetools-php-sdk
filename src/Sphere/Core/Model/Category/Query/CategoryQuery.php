@@ -32,7 +32,7 @@ class CategoryQuery implements ClientRequest
      */
     public static function of()
     {
-        return static();
+        return new static();
     }
 
     /**
