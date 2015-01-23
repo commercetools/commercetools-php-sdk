@@ -88,4 +88,9 @@ class Manager extends AbstractHttpClient
 
         return $token;
     }
+
+    protected function getBaseUrl()
+    {
+        return $this->getConfig()->getOauthUrl();
+    }
 }

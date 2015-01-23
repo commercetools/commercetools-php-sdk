@@ -7,21 +7,35 @@
 namespace Sphere\Core;
 
 
+use Sphere\Core\Http\ClientRequest;
+use Sphere\Core\Model\Category\Query\CategoryQuery;
+
 class Client extends AbstractHttpClient
 {
-    public function submit($request = null)
+    protected function getBaseUrl()
     {
+        return $this->getConfig()->getApiUrl();
+    }
+
+    public function execute(ClientRequest $request)
+    {
+        $request = CategoryQuery::of();
+
         $token = $this->getFactory()->getOAuthManager()->getToken();
 
         $client = $this->getHttpClient();
-        $result = $client->get(
-            $this->getConfig()->getApiUrl() . '/' . $this->getConfig()->getProject() . '/categories',
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $token->getToken()
-                ]
-            ]
-        )->json();
+        $method = $request->httpRequest()->getHttpMethod();
+        $headers = [
+            'Authorization' => 'Bearer ' . $token->getToken()
+        ];
+
+        $options = [
+            'headers' => $headers,
+            'body' => $request->httpRequest()->getBody()
+        ];
+
+        $httpRequest = $client->createRequest($method, $request->httpRequest()->getPath(), $options);
+        $result = $client->send($httpRequest)->json();
 
         var_dump($result);
     }

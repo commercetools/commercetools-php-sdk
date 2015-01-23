@@ -68,9 +68,11 @@ abstract class AbstractHttpClient
     public function getHttpClient()
     {
         if (is_null($this->httpClient)) {
-            $this->httpClient = new HttpClient();
+            $this->httpClient = new HttpClient(['base_url' => $this->getBaseUrl()]);
         }
 
         return $this->httpClient;
     }
+
+    abstract protected function getBaseUrl();
 }
