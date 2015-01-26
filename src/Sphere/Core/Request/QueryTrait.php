@@ -13,6 +13,10 @@ namespace Sphere\Core\Request;
  */
 trait QueryTrait
 {
+    /**
+     * @param $where
+     * @return $this
+     */
     public function where($where)
     {
         if (!is_null($where)) {
@@ -22,6 +26,10 @@ trait QueryTrait
         return $this;
     }
 
+    /**
+     * @param $sort
+     * @return $this
+     */
     public function sort($sort)
     {
         if (!is_null($sort)) {
@@ -31,6 +39,10 @@ trait QueryTrait
         return $this;
     }
 
+    /**
+     * @param $limit
+     * @return $this
+     */
     public function limit($limit)
     {
         if (!is_null($limit)) {
@@ -40,6 +52,10 @@ trait QueryTrait
         return $this;
     }
 
+    /**
+     * @param $offset
+     * @return $this
+     */
     public function offset($offset)
     {
         if (!is_null($offset)) {
@@ -49,6 +65,12 @@ trait QueryTrait
         return $this;
     }
 
+    /**
+     * @param $where
+     * @param $sort
+     * @param $limit
+     * @param $offset
+     */
     public function setQueryParams($where, $sort, $limit, $offset)
     {
         $this->where($where)->sort($sort)->limit($limit)->offset($offset);

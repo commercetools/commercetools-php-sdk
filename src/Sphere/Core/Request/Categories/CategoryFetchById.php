@@ -12,7 +12,7 @@ use Sphere\Core\Http\HttpRequest;
 use Sphere\Core\Http\HttpRequestInterface;
 use Sphere\Core\Request\AbstractApiRequest;
 
-class CategoryByIdQuery extends AbstractApiRequest
+class CategoryFetchById extends AbstractApiRequest
 {
     protected $id;
 

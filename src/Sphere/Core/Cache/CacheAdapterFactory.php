@@ -6,6 +6,9 @@
 
 namespace Sphere\Core\Cache;
 
+use Sphere\Core\Error\Message;
+use Sphere\Core\Error\InvalidArgumentException;
+
 class CacheAdapterFactory
 {
     /**
@@ -47,7 +50,7 @@ class CacheAdapterFactory
             }
         }
 
-        throw new \InvalidArgumentException("No valid CacheAdapterInterface found");
+        throw new InvalidArgumentException(Message::INVALID_CACHE_ADAPTER);
     }
 
     /**

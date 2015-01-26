@@ -8,6 +8,8 @@ namespace Sphere\Core;
 
 
 use Sphere\Core\Cache\CacheAdapterInterface;
+use Sphere\Core\Error\Message;
+use Sphere\Core\Error\InvalidArgumentException;
 
 class Config
 {
@@ -53,7 +55,7 @@ class Config
             function ($value, $key) {
                 $functionName = 'set' . $this->camelize($key);
                 if (!is_callable([$this, $functionName])) {
-                    throw new \InvalidArgumentException('Setter for key ' . $key . ' not implemented.');
+                    throw new InvalidArgumentException(sprintf(Message::SETTER_NOT_IMPLEMENTED, $key));
                 }
                 $this->$functionName($value);
             }
@@ -176,15 +178,15 @@ class Config
     public function check()
     {
         if (is_null($this->getClientId())) {
-            throw new \InvalidArgumentException('No client id set');
+            throw new InvalidArgumentException(Message::NO_CLIENT_ID);
         }
 
         if (is_null($this->getClientSecret())) {
-            throw new \InvalidArgumentException('No client secret set');
+            throw new InvalidArgumentException(Message::NO_CLIENT_SECRET);
         }
 
         if (is_null($this->getProject())) {
-            throw new \InvalidArgumentException('No project set');
+            throw new InvalidArgumentException(Message::NO_PROJECT_ID);
         }
 
         return true;

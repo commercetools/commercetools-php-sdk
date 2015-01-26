@@ -10,6 +10,7 @@ namespace Sphere\Core\OAuth;
 use Sphere\Core\AbstractHttpClient;
 use Sphere\Core\Cache\CacheAdapterFactory;
 use Sphere\Core\Cache\CacheAdapterInterface;
+use Sphere\Core\Error\Message;
 use Sphere\Core\Factory;
 
 class Manager extends AbstractHttpClient
@@ -123,7 +124,7 @@ class Manager extends AbstractHttpClient
         if (isset($result[static::ERROR])) {
             $message = isset($result[static::ERROR_DESCRIPTION]) ?
                 $result[static::ERROR_DESCRIPTION] : $result[static::ERROR];
-            throw new AuthorizeException($message);
+            throw new AuthorizeException(sprintf(Message::AUTHENTICATION_FAIL, $message));
         }
 
         $token = new Token($result[static::ACCESS_TOKEN], $result[static::EXPIRES_IN]);

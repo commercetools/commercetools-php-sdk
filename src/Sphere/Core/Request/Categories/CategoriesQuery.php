@@ -15,13 +15,22 @@ class CategoriesQuery extends AbstractApiRequest
 {
     use QueryTrait;
 
+    /**
+     * @param $where
+     * @param $sort
+     * @param $limit
+     * @param $offset
+     */
     public function __construct($where = null, $sort = null, $limit = null, $offset = null)
     {
         parent::__construct(CategoriesEndpoint::endpoint());
         $this->setQueryParams($where, $sort, $limit, $offset);
     }
 
-    public function getPath()
+    /**
+     * @return string
+     */
+    protected function getPath()
     {
         return (string)$this->getEndpoint() . '?' . $this->getParamString();
     }
