@@ -4,7 +4,7 @@
  * @created: 23.01.15, 16:25
  */
 
-namespace Sphere\Core\Model\Category\Command;
+namespace Sphere\Core\Model\Categories;
 
 
 use Sphere\Core\Http\JsonEndpoint;
@@ -16,6 +16,6 @@ class CategoriesEndpoint
      */
     public static function endpoint()
     {
-        return JsonEndpoint::of('categories');
+        return new JsonEndpoint('categories');
     }
 }

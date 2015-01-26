@@ -7,27 +7,10 @@
 namespace Sphere\Core\Http;
 
 
-class FileRequest extends AbstractRequest
+class FileRequest extends HttpRequest
 {
     public function __construct($method, $path, $body, $contentType)
     {
-        parent::__construct($method, $path);
-        $this->body = $body;
-        $this->headers = [
-            "Content-Type" => $contentType
-        ];
+        parent::__construct($method, $path, $body, $contentType);
     }
-
-    /**
-     * @param $method
-     * @param $path
-     * @param $body
-     * @param $contentType
-     * @return static
-     */
-    public static function of($method, $path, $body = null, $contentType = null)
-    {
-        return new static($method, $path, $body, $contentType);
-    }
-
 }

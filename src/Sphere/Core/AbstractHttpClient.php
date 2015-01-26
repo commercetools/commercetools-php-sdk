@@ -22,7 +22,7 @@ abstract class AbstractHttpClient
     protected $config;
 
     /**
-     * @param Factory $factory
+     * @param Config|array $config
      */
     public function __construct($config)
     {

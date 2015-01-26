@@ -30,12 +30,8 @@ class JsonEndpoint
         return $this->endpoint;
     }
 
-    /**
-     * @param $endpoint
-     * @return string
-     */
-    public static function of($endpoint)
+    public function __toString()
     {
-        return new static($endpoint);
+        return $this->endpoint();
     }
 }

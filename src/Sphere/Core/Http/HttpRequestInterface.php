@@ -28,13 +28,4 @@ interface HttpRequestInterface extends ClientRequest
      * @return array
      */
     public function getHeaders();
-
-    /**
-     * @param $method
-     * @param $path
-     * @param null $body
-     * @param null $contentType
-     * @return static
-     */
-    public static function of($method, $path, $body = null, $contentType = null);
 }

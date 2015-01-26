@@ -10,7 +10,7 @@ namespace Sphere\Core\Http;
 interface ClientRequest
 {
     /**
-     * @return HttpRequest
+     * @return HttpRequestInterface
      */
     public function httpRequest();
 }
