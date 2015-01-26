@@ -7,7 +7,7 @@
 namespace Sphere\Core\Http;
 
 
-class HttpRequest implements ClientRequest, HttpRequestInterface
+class HttpRequest implements HttpRequestInterface
 {
     protected $httpMethod;
     protected $path;
@@ -55,13 +55,5 @@ class HttpRequest implements ClientRequest, HttpRequestInterface
     public function getHeaders()
     {
         return $this->headers;
-    }
-
-    /**
-     * @return $this
-     */
-    public function httpRequest()
-    {
-        return $this;
     }
 }

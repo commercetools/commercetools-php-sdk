@@ -7,7 +7,7 @@
 namespace Sphere\Core\Http;
 
 
-interface HttpRequestInterface extends ClientRequest
+interface HttpRequestInterface
 {
     /**
      * @return string
