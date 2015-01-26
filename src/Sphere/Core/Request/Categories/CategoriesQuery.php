@@ -4,27 +4,28 @@
  * @created: 23.01.15, 16:52
  */
 
-namespace Sphere\Core\Model\Categories;
+namespace Sphere\Core\Request\Categories;
 
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\HttpRequest;
 use Sphere\Core\Request\AbstractApiRequest;
+use Sphere\Core\Request\QueryTrait;
 
 class CategoriesQuery extends AbstractApiRequest
 {
+    use QueryTrait;
+
     public function __construct($where = null, $sort = null, $limit = null, $offset = null)
     {
         parent::__construct(CategoriesEndpoint::endpoint());
-        $this->addParam('where', $where);
-        $this->addParam('sort', $sort);
-        $this->addParam('limit', $limit);
-        $this->addParam('offset', $offset);
+        $this->setQueryParams($where, $sort, $limit, $offset);
     }
 
     public function getPath()
     {
         return (string)$this->getEndpoint() . '?' . $this->getParamString();
     }
+
     /**
      * @return HttpRequest
      */

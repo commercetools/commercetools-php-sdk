@@ -10,7 +10,7 @@ namespace Sphere\Core\Request;
 use Sphere\Core\Http\ClientRequest;
 use Sphere\Core\Http\JsonEndpoint;
 
-abstract class AbstractApiRequest implements ClientRequest
+abstract class AbstractApiRequest implements ClientRequest, ParamInterface
 {
     /**
      * @var JsonEndpoint
@@ -42,7 +42,9 @@ abstract class AbstractApiRequest implements ClientRequest
         if (empty($key)) {
             throw new \InvalidArgumentException('No key given');
         }
-        $this->params[] = $key . '=' . $value;
+        if (!empty($value) || $value === 0) {
+            $this->params[] = $key . '=' . $value;
+        }
     }
 
     public function getParamString()

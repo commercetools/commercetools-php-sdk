@@ -10,4 +10,5 @@ namespace Sphere\Core\Request;
 interface ParamInterface
 {
     public function addParam($key, $value);
+    public function getParamString();
 }
