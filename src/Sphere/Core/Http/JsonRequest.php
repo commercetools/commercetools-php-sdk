@@ -11,6 +11,9 @@ class JsonRequest extends HttpRequest
 {
     public function __construct($method, $path, $body)
     {
+        if (!is_string($body)) {
+            $body = json_encode($body);
+        }
         parent::__construct($method, $path, $body, 'application/json');
     }
 }
