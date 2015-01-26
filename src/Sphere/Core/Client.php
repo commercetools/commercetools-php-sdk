@@ -9,6 +9,7 @@ namespace Sphere\Core;
 
 use Sphere\Core\Http\ClientRequest;
 use Sphere\Core\OAuth\Manager;
+use Sphere\Core\Response\ApiResponse;
 
 class Client extends AbstractHttpClient
 {
@@ -51,7 +52,7 @@ class Client extends AbstractHttpClient
 
     /**
      * @param ClientRequest $request
-     * @return array
+     * @return ApiResponse
      */
     public function execute(ClientRequest $request)
     {
@@ -69,8 +70,10 @@ class Client extends AbstractHttpClient
         ];
 
         $httpRequest = $client->createRequest($method, $request->httpRequest()->getPath(), $options);
-        $result = $client->send($httpRequest)->json();
+        $result = $client->send($httpRequest);
 
-        return $result;
+        $response = new ApiResponse($result);
+
+        return $response;
     }
 }
