@@ -7,6 +7,7 @@
 namespace Sphere\Core;
 
 
+use GuzzleHttp\Exception\ClientException;
 use Sphere\Core\Http\ClientRequest;
 use Sphere\Core\OAuth\Manager;
 use Sphere\Core\Response\ApiResponse;
@@ -70,7 +71,12 @@ class Client extends AbstractHttpClient
         ];
 
         $httpRequest = $client->createRequest($method, $request->httpRequest()->getPath(), $options);
-        $result = $client->send($httpRequest);
+
+        try {
+            $result = $client->send($httpRequest);
+        } catch(ClientException $exception) {
+            $result = $exception->getResponse();
+        }
 
         $response = new ApiResponse($result);
 
