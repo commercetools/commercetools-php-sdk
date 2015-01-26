@@ -6,15 +6,10 @@
 
 namespace Sphere\Core\Request\Categories;
 
-use Sphere\Core\Http\HttpMethod;
-use Sphere\Core\Http\HttpRequest;
-use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\Request\QueryTrait;
+use Sphere\Core\Request\AbstractQuery;
 
-class CategoriesQuery extends AbstractApiRequest
+class CategoriesQuery extends AbstractQuery
 {
-    use QueryTrait;
-
     /**
      * @param $where
      * @param $sort
@@ -23,23 +18,6 @@ class CategoriesQuery extends AbstractApiRequest
      */
     public function __construct($where = null, $sort = null, $limit = null, $offset = null)
     {
-        parent::__construct(CategoriesEndpoint::endpoint());
-        $this->setQueryParams($where, $sort, $limit, $offset);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getPath()
-    {
-        return (string)$this->getEndpoint() . '?' . $this->getParamString();
-    }
-
-    /**
-     * @return HttpRequest
-     */
-    public function httpRequest()
-    {
-        return new HttpRequest(HttpMethod::GET, $this->getPath());
+        parent::__construct(CategoriesEndpoint::endpoint(), $where, $sort, $limit, $offset);
     }
 }
