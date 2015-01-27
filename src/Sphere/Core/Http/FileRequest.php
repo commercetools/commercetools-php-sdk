@@ -9,8 +9,8 @@ namespace Sphere\Core\Http;
 
 class FileRequest extends HttpRequest
 {
-    public function __construct($method, $path, $body, $contentType)
+    public function __construct($method, $path, $file, $contentType)
     {
-        parent::__construct($method, $path, $body, $contentType);
+        parent::__construct($method, $path, $file, $contentType);
     }
 }

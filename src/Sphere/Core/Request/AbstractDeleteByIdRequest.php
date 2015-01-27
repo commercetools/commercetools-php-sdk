@@ -10,7 +10,7 @@ namespace Sphere\Core\Request;
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\JsonRequest;
 
-abstract class AbstractDeleteByIdCommand extends AbstractApiRequest
+abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
 {
     /**
      * @var mixed

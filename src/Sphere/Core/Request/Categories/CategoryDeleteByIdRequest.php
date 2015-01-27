@@ -7,13 +7,14 @@
 namespace Sphere\Core\Request\Categories;
 
 
-use Sphere\Core\Request\AbstractDeleteByIdCommand;
+use Sphere\Core\Model\VersionedInterface;
+use Sphere\Core\Request\AbstractDeleteByIdRequest;
 
-class CategoryDeleteByIdCommand extends AbstractDeleteByIdCommand
+class CategoryDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
     /**
-     * @param mixed $id
-     * @param mixed $version
+     * @param string $id
+     * @param int $version
      */
     public function __construct($id, $version)
     {

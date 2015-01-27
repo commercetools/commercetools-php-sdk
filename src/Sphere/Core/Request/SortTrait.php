@@ -1,26 +1,25 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 26.01.15, 14:26
+ * @created: 27.01.15, 10:40
  */
 
 namespace Sphere\Core\Request;
 
 /**
- * Class QueryTrait
+ * Class SortableTrait
  * @package Sphere\Core\Request
  * @method addParam($key, $value)
  */
-trait QueryTrait
-{
+trait SortTrait {
     /**
-     * @param $where
+     * @param $sort
      * @return $this
      */
-    public function where($where)
+    public function sort($sort)
     {
-        if (!is_null($where)) {
-            $this->addParam('where', $where);
+        if (!is_null($sort)) {
+            $this->addParam('sort', $sort);
         }
 
         return $this;

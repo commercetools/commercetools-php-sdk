@@ -8,26 +8,55 @@ namespace Sphere\Core\Response;
 
 
 use GuzzleHttp\Message\ResponseInterface;
+use Sphere\Core\Http\ClientRequest;
 
 class ApiResponse
 {
     /**
      * @var ResponseInterface
      */
-    protected $result;
+    protected $response;
 
-    public function __construct(ResponseInterface $result)
+    /**
+     * @var ClientRequest
+     */
+    protected $request;
+
+    public function __construct(ResponseInterface $response, ClientRequest $request)
     {
-        $this->result = $result;
+        $this->response = $response;
     }
 
     public function json()
     {
-        return $this->result->json();
+        return $this->response->json();
     }
 
-    public function getResult()
+    public function getBody()
     {
-        return $this->result;
+        return $this->response->getBody();
+    }
+
+    public function isError()
+    {
+        $statusCode = $this->response->getStatusCode();
+
+        return ($statusCode == 200);
+    }
+
+    /**
+     * @return ResponseInterface
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * @return ClientRequest
+     */
+    public function getRequest()
+    {
+        return $this->request;
     }
 }

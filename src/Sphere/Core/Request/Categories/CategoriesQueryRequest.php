@@ -6,9 +6,9 @@
 
 namespace Sphere\Core\Request\Categories;
 
-use Sphere\Core\Request\AbstractQuery;
+use Sphere\Core\Request\AbstractQueryRequest;
 
-class CategoriesQuery extends AbstractQuery
+class CategoriesQueryRequest extends AbstractQueryRequest
 {
     /**
      * @param $where

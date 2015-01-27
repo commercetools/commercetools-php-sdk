@@ -9,11 +9,12 @@ namespace Sphere\Core\Request;
 
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\JsonRequest;
+use Sphere\Core\Model\AbstractDraft;
 
-class AbstractCreateCommand extends AbstractApiRequest
+abstract class AbstractCreateRequest extends AbstractApiRequest
 {
     /**
-     * @var mixed
+     * @var \JsonSerializable
      */
     protected $object;
 
@@ -21,14 +22,14 @@ class AbstractCreateCommand extends AbstractApiRequest
      * @param \Sphere\Core\Http\JsonEndpoint $endpoint
      * @param $object
      */
-    public function __construct($endpoint, $object)
+    public function __construct($endpoint, \JsonSerializable $object)
     {
         parent::__construct($endpoint);
-        $this->$object = $object;
+        $this->object = $object;
     }
 
     /**
-     * @return mixed
+     * @return \JsonSerializable
      */
     public function getObject()
     {
@@ -36,7 +37,7 @@ class AbstractCreateCommand extends AbstractApiRequest
     }
 
     /**
-     * @param mixed $object
+     * @param mixed \JsonSerializable
      */
     public function setObject($object)
     {

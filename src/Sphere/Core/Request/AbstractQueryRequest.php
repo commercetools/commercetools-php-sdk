@@ -10,9 +10,11 @@ namespace Sphere\Core\Request;
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\HttpRequest;
 
-abstract class AbstractQuery extends AbstractApiRequest
+abstract class AbstractQueryRequest extends AbstractApiRequest
 {
     use QueryTrait;
+    use PageTrait;
+    use SortTrait;
 
     /**
      * @param $where
@@ -40,5 +42,16 @@ abstract class AbstractQuery extends AbstractApiRequest
     public function httpRequest()
     {
         return new HttpRequest(HttpMethod::GET, $this->getPath());
+    }
+
+    /**
+     * @param $where
+     * @param $sort
+     * @param $limit
+     * @param $offset
+     */
+    public function setQueryParams($where, $sort, $limit, $offset)
+    {
+        $this->where($where)->sort($sort)->limit($limit)->offset($offset);
     }
 }

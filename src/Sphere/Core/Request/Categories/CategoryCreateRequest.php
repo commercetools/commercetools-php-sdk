@@ -7,14 +7,15 @@
 namespace Sphere\Core\Request\Categories;
 
 
-use Sphere\Core\Request\AbstractCreateCommand;
+use Sphere\Core\Model\Draft\CategoryDraft;
+use Sphere\Core\Request\AbstractCreateRequest;
 
-class CategoryCreateCommand extends AbstractCreateCommand
+class CategoryCreateRequest extends AbstractCreateRequest
 {
     /**
-     * @param mixed $category
+     * @param CategoryDraft $category
      */
-    public function __construct($category)
+    public function __construct(CategoryDraft $category)
     {
         parent::__construct(CategoriesEndpoint::endpoint(), $category);
     }

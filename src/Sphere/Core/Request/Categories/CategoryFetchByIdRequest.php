@@ -7,12 +7,12 @@
 namespace Sphere\Core\Request\Categories;
 
 
-use Sphere\Core\Request\AbstractFetchByIdCommand;
+use Sphere\Core\Request\AbstractFetchByIdRequest;
 
-class CategoryFetchByIdCommand extends AbstractFetchByIdCommand
+class CategoryFetchByIdRequest extends AbstractFetchByIdRequest
 {
     /**
-     * @param mixed $id
+     * @param string $id
      */
     public function __construct($id)
     {

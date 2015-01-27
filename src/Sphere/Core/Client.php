@@ -71,14 +71,13 @@ class Client extends AbstractHttpClient
         ];
 
         $httpRequest = $client->createRequest($method, $request->httpRequest()->getPath(), $options);
-
         try {
-            $result = $client->send($httpRequest);
+            $httpResponse = $client->send($httpRequest);
         } catch(ClientException $exception) {
-            $result = $exception->getResponse();
+            $httpResponse = $exception->getResponse();
         }
 
-        $response = new ApiResponse($result);
+        $response = new ApiResponse($httpResponse, $request);
 
         return $response;
     }

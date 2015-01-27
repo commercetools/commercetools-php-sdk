@@ -10,7 +10,7 @@ namespace Sphere\Core\Request;
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\JsonRequest;
 
-abstract class AbstractUpdateCommand extends AbstractApiRequest
+abstract class AbstractUpdateRequest extends AbstractApiRequest
 {
     /**
      * @var
