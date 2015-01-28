@@ -3,7 +3,7 @@
     "type": "project",
     "description": "The Sphere.IO PHP SDK",
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-4": { "Sphere\\Core": "src/Sphere/Core/" }
     },
     "require": {
         "php": ">=5.4",
