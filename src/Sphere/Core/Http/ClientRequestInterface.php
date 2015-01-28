@@ -7,6 +7,10 @@
 namespace Sphere\Core\Http;
 
 
+/**
+ * Interface ClientRequestInterface
+ * @package Sphere\Core\Http
+ */
 interface ClientRequestInterface
 {
     /**

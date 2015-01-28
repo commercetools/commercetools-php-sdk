@@ -9,6 +9,10 @@ namespace Sphere\Core;
 
 use GuzzleHttp\Client as HttpClient;
 
+/**
+ * Class AbstractHttpClient
+ * @package Sphere\Core
+ */
 abstract class AbstractHttpClient
 {
     /**

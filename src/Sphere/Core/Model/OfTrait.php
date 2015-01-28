@@ -9,6 +9,9 @@ namespace Sphere\Core\Model;
 
 trait OfTrait
 {
+    /**
+     * @return self
+     */
     public static function of()
     {
         $reflectClass = new \ReflectionClass(get_called_class());

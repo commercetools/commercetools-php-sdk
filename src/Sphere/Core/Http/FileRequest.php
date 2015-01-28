@@ -7,6 +7,10 @@
 namespace Sphere\Core\Http;
 
 
+/**
+ * Class FileRequest
+ * @package Sphere\Core\Http
+ */
 class FileRequest extends HttpRequest
 {
     public function __construct($method, $path, $file, $contentType)

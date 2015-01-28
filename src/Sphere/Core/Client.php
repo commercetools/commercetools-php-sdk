@@ -12,6 +12,10 @@ use Sphere\Core\Http\ApiResponseInterface;
 use Sphere\Core\Http\ClientRequestInterface;
 use Sphere\Core\OAuth\Manager;
 
+/**
+ * Class Client
+ * @package Sphere\Core
+ */
 class Client extends AbstractHttpClient
 {
     /**

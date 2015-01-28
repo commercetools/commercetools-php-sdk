@@ -7,6 +7,10 @@
 namespace Sphere\Core\Http;
 
 
+/**
+ * Class JsonRequest
+ * @package Sphere\Core\Http
+ */
 class JsonRequest extends HttpRequest
 {
     public function __construct($method, $path, $body)

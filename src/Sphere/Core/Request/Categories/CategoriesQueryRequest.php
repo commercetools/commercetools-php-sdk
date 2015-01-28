@@ -12,7 +12,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class CategoriesQueryRequest
  * @package Sphere\Core\Request\Categories
- * @method static of($where = null, $sort = null, $limit = null, $offset = null)
+ * @method static CategoriesQueryRequest of($where = null, $sort = null, $limit = null, $offset = null)
  */
 class CategoriesQueryRequest extends AbstractQueryRequest
 {

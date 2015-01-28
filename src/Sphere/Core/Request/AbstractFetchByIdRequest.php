@@ -10,6 +10,10 @@ namespace Sphere\Core\Request;
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\HttpRequest;
 
+/**
+ * Class AbstractFetchByIdRequest
+ * @package Sphere\Core\Request
+ */
 abstract class AbstractFetchByIdRequest extends AbstractApiRequest
 {
     /**

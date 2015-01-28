@@ -7,6 +7,10 @@
 namespace Sphere\Core\Request;
 
 
+/**
+ * Interface ParamInterface
+ * @package Sphere\Core\Request
+ */
 interface ParamInterface
 {
     public function addParam($key, $value);

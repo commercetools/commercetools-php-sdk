@@ -11,6 +11,10 @@ use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Http\ApiResponseInterface;
 use Sphere\Core\Http\ClientRequestInterface;
 
+/**
+ * Class AbstractApiResponse
+ * @package Sphere\Core\Response
+ */
 abstract class AbstractApiResponse implements ApiResponseInterface
 {
     /**

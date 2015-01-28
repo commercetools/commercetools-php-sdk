@@ -13,7 +13,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
 /**
  * Class CategoryDeleteByIdRequest
  * @package Sphere\Core\Request\Categories
- * @method static of(string $id, int $version)
+ * @method static CategoryDeleteByIdRequest of(string $id, int $version)
  */
 class CategoryDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

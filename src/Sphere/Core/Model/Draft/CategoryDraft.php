@@ -16,7 +16,7 @@ use Sphere\Core\Model\Type\Reference;
 /**
  * Class CategoryDraft
  * @package Sphere\Core\Model\Draft
- * @method static of(LocalizedString $name, LocalizedString $slug)
+ * @method static CategoryDraft of(LocalizedString $name, LocalizedString $slug)
  */
 class CategoryDraft extends JsonObject
 {
@@ -116,7 +116,7 @@ class CategoryDraft extends JsonObject
     }
 
     /**
-     * @return Reference
+     * @return CategoryReference
      */
     public function getParent()
     {
@@ -170,5 +170,14 @@ class CategoryDraft extends JsonObject
         $this->externalId = $externalId;
 
         return $this;
+    }
+
+    /**
+     * @param LocalizedString $test
+     * @return LocalizedString
+     */
+    public static function test(LocalizedString $test)
+    {
+
     }
 }

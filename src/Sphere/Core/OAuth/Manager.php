@@ -13,6 +13,10 @@ use Sphere\Core\Cache\CacheAdapterInterface;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Factory;
 
+/**
+ * Class Manager
+ * @package Sphere\Core\OAuth
+ */
 class Manager extends AbstractHttpClient
 {
     const TOKEN_CACHE_KEY = 'sphere-io-access-token';

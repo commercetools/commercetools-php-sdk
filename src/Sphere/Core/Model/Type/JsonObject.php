@@ -7,6 +7,10 @@
 namespace Sphere\Core\Model\Type;
 
 
+/**
+ * Class JsonObject
+ * @package Sphere\Core\Model\Type
+ */
 class JsonObject implements \JsonSerializable
 {
     /**

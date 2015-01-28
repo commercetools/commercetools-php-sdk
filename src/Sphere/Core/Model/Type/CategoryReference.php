@@ -10,7 +10,7 @@ namespace Sphere\Core\Model\Type;
 /**
  * Class CategoryReference
  * @package Sphere\Core\Model\Type
- * @method static of(string $id)
+ * @method static CategoryReference of(string $id)
  */
 class CategoryReference extends Reference
 {

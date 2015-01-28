@@ -11,6 +11,10 @@ use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Http\ClientRequestInterface;
 use Traversable;
 
+/**
+ * Class PagedQueryResponse
+ * @package Sphere\Core\Response
+ */
 class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggregate, \ArrayAccess
 {
     const COUNT = 'count';

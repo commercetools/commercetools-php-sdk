@@ -7,6 +7,10 @@
 namespace Sphere\Core\Cache;
 
 
+/**
+ * Class ApcCacheAdapter
+ * @package Sphere\Core\Cache
+ */
 class ApcCacheAdapter extends AbstractCacheAdapter
 {
     /**

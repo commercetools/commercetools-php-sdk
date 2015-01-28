@@ -11,6 +11,10 @@ use Sphere\Core\Cache\CacheAdapterInterface;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
 
+/**
+ * Class Config
+ * @package Sphere\Core
+ */
 class Config
 {
     const OAUTH_URL = 'oauth_url';

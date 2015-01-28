@@ -7,6 +7,10 @@
 namespace Sphere\Core\OAuth;
 
 
+/**
+ * Class Token
+ * @package Sphere\Core\OAuth
+ */
 class Token
 {
     protected $token;

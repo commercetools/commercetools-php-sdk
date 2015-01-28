@@ -10,6 +10,10 @@ namespace Sphere\Core\Request;
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\JsonRequest;
 
+/**
+ * Class AbstractDeleteByIdRequest
+ * @package Sphere\Core\Request
+ */
 abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
 {
     /**

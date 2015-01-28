@@ -5,6 +5,10 @@
  */
 namespace Sphere\Core\Http;
 
+/**
+ * Interface ApiResponseInterface
+ * @package Sphere\Core\Http
+ */
 interface ApiResponseInterface
 {
     public function json();

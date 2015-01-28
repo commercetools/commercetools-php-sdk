@@ -7,6 +7,10 @@
 namespace Sphere\Core\Http;
 
 
+/**
+ * Class HttpRequest
+ * @package Sphere\Core\Http
+ */
 class HttpRequest implements HttpRequestInterface
 {
     protected $httpMethod;

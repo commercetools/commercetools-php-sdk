@@ -7,6 +7,10 @@
 namespace Sphere\Core\Http;
 
 
+/**
+ * Class HttpMethod
+ * @package Sphere\Core\Http
+ */
 class HttpMethod {
     const GET = 'get';
     const POST = 'post';

@@ -14,7 +14,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class CategoryUpdateRequest
  * @package Sphere\Core\Request\Categories
- * @method static of(string $id, int $version, array $actions = [])
+ * @method static CategoryDeleteByIdRequest of(string $id, int $version, array $actions = [])
  */
 class CategoryUpdateRequest extends AbstractUpdateRequest
 {

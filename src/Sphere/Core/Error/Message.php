@@ -7,6 +7,10 @@
 namespace Sphere\Core\Error;
 
 
+/**
+ * Class Message
+ * @package Sphere\Core\Error
+ */
 class Message {
 
     const SETTER_NOT_IMPLEMENTED = 'Setter for key %s not implemented';

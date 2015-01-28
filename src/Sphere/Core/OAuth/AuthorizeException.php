@@ -7,6 +7,10 @@
 namespace Sphere\Core\OAuth;
 
 
+/**
+ * Class AuthorizeException
+ * @package Sphere\Core\OAuth
+ */
 class AuthorizeException extends \Exception
 {
 

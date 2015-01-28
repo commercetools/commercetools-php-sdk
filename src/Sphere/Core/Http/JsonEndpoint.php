@@ -7,6 +7,10 @@
 namespace Sphere\Core\Http;
 
 
+/**
+ * Class JsonEndpoint
+ * @package Sphere\Core\Http
+ */
 class JsonEndpoint
 {
     /**

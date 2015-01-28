@@ -6,7 +6,10 @@
 
 namespace Sphere\Core\Response;
 
-
+/**
+ * Class SingleResourceResponse
+ * @package Sphere\Core\Response
+ */
 class SingleResourceResponse extends AbstractApiResponse
 {
 

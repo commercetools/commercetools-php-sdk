@@ -14,7 +14,7 @@ use Sphere\Core\Request\AbstractCreateRequest;
 /**
  * Class CategoryCreateRequest
  * @package Sphere\Core\Request\Categories
- * @method static of(CategoryDraft $category)
+ * @method static CategoryCreateRequest of(CategoryDraft $category)
  */
 class CategoryCreateRequest extends AbstractCreateRequest
 {

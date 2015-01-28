@@ -9,6 +9,10 @@ namespace Sphere\Core\Request\Categories;
 
 use Sphere\Core\Http\JsonEndpoint;
 
+/**
+ * Class CategoriesEndpoint
+ * @package Sphere\Core\Request\Categories
+ */
 class CategoriesEndpoint
 {
     /**

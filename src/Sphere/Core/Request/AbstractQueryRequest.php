@@ -11,6 +11,10 @@ use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\HttpRequest;
 use Sphere\Core\Response\PagedQueryResponse;
 
+/**
+ * Class AbstractQueryRequest
+ * @package Sphere\Core\Request
+ */
 abstract class AbstractQueryRequest extends AbstractApiRequest
 {
     use QueryTrait;
