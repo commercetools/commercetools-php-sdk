@@ -42,7 +42,7 @@ abstract class AbstractApiResponse implements ApiResponseInterface
     {
         $statusCode = $this->response->getStatusCode();
 
-        return ($statusCode == 200);
+        return ($statusCode != 200);
     }
 
     /**
