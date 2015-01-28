@@ -5,6 +5,11 @@
     "autoload": {
         "psr-4": { "Sphere\\Core\\": "src/" }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Sphere\\Core\\": "tests/"
+        }
+    },
     "require": {
         "php": ">=5.4",
         "guzzlehttp/guzzle": "~5.0"
