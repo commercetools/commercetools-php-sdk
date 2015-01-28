@@ -13,8 +13,19 @@ namespace Sphere\Core\OAuth;
  */
 class Token
 {
+    /**
+     * @var string
+     */
     protected $token;
+
+    /**
+     * @var \DateTime
+     */
     protected $validTo;
+
+    /**
+     * @var int
+     */
     protected $ttl;
 
     public function __construct($token = null, $ttl = null)
@@ -24,7 +35,7 @@ class Token
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getToken()
     {
@@ -43,7 +54,7 @@ class Token
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getValidTo()
     {
@@ -62,7 +73,7 @@ class Token
     }
 
     /**
-     * @return null
+     * @return int
      */
     public function getTtl()
     {
@@ -70,10 +81,12 @@ class Token
     }
 
     /**
-     * @param null $ttl
+     * @param int $ttl
      */
     public function setTtl($ttl)
     {
         $this->ttl = $ttl;
+
+        return $this;
     }
 }

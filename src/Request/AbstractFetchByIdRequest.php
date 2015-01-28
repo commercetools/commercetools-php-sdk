@@ -18,12 +18,13 @@ use Sphere\Core\Response\SingleResourceResponse;
 abstract class AbstractFetchByIdRequest extends AbstractApiRequest
 {
     /**
-     * @var mixed
+     * @var string
      */
     protected $id;
 
     /**
-     * @param mixed $id
+     * @param \Sphere\Core\Http\JsonEndpoint $endpoint
+     * @param string $id
      */
     public function __construct($endpoint, $id)
     {
@@ -32,7 +33,7 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getId()
     {
@@ -40,7 +41,7 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return $this
      */
     public function setId($id)

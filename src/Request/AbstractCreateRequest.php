@@ -41,7 +41,7 @@ abstract class AbstractCreateRequest extends AbstractApiRequest
     }
 
     /**
-     * @param mixed \JsonSerializable
+     * @param \JsonSerializable
      */
     public function setObject($object)
     {

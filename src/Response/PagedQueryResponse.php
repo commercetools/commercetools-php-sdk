@@ -42,7 +42,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
 
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getCount()
     {
@@ -50,7 +50,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     }
 
     /**
-     * @param $count
+     * @param int $count
      * @return $this
      */
     public function setCount($count)
@@ -61,7 +61,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getOffset()
     {
@@ -69,7 +69,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     }
 
     /**
-     * @param $offset
+     * @param int $offset
      * @return $this
      */
     public function setOffset($offset)
@@ -80,7 +80,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getTotal()
     {
@@ -88,7 +88,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     }
 
     /**
-     * @param $total
+     * @param int $total
      * @return $this
      */
     public function setTotal($total)
@@ -99,7 +99,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getResults()
     {
@@ -107,10 +107,10 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     }
 
     /**
-     * @param $results
+     * @param array $results
      * @return $this
      */
-    public function setResults($results)
+    public function setResults(array $results)
     {
         $this->results = $results;
 

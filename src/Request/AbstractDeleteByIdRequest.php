@@ -17,7 +17,7 @@ use Sphere\Core\Http\JsonRequest;
 abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
 {
     /**
-     * @var mixed
+     * @var string
      */
     protected $id;
 
@@ -27,7 +27,7 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
     protected $version;
 
     /**
-     * @param mixed $id
+     * @param string $id
      */
     public function __construct($endpoint, $id, $version)
     {
@@ -37,7 +37,7 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getId()
     {
@@ -56,7 +56,7 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getVersion()
     {

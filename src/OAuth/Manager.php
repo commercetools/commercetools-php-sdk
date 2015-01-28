@@ -26,6 +26,9 @@ class Manager extends AbstractHttpClient
     const ERROR = 'error';
     const ERROR_DESCRIPTION = 'error_description';
 
+    /**
+     * @var array
+     */
     protected $cacheKeys;
 
     /**
@@ -137,6 +140,9 @@ class Manager extends AbstractHttpClient
         return $token;
     }
 
+    /**
+     * @return string
+     */
     protected function getBaseUrl()
     {
         return $this->getConfig()->getOauthUrl();

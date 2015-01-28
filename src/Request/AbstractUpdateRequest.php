@@ -66,7 +66,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getId()
     {
@@ -74,7 +74,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     }
 
     /**
-     * @param mixed $id
+     * @param string $id
      * @return $this
      */
     public function setId($id)
