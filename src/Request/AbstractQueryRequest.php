@@ -22,10 +22,11 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     use SortTrait;
 
     /**
-     * @param $where
-     * @param $sort
-     * @param $limit
-     * @param $offset
+     * @param \Sphere\Core\Http\JsonEndpoint $endpoint
+     * @param null $where
+     * @param null $sort
+     * @param null $limit
+     * @param null $offset
      */
     public function __construct($endpoint, $where = null, $sort = null, $limit = null, $offset = null)
     {

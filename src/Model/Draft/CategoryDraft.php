@@ -11,7 +11,6 @@ use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Model\Type\CategoryReference;
 use Sphere\Core\Model\Type\JsonObject;
 use Sphere\Core\Model\Type\LocalizedString;
-use Sphere\Core\Model\Type\Reference;
 
 /**
  * Class CategoryDraft
