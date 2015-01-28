@@ -55,7 +55,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
         $this->actions = $actions;
     }
 
-    public function addAction($action)
+    public function addAction(array $action)
     {
         $this->actions[] = $action;
     }

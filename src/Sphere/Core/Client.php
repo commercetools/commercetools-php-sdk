@@ -8,9 +8,9 @@ namespace Sphere\Core;
 
 
 use GuzzleHttp\Exception\ClientException;
+use Sphere\Core\Http\ApiResponseInterface;
 use Sphere\Core\Http\ClientRequestInterface;
 use Sphere\Core\OAuth\Manager;
-use Sphere\Core\Response\ApiResponse;
 
 class Client extends AbstractHttpClient
 {
@@ -53,7 +53,7 @@ class Client extends AbstractHttpClient
 
     /**
      * @param ClientRequestInterface $request
-     * @return ApiResponse
+     * @return ApiResponseInterface
      */
     public function execute(ClientRequestInterface $request)
     {
