@@ -9,6 +9,7 @@ namespace Sphere\Core\Request;
 
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\HttpRequest;
+use Sphere\Core\Response\SingleResourceResponse;
 
 /**
  * Class AbstractFetchByIdRequest
@@ -49,7 +50,6 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
         return $this;
     }
 
-
     /**
      * @return HttpRequest
      */
@@ -57,4 +57,14 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
     {
         return new HttpRequest(HttpMethod::GET, (string)$this->getEndpoint() . '/' . $this->getId());
     }
+
+    /**
+     * @param $response
+     * @return SingleResourceResponse
+     */
+    public function buildResponse($response)
+    {
+        return new SingleResourceResponse($response, $this);
+    }
+
 }

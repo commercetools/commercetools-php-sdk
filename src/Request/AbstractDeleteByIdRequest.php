@@ -85,4 +85,14 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
             ['version' => $this->getVersion()]
         );
     }
+
+    /**
+     * @param $response
+     * @return SingleResourceResponse
+     */
+    public function buildResponse($response)
+    {
+        return new SingleResourceResponse($response, $this);
+    }
+
 }

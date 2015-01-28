@@ -9,6 +9,7 @@ namespace Sphere\Core\Request;
 
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\JsonRequest;
+use Sphere\Core\Response\SingleResourceResponse;
 
 /**
  * Class AbstractCreateRequest
@@ -53,5 +54,14 @@ abstract class AbstractCreateRequest extends AbstractApiRequest
     public function httpRequest()
     {
         return new JsonRequest(HttpMethod::POST, (string)$this->endpoint, $this->getObject());
+    }
+
+    /**
+     * @param $response
+     * @return SingleResourceResponse
+     */
+    public function buildResponse($response)
+    {
+        return new SingleResourceResponse($response, $this);
     }
 }

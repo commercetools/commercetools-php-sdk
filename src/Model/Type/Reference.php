@@ -30,7 +30,7 @@ class Reference extends JsonObject
      * @param string $typeId
      * @param string $id
      */
-    function __construct($typeId, $id)
+    public function __construct($typeId, $id)
     {
         $this->setTypeId($typeId);
         $this->setId($id);

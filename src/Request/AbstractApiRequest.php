@@ -11,6 +11,7 @@ use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
 use Sphere\Core\Http\ClientRequestInterface;
 use Sphere\Core\Http\JsonEndpoint;
+use Sphere\Core\Response\AbstractApiResponse;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
@@ -85,10 +86,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ParamInterf
 
     /**
      * @param $response
-     * @return SingleResourceResponse
+     * @return AbstractApiResponse
      */
-    public function buildResponse($response)
-    {
-        return new SingleResourceResponse($response, $this);
-    }
+    abstract public function buildResponse($response);
 }

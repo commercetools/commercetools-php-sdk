@@ -9,6 +9,7 @@ namespace Sphere\Core\Request;
 
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\JsonRequest;
+use Sphere\Core\Response\SingleResourceResponse;
 
 /**
  * Class AbstractUpdateRequest
@@ -112,5 +113,14 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
             (string)$this->getEndpoint() . '/' . $this->getId(),
             ['version' => $this->getVersion(), 'actions' => $this->getActions()]
         );
+    }
+
+    /**
+     * @param $response
+     * @return SingleResourceResponse
+     */
+    public function buildResponse($response)
+    {
+        return new SingleResourceResponse($response, $this);
     }
 }

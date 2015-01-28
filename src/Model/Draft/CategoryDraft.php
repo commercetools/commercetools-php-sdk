@@ -170,13 +170,4 @@ class CategoryDraft extends JsonObject
 
         return $this;
     }
-
-    /**
-     * @param LocalizedString $test
-     * @return LocalizedString
-     */
-    public static function test(LocalizedString $test)
-    {
-
-    }
 }
