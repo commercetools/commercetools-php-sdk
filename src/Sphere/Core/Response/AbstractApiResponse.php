@@ -8,9 +8,10 @@ namespace Sphere\Core\Response;
 
 
 use GuzzleHttp\Message\ResponseInterface;
-use Sphere\Core\Http\ClientRequest;
+use Sphere\Core\Http\ApiResponseInterface;
+use Sphere\Core\Http\ClientRequestInterface;
 
-abstract class AbstractApiResponse
+abstract class AbstractApiResponse implements ApiResponseInterface
 {
     /**
      * @var ResponseInterface
@@ -18,11 +19,11 @@ abstract class AbstractApiResponse
     protected $response;
 
     /**
-     * @var ClientRequest
+     * @var ClientRequestInterface
      */
     protected $request;
 
-    public function __construct(ResponseInterface $response, ClientRequest $request)
+    public function __construct(ResponseInterface $response, ClientRequestInterface $request)
     {
         $this->response = $response;
     }
@@ -53,7 +54,7 @@ abstract class AbstractApiResponse
     }
 
     /**
-     * @return ClientRequest
+     * @return ClientRequestInterface
      */
     public function getRequest()
     {

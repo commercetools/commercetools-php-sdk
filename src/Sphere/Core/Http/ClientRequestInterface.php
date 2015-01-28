@@ -7,12 +7,16 @@
 namespace Sphere\Core\Http;
 
 
-interface ClientRequest
+interface ClientRequestInterface
 {
     /**
      * @return HttpRequestInterface
      */
     public function httpRequest();
 
+    /**
+     * @param $response
+     * @return ApiResponseInterface
+     */
     public function buildResponse($response);
 }

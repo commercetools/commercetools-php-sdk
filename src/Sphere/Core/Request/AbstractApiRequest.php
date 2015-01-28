@@ -9,7 +9,7 @@ namespace Sphere\Core\Request;
 
 use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
-use Sphere\Core\Http\ClientRequest;
+use Sphere\Core\Http\ClientRequestInterface;
 use Sphere\Core\Http\JsonEndpoint;
 use Sphere\Core\Response\SingleResourceResponse;
 
@@ -17,7 +17,7 @@ use Sphere\Core\Response\SingleResourceResponse;
  * Class AbstractApiRequest
  * @package Sphere\Core\Request
  */
-abstract class AbstractApiRequest implements ClientRequest, ParamInterface
+abstract class AbstractApiRequest implements ClientRequestInterface, ParamInterface
 {
     /**
      * @var JsonEndpoint

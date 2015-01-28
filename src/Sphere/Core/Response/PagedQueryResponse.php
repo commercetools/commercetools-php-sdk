@@ -8,7 +8,7 @@ namespace Sphere\Core\Response;
 
 
 use GuzzleHttp\Message\ResponseInterface;
-use Sphere\Core\Http\ClientRequest;
+use Sphere\Core\Http\ClientRequestInterface;
 use Traversable;
 
 class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggregate
@@ -23,7 +23,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     protected $total;
     protected $results;
 
-    public function __construct(ResponseInterface $response, ClientRequest $request)
+    public function __construct(ResponseInterface $response, ClientRequestInterface $request)
     {
         parent::__construct($response, $request);
         if (!$this->isError()) {

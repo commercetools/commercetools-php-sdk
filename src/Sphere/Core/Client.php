@@ -8,7 +8,7 @@ namespace Sphere\Core;
 
 
 use GuzzleHttp\Exception\ClientException;
-use Sphere\Core\Http\ClientRequest;
+use Sphere\Core\Http\ClientRequestInterface;
 use Sphere\Core\OAuth\Manager;
 use Sphere\Core\Response\ApiResponse;
 
@@ -52,10 +52,10 @@ class Client extends AbstractHttpClient
     }
 
     /**
-     * @param ClientRequest $request
+     * @param ClientRequestInterface $request
      * @return ApiResponse
      */
-    public function execute(ClientRequest $request)
+    public function execute(ClientRequestInterface $request)
     {
         $token = $this->getOAuthManager()->getToken();
 

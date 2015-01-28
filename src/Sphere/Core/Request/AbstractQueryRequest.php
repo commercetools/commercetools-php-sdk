@@ -7,7 +7,6 @@
 namespace Sphere\Core\Request;
 
 
-use Sphere\Core\Http\ClientRequest;
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\HttpRequest;
 use Sphere\Core\Response\PagedQueryResponse;
