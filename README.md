@@ -6,7 +6,7 @@ Warning: pre-release partial implementation
 </div>
 
 | travis <br>(develop branch) | scrutinizer<br>(code quality) | scrutinizer<br>(code coverage) | packagist version | packagist downloads |
-|:-:|:-:|:-:|:-:|
+|:-----:|:------:|:-------:|:-------:|:-------:|
 | [![Build Status](https://img.shields.io/travis/sphereio/sphere-php-sdk/develop.svg?style=flat)](https://travis-ci.org/sphereio/sphere-php-sdk) | [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphere/php-sdk.svg?style=flat)]() | [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphere/php-sdk.svg?style=flat)]() | [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat)](https://packagist.org/packages/sphere/php-sdk) | [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat)](https://packagist.org/packages/sphere/php-sdk) |
 
 The PHP SDK allows developers to build applications on the SPHERE.IO REST API using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API. Users gain lots of IDE Auto-Completion and type checks on a literal API. 
