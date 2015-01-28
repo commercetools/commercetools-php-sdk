@@ -11,7 +11,7 @@ use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
 use Sphere\Core\Http\ClientRequest;
 use Sphere\Core\Http\JsonEndpoint;
-use Sphere\Core\Model\Category;
+use Sphere\Core\Response\SingleResourceResponse;
 
 /**
  * Class AbstractApiRequest
@@ -35,8 +35,6 @@ abstract class AbstractApiRequest implements ClientRequest, ParamInterface
     public function __construct(JsonEndpoint $endpoint)
     {
         $this->setEndpoint($endpoint);
-        $category = new Category();
-        $category->set();
     }
 
     /**
@@ -82,5 +80,14 @@ abstract class AbstractApiRequest implements ClientRequest, ParamInterface
         $params = implode('&', $this->params);
 
         return $params?:'';
+    }
+
+    /**
+     * @param $response
+     * @return SingleResourceResponse
+     */
+    public function buildResponse($response)
+    {
+        return new SingleResourceResponse($response, $this);
     }
 }

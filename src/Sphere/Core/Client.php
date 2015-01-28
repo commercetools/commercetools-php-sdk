@@ -77,7 +77,7 @@ class Client extends AbstractHttpClient
             $httpResponse = $exception->getResponse();
         }
 
-        $response = new ApiResponse($httpResponse, $request);
+        $response = $request->buildResponse($httpResponse);
 
         return $response;
     }

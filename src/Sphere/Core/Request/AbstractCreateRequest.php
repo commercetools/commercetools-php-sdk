@@ -9,7 +9,6 @@ namespace Sphere\Core\Request;
 
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\JsonRequest;
-use Sphere\Core\Model\AbstractDraft;
 
 abstract class AbstractCreateRequest extends AbstractApiRequest
 {

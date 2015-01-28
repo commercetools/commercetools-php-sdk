@@ -10,7 +10,7 @@ namespace Sphere\Core\Response;
 use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Http\ClientRequest;
 
-class ApiResponse
+abstract class AbstractApiResponse
 {
     /**
      * @var ResponseInterface

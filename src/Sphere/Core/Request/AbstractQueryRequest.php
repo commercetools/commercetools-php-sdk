@@ -7,8 +7,10 @@
 namespace Sphere\Core\Request;
 
 
+use Sphere\Core\Http\ClientRequest;
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\HttpRequest;
+use Sphere\Core\Response\PagedQueryResponse;
 
 abstract class AbstractQueryRequest extends AbstractApiRequest
 {
@@ -53,5 +55,14 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     public function setQueryParams($where, $sort, $limit, $offset)
     {
         $this->where($where)->sort($sort)->limit($limit)->offset($offset);
+    }
+
+    /**
+     * @param $response
+     * @return PagedQueryResponse
+     */
+    public function buildResponse($response)
+    {
+        return new PagedQueryResponse($response, $this);
     }
 }

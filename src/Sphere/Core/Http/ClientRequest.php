@@ -13,4 +13,6 @@ interface ClientRequest
      * @return HttpRequestInterface
      */
     public function httpRequest();
+
+    public function buildResponse($response);
 }
