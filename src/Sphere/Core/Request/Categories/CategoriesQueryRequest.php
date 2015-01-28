@@ -6,10 +6,17 @@
 
 namespace Sphere\Core\Request\Categories;
 
+use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Request\AbstractQueryRequest;
 
+/**
+ * Class CategoriesQueryRequest
+ * @package Sphere\Core\Request\Categories
+ * @method static of($where = null, $sort = null, $limit = null, $offset = null)
+ */
 class CategoriesQueryRequest extends AbstractQueryRequest
 {
+    use OfTrait;
     /**
      * @param $where
      * @param $sort

@@ -7,10 +7,17 @@
 namespace Sphere\Core\Model\Type;
 
 
+/**
+ * Class CategoryReference
+ * @package Sphere\Core\Model\Type
+ * @method static of(string $id)
+ */
 class CategoryReference extends Reference
 {
-    public static function of($id)
+    const TYPE_CATEGORY = 'category';
+
+    public function __construct($id)
     {
-        return new static('category', $id);
+        parent::__construct(static::TYPE_CATEGORY, $id);
     }
 }

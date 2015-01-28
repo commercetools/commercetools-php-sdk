@@ -7,6 +7,7 @@
 namespace Sphere\Core\Model\Draft;
 
 
+use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Model\Type\CategoryReference;
 use Sphere\Core\Model\Type\JsonObject;
 use Sphere\Core\Model\Type\LocalizedString;
@@ -15,9 +16,11 @@ use Sphere\Core\Model\Type\Reference;
 /**
  * Class CategoryDraft
  * @package Sphere\Core\Model\Draft
+ * @method static of(LocalizedString $name, LocalizedString $slug)
  */
 class CategoryDraft extends JsonObject
 {
+    use OfTrait;
     /**
      * @var LocalizedString
      */
@@ -168,15 +171,4 @@ class CategoryDraft extends JsonObject
 
         return $this;
     }
-
-    /**
-     * @param LocalizedString $name
-     * @param LocalizedString $slug
-     * @return CategoryDraft
-     */
-    public static function of(LocalizedString $name, LocalizedString $slug)
-    {
-        return new CategoryDraft($name, $slug);
-    }
-
 }

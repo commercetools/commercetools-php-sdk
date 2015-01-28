@@ -59,6 +59,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ParamInterf
     /**
      * @param $key
      * @param $value
+     * @return $this
      */
     public function addParam($key, $value)
     {

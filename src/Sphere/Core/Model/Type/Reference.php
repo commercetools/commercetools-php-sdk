@@ -5,10 +5,17 @@
  */
 
 namespace Sphere\Core\Model\Type;
+use Sphere\Core\Model\OfTrait;
 
 
+/**
+ * Class Reference
+ * @package Sphere\Core\Model\Type
+ * @method static of(string $typeId, string $id)
+ */
 class Reference extends JsonObject
 {
+    use OfTrait;
     /**
      * @var string
      */

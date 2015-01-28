@@ -11,6 +11,11 @@ use Sphere\Core\Model\Type\CategoryReference;
 use Sphere\Core\Model\Type\LocalizedString;
 use Sphere\Core\Request\AbstractUpdateRequest;
 
+/**
+ * Class CategoryUpdateRequest
+ * @package Sphere\Core\Request\Categories
+ * @method static of(string $id, int $version, array $actions = [])
+ */
 class CategoryUpdateRequest extends AbstractUpdateRequest
 {
     const NAME = 'name';
