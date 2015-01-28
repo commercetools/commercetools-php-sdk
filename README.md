@@ -1,9 +1,9 @@
 ![SPHERE.IO icon](https://admin.sphere.io/assets/images/sphere_logo_rgb_long.png)
 # SPHERE.IO PHP SDK
 
-<div style="background-color: #F88; padding: 5px;">
-Warning: pre-release partial implementation   
-</div>
+<blockquote>
+WARNING: As of now, this is a pre-release partial implementation   
+</blockquote>
 
 | travis <br>(develop branch) | scrutinizer<br>(code quality) | scrutinizer<br>(code coverage) | packagist version | packagist downloads |
 |:-----:|:------:|:-------:|:-------:|:-------:|
