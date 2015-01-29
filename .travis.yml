@@ -6,6 +6,8 @@ php:
   - "hhvm"
 
 before_script:
-  - phpenv config-add tests/myconfig.ini
+  - sh -c 'if [ $(php -r "echo PHP_MINOR_VERSION;") -gt 5 ]; then printf "\n" | pecl install apcu; fi;'
+  - sh -c 'if [ $(php -r "echo PHP_MINOR_VERSION;") -eq 4 ]; then sed -i 1d "tests/myconfig.ini"; fi;'
+  - sh -c 'if [ $(php -r "echo (int) defined(\"HHVM_VERSION\");") -eq 0 ]; then phpenv config-add tests/myconfig.ini; fi;'
   - composer self-update
   - composer install --prefer-dist -o
