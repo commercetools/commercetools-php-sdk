@@ -19,7 +19,7 @@ class JsonEndpoint
     protected $endpoint;
 
     /**
-     * @param $endpoint
+     * @param string $endpoint
      */
     public function __construct($endpoint)
     {

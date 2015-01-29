@@ -11,7 +11,6 @@ use Sphere\Core\AbstractHttpClient;
 use Sphere\Core\Cache\CacheAdapterFactory;
 use Sphere\Core\Cache\CacheAdapterInterface;
 use Sphere\Core\Error\Message;
-use Sphere\Core\Factory;
 
 /**
  * Class Manager
@@ -84,7 +83,7 @@ class Manager extends AbstractHttpClient
      */
     public function getToken($scope = 'manage_project')
     {
-        if ($token = $this->getCacheAdapter()->fetch($this->getCacheKey($scope))) {
+        if ($token = $this->getCacheToken($scope)) {
             return new Token($token);
         }
         $token = $this->getBearerToken($scope);
@@ -93,6 +92,11 @@ class Manager extends AbstractHttpClient
         $this->getCacheAdapter()->store($this->getCacheKey($scope), $token->getToken(), $ttl);
 
         return $token;
+    }
+
+    protected function getCacheToken($scope)
+    {
+        return $this->getCacheAdapter()->fetch($this->getCacheKey($scope));
     }
 
     /**
@@ -120,13 +124,15 @@ class Manager extends AbstractHttpClient
             'scope' => $scope . ':' . $this->getConfig()->getProject()
         ];
 
-        $result = $this->getHttpClient()->post(
-            $this->getConfig()->getOauthUrl(),
-            [
-                'body' => $data,
-                'auth' => [$this->getConfig()->getClientId(), $this->getConfig()->getClientSecret()]
-            ]
-        )->json();
+        $options = [
+            'allow_redirects' => false,
+            'verify' => true,
+            'timeout' => 10,
+            'connect_timeout' => 1,
+            'body' => $data,
+            'auth' => [$this->getConfig()->getClientId(), $this->getConfig()->getClientSecret()]
+        ];
+        $result = $this->execute($this->getConfig()->getOauthUrl(), $options);
 
         if (isset($result[static::ERROR])) {
             $message = isset($result[static::ERROR_DESCRIPTION]) ?
@@ -138,6 +144,16 @@ class Manager extends AbstractHttpClient
         $token->setValidTo(new \DateTime('now +' . $result[static::EXPIRES_IN] . ' seconds'));
 
         return $token;
+    }
+
+    /**
+     * @param $url
+     * @param $options
+     * @return mixed
+     */
+    protected function execute($url, $options)
+    {
+        return $this->getHttpClient()->post($url, $options)->json();
     }
 
     /**

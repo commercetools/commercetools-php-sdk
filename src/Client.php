@@ -70,6 +70,10 @@ class Client extends AbstractHttpClient
         ];
 
         $options = [
+            'allow_redirects' => false,
+            'verify' => true,
+            'timeout' => 10,
+            'connect_timeout' => 1,
             'headers' => $headers,
             'body' => $request->httpRequest()->getBody()
         ];
