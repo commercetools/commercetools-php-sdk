@@ -1,5 +1,6 @@
 {
     "name": "sphere/php-sdk",
+    "license": "MIT",
     "type": "project",
     "description": "The Sphere.IO PHP SDK",
     "autoload": {
