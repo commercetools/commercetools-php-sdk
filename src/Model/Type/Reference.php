@@ -11,7 +11,7 @@ use Sphere\Core\Model\OfTrait;
 /**
  * Class Reference
  * @package Sphere\Core\Model\Type
- * @method static of(string $typeId, string $id)
+ * @method static Reference of(string $typeId, string $id)
  */
 class Reference extends JsonObject
 {

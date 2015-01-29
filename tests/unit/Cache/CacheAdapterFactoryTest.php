@@ -62,7 +62,7 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * test correct type handling
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Sphere\Core\Error\InvalidArgumentException
      */
     public function testNoObjectException()
     {
@@ -72,7 +72,7 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * test correct type handling
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Sphere\Core\Error\InvalidArgumentException
      */
     public function testNoAdapterException()
     {
