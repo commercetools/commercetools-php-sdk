@@ -17,7 +17,6 @@ class ProductProjectionFetchByIdRequest extends AbstractFetchByIdRequest
 
     /**
      * @param int $id
-     * @param bool $staged
      */
     public function __construct($id)
     {

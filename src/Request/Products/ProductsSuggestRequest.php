@@ -17,9 +17,7 @@ use Sphere\Core\Request\Endpoints\ProductProjectionsEndpoint;
 class ProductsSuggestRequest extends AbstractProjectionRequest
 {
     /**
-     * @param string $sort
-     * @param int $limit
-     * @param bool $staged
+     * 
      */
     public function __construct()
     {
