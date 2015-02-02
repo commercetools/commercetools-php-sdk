@@ -7,20 +7,28 @@
 namespace Sphere\Core\Request\Products;
 
 use Sphere\Core\Model\OfTrait;
-use Sphere\Core\Request\AbstractSearchRequest;
+use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Request\SortTrait;
 
 /**
  * Class ProductsSearchRequest
  * @package Sphere\Core\Request\Products
- * @method static ProductsSearchRequest of($sort = null, $limit = null, $offset = null)
+ * @method static ProductsSearchRequest of($sort = null, $limit = null, $offset = null, $staged = false)
  */
-class ProductsSearchRequest extends AbstractSearchRequest
+class ProductsSearchRequest extends AbstractProjectionRequest
 {
     use OfTrait;
     use PageTrait;
     use SortTrait;
+
+    /**
+     * @return string
+     */
+    protected function getProjectionAction()
+    {
+        return 'search';
+    }
 
     /**
      * @param string  $sort
@@ -30,7 +38,6 @@ class ProductsSearchRequest extends AbstractSearchRequest
      */
     public function __construct($sort = null, $limit = null, $offset = null, $staged = false)
     {
-        parent::__construct(ProductProjectionEndpoint::endpoint());
-        $this->setSearchParams($sort, $limit, $offset, $staged);
+        parent::__construct(ProductProjectionEndpoint::endpoint(), $sort, $limit, $offset, $staged);
     }
 }

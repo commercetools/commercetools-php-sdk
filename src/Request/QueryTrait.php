@@ -13,6 +13,13 @@ namespace Sphere\Core\Request;
 trait QueryTrait
 {
     /**
+     * @param $key
+     * @param $value
+     * @return $this
+     */
+    abstract public function addParam($key, $value);
+
+    /**
      * @param string $where
      * @return $this
      */

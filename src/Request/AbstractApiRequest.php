@@ -42,7 +42,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ParamInterf
      * @param $endpoint
      * @return $this
      */
-    public function setEndpoint($endpoint)
+    protected function setEndpoint($endpoint)
     {
         $this->endpoint = $endpoint;
 

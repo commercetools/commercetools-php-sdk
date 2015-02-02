@@ -7,7 +7,7 @@
 namespace Sphere\Core\Request\Products;
 
 use Sphere\Core\Model\OfTrait;
-use Sphere\Core\Request\AbstractSearchRequest;
+use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\AbstractSuggestRequest;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Request\SortTrait;
@@ -17,11 +17,19 @@ use Sphere\Core\Request\SortTrait;
  * @package Sphere\Core\Request\Products
  * @method static ProductsSuggestRequest of($sort = null, $limit = null, $staged = false)
  */
-class ProductsSuggestRequest extends AbstractSuggestRequest
+class ProductsSuggestRequest extends AbstractProjectionRequest
 {
     use OfTrait;
     use PageTrait;
     use SortTrait;
+
+    /**
+     * @return string
+     */
+    protected function getProjectionAction()
+    {
+        return 'suggest';
+    }
 
     /**
      * @param string $sort
@@ -30,7 +38,6 @@ class ProductsSuggestRequest extends AbstractSuggestRequest
      */
     public function __construct($sort = null, $limit = null, $staged = false)
     {
-        parent::__construct(ProductProjectionEndpoint::endpoint());
-        $this->setSearchParams($sort, $limit, $staged);
+        parent::__construct(ProductProjectionEndpoint::endpoint(), $sort, $limit, null, $staged);
     }
 }

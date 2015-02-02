@@ -14,6 +14,13 @@ namespace Sphere\Core\Request;
 trait StagedTrait
 {
     /**
+     * @param $key
+     * @param $value
+     * @return $this
+     */
+    abstract public function addParam($key, $value);
+
+    /**
      * @param bool $staged
      * @return $this
      */

@@ -11,6 +11,14 @@ namespace Sphere\Core\Request;
  * @package Sphere\Core\Request
  */
 trait PageTrait {
+
+    /**
+     * @param $key
+     * @param $value
+     * @return $this
+     */
+    abstract public function addParam($key, $value);
+
     /**
      * @param int $limit
      * @return $this
