@@ -6,29 +6,24 @@
 
 namespace Sphere\Core\Request\Products;
 
-use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Request\AbstractProjectionRequest;
-use Sphere\Core\Request\AbstractSuggestRequest;
-use Sphere\Core\Request\PageTrait;
-use Sphere\Core\Request\SortTrait;
+use Sphere\Core\Request\Endpoints\ProductProjectionsEndpoint;
 
 /**
  * Class ProductsSearchRequest
  * @package Sphere\Core\Request\Products
- * @method static ProductsSuggestRequest of($sort = null, $limit = null, $staged = false)
+ * @method static ProductsSuggestRequest of()
  */
 class ProductsSuggestRequest extends AbstractProjectionRequest
 {
-    use OfTrait;
-
     /**
      * @param string $sort
      * @param int $limit
      * @param bool $staged
      */
-    public function __construct($sort = null, $limit = null, $staged = false)
+    public function __construct()
     {
-        parent::__construct(ProductProjectionEndpoint::endpoint(), $sort, $limit, null, $staged);
+        parent::__construct(ProductProjectionsEndpoint::endpoint());
     }
 
     /**

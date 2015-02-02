@@ -4,7 +4,7 @@
  * @created: 23.01.15, 16:25
  */
 
-namespace Sphere\Core\Request\Categories;
+namespace Sphere\Core\Request\Endpoints;
 
 
 use Sphere\Core\Http\JsonEndpoint;

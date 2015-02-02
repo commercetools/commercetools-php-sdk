@@ -7,24 +7,13 @@
 namespace Sphere\Core\Request;
 
 
-use Sphere\Core\Http\JsonEndpoint;
-
+/**
+ * Class AbstractProjectionRequest
+ * @package Sphere\Core\Request
+ */
 abstract class AbstractProjectionRequest extends AbstractPagedRequest
 {
     use StagedTrait;
-
-    /**
-     * @param JsonEndpoint $endpoint
-     * @param bool $staged
-     * @param string $sort
-     * @param int $limit
-     * @param int $offset
-     */
-    public function __construct(JsonEndpoint $endpoint, $sort = null, $limit = null, $offset = null, $staged = false)
-    {
-        parent::__construct($endpoint, $sort, $limit, $offset);
-        $this->staged($staged);
-    }
 
     /**
      * @return string

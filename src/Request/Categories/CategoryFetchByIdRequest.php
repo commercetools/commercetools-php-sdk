@@ -7,8 +7,8 @@
 namespace Sphere\Core\Request\Categories;
 
 
-use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
+use Sphere\Core\Request\Endpoints\CategoriesEndpoint;
 
 /**
  * Class CategoryFetchByIdRequest
@@ -17,8 +17,6 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
  */
 class CategoryFetchByIdRequest extends AbstractFetchByIdRequest
 {
-    use OfTrait;
-
     /**
      * @param string $id
      */

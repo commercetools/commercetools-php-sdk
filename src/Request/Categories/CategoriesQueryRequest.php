@@ -6,26 +6,21 @@
 
 namespace Sphere\Core\Request\Categories;
 
-use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Request\AbstractQueryRequest;
+use Sphere\Core\Request\Endpoints\CategoriesEndpoint;
 
 /**
  * Class CategoriesQueryRequest
  * @package Sphere\Core\Request\Categories
- * @method static CategoriesQueryRequest of($where = null, $sort = null, $limit = null, $offset = null)
+ * @method static CategoriesQueryRequest of()
  */
 class CategoriesQueryRequest extends AbstractQueryRequest
 {
-    use OfTrait;
-
     /**
-     * @param $where
-     * @param $sort
-     * @param $limit
-     * @param $offset
+     *
      */
-    public function __construct($where = null, $sort = null, $limit = null, $offset = null)
+    public function __construct()
     {
-        parent::__construct(CategoriesEndpoint::endpoint(), $where, $sort, $limit, $offset);
+        parent::__construct(CategoriesEndpoint::endpoint());
     }
 }

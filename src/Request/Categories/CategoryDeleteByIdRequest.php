@@ -7,8 +7,8 @@
 namespace Sphere\Core\Request\Categories;
 
 
-use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Request\AbstractDeleteByIdRequest;
+use Sphere\Core\Request\Endpoints\CategoriesEndpoint;
 
 /**
  * Class CategoryDeleteByIdRequest
@@ -17,7 +17,6 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
  */
 class CategoryDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
-    use OfTrait;
     /**
      * @param string $id
      * @param int $version

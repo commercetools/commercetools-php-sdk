@@ -8,8 +8,8 @@ namespace Sphere\Core\Request\Categories;
 
 
 use Sphere\Core\Model\Draft\CategoryDraft;
-use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Request\Endpoints\CategoriesEndpoint;
 
 /**
  * Class CategoryCreateRequest
@@ -18,7 +18,6 @@ use Sphere\Core\Request\AbstractCreateRequest;
  */
 class CategoryCreateRequest extends AbstractCreateRequest
 {
-    use OfTrait;
     /**
      * @param CategoryDraft $category
      */

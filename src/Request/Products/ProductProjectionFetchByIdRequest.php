@@ -7,23 +7,21 @@
 namespace Sphere\Core\Request\Products;
 
 
-use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
+use Sphere\Core\Request\Endpoints\ProductProjectionsEndpoint;
 use Sphere\Core\Request\StagedTrait;
 
 class ProductProjectionFetchByIdRequest extends AbstractFetchByIdRequest
 {
-    use OfTrait;
     use StagedTrait;
 
     /**
      * @param int $id
      * @param bool $staged
      */
-    public function __construct($id, $staged = false)
+    public function __construct($id)
     {
-        parent::__construct(ProductProjectionEndpoint::endpoint(), $id);
-        $this->staged($staged);
+        parent::__construct(ProductProjectionsEndpoint::endpoint(), $id);
     }
 
     /**

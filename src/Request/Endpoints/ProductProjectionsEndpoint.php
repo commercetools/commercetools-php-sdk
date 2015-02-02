@@ -4,18 +4,18 @@
  * @created: 02.02.15, 17:20
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Sphere\Core\Request\Endpoints;
 
 
 use Sphere\Core\Http\JsonEndpoint;
 
-class ProductProjectionEndpoint
+class ProductProjectionsEndpoint
 {
     /**
      * @return JsonEndpoint
      */
     public static function endpoint()
     {
-        return new JsonEndpoint('product-projections');
+        return new JsonEndpoint('products');
     }
 }

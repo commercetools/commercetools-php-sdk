@@ -7,24 +7,23 @@
 namespace Sphere\Core\Request\Products;
 
 
-use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Request\AbstractQueryRequest;
+use Sphere\Core\Request\Endpoints\ProductProjectionsEndpoint;
 use Sphere\Core\Request\StagedTrait;
 
+/**
+ * Class ProductProjectionQueryRequest
+ * @package Sphere\Core\Request\Products
+ */
 class ProductProjectionQueryRequest extends AbstractQueryRequest
 {
-    use OfTrait;
     use StagedTrait;
 
     /**
-     * @param string  $sort
-     * @param int $limit
-     * @param int $offset
-     * @param bool $staged
+     *
      */
-    public function __construct($where = null, $sort = null, $limit = null, $offset = null, $staged = false)
+    public function __construct()
     {
-        parent::__construct(ProductProjectionEndpoint::endpoint(), $where, $sort, $limit, $offset);
-        $this->staged($staged);
+        parent::__construct(ProductProjectionsEndpoint::endpoint());
     }
 }

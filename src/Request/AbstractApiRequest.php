@@ -11,8 +11,8 @@ use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
 use Sphere\Core\Http\ClientRequestInterface;
 use Sphere\Core\Http\JsonEndpoint;
+use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Response\AbstractApiResponse;
-use Sphere\Core\Response\SingleResourceResponse;
 
 /**
  * Class AbstractApiRequest
@@ -20,6 +20,8 @@ use Sphere\Core\Response\SingleResourceResponse;
  */
 abstract class AbstractApiRequest implements ClientRequestInterface, ParamInterface
 {
+    use OfTrait;
+
     /**
      * @var JsonEndpoint
      */
