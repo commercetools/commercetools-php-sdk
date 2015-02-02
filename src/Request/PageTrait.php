@@ -9,11 +9,10 @@ namespace Sphere\Core\Request;
 /**
  * Class PageableTrait
  * @package Sphere\Core\Request
- * @method addParam($key, $value)
  */
 trait PageTrait {
     /**
-     * @param $limit
+     * @param int $limit
      * @return $this
      */
     public function limit($limit)
@@ -26,7 +25,7 @@ trait PageTrait {
     }
 
     /**
-     * @param $offset
+     * @param int $offset
      * @return $this
      */
     public function offset($offset)

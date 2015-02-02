@@ -13,7 +13,7 @@ use Sphere\Core\Http\JsonEndpoint;
 use Sphere\Core\Response\AbstractApiResponse;
 use Sphere\Core\Response\PagedQueryResponse;
 
-abstract class AbstractSearchRequest extends AbstractApiRequest
+abstract class AbstractSuggestRequest extends AbstractApiRequest
 {
     use PageTrait;
     use SortTrait;
@@ -21,26 +21,24 @@ abstract class AbstractSearchRequest extends AbstractApiRequest
 
     /**
      * @param JsonEndpoint $endpoint
-     * @param bool $staged
      * @param string $sort
      * @param int $limit
-     * @param int $offset
+     * @param bool $staged
      */
-    public function __construct(JsonEndpoint $endpoint, $sort = null, $limit = null, $offset = null, $staged = false)
+    public function __construct(JsonEndpoint $endpoint, $sort = null, $limit = null, $staged = false)
     {
         parent::__construct($endpoint);
-        $this->setSearchParams($sort, $limit, $offset, $staged);
+        $this->setSearchParams($sort, $limit, $staged);
     }
 
     /**
      * @param string $sort
      * @param int $limit
-     * @param int $offset
      * @param bool $staged
      */
-    public function setSearchParams($sort, $limit, $offset, $staged)
+    public function setSearchParams($sort, $limit, $staged)
     {
-        $this->sort($sort)->limit($limit)->offset($offset)->staged($staged);
+        $this->sort($sort)->limit($limit)->staged($staged);
     }
 
     /**
@@ -48,7 +46,7 @@ abstract class AbstractSearchRequest extends AbstractApiRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/search?' . $this->getParamString();
+        return (string)$this->getEndpoint() . '/suggest?' . $this->getParamString();
     }
 
     /**

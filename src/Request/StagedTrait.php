@@ -1,24 +1,26 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 27.01.15, 10:40
+ * @created: 02.02.15, 15:03
  */
 
 namespace Sphere\Core\Request;
 
+
 /**
- * Class SortableTrait
+ * Class StagedTrait
  * @package Sphere\Core\Request
  */
-trait SortTrait {
+trait StagedTrait
+{
     /**
-     * @param string $sort
+     * @param bool $staged
      * @return $this
      */
-    public function sort($sort)
+    public function staged($staged)
     {
-        if (!is_null($sort)) {
-            $this->addParam('sort', $sort);
+        if (is_bool($staged)) {
+            $this->addParam('staged', $staged);
         }
 
         return $this;

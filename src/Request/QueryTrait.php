@@ -9,12 +9,11 @@ namespace Sphere\Core\Request;
 /**
  * Class QueryTrait
  * @package Sphere\Core\Request
- * @method addParam($key, $value)
  */
 trait QueryTrait
 {
     /**
-     * @param $where
+     * @param string $where
      * @return $this
      */
     public function where($where)

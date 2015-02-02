@@ -127,8 +127,8 @@ class Manager extends AbstractHttpClient
         $options = [
             'allow_redirects' => false,
             'verify' => true,
-            'timeout' => 10,
-            'connect_timeout' => 1,
+            'timeout' => 60,
+            'connect_timeout' => 10,
             'body' => $data,
             'auth' => [$this->getConfig()->getClientId(), $this->getConfig()->getClientSecret()]
         ];
