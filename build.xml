@@ -29,7 +29,7 @@
     <target name="clean"
             unless="clean.done"
             description="Cleanup build artifacts">
-        <delete dir="${basedir}/build/api"/>
+        <delete dir="${basedir}/build/docs"/>
         <delete dir="${basedir}/build/coverage"/>
         <delete dir="${basedir}/build/logs"/>
         <delete dir="${basedir}/build/pdepend"/>
@@ -40,7 +40,7 @@
             unless="prepare.done"
             depends="clean"
             description="Prepare for build">
-        <mkdir dir="${basedir}/build/api"/>
+        <mkdir dir="${basedir}/build/docs"/>
         <mkdir dir="${basedir}/build/coverage"/>
         <mkdir dir="${basedir}/build/logs"/>
         <mkdir dir="${basedir}/build/pdepend"/>
@@ -171,13 +171,14 @@
     </target>
 
     <target name="apigen"
+            depends="prepare"
             description="Generate project documentation using phpDocumentor">
         <exec executable="${basedir}/${toolsdir}apigen" dir="${basedir}/build/">
             <arg value="generate"/>
             <arg value="--source"/>
             <arg path="${basedir}/src"/>
             <arg value="--destination"/>
-            <arg path="${basedir}/build/docs/html"/>
+            <arg path="${basedir}/build/docs"/>
         </exec>
     </target>
 </project>
