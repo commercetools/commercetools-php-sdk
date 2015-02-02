@@ -116,7 +116,7 @@ Then:
  1. fork the repository on GitHub
  2. code and add tests that cover the created code. Your code should be warning-free.
  3. stick to PSR-2 and and don't reformat existing code. 
- 4. make a pull request.  @ct_jensschulze will review it and pull or come back to you. 
+ 4. make a pull request.  @ct-jensschulze will review it and pull or come back to you. 
 
 
 
