@@ -7,20 +7,15 @@
 namespace Sphere\Core\Request;
 
 
-use Sphere\Core\Http\HttpMethod;
-use Sphere\Core\Http\HttpRequest;
 use Sphere\Core\Http\JsonEndpoint;
-use Sphere\Core\Response\PagedQueryResponse;
 
 /**
  * Class AbstractQueryRequest
  * @package Sphere\Core\Request
  */
-abstract class AbstractQueryRequest extends AbstractApiRequest
+abstract class AbstractQueryRequest extends AbstractPagedRequest
 {
     use QueryTrait;
-    use PageTrait;
-    use SortTrait;
 
     /**
      * @param JsonEndpoint $endpoint
@@ -31,8 +26,8 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
      */
     public function __construct(JsonEndpoint $endpoint, $where = null, $sort = null, $limit = null, $offset = null)
     {
-        parent::__construct($endpoint);
-        $this->setQueryParams($where, $sort, $limit, $offset);
+        parent::__construct($endpoint, $sort, $limit, $offset);
+        $this->where($where);
     }
 
     /**
@@ -41,33 +36,5 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     protected function getPath()
     {
         return (string)$this->getEndpoint() . '?' . $this->getParamString();
-    }
-
-    /**
-     * @return HttpRequest
-     */
-    public function httpRequest()
-    {
-        return new HttpRequest(HttpMethod::GET, $this->getPath());
-    }
-
-    /**
-     * @param string $where
-     * @param string $sort
-     * @param int $limit
-     * @param int $offset
-     */
-    public function setQueryParams($where, $sort, $limit, $offset)
-    {
-        $this->where($where)->sort($sort)->limit($limit)->offset($offset);
-    }
-
-    /**
-     * @param $response
-     * @return PagedQueryResponse
-     */
-    public function buildResponse($response)
-    {
-        return new PagedQueryResponse($response, $this);
     }
 }
