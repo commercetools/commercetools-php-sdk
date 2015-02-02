@@ -18,6 +18,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 class CategoryFetchByIdRequest extends AbstractFetchByIdRequest
 {
     use OfTrait;
+
     /**
      * @param string $id
      */

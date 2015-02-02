@@ -28,6 +28,14 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
      */
     public function __construct($sort = null, $limit = null, $staged = false)
     {
-        parent::__construct(ProductSuggestEndpoint::endpoint(), $sort, $limit, null, $staged);
+        parent::__construct(ProductProjectionEndpoint::endpoint(), $sort, $limit, null, $staged);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getProjectionAction()
+    {
+        return 'suggest';
     }
 }

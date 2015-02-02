@@ -28,6 +28,14 @@ class ProductsSearchRequest extends AbstractProjectionRequest
      */
     public function __construct($sort = null, $limit = null, $offset = null, $staged = false)
     {
-        parent::__construct(ProductSearchEndpoint::endpoint(), $sort, $limit, $offset, $staged);
+        parent::__construct(ProductProjectionEndpoint::endpoint(), $sort, $limit, $offset, $staged);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getProjectionAction()
+    {
+        return 'search';
     }
 }

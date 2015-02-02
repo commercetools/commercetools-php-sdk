@@ -39,14 +39,6 @@ abstract class AbstractPagedRequest extends AbstractApiRequest
     }
 
     /**
-     * @return string
-     */
-    protected function getPath()
-    {
-        return (string)$this->getEndpoint() . '?' . $this->getParamString();
-    }
-
-    /**
      * @return HttpRequest
      */
     public function httpRequest()
@@ -62,5 +54,4 @@ abstract class AbstractPagedRequest extends AbstractApiRequest
     {
         return new PagedQueryResponse($response, $this);
     }
-
 }

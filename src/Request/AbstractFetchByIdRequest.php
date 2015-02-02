@@ -53,11 +53,19 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
     }
 
     /**
+     * @return string
+     */
+    protected function getPath()
+    {
+        return (string)$this->getEndpoint() . '/' . $this->getId();
+    }
+
+    /**
      * @return HttpRequest
      */
     public function httpRequest()
     {
-        return new HttpRequest(HttpMethod::GET, (string)$this->getEndpoint() . '/' . $this->getId());
+        return new HttpRequest(HttpMethod::GET, $this->getPath());
     }
 
     /**

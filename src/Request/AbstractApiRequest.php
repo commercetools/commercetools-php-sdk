@@ -81,7 +81,15 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ParamInterf
     {
         $params = implode('&', $this->params);
 
-        return $params?:'';
+        return (empty($params) ? '?' . $params : '');
+    }
+
+    /**
+     * @return string
+     */
+    protected function getPath()
+    {
+        return (string)$this->getEndpoint() . $this->getParamString();
     }
 
     /**
