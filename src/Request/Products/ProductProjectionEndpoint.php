@@ -20,6 +20,6 @@ class ProductProjectionEndpoint
      */
     public static function endpoint()
     {
-        return new JsonEndpoint('product-projections/search');
+        return new JsonEndpoint('product-projections');
     }
 }

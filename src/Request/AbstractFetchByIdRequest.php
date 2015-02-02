@@ -9,6 +9,7 @@ namespace Sphere\Core\Request;
 
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\HttpRequest;
+use Sphere\Core\Http\JsonEndpoint;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
@@ -23,10 +24,10 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
     protected $id;
 
     /**
-     * @param \Sphere\Core\Http\JsonEndpoint $endpoint
+     * @param JsonEndpoint $endpoint
      * @param string $id
      */
-    public function __construct($endpoint, $id)
+    public function __construct(JsonEndpoint $endpoint, $id)
     {
         parent::__construct($endpoint);
         $this->setId($id);

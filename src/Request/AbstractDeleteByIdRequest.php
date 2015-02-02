@@ -8,6 +8,7 @@ namespace Sphere\Core\Request;
 
 
 use Sphere\Core\Http\HttpMethod;
+use Sphere\Core\Http\JsonEndpoint;
 use Sphere\Core\Http\JsonRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
@@ -28,9 +29,11 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
     protected $version;
 
     /**
-     * @param string $id
+     * @param JsonEndpoint $endpoint
+     * @param $id
+     * @param $version
      */
-    public function __construct($endpoint, $id, $version)
+    public function __construct(JsonEndpoint $endpoint, $id, $version)
     {
         parent::__construct($endpoint);
         $this->setId($id);

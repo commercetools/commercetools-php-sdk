@@ -9,6 +9,7 @@ namespace Sphere\Core\Request;
 
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\HttpRequest;
+use Sphere\Core\Http\JsonEndpoint;
 use Sphere\Core\Response\PagedQueryResponse;
 
 /**
@@ -22,13 +23,13 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     use SortTrait;
 
     /**
-     * @param \Sphere\Core\Http\JsonEndpoint $endpoint
-     * @param null $where
-     * @param null $sort
-     * @param null $limit
-     * @param null $offset
+     * @param JsonEndpoint $endpoint
+     * @param string $where
+     * @param string $sort
+     * @param int $limit
+     * @param int $offset
      */
-    public function __construct($endpoint, $where = null, $sort = null, $limit = null, $offset = null)
+    public function __construct(JsonEndpoint $endpoint, $where = null, $sort = null, $limit = null, $offset = null)
     {
         parent::__construct($endpoint);
         $this->setQueryParams($where, $sort, $limit, $offset);
@@ -51,10 +52,10 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $where
-     * @param $sort
-     * @param $limit
-     * @param $offset
+     * @param string $where
+     * @param string $sort
+     * @param int $limit
+     * @param int $offset
      */
     public function setQueryParams($where, $sort, $limit, $offset)
     {

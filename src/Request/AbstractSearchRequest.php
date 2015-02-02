@@ -1,36 +1,44 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 02.02.15, 11:26
+ * @created: 02.02.15, 11:44
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Sphere\Core\Request;
 
 
 use Sphere\Core\Http\HttpMethod;
 use Sphere\Core\Http\HttpRequest;
-use Sphere\Core\Model\OfTrait;
-use Sphere\Core\Request\AbstractSearchRequest;
-use Sphere\Core\Request\PageTrait;
-use Sphere\Core\Request\SortTrait;
+use Sphere\Core\Http\JsonEndpoint;
 use Sphere\Core\Response\AbstractApiResponse;
 use Sphere\Core\Response\PagedQueryResponse;
 
-/**
- * Class ProductsSearchRequest
- * @package Sphere\Core\Request\Products
- * @method static ProductsSearchRequest of($sort = null, $limit = null, $offset = null)
- */
-class ProductsSearchRequest extends AbstractSearchRequest
+abstract class AbstractSearchRequest extends AbstractApiRequest
 {
-    use OfTrait;
     use PageTrait;
     use SortTrait;
 
-    public function __construct($sort = null, $limit = null, $offset = null)
+    /**
+     * @param JsonEndpoint $endpoint
+     * @param string $sort
+     * @param int $limit
+     * @param int $offset
+     */
+    public function __construct(JsonEndpoint $endpoint, $sort = null, $limit = null, $offset = null)
     {
-        parent::__construct(ProductProjectionEndpoint::endpoint());
+        parent::__construct($endpoint);
         $this->setSearchParams($sort, $limit, $offset);
+    }
+
+    /**
+     * @param $where
+     * @param $sort
+     * @param $limit
+     * @param $offset
+     */
+    public function setSearchParams($sort, $limit, $offset)
+    {
+        $this->sort($sort)->limit($limit)->offset($offset);
     }
 
     /**
@@ -38,7 +46,7 @@ class ProductsSearchRequest extends AbstractSearchRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/search?' . $this->getParamString();
+        return (string)$this->getEndpoint() . '?' . $this->getParamString();
     }
 
     /**

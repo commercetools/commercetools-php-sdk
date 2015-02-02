@@ -17,6 +17,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 class CategoriesQueryRequest extends AbstractQueryRequest
 {
     use OfTrait;
+
     /**
      * @param $where
      * @param $sort

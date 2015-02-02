@@ -8,6 +8,7 @@ namespace Sphere\Core\Request;
 
 
 use Sphere\Core\Http\HttpMethod;
+use Sphere\Core\Http\JsonEndpoint;
 use Sphere\Core\Http\JsonRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
@@ -23,10 +24,10 @@ abstract class AbstractCreateRequest extends AbstractApiRequest
     protected $object;
 
     /**
-     * @param \Sphere\Core\Http\JsonEndpoint $endpoint
+     * @param JsonEndpoint $endpoint
      * @param $object
      */
-    public function __construct($endpoint, \JsonSerializable $object)
+    public function __construct(JsonEndpoint $endpoint, \JsonSerializable $object)
     {
         parent::__construct($endpoint);
         $this->object = $object;
