@@ -18,11 +18,13 @@ abstract class AbstractCacheAdapter implements CacheAdapterInterface
      */
     protected $cache;
 
-    public function __construct($cache = null)
+    /**
+     * @param mixed $cache
+     */
+    protected function setCache($cache)
     {
         $this->cache = $cache;
     }
-
 
     /**
      * returns the application cache instance

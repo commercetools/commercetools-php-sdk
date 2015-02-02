@@ -29,12 +29,4 @@ abstract class AbstractQueryRequest extends AbstractPagedRequest
         parent::__construct($endpoint, $sort, $limit, $offset);
         $this->where($where);
     }
-
-    /**
-     * @return string
-     */
-    protected function getPath()
-    {
-        return (string)$this->getEndpoint() . '?' . $this->getParamString();
-    }
 }

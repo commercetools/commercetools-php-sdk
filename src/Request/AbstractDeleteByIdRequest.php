@@ -79,15 +79,19 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
     }
 
     /**
+     * @return string
+     */
+    protected function getPath()
+    {
+        return (string)$this->getEndpoint() . '/' . $this->getId();
+    }
+
+    /**
      * @return JsonRequest
      */
     public function httpRequest()
     {
-        return new JsonRequest(
-            HttpMethod::DELETE,
-            (string)$this->getEndpoint() . '/' . $this->getId(),
-            ['version' => $this->getVersion()]
-        );
+        return new JsonRequest(HttpMethod::DELETE, $this->getPath(), ['version' => $this->getVersion()]);
     }
 
     /**

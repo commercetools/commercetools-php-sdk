@@ -13,8 +13,27 @@ namespace Sphere\Core\Http;
  */
 class FileRequest extends HttpRequest
 {
+    protected $file;
+
     public function __construct($method, $path, $file, $contentType)
     {
-        parent::__construct($method, $path, $file, $contentType);
+        $this->file = $file;
+        parent::__construct($method, $path, null, $contentType);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    protected function setFile($file)
+    {
+        $this->file = $file;
     }
 }

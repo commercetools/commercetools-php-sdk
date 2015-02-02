@@ -20,16 +20,6 @@ use Sphere\Core\Request\SortTrait;
 class ProductsSuggestRequest extends AbstractProjectionRequest
 {
     use OfTrait;
-    use PageTrait;
-    use SortTrait;
-
-    /**
-     * @return string
-     */
-    protected function getProjectionAction()
-    {
-        return 'suggest';
-    }
 
     /**
      * @param string $sort
@@ -38,6 +28,6 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
      */
     public function __construct($sort = null, $limit = null, $staged = false)
     {
-        parent::__construct(ProductProjectionEndpoint::endpoint(), $sort, $limit, null, $staged);
+        parent::__construct(ProductSuggestEndpoint::endpoint(), $sort, $limit, null, $staged);
     }
 }

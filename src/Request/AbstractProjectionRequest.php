@@ -25,17 +25,4 @@ abstract class AbstractProjectionRequest extends AbstractPagedRequest
         parent::__construct($endpoint, $sort, $limit, $offset);
         $this->staged($staged);
     }
-
-    /**
-     * @return string
-     */
-    abstract protected function getProjectionAction();
-
-    /**
-     * @return string
-     */
-    protected function getPath()
-    {
-        return (string)$this->getEndpoint() . '/' . $this->getProjectionAction() . '?' . $this->getParamString();
-    }
 }

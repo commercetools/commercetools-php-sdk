@@ -1,7 +1,7 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 02.02.15, 11:27
+ * @created: 02.02.15, 16:44
  */
 
 namespace Sphere\Core\Request\Products;
@@ -9,17 +9,13 @@ namespace Sphere\Core\Request\Products;
 
 use Sphere\Core\Http\JsonEndpoint;
 
-/**
- * Class ProductProjectionEndpoint
- * @package Sphere\Core\Request\Products
- */
-class ProductProjectionEndpoint
+class ProductSuggestEndpoint
 {
     /**
      * @return JsonEndpoint
      */
     public static function endpoint()
     {
-        return new JsonEndpoint('product-projections');
+        return new JsonEndpoint('product-projections/suggest');
     }
 }

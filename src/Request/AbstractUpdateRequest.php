@@ -103,16 +103,18 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
         return $this;
     }
 
+    protected function getPath()
+    {
+        return (string)$this->getEndpoint() . '/' . $this->getId();
+    }
+
     /**
      * @return JsonRequest
      */
     public function httpRequest()
     {
-        return new JsonRequest(
-            HttpMethod::POST,
-            (string)$this->getEndpoint() . '/' . $this->getId(),
-            ['version' => $this->getVersion(), 'actions' => $this->getActions()]
-        );
+        $payload = ['version' => $this->getVersion(), 'actions' => $this->getActions()];
+        return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }
 
     /**
