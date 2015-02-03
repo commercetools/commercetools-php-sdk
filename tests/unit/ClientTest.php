@@ -41,7 +41,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMock = $this->getMock('\Sphere\Core\Client',['getHttpClient', 'getOauthManager'], [$config]);
+        $clientMock = $this->getMock('\Sphere\Core\Client', ['getHttpClient', 'getOauthManager'], [$config]);
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
@@ -114,7 +114,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         // change visibility of getBaseUrl
         $class = new \ReflectionClass($client);
-        $method = $class->getMethod ('getBaseUrl');
+        $method = $class->getMethod('getBaseUrl');
         $method->setAccessible(true);
         $output = $method->invoke($client);
 

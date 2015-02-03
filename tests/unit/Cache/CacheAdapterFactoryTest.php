@@ -6,7 +6,8 @@
 
 namespace Sphere\Core\Cache;
 
-function extension_loaded($value) {
+function extension_loaded($value)
+{
     if ($value === 'apc') {
         return CacheAdapterFactoryTest::getApcLoaded();
     }
@@ -17,7 +18,8 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
 {
     protected static $apcLoaded;
 
-    public static function getApcLoaded(){
+    public static function getApcLoaded()
+    {
         return static::$apcLoaded;
     }
     /**
@@ -54,7 +56,11 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCallback()
     {
         $factory = $this->getFactory();
-        $factory->registerCallback(function () { return new NullCacheAdapter(); });
+        $factory->registerCallback(
+            function () {
+                return new NullCacheAdapter();
+            }
+        );
 
         $this->assertInstanceOf('\Sphere\Core\Cache\NullCacheAdapter', $factory->get(new \ArrayObject()));
     }

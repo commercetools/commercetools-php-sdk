@@ -9,16 +9,10 @@ namespace Sphere\Core\Request;
 /**
  * Class PageableTrait
  * @package Sphere\Core\Request
+ * @method $this addParam($key, $value)
  */
-trait PageTrait {
-
-    /**
-     * @param $key
-     * @param $value
-     * @return $this
-     */
-    abstract public function addParam($key, $value);
-
+trait PageTrait
+{
     /**
      * @param int $limit
      * @return $this

@@ -5,8 +5,8 @@
  */
 
 namespace Sphere\Core\Model\Type;
-use Sphere\Core\Model\OfTrait;
 
+use Sphere\Core\Model\OfTrait;
 
 /**
  * Class Reference

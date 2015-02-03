@@ -11,8 +11,8 @@ namespace Sphere\Core\Error;
  * Class Message
  * @package Sphere\Core\Error
  */
-class Message {
-
+class Message
+{
     const SETTER_NOT_IMPLEMENTED = 'Setter for key %s not implemented';
     const NO_CLIENT_ID = 'No client id set';
     const NO_CLIENT_SECRET = 'No client secret set';

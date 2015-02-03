@@ -41,5 +41,4 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\JsonSerializable', $this->getString());
         $this->assertSame(['en' => 'test'], $this->getString()->jsonSerialize());
     }
-
 }

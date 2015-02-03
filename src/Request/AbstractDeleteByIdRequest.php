@@ -102,5 +102,4 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
     {
         return new SingleResourceResponse($response, $this);
     }
-
 }

@@ -11,7 +11,8 @@ namespace Sphere\Core\Http;
  * Class HttpMethod
  * @package Sphere\Core\Http
  */
-class HttpMethod {
+class HttpMethod
+{
     const GET = 'get';
     const POST = 'post';
     const DELETE = 'delete';

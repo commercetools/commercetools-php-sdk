@@ -9,16 +9,10 @@ namespace Sphere\Core\Request;
 /**
  * Class SortableTrait
  * @package Sphere\Core\Request
+ * @method $this addParam($key, $value)
  */
 trait SortTrait
 {
-    /**
-     * @param $key
-     * @param $value
-     * @return $this
-     */
-    abstract public function addParam($key, $value);
-
     /**
      * @param string $sort
      * @return $this

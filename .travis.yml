@@ -20,6 +20,9 @@ script:
   - phpunit
   - ant apigen
 
+after_script:
+  - if [ $(phpenv version-name) = '5.4' ]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+
 after_success:
   - ./push-docs-to-gh-pages.sh
 

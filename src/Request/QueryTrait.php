@@ -9,16 +9,10 @@ namespace Sphere\Core\Request;
 /**
  * Class QueryTrait
  * @package Sphere\Core\Request
+ * @method $this addParam($key, $value)
  */
 trait QueryTrait
 {
-    /**
-     * @param $key
-     * @param $value
-     * @return $this
-     */
-    abstract public function addParam($key, $value);
-
     /**
      * @param string $where
      * @return $this

@@ -30,7 +30,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockManager($config, $returnValue)
     {
-        $manager = $this->getMock('\Sphere\Core\OAuth\Manager',['execute'], [$config]);
+        $manager = $this->getMock('\Sphere\Core\OAuth\Manager', ['execute'], [$config]);
         $manager->expects($this->any())
             ->method('execute')
             ->will($this->returnValue($returnValue));
@@ -72,7 +72,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testError()
     {
-        $manager = $this->getMock('\Sphere\Core\OAuth\Manager',['execute', 'getCacheToken'], [$this->getConfig()]);
+        $manager = $this->getMock('\Sphere\Core\OAuth\Manager', ['execute', 'getCacheToken'], [$this->getConfig()]);
         $manager->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(["error" => "invalid_client"]));
@@ -92,7 +92,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
         // change visibility of getBaseUrl
         $class = new \ReflectionClass($manager);
-        $method = $class->getMethod ('getBaseUrl');
+        $method = $class->getMethod('getBaseUrl');
         $method->setAccessible(true);
         $output = $method->invoke($manager);
 

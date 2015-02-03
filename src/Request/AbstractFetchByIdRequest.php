@@ -76,5 +76,4 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
     {
         return new SingleResourceResponse($response, $this);
     }
-
 }

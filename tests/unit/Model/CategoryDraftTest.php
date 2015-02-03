@@ -10,6 +10,7 @@ namespace Sphere\Core\Model;
 use Sphere\Core\Model\Draft\CategoryDraft;
 use Sphere\Core\Model\Type\CategoryReference;
 use Sphere\Core\Model\Type\LocalizedString;
+use Sphere\Core\Request\Categories\CategoriesQueryRequest;
 
 class CategoryDraftTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,6 +21,7 @@ class CategoryDraftTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSlug()
     {
+        $r = new CategoriesQueryRequest();
         $this->assertInstanceOf('\Sphere\Core\Model\Type\LocalizedString', $this->getDraft()->getSlug());
     }
 

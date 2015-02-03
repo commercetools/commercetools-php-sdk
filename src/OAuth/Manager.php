@@ -106,7 +106,8 @@ class Manager extends AbstractHttpClient
     protected function getCacheKey($scope)
     {
         if (!isset($this->cacheKeys[$scope])) {
-            $this->cacheKeys[$scope] = static::TOKEN_CACHE_KEY . '-' . sha1($scope . '-' . $this->getConfig()->getProject());
+            $this->cacheKeys[$scope] = static::TOKEN_CACHE_KEY . '-' .
+                sha1($scope . '-' . $this->getConfig()->getProject());
         }
 
         return $this->cacheKeys[$scope];

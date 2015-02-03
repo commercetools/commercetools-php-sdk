@@ -8,6 +8,11 @@ tools:
     sensiolabs_security_checker: true
     php_cs_fixer:
         config: { level: psr2 }
+    external_code_coverage:
+        timeout: 900
+before_commands:
+    - composer self-update
+    - composer install --prefer-dist
 build:
     dependencies:
         before:

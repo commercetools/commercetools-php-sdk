@@ -10,16 +10,10 @@ namespace Sphere\Core\Request;
 /**
  * Class StagedTrait
  * @package Sphere\Core\Request
+ * @method $this addParam($key, $value)
  */
 trait StagedTrait
 {
-    /**
-     * @param $key
-     * @param $value
-     * @return $this
-     */
-    abstract public function addParam($key, $value);
-
     /**
      * @param bool $staged
      * @return $this
