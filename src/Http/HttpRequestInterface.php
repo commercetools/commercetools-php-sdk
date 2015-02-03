@@ -15,21 +15,25 @@ interface HttpRequestInterface
 {
     /**
      * @return string
+     * @internal
      */
     public function getHttpMethod();
 
     /**
      * @return string
+     * @internal
      */
     public function getPath();
 
     /**
      * @return string
+     * @internal
      */
     public function getBody();
 
     /**
      * @return array
+     * @internal
      */
     public function getHeaders();
 }

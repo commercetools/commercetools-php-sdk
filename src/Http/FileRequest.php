@@ -10,6 +10,7 @@ namespace Sphere\Core\Http;
 /**
  * Class FileRequest
  * @package Sphere\Core\Http
+ * @internal
  */
 class FileRequest extends HttpRequest
 {

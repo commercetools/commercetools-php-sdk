@@ -10,6 +10,7 @@ namespace Sphere\Core\Http;
 /**
  * Class HttpRequest
  * @package Sphere\Core\Http
+ * @internal
  */
 class HttpRequest implements HttpRequestInterface
 {

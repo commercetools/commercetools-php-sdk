@@ -15,6 +15,7 @@ use Sphere\Core\Error\Message;
 /**
  * Class Manager
  * @package Sphere\Core\OAuth
+ * @internal
  */
 class Manager extends AbstractHttpClient
 {

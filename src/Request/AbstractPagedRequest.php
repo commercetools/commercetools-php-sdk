@@ -22,6 +22,7 @@ abstract class AbstractPagedRequest extends AbstractApiRequest
 
     /**
      * @return HttpRequest
+     * @internal
      */
     public function httpRequest()
     {
@@ -31,6 +32,7 @@ abstract class AbstractPagedRequest extends AbstractApiRequest
     /**
      * @param $response
      * @return PagedQueryResponse
+     * @internal
      */
     public function buildResponse($response)
     {

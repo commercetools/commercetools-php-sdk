@@ -20,6 +20,10 @@ abstract class AbstractProjectionRequest extends AbstractPagedRequest
      */
     abstract protected function getProjectionAction();
 
+    /**
+     * @return string
+     * @internal
+     */
     protected function getPath()
     {
         return (string)$this->getEndpoint() . '/' . $this->getProjectionAction() . $this->getParamString();

@@ -51,6 +51,7 @@ abstract class AbstractCreateRequest extends AbstractApiRequest
 
     /**
      * @return JsonRequest
+     * @internal
      */
     public function httpRequest()
     {
@@ -60,6 +61,7 @@ abstract class AbstractCreateRequest extends AbstractApiRequest
     /**
      * @param $response
      * @return SingleResourceResponse
+     * @internal
      */
     public function buildResponse($response)
     {
