@@ -105,6 +105,12 @@ Please make sure that exiting Unit and Integration tests don't fail and fully co
 ant
 ```
 
+### phpStorm
+
+To enable code style checks directly in phpStorm you have to configure the path to the phpcs at Preferences > Languages & Frameworks > PHP > Code Sniffer.
+Now you can enable at Preferences > Editor > Inspections > PHP the "PHP code sniffer validation" with PSR-2 standard. Change the severity if needed.
+
+
 ## <a name="contribute"></a>Contribute
 
 On bigger effort changes, please open a GitHub [issue](issues) and ask if you can help or get help with your idea. For typos and documentation improvements just make a pull request. 
