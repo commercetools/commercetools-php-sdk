@@ -5,16 +5,14 @@
 WARNING: As of now, this is a pre-release partial implementation   
 </blockquote>
 
-| travis <br>(develop branch) | scrutinizer<br>(code quality) | scrutinizer<br>(code coverage) | packagist version | packagist downloads |
-|:-----:|:------:|:-------:|:-------:|:-------:|
-| [![Build Status](https://img.shields.io/travis/sphereio/sphere-php-sdk/develop.svg?style=flat)](https://travis-ci.org/sphereio/sphere-php-sdk) | [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/sphere-php-sdk.svg?style=flat)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) | [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/sphere-php-sdk.svg?style=flat)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) | [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat)](https://packagist.org/packages/sphere/php-sdk) | [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat)](https://packagist.org/packages/sphere/php-sdk) |
-
+[![Build Status](https://img.shields.io/travis/sphereio/sphere-php-sdk/develop.svg?style=flat-square)](https://travis-ci.org/sphereio/sphere-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk)
+ 
 The PHP SDK allows developers to build applications on the SPHERE.IO REST API using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API. Users gain lots of IDE Auto-Completion and type checks on a literal API. 
 It also manages the OAuth2 security, provides caches and an interface for concurrent and asynchronous API calls. 
 
 The SDK is licensed under the permissive [MIT License](LICENSE). Don't hesitate to [contribute](#contribute)!
 
-## Install
+## Install / Integrate into your Project
 
 The SDK requires a PHP version of 5.4 or higher with the apc(u) PHP extension for its default cache. If you provide an own Cache interface, apc(u) is not necessary. The curl extension is recommended but not strictly necessary because the SDK is using the [Guzzle library](https://github.com/guzzle/guzzle) library, which falls back to PHP stream wrappers if curl is not available. 
 
