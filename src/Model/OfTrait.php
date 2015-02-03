@@ -10,7 +10,7 @@ namespace Sphere\Core\Model;
 trait OfTrait
 {
     /**
-     * @return self
+     * @return $this
      */
     public static function of()
     {

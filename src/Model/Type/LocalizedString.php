@@ -28,6 +28,10 @@ class LocalizedString implements \JsonSerializable
     }
 
 
+    /**
+     * @param $locale
+     * @return string
+     */
     public function get($locale)
     {
         if (!isset($this->values[$locale])) {
@@ -36,6 +40,11 @@ class LocalizedString implements \JsonSerializable
         return $this->values[$locale];
     }
 
+    /**
+     * @param string $locale
+     * @param string $value
+     * @return $this
+     */
     public function add($locale, $value)
     {
         $this->values[$locale] = $value;
@@ -43,11 +52,18 @@ class LocalizedString implements \JsonSerializable
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function jsonSerialize()
     {
         return $this->values;
     }
 
+    /**
+     * @param array $values
+     * @return $this
+     */
     public static function of(array $values)
     {
         return new static($values);

@@ -18,7 +18,7 @@ use Sphere\Core\Response\AbstractApiResponse;
  * Class AbstractApiRequest
  * @package Sphere\Core\Request
  */
-abstract class AbstractApiRequest implements ClientRequestInterface, ParamInterface
+abstract class AbstractApiRequest implements ClientRequestInterface
 {
     use OfTrait;
 
@@ -43,6 +43,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ParamInterf
     /**
      * @param $endpoint
      * @return $this
+     * @internal
      */
     protected function setEndpoint($endpoint)
     {
@@ -53,6 +54,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ParamInterf
 
     /**
      * @return JsonEndpoint
+     * @internal
      */
     public function getEndpoint()
     {
@@ -78,8 +80,9 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ParamInterf
 
     /**
      * @return string
+     * @internal
      */
-    public function getParamString()
+    protected function getParamString()
     {
         $params = implode('&', $this->params);
 
@@ -88,6 +91,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ParamInterf
 
     /**
      * @return string
+     * @internal
      */
     protected function getPath()
     {
@@ -97,6 +101,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ParamInterf
     /**
      * @param $response
      * @return AbstractApiResponse
+     * @internal
      */
     abstract public function buildResponse($response);
 }

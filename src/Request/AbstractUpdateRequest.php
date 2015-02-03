@@ -103,6 +103,10 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
         return $this;
     }
 
+    /**
+     * @return string
+     * @internal
+     */
     protected function getPath()
     {
         return (string)$this->getEndpoint() . '/' . $this->getId();
@@ -110,6 +114,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
 
     /**
      * @return JsonRequest
+     * @internal
      */
     public function httpRequest()
     {
@@ -120,6 +125,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     /**
      * @param $response
      * @return SingleResourceResponse
+     * @internal
      */
     public function buildResponse($response)
     {

@@ -10,6 +10,7 @@ namespace Sphere\Core\Http;
 /**
  * Class JsonRequest
  * @package Sphere\Core\Http
+ * @internal
  */
 class JsonRequest extends HttpRequest
 {

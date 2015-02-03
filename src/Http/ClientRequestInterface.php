@@ -15,12 +15,14 @@ interface ClientRequestInterface
 {
     /**
      * @return HttpRequestInterface
+     * @internal
      */
     public function httpRequest();
 
     /**
      * @param $response
      * @return ApiResponseInterface
+     * @internal
      */
     public function buildResponse($response);
 }

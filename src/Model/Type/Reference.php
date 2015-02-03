@@ -36,7 +36,6 @@ class Reference extends JsonObject
         $this->setId($id);
     }
 
-
     /**
      * @return string
      */

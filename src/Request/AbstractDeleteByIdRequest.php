@@ -80,6 +80,7 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
 
     /**
      * @return string
+     * @internal
      */
     protected function getPath()
     {
@@ -88,6 +89,7 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
 
     /**
      * @return JsonRequest
+     * @internal
      */
     public function httpRequest()
     {
@@ -97,6 +99,7 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
     /**
      * @param $response
      * @return SingleResourceResponse
+     * @internal
      */
     public function buildResponse($response)
     {

@@ -54,6 +54,7 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
 
     /**
      * @return string
+     * @internal
      */
     protected function getPath()
     {
@@ -62,6 +63,7 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
 
     /**
      * @return HttpRequest
+     * @internal
      */
     public function httpRequest()
     {
@@ -71,6 +73,7 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
     /**
      * @param $response
      * @return SingleResourceResponse
+     * @internal
      */
     public function buildResponse($response)
     {

@@ -25,6 +25,7 @@ class ProductProjectionFetchByIdRequest extends AbstractFetchByIdRequest
 
     /**
      * @return string
+     * @internal
      */
     protected function getPath()
     {
