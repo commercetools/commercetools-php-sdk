@@ -122,7 +122,7 @@
 
     <target name="phpcs"
             description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
-        <exec executable="${toolsdir}phpcs">
+        <exec executable="${toolsdir}phpcs" failonerror="true">
             <arg value="--standard=PSR2" />
             <arg value="--extensions=php" />
             <arg value="--ignore=autoload.php" />
@@ -133,10 +133,8 @@
 
     <target name="phpcs-ci"
             depends="prepare"
-            description="Find coding standard violations using PHP_CodeSniffer and log result in XML format. Intended for usage within a continuous integration environment.">
-        <exec executable="${toolsdir}phpcs" output="/dev/null">
-            <arg value="--report=checkstyle" />
-            <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+            description="Find coding standard violations using PHP_CodeSniffer, but not in the unit tests. Intended for usage within a continuous integration environment.">
+        <exec executable="${toolsdir}phpcs" failonerror="true">
             <arg value="--standard=PSR2" />
             <arg value="--extensions=php" />
             <arg value="--ignore=autoload.php" />
@@ -173,12 +171,25 @@
     <target name="apigen"
             depends="prepare"
             description="Generate project documentation using phpDocumentor">
-        <exec executable="${basedir}/${toolsdir}apigen" dir="${basedir}/build/">
+        <exec executable="${basedir}/${toolsdir}apigen" dir="${basedir}/build/" failonerror="true">
             <arg value="generate"/>
             <arg value="--source"/>
             <arg path="${basedir}/src"/>
             <arg value="--destination"/>
             <arg path="${basedir}/build/docs"/>
+            <!-- title affects the H1 on the Overview page and the html <title> element, e.g. the Tab label in the Browser) -->
+            <arg value='--title=SPHERE.IO PHP SDK apidoc'/>
+            <!-- default is default, but this way we know where to change it -->
+            <arg value='--template-theme=default'/>
+            <!-- triggers creation of the tree view (accessible via the top menu) -->
+            <arg value='--tree'/>
+            <!-- triggers creation of a sitemap.xml, robots.txt and the base url makes sure that Google doesn't index all versions but just the latest release -->
+            <arg value='--base-url=http://sphereio.github.io/sphere-php-sdk/docs/master/'/>
+            <!-- "main" causes the nav tree to start expanded to the matching nav -->
+            <arg value='--main=Request'/>
+            <!-- generate documentation for deprecated APIs, too (more transparent) -->
+            <arg value='--deprecated'/>
+            <!-- exclusion of internal APIs that are not guaranteed to stay compatible is done via @internal in the source, not via the "exclude" parameter -->
         </exec>
     </target>
 </project>
