@@ -97,7 +97,7 @@ Clone the develop branch of the repository (we're using the [gitflow](http://nvi
 git clone git@github.com:sphereio/sphere-php-sdk.git
 ```
 
-Please follow the [PSR-2](http://www.php-fig.org/psr/psr-2/) coding style, ideally via your IDE settings. 
+Please follow the [PSR-2](http://www.php-fig.org/psr/psr-2/) coding style.
 
 Please make sure that exiting Unit and Integration tests don't fail and fully cover your new code with Unit Tests. You can run all tests locally:
 
@@ -105,10 +105,10 @@ Please make sure that exiting Unit and Integration tests don't fail and fully co
 ant
 ```
 
-### phpStorm
+### phpStorm configuration
 
-To enable code style checks directly in phpStorm you have to configure the path to the phpcs at Preferences > Languages & Frameworks > PHP > Code Sniffer.
-Now you can enable at Preferences > Editor > Inspections > PHP the "PHP code sniffer validation" with PSR-2 standard. Change the severity if needed.
+To enable code style checks directly in phpStorm you have to configure the path to the phpcs at `Preferences > Languages & Frameworks > PHP > Code Sniffer`.
+Now you can enable at `Preferences > Editor > Inspections > PHP` the "PHP code sniffer validation" with PSR-2 standard. Change the severity if .
 
 
 ## <a name="contribute"></a>Contribute
