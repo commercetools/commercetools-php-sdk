@@ -17,7 +17,7 @@ use Sphere\Core\Request\Endpoints\ProductProjectionsEndpoint;
 class ProductsSuggestRequest extends AbstractProjectionRequest
 {
     /**
-     * 
+     *
      */
     public function __construct()
     {
