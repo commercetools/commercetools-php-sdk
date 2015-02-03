@@ -86,7 +86,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface
     {
         $params = implode('&', $this->params);
 
-        return (empty($params) ? '?' . $params : '');
+        return (!empty($params) ? '?' . $params : '');
     }
 
     /**
