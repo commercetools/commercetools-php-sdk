@@ -49,12 +49,22 @@ To get up and running, [create a free test project](http://admin.sphere.io) to g
 
 ```php
 <?php
-$projectName = "my-foo-bar-22";
-$clientId = "11111111";
-$clientSecret = "22222222";
-// TODO working example code that queries and prints a product list
-$sphereClient = new Client(XXX foobar);
-TODO Jens Beispielcode hello world style. 
+$config = [
+    'oauth_url' => 'https://auth.sphere.io/oauth/token',
+    'api_url' => 'https://api.sphere.io',
+    'client_id' => 'my client id',
+    'client_secret' => 'my client secret',
+    'project' => 'my project id'
+];
+
+/**
+ * create search request
+ */
+$search = new \Sphere\Core\Request\Products\ProductsSearchRequest();
+
+$client = new \Sphere\Core\Client($config);
+$result = $client->execute($search);
+ 
 ?>
 ```
 
