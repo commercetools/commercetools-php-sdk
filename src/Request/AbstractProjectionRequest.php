@@ -6,12 +6,14 @@
 
 namespace Sphere\Core\Request;
 
+use Sphere\Core\Http\HttpRequest;
+use Sphere\Core\Http\HttpMethod;
 
 /**
  * Class AbstractProjectionRequest
  * @package Sphere\Core\Request
  */
-abstract class AbstractProjectionRequest extends AbstractPagedRequest
+abstract class AbstractProjectionRequest extends AbstractApiRequest
 {
     use StagedTrait;
 
@@ -27,5 +29,14 @@ abstract class AbstractProjectionRequest extends AbstractPagedRequest
     protected function getPath()
     {
         return (string)$this->getEndpoint() . '/' . $this->getProjectionAction() . $this->getParamString();
+    }
+
+    /**
+     * @return HttpRequest
+     * @internal
+     */
+    public function httpRequest()
+    {
+        return new HttpRequest(HttpMethod::GET, $this->getPath());
     }
 }

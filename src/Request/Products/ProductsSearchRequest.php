@@ -8,6 +8,9 @@ namespace Sphere\Core\Request\Products;
 
 use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\Endpoints\ProductProjectionsEndpoint;
+use Sphere\Core\Request\PageTrait;
+use Sphere\Core\Request\SortTrait;
+use Sphere\Core\Response\PagedQueryResponse;
 
 /**
  * Class ProductsSearchRequest
@@ -16,6 +19,9 @@ use Sphere\Core\Request\Endpoints\ProductProjectionsEndpoint;
  */
 class ProductsSearchRequest extends AbstractProjectionRequest
 {
+    use PageTrait;
+    use SortTrait;
+
     /**
      *
      */
@@ -30,5 +36,15 @@ class ProductsSearchRequest extends AbstractProjectionRequest
     protected function getProjectionAction()
     {
         return 'search';
+    }
+
+    /**
+     * @param $response
+     * @return PagedQueryResponse
+     * @internal
+     */
+    public function buildResponse($response)
+    {
+        return new PagedQueryResponse($response, $this);
     }
 }
