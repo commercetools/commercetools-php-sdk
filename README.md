@@ -134,7 +134,7 @@ cd <project_folder>
 php -S localhost:8000 -t example
 ```
 
-Now navigate to [http://localhost:8000]() in your browser.
+Now navigate to [http://localhost:8000](http://localhost:8000) in your browser.
 
 ### phpStorm
 
