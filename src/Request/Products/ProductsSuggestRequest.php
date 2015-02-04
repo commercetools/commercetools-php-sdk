@@ -42,19 +42,25 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
 
     /**
      * @param LocalizedString $localizedString
+     * @return $this
      */
     public function addKeywords(LocalizedString $localizedString)
     {
         $this->getSearchKeywords()->merge($localizedString);
+
+        return $this;
     }
 
     /**
      * @param string $locale
      * @param string $keyword
+     * @return $this
      */
     public function addKeyword($locale, $keyword)
     {
         $this->getSearchKeywords()->add($locale, $keyword);
+
+        return $this;
     }
 
     /**
@@ -70,12 +76,19 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
 
     /**
      * @param LocalizedString $searchKeywords
+     * @return $this
      */
     public function setSearchKeywords(LocalizedString $searchKeywords)
     {
         $this->searchKeywords = $searchKeywords;
+
+        return $this;
     }
 
+    /**
+     * @param $response
+     * @return SingleResourceResponse
+     */
     public function buildResponse($response)
     {
         return new SingleResourceResponse($response, $this);
