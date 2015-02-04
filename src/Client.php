@@ -60,10 +60,12 @@ class Client extends AbstractHttpClient
     /**
      * @param LoggerInterface $logger
      */
-    protected function setLogger(LoggerInterface $logger, $format)
+    protected function setLogger(LoggerInterface $logger = null, $format = Formatter::DEBUG)
     {
-        $subscriber = new LogSubscriber($logger, $format);
-        $this->getHttpClient()->getEmitter()->attach($subscriber);
+        if ($logger instanceof LoggerInterface) {
+            $subscriber = new LogSubscriber($logger, $format);
+            $this->getHttpClient()->getEmitter()->attach($subscriber);
+        }
     }
 
     /**
