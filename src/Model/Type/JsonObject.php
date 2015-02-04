@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Model\Type;
 
+use Sphere\Core\Model\OfTrait;
 
 /**
  * Class JsonObject
@@ -13,6 +14,8 @@ namespace Sphere\Core\Model\Type;
  */
 class JsonObject implements \JsonSerializable
 {
+    use OfTrait;
+
     /**
      * @return array
      */

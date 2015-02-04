@@ -4,11 +4,11 @@
  * @created: 27.01.15, 10:51
  */
 
-namespace Sphere\Core\Model\Draft;
+namespace Sphere\Core\Model\Category;
 
 
 use Sphere\Core\Model\OfTrait;
-use Sphere\Core\Model\Type\CategoryReference;
+use Sphere\Core\Model\Category\CategoryReference;
 use Sphere\Core\Model\Type\JsonObject;
 use Sphere\Core\Model\Type\LocalizedString;
 
@@ -19,7 +19,6 @@ use Sphere\Core\Model\Type\LocalizedString;
  */
 class CategoryDraft extends JsonObject
 {
-    use OfTrait;
     /**
      * @var LocalizedString
      */
@@ -55,7 +54,6 @@ class CategoryDraft extends JsonObject
         $this->setName($name);
         $this->setSlug($slug);
     }
-
 
     /**
      * @return LocalizedString

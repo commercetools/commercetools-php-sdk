@@ -7,7 +7,7 @@
 namespace Sphere\Core\Request\Categories;
 
 
-use Sphere\Core\Model\Type\CategoryReference;
+use Sphere\Core\Model\Category\CategoryReference;
 use Sphere\Core\Model\Type\LocalizedString;
 use Sphere\Core\Request\AbstractUpdateRequest;
 use Sphere\Core\Request\Endpoints\CategoriesEndpoint;
@@ -92,7 +92,7 @@ class CategoryUpdateRequest extends AbstractUpdateRequest
     }
 
     /**
-     * @param CategoryReference $parent
+     * @param \Sphere\Core\Model\Category\CategoryReference $parent
      * @return $this
      */
     public function changeParent(CategoryReference $parent)

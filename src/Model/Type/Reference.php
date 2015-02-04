@@ -15,7 +15,6 @@ use Sphere\Core\Model\OfTrait;
  */
 class Reference extends JsonObject
 {
-    use OfTrait;
     /**
      * @var string
      */
