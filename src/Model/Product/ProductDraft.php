@@ -56,7 +56,7 @@ class ProductDraft extends JsonObject
      * @var LocalizedString
      */
     protected $metaKeywords;
-    
+
     /**
      * @var ProductVariantDraft
      */

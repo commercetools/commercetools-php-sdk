@@ -71,6 +71,4 @@ class Money extends JsonObject
 
         return $this;
     }
-
-
 }
