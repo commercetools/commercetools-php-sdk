@@ -62,6 +62,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface
     }
 
     /**
+     *
      * @param $key
      * @param $value
      * @return $this
@@ -72,7 +73,8 @@ abstract class AbstractApiRequest implements ClientRequestInterface
             throw new InvalidArgumentException(Message::NO_KEY_GIVEN);
         }
         if (!empty($value) || $value === 0) {
-            $this->params[] = $key . '=' . $value;
+            $paramStr = $key . '=' . urlencode((string)$value);
+            $this->params[$paramStr] = [$key => $value];
         }
 
         return $this;
@@ -84,7 +86,9 @@ abstract class AbstractApiRequest implements ClientRequestInterface
      */
     protected function getParamString()
     {
-        $params = implode('&', $this->params);
+        $params = array_keys($this->params);
+        sort($params);
+        $params = implode('&', $params);
 
         return (!empty($params) ? '?' . $params : '');
     }
