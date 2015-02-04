@@ -7,9 +7,9 @@
 namespace Sphere\Core;
 
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Http\JsonEndpoint;
 use Sphere\Core\OAuth\Token;
-use Zend\Stdlib\ResponseInterface;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
