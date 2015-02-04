@@ -61,20 +61,19 @@ $config = [
  * create search request
  */
 $search = new \Sphere\Core\Request\Products\ProductsSearchRequest();
+$search->addParam('text.en', 'red');
 
 $client = new \Sphere\Core\Client($config);
-$result = $client->execute($search);
- 
+$results = $client->execute($search);
+
+foreach($results as $result) {
+    var_dump($result);
+}
+
 ?>
 ```
 
 In real world, you will not put your API credentials directly into code but use a config file or your framework's config or dependency injection system for that. 
-
-A more complex example with multiple requests and async callbacks:
-
-```php
-TODO something that e.g. pre-renders a template in the callback? 
-```
 
 The [API documentation](http://sphereio.github.io/sphere-php-sdk/docs/master) provides all the details you need in a searchable form. 
 
