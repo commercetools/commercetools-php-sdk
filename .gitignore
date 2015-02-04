@@ -5,3 +5,4 @@ build
 cache.properties
 composer.phar
 composer.lock
+example/myapp.ini
