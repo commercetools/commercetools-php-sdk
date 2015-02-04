@@ -8,7 +8,6 @@ namespace Sphere\Core;
 
 
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Subscriber\Log\Formatter;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Log\LoggerInterface;
 use Sphere\Core\Http\ApiResponseInterface;
@@ -31,6 +30,7 @@ class Client extends AbstractHttpClient
      * @param $cache
      * @param LoggerInterface $logger
      * @param string $logFormat Guzzle log formatter string
+     *      @see https://github.com/guzzle/log-subscriber#logging-with-a-custom-message-format
      */
     public function __construct($config, $cache = null, LoggerInterface $logger = null, $logFormat = null)
     {
@@ -59,6 +59,7 @@ class Client extends AbstractHttpClient
 
     /**
      * @param LoggerInterface $logger
+     * @param string $format
      */
     protected function setLogger(LoggerInterface $logger = null, $format = null)
     {
