@@ -30,9 +30,9 @@ class Client extends AbstractHttpClient
      * @param array|Config $config
      * @param $cache
      * @param LoggerInterface $logger
-     * @param string $logFormat
+     * @param string $logFormat Guzzle log formatter string
      */
-    public function __construct($config, $cache = null, LoggerInterface $logger = null, $logFormat = Formatter::DEBUG)
+    public function __construct($config, $cache = null, LoggerInterface $logger = null, $logFormat = null)
     {
         parent::__construct($config);
 
@@ -60,7 +60,7 @@ class Client extends AbstractHttpClient
     /**
      * @param LoggerInterface $logger
      */
-    protected function setLogger(LoggerInterface $logger = null, $format = Formatter::DEBUG)
+    protected function setLogger(LoggerInterface $logger = null, $format = null)
     {
         if ($logger instanceof LoggerInterface) {
             $subscriber = new LogSubscriber($logger, $format);
