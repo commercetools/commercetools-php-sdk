@@ -6,6 +6,7 @@
 namespace Sphere\Core;
 
 use Sphere\Core\Request\Products\ProductsSearchRequest;
+use Sphere\Core\Response\PagedQueryResponse;
 
 require '../vendor/autoload.php';
 
@@ -22,6 +23,10 @@ $search = new ProductsSearchRequest();
 $search->addParam('text.en', 'red');
 
 $client = new Client($config);
+
+/**
+ * @var PagedQueryResponse $result
+ */
 $results = $client->execute($search);
 
 foreach ($results as $result) {

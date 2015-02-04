@@ -47,28 +47,6 @@ Please read the [Changelog](CHANGELOG.md) before updating in any case.
 
 To get up and running, [create a free test project](http://admin.sphere.io) to get a SPHERE project with API credentials (Menu "Developers"->"API Clients"). 
 
-You can use the example directory with the build in php web server. Add to the example directory a file called "myapp.ini". Add following content and setup with your API credentials:
-
-```ini
-[sphere]
-oauth_url = 'https://auth.sphere.io/oauth/token'
-api_url = 'https://api.sphere.io'
-client_id = 'my client id'
-client_secret = 'my client secret'
-project = 'my project id'
-```
-
-Then activate the php builtin web server 
-
-```sh
-cd <project_folder>
-php -S localhost:8000 -t example
-```
-
-Now navigate to [http://localhost:8000]() in your browser.
-
-Or just tryout the code below in a sample framework application:
-
 ```php
 <?php
 $config = [
@@ -135,6 +113,28 @@ Please make sure that exiting Unit and Integration tests don't fail and fully co
 ```
 ant
 ```
+
+### Example
+
+You can use the example directory with the built-in php web server. Add to the example directory a file called "myapp.ini". Add following content and setup with your API credentials:
+
+```ini
+[sphere]
+oauth_url = 'https://auth.sphere.io/oauth/token'
+api_url = 'https://api.sphere.io'
+client_id = 'my client id'
+client_secret = 'my client secret'
+project = 'my project id'
+```
+
+Then activate the php builtin web server 
+
+```sh
+cd <project_folder>
+php -S localhost:8000 -t example
+```
+
+Now navigate to [http://localhost:8000]() in your browser.
 
 ### phpStorm
 
