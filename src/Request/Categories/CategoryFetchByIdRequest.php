@@ -13,7 +13,7 @@ use Sphere\Core\Request\Endpoints\CategoriesEndpoint;
 /**
  * Class CategoryFetchByIdRequest
  * @package Sphere\Core\Request\Categories
- * @method static CategoryDeleteByIdRequest of(string $id)
+ * @method static CategoryFetchByIdRequest of(string $id)
  */
 class CategoryFetchByIdRequest extends AbstractFetchByIdRequest
 {
