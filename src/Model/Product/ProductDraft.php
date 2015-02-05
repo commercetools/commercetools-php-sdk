@@ -7,6 +7,8 @@
 namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Category\CategoryReference;
+use Sphere\Core\Model\GeneralInfoTrait;
+use Sphere\Core\Model\MetaInfoTrait;
 use Sphere\Core\Model\Type\JsonObject;
 use Sphere\Core\Model\Type\LocalizedString;
 use Sphere\Core\Model\ProductType\ProductTypeReference;
@@ -17,10 +19,8 @@ use Sphere\Core\Model\ProductType\ProductTypeReference;
  */
 class ProductDraft extends JsonObject
 {
-    /**
-     * @var LocalizedString
-     */
-    protected $name;
+    use GeneralInfoTrait;
+    use MetaInfoTrait;
 
     /**
      * @var ProductTypeReference
@@ -28,34 +28,9 @@ class ProductDraft extends JsonObject
     protected $productType;
 
     /**
-     * @var LocalizedString
-     */
-    protected $slug;
-
-    /**
-     * @var LocalizedString
-     */
-    protected $description;
-
-    /**
      * @var CategoryReference[]
      */
     protected $categories;
-
-    /**
-     * @var LocalizedString
-     */
-    protected $metaTitle;
-
-    /**
-     * @var LocalizedString
-     */
-    protected $metaDescription;
-
-    /**
-     * @var LocalizedString
-     */
-    protected $metaKeywords;
 
     /**
      * @var ProductVariantDraft
@@ -72,25 +47,6 @@ class ProductDraft extends JsonObject
         $this->setName($name);
         $this->setProductType($productType);
         $this->setSlug($slug);
-    }
-
-    /**
-     * @return LocalizedString
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param LocalizedString $name
-     * @return $this
-     */
-    public function setName(LocalizedString $name)
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -113,44 +69,6 @@ class ProductDraft extends JsonObject
     }
 
     /**
-     * @return LocalizedString
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param LocalizedString $slug
-     * @return $this
-     */
-    public function setSlug(LocalizedString $slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * @return LocalizedString
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param LocalizedString $description
-     * @return $this
-     */
-    public function setDescription(LocalizedString $description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
      * @return CategoryReference[]
      */
     public function getCategories()
@@ -165,63 +83,6 @@ class ProductDraft extends JsonObject
     public function setCategories(array $categories)
     {
         $this->categories = $categories;
-
-        return $this;
-    }
-
-    /**
-     * @return LocalizedString
-     */
-    public function getMetaTitle()
-    {
-        return $this->metaTitle;
-    }
-
-    /**
-     * @param LocalizedString $metaTitle
-     * @return $this
-     */
-    public function setMetaTitle(LocalizedString $metaTitle)
-    {
-        $this->metaTitle = $metaTitle;
-
-        return $this;
-    }
-
-    /**
-     * @return LocalizedString
-     */
-    public function getMetaDescription()
-    {
-        return $this->metaDescription;
-    }
-
-    /**
-     * @param LocalizedString $metaDescription
-     * @return $this
-     */
-    public function setMetaDescription(LocalizedString $metaDescription)
-    {
-        $this->metaDescription = $metaDescription;
-
-        return $this;
-    }
-
-    /**
-     * @return LocalizedString
-     */
-    public function getMetaKeywords()
-    {
-        return $this->metaKeywords;
-    }
-
-    /**
-     * @param LocalizedString $metaKeywords
-     * @return $this
-     */
-    public function setMetaKeywords(LocalizedString $metaKeywords)
-    {
-        $this->metaKeywords = $metaKeywords;
 
         return $this;
     }
