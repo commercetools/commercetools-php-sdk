@@ -7,8 +7,7 @@
 namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Category\CategoryReference;
-use Sphere\Core\Model\GeneralInfoTrait;
-use Sphere\Core\Model\MetaInfoTrait;
+use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Model\Type\JsonObject;
 use Sphere\Core\Model\Type\LocalizedString;
 use Sphere\Core\Model\ProductType\ProductTypeReference;
@@ -16,112 +15,51 @@ use Sphere\Core\Model\ProductType\ProductTypeReference;
 /**
  * Class ProductDraft
  * @package Sphere\Core\Model\Product
+ * @method LocalizedString getName()
+ * @method LocalizedString getSlug()
+ * @method LocalizedString getDescription()
+ * @method ProductTypeReference getProductType()
+ * @method CategoryReference[] getCategories()
+ * @method ProductVariantDraft getMasterVariant()
+ * @method ProductVariantDraft[] getVariants()
+ * @method LocalizedString getMetaTitle()
+ * @method LocalizedString getMetaDescription()
+ * @method LocalizedString getMetaKeywords()
+ * @method ProductDraft setName(LocalizedString $name)
+ * @method ProductDraft setSlug(LocalizedString $slug)
+ * @method ProductDraft setDescription(LocalizedString $description)
+ * @method ProductDraft setProductType(ProductTypeReference $productType)
+ * @method ProductDraft setCategories(array $categories)
+ * @method ProductDraft setMasterVariant(ProductVariantDraft $masterVariant)
+ * @method ProductDraft setVariants(array $variants)
+ * @method ProductDraft setMetaTitle(LocalizedString $metaTitle)
+ * @method ProductDraft setMetaDescription(LocalizedString $metaDescription)
+ * @method ProductDraft setMetaKeywords(LocalizedString $metaKeywords)
  */
 class ProductDraft extends JsonObject
 {
-    use GeneralInfoTrait;
-    use MetaInfoTrait;
+    use OfTrait;
 
-    /**
-     * @var ProductTypeReference
-     */
-    protected $productType;
+    public function getFields()
+    {
+        return [
+            'name' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
+            'slug' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
+            'description' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
+            'productType' => [self::TYPE => '\Sphere\Core\Model\Product\ProductTypeReference'],
+            'categories' => [self::TYPE => 'array'],
+            'masterVariant' => [self::TYPE => '\Sphere\Core\Model\Product\ProductVariantDraft'],
+            'variants' => [self::TYPE => 'array'],
+            'metaTitle' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
+            'metaDescription' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
+            'metaKeywords' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
+        ];
+    }
 
-    /**
-     * @var CategoryReference[]
-     */
-    protected $categories;
-
-    /**
-     * @var ProductVariantDraft
-     */
-    protected $masterVariant;
-
-    /**
-     * @var ProductVariantDraft[]
-     */
-    protected $variants;
-
-    public function __construct(LocalizedString $name, ProductTypeReference $productType, LocalizedString $slug)
+    public function __construct(ProductTypeReference $productType, LocalizedString $name, LocalizedString $slug)
     {
         $this->setName($name);
         $this->setProductType($productType);
         $this->setSlug($slug);
-    }
-
-    /**
-     * @return ProductTypeReference
-     */
-    public function getProductType()
-    {
-        return $this->productType;
-    }
-
-    /**
-     * @param ProductTypeReference $productType
-     * @return $this
-     */
-    public function setProductType(ProductTypeReference $productType)
-    {
-        $this->productType = $productType;
-
-        return $this;
-    }
-
-    /**
-     * @return CategoryReference[]
-     */
-    public function getCategories()
-    {
-        return $this->categories;
-    }
-
-    /**
-     * @param CategoryReference[] $categories
-     * @return $this
-     */
-    public function setCategories(array $categories)
-    {
-        $this->categories = $categories;
-
-        return $this;
-    }
-
-    /**
-     * @return ProductVariantDraft
-     */
-    public function getMasterVariant()
-    {
-        return $this->masterVariant;
-    }
-
-    /**
-     * @param ProductVariantDraft $masterVariant
-     * @return $this
-     */
-    public function setMasterVariant(ProductVariantDraft $masterVariant)
-    {
-        $this->masterVariant = $masterVariant;
-
-        return $this;
-    }
-
-    /**
-     * @return ProductVariantDraft[]
-     */
-    public function getVariants()
-    {
-        return $this->variants;
-    }
-
-    /**
-     * @param ProductVariantDraft[] $variants
-     * @return $this
-     */
-    public function setVariants(array $variants)
-    {
-        $this->variants = $variants;
-
-        return $this;
     }
 }

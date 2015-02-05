@@ -6,25 +6,31 @@
 
 namespace Sphere\Core\Model\Type;
 
-
+use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Model\ProductDiscount\ProductDiscountReference;
 
 /**
  * Class DiscountedPrice
  * @package Sphere\Core\Model\Type
  * @method static DiscountedPrice of(Money $value, ProductDiscountReference $discount)
+ * @method Money getValue()
+ * @method ProductDiscountReference getDiscount()
+ * @method DiscountedPrice setValue(Money $value)
+ * @method DiscountedPrice setDiscount(ProductDiscountReference $discount)
  */
 class DiscountedPrice extends JsonObject
 {
-    /**
-     * @var Money
-     */
-    protected $value;
+    use OfTrait;
 
-    /**
-     * @var ProductDiscountReference
-     */
-    protected $discount;
+    use OfTrait;
+
+    public function getFields()
+    {
+        return [
+            'value' => [self::TYPE => '\Sphere\Core\Model\Type\Money'],
+            'discount' => [self::TYPE => '\Sphere\Core\Model\ProductDiscount\ProductDiscountReference'],
+        ];
+    }
 
     /**
      * @param Money $value
@@ -34,43 +40,5 @@ class DiscountedPrice extends JsonObject
     {
         $this->value = $value;
         $this->discount = $discount;
-    }
-
-    /**
-     * @return Money
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param Money $value
-     * @return $this
-     */
-    public function setValue(Money $value)
-    {
-        $this->value = $value;
-
-        return $this;
-    }
-
-    /**
-     * @return ProductDiscountReference
-     */
-    public function getDiscount()
-    {
-        return $this->discount;
-    }
-
-    /**
-     * @param ProductDiscountReference $discount
-     * @return $this
-     */
-    public function setDiscount(ProductDiscountReference $discount)
-    {
-        $this->discount = $discount;
-
-        return $this;
     }
 }

@@ -9,137 +9,43 @@ namespace Sphere\Core\Model\Type;
 
 use Sphere\Core\Model\Channel\ChannelReference;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
+use Sphere\Core\Model\OfTrait;
 
 /**
  * Class Price
  * @package Sphere\Core\Model\Type
  * @method static Price of(Money $value)
+ * @method Money getValue()
+ * @method string getCountry()
+ * @method string getCustomerGroup()
+ * @method string getChannel()
+ * @method string getDiscounted()
+ * @method Price setValue(Money $value)
+ * @method Price setCountry(string $country)
+ * @method Price setCustomerGroup(CustomerGroupReference $customerGroup)
+ * @method Price setChannel(ChannelReference $channel)
+ * @method Price setDiscounted(DiscountedPrice $discountedPrice)
  */
 class Price extends JsonObject
 {
-    /**
-     * @var Money
-     */
-    protected $value;
+    use OfTrait;
 
-    /**
-     * @var string
-     */
-    protected $country;
-
-    /**
-     * @var CustomerGroupReference
-     */
-    protected $customerGroup;
-
-    /**
-     * @var ChannelReference
-     */
-    protected $channel;
-
-    /**
-     * @var DiscountedPrice
-     */
-    protected $discounted;
-
-    public function __construct(Money $value)
+    public function getFields()
     {
-        $this->setValue($value);
-    }
-
-
-    /**
-     * @return Money
-     */
-    public function getValue()
-    {
-        return $this->value;
+        return [
+            'value' => [self::TYPE => '\Sphere\Core\Model\Type\Money'],
+            'country' => [self::TYPE => 'string'],
+            'customerGroup' => [self::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
+            'channel' => [self::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
+            'discounted' => [self::TYPE => '\Sphere\Core\Model\Type\DiscountedPrice'],
+        ];
     }
 
     /**
      * @param Money $value
-     * @return $this
      */
-    public function setValue(Money $value)
+    public function __construct(Money $value)
     {
-        $this->value = $value;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * @param string $country
-     * @return $this
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * @return CustomerGroupReference
-     */
-    public function getCustomerGroup()
-    {
-        return $this->customerGroup;
-    }
-
-    /**
-     * @param CustomerGroupReference $customerGroup
-     * @return $this
-     */
-    public function setCustomerGroup(CustomerGroupReference $customerGroup)
-    {
-        $this->customerGroup = $customerGroup;
-
-        return $this;
-    }
-
-    /**
-     * @return ChannelReference
-     */
-    public function getChannel()
-    {
-        return $this->channel;
-    }
-
-    /**
-     * @param ChannelReference $channel
-     * @return $this
-     */
-    public function setChannel(ChannelReference $channel)
-    {
-        $this->channel = $channel;
-
-        return $this;
-    }
-
-    /**
-     * @return DiscountedPrice
-     */
-    public function getDiscounted()
-    {
-        return $this->discounted;
-    }
-
-    /**
-     * @param DiscountedPrice $discounted
-     * @return $this
-     */
-    public function setDiscounted(DiscountedPrice $discounted)
-    {
-        $this->discounted = $discounted;
-
-        return $this;
+        $this->setValue($value);
     }
 }

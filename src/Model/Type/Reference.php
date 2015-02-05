@@ -12,18 +12,22 @@ use Sphere\Core\Model\OfTrait;
  * Class Reference
  * @package Sphere\Core\Model\Type
  * @method static Reference of(string $typeId, string $id)
+ * @method string getTypeId()
+ * @method string getId()
+ * @method Reference setTypeId(string $typeId)
+ * @method Reference setId(string $id)
  */
 class Reference extends JsonObject
 {
-    /**
-     * @var string
-     */
-    protected $typeId;
+    use OfTrait;
 
-    /**
-     * @var string
-     */
-    protected $id;
+    public function getFields()
+    {
+        return [
+            'typeId' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string'],
+        ];
+    }
 
     /**
      * @param string $typeId
@@ -33,43 +37,5 @@ class Reference extends JsonObject
     {
         $this->setTypeId($typeId);
         $this->setId($id);
-    }
-
-    /**
-     * @return string
-     */
-    public function getTypeId()
-    {
-        return $this->typeId;
-    }
-
-    /**
-     * @param string $typeId
-     * @return $this
-     */
-    public function setTypeId($typeId)
-    {
-        $this->typeId = $typeId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $id
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 }

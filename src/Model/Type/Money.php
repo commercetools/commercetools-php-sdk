@@ -6,22 +6,28 @@
 
 namespace Sphere\Core\Model\Type;
 
+use Sphere\Core\Model\OfTrait;
+
 /**
  * Class Money
  * @package Sphere\Core\Model\Type
  * @method static Money of(string $currencyCode, int $centAmount)
+ * @method string getCurrencyCode()
+ * @method int getCentAmount()
+ * @method Money setCurrencyCode(string $currencyCode)
+ * @method Money setCentAmount(int $centAmount)
  */
 class Money extends JsonObject
 {
-    /**
-     * @var string
-     */
-    protected $currencyCode;
+    use OfTrait;
 
-    /**
-     * @var int
-     */
-    protected $centAmount;
+    public function getFields()
+    {
+        return [
+            'currencyCode' => [self::TYPE => 'string'],
+            'centAmount' => [self::TYPE => 'int'],
+        ];
+    }
 
     /**
      * @param string $currencyCode
@@ -31,44 +37,5 @@ class Money extends JsonObject
     {
         $this->setCurrencyCode($currencyCode);
         $this->setCentAmount($centAmount);
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getCurrencyCode()
-    {
-        return $this->currencyCode;
-    }
-
-    /**
-     * @param string $currencyCode
-     * @return $this
-     */
-    public function setCurrencyCode($currencyCode)
-    {
-        $this->currencyCode = $currencyCode;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCentAmount()
-    {
-        return $this->centAmount;
-    }
-
-    /**
-     * @param int $centAmount
-     * @return $this
-     */
-    public function setCentAmount($centAmount)
-    {
-        $this->centAmount = $centAmount;
-
-        return $this;
     }
 }

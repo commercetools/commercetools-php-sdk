@@ -7,8 +7,9 @@
 namespace Sphere\Core\Model\Category;
 
 
+use Herrera\Phar\Update\Exception\InvalidArgumentException;
+use Sphere\Core\Model\GeneralInfoTrait;
 use Sphere\Core\Model\OfTrait;
-use Sphere\Core\Model\Category\CategoryReference;
 use Sphere\Core\Model\Type\JsonObject;
 use Sphere\Core\Model\Type\LocalizedString;
 
@@ -16,156 +17,40 @@ use Sphere\Core\Model\Type\LocalizedString;
  * Class CategoryDraft
  * @package Sphere\Core\Model\Draft
  * @method static CategoryDraft of(LocalizedString $name, LocalizedString $slug)
+ * @method LocalizedString getName()
+ * @method LocalizedString getSlug()
+ * @method LocalizedString getDescription()
+ * @method CategoryReference getParent()
+ * @method string getOrderHint()
+ * @method string getExternalId()
+ * @method CategoryDraft setName(LocalizedString $name)
+ * @method CategoryDraft setSlug(LocalizedString $slug)
+ * @method CategoryDraft setDescription(LocalizedString $description)
+ * @method CategoryDraft setParent(CategoryReference $parent)
+ * @method CategoryDraft setOrderHint(string $orderHint)
+ * @method CategoryDraft setExternalId(string $externalId)
  */
 class CategoryDraft extends JsonObject
 {
-    /**
-     * @var LocalizedString
-     */
-    protected $name;
+    use OfTrait;
 
-    /**
-     * @var LocalizedString
-     */
-    protected $slug;
+    protected $data = [];
 
-    /**
-     * @var LocalizedString
-     */
-    protected $description;
-
-    /**
-     * @var CategoryReference
-     */
-    protected $parent;
-
-    /**
-     * @var string
-     */
-    protected $orderHint;
-
-    /**
-     * @var string
-     */
-    protected $externalId;
+    public function getFields()
+    {
+        return [
+            'name' => [self::TYPE => 'Sphere\Core\Model\Type\LocalizedString'],
+            'slug' => [self::TYPE => 'Sphere\Core\Model\Type\LocalizedString'],
+            'description' => [self::TYPE => 'Sphere\Core\Model\Type\LocalizedString'],
+            'parent' => [self::TYPE => '\Sphere\Core\Model\Category\CategoryReference'],
+            'orderHint' => [self::TYPE => 'string'],
+            'externalId' => [self::TYPE => 'string'],
+        ];
+    }
 
     public function __construct(LocalizedString $name, LocalizedString $slug)
     {
         $this->setName($name);
         $this->setSlug($slug);
-    }
-
-    /**
-     * @return LocalizedString
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param LocalizedString $name
-     * @return $this
-     */
-    public function setName(LocalizedString $name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return LocalizedString
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param LocalizedString $slug
-     * @return $this
-     */
-    public function setSlug(LocalizedString $slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * @return LocalizedString
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param LocalizedString $description
-     * @return $this
-     */
-    public function setDescription(LocalizedString $description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return CategoryReference
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @param CategoryReference $parent
-     * @return $this
-     */
-    public function setParent(CategoryReference $parent)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOrderHint()
-    {
-        return $this->orderHint;
-    }
-
-    /**
-     * @param string $orderHint
-     * @return $this
-     */
-    public function setOrderHint($orderHint)
-    {
-        $this->orderHint = $orderHint;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getExternalId()
-    {
-        return $this->externalId;
-    }
-
-    /**
-     * @param string $externalId
-     * @return $this
-     */
-    public function setExternalId($externalId)
-    {
-        $this->externalId = $externalId;
-
-        return $this;
     }
 }
