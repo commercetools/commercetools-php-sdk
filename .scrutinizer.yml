@@ -8,10 +8,8 @@ tools:
     sensiolabs_security_checker: true
     php_cs_fixer:
         config: { level: psr2 }
-    external_code_coverage:
-        timeout: 900
 before_commands:
-    - composer install --prefer-dist
+    - composer install --prefer-dist -o
 build:
     dependencies:
         before:
@@ -20,4 +18,4 @@ build:
             #+5.5 uses APCU
             - if [[ ! "`phpenv version-name`" =~ "^5.4" ]] && [ "`phpenv version-name`" != "hhvm" ]; then printf "\n"| echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
 filter:
-    excluded_paths: [build/*, tools/*, tests/*, public/*]
+    excluded_paths: [build/*, tests/*, example/*]

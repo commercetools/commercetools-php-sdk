@@ -38,7 +38,7 @@ class DiscountedPrice extends JsonObject
      */
     public function __construct(Money $value, ProductDiscountReference $discount)
     {
-        $this->value = $value;
-        $this->discount = $discount;
+        $this->setValue($value);
+        $this->setDiscount($discount);
     }
 }
