@@ -146,15 +146,6 @@ class JsonObject implements \JsonSerializable
         return $value instanceof $type;
     }
 
-    protected function isPrimitive($type)
-    {
-        $typeFunction = 'is_' . $type;
-        if (function_exists($typeFunction)) {
-            return true;
-        }
-        return false;
-    }
-
     /**
      * @return array
      */
