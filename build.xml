@@ -180,16 +180,16 @@
             <!-- title affects the H1 on the Overview page and the html <title> element, e.g. the Tab label in the Browser) -->
             <arg value='--title=SPHERE.IO PHP SDK apidoc'/>
             <!-- default is default, but this way we know where to change it -->
-            <arg value='--template-theme=default'/>
+            <arg value='--template-theme=bootstrap'/>
             <!-- triggers creation of the tree view (accessible via the top menu) -->
             <arg value='--tree'/>
-            <!-- triggers creation of a sitemap.xml, robots.txt and the base url makes sure that Google doesn't index all versions but just the latest release -->
+            <!-- triggers creation of a sitemap.xml, robots.txt and the base url makes sure that Google doesn't index
+                 all versions but just the latest release -->
             <arg value='--base-url=http://sphereio.github.io/sphere-php-sdk/docs/master/'/>
-            <!-- "main" causes the nav tree to start expanded to the matching nav -->
-            <arg value='--main=Request'/>
             <!-- generate documentation for deprecated APIs, too (more transparent) -->
             <arg value='--deprecated'/>
-            <!-- exclusion of internal APIs that are not guaranteed to stay compatible is done via @internal in the source, not via the "exclude" parameter -->
+            <!-- FYI: exclusion of internal APIs that are not guaranteed to stay compatible is done via @internal in the
+                 source, not via the "exclude" parameter -->
         </exec>
     </target>
 </project>
