@@ -11,6 +11,7 @@ trait OfTrait
 {
     /**
      * @return $this
+     * @internal
      */
     public static function of()
     {

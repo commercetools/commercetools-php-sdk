@@ -181,7 +181,8 @@
                  TODO add version in title via ant parameter -->
             <arg value="--title=SPHERE.IO PHP SDK "/>
             <!-- default is default, but this way we know where to change it -->
-            <arg value="--template-theme=bootstrap"/>
+            <arg value='--template-theme=bootstrap'/>
+            <arg value='--template-config=${basedir}/vendor/apigen/theme-bootstrap/src/config.neon' />
             <!-- triggers creation of the tree view (accessible via the top menu) -->
             <arg value="--tree"/>
             <!-- triggers creation of a sitemap.xml, robots.txt and the base url makes sure that Google doesn't index

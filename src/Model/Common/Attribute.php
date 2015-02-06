@@ -15,7 +15,7 @@ use Sphere\Core\Model\OfTrait;
  * @method string getName()
  * @method \JsonSerializable getValue()
  * @method Attribute setName(string $name)
- * @method Attribute setValue(\JsonSerializable $value = null)
+ * @method Attribute setValue($value = null)
  */
 class Attribute extends JsonObject
 {
