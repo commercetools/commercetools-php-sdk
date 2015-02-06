@@ -49,14 +49,12 @@ class CategoryUpdateRequest extends AbstractUpdateRequest
      */
     public function changeName(LocalizedString $name)
     {
-        $this->addAction(
+        return $this->addAction(
             [
-                'action' => static::CHANGE_NAME,
+                static::ACTION => static::CHANGE_NAME,
                 static::NAME => $name
             ]
         );
-
-        return $this;
     }
 
     /**
@@ -65,14 +63,12 @@ class CategoryUpdateRequest extends AbstractUpdateRequest
      */
     public function changeSlug(LocalizedString $name)
     {
-        $this->addAction(
+        return $this->addAction(
             [
-                'action' => static::CHANGE_SLUG,
+                static::ACTION => static::CHANGE_SLUG,
                 static::SLUG => $name
             ]
         );
-
-        return $this;
     }
 
     /**
@@ -81,30 +77,26 @@ class CategoryUpdateRequest extends AbstractUpdateRequest
      */
     public function setDescription(LocalizedString $description)
     {
-        $this->addAction(
+        return $this->addAction(
             [
-                'action' => static::SET_DESCRIPTION,
+                static::ACTION => static::SET_DESCRIPTION,
                 static::DESCRIPTION => $description
             ]
         );
-
-        return $this;
     }
 
     /**
-     * @param \Sphere\Core\Model\Category\CategoryReference $parent
+     * @param CategoryReference $parent
      * @return $this
      */
     public function changeParent(CategoryReference $parent)
     {
-        $this->addAction(
+        return $this->addAction(
             [
-                'action' => static::CHANGE_PARENT,
+                static::ACTION => static::CHANGE_PARENT,
                 static::PARENT => $parent
             ]
         );
-
-        return $this;
     }
 
     /**
@@ -113,14 +105,12 @@ class CategoryUpdateRequest extends AbstractUpdateRequest
      */
     public function changeOrderHint($orderHint)
     {
-        $this->addAction(
+        return $this->addAction(
             [
-                'action' => static::CHANGE_ORDER_HINT,
+                static::ACTION => static::CHANGE_ORDER_HINT,
                 static::ORDER_HINT => $orderHint
             ]
         );
-
-        return $this;
     }
 
     /**
@@ -129,13 +119,11 @@ class CategoryUpdateRequest extends AbstractUpdateRequest
      */
     public function setExternalId($setExternalId)
     {
-        $this->addAction(
+        return $this->addAction(
             [
-                'action' => static::SET_EXTERNAL_ID,
+                static::ACTION => static::SET_EXTERNAL_ID,
                 static::EXTERNAL_ID => $setExternalId
             ]
         );
-
-        return $this;
     }
 }

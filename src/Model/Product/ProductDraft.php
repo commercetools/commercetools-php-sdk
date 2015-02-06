@@ -46,7 +46,7 @@ class ProductDraft extends JsonObject
             'name' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
             'slug' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
             'description' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
-            'productType' => [self::TYPE => '\Sphere\Core\Model\Product\ProductTypeReference'],
+            'productType' => [self::TYPE => '\Sphere\Core\Model\ProductType\ProductTypeReference'],
             'categories' => [self::TYPE => 'array'],
             'masterVariant' => [self::TYPE => '\Sphere\Core\Model\Product\ProductVariantDraft'],
             'variants' => [self::TYPE => 'array'],

@@ -5,9 +5,6 @@
  */
 namespace Sphere\Core;
 
-use Sphere\Core\Model\Category\CategoryDraft;
-use Sphere\Core\Model\Product\ProductVariantDraft;
-use Sphere\Core\Model\Type\LocalizedString;
 use Sphere\Core\Request\Products\ProductsSearchRequest;
 use Sphere\Core\Response\PagedQueryResponse;
 

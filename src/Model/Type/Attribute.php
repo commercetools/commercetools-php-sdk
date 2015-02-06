@@ -29,7 +29,7 @@ class Attribute extends JsonObject
         ];
     }
 
-    public function __construct($name, \JsonSerializable $value)
+    public function __construct($name, \JsonSerializable $value = null)
     {
         $this->setName($name);
         $this->setValue($value);

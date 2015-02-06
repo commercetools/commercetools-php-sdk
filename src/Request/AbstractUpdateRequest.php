@@ -17,6 +17,8 @@ use Sphere\Core\Response\SingleResourceResponse;
  */
 abstract class AbstractUpdateRequest extends AbstractApiRequest
 {
+    const ACTION = 'action';
+
     /**
      * @var
      */
@@ -58,11 +60,19 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     public function setActions(array $actions)
     {
         $this->actions = $actions;
+
+        return $this;
     }
 
+    /**
+     * @param array $action
+     * @return $this
+     */
     public function addAction(array $action)
     {
         $this->actions[] = $action;
+
+        return $this;
     }
 
     /**

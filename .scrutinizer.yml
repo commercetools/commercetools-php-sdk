@@ -9,7 +9,7 @@ tools:
     php_cs_fixer:
         config: { level: psr2 }
 before_commands:
-    - composer install --prefer-dist -o
+    - composer install --prefer-source -o
 build:
     dependencies:
         before:
