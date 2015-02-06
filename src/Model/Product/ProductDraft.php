@@ -8,8 +8,8 @@ namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Category\CategoryReference;
 use Sphere\Core\Model\OfTrait;
-use Sphere\Core\Model\Type\JsonObject;
-use Sphere\Core\Model\Type\LocalizedString;
+use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\ProductType\ProductTypeReference;
 
 /**

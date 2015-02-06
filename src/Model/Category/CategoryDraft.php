@@ -10,8 +10,8 @@ namespace Sphere\Core\Model\Category;
 use Herrera\Phar\Update\Exception\InvalidArgumentException;
 use Sphere\Core\Model\GeneralInfoTrait;
 use Sphere\Core\Model\OfTrait;
-use Sphere\Core\Model\Type\JsonObject;
-use Sphere\Core\Model\Type\LocalizedString;
+use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\LocalizedString;
 
 /**
  * Class CategoryDraft

@@ -6,9 +6,9 @@
 
 namespace Sphere\Core\Model\Product;
 
-use Sphere\Core\Model\Type\Attribute;
-use Sphere\Core\Model\Type\JsonObject;
-use Sphere\Core\Model\Type\Price;
+use Sphere\Core\Model\Common\Attribute;
+use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Price;
 
 /**
  * Class ProductVariantDraft

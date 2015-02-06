@@ -9,9 +9,9 @@ namespace Sphere\Core\Request\Products;
 use Sphere\Core\Model\Category\CategoryReference;
 use Sphere\Core\Model\Product\ProductVariantDraft;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
-use Sphere\Core\Model\Type\Attribute;
-use Sphere\Core\Model\Type\LocalizedString;
-use Sphere\Core\Model\Type\Price;
+use Sphere\Core\Model\Common\Attribute;
+use Sphere\Core\Model\Common\LocalizedString;
+use Sphere\Core\Model\Common\Price;
 use Sphere\Core\Request\AbstractUpdateRequest;
 use Sphere\Core\Request\Endpoints\ProductsEndpoint;
 

@@ -6,7 +6,7 @@
 
 namespace Sphere\Core\Model\Cart;
 
-use Sphere\Core\Model\Type\Reference;
+use Sphere\Core\Model\Common\Reference;
 
 /**
  * Class CategoryReference

@@ -7,7 +7,7 @@
 namespace Sphere\Core\Model;
 
 
-use Sphere\Core\Model\Type\LocalizedString;
+use Sphere\Core\Model\Common\LocalizedString;
 
 class LocalizedStringTest extends \PHPUnit_Framework_TestCase
 {

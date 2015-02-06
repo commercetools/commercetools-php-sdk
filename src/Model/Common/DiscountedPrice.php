@@ -4,7 +4,7 @@
  * @created: 04.02.15, 17:13
  */
 
-namespace Sphere\Core\Model\Type;
+namespace Sphere\Core\Model\Common;
 
 use Sphere\Core\Model\OfTrait;
 use Sphere\Core\Model\ProductDiscount\ProductDiscountReference;

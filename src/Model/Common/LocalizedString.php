@@ -4,8 +4,7 @@
  * @created: 26.01.15, 15:19
  */
 
-namespace Sphere\Core\Model\Type;
-
+namespace Sphere\Core\Model\Common;
 
 use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;

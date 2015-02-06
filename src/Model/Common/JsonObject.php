@@ -4,9 +4,7 @@
  * @created: 27.01.15, 14:54
  */
 
-namespace Sphere\Core\Model\Type;
-
-use Sphere\Core\Model\OfTrait;
+namespace Sphere\Core\Model\Common;
 
 /**
  * Class JsonObject

@@ -7,6 +7,8 @@
 namespace Sphere\Core\Model\Type;
 
 
+use Sphere\Core\Model\Common\Reference;
+
 class ReferenceTest extends \PHPUnit_Framework_TestCase
 {
     /**

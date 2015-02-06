@@ -4,8 +4,7 @@
  * @created: 04.02.15, 16:43
  */
 
-namespace Sphere\Core\Model\Type;
-
+namespace Sphere\Core\Model\Common;
 
 use Sphere\Core\Model\Channel\ChannelReference;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;

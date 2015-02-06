@@ -6,7 +6,7 @@
 
 namespace Sphere\Core\Model\ProductDiscount;
 
-use Sphere\Core\Model\Type\Reference;
+use Sphere\Core\Model\Common\Reference;
 
 /**
  * Class CategoryReference
