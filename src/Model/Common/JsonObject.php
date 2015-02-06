@@ -5,6 +5,7 @@
  */
 
 namespace Sphere\Core\Model\Common;
+
 use Sphere\Core\Error\Message;
 
 /**
