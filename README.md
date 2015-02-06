@@ -49,22 +49,31 @@ To get up and running, [create a free test project](http://admin.sphere.io) to g
 
 ```php
 <?php
-$projectName = "my-foo-bar-22";
-$clientId = "11111111";
-$clientSecret = "22222222";
-// TODO working example code that queries and prints a product list
-$sphereClient = new Client(XXX foobar);
-TODO Jens Beispielcode hello world style. 
+$config = [
+    'oauth_url' => 'https://auth.sphere.io/oauth/token',
+    'api_url' => 'https://api.sphere.io',
+    'client_id' => 'my client id',
+    'client_secret' => 'my client secret',
+    'project' => 'my project id'
+];
+
+/**
+ * create search request
+ */
+$search = new \Sphere\Core\Request\Products\ProductsSearchRequest();
+$search->addParam('text.en', 'red');
+
+$client = new \Sphere\Core\Client($config);
+$results = $client->execute($search);
+
+foreach($results as $result) {
+    var_dump($result);
+}
+
 ?>
 ```
 
 In real world, you will not put your API credentials directly into code but use a config file or your framework's config or dependency injection system for that. 
-
-A more complex example with multiple requests and async callbacks:
-
-```php
-TODO something that e.g. pre-renders a template in the callback? 
-```
 
 The [API documentation](http://sphereio.github.io/sphere-php-sdk/docs/master) provides all the details you need in a searchable form. 
 
@@ -97,7 +106,7 @@ Clone the develop branch of the repository (we're using the [gitflow](http://nvi
 git clone git@github.com:sphereio/sphere-php-sdk.git
 ```
 
-Please follow the [PSR-2](http://www.php-fig.org/psr/psr-2/) coding style.
+Please follow the [PSR-2](http://www.php-fig.org/psr/psr-2/) coding style, ideally via your IDE settings. 
 
 Please make sure that exiting Unit and Integration tests don't fail and fully cover your new code with Unit Tests. You can run all tests locally:
 
@@ -105,10 +114,32 @@ Please make sure that exiting Unit and Integration tests don't fail and fully co
 ant
 ```
 
-### phpStorm configuration
+### Example
 
-To enable code style checks directly in phpStorm you have to configure the path to the phpcs at `Preferences > Languages & Frameworks > PHP > Code Sniffer`.
-Now you can enable at `Preferences > Editor > Inspections > PHP` the "PHP code sniffer validation" with PSR-2 standard. Change the severity if .
+You can use the example directory with the built-in php web server. Add to the example directory a file called "myapp.ini". Add following content and setup with your API credentials:
+
+```ini
+[sphere]
+oauth_url = 'https://auth.sphere.io/oauth/token'
+api_url = 'https://api.sphere.io'
+client_id = 'my client id'
+client_secret = 'my client secret'
+project = 'my project id'
+```
+
+Then activate the php builtin web server 
+
+```sh
+cd <project_folder>
+php -S localhost:8000 -t example
+```
+
+Now navigate to [http://localhost:8000](http://localhost:8000) in your browser.
+
+### phpStorm
+
+To enable code style checks directly in phpStorm you have to configure the path to the phpcs at Preferences > Languages & Frameworks > PHP > Code Sniffer.
+Now you can enable at Preferences > Editor > Inspections > PHP the "PHP code sniffer validation" with PSR-2 standard. Change the severity if needed.
 
 
 ## <a name="contribute"></a>Contribute

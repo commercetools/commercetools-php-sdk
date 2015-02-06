@@ -7,8 +7,8 @@
 namespace Sphere\Core\Model;
 
 
-use Sphere\Core\Model\Draft\CategoryDraft;
-use Sphere\Core\Model\Type\CategoryReference;
+use Sphere\Core\Model\Category\CategoryDraft;
+use Sphere\Core\Model\Category\CategoryReference;
 use Sphere\Core\Model\Type\LocalizedString;
 use Sphere\Core\Request\Categories\CategoriesQueryRequest;
 

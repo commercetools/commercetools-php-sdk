@@ -52,12 +52,25 @@ class LocalizedString implements \JsonSerializable
         return $this;
     }
 
+    public function merge(LocalizedString $localizedString)
+    {
+        $this->values = array_merge($this->values, $localizedString->toArray());
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->values;
+    }
+
     /**
      * @return array
      */
     public function jsonSerialize()
     {
-        return $this->values;
+        return $this->toArray();
     }
 
     /**

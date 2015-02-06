@@ -7,7 +7,7 @@
 namespace Sphere\Core\Request\Categories;
 
 
-use Sphere\Core\Model\Draft\CategoryDraft;
+use Sphere\Core\Model\Category\CategoryDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
 use Sphere\Core\Request\Endpoints\CategoriesEndpoint;
 
@@ -19,7 +19,7 @@ use Sphere\Core\Request\Endpoints\CategoriesEndpoint;
 class CategoryCreateRequest extends AbstractCreateRequest
 {
     /**
-     * @param CategoryDraft $category
+     * @param \Sphere\Core\Model\Category\CategoryDraft $category
      */
     public function __construct(CategoryDraft $category)
     {

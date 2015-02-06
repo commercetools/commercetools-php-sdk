@@ -8,6 +8,8 @@ namespace Sphere\Core;
 
 
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Subscriber\Log\LogSubscriber;
+use Psr\Log\LoggerInterface;
 use Sphere\Core\Http\ApiResponseInterface;
 use Sphere\Core\Http\ClientRequestInterface;
 use Sphere\Core\OAuth\Manager;
@@ -23,12 +25,20 @@ class Client extends AbstractHttpClient
      */
     protected $oauthManager;
 
-    public function __construct($config, $cache = null)
+    /**
+     * @param array|Config $config
+     * @param $cache
+     * @param LoggerInterface $logger
+     * @param string $logFormat Guzzle log formatter string
+     *      @link https://github.com/guzzle/log-subscriber#logging-with-a-custom-message-format
+     */
+    public function __construct($config, $cache = null, LoggerInterface $logger = null, $logFormat = null)
     {
         parent::__construct($config);
 
         $manager = new Manager($config, $cache);
         $this->setOauthManager($manager);
+        $this->setLogger($logger, $logFormat);
     }
 
     /**
@@ -48,6 +58,18 @@ class Client extends AbstractHttpClient
     }
 
     /**
+     * @param LoggerInterface $logger
+     * @param string $format
+     */
+    protected function setLogger(LoggerInterface $logger = null, $format = null)
+    {
+        if ($logger instanceof LoggerInterface) {
+            $subscriber = new LogSubscriber($logger, $format);
+            $this->getHttpClient()->getEmitter()->attach($subscriber);
+        }
+    }
+
+    /**
      * @return string
      */
     protected function getBaseUrl()
@@ -64,6 +86,7 @@ class Client extends AbstractHttpClient
         $token = $this->getOAuthManager()->getToken();
 
         $client = $this->getHttpClient();
+
         $method = $request->httpRequest()->getHttpMethod();
         $headers = [
             'Authorization' => 'Bearer ' . $token->getToken()
