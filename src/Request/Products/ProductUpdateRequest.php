@@ -95,7 +95,7 @@ class ProductUpdateRequest extends AbstractUpdateRequest
 
     protected function addValue($action, $field, $value = null)
     {
-        if (!is_null($value)){
+        if (!is_null($value)) {
             $action[$field] = $value;
         }
 
@@ -139,7 +139,7 @@ class ProductUpdateRequest extends AbstractUpdateRequest
             $action = $this->addValue($action, static::ATTRIBUTES, $variant->getAttributes());
         }
 
-        return $this->addAction($action,$staged);
+        return $this->addAction($action, $staged);
     }
 
     public function removeVariant($variantId, $staged = true)
@@ -159,8 +159,8 @@ class ProductUpdateRequest extends AbstractUpdateRequest
         LocalizedString $metaTitle = null,
         LocalizedString $metaDescription = null,
         LocalizedString $metaKeywords = null,
-        $staged = true)
-    {
+        $staged = true
+    ) {
         $action = [
             static::ACTION => static::ADD_VARIANT,
         ];
@@ -184,6 +184,7 @@ class ProductUpdateRequest extends AbstractUpdateRequest
             $staged
         );
     }
+
     public function addPrice($variantId, Price $price, $staged = true)
     {
         return $this->priceAction(static::ADD_PRICE, $variantId, $price, $staged);
@@ -231,7 +232,8 @@ class ProductUpdateRequest extends AbstractUpdateRequest
             [
                 static::ACTION => static::ADD_TO_CATEGORY,
                 static::CATEGORY => $category
-            ],$staged
+            ],
+            $staged
         );
 
 
@@ -243,7 +245,8 @@ class ProductUpdateRequest extends AbstractUpdateRequest
             [
                 static::ACTION => static::REMOVE_FROM_CATEGORY,
                 static::CATEGORY => $category
-            ],$staged
+            ],
+            $staged
         );
 
 
@@ -255,7 +258,8 @@ class ProductUpdateRequest extends AbstractUpdateRequest
             [
                 static::ACTION => static::SET_TAX_CATEGORY,
                 static::TAX_CATEGORY => $taxCategory
-            ],$staged
+            ],
+            $staged
         );
 
 
