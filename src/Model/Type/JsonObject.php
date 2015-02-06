@@ -138,7 +138,7 @@ class JsonObject implements \JsonSerializable
                 )
             );
         }
-        if ($value == null && !$this->getOptional($field)) {
+        if ($value === null && !$this->getOptional($field)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     'Excepts parameter "%s" to be %s, null given.',
