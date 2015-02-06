@@ -116,7 +116,7 @@ ant
 
 ### Example
 
-You can use the example directory with the built-in php web server. Add to the example directory a file called "myapp.ini". Add following content and setup with your API credentials:
+You can use the docroot directory with the built-in php web server. Add to the docroot directory a file called "myapp.ini". Add following content and setup with your API credentials:
 
 ```ini
 [sphere]
@@ -131,7 +131,7 @@ Then activate the php builtin web server
 
 ```sh
 cd <project_folder>
-php -S localhost:8000 -t example
+php -S localhost:8000 -t docroot
 ```
 
 Now navigate to [http://localhost:8000](http://localhost:8000) in your browser.

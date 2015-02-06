@@ -18,4 +18,4 @@ build:
             #+5.5 uses APCU
             - if [[ ! "`phpenv version-name`" =~ "^5.4" ]] && [ "`phpenv version-name`" != "hhvm" ]; then printf "\n"| echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
 filter:
-    excluded_paths: [build/*, tests/*, example/*]
+    excluded_paths: [build/*, tests/*, docroot/*]

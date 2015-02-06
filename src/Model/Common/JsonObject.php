@@ -5,6 +5,7 @@
  */
 
 namespace Sphere\Core\Model\Common;
+use Sphere\Core\Error\Message;
 
 /**
  * Class JsonObject
@@ -40,7 +41,7 @@ class JsonObject implements \JsonSerializable
 
         if (!$this->hasField($field)) {
             throw new \BadMethodCallException(
-                sprintf('Unknown field: "%s" - called: %s(%s)', $field, $method, implode(', ', $arguments))
+                sprintf(Message::UNKNOWN_FIELD, $field, $method, implode(', ', $arguments))
             );
         }
         switch ($action) {
@@ -54,7 +55,7 @@ class JsonObject implements \JsonSerializable
             case 'is':
                 return (bool)$this->data[$field];
             default:
-                throw new \BadMethodCallException(sprintf('Unknown method: %s (unknown field: %s)', $method, $field));
+                throw new \BadMethodCallException(sprintf(Message::UNKNOWN_METHOD, $method, $field));
         }
     }
 
@@ -81,28 +82,12 @@ class JsonObject implements \JsonSerializable
         return $this->getFields()[$field];
     }
 
-    /**
-     * @param string $field
-     * @return string|false
-     * @internal
-     */
-    protected function getType($field)
+    protected function getFieldKey($field, $key)
     {
         $field = $this->getField($field);
 
-        if (isset($field[self::TYPE])) {
-            return $field[self::TYPE];
-        }
-
-        return false;
-    }
-
-    protected function getOptional($field)
-    {
-        $field = $this->getField($field);
-
-        if (isset($field[self::OPTIONAL])) {
-            return $field[self::OPTIONAL];
+        if (isset($field[$key])) {
+            return $field[$key];
         }
 
         return false;
@@ -126,24 +111,12 @@ class JsonObject implements \JsonSerializable
      */
     public function set($field, $value)
     {
-        $type = $this->getType($field);
+        $type = $this->getFieldKey($field, static::TYPE);
         if ($type && $value !== null && !$this->isType($type, $value)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Wrong type for field "%s". Expected %s.',
-                    $field,
-                    $this->getType($field)
-                )
-            );
+            throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $field, $type));
         }
-        if ($value === null && !$this->getOptional($field)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Excepts parameter "%s" to be %s, null given.',
-                    $field,
-                    $this->getType($field)
-                )
-            );
+        if ($value === null && !$this->getFieldKey($field, static::OPTIONAL)) {
+            throw new \InvalidArgumentException(sprintf(Message::EXPECTS_PARAMETER, $field, $type));
         }
         $this->data[$field] = $value;
 
