@@ -15,7 +15,7 @@ use Sphere\Core\Model\OfTrait;
  * @method string getName()
  * @method \JsonSerializable getValue()
  * @method Attribute setName(string $name)
- * @method Attribute setValue(\JsonSerializable $value)
+ * @method Attribute setValue(\JsonSerializable $value = null)
  */
 class Attribute extends JsonObject
 {
@@ -25,7 +25,7 @@ class Attribute extends JsonObject
     {
         return [
             'name' => [self::TYPE => 'string'],
-            'value' => [self::TYPE => '\JsonSerializable'],
+            'value' => [self::TYPE => '\JsonSerializable', self::OPTIONAL => true],
         ];
     }
 

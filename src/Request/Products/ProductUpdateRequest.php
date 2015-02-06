@@ -200,11 +200,11 @@ class ProductUpdateRequest extends AbstractUpdateRequest
         return $this->priceAction(static::REMOVE_PRICE, $variantId, $price, $staged);
     }
 
-    public function setAttribute($variantId, Attribute $attribute, $staged = true)
+    protected function attributeAction($actionName, $variantId, Attribute $attribute, $staged = true)
     {
         return $this->addAction(
             [
-                static::ACTION => static::SET_ATTRIBUTE,
+                static::ACTION => $actionName,
                 static::VARIANT_ID => $variantId,
                 static::NAME => $attribute->getName(),
                 static::VALUE => $attribute->getValue()
@@ -213,17 +213,14 @@ class ProductUpdateRequest extends AbstractUpdateRequest
         );
     }
 
+    public function setAttribute($variantId, Attribute $attribute, $staged = true)
+    {
+        return $this->attributeAction(static::SET_ATTRIBUTE, $variantId, $attribute, $staged);
+    }
+
     public function setAttributeInAllVariants($variantId, Attribute $attribute, $staged = true)
     {
-        return $this->addAction(
-            [
-                static::ACTION => static::SET_ATTRIBUTE_IN_ALL_VARIANTS,
-                static::VARIANT_ID => $variantId,
-                static::NAME => $attribute->getName(),
-                static::VALUE => $attribute->getValue()
-            ],
-            $staged
-        );
+        return $this->attributeAction(static::SET_ATTRIBUTE_IN_ALL_VARIANTS, $variantId, $attribute, $staged);
     }
 
     public function addToCategory(CategoryReference $category, $staged = true)

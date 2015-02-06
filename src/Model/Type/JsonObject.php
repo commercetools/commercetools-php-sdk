@@ -15,6 +15,7 @@ use Sphere\Core\Model\OfTrait;
 class JsonObject implements \JsonSerializable
 {
     const TYPE = 'type';
+    const OPTIONAL = 'optional';
 
     protected $data = [];
 
@@ -98,6 +99,17 @@ class JsonObject implements \JsonSerializable
         return false;
     }
 
+    protected function getOptional($field)
+    {
+        $field = $this->getField($field);
+
+        if (isset($field[self::OPTIONAL])) {
+            return $field[self::OPTIONAL];
+        }
+
+        return false;
+    }
+
     /**
      * @param string $field
      * @return mixed
@@ -126,6 +138,15 @@ class JsonObject implements \JsonSerializable
                 )
             );
         }
+        if ($value == null && !$this->getOptional($field)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Excepts parameter "%s" to be %s, null given.',
+                    $field,
+                    $this->getType($field)
+                )
+            );
+        }
         $this->data[$field] = $value;
 
         return $this;
@@ -140,7 +161,7 @@ class JsonObject implements \JsonSerializable
     protected function isType($type, $value)
     {
         $typeFunction = 'is_' . $type;
-        if (function_exists($typeFunction)) {
+        if (!is_object($value) && function_exists($typeFunction)) {
             return $typeFunction($value);
         }
         return $value instanceof $type;
