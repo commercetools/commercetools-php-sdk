@@ -8,8 +8,8 @@ namespace Sphere\Core;
 
 
 use GuzzleHttp\Message\ResponseInterface;
-use Sphere\Core\Http\JsonEndpoint;
-use Sphere\Core\OAuth\Token;
+use Sphere\Core\Client\JsonEndpoint;
+use Sphere\Core\Client\OAuth\Token;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +36,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->method('send')
             ->will($this->returnValue($returnValue));
 
-        $oauthMock = $this->getMock('\Sphere\Core\OAuth\Manager', ['getToken'], [$config]);
+        $oauthMock = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['getToken'], [$config]);
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
@@ -124,6 +124,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testOAuthManager()
     {
         $client = new Client($this->getConfig());
-        $this->assertInstanceOf('\Sphere\Core\OAuth\Manager', $client->getOauthManager());
+        $this->assertInstanceOf('\Sphere\Core\Client\OAuth\Manager', $client->getOauthManager());
     }
 }

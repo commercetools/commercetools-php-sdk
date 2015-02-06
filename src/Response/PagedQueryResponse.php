@@ -8,7 +8,7 @@ namespace Sphere\Core\Response;
 
 
 use GuzzleHttp\Message\ResponseInterface;
-use Sphere\Core\Http\ClientRequestInterface;
+use Sphere\Core\Request\ClientRequestInterface;
 use Traversable;
 
 /**

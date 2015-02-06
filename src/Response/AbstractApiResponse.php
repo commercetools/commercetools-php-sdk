@@ -8,8 +8,8 @@ namespace Sphere\Core\Response;
 
 
 use GuzzleHttp\Message\ResponseInterface;
-use Sphere\Core\Http\ApiResponseInterface;
-use Sphere\Core\Http\ClientRequestInterface;
+use Sphere\Core\Response\ApiResponseInterface;
+use Sphere\Core\Request\ClientRequestInterface;
 
 /**
  * Class AbstractApiResponse

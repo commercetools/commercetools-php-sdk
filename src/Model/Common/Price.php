@@ -32,11 +32,11 @@ class Price extends JsonObject
     public function getFields()
     {
         return [
-            'value' => [self::TYPE => '\Sphere\Core\Model\Type\Money'],
+            'value' => [self::TYPE => '\Sphere\Core\Model\Common\Money'],
             'country' => [self::TYPE => 'string'],
             'customerGroup' => [self::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
             'channel' => [self::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
-            'discounted' => [self::TYPE => '\Sphere\Core\Model\Type\DiscountedPrice'],
+            'discounted' => [self::TYPE => '\Sphere\Core\Model\Common\DiscountedPrice'],
         ];
     }
 

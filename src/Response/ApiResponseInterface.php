@@ -3,7 +3,9 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  * @created: 28.01.15, 10:07
  */
-namespace Sphere\Core\Http;
+namespace Sphere\Core\Response;
+
+use Sphere\Core\Request\ClientRequestInterface;
 
 /**
  * Interface ApiResponseInterface

@@ -27,7 +27,7 @@ class DiscountedPrice extends JsonObject
     public function getFields()
     {
         return [
-            'value' => [self::TYPE => '\Sphere\Core\Model\Type\Money'],
+            'value' => [self::TYPE => '\Sphere\Core\Model\Common\Money'],
             'discount' => [self::TYPE => '\Sphere\Core\Model\ProductDiscount\ProductDiscountReference'],
         ];
     }

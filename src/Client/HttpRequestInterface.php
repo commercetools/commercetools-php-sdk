@@ -4,7 +4,7 @@
  * @created: 23.01.15, 15:58
  */
 
-namespace Sphere\Core\Http;
+namespace Sphere\Core\Client;
 
 
 /**

@@ -7,7 +7,7 @@
 namespace Sphere\Core\Request\Endpoints;
 
 
-use Sphere\Core\Http\JsonEndpoint;
+use Sphere\Core\Client\JsonEndpoint;
 
 /**
  * Class CategoriesEndpoint

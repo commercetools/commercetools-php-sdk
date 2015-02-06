@@ -7,6 +7,7 @@
 namespace Sphere\Core\OAuth;
 
 
+use Sphere\Core\Client\OAuth\Manager;
 use Sphere\Core\Config;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
@@ -30,7 +31,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockManager($config, $returnValue)
     {
-        $manager = $this->getMock('\Sphere\Core\OAuth\Manager', ['execute'], [$config]);
+        $manager = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['execute'], [$config]);
         $manager->expects($this->any())
             ->method('execute')
             ->will($this->returnValue($returnValue));
@@ -49,7 +50,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
                 "scope" => "manage_project:project"
             ]
         );
-        $this->assertInstanceOf('\Sphere\Core\OAuth\Token', $manager->getToken());
+        $this->assertInstanceOf('\Sphere\Core\Client\OAuth\Token', $manager->getToken());
     }
 
     public function testCache()
@@ -68,11 +69,15 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Sphere\Core\OAuth\AuthorizeException
+     * @expectedException \Sphere\Core\Client\OAuth\AuthorizeException
      */
     public function testError()
     {
-        $manager = $this->getMock('\Sphere\Core\OAuth\Manager', ['execute', 'getCacheToken'], [$this->getConfig()]);
+        $manager = $this->getMock(
+            '\Sphere\Core\Client\OAuth\Manager',
+            ['execute', 'getCacheToken'],
+            [$this->getConfig()]
+        );
         $manager->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(["error" => "invalid_client"]));

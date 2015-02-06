@@ -4,11 +4,7 @@
  * @created: 29.01.15, 10:51
  */
 
-namespace Http;
-
-
-use Sphere\Core\Http\HttpMethod;
-use Sphere\Core\Http\HttpRequest;
+namespace Sphere\Core\Client;
 
 class RequestTest extends \PHPUnit_Framework_TestCase
 {
@@ -38,6 +34,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      */
     protected function getRequest()
     {
-        return new HttpRequest(HttpMethod::GET, 'test');
+        return new HttpRequest(\Sphere\Core\Client\HttpMethod::GET, 'test');
     }
 }

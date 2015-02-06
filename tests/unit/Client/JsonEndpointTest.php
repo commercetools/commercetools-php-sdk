@@ -4,8 +4,7 @@
  * @created: 29.01.15, 11:57
  */
 
-namespace Sphere\Core\Http;
-
+namespace Sphere\Core\Client;
 
 class JsonEndpointTest extends \PHPUnit_Framework_TestCase
 {

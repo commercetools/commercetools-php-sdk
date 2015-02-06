@@ -4,8 +4,7 @@
  * @created: 23.01.15, 16:02
  */
 
-namespace Sphere\Core\Http;
-
+namespace Sphere\Core\Client;
 
 /**
  * Class HttpRequest

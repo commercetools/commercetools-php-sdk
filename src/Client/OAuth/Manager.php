@@ -4,7 +4,7 @@
  * @created: 22.01.15, 12:34
  */
 
-namespace Sphere\Core\OAuth;
+namespace Sphere\Core\Client\OAuth;
 
 
 use Sphere\Core\AbstractHttpClient;

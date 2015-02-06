@@ -16,25 +16,25 @@ class CategoryDraftTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetName()
     {
-        $this->assertInstanceOf('\Sphere\Core\Model\Type\LocalizedString', $this->getDraft()->getName());
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\LocalizedString', $this->getDraft()->getName());
     }
 
     public function testGetSlug()
     {
         $r = new CategoriesQueryRequest();
-        $this->assertInstanceOf('\Sphere\Core\Model\Type\LocalizedString', $this->getDraft()->getSlug());
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\LocalizedString', $this->getDraft()->getSlug());
     }
 
     public function testGetDescription()
     {
         $draft = $this->getDraft()->setDescription(LocalizedString::of(['en'=>'description']));
-        $this->assertInstanceOf('\Sphere\Core\Model\Type\LocalizedString', $draft->getDescription());
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\LocalizedString', $draft->getDescription());
     }
 
     public function testGetParent()
     {
         $draft = $this->getDraft()->setParent(CategoryReference::of('id'));
-        $this->assertInstanceOf('\Sphere\Core\Model\Type\Reference', $draft->getParent());
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\Reference', $draft->getParent());
     }
 
     public function testGetParentType()

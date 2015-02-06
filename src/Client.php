@@ -10,9 +10,9 @@ namespace Sphere\Core;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Log\LoggerInterface;
-use Sphere\Core\Http\ApiResponseInterface;
-use Sphere\Core\Http\ClientRequestInterface;
-use Sphere\Core\OAuth\Manager;
+use Sphere\Core\Response\ApiResponseInterface;
+use Sphere\Core\Request\ClientRequestInterface;
+use Sphere\Core\Client\OAuth\Manager;
 
 /**
  * Class Client

@@ -4,8 +4,10 @@
  * @created: 21.01.15, 11:38
  */
 
-namespace Sphere\Core\Http;
+namespace Sphere\Core\Request;
 
+use Sphere\Core\Client\HttpRequestInterface;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Interface ClientRequestInterface

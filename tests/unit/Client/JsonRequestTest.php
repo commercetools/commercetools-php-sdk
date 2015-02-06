@@ -4,12 +4,7 @@
  * @created: 29.01.15, 11:00
  */
 
-namespace Http;
-
-
-use Sphere\Core\Http\HttpMethod;
-use Sphere\Core\Http\HttpRequest;
-use Sphere\Core\Http\JsonRequest;
+namespace Sphere\Core\Client;
 
 class JsonRequestTest extends \PHPUnit_Framework_TestCase
 {

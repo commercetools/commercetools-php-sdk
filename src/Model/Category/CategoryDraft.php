@@ -39,9 +39,9 @@ class CategoryDraft extends JsonObject
     public function getFields()
     {
         return [
-            'name' => [self::TYPE => 'Sphere\Core\Model\Type\LocalizedString'],
-            'slug' => [self::TYPE => 'Sphere\Core\Model\Type\LocalizedString'],
-            'description' => [self::TYPE => 'Sphere\Core\Model\Type\LocalizedString'],
+            'name' => [self::TYPE => 'Sphere\Core\Model\Common\LocalizedString'],
+            'slug' => [self::TYPE => 'Sphere\Core\Model\Common\LocalizedString'],
+            'description' => [self::TYPE => 'Sphere\Core\Model\Common\LocalizedString'],
             'parent' => [self::TYPE => '\Sphere\Core\Model\Category\CategoryReference'],
             'orderHint' => [self::TYPE => 'string'],
             'externalId' => [self::TYPE => 'string'],

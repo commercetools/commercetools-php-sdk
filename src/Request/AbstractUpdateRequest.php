@@ -7,8 +7,8 @@
 namespace Sphere\Core\Request;
 
 
-use Sphere\Core\Http\HttpMethod;
-use Sphere\Core\Http\JsonRequest;
+use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
@@ -35,7 +35,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     protected $actions = [];
 
     /**
-     * @param \Sphere\Core\Http\JsonEndpoint $endpoint
+     * @param JsonEndpoint $endpoint
      * @param $id
      * @param $version
      * @param array $actions

@@ -43,16 +43,16 @@ class ProductDraft extends JsonObject
     public function getFields()
     {
         return [
-            'name' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
-            'slug' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
-            'description' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
+            'name' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'slug' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'description' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'productType' => [self::TYPE => '\Sphere\Core\Model\ProductType\ProductTypeReference'],
             'categories' => [self::TYPE => 'array'],
             'masterVariant' => [self::TYPE => '\Sphere\Core\Model\Product\ProductVariantDraft'],
             'variants' => [self::TYPE => 'array'],
-            'metaTitle' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
-            'metaDescription' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
-            'metaKeywords' => [self::TYPE => '\Sphere\Core\Model\Type\LocalizedString'],
+            'metaTitle' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'metaDescription' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'metaKeywords' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
         ];
     }
 

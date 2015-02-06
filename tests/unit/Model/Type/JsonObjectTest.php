@@ -16,7 +16,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
      */
     protected function getObject()
     {
-        $obj = $this->getMock('\Sphere\Core\Model\Type\JsonObject', ['getFields']);
+        $obj = $this->getMock('\Sphere\Core\Model\Common\JsonObject', ['getFields']);
         $obj->expects($this->any())
             ->method('getFields')
             ->will(
@@ -125,6 +125,6 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testOf()
     {
-        $this->assertInstanceOf('\Sphere\Core\Model\Type\JsonObject', JsonObject::of());
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\JsonObject', JsonObject::of());
     }
 }

@@ -4,7 +4,7 @@
  * @created: 22.01.15, 14:10
  */
 
-namespace Sphere\Core\OAuth;
+namespace Sphere\Core\Client\OAuth;
 
 
 /**

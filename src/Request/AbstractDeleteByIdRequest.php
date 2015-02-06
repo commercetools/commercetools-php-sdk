@@ -7,9 +7,9 @@
 namespace Sphere\Core\Request;
 
 
-use Sphere\Core\Http\HttpMethod;
-use Sphere\Core\Http\JsonEndpoint;
-use Sphere\Core\Http\JsonRequest;
+use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Client\JsonEndpoint;
+use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
