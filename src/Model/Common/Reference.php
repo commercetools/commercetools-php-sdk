@@ -24,6 +24,7 @@ class Reference extends JsonObject
         return [
             'typeId' => [self::TYPE => 'string'],
             'id' => [self::TYPE => 'string'],
+            'obj' => [static::TYPE => 'array']
         ];
     }
 
@@ -39,9 +40,12 @@ class Reference extends JsonObject
 
     public static function fromArray(array $data)
     {
-        return new static(
+        $reference = new static(
             $data['typeId'],
             $data['id']
         );
+        $reference->setRawData($data);
+
+        return $reference;
     }
 }

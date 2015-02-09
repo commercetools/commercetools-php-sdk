@@ -4,10 +4,9 @@
  * @created: 29.01.15, 14:16
  */
 
-namespace Sphere\Core\OAuth;
+namespace Sphere\Core\Client\OAuth;
 
 
-use Sphere\Core\Client\OAuth\Manager;
 use Sphere\Core\Config;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase

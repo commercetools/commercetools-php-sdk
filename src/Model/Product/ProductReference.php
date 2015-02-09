@@ -20,6 +20,15 @@ class ProductReference extends Reference
 
     const TYPE_PRODUCT = 'product';
 
+    public function getFields()
+    {
+        return [
+            'typeId' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string'],
+            'obj' => [static::TYPE => '\Sphere\Core\Model\Product\Product']
+        ];
+    }
+
     /**
      * @param string $id
      */

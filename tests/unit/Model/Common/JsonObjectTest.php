@@ -16,7 +16,11 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
      */
     protected function getObject()
     {
-        $obj = $this->getMock('\Sphere\Core\Model\Common\JsonObject', ['getFields']);
+        $obj = $this->getMock(
+            '\Sphere\Core\Model\Common\JsonObject',
+            ['getFields'],
+            [['key' => 'value', 'true' => true, 'false' => false]]
+        );
         $obj->expects($this->any())
             ->method('getFields')
             ->will(
@@ -26,11 +30,11 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
                         'dummy' => [JsonObject::TYPE => 'string'],
                         'true' => [JsonObject::TYPE => 'bool'],
                         'false' => [JsonObject::TYPE => 'bool'],
+                        'localString' => [JsonObject::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
                         'mixed' => []
                     ]
                 )
             );
-        $obj->setKey('value')->setTrue(true)->setFalse(false);
 
         return $obj;
     }
@@ -90,12 +94,18 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertSame([], $obj->getFields());
     }
 
+    public function testConstruct()
+    {
+        $obj = new JsonObject(['key' => 'value']);
+        $this->assertSame(['key' => 'value'], $obj->toArray());
+    }
+
     /**
      * @expectedException \BadMethodCallException
      */
     public function testUnknownAction()
     {
-        $this->getObject()->unknownKey();
+        $this->getObject()->hasKey();
     }
 
     public function testNotTyped()
@@ -106,5 +116,36 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
     public function testOf()
     {
         $this->assertInstanceOf('\Sphere\Core\Model\Common\JsonObject', JsonObject::of());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSetNull()
+    {
+        $this->getObject()->setKey(null);
+    }
+
+    public function testInitialize()
+    {
+        $obj = $this->getObject();
+        $obj->setRawData(['localString' => ['en' => 'test']]);
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\LocalizedString', $obj->getLocalString());
+    }
+
+    public function testMappedToArray()
+    {
+        $obj = $this->getObject();
+        $obj->setRawData(['localString' => ['en' => 'test']]);
+        $obj->getLocalString()->add('en', 'newValue');
+
+        $json = json_encode($obj);
+        $this->assertSame('{"localString":{"en":"newValue"}}', $json);
+    }
+
+    public function testFromArray()
+    {
+        $obj = JsonObject::fromArray(['key' => 'value']);
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\JsonObject', $obj);
     }
 }

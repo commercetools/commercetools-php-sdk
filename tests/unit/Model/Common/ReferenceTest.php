@@ -28,4 +28,11 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertSame('id', $this->getReference()->getId());
     }
+
+    public function testFromArray()
+    {
+        $reference = Reference::fromArray(['typeId' => 'type', 'id' => 'id', 'obj' => 'test']);
+        $reference->getId();
+        $this->assertSame(['typeId' => 'type', 'id' => 'id', 'obj' => 'test'], $reference->toArray());
+    }
 }

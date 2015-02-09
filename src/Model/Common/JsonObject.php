@@ -19,6 +19,14 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     const INITIALIZED = 'initialized';
     const DESERIALIZE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
 
+    protected static $primitives = [
+        'bool' => 'is_bool',
+        'int' => 'is_int',
+        'string' => 'is_string',
+        'float' => 'is_float',
+        'array' => 'is_array'
+    ];
+
     protected $rawData = [];
     protected $typeData = [];
     protected $initialized = [];
@@ -48,21 +56,6 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     public function getFields()
     {
         return [];
-    }
-
-    /**
-     * @return array
-     * @internal
-     */
-    protected function getPrimitives()
-    {
-        return [
-            'bool' => 'is_bool',
-            'int' => 'is_int',
-            'string' => 'is_string',
-            'float' => 'is_float',
-            'array' => 'is_array'
-        ];
     }
 
     /**
@@ -133,23 +126,13 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     }
 
     /**
-     * @param $field
-     * @return bool
-     * @internal
-     */
-    protected function isInitialized($field)
-    {
-        return isset($this->initialized[$field]);
-    }
-
-    /**
      * @param string $field
      * @return mixed
      * @internal
      */
     public function get($field)
     {
-        if (!$this->isInitialized($field)) {
+        if (!isset($this->initialized[$field])) {
             $this->initialize($field);
         }
         if (isset($this->typeData[$field])) {
@@ -162,7 +145,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
      * @param $field
      * @internal
      */
-    public function initialize($field)
+    protected function initialize($field)
     {
         $type = $this->getFieldKey($field, static::TYPE);
         if ($type && $this->hasInterface($type)) {
@@ -233,11 +216,11 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
      */
     protected function isPrimitive($type)
     {
-        if (!isset($this->getPrimitives()[$type])) {
+        if (!isset(static::$primitives[$type])) {
             return false;
         }
 
-        return $this->getPrimitives()[$type];
+        return static::$primitives[$type];
     }
 
     /**

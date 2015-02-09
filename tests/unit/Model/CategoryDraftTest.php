@@ -21,7 +21,6 @@ class CategoryDraftTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSlug()
     {
-        $r = new CategoriesQueryRequest();
         $this->assertInstanceOf('\Sphere\Core\Model\Common\LocalizedString', $this->getDraft()->getSlug());
     }
 

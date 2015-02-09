@@ -27,12 +27,24 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
         $this->values = $values;
     }
 
-    protected function getDefaultLocale()
+    /**
+     * @param $language
+     * @internal
+     */
+    public static function setDefaultLanguage($language)
+    {
+        static::$language = $language;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getDefaultLanguage()
     {
         if (is_null(static::$language)) {
-            if (\extension_loaded('intl')) {
+            if (extension_loaded('intl')) {
                 $locale = \Locale::getDefault();
-                static::$language = \Locale::getPrimaryLanguage($locale);
+                static::setDefaultLanguage(\Locale::getPrimaryLanguage($locale));
             }
         }
         return static::$language;
@@ -45,7 +57,7 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
     public function get($locale = null)
     {
         if (is_null($locale)) {
-            $locale = $this->getDefaultLocale();
+            $locale = $this->getDefaultLanguage();
         }
         if (!isset($this->values[$locale])) {
             throw new InvalidArgumentException(Message::NO_VALUE_FOR_LOCALE);

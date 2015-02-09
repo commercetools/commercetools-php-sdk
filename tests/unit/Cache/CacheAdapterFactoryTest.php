@@ -22,6 +22,13 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
     {
         return static::$apcLoaded;
     }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+        static::$apcLoaded = true;
+    }
+
     /**
      * test if apc is default cache adapter and APC module is available
      */
