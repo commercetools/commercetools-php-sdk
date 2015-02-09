@@ -27,7 +27,9 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
 
     public function __construct(array $data = null)
     {
-        $this->rawData = $data;
+        if (!is_null($data)) {
+            $this->rawData = $data;
+        }
     }
 
     /**
@@ -163,7 +165,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     public function initialize($field)
     {
         $type = $this->getFieldKey($field, static::TYPE);
-        if ($this->hasInterface($type)) {
+        if ($type && $this->hasInterface($type)) {
             /**
              * @var JsonDeserializeInterface $type
              */
@@ -205,6 +207,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
             throw new \InvalidArgumentException(sprintf(Message::EXPECTS_PARAMETER, $field, $type));
         }
         $this->typeData[$field] = $value;
+        $this->initialized[$field] = true;
 
         return $this;
     }

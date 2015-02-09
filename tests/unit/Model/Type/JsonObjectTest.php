@@ -90,26 +90,6 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertSame([], $obj->getFields());
     }
 
-    public function testHas()
-    {
-        $this->assertTrue($this->getObject()->hasKey());
-    }
-
-    public function testHasNot()
-    {
-        $this->assertFalse($this->getObject()->hasDummy());
-    }
-
-    public function testIs()
-    {
-        $this->assertTrue($this->getObject()->isTrue());
-    }
-
-    public function testIsNot()
-    {
-        $this->assertFalse($this->getObject()->isFalse());
-    }
-
     /**
      * @expectedException \BadMethodCallException
      */
