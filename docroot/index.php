@@ -5,11 +5,13 @@
  */
 namespace Sphere\Core;
 
+use Sphere\Core\Model\Product\Product;
 use Sphere\Core\Request\Products\ProductsSearchRequest;
 use Sphere\Core\Response\PagedQueryResponse;
 
 require '../vendor/autoload.php';
 
+\Locale::setDefault('en-US');
 $appConfig = parse_ini_file('myapp.ini', true);
 
 // create the sphere config object
@@ -44,10 +46,13 @@ $products = $client->execute($search);
         <input type="submit">
     </form>
     <?php
-    foreach ($products as $product) : ?>
-        <h1><?= $product['name']['en'] ?></h1>
-        <img src="<?= $product['masterVariant']['images'][0]['url'] ?>" width="100">
-        <p><?= $product['description']['en'] ?></p>
+    foreach ($products as $data) : ?>
+        <?php
+        $product = Product::fromArray($data);
+        ?>
+        <h1><?= $product->getName() ?></h1>
+        <img src="<?= $product->getMasterVariant()['images'][0]['url'] ?>" width="100">
+        <p><?= $product->getDescription() ?></p>
     <?php
     endforeach;
     ?>

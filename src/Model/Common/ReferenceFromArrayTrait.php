@@ -7,6 +7,10 @@
 namespace Sphere\Core\Model\Common;
 
 
+/**
+ * Class ReferenceFromArrayTrait
+ * @package Sphere\Core\Model\Common
+ */
 trait ReferenceFromArrayTrait
 {
     public static function fromArray(array $data)

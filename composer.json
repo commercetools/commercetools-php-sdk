@@ -27,5 +27,8 @@
         "covex-nn/phpcb": "1.0.4.*",
         "doctrine/cache": "~1.4",
         "apigen/apigen": "~4.0"
+    },
+    "suggest": {
+        "ext-intl": "for convenient handling of localizations"
     }
 }

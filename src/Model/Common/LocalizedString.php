@@ -16,6 +16,7 @@ use Sphere\Core\Error\InvalidArgumentException;
  */
 class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
 {
+    protected static $language;
     protected $values = [];
 
     /**
@@ -26,13 +27,26 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
         $this->values = $values;
     }
 
+    protected function getDefaultLocale()
+    {
+        if (is_null(static::$language)) {
+            if (\extension_loaded('intl')) {
+                $locale = \Locale::getDefault();
+                static::$language = \Locale::getPrimaryLanguage($locale);
+            }
+        }
+        return static::$language;
+    }
 
     /**
      * @param $locale
      * @return string
      */
-    public function get($locale)
+    public function get($locale = null)
     {
+        if (is_null($locale)) {
+            $locale = $this->getDefaultLocale();
+        }
         if (!isset($this->values[$locale])) {
             throw new InvalidArgumentException(Message::NO_VALUE_FOR_LOCALE);
         }
@@ -54,6 +68,11 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
     public function merge(LocalizedString $localizedString)
     {
         $this->values = array_merge($this->values, $localizedString->toArray());
+    }
+
+    public function __toString()
+    {
+        return $this->get();
     }
 
     /**

@@ -118,7 +118,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     /**
      * @param $field
      * @param $key
-     * @return bool
+     * @return string|false
      * @internal
      */
     protected function getFieldKey($field, $key)
