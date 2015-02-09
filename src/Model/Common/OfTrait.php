@@ -4,7 +4,7 @@
  * @created: 28.01.15, 14:32
  */
 
-namespace Sphere\Core\Model;
+namespace Sphere\Core\Model\Common;
 
 
 trait OfTrait

@@ -14,7 +14,7 @@ use Sphere\Core\Error\InvalidArgumentException;
  * @package Sphere\Core\Model\Type
  * @example LocalizedString::of(['en' => 'Hello World', 'de' => 'Hallo Welt'])->add('fr', 'Bonjour le monde');
  */
-class LocalizedString implements \JsonSerializable
+class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
 {
     protected $values = [];
 
@@ -79,5 +79,14 @@ class LocalizedString implements \JsonSerializable
     public static function of(array $values)
     {
         return new static($values);
+    }
+
+    /**
+     * @param array $data
+     * @return static
+     */
+    public static function fromArray(array $data)
+    {
+        return new static($data);
     }
 }

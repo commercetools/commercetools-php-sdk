@@ -6,7 +6,7 @@
 
 namespace Sphere\Core\Model\Common;
 
-use Sphere\Core\Model\OfTrait;
+use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\ProductDiscount\ProductDiscountReference;
 
 /**
@@ -20,8 +20,6 @@ use Sphere\Core\Model\ProductDiscount\ProductDiscountReference;
  */
 class DiscountedPrice extends JsonObject
 {
-    use OfTrait;
-
     use OfTrait;
 
     public function getFields()
@@ -40,5 +38,17 @@ class DiscountedPrice extends JsonObject
     {
         $this->setValue($value);
         $this->setDiscount($discount);
+    }
+
+    /**
+     * @param array $data
+     * @return static
+     */
+    public static function fromArray(array $data)
+    {
+        return new static(
+            Money::fromArray($data['value']),
+            ProductDiscountReference::fromArray($data['discount'])
+        );
     }
 }

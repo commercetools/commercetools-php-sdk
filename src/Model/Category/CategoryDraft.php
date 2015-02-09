@@ -6,10 +6,7 @@
 
 namespace Sphere\Core\Model\Category;
 
-
-use Herrera\Phar\Update\Exception\InvalidArgumentException;
-use Sphere\Core\Model\GeneralInfoTrait;
-use Sphere\Core\Model\OfTrait;
+use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 
@@ -34,8 +31,6 @@ class CategoryDraft extends JsonObject
 {
     use OfTrait;
 
-    protected $data = [];
-
     public function getFields()
     {
         return [
@@ -52,5 +47,15 @@ class CategoryDraft extends JsonObject
     {
         $this->setName($name);
         $this->setSlug($slug);
+    }
+
+    /**
+     * @param array $data
+     * @return static
+     */
+    public static function fromArray(array $data)
+    {
+        $draft = new static(LocalizedString::fromArray($data['name']), LocalizedString::fromArray($data['slug']));
+        $draft->setRawData($data);
     }
 }

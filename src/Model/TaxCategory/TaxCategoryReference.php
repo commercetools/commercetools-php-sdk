@@ -7,6 +7,7 @@
 namespace Sphere\Core\Model\TaxCategory;
 
 use Sphere\Core\Model\Common\Reference;
+use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
  * Class CategoryReference
@@ -15,6 +16,8 @@ use Sphere\Core\Model\Common\Reference;
  */
 class TaxCategoryReference extends Reference
 {
+    use ReferenceFromArrayTrait;
+
     const TYPE_TAX_CATEGORY = 'tax-category';
 
     /**

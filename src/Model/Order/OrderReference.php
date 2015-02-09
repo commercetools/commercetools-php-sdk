@@ -7,6 +7,7 @@
 namespace Sphere\Core\Model\Order;
 
 use Sphere\Core\Model\Common\Reference;
+use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
  * Class CategoryReference
@@ -15,6 +16,8 @@ use Sphere\Core\Model\Common\Reference;
  */
 class OrderReference extends Reference
 {
+    use ReferenceFromArrayTrait;
+
     const TYPE_ORDER = 'order';
 
     /**

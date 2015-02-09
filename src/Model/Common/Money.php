@@ -6,8 +6,6 @@
 
 namespace Sphere\Core\Model\Common;
 
-use Sphere\Core\Model\OfTrait;
-
 /**
  * Class Money
  * @package Sphere\Core\Model\Type
@@ -37,5 +35,17 @@ class Money extends JsonObject
     {
         $this->setCurrencyCode($currencyCode);
         $this->setCentAmount($centAmount);
+    }
+
+    /**
+     * @param array $data
+     * @return static
+     */
+    public static function fromArray(array $data)
+    {
+        return new static(
+            $data['currencyCode'],
+            $data['centAmount']
+        );
     }
 }

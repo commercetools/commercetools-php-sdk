@@ -7,7 +7,7 @@
 namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Category\CategoryReference;
-use Sphere\Core\Model\OfTrait;
+use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\ProductType\ProductTypeReference;
@@ -61,5 +61,19 @@ class ProductDraft extends JsonObject
         $this->setName($name);
         $this->setProductType($productType);
         $this->setSlug($slug);
+    }
+
+    /**
+     * @param array $data
+     * @return static
+     */
+    public static function fromArray(array $data)
+    {
+        $draft = new static(
+            ProductTypeReference::fromArray($data['reference']),
+            LocalizedString::fromArray($data['name']),
+            LocalizedString::fromArray($data['slug'])
+        );
+        $draft->setRawData($data);
     }
 }

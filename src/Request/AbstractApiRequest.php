@@ -11,7 +11,7 @@ use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
 use Sphere\Core\Request\ClientRequestInterface;
 use Sphere\Core\Client\JsonEndpoint;
-use Sphere\Core\Model\OfTrait;
+use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Response\AbstractApiResponse;
 
 /**

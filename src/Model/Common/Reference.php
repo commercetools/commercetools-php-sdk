@@ -6,8 +6,6 @@
 
 namespace Sphere\Core\Model\Common;
 
-use Sphere\Core\Model\OfTrait;
-
 /**
  * Class Reference
  * @package Sphere\Core\Model\Type
@@ -37,5 +35,13 @@ class Reference extends JsonObject
     {
         $this->setTypeId($typeId);
         $this->setId($id);
+    }
+
+    public static function fromArray(array $data)
+    {
+        return new static(
+            $data['typeId'],
+            $data['id']
+        );
     }
 }

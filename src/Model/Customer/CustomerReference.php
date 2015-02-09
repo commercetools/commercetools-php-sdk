@@ -7,6 +7,7 @@
 namespace Sphere\Core\Model\Customer;
 
 use Sphere\Core\Model\Common\Reference;
+use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
  * Class CategoryReference
@@ -15,6 +16,8 @@ use Sphere\Core\Model\Common\Reference;
  */
 class CustomerReference extends Reference
 {
+    use ReferenceFromArrayTrait;
+
     const TYPE_CUSTOMER = 'customer';
 
     /**

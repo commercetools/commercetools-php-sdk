@@ -7,6 +7,7 @@
 namespace Sphere\Core\Model\Cart;
 
 use Sphere\Core\Model\Common\Reference;
+use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
  * Class CategoryReference
@@ -15,6 +16,8 @@ use Sphere\Core\Model\Common\Reference;
  */
 class CartReference extends Reference
 {
+    use ReferenceFromArrayTrait;
+
     const TYPE_CART = 'cart';
 
     /**

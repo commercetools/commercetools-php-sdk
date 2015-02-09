@@ -7,6 +7,7 @@
 namespace Sphere\Core\Model\CustomerGroup;
 
 use Sphere\Core\Model\Common\Reference;
+use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
  * Class CustomerGroupReference
@@ -15,6 +16,8 @@ use Sphere\Core\Model\Common\Reference;
  */
 class CustomerGroupReference extends Reference
 {
+    use ReferenceFromArrayTrait;
+
     const TYPE_CUSTOMER_GROUP = 'customer-group';
 
     /**

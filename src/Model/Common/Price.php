@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Common;
 
 use Sphere\Core\Model\Channel\ChannelReference;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
-use Sphere\Core\Model\OfTrait;
 
 /**
  * Class Price
@@ -46,5 +45,19 @@ class Price extends JsonObject
     public function __construct(Money $value)
     {
         $this->setValue($value);
+    }
+
+    /**
+     * @param array $data
+     * @return static
+     */
+    public static function fromArray(array $data)
+    {
+        $price = new static(
+            Money::fromArray($data['value'])
+        );
+        $price->setRawData($data);
+
+        return $price;
     }
 }

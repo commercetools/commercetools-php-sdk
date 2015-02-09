@@ -6,7 +6,7 @@
 
 namespace Sphere\Core\Model\Common;
 
-use Sphere\Core\Model\OfTrait;
+use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class Attribute
@@ -33,5 +33,17 @@ class Attribute extends JsonObject
     {
         $this->setName($name);
         $this->setValue($value);
+    }
+
+    /**
+     * @param array $data
+     * @return static
+     */
+    public static function fromArray(array $data)
+    {
+        return new static(
+            $data['name'],
+            $data['value']
+        );
     }
 }

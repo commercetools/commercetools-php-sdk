@@ -7,6 +7,7 @@
 namespace Sphere\Core\Model\ProductDiscount;
 
 use Sphere\Core\Model\Common\Reference;
+use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
  * Class CategoryReference
@@ -15,6 +16,8 @@ use Sphere\Core\Model\Common\Reference;
  */
 class ProductDiscountReference extends Reference
 {
+    use ReferenceFromArrayTrait;
+
     const TYPE_PRODUCT_DISCOUNT = 'product-discount';
 
     /**

@@ -7,6 +7,7 @@
 namespace Sphere\Core\Model\ProductType;
 
 use Sphere\Core\Model\Common\Reference;
+use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
  * Class ProductTypeReference
@@ -15,6 +16,8 @@ use Sphere\Core\Model\Common\Reference;
  */
 class ProductTypeReference extends Reference
 {
+    use ReferenceFromArrayTrait;
+
     const TYPE_PRODUCT_TYPE = 'product-type';
 
     /**
