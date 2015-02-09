@@ -7,7 +7,6 @@
 namespace Sphere\Core\Request\Products;
 
 use Sphere\Core\Request\AbstractProjectionRequest;
-use Sphere\Core\Request\Endpoints\ProductProjectionsEndpoint;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Request\SortTrait;
 use Sphere\Core\Response\PagedQueryResponse;
@@ -27,7 +26,7 @@ class ProductsSearchRequest extends AbstractProjectionRequest
      */
     public function __construct()
     {
-        parent::__construct(ProductProjectionsEndpoint::endpoint());
+        parent::__construct(ProductSearchEndpoint::endpoint());
     }
 
     /**

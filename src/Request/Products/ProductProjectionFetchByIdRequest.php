@@ -8,7 +8,6 @@ namespace Sphere\Core\Request\Products;
 
 
 use Sphere\Core\Request\AbstractFetchByIdRequest;
-use Sphere\Core\Request\Endpoints\ProductProjectionsEndpoint;
 use Sphere\Core\Request\StagedTrait;
 
 class ProductProjectionFetchByIdRequest extends AbstractFetchByIdRequest
@@ -20,7 +19,7 @@ class ProductProjectionFetchByIdRequest extends AbstractFetchByIdRequest
      */
     public function __construct($id)
     {
-        parent::__construct(ProductProjectionsEndpoint::endpoint(), $id);
+        parent::__construct(ProductSearchEndpoint::endpoint(), $id);
     }
 
     /**

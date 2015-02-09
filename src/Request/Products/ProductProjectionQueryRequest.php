@@ -8,7 +8,6 @@ namespace Sphere\Core\Request\Products;
 
 
 use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Request\Endpoints\ProductProjectionsEndpoint;
 use Sphere\Core\Request\StagedTrait;
 
 /**
@@ -24,6 +23,6 @@ class ProductProjectionQueryRequest extends AbstractQueryRequest
      */
     public function __construct()
     {
-        parent::__construct(ProductProjectionsEndpoint::endpoint());
+        parent::__construct(ProductSearchEndpoint::endpoint());
     }
 }

@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\Categories;
 
 use Sphere\Core\Model\Category\CategoryDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Request\Endpoints\CategoriesEndpoint;
 
 /**
  * Class CategoryCreateRequest

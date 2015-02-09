@@ -8,7 +8,6 @@ namespace Sphere\Core\Request\Products;
 
 
 use Sphere\Core\Request\AbstractFetchByIdRequest;
-use Sphere\Core\Request\Endpoints\ProductsEndpoint;
 
 /**
  * Class ProductFetchByIdRequest

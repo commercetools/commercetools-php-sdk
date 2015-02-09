@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\Products;
 
 use Sphere\Core\Model\Product\ProductDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Request\Endpoints\ProductsEndpoint;
 
 class ProductCreateRequest extends AbstractCreateRequest
 {

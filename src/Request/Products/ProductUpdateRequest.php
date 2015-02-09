@@ -13,7 +13,7 @@ use Sphere\Core\Model\Common\Attribute;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\Price;
 use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Request\Endpoints\ProductsEndpoint;
+use Sphere\Core\Request\Products\ProductsEndpoint;
 
 /**
  * Class ProductUpdateRequest

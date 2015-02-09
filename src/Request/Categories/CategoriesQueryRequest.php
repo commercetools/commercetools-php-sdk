@@ -7,7 +7,6 @@
 namespace Sphere\Core\Request\Categories;
 
 use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Request\Endpoints\CategoriesEndpoint;
 
 /**
  * Class CategoriesQueryRequest

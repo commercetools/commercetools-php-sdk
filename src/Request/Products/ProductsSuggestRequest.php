@@ -8,7 +8,6 @@ namespace Sphere\Core\Request\Products;
 
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractProjectionRequest;
-use Sphere\Core\Request\Endpoints\ProductProjectionsEndpoint;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Response\SingleResourceResponse;
 
@@ -31,7 +30,7 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
      */
     public function __construct(LocalizedString $keywords)
     {
-        parent::__construct(ProductProjectionsEndpoint::endpoint());
+        parent::__construct(ProductSearchEndpoint::endpoint());
         $this->addKeywords($keywords);
     }
 

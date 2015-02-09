@@ -10,7 +10,6 @@ namespace Sphere\Core\Request\Categories;
 use Sphere\Core\Model\Category\CategoryReference;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Request\Endpoints\CategoriesEndpoint;
 
 /**
  * Class CategoryUpdateRequest

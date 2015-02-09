@@ -8,7 +8,6 @@ namespace Sphere\Core\Request\Categories;
 
 
 use Sphere\Core\Request\AbstractFetchByIdRequest;
-use Sphere\Core\Request\Endpoints\CategoriesEndpoint;
 
 /**
  * Class CategoryFetchByIdRequest
