@@ -7,6 +7,9 @@
 namespace Sphere\Core\Client\OAuth;
 
 
+use GuzzleHttp\Message\Response;
+use GuzzleHttp\Stream\BufferStream;
+use GuzzleHttp\Subscriber\Mock;
 use Sphere\Core\Config;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
@@ -28,19 +31,28 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @return Manager
      */
-    protected function getMockManager($config, $returnValue)
+    protected function getManager($config, $returnValue, $statusCode = 200)
     {
-        $manager = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['execute'], [$config]);
-        $manager->expects($this->any())
-            ->method('execute')
-            ->will($this->returnValue($returnValue));
+        $manager = new Manager($config);
+
+        if (is_array($returnValue)) {
+            $returnValue = json_encode($returnValue);
+        }
+        $mockBody = new BufferStream();
+        $mockBody->write($returnValue);
+
+        $mock = new Mock([
+            new Response($statusCode, [], $mockBody)
+        ]);
+        // Add the mock subscriber to the client.
+        $manager->getHttpClient()->getEmitter()->attach($mock);
 
         return $manager;
     }
 
     public function testToken()
     {
-        $manager = $this->getMockManager(
+        $manager = $this->getManager(
             $this->getConfig(),
             [
                 "access_token" => "myToken",
@@ -54,7 +66,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCache()
     {
-        $manager = $this->getMockManager(
+        $manager = $this->getManager(
             $this->getConfig(),
             [
                 "access_token" => "myToken",
@@ -92,7 +104,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testOAuthUrl()
     {
-        $manager = $this->getMockManager($this->getConfig(), []);
+        $manager = $this->getManager($this->getConfig(), []);
 
         // change visibility of getBaseUrl
         $class = new \ReflectionClass($manager);
