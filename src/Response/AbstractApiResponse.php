@@ -30,6 +30,7 @@ abstract class AbstractApiResponse implements ApiResponseInterface
     public function __construct(ResponseInterface $response, ClientRequestInterface $request)
     {
         $this->response = $response;
+        $this->request = $request;
     }
 
     public function json()

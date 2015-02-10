@@ -7,7 +7,7 @@
 namespace Sphere\Core;
 
 
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Log\LoggerInterface;
 use Sphere\Core\Response\ApiResponseInterface;
@@ -104,7 +104,7 @@ class Client extends AbstractHttpClient
         $httpRequest = $client->createRequest($method, $request->httpRequest()->getPath(), $options);
         try {
             $httpResponse = $client->send($httpRequest);
-        } catch (ClientException $exception) {
+        } catch (RequestException $exception) {
             $httpResponse = $exception->getResponse();
         }
 

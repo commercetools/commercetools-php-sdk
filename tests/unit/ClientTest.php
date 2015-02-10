@@ -7,7 +7,12 @@
 namespace Sphere\Core;
 
 
+use GuzzleHttp\Message\Response;
 use GuzzleHttp\Message\ResponseInterface;
+use GuzzleHttp\Stream\BufferStream;
+use GuzzleHttp\Subscriber\Mock;
+use Monolog\Handler\TestHandler;
+use Monolog\Logger;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\OAuth\Token;
 
@@ -29,25 +34,29 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      * @return Client
      */
-    protected function getMockClient($config, $returnValue)
+    protected function getMockClient($config, $returnValue, $statusCode = 200, $logger = null)
     {
-        $guzzleMock = $this->getMock('\GuzzleHttp\Client', ['send']);
-        $guzzleMock->expects($this->any())
-            ->method('send')
-            ->will($this->returnValue($returnValue));
-
         $oauthMock = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['getToken'], [$config]);
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMock = $this->getMock('\Sphere\Core\Client', ['getHttpClient', 'getOauthManager'], [$config]);
+        $clientMock = $this->getMock('\Sphere\Core\Client', ['getOauthManager'], [$config, null, $logger]);
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
-        $clientMock->expects($this->any())
-            ->method('getHttpClient')
-            ->will($this->returnValue($guzzleMock));
+
+        if (is_array($returnValue)) {
+            $returnValue = json_encode($returnValue);
+        }
+        $mockBody = new BufferStream();
+        $mockBody->write($returnValue);
+
+        $mock = new Mock([
+            new Response($statusCode, [], $mockBody)
+        ]);
+        // Add the mock subscriber to the client.
+        $clientMock->getHttpClient()->getEmitter()->attach($mock);
 
         return $clientMock;
     }
@@ -57,7 +66,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function getQueryResult()
     {
-        $result = [
+        return [
             'count' => 1,
             'total' => 1,
             'offset' => 0,
@@ -67,12 +76,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 ]
             ]
         ];
-        $response = $this->getMock('\GuzzleHttp\Message\Response', ['json'], [200]);
-        $response->expects($this->any())
-            ->method('json')
-            ->will($this->returnValue($result));
-
-        return $response;
     }
 
     /**
@@ -80,12 +83,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function getSingleOpResult()
     {
-        $response = $this->getMock('\GuzzleHttp\Message\Response', ['json'], [200]);
-        $response->expects($this->any())
-            ->method('json')
-            ->will($this->returnValue(['key' => 'value']));
-
-        return $response;
+        return ['key' => 'value'];
     }
 
     public function testExecuteQuery()
@@ -125,5 +123,34 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $client = new Client($this->getConfig());
         $this->assertInstanceOf('\Sphere\Core\Client\OAuth\Manager', $client->getOauthManager());
+    }
+
+    public function testException()
+    {
+
+        $endpoint = new JsonEndpoint('test');
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+
+        $client = $this->getMockClient($this->getConfig(), '', 500);
+        $response = $client->execute($request);
+        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+    }
+
+    public function testLogger()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+        $client = $this->getMockClient($this->getConfig(), $this->getSingleOpResult(), 200, $logger);
+
+        $endpoint = new JsonEndpoint('test');
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+        $client->execute($request);
+
+        $record = current($handler->getRecords());
+
+        $this->assertTrue($handler->hasInfo($record));
+        $this->assertSame('apiUrl/project/test/id', $record['context']['request']->getUrl());
     }
 }

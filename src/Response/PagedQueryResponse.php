@@ -53,7 +53,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      * @param int $count
      * @return $this
      */
-    public function setCount($count)
+    protected function setCount($count)
     {
         $this->count = $count;
 
@@ -72,7 +72,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      * @param int $offset
      * @return $this
      */
-    public function setOffset($offset)
+    protected function setOffset($offset)
     {
         $this->offset = $offset;
 
@@ -91,7 +91,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      * @param int $total
      * @return $this
      */
-    public function setTotal($total)
+    protected function setTotal($total)
     {
         $this->total = $total;
 
@@ -110,7 +110,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      * @param array $results
      * @return $this
      */
-    public function setResults(array $results)
+    protected function setResults(array $results)
     {
         $this->results = $results;
 
