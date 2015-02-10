@@ -17,7 +17,7 @@ class FileRequest extends HttpRequest
 
     public function __construct($method, $path, $file, $contentType)
     {
-        $this->file = $file;
+        $this->setFile($file);
         parent::__construct($method, $path, null, $contentType);
     }
 

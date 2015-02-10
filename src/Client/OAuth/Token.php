@@ -30,8 +30,7 @@ class Token
 
     public function __construct($token = null, $ttl = null)
     {
-        $this->token = $token;
-        $this->ttl = $ttl;
+        $this->setToken($token)->setTtl($ttl);
     }
 
     /**
