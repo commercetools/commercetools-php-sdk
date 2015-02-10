@@ -26,8 +26,8 @@ if [ "$TRAVIS_REPO_SLUG" == "sphereio/sphere-php-sdk" ] && [ $(phpenv version-na
   git add -f .
   # for testing the big conditional we do "git status" only for now.
   git status
-  # git commit -m "Auto-pushed phpdoc for $TRAVIS_BRANCH on successful travis build $TRAVIS_BUILD_NUMBER to gh-pages"
-  # git push -fq origin gh-pages > /dev/null
+  git commit -m "Auto-pushed phpdoc for $TRAVIS_BRANCH on successful travis build $TRAVIS_BUILD_NUMBER to gh-pages"
+  git push -fq origin gh-pages > /dev/null
 
   echo -e "Published Documentation to gh-pages.\n"
 
