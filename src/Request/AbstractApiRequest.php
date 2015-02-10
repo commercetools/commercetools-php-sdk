@@ -41,11 +41,11 @@ abstract class AbstractApiRequest implements ClientRequestInterface
     }
 
     /**
-     * @param $endpoint
+     * @param JsonEndpoint $endpoint
      * @return $this
      * @internal
      */
-    protected function setEndpoint($endpoint)
+    protected function setEndpoint(JsonEndpoint $endpoint)
     {
         $this->endpoint = $endpoint;
 
@@ -72,10 +72,14 @@ abstract class AbstractApiRequest implements ClientRequestInterface
         if (empty($key)) {
             throw new InvalidArgumentException(Message::NO_KEY_GIVEN);
         }
-        if (!empty($value) || $value === 0) {
+        if (is_null($value)) {
+            $paramStr = $key;
+        } elseif (is_bool($value)) {
+            $paramStr = $key . '=' . ($value ? 'true' : 'false');
+        } else {
             $paramStr = $key . '=' . urlencode((string)$value);
-            $this->params[$paramStr] = [$key => $value];
         }
+        $this->params[$paramStr] = [$key => $value];
 
         return $this;
     }

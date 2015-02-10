@@ -10,6 +10,7 @@ namespace Sphere\Core\Request;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
+use Sphere\Core\Error\InvalidArgumentException;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
@@ -19,7 +20,7 @@ use Sphere\Core\Response\SingleResourceResponse;
 abstract class AbstractCreateRequest extends AbstractApiRequest
 {
     /**
-     * @var \JsonSerializable
+     * @var mixed
      */
     protected $object;
 
@@ -27,14 +28,14 @@ abstract class AbstractCreateRequest extends AbstractApiRequest
      * @param JsonEndpoint $endpoint
      * @param $object
      */
-    public function __construct(JsonEndpoint $endpoint, \JsonSerializable $object)
+    public function __construct(JsonEndpoint $endpoint, $object)
     {
         parent::__construct($endpoint);
-        $this->object = $object;
+        $this->setObject($object);
     }
 
     /**
-     * @return \JsonSerializable
+     * @return mixed
      */
     public function getObject()
     {
@@ -42,11 +43,14 @@ abstract class AbstractCreateRequest extends AbstractApiRequest
     }
 
     /**
-     * @param \JsonSerializable
+     * @param $object
+     * @return $this
      */
     public function setObject($object)
     {
         $this->object = $object;
+
+        return $this;
     }
 
     /**

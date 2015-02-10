@@ -8,7 +8,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Sphere\\Core\\": "tests/"
+            "Sphere\\Core\\": "tests/unit/"
         }
     },
     "require": {
