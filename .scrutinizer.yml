@@ -1,0 +1,21 @@
+tools:
+    php_sim: true
+    php_pdepend: true
+    php_analyzer: true
+    php_code_sniffer: true
+    php_changetracking: true
+    php_mess_detector: true
+    sensiolabs_security_checker: true
+    php_cs_fixer:
+        config: { level: psr2 }
+before_commands:
+    - composer install --prefer-source -o
+build:
+    dependencies:
+        before:
+            #Only 5.4 uses APC
+            - if [[ "`phpenv version-name`" =~ "^5.4" ]] && [ "`phpenv version-name`" != "hhvm" ]; then echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+            #+5.5 uses APCU
+            - if [[ ! "`phpenv version-name`" =~ "^5.4" ]] && [ "`phpenv version-name`" != "hhvm" ]; then printf "\n"| echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+filter:
+    excluded_paths: [build/*, tests/*, docroot/*]
