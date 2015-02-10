@@ -2,7 +2,8 @@
 # SPHERE.IO PHP SDK
 
 <blockquote>
-WARNING: As of now, this is a pre-release partial implementation   
+WARNING: As of now, this is a pre-release partial implementation. 
+See the [Milestone Plan](https://github.com/sphereio/sphere-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned. We love feedback and [Issue reports](https://github.com/sphereio/sphere-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
 </blockquote>
 
 [![Build Status](https://img.shields.io/travis/sphereio/sphere-php-sdk/develop.svg?style=flat-square)](https://travis-ci.org/sphereio/sphere-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk)
@@ -106,7 +107,7 @@ Clone the develop branch of the repository (we're using the [gitflow](http://nvi
 git clone git@github.com:sphereio/sphere-php-sdk.git
 ```
 
-Please follow the [PSR-2](http://www.php-fig.org/psr/psr-2/) coding style, ideally via your IDE settings. 
+Please follow the [PSR-2](http://www.php-fig.org/psr/psr-2/) coding style, ideally via your IDE settings (see below for phpStorm instructions). 
 
 Please make sure that exiting Unit and Integration tests don't fail and fully cover your new code with Unit Tests. You can run all tests locally:
 
@@ -114,9 +115,9 @@ Please make sure that exiting Unit and Integration tests don't fail and fully co
 ant
 ```
 
-### Example
+### Built In Test Server
 
-You can use the docroot directory with the built-in php web server. Add to the docroot directory a file called "myapp.ini". Add following content and setup with your API credentials:
+You can use the `docroot` directory with the built-in PHP web server. Add to the docroot directory a file called "myapp.ini". Add following content and setup with your API credentials:
 
 ```ini
 [sphere]
