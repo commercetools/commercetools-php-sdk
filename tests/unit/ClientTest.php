@@ -46,15 +46,20 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
 
+        $responses = [];
         if (is_array($returnValue)) {
-            $returnValue = json_encode($returnValue);
+            foreach ($returnValue as $value) {
+                $mockBody = new BufferStream();
+                $mockBody->write($value);
+                $responses[] = new Response($statusCode, [], $mockBody);
+            }
+        } else {
+            $mockBody = new BufferStream();
+            $mockBody->write($returnValue);
+            $responses[] = new Response($statusCode, [], $mockBody);
         }
-        $mockBody = new BufferStream();
-        $mockBody->write($returnValue);
 
-        $mock = new Mock([
-            new Response($statusCode, [], $mockBody)
-        ]);
+        $mock = new Mock($responses);
         // Add the mock subscriber to the client.
         $clientMock->getHttpClient()->getEmitter()->attach($mock);
 
@@ -66,7 +71,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function getQueryResult()
     {
-        return [
+        return json_encode([
             'count' => 1,
             'total' => 1,
             'offset' => 0,
@@ -75,7 +80,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                     'key' => 'value'
                 ]
             ]
-        ];
+        ]);
     }
 
     /**
@@ -83,7 +88,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function getSingleOpResult()
     {
-        return ['key' => 'value'];
+        return json_encode(['key' => 'value']);
     }
 
     public function testExecuteQuery()
@@ -152,5 +157,23 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($handler->hasInfo($record));
         $this->assertSame('apiUrl/project/test/id', $record['context']['request']->getUrl());
+    }
+
+    public function testBatch()
+    {
+        $endpoint1 = new JsonEndpoint('test1');
+        $request1 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractQueryRequest', [$endpoint1]);
+        $endpoint2 = new JsonEndpoint('test2');
+        $request2 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint2, 'id']);
+
+        $client = $this->getMockClient($this->getConfig(), [$this->getQueryResult(), $this->getSingleOpResult()]);
+
+        $client->addBatchRequest($request1);
+        $client->addBatchRequest($request2);
+
+        $results = $client->executeBatch();
+
+        $this->assertInstanceOf('\Sphere\Core\Response\PagedQueryResponse', $results[$request1->getIdentifier()]);
+        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $results[$request2->getIdentifier()]);
     }
 }
