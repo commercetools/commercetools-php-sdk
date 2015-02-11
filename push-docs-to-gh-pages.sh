@@ -20,8 +20,8 @@ if [ "$TRAVIS_REPO_SLUG" == "sphereio/sphere-php-sdk" ] && [ $(phpenv version-na
   git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/sphereio/sphere-php-sdk gh-pages > /dev/null
 
   cd gh-pages
-  mkdir -p ./docs/$TRAVIS_BRANCH
   git rm -rf ./docs/$TRAVIS_BRANCH
+  mkdir -p ./docs/$TRAVIS_BRANCH
   cp -Rf $HOME/phpdoc-current/* ./docs/$TRAVIS_BRANCH/
   git add -f .
   # for testing the big conditional we do "git status" only for now.
