@@ -18,7 +18,7 @@ use Sphere\Core\Request\AbstractCreateRequest;
 class CategoryCreateRequest extends AbstractCreateRequest
 {
     /**
-     * @param \Sphere\Core\Model\Category\CategoryDraft $category
+     * @param CategoryDraft $category
      */
     public function __construct(CategoryDraft $category)
     {
