@@ -6,7 +6,54 @@
 
 namespace Sphere\Core\Model\Common;
 
-
+/**
+ * Class Address
+ * @package Sphere\Core\Model\Common
+ * @method string getId()
+ * @method string getTitle()
+ * @method string getSalutation()
+ * @method string getFirstName()
+ * @method string getLastName()
+ * @method string getStreetName()
+ * @method string getStreetNumber()
+ * @method string getAdditionalStreetInfo()
+ * @method string getPostalCode()
+ * @method string getCity()
+ * @method string getRegion()
+ * @method string getState()
+ * @method string getCountry()
+ * @method string getCompany()
+ * @method string getDepartment()
+ * @method string getBuilding()
+ * @method string getApartment()
+ * @method string getPOBox()
+ * @method string getPhone()
+ * @method string getMobile()
+ * @method string getEmail()
+ * @method string getAdditionalAddressInfo()
+ * @method Address setId(string $id)
+ * @method Address setTitle(string $title)
+ * @method Address setSalutation(string $salutation)
+ * @method Address setFirstName(string $firstName)
+ * @method Address setLastName(string $lastName)
+ * @method Address setStreetName(string $streetName)
+ * @method Address setStreetNumber(string $streetNumber)
+ * @method Address setAdditionalStreetInfo(string $additionalStreetInfo)
+ * @method Address setPostalCode(string $postalCode)
+ * @method Address setCity(string $city)
+ * @method Address setRegion(string $region)
+ * @method Address setState(string $state)
+ * @method Address setCountry(string $country)
+ * @method Address setCompany(string $company)
+ * @method Address setDepartment(string $department)
+ * @method Address setBuilding(string $building)
+ * @method Address setApartment(string $apartment)
+ * @method Address setPOBox(string $pOBox)
+ * @method Address setPhone(string $phone)
+ * @method Address setMobile(string $mobile)
+ * @method Address setEmail(string $email)
+ * @method Address setAdditionalAddressInfo(string $additionalAddressInfo)
+ */
 class Address extends JsonObject
 {
     public function getFields()
