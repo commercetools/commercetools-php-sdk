@@ -11,6 +11,11 @@ use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
+/**
+ * Class CustomerFetchByTokenRequest
+ * @package Sphere\Core\Request\Customer
+ * @method static CustomerFetchByTokenRequest of(string $token)
+ */
 class CustomerFetchByTokenRequest extends AbstractApiRequest
 {
     const TOKEN = 'token';

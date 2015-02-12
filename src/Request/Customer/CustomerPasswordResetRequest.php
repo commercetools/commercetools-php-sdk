@@ -13,6 +13,11 @@ use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Request\AbstractUpdateRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
+/**
+ * Class CustomerPasswordResetRequest
+ * @package Sphere\Core\Request\Customer
+ * @method static CustomerPasswordResetRequest of(string $id, string $version, string $tokenValue, string $newPassword)
+ */
 class CustomerPasswordResetRequest extends AbstractUpdateRequest
 {
     const ID = 'id';
@@ -44,7 +49,7 @@ class CustomerPasswordResetRequest extends AbstractUpdateRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/password';
+        return (string)$this->getEndpoint() . '/password/reset';
     }
 
     /**

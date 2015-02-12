@@ -12,6 +12,11 @@ use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
+/**
+ * Class CustomerPasswordTokenRequest
+ * @package Sphere\Core\Request\Customer
+ * @method static CustomerPasswordTokenRequest of(string $email)
+ */
 class CustomerPasswordTokenRequest extends AbstractApiRequest
 {
     const EMAIL = 'email';

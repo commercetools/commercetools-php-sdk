@@ -1,10 +1,13 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 11.02.15, 16:42
+ * Created by PhpStorm.
+ * User: jensschulze
+ * Date: 12.02.15
+ * Time: 14:18
  */
 
 namespace Sphere\Core\Request\Customer;
+
 
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
@@ -12,32 +15,30 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
- * Class CustomerPasswordChangeRequest
+ * Class CustomerEmailConfirmRequest
  * @package Sphere\Core\Request\Customer
- * @method static CustomerPasswordChangeRequest of($id, $version, $currentPassword, $newPassword)
+ * @method static CustomerEmailConfirmRequest of(string $id, int $version, string $tokenValue)
  */
-class CustomerPasswordChangeRequest extends AbstractUpdateRequest
+class CustomerEmailConfirmRequest extends AbstractUpdateRequest
 {
     const ID = 'id';
-    const CURRENT_PASSWORD = 'currentPassword';
-    const NEW_PASSWORD = 'newPassword';
+    const TOKEN_VALUE = 'tokenValue';
 
-    protected $currentPassword;
-    protected $newPassword;
-
+    /**
+     * @var string
+     */
+    protected $tokenValue;
     /**
      * @param string $id
      * @param string $version
-     * @param string $currentPassword
-     * @param string $newPassword
+     * @param string $tokenValue
      */
-    public function __construct($id, $version, $currentPassword, $newPassword)
+    public function __construct($id, $version, $tokenValue)
     {
         parent::__construct(CustomersEndpoint::endpoint(), $id, $version);
         $this->setId($id);
         $this->setVersion($version);
-        $this->currentPassword = $currentPassword;
-        $this->newPassword = $newPassword;
+        $this->tokenValue = $tokenValue;
     }
 
     /**
@@ -46,7 +47,7 @@ class CustomerPasswordChangeRequest extends AbstractUpdateRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/password';
+        return (string)$this->getEndpoint() . '/email/confirm';
     }
 
     /**
@@ -58,8 +59,7 @@ class CustomerPasswordChangeRequest extends AbstractUpdateRequest
         $payload = [
             static::ID => $this->getId(),
             static::VERSION => $this->getVersion(),
-            static::CURRENT_PASSWORD => $this->currentPassword,
-            static::NEW_PASSWORD => $this->newPassword
+            static::TOKEN_VALUE => $this->tokenValue,
         ];
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }
