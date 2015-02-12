@@ -127,8 +127,8 @@ class CustomerUpdateRequest extends AbstractUpdateRequest
     }
 
     /**
-     * @param $action
-     * @param $field
+     * @param string $action
+     * @param string $field
      * @param $value
      * @return $this
      */
@@ -141,6 +141,7 @@ class CustomerUpdateRequest extends AbstractUpdateRequest
 
         return $this->addAction($action);
     }
+
     /**
      * @param string $addressId
      * @return $this
@@ -207,7 +208,7 @@ class CustomerUpdateRequest extends AbstractUpdateRequest
         return $this->getOptionalAction(
             static::SET_DATE_OF_BIRTH,
             static::DATE_OF_BIRTH,
-            $dateOfBirth->format('Y-m-d')
+            ($dateOfBirth ? $dateOfBirth->format('Y-m-d'): null)
         );
     }
 
