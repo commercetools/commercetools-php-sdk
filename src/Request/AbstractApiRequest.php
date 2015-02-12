@@ -32,12 +32,37 @@ abstract class AbstractApiRequest implements ClientRequestInterface
      */
     protected $params = [];
 
+    protected $identifier;
+
     /**
      * @param JsonEndpoint $endpoint
      */
     public function __construct(JsonEndpoint $endpoint)
     {
         $this->setEndpoint($endpoint);
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        if (is_null($this->identifier)) {
+            $this->identifier = uniqid();
+        }
+
+        return $this->identifier;
+    }
+
+    /**
+     * @param string $identifier
+     * @return $this
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+
+        return $this;
     }
 
     /**

@@ -16,6 +16,17 @@ use Sphere\Core\Response\ApiResponseInterface;
 interface ClientRequestInterface
 {
     /**
+     * @return string
+     */
+    public function getIdentifier();
+
+    /**
+     * @param string $identifier
+     * @return $this
+     */
+    public function setIdentifier($identifier);
+
+    /**
      * @return HttpRequestInterface
      * @internal
      */
