@@ -6,7 +6,6 @@
 
 namespace Sphere\Core\Request\Customer;
 
-
 use Sphere\Core\Model\Customer\CustomerDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
 

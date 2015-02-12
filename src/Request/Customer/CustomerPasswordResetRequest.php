@@ -1,37 +1,40 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 11.02.15, 16:42
+ * @created: 12.02.15, 10:42
  */
 
 namespace Sphere\Core\Request\Customer;
 
+
 use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Request\AbstractUpdateRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
-class CustomerPasswordChangeRequest extends AbstractUpdateRequest
+class CustomerPasswordResetRequest extends AbstractUpdateRequest
 {
     const ID = 'id';
-    const CURRENT_PASSWORD = 'currentPassword';
+    const VERSION = 'version';
+    const TOKEN_VALUE = 'tokenValue';
     const NEW_PASSWORD = 'newPassword';
 
-    protected $currentPassword;
+    protected $tokenValue;
     protected $newPassword;
 
     /**
      * @param string $id
      * @param string $version
-     * @param string $currentPassword
+     * @param string $tokenValue
      * @param string $newPassword
      */
-    public function __construct($id, $version, $currentPassword, $newPassword)
+    public function __construct($id, $version, $tokenValue, $newPassword)
     {
         parent::__construct(CustomersEndpoint::endpoint(), $id, $version);
         $this->setId($id);
         $this->setVersion($version);
-        $this->currentPassword = $currentPassword;
+        $this->tokenValue = $tokenValue;
         $this->newPassword = $newPassword;
     }
 
@@ -53,7 +56,7 @@ class CustomerPasswordChangeRequest extends AbstractUpdateRequest
         $payload = [
             static::ID => $this->getId(),
             static::VERSION => $this->getVersion(),
-            static::CURRENT_PASSWORD => $this->currentPassword,
+            static::TOKEN_VALUE => $this->tokenValue,
             static::NEW_PASSWORD => $this->newPassword
         ];
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);

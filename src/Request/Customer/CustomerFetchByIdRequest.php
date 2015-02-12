@@ -6,7 +6,6 @@
 
 namespace Sphere\Core\Request\Customer;
 
-
 use Sphere\Core\Request\AbstractFetchByIdRequest;
 
 /**

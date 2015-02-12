@@ -8,7 +8,6 @@ namespace Sphere\Core\Request\Customer;
 
 
 use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\SingleResourceResponse;
@@ -21,12 +20,6 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
      */
     protected $email;
 
-    /**
-     * @param JsonEndpoint $endpoint
-     * @param $id
-     * @param $version
-     * @param array $actions
-     */
     /**
      * @param string $email
      */
