@@ -1,13 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 12.02.15
- * Time: 12:12
+ * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @created: 12.02.15, 12:12
  */
 
 namespace Sphere\Core\Request\Customer;
-
 
 use Sphere\Core\Request\AbstractDeleteByIdRequest;
 

@@ -1,13 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 12.02.15
- * Time: 14:18
+ * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @created: 12.02.15, 14:18
  */
 
 namespace Sphere\Core\Request\Customer;
-
 
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
