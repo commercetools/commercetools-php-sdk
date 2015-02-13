@@ -67,7 +67,12 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iWantToUpdateA($context)
     {
-        $request = '\Sphere\Core\Request\\' . ucfirst($context) . '\\' . ucfirst($context) . 'UpdateRequest';
+        if (substr($context,-1) == 'y') {
+            $module = substr($context,0,-1) . 'ies';
+        } else {
+            $module = $context . 's';
+        }
+        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'UpdateRequest';
         $this->request = new $request('id', 'version');
     }
 
@@ -99,11 +104,13 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theRequestShouldBe(PyStringNode $result)
     {
-        $result = json_encode(json_decode($result, true));
+        $expectedResult = json_encode(json_decode($result, true));
         $httpRequest = $this->request->httpRequest();
         $request = $httpRequest->getBody();
 
-        if ($result != $request) {
+        if ($expectedResult != $request) {
+            var_dump($expectedResult);
+            var_dump($request);
             throw new Exception('Json differs');
         }
     }
@@ -156,7 +163,12 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iWantToCreateA($context)
     {
-        $request = '\Sphere\Core\Request\\' . ucfirst($context) . '\\' . ucfirst($context) . 'CreateRequest';
+        if (substr($context,-1) == 'y') {
+            $module = substr($context,0,-1) . 'ies';
+        } else {
+            $module = $context . 's';
+        }
+        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'CreateRequest';
 
         $reflection = new ReflectionClass($this->draftClass);
         $draft = $reflection->newInstanceArgs($this->draftValues);
@@ -174,5 +186,44 @@ class FeatureContext implements Context, SnippetAcceptingContext
         if ($httpRequest->getHttpMethod() !== strtolower($method)) {
             throw new Exception('Wrong http method');
         };
+    }
+
+    /**
+     * @Given the localized :locale :field is :value
+     */
+    public function theLocalizedIs($locale, $field, $value)
+    {
+        $localizedString = new \Sphere\Core\Model\Common\LocalizedString([$locale => $value]);
+        if (
+            isset($this->draftValues[$field])
+            && $this->draftValues[$field] instanceof \Sphere\Core\Model\Common\LocalizedString
+        ) {
+            $this->draftValues[$field]->merge($localizedString);
+        } else {
+            $this->draftValues[$field] = $localizedString;
+        }
+    }
+
+    /**
+     * @When i :action the localized :locale :field to :value
+     */
+    public function iTheLocalizedTo($action, $locale, $field, $value)
+    {
+        $localizedString = new \Sphere\Core\Model\Common\LocalizedString([$locale => $value]);
+        $method = $action . ucfirst($field);
+
+        call_user_func_array([$this->request, $method], [$localizedString]);
+    }
+
+    /**
+     * @When i :arg1 the :arg2 :arg3 reference to :arg4
+     */
+    public function iTheReferenceTo($action, $field, $type, $value)
+    {
+        $reference = '\Sphere\Core\Model\\' . ucfirst($type) . '\\' . ucfirst($type) . 'Reference';
+        $reference = new $reference($value);
+
+        $method = $action . ucfirst($field);
+        call_user_func_array([$this->request, $method], [$reference]);
     }
 }

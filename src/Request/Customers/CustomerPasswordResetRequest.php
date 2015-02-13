@@ -1,41 +1,46 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 12.02.15, 14:18
+ * @created: 12.02.15, 10:42
  */
 
-namespace Sphere\Core\Request\Customer;
+namespace Sphere\Core\Request\Customers;
+
 
 use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Request\AbstractUpdateRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
- * Class CustomerEmailConfirmRequest
- * @package Sphere\Core\Request\Customer
- * @method static CustomerEmailConfirmRequest of(string $id, int $version, string $tokenValue)
+ * Class CustomerPasswordResetRequest
+ * @package Sphere\Core\Request\Customers
+ * @method static CustomerPasswordResetRequest of(string $id, string $version, string $tokenValue, string $newPassword)
  */
-class CustomerEmailConfirmRequest extends AbstractUpdateRequest
+class CustomerPasswordResetRequest extends AbstractUpdateRequest
 {
     const ID = 'id';
+    const VERSION = 'version';
     const TOKEN_VALUE = 'tokenValue';
+    const NEW_PASSWORD = 'newPassword';
 
-    /**
-     * @var string
-     */
     protected $tokenValue;
+    protected $newPassword;
+
     /**
      * @param string $id
      * @param string $version
      * @param string $tokenValue
+     * @param string $newPassword
      */
-    public function __construct($id, $version, $tokenValue)
+    public function __construct($id, $version, $tokenValue, $newPassword)
     {
         parent::__construct(CustomersEndpoint::endpoint(), $id, $version);
         $this->setId($id);
         $this->setVersion($version);
         $this->tokenValue = $tokenValue;
+        $this->newPassword = $newPassword;
     }
 
     /**
@@ -44,7 +49,7 @@ class CustomerEmailConfirmRequest extends AbstractUpdateRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/email/confirm';
+        return (string)$this->getEndpoint() . '/password/reset';
     }
 
     /**
@@ -57,6 +62,7 @@ class CustomerEmailConfirmRequest extends AbstractUpdateRequest
             static::ID => $this->getId(),
             static::VERSION => $this->getVersion(),
             static::TOKEN_VALUE => $this->tokenValue,
+            static::NEW_PASSWORD => $this->newPassword
         ];
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }

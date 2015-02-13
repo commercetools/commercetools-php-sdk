@@ -12,7 +12,7 @@ use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class CustomerDraft
- * @package Sphere\Core\Model\Customer
+ * @package Sphere\Core\Model\Customers
  * @method string getCustomerNumber()
  * @method string getEmail()
  * @method string getTitle()

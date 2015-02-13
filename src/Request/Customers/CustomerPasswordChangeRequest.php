@@ -1,10 +1,10 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 12.02.15, 12:34
+ * @created: 11.02.15, 16:42
  */
 
-namespace Sphere\Core\Request\Customer;
+namespace Sphere\Core\Request\Customers;
 
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
@@ -12,30 +12,32 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
- * Class CustomerEmailTokenRequest
- * @package Sphere\Core\Request\Customer
- * @method static CustomerEmailTokenRequest of(string $id, int $version, int $ttlMinutes)
+ * Class CustomerPasswordChangeRequest
+ * @package Sphere\Core\Request\Customers
+ * @method static CustomerPasswordChangeRequest of($id, $version, $currentPassword, $newPassword)
  */
-class CustomerEmailTokenRequest extends AbstractUpdateRequest
+class CustomerPasswordChangeRequest extends AbstractUpdateRequest
 {
     const ID = 'id';
-    const TTL_MINUTES = 'ttlMinutes';
+    const CURRENT_PASSWORD = 'currentPassword';
+    const NEW_PASSWORD = 'newPassword';
 
-    /**
-     * @var int
-     */
-    protected $ttlMinutes;
+    protected $currentPassword;
+    protected $newPassword;
+
     /**
      * @param string $id
      * @param string $version
-     * @param int $ttlMinutes
+     * @param string $currentPassword
+     * @param string $newPassword
      */
-    public function __construct($id, $version, $ttlMinutes)
+    public function __construct($id, $version, $currentPassword, $newPassword)
     {
         parent::__construct(CustomersEndpoint::endpoint(), $id, $version);
         $this->setId($id);
         $this->setVersion($version);
-        $this->ttlMinutes = $ttlMinutes;
+        $this->currentPassword = $currentPassword;
+        $this->newPassword = $newPassword;
     }
 
     /**
@@ -44,7 +46,7 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/email-token';
+        return (string)$this->getEndpoint() . '/password';
     }
 
     /**
@@ -56,7 +58,8 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
         $payload = [
             static::ID => $this->getId(),
             static::VERSION => $this->getVersion(),
-            static::TTL_MINUTES => $this->ttlMinutes,
+            static::CURRENT_PASSWORD => $this->currentPassword,
+            static::NEW_PASSWORD => $this->newPassword
         ];
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }

@@ -4,7 +4,7 @@
  * @created: 11.02.15, 17:40
  */
 
-namespace Sphere\Core\Request\Customer;
+namespace Sphere\Core\Request\Customers;
 
 
 use Sphere\Core\Client\HttpMethod;
@@ -14,7 +14,7 @@ use Sphere\Core\Response\SingleResourceResponse;
 
 /**
  * Class CustomerPasswordTokenRequest
- * @package Sphere\Core\Request\Customer
+ * @package Sphere\Core\Request\Customers
  * @method static CustomerPasswordTokenRequest of(string $email)
  */
 class CustomerPasswordTokenRequest extends AbstractApiRequest

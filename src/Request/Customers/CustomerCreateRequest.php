@@ -4,14 +4,14 @@
  * @created: 11.02.15, 14:20
  */
 
-namespace Sphere\Core\Request\Customer;
+namespace Sphere\Core\Request\Customers;
 
 use Sphere\Core\Model\Customer\CustomerDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
 
 /**
  * Class CustomerCreateRequest
- * @package Sphere\Core\Request\Customer
+ * @package Sphere\Core\Request\Customers
  * @method static CustomerCreateRequest of(CustomerDraft $customer)
  */
 class CustomerCreateRequest extends AbstractCreateRequest

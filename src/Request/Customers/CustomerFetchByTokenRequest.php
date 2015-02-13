@@ -4,7 +4,7 @@
  * @created: 12.02.15, 10:35
  */
 
-namespace Sphere\Core\Request\Customer;
+namespace Sphere\Core\Request\Customers;
 
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
@@ -13,7 +13,7 @@ use Sphere\Core\Response\SingleResourceResponse;
 
 /**
  * Class CustomerFetchByTokenRequest
- * @package Sphere\Core\Request\Customer
+ * @package Sphere\Core\Request\Customers
  * @method static CustomerFetchByTokenRequest of(string $token)
  */
 class CustomerFetchByTokenRequest extends AbstractApiRequest

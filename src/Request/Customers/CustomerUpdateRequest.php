@@ -4,7 +4,7 @@
  * @created: 11.02.15, 14:35
  */
 
-namespace Sphere\Core\Request\Customer;
+namespace Sphere\Core\Request\Customers;
 
 
 use Sphere\Core\Model\Common\Address;
@@ -13,7 +13,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 
 /**
  * Class CustomerUpdateRequest
- * @package Sphere\Core\Request\Customer
+ * @package Sphere\Core\Request\Customers
  * @method static CustomerUpdateRequest of(string $id, int $version, array $actions = [])
  */
 class CustomerUpdateRequest extends AbstractUpdateRequest

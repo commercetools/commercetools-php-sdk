@@ -4,13 +4,13 @@
  * @created: 12.02.15, 12:12
  */
 
-namespace Sphere\Core\Request\Customer;
+namespace Sphere\Core\Request\Customers;
 
 use Sphere\Core\Request\AbstractDeleteByIdRequest;
 
 /**
  * Class CustomerDeleteByIdRequest
- * @package Sphere\Core\Request\Customer
+ * @package Sphere\Core\Request\Customers
  * @method static CustomerDeleteByIdRequest of(string $id, int $version)
  */
 class CustomerDeleteByIdRequest extends AbstractDeleteByIdRequest

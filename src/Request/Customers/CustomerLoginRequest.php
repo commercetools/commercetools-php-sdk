@@ -4,7 +4,7 @@
  * @created: 11.02.15, 15:53
  */
 
-namespace Sphere\Core\Request\Customer;
+namespace Sphere\Core\Request\Customers;
 
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;

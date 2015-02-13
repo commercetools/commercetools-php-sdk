@@ -1,46 +1,41 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 12.02.15, 10:42
+ * @created: 12.02.15, 14:18
  */
 
-namespace Sphere\Core\Request\Customer;
-
+namespace Sphere\Core\Request\Customers;
 
 use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Request\AbstractUpdateRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
- * Class CustomerPasswordResetRequest
- * @package Sphere\Core\Request\Customer
- * @method static CustomerPasswordResetRequest of(string $id, string $version, string $tokenValue, string $newPassword)
+ * Class CustomerEmailConfirmRequest
+ * @package Sphere\Core\Request\Customers
+ * @method static CustomerEmailConfirmRequest of(string $id, int $version, string $tokenValue)
  */
-class CustomerPasswordResetRequest extends AbstractUpdateRequest
+class CustomerEmailConfirmRequest extends AbstractUpdateRequest
 {
     const ID = 'id';
-    const VERSION = 'version';
     const TOKEN_VALUE = 'tokenValue';
-    const NEW_PASSWORD = 'newPassword';
 
+    /**
+     * @var string
+     */
     protected $tokenValue;
-    protected $newPassword;
-
     /**
      * @param string $id
      * @param string $version
      * @param string $tokenValue
-     * @param string $newPassword
      */
-    public function __construct($id, $version, $tokenValue, $newPassword)
+    public function __construct($id, $version, $tokenValue)
     {
         parent::__construct(CustomersEndpoint::endpoint(), $id, $version);
         $this->setId($id);
         $this->setVersion($version);
         $this->tokenValue = $tokenValue;
-        $this->newPassword = $newPassword;
     }
 
     /**
@@ -49,7 +44,7 @@ class CustomerPasswordResetRequest extends AbstractUpdateRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/password/reset';
+        return (string)$this->getEndpoint() . '/email/confirm';
     }
 
     /**
@@ -62,7 +57,6 @@ class CustomerPasswordResetRequest extends AbstractUpdateRequest
             static::ID => $this->getId(),
             static::VERSION => $this->getVersion(),
             static::TOKEN_VALUE => $this->tokenValue,
-            static::NEW_PASSWORD => $this->newPassword
         ];
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }
