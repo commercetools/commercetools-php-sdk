@@ -164,6 +164,8 @@
             description="Run behat tests"
             >
         <exec executable="${toolsdir}behat" failonerror="true">
+            <arg value="--format" />
+            <arg value="progress" />
         </exec>
     </target>
 
