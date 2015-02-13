@@ -1,7 +1,8 @@
 Feature: I want to update a category
   Scenario: Change category name
     Given i want to update a "Category"
-    When i "change" the localized "en" "name" to "New name"
+    And i have a localized "en" "name" with value "New name"
+    When i "change" the "name" with these values
     Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
@@ -21,7 +22,8 @@ Feature: I want to update a category
 
   Scenario: Change category slug
     Given i want to update a "Category"
-    When i "change" the localized "en" "slug" to "new-slug"
+    And i have a localized "en" "slug" with value "new-slug"
+    When i "change" the "slug" with these values
     Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
@@ -41,7 +43,8 @@ Feature: I want to update a category
 
   Scenario: Change category parent
     Given i want to update a "Category"
-    When i "change" the "parent" "category" reference to "newParent"
+    And i have a "category" reference to "newParent"
+    When i "change" the "parent" with these values
     Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
@@ -62,7 +65,8 @@ Feature: I want to update a category
 
   Scenario: Change category description
     Given i want to update a "Category"
-    When i "set" the localized "en" "description" to "Lorem ipsum"
+    And i have a localized "en" "description" with value "Lorem ipsum"
+    When i "set" the "description" with these values
     Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be

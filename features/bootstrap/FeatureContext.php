@@ -18,6 +18,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
     protected $object;
 
+    protected $params = [];
+
     protected $draftClass;
 
     protected $draftValues = [];
@@ -77,17 +79,6 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @When i :action the :field to :value
-     */
-    public function iTheTo($action, $field, $value)
-    {
-        $values = explode(' ', $value);
-        $method = $action . ucfirst($field);
-
-        call_user_func_array([$this->request, $method], $values);
-    }
-
-    /**
      * @Then the path should be :arg1
      */
     public function thePathShouldBe($arg1)
@@ -122,6 +113,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $objectClass = '\Sphere\Core\Model\\' . ucfirst($context) . '\\' . ucfirst($className);
         $this->object = new $objectClass();
+        $this->params[] = $this->object;
     }
 
     /**
@@ -205,25 +197,48 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @When i :action the localized :locale :field to :value
+     * @Given i have the :field with value :value
      */
-    public function iTheLocalizedTo($action, $locale, $field, $value)
+    public function iHaveTheWithValue($field, $value)
     {
-        $localizedString = new \Sphere\Core\Model\Common\LocalizedString([$locale => $value]);
-        $method = $action . ucfirst($field);
-
-        call_user_func_array([$this->request, $method], [$localizedString]);
+        $this->params[$field] = $value;
     }
 
     /**
-     * @When i :arg1 the :arg2 :arg3 reference to :arg4
+     * @Given i :action the :field with these values
      */
-    public function iTheReferenceTo($action, $field, $type, $value)
+    public function iTheWithTheseValues($action, $field)
     {
-        $reference = '\Sphere\Core\Model\\' . ucfirst($type) . '\\' . ucfirst($type) . 'Reference';
-        $reference = new $reference($value);
-
         $method = $action . ucfirst($field);
-        call_user_func_array([$this->request, $method], [$reference]);
+        call_user_func_array([$this->request, $method], $this->params);
+        $this->params = [];
+    }
+
+    /**
+     * @Given i have a localized :locale :field with value :value
+     */
+    public function iHaveALocalizedWithValue($locale, $field, $value)
+    {
+        $localizedString = new \Sphere\Core\Model\Common\LocalizedString([$locale => $value]);
+        $this->iHaveTheWithValue($field, $localizedString);
+    }
+
+    /**
+     * @Given i have a :typeId reference to :id
+     */
+    public function iHaveAReferenceTo($typeId, $id)
+    {
+        $reference = '\Sphere\Core\Model\\' . ucfirst($typeId) . '\\' . ucfirst($typeId) . 'Reference';
+        $reference = new $reference($id);
+        $this->iHaveTheWithValue($typeId, $reference);
+    }
+
+    /**
+     * @Given i have the date :dateTime
+     */
+    public function iHaveTheDate($dateTime)
+    {
+        $dateTime = new DateTime($dateTime);
+        $this->params[] = $dateTime;
     }
 }

@@ -108,7 +108,7 @@ class CustomerUpdateRequest extends AbstractUpdateRequest
     public function changeAddress($addressId, Address $address)
     {
         return $this->addAction([
-            static::ACTION => static::ADD_ADDRESS,
+            static::ACTION => static::CHANGE_ADDRESS,
             static::ADDRESS_ID => $addressId,
             static::ADDRESS => $address,
         ]);
