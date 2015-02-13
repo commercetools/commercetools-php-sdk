@@ -1,6 +1,6 @@
 Feature: I want to update a category
   Scenario: Change category name
-    Given i want to update a "Category"
+    Given i want to update a "Category" identified by "id" and at version "version"
     And i have a localized "en" "name" with value "New name"
     When i "change" the "name" with these values
     Then the path should be "categories/id"
@@ -21,7 +21,7 @@ Feature: I want to update a category
     """
 
   Scenario: Change category slug
-    Given i want to update a "Category"
+    Given i want to update a "Category" identified by "id" and at version "version"
     And i have a localized "en" "slug" with value "new-slug"
     When i "change" the "slug" with these values
     Then the path should be "categories/id"
@@ -42,7 +42,7 @@ Feature: I want to update a category
     """
 
   Scenario: Change category parent
-    Given i want to update a "Category"
+    Given i want to update a "Category" identified by "id" and at version "version"
     And i have a "category" reference to "newParent"
     When i "change" the "parent" with these values
     Then the path should be "categories/id"
@@ -64,7 +64,7 @@ Feature: I want to update a category
     """
 
   Scenario: Change category description
-    Given i want to update a "Category"
+    Given i want to update a "Category" identified by "id" and at version "version"
     And i have a localized "en" "description" with value "Lorem ipsum"
     When i "set" the "description" with these values
     Then the path should be "categories/id"
@@ -79,6 +79,44 @@ Feature: I want to update a category
           "description": {
             "en": "Lorem ipsum"
           }
+        }
+      ]
+    }
+    """
+
+  Scenario: Set external id
+    Given i want to update a "Category" identified by "id" and at version "version"
+    And i have the "externalId" with value "category-1"
+    When i "set" the "ExternalId" with these values
+    Then the path should be "categories/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "setExternalId",
+          "externalId": "category-1"
+        }
+      ]
+    }
+    """
+
+  Scenario: Change order hint
+    Given i want to update a "Category" identified by "id" and at version "version"
+    And i have the "orderHint" with value "number1"
+    When i "change" the "OrderHint" with these values
+    Then the path should be "categories/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "changeOrderHint",
+          "orderHint": "number1"
         }
       ]
     }

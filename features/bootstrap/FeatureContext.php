@@ -64,28 +64,40 @@ class FeatureContext implements Context, SnippetAcceptingContext
         }
     }
 
-    /**
-     * @Given i want to update a :context
-     */
-    public function iWantToUpdateA($context)
+    protected function getModuleName($context)
     {
         if (substr($context,-1) == 'y') {
-            $module = substr($context,0,-1) . 'ies';
+            $module = substr($context, 0, -1) . 'ies';
+        } elseif (substr($context,-1) == 's') {
+            $module = $context;
         } else {
             $module = $context . 's';
         }
+
+        return $module;
+    }
+
+
+    /**
+     * @Given i want to update a :context identified by :id and at version :version
+     */
+    public function iWantToUpdateAIdentifiedByAndAtVersion($context, $id, $version)
+    {
+        $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'UpdateRequest';
-        $this->request = new $request('id', 'version');
+        $this->request = new $request($id, $version);
     }
 
     /**
-     * @Then the path should be :arg1
+     * @Then the path should be :path
      */
-    public function thePathShouldBe($arg1)
+    public function thePathShouldBe($expectedPath)
     {
         $httpRequest = $this->request->httpRequest();
 
-        if ($httpRequest->getPath() !== $arg1) {
+        if ($httpRequest->getPath() !== $expectedPath) {
+            var_dump($expectedPath);
+            var_dump($httpRequest->getPath());
             throw new Exception('Path wrong');
         };
     }
@@ -155,11 +167,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iWantToCreateA($context)
     {
-        if (substr($context,-1) == 'y') {
-            $module = substr($context,0,-1) . 'ies';
-        } else {
-            $module = $context . 's';
-        }
+        $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'CreateRequest';
 
         $reflection = new ReflectionClass($this->draftClass);
@@ -171,11 +179,13 @@ class FeatureContext implements Context, SnippetAcceptingContext
     /**
      * @Then the method should be :method
      */
-    public function theMethodShouldBe($method)
+    public function theMethodShouldBe($expectedMethod)
     {
         $httpRequest = $this->request->httpRequest();
 
-        if ($httpRequest->getHttpMethod() !== strtolower($method)) {
+        if ($httpRequest->getHttpMethod() !== strtolower($expectedMethod)) {
+            var_dump($expectedMethod);
+            var_dump($httpRequest->getHttpMethod());
             throw new Exception('Wrong http method');
         };
     }
@@ -240,5 +250,122 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $dateTime = new DateTime($dateTime);
         $this->params[] = $dateTime;
+    }
+
+    /**
+     * @Given i want to delete a :context identified by :id and at version :version
+     */
+    public function iWantToDeleteAIdentifiedByAndAtVersion($context, $id, $version)
+    {
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'DeleteByIdRequest';
+        $this->request = new $request($id, $version);
+    }
+
+    /**
+     * @Given i want to create a :context token identified by :id and at version :version with :ttl minutes lifetime
+     */
+    public function iWantToCreateATokenIdentifiedByAndAtVersionWithMinutesLifetime($context, $id, $version, $ttl)
+    {
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'EmailTokenRequest';
+        $this->request = new $request($id, $version, $ttl);
+    }
+
+    /**
+     * @Given i want to confirm a :context token identified by :id and at version :version with :token value
+     */
+    public function iWantToConfirmATokenIdentifiedByAndAtVersionWithValue($context, $id, $version, $token)
+    {
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'EmailConfirmRequest';
+        $this->request = new $request($id, $version, $token);
+    }
+
+    /**
+     * @Given i want to fetch a :context identified by :id
+     */
+    public function iWantToFetchAIdentifiedBy($context, $id)
+    {
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'FetchByIdRequest';
+        $this->request = new $request($id);
+    }
+
+    /**
+     * @Given i want to query :context
+     */
+    public function iWantToQuery($context)
+    {
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'QueryRequest';
+        $this->request = new $request();
+    }
+
+    /**
+     * @Given filter them with criteria :where
+     */
+    public function filterThemWithCriteriaName($where)
+    {
+        /**
+         * @var \Sphere\Core\Request\AbstractQueryRequest $request
+         */
+        $this->request->where($where);
+    }
+
+    /**
+     * @Given limit the result to :limit
+     */
+    public function limitTheResultTo($limit)
+    {
+        $this->request->limit($limit);
+    }
+
+    /**
+     * @Given offset the result with :offset
+     */
+    public function offsetTheResultWith($offset)
+    {
+        $this->request->offset($offset);
+    }
+
+    /**
+     * @Given sort them by :sort
+     */
+    public function sortThemBy($sort)
+    {
+        $this->request->sort($sort);
+    }
+
+    /**
+     * @Given i want to create a password token for :context identified by :email
+     */
+    public function iWantToCreateAPasswordTokenForIdentifiedBy($context, $email)
+    {
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'PasswordTokenRequest';
+        $this->request = new $request($email);
+    }
+
+    /**
+     * @Given i want to fetch a :context identified by a password token with value :tokenValue
+     */
+    public function iWantToFetchAIdentifiedByAPasswordTokenWithValue($context, $tokenValue)
+    {
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'FetchByTokenRequest';
+        $this->request = new $request($tokenValue);
+    }
+
+    /**
+     * @Given i :action the :context password
+     */
+    public function iResetThePassword($action, $context)
+    {
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' .
+            ucfirst($context) . 'Password' . ucfirst($action) . 'Request';
+        $reflection = new ReflectionClass($request);
+        $this->request = $reflection->newInstanceArgs($this->params);
     }
 }
