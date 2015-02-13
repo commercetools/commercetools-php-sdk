@@ -23,7 +23,7 @@ before_script:
 script:
   - ant phpcs-ci
   - phpunit $PHPUNIT_FLAGS
-  - behat
+  - ant behat
   - if [ $TRAVIS_PHP_VERSION != 'hhvm' ]  && [ $(phpenv version-name) = '5.4' ]; then ant apigen; fi
 
 after_success:
