@@ -159,6 +159,16 @@
         </exec>
     </target>
 
+    <target name="behat"
+            depends="prepare"
+            description="Run behat tests"
+            >
+        <exec executable="${toolsdir}behat" failonerror="true">
+            <arg value="--format" />
+            <arg value="progress" />
+        </exec>
+    </target>
+
     <target name="phpunit"
             depends="prepare"
             description="Run unit tests with PHPUnit">

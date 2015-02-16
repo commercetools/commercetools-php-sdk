@@ -19,6 +19,8 @@ use Sphere\Core\Response\SingleResourceResponse;
 abstract class AbstractUpdateRequest extends AbstractApiRequest
 {
     const ACTION = 'action';
+    const ACTIONS = 'actions';
+    const VERSION = 'version';
 
     /**
      * @var
@@ -76,6 +78,15 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
         return $this;
     }
 
+    protected function addValue($action, $field, $value = null)
+    {
+        if (!is_null($value)) {
+            $action[$field] = $value;
+        }
+
+        return $action;
+    }
+
     /**
      * @return string
      */
@@ -129,7 +140,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
      */
     public function httpRequest()
     {
-        $payload = ['version' => $this->getVersion(), 'actions' => $this->getActions()];
+        $payload = [static::VERSION => $this->getVersion(), static::ACTIONS => $this->getActions()];
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }
 

@@ -13,7 +13,6 @@ use Sphere\Core\Model\Common\Attribute;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\Price;
 use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Request\Products\ProductsEndpoint;
 
 /**
  * Class ProductUpdateRequest
@@ -91,15 +90,6 @@ class ProductUpdateRequest extends AbstractUpdateRequest
             $action[static::STAGED] = true;
         }
         return parent::addAction($action);
-    }
-
-    protected function addValue($action, $field, $value = null)
-    {
-        if (!is_null($value)) {
-            $action[$field] = $value;
-        }
-
-        return $action;
     }
 
     public function changeSlug(LocalizedString $slug, $staged = true)
