@@ -6,6 +6,8 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 
+require_once __DIR__ . '/../../vendor/phpunit/phpunit/src/Framework/Assert/Functions.php';
+
 /**
  * Defines application features from the specific context.
  */
@@ -18,7 +20,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
     protected $object;
 
-    protected $params = [];
+    protected $requestParams = [];
+    protected $objectParams = [];
 
     protected $draftClass;
 
@@ -54,21 +57,21 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
             echo 'Generating code coverage report in Clover XML format ... ';
             $writer = new PHP_CodeCoverage_Report_Clover();
-            $writer->process(static::$coverage, __DIR__ . "/../../build/behat/behat-clover.xml");
+            $writer->process(static::$coverage, __DIR__ . "/../../build/logs/behat-clover.cov");
             echo 'done' . PHP_EOL;
 
-            echo 'Generating code coverage report in HTML format ... ';
-            $writer = new PHP_CodeCoverage_Report_HTML();
-            $writer->process(static::$coverage, __DIR__ . "/../../build/behat/coverage");
-            echo 'done' . PHP_EOL;
+//            echo 'Generating code coverage report in HTML format ... ';
+//            $writer = new PHP_CodeCoverage_Report_HTML();
+//            $writer->process(static::$coverage, __DIR__ . "/../../build/behat/coverage");
+//            echo 'done' . PHP_EOL;
         }
     }
 
     protected function getModuleName($context)
     {
-        if (substr($context,-1) == 'y') {
+        if (substr($context, -1) == 'y') {
             $module = substr($context, 0, -1) . 'ies';
-        } elseif (substr($context,-1) == 's') {
+        } elseif (substr($context, -1) == 's') {
             $module = $context;
         } else {
             $module = $context . 's';
@@ -77,15 +80,32 @@ class FeatureContext implements Context, SnippetAcceptingContext
         return $module;
     }
 
+    protected function createRequestInstance($className)
+    {
+        $reflection = new ReflectionClass($className);
+        $this->request = $reflection->newInstanceArgs($this->requestParams);
+        $this->requestParams = [];
+    }
 
     /**
-     * @Given i want to update a :context identified by :id and at version :version
+     * @Given i want to update a :context
      */
-    public function iWantToUpdateAIdentifiedByAndAtVersion($context, $id, $version)
+    public function iWantToUpdateAIdentifiedByAndAtVersion($context)
     {
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'UpdateRequest';
-        $this->request = new $request($id, $version);
+        $this->createRequestInstance($request);
+    }
+
+    /**
+     * @Given i want to create a :context
+     */
+    public function iWantToCreateA($context)
+    {
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'CreateRequest';
+
+        $this->createRequestInstance($request);
     }
 
     /**
@@ -95,11 +115,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $httpRequest = $this->request->httpRequest();
 
-        if ($httpRequest->getPath() !== $expectedPath) {
-            var_dump($expectedPath);
-            var_dump($httpRequest->getPath());
-            throw new Exception('Path wrong');
-        };
+        assertSame($expectedPath, $httpRequest->getPath());
     }
 
     /**
@@ -107,15 +123,21 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theRequestShouldBe(PyStringNode $result)
     {
-        $expectedResult = json_encode(json_decode($result, true));
+        $expectedResult = (string)$result;
         $httpRequest = $this->request->httpRequest();
         $request = $httpRequest->getBody();
 
-        if ($expectedResult != $request) {
-            var_dump($expectedResult);
-            var_dump($request);
-            throw new Exception('Json differs');
-        }
+        assertJsonStringEqualsJsonString($expectedResult, $request);
+    }
+
+    /**
+     * @Then the method should be :method
+     */
+    public function theMethodShouldBe($expectedMethod)
+    {
+        $httpRequest = $this->request->httpRequest();
+
+        assertSame(strtolower($expectedMethod), $httpRequest->getHttpMethod());
     }
 
     /**
@@ -124,8 +146,36 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function iHaveTheObject($context, $className)
     {
         $objectClass = '\Sphere\Core\Model\\' . ucfirst($context) . '\\' . ucfirst($className);
-        $this->object = new $objectClass();
-        $this->params[] = $this->object;
+
+        $reflection = new ReflectionClass($objectClass);
+        $this->object = $reflection->newInstanceArgs($this->objectParams);
+        $this->requestParams[] = $this->object;
+        $this->objectParams = [];
+    }
+
+    /**
+     * @Given i have a :context draft
+     */
+    public function iHaveADraft($context)
+    {
+        $this->iHaveTheObject($context, $context . 'Draft');
+    }
+
+    /**
+     * @Given the localized :locale :field is :value
+     */
+    public function theLocalizedIs($locale, $field, $value)
+    {
+        $localizedString = new \Sphere\Core\Model\Common\LocalizedString([$locale => $value]);
+        if (
+            isset($this->objectParams[$field]) &&
+            $this->objectParams[$field] instanceof \Sphere\Core\Model\Common\LocalizedString
+        ) {
+            $this->object->merge($localizedString);
+        } else {
+            $this->object = $localizedString;
+            $this->objectParams[$field] = $this->object;
+        }
     }
 
     /**
@@ -147,71 +197,19 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Given i have a :context draft
-     */
-    public function iHaveADraft($context)
-    {
-        $this->draftClass = '\Sphere\Core\Model\\' . ucfirst($context) . '\\' . ucfirst($context) . 'Draft';
-    }
-
-    /**
-     * @Given the :field is :value
-     */
-    public function theIs($field, $value)
-    {
-        $this->draftValues[$field] = $value;
-    }
-
-    /**
-     * @Given i want to create a :context
-     */
-    public function iWantToCreateA($context)
-    {
-        $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'CreateRequest';
-
-        $reflection = new ReflectionClass($this->draftClass);
-        $draft = $reflection->newInstanceArgs($this->draftValues);
-
-        $this->request = new $request($draft);
-    }
-
-    /**
-     * @Then the method should be :method
-     */
-    public function theMethodShouldBe($expectedMethod)
-    {
-        $httpRequest = $this->request->httpRequest();
-
-        if ($httpRequest->getHttpMethod() !== strtolower($expectedMethod)) {
-            var_dump($expectedMethod);
-            var_dump($httpRequest->getHttpMethod());
-            throw new Exception('Wrong http method');
-        };
-    }
-
-    /**
-     * @Given the localized :locale :field is :value
-     */
-    public function theLocalizedIs($locale, $field, $value)
-    {
-        $localizedString = new \Sphere\Core\Model\Common\LocalizedString([$locale => $value]);
-        if (
-            isset($this->draftValues[$field])
-            && $this->draftValues[$field] instanceof \Sphere\Core\Model\Common\LocalizedString
-        ) {
-            $this->draftValues[$field]->merge($localizedString);
-        } else {
-            $this->draftValues[$field] = $localizedString;
-        }
-    }
-
-    /**
      * @Given i have the :field with value :value
      */
     public function iHaveTheWithValue($field, $value)
     {
-        $this->params[$field] = $value;
+        $this->requestParams[$field] = $value;
+    }
+
+    /**
+     * @Given i have a :object :field with value :value
+     */
+    public function iHaveTheWithValue2($object, $field, $value)
+    {
+        $this->objectParams[$field] = $value;
     }
 
     /**
@@ -220,8 +218,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function iTheWithTheseValues($action, $field)
     {
         $method = $action . ucfirst($field);
-        call_user_func_array([$this->request, $method], $this->params);
-        $this->params = [];
+        call_user_func_array([$this->request, $method], $this->requestParams);
+        $this->requestParams = [];
     }
 
     /**
@@ -249,47 +247,47 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function iHaveTheDate($dateTime)
     {
         $dateTime = new DateTime($dateTime);
-        $this->params[] = $dateTime;
+        $this->requestParams[] = $dateTime;
     }
 
     /**
-     * @Given i want to delete a :context identified by :id and at version :version
+     * @Given i want to delete a :context
      */
-    public function iWantToDeleteAIdentifiedByAndAtVersion($context, $id, $version)
+    public function iWantToDeleteA($context)
     {
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'DeleteByIdRequest';
-        $this->request = new $request($id, $version);
+        $this->createRequestInstance($request);
     }
 
     /**
-     * @Given i want to create a :context token identified by :id and at version :version with :ttl minutes lifetime
+     * @Given i want to create a :context token
      */
-    public function iWantToCreateATokenIdentifiedByAndAtVersionWithMinutesLifetime($context, $id, $version, $ttl)
+    public function iWantToCreateAToken($context)
     {
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'EmailTokenRequest';
-        $this->request = new $request($id, $version, $ttl);
+        $this->createRequestInstance($request);
     }
 
     /**
-     * @Given i want to confirm a :context token identified by :id and at version :version with :token value
+     * @Given i want to confirm a :context token
      */
-    public function iWantToConfirmATokenIdentifiedByAndAtVersionWithValue($context, $id, $version, $token)
+    public function iWantToConfirmAToken($context)
     {
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'EmailConfirmRequest';
-        $this->request = new $request($id, $version, $token);
+        $this->createRequestInstance($request);
     }
 
     /**
-     * @Given i want to fetch a :context identified by :id
+     * @Given i want to fetch a :context
      */
-    public function iWantToFetchAIdentifiedBy($context, $id)
+    public function iWantToFetchA($context)
     {
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'FetchByIdRequest';
-        $this->request = new $request($id);
+        $this->createRequestInstance($request);
     }
 
     /**
@@ -299,7 +297,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'QueryRequest';
-        $this->request = new $request();
+        $this->createRequestInstance($request);
     }
 
     /**
@@ -338,23 +336,23 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Given i want to create a password token for :context identified by :email
+     * @Given i want to create a password token for :context
      */
-    public function iWantToCreateAPasswordTokenForIdentifiedBy($context, $email)
+    public function iWantToCreateAPasswordTokenFor($context)
     {
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'PasswordTokenRequest';
-        $this->request = new $request($email);
+        $this->createRequestInstance($request);
     }
 
     /**
-     * @Given i want to fetch a :context identified by a password token with value :tokenValue
+     * @Given i want to fetch a :context by token
      */
-    public function iWantToFetchAIdentifiedByAPasswordTokenWithValue($context, $tokenValue)
+    public function iWantToFetchAByToken($context)
     {
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'FetchByTokenRequest';
-        $this->request = new $request($tokenValue);
+        $this->createRequestInstance($request);
     }
 
     /**
@@ -365,7 +363,14 @@ class FeatureContext implements Context, SnippetAcceptingContext
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' .
             ucfirst($context) . 'Password' . ucfirst($action) . 'Request';
-        $reflection = new ReflectionClass($request);
-        $this->request = $reflection->newInstanceArgs($this->params);
+        $this->createRequestInstance($request);
+    }
+
+    /**
+     * @Given query by customers id :customerId
+     */
+    public function queryByCustomersId($customerId)
+    {
+        $this->request->byCustomerId($customerId);
     }
 }

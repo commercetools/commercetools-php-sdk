@@ -1,6 +1,8 @@
 Feature: I want to update a category
   Scenario: Change category name
-    Given i want to update a "Category" identified by "id" and at version "version"
+    Given i have the "id" with value "id"
+    And i have the "version" with value "version"
+    And i want to update a "Category"
     And i have a localized "en" "name" with value "New name"
     When i "change" the "name" with these values
     Then the path should be "categories/id"
@@ -21,7 +23,9 @@ Feature: I want to update a category
     """
 
   Scenario: Change category slug
-    Given i want to update a "Category" identified by "id" and at version "version"
+    Given i have the "id" with value "id"
+    And i have the "version" with value "version"
+    And i want to update a "Category"
     And i have a localized "en" "slug" with value "new-slug"
     When i "change" the "slug" with these values
     Then the path should be "categories/id"
@@ -42,7 +46,9 @@ Feature: I want to update a category
     """
 
   Scenario: Change category parent
-    Given i want to update a "Category" identified by "id" and at version "version"
+    Given i have the "id" with value "id"
+    And i have the "version" with value "version"
+    And i want to update a "Category"
     And i have a "category" reference to "newParent"
     When i "change" the "parent" with these values
     Then the path should be "categories/id"
@@ -64,7 +70,9 @@ Feature: I want to update a category
     """
 
   Scenario: Change category description
-    Given i want to update a "Category" identified by "id" and at version "version"
+    Given i have the "id" with value "id"
+    And i have the "version" with value "version"
+    And i want to update a "Category"
     And i have a localized "en" "description" with value "Lorem ipsum"
     When i "set" the "description" with these values
     Then the path should be "categories/id"
@@ -85,7 +93,9 @@ Feature: I want to update a category
     """
 
   Scenario: Set external id
-    Given i want to update a "Category" identified by "id" and at version "version"
+    Given i have the "id" with value "id"
+    And i have the "version" with value "version"
+    And i want to update a "Category"
     And i have the "externalId" with value "category-1"
     When i "set" the "ExternalId" with these values
     Then the path should be "categories/id"
@@ -104,7 +114,9 @@ Feature: I want to update a category
     """
 
   Scenario: Change order hint
-    Given i want to update a "Category" identified by "id" and at version "version"
+    Given i have the "id" with value "id"
+    And i have the "version" with value "version"
+    And i want to update a "Category"
     And i have the "orderHint" with value "number1"
     When i "change" the "OrderHint" with these values
     Then the path should be "categories/id"

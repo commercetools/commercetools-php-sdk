@@ -1,6 +1,7 @@
 Feature: I want to query customers
   Scenario: Fetch a customer by id
-    Given i want to fetch a "Customer" identified by "id"
+    Given i have the "id" with value "id"
+    Given i want to fetch a "Customer"
     Then the path should be "customers/id"
     And the method should be "GET"
 

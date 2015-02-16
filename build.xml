@@ -166,6 +166,8 @@
         <exec executable="${toolsdir}behat" failonerror="true">
             <arg value="--format" />
             <arg value="progress" />
+            <arg value="--tags" />
+            <arg value="~@ignore" />
         </exec>
     </target>
 

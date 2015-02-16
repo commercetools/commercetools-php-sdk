@@ -1,6 +1,7 @@
 Feature: I want to change the customer's password
   Scenario: Create Token for password change
-    Given i want to create a password token for "customer" identified by "john.doe@company.com"
+    Given i have the "email" with value "john.doe@company.com"
+    And i want to create a password token for "customer"
     Then the path should be "customers/password-token"
     And the method should be "POST"
     And the request should be
@@ -11,7 +12,8 @@ Feature: I want to change the customer's password
     """
 
   Scenario: Get customer by password token
-    Given i want to fetch a "Customer" identified by a password token with value "tokenValue"
+    Given i have the "token" with value "tokenValue"
+    Given i want to fetch a "Customer" by token
     Then the path should be "customers?token=tokenValue"
     And the method should be "GET"
 
