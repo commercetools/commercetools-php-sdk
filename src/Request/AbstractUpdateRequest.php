@@ -68,10 +68,10 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     }
 
     /**
-     * @param array $action
+     * @param array|AbstractAction $action
      * @return $this
      */
-    public function addAction(array $action)
+    public function addAction($action)
     {
         $this->actions[] = $action;
 

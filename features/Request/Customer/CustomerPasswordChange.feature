@@ -1,6 +1,6 @@
 Feature: I want to change the customer's password
   Scenario: Create Token for password change
-    Given i have the "email" with value "john.doe@company.com"
+    Given a "customer" is identified by the email "john.doe@company.com"
     And i want to create a password token for "customer"
     Then the path should be "customers/password-token"
     And the method should be "POST"
@@ -12,16 +12,15 @@ Feature: I want to change the customer's password
     """
 
   Scenario: Get customer by password token
-    Given i have the "token" with value "tokenValue"
+    Given a "customer" is identified by the token "tokenValue"
     Given i want to fetch a "Customer" by token
     Then the path should be "customers?token=tokenValue"
     And the method should be "GET"
 
   Scenario: Reset customers password
-    Given i have the "id" with value "id"
-    And i have the "version" with value "version"
-    And i have the "tokenValue" with value "token"
-    And i have the "newPassword" with value "newPassword"
+    Given a "customer" is identified by "id" and "version"
+    And the "tokenValue" is "token"
+    And the "newPassword" is "newPassword"
     And i "reset" the "customer" password
     Then the path should be "customers/password/reset"
     And the method should be "POST"
@@ -36,10 +35,9 @@ Feature: I want to change the customer's password
     """
 
   Scenario: Change the customers password
-    Given i have the "id" with value "id"
-    And i have the "version" with value "version"
-    And i have the "currentPassword" with value "currentPassword"
-    And i have the "newPassword" with value "newPassword"
+    Given a "customer" is identified by "id" and "version"
+    And the "currentPassword" is "currentPassword"
+    And the "newPassword" is "newPassword"
     And i "change" the "customer" password
     Then the path should be "customers/password"
     And the method should be "POST"

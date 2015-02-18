@@ -1,6 +1,6 @@
 Feature: I want to query carts
   Scenario: Fetch a cart by id
-    Given i have the "id" with value "id"
+    Given a "cart" is identified by "id"
     Given i want to fetch a "Cart"
     Then the path should be "carts/id"
     And the method should be "GET"

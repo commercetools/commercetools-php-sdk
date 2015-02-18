@@ -1,7 +1,9 @@
 Feature: I want to delete a customer
+  Background:
+    Given a "category" is identified by "id" and "version"
+
   Scenario: Delete customer
-    Given i have the "id" with value "id"
-    And i have the "version" with value "version"
+    Given a "customer" is identified by "id" and "version"
     And i want to delete a "Customer"
     Then the path should be "customers/id"
     And the method should be "DELETE"

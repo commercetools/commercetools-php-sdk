@@ -26,8 +26,8 @@ class ProductVariantDraft extends JsonObject
     {
         return [
             'sku' => [self::TYPE => 'string'],
-            'prices' => [self::TYPE => 'array'],
-            'attributes' => [self::TYPE => 'array'],
+            'prices' => [self::TYPE => '\Sphere\Core\Model\Common\Collection'],
+            'attributes' => [self::TYPE => '\Sphere\Core\Model\Common\Collection'],
         ];
     }
 }

@@ -143,6 +143,15 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
 
     /**
      * @param $field
+     * @return array
+     */
+    protected function getRaw($field)
+    {
+        return isset($this->rawData[$field])? $this->rawData[$field]: [];
+    }
+
+    /**
+     * @param $field
      * @internal
      */
     protected function initialize($field)
@@ -152,7 +161,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
             /**
              * @var JsonDeserializeInterface $type
              */
-            $this->typeData[$field] = $type::fromArray($this->rawData[$field]);
+            $this->typeData[$field] = $type::fromArray($this->getRaw($field));
         }
         $this->initialized[$field] = true;
     }
