@@ -10,12 +10,14 @@ use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Request\QueryTrait;
+use Sphere\Core\Request\StagedTrait;
 use Sphere\Core\Response\PagedQueryResponse;
 use Sphere\Core\Response\SingleResourceResponse;
 
 class ProductProjectionFetchBySkuRequest extends AbstractApiRequest
 {
     use QueryTrait;
+    use StagedTrait;
 
     const SKU = 'sku';
 
@@ -47,8 +49,6 @@ class ProductProjectionFetchBySkuRequest extends AbstractApiRequest
      */
     public function buildResponse($response)
     {
-        var_dump($response);
-        var_dump($response->getBody());
         return new PagedQueryResponse($response, $this);
     }
 }

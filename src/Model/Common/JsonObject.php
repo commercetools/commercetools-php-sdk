@@ -111,7 +111,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     /**
      * @param $field
      * @param $key
-     * @return string|false
+     * @return string|bool
      * @internal
      */
     protected function getFieldKey($field, $key)
@@ -195,7 +195,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
         if ($type !== false && $value !== null && !$this->isType($type, $value)) {
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $field, $type));
         }
-        if ($value === null && !$this->getFieldKey($field, static::OPTIONAL)) {
+        if ($value === null && $this->getFieldKey($field, static::OPTIONAL) === false) {
             throw new \InvalidArgumentException(sprintf(Message::EXPECTS_PARAMETER, $field, $type));
         }
         $this->typeData[$field] = $value;

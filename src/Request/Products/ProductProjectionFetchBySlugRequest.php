@@ -11,16 +11,19 @@ use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Request\QueryTrait;
+use Sphere\Core\Request\StagedTrait;
 use Sphere\Core\Response\PagedQueryResponse;
 
 class ProductProjectionFetchBySlugRequest extends AbstractApiRequest
 {
     use QueryTrait;
+    use StagedTrait;
 
     const SKU = 'sku';
 
     /**
-     * @param string $sku
+     * @param string $slug
+     * @param Context $context
      */
     public function __construct($slug, Context $context)
     {
@@ -53,8 +56,6 @@ class ProductProjectionFetchBySlugRequest extends AbstractApiRequest
      */
     public function buildResponse($response)
     {
-        var_dump($response);
-        var_dump($response->getBody());
         return new PagedQueryResponse($response, $this);
     }
 }
