@@ -8,6 +8,7 @@ namespace Sphere\Core\Response;
 
 
 use GuzzleHttp\Message\ResponseInterface;
+use Sphere\Core\Model\Product\ProductProjectionCollection;
 use Sphere\Core\Request\ClientRequestInterface;
 use Traversable;
 
@@ -25,7 +26,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     protected $count;
     protected $offset;
     protected $total;
-    protected $results;
+    protected $results = [];
 
     public function __construct(ResponseInterface $response, ClientRequestInterface $request)
     {
@@ -39,6 +40,13 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
             ;
         }
     }
+
+    public function toObject()
+    {
+        $collection = ProductProjectionCollection::fromArray($this->getResults());
+        return $collection;
+    }
+
 
     /**
      * @return int
