@@ -6,6 +6,12 @@
 namespace Sphere\Core\Request\Products;
 
 use GuzzleHttp\Message\ResponseInterface;
+use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Client\HttpRequest;
+use Sphere\Core\Request\AbstractApiRequest;
+use Sphere\Core\Request\PageTrait;
+use Sphere\Core\Request\QueryTrait;
+use Sphere\Core\Request\StagedTrait;
 use Sphere\Core\Response\SingleResourceResponse;
 use Sphere\Core\Model\Product\ProductProjection;
 
@@ -13,17 +19,31 @@ use Sphere\Core\Model\Product\ProductProjection;
  * Class ProductProjectionFetchBySkuRequest
  * @package Sphere\Core\Request\Products
  */
-class ProductProjectionFetchBySkuRequest extends ProductProjectionQueryRequest
+class ProductProjectionFetchBySkuRequest extends AbstractApiRequest
 {
+    use QueryTrait;
+    use StagedTrait;
+    use PageTrait;
+
     /**
      * @param string $sku
      */
     public function __construct($sku)
     {
-        parent::__construct();
+        parent::__construct(ProductSearchEndpoint::endpoint());
         if (!is_null($sku)) {
             $this->where(sprintf('masterVariant(sku="%1$s") or variants(sku="%1$s")', $sku));
         }
+        $this->limit(1);
+    }
+
+    /**
+     * @return HttpRequest
+     * @internal
+     */
+    public function httpRequest()
+    {
+        return new HttpRequest(HttpMethod::GET, $this->getPath());
     }
 
     /**
