@@ -8,6 +8,7 @@ namespace Sphere\Core\Model\Common;
 /**
  * Class PriceCollection
  * @package Sphere\Core\Model\Common
+ * @method Price getAt($offset)
  */
 class PriceCollection extends Collection
 {

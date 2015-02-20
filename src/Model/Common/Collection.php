@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Model\Common;
 
+use Sphere\Core\Error\Message;
 use Traversable;
 
 /**
@@ -31,7 +32,7 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
 
     protected static $interfaces = [];
 
-    public function __construct(array $data = null)
+    public function __construct(array $data = [])
     {
         $this->rawData = $data;
     }
@@ -39,16 +40,14 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
 
     public function add($object)
     {
-        $type = $this->type;
-        if ($type && !($object instanceof $type)) {
-            throw new \InvalidArgumentException();
-        }
-        $this->rawData[] = $object;
+        $this->setAt(null, $object);
+
+        return $this;
     }
 
     public function toArray()
     {
-        return $this->rawData;
+        return array_merge($this->rawData, $this->typeData);
     }
 
     /**
@@ -123,9 +122,40 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
         return isset($this->rawData[$offset])? $this->rawData[$offset]: [];
     }
 
-    public function set($offset, $object)
+    /**
+     * @param $offset
+     * @param $object
+     * @return $this
+     */
+    public function setAt($offset, $object)
     {
+        $type = $this->type;
+        if (!is_null($type) && !is_null($object) && !$this->isType($type, $object)) {
+            throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $offset, $type));
+        }
+        if (is_null($offset)) {
+            $this->typeData[] = $object;
+            $offset = count($this->typeData) - 1;
+        } else {
+            $this->typeData[$offset] = $object;
+        }
+        $this->initialized[$offset] = true;
 
+        return $this;
+    }
+
+    /**
+     * @param string $type
+     * @param mixed $value
+     * @return bool
+     * @internal
+     */
+    protected function isType($type, $value)
+    {
+        if ($typeFunction = $this->isPrimitive($type)) {
+            return $typeFunction($value);
+        }
+        return $value instanceof $type;
     }
 
     /**
@@ -176,7 +206,7 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
      */
     public function offsetExists($offset)
     {
-        return isset($this->rawData[$offset]);
+        return isset($this->rawData[$offset]) || isset($this->typeData[$offset]);
     }
 
     /**
@@ -207,7 +237,7 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
      */
     public function offsetSet($offset, $value)
     {
-        $this->rawData[$offset] = $value;
+        $this->setAt($offset, $value);
     }
 
     /**
@@ -221,6 +251,6 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
      */
     public function offsetUnset($offset)
     {
-        unset($this->rawData[$offset]);
+        $this->setAt($offset, null);
     }
 }

@@ -181,7 +181,11 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function offsetSet($offset, $value)
     {
-        $this->results[$offset] = $value;
+        if (is_null($offset)) {
+            $this->results[] = $value;
+        } else {
+            $this->results[$offset] = $value;
+        }
     }
 
     /**

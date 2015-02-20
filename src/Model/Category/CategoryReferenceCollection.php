@@ -11,6 +11,7 @@ use Sphere\Core\Model\Common\Collection;
 /**
  * Class CategoryReferenceCollection
  * @package Sphere\Core\Model\Category
+ * @method CategoryReference getAt($offset)
  */
 class CategoryReferenceCollection extends Collection
 {
