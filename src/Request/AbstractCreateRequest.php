@@ -7,6 +7,7 @@
 namespace Sphere\Core\Request;
 
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
@@ -63,11 +64,11 @@ abstract class AbstractCreateRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return SingleResourceResponse
      * @internal
      */
-    public function buildResponse($response)
+    public function buildResponse(ResponseInterface $response)
     {
         return new SingleResourceResponse($response, $this);
     }

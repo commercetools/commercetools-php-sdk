@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Request\Products;
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\PageTrait;
@@ -88,10 +89,10 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return SingleResourceResponse
      */
-    public function buildResponse($response)
+    public function buildResponse(ResponseInterface $response)
     {
         return new SingleResourceResponse($response, $this);
     }

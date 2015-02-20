@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Request;
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Response\PagedQueryResponse;
@@ -30,11 +31,11 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return PagedQueryResponse
      * @internal
      */
-    public function buildResponse($response)
+    public function buildResponse(ResponseInterface $response)
     {
         return new PagedQueryResponse($response, $this);
     }

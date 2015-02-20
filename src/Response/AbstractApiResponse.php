@@ -8,7 +8,6 @@ namespace Sphere\Core\Response;
 
 
 use GuzzleHttp\Message\ResponseInterface;
-use Sphere\Core\Response\ApiResponseInterface;
 use Sphere\Core\Request\ClientRequestInterface;
 
 /**

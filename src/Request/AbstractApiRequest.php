@@ -7,9 +7,9 @@
 namespace Sphere\Core\Request;
 
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
-use Sphere\Core\Request\ClientRequestInterface;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Response\AbstractApiResponse;
@@ -132,11 +132,11 @@ abstract class AbstractApiRequest implements ClientRequestInterface
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return AbstractApiResponse
      * @internal
      */
-    abstract public function buildResponse($response);
+    abstract public function buildResponse(ResponseInterface $response);
 
     /**
      * @param array $result

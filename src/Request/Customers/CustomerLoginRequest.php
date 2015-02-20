@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Request\Customers;
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Request\AbstractApiRequest;
@@ -60,11 +61,11 @@ class CustomerLoginRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return SingleResourceResponse
      * @internal
      */
-    public function buildResponse($response)
+    public function buildResponse(ResponseInterface $response)
     {
         return new SingleResourceResponse($response, $this);
     }

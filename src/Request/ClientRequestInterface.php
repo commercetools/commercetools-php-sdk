@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Request;
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpRequestInterface;
 use Sphere\Core\Response\ApiResponseInterface;
 
@@ -33,11 +34,11 @@ interface ClientRequestInterface
     public function httpRequest();
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return ApiResponseInterface
      * @internal
      */
-    public function buildResponse($response);
+    public function buildResponse(ResponseInterface $response);
 
     /**
      * @param array $result

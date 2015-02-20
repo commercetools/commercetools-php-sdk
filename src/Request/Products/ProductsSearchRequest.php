@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Request\Products;
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Request\SortTrait;
@@ -38,11 +39,11 @@ class ProductsSearchRequest extends AbstractProjectionRequest
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return PagedQueryResponse
      * @internal
      */
-    public function buildResponse($response)
+    public function buildResponse(ResponseInterface $response)
     {
         return new PagedQueryResponse($response, $this);
     }
