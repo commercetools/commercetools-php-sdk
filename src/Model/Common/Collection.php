@@ -13,13 +13,27 @@ use Traversable;
  */
 class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeserializeInterface, \ArrayAccess
 {
+    const DESERIALIZE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
+
     protected $type;
 
-    protected $data;
+    protected static $primitives = [
+        'bool' => 'is_bool',
+        'int' => 'is_int',
+        'string' => 'is_string',
+        'float' => 'is_float',
+        'array' => 'is_array'
+    ];
+
+    protected $rawData = [];
+    protected $typeData = [];
+    protected $initialized = [];
+
+    protected static $interfaces = [];
 
     public function __construct(array $data = null)
     {
-        $this->data = $data;
+        $this->rawData = $data;
     }
 
 
@@ -29,12 +43,89 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
         if ($type && !($object instanceof $type)) {
             throw new \InvalidArgumentException();
         }
-        $this->data[] = $object;
+        $this->rawData[] = $object;
     }
 
     public function toArray()
     {
-        return $this->data;
+        return $this->rawData;
+    }
+
+    /**
+     * @param $type
+     * @return mixed
+     * @internal
+     */
+    protected function hasInterface($type)
+    {
+        if (!isset(static::$interfaces[$type])) {
+            $interface = false;
+            if ($this->isPrimitive($type) === false && isset(class_implements($type)[static::DESERIALIZE])) {
+                $interface = true;
+            }
+            static::$interfaces[$type] = $interface;
+        }
+        return static::$interfaces[$type];
+    }
+
+    /**
+     * @param $type
+     * @return string|false
+     * @internal
+     */
+    protected function isPrimitive($type)
+    {
+        if (!isset(static::$primitives[$type])) {
+            return false;
+        }
+
+        return static::$primitives[$type];
+    }
+
+    /**
+     * @param $offset
+     * @internal
+     */
+    protected function initialize($offset)
+    {
+        $type = $this->type;
+        if ($type !== false && $this->hasInterface($type)) {
+            /**
+             * @var JsonDeserializeInterface $type
+             */
+            $this->typeData[$offset] = $type::fromArray($this->getRaw($offset));
+        }
+        $this->initialized[$offset] = true;
+    }
+
+    /**
+     * @param $offset
+     * @return mixed
+     * @internal
+     */
+    public function getAt($offset)
+    {
+        if (!isset($this->initialized[$offset])) {
+            $this->initialize($offset);
+        }
+        if (isset($this->typeData[$offset])) {
+            return $this->typeData[$offset];
+        }
+        return $this->rawData[$offset];
+    }
+
+    /**
+     * @param $offset
+     * @return array
+     */
+    protected function getRaw($offset)
+    {
+        return isset($this->rawData[$offset])? $this->rawData[$offset]: [];
+    }
+
+    public function set($offset, $object)
+    {
+
     }
 
     /**
@@ -68,7 +159,7 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->data);
+        return new \ArrayIterator($this->rawData);
     }
 
     /**
@@ -85,7 +176,7 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
      */
     public function offsetExists($offset)
     {
-        return isset($this->data[$offset]);
+        return isset($this->rawData[$offset]);
     }
 
     /**
@@ -99,7 +190,7 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
      */
     public function offsetGet($offset)
     {
-        return $this->data[$offset];
+        return $this->getAt($offset);
     }
 
     /**
@@ -116,7 +207,7 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
      */
     public function offsetSet($offset, $value)
     {
-        $this->data[$offset] = $value;
+        $this->rawData[$offset] = $value;
     }
 
     /**
@@ -130,6 +221,6 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
      */
     public function offsetUnset($offset)
     {
-        unset($this->data[$offset]);
+        unset($this->rawData[$offset]);
     }
 }
