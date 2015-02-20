@@ -57,5 +57,7 @@ class CategoryDraft extends JsonObject
     {
         $draft = new static(LocalizedString::fromArray($data['name']), LocalizedString::fromArray($data['slug']));
         $draft->setRawData($data);
+
+        return $draft;
     }
 }

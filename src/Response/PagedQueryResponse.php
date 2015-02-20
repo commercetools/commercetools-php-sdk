@@ -31,7 +31,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     {
         parent::__construct($response, $request);
         if (!$this->isError()) {
-            $jsonResponse = $this->json();
+            $jsonResponse = $this->toArray();
             $this->setCount($jsonResponse[static::COUNT])
                 ->setOffset($jsonResponse[static::OFFSET])
                 ->setTotal($jsonResponse[static::TOTAL])
@@ -39,7 +39,6 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
             ;
         }
     }
-
 
     /**
      * @return int

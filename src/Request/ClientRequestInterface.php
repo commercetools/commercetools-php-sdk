@@ -38,4 +38,10 @@ interface ClientRequestInterface
      * @internal
      */
     public function buildResponse($response);
+
+    /**
+     * @param array $result
+     * @return mixed
+     */
+    public function mapResult(array $result);
 }

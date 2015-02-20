@@ -75,7 +75,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     {
         $response = $this->getResponse();
 
-        $this->assertSame(['key' => 'value'], $response->json());
+        $this->assertSame(['key' => 'value'], $response->toArray());
     }
 
     public function testSuccess()

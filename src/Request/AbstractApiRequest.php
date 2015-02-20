@@ -137,4 +137,13 @@ abstract class AbstractApiRequest implements ClientRequestInterface
      * @internal
      */
     abstract public function buildResponse($response);
+
+    /**
+     * @param array $result
+     * @return mixed
+     */
+    public function mapResult(array $result)
+    {
+        return $result;
+    }
 }

@@ -33,7 +33,12 @@ abstract class AbstractApiResponse implements ApiResponseInterface
         $this->request = $request;
     }
 
-    public function json()
+    public function toObject()
+    {
+        return $this->getRequest()->mapResult($this->toArray());
+    }
+
+    public function toArray()
     {
         return $this->response->json();
     }
