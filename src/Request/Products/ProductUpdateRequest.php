@@ -84,7 +84,7 @@ class ProductUpdateRequest extends AbstractUpdateRequest
 
     }
 
-    public function addAction(array $action, $staged = true)
+    public function addAction($action, $staged = true)
     {
         if ($staged) {
             $action[static::STAGED] = true;

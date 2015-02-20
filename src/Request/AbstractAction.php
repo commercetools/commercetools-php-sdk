@@ -21,9 +21,4 @@ abstract class AbstractAction extends JsonObject
             'action' => [static::TYPE => 'string']
         ];
     }
-
-    public function __construct()
-    {
-        $this->setAction('changeName');
-    }
 }

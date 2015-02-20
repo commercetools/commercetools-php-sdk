@@ -368,12 +368,22 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * @Given the :field is :alias object
+     */
+    public function theFieldIsAliasObject($field, $alias)
+    {
+        $alias = $this->getContext($alias);
+        $this->theContextFieldIsValue($field, $this->getContextObject($alias));
+    }
+
+    /**
      * @Given set the :Alias object to :field
      */
     public function setTheAliasObjectToField($alias, $field)
     {
         $alias = $this->getContext($alias);
-        $this->theContextFieldIsValue($field, $this->getContextObject($alias));
+        $object = $this->getContextObject($alias);
+        $this->setTheFieldToValue($field, $object);
     }
 
     /**

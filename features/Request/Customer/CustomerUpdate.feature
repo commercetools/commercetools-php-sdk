@@ -79,7 +79,7 @@ Feature: I want to send a Customer Update Request
 
   Scenario: Add an address to customer
     Given i want to "addAddress" of "customer"
-    And set the "default" object to "address"
+    And the "address" is "default" object
     When i want to update a "Customer"
     Then the path should be "customers/id"
     And the method should be "POST"
@@ -101,9 +101,9 @@ Feature: I want to send a Customer Update Request
     """
   Scenario: Add two addresses to customer
     Given i want to "addAddress" of "customer"
-    And set the "default" object to "address"
+    And the "address" is "default" object
     Given i want to "addAddress" of "customer" as "secondAddress"
-    And set the "jane" object to "address"
+    And the "address" is "jane" object
     When i want to update a "Customer"
     Then the path should be "customers/id"
     And the method should be "POST"
@@ -134,7 +134,7 @@ Feature: I want to send a Customer Update Request
   Scenario: Change a customer's address
     Given i want to "changeAddress" of "customer"
     And the addressId is "addressId-1"
-    And set the "default" object to "address"
+    And the "address" is "default" object
     When i want to update a "Customer"
     Then the path should be "customers/id"
     And the method should be "POST"

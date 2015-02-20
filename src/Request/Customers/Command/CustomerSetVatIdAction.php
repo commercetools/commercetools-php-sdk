@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
  * Class CustomerChangeNameAction
  * @package Sphere\Core\Request\Customers\Command
  * @method string getVatId()
- * @method CustomerSetVatIdAction setExternalId(string $vatId)
+ * @method CustomerSetVatIdAction setVatId(string $vatId)
  */
 class CustomerSetVatIdAction extends AbstractAction
 {

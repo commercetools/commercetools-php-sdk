@@ -11,6 +11,10 @@ Feature: I want to update a cart
     Given i have a "TaxCategory" "TaxCategory" object as "TaxCategory"
     And set the "name" to "Mwst"
     And add the "TaxRate" object to "rates" collection
+    Given i have a "common" "address" object as "default"
+    And set the firstName to "John"
+    And set the lastName to "Doe"
+    And set the email to "john.doe@company.com"
   Scenario: Add a line item
     Given i want to "addLineItem" of "cart"
     And the productId is "productId-1"
@@ -80,9 +84,9 @@ Feature: I want to update a cart
     Given i want to "addCustomLineItem" of "cart"
     And the name is "customLineItem" in "en"
     And the quantity is "3" as "int"
-    And set the "money" object to "money"
+    And the "money" is "money" object
     And the slug is "my-custom-line-item"
-    And set the "taxCategory" object to "taxCategory"
+    And the "taxCategory" is "taxCategory" object
     When i want to update a "Cart"
     Then the path should be "carts/id"
     And the method should be "POST"
@@ -149,6 +153,172 @@ Feature: I want to update a cart
         {
           "action": "setCustomerEmail",
           "email": "john.doe@company.com"
+        }
+      ]
+    }
+    """
+
+  Scenario: Set shipping address
+    Given i want to "setShippingAddress" of "cart"
+    And set the "default" object to "address"
+    When i want to update a "Cart"
+    Then the path should be "carts/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "setShippingAddress",
+          "address": {
+            "email": "john.doe@company.com",
+            "firstName": "John",
+            "lastName": "Doe"
+          }
+        }
+      ]
+    }
+    """
+
+  Scenario: Set billing address
+    Given i want to "setBillingAddress" of "cart"
+    And set the "default" object to "address"
+    When i want to update a "Cart"
+    Then the path should be "carts/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "setBillingAddress",
+          "address": {
+            "email": "john.doe@company.com",
+            "firstName": "John",
+            "lastName": "Doe"
+          }
+        }
+      ]
+    }
+    """
+
+  Scenario: Set country
+    Given i want to "setCountry" of "cart"
+    And set the country to "DE"
+    When i want to update a "Cart"
+    Then the path should be "carts/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "setCountry",
+          "country": "DE"
+        }
+      ]
+    }
+    """
+
+
+
+  Scenario: Set CustomerId
+    Given i want to "setCustomerId" of "cart"
+    And set the "customerId" to "customer-1"
+    When i want to update a "Cart"
+    Then the path should be "carts/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "setCustomerId",
+          "customerId": "customer-1"
+        }
+      ]
+    }
+    """
+
+  Scenario: Add discount code
+    Given i want to "addDiscountCode" of "cart"
+    And the "code" is "payless"
+    When i want to update a "Cart"
+    Then the path should be "carts/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "addDiscountCode",
+          "code": "payless"
+        }
+      ]
+    }
+    """
+
+  Scenario: Recalculate cart
+    Given i want to "recalculate" of "cart"
+    When i want to update a "Cart"
+    Then the path should be "carts/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "recalculate"
+        }
+      ]
+    }
+    """
+
+  Scenario: Set Shipping Method
+    Given i want to "setShippingMethod" of "cart"
+    And set the "shippingMethod" reference "shippingMethod" to "myShippingMethod"
+    When i want to update a "Cart"
+    Then the path should be "carts/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "setShippingMethod",
+          "shippingMethod": {
+            "typeId": "shipping-method",
+            "id": "myShippingMethod"
+          }
+        }
+      ]
+    }
+    """
+
+  Scenario: Remove discount code
+    Given i want to "removeDiscountCode" of "cart"
+    And the "discountCode" reference "discountCode" is "payless"
+    When i want to update a "Cart"
+    Then the path should be "carts/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "removeDiscountCode",
+          "discountCode": {
+            "typeId": "discount-code",
+            "id": "payless"
+          }
         }
       ]
     }

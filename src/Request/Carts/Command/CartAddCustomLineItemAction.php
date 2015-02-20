@@ -10,6 +10,10 @@ use Sphere\Core\Model\Common\Money;
 use Sphere\Core\Model\TaxCategory\TaxCategory;
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class CartAddCustomLineItemAction
+ * @package Sphere\Core\Request\Carts\Command
+ */
 class CartAddCustomLineItemAction extends AbstractAction
 {
     public function getFields()
