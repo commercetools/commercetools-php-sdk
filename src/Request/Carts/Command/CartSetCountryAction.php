@@ -5,9 +5,16 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
-
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class CartSetCountryAction
+ * @package Sphere\Core\Request\Carts\Command
+ * @method string getAction()
+ * @method CartSetCountryAction setAction(string $action)
+ * @method string getCountry()
+ * @method CartSetCountryAction setCountry(string $country)
+ */
 class CartSetCountryAction extends AbstractAction
 {
     public function getFields()

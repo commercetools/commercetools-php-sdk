@@ -5,10 +5,17 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
-
 use Sphere\Core\Model\DiscountCode\DiscountCodeReference;
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class CartRemoveDiscountCodeAction
+ * @package Sphere\Core\Request\Carts\Command
+ * @method string getAction()
+ * @method CartRemoveDiscountCodeAction setAction(string $action)
+ * @method DiscountCodeReference getDiscountCode()
+ * @method CartRemoveDiscountCodeAction setDiscountCode(DiscountCodeReference $discountCode)
+ */
 class CartRemoveDiscountCodeAction extends AbstractAction
 {
     public function getFields()

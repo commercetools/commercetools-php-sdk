@@ -5,9 +5,17 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
-
+use Sphere\Core\Model\Common\Address;
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class CartSetBillingAddressAction
+ * @package Sphere\Core\Request\Carts\Command
+ * @method string getAction()
+ * @method CartSetBillingAddressAction setAction(string $action)
+ * @method Address getAddress()
+ * @method CartSetBillingAddressAction setAddress(Address $address)
+ */
 class CartSetBillingAddressAction extends AbstractAction
 {
     public function getFields()

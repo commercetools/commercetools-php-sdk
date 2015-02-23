@@ -7,6 +7,14 @@ namespace Sphere\Core\Request\Carts\Command;
 
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class CartRemoveCustomLineItemAction
+ * @package Sphere\Core\Request\Carts\Command
+ * @method string getAction()
+ * @method CartRemoveCustomLineItemAction setAction(string $action)
+ * @method string getCustomLineItemId()
+ * @method CartRemoveCustomLineItemAction setCustomLineItemId(string $customLineItemId)
+ */
 class CartRemoveCustomLineItemAction extends AbstractAction
 {
     public function getFields()

@@ -7,6 +7,18 @@ namespace Sphere\Core\Request\Carts\Command;
 
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class CartAddLineItemAction
+ * @package Sphere\Core\Request\Carts\Command
+ * @method string getAction()
+ * @method CartAddLineItemAction setAction(string $action)
+ * @method string getProductId()
+ * @method CartAddLineItemAction setProductId(string $productId)
+ * @method string getVariantId()
+ * @method CartAddLineItemAction setVariantId(string $variantId)
+ * @method int getQuantity()
+ * @method CartAddLineItemAction setQuantity(int $quantity)
+ */
 class CartAddLineItemAction extends AbstractAction
 {
     public function getFields()

@@ -5,9 +5,17 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
-
+use Sphere\Core\Model\ShippingMethod\ShippingMethodReference;
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class CartSetShippingMethodAction
+ * @package Sphere\Core\Request\Carts\Command
+ * @method string getAction()
+ * @method CartSetShippingMethodAction setAction(string $action)
+ * @method ShippingMethodReference getShippingMethod()
+ * @method CartSetShippingMethodAction setShippingMethod(ShippingMethodReference $shippingMethod)
+ */
 class CartSetShippingMethodAction extends AbstractAction
 {
     public function getFields()

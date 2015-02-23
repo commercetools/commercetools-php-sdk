@@ -5,9 +5,16 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
-
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class CartAddDiscountCodeAction
+ * @package Sphere\Core\Request\Carts\Command
+ * @method string getAction()
+ * @method CartAddDiscountCodeAction setAction(string $action)
+ * @method string getCode()
+ * @method CartAddDiscountCodeAction setCode(string $code)
+ */
 class CartAddDiscountCodeAction extends AbstractAction
 {
     public function getFields()
