@@ -8,10 +8,12 @@ namespace Sphere\Core\Request\Categories\Command;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CategorySetDescriptionAction
+ * Class CategoryChangeOrderHintAction
  * @package Sphere\Core\Request\Categories\Command
  * @method string getOrderHint()
  * @method CategoryChangeOrderHintAction setOrderHint(string $orderHint)
+ * @method string getAction()
+ * @method CategoryChangeOrderHintAction setAction(string $action)
  */
 class CategoryChangeOrderHintAction extends AbstractAction
 {

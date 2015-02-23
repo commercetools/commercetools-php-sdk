@@ -7,10 +7,11 @@
 namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Category\CategoryReference;
+use Sphere\Core\Model\Common\Collection;
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
+use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\ProductType\ProductTypeReference;
 
 /**
@@ -30,9 +31,9 @@ use Sphere\Core\Model\ProductType\ProductTypeReference;
  * @method ProductDraft setSlug(LocalizedString $slug)
  * @method ProductDraft setDescription(LocalizedString $description)
  * @method ProductDraft setProductType(ProductTypeReference $productType)
- * @method ProductDraft setCategories(array $categories)
+ * @method ProductDraft setCategories(Collection $categories)
  * @method ProductDraft setMasterVariant(ProductVariantDraft $masterVariant)
- * @method ProductDraft setVariants(array $variants)
+ * @method ProductDraft setVariants(Collection $variants)
  * @method ProductDraft setMetaTitle(LocalizedString $metaTitle)
  * @method ProductDraft setMetaDescription(LocalizedString $metaDescription)
  * @method ProductDraft setMetaKeywords(LocalizedString $metaKeywords)

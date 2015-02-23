@@ -6,14 +6,13 @@
 
 namespace Sphere\Core\Model\Customer;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class CustomerDraft
- * @package Sphere\Core\Model\Customers
+ * @package Sphere\Core\Model\Customer
  * @method string getCustomerNumber()
  * @method string getEmail()
  * @method string getTitle()

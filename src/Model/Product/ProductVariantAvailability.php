@@ -5,7 +5,6 @@
 
 namespace Sphere\Core\Model\Product;
 
-
 use Sphere\Core\Model\Common\JsonObject;
 
 /**

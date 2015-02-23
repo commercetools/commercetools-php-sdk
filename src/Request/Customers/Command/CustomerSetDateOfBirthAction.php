@@ -8,10 +8,12 @@ namespace Sphere\Core\Request\Customers\Command;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerChangeNameAction
+ * Class CustomerSetDateOfBirthAction
  * @package Sphere\Core\Request\Customers\Command
  * @method \DateTime getDateOfBirth()
  * @method CustomerSetDateOfBirthAction setDateOfBirth(\DateTime $dateOfBirth)
+ * @method string getAction()
+ * @method CustomerSetDateOfBirthAction setAction(string $action)
  */
 class CustomerSetDateOfBirthAction extends AbstractAction
 {

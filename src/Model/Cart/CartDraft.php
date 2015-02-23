@@ -5,7 +5,6 @@
 
 namespace Sphere\Core\Model\Cart;
 
-
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\OfTrait;
 

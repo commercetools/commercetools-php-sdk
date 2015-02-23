@@ -18,6 +18,8 @@ use Sphere\Core\Request\AbstractAction;
  * @method CustomerChangeNameAction setLastName(string $lastName)
  * @method CustomerChangeNameAction setMiddleName(string $middleName)
  * @method CustomerChangeNameAction setTitle(string $title)
+ * @method string getAction()
+ * @method CustomerChangeNameAction setAction(string $action)
  */
 class CustomerChangeNameAction extends AbstractAction
 {

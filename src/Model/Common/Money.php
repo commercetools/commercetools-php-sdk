@@ -6,9 +6,10 @@
 
 namespace Sphere\Core\Model\Common;
 
+
 /**
  * Class Money
- * @package Sphere\Core\Model\Type
+ * @package Sphere\Core\Model\Common
  * @method static Money of(string $currencyCode, int $centAmount)
  * @method string getCurrencyCode()
  * @method int getCentAmount()

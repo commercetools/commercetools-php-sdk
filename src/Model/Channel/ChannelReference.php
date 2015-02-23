@@ -11,9 +11,15 @@ use Sphere\Core\Model\Common\Reference;
 use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class CategoryReference
- * @package Sphere\Core\Model\Type
+ * Class ChannelReference
+ * @package Sphere\Core\Model\Channel
  * @method static ChannelReference of(string $id)
+ * @method string getTypeId()
+ * @method ChannelReference setTypeId(string $typeId)
+ * @method string getId()
+ * @method ChannelReference setId(string $id)
+ * @method array getObj()
+ * @method ChannelReference setObj(array $obj)
  */
 class ChannelReference extends Reference
 {

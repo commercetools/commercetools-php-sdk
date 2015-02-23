@@ -9,12 +9,14 @@ use Sphere\Core\Model\Common\Address;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerAddAddressAction
+ * Class CustomerChangeAddressAction
  * @package Sphere\Core\Request\Customers\Command
  * @method string getAddressId()
  * @method Address getAddress()
  * @method CustomerChangeAddressAction setAddressId(string $addressId)
  * @method CustomerChangeAddressAction setAddress(Address $address)
+ * @method string getAction()
+ * @method CustomerChangeAddressAction setAction(string $action)
  */
 class CustomerChangeAddressAction extends AbstractAction
 {

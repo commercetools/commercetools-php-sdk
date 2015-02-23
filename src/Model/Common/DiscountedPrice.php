@@ -11,7 +11,7 @@ use Sphere\Core\Model\ProductDiscount\ProductDiscountReference;
 
 /**
  * Class DiscountedPrice
- * @package Sphere\Core\Model\Type
+ * @package Sphere\Core\Model\Common
  * @method static DiscountedPrice of(Money $value, ProductDiscountReference $discount)
  * @method Money getValue()
  * @method ProductDiscountReference getDiscount()

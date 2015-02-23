@@ -6,7 +6,6 @@
 
 namespace Sphere\Core\Model\Product;
 
-
 use Sphere\Core\Model\Category\CategoryReferenceCollection;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
@@ -14,7 +13,7 @@ use Sphere\Core\Model\ProductType\ProductTypeReference;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
- * Class Product
+ * Class ProductProjection
  * @package Sphere\Core\Model\Product
  * @method LocalizedString getName()
  * @method ProductProjection setName(LocalizedString $name)

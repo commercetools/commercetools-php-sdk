@@ -8,10 +8,12 @@ namespace Sphere\Core\Request\Customers\Command;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerAddAddressAction
+ * Class CustomerSetDefaultShippingAddressAction
  * @package Sphere\Core\Request\Customers\Command
  * @method string getAddressId()
  * @method CustomerSetDefaultShippingAddressAction setAddressId(string $addressId)
+ * @method string getAction()
+ * @method CustomerSetDefaultShippingAddressAction setAction(string $action)
  */
 class CustomerSetDefaultShippingAddressAction extends AbstractAction
 {

@@ -13,6 +13,8 @@ use Sphere\Core\Request\AbstractAction;
  * @package Sphere\Core\Request\Customers\Command
  * @method Address getAddress()
  * @method CustomerAddAddressAction setAddress(Address $address)
+ * @method string getAction()
+ * @method CustomerAddAddressAction setAction(string $action)
  */
 class CustomerAddAddressAction extends AbstractAction
 {

@@ -8,10 +8,12 @@ namespace Sphere\Core\Request\Customers\Command;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerChangeNameAction
+ * Class CustomerSetVatIdAction
  * @package Sphere\Core\Request\Customers\Command
  * @method string getVatId()
  * @method CustomerSetVatIdAction setVatId(string $vatId)
+ * @method string getAction()
+ * @method CustomerSetVatIdAction setAction(string $action)
  */
 class CustomerSetVatIdAction extends AbstractAction
 {

@@ -11,18 +11,18 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
  * Class Price
- * @package Sphere\Core\Model\Type
+ * @package Sphere\Core\Model\Common
  * @method static Price of(Money $value)
  * @method Money getValue()
  * @method string getCountry()
- * @method string getCustomerGroup()
- * @method string getChannel()
- * @method string getDiscounted()
+ * @method CustomerGroupReference getCustomerGroup()
+ * @method ChannelReference getChannel()
+ * @method DiscountedPrice getDiscounted()
  * @method Price setValue(Money $value)
  * @method Price setCountry(string $country)
  * @method Price setCustomerGroup(CustomerGroupReference $customerGroup)
  * @method Price setChannel(ChannelReference $channel)
- * @method Price setDiscounted(DiscountedPrice $discountedPrice)
+ * @method Price setDiscounted(DiscountedPrice $discounted)
  */
 class Price extends JsonObject
 {

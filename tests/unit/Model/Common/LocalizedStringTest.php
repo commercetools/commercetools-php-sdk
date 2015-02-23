@@ -9,14 +9,6 @@ namespace Sphere\Core\Model\Common;
 
 use Sphere\Core\Error\InvalidArgumentException;
 
-function extension_loaded($value)
-{
-    if ($value === 'intl') {
-        return LocalizedStringTest::getIntlLoaded();
-    }
-    return \extension_loaded($value);
-}
-
 class LocalizedStringTest extends \PHPUnit_Framework_TestCase
 {
     protected static $intlLoaded = true;
@@ -61,25 +53,6 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('\JsonSerializable', $this->getString());
         $this->assertSame(['en' => 'test'], $this->getString()->jsonSerialize());
-    }
-
-    public function testDefaultLanguage()
-    {
-        \Locale::setDefault('en_US');
-        $localString = LocalizedString::of(['en' => 'test']);
-        $this->assertSame('test', (string)$localString);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testIntlNotLoaded()
-    {
-        static::$intlLoaded = false;
-        LocalizedString::setDefaultLanguage(null);
-
-        $localString = LocalizedString::of(['en' => 'test']);
-        $localString->__toString();
     }
 
     public function testMerge()

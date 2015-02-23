@@ -8,10 +8,12 @@ namespace Sphere\Core\Request\Categories\Command;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CategorySetDescriptionAction
+ * Class CategorySetExternalIdAction
  * @package Sphere\Core\Request\Categories\Command
  * @method string getExternalId()
  * @method CategorySetExternalIdAction setExternalId(string $externalId)
+ * @method string getAction()
+ * @method CategorySetExternalIdAction setAction(string $action)
  */
 class CategorySetExternalIdAction extends AbstractAction
 {

@@ -13,6 +13,8 @@ use Sphere\Core\Request\AbstractAction;
  * @package Sphere\Core\Request\Categories\Command
  * @method LocalizedString getDescription()
  * @method CategorySetDescriptionAction setDescription(LocalizedString $description)
+ * @method string getAction()
+ * @method CategorySetDescriptionAction setAction(string $action)
  */
 class CategorySetDescriptionAction extends AbstractAction
 {

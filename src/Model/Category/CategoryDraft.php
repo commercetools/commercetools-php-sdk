@@ -7,13 +7,13 @@
 namespace Sphere\Core\Model\Category;
 
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
+use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class CategoryDraft
- * @package Sphere\Core\Model\Draft
+ * @package Sphere\Core\Model\Category
  * @method static CategoryDraft of(LocalizedString $name, LocalizedString $slug)
  * @method LocalizedString getName()
  * @method LocalizedString getSlug()

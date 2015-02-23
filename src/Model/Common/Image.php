@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Model\Common;
 
+
 /**
  * Class Image
  * @package Sphere\Core\Model\Common

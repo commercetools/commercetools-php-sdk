@@ -11,9 +11,15 @@ use Sphere\Core\Model\Common\Reference;
 use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class CategoryReference
- * @package Sphere\Core\Model\Type
+ * Class TaxCategoryReference
+ * @package Sphere\Core\Model\TaxCategory
  * @method static TaxCategoryReference of(string $id)
+ * @method string getTypeId()
+ * @method TaxCategoryReference setTypeId(string $typeId)
+ * @method string getId()
+ * @method TaxCategoryReference setId(string $id)
+ * @method array getObj()
+ * @method TaxCategoryReference setObj(array $obj)
  */
 class TaxCategoryReference extends Reference
 {

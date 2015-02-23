@@ -10,12 +10,12 @@ use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class Attribute
- * @package Sphere\Core\Model\Type
+ * @package Sphere\Core\Model\Common
  * @method static Attribute of($name, $value)
  * @method string getName()
  * @method \JsonSerializable getValue()
  * @method Attribute setName(string $name)
- * @method Attribute setValue($value = null)
+ * @method Attribute setValue(\JsonSerializable $value = null)
  */
 class Attribute extends JsonObject
 {

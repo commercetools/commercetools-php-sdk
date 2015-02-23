@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Model\Common;
 
+
 /**
  * Class Address
  * @package Sphere\Core\Model\Common

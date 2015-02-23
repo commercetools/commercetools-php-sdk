@@ -9,10 +9,12 @@ use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CategoryChangeNameAction
+ * Class CategoryChangeSlugAction
  * @package Sphere\Core\Request\Categories\Command
  * @method LocalizedString getSlug()
  * @method CategoryChangeSlugAction setSlug(LocalizedString $slug)
+ * @method string getAction()
+ * @method CategoryChangeSlugAction setAction(string $action)
  */
 class CategoryChangeSlugAction extends AbstractAction
 {

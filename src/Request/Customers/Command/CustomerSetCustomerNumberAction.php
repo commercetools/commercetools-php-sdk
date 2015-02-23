@@ -8,10 +8,12 @@ namespace Sphere\Core\Request\Customers\Command;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerChangeNameAction
+ * Class CustomerSetCustomerNumberAction
  * @package Sphere\Core\Request\Customers\Command
  * @method string getCustomerNumber()
  * @method CustomerSetCustomerNumberAction setCustomerNumber(string $customerNumber)
+ * @method string getAction()
+ * @method CustomerSetCustomerNumberAction setAction(string $action)
  */
 class CustomerSetCustomerNumberAction extends AbstractAction
 {

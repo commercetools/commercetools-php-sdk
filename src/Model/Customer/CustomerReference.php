@@ -11,9 +11,15 @@ use Sphere\Core\Model\Common\Reference;
 use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class CategoryReference
- * @package Sphere\Core\Model\Type
+ * Class CustomerReference
+ * @package Sphere\Core\Model\Customer
  * @method static CustomerReference of(string $id)
+ * @method string getTypeId()
+ * @method CustomerReference setTypeId(string $typeId)
+ * @method string getId()
+ * @method CustomerReference setId(string $id)
+ * @method array getObj()
+ * @method CustomerReference setObj(array $obj)
  */
 class CustomerReference extends Reference
 {

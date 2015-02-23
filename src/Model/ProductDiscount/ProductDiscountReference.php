@@ -11,9 +11,15 @@ use Sphere\Core\Model\Common\Reference;
 use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class CategoryReference
- * @package Sphere\Core\Model\Type
+ * Class ProductDiscountReference
+ * @package Sphere\Core\Model\ProductDiscount
  * @method static ProductDiscountReference of(string $id)
+ * @method string getTypeId()
+ * @method ProductDiscountReference setTypeId(string $typeId)
+ * @method string getId()
+ * @method ProductDiscountReference setId(string $id)
+ * @method array getObj()
+ * @method ProductDiscountReference setObj(array $obj)
  */
 class ProductDiscountReference extends Reference
 {

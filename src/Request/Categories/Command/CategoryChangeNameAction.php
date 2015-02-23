@@ -13,6 +13,8 @@ use Sphere\Core\Request\AbstractAction;
  * @package Sphere\Core\Request\Categories\Command
  * @method LocalizedString getName()
  * @method CategoryChangeNameAction setName(LocalizedString $name)
+ * @method string getAction()
+ * @method CategoryChangeNameAction setAction(string $action)
  */
 class CategoryChangeNameAction extends AbstractAction
 {
