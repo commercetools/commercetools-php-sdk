@@ -8,6 +8,7 @@ namespace Sphere\Core\Request;
 
 use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpRequestInterface;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
@@ -44,5 +45,5 @@ interface ClientRequestInterface
      * @param array $result
      * @return mixed
      */
-    public function mapResult(array $result);
+    public function mapResult(array $result, Context $context = null);
 }

@@ -18,4 +18,6 @@ interface ContextAwareInterface
      * @return mixed
      */
     public function setContext(Context $context = null);
+
+    public function setContextIfNull(Context $context = null);
 }

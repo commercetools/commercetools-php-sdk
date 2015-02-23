@@ -30,7 +30,7 @@ class Attribute extends JsonObject
     }
 
     /**
-     * @param array $name
+     * @param string $name
      * @param \JsonSerializable $value
      * @param Context $context
      */

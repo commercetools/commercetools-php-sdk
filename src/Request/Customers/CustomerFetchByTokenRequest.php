@@ -9,6 +9,7 @@ namespace Sphere\Core\Request\Customers;
 use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
@@ -24,9 +25,9 @@ class CustomerFetchByTokenRequest extends AbstractApiRequest
     /**
      * @param string $token
      */
-    public function __construct($token)
+    public function __construct($token, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint());
+        parent::__construct(CustomersEndpoint::endpoint(), $context);
         $this->addParam(static::TOKEN, $token);
     }
 

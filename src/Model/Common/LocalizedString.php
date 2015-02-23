@@ -18,7 +18,6 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
 {
     use ContextTrait;
 
-    protected static $language;
     protected $values = [];
 
     /**
@@ -30,27 +29,24 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
         $this->values = $values;
     }
 
-    /**
-     * @param $language
-     * @internal
-     */
-    public static function setDefaultLanguage($language)
+    public function __get($locale)
     {
-        static::$language = $language;
+        return $this->get($locale);
     }
 
     /**
      * @return string
      */
-    protected function getDefaultLanguage()
+    protected function getLanguage()
     {
-        if (is_null(static::$language)) {
-            if (extension_loaded('intl')) {
-                $locale = \Locale::getDefault();
-                static::setDefaultLanguage(\Locale::getPrimaryLanguage($locale));
+        $locale = null;
+        foreach ($this->getContext()->getLanguages() as $language) {
+            if (isset($this->values[$language])) {
+                $locale = $language;
+                break;
             }
         }
-        return static::$language;
+        return $locale;
     }
 
     /**
@@ -60,7 +56,7 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
     public function get($locale = null)
     {
         if (is_null($locale)) {
-            $locale = $this->getDefaultLanguage();
+            $locale = $this->getLanguage();
         }
         if (!isset($this->values[$locale])) {
             throw new InvalidArgumentException(Message::NO_VALUE_FOR_LOCALE);

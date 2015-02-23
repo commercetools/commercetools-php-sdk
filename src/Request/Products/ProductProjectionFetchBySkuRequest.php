@@ -27,11 +27,12 @@ class ProductProjectionFetchBySkuRequest extends AbstractApiRequest
     use PageTrait;
 
     /**
-     * @param string $sku
+     * @param \Sphere\Core\Client\JsonEndpoint $sku
+     * @param Context $context
      */
-    public function __construct($sku)
+    public function __construct($sku, Context $context = null)
     {
-        parent::__construct(ProductSearchEndpoint::endpoint());
+        parent::__construct(ProductSearchEndpoint::endpoint(), $context);
         if (!is_null($sku)) {
             $this->where(sprintf('masterVariant(sku="%1$s") or variants(sku="%1$s")', $sku));
         }

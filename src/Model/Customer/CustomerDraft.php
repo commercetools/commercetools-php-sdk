@@ -53,10 +53,10 @@ class CustomerDraft extends JsonObject
     }
 
     /**
-     * @param array $email
-     * @param \Sphere\Core\Model\Common\Context $firstName
-     * @param $lastName
-     * @param $password
+     * @param string $email
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $password
      * @param Context $context
      */
     public function __construct($email, $firstName, $lastName, $password, Context $context = null)

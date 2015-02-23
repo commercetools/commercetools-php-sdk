@@ -27,6 +27,6 @@ class ChannelReference extends Reference
      */
     public function __construct($id, Context $context = null)
     {
-        parent::__construct(static::TYPE_CHANNEL, $context);
+        parent::__construct(static::TYPE_CHANNEL, $id, $context);
     }
 }

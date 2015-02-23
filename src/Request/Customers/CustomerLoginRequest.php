@@ -9,6 +9,7 @@ namespace Sphere\Core\Request\Customers;
 use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
@@ -34,13 +35,14 @@ class CustomerLoginRequest extends AbstractApiRequest
     protected $anonymousCartId;
 
     /**
-     * @param string $email
-     * @param string $password
-     * @param string $anonymousCartId
+     * @param \Sphere\Core\Client\JsonEndpoint $email
+     * @param Context $password
+     * @param null $anonymousCartId
+     * @param Context $context
      */
-    public function __construct($email, $password, $anonymousCartId = null)
+    public function __construct($email, $password, $anonymousCartId = null, Context $context = null)
     {
-        parent::__construct(LoginEndpoint::endpoint());
+        parent::__construct(LoginEndpoint::endpoint(), $context);
         $this->email = $email;
         $this->password = $password;
         $this->anonymousCartId = $anonymousCartId;

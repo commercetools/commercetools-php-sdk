@@ -40,6 +40,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
 
     /**
      * @param JsonEndpoint $endpoint
+     * @param Context $context
      */
     public function __construct(JsonEndpoint $endpoint, Context $context = null)
     {
@@ -146,7 +147,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
     /**
      * @param array $result
      * @param Context $context
-     * @return array
+     * @return mixed
      */
     public function mapResult(array $result, Context $context = null)
     {

@@ -11,6 +11,7 @@ use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
@@ -40,13 +41,14 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
 
     /**
      * @param JsonEndpoint $endpoint
-     * @param $id
+     * @param Context $id
      * @param $version
      * @param array $actions
+     * @param Context $context
      */
-    public function __construct($endpoint, $id, $version, array $actions = [])
+    public function __construct($endpoint, $id, $version, array $actions = [], Context $context = null)
     {
-        parent::__construct($endpoint);
+        parent::__construct($endpoint, $context);
         $this->setId($id)->setVersion($version)->setActions($actions);
     }
 

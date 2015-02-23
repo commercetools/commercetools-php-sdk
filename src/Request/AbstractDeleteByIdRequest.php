@@ -11,6 +11,7 @@ use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
@@ -31,12 +32,13 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
 
     /**
      * @param JsonEndpoint $endpoint
-     * @param $id
+     * @param Context $id
      * @param $version
+     * @param Context $context
      */
-    public function __construct(JsonEndpoint $endpoint, $id, $version)
+    public function __construct(JsonEndpoint $endpoint, $id, $version, Context $context = null)
     {
-        parent::__construct($endpoint);
+        parent::__construct($endpoint, $context);
         $this->setId($id);
         $this->setVersion($version);
     }

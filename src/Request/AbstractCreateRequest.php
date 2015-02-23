@@ -12,6 +12,7 @@ use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Error\InvalidArgumentException;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
@@ -27,11 +28,12 @@ abstract class AbstractCreateRequest extends AbstractApiRequest
 
     /**
      * @param JsonEndpoint $endpoint
-     * @param $object
+     * @param Context $object
+     * @param Context $context
      */
-    public function __construct(JsonEndpoint $endpoint, $object)
+    public function __construct(JsonEndpoint $endpoint, $object, Context $context = null)
     {
-        parent::__construct($endpoint);
+        parent::__construct($endpoint, $context);
         $this->setObject($object);
     }
 

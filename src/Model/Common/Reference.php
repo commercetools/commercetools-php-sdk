@@ -29,8 +29,9 @@ class Reference extends JsonObject
     }
 
     /**
-     * @param string $typeId
+     * @param array $typeId
      * @param string $id
+     * @param Context $context
      */
     public function __construct($typeId, $id, Context $context = null)
     {

@@ -26,9 +26,25 @@ trait ContextTrait
 
     /**
      * @param Context $context
+     * @return $this
      */
     public function setContext(Context $context = null)
     {
         $this->context = $context;
+
+        return $this;
+    }
+
+    /**
+     * @param Context $context
+     * @return $this
+     */
+    public function setContextIfNull(Context $context = null)
+    {
+        if (is_null($this->context)) {
+            $this->setContext($context);
+        }
+
+        return $this;
     }
 }

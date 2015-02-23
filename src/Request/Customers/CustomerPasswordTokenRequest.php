@@ -10,6 +10,7 @@ namespace Sphere\Core\Request\Customers;
 use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
@@ -27,11 +28,12 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
     protected $email;
 
     /**
-     * @param string $email
+     * @param \Sphere\Core\Client\JsonEndpoint $email
+     * @param Context $context
      */
-    public function __construct($email)
+    public function __construct($email, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint());
+        parent::__construct(CustomersEndpoint::endpoint(), $context);
         $this->email = $email;
     }
 

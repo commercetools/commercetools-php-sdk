@@ -33,7 +33,7 @@ class ProductProjectionFetchBySlugRequest extends AbstractApiRequest
      */
     public function __construct($slug, Context $context)
     {
-        parent::__construct(ProductSearchEndpoint::endpoint());
+        parent::__construct(ProductSearchEndpoint::endpoint(), $context);
         $parts = array_map(
             function ($value) {
                 return sprintf('slug(%s="%s")', $value, '%1$s');
