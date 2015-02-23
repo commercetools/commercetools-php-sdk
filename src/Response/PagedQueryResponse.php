@@ -8,6 +8,9 @@ namespace Sphere\Core\Response;
 
 
 use GuzzleHttp\Message\ResponseInterface;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\ContextAwareInterface;
+use Sphere\Core\Model\Common\ContextTrait;
 use Sphere\Core\Model\Product\ProductProjectionCollection;
 use Sphere\Core\Request\ClientRequestInterface;
 use Traversable;
@@ -28,9 +31,9 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     protected $total;
     protected $results = [];
 
-    public function __construct(ResponseInterface $response, ClientRequestInterface $request)
+    public function __construct(ResponseInterface $response, ClientRequestInterface $request, Context $context = null)
     {
-        parent::__construct($response, $request);
+        parent::__construct($response, $request, $context);
         if (!$this->isError()) {
             $jsonResponse = $this->toArray();
             $this->setCount($jsonResponse[static::COUNT])
@@ -40,13 +43,6 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
             ;
         }
     }
-
-    public function toObject()
-    {
-        $collection = ProductProjectionCollection::fromArray($this->getResults());
-        return $collection;
-    }
-
 
     /**
      * @return int

@@ -16,14 +16,17 @@ use Sphere\Core\Error\InvalidArgumentException;
  */
 class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
 {
+    use ContextTrait;
+
     protected static $language;
     protected $values = [];
 
     /**
      * @param array $values
      */
-    public function __construct(array $values)
+    public function __construct(array $values, Context $context = null)
     {
+        $this->setContext($context);
         $this->values = $values;
     }
 
@@ -114,10 +117,11 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
 
     /**
      * @param array $data
+     * @param Context $context
      * @return static
      */
-    public static function fromArray(array $data)
+    public static function fromArray(array $data, Context $context = null)
     {
-        return new static($data);
+        return new static($data, $context);
     }
 }

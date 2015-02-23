@@ -45,6 +45,6 @@ class ProductsSearchRequest extends AbstractProjectionRequest
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new PagedQueryResponse($response, $this);
+        return new PagedQueryResponse($response, $this, $this->getContext());
     }
 }

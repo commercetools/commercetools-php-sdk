@@ -29,21 +29,29 @@ class Attribute extends JsonObject
         ];
     }
 
-    public function __construct($name, \JsonSerializable $value = null)
+    /**
+     * @param array $name
+     * @param \JsonSerializable $value
+     * @param Context $context
+     */
+    public function __construct($name, \JsonSerializable $value = null, Context $context = null)
     {
+        $this->setContext($context);
         $this->setName($name);
         $this->setValue($value);
     }
 
     /**
      * @param array $data
+     * @param Context $context
      * @return static
      */
-    public static function fromArray(array $data)
+    public static function fromArray(array $data, Context $context = null)
     {
         return new static(
             $data['name'],
-            $data['value']
+            $data['value'],
+            $context
         );
     }
 }

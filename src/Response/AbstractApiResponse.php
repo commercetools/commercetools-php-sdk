@@ -8,14 +8,19 @@ namespace Sphere\Core\Response;
 
 
 use GuzzleHttp\Message\ResponseInterface;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\ContextAwareInterface;
+use Sphere\Core\Model\Common\ContextTrait;
 use Sphere\Core\Request\ClientRequestInterface;
 
 /**
  * Class AbstractApiResponse
  * @package Sphere\Core\Response
  */
-abstract class AbstractApiResponse implements ApiResponseInterface
+abstract class AbstractApiResponse implements ApiResponseInterface, ContextAwareInterface
 {
+    use ContextTrait;
+
     /**
      * @var ResponseInterface
      */
@@ -26,15 +31,16 @@ abstract class AbstractApiResponse implements ApiResponseInterface
      */
     protected $request;
 
-    public function __construct(ResponseInterface $response, ClientRequestInterface $request)
+    public function __construct(ResponseInterface $response, ClientRequestInterface $request, Context $context = null)
     {
+        $this->setContext($context);
         $this->response = $response;
         $this->request = $request;
     }
 
     public function toObject()
     {
-        return $this->getRequest()->mapResult($this->toArray());
+        return $this->getRequest()->mapResult($this->toArray(), $this->getContext());
     }
 
     public function toArray()

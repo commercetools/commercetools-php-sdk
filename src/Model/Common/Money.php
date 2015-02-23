@@ -31,8 +31,9 @@ class Money extends JsonObject
      * @param string $currencyCode
      * @param int $centAmount
      */
-    public function __construct($currencyCode, $centAmount)
+    public function __construct($currencyCode, $centAmount, Context $context = null)
     {
+        $this->setContext($context);
         $this->setCurrencyCode($currencyCode);
         $this->setCentAmount($centAmount);
     }
@@ -41,11 +42,12 @@ class Money extends JsonObject
      * @param array $data
      * @return static
      */
-    public static function fromArray(array $data)
+    public static function fromArray(array $data, Context $context = null)
     {
         return new static(
             $data['currencyCode'],
-            $data['centAmount']
+            $data['centAmount'],
+            $context
         );
     }
 }

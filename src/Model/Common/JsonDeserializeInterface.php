@@ -7,11 +7,12 @@
 namespace Sphere\Core\Model\Common;
 
 
-interface JsonDeserializeInterface
+interface JsonDeserializeInterface extends ContextAwareInterface
 {
     /**
      * @param array $data
-     * @return static
+     * @param Context $context
+     * @return mixed
      */
-    public static function fromArray(array $data);
+    public static function fromArray(array $data, Context $context = null);
 }

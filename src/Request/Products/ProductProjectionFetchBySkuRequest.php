@@ -8,6 +8,7 @@ namespace Sphere\Core\Request\Products;
 use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Request\QueryTrait;
@@ -52,18 +53,19 @@ class ProductProjectionFetchBySkuRequest extends AbstractApiRequest
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this);
+        return new SingleResourceResponse($response, $this, $this->getContext());
     }
 
     /**
      * @param array $result
+     * @param Context $context
      * @return ProductProjection|null
      */
-    public function mapResult(array $result)
+    public function mapResult(array $result, Context $context = null)
     {
         if (isset($result['results'])) {
             $data = current($result['results']);
-            return ProductProjection::fromArray($data);
+            return ProductProjection::fromArray($data, $context);
         }
         return null;
     }

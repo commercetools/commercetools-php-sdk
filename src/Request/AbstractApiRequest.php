@@ -11,6 +11,9 @@ use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
 use Sphere\Core\Client\JsonEndpoint;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\ContextAwareInterface;
+use Sphere\Core\Model\Common\ContextTrait;
 use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Response\AbstractApiResponse;
 
@@ -18,8 +21,9 @@ use Sphere\Core\Response\AbstractApiResponse;
  * Class AbstractApiRequest
  * @package Sphere\Core\Request
  */
-abstract class AbstractApiRequest implements ClientRequestInterface
+abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwareInterface
 {
+    use ContextTrait;
     use OfTrait;
 
     /**
@@ -37,8 +41,9 @@ abstract class AbstractApiRequest implements ClientRequestInterface
     /**
      * @param JsonEndpoint $endpoint
      */
-    public function __construct(JsonEndpoint $endpoint)
+    public function __construct(JsonEndpoint $endpoint, Context $context = null)
     {
+        $this->setContext($context);
         $this->setEndpoint($endpoint);
     }
 
@@ -140,9 +145,10 @@ abstract class AbstractApiRequest implements ClientRequestInterface
 
     /**
      * @param array $result
-     * @return mixed
+     * @param Context $context
+     * @return array
      */
-    public function mapResult(array $result)
+    public function mapResult(array $result, Context $context = null)
     {
         return $result;
     }

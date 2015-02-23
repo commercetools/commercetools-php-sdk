@@ -42,19 +42,22 @@ class Price extends JsonObject
     /**
      * @param Money $value
      */
-    public function __construct(Money $value)
+    public function __construct(Money $value, Context $context = null)
     {
+        $this->setContext($context);
         $this->setValue($value);
     }
 
     /**
      * @param array $data
+     * @param Context $context
      * @return static
      */
-    public static function fromArray(array $data)
+    public static function fromArray(array $data, Context $context = null)
     {
         $price = new static(
-            Money::fromArray($data['value'])
+            Money::fromArray($data['value'], $context),
+            $context
         );
         $price->setRawData($data);
 

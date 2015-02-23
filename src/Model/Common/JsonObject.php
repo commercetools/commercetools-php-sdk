@@ -14,6 +14,8 @@ use Sphere\Core\Error\Message;
  */
 class JsonObject implements \JsonSerializable, JsonDeserializeInterface
 {
+    use ContextTrait;
+
     const TYPE = 'type';
     const OPTIONAL = 'optional';
     const INITIALIZED = 'initialized';
@@ -33,12 +35,14 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
 
     protected static $interfaces = [];
 
-    public function __construct(array $data = null)
+    public function __construct(array $data = null, Context $context = null)
     {
         if (!is_null($data)) {
             $this->rawData = $data;
         }
+        $this->setContext($context);
     }
+
 
     /**
      * @param array $rawData
@@ -109,8 +113,8 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     }
 
     /**
-     * @param $field
-     * @param $key
+     * @param string $field
+     * @param string $key
      * @return string|bool
      * @internal
      */
@@ -151,7 +155,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     }
 
     /**
-     * @param $field
+     * @param string $field
      * @internal
      */
     protected function initialize($field)
@@ -161,14 +165,14 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
             /**
              * @var JsonDeserializeInterface $type
              */
-            $this->typeData[$field] = $type::fromArray($this->getRaw($field));
+            $this->typeData[$field] = $type::fromArray($this->getRaw($field), $this->getContext());
         }
         $this->initialized[$field] = true;
     }
 
     /**
-     * @param $type
-     * @return mixed
+     * @param string $type
+     * @return bool
      * @internal
      */
     protected function hasInterface($type)
@@ -197,6 +201,12 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
         }
         if ($value === null && $this->getFieldKey($field, static::OPTIONAL) === false) {
             throw new \InvalidArgumentException(sprintf(Message::EXPECTS_PARAMETER, $field, $type));
+        }
+        if (is_object($value) && $this->hasInterface(get_class($value))) {
+            /**
+             * @var JsonDeserializeInterface $value
+             */
+            $value->setContext($this->getContext());
         }
         $this->typeData[$field] = $value;
         $this->initialized[$field] = true;
@@ -262,10 +272,11 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
 
     /**
      * @param array $data
+     * @param Context $context
      * @return static
      */
-    public static function fromArray(array $data)
+    public static function fromArray(array $data, Context $context = null)
     {
-        return new static($data);
+        return new static($data, $context);
     }
 }

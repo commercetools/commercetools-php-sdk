@@ -32,17 +32,19 @@ class Reference extends JsonObject
      * @param string $typeId
      * @param string $id
      */
-    public function __construct($typeId, $id)
+    public function __construct($typeId, $id, Context $context = null)
     {
+        $this->setContext($context);
         $this->setTypeId($typeId);
         $this->setId($id);
     }
 
-    public static function fromArray(array $data)
+    public static function fromArray(array $data, Context $context = null)
     {
         $reference = new static(
             $data['typeId'],
-            $data['id']
+            $data['id'],
+            $context
         );
         $reference->setRawData($data);
 

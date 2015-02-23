@@ -70,6 +70,6 @@ abstract class AbstractCreateRequest extends AbstractApiRequest
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this);
+        return new SingleResourceResponse($response, $this, $this->getContext());
     }
 }

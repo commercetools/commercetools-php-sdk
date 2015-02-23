@@ -14,6 +14,8 @@ use Traversable;
  */
 class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeserializeInterface, \ArrayAccess
 {
+    use ContextTrait;
+
     const DESERIALIZE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
 
     protected $type;
@@ -32,8 +34,9 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
 
     protected static $interfaces = [];
 
-    public function __construct(array $data = [])
+    public function __construct(array $data = [], Context $context = null)
     {
+        $this->setContext($context);
         $this->rawData = $data;
     }
 
@@ -92,7 +95,7 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
             /**
              * @var JsonDeserializeInterface $type
              */
-            $this->typeData[$offset] = $type::fromArray($this->getRaw($offset));
+            $this->typeData[$offset] = $type::fromArray($this->getRaw($offset), $this->getContext());
         }
         $this->initialized[$offset] = true;
     }
@@ -133,6 +136,12 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
         if (!is_null($type) && !is_null($object) && !$this->isType($type, $object)) {
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $offset, $type));
         }
+        if ($this->hasInterface(get_class($object))) {
+            /**
+             * @var JsonDeserializeInterface $object
+             */
+            $object->setContext($this->getContext());
+        }
         if (is_null($offset)) {
             $this->typeData[] = $object;
             $offset = count($this->typeData) - 1;
@@ -160,11 +169,12 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
 
     /**
      * @param array $data
+     * @param Context $context
      * @return static
      */
-    public static function fromArray(array $data)
+    public static function fromArray(array $data, Context $context = null)
     {
-        return new static($data);
+        return new static($data, $context);
     }
 
 

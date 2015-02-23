@@ -37,6 +37,6 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new PagedQueryResponse($response, $this);
+        return new PagedQueryResponse($response, $this, $this->getContext());
     }
 }

@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Model\State;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
@@ -22,9 +23,10 @@ class StateReference extends Reference
 
     /**
      * @param string $id
+     * @param Context $context
      */
-    public function __construct($id)
+    public function __construct($id, Context $context = null)
     {
-        parent::__construct(static::TYPE_STATE, $id);
+        parent::__construct(static::TYPE_STATE, $id, $context);
     }
 }

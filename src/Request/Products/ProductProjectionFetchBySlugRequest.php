@@ -61,18 +61,19 @@ class ProductProjectionFetchBySlugRequest extends AbstractApiRequest
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this);
+        return new SingleResourceResponse($response, $this, $this->getContext());
     }
 
     /**
      * @param array $result
+     * @param Context $context
      * @return ProductProjection|null
      */
-    public function mapResult(array $result)
+    public function mapResult(array $result, Context $context = null)
     {
         if (isset($result['results'])) {
             $data = current($result['results']);
-            return ProductProjection::fromArray($data);
+            return ProductProjection::fromArray($data, $context);
         }
         return null;
     }

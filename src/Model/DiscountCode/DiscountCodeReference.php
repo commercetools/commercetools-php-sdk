@@ -6,6 +6,7 @@
 namespace Sphere\Core\Model\DiscountCode;
 
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
@@ -15,20 +16,12 @@ class DiscountCodeReference extends Reference
 
     const TYPE_DISCOUNT_CODE = 'discount-code';
 
-    public function getFields()
-    {
-        return [
-            'typeId' => [self::TYPE => 'string'],
-            'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => 'array']
-        ];
-    }
-
     /**
      * @param string $id
+     * @param Context $context
      */
-    public function __construct($id)
+    public function __construct($id, Context $context = null)
     {
-        parent::__construct(static::TYPE_DISCOUNT_CODE, $id);
+        parent::__construct(static::TYPE_DISCOUNT_CODE, $id, $context);
     }
 }

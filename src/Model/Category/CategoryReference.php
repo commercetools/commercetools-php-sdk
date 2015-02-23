@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Model\Category;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
@@ -22,9 +23,10 @@ class CategoryReference extends Reference
 
     /**
      * @param string $id
+     * @param Context $context
      */
-    public function __construct($id)
+    public function __construct($id, Context $context = null)
     {
-        parent::__construct(static::TYPE_CATEGORY, $id);
+        parent::__construct(static::TYPE_CATEGORY, $id, $context);
     }
 }

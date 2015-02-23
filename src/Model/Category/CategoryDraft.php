@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Model\Category;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
@@ -43,19 +44,30 @@ class CategoryDraft extends JsonObject
         ];
     }
 
-    public function __construct(LocalizedString $name, LocalizedString $slug)
+    /**
+     * @param LocalizedString $name
+     * @param LocalizedString $slug
+     * @param Context $context
+     */
+    public function __construct(LocalizedString $name, LocalizedString $slug, Context $context = null)
     {
+        $this->setContext($context);
         $this->setName($name);
         $this->setSlug($slug);
     }
 
     /**
      * @param array $data
+     * @param Context $context
      * @return static
      */
-    public static function fromArray(array $data)
+    public static function fromArray(array $data, Context $context = null)
     {
-        $draft = new static(LocalizedString::fromArray($data['name']), LocalizedString::fromArray($data['slug']));
+        $draft = new static(
+            LocalizedString::fromArray($data['name'], $context),
+            LocalizedString::fromArray($data['slug'], $context),
+            $context
+        );
         $draft->setRawData($data);
 
         return $draft;
