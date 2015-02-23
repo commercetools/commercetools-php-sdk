@@ -36,7 +36,7 @@ class CustomerEmailConfirmRequest extends AbstractUpdateRequest
      */
     public function __construct($id, $version, $tokenValue, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint(), $id, $version);
+        parent::__construct(CustomersEndpoint::endpoint(), $id, $version, [], $context);
         $this->setId($id);
         $this->setVersion($version);
         $this->tokenValue = $tokenValue;

@@ -36,7 +36,7 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
      */
     public function __construct($id, $version, $ttlMinutes, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(CustomersEndpoint::endpoint(), $id, $version, [], $context);
         $this->setId($id);
         $this->setVersion($version);
         $this->ttlMinutes = $ttlMinutes;

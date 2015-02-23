@@ -46,7 +46,7 @@ class CustomerPasswordResetRequest extends AbstractUpdateRequest
      */
     public function __construct($id, $version, $tokenValue, $newPassword, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(CustomersEndpoint::endpoint(), $id, $version, [], $context);
         $this->setId($id);
         $this->setVersion($version);
         $this->tokenValue = $tokenValue;

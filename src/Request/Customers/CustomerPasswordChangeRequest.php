@@ -43,7 +43,7 @@ class CustomerPasswordChangeRequest extends AbstractUpdateRequest
      */
     public function __construct($id, $version, $currentPassword, $newPassword, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint(), $id, $version);
+        parent::__construct(CustomersEndpoint::endpoint(), $id, $version, [], $context);
         $this->setId($id);
         $this->setVersion($version);
         $this->currentPassword = $currentPassword;
