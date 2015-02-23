@@ -6,6 +6,7 @@
 namespace Sphere\Core\Request\Carts;
 
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractQueryRequest;
 use Sphere\Core\Request\CustomerIdTrait;
 
@@ -19,10 +20,10 @@ class CartsQueryRequest extends AbstractQueryRequest
     use CustomerIdTrait;
 
     /**
-     *
+     * @param Context $context
      */
-    public function __construct()
+    public function __construct(Context $context = null)
     {
-        parent::__construct(CartsEndpoint::endpoint());
+        parent::__construct(CartsEndpoint::endpoint(), $context);
     }
 }

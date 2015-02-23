@@ -27,7 +27,7 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
 
     /**
      * @param JsonEndpoint $endpoint
-     * @param Context $id
+     * @param string $id
      * @param Context $context
      */
     public function __construct(JsonEndpoint $endpoint, $id, Context $context = null)

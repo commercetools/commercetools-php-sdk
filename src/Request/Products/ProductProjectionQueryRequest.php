@@ -7,6 +7,7 @@
 namespace Sphere\Core\Request\Products;
 
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractQueryRequest;
 use Sphere\Core\Request\StagedTrait;
 
@@ -19,10 +20,10 @@ class ProductProjectionQueryRequest extends AbstractQueryRequest
     use StagedTrait;
 
     /**
-     *
+     * @param Context $context
      */
-    public function __construct()
+    public function __construct(Context $context = null)
     {
-        parent::__construct(ProductSearchEndpoint::endpoint());
+        parent::__construct(ProductSearchEndpoint::endpoint(), $context);
     }
 }

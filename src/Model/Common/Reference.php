@@ -32,7 +32,7 @@ class Reference extends JsonObject
     }
 
     /**
-     * @param array $typeId
+     * @param string $typeId
      * @param string $id
      * @param Context $context
      */

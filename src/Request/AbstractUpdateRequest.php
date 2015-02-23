@@ -41,8 +41,8 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
 
     /**
      * @param JsonEndpoint $endpoint
-     * @param Context $id
-     * @param $version
+     * @param string $id
+     * @param int $version
      * @param array $actions
      * @param Context $context
      */

@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Carts;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
 
 /**
@@ -16,9 +17,10 @@ class CartFetchByIdRequest extends AbstractFetchByIdRequest
 {
     /**
      * @param string $id
+     * @param Context $context
      */
-    public function __construct($id)
+    public function __construct($id, Context $context = null)
     {
-        parent::__construct(CartsEndpoint::endpoint(), $id);
+        parent::__construct(CartsEndpoint::endpoint(), $id, $context);
     }
 }

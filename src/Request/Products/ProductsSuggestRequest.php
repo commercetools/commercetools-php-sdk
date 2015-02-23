@@ -7,6 +7,7 @@
 namespace Sphere\Core\Request\Products;
 
 use GuzzleHttp\Message\ResponseInterface;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\PageTrait;
@@ -28,10 +29,11 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
 
     /**
      * @param LocalizedString $keywords
+     * @param Context $context
      */
-    public function __construct(LocalizedString $keywords)
+    public function __construct(LocalizedString $keywords, Context $context = null)
     {
-        parent::__construct(ProductSearchEndpoint::endpoint());
+        parent::__construct(ProductSearchEndpoint::endpoint(), $context);
         $this->addKeywords($keywords);
     }
 

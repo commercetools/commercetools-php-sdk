@@ -28,7 +28,7 @@ abstract class AbstractCreateRequest extends AbstractApiRequest
 
     /**
      * @param JsonEndpoint $endpoint
-     * @param Context $object
+     * @param mixed $object
      * @param Context $context
      */
     public function __construct(JsonEndpoint $endpoint, $object, Context $context = null)

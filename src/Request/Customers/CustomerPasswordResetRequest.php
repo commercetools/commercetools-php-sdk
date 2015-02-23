@@ -11,6 +11,7 @@ use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
@@ -26,18 +27,26 @@ class CustomerPasswordResetRequest extends AbstractUpdateRequest
     const TOKEN_VALUE = 'tokenValue';
     const NEW_PASSWORD = 'newPassword';
 
+    /**
+     * @var string
+     */
     protected $tokenValue;
+
+    /**
+     * @var string
+     */
     protected $newPassword;
 
     /**
      * @param string $id
-     * @param string $version
+     * @param int $version
      * @param string $tokenValue
      * @param string $newPassword
+     * @param Context $context
      */
-    public function __construct($id, $version, $tokenValue, $newPassword)
+    public function __construct($id, $version, $tokenValue, $newPassword, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint(), $id, $version);
+        parent::__construct(CustomersEndpoint::endpoint(), $id, $version, $context);
         $this->setId($id);
         $this->setVersion($version);
         $this->tokenValue = $tokenValue;

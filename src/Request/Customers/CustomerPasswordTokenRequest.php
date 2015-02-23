@@ -28,7 +28,7 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
     protected $email;
 
     /**
-     * @param \Sphere\Core\Client\JsonEndpoint $email
+     * @param string $email
      * @param Context $context
      */
     public function __construct($email, Context $context = null)

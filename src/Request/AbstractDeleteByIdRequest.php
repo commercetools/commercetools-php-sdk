@@ -32,8 +32,8 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
 
     /**
      * @param JsonEndpoint $endpoint
-     * @param Context $id
-     * @param $version
+     * @param string $id
+     * @param int $version
      * @param Context $context
      */
     public function __construct(JsonEndpoint $endpoint, $id, $version, Context $context = null)

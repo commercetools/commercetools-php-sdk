@@ -7,6 +7,7 @@
 namespace Sphere\Core\Request\Products;
 
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
 
 /**
@@ -17,10 +18,11 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 class ProductFetchByIdRequest extends AbstractFetchByIdRequest
 {
     /**
-     * @param int $id
+     * @param string $id
+     * @param Context $context
      */
-    public function __construct($id)
+    public function __construct($id, Context $context = null)
     {
-        parent::__construct(ProductsEndpoint::endpoint(), $id);
+        parent::__construct(ProductsEndpoint::endpoint(), $id, $context);
     }
 }

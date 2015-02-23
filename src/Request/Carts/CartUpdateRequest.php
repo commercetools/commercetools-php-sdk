@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Carts;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
 
 /**
@@ -16,11 +17,12 @@ class CartUpdateRequest extends AbstractUpdateRequest
 {
     /**
      * @param string $id
-     * @param int $version
+     * @param string $version
      * @param array $actions
+     * @param Context $context
      */
-    public function __construct($id, $version, array $actions = [])
+    public function __construct($id, $version, array $actions = [], Context $context = null)
     {
-        parent::__construct(CartsEndpoint::endpoint(), $id, $version, $actions);
+        parent::__construct(CartsEndpoint::endpoint(), $id, $version, $actions, $context);
     }
 }

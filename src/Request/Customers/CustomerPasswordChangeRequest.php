@@ -9,6 +9,7 @@ namespace Sphere\Core\Request\Customers;
 use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
@@ -23,16 +24,24 @@ class CustomerPasswordChangeRequest extends AbstractUpdateRequest
     const CURRENT_PASSWORD = 'currentPassword';
     const NEW_PASSWORD = 'newPassword';
 
+    /**
+     * @var string
+     */
     protected $currentPassword;
+
+    /**
+     * @var string
+     */
     protected $newPassword;
 
     /**
      * @param string $id
-     * @param string $version
+     * @param int $version
      * @param string $currentPassword
      * @param string $newPassword
+     * @param Context $context
      */
-    public function __construct($id, $version, $currentPassword, $newPassword)
+    public function __construct($id, $version, $currentPassword, $newPassword, Context $context = null)
     {
         parent::__construct(CustomersEndpoint::endpoint(), $id, $version);
         $this->setId($id);

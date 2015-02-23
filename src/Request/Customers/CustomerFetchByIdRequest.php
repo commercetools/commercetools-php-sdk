@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Request\Customers;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
 
 /**
@@ -17,9 +18,10 @@ class CustomerFetchByIdRequest extends AbstractFetchByIdRequest
 {
     /**
      * @param string $id
+     * @param Context $context
      */
-    public function __construct($id)
+    public function __construct($id, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint(), $id);
+        parent::__construct(CustomersEndpoint::endpoint(), $id, $context);
     }
 }

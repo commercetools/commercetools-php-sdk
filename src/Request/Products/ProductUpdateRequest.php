@@ -7,6 +7,7 @@
 namespace Sphere\Core\Request\Products;
 
 use Sphere\Core\Model\Category\CategoryReference;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Product\ProductVariantDraft;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 use Sphere\Core\Model\Common\Attribute;
@@ -66,10 +67,11 @@ class ProductUpdateRequest extends AbstractUpdateRequest
      * @param string $id
      * @param int $version
      * @param array $actions
+     * @param Context $context
      */
-    public function __construct($id, $version, array $actions = [])
+    public function __construct($id, $version, array $actions = [], Context $context = null)
     {
-        parent::__construct(ProductsEndpoint::endpoint(), $id, $version, $actions);
+        parent::__construct(ProductsEndpoint::endpoint(), $id, $version, $actions, $context);
     }
 
     public function changeName(LocalizedString $name)

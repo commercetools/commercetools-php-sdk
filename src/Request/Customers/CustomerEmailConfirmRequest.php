@@ -9,6 +9,7 @@ namespace Sphere\Core\Request\Customers;
 use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
@@ -26,12 +27,14 @@ class CustomerEmailConfirmRequest extends AbstractUpdateRequest
      * @var string
      */
     protected $tokenValue;
+
     /**
      * @param string $id
-     * @param string $version
+     * @param int $version
      * @param string $tokenValue
+     * @param Context $context
      */
-    public function __construct($id, $version, $tokenValue)
+    public function __construct($id, $version, $tokenValue, Context $context = null)
     {
         parent::__construct(CustomersEndpoint::endpoint(), $id, $version);
         $this->setId($id);

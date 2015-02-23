@@ -7,16 +7,18 @@
 namespace Sphere\Core\Request\Products;
 
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Product\ProductDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
 
 class ProductCreateRequest extends AbstractCreateRequest
 {
     /**
-     * @param \Sphere\Core\Model\Product\ProductDraft $product
+     * @param ProductDraft $product
+     * @param Context $context
      */
-    public function __construct(ProductDraft $product)
+    public function __construct(ProductDraft $product, Context $context = null)
     {
-        parent::__construct(ProductsEndpoint::endpoint(), $product);
+        parent::__construct(ProductsEndpoint::endpoint(), $product, $context);
     }
 }

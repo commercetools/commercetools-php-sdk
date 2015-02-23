@@ -7,6 +7,7 @@
 namespace Sphere\Core\Request\Customers;
 
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractQueryRequest;
 
 /**
@@ -17,10 +18,10 @@ use Sphere\Core\Request\AbstractQueryRequest;
 class CustomersQueryRequest extends AbstractQueryRequest
 {
     /**
-     *
+     * @param Context $context
      */
-    public function __construct()
+    public function __construct(Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint());
+        parent::__construct(CustomersEndpoint::endpoint(), $context);
     }
 }

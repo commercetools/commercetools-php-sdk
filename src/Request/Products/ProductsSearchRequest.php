@@ -7,6 +7,7 @@
 namespace Sphere\Core\Request\Products;
 
 use GuzzleHttp\Message\ResponseInterface;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Request\SortTrait;
@@ -23,11 +24,11 @@ class ProductsSearchRequest extends AbstractProjectionRequest
     use SortTrait;
 
     /**
-     *
+     * @param Context $context
      */
-    public function __construct()
+    public function __construct(Context $context = null)
     {
-        parent::__construct(ProductSearchEndpoint::endpoint());
+        parent::__construct(ProductSearchEndpoint::endpoint(), $context);
     }
 
     /**

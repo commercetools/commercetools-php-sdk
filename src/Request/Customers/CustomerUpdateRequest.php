@@ -8,6 +8,7 @@ namespace Sphere\Core\Request\Customers;
 
 
 use Sphere\Core\Model\Common\Address;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 use Sphere\Core\Request\AbstractUpdateRequest;
 
@@ -22,9 +23,10 @@ class CustomerUpdateRequest extends AbstractUpdateRequest
      * @param string $id
      * @param int $version
      * @param array $actions
+     * @param Context $context
      */
-    public function __construct($id, $version, array $actions = [])
+    public function __construct($id, $version, array $actions = [], Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint(), $id, $version, $actions);
+        parent::__construct(CustomersEndpoint::endpoint(), $id, $version, $actions, $context);
     }
 }

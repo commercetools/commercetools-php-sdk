@@ -7,6 +7,7 @@ namespace Sphere\Core\Request\Carts;
 
 
 use Sphere\Core\Model\Cart\CartDraft;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractCreateRequest;
 
 /**
@@ -18,9 +19,10 @@ class CartCreateRequest extends AbstractCreateRequest
 {
     /**
      * @param CartDraft $category
+     * @param Context $context
      */
-    public function __construct(CartDraft $category)
+    public function __construct(CartDraft $category, Context $context = null)
     {
-        parent::__construct(CartsEndpoint::endpoint(), $category);
+        parent::__construct(CartsEndpoint::endpoint(), $category, $context);
     }
 }

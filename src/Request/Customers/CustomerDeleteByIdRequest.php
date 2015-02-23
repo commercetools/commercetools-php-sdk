@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Request\Customers;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractDeleteByIdRequest;
 
 /**
@@ -18,9 +19,10 @@ class CustomerDeleteByIdRequest extends AbstractDeleteByIdRequest
     /**
      * @param string $id
      * @param int $version
+     * @param Context $context
      */
-    public function __construct($id, $version)
+    public function __construct($id, $version, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint(), $id, $version);
+        parent::__construct(CustomersEndpoint::endpoint(), $id, $version, $context);
     }
 }

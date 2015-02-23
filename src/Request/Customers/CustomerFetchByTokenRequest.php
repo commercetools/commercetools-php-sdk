@@ -24,6 +24,7 @@ class CustomerFetchByTokenRequest extends AbstractApiRequest
 
     /**
      * @param string $token
+     * @param Context $context
      */
     public function __construct($token, Context $context = null)
     {
