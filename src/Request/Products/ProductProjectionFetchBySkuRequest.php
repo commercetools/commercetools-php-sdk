@@ -64,7 +64,7 @@ class ProductProjectionFetchBySkuRequest extends AbstractApiRequest
      */
     public function mapResult(array $result, Context $context = null)
     {
-        if (isset($result['results'])) {
+        if (!empty($result['results'])) {
             $data = current($result['results']);
             return ProductProjection::fromArray($data, $context);
         }
