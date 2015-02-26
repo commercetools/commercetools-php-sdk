@@ -84,27 +84,6 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
         return null;
     }
 
-    /**
-     * @param $method
-     * @param $arguments
-     * @return mixed|null
-     * @internal
-     */
-    public function __call($method, $arguments)
-    {
-        $action = substr($method, 0, 5);
-        $field = lcfirst(substr($method, 5));
-        if ($action !== 'getBy') {
-            throw new \BadMethodCallException(sprintf(Message::UNKNOWN_METHOD, $method, $field));
-        }
-        if (!isset($this->index[$field])) {
-            throw new \BadMethodCallException(
-                sprintf(Message::UNKNOWN_FIELD, $field, $method, implode(', ', $arguments))
-            );
-        }
-        return $this->getBy($field, $arguments[0]);
-    }
-
     public function add($object)
     {
         $this->setAt(null, $object);
@@ -213,7 +192,7 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
             $this->typeData[$offset] = $object;
         }
         $this->initialized[$offset] = true;
-        $this->mapRow($offset, $object);
+        $this->indexRow($offset, $object);
 
         return $this;
     }

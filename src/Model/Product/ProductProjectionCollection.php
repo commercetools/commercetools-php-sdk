@@ -12,10 +12,10 @@ use Sphere\Core\Model\Common\Collection;
  * Class ProductProjectionCollection
  * @package Sphere\Core\Model\Product
  * @method ProductProjection getAt($offset)
- * @method ProductProjection getById(string $id)
  */
 class ProductProjectionCollection extends Collection
 {
+    const ID = 'id';
     protected $type = '\Sphere\Core\Model\Product\ProductProjection';
 
     protected function indexRow($offset, $row)
@@ -23,8 +23,17 @@ class ProductProjectionCollection extends Collection
         if ($row instanceof ProductProjection) {
             $id = $row->getId();
         } else {
-            $id = $row['id'];
+            $id = $row[static::ID];
         }
-        $this->addToIndex('id', $offset, $id);
+        $this->addToIndex(static::ID, $offset, $id);
+    }
+
+    /**
+     * @param $id
+     * @return ProductProjection
+     */
+    public function getById($id)
+    {
+        return $this->getBy(static::ID, $id);
     }
 }
