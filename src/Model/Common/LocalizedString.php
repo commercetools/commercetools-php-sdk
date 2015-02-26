@@ -18,10 +18,14 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
 {
     use ContextTrait;
 
+    /**
+     * @var array
+     */
     protected $values = [];
 
     /**
      * @param array $values
+     * @param Context $context
      */
     public function __construct(array $values, Context $context = null)
     {
@@ -29,18 +33,33 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
         $this->values = $values;
     }
 
+    /**
+     * @param $locale
+     * @return string
+     */
     public function __get($locale)
     {
-        return $this->get($locale);
+        $context = new Context();
+        $context->setLanguages([$locale]);
+        return $this->get($context);
     }
 
     /**
+     * @param Context $context
      * @return string
      */
-    protected function getLanguage()
+    public function getLocalized(Context $context = null)
+    {
+        return $this->get($context);
+    }
+    /**
+     * @param Context $context
+     * @return string
+     */
+    protected function getLanguage(Context $context)
     {
         $locale = null;
-        foreach ($this->getContext()->getLanguages() as $language) {
+        foreach ($context->getLanguages() as $language) {
             if (isset($this->values[$language])) {
                 $locale = $language;
                 break;
@@ -50,14 +69,15 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
     }
 
     /**
-     * @param $locale
+     * @param Context $context
      * @return string
      */
-    public function get($locale = null)
+    public function get(Context $context = null)
     {
-        if (is_null($locale)) {
-            $locale = $this->getLanguage();
+        if (is_null($context)) {
+            $context = $this->getContext();
         }
+        $locale = $this->getLanguage($context);
         if (!isset($this->values[$locale])) {
             throw new InvalidArgumentException(Message::NO_VALUE_FOR_LOCALE);
         }
