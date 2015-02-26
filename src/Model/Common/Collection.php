@@ -12,7 +12,7 @@ use Traversable;
  * Class Collection
  * @package Sphere\Core\Model\Common
  */
-class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeserializeInterface, \ArrayAccess
+class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterface, \ArrayAccess
 {
     use ContextTrait;
 
@@ -28,9 +28,12 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
         'array' => 'is_array'
     ];
 
+    protected $pos = 0;
     protected $rawData = [];
     protected $typeData = [];
     protected $initialized = [];
+
+    protected $index = [];
 
     protected static $interfaces = [];
 
@@ -38,8 +41,69 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
     {
         $this->setContext($context);
         $this->rawData = $data;
+        $this->indexData();
     }
 
+    protected function indexData()
+    {
+        foreach ($this->rawData as $offset => $row) {
+            $this->indexRow($offset, $row);
+        }
+    }
+
+    /**
+     * @param $offset
+     * @param $row
+     */
+    protected function indexRow($offset, $row)
+    {
+    }
+
+    /**
+     * @param string $indexName
+     * @param int $offset
+     * @param $key
+     */
+    protected function addToIndex($indexName, $offset, $key)
+    {
+        $this->index[$indexName][$key] = $offset;
+    }
+
+    /**
+     * @param $indexName
+     * @param $key
+     * @return mixed|null
+     */
+    public function getBy($indexName, $key)
+    {
+        if (isset($this->index[$indexName][$key])) {
+            $key = $this->index[$indexName][$key];
+
+            return $this->getAt($key);
+        }
+        return null;
+    }
+
+    /**
+     * @param $method
+     * @param $arguments
+     * @return mixed|null
+     * @internal
+     */
+    public function __call($method, $arguments)
+    {
+        $action = substr($method, 0, 5);
+        $field = lcfirst(substr($method, 5));
+        if ($action !== 'getBy') {
+            throw new \BadMethodCallException(sprintf(Message::UNKNOWN_METHOD, $method, $field));
+        }
+        if (!isset($this->index[$field])) {
+            throw new \BadMethodCallException(
+                sprintf(Message::UNKNOWN_FIELD, $field, $method, implode(', ', $arguments))
+            );
+        }
+        return $this->getBy($field, $arguments[0]);
+    }
 
     public function add($object)
     {
@@ -91,7 +155,7 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
     protected function initialize($offset)
     {
         $type = $this->type;
-        if ($type !== false && $this->hasInterface($type)) {
+        if (!is_null($type) && $this->hasInterface($type)) {
             /**
              * @var JsonDeserializeInterface $type
              */
@@ -149,6 +213,7 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
             $this->typeData[$offset] = $object;
         }
         $this->initialized[$offset] = true;
+        $this->mapRow($offset, $object);
 
         return $this;
     }
@@ -192,14 +257,58 @@ class Collection implements \IteratorAggregate, \JsonSerializable, JsonDeseriali
 
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
-     * Retrieve an external iterator
-     * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
-     * @return Traversable An instance of an object implementing <b>Iterator</b> or
-     * <b>Traversable</b>
+     * Return the current element
+     * @link http://php.net/manual/en/iterator.current.php
+     * @return mixed Can return any type.
      */
-    public function getIterator()
+    public function current()
     {
-        return new \ArrayIterator($this->rawData);
+        return $this->getAt($this->pos);
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Move forward to next element
+     * @link http://php.net/manual/en/iterator.next.php
+     * @return void Any returned value is ignored.
+     */
+    public function next()
+    {
+        $this->pos++;
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Return the key of the current element
+     * @link http://php.net/manual/en/iterator.key.php
+     * @return mixed scalar on success, or null on failure.
+     */
+    public function key()
+    {
+        return $this->pos;
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Checks if current position is valid
+     * @link http://php.net/manual/en/iterator.valid.php
+     * @return boolean The return value will be casted to boolean and then evaluated.
+     * Returns true on success or false on failure.
+     */
+    public function valid()
+    {
+        return $this->offsetExists($this->pos);
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Rewind the Iterator to the first element
+     * @link http://php.net/manual/en/iterator.rewind.php
+     * @return void Any returned value is ignored.
+     */
+    public function rewind()
+    {
+        $this->pos = 0;
     }
 
     /**

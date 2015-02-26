@@ -26,7 +26,18 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
 
     protected function getString()
     {
-        return LocalizedString::of(['en'=>'test']);
+        $localizedString = LocalizedString::of(['en'=>'test']);
+        $localizedString->setContext($this->getContext('en'));
+
+        return $localizedString;
+    }
+
+    protected function getContext($language)
+    {
+        $context = new Context();
+        $context->setLanguages([$language]);
+
+        return $context;
     }
 
     /**
@@ -34,19 +45,19 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUnknownLocale()
     {
-        $this->getString()->get('de');
+        $this->getString()->get($this->getContext('de'));
     }
 
     public function testGetLocale()
     {
-        $this->assertSame('test', $this->getString()->get('en'));
+        $this->assertSame('test', $this->getString()->get());
     }
 
     public function testAddLocaleName()
     {
         $string = $this->getString();
         $string->add('de', 'Name');
-        $this->assertSame('Name', $string->get('de'));
+        $this->assertSame('Name', $string->get($this->getContext('de')));
     }
 
     public function testSerializable()
