@@ -140,7 +140,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
         if (!isset($this->initialized[$field])) {
             $this->initialize($field);
         }
-        if (isset($this->typeData[$field])) {
+        if (array_key_exists($field, $this->typeData)) {
             return $this->typeData[$field];
         }
         return $this->rawData[$field];
