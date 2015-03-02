@@ -12,7 +12,7 @@ use Sphere\Core\Request\CustomerIdTrait;
 
 /**
  * Class CustomersQueryRequest
- * @package Sphere\Core\Request\Customers
+ * @package Sphere\Core\Request\Carts
  * @method static CartsQueryRequest of()
  */
 class CartsQueryRequest extends AbstractQueryRequest

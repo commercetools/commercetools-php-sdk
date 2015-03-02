@@ -9,6 +9,7 @@ namespace Sphere\Core\Request;
 
 use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
@@ -77,6 +78,7 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
     public function setVersion($version)
     {
         $this->version = $version;
+        $this->addParam('version', $version);
 
         return $this;
     }
@@ -87,16 +89,16 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/' . $this->getId();
+        return (string)$this->getEndpoint() . '/' . $this->getId() . $this->getParamString();
     }
 
     /**
-     * @return JsonRequest
+     * @return HttpRequest
      * @internal
      */
     public function httpRequest()
     {
-        return new JsonRequest(HttpMethod::DELETE, $this->getPath(), ['version' => $this->getVersion()]);
+        return new HttpRequest(HttpMethod::DELETE, $this->getPath());
     }
 
     /**

@@ -10,7 +10,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 
 /**
  * Class CustomerFetchByIdRequest
- * @package Sphere\Core\Request\Customers
+ * @package Sphere\Core\Request\Carts
  * @method static CartFetchByIdRequest of(string $id)
  */
 class CartFetchByIdRequest extends AbstractFetchByIdRequest
