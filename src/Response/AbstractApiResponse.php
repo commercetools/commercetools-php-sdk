@@ -31,6 +31,11 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
      */
     protected $request;
 
+    /**
+     * @param ResponseInterface $response
+     * @param ClientRequestInterface $request
+     * @param Context $context
+     */
     public function __construct(ResponseInterface $response, ClientRequestInterface $request, Context $context = null)
     {
         $this->setContext($context);
@@ -38,21 +43,37 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
         $this->request = $request;
     }
 
+    /**
+     * @return mixed|null
+     */
     public function toObject()
     {
-        return $this->getRequest()->mapResult($this->toArray(), $this->getContext());
+        if (!$this->isError()) {
+            return $this->getRequest()->mapResult($this->toArray(), $this->getContext());
+        }
+
+        return null;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return $this->response->json();
     }
 
+    /**
+     * @return \GuzzleHttp\Stream\StreamInterface|null
+     */
     public function getBody()
     {
         return $this->response->getBody();
     }
 
+    /**
+     * @return bool
+     */
     public function isError()
     {
         $statusCode = $this->response->getStatusCode();
