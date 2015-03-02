@@ -82,7 +82,7 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
             if (!$context->isGraceful()) {
                 throw new InvalidArgumentException(Message::NO_VALUE_FOR_LOCALE);
             }
-            return null;
+            return '';
         }
         return $this->values[$locale];
     }

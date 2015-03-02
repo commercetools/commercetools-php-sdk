@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Model\Common;
 
+use Sphere\Core\Error\InvalidArgumentException;
 use Sphere\Core\Error\Message;
 
 /**
@@ -147,11 +148,12 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
 
     /**
      * @param $field
-     * @return array
+     * @param $default
+     * @return mixed
      */
-    protected function getRaw($field)
+    protected function getRaw($field, $default = null)
     {
-        return isset($this->rawData[$field])? $this->rawData[$field]: [];
+        return isset($this->rawData[$field])? $this->rawData[$field]: $default;
     }
 
     /**
@@ -165,7 +167,9 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
             /**
              * @var JsonDeserializeInterface $type
              */
-            $this->typeData[$field] = $type::fromArray($this->getRaw($field), $this->getContext());
+            $this->typeData[$field] = $type::fromArray($this->getRaw($field, []), $this->getContext());
+        } else {
+            $this->typeData[$field] = $this->getRaw($field);
         }
         $this->initialized[$field] = true;
     }
