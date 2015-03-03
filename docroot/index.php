@@ -5,35 +5,46 @@
  */
 namespace Sphere\Core;
 
-use Sphere\Core\Model\Product\Product;
+use Monolog\Handler\StreamHandler;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Product\ProductProjection;
+use Sphere\Core\Model\Product\ProductProjectionCollection;
 use Sphere\Core\Request\Products\ProductsSearchRequest;
-use Sphere\Core\Response\PagedQueryResponse;
 
 require '../vendor/autoload.php';
 
-\Locale::setDefault('en-US');
 $appConfig = parse_ini_file('myapp.ini', true);
+
+$context = new Context();
+$context->setLanguages(['de', 'en']);
 
 // create the sphere config object
 $config = new Config();
-$config->fromArray($appConfig['sphere']);
+$config->fromArray($appConfig['sphere'])->setContext($context);
 
 /**
  * create search request
  */
-$search = new ProductsSearchRequest();
-
+$search = null;
 if (isset($_POST['search'])) {
-    $search->addParam('text.en', $_POST['search']);
+    $search = $_POST['search'];
 }
+$request = new ProductsSearchRequest($config->getContext());
+$request->addParam('text.' . current($config->getContext()->getLanguages()), $search);
 
-$client = new Client($config);
-
-$products = $client->execute($search);
 /**
- * @var PagedQueryResponse $products
+ * instantiate client and execute search request
  */
+$log = new \Monolog\Logger('name');
+$log->pushHandler(new StreamHandler('./requests.log'));
 
+$client = new Client($config, null, $log);
+
+$products = $client->execute($request)->toObject();
+
+/**
+ * @var ProductProjectionCollection $products
+ */
 ?>
 <html>
 <head>
@@ -46,15 +57,17 @@ $products = $client->execute($search);
         <input type="submit">
     </form>
     <?php
-    foreach ($products as $data) : ?>
-        <?php
-        $product = Product::fromArray($data);
-        ?>
+    $startTime = microtime(true);
+    /**
+     * @var ProductProjection $product
+    */
+    foreach ($products as $product) : ?>
         <h1><?= $product->getName() ?></h1>
-        <img src="<?= $product->getMasterVariant()['images'][0]['url'] ?>" width="100">
+        <img src="<?= $product->getMasterVariant()->getImages()->getAt(0)->getSmall() ?>" width="100">
         <p><?= $product->getDescription() ?></p>
-    <?php
+        <?php
     endforeach;
+    $endtime1 = (microtime(true) - $startTime) * 1000;
     ?>
 </body>
 </html>

@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Model\Product;
 
+use Sphere\Core\Model\Common\AttributeCollection;
 use Sphere\Core\Model\Common\ImageCollection;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
@@ -19,8 +20,8 @@ use Sphere\Core\Model\Common\PriceCollection;
  * @method ProductVariant setSku(int $sku)
  * @method PriceCollection getPrices()
  * @method ProductVariant setPrices(PriceCollection $prices)
- * @method array getAttributes()
- * @method ProductVariant setAttributes(array $attributes)
+ * @method AttributeCollection getAttributes()
+ * @method ProductVariant setAttributes(AttributeCollection $attributes)
  * @method ImageCollection getImages()
  * @method ProductVariant setImages(ImageCollection $images)
  * @method LocalizedString getAvailability()
@@ -34,7 +35,7 @@ class ProductVariant extends JsonObject
             'id' => [static::TYPE => 'string'],
             'sku' => [static::TYPE => 'int'],
             'prices' => [static::TYPE => '\Sphere\Core\Model\Common\PriceCollection'],
-            'attributes' => [static::TYPE => 'array'],
+            'attributes' => [static::TYPE => '\Sphere\Core\Model\Common\AttributeCollection'],
             'images' => [static::TYPE => '\Sphere\Core\Model\Common\ImageCollection'],
             'availability' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
         ];

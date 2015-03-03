@@ -14,6 +14,8 @@ use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Model\Common\ContextTrait;
+use Sphere\Core\Model\Common\JsonDeserializeInterface;
+use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Response\AbstractApiResponse;
 
@@ -147,10 +149,11 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
     /**
      * @param array $result
      * @param Context $context
-     * @return mixed
+     * @return JsonDeserializeInterface
      */
     public function mapResult(array $result, Context $context = null)
     {
-        return $result;
+        $object = JsonObject::fromArray($result, $context);
+        return $object;
     }
 }
