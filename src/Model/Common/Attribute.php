@@ -23,16 +23,16 @@ class Attribute extends JsonObject
 
     // identifiers for the SPHERE.IO Product Attribute Types:
     const T_UNKNOWN = 'unknown';  // zero, should evaluate to false
-    const T_TEXTLIKE = 'text_like'; //includes date, datetime, time as these are JSON Strings, too
-    const T_LTEXT = 'localized_text';
-    const T_NUMBER = 'number';
+    const T_TEXTLIKE = 'string'; //includes date, datetime, time as these are JSON Strings, too
+    const T_LTEXT = '\Sphere\Core\Model\Common\LocalizedString';
+    const T_NUMBER = 'float';
     const T_BOOLEAN = 'bool';
-    const T_ENUM = 'enum';
-    const T_LENUM = 'localized_enum';
-    const T_MONEY = 'money';
-    const T_SET = 'set';
-    const T_NESTED = 'nested';
-    const T_REFERENCE = 'reference';
+    const T_ENUM = '\Sphere\Core\Model\Common\Enum';
+    const T_LENUM = '\Sphere\Core\Model\Common\LocalizedEnum';
+    const T_MONEY = '\Sphere\Core\Model\Common\Money';
+    const T_SET = '\Sphere\Core\Model\Common\Set';
+    const T_NESTED = '\Sphere\Core\Model\Common\Attribute';
+    const T_REFERENCE = '\Sphere\Core\Model\Common\Reference';
 
     const PROP_VALUE = "value";
     const PROP_KEY = "key";
@@ -43,26 +43,14 @@ class Attribute extends JsonObject
     const PROP_ID = "id";
     const PROP_LABEL = "label";
 
-    protected $sphereType;
+    protected static $types = [];
 
     public function getFields()
     {
         return [
             'name' => [self::TYPE => 'string'],
-            'value' => [self::TYPE => '\JsonSerializable', self::OPTIONAL => true],
+            'value' => [self::OPTIONAL => true],
         ];
-    }
-
-    /**
-     * @param string $name
-     * @param \JsonSerializable $value
-     * @param Context $context
-     */
-    public function __construct($name, \JsonSerializable $value = null, Context $context = null)
-    {
-        $this->setContext($context);
-        $this->setName($name);
-        $this->setValue($value);
     }
 
     /**
@@ -72,11 +60,17 @@ class Attribute extends JsonObject
      */
     public static function fromArray(array $data, Context $context = null)
     {
-        return new static(
-            $data['name'],
-            $data['value'],
-            $context
-        );
+        return new static($data, $context);
+    }
+
+    protected function getSphereType($field, $value)
+    {
+        if (isset(static::$types[$field])) {
+            return static::$types[$field];
+        }
+        static::$types[$field] = $this->guessSphereType($value);
+
+        return static::$types[$field];
     }
 
     /**
@@ -108,106 +102,29 @@ class Attribute extends JsonObject
         return static::T_UNKNOWN;
     }
 
-//    protected static function guessSphereType($value)
-//    {
-//        if (!isset($value)) {
-//            return static::T_UNKNOWN;
-//        }
-//        if (is_string($value)) {
-//            return static::T_TEXTLIKE;
-//            /* if we accept the performance hit and the ambiguity
-//             * (a SPHERE String can by chance contain something that
-//             * matches a date / time / datetime) we can detect de-facto date / time / datetime this way:
-//             *   ^\d{4}-\d{2}-\d{2}$ T_DATE
-//             *   ^\d{2}:\d{2}:\d{2}.\d{3}$  T_TIME
-//             *   ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$  T_DATETIME
-//             */
-//        }
-//        if (is_bool($value)) {
-//            return static::T_BOOLEAN;
-//        }
-//        // is_numeric is harmless because we have already checked the string case above
-//        if (is_numeric($value)) {
-//            return static::T_NUMBER;
-//
-//        }
-//        if (is_array($value)) {  // JSON Object
-//            if (static::isAssoc($value)) {
-//                if (isset($value[static::PROP_KEY])
-//                && isset($value[static::PROP_LABEL])) {
-//                    if (is_string($value[static::PROP_LABEL])) {
-//                        return static::T_ENUM;
-//                    } elseif (is_array($value[static::PROP_LABEL])) {
-//                        return static::T_LENUM;
-//                    } else {
-//                        return static::T_UNKNOWN;
-//                    }
-//                } elseif (isset($value[static::PROP_CENTAMOUNT]) && isset($value[static::PROP_CURRENCYCODE])) {
-//                    return static::T_MONEY;
-//                } elseif (isset($value[static::PROP_TYPEID]) && isset($value[static::PROP_ID])) {
-//                    return static::T_REFERENCE;
-//                } else {
-//                    return static::T_LTEXT;
-//                }
-//            }
-//        } else { // JSON Array
-//            $first = reset($value);
-//            if (isset($first[static::PROP_NAME]) && isset($first[static::PROP_VALUE])) {
-//                return static::T_NESTED;
-//            } else {
-//                return static::T_SET;
-//            }
-//        }
-//        return static::T_UNKNOWN;
-//    }
-
-//    // https://gist.github.com/Thinkscape/1965669
-//    protected function isAssoc($array)
-//    {
-//        return ($array !== array_values($array));
-//    }
-
-    // todo make logic reusable
-    public function __toString()
+    protected function initialize($field)
     {
-        if (is_null($this->sphereType)) {
-            $this->sphereType = $this->guessSphereType($this->rawData[static::PROP_VALUE]);
-        }
-        // primitives first:
-        // TODO split into String and others and cast the others to String
-        // TODO Number should be formatted according to locale (which is not in context yet?)
-        if (in_array($this->sphereType, [static::T_TEXTLIKE, static::T_BOOLEAN, static::T_NUMBER])) {
-            return $this->rawData[static::PROP_VALUE];
-        }
-        // enum is a "keyed primitive":
-        if ($this->sphereType === static::T_ENUM) {
-            return $this->rawData[static::PROP_VALUE][static::PROP_LABEL];
-        }
-        // $localizedText creates a value object of Type LocalizedText
-        if ($this->sphereType === static::T_LTEXT) {
-            $localizedText = new LocalizedString($this->rawData[static::PROP_VALUE], $this->getContext());
-            $this->typeData[static::PROP_VALUE] = $localizedText;
-            return $localizedText->getLocalized();
-        }
-        // $localizedEnum is analogous but inside the key (TODO deduplicate):
-        if ($this->sphereType === static::T_LENUM) {
-            $localizedEnum = new LocalizedString(
-                $this->rawData[static::PROP_VALUE][static::PROP_LABEL],
-                $this->getContext()
-            );
-            $this->typeData[static::PROP_VALUE] = $localizedEnum;
-            return $localizedEnum->getLocalized();
-        }
-        // TODO money -> create Money Class as value. Add __toString to Money class
-        // TODO and use locale info from context with NumberFormatter::formatCurrency
-        // TODO reference -> create Reference Class as value
-        // TODO (does that expand if "obj" is there via reference expansion?)
-        // TODO nested -> create AttributeCollection Class as value
-        // TODO set -> tricky case. have to do a second guessSphereType on the first array entry (which directly is
-        //             the "value" part of an Attribute) and call this __toString again. requires refactoring!
+        if ($field == static::PROP_VALUE) {
+            $name = $this->getRaw(static::PROP_NAME);
+            $value = $this->getRaw(static::PROP_VALUE);
+            $type = $this->getSphereType($name, $value);
 
-
-        return ""; // @todo non graceful mode
+            if ($type !== false && $this->hasInterface($type)) {
+                if ($type == static::T_SET) {
+                    $setType = $this->getSphereType('set-' . $name, current($value));
+                    $value = ['type' => $setType, 'value' => $value];
+                }
+                /**
+                 * @var JsonDeserializeInterface $type
+                 */
+                $this->typeData[$field] = $type::fromArray($value, $this->getContext());
+            } else {
+                $this->typeData[$field] = $value;
+            }
+            $this->initialized[$field] = true;
+        } else {
+            parent::initialize($field);
+        }
     }
 
     protected function hasKeys($value, $keys)
@@ -215,8 +132,7 @@ class Attribute extends JsonObject
         if (!is_array($value)) {
             return false;
         }
-        $intersect = array_intersect_key($keys, $value);
-
+        $intersect = array_intersect_key(array_flip($keys), $value);
         return (count($intersect) == count($keys));
     }
 
@@ -242,7 +158,7 @@ class Attribute extends JsonObject
 
     protected function guessEnum($value)
     {
-        if ($this->hasKeys($value, [static::PROP_KEY, static::PROP_VALUE]) && is_string($value[static::PROP_VALUE])) {
+        if ($this->hasKeys($value, [static::PROP_KEY, static::PROP_LABEL]) && is_string($value[static::PROP_LABEL])) {
             return static::T_ENUM;
         }
 
@@ -251,7 +167,7 @@ class Attribute extends JsonObject
 
     protected function guessLocalizedEnum($value)
     {
-        if ($this->hasKeys($value, [static::PROP_KEY, static::PROP_VALUE]) && is_array($value[static::PROP_VALUE])) {
+        if ($this->hasKeys($value, [static::PROP_KEY, static::PROP_LABEL]) && is_array($value[static::PROP_LABEL])) {
             return static::T_LENUM;
         }
 

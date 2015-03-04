@@ -27,7 +27,12 @@ class AttributeCollection extends Collection
 
     public function __get($attributeName)
     {
-        return $this->getByName($attributeName);
+        $attribute = $this->getByName($attributeName);
+        if (!is_null($attribute)) {
+            return $attribute->getValue();
+        }
+
+        return null;
     }
 
     public function getByName($attributeName)

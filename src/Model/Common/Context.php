@@ -28,10 +28,13 @@ class Context
 
     /**
      * @param array $languages
+     * @return $this
      */
     public function setLanguages(array $languages)
     {
         $this->languages = $languages;
+
+        return $this;
     }
 
     /**
@@ -43,10 +46,13 @@ class Context
     }
 
     /**
-     * @param boolean $graceful
+     * @param $graceful
+     * @return $this
      */
     public function setGraceful($graceful)
     {
         $this->graceful = $graceful;
+
+        return $this;
     }
 }

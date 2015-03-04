@@ -16,7 +16,7 @@ require '../vendor/autoload.php';
 $appConfig = parse_ini_file('myapp.ini', true);
 
 $context = new Context();
-$context->setLanguages(['de', 'en']);
+$context->setLanguages(['de', 'en'])->setGraceful(true);
 
 // create the sphere config object
 $config = new Config();
