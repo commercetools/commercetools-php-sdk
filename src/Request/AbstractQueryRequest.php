@@ -9,6 +9,9 @@ namespace Sphere\Core\Request;
 use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Model\Common\Collection;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\JsonDeserializeInterface;
 use Sphere\Core\Response\PagedQueryResponse;
 
 /**
@@ -38,5 +41,16 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     public function buildResponse(ResponseInterface $response)
     {
         return new PagedQueryResponse($response, $this, $this->getContext());
+    }
+
+    /**
+     * @param array $result
+     * @param Context $context
+     * @return JsonDeserializeInterface
+     */
+    public function mapResult(array $result, Context $context = null)
+    {
+        $object = Collection::fromArray($result, $context);
+        return $object;
     }
 }

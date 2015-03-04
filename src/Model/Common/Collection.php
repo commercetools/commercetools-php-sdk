@@ -18,6 +18,9 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
 
     const DESERIALIZE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
 
+    /**
+     * @var string
+     */
     protected $type;
 
     protected static $primitives = [

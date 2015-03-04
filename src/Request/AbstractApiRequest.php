@@ -151,9 +151,5 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
      * @param Context $context
      * @return JsonDeserializeInterface
      */
-    public function mapResult(array $result, Context $context = null)
-    {
-        $object = JsonObject::fromArray($result, $context);
-        return $object;
-    }
+    abstract public function mapResult(array $result, Context $context = null);
 }

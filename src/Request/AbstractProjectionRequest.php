@@ -8,6 +8,10 @@ namespace Sphere\Core\Request;
 
 use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Model\Common\Collection;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\JsonDeserializeInterface;
+use Sphere\Core\Model\Common\JsonObject;
 
 /**
  * Class AbstractProjectionRequest
@@ -38,5 +42,16 @@ abstract class AbstractProjectionRequest extends AbstractApiRequest
     public function httpRequest()
     {
         return new HttpRequest(HttpMethod::GET, $this->getPath());
+    }
+
+    /**
+     * @param array $result
+     * @param Context $context
+     * @return JsonDeserializeInterface
+     */
+    public function mapResult(array $result, Context $context = null)
+    {
+        $object = Collection::fromArray($result, $context);
+        return $object;
     }
 }

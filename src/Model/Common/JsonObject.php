@@ -163,7 +163,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     protected function initialize($field)
     {
         $type = $this->getFieldKey($field, static::TYPE);
-        if ($type !== false && $this->hasInterface($type)) {
+        if ($type !== false && is_string($type) && $this->hasInterface($type)) {
             /**
              * @var JsonDeserializeInterface $type
              */
@@ -200,7 +200,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     public function set($field, $value)
     {
         $type = $this->getFieldKey($field, static::TYPE);
-        if ($type !== false && $value !== null && !$this->isType($type, $value)) {
+        if ($type !== false && $value !== null && is_string($type) && !$this->isType($type, $value)) {
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $field, $type));
         }
         if ($value === null && $this->getFieldKey($field, static::OPTIONAL) === false) {
