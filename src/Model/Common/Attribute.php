@@ -31,7 +31,7 @@ class Attribute extends JsonObject
     const T_LENUM = '\Sphere\Core\Model\Common\LocalizedEnum';
     const T_MONEY = '\Sphere\Core\Model\Common\Money';
     const T_SET = '\Sphere\Core\Model\Common\Set';
-    const T_NESTED = '\Sphere\Core\Model\Common\Attribute';
+    const T_NESTED = '\Sphere\Core\Model\Common\AttributeCollection';
     const T_REFERENCE = '\Sphere\Core\Model\Common\Reference';
 
     const PROP_VALUE = "value";

@@ -12,7 +12,7 @@ namespace Sphere\Core\Model\Common;
 class Set extends Collection
 {
     /**
-     * @param array $type
+     * @param string $type
      * @param array $data
      * @param Context $context
      */
