@@ -51,4 +51,12 @@ class Money extends JsonObject
             $context
         );
     }
+
+    /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->getContext()->getCurrencyFormatter()->format($this->getCentAmount(), $this->getCurrencyCode());
+    }
 }

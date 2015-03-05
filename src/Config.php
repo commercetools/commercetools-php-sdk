@@ -46,7 +46,7 @@ class Config implements ContextAwareInterface
     /**
      * @var string
      */
-    protected $oauthUrl = 'https://auth.sphere.io';
+    protected $oauthUrl = 'https://auth.sphere.io/oauth/token';
 
     /**
      * @var string

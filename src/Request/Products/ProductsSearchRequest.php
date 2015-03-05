@@ -61,6 +61,6 @@ class ProductsSearchRequest extends AbstractProjectionRequest
             return ProductProjectionCollection::fromArray($result['results'], $context);
         }
 
-        return null;
+        return new ProductProjectionCollection([], $context);
     }
 }
