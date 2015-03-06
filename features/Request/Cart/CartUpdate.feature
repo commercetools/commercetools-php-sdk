@@ -18,7 +18,7 @@ Feature: I want to update a cart
   Scenario: Add a line item
     Given i want to "addLineItem" of "cart"
     And the productId is "productId-1"
-    And the variantId is "variantId-1"
+    And the variantId is "1" as "int"
     And the quantity is "3" as "int"
     When i want to update a "Cart"
     Then the path should be "carts/id"
@@ -31,7 +31,7 @@ Feature: I want to update a cart
         {
           "action": "addLineItem",
           "productId": "productId-1",
-          "variantId": "variantId-1",
+          "variantId": 1,
           "quantity": 3
         }
       ]
