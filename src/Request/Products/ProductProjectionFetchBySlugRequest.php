@@ -23,6 +23,8 @@ use Sphere\Core\Response\SingleResourceResponse;
  */
 class ProductProjectionFetchBySlugRequest extends AbstractApiRequest
 {
+    const UUID_FORMAT = '/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i';
+
     use QueryTrait;
     use StagedTrait;
     use PageTrait;
@@ -40,6 +42,9 @@ class ProductProjectionFetchBySlugRequest extends AbstractApiRequest
             },
             $context->getLanguages()
         );
+        if (preg_match(static::UUID_FORMAT, $slug)) {
+            $parts[] = 'id="%1$s"';
+        }
         if (!is_null($slug) && !empty($parts)) {
             $this->where(sprintf(implode(' or ', $parts), $slug));
         }
