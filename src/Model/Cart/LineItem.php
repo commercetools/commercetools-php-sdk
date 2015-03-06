@@ -7,6 +7,7 @@ namespace Sphere\Core\Model\Cart;
 
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
+use Sphere\Core\Model\Common\Money;
 use Sphere\Core\Model\Common\Price;
 use Sphere\Core\Model\Product\ProductVariant;
 use Sphere\Core\Model\TaxCategory\TaxRate;
@@ -51,5 +52,15 @@ class LineItem extends JsonObject
             'supplyChannel' => [static::TYPE => 'array'],
             'discountedPrice' => [static::TYPE => 'array'],
         ];
+    }
+
+    /**
+     * @return Money
+     */
+    public function getTotal()
+    {
+        $price = $this->getPrice()->getValue();
+        $amount = $this->getQuantity() * $price->getCentAmount();
+        return new Money($price->getCurrencyCode(), $amount, $this->getContext());
     }
 }
