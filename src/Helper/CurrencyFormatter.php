@@ -6,9 +6,18 @@
 namespace Sphere\Core\Helper;
 
 
+use Sphere\Core\Model\Common\Context;
+
 class CurrencyFormatter
 {
+    protected $context;
+
     protected $formatCallback;
+
+    public function __construct(Context $context)
+    {
+        $this->context = $context;
+    }
 
     /**
      * @param $centAmount
@@ -19,11 +28,12 @@ class CurrencyFormatter
     {
         $amount = $centAmount / 100;
         $currency = mb_strtoupper($currency);
+        $locale = $this->context->getLocale();
         if (extension_loaded('intl')) {
-            $formatter = new \NumberFormatter(\Locale::getDefault(), \NumberFormatter::CURRENCY);
+            $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
             return $formatter->formatCurrency($amount, $currency);
         }
-        return number_format($amount) . ' ' . $currency;
+        return number_format($amount, 2) . ' ' . $currency;
     }
 
     /**

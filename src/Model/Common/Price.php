@@ -63,4 +63,9 @@ class Price extends JsonObject
 
         return $price;
     }
+
+    public function __toString()
+    {
+        return $this->getValue()->__toString();
+    }
 }

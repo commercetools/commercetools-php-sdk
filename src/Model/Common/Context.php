@@ -26,12 +26,38 @@ class Context
     protected $currencyFormatter;
 
     /**
+     * @var
+     */
+    protected $locale;
+
+    /**
+     * @return string
+     */
+    public function getLocale()
+    {
+        if (is_null($this->locale) && extension_loaded('intl')) {
+            $this->locale = \Locale::getDefault();
+        }
+        return $this->locale;
+    }
+
+    /**
+     * @param string $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
      * @return CurrencyFormatter
      */
     public function getCurrencyFormatter()
     {
         if (is_null($this->currencyFormatter)) {
-            $this->currencyFormatter = new CurrencyFormatter();
+            $this->currencyFormatter = new CurrencyFormatter($this);
         }
         return $this->currencyFormatter;
     }
