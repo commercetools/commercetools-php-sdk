@@ -11,6 +11,7 @@ use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Model\Common\ContextTrait;
+use Sphere\Core\Request\AbstractCreateRequest;
 use Sphere\Core\Request\ClientRequestInterface;
 
 /**
@@ -78,7 +79,7 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
     {
         $statusCode = $this->response->getStatusCode();
 
-        return ($statusCode != 200);
+        return (!in_array($statusCode, [200, 201]));
     }
 
     /**

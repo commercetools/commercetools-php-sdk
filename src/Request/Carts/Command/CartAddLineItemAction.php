@@ -14,8 +14,8 @@ use Sphere\Core\Request\AbstractAction;
  * @method CartAddLineItemAction setAction(string $action)
  * @method string getProductId()
  * @method CartAddLineItemAction setProductId(string $productId)
- * @method string getVariantId()
- * @method CartAddLineItemAction setVariantId(string $variantId)
+ * @method int getVariantId()
+ * @method CartAddLineItemAction setVariantId(int $variantId)
  * @method int getQuantity()
  * @method CartAddLineItemAction setQuantity(int $quantity)
  */
@@ -26,7 +26,7 @@ class CartAddLineItemAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'productId' => [static::TYPE => 'string'],
-            'variantId' => [static::TYPE => 'string'],
+            'variantId' => [static::TYPE => 'int'],
             'quantity' => [static::TYPE => 'int'],
         ];
     }
