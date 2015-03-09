@@ -8,6 +8,7 @@ namespace Sphere\Core\Request\Products;
 
 
 use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Product\ProductProjection;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
 use Sphere\Core\Request\StagedTrait;
 
@@ -31,5 +32,19 @@ class ProductProjectionFetchByIdRequest extends AbstractFetchByIdRequest
     protected function getPath()
     {
         return (string)$this->getEndpoint() . '/' . $this->getId() . $this->getParamString();
+    }
+
+    /**
+     * @param array $result
+     * @param Context $context
+     * @return ProductProjection|null
+     */
+    public function mapResult(array $result, Context $context = null)
+    {
+        if (!empty($result['results'])) {
+            $data = current($result['results']);
+            return ProductProjection::fromArray($data, $context);
+        }
+        return null;
     }
 }
