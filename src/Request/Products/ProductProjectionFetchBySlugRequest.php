@@ -9,6 +9,8 @@ namespace Sphere\Core\Request\Products;
 use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
+use Sphere\Core\Error\InvalidArgumentException;
+use Sphere\Core\Error\Message;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Product\ProductProjection;
 use Sphere\Core\Request\AbstractApiRequest;
@@ -38,6 +40,9 @@ class ProductProjectionFetchBySlugRequest extends AbstractApiRequest
     public function __construct($slug, Context $context)
     {
         parent::__construct(ProductSearchEndpoint::endpoint(), $context);
+        if (count($context->getLanguages()) == 0) {
+            throw new InvalidArgumentException(Message::NO_LANGUAGES_PROVIDED);
+        }
         $parts = array_map(
             function ($value) {
                 return sprintf('slug(%s="%s")', $value, '%1$s');
@@ -47,7 +52,7 @@ class ProductProjectionFetchBySlugRequest extends AbstractApiRequest
         if (preg_match(static::UUID_FORMAT, $slug)) {
             $parts[] = 'id="%1$s"';
         }
-        if (!is_null($slug) && !empty($parts)) {
+        if (!empty($parts)) {
             $this->where(sprintf(implode(' or ', $parts), $slug));
         }
         $this->limit(1);
