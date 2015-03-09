@@ -12,6 +12,7 @@ use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Product\ProductProjection;
 use Sphere\Core\Request\AbstractApiRequest;
+use Sphere\Core\Request\ExpandTrait;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Request\QueryTrait;
 use Sphere\Core\Request\StagedTrait;
@@ -28,6 +29,7 @@ class ProductProjectionFetchBySlugRequest extends AbstractApiRequest
     use QueryTrait;
     use StagedTrait;
     use PageTrait;
+    use ExpandTrait;
 
     /**
      * @param string $slug
