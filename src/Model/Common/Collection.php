@@ -12,7 +12,7 @@ use Traversable;
  * Class Collection
  * @package Sphere\Core\Model\Common
  */
-class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterface, \ArrayAccess
+class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterface, \Countable, \ArrayAccess
 {
     use ContextTrait;
 
@@ -213,6 +213,22 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
         }
         return $value instanceof $type;
     }
+
+    /**
+     * (PHP 5 &gt;= 5.1.0)<br/>
+     * Count elements of an object
+     * @link http://php.net/manual/en/countable.count.php
+     * @return int The custom count as an integer.
+     * </p>
+     * <p>
+     * The return value is cast to an integer.
+     */
+    public function count()
+    {
+        // @todo fix for counting also typeData
+        return count($this->rawData);
+    }
+
 
     /**
      * @param array $data
