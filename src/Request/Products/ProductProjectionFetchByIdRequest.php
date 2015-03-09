@@ -41,9 +41,8 @@ class ProductProjectionFetchByIdRequest extends AbstractFetchByIdRequest
      */
     public function mapResult(array $result, Context $context = null)
     {
-        if (!empty($result['results'])) {
-            $data = current($result['results']);
-            return ProductProjection::fromArray($data, $context);
+        if (!empty($result)) {
+            return ProductProjection::fromArray($result, $context);
         }
         return null;
     }
