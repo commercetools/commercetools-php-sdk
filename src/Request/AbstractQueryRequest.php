@@ -23,6 +23,7 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     use QueryTrait;
     use PageTrait;
     use SortTrait;
+    use ExpandTrait;
 
     /**
      * @return HttpRequest
