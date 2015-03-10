@@ -47,6 +47,23 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
         $this->indexData();
     }
 
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @internal
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+    
     protected function indexData()
     {
         foreach ($this->rawData as $offset => $row) {
