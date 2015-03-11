@@ -30,4 +30,13 @@ class Set extends Collection
         $setData = $data['value'];
         return new static($type, $setData, $context);
     }
+
+    public function __toString()
+    {
+        $values = [];
+        foreach ($this as $set) {
+            $values[] = (string)$set;
+        }
+        return implode(', ', $values);
+    }
 }
