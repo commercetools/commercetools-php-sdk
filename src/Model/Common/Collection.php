@@ -63,7 +63,7 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
     {
         $this->type = $type;
     }
-    
+
     protected function indexData()
     {
         foreach ($this->rawData as $offset => $row) {
