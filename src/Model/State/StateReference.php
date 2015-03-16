@@ -19,7 +19,7 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @method string getId()
  * @method StateReference setId(string $id)
  * @method State getObj()
- * @method StateReference setObj(array $obj)
+ * @method StateReference setObj(State $obj)
  */
 class StateReference extends Reference
 {

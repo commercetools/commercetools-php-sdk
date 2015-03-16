@@ -1,10 +1,8 @@
 <?php
 
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
 
 require_once __DIR__ . '/../../vendor/phpunit/phpunit/src/Framework/Assert/Functions.php';
 
@@ -333,8 +331,22 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function setTheFieldToValueAsType($field, $value, $type)
     {
-        $method = $type.'val';
-        $this->setTheFieldToValue($field, $method($value));
+        if ($type == 'array') {
+            $value = array_map('trim', explode(',', $value));
+        } else {
+            $method = $type.'val';
+            $value = $method($value);
+        }
+        $this->setTheFieldToValue($field, $value);
+    }
+
+    /**
+     * @Given set the :field to :value in :locale
+     */
+    public function setTheContextFieldToValueInLocale($field, $value, $locale)
+    {
+        $localizedString = new \Sphere\Core\Model\Common\LocalizedString([$locale => $value]);
+        $this->setTheFieldToValue($field, $localizedString);
     }
 
     /**
@@ -394,7 +406,28 @@ class FeatureContext implements Context, SnippetAcceptingContext
         $alias = $this->getContext($alias);
         $object = $this->getContextObject($alias);
         $method = 'get' . ucfirst($field);
-        $this->getContextObject($this->context)->$method()->add($object);
+        $contextObject = $this->getContextObject($this->context);
+        if ($contextObject instanceof \Sphere\Core\Model\Common\Collection) {
+            $contextObject->add($object);
+        } else {
+            $contextObject->$method()->add($object);
+        }
+    }
+
+    /**
+     * @Given set the :Alias object to :field collection at :offset
+     */
+    public function setTheAliasObjectToFieldCollectionAtOffset($alias, $field, $offset)
+    {
+        $alias = $this->getContext($alias);
+        $object = $this->getContextObject($alias);
+        $method = 'get' . ucfirst($field);
+        $contextObject = $this->getContextObject($this->context);
+        if ($contextObject instanceof \Sphere\Core\Model\Common\Collection) {
+            $contextObject->setAt($offset, $object);
+        } else {
+            $contextObject->$method()->setAt($offset, $object);
+        }
     }
 
     /**

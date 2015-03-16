@@ -18,8 +18,8 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @method CartReference setTypeId(string $typeId)
  * @method string getId()
  * @method CartReference setId(string $id)
- * @method array getObj()
- * @method CartReference setObj(array $obj)
+ * @method Cart getObj()
+ * @method CartReference setObj(Cart $obj)
  */
 class CartReference extends Reference
 {

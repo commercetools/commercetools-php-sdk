@@ -16,25 +16,16 @@ use Sphere\Core\Error\Message;
 class JsonObject implements \JsonSerializable, JsonDeserializeInterface
 {
     use ContextTrait;
+    use JsonDeserializeTrait;
 
     const TYPE = 'type';
     const OPTIONAL = 'optional';
     const INITIALIZED = 'initialized';
     const DESERIALIZE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
 
-    protected static $primitives = [
-        'bool' => 'is_bool',
-        'int' => 'is_int',
-        'string' => 'is_string',
-        'float' => 'is_float',
-        'array' => 'is_array'
-    ];
-
     protected $rawData = [];
     protected $typeData = [];
     protected $initialized = [];
-
-    protected static $interfaces = [];
 
     public function __construct(array $data = null, Context $context = null)
     {
@@ -175,23 +166,6 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     }
 
     /**
-     * @param string $type
-     * @return bool
-     * @internal
-     */
-    protected function hasInterface($type)
-    {
-        if (!isset(static::$interfaces[$type])) {
-            $interface = false;
-            if ($this->isPrimitive($type) === false && isset(class_implements($type)[static::DESERIALIZE])) {
-                $interface = true;
-            }
-            static::$interfaces[$type] = $interface;
-        }
-        return static::$interfaces[$type];
-    }
-
-    /**
      * @param string $field
      * @param mixed $value
      * @return $this
@@ -216,34 +190,6 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
         $this->initialized[$field] = true;
 
         return $this;
-    }
-
-    /**
-     * @param string $type
-     * @param mixed $value
-     * @return bool
-     * @internal
-     */
-    protected function isType($type, $value)
-    {
-        if ($typeFunction = $this->isPrimitive($type)) {
-            return $typeFunction($value);
-        }
-        return $value instanceof $type;
-    }
-
-    /**
-     * @param $type
-     * @return string|false
-     * @internal
-     */
-    protected function isPrimitive($type)
-    {
-        if (!isset(static::$primitives[$type])) {
-            return false;
-        }
-
-        return static::$primitives[$type];
     }
 
     /**
@@ -272,15 +218,5 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     public static function of()
     {
         return new static();
-    }
-
-    /**
-     * @param array $data
-     * @param Context $context
-     * @return static
-     */
-    public static function fromArray(array $data, Context $context = null)
-    {
-        return new static($data, $context);
     }
 }

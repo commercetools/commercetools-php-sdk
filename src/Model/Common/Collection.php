@@ -15,6 +15,7 @@ use Traversable;
 class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterface, \Countable, \ArrayAccess
 {
     use ContextTrait;
+    use JsonDeserializeTrait;
 
     const DESERIALIZE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
 
@@ -23,22 +24,12 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
      */
     protected $type;
 
-    protected static $primitives = [
-        'bool' => 'is_bool',
-        'int' => 'is_int',
-        'string' => 'is_string',
-        'float' => 'is_float',
-        'array' => 'is_array'
-    ];
-
     protected $pos = 0;
     protected $rawData = [];
     protected $typeData = [];
     protected $initialized = [];
 
     protected $index = [];
-
-    protected static $interfaces = [];
 
     public function __construct(array $data = [], Context $context = null)
     {
@@ -117,37 +108,6 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
     }
 
     /**
-     * @param $type
-     * @return mixed
-     * @internal
-     */
-    protected function hasInterface($type)
-    {
-        if (!isset(static::$interfaces[$type])) {
-            $interface = false;
-            if ($this->isPrimitive($type) === false && isset(class_implements($type)[static::DESERIALIZE])) {
-                $interface = true;
-            }
-            static::$interfaces[$type] = $interface;
-        }
-        return static::$interfaces[$type];
-    }
-
-    /**
-     * @param $type
-     * @return string|false
-     * @internal
-     */
-    protected function isPrimitive($type)
-    {
-        if (!isset(static::$primitives[$type])) {
-            return false;
-        }
-
-        return static::$primitives[$type];
-    }
-
-    /**
      * @param $offset
      * @internal
      */
@@ -218,20 +178,6 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
     }
 
     /**
-     * @param string $type
-     * @param mixed $value
-     * @return bool
-     * @internal
-     */
-    protected function isType($type, $value)
-    {
-        if ($typeFunction = $this->isPrimitive($type)) {
-            return $typeFunction($value);
-        }
-        return $value instanceof $type;
-    }
-
-    /**
      * (PHP 5 &gt;= 5.1.0)<br/>
      * Count elements of an object
      * @link http://php.net/manual/en/countable.count.php
@@ -242,21 +188,12 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
      */
     public function count()
     {
-        // @todo fix for counting also typeData
-        return count($this->rawData);
+        $rawKeys = array_keys($this->rawData);
+        $typeKeys = array_keys($this->typeData);
+        $keys = array_merge($rawKeys, $typeKeys);
+        $uniqueKeys = array_unique($keys);
+        return count($uniqueKeys);
     }
-
-
-    /**
-     * @param array $data
-     * @param Context $context
-     * @return static
-     */
-    public static function fromArray(array $data, Context $context = null)
-    {
-        return new static($data, $context);
-    }
-
 
     /**
      * (PHP 5 &gt;= 5.4.0)<br/>
