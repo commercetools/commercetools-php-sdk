@@ -27,6 +27,15 @@ class CategoryReference extends Reference
 
     const TYPE_CATEGORY = 'category';
 
+    public function getFields()
+    {
+        return [
+            'typeId' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string'],
+            'obj' => [static::TYPE => '\Sphere\Core\Model\Category\Category']
+        ];
+    }
+
     /**
      * @param string $id
      * @param Context $context

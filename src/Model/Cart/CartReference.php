@@ -27,6 +27,15 @@ class CartReference extends Reference
 
     const TYPE_CART = 'cart';
 
+    public function getFields()
+    {
+        return [
+            'typeId' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string'],
+            'obj' => [static::TYPE => '\Sphere\Core\Model\Cart\Cart']
+        ];
+    }
+
     /**
      * @param string $id
      * @param Context $context

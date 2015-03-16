@@ -18,7 +18,7 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @method StateReference setTypeId(string $typeId)
  * @method string getId()
  * @method StateReference setId(string $id)
- * @method array getObj()
+ * @method State getObj()
  * @method StateReference setObj(array $obj)
  */
 class StateReference extends Reference
@@ -26,6 +26,15 @@ class StateReference extends Reference
     use ReferenceFromArrayTrait;
 
     const TYPE_STATE = 'state';
+
+    public function getFields()
+    {
+        return [
+            'typeId' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string'],
+            'obj' => [static::TYPE => '\Sphere\Core\Model\State\State']
+        ];
+    }
 
     /**
      * @param string $id
