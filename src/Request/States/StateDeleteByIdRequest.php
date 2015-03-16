@@ -1,0 +1,27 @@
+<?php
+/**
+ * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ */
+
+namespace Sphere\Core\Request\States;
+
+
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Request\AbstractDeleteByIdRequest;
+
+/**
+ * Class StateDeleteByIdRequest
+ * @package Sphere\Core\Request\States
+ */
+class StateDeleteByIdRequest extends AbstractDeleteByIdRequest
+{
+    /**
+     * @param string $id
+     * @param int $version
+     * @param Context $context
+     */
+    public function __construct($id, $version, Context $context = null)
+    {
+        parent::__construct(StatesEndpoint::endpoint(), $id, $version, $context);
+    }
+}

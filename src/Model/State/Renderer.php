@@ -9,6 +9,7 @@ namespace Sphere\Core\Model\State;
 use Sphere\Core\Client;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\State\Renderer\NodeRenderer;
+use Sphere\Core\Model\State\Renderer\TransitionRenderer;
 use Sphere\Core\Request\States\StatesQueryRequest;
 
 class Renderer
@@ -49,6 +50,8 @@ class Renderer
      * Bob_StateMachine_Renderer_Node_DefaultRenderer will be used.
      */
     protected $nodeRenderers = array();
+
+    protected $transitionRenderers = array();
 
     /**
      * @return array
@@ -115,6 +118,22 @@ class Renderer
     }
 
     /**
+     * @return array
+     */
+    public function getTransitionRenderers()
+    {
+        return $this->transitionRenderers;
+    }
+
+    /**
+     * @param array $nodeRenderers
+     */
+    public function setTransitionRenderers($transitionRenderers)
+    {
+        $this->transitionRenderers = $transitionRenderers;
+    }
+
+    /**
      * Is there a state node renderer for the given state name?
      *
      * @param $stateName
@@ -139,6 +158,14 @@ class Renderer
             return $this->nodeRenderers[$stateName];
         }
         return new NodeRenderer();
+    }
+
+    public function getTransitionRendererByStateName($stateName)
+    {
+        if (isset($this->transitionRenderers[$stateName])) {
+            return $this->transitionRenderers[$stateName];
+        }
+        return new TransitionRenderer();
     }
 
     /**
@@ -197,7 +224,14 @@ class Renderer
             $graph .= ' ' . $nodeRenderer->render($state);
         }
 
+        // add all transitions to the graph
+        foreach ($stateCollection as $state) {
+            $nodeRenderer = $this->getTransitionRendererByStateName($state->getKey());
+            $graph .= ' ' . $nodeRenderer->render($state);
+        }
+
         $graph .= '}' . PHP_EOL;
+
 
         return $graph;
     }
