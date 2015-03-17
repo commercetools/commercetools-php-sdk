@@ -11,8 +11,8 @@ namespace Sphere\Core\Model\Common;
  * @package Sphere\Core\Model\Common
  * @method string getUrl()
  * @method Image setUrl(string $url)
- * @method array getDimensions()
- * @method Image setDimensions(array $dimensions)
+ * @method ImageDimension getDimensions()
+ * @method Image setDimensions(ImageDimension $dimensions)
  * @method string getLabel()
  * @method Image setLabel(string $label)
  */
@@ -28,7 +28,7 @@ class Image extends JsonObject
     {
         return [
             'url' => [static::TYPE => 'string'],
-            'dimensions' => [static::TYPE => 'array'],
+            'dimensions' => [static::TYPE => '\Sphere\Core\Model\Common\ImageDimension'],
             'label' => [static::TYPE => 'string']
         ];
     }

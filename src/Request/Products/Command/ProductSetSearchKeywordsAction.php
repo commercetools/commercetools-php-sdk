@@ -5,10 +5,19 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
-
 use Sphere\Core\Model\Product\LocalizedSearchKeywords;
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class ProductSetSearchKeywordsAction
+ * @package Sphere\Core\Request\Products\Command
+ * @method string getAction()
+ * @method ProductSetSearchKeywordsAction setAction(string $action)
+ * @method LocalizedSearchKeywords getSearchKeywords()
+ * @method ProductSetSearchKeywordsAction setSearchKeywords(LocalizedSearchKeywords $searchKeywords)
+ * @method bool getStaged()
+ * @method ProductSetSearchKeywordsAction setStaged(bool $staged)
+ */
 class ProductSetSearchKeywordsAction extends AbstractAction
 {
     public function getFields()

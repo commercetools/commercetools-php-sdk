@@ -451,3 +451,110 @@ Feature: I want to send a Product Update Request
       ]
     }
     """
+
+  Scenario:
+    Given i want to "revertStagedChanges" of "product"
+    When i want to update a "Product"
+    Then the path should be "products/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "revertStagedChanges"
+        }
+      ]
+    }
+    """
+
+  Scenario:
+    Given i want to "publish" of "product"
+    When i want to update a "Product"
+    Then the path should be "products/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "publish"
+        }
+      ]
+    }
+    """
+
+  Scenario:
+    Given i want to "unpublish" of "product"
+    When i want to update a "Product"
+    Then the path should be "products/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "unpublish"
+        }
+      ]
+    }
+    """
+
+  Scenario:
+    Given i have a common imageDimension object as imageDimension
+    And set the w to 100 as int
+    And set the h to 100 as int
+    Given i have a "common" "image" object as "extImage"
+    And set the url to "http://mycompany.com/image.jpg"
+    And set the label to "Image"
+    And set the imageDimension object to dimensions
+    Given i want to "addExternalImage" of "product"
+    And the variantId is 1 as int
+    And the image is extImage object
+    When i want to update a "Product"
+    Then the path should be "products/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "addExternalImage",
+          "variantId": 1,
+          "image": {
+            "url": "http://mycompany.com/image.jpg",
+            "dimensions": {
+              "w": 100,
+              "h": 100
+            },
+            "label": "Image"
+          }
+        }
+      ]
+    }
+    """
+
+  Scenario:
+    Given i want to "removeImage" of "product"
+    And the variantId is 1 as int
+    And the imageUrl is "http://mycompany.com/image.jpg"
+    When i want to update a "Product"
+    Then the path should be "products/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "removeImage",
+          "variantId": 1,
+          "imageUrl": "http://mycompany.com/image.jpg"
+        }
+      ]
+    }
+    """
