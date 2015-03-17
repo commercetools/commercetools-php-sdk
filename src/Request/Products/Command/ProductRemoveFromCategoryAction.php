@@ -15,6 +15,8 @@ use Sphere\Core\Request\AbstractAction;
  * @method ProductRemoveFromCategoryAction setAction(string $action)
  * @method CategoryReference getCategory()
  * @method ProductRemoveFromCategoryAction setCategory(CategoryReference $category)
+ * @method bool getStaged()
+ * @method ProductRemoveFromCategoryAction setStaged(bool $staged)
  */
 class ProductRemoveFromCategoryAction extends AbstractAction
 {
@@ -23,6 +25,7 @@ class ProductRemoveFromCategoryAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'category' => [static::TYPE => '\Sphere\Core\Model\Category\CategoryReference'],
+            'staged' => [static::TYPE => 'bool']
         ];
     }
 

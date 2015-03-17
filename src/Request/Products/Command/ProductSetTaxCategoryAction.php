@@ -23,6 +23,7 @@ class ProductSetTaxCategoryAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference'],
+            'staged' => [static::TYPE => 'bool']
         ];
     }
 

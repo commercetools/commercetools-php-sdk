@@ -15,6 +15,8 @@ use Sphere\Core\Request\AbstractAction;
  * @method ProductAddToCategoryAction setAction(string $action)
  * @method CategoryReference getCategory()
  * @method ProductAddToCategoryAction setCategory(CategoryReference $category)
+ * @method bool getStaged()
+ * @method ProductAddToCategoryAction setStaged(bool $staged)
  */
 class ProductAddToCategoryAction extends AbstractAction
 {
@@ -23,6 +25,7 @@ class ProductAddToCategoryAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'category' => [static::TYPE => '\Sphere\Core\Model\Category\CategoryReference'],
+            'staged' => [static::TYPE => 'bool']
         ];
     }
 
