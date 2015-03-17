@@ -13,8 +13,8 @@ use Sphere\Core\Model\Common\Money;
  * @package Sphere\Core\Model\Cart
  * @method Money getValue()
  * @method DiscountedLineItemPrice setValue(Money $value)
- * @method DiscountLineItemPortionCollection getIncludedDiscounts()
- * @method DiscountedLineItemPrice setIncludedDiscounts(DiscountLineItemPortionCollection $includedDiscounts)
+ * @method DiscountedLineItemPortionCollection getIncludedDiscounts()
+ * @method DiscountedLineItemPrice setIncludedDiscounts(DiscountedLineItemPortionCollection $includedDiscounts)
  */
 class DiscountedLineItemPrice extends JsonObject
 {
@@ -22,7 +22,7 @@ class DiscountedLineItemPrice extends JsonObject
     {
         return [
             'value' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
-            'includedDiscounts' => [static::TYPE => '\Sphere\Core\Model\Cart\DiscountLineItemPortionCollection']
+            'includedDiscounts' => [static::TYPE => '\Sphere\Core\Model\Cart\DiscountedLineItemPortionCollection']
         ];
     }
 }

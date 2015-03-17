@@ -9,10 +9,10 @@ namespace Sphere\Core\Model\Cart;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class DiscountLineItemPortionCollection
+ * Class DiscountedLineItemPortionCollection
  * @package Sphere\Core\Model\Cart
  */
-class DiscountLineItemPortionCollection extends Collection
+class DiscountedLineItemPortionCollection extends Collection
 {
     protected $type = '\Sphere\Core\Model\Cart\DiscountedLineItemPortion';
 }

@@ -5,16 +5,17 @@
 
 namespace Sphere\Core\Model\Cart;
 
+use Sphere\Core\Model\CartDiscount\CartDiscountReference;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\Money;
 
 /**
  * Class DiscountedLineItemPortion
  * @package Sphere\Core\Model\Cart
- * @method CartDiscountReference getDiscount()
- * @method DiscountedLineItemPortion setDiscount(CartDiscountReference $discount)
  * @method Money getDiscountAmount()
  * @method DiscountedLineItemPortion setDiscountAmount(Money $discountAmount)
+ * @method CartDiscountReference getDiscount()
+ * @method DiscountedLineItemPortion setDiscount(CartDiscountReference $discount)
  */
 class DiscountedLineItemPortion extends JsonObject
 {
