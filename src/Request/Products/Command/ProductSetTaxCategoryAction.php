@@ -15,6 +15,8 @@ use Sphere\Core\Request\AbstractAction;
  * @method ProductSetTaxCategoryAction setAction(string $action)
  * @method TaxCategoryReference getTaxCategory()
  * @method ProductSetTaxCategoryAction setTaxCategory(TaxCategoryReference $taxCategory)
+ * @method bool getStaged()
+ * @method ProductSetTaxCategoryAction setStaged(bool $staged)
  */
 class ProductSetTaxCategoryAction extends AbstractAction
 {
