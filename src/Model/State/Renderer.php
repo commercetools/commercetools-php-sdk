@@ -126,7 +126,7 @@ class Renderer
     }
 
     /**
-     * @param array $nodeRenderers
+     * @param array $transitionRenderers
      */
     public function setTransitionRenderers($transitionRenderers)
     {

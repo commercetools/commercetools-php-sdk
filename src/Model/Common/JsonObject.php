@@ -35,6 +35,15 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
         $this->setContext($context);
     }
 
+    /**
+     * @param array $data
+     * @param Context $context
+     * @return static
+     */
+    public static function fromArray(array $data, Context $context = null)
+    {
+        return new static($data, $context);
+    }
 
     /**
      * @param array $rawData

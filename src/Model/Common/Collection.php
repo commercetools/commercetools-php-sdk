@@ -39,6 +39,16 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
     }
 
     /**
+     * @param array $data
+     * @param Context $context
+     * @return static
+     */
+    public static function fromArray(array $data, Context $context = null)
+    {
+        return new static($data, $context);
+    }
+
+    /**
      * @return string
      */
     public function getType()
