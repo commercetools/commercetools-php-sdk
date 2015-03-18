@@ -21,9 +21,7 @@ use Sphere\Core\Model\ProductType\ProductTypeReference;
  * @method LocalizedString getSlug()
  * @method LocalizedString getDescription()
  * @method ProductTypeReference getProductType()
- * @method CategoryReference[] getCategories()
  * @method ProductVariantDraft getMasterVariant()
- * @method ProductVariantDraft[] getVariants()
  * @method LocalizedString getMetaTitle()
  * @method LocalizedString getMetaDescription()
  * @method LocalizedString getMetaKeywords()
@@ -31,12 +29,14 @@ use Sphere\Core\Model\ProductType\ProductTypeReference;
  * @method ProductDraft setSlug(LocalizedString $slug = null)
  * @method ProductDraft setDescription(LocalizedString $description = null)
  * @method ProductDraft setProductType(ProductTypeReference $productType = null)
- * @method ProductDraft setCategories(Collection $categories = null)
  * @method ProductDraft setMasterVariant(ProductVariantDraft $masterVariant = null)
- * @method ProductDraft setVariants(Collection $variants = null)
  * @method ProductDraft setMetaTitle(LocalizedString $metaTitle = null)
  * @method ProductDraft setMetaDescription(LocalizedString $metaDescription = null)
  * @method ProductDraft setMetaKeywords(LocalizedString $metaKeywords = null)
+ * @method Collection getCategories()
+ * @method ProductDraft setCategories(Collection $categories = null)
+ * @method ProductVariantCollection getVariants()
+ * @method ProductDraft setVariants(ProductVariantCollection $variants = null)
  */
 class ProductDraft extends JsonObject
 {
@@ -51,7 +51,7 @@ class ProductDraft extends JsonObject
             'productType' => [self::TYPE => '\Sphere\Core\Model\ProductType\ProductTypeReference'],
             'categories' => [self::TYPE => '\Sphere\Core\Model\Common\Collection'],
             'masterVariant' => [self::TYPE => '\Sphere\Core\Model\Product\ProductVariantDraft'],
-            'variants' => [self::TYPE => '\Sphere\Core\Model\Common\Collection'],
+            'variants' => [self::TYPE => '\Sphere\Core\Model\Product\ProductVariantCollection'],
             'metaTitle' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'metaDescription' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
