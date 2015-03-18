@@ -27,6 +27,8 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
      */
     protected $searchKeywords;
 
+    protected $resultClass = '\Sphere\Core\Model\Product\SuggestionCollection';
+
     /**
      * @param LocalizedString $keywords
      * @param Context $context

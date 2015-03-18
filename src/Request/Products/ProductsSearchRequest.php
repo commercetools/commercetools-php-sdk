@@ -24,6 +24,8 @@ class ProductsSearchRequest extends AbstractProjectionRequest
     use PageTrait;
     use SortTrait;
 
+    protected $resultClass = '\Sphere\Core\Model\Product\ProductProjectionCollection';
+
     /**
      * @param Context $context
      */
@@ -53,14 +55,14 @@ class ProductsSearchRequest extends AbstractProjectionRequest
     /**
      * @param array $result
      * @param Context $context
-     * @return ProductProjectionCollection|null
+     * @return ProductProjectionCollection
      */
     public function mapResult(array $result, Context $context = null)
     {
+        $data = [];
         if (!empty($result['results'])) {
-            return ProductProjectionCollection::fromArray($result['results'], $context);
+            $data = $result['results'];
         }
-
-        return new ProductProjectionCollection([], $context);
+        return ProductProjectionCollection::fromArray($data, $context);
     }
 }

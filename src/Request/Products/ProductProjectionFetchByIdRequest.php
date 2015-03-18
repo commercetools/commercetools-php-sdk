@@ -16,6 +16,8 @@ class ProductProjectionFetchByIdRequest extends AbstractFetchByIdRequest
 {
     use StagedTrait;
 
+    protected $resultClass = '\Sphere\Core\Model\Product\ProductProjection';
+
     /**
      * @param string $id
      * @param Context $context
@@ -32,18 +34,5 @@ class ProductProjectionFetchByIdRequest extends AbstractFetchByIdRequest
     protected function getPath()
     {
         return (string)$this->getEndpoint() . '/' . $this->getId() . $this->getParamString();
-    }
-
-    /**
-     * @param array $result
-     * @param Context $context
-     * @return ProductProjection|null
-     */
-    public function mapResult(array $result, Context $context = null)
-    {
-        if (!empty($result)) {
-            return ProductProjection::fromArray($result, $context);
-        }
-        return null;
     }
 }

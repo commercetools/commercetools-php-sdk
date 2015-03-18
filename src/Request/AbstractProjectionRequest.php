@@ -43,15 +43,4 @@ abstract class AbstractProjectionRequest extends AbstractApiRequest
     {
         return new HttpRequest(HttpMethod::GET, $this->getPath());
     }
-
-    /**
-     * @param array $result
-     * @param Context $context
-     * @return JsonDeserializeInterface
-     */
-    public function mapResult(array $result, Context $context = null)
-    {
-        $object = Collection::fromArray($result, $context);
-        return $object;
-    }
 }

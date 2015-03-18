@@ -20,25 +20,13 @@ class CartsQueryRequest extends AbstractQueryRequest
 {
     use CustomerIdTrait;
 
+    protected $resultClass = '\Sphere\Core\Model\Cart\CartCollection';
+
     /**
      * @param Context $context
      */
     public function __construct(Context $context = null)
     {
         parent::__construct(CartsEndpoint::endpoint(), $context);
-    }
-
-    /**
-     * @param array $result
-     * @param Context $context
-     * @return CartCollection
-     */
-    public function mapResult(array $result, Context $context = null)
-    {
-        if (!empty($result['results'])) {
-            return CartCollection::fromArray($result['results'], $context);
-        }
-
-        return new CartCollection([], $context);
     }
 }

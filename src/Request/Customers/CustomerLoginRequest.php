@@ -12,6 +12,7 @@ use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonDeserializeInterface;
 use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Customer\CustomerSigninResult;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
@@ -35,6 +36,8 @@ class CustomerLoginRequest extends AbstractApiRequest
      * @var string
      */
     protected $anonymousCartId;
+
+    protected $resultClass = '\Sphere\Core\Model\Customer\CustomerSigninResult';
 
     /**
      * @param string $email
@@ -72,16 +75,5 @@ class CustomerLoginRequest extends AbstractApiRequest
     public function buildResponse(ResponseInterface $response)
     {
         return new SingleResourceResponse($response, $this, $this->getContext());
-    }
-
-    /**
-     * @param array $result
-     * @param Context $context
-     * @return JsonDeserializeInterface
-     */
-    public function mapResult(array $result, Context $context = null)
-    {
-        $object = JsonObject::fromArray($result, $context);
-        return $object;
     }
 }

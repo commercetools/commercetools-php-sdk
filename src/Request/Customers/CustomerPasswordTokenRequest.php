@@ -69,15 +69,4 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
     {
         return new SingleResourceResponse($response, $this, $this->getContext());
     }
-
-    /**
-     * @param array $result
-     * @param Context $context
-     * @return JsonDeserializeInterface
-     */
-    public function mapResult(array $result, Context $context = null)
-    {
-        $object = JsonObject::fromArray($result, $context);
-        return $object;
-    }
 }

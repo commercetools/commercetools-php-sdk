@@ -236,6 +236,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $context = $this->getContext($context);
         $requestContext = $context . 'Request';
+        $this->context = $requestContext;
         $this->objects[$requestContext] = ['email' => $email];
     }
 
@@ -459,9 +460,22 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * @Given i want to signin a :context
+     */
+    public function iWantToSigninAContext($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'LoginRequest';
+        $requestContext = $context . 'Request';
+        $args = array_merge([$this->objects[$requestContext]['email']], $this->objects[$requestContext]['params']);
+        $this->createRequestInstance($request, $args);
+    }
+
+    /**
      * @Given i want to confirm a :context token
      */
-    public function iWantToConfirmAToken($context)
+    public function iWantToConfirmAContextToken($context)
     {
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'EmailConfirmRequest';

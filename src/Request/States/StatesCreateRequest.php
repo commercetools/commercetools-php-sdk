@@ -11,8 +11,14 @@ use Sphere\Core\Model\State\State;
 use Sphere\Core\Model\State\StateDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
 
+/**
+ * Class StatesCreateRequest
+ * @package Sphere\Core\Request\States
+ */
 class StatesCreateRequest extends AbstractCreateRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\State\State';
+
     /**
      * @param StateDraft $state
      * @param Context $context
@@ -20,18 +26,5 @@ class StatesCreateRequest extends AbstractCreateRequest
     public function __construct(StateDraft $state, Context $context = null)
     {
         parent::__construct(StatesEndpoint::endpoint(), $state, $context);
-    }
-
-    /**
-     * @param array $result
-     * @param Context $context
-     * @return State|null
-     */
-    public function mapResult(array $result, Context $context = null)
-    {
-        if (!empty($result)) {
-            return State::fromArray($result, $context);
-        }
-        return null;
     }
 }
