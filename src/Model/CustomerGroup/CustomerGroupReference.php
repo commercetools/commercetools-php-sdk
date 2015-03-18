@@ -6,13 +6,20 @@
 
 namespace Sphere\Core\Model\CustomerGroup;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
  * Class CustomerGroupReference
- * @package Sphere\Core\Model\Type
+ * @package Sphere\Core\Model\CustomerGroup
  * @method static CustomerGroupReference of(string $id)
+ * @method string getTypeId()
+ * @method CustomerGroupReference setTypeId(string $typeId)
+ * @method string getId()
+ * @method CustomerGroupReference setId(string $id)
+ * @method array getObj()
+ * @method CustomerGroupReference setObj(array $obj)
  */
 class CustomerGroupReference extends Reference
 {
@@ -22,9 +29,10 @@ class CustomerGroupReference extends Reference
 
     /**
      * @param string $id
+     * @param Context $context
      */
-    public function __construct($id)
+    public function __construct($id, Context $context = null)
     {
-        parent::__construct(static::TYPE_CUSTOMER_GROUP, $id);
+        parent::__construct(static::TYPE_CUSTOMER_GROUP, $id, $context);
     }
 }

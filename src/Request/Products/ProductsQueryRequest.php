@@ -7,6 +7,7 @@
 namespace Sphere\Core\Request\Products;
 
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractQueryRequest;
 
 /**
@@ -17,10 +18,10 @@ use Sphere\Core\Request\AbstractQueryRequest;
 class ProductsQueryRequest extends AbstractQueryRequest
 {
     /**
-     *
+     * @param Context $context
      */
-    public function __construct()
+    public function __construct(Context $context = null)
     {
-        parent::__construct(ProductsEndpoint::endpoint());
+        parent::__construct(ProductsEndpoint::endpoint(), $context);
     }
 }

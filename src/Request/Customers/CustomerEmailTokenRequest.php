@@ -6,8 +6,10 @@
 
 namespace Sphere\Core\Request\Customers;
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
@@ -25,14 +27,16 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
      * @var int
      */
     protected $ttlMinutes;
+
     /**
      * @param string $id
-     * @param string $version
+     * @param int $version
      * @param int $ttlMinutes
+     * @param Context $context
      */
-    public function __construct($id, $version, $ttlMinutes)
+    public function __construct($id, $version, $ttlMinutes, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint(), $id, $version);
+        parent::__construct(CustomersEndpoint::endpoint(), $id, $version, [], $context);
         $this->setId($id);
         $this->setVersion($version);
         $this->ttlMinutes = $ttlMinutes;
@@ -62,12 +66,12 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return SingleResourceResponse
      * @internal
      */
-    public function buildResponse($response)
+    public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this);
+        return new SingleResourceResponse($response, $this, $this->getContext());
     }
 }

@@ -7,10 +7,15 @@
 namespace Sphere\Core\Request;
 
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
-use Sphere\Core\Request\ClientRequestInterface;
 use Sphere\Core\Client\JsonEndpoint;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\ContextAwareInterface;
+use Sphere\Core\Model\Common\ContextTrait;
+use Sphere\Core\Model\Common\JsonDeserializeInterface;
+use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Response\AbstractApiResponse;
 
@@ -18,8 +23,9 @@ use Sphere\Core\Response\AbstractApiResponse;
  * Class AbstractApiRequest
  * @package Sphere\Core\Request
  */
-abstract class AbstractApiRequest implements ClientRequestInterface
+abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwareInterface
 {
+    use ContextTrait;
     use OfTrait;
 
     /**
@@ -36,9 +42,11 @@ abstract class AbstractApiRequest implements ClientRequestInterface
 
     /**
      * @param JsonEndpoint $endpoint
+     * @param Context $context
      */
-    public function __construct(JsonEndpoint $endpoint)
+    public function __construct(JsonEndpoint $endpoint, Context $context = null)
     {
+        $this->setContext($context);
         $this->setEndpoint($endpoint);
     }
 
@@ -132,9 +140,16 @@ abstract class AbstractApiRequest implements ClientRequestInterface
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return AbstractApiResponse
      * @internal
      */
-    abstract public function buildResponse($response);
+    abstract public function buildResponse(ResponseInterface $response);
+
+    /**
+     * @param array $result
+     * @param Context $context
+     * @return JsonDeserializeInterface
+     */
+    abstract public function mapResult(array $result, Context $context = null);
 }

@@ -6,13 +6,20 @@
 
 namespace Sphere\Core\Model\State;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class CategoryReference
- * @package Sphere\Core\Model\Type
+ * Class StateReference
+ * @package Sphere\Core\Model\State
  * @method static StateReference of(string $id)
+ * @method string getTypeId()
+ * @method StateReference setTypeId(string $typeId)
+ * @method string getId()
+ * @method StateReference setId(string $id)
+ * @method State getObj()
+ * @method StateReference setObj(State $obj)
  */
 class StateReference extends Reference
 {
@@ -20,11 +27,21 @@ class StateReference extends Reference
 
     const TYPE_STATE = 'state';
 
+    public function getFields()
+    {
+        return [
+            'typeId' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string'],
+            'obj' => [static::TYPE => '\Sphere\Core\Model\State\State']
+        ];
+    }
+
     /**
      * @param string $id
+     * @param Context $context
      */
-    public function __construct($id)
+    public function __construct($id, Context $context = null)
     {
-        parent::__construct(static::TYPE_STATE, $id);
+        parent::__construct(static::TYPE_STATE, $id, $context);
     }
 }

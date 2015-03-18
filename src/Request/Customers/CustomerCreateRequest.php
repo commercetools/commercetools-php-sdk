@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Request\Customers;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Customer\CustomerDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
 
@@ -18,9 +19,10 @@ class CustomerCreateRequest extends AbstractCreateRequest
 {
     /**
      * @param CustomerDraft $customer
+     * @param Context $context
      */
-    public function __construct(CustomerDraft $customer)
+    public function __construct(CustomerDraft $customer, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint(), $customer);
+        parent::__construct(CustomersEndpoint::endpoint(), $customer, $context);
     }
 }

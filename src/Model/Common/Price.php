@@ -11,18 +11,18 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
  * Class Price
- * @package Sphere\Core\Model\Type
+ * @package Sphere\Core\Model\Common
  * @method static Price of(Money $value)
  * @method Money getValue()
  * @method string getCountry()
- * @method string getCustomerGroup()
- * @method string getChannel()
- * @method string getDiscounted()
+ * @method CustomerGroupReference getCustomerGroup()
+ * @method ChannelReference getChannel()
+ * @method DiscountedPrice getDiscounted()
  * @method Price setValue(Money $value)
  * @method Price setCountry(string $country)
  * @method Price setCustomerGroup(CustomerGroupReference $customerGroup)
  * @method Price setChannel(ChannelReference $channel)
- * @method Price setDiscounted(DiscountedPrice $discountedPrice)
+ * @method Price setDiscounted(DiscountedPrice $discounted)
  */
 class Price extends JsonObject
 {
@@ -42,22 +42,30 @@ class Price extends JsonObject
     /**
      * @param Money $value
      */
-    public function __construct(Money $value)
+    public function __construct(Money $value, Context $context = null)
     {
+        $this->setContext($context);
         $this->setValue($value);
     }
 
     /**
      * @param array $data
+     * @param Context $context
      * @return static
      */
-    public static function fromArray(array $data)
+    public static function fromArray(array $data, Context $context = null)
     {
         $price = new static(
-            Money::fromArray($data['value'])
+            Money::fromArray($data['value'], $context),
+            $context
         );
         $price->setRawData($data);
 
         return $price;
+    }
+
+    public function __toString()
+    {
+        return $this->getValue()->__toString();
     }
 }

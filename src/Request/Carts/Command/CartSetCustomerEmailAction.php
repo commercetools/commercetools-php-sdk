@@ -1,0 +1,32 @@
+<?php
+/**
+ * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ */
+
+namespace Sphere\Core\Request\Carts\Command;
+
+use Sphere\Core\Request\AbstractAction;
+
+/**
+ * Class CartSetCustomerEmailAction
+ * @package Sphere\Core\Request\Carts\Command
+ * @method string getAction()
+ * @method CartSetCustomerEmailAction setAction(string $action)
+ * @method string getEmail()
+ * @method CartSetCustomerEmailAction setEmail(string $email)
+ */
+class CartSetCustomerEmailAction extends AbstractAction
+{
+    public function getFields()
+    {
+        return [
+            'action' => [static::TYPE => 'string'],
+            'email' => [static::TYPE => 'string'],
+        ];
+    }
+
+    public function __construct()
+    {
+        $this->setAction('setCustomerEmail');
+    }
+}

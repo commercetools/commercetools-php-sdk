@@ -7,6 +7,7 @@
 namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Common\Attribute;
+use Sphere\Core\Model\Common\Collection;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\Price;
 
@@ -16,9 +17,9 @@ use Sphere\Core\Model\Common\Price;
  * @method string getSku()
  * @method Price[] getPrices()
  * @method Attribute[] getAttributes()
- * @method ProductDraft setSku(string $sku)
- * @method ProductDraft setPrices(array $prices)
- * @method ProductDraft setAttributes(array $attributes)
+ * @method ProductVariantDraft setSku(string $sku)
+ * @method ProductVariantDraft setPrices(Collection $prices)
+ * @method ProductVariantDraft setAttributes(Collection $attributes)
  */
 class ProductVariantDraft extends JsonObject
 {
@@ -26,8 +27,8 @@ class ProductVariantDraft extends JsonObject
     {
         return [
             'sku' => [self::TYPE => 'string'],
-            'prices' => [self::TYPE => 'array'],
-            'attributes' => [self::TYPE => 'array'],
+            'prices' => [self::TYPE => '\Sphere\Core\Model\Common\Collection'],
+            'attributes' => [self::TYPE => '\Sphere\Core\Model\Common\Collection'],
         ];
     }
 }

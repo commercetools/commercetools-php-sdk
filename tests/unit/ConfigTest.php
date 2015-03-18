@@ -19,6 +19,21 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    public function testSetCredentialsOnly()
+    {
+        $testConfig = $this->getConfig();
+        unset($testConfig[Config::OAUTH_URL]);
+        unset($testConfig[Config::API_URL]);
+        $config = new Config();
+        $this->assertInstanceOf('\Sphere\Core\Config', $config->fromArray($testConfig));
+
+        $this->assertEquals($testConfig[Config::CLIENT_ID], $config->getClientId());
+        $this->assertEquals($testConfig[Config::CLIENT_SECRET], $config->getClientSecret());
+        $this->assertEquals('https://auth.sphere.io/oauth/token', $config->getOauthUrl());
+        $this->assertEquals($testConfig[Config::PROJECT], $config->getProject());
+        $this->assertEquals('https://api.sphere.io', $config->getApiUrl());
+    }
+
     public function testFromArray()
     {
         $testConfig = $this->getConfig();
@@ -42,7 +57,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($config->getClientId());
         $this->assertEmpty($config->getClientSecret());
         $this->assertEmpty($config->getProject());
-        $this->assertEquals('https://auth.sphere.io', $config->getOauthUrl());
+        $this->assertEquals('https://auth.sphere.io/oauth/token', $config->getOauthUrl());
         $this->assertEquals('https://api.sphere.io', $config->getApiUrl());
     }
 

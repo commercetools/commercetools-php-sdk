@@ -7,9 +7,13 @@
 namespace Sphere\Core\Request;
 
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\JsonDeserializeInterface;
+use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
@@ -39,13 +43,14 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
 
     /**
      * @param JsonEndpoint $endpoint
-     * @param $id
-     * @param $version
+     * @param string $id
+     * @param int $version
      * @param array $actions
+     * @param Context $context
      */
-    public function __construct($endpoint, $id, $version, array $actions = [])
+    public function __construct($endpoint, $id, $version, array $actions = [], Context $context = null)
     {
-        parent::__construct($endpoint);
+        parent::__construct($endpoint, $context);
         $this->setId($id)->setVersion($version)->setActions($actions);
     }
 
@@ -68,10 +73,10 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     }
 
     /**
-     * @param array $action
+     * @param array|AbstractAction $action
      * @return $this
      */
-    public function addAction(array $action)
+    public function addAction($action)
     {
         $this->actions[] = $action;
 
@@ -145,12 +150,23 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return SingleResourceResponse
      * @internal
      */
-    public function buildResponse($response)
+    public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this);
+        return new SingleResourceResponse($response, $this, $this->getContext());
+    }
+
+    /**
+     * @param array $result
+     * @param Context $context
+     * @return JsonDeserializeInterface
+     */
+    public function mapResult(array $result, Context $context = null)
+    {
+        $object = JsonObject::fromArray($result, $context);
+        return $object;
     }
 }

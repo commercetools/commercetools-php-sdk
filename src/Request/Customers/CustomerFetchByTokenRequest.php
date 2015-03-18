@@ -6,8 +6,12 @@
 
 namespace Sphere\Core\Request\Customers;
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\JsonDeserializeInterface;
+use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
@@ -22,10 +26,11 @@ class CustomerFetchByTokenRequest extends AbstractApiRequest
 
     /**
      * @param string $token
+     * @param Context $context
      */
-    public function __construct($token)
+    public function __construct($token, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint());
+        parent::__construct(CustomersEndpoint::endpoint(), $context);
         $this->addParam(static::TOKEN, $token);
     }
 
@@ -39,12 +44,23 @@ class CustomerFetchByTokenRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return SingleResourceResponse
      * @internal
      */
-    public function buildResponse($response)
+    public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this);
+        return new SingleResourceResponse($response, $this, $this->getContext());
+    }
+
+    /**
+     * @param array $result
+     * @param Context $context
+     * @return JsonDeserializeInterface
+     */
+    public function mapResult(array $result, Context $context = null)
+    {
+        $object = JsonObject::fromArray($result, $context);
+        return $object;
     }
 }

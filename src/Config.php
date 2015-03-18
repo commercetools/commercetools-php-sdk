@@ -10,13 +10,18 @@ namespace Sphere\Core;
 use Sphere\Core\Cache\CacheAdapterInterface;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\ContextAwareInterface;
+use Sphere\Core\Model\Common\ContextTrait;
 
 /**
  * Class Config
  * @package Sphere\Core
  */
-class Config
+class Config implements ContextAwareInterface
 {
+    use ContextTrait;
+
     const OAUTH_URL = 'oauth_url';
     const CLIENT_ID = 'client_id';
     const CLIENT_SECRET = 'client_secret';
@@ -41,7 +46,7 @@ class Config
     /**
      * @var string
      */
-    protected $oauthUrl = 'https://auth.sphere.io';
+    protected $oauthUrl = 'https://auth.sphere.io/oauth/token';
 
     /**
      * @var string

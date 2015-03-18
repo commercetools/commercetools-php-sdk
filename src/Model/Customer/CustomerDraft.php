@@ -6,13 +6,13 @@
 
 namespace Sphere\Core\Model\Customer;
 
-
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class CustomerDraft
- * @package Sphere\Core\Model\Customers
+ * @package Sphere\Core\Model\Customer
  * @method string getCustomerNumber()
  * @method string getEmail()
  * @method string getTitle()
@@ -51,8 +51,16 @@ class CustomerDraft extends JsonObject
         ];
     }
 
-    public function __construct($email, $firstName, $lastName, $password)
+    /**
+     * @param string $email
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $password
+     * @param Context $context
+     */
+    public function __construct($email, $firstName, $lastName, $password, Context $context = null)
     {
+        $this->setContext($context);
         $this->setEmail($email);
         $this->setFirstName($firstName);
         $this->setLastName($lastName);
@@ -63,9 +71,9 @@ class CustomerDraft extends JsonObject
      * @param array $data
      * @return static
      */
-    public static function fromArray(array $data)
+    public static function fromArray(array $data, Context $context = null)
     {
-        $draft = new static($data['email'], $data['firstName'], $data['lastName'], $data['password']);
+        $draft = new static($data['email'], $data['firstName'], $data['lastName'], $data['password'], $context);
         $draft->setRawData($data);
     }
 }

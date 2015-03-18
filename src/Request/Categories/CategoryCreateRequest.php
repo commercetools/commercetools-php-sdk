@@ -8,6 +8,7 @@ namespace Sphere\Core\Request\Categories;
 
 
 use Sphere\Core\Model\Category\CategoryDraft;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractCreateRequest;
 
 /**
@@ -19,9 +20,10 @@ class CategoryCreateRequest extends AbstractCreateRequest
 {
     /**
      * @param CategoryDraft $category
+     * @param Context $context
      */
-    public function __construct(CategoryDraft $category)
+    public function __construct(CategoryDraft $category, Context $context = null)
     {
-        parent::__construct(CategoriesEndpoint::endpoint(), $category);
+        parent::__construct(CategoriesEndpoint::endpoint(), $category, $context);
     }
 }

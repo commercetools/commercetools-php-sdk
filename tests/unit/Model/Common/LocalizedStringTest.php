@@ -9,14 +9,6 @@ namespace Sphere\Core\Model\Common;
 
 use Sphere\Core\Error\InvalidArgumentException;
 
-function extension_loaded($value)
-{
-    if ($value === 'intl') {
-        return LocalizedStringTest::getIntlLoaded();
-    }
-    return \extension_loaded($value);
-}
-
 class LocalizedStringTest extends \PHPUnit_Framework_TestCase
 {
     protected static $intlLoaded = true;
@@ -34,7 +26,18 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
 
     protected function getString()
     {
-        return LocalizedString::of(['en'=>'test']);
+        $localizedString = LocalizedString::of(['en'=>'test']);
+        $localizedString->setContext($this->getContext('en'));
+
+        return $localizedString;
+    }
+
+    protected function getContext($language)
+    {
+        $context = new Context();
+        $context->setLanguages([$language]);
+
+        return $context;
     }
 
     /**
@@ -42,44 +45,25 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUnknownLocale()
     {
-        $this->getString()->get('de');
+        $this->getString()->get($this->getContext('de'));
     }
 
     public function testGetLocale()
     {
-        $this->assertSame('test', $this->getString()->get('en'));
+        $this->assertSame('test', $this->getString()->get());
     }
 
     public function testAddLocaleName()
     {
         $string = $this->getString();
         $string->add('de', 'Name');
-        $this->assertSame('Name', $string->get('de'));
+        $this->assertSame('Name', $string->get($this->getContext('de')));
     }
 
     public function testSerializable()
     {
         $this->assertInstanceOf('\JsonSerializable', $this->getString());
         $this->assertSame(['en' => 'test'], $this->getString()->jsonSerialize());
-    }
-
-    public function testDefaultLanguage()
-    {
-        \Locale::setDefault('en_US');
-        $localString = LocalizedString::of(['en' => 'test']);
-        $this->assertSame('test', (string)$localString);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testIntlNotLoaded()
-    {
-        static::$intlLoaded = false;
-        LocalizedString::setDefaultLanguage(null);
-
-        $localString = LocalizedString::of(['en' => 'test']);
-        $localString->__toString();
     }
 
     public function testMerge()

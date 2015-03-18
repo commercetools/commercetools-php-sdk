@@ -6,6 +6,9 @@
 
 namespace Sphere\Core\Request\Products;
 
+use GuzzleHttp\Message\ResponseInterface;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Product\ProductProjectionCollection;
 use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Request\SortTrait;
@@ -22,11 +25,11 @@ class ProductsSearchRequest extends AbstractProjectionRequest
     use SortTrait;
 
     /**
-     *
+     * @param Context $context
      */
-    public function __construct()
+    public function __construct(Context $context = null)
     {
-        parent::__construct(ProductSearchEndpoint::endpoint());
+        parent::__construct(ProductSearchEndpoint::endpoint(), $context);
     }
 
     /**
@@ -38,12 +41,26 @@ class ProductsSearchRequest extends AbstractProjectionRequest
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return PagedQueryResponse
      * @internal
      */
-    public function buildResponse($response)
+    public function buildResponse(ResponseInterface $response)
     {
-        return new PagedQueryResponse($response, $this);
+        return new PagedQueryResponse($response, $this, $this->getContext());
+    }
+
+    /**
+     * @param array $result
+     * @param Context $context
+     * @return ProductProjectionCollection|null
+     */
+    public function mapResult(array $result, Context $context = null)
+    {
+        if (!empty($result['results'])) {
+            return ProductProjectionCollection::fromArray($result['results'], $context);
+        }
+
+        return new ProductProjectionCollection([], $context);
     }
 }

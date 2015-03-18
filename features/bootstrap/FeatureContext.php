@@ -1,28 +1,23 @@
 <?php
 
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
+
+require_once __DIR__ . '/../../vendor/phpunit/phpunit/src/Framework/Assert/Functions.php';
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext implements Context, SnippetAcceptingContext
 {
-    /**
-     * @var \Sphere\Core\Request\AbstractApiRequest
-     */
     protected $request;
 
-    protected $object;
+    protected $objects = [];
 
-    protected $params = [];
+    protected $context;
 
-    protected $draftClass;
-
-    protected $draftValues = [];
+    protected $actions = [];
 
     protected static $coverage;
 
@@ -54,52 +49,37 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
             echo 'Generating code coverage report in Clover XML format ... ';
             $writer = new PHP_CodeCoverage_Report_Clover();
-            $writer->process(static::$coverage, __DIR__ . "/../../build/behat/behat-clover.xml");
+            $writer->process(static::$coverage, __DIR__ . "/../../build/logs/behat-clover.cov");
             echo 'done' . PHP_EOL;
 
-            echo 'Generating code coverage report in HTML format ... ';
-            $writer = new PHP_CodeCoverage_Report_HTML();
-            $writer->process(static::$coverage, __DIR__ . "/../../build/behat/coverage");
-            echo 'done' . PHP_EOL;
+//            echo 'Generating code coverage report in HTML format ... ';
+//            $writer = new PHP_CodeCoverage_Report_HTML();
+//            $writer->process(static::$coverage, __DIR__ . "/../../build/behat/coverage");
+//            echo 'done' . PHP_EOL;
         }
     }
 
     protected function getModuleName($context)
     {
-        if (substr($context,-1) == 'y') {
+        if (substr($context, -1) == 'y') {
             $module = substr($context, 0, -1) . 'ies';
-        } elseif (substr($context,-1) == 's') {
+        } elseif (substr($context, -1) == 's') {
             $module = $context;
         } else {
             $module = $context . 's';
         }
 
-        return $module;
-    }
-
-
-    /**
-     * @Given i want to update a :context identified by :id and at version :version
-     */
-    public function iWantToUpdateAIdentifiedByAndAtVersion($context, $id, $version)
-    {
-        $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'UpdateRequest';
-        $this->request = new $request($id, $version);
+        return ucfirst($module);
     }
 
     /**
-     * @Then the path should be :path
+     * @Then the path should be :expectedPath
      */
     public function thePathShouldBe($expectedPath)
     {
         $httpRequest = $this->request->httpRequest();
 
-        if ($httpRequest->getPath() !== $expectedPath) {
-            var_dump($expectedPath);
-            var_dump($httpRequest->getPath());
-            throw new Exception('Path wrong');
-        };
+        assertSame($expectedPath, $httpRequest->getPath());
     }
 
     /**
@@ -107,73 +87,11 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theRequestShouldBe(PyStringNode $result)
     {
-        $expectedResult = json_encode(json_decode($result, true));
+        $expectedResult = (string)$result;
         $httpRequest = $this->request->httpRequest();
         $request = $httpRequest->getBody();
 
-        if ($expectedResult != $request) {
-            var_dump($expectedResult);
-            var_dump($request);
-            throw new Exception('Json differs');
-        }
-    }
-
-    /**
-     * @When i have the :context object :className
-     */
-    public function iHaveTheObject($context, $className)
-    {
-        $objectClass = '\Sphere\Core\Model\\' . ucfirst($context) . '\\' . ucfirst($className);
-        $this->object = new $objectClass();
-        $this->params[] = $this->object;
-    }
-
-    /**
-     * @When set the objects :field to :value
-     */
-    public function setTheObjectsTo($field, $value)
-    {
-        $method = 'set' . ucfirst($field);
-        $this->object->$method($value);
-    }
-
-    /**
-     * @When i :action the :field object to :request
-     */
-    public function iTheObjectTo($action, $field, $request)
-    {
-        $method = $action . ucfirst($field);
-        $this->request->$method($this->object);
-    }
-
-    /**
-     * @Given i have a :context draft
-     */
-    public function iHaveADraft($context)
-    {
-        $this->draftClass = '\Sphere\Core\Model\\' . ucfirst($context) . '\\' . ucfirst($context) . 'Draft';
-    }
-
-    /**
-     * @Given the :field is :value
-     */
-    public function theIs($field, $value)
-    {
-        $this->draftValues[$field] = $value;
-    }
-
-    /**
-     * @Given i want to create a :context
-     */
-    public function iWantToCreateA($context)
-    {
-        $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'CreateRequest';
-
-        $reflection = new ReflectionClass($this->draftClass);
-        $draft = $reflection->newInstanceArgs($this->draftValues);
-
-        $this->request = new $request($draft);
+        assertJsonStringEqualsJsonString($expectedResult, $request);
     }
 
     /**
@@ -183,113 +101,388 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $httpRequest = $this->request->httpRequest();
 
-        if ($httpRequest->getHttpMethod() !== strtolower($expectedMethod)) {
-            var_dump($expectedMethod);
-            var_dump($httpRequest->getHttpMethod());
-            throw new Exception('Wrong http method');
-        };
+        assertSame(strtolower($expectedMethod), $httpRequest->getHttpMethod());
+    }
+
+    protected function createRequestInstance($className, $params = [])
+    {
+        $reflection = new ReflectionClass($className);
+        $this->request = $reflection->newInstanceArgs($params);
+    }
+
+    protected function getContext($context)
+    {
+        return ucfirst($context);
+    }
+    /**
+     * @Given i have a :context draft
+     */
+    public function iHaveADraft($context)
+    {
+        $context = $this->getContext($context);
+        $class = '\Sphere\Core\Model\\' . $context . '\\' . $context . 'Draft';
+
+        $this->objects[$context] = [
+            'class' => $class,
+            'params' => [],
+            'instance' => null
+        ];
+        $this->context = $context;
     }
 
     /**
-     * @Given the localized :locale :field is :value
+     * @Given the :field is :value in :locale
      */
-    public function theLocalizedIs($locale, $field, $value)
+    public function theContextFieldIsValueInLocale($field, $value, $locale)
     {
+        $context = $this->context;
         $localizedString = new \Sphere\Core\Model\Common\LocalizedString([$locale => $value]);
         if (
-            isset($this->draftValues[$field])
-            && $this->draftValues[$field] instanceof \Sphere\Core\Model\Common\LocalizedString
+            isset($this->objects[$context]['params'][$field]) &&
+            $this->objects[$context]['params'][$field] instanceof \Sphere\Core\Model\Common\LocalizedString
         ) {
-            $this->draftValues[$field]->merge($localizedString);
+            $this->objects[$context]['params'][$field]->merge($localizedString);
         } else {
-            $this->draftValues[$field] = $localizedString;
+            $this->objects[$context]['params'][$field] = $localizedString;
+        }
+    }
+
+    public function getContextObject($context)
+    {
+        $context = $this->getContext($context);
+
+        if (!isset($this->objects[$context]['instance'])) {
+            $reflection = new ReflectionClass($this->objects[$context]['class']);
+            $this->objects[$context]['instance'] = $reflection->newInstanceArgs($this->objects[$context]['params']);
+        }
+
+        return $this->objects[$context]['instance'];
+    }
+
+    /**
+     * @Given i want to create a :context
+     */
+    public function iWantToCreateAContext($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'CreateRequest';
+
+        $this->createRequestInstance($request, [$this->getContextObject($context)]);
+    }
+
+    /**
+     * @Given i want to update a :context
+     */
+    public function iWantToUpdateAContext($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'UpdateRequest';
+
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $version = $this->objects[$requestContext]['version'];
+        $actions = [];
+        foreach ($this->actions as $actionContext) {
+            $actions[] = $this->getContextObject($actionContext);
+        }
+        $this->createRequestInstance($request, [$id, $version, $actions]);
+    }
+
+    /**
+     * @Given the :field is :value as :type
+     */
+    public function theContextFieldIsValueAsType($field, $value, $type)
+    {
+        $method = $type . 'val';
+        $this->theContextFieldIsValue($field, $method($value));
+    }
+
+    /**
+     * @Given the :field is :value
+     */
+    public function theContextFieldIsValue($field, $value)
+    {
+        $context = $this->context;
+        $this->objects[$context]['params'][$field] = $value;
+    }
+
+    /**
+     * @Given a :context is identified by :id and :version
+     */
+    public function aContextIsIdentifiedByIdAndVersion($context, $id, $version)
+    {
+        $context = $this->getContext($context);
+        $requestContext = $context . 'Request';
+        $this->objects[$requestContext] = ['id' => $id, 'version' => $version, 'params' => []];
+        $this->context = $requestContext;
+    }
+
+    /**
+     * @Given a :context is identified by :id
+     */
+    public function aContextIsIdentifiedById($context, $id)
+    {
+        $context = $this->getContext($context);
+        $requestContext = $context . 'Request';
+        $this->objects[$requestContext] = ['id' => $id];
+    }
+
+    /**
+     * @Given a :context is identified by the email :email
+     */
+    public function aContextIsIdentifiedByTheEmail($context, $email)
+    {
+        $context = $this->getContext($context);
+        $requestContext = $context . 'Request';
+        $this->objects[$requestContext] = ['email' => $email];
+    }
+
+    /**
+     * @Given a :context is identified by the token :token
+     */
+    public function aContextIsIdentifiedByTheToken($context, $token)
+    {
+        $context = $this->getContext($context);
+        $requestContext = $context . 'Request';
+        $this->objects[$requestContext] = ['token' => $token];
+    }
+
+
+    /**
+     * @Given i want to :action of :context as :alias
+     */
+    public function iWantToActionOfContextAsAlias($action, $context, $alias)
+    {
+        $this->iWantToActionOfContext($action, $context, $alias);
+    }
+
+    /**
+     * @Given i want to :action of :context
+     */
+    public function iWantToActionOfContext($action, $context, $alias = null)
+    {
+        $context = $this->getContext($context);
+        $action = $this->getContext($action);
+        $alias = $this->getContext($alias);
+
+        $module = $this->getModuleName($context);
+        $actionClass = '\Sphere\Core\Request\\' . $module . '\\Command\\' . $context . $action . 'Action';
+        $context = ($alias ? : $context.$action);
+        $this->objects[$context] = [
+            'class' => $actionClass,
+            'params' => [],
+            'instance' => null
+        ];
+        $this->context = $context;
+        $this->actions[] = $this->context;
+    }
+
+    /**
+     * @Given the :type reference :field is :id
+     */
+    public function theTypeReferenceFieldIsId($type, $field, $id)
+    {
+        $type = $this->getContext($type);
+        $reference = '\Sphere\Core\Model\\' . $type . '\\' . $type . 'Reference';
+        $reference = new $reference($id);
+        $this->theContextFieldIsValue($field, $reference);
+    }
+
+    /**
+     * @Given i have a :domain :context object as :alias
+     */
+    public function iHaveADomainContextObjectAsAlias($domain, $context, $alias)
+    {
+        $this->iHaveADomainContextObject($domain, $context, $alias);
+    }
+    /**
+     * @Given i have a :domain :context object
+     */
+    public function iHaveADomainContextObject($domain, $context, $alias = null)
+    {
+        $domain = $this->getContext($domain);
+        $context = $this->getContext($context);
+        $alias = $this->getContext($alias);
+
+        $class = '\Sphere\Core\Model\\' . $domain . '\\' . $context;
+        $context = ($alias ? : $domain.$context);
+        $this->objects[$context] = [
+            'class' => $class,
+            'params' => [],
+            'instance' => null
+        ];
+        $this->context = $context;
+    }
+
+    /**
+     * @Given set the :field to :value
+     */
+    public function setTheFieldToValue($field, $value)
+    {
+        $object = $this->getContextObject($this->context);
+        $method = 'set' . ucfirst($field);
+        $object->$method($value);
+    }
+
+    /**
+     * @Given set the :field to :value as :type
+     */
+    public function setTheFieldToValueAsType($field, $value, $type)
+    {
+        if ($type == 'array') {
+            $value = array_map('trim', explode(',', $value));
+        } else {
+            $method = $type.'val';
+            $value = $method($value);
+        }
+        $this->setTheFieldToValue($field, $value);
+    }
+
+    /**
+     * @Given set the :field to :value in :locale
+     */
+    public function setTheContextFieldToValueInLocale($field, $value, $locale)
+    {
+        $localizedString = new \Sphere\Core\Model\Common\LocalizedString([$locale => $value]);
+        $this->setTheFieldToValue($field, $localizedString);
+    }
+
+    /**
+     * @Given set the :type reference :field to :id
+     */
+    public function setTheTypeReferenceFieldToId($type, $field, $id)
+    {
+        $type = $this->getContext($type);
+        $reference = '\Sphere\Core\Model\\' . $type . '\\' . $type . 'Reference';
+        $reference = new $reference($id);
+        $this->setTheFieldToValue($field, $reference);
+    }
+
+    /**
+     * @Given set the :field date to :value
+     */
+    public function setTheFieldDateToValue($field, $value)
+    {
+        $object = $this->getContextObject($this->context);
+        $method = 'set' . ucfirst($field);
+        $object->$method(new DateTime($value));
+    }
+
+    /**
+     * @Given set the :domain :context object to :field
+     */
+    public function setTheDomainContextObjectToField($domain, $context, $field)
+    {
+        $context = $this->getContext($domain) . $this->getContext($context);
+        $this->theContextFieldIsValue($field, $this->getContextObject($context));
+    }
+
+    /**
+     * @Given the :field is :alias object
+     */
+    public function theFieldIsAliasObject($field, $alias)
+    {
+        $alias = $this->getContext($alias);
+        $this->theContextFieldIsValue($field, $this->getContextObject($alias));
+    }
+
+    /**
+     * @Given set the :Alias object to :field
+     */
+    public function setTheAliasObjectToField($alias, $field)
+    {
+        $alias = $this->getContext($alias);
+        $object = $this->getContextObject($alias);
+        $this->setTheFieldToValue($field, $object);
+    }
+
+    /**
+     * @Given add the :Alias object to :field collection
+     */
+    public function addTheAliasObjectToFieldCollection($alias, $field)
+    {
+        $alias = $this->getContext($alias);
+        $object = $this->getContextObject($alias);
+        $method = 'get' . ucfirst($field);
+        $contextObject = $this->getContextObject($this->context);
+        if ($contextObject instanceof \Sphere\Core\Model\Common\Collection) {
+            $contextObject->add($object);
+        } else {
+            $contextObject->$method()->add($object);
         }
     }
 
     /**
-     * @Given i have the :field with value :value
+     * @Given set the :Alias object to :field collection at :offset
      */
-    public function iHaveTheWithValue($field, $value)
+    public function setTheAliasObjectToFieldCollectionAtOffset($alias, $field, $offset)
     {
-        $this->params[$field] = $value;
+        $alias = $this->getContext($alias);
+        $object = $this->getContextObject($alias);
+        $method = 'get' . ucfirst($field);
+        $contextObject = $this->getContextObject($this->context);
+        if ($contextObject instanceof \Sphere\Core\Model\Common\Collection) {
+            $contextObject->setAt($offset, $object);
+        } else {
+            $contextObject->$method()->setAt($offset, $object);
+        }
     }
 
     /**
-     * @Given i :action the :field with these values
+     * @Given i want to delete a :context
      */
-    public function iTheWithTheseValues($action, $field)
-    {
-        $method = $action . ucfirst($field);
-        call_user_func_array([$this->request, $method], $this->params);
-        $this->params = [];
-    }
-
-    /**
-     * @Given i have a localized :locale :field with value :value
-     */
-    public function iHaveALocalizedWithValue($locale, $field, $value)
-    {
-        $localizedString = new \Sphere\Core\Model\Common\LocalizedString([$locale => $value]);
-        $this->iHaveTheWithValue($field, $localizedString);
-    }
-
-    /**
-     * @Given i have a :typeId reference to :id
-     */
-    public function iHaveAReferenceTo($typeId, $id)
-    {
-        $reference = '\Sphere\Core\Model\\' . ucfirst($typeId) . '\\' . ucfirst($typeId) . 'Reference';
-        $reference = new $reference($id);
-        $this->iHaveTheWithValue($typeId, $reference);
-    }
-
-    /**
-     * @Given i have the date :dateTime
-     */
-    public function iHaveTheDate($dateTime)
-    {
-        $dateTime = new DateTime($dateTime);
-        $this->params[] = $dateTime;
-    }
-
-    /**
-     * @Given i want to delete a :context identified by :id and at version :version
-     */
-    public function iWantToDeleteAIdentifiedByAndAtVersion($context, $id, $version)
+    public function iWantToDeleteA($context)
     {
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'DeleteByIdRequest';
-        $this->request = new $request($id, $version);
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $version = $this->objects[$requestContext]['version'];
+        $this->createRequestInstance($request, [$id, $version]);
     }
 
     /**
-     * @Given i want to create a :context token identified by :id and at version :version with :ttl minutes lifetime
+     * @Given i want to create a :context token
      */
-    public function iWantToCreateATokenIdentifiedByAndAtVersionWithMinutesLifetime($context, $id, $version, $ttl)
+    public function iWantToCreateAToken($context)
     {
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'EmailTokenRequest';
-        $this->request = new $request($id, $version, $ttl);
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $version = $this->objects[$requestContext]['version'];
+        $params = array_merge([$id, $version], $this->objects[$requestContext]['params']);
+
+        $this->createRequestInstance($request, $params);
     }
 
     /**
-     * @Given i want to confirm a :context token identified by :id and at version :version with :token value
+     * @Given i want to confirm a :context token
      */
-    public function iWantToConfirmATokenIdentifiedByAndAtVersionWithValue($context, $id, $version, $token)
+    public function iWantToConfirmAToken($context)
     {
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'EmailConfirmRequest';
-        $this->request = new $request($id, $version, $token);
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $version = $this->objects[$requestContext]['version'];
+        $params = array_merge([$id, $version], $this->objects[$requestContext]['params']);
+        $this->createRequestInstance($request, $params);
     }
 
     /**
-     * @Given i want to fetch a :context identified by :id
+     * @Given i want to fetch a :context
      */
-    public function iWantToFetchAIdentifiedBy($context, $id)
+    public function iWantToFetchA($context)
     {
+        $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'FetchByIdRequest';
-        $this->request = new $request($id);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'FetchByIdRequest';
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $this->createRequestInstance($request, [$id]);
     }
 
     /**
@@ -297,9 +490,10 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iWantToQuery($context)
     {
+        $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'QueryRequest';
-        $this->request = new $request();
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'QueryRequest';
+        $this->createRequestInstance($request);
     }
 
     /**
@@ -338,23 +532,29 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Given i want to create a password token for :context identified by :email
+     * @Given i want to create a password token for :context
      */
-    public function iWantToCreateAPasswordTokenForIdentifiedBy($context, $email)
+    public function iWantToCreateAPasswordTokenFor($context)
     {
+        $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'PasswordTokenRequest';
-        $this->request = new $request($email);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'PasswordTokenRequest';
+        $requestContext = $context . 'Request';
+        $email = $this->objects[$requestContext]['email'];
+        $this->createRequestInstance($request, [$email]);
     }
 
     /**
-     * @Given i want to fetch a :context identified by a password token with value :tokenValue
+     * @Given i want to fetch a :context by token
      */
-    public function iWantToFetchAIdentifiedByAPasswordTokenWithValue($context, $tokenValue)
+    public function iWantToFetchAByToken($context)
     {
+        $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'FetchByTokenRequest';
-        $this->request = new $request($tokenValue);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'FetchByTokenRequest';
+        $requestContext = $context . 'Request';
+        $token = $this->objects[$requestContext]['token'];
+        $this->createRequestInstance($request, [$token]);
     }
 
     /**
@@ -362,10 +562,22 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iResetThePassword($action, $context)
     {
+        $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' .
-            ucfirst($context) . 'Password' . ucfirst($action) . 'Request';
-        $reflection = new ReflectionClass($request);
-        $this->request = $reflection->newInstanceArgs($this->params);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' .
+            $context . 'Password' . ucfirst($action) . 'Request';
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $version = $this->objects[$requestContext]['version'];
+        $params = array_merge([$id, $version], $this->objects[$requestContext]['params']);
+        $this->createRequestInstance($request, $params);
+    }
+
+    /**
+     * @Given query by customers id :customerId
+     */
+    public function queryByCustomersId($customerId)
+    {
+        $this->request->byCustomerId($customerId);
     }
 }

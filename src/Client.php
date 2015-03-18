@@ -12,6 +12,8 @@ use GuzzleHttp\Message\RequestInterface;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Log\LoggerInterface;
+use Sphere\Core\Model\Common\ContextAwareInterface;
+use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\ApiResponseInterface;
 use Sphere\Core\Request\ClientRequestInterface;
 use Sphere\Core\Client\OAuth\Manager;
@@ -90,6 +92,9 @@ class Client extends AbstractHttpClient
      */
     public function execute(ClientRequestInterface $request)
     {
+        if ($request instanceof ContextAwareInterface) {
+            $request->setContextIfNull($this->getConfig()->getContext());
+        }
         $client = $this->getHttpClient();
         try {
             $httpResponse = $client->send($this->createHttpRequest($request));
@@ -165,6 +170,9 @@ class Client extends AbstractHttpClient
      */
     public function addBatchRequest(ClientRequestInterface $request)
     {
+        if ($request instanceof ContextAwareInterface) {
+            $request->setContextIfNull($this->getConfig()->getContext());
+        }
         $this->batchRequests[] = $request;
     }
 }

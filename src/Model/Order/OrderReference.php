@@ -6,13 +6,20 @@
 
 namespace Sphere\Core\Model\Order;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class CategoryReference
- * @package Sphere\Core\Model\Type
+ * Class OrderReference
+ * @package Sphere\Core\Model\Order
  * @method static OrderReference of(string $id)
+ * @method string getTypeId()
+ * @method OrderReference setTypeId(string $typeId)
+ * @method string getId()
+ * @method OrderReference setId(string $id)
+ * @method array getObj()
+ * @method OrderReference setObj(array $obj)
  */
 class OrderReference extends Reference
 {
@@ -22,9 +29,10 @@ class OrderReference extends Reference
 
     /**
      * @param string $id
+     * @param Context $context
      */
-    public function __construct($id)
+    public function __construct($id, Context $context = null)
     {
-        parent::__construct(static::TYPE_ORDER, $id);
+        parent::__construct(static::TYPE_ORDER, $id, $context);
     }
 }
