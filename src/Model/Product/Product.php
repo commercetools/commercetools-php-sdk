@@ -13,11 +13,11 @@ use Sphere\Core\Model\Common\LocalizedString;
  * Class Product
  * @package Sphere\Core\Model\Product
  * @method LocalizedString getName()
- * @method Product setName(LocalizedString $name)
+ * @method Product setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
- * @method Product setDescription(LocalizedString $description)
+ * @method Product setDescription(LocalizedString $description = null)
  * @method array getMasterVariant()
- * @method Product setMasterVariant(array $masterVariant)
+ * @method Product setMasterVariant(array $masterVariant = null)
  */
 class Product extends JsonObject
 {

@@ -12,9 +12,9 @@ use Sphere\Core\Model\Common\Money;
  * Class ShippingRate
  * @package Sphere\Core\Model\ShippingMethod
  * @method Money getPrice()
- * @method ShippingRate setPrice(Money $price)
+ * @method ShippingRate setPrice(Money $price = null)
  * @method Money getFreeAbove()
- * @method ShippingRate setFreeAbove(Money $freeAbove)
+ * @method ShippingRate setFreeAbove(Money $freeAbove = null)
  */
 class ShippingRate extends JsonObject
 {

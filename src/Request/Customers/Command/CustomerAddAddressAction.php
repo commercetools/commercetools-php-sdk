@@ -12,9 +12,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CustomerAddAddressAction
  * @package Sphere\Core\Request\Customers\Command
  * @method Address getAddress()
- * @method CustomerAddAddressAction setAddress(Address $address)
+ * @method CustomerAddAddressAction setAddress(Address $address = null)
  * @method string getAction()
- * @method CustomerAddAddressAction setAction(string $action)
+ * @method CustomerAddAddressAction setAction(string $action = null)
  */
 class CustomerAddAddressAction extends AbstractAction
 {

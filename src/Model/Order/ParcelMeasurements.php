@@ -11,13 +11,13 @@ use Sphere\Core\Model\Common\JsonObject;
  * Class ParcelMeasurements
  * @package Sphere\Core\Model\Order
  * @method int getHeightInMillimeter()
- * @method ParcelMeasurements setHeightInMillimeter(int $heightInMillimeter)
+ * @method ParcelMeasurements setHeightInMillimeter(int $heightInMillimeter = null)
  * @method int getLengthInMillimeter()
- * @method ParcelMeasurements setLengthInMillimeter(int $lengthInMillimeter)
+ * @method ParcelMeasurements setLengthInMillimeter(int $lengthInMillimeter = null)
  * @method int getWidthInMillimeter()
- * @method ParcelMeasurements setWidthInMillimeter(int $widthInMillimeter)
+ * @method ParcelMeasurements setWidthInMillimeter(int $widthInMillimeter = null)
  * @method int getWeightInMillimeter()
- * @method ParcelMeasurements setWeightInMillimeter(int $weightInMillimeter)
+ * @method ParcelMeasurements setWeightInMillimeter(int $weightInMillimeter = null)
  */
 class ParcelMeasurements extends JsonObject
 {

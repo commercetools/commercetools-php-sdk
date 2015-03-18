@@ -13,7 +13,6 @@ use GuzzleHttp\Pool;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Log\LoggerInterface;
 use Sphere\Core\Model\Common\ContextAwareInterface;
-use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\ApiResponseInterface;
 use Sphere\Core\Request\ClientRequestInterface;
 use Sphere\Core\Client\OAuth\Manager;

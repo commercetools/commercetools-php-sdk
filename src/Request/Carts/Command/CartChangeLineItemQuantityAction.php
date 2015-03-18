@@ -11,11 +11,11 @@ use Sphere\Core\Request\AbstractAction;
  * Class CartChangeLineItemQuantityAction
  * @package Sphere\Core\Request\Carts\Command
  * @method string getAction()
- * @method CartChangeLineItemQuantityAction setAction(string $action)
+ * @method CartChangeLineItemQuantityAction setAction(string $action = null)
  * @method string getLineItemId()
- * @method CartChangeLineItemQuantityAction setLineItemId(string $lineItemId)
+ * @method CartChangeLineItemQuantityAction setLineItemId(string $lineItemId = null)
  * @method int getQuantity()
- * @method CartChangeLineItemQuantityAction setQuantity(int $quantity)
+ * @method CartChangeLineItemQuantityAction setQuantity(int $quantity = null)
  */
 class CartChangeLineItemQuantityAction extends AbstractAction
 {

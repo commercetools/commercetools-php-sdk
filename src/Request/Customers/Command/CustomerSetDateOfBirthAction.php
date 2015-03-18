@@ -11,9 +11,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CustomerSetDateOfBirthAction
  * @package Sphere\Core\Request\Customers\Command
  * @method \DateTime getDateOfBirth()
- * @method CustomerSetDateOfBirthAction setDateOfBirth(\DateTime $dateOfBirth)
+ * @method CustomerSetDateOfBirthAction setDateOfBirth(\DateTime $dateOfBirth = null)
  * @method string getAction()
- * @method CustomerSetDateOfBirthAction setAction(string $action)
+ * @method CustomerSetDateOfBirthAction setAction(string $action = null)
  */
 class CustomerSetDateOfBirthAction extends AbstractAction
 {

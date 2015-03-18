@@ -12,11 +12,11 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductSetSearchKeywordsAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductSetSearchKeywordsAction setAction(string $action)
+ * @method ProductSetSearchKeywordsAction setAction(string $action = null)
  * @method LocalizedSearchKeywords getSearchKeywords()
- * @method ProductSetSearchKeywordsAction setSearchKeywords(LocalizedSearchKeywords $searchKeywords)
+ * @method ProductSetSearchKeywordsAction setSearchKeywords(LocalizedSearchKeywords $searchKeywords = null)
  * @method bool getStaged()
- * @method ProductSetSearchKeywordsAction setStaged(bool $staged)
+ * @method ProductSetSearchKeywordsAction setStaged(bool $staged = null)
  */
 class ProductSetSearchKeywordsAction extends AbstractAction
 {

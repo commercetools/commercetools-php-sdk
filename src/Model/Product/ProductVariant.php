@@ -15,17 +15,17 @@ use Sphere\Core\Model\Common\PriceCollection;
  * Class ProductVariant
  * @package Sphere\Core\Model\Product
  * @method string getId()
- * @method ProductVariant setId(string $id)
+ * @method ProductVariant setId(string $id = null)
  * @method int getSku()
- * @method ProductVariant setSku(int $sku)
+ * @method ProductVariant setSku(int $sku = null)
  * @method PriceCollection getPrices()
- * @method ProductVariant setPrices(PriceCollection $prices)
+ * @method ProductVariant setPrices(PriceCollection $prices = null)
  * @method AttributeCollection getAttributes()
- * @method ProductVariant setAttributes(AttributeCollection $attributes)
+ * @method ProductVariant setAttributes(AttributeCollection $attributes = null)
  * @method ImageCollection getImages()
- * @method ProductVariant setImages(ImageCollection $images)
+ * @method ProductVariant setImages(ImageCollection $images = null)
  * @method LocalizedString getAvailability()
- * @method ProductVariant setAvailability(LocalizedString $availability)
+ * @method ProductVariant setAvailability(LocalizedString $availability = null)
  */
 class ProductVariant extends JsonObject
 {

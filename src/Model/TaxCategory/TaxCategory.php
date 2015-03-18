@@ -12,19 +12,19 @@ use Sphere\Core\Model\Common\JsonObject;
  * Class TaxCategory
  * @package Sphere\Core\Model\TaxCategory
  * @method string getId()
- * @method TaxCategory setId(string $id)
+ * @method TaxCategory setId(string $id = null)
  * @method int getVersion()
- * @method TaxCategory setVersion(int $version)
+ * @method TaxCategory setVersion(int $version = null)
  * @method \DateTime getCreatedAt()
- * @method TaxCategory setCreatedAt(\DateTime $createdAt)
+ * @method TaxCategory setCreatedAt(\DateTime $createdAt = null)
  * @method \DateTime getLastModifiedAt()
- * @method TaxCategory setLastModifiedAt(\DateTime $lastModifiedAt)
+ * @method TaxCategory setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method string getName()
- * @method TaxCategory setName(string $name)
+ * @method TaxCategory setName(string $name = null)
  * @method string getDescription()
- * @method TaxCategory setDescription(string $description)
+ * @method TaxCategory setDescription(string $description = null)
  * @method Collection getRates()
- * @method TaxCategory setRates(Collection $rates)
+ * @method TaxCategory setRates(Collection $rates = null)
  */
 class TaxCategory extends JsonObject
 {

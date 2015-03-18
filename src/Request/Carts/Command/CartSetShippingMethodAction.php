@@ -12,9 +12,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CartSetShippingMethodAction
  * @package Sphere\Core\Request\Carts\Command
  * @method string getAction()
- * @method CartSetShippingMethodAction setAction(string $action)
+ * @method CartSetShippingMethodAction setAction(string $action = null)
  * @method ShippingMethodReference getShippingMethod()
- * @method CartSetShippingMethodAction setShippingMethod(ShippingMethodReference $shippingMethod)
+ * @method CartSetShippingMethodAction setShippingMethod(ShippingMethodReference $shippingMethod = null)
  */
 class CartSetShippingMethodAction extends AbstractAction
 {

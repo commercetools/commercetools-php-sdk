@@ -11,15 +11,15 @@ use Sphere\Core\Model\Common\JsonObject;
  * Class TrackingData
  * @package Sphere\Core\Model\Order
  * @method string getTrackingId()
- * @method TrackingData setTrackingId(string $trackingId)
+ * @method TrackingData setTrackingId(string $trackingId = null)
  * @method string getCarrier()
- * @method TrackingData setCarrier(string $carrier)
+ * @method TrackingData setCarrier(string $carrier = null)
  * @method string getProvider()
- * @method TrackingData setProvider(string $provider)
+ * @method TrackingData setProvider(string $provider = null)
  * @method string getProviderTransaction()
- * @method TrackingData setProviderTransaction(string $providerTransaction)
+ * @method TrackingData setProviderTransaction(string $providerTransaction = null)
  * @method bool getIsReturn()
- * @method TrackingData setIsReturn(bool $isReturn)
+ * @method TrackingData setIsReturn(bool $isReturn = null)
  */
 class TrackingData extends JsonObject
 {

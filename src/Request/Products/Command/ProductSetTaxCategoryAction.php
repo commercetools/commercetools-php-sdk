@@ -12,11 +12,11 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductSetTaxCategoryAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductSetTaxCategoryAction setAction(string $action)
+ * @method ProductSetTaxCategoryAction setAction(string $action = null)
  * @method TaxCategoryReference getTaxCategory()
- * @method ProductSetTaxCategoryAction setTaxCategory(TaxCategoryReference $taxCategory)
+ * @method ProductSetTaxCategoryAction setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method bool getStaged()
- * @method ProductSetTaxCategoryAction setStaged(bool $staged)
+ * @method ProductSetTaxCategoryAction setStaged(bool $staged = null)
  */
 class ProductSetTaxCategoryAction extends AbstractAction
 {

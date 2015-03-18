@@ -13,10 +13,10 @@ namespace Sphere\Core\Model\Common;
  * @method static Reference of(string $typeId, string $id)
  * @method string getTypeId()
  * @method string getId()
- * @method Reference setTypeId(string $typeId)
- * @method Reference setId(string $id)
+ * @method Reference setTypeId(string $typeId = null)
+ * @method Reference setId(string $id = null)
  * @method array getObj()
- * @method Reference setObj(array $obj)
+ * @method Reference setObj(array $obj = null)
  */
 class Reference extends JsonObject
 {

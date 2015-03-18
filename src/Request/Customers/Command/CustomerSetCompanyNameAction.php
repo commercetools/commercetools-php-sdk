@@ -11,9 +11,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CustomerSetCompanyNameAction
  * @package Sphere\Core\Request\Customers\Command
  * @method string getCompanyName()
- * @method CustomerSetCompanyNameAction setCompanyName(string $companyName)
+ * @method CustomerSetCompanyNameAction setCompanyName(string $companyName = null)
  * @method string getAction()
- * @method CustomerSetCompanyNameAction setAction(string $action)
+ * @method CustomerSetCompanyNameAction setAction(string $action = null)
  */
 class CustomerSetCompanyNameAction extends AbstractAction
 {

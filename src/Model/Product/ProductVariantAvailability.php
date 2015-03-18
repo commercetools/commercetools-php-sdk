@@ -11,9 +11,9 @@ use Sphere\Core\Model\Common\JsonObject;
  * Class ProductVariantAvailability
  * @package Sphere\Core\Model\Product
  * @method bool getIsOnStock()
- * @method ProductVariantAvailability setIsOnStock(bool $isOnStock)
+ * @method ProductVariantAvailability setIsOnStock(bool $isOnStock = null)
  * @method int getRestockableInDays()
- * @method ProductVariantAvailability setRestockableInDays(int $restockableInDays)
+ * @method ProductVariantAvailability setRestockableInDays(int $restockableInDays = null)
  */
 class ProductVariantAvailability extends JsonObject
 {

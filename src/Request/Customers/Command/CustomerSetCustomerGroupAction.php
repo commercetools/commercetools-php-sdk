@@ -12,9 +12,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CustomerSetCustomerGroupAction
  * @package Sphere\Core\Request\Customers\Command
  * @method CustomerGroupReference getCustomerGroup()
- * @method CustomerSetCustomerGroupAction setCustomerGroup(CustomerGroupReference $customerGroup)
+ * @method CustomerSetCustomerGroupAction setCustomerGroup(CustomerGroupReference $customerGroup = null)
  * @method string getAction()
- * @method CustomerSetCustomerGroupAction setAction(string $action)
+ * @method CustomerSetCustomerGroupAction setAction(string $action = null)
  */
 class CustomerSetCustomerGroupAction extends AbstractAction
 {

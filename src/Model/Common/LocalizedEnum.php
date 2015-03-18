@@ -10,9 +10,9 @@ namespace Sphere\Core\Model\Common;
  * Class LocalizedEnum
  * @package Sphere\Core\Model\Common
  * @method LocalizedString getLabel()
- * @method LocalizedEnum setLabel(LocalizedString $label)
+ * @method LocalizedEnum setLabel(LocalizedString $label = null)
  * @method string getKey()
- * @method LocalizedEnum setKey(string $key)
+ * @method LocalizedEnum setKey(string $key = null)
  */
 class LocalizedEnum extends JsonObject
 {

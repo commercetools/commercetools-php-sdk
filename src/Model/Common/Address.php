@@ -32,56 +32,56 @@ namespace Sphere\Core\Model\Common;
  * @method string getMobile()
  * @method string getEmail()
  * @method string getAdditionalAddressInfo()
- * @method Address setId(string $id)
- * @method Address setTitle(string $title)
- * @method Address setSalutation(string $salutation)
- * @method Address setFirstName(string $firstName)
- * @method Address setLastName(string $lastName)
- * @method Address setStreetName(string $streetName)
- * @method Address setStreetNumber(string $streetNumber)
- * @method Address setAdditionalStreetInfo(string $additionalStreetInfo)
- * @method Address setPostalCode(string $postalCode)
- * @method Address setCity(string $city)
- * @method Address setRegion(string $region)
- * @method Address setState(string $state)
- * @method Address setCountry(string $country)
- * @method Address setCompany(string $company)
- * @method Address setDepartment(string $department)
- * @method Address setBuilding(string $building)
- * @method Address setApartment(string $apartment)
- * @method Address setPOBox(string $pOBox)
- * @method Address setPhone(string $phone)
- * @method Address setMobile(string $mobile)
- * @method Address setEmail(string $email)
- * @method Address setAdditionalAddressInfo(string $additionalAddressInfo)
+ * @method Address setId(string $id = null)
+ * @method Address setTitle(string $title = null)
+ * @method Address setSalutation(string $salutation = null)
+ * @method Address setFirstName(string $firstName = null)
+ * @method Address setLastName(string $lastName = null)
+ * @method Address setStreetName(string $streetName = null)
+ * @method Address setStreetNumber(string $streetNumber = null)
+ * @method Address setAdditionalStreetInfo(string $additionalStreetInfo = null)
+ * @method Address setPostalCode(string $postalCode = null)
+ * @method Address setCity(string $city = null)
+ * @method Address setRegion(string $region = null)
+ * @method Address setState(string $state = null)
+ * @method Address setCountry(string $country = null)
+ * @method Address setCompany(string $company = null)
+ * @method Address setDepartment(string $department = null)
+ * @method Address setBuilding(string $building = null)
+ * @method Address setApartment(string $apartment = null)
+ * @method Address setPOBox(string $pOBox = null)
+ * @method Address setPhone(string $phone = null)
+ * @method Address setMobile(string $mobile = null)
+ * @method Address setEmail(string $email = null)
+ * @method Address setAdditionalAddressInfo(string $additionalAddressInfo = null)
  */
 class Address extends JsonObject
 {
     public function getFields()
     {
         return [
-            'id' => [self::TYPE => 'string', static::OPTIONAL],
-            'title' => [self::TYPE => 'string', static::OPTIONAL],
-            'salutation' => [self::TYPE => 'string', static::OPTIONAL],
-            'firstName' => [self::TYPE => 'string', static::OPTIONAL],
-            'lastName' => [self::TYPE => 'string', static::OPTIONAL],
-            'streetName' => [self::TYPE => 'string', static::OPTIONAL],
-            'streetNumber' => [self::TYPE => 'string', static::OPTIONAL],
-            'additionalStreetInfo' => [self::TYPE => 'string', static::OPTIONAL],
-            'postalCode' => [self::TYPE => 'string', static::OPTIONAL],
-            'city' => [self::TYPE => 'string', static::OPTIONAL],
-            'region' => [self::TYPE => 'string', static::OPTIONAL],
-            'state' => [self::TYPE => 'string', static::OPTIONAL],
-            'country' => [self::TYPE => 'string', static::OPTIONAL],
-            'company' => [self::TYPE => 'string', static::OPTIONAL],
-            'department' => [self::TYPE => 'string', static::OPTIONAL],
-            'building' => [self::TYPE => 'string', static::OPTIONAL],
-            'apartment' => [self::TYPE => 'string', static::OPTIONAL],
-            'pOBox' => [self::TYPE => 'string', static::OPTIONAL],
-            'phone' => [self::TYPE => 'string', static::OPTIONAL],
-            'mobile' => [self::TYPE => 'string', static::OPTIONAL],
-            'email' => [self::TYPE => 'string', static::OPTIONAL],
-            'additionalAddressInfo' => [self::TYPE => 'string', static::OPTIONAL],
+            'id' => [self::TYPE => 'string'],
+            'title' => [self::TYPE => 'string'],
+            'salutation' => [self::TYPE => 'string'],
+            'firstName' => [self::TYPE => 'string'],
+            'lastName' => [self::TYPE => 'string'],
+            'streetName' => [self::TYPE => 'string'],
+            'streetNumber' => [self::TYPE => 'string'],
+            'additionalStreetInfo' => [self::TYPE => 'string'],
+            'postalCode' => [self::TYPE => 'string'],
+            'city' => [self::TYPE => 'string'],
+            'region' => [self::TYPE => 'string'],
+            'state' => [self::TYPE => 'string'],
+            'country' => [self::TYPE => 'string'],
+            'company' => [self::TYPE => 'string'],
+            'department' => [self::TYPE => 'string'],
+            'building' => [self::TYPE => 'string'],
+            'apartment' => [self::TYPE => 'string'],
+            'pOBox' => [self::TYPE => 'string'],
+            'phone' => [self::TYPE => 'string'],
+            'mobile' => [self::TYPE => 'string'],
+            'email' => [self::TYPE => 'string'],
+            'additionalAddressInfo' => [self::TYPE => 'string'],
         ];
     }
 }

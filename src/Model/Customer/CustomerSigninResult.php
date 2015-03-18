@@ -12,9 +12,9 @@ use Sphere\Core\Model\Common\JsonObject;
  * Class CustomerSigninResult
  * @package Sphere\Core\Model\Customer
  * @method Customer getCustomer()
- * @method CustomerSigninResult setCustomer(Customer $customer)
+ * @method CustomerSigninResult setCustomer(Customer $customer = null)
  * @method Cart getCart()
- * @method CustomerSigninResult setCart(Cart $cart)
+ * @method CustomerSigninResult setCart(Cart $cart = null)
  */
 class CustomerSigninResult extends JsonObject
 {

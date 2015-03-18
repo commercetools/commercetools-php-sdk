@@ -12,9 +12,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CartRemoveDiscountCodeAction
  * @package Sphere\Core\Request\Carts\Command
  * @method string getAction()
- * @method CartRemoveDiscountCodeAction setAction(string $action)
+ * @method CartRemoveDiscountCodeAction setAction(string $action = null)
  * @method DiscountCodeReference getDiscountCode()
- * @method CartRemoveDiscountCodeAction setDiscountCode(DiscountCodeReference $discountCode)
+ * @method CartRemoveDiscountCodeAction setDiscountCode(DiscountCodeReference $discountCode = null)
  */
 class CartRemoveDiscountCodeAction extends AbstractAction
 {

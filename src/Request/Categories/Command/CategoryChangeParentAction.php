@@ -12,9 +12,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CategoryChangeParentAction
  * @package Sphere\Core\Request\Categories\Command
  * @method string getAction()
- * @method CategoryChangeParentAction setAction(string $action)
+ * @method CategoryChangeParentAction setAction(string $action = null)
  * @method CategoryReference getParent()
- * @method CategoryChangeParentAction setParent(CategoryReference $parent)
+ * @method CategoryChangeParentAction setParent(CategoryReference $parent = null)
  */
 class CategoryChangeParentAction extends AbstractAction
 {

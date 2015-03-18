@@ -12,9 +12,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CategoryChangeSlugAction
  * @package Sphere\Core\Request\Categories\Command
  * @method LocalizedString getSlug()
- * @method CategoryChangeSlugAction setSlug(LocalizedString $slug)
+ * @method CategoryChangeSlugAction setSlug(LocalizedString $slug = null)
  * @method string getAction()
- * @method CategoryChangeSlugAction setAction(string $action)
+ * @method CategoryChangeSlugAction setAction(string $action = null)
  */
 class CategoryChangeSlugAction extends AbstractAction
 {

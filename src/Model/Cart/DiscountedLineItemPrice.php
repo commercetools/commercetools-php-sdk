@@ -12,9 +12,9 @@ use Sphere\Core\Model\Common\Money;
  * Class DiscountedLineItemPrice
  * @package Sphere\Core\Model\Cart
  * @method Money getValue()
- * @method DiscountedLineItemPrice setValue(Money $value)
+ * @method DiscountedLineItemPrice setValue(Money $value = null)
  * @method DiscountedLineItemPortionCollection getIncludedDiscounts()
- * @method DiscountedLineItemPrice setIncludedDiscounts(DiscountedLineItemPortionCollection $includedDiscounts)
+ * @method DiscountedLineItemPrice setIncludedDiscounts(DiscountedLineItemPortionCollection $includedDiscounts = null)
  */
 class DiscountedLineItemPrice extends JsonObject
 {

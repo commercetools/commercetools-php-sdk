@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductPublishAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductPublishAction setAction(string $action)
+ * @method ProductPublishAction setAction(string $action = null)
  */
 class ProductPublishAction extends AbstractAction
 {

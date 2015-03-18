@@ -11,9 +11,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CustomerSetCustomerNumberAction
  * @package Sphere\Core\Request\Customers\Command
  * @method string getCustomerNumber()
- * @method CustomerSetCustomerNumberAction setCustomerNumber(string $customerNumber)
+ * @method CustomerSetCustomerNumberAction setCustomerNumber(string $customerNumber = null)
  * @method string getAction()
- * @method CustomerSetCustomerNumberAction setAction(string $action)
+ * @method CustomerSetCustomerNumberAction setAction(string $action = null)
  */
 class CustomerSetCustomerNumberAction extends AbstractAction
 {

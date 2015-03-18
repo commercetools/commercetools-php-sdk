@@ -11,9 +11,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CartSetCountryAction
  * @package Sphere\Core\Request\Carts\Command
  * @method string getAction()
- * @method CartSetCountryAction setAction(string $action)
+ * @method CartSetCountryAction setAction(string $action = null)
  * @method string getCountry()
- * @method CartSetCountryAction setCountry(string $country)
+ * @method CartSetCountryAction setCountry(string $country = null)
  */
 class CartSetCountryAction extends AbstractAction
 {

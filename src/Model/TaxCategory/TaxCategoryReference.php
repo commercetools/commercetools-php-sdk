@@ -15,11 +15,11 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @package Sphere\Core\Model\TaxCategory
  * @method static TaxCategoryReference of(string $id)
  * @method string getTypeId()
- * @method TaxCategoryReference setTypeId(string $typeId)
+ * @method TaxCategoryReference setTypeId(string $typeId = null)
  * @method string getId()
- * @method TaxCategoryReference setId(string $id)
+ * @method TaxCategoryReference setId(string $id = null)
  * @method array getObj()
- * @method TaxCategoryReference setObj(array $obj)
+ * @method TaxCategoryReference setObj(array $obj = null)
  */
 class TaxCategoryReference extends Reference
 {

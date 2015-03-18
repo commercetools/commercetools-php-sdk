@@ -12,11 +12,11 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductChangeNameAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductChangeNameAction setAction(string $action)
+ * @method ProductChangeNameAction setAction(string $action = null)
  * @method LocalizedString getName()
- * @method ProductChangeNameAction setName(LocalizedString $name)
+ * @method ProductChangeNameAction setName(LocalizedString $name = null)
  * @method bool getStaged()
- * @method ProductChangeNameAction setStaged(bool $staged)
+ * @method ProductChangeNameAction setStaged(bool $staged = null)
  */
 class ProductChangeNameAction extends AbstractAction
 {

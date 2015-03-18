@@ -11,9 +11,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CustomerSetVatIdAction
  * @package Sphere\Core\Request\Customers\Command
  * @method string getVatId()
- * @method CustomerSetVatIdAction setVatId(string $vatId)
+ * @method CustomerSetVatIdAction setVatId(string $vatId = null)
  * @method string getAction()
- * @method CustomerSetVatIdAction setAction(string $action)
+ * @method CustomerSetVatIdAction setAction(string $action = null)
  */
 class CustomerSetVatIdAction extends AbstractAction
 {

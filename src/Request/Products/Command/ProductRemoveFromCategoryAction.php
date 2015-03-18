@@ -12,11 +12,11 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductRemoveFromCategoryAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductRemoveFromCategoryAction setAction(string $action)
+ * @method ProductRemoveFromCategoryAction setAction(string $action = null)
  * @method CategoryReference getCategory()
- * @method ProductRemoveFromCategoryAction setCategory(CategoryReference $category)
+ * @method ProductRemoveFromCategoryAction setCategory(CategoryReference $category = null)
  * @method bool getStaged()
- * @method ProductRemoveFromCategoryAction setStaged(bool $staged)
+ * @method ProductRemoveFromCategoryAction setStaged(bool $staged = null)
  */
 class ProductRemoveFromCategoryAction extends AbstractAction
 {

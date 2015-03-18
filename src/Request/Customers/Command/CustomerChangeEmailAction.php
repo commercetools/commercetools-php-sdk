@@ -11,9 +11,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CustomerChangeEmailAction
  * @package Sphere\Core\Request\Customers\Command
  * @method string getEmail()
- * @method CustomerChangeEmailAction setEmail(string $email)
+ * @method CustomerChangeEmailAction setEmail(string $email = null)
  * @method string getAction()
- * @method CustomerChangeEmailAction setAction(string $action)
+ * @method CustomerChangeEmailAction setAction(string $action = null)
  */
 class CustomerChangeEmailAction extends AbstractAction
 {

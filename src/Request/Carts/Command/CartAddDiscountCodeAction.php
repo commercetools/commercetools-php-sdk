@@ -11,9 +11,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CartAddDiscountCodeAction
  * @package Sphere\Core\Request\Carts\Command
  * @method string getAction()
- * @method CartAddDiscountCodeAction setAction(string $action)
+ * @method CartAddDiscountCodeAction setAction(string $action = null)
  * @method string getCode()
- * @method CartAddDiscountCodeAction setCode(string $code)
+ * @method CartAddDiscountCodeAction setCode(string $code = null)
  */
 class CartAddDiscountCodeAction extends AbstractAction
 {

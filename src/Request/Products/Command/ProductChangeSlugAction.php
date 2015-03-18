@@ -12,11 +12,11 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductChangeSlugAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductChangeSlugAction setAction(string $action)
+ * @method ProductChangeSlugAction setAction(string $action = null)
  * @method LocalizedString getSlug()
- * @method ProductChangeSlugAction setSlug(LocalizedString $slug)
+ * @method ProductChangeSlugAction setSlug(LocalizedString $slug = null)
  * @method bool getStaged()
- * @method ProductChangeSlugAction setStaged(bool $staged)
+ * @method ProductChangeSlugAction setStaged(bool $staged = null)
  */
 class ProductChangeSlugAction extends AbstractAction
 {

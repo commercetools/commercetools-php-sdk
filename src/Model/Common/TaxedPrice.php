@@ -10,11 +10,11 @@ namespace Sphere\Core\Model\Common;
  * Class TaxedPrice
  * @package Sphere\Core\Model\Common
  * @method Money getTotalNet()
- * @method TaxedPrice setTotalNet(Money $totalNet)
+ * @method TaxedPrice setTotalNet(Money $totalNet = null)
  * @method Money getTotalGross()
- * @method TaxedPrice setTotalGross(Money $totalGross)
+ * @method TaxedPrice setTotalGross(Money $totalGross = null)
  * @method TaxPortionCollection getTotalPortions()
- * @method TaxedPrice setTotalPortions(TaxPortionCollection $totalPortions)
+ * @method TaxedPrice setTotalPortions(TaxPortionCollection $totalPortions = null)
  */
 class TaxedPrice extends JsonObject
 {

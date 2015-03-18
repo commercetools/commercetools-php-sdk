@@ -11,7 +11,7 @@ use Sphere\Core\Model\Common\JsonObject;
  * Class Suggestion
  * @package Sphere\Core\Model\Product
  * @method string getText()
- * @method Suggestion setText(string $text)
+ * @method Suggestion setText(string $text = null)
  */
 class Suggestion extends JsonObject
 {

@@ -12,11 +12,11 @@ use Sphere\Core\Model\Common\MoneyCollection;
  * Class CartDiscountValue
  * @package Sphere\Core\Model\CartDiscount
  * @method string getType()
- * @method CartDiscountValue setType(string $type)
+ * @method CartDiscountValue setType(string $type = null)
  * @method int getPermyriad()
- * @method CartDiscountValue setPermyriad(int $permyriad)
+ * @method CartDiscountValue setPermyriad(int $permyriad = null)
  * @method MoneyCollection getMoney()
- * @method CartDiscountValue setMoney(MoneyCollection $money)
+ * @method CartDiscountValue setMoney(MoneyCollection $money = null)
  */
 class CartDiscountValue extends JsonObject
 {

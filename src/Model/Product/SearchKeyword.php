@@ -11,9 +11,9 @@ use Sphere\Core\Model\Common\JsonObject;
  * Class SearchKeyword
  * @package Sphere\Core\Model\Product
  * @method string getText()
- * @method SearchKeyword setText(string $text)
+ * @method SearchKeyword setText(string $text = null)
  * @method SuggestTokenizer getSuggestTokenizer()
- * @method SearchKeyword setSuggestTokenizer(SuggestTokenizer $suggestTokenizer)
+ * @method SearchKeyword setSuggestTokenizer(SuggestTokenizer $suggestTokenizer = null)
  */
 class SearchKeyword extends JsonObject
 {

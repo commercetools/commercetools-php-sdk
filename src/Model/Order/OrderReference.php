@@ -15,11 +15,11 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @package Sphere\Core\Model\Order
  * @method static OrderReference of(string $id)
  * @method string getTypeId()
- * @method OrderReference setTypeId(string $typeId)
+ * @method OrderReference setTypeId(string $typeId = null)
  * @method string getId()
- * @method OrderReference setId(string $id)
+ * @method OrderReference setId(string $id = null)
  * @method array getObj()
- * @method OrderReference setObj(array $obj)
+ * @method OrderReference setObj(array $obj = null)
  */
 class OrderReference extends Reference
 {

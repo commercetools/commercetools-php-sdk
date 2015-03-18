@@ -12,21 +12,21 @@ use Sphere\Core\Model\Common\LocalizedString;
  * Class State
  * @package Sphere\Core\Model\State
  * @method string getId()
- * @method State setId(string $id)
+ * @method State setId(string $id = null)
  * @method int getVersion()
- * @method State setVersion(int $version)
+ * @method State setVersion(int $version = null)
  * @method string getKey()
- * @method State setKey(string $key)
+ * @method State setKey(string $key = null)
  * @method string getType()
- * @method State setType(string $type)
+ * @method State setType(string $type = null)
  * @method LocalizedString getName()
- * @method State setName(LocalizedString $name)
+ * @method State setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
- * @method State setDescription(LocalizedString $description)
+ * @method State setDescription(LocalizedString $description = null)
  * @method bool getInitial()
- * @method State setInitial(bool $initial)
+ * @method State setInitial(bool $initial = null)
  * @method StateReferenceCollection getTransitions()
- * @method State setTransitions(StateReferenceCollection $transitions)
+ * @method State setTransitions(StateReferenceCollection $transitions = null)
  */
 class State extends JsonObject
 {

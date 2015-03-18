@@ -13,9 +13,9 @@ use Sphere\Core\Model\Common\Money;
  * Class DiscountedLineItemPortion
  * @package Sphere\Core\Model\Cart
  * @method Money getDiscountAmount()
- * @method DiscountedLineItemPortion setDiscountAmount(Money $discountAmount)
+ * @method DiscountedLineItemPortion setDiscountAmount(Money $discountAmount = null)
  * @method CartDiscountReference getDiscount()
- * @method DiscountedLineItemPortion setDiscount(CartDiscountReference $discount)
+ * @method DiscountedLineItemPortion setDiscount(CartDiscountReference $discount = null)
  */
 class DiscountedLineItemPortion extends JsonObject
 {

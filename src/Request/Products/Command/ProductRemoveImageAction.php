@@ -11,13 +11,13 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductRemoveImageAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductRemoveImageAction setAction(string $action)
+ * @method ProductRemoveImageAction setAction(string $action = null)
  * @method int getVariantId()
- * @method ProductRemoveImageAction setVariantId(int $variantId)
+ * @method ProductRemoveImageAction setVariantId(int $variantId = null)
  * @method string getImageUrl()
- * @method ProductRemoveImageAction setImageUrl(string $imageUrl)
+ * @method ProductRemoveImageAction setImageUrl(string $imageUrl = null)
  * @method bool getStaged()
- * @method ProductRemoveImageAction setStaged(bool $staged)
+ * @method ProductRemoveImageAction setStaged(bool $staged = null)
  */
 class ProductRemoveImageAction extends AbstractAction
 {

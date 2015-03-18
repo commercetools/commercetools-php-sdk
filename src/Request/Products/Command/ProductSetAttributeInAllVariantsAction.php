@@ -11,13 +11,13 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductSetAttributeInAllVariantsAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductSetAttributeInAllVariantsAction setAction(string $action)
+ * @method ProductSetAttributeInAllVariantsAction setAction(string $action = null)
  * @method string getName()
- * @method ProductSetAttributeInAllVariantsAction setName(string $name)
+ * @method ProductSetAttributeInAllVariantsAction setName(string $name = null)
  * @method string getValue()
- * @method ProductSetAttributeInAllVariantsAction setValue(string $value)
+ * @method ProductSetAttributeInAllVariantsAction setValue(string $value = null)
  * @method bool getStaged()
- * @method ProductSetAttributeInAllVariantsAction setStaged(bool $staged)
+ * @method ProductSetAttributeInAllVariantsAction setStaged(bool $staged = null)
  */
 class ProductSetAttributeInAllVariantsAction extends AbstractAction
 {

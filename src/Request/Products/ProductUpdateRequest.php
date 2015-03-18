@@ -142,10 +142,12 @@ class ProductUpdateRequest extends AbstractUpdateRequest
     public function addVariant(ProductVariantDraft $variant = null, $staged = true)
     {
         $action = new ProductAddVariantAction();
-        $action->setStaged($staged)
-            ->setPrices($variant->getPrices())
-            ->setSku($variant->getSku())
-            ->setAttributes($variant->getAttributes());
+        $action->setStaged($staged);
+        if (!is_null($variant)) {
+            $action->setPrices($variant->getPrices())
+                ->setSku($variant->getSku())
+                ->setAttributes($variant->getAttributes());
+        }
         return $this->addAction($action);
     }
 
@@ -301,7 +303,6 @@ class ProductUpdateRequest extends AbstractUpdateRequest
     /**
      * @param $variantId
      * @param null $sku
-     * @param bool $staged
      * @return $this
      * @deprecated will be removed with Milestone 2
      */

@@ -11,9 +11,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CartSetCustomerIdAction
  * @package Sphere\Core\Request\Carts\Command
  * @method string getAction()
- * @method CartSetCustomerIdAction setAction(string $action)
+ * @method CartSetCustomerIdAction setAction(string $action = null)
  * @method string getCustomerId()
- * @method CartSetCustomerIdAction setCustomerId(string $customerId)
+ * @method CartSetCustomerIdAction setCustomerId(string $customerId = null)
  */
 class CartSetCustomerIdAction extends AbstractAction
 {

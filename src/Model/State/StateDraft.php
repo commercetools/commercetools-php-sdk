@@ -12,17 +12,17 @@ use Sphere\Core\Model\Common\LocalizedString;
  * Class StateDraft
  * @package Sphere\Core\Model\State
  * @method string getKey()
- * @method StateDraft setKey(string $key)
+ * @method StateDraft setKey(string $key = null)
  * @method string getType()
- * @method StateDraft setType(string $type)
+ * @method StateDraft setType(string $type = null)
  * @method LocalizedString getName()
- * @method StateDraft setName(LocalizedString $name)
+ * @method StateDraft setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
- * @method StateDraft setDescription(LocalizedString $description)
+ * @method StateDraft setDescription(LocalizedString $description = null)
  * @method bool getInitial()
- * @method StateDraft setInitial(bool $initial)
+ * @method StateDraft setInitial(bool $initial = null)
  * @method StateReferenceCollection getTransitions()
- * @method StateDraft setTransitions(StateReferenceCollection $transitions)
+ * @method StateDraft setTransitions(StateReferenceCollection $transitions = null)
  */
 class StateDraft extends JsonObject
 {

@@ -17,9 +17,9 @@ use Sphere\Core\Model\Common\Price;
  * @method string getSku()
  * @method Price[] getPrices()
  * @method Attribute[] getAttributes()
- * @method ProductVariantDraft setSku(string $sku)
- * @method ProductVariantDraft setPrices(Collection $prices)
- * @method ProductVariantDraft setAttributes(Collection $attributes)
+ * @method ProductVariantDraft setSku(string $sku = null)
+ * @method ProductVariantDraft setPrices(Collection $prices = null)
+ * @method ProductVariantDraft setAttributes(Collection $attributes = null)
  */
 class ProductVariantDraft extends JsonObject
 {

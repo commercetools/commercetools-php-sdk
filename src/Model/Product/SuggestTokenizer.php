@@ -11,9 +11,9 @@ use Sphere\Core\Model\Common\JsonObject;
  * Class SuggestTokenizer
  * @package Sphere\Core\Model\Product
  * @method string getType()
- * @method SuggestTokenizer setType(string $type)
+ * @method SuggestTokenizer setType(string $type = null)
  * @method array getInputs()
- * @method SuggestTokenizer setInputs(array $inputs)
+ * @method SuggestTokenizer setInputs(array $inputs = null)
  */
 class SuggestTokenizer extends JsonObject
 {

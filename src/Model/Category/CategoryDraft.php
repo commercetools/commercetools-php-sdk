@@ -21,12 +21,12 @@ use Sphere\Core\Model\Common\OfTrait;
  * @method CategoryReference getParent()
  * @method string getOrderHint()
  * @method string getExternalId()
- * @method CategoryDraft setName(LocalizedString $name)
- * @method CategoryDraft setSlug(LocalizedString $slug)
- * @method CategoryDraft setDescription(LocalizedString $description)
- * @method CategoryDraft setParent(CategoryReference $parent)
- * @method CategoryDraft setOrderHint(string $orderHint)
- * @method CategoryDraft setExternalId(string $externalId)
+ * @method CategoryDraft setName(LocalizedString $name = null)
+ * @method CategoryDraft setSlug(LocalizedString $slug = null)
+ * @method CategoryDraft setDescription(LocalizedString $description = null)
+ * @method CategoryDraft setParent(CategoryReference $parent = null)
+ * @method CategoryDraft setOrderHint(string $orderHint = null)
+ * @method CategoryDraft setExternalId(string $externalId = null)
  */
 class CategoryDraft extends JsonObject
 {

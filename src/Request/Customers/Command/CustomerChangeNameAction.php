@@ -14,12 +14,12 @@ use Sphere\Core\Request\AbstractAction;
  * @method string getLastName()
  * @method string getMiddleName()
  * @method string getTitle()
- * @method CustomerChangeNameAction setFirstName(string $firstName)
- * @method CustomerChangeNameAction setLastName(string $lastName)
- * @method CustomerChangeNameAction setMiddleName(string $middleName)
- * @method CustomerChangeNameAction setTitle(string $title)
+ * @method CustomerChangeNameAction setFirstName(string $firstName = null)
+ * @method CustomerChangeNameAction setLastName(string $lastName = null)
+ * @method CustomerChangeNameAction setMiddleName(string $middleName = null)
+ * @method CustomerChangeNameAction setTitle(string $title = null)
  * @method string getAction()
- * @method CustomerChangeNameAction setAction(string $action)
+ * @method CustomerChangeNameAction setAction(string $action = null)
  */
 class CustomerChangeNameAction extends AbstractAction
 {

@@ -17,19 +17,19 @@ use Sphere\Core\Model\TaxCategory\TaxRate;
  * Class ShippingInfo
  * @package Sphere\Core\Model\Cart
  * @method string getShippingMethodName()
- * @method ShippingInfo setShippingMethodName(string $shippingMethodName)
+ * @method ShippingInfo setShippingMethodName(string $shippingMethodName = null)
  * @method Money getPrice()
- * @method ShippingInfo setPrice(Money $price)
+ * @method ShippingInfo setPrice(Money $price = null)
  * @method ShippingRate getShippingRate()
- * @method ShippingInfo setShippingRate(ShippingRate $shippingRate)
+ * @method ShippingInfo setShippingRate(ShippingRate $shippingRate = null)
  * @method TaxRate getTaxRate()
- * @method ShippingInfo setTaxRate(TaxRate $taxRate)
+ * @method ShippingInfo setTaxRate(TaxRate $taxRate = null)
  * @method TaxCategory getTaxCategory()
- * @method ShippingInfo setTaxCategory(TaxCategory $taxCategory)
+ * @method ShippingInfo setTaxCategory(TaxCategory $taxCategory = null)
  * @method ShippingMethodReference getShippingMethod()
- * @method ShippingInfo setShippingMethod(ShippingMethodReference $shippingMethod)
+ * @method ShippingInfo setShippingMethod(ShippingMethodReference $shippingMethod = null)
  * @method DeliveryCollection getDeliveries()
- * @method ShippingInfo setDeliveries(DeliveryCollection $deliveries)
+ * @method ShippingInfo setDeliveries(DeliveryCollection $deliveries = null)
  */
 class ShippingInfo extends JsonObject
 {

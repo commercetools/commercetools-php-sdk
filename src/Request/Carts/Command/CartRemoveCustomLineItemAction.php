@@ -11,9 +11,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CartRemoveCustomLineItemAction
  * @package Sphere\Core\Request\Carts\Command
  * @method string getAction()
- * @method CartRemoveCustomLineItemAction setAction(string $action)
+ * @method CartRemoveCustomLineItemAction setAction(string $action = null)
  * @method string getCustomLineItemId()
- * @method CartRemoveCustomLineItemAction setCustomLineItemId(string $customLineItemId)
+ * @method CartRemoveCustomLineItemAction setCustomLineItemId(string $customLineItemId = null)
  */
 class CartRemoveCustomLineItemAction extends AbstractAction
 {

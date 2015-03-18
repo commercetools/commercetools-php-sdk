@@ -12,13 +12,13 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductAddExternalImageAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductAddExternalImageAction setAction(string $action)
+ * @method ProductAddExternalImageAction setAction(string $action = null)
  * @method int getVariantId()
- * @method ProductAddExternalImageAction setVariantId(int $variantId)
+ * @method ProductAddExternalImageAction setVariantId(int $variantId = null)
  * @method Image getImage()
- * @method ProductAddExternalImageAction setImage(Image $image)
+ * @method ProductAddExternalImageAction setImage(Image $image = null)
  * @method bool getStaged()
- * @method ProductAddExternalImageAction setStaged(bool $staged)
+ * @method ProductAddExternalImageAction setStaged(bool $staged = null)
  */
 class ProductAddExternalImageAction extends AbstractAction
 {
