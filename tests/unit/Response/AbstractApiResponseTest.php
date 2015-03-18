@@ -105,4 +105,17 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Sphere\Core\Request\ClientRequestInterface', $response->getRequest());
     }
+
+
+    public function testToObject()
+    {
+        $response = $this->getResponse();
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\JsonObject', $response->toObject());
+    }
+
+    public function testErrorToObject()
+    {
+        $response = $this->getResponse('{"key":"value"}', 500);
+        $this->assertNull($response->toObject());
+    }
 }

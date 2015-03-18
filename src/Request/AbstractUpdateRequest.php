@@ -83,15 +83,6 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
         return $this;
     }
 
-    protected function addValue($action, $field, $value = null)
-    {
-        if (!is_null($value)) {
-            $action[$field] = $value;
-        }
-
-        return $action;
-    }
-
     /**
      * @return string
      */

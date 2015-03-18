@@ -18,6 +18,8 @@ use Sphere\Core\Request\AbstractCreateRequest;
  */
 class CategoryCreateRequest extends AbstractCreateRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Category\Category';
+
     /**
      * @param CategoryDraft $category
      * @param Context $context

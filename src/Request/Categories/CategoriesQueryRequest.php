@@ -16,6 +16,8 @@ use Sphere\Core\Request\AbstractQueryRequest;
  */
 class CategoriesQueryRequest extends AbstractQueryRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Category\CategoryCollection';
+
     /**
      * @param Context $context
      */

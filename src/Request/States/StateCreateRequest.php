@@ -12,10 +12,10 @@ use Sphere\Core\Model\State\StateDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
 
 /**
- * Class StatesCreateRequest
+ * Class StateCreateRequest
  * @package Sphere\Core\Request\States
  */
-class StatesCreateRequest extends AbstractCreateRequest
+class StateCreateRequest extends AbstractCreateRequest
 {
     protected $resultClass = '\Sphere\Core\Model\State\State';
 
