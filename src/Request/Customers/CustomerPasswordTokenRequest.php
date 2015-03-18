@@ -24,6 +24,9 @@ use Sphere\Core\Response\SingleResourceResponse;
 class CustomerPasswordTokenRequest extends AbstractApiRequest
 {
     const EMAIL = 'email';
+
+    protected $resultClass = '\Sphere\Core\Model\Customer\CustomerToken';
+
     /**
      * @var string
      */

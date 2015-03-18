@@ -27,6 +27,8 @@ class CustomerPasswordResetRequest extends AbstractUpdateRequest
     const TOKEN_VALUE = 'tokenValue';
     const NEW_PASSWORD = 'newPassword';
 
+    protected $resultClass = '\Sphere\Core\Model\Customer\Customer';
+
     /**
      * @var string
      */
@@ -75,15 +77,5 @@ class CustomerPasswordResetRequest extends AbstractUpdateRequest
             static::NEW_PASSWORD => $this->newPassword
         ];
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
-    }
-
-    /**
-     * @param ResponseInterface $response
-     * @return SingleResourceResponse
-     * @internal
-     */
-    public function buildResponse(ResponseInterface $response)
-    {
-        return new SingleResourceResponse($response, $this, $this->getContext());
     }
 }

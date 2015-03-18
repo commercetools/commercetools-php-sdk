@@ -500,6 +500,19 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * @Given i want to fetch a :context by customerId
+     */
+    public function iWantToFetchAContextByCustomerId($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'FetchByCustomerIdRequest';
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $this->createRequestInstance($request, [$id]);
+    }
+
+    /**
      * @Given i want to query :context
      */
     public function iWantToQuery($context)

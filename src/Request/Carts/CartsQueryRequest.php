@@ -18,8 +18,6 @@ use Sphere\Core\Request\CustomerIdTrait;
  */
 class CartsQueryRequest extends AbstractQueryRequest
 {
-    use CustomerIdTrait;
-
     protected $resultClass = '\Sphere\Core\Model\Cart\CartCollection';
 
     /**

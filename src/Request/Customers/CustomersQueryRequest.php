@@ -17,6 +17,8 @@ use Sphere\Core\Request\AbstractQueryRequest;
  */
 class CustomersQueryRequest extends AbstractQueryRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Customer\CustomerCollection';
+
     /**
      * @param Context $context
      */

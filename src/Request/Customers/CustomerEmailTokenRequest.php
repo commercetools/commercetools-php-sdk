@@ -23,6 +23,8 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
     const ID = 'id';
     const TTL_MINUTES = 'ttlMinutes';
 
+    protected $resultClass = '\Sphere\Core\Model\Customer\CustomerToken';
+
     /**
      * @var int
      */
@@ -63,15 +65,5 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
             static::TTL_MINUTES => $this->ttlMinutes,
         ];
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
-    }
-
-    /**
-     * @param ResponseInterface $response
-     * @return SingleResourceResponse
-     * @internal
-     */
-    public function buildResponse(ResponseInterface $response)
-    {
-        return new SingleResourceResponse($response, $this, $this->getContext());
     }
 }

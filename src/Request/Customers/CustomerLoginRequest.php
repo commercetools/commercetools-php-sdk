@@ -62,8 +62,10 @@ class CustomerLoginRequest extends AbstractApiRequest
         $payload = [
             static::EMAIL => $this->email,
             static::PASSWORD => $this->password,
-            static::ANONYMOUS_CART_ID => $this->anonymousCartId
         ];
+        if (!is_null($this->anonymousCartId)) {
+            $payload[static::ANONYMOUS_CART_ID] = $this->anonymousCartId;
+        }
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }
 
