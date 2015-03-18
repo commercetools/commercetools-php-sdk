@@ -86,6 +86,8 @@ class ProductUpdateRequest extends AbstractUpdateRequest
     const PUBLISH = 'publish';
     const UNPUBLISH = 'unpublish';
 
+    protected $resultClass = '\Sphere\Core\Model\Product\Product';
+
     /**
      * @param string $id
      * @param int $version

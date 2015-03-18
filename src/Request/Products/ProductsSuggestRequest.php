@@ -7,6 +7,7 @@
 namespace Sphere\Core\Request\Products;
 
 use GuzzleHttp\Message\ResponseInterface;
+use Sphere\Core\Model\Common\Collection;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractProjectionRequest;
@@ -99,5 +100,20 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
     public function buildResponse(ResponseInterface $response)
     {
         return new SingleResourceResponse($response, $this, $this->getContext());
+    }
+
+    /**
+     * @param array $result
+     * @param Context $context
+     * @return Collection
+     */
+    public function mapResult(array $result, Context $context = null)
+    {
+        $data = [];
+        if (!empty($result)) {
+            $data = $result;
+        }
+        $object = forward_static_call_array([$this->resultClass, 'fromArray'], [$data, $context]);
+        return $object;
     }
 }

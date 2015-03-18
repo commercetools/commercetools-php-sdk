@@ -17,6 +17,8 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
  */
 class ProductFetchByIdRequest extends AbstractFetchByIdRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Product\Product';
+
     /**
      * @param string $id
      * @param Context $context
