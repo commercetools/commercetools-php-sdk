@@ -74,4 +74,36 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
         $string1->merge($string2);
         $this->assertSame(['en' => 'test', 'de' => 'test'], $string1->toArray());
     }
+
+    public function testLocalized()
+    {
+        $context = new Context();
+        $context->setLanguages(['de', 'en']);
+        $string = new LocalizedString(['en' => 'test'], $context);
+
+        $this->assertSame('test', $string->getLocalized());
+    }
+
+    public function testGraceful()
+    {
+        $context = $this->getContext('de');
+        $context->setGraceful(true);
+        $string = new LocalizedString(['en' => 'test'], $context);
+
+        $this->assertSame('', $string->getLocalized());
+    }
+
+    public function testToString()
+    {
+        $string = new LocalizedString(['en' => 'test'], $this->getContext('en'));
+
+        $this->assertSame('test', (string)$string);
+    }
+
+    public function testMagicGet()
+    {
+        $string = new LocalizedString(['en' => 'test']);
+
+        $this->assertSame('test', $string->en);
+    }
 }
