@@ -297,8 +297,9 @@ class ProductUpdateRequest extends AbstractUpdateRequest
      */
     public function setTaxCategory(TaxCategoryReference $taxCategory, $staged = true)
     {
-        $action = new ProductSetTaxCategoryAction($taxCategory);
-        $action->setStaged($staged);
+        $action = new ProductSetTaxCategoryAction();
+        $action->setTaxCategory($taxCategory)
+            ->setStaged($staged);
         return $this->addAction($action);
     }
 
