@@ -24,4 +24,13 @@ class ProductsQueryRequestTest extends RequestTestCase
         $result = $this->mapEmptyResult(static::PRODUCTS_QUERY_REQUEST);
         $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductCollection', $result);
     }
+
+    public function testExpand()
+    {
+        $request = $this->getRequest(static::PRODUCTS_QUERY_REQUEST);
+        $request->expand('test');
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('products?expand=test', $httpRequest->getPath());
+    }
 }
