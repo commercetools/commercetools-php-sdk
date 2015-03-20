@@ -8,11 +8,13 @@ namespace Sphere\Core\Request\Products;
 
 use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Product\Filter;
 use Sphere\Core\Model\Product\ProductProjectionCollection;
 use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Request\SortTrait;
 use Sphere\Core\Response\PagedQueryResponse;
+use Sphere\Core\Response\PagedSearchResponse;
 
 /**
  * Class ProductsSearchRequest
@@ -21,6 +23,11 @@ use Sphere\Core\Response\PagedQueryResponse;
  */
 class ProductsSearchRequest extends AbstractProjectionRequest
 {
+    const FACET = 'facet';
+    const FILTER = 'filter';
+    const FILTER_QUERY = 'filter.query';
+    const FILTER_FACETS = 'filter.facets';
+
     use PageTrait;
     use SortTrait;
 
@@ -49,7 +56,7 @@ class ProductsSearchRequest extends AbstractProjectionRequest
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new PagedQueryResponse($response, $this, $this->getContext());
+        return new PagedSearchResponse($response, $this, $this->getContext());
     }
 
     /**
@@ -64,5 +71,51 @@ class ProductsSearchRequest extends AbstractProjectionRequest
             $data = $result['results'];
         }
         return ProductProjectionCollection::fromArray($data, $context);
+    }
+
+    /**
+     * @param string $type
+     * @param Filter $filter
+     * @return $this
+     */
+    protected function filter($type, Filter $filter)
+    {
+        return $this->addParam($type, $filter);
+    }
+
+    /**
+     * @param Filter $filter
+     * @return $this
+     */
+    public function addFilter(Filter $filter)
+    {
+        return $this->filter(static::FILTER, $filter);
+    }
+
+    /**
+     * @param Filter $filter
+     * @return $this
+     */
+    public function addFilterQuery(Filter $filter)
+    {
+        return $this->filter(static::FILTER_QUERY, $filter);
+    }
+
+    /**
+     * @param Filter $filter
+     * @return $this
+     */
+    public function addFilterFacets(Filter $filter)
+    {
+        return $this->filter(static::FILTER_FACETS, $filter);
+    }
+
+    /**
+     * @param Filter $filter
+     * @return $this
+     */
+    public function addFacet(Filter $filter)
+    {
+        return $this->filter(static::FACET, $filter);
     }
 }
