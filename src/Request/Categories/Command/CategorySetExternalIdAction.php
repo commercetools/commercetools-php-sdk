@@ -11,9 +11,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CategorySetExternalIdAction
  * @package Sphere\Core\Request\Categories\Command
  * @method string getExternalId()
- * @method CategorySetExternalIdAction setExternalId(string $externalId)
+ * @method CategorySetExternalIdAction setExternalId(string $externalId = null)
  * @method string getAction()
- * @method CategorySetExternalIdAction setAction(string $action)
+ * @method CategorySetExternalIdAction setAction(string $action = null)
  */
 class CategorySetExternalIdAction extends AbstractAction
 {

@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
  * Class CartRecalculateAction
  * @package Sphere\Core\Request\Carts\Command
  * @method string getAction()
- * @method CartRecalculateAction setAction(string $action)
+ * @method CartRecalculateAction setAction(string $action = null)
  */
 class CartRecalculateAction extends AbstractAction
 {

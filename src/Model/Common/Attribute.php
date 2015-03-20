@@ -14,7 +14,7 @@ use Sphere\Core\Model\Common\OfTrait;
  * @method static Attribute of($name, $value)
  * @method string getName()
  * @method getValue()
- * @method Attribute setName(string $name)
+ * @method Attribute setName(string $name = null)
  * @method Attribute setValue($value = null)
  */
 class Attribute extends JsonObject

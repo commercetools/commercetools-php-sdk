@@ -134,6 +134,13 @@ class PagedQueryResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(['abc' => 'xyz'], $response->getResults()[1]);
     }
 
+    public function testAppend()
+    {
+        $response = $this->getResponse();
+        $response[] = ['abc' => 'xyz'];
+        $this->assertSame(['abc' => 'xyz'], $response->getResults()[1]);
+    }
+
     public function testUnset()
     {
         $response = $this->getResponse();

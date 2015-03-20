@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductUnpublishAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductUnpublishAction setAction(string $action)
+ * @method ProductUnpublishAction setAction(string $action = null)
  */
 class ProductUnpublishAction extends AbstractAction
 {

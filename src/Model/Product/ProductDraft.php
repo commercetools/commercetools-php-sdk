@@ -7,6 +7,7 @@
 namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Category\CategoryReference;
+use Sphere\Core\Model\Category\CategoryReferenceCollection;
 use Sphere\Core\Model\Common\Collection;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
@@ -21,22 +22,22 @@ use Sphere\Core\Model\ProductType\ProductTypeReference;
  * @method LocalizedString getSlug()
  * @method LocalizedString getDescription()
  * @method ProductTypeReference getProductType()
- * @method CategoryReference[] getCategories()
  * @method ProductVariantDraft getMasterVariant()
- * @method ProductVariantDraft[] getVariants()
  * @method LocalizedString getMetaTitle()
  * @method LocalizedString getMetaDescription()
  * @method LocalizedString getMetaKeywords()
- * @method ProductDraft setName(LocalizedString $name)
- * @method ProductDraft setSlug(LocalizedString $slug)
- * @method ProductDraft setDescription(LocalizedString $description)
- * @method ProductDraft setProductType(ProductTypeReference $productType)
- * @method ProductDraft setCategories(Collection $categories)
- * @method ProductDraft setMasterVariant(ProductVariantDraft $masterVariant)
- * @method ProductDraft setVariants(Collection $variants)
- * @method ProductDraft setMetaTitle(LocalizedString $metaTitle)
- * @method ProductDraft setMetaDescription(LocalizedString $metaDescription)
- * @method ProductDraft setMetaKeywords(LocalizedString $metaKeywords)
+ * @method ProductDraft setName(LocalizedString $name = null)
+ * @method ProductDraft setSlug(LocalizedString $slug = null)
+ * @method ProductDraft setDescription(LocalizedString $description = null)
+ * @method ProductDraft setProductType(ProductTypeReference $productType = null)
+ * @method ProductDraft setMasterVariant(ProductVariantDraft $masterVariant = null)
+ * @method ProductDraft setMetaTitle(LocalizedString $metaTitle = null)
+ * @method ProductDraft setMetaDescription(LocalizedString $metaDescription = null)
+ * @method ProductDraft setMetaKeywords(LocalizedString $metaKeywords = null)
+ * @method CategoryReferenceCollection getCategories()
+ * @method ProductDraft setCategories(CategoryReferenceCollection $categories = null)
+ * @method ProductVariantCollection getVariants()
+ * @method ProductDraft setVariants(ProductVariantCollection $variants = null)
  */
 class ProductDraft extends JsonObject
 {
@@ -49,9 +50,9 @@ class ProductDraft extends JsonObject
             'slug' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'description' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'productType' => [self::TYPE => '\Sphere\Core\Model\ProductType\ProductTypeReference'],
-            'categories' => [self::TYPE => '\Sphere\Core\Model\Common\Collection'],
+            'categories' => [self::TYPE => '\Sphere\Core\Model\Category\CategoryReferenceCollection'],
             'masterVariant' => [self::TYPE => '\Sphere\Core\Model\Product\ProductVariantDraft'],
-            'variants' => [self::TYPE => '\Sphere\Core\Model\Common\Collection'],
+            'variants' => [self::TYPE => '\Sphere\Core\Model\Product\ProductVariantCollection'],
             'metaTitle' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'metaDescription' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],

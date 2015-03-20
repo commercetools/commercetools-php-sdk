@@ -16,21 +16,21 @@ use Sphere\Core\Model\TaxCategory\TaxRate;
  * Class CustomLineItem
  * @package Sphere\Core\Model\Cart
  * @method string getId()
- * @method CustomLineItem setId(string $id)
+ * @method CustomLineItem setId(string $id = null)
  * @method LocalizedString getName()
- * @method CustomLineItem setName(LocalizedString $name)
+ * @method CustomLineItem setName(LocalizedString $name = null)
  * @method Money getMoney()
- * @method CustomLineItem setMoney(Money $money)
+ * @method CustomLineItem setMoney(Money $money = null)
  * @method LocalizedString getSlug()
- * @method CustomLineItem setSlug(LocalizedString $slug)
+ * @method CustomLineItem setSlug(LocalizedString $slug = null)
  * @method int getQuantity()
- * @method CustomLineItem setQuantity(int $quantity)
+ * @method CustomLineItem setQuantity(int $quantity = null)
  * @method ItemState getState()
- * @method CustomLineItem setState(ItemState $state)
+ * @method CustomLineItem setState(ItemState $state = null)
  * @method TaxCategoryReference getTaxCategory()
- * @method CustomLineItem setTaxCategory(TaxCategoryReference $taxCategory)
+ * @method CustomLineItem setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method TaxRate getPrice()
- * @method CustomLineItem setPrice(TaxRate $price)
+ * @method CustomLineItem setPrice(TaxRate $price = null)
  */
 class CustomLineItem extends JsonObject
 {

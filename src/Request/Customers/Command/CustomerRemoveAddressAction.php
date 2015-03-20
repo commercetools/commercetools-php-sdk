@@ -11,9 +11,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CustomerRemoveAddressAction
  * @package Sphere\Core\Request\Customers\Command
  * @method string getAddressId()
- * @method CustomerRemoveAddressAction setAddressId(string $addressId)
+ * @method CustomerRemoveAddressAction setAddressId(string $addressId = null)
  * @method string getAction()
- * @method CustomerRemoveAddressAction setAction(string $action)
+ * @method CustomerRemoveAddressAction setAction(string $action = null)
  */
 class CustomerRemoveAddressAction extends AbstractAction
 {

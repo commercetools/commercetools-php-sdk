@@ -11,9 +11,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CustomerSetExternalIdAction
  * @package Sphere\Core\Request\Customers\Command
  * @method string getExternalId()
- * @method CustomerSetExternalIdAction setExternalId(string $externalId)
+ * @method CustomerSetExternalIdAction setExternalId(string $externalId = null)
  * @method string getAction()
- * @method CustomerSetExternalIdAction setAction(string $action)
+ * @method CustomerSetExternalIdAction setAction(string $action = null)
  */
 class CustomerSetExternalIdAction extends AbstractAction
 {

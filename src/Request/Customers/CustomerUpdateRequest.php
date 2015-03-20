@@ -19,6 +19,8 @@ use Sphere\Core\Request\AbstractUpdateRequest;
  */
 class CustomerUpdateRequest extends AbstractUpdateRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Customer\Customer';
+
     /**
      * @param string $id
      * @param int $version

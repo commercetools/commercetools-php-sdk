@@ -12,11 +12,11 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductAddToCategoryAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductAddToCategoryAction setAction(string $action)
+ * @method ProductAddToCategoryAction setAction(string $action = null)
  * @method CategoryReference getCategory()
- * @method ProductAddToCategoryAction setCategory(CategoryReference $category)
+ * @method ProductAddToCategoryAction setCategory(CategoryReference $category = null)
  * @method bool getStaged()
- * @method ProductAddToCategoryAction setStaged(bool $staged)
+ * @method ProductAddToCategoryAction setStaged(bool $staged = null)
  */
 class ProductAddToCategoryAction extends AbstractAction
 {

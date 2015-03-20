@@ -16,10 +16,10 @@ use Sphere\Core\Model\Common\OfTrait;
  * @method string getCustomerId()
  * @method string getCountry()
  * @method string getInventoryMode()
- * @method CartDraft setCurrency(string $currency)
- * @method CartDraft setCustomerId(string $customerId)
- * @method CartDraft setCountry(string $country)
- * @method CartDraft setInventoryMode(string $inventoryMode)
+ * @method CartDraft setCurrency(string $currency = null)
+ * @method CartDraft setCustomerId(string $customerId = null)
+ * @method CartDraft setCountry(string $country = null)
+ * @method CartDraft setInventoryMode(string $inventoryMode = null)
  */
 class CartDraft extends JsonObject
 {

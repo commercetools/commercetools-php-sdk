@@ -11,9 +11,9 @@ use Sphere\Core\Model\Common\JsonObject;
  * Class DeliveryItem
  * @package Sphere\Core\Model\Order
  * @method string getId()
- * @method DeliveryItem setId(string $id)
+ * @method DeliveryItem setId(string $id = null)
  * @method int getQuantity()
- * @method DeliveryItem setQuantity(int $quantity)
+ * @method DeliveryItem setQuantity(int $quantity = null)
  */
 class DeliveryItem extends JsonObject
 {

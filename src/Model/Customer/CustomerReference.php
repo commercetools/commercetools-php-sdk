@@ -15,11 +15,11 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @package Sphere\Core\Model\Customer
  * @method static CustomerReference of(string $id)
  * @method string getTypeId()
- * @method CustomerReference setTypeId(string $typeId)
+ * @method CustomerReference setTypeId(string $typeId = null)
  * @method string getId()
- * @method CustomerReference setId(string $id)
+ * @method CustomerReference setId(string $id = null)
  * @method array getObj()
- * @method CustomerReference setObj(array $obj)
+ * @method CustomerReference setObj(array $obj = null)
  */
 class CustomerReference extends Reference
 {

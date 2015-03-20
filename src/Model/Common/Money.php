@@ -13,8 +13,8 @@ namespace Sphere\Core\Model\Common;
  * @method static Money of(string $currencyCode, int $centAmount)
  * @method string getCurrencyCode()
  * @method int getCentAmount()
- * @method Money setCurrencyCode(string $currencyCode)
- * @method Money setCentAmount(int $centAmount)
+ * @method Money setCurrencyCode(string $currencyCode = null)
+ * @method Money setCentAmount(int $centAmount = null)
  */
 class Money extends JsonObject
 {

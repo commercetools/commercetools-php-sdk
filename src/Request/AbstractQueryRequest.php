@@ -25,6 +25,8 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     use SortTrait;
     use ExpandTrait;
 
+    protected $resultClass = '\Sphere\Core\Model\Common\Collection';
+
     /**
      * @return HttpRequest
      * @internal
@@ -47,11 +49,15 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     /**
      * @param array $result
      * @param Context $context
-     * @return JsonDeserializeInterface
+     * @return Collection
      */
     public function mapResult(array $result, Context $context = null)
     {
-        $object = Collection::fromArray($result, $context);
+        $data = [];
+        if (!empty($result['results'])) {
+            $data = $result['results'];
+        }
+        $object = forward_static_call_array([$this->resultClass, 'fromArray'], [$data, $context]);
         return $object;
     }
 }

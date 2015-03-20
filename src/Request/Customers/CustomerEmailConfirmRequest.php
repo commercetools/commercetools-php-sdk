@@ -64,14 +64,4 @@ class CustomerEmailConfirmRequest extends AbstractUpdateRequest
         ];
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }
-
-    /**
-     * @param ResponseInterface $response
-     * @return SingleResourceResponse
-     * @internal
-     */
-    public function buildResponse(ResponseInterface $response)
-    {
-        return new SingleResourceResponse($response, $this, $this->getContext());
-    }
 }

@@ -18,6 +18,8 @@ use Sphere\Core\Request\AbstractUpdateRequest;
  */
 class CategoryUpdateRequest extends AbstractUpdateRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Category\Category';
+
     /**
      * @param string $id
      * @param int $version

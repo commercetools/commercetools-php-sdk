@@ -18,6 +18,8 @@ use Sphere\Core\Request\Carts\CartsEndpoint;
  */
 class CartDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Cart\Cart';
+
     /**
      * @param string $id
      * @param int $version

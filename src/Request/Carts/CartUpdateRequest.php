@@ -16,6 +16,8 @@ use Sphere\Core\Request\AbstractUpdateRequest;
  */
 class CartUpdateRequest extends AbstractUpdateRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Cart\Cart';
+
     /**
      * @param string $id
      * @param string $version
@@ -25,18 +27,5 @@ class CartUpdateRequest extends AbstractUpdateRequest
     public function __construct($id, $version, array $actions = [], Context $context = null)
     {
         parent::__construct(CartsEndpoint::endpoint(), $id, $version, $actions, $context);
-    }
-
-    /**
-     * @param array $result
-     * @param Context $context
-     * @return Cart|null
-     */
-    public function mapResult(array $result, Context $context = null)
-    {
-        if (!empty($result)) {
-            return Cart::fromArray($result, $context);
-        }
-        return null;
     }
 }

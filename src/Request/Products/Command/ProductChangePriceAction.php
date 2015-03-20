@@ -12,13 +12,13 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductChangePriceAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductChangePriceAction setAction(string $action)
+ * @method ProductChangePriceAction setAction(string $action = null)
  * @method int getVariantId()
- * @method ProductChangePriceAction setVariantId(int $variantId)
+ * @method ProductChangePriceAction setVariantId(int $variantId = null)
  * @method Price getPrice()
- * @method ProductChangePriceAction setPrice(Price $price)
+ * @method ProductChangePriceAction setPrice(Price $price = null)
  * @method bool getStaged()
- * @method ProductChangePriceAction setStaged(bool $staged)
+ * @method ProductChangePriceAction setStaged(bool $staged = null)
  */
 class ProductChangePriceAction extends AbstractAction
 {

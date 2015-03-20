@@ -11,11 +11,11 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductRemoveVariantAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductRemoveVariantAction setAction(string $action)
+ * @method ProductRemoveVariantAction setAction(string $action = null)
  * @method int getId()
- * @method ProductRemoveVariantAction setId(int $id)
+ * @method ProductRemoveVariantAction setId(int $id = null)
  * @method bool getStaged()
- * @method ProductRemoveVariantAction setStaged(bool $staged)
+ * @method ProductRemoveVariantAction setStaged(bool $staged = null)
  */
 class ProductRemoveVariantAction extends AbstractAction
 {

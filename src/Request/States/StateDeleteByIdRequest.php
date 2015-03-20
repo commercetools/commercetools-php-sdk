@@ -15,6 +15,8 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
  */
 class StateDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\State\State';
+
     /**
      * @param string $id
      * @param int $version

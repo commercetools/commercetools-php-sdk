@@ -17,6 +17,8 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
  */
 class CategoryDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Category\Category';
+
     /**
      * @param string $id
      * @param int $version

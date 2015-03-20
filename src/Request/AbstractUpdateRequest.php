@@ -83,15 +83,6 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
         return $this;
     }
 
-    protected function addValue($action, $field, $value = null)
-    {
-        if (!is_null($value)) {
-            $action[$field] = $value;
-        }
-
-        return $action;
-    }
-
     /**
      * @return string
      */
@@ -157,16 +148,5 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     public function buildResponse(ResponseInterface $response)
     {
         return new SingleResourceResponse($response, $this, $this->getContext());
-    }
-
-    /**
-     * @param array $result
-     * @param Context $context
-     * @return JsonDeserializeInterface
-     */
-    public function mapResult(array $result, Context $context = null)
-    {
-        $object = JsonObject::fromArray($result, $context);
-        return $object;
     }
 }

@@ -10,11 +10,11 @@ namespace Sphere\Core\Model\Common;
  * Class Image
  * @package Sphere\Core\Model\Common
  * @method string getUrl()
- * @method Image setUrl(string $url)
+ * @method Image setUrl(string $url = null)
  * @method ImageDimension getDimensions()
- * @method Image setDimensions(ImageDimension $dimensions)
+ * @method Image setDimensions(ImageDimension $dimensions = null)
  * @method string getLabel()
- * @method Image setLabel(string $label)
+ * @method Image setLabel(string $label = null)
  */
 class Image extends JsonObject
 {

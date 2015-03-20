@@ -17,6 +17,8 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
  */
 class CategoryFetchByIdRequest extends AbstractFetchByIdRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Category\Category';
+
     /**
      * @param string $id
      * @param Context $context

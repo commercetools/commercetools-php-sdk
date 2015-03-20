@@ -15,11 +15,11 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @package Sphere\Core\Model\State
  * @method static StateReference of(string $id)
  * @method string getTypeId()
- * @method StateReference setTypeId(string $typeId)
+ * @method StateReference setTypeId(string $typeId = null)
  * @method string getId()
- * @method StateReference setId(string $id)
+ * @method StateReference setId(string $id = null)
  * @method State getObj()
- * @method StateReference setObj(State $obj)
+ * @method StateReference setObj(State $obj = null)
  */
 class StateReference extends Reference
 {

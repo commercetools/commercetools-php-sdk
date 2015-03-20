@@ -15,8 +15,8 @@ use Sphere\Core\Model\ProductDiscount\ProductDiscountReference;
  * @method static DiscountedPrice of(Money $value, ProductDiscountReference $discount)
  * @method Money getValue()
  * @method ProductDiscountReference getDiscount()
- * @method DiscountedPrice setValue(Money $value)
- * @method DiscountedPrice setDiscount(ProductDiscountReference $discount)
+ * @method DiscountedPrice setValue(Money $value = null)
+ * @method DiscountedPrice setDiscount(ProductDiscountReference $discount = null)
  */
 class DiscountedPrice extends JsonObject
 {

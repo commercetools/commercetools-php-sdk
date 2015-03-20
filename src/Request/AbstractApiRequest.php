@@ -40,6 +40,8 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
 
     protected $identifier;
 
+    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+
     /**
      * @param JsonEndpoint $endpoint
      * @param Context $context
@@ -149,7 +151,14 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
     /**
      * @param array $result
      * @param Context $context
-     * @return JsonDeserializeInterface
+     * @return JsonDeserializeInterface|null
      */
-    abstract public function mapResult(array $result, Context $context = null);
+    public function mapResult(array $result, Context $context = null)
+    {
+        if (!empty($result)) {
+            $object = forward_static_call_array([$this->resultClass, 'fromArray'], [$result, $context]);
+            return $object;
+        }
+        return null;
+    }
 }

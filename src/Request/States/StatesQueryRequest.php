@@ -10,27 +10,19 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\State\StateCollection;
 use Sphere\Core\Request\AbstractQueryRequest;
 
+/**
+ * Class StatesQueryRequest
+ * @package Sphere\Core\Request\States
+ */
 class StatesQueryRequest extends AbstractQueryRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\State\StateCollection';
+
     /**
      * @param Context $context
      */
     public function __construct(Context $context = null)
     {
         parent::__construct(StatesEndpoint::endpoint(), $context);
-    }
-
-    /**
-     * @param array $result
-     * @param Context $context
-     * @return StateCollection
-     */
-    public function mapResult(array $result, Context $context = null)
-    {
-        if (!empty($result['results'])) {
-            return StateCollection::fromArray($result['results'], $context);
-        }
-
-        return new StateCollection([], $context);
     }
 }

@@ -86,6 +86,8 @@ class ProductUpdateRequest extends AbstractUpdateRequest
     const PUBLISH = 'publish';
     const UNPUBLISH = 'unpublish';
 
+    protected $resultClass = '\Sphere\Core\Model\Product\Product';
+
     /**
      * @param string $id
      * @param int $version
@@ -142,10 +144,12 @@ class ProductUpdateRequest extends AbstractUpdateRequest
     public function addVariant(ProductVariantDraft $variant = null, $staged = true)
     {
         $action = new ProductAddVariantAction();
-        $action->setStaged($staged)
-            ->setPrices($variant->getPrices())
-            ->setSku($variant->getSku())
-            ->setAttributes($variant->getAttributes());
+        $action->setStaged($staged);
+        if (!is_null($variant)) {
+            $action->setPrices($variant->getPrices())
+                ->setSku($variant->getSku())
+                ->setAttributes($variant->getAttributes());
+        }
         return $this->addAction($action);
     }
 
@@ -293,15 +297,15 @@ class ProductUpdateRequest extends AbstractUpdateRequest
      */
     public function setTaxCategory(TaxCategoryReference $taxCategory, $staged = true)
     {
-        $action = new ProductSetTaxCategoryAction($taxCategory);
-        $action->setStaged($staged);
+        $action = new ProductSetTaxCategoryAction();
+        $action->setTaxCategory($taxCategory)
+            ->setStaged($staged);
         return $this->addAction($action);
     }
 
     /**
      * @param $variantId
      * @param null $sku
-     * @param bool $staged
      * @return $this
      * @deprecated will be removed with Milestone 2
      */

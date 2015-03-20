@@ -15,11 +15,11 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @package Sphere\Core\Model\Channel
  * @method static ChannelReference of(string $id)
  * @method string getTypeId()
- * @method ChannelReference setTypeId(string $typeId)
+ * @method ChannelReference setTypeId(string $typeId = null)
  * @method string getId()
- * @method ChannelReference setId(string $id)
+ * @method ChannelReference setId(string $id = null)
  * @method array getObj()
- * @method ChannelReference setObj(array $obj)
+ * @method ChannelReference setObj(array $obj = null)
  */
 class ChannelReference extends Reference
 {

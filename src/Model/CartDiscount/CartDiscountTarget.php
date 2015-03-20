@@ -11,9 +11,9 @@ use Sphere\Core\Model\Common\JsonObject;
  * Class CartDiscountTarget
  * @package Sphere\Core\Model\CartDiscount
  * @method string getType()
- * @method CartDiscountTarget setType(string $type)
+ * @method CartDiscountTarget setType(string $type = null)
  * @method string getPredicate()
- * @method CartDiscountTarget setPredicate(string $predicate)
+ * @method CartDiscountTarget setPredicate(string $predicate = null)
  */
 class CartDiscountTarget extends JsonObject
 {

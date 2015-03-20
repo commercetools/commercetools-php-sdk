@@ -16,6 +16,8 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
  */
 class CustomerDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Customer\Customer';
+
     /**
      * @param string $id
      * @param int $version

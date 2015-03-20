@@ -13,10 +13,10 @@ use Sphere\Core\Request\AbstractAction;
  * @package Sphere\Core\Request\Customers\Command
  * @method string getAddressId()
  * @method Address getAddress()
- * @method CustomerChangeAddressAction setAddressId(string $addressId)
- * @method CustomerChangeAddressAction setAddress(Address $address)
+ * @method CustomerChangeAddressAction setAddressId(string $addressId = null)
+ * @method CustomerChangeAddressAction setAddress(Address $address = null)
  * @method string getAction()
- * @method CustomerChangeAddressAction setAction(string $action)
+ * @method CustomerChangeAddressAction setAction(string $action = null)
  */
 class CustomerChangeAddressAction extends AbstractAction
 {

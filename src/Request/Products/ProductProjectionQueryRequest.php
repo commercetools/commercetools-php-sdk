@@ -20,25 +20,13 @@ class ProductProjectionQueryRequest extends AbstractQueryRequest
 {
     use StagedTrait;
 
+    protected $resultClass = '\Sphere\Core\Model\Product\ProductProjectionCollection';
+
     /**
      * @param Context $context
      */
     public function __construct(Context $context = null)
     {
         parent::__construct(ProductSearchEndpoint::endpoint(), $context);
-    }
-
-    /**
-     * @param array $result
-     * @param Context $context
-     * @return ProductProjectionCollection|null
-     */
-    public function mapResult(array $result, Context $context = null)
-    {
-        if (!empty($result['results'])) {
-            return ProductProjectionCollection::fromArray($result['results'], $context);
-        }
-
-        return new ProductProjectionCollection([], $context);
     }
 }

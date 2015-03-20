@@ -24,6 +24,8 @@ class CustomerFetchByTokenRequest extends AbstractApiRequest
 {
     const TOKEN = 'token';
 
+    protected $resultClass = '\Sphere\Core\Model\Customer\Customer';
+
     /**
      * @param string $token
      * @param Context $context
@@ -51,16 +53,5 @@ class CustomerFetchByTokenRequest extends AbstractApiRequest
     public function buildResponse(ResponseInterface $response)
     {
         return new SingleResourceResponse($response, $this, $this->getContext());
-    }
-
-    /**
-     * @param array $result
-     * @param Context $context
-     * @return JsonDeserializeInterface
-     */
-    public function mapResult(array $result, Context $context = null)
-    {
-        $object = JsonObject::fromArray($result, $context);
-        return $object;
     }
 }

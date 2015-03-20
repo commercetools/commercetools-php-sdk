@@ -12,9 +12,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CartSetShippingAddressAction
  * @package Sphere\Core\Request\Carts\Command
  * @method string getAction()
- * @method CartSetShippingAddressAction setAction(string $action)
+ * @method CartSetShippingAddressAction setAction(string $action = null)
  * @method Address getAddress()
- * @method CartSetShippingAddressAction setAddress(Address $address)
+ * @method CartSetShippingAddressAction setAddress(Address $address = null)
  */
 class CartSetShippingAddressAction extends AbstractAction
 {

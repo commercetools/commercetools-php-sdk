@@ -14,15 +14,15 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductAddVariantAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductAddVariantAction setAction(string $action)
+ * @method ProductAddVariantAction setAction(string $action = null)
  * @method string getSku()
- * @method ProductAddVariantAction setSku(string $sku)
+ * @method ProductAddVariantAction setSku(string $sku = null)
  * @method PriceCollection getPrices()
- * @method ProductAddVariantAction setPrices(PriceCollection $prices)
+ * @method ProductAddVariantAction setPrices(PriceCollection $prices = null)
  * @method AttributeCollection getAttributes()
- * @method ProductAddVariantAction setAttributes(AttributeCollection $attributes)
+ * @method ProductAddVariantAction setAttributes(AttributeCollection $attributes = null)
  * @method bool getStaged()
- * @method ProductAddVariantAction setStaged(bool $staged)
+ * @method ProductAddVariantAction setStaged(bool $staged = null)
  */
 class ProductAddVariantAction extends AbstractAction
 {

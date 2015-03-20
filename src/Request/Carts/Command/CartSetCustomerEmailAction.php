@@ -11,9 +11,9 @@ use Sphere\Core\Request\AbstractAction;
  * Class CartSetCustomerEmailAction
  * @package Sphere\Core\Request\Carts\Command
  * @method string getAction()
- * @method CartSetCustomerEmailAction setAction(string $action)
+ * @method CartSetCustomerEmailAction setAction(string $action = null)
  * @method string getEmail()
- * @method CartSetCustomerEmailAction setEmail(string $email)
+ * @method CartSetCustomerEmailAction setEmail(string $email = null)
  */
 class CartSetCustomerEmailAction extends AbstractAction
 {

@@ -10,9 +10,9 @@ namespace Sphere\Core\Model\Common;
  * Class Enum
  * @package Sphere\Core\Model\Common
  * @method string getLabel()
- * @method Enum setLabel(string $label)
+ * @method Enum setLabel(string $label = null)
  * @method string getKey()
- * @method Enum setKey(string $key)
+ * @method Enum setKey(string $key = null)
  */
 class Enum extends JsonObject
 {

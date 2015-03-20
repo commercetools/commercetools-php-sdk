@@ -12,15 +12,15 @@ use Sphere\Core\Request\AbstractAction;
  * Class ProductSetMetaAttributesAction
  * @package Sphere\Core\Request\Products\Command
  * @method string getAction()
- * @method ProductSetMetaAttributesAction setAction(string $action)
+ * @method ProductSetMetaAttributesAction setAction(string $action = null)
  * @method LocalizedString getMetaTitle()
- * @method ProductSetMetaAttributesAction setMetaTitle(LocalizedString $metaTitle)
+ * @method ProductSetMetaAttributesAction setMetaTitle(LocalizedString $metaTitle = null)
  * @method LocalizedString getMetaDescription()
- * @method ProductSetMetaAttributesAction setMetaDescription(LocalizedString $metaDescription)
+ * @method ProductSetMetaAttributesAction setMetaDescription(LocalizedString $metaDescription = null)
  * @method LocalizedString getMetaKeywords()
- * @method ProductSetMetaAttributesAction setMetaKeywords(LocalizedString $metaKeywords)
+ * @method ProductSetMetaAttributesAction setMetaKeywords(LocalizedString $metaKeywords = null)
  * @method bool getStaged()
- * @method ProductSetMetaAttributesAction setStaged(bool $staged)
+ * @method ProductSetMetaAttributesAction setStaged(bool $staged = null)
  */
 class ProductSetMetaAttributesAction extends AbstractAction
 {

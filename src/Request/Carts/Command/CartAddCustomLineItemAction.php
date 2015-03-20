@@ -14,17 +14,17 @@ use Sphere\Core\Request\AbstractAction;
  * Class CartAddCustomLineItemAction
  * @package Sphere\Core\Request\Carts\Command
  * @method string getAction()
- * @method CartAddCustomLineItemAction setAction(string $action)
+ * @method CartAddCustomLineItemAction setAction(string $action = null)
  * @method LocalizedString getName()
- * @method CartAddCustomLineItemAction setName(LocalizedString $name)
+ * @method CartAddCustomLineItemAction setName(LocalizedString $name = null)
  * @method int getQuantity()
- * @method CartAddCustomLineItemAction setQuantity(int $quantity)
+ * @method CartAddCustomLineItemAction setQuantity(int $quantity = null)
  * @method Money getMoney()
- * @method CartAddCustomLineItemAction setMoney(Money $money)
+ * @method CartAddCustomLineItemAction setMoney(Money $money = null)
  * @method string getSlug()
- * @method CartAddCustomLineItemAction setSlug(string $slug)
+ * @method CartAddCustomLineItemAction setSlug(string $slug = null)
  * @method TaxCategory getTaxCategory()
- * @method CartAddCustomLineItemAction setTaxCategory(TaxCategory $taxCategory)
+ * @method CartAddCustomLineItemAction setTaxCategory(TaxCategory $taxCategory = null)
  */
 class CartAddCustomLineItemAction extends AbstractAction
 {
