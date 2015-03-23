@@ -9,6 +9,7 @@ namespace Sphere\Core;
 
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Message\RequestInterface;
+use GuzzleHttp\Message\Response;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Log\LoggerInterface;
@@ -99,6 +100,9 @@ class Client extends AbstractHttpClient
             $httpResponse = $client->send($this->createHttpRequest($request));
         } catch (RequestException $exception) {
             $httpResponse = $exception->getResponse();
+            if (is_null($httpResponse)) {
+                throw $exception;
+            }
         }
 
         $response = $request->buildResponse($httpResponse);
