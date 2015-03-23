@@ -8,6 +8,7 @@ namespace Sphere\Core\Request\Products;
 
 use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Product\Facet;
 use Sphere\Core\Model\Product\Filter;
 use Sphere\Core\Model\Product\ProductProjectionCollection;
 use Sphere\Core\Request\AbstractProjectionRequest;
@@ -114,7 +115,7 @@ class ProductsSearchRequest extends AbstractProjectionRequest
      * @param Filter $filter
      * @return $this
      */
-    public function addFacet(Filter $filter)
+    public function addFacet(Facet $filter)
     {
         return $this->filter(static::FACET, $filter);
     }

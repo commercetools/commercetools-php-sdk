@@ -46,7 +46,7 @@ class PagedSearchResponse extends PagedQueryResponse
             $jsonResponse = $this->toArray();
             if (isset($jsonResponse[static::FACETS])) {
                 $facets = FacetResultCollection::fromArray($jsonResponse[static::FACETS]);
-                $this->setFacets(FacetResultCollection::fromArray($facets));
+                $this->setFacets($facets);
             }
         }
     }
