@@ -350,6 +350,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         if ($type == 'array') {
             $value = array_map('trim', explode(',', $value));
+        } elseif ($type == 'bool') {
+            $value = (bool)$value;
         } else {
             $method = $type.'val';
             $value = $method($value);
