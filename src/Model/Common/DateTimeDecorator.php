@@ -38,7 +38,7 @@ class DateTimeDecorator implements \JsonSerializable
     /**
      * @param \DateTime $dateTime
      */
-    public function setDateTime($dateTime)
+    public function setDateTime(\DateTime $dateTime = null)
     {
         $this->dateTime = $dateTime;
     }

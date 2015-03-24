@@ -19,7 +19,7 @@ use Sphere\Core\Request\AbstractAction;
 class OrderChangeShipmentStateAction extends AbstractAction
 {
     /**
-     * @param array $shipmentState
+     * @param string $shipmentState
      * @param Context $context
      */
     public function __construct($shipmentState, Context $context = null)
