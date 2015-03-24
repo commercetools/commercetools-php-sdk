@@ -5,12 +5,23 @@
 
 namespace Sphere\Core\Model\Customer;
 
-
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
  * Class CustomerToken
  * @package Sphere\Core\Model\Customer
+ * @method string getId()
+ * @method CustomerToken setId(string $id = null)
+ * @method string getCustomerId()
+ * @method CustomerToken setCustomerId(string $customerId = null)
+ * @method \DateTime getCreatedAt()
+ * @method CustomerToken setCreatedAt(\DateTime $createdAt = null)
+ * @method \DateTime getLastModifiedAt()
+ * @method CustomerToken setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method \DateTime getExpiresAt()
+ * @method CustomerToken setExpiresAt(\DateTime $expiresAt = null)
+ * @method string getValue()
+ * @method CustomerToken setValue(string $value = null)
  */
 class CustomerToken extends JsonObject
 {
