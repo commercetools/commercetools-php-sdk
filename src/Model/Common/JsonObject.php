@@ -21,7 +21,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     const TYPE = 'type';
     const OPTIONAL = 'optional';
     const INITIALIZED = 'initialized';
-    const DESERIALIZE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
+    const DECORATOR = 'decorator';
 
     protected $rawData = [];
     protected $typeData = [];
@@ -171,6 +171,9 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
         } else {
             $this->typeData[$field] = $this->getRaw($field);
         }
+        if ($decorator = $this->getFieldKey($field, static::DECORATOR)) {
+            $this->typeData[$field] = new $decorator($this->typeData[$field]);
+        }
         $this->initialized[$field] = true;
     }
 
@@ -196,6 +199,10 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
             $value->setContext($this->getContext());
         }
         $this->typeData[$field] = $value;
+
+        if ($decorator = $this->getFieldKey($field, static::DECORATOR)) {
+            $this->typeData[$field] = new $decorator($this->typeData[$field]);
+        }
         $this->initialized[$field] = true;
 
         return $this;

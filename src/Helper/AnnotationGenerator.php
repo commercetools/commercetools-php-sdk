@@ -46,7 +46,7 @@ class AnnotationGenerator
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
 
-            if ($class) {
+            if (!empty($class)) {
                 if (in_array('Sphere\Core\Model\Common\JsonObject', class_parents($class))) {
                     $jsonObjects[] = $class;
                 }
@@ -88,14 +88,16 @@ class AnnotationGenerator
 
     protected function getMethodPattern()
     {
-        return '~@method\\s+(?:([\\w\\\\]+(?:\\|[\\w\\\\]+)*)\\s+)?(&)?' .
+        return '~@method\\s+(?:([$\\w\\\\]+(?:\\|[$\\w\\\\]+)*)\\s+)?(&)?' .
         '\\s*((set|get)(\\w+))\\s*\\(\\s*(.*)\\s*\\)\\s*(.*|$)~s';
     }
 
+    /**
+     * @param string[] $matches
+     */
     protected function analyzeMethod($matches)
     {
-        list($_1, $returnTypeHint, $returnsReference, $name, $type, $fieldName, $args, $shortDescription)
-            = $matches;
+        list(,,,, $type, $fieldName,,) = $matches;
         $fieldName = lcfirst($fieldName);
         $methodName = $type . ucfirst($fieldName);
 
@@ -108,16 +110,16 @@ class AnnotationGenerator
             $field = $this->fields[$fieldName];
             $fieldType = '';
             if (isset($field['type'])) {
-                $classParts = explode('\\', $field['type']);
-                if (count($classParts) == 2 && $classParts[0] == '') {
-                    $fieldType = $field['type'] . ' ';
+                $classParts = explode('\\', trim($field['type'], '\\'));
+                if (count($classParts) == 1) {
+                    $fieldType = $field['type'];
                 } else {
                     $fieldType = trim($field['type'], '\\');
                     if (strpos($fieldType, $this->reflectionClass->getNamespaceName() . '\\') === false) {
                         $this->uses[$fieldType] = $fieldType;
                     }
                     $fieldClassName = array_pop($classParts);
-                    $fieldType = $fieldClassName . ' ';
+                    $fieldType = $fieldClassName;
                 }
             }
             if (!isset($field['optional'])) {
@@ -130,10 +132,15 @@ class AnnotationGenerator
             $classParts = explode('\\', $this->reflectionClass->getName());
             $className = array_pop($classParts);
             if ($type == 'get') {
-                $this->newDocBlock[] = ' * @method ' . $fieldType . $methodName . '()';
+                if (isset($field['decorator'])) {
+                    $this->uses[$field['decorator']] = $field['decorator'];
+                    $classParts = explode('\\', trim($field['decorator'], '\\'));
+                    $fieldType = array_pop($classParts);
+                }
+                $this->newDocBlock[] = ' * @method ' . ($fieldType? $fieldType . ' ':'') . $methodName . '()';
             } else {
                 $this->newDocBlock[] = ' * @method ' . $className . ' ' . $methodName .
-                    '(' . $fieldType . '$' . $fieldName . $optional .')';
+                    '(' . ($fieldType? $fieldType . ' ':'') . '$' . $fieldName . $optional .')';
             }
         }
     }
@@ -187,16 +194,16 @@ class AnnotationGenerator
         foreach ($this->fields as $fieldName => $field) {
             $fieldType = '';
             if (isset($field['type'])) {
-                $classParts = explode('\\', $field['type']);
-                if (count($classParts) == 2 && $classParts[0] == '') {
-                    $fieldType = $field['type'] . ' ';
+                $classParts = explode('\\', trim($field['type'], '\\'));
+                if (count($classParts) == 1) {
+                    $fieldType = $field['type'];
                 } else {
                     $fieldType = trim($field['type'], '\\');
                     if (strpos($fieldType, $this->reflectionClass->getNamespaceName() . '\\') === false) {
                         $this->uses[$fieldType] = $fieldType;
                     }
                     $fieldClassName = array_pop($classParts);
-                    $fieldType = $fieldClassName . ' ';
+                    $fieldType = $fieldClassName;
                 }
             }
             if (!isset($field['optional'])) {
@@ -207,15 +214,21 @@ class AnnotationGenerator
                 $optional = '';
             }
             if (!isset($this->fieldNames[$fieldName]['get'])) {
+                if (isset($field['decorator'])) {
+                    $this->uses[$field['decorator']] = $field['decorator'];
+                    $classParts = explode('\\', trim($field['decorator'], '\\'));
+                    $fieldType = array_pop($classParts);
+                }
+
                 $methodName = 'get' . ucfirst($fieldName);
                 if ($this->reflectionClass->hasMethod($methodName)) {
                     continue;
                 }
-                $this->newDocBlock[] = ' * @method ' . $fieldType . $methodName . '()';
+                $this->newDocBlock[] = ' * @method ' . ($fieldType? $fieldType . ' ':'') . $methodName . '()';
             }
             if (!isset($this->fieldNames[$fieldName]['set'])) {
-                $classParts = explode('\\', $jsonObject);
-                if (count($classParts) == 2 && $classParts[0] == '') {
+                $classParts = explode('\\', trim($jsonObject, '\\'));
+                if (count($classParts) == 1) {
                     $className = $field['type'];
                 } else {
                     $className = array_pop($classParts);
@@ -226,7 +239,7 @@ class AnnotationGenerator
                     continue;
                 }
                 $this->newDocBlock[] = ' * @method ' . $className . ' ' . $methodName .
-                    '(' . $fieldType . '$' . $fieldName . $optional . ')';
+                    '(' . ($fieldType? $fieldType . ' ':'') . '$' . $fieldName . $optional . ')';
             }
         }
         if (empty($lastLine)) {

@@ -114,8 +114,9 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
      * @param int $version
      * @param Context $context
      */
-    public function __construct($cartId, $version, Context $context)
+    public function __construct($cartId, $version, Context $context = null)
     {
+        parent::__construct(OrdersEndpoint::endpoint(), $context);
         $this->setCartId($cartId)->setVersion($version);
     }
 
