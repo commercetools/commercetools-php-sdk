@@ -62,10 +62,10 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
     protected function getModuleName($context)
     {
-        if (substr($context, -1) == 'y') {
-            $module = substr($context, 0, -1) . 'ies';
-        } elseif (substr($context, -1) == 's') {
+        if (substr($context, -1) == 's' || strtolower($context) == 'inventory') {
             $module = $context;
+        } elseif (substr($context, -1) == 'y') {
+            $module = substr($context, 0, -1) . 'ies';
         } else {
             $module = $context . 's';
         }
@@ -454,8 +454,23 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iWantToDeleteA($context)
     {
+        $context = $this->getContext($context);
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'DeleteByIdRequest';
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $version = $this->objects[$requestContext]['version'];
+        $this->createRequestInstance($request, [$id, $version]);
+    }
+
+    /**
+     * @Given i want to delete a :context by key
+     */
+    public function iWantToDeleteAByKey($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'DeleteByKeyRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $version = $this->objects[$requestContext]['version'];

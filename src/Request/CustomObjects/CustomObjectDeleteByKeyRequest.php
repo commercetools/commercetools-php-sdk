@@ -18,7 +18,7 @@ use Sphere\Core\Response\SingleResourceResponse;
  * Class CustomObjectsDeleteByKeyRequest
  * @package Sphere\Core\Request\CustomObjects
  */
-class CustomObjectsDeleteByKeyRequest extends AbstractApiRequest
+class CustomObjectDeleteByKeyRequest extends AbstractApiRequest
 {
     protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
 
@@ -59,7 +59,7 @@ class CustomObjectsDeleteByKeyRequest extends AbstractApiRequest
      */
     public function httpRequest()
     {
-        return new HttpRequest(HttpMethod::GET, $this->getPath());
+        return new HttpRequest(HttpMethod::DELETE, $this->getPath());
     }
 
     /**
