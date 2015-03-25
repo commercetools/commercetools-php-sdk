@@ -181,10 +181,16 @@ class ProductUpdateRequest extends AbstractUpdateRequest
         $staged = true
     ) {
         $action = new ProductSetMetaAttributesAction();
-        $action->setMetaDescription($metaDescription)
-            ->setMetaKeywords($metaKeywords)
-            ->setMetaTitle($metaTitle)
-            ->setStaged($staged);
+        if (!is_null($metaDescription)) {
+            $action->setMetaDescription($metaDescription);
+        }
+        if (!is_null($metaTitle)) {
+            $action->setMetaTitle($metaTitle);
+        }
+        if (!is_null($metaKeywords)) {
+            $action->setMetaKeywords($metaKeywords);
+        }
+        $action->setStaged($staged);
 
         return $this->addAction($action);
     }

@@ -16,8 +16,8 @@ use Sphere\Core\Model\Common\JsonObject;
  * @method ParcelMeasurements setLengthInMillimeter(int $lengthInMillimeter = null)
  * @method int getWidthInMillimeter()
  * @method ParcelMeasurements setWidthInMillimeter(int $widthInMillimeter = null)
- * @method int getWeightInMillimeter()
- * @method ParcelMeasurements setWeightInMillimeter(int $weightInMillimeter = null)
+ * @method int getWeightInGram()
+ * @method ParcelMeasurements setWeightInGram(int $weightInGram = null)
  */
 class ParcelMeasurements extends JsonObject
 {
@@ -27,7 +27,7 @@ class ParcelMeasurements extends JsonObject
             'heightInMillimeter' => [static::TYPE => 'int'],
             'lengthInMillimeter' => [static::TYPE => 'int'],
             'widthInMillimeter' => [static::TYPE => 'int'],
-            'weightInMillimeter' => [static::TYPE => 'int'],
+            'weightInGram' => [static::TYPE => 'int'],
         ];
     }
 }

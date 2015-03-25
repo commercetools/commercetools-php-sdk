@@ -36,6 +36,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
             static::$coverage = new PHP_CodeCoverage(null, $filter);
             static::$coverage->start('Behat Test');
         }
+        date_default_timezone_set('UTC');
     }
 
 
@@ -167,8 +168,23 @@ class FeatureContext implements Context, SnippetAcceptingContext
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'CreateRequest';
-
         $this->createRequestInstance($request, [$this->getContextObject($context)]);
+    }
+
+    /**
+     * @Given i want to create a :context from :context2
+     */
+    public function iWantToCreateAContextFromCart($context, $context2)
+    {
+        $context = $this->getContext($context);
+        $context2 = $this->getContext($context2);
+        $module = $this->getModuleName($context);
+        $contextParams = $this->objects[$context2. 'Request'];
+        $request = '\Sphere\Core\Request\\' . $module . '\\' .
+            $context . 'CreateFrom' . $context2 . 'Request';
+        $this->createRequestInstance($request, [$contextParams['id'], $contextParams['version']]);
+        $this->context = $context . 'Request';
+        $this->objects[$this->context]['instance'] = $this->request;
     }
 
     /**
@@ -334,6 +350,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         if ($type == 'array') {
             $value = array_map('trim', explode(',', $value));
+        } elseif ($type == 'bool') {
+            $value = (bool)$value;
         } else {
             $method = $type.'val';
             $value = $method($value);
