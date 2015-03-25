@@ -533,6 +533,20 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * @Given i want to fetch a :context by key
+     */
+    public function iWantToFetchAContextByKey($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'FetchByKeyRequest';
+        $requestContext = $context . 'Request';
+        $container = $this->objects[$requestContext]['id'];
+        $key = $this->objects[$requestContext]['version'];
+        $this->createRequestInstance($request, [$container, $key]);
+    }
+
+    /**
      * @Given i want to fetch a :context by customerId
      */
     public function iWantToFetchAContextByCustomerId($context)

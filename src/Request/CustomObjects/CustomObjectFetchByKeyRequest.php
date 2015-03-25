@@ -10,10 +10,10 @@ use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
 
 /**
- * Class CustomObjectsDeleteByKeyRequest
+ * Class CustomObjectFetchByKeyRequest
  * @package Sphere\Core\Request\CustomObjects
  */
-class CustomObjectDeleteByKeyRequest extends AbstractCustomObjectRequest
+class CustomObjectFetchByKeyRequest extends AbstractCustomObjectRequest
 {
     /**
      * @return HttpRequest
@@ -21,6 +21,6 @@ class CustomObjectDeleteByKeyRequest extends AbstractCustomObjectRequest
      */
     public function httpRequest()
     {
-        return new HttpRequest(HttpMethod::DELETE, $this->getPath());
+        return new HttpRequest(HttpMethod::GET, $this->getPath());
     }
 }
