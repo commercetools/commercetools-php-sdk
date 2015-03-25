@@ -32,8 +32,17 @@ class FilterRange extends JsonObject
         ];
     }
 
+    protected function mapValue($value)
+    {
+        var_dump($value);
+        if (is_null($value)) {
+            return '*';
+        }
+        return $value;
+    }
+
     public function __toString()
     {
-        return sprintf('(%s to %s)', $this->getFrom(), $this->getTo());
+        return sprintf('(%s to %s)', $this->mapValue($this->getFrom()), $this->mapValue($this->getTo()));
     }
 }
