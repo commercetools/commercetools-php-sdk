@@ -34,7 +34,6 @@ class FilterRange extends JsonObject
 
     protected function mapValue($value)
     {
-        var_dump($value);
         if (is_null($value)) {
             return '*';
         }
