@@ -3,13 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\State;
+namespace Sphere\Core\Helper\State;
 
 
 use Sphere\Core\Client;
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\State\Renderer\NodeRenderer;
-use Sphere\Core\Model\State\Renderer\TransitionRenderer;
+use Sphere\Core\Helper\State\Renderer\NodeRenderer;
+use Sphere\Core\Helper\State\Renderer\TransitionRenderer;
+use Sphere\Core\Model\State\StateCollection;
 use Sphere\Core\Request\States\StatesQueryRequest;
 
 class Renderer

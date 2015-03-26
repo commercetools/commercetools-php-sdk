@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\State\Renderer;
+namespace Sphere\Core\Helper\State\Renderer;
 
 
 use Sphere\Core\Model\State\State;
