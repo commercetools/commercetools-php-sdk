@@ -6,6 +6,7 @@
 namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class Filter
@@ -19,10 +20,15 @@ use Sphere\Core\Model\Common\JsonObject;
  */
 class Filter extends JsonObject
 {
+    use OfTrait;
+
     protected $valueType;
 
-    public function __construct($valueType)
+    public function __construct($valueType = null)
     {
+        if (is_null($valueType)) {
+            $valueType = 'string';
+        }
         $this->valueType = $valueType;
     }
 

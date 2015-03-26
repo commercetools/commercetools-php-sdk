@@ -6,6 +6,7 @@
 namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class FilterRange
@@ -17,6 +18,8 @@ use Sphere\Core\Model\Common\JsonObject;
  */
 class FilterRange extends JsonObject
 {
+    use OfTrait;
+
     protected $valueType;
 
     public function __construct($valueType)

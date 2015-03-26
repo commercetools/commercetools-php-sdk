@@ -21,20 +21,15 @@ class CustomerSetDateOfBirthAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'dateOfBirth' => [static::TYPE => '\DateTime'],
+            'dateOfBirth' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Sphere\Core\Model\Common\DateDecorator'
+            ],
         ];
     }
 
     public function __construct()
     {
         $this->setAction('setDateOfBirth');
-    }
-
-    public function jsonSerialize()
-    {
-        return [
-            'action' => $this->getAction(),
-            'dateOfBirth' => $this->getDateOfBirth()->format('Y-m-d')
-        ];
     }
 }
