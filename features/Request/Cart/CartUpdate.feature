@@ -1,4 +1,3 @@
-@ignore
 Feature: I want to update a cart
   Background:
     Given a "cart" is identified by "id" and "version"
