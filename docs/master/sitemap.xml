@@ -22,10 +22,22 @@
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Error.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Helper.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Helper.State.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Helper.State.Renderer.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Cart.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.CartDiscount.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Category.html</loc>
@@ -43,6 +55,12 @@
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.CustomerGroup.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.CustomObject.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.DiscountCode.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Order.html</loc>
 </url>
 <url>
@@ -55,6 +73,9 @@
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.ProductType.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.ShippingMethod.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.State.html</loc>
 </url>
 <url>
@@ -64,10 +85,79 @@
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.CartDiscounts.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Carts.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Carts.Command.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Categories.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Categories.Command.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Channels.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Comments.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.CustomerGroups.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Customers.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Customers.Command.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.CustomObjects.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.DiscountCodes.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Inventory.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Messages.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Orders.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Orders.Command.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.ProductDiscounts.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Products.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Products.Command.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.ProductTypes.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Reviews.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.ShippingMethods.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.States.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.TaxCategories.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Zones.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Response.html</loc>
@@ -79,6 +169,9 @@
 </url>
 <url>
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Response.PagedQueryResponse.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Response.PagedSearchResponse.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Response.SingleResourceResponse.html</loc>
