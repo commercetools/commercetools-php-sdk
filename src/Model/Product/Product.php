@@ -7,26 +7,39 @@
 namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\LocalizedString;
+use Sphere\Core\Model\ProductType\ProductTypeReference;
+use Sphere\Core\Model\TaxCategory\TaxCategory;
 
 /**
  * Class Product
  * @package Sphere\Core\Model\Product
- * @method LocalizedString getName()
- * @method Product setName(LocalizedString $name = null)
- * @method LocalizedString getDescription()
- * @method Product setDescription(LocalizedString $description = null)
- * @method array getMasterVariant()
- * @method Product setMasterVariant(array $masterVariant = null)
+ * @method string getId()
+ * @method Product setId(string $id = null)
+ * @method int getVersion()
+ * @method Product setVersion(int $version = null)
+ * @method \DateTime getCreatedAt()
+ * @method Product setCreatedAt(\DateTime $createdAt = null)
+ * @method \DateTime getLastModifiedAt()
+ * @method Product setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ProductTypeReference getProductType()
+ * @method Product setProductType(ProductTypeReference $productType = null)
+ * @method TaxCategory getTaxCategory()
+ * @method Product setTaxCategory(TaxCategory $taxCategory = null)
+ * @method ProductCatalogData getMasterData()
+ * @method Product setMasterData(ProductCatalogData $masterData = null)
  */
 class Product extends JsonObject
 {
     public function getFields()
     {
         return [
-            'name' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'description' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'masterVariant' => [self::TYPE => 'array']
+            'id' => [static::TYPE => 'string'],
+            'version' => [static::TYPE => 'int'],
+            'createdAt' => [static::TYPE => '\DateTime'],
+            'lastModifiedAt' => [static::TYPE  => '\DateTime'],
+            'productType' => [static::TYPE => '\Sphere\Core\Model\ProductType\ProductTypeReference'],
+            'taxCategory' => [self::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategory'],
+            'masterData' => [self::TYPE => '\Sphere\Core\Model\Product\ProductCatalogData']
         ];
     }
 }

@@ -6,38 +6,41 @@
 
 namespace Sphere\Core\Model\Product;
 
-use Sphere\Core\Model\Category\CategoryReference;
 use Sphere\Core\Model\Category\CategoryReferenceCollection;
-use Sphere\Core\Model\Common\Collection;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\ProductType\ProductTypeReference;
+use Sphere\Core\Model\TaxCategory\TaxCategory;
 
 /**
  * Class ProductDraft
  * @package Sphere\Core\Model\Product
  * @method LocalizedString getName()
- * @method LocalizedString getSlug()
- * @method LocalizedString getDescription()
- * @method ProductTypeReference getProductType()
- * @method ProductVariantDraft getMasterVariant()
- * @method LocalizedString getMetaTitle()
- * @method LocalizedString getMetaDescription()
- * @method LocalizedString getMetaKeywords()
  * @method ProductDraft setName(LocalizedString $name = null)
+ * @method LocalizedString getSlug()
  * @method ProductDraft setSlug(LocalizedString $slug = null)
+ * @method LocalizedString getDescription()
  * @method ProductDraft setDescription(LocalizedString $description = null)
+ * @method ProductTypeReference getProductType()
  * @method ProductDraft setProductType(ProductTypeReference $productType = null)
- * @method ProductDraft setMasterVariant(ProductVariantDraft $masterVariant = null)
- * @method ProductDraft setMetaTitle(LocalizedString $metaTitle = null)
- * @method ProductDraft setMetaDescription(LocalizedString $metaDescription = null)
- * @method ProductDraft setMetaKeywords(LocalizedString $metaKeywords = null)
  * @method CategoryReferenceCollection getCategories()
  * @method ProductDraft setCategories(CategoryReferenceCollection $categories = null)
+ * @method ProductVariantDraft getMasterVariant()
+ * @method ProductDraft setMasterVariant(ProductVariantDraft $masterVariant = null)
  * @method ProductVariantCollection getVariants()
  * @method ProductDraft setVariants(ProductVariantCollection $variants = null)
+ * @method LocalizedString getMetaTitle()
+ * @method ProductDraft setMetaTitle(LocalizedString $metaTitle = null)
+ * @method LocalizedString getMetaDescription()
+ * @method ProductDraft setMetaDescription(LocalizedString $metaDescription = null)
+ * @method LocalizedString getMetaKeywords()
+ * @method ProductDraft setMetaKeywords(LocalizedString $metaKeywords = null)
+ * @method TaxCategory getTaxCategory()
+ * @method ProductDraft setTaxCategory(TaxCategory $taxCategory = null)
+ * @method LocalizedSearchKeywords getSearchKeywords()
+ * @method ProductDraft setSearchKeywords(LocalizedSearchKeywords $searchKeywords = null)
  */
 class ProductDraft extends JsonObject
 {
@@ -56,6 +59,8 @@ class ProductDraft extends JsonObject
             'metaTitle' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'metaDescription' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategory'],
+            'searchKeywords' => [static::TYPE => '\Sphere\Core\Model\Product\LocalizedSearchKeywords']
         ];
     }
 

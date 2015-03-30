@@ -15,12 +15,6 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 /**
  * Class ProductProjection
  * @package Sphere\Core\Model\Product
- * @method LocalizedString getName()
- * @method ProductProjection setName(LocalizedString $name = null)
- * @method LocalizedString getDescription()
- * @method ProductProjection setDescription(LocalizedString $description = null)
- * @method ProductVariant getMasterVariant()
- * @method ProductProjection setMasterVariant(ProductVariant $masterVariant = null)
  * @method string getId()
  * @method ProductProjection setId(string $id = null)
  * @method int getVersion()
@@ -31,6 +25,10 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
  * @method ProductProjection setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method ProductTypeReference getProductType()
  * @method ProductProjection setProductType(ProductTypeReference $productType = null)
+ * @method LocalizedString getName()
+ * @method ProductProjection setName(LocalizedString $name = null)
+ * @method LocalizedString getDescription()
+ * @method ProductProjection setDescription(LocalizedString $description = null)
  * @method LocalizedString getSlug()
  * @method ProductProjection setSlug(LocalizedString $slug = null)
  * @method CategoryReferenceCollection getCategories()
@@ -45,10 +43,14 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
  * @method ProductProjection setHasStagedChanges(bool $hasStagedChanges = null)
  * @method bool getPublished()
  * @method ProductProjection setPublished(bool $published = null)
+ * @method ProductVariant getMasterVariant()
+ * @method ProductProjection setMasterVariant(ProductVariant $masterVariant = null)
  * @method ProductVariant getVariants()
  * @method ProductProjection setVariants(ProductVariant $variants = null)
  * @method TaxCategoryReference getTaxCategory()
  * @method ProductProjection setTaxCategory(TaxCategoryReference $taxCategory = null)
+ * @method LocalizedSearchKeywords getSearchKeywords()
+ * @method ProductProjection setSearchKeywords(LocalizedSearchKeywords $searchKeywords = null)
  */
 class ProductProjection extends JsonObject
 {
@@ -71,7 +73,8 @@ class ProductProjection extends JsonObject
             'published' => [static::TYPE => 'bool'],
             'masterVariant' => [static::TYPE => '\Sphere\Core\Model\Product\ProductVariant'],
             'variants' => [static::TYPE => '\Sphere\Core\Model\Product\ProductVariant'],
-            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference']
+            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference'],
+            'searchKeywords' => [static::TYPE => '\Sphere\Core\Model\Product\LocalizedSearchKeywords']
         ];
     }
 }
