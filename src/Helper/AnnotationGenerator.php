@@ -276,7 +276,6 @@ class AnnotationGenerator
             $source
         );
         file_put_contents($fileName, $newSource);
-        var_dump($newSource);
     }
 
     protected function isPrimitive($type)
