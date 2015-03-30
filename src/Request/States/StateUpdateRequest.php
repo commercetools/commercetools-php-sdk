@@ -15,7 +15,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
  */
 class StateUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\State\State';
 
     /**
      * @param string $id

@@ -7,6 +7,8 @@
 namespace Sphere\Core;
 
 
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Message\Response;
 use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Stream\BufferStream;
@@ -15,6 +17,7 @@ use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\OAuth\Token;
+use Sphere\Core\Error\InvalidArgumentException;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -139,6 +142,45 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = $this->getMockClient($this->getConfig(), '', 500);
         $response = $client->execute($request);
         $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+    }
+
+    /**
+     * @expectedException \GuzzleHttp\Exception\ConnectException
+     */
+    public function testUnexpectedException()
+    {
+        $oauthMock = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
+        $oauthMock->expects($this->any())
+            ->method('getToken')
+            ->will($this->returnValue(new Token('token')));
+
+        $clientMock = $this->getMock(
+            '\Sphere\Core\Client',
+            ['getOauthManager', 'createHttpRequest'],
+            [$this->getConfig()]
+        );
+        $clientMock->expects($this->any())
+            ->method('getOauthManager')
+            ->will($this->returnValue($oauthMock));
+        $httpRequest = $clientMock->getHttpClient()->createRequest('test');
+        $clientMock->expects($this->any())
+            ->method('createHttpRequest')
+            ->will($this->returnValue($httpRequest));
+
+        /**
+         * @var Client $clientMock
+         */
+        $httpRequest = $clientMock->getHttpClient()->createRequest('test');
+
+        $mock = new Mock();
+        $mock->addException(new ConnectException('test', $httpRequest));
+        // Add the mock subscriber to the client.
+        $clientMock->getHttpClient()->getEmitter()->attach($mock);
+
+        $endpoint = new JsonEndpoint('test');
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+
+        $clientMock->execute($request);
     }
 
     public function testLogger()
