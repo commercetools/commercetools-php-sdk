@@ -16,7 +16,7 @@ class FacetResultCollection extends Collection
 {
     const OFFSET = 'offset';
 
-    protected $type = '\Sphere\Core\Model\Product\Facet';
+    protected $type = '\Sphere\Core\Model\Product\FacetResult';
 
     /**
      * @param $name

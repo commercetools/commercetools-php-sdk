@@ -33,6 +33,16 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
     protected $request;
 
     /**
+     * @var array
+     */
+    protected $jsonData;
+
+    /**
+     * @var string
+     */
+    protected $responseBody;
+
+    /**
      * @param ResponseInterface $response
      * @param ClientRequestInterface $request
      * @param Context $context
@@ -61,7 +71,10 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
      */
     public function toArray()
     {
-        return $this->response->json();
+        if (is_null($this->jsonData)) {
+            $this->jsonData = $this->response->json();
+        }
+        return $this->jsonData;
     }
 
     /**
@@ -69,7 +82,10 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
      */
     public function getBody()
     {
-        return $this->response->getBody();
+        if (is_null($this->responseBody)) {
+            $this->responseBody = $this->response->getBody();
+        }
+        return $this->responseBody;
     }
 
     /**
