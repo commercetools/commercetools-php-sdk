@@ -6,13 +6,20 @@
 
 namespace Sphere\Core\Model\Channel;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class CategoryReference
- * @package Sphere\Core\Model\Type
+ * Class ChannelReference
+ * @package Sphere\Core\Model\Channel
  * @method static ChannelReference of(string $id)
+ * @method string getTypeId()
+ * @method ChannelReference setTypeId(string $typeId = null)
+ * @method string getId()
+ * @method ChannelReference setId(string $id = null)
+ * @method array getObj()
+ * @method ChannelReference setObj(array $obj = null)
  */
 class ChannelReference extends Reference
 {
@@ -22,9 +29,10 @@ class ChannelReference extends Reference
 
     /**
      * @param string $id
+     * @param Context $context
      */
-    public function __construct($id)
+    public function __construct($id, Context $context = null)
     {
-        parent::__construct(static::TYPE_CHANNEL, $id);
+        parent::__construct(static::TYPE_CHANNEL, $id, $context);
     }
 }

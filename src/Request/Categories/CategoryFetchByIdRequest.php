@@ -7,6 +7,7 @@
 namespace Sphere\Core\Request\Categories;
 
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
 
 /**
@@ -16,11 +17,14 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
  */
 class CategoryFetchByIdRequest extends AbstractFetchByIdRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Category\Category';
+
     /**
      * @param string $id
+     * @param Context $context
      */
-    public function __construct($id)
+    public function __construct($id, Context $context = null)
     {
-        parent::__construct(CategoriesEndpoint::endpoint(), $id);
+        parent::__construct(CategoriesEndpoint::endpoint(), $id, $context);
     }
 }

@@ -123,4 +123,38 @@ class AbstractApiRequestTest extends \PHPUnit_Framework_TestCase
             $this->getPrivateProperty(static::ABSTRACT_API_REQUEST, $request, 'params')
         );
     }
+
+    public function testGetIdentifier()
+    {
+        $request = $this->getRequest(static::ABSTRACT_API_REQUEST);
+        $request->setIdentifier('test');
+        $this->assertSame('test', $request->getIdentifier());
+    }
+
+    public function testNotEmptyIdentifier()
+    {
+        $request = $this->getRequest(static::ABSTRACT_API_REQUEST);
+        $this->assertNotEmpty($request->getIdentifier());
+    }
+
+    public function testGetUniqueIdentifier()
+    {
+        $request1 = $this->getRequest(static::ABSTRACT_API_REQUEST);
+        $request2 = $this->getRequest(static::ABSTRACT_API_REQUEST);
+        $this->assertNotSame($request1->getIdentifier(), $request2->getIdentifier());
+    }
+
+    public function testMapResult()
+    {
+        $request = $this->getRequest(static::ABSTRACT_API_REQUEST);
+        $result = $request->mapResult(['key' => 'value']);
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\JsonObject', $result);
+    }
+
+    public function testMapEmptyResult()
+    {
+        $request = $this->getRequest(static::ABSTRACT_API_REQUEST);
+        $result = $request->mapResult([]);
+        $this->assertNull($result);
+    }
 }

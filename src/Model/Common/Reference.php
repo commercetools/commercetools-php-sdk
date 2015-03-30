@@ -6,14 +6,17 @@
 
 namespace Sphere\Core\Model\Common;
 
+
 /**
  * Class Reference
- * @package Sphere\Core\Model\Type
+ * @package Sphere\Core\Model\Common
  * @method static Reference of(string $typeId, string $id)
  * @method string getTypeId()
  * @method string getId()
- * @method Reference setTypeId(string $typeId)
- * @method Reference setId(string $id)
+ * @method Reference setTypeId(string $typeId = null)
+ * @method Reference setId(string $id = null)
+ * @method array getObj()
+ * @method Reference setObj(array $obj = null)
  */
 class Reference extends JsonObject
 {
@@ -31,18 +34,21 @@ class Reference extends JsonObject
     /**
      * @param string $typeId
      * @param string $id
+     * @param Context $context
      */
-    public function __construct($typeId, $id)
+    public function __construct($typeId, $id, Context $context = null)
     {
+        $this->setContext($context);
         $this->setTypeId($typeId);
         $this->setId($id);
     }
 
-    public static function fromArray(array $data)
+    public static function fromArray(array $data, Context $context = null)
     {
         $reference = new static(
             $data['typeId'],
-            $data['id']
+            $data['id'],
+            $context
         );
         $reference->setRawData($data);
 

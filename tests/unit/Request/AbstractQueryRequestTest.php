@@ -100,4 +100,27 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Sphere\Core\Response\PagedQueryResponse', $response);
     }
+
+    public function testMapResult()
+    {
+        $request = $this->getRequest(static::ABSTRACT_QUERY_REQUEST);
+        $result = $request->mapResult(
+            [
+                'results' => [
+                    ['key' => 'value'],
+                    ['key' => 'value'],
+                    ['key' => 'value'],
+                ]
+            ]
+        );
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\Collection', $result);
+        $this->assertSame(3, count($result));
+    }
+
+    public function testMapEmptyResult()
+    {
+        $request = $this->getRequest(static::ABSTRACT_QUERY_REQUEST);
+        $result = $request->mapResult([]);
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\Collection', $result);
+    }
 }

@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Request\Categories;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractQueryRequest;
 
 /**
@@ -15,11 +16,13 @@ use Sphere\Core\Request\AbstractQueryRequest;
  */
 class CategoriesQueryRequest extends AbstractQueryRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Category\CategoryCollection';
+
     /**
-     *
+     * @param Context $context
      */
-    public function __construct()
+    public function __construct(Context $context = null)
     {
-        parent::__construct(CategoriesEndpoint::endpoint());
+        parent::__construct(CategoriesEndpoint::endpoint(), $context);
     }
 }

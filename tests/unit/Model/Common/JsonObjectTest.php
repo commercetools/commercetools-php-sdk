@@ -148,4 +148,10 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         $obj = JsonObject::fromArray(['key' => 'value']);
         $this->assertInstanceOf('\Sphere\Core\Model\Common\JsonObject', $obj);
     }
+
+    public function testGetReturnRaw()
+    {
+        $obj = $this->getMock('\Sphere\Core\Model\Common\JsonObject', ['initialize'], [['key' => 'value']]);
+        $this->assertSame('value', $obj->get('key'));
+    }
 }

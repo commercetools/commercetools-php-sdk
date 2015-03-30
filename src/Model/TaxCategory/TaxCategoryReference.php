@@ -6,13 +6,20 @@
 
 namespace Sphere\Core\Model\TaxCategory;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class CategoryReference
- * @package Sphere\Core\Model\Type
+ * Class TaxCategoryReference
+ * @package Sphere\Core\Model\TaxCategory
  * @method static TaxCategoryReference of(string $id)
+ * @method string getTypeId()
+ * @method TaxCategoryReference setTypeId(string $typeId = null)
+ * @method string getId()
+ * @method TaxCategoryReference setId(string $id = null)
+ * @method array getObj()
+ * @method TaxCategoryReference setObj(array $obj = null)
  */
 class TaxCategoryReference extends Reference
 {
@@ -22,9 +29,10 @@ class TaxCategoryReference extends Reference
 
     /**
      * @param string $id
+     * @param Context $context
      */
-    public function __construct($id)
+    public function __construct($id, Context $context = null)
     {
-        parent::__construct(static::TYPE_TAX_CATEGORY, $id);
+        parent::__construct(static::TYPE_TAX_CATEGORY, $id, $context);
     }
 }

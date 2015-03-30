@@ -16,51 +16,73 @@ use Sphere\Core\Error\InvalidArgumentException;
  */
 class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
 {
-    protected static $language;
+    use ContextTrait;
+
+    /**
+     * @var array
+     */
     protected $values = [];
 
     /**
      * @param array $values
+     * @param Context $context
      */
-    public function __construct(array $values)
+    public function __construct(array $values, Context $context = null)
     {
+        $this->setContext($context);
         $this->values = $values;
-    }
-
-    /**
-     * @param $language
-     * @internal
-     */
-    public static function setDefaultLanguage($language)
-    {
-        static::$language = $language;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getDefaultLanguage()
-    {
-        if (is_null(static::$language)) {
-            if (extension_loaded('intl')) {
-                $locale = \Locale::getDefault();
-                static::setDefaultLanguage(\Locale::getPrimaryLanguage($locale));
-            }
-        }
-        return static::$language;
     }
 
     /**
      * @param $locale
      * @return string
      */
-    public function get($locale = null)
+    public function __get($locale)
     {
-        if (is_null($locale)) {
-            $locale = $this->getDefaultLanguage();
+        $context = new Context();
+        $context->setLanguages([$locale]);
+        return $this->get($context);
+    }
+
+    /**
+     * @param Context $context
+     * @return string
+     */
+    public function getLocalized(Context $context = null)
+    {
+        return $this->get($context);
+    }
+    /**
+     * @param Context $context
+     * @return string
+     */
+    protected function getLanguage(Context $context)
+    {
+        $locale = null;
+        foreach ($context->getLanguages() as $language) {
+            if (isset($this->values[$language])) {
+                $locale = $language;
+                break;
+            }
         }
+        return $locale;
+    }
+
+    /**
+     * @param Context $context
+     * @return string
+     */
+    public function get(Context $context = null)
+    {
+        if (is_null($context)) {
+            $context = $this->getContext();
+        }
+        $locale = $this->getLanguage($context);
         if (!isset($this->values[$locale])) {
-            throw new InvalidArgumentException(Message::NO_VALUE_FOR_LOCALE);
+            if (!$context->isGraceful()) {
+                throw new InvalidArgumentException(Message::NO_VALUE_FOR_LOCALE);
+            }
+            return '';
         }
         return $this->values[$locale];
     }
@@ -114,10 +136,11 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
 
     /**
      * @param array $data
+     * @param Context $context
      * @return static
      */
-    public static function fromArray(array $data)
+    public static function fromArray(array $data, Context $context = null)
     {
-        return new static($data);
+        return new static($data, $context);
     }
 }

@@ -6,8 +6,12 @@
 
 namespace Sphere\Core\Request;
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Model\Common\Collection;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\JsonDeserializeInterface;
 use Sphere\Core\Response\PagedQueryResponse;
 
 /**
@@ -19,6 +23,9 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     use QueryTrait;
     use PageTrait;
     use SortTrait;
+    use ExpandTrait;
+
+    protected $resultClass = '\Sphere\Core\Model\Common\Collection';
 
     /**
      * @return HttpRequest
@@ -30,12 +37,27 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return PagedQueryResponse
      * @internal
      */
-    public function buildResponse($response)
+    public function buildResponse(ResponseInterface $response)
     {
-        return new PagedQueryResponse($response, $this);
+        return new PagedQueryResponse($response, $this, $this->getContext());
+    }
+
+    /**
+     * @param array $result
+     * @param Context $context
+     * @return Collection
+     */
+    public function mapResult(array $result, Context $context = null)
+    {
+        $data = [];
+        if (!empty($result['results'])) {
+            $data = $result['results'];
+        }
+        $object = forward_static_call_array([$this->resultClass, 'fromArray'], [$data, $context]);
+        return $object;
     }
 }

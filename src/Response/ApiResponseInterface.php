@@ -13,7 +13,9 @@ use Sphere\Core\Request\ClientRequestInterface;
  */
 interface ApiResponseInterface
 {
-    public function json();
+    public function toObject();
+
+    public function toArray();
 
     public function getBody();
 

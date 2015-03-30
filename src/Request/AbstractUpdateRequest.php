@@ -7,9 +7,13 @@
 namespace Sphere\Core\Request;
 
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\JsonDeserializeInterface;
+use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
@@ -19,6 +23,8 @@ use Sphere\Core\Response\SingleResourceResponse;
 abstract class AbstractUpdateRequest extends AbstractApiRequest
 {
     const ACTION = 'action';
+    const ACTIONS = 'actions';
+    const VERSION = 'version';
 
     /**
      * @var
@@ -37,13 +43,14 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
 
     /**
      * @param JsonEndpoint $endpoint
-     * @param $id
-     * @param $version
+     * @param string $id
+     * @param int $version
      * @param array $actions
+     * @param Context $context
      */
-    public function __construct($endpoint, $id, $version, array $actions = [])
+    public function __construct($endpoint, $id, $version, array $actions = [], Context $context = null)
     {
-        parent::__construct($endpoint);
+        parent::__construct($endpoint, $context);
         $this->setId($id)->setVersion($version)->setActions($actions);
     }
 
@@ -66,10 +73,10 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     }
 
     /**
-     * @param array $action
+     * @param array|AbstractAction $action
      * @return $this
      */
-    public function addAction(array $action)
+    public function addAction($action)
     {
         $this->actions[] = $action;
 
@@ -129,17 +136,17 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
      */
     public function httpRequest()
     {
-        $payload = ['version' => $this->getVersion(), 'actions' => $this->getActions()];
+        $payload = [static::VERSION => $this->getVersion(), static::ACTIONS => $this->getActions()];
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return SingleResourceResponse
      * @internal
      */
-    public function buildResponse($response)
+    public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this);
+        return new SingleResourceResponse($response, $this, $this->getContext());
     }
 }

@@ -7,9 +7,14 @@
 namespace Sphere\Core\Request;
 
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\JsonDeserializeInterface;
+use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
@@ -30,12 +35,13 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
 
     /**
      * @param JsonEndpoint $endpoint
-     * @param $id
-     * @param $version
+     * @param string $id
+     * @param int $version
+     * @param Context $context
      */
-    public function __construct(JsonEndpoint $endpoint, $id, $version)
+    public function __construct(JsonEndpoint $endpoint, $id, $version, Context $context = null)
     {
-        parent::__construct($endpoint);
+        parent::__construct($endpoint, $context);
         $this->setId($id);
         $this->setVersion($version);
     }
@@ -74,6 +80,7 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
     public function setVersion($version)
     {
         $this->version = $version;
+        $this->addParam('version', $version);
 
         return $this;
     }
@@ -84,25 +91,25 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/' . $this->getId();
+        return (string)$this->getEndpoint() . '/' . $this->getId() . $this->getParamString();
     }
 
     /**
-     * @return JsonRequest
+     * @return HttpRequest
      * @internal
      */
     public function httpRequest()
     {
-        return new JsonRequest(HttpMethod::DELETE, $this->getPath(), ['version' => $this->getVersion()]);
+        return new HttpRequest(HttpMethod::DELETE, $this->getPath());
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return SingleResourceResponse
      * @internal
      */
-    public function buildResponse($response)
+    public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this);
+        return new SingleResourceResponse($response, $this, $this->getContext());
     }
 }

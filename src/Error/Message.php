@@ -30,4 +30,6 @@ class Message
     const UNKNOWN_FIELD = 'Unknown field: "%s" - called: %s(%s)';
     const WRONG_TYPE = 'Wrong type for field "%s". Expected %s.';
     const EXPECTS_PARAMETER = 'Excepts parameter "%s" to be %s, null given.';
+
+    const NO_LANGUAGES_PROVIDED = 'No languages provided';
 }

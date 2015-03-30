@@ -8,6 +8,10 @@ namespace Sphere\Core\Response;
 
 
 use GuzzleHttp\Message\ResponseInterface;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\ContextAwareInterface;
+use Sphere\Core\Model\Common\ContextTrait;
+use Sphere\Core\Model\Product\ProductProjectionCollection;
 use Sphere\Core\Request\ClientRequestInterface;
 use Traversable;
 
@@ -25,13 +29,13 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     protected $count;
     protected $offset;
     protected $total;
-    protected $results;
+    protected $results = [];
 
-    public function __construct(ResponseInterface $response, ClientRequestInterface $request)
+    public function __construct(ResponseInterface $response, ClientRequestInterface $request, Context $context = null)
     {
-        parent::__construct($response, $request);
+        parent::__construct($response, $request, $context);
         if (!$this->isError()) {
-            $jsonResponse = $this->json();
+            $jsonResponse = $this->toArray();
             $this->setCount($jsonResponse[static::COUNT])
                 ->setOffset($jsonResponse[static::OFFSET])
                 ->setTotal($jsonResponse[static::TOTAL])
@@ -39,7 +43,6 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
             ;
         }
     }
-
 
     /**
      * @return int
@@ -174,7 +177,11 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function offsetSet($offset, $value)
     {
-        $this->results[$offset] = $value;
+        if (is_null($offset)) {
+            $this->results[] = $value;
+        } else {
+            $this->results[$offset] = $value;
+        }
     }
 
     /**

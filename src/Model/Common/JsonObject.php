@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Model\Common;
 
+use Sphere\Core\Error\InvalidArgumentException;
 use Sphere\Core\Error\Message;
 
 /**
@@ -14,30 +15,34 @@ use Sphere\Core\Error\Message;
  */
 class JsonObject implements \JsonSerializable, JsonDeserializeInterface
 {
+    use ContextTrait;
+    use JsonDeserializeTrait;
+
     const TYPE = 'type';
     const OPTIONAL = 'optional';
     const INITIALIZED = 'initialized';
-    const DESERIALIZE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
-
-    protected static $primitives = [
-        'bool' => 'is_bool',
-        'int' => 'is_int',
-        'string' => 'is_string',
-        'float' => 'is_float',
-        'array' => 'is_array'
-    ];
+    const DECORATOR = 'decorator';
 
     protected $rawData = [];
     protected $typeData = [];
     protected $initialized = [];
 
-    protected static $interfaces = [];
-
-    public function __construct(array $data = null)
+    public function __construct(array $data = null, Context $context = null)
     {
         if (!is_null($data)) {
             $this->rawData = $data;
         }
+        $this->setContext($context);
+    }
+
+    /**
+     * @param array $data
+     * @param Context $context
+     * @return static
+     */
+    public static function fromArray(array $data, Context $context = null)
+    {
+        return new static($data, $context);
     }
 
     /**
@@ -109,9 +114,9 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     }
 
     /**
-     * @param $field
-     * @param $key
-     * @return string|false
+     * @param string $field
+     * @param string $key
+     * @return string|bool
      * @internal
      */
     protected function getFieldKey($field, $key)
@@ -135,7 +140,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
         if (!isset($this->initialized[$field])) {
             $this->initialize($field);
         }
-        if (isset($this->typeData[$field])) {
+        if (array_key_exists($field, $this->typeData)) {
             return $this->typeData[$field];
         }
         return $this->rawData[$field];
@@ -143,35 +148,33 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
 
     /**
      * @param $field
+     * @param $default
+     * @return mixed
+     */
+    protected function getRaw($field, $default = null)
+    {
+        return isset($this->rawData[$field])? $this->rawData[$field]: $default;
+    }
+
+    /**
+     * @param string $field
      * @internal
      */
     protected function initialize($field)
     {
         $type = $this->getFieldKey($field, static::TYPE);
-        if ($type && $this->hasInterface($type)) {
+        if ($type !== false && is_string($type) && $this->hasInterface($type)) {
             /**
              * @var JsonDeserializeInterface $type
              */
-            $this->typeData[$field] = $type::fromArray($this->rawData[$field]);
+            $this->typeData[$field] = $type::fromArray($this->getRaw($field, []), $this->getContext());
+        } else {
+            $this->typeData[$field] = $this->getRaw($field);
+        }
+        if ($decorator = $this->getFieldKey($field, static::DECORATOR)) {
+            $this->typeData[$field] = new $decorator($this->typeData[$field]);
         }
         $this->initialized[$field] = true;
-    }
-
-    /**
-     * @param $type
-     * @return mixed
-     * @internal
-     */
-    protected function hasInterface($type)
-    {
-        if (!isset(static::$interfaces[$type])) {
-            $interface = false;
-            if (!$this->isPrimitive($type) && isset(class_implements($type)[static::DESERIALIZE])) {
-                $interface = true;
-            }
-            static::$interfaces[$type] = $interface;
-        }
-        return static::$interfaces[$type];
     }
 
     /**
@@ -183,44 +186,26 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     public function set($field, $value)
     {
         $type = $this->getFieldKey($field, static::TYPE);
-        if ($type && $value !== null && !$this->isType($type, $value)) {
+        if ($type !== false && $value !== null && is_string($type) && !$this->isType($type, $value)) {
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $field, $type));
         }
-        if ($value === null && !$this->getFieldKey($field, static::OPTIONAL)) {
+        if ($value === null && $this->getFieldKey($field, static::OPTIONAL) === false) {
             throw new \InvalidArgumentException(sprintf(Message::EXPECTS_PARAMETER, $field, $type));
         }
+        if (is_object($value) && $this->hasInterface(get_class($value))) {
+            /**
+             * @var JsonDeserializeInterface $value
+             */
+            $value->setContext($this->getContext());
+        }
         $this->typeData[$field] = $value;
+
+        if ($decorator = $this->getFieldKey($field, static::DECORATOR)) {
+            $this->typeData[$field] = new $decorator($this->typeData[$field]);
+        }
         $this->initialized[$field] = true;
 
         return $this;
-    }
-
-    /**
-     * @param string $type
-     * @param mixed $value
-     * @return bool
-     * @internal
-     */
-    protected function isType($type, $value)
-    {
-        if ($typeFunction = $this->isPrimitive($type)) {
-            return $typeFunction($value);
-        }
-        return $value instanceof $type;
-    }
-
-    /**
-     * @param $type
-     * @return string|false
-     * @internal
-     */
-    protected function isPrimitive($type)
-    {
-        if (!isset(static::$primitives[$type])) {
-            return false;
-        }
-
-        return static::$primitives[$type];
     }
 
     /**
@@ -249,14 +234,5 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     public static function of()
     {
         return new static();
-    }
-
-    /**
-     * @param array $data
-     * @return static
-     */
-    public static function fromArray(array $data)
-    {
-        return new static($data);
     }
 }

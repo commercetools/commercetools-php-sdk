@@ -8,6 +8,10 @@ namespace Sphere\Core\Request;
 
 use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Model\Common\Collection;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\JsonDeserializeInterface;
+use Sphere\Core\Model\Common\JsonObject;
 
 /**
  * Class AbstractProjectionRequest

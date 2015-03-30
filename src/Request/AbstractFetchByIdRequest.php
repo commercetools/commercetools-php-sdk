@@ -7,9 +7,13 @@
 namespace Sphere\Core\Request;
 
 
+use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Client\JsonEndpoint;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\JsonDeserializeInterface;
+use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
@@ -18,6 +22,8 @@ use Sphere\Core\Response\SingleResourceResponse;
  */
 abstract class AbstractFetchByIdRequest extends AbstractApiRequest
 {
+    use ExpandTrait;
+
     /**
      * @var string
      */
@@ -26,10 +32,11 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
     /**
      * @param JsonEndpoint $endpoint
      * @param string $id
+     * @param Context $context
      */
-    public function __construct(JsonEndpoint $endpoint, $id)
+    public function __construct(JsonEndpoint $endpoint, $id, Context $context = null)
     {
-        parent::__construct($endpoint);
+        parent::__construct($endpoint, $context);
         $this->setId($id);
     }
 
@@ -71,12 +78,12 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $response
+     * @param ResponseInterface $response
      * @return SingleResourceResponse
      * @internal
      */
-    public function buildResponse($response)
+    public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this);
+        return new SingleResourceResponse($response, $this, $this->getContext());
     }
 }
