@@ -22,8 +22,6 @@ use Sphere\Core\Response\SingleResourceResponse;
  */
 abstract class AbstractFetchByIdRequest extends AbstractApiRequest
 {
-    use ExpandTrait;
-
     /**
      * @var string
      */

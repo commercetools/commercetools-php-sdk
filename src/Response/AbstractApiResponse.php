@@ -72,18 +72,18 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
     public function toArray()
     {
         if (is_null($this->jsonData)) {
-            $this->jsonData = $this->response->json();
+            $this->jsonData = (array)$this->response->json();
         }
         return $this->jsonData;
     }
 
     /**
-     * @return \GuzzleHttp\Stream\StreamInterface|null
+     * @return string
      */
     public function getBody()
     {
         if (is_null($this->responseBody)) {
-            $this->responseBody = $this->response->getBody();
+            $this->responseBody = (string)$this->response->getBody();
         }
         return $this->responseBody;
     }

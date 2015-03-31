@@ -112,7 +112,7 @@ class ProductsSearchRequest extends AbstractProjectionRequest
     }
 
     /**
-     * @param Filter $filter
+     * @param Facet $filter
      * @return $this
      */
     public function addFacet(Facet $filter)

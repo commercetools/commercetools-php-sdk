@@ -65,6 +65,15 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('test?where=test', $httpRequest->getPath());
     }
 
+    public function testExpand()
+    {
+        $request = $this->getQueryRequest();
+        $request->expand('test');
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('test?expand=test', $httpRequest->getPath());
+    }
+
     public function testSort()
     {
         $request = $this->getQueryRequest();
