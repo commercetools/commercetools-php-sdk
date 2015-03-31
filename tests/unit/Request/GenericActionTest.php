@@ -155,6 +155,138 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Sphere\Core\Request\Orders\Command\OrderUpdateSyncInfoAction',
                 ['action', 'channel', 'externalId', 'syncedAt']
             ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerAddAddressAction',
+                ['action', 'address']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerChangeAddressAction',
+                ['action', 'addressId', 'address']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerChangeEmailAction',
+                ['action', 'email']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerChangeNameAction',
+                ['action', 'firstName', 'lastName', 'middleName', 'title']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerRemoveAddressAction',
+                ['action', 'addressId']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetCompanyNameAction',
+                ['action', 'companyName']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetCustomerGroupAction',
+                ['action', 'customerGroup']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetCustomerNumberAction',
+                ['action', 'customerNumber']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetDateOfBirthAction',
+                ['action', 'dateOfBirth']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetDefaultBillingAddressAction',
+                ['action', 'addressId']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction',
+                ['action', 'addressId']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetExternalIdAction',
+                ['action', 'externalId']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetVatIdAction',
+                ['action', 'vatId']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategoryChangeNameAction',
+                ['action', 'name']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategoryChangeOrderHintAction',
+                ['action', 'orderHint']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategoryChangeParentAction',
+                ['action', 'parent']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategoryChangeSlugAction',
+                ['action', 'slug']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetDescriptionAction',
+                ['action', 'description']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetExternalIdAction',
+                ['action', 'externalId']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartAddCustomLineItemAction',
+                ['action', 'name', 'quantity', 'money', 'slug', 'taxCategory']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartAddDiscountCodeAction',
+                ['action', 'code']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartAddLineItemAction',
+                ['action', 'productId', 'variantId', 'quantity']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',
+                ['action', 'lineItemId', 'quantity']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartRecalculateAction',
+                ['action']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartRemoveCustomLineItemAction',
+                ['action', 'customLineItemId']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartRemoveDiscountCodeAction',
+                ['action', 'discountCode']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartRemoveLineItemAction',
+                ['action', 'lineItemId', 'quantity']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartSetBillingAddressAction',
+                ['action', 'address']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartSetCountryAction',
+                ['action', 'country']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartSetCustomerEmailAction',
+                ['action', 'email']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartSetCustomerIdAction',
+                ['action', 'customerId']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartSetShippingAddressAction',
+                ['action', 'address']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartSetShippingMethodAction',
+                ['action', 'shippingMethod']
+            ],
         ];
     }
 
