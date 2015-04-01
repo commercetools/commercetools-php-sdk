@@ -47,21 +47,21 @@ class CategoryDraft extends JsonObject
     /**
      * @param LocalizedString $name
      * @param LocalizedString $slug
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct(LocalizedString $name, LocalizedString $slug, Context $context = null)
+    public function __construct(LocalizedString $name, LocalizedString $slug, $context = null)
     {
-        $this->setContext($context);
-        $this->setName($name);
-        $this->setSlug($slug);
+        $this->setContext($context)
+            ->setName($name)
+            ->setSlug($slug);
     }
 
     /**
      * @param array $data
-     * @param Context $context
+     * @param Context|callable $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function fromArray(array $data, $context = null)
     {
         $draft = new static(
             LocalizedString::fromArray($data['name'], $context),

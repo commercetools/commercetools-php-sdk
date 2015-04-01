@@ -24,7 +24,12 @@ class Set extends Collection
         $this->indexData();
     }
 
-    public static function fromArray(array $data, Context $context = null)
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     * @return static
+     */
+    public static function fromArray(array $data, $context = null)
     {
         $type = $data['type'];
         $setData = $data['value'];

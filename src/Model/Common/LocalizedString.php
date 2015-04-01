@@ -25,9 +25,9 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
 
     /**
      * @param array $values
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct(array $values, Context $context = null)
+    public function __construct(array $values, $context = null)
     {
         $this->setContext($context);
         $this->values = $values;
@@ -136,10 +136,10 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
 
     /**
      * @param array $data
-     * @param Context $context
+     * @param Context|callable $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function fromArray(array $data, $context = null)
     {
         return new static($data, $context);
     }

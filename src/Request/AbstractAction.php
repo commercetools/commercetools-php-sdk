@@ -6,6 +6,7 @@
 namespace Sphere\Core\Request;
 
 use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class AbstractAction
@@ -15,6 +16,8 @@ use Sphere\Core\Model\Common\JsonObject;
  */
 abstract class AbstractAction extends JsonObject
 {
+    use OfTrait;
+
     public function getFields()
     {
         return [

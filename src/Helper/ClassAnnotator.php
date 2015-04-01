@@ -266,16 +266,12 @@ class ClassAnnotator
         $classParts = explode('\\', trim($this->reflectionClass->getName(), '\\'));
         $className = array_pop($classParts);
         foreach ($this->getFields() as $fieldName => $field) {
-            if (!$this->hasFieldAccesssor('get', $fieldName)) {
-                $line = $this->getMagicMethodString('get', $fieldName, $className);
-                if (!is_null($line)) {
-                    $lines[] = $line;
-                }
-            }
-            if (!$this->hasFieldAccesssor('set', $fieldName)) {
-                $line = $this->getMagicMethodString('set', $fieldName, $className);
-                if (!is_null($line)) {
-                    $lines[] = $line;
+            foreach (['get', 'set'] as $type) {
+                if (!$this->hasFieldAccesssor($type, $fieldName)) {
+                    $line = $this->getMagicMethodString($type, $fieldName, $className);
+                    if (!is_null($line)) {
+                        $lines[] = $line;
+                    }
                 }
             }
         }

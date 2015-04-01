@@ -43,7 +43,12 @@ class Reference extends JsonObject
         $this->setId($id);
     }
 
-    public static function fromArray(array $data, Context $context = null)
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     * @return static
+     */
+    public static function fromArray(array $data, $context = null)
     {
         $reference = new static(
             $data['typeId'],

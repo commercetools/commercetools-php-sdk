@@ -50,10 +50,10 @@ class Price extends JsonObject
 
     /**
      * @param array $data
-     * @param Context $context
+     * @param Context|callable $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function fromArray(array $data, $context = null)
     {
         $price = new static(
             Money::fromArray($data['value'], $context),

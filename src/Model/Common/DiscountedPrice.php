@@ -43,9 +43,10 @@ class DiscountedPrice extends JsonObject
 
     /**
      * @param array $data
+     * @param Context|callable $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function fromArray(array $data, $context = null)
     {
         return new static(
             Money::fromArray($data['value'], $context),

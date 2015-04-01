@@ -6,9 +6,11 @@
 namespace Sphere\Core\Request;
 
 
+use Sphere\Core\Model\Common\LocalizedString;
+
 class GenericActionTest extends \PHPUnit_Framework_TestCase
 {
-    public function actionProvider()
+    public function actionFieldProvider()
     {
         return [
             [
@@ -290,12 +292,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    /**
-     * @dataProvider actionProvider
-     * @param string $className
-     * @param array $validFields
-     */
-    public function testValidProperties($className, array $validFields = [])
+    protected function getInstance($className)
     {
         $class = new \ReflectionClass($className);
         if (!$class->isAbstract()) {
@@ -303,6 +300,323 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
         } else {
             $object = $this->getMockForAbstractClass($className, [], '', false);
         }
+
+        return $object;
+    }
+
+    public function actionArgumentProvider()
+    {
+        return [
+            [
+                '\Sphere\Core\Request\AbstractAction'
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductAddExternalImageAction',
+                [
+                    10,
+                    $this->getInstance('\Sphere\Core\Model\Common\Image')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductAddPriceAction',
+                [
+                    10,
+                    $this->getInstance('\Sphere\Core\Model\Common\Price')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductAddToCategoryAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Category\CategoryReference')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductAddVariantAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductChangeNameAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductChangePriceAction',
+                [
+                    10,
+                    $this->getInstance('\Sphere\Core\Model\Common\Price')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductChangeSlugAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductPublishAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductRemoveFromCategoryAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Category\CategoryReference')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductRemoveImageAction',
+                [10, 'imageUrl']
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductRemovePriceAction',
+                [
+                    10,
+                    $this->getInstance('\Sphere\Core\Model\Common\Price')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductRemoveVariantAction',
+                [10]
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductRevertStagedChangesAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetAttributeAction',
+                [10, 'attributeName']
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction',
+                ['attributeName']
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetDescriptionAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaAttributesAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Product\LocalizedSearchKeywords')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetSKUAction',
+                [10]
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetTaxCategoryAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductUnpublishAction',
+            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderAddDeliveryAction',
+//                ['action', 'items', 'parcels', 'measurements', 'trackingData']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction',
+//                ['action', 'deliveryId', 'measurements', 'trackingData']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderAddReturnInfoAction',
+//                ['action', 'returnDate', 'returnTrackingId', 'items']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderChangeOrderStateAction',
+//                ['action', 'orderState']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderChangePaymentStateAction',
+//                ['action', 'paymentState']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderChangeShipmentStateAction',
+//                ['action', 'shipmentState']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderImportCustomLineItemStateAction',
+//                ['action', 'customLineItemId', 'state']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderImportLineItemStateAction',
+//                ['action', 'lineItemId', 'state']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderSetOrderNumberAction',
+//                ['action', 'orderNumber']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction',
+//                ['action', 'returnItemId', 'paymentState']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction',
+//                ['action', 'returnItemId', 'shipmentState']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction',
+//                ['action', 'customLineItemId', 'quantity', 'fromState', 'toState', 'actualTransitionDate']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderTransitionLineItemStateAction',
+//                ['action', 'lineItemId', 'quantity', 'fromState', 'toState', 'actualTransitionDate']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Orders\Command\OrderUpdateSyncInfoAction',
+//                ['action', 'channel', 'externalId', 'syncedAt']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Customers\Command\CustomerAddAddressAction',
+//                ['action', 'address']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Customers\Command\CustomerChangeAddressAction',
+//                ['action', 'addressId', 'address']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Customers\Command\CustomerChangeEmailAction',
+//                ['action', 'email']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Customers\Command\CustomerChangeNameAction',
+//                ['action', 'firstName', 'lastName', 'middleName', 'title']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Customers\Command\CustomerRemoveAddressAction',
+//                ['action', 'addressId']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Customers\Command\CustomerSetCompanyNameAction',
+//                ['action', 'companyName']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Customers\Command\CustomerSetCustomerGroupAction',
+//                ['action', 'customerGroup']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Customers\Command\CustomerSetCustomerNumberAction',
+//                ['action', 'customerNumber']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Customers\Command\CustomerSetDateOfBirthAction',
+//                ['action', 'dateOfBirth']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Customers\Command\CustomerSetDefaultBillingAddressAction',
+//                ['action', 'addressId']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction',
+//                ['action', 'addressId']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Customers\Command\CustomerSetExternalIdAction',
+//                ['action', 'externalId']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Customers\Command\CustomerSetVatIdAction',
+//                ['action', 'vatId']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Categories\Command\CategoryChangeNameAction',
+//                ['action', 'name']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Categories\Command\CategoryChangeOrderHintAction',
+//                ['action', 'orderHint']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Categories\Command\CategoryChangeParentAction',
+//                ['action', 'parent']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Categories\Command\CategoryChangeSlugAction',
+//                ['action', 'slug']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Categories\Command\CategorySetDescriptionAction',
+//                ['action', 'description']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Categories\Command\CategorySetExternalIdAction',
+//                ['action', 'externalId']
+//            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartAddCustomLineItemAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString'),
+                    10,
+                    $this->getInstance('\Sphere\Core\Model\Common\Money'),
+                    'my-custom-line-item',
+                    $this->getInstance('\Sphere\Core\Model\TaxCategory\TaxCategory')
+                ]
+            ],
+//            [
+//                '\Sphere\Core\Request\Carts\Command\CartAddDiscountCodeAction',
+//                ['action', 'code']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Carts\Command\CartAddLineItemAction',
+//                ['action', 'productId', 'variantId', 'quantity']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',
+//                ['action', 'lineItemId', 'quantity']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Carts\Command\CartRecalculateAction',
+//                ['action']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Carts\Command\CartRemoveCustomLineItemAction',
+//                ['action', 'customLineItemId']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Carts\Command\CartRemoveDiscountCodeAction',
+//                ['action', 'discountCode']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Carts\Command\CartRemoveLineItemAction',
+//                ['action', 'lineItemId', 'quantity']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Carts\Command\CartSetBillingAddressAction',
+//                ['action', 'address']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Carts\Command\CartSetCountryAction',
+//                ['action', 'country']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Carts\Command\CartSetCustomerEmailAction',
+//                ['action', 'email']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Carts\Command\CartSetCustomerIdAction',
+//                ['action', 'customerId']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Carts\Command\CartSetShippingAddressAction',
+//                ['action', 'address']
+//            ],
+//            [
+//                '\Sphere\Core\Request\Carts\Command\CartSetShippingMethodAction',
+//                ['action', 'shippingMethod']
+//            ],
+        ];
+    }
+
+    /**
+     * @dataProvider actionFieldProvider
+     * @param string $className
+     * @param array $validFields
+     */
+    public function testValidProperties($className, array $validFields = [])
+    {
+        $object = $this->getInstance($className);
 
         $validFields = array_flip($validFields);
         foreach ($object->getFields() as $fieldKey => $field) {
@@ -315,18 +629,13 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider actionProvider
+     * @dataProvider actionFieldProvider
      * @param string $className
      * @param array $validFields
      */
     public function testPropertiesExist($className, array $validFields = [])
     {
-        $class = new \ReflectionClass($className);
-        if (!$class->isAbstract()) {
-            $object = $class->newInstanceWithoutConstructor();
-        } else {
-            $object = $this->getMockForAbstractClass($className, [], '', false);
-        }
+        $object = $this->getInstance($className);
 
         foreach ($validFields as $fieldKey) {
             $this->assertArrayHasKey(
@@ -335,5 +644,22 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 sprintf('Failed asserting that \'%s\' has a field \'%s\'', $className, $fieldKey)
             );
         }
+    }
+
+    /**
+     * @dataProvider actionArgumentProvider
+     * @param $className
+     * @param array $args
+     */
+    public function testConstruct($className, array $args = [])
+    {
+        $class = new \ReflectionClass($className);
+        if (!$class->isAbstract()) {
+            $object = $class->newInstanceArgs($args);
+        } else {
+            $object = $this->getMockForAbstractClass($className, $args);
+        }
+
+        $this->assertInstanceOf($className, $object);
     }
 }

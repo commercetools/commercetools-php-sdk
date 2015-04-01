@@ -27,7 +27,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     protected $typeData = [];
     protected $initialized = [];
 
-    public function __construct(array $data = null, Context $context = null)
+    public function __construct(array $data = null, $context = null)
     {
         if (!is_null($data)) {
             $this->rawData = $data;
@@ -37,10 +37,10 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
 
     /**
      * @param array $data
-     * @param Context $context
+     * @param Context|callable $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function fromArray(array $data, $context = null)
     {
         return new static($data, $context);
     }
@@ -167,7 +167,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
             /**
              * @var JsonDeserializeInterface $type
              */
-            $this->typeData[$field] = $type::fromArray($this->getRaw($field, []), $this->getContext());
+            $this->typeData[$field] = $type::fromArray($this->getRaw($field, []), $this->getContextCallback());
         } else {
             $this->typeData[$field] = $this->getRaw($field);
         }
@@ -196,7 +196,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
             /**
              * @var JsonDeserializeInterface $value
              */
-            $value->setContext($this->getContext());
+            $value->setContext($this->getContextCallback());
         }
         $this->typeData[$field] = $value;
 

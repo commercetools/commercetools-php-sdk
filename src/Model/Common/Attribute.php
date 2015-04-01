@@ -117,7 +117,7 @@ class Attribute extends JsonObject
                 /**
                  * @var JsonDeserializeInterface $type
                  */
-                $this->typeData[$field] = $type::fromArray($value, $this->getContext());
+                $this->typeData[$field] = $type::fromArray($value, $this->getContextCallback());
             } else {
                 $this->typeData[$field] = $value;
             }

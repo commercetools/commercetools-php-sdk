@@ -7,7 +7,10 @@
 namespace Sphere\Core\Model\Type;
 
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Money;
+use Sphere\Core\Model\Common\Price;
 
 class JsonObjectTest extends \PHPUnit_Framework_TestCase
 {
