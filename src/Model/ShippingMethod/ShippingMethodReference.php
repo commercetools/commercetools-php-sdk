@@ -18,9 +18,9 @@ class ShippingMethodReference extends Reference
 
     /**
      * @param string $id
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($id, Context $context = null)
+    public function __construct($id, $context = null)
     {
         parent::__construct(static::TYPE_SHIPPING_METHOD, $id, $context);
     }

@@ -33,8 +33,9 @@ class DiscountedPrice extends JsonObject
     /**
      * @param Money $value
      * @param ProductDiscountReference $discount
+     * @param Context|callable $context
      */
-    public function __construct(Money $value, ProductDiscountReference $discount, Context $context = null)
+    public function __construct(Money $value, ProductDiscountReference $discount, $context = null)
     {
         $this->setContext($context);
         $this->setValue($value);

@@ -55,10 +55,10 @@ class Attribute extends JsonObject
 
     /**
      * @param array $data
-     * @param Context $context
+     * @param Context|callable $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function fromArray(array $data, $context = null)
     {
         return new static($data, $context);
     }

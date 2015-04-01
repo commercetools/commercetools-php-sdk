@@ -64,11 +64,17 @@ class ProductDraft extends JsonObject
         ];
     }
 
+    /**
+     * @param ProductTypeReference $productType
+     * @param LocalizedString $name
+     * @param LocalizedString $slug
+     * @param Context|callable $context
+     */
     public function __construct(
         ProductTypeReference $productType,
         LocalizedString $name,
         LocalizedString $slug,
-        Context $context = null
+        $context = null
     ) {
         $this->setContext($context);
         $this->setName($name);

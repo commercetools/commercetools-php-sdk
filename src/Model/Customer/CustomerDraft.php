@@ -56,9 +56,9 @@ class CustomerDraft extends JsonObject
      * @param string $firstName
      * @param string $lastName
      * @param string $password
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($email, $firstName, $lastName, $password, Context $context = null)
+    public function __construct($email, $firstName, $lastName, $password, $context = null)
     {
         $this->setContext($context);
         $this->setEmail($email);

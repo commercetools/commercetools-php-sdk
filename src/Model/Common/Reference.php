@@ -34,9 +34,9 @@ class Reference extends JsonObject
     /**
      * @param string $typeId
      * @param string $id
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($typeId, $id, Context $context = null)
+    public function __construct($typeId, $id, $context = null)
     {
         $this->setContext($context);
         $this->setTypeId($typeId);

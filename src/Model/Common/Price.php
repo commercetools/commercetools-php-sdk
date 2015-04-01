@@ -41,8 +41,9 @@ class Price extends JsonObject
 
     /**
      * @param Money $value
+     * @param Context|callable $context
      */
-    public function __construct(Money $value, Context $context = null)
+    public function __construct(Money $value, $context = null)
     {
         $this->setContext($context);
         $this->setValue($value);

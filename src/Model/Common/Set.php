@@ -14,9 +14,9 @@ class Set extends Collection
     /**
      * @param string $type
      * @param array $data
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($type, array $data = [], Context $context = null)
+    public function __construct($type, array $data = [], $context = null)
     {
         $this->type = $type;
         $this->setContext($context);
