@@ -43,6 +43,14 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
     }
 
     /**
+     * @return static
+     */
+    public static function of()
+    {
+        return new static();
+    }
+
+    /**
      * @param array $data
      * @param Context|callable $context
      * @return static
@@ -127,7 +135,7 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
      */
     protected function initialize($offset)
     {
-        $type = $this->type;
+        $type = $this->getType();
         if (!is_null($type) && $this->hasInterface($type)) {
             /**
              * @var JsonDeserializeInterface $type
@@ -169,7 +177,7 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
      */
     public function setAt($offset, $object)
     {
-        $type = $this->type;
+        $type = $this->getType();
         if (!is_null($type) && !is_null($object) && !$this->isType($type, $object)) {
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $offset, $type));
         }
@@ -336,6 +344,7 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
      */
     public function offsetUnset($offset)
     {
-        $this->setAt($offset, null);
+        unset($this->rawData[$offset]);
+        unset($this->typeData[$offset]);
     }
 }
