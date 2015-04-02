@@ -412,138 +412,161 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Sphere\Core\Request\Products\Command\ProductUnpublishAction',
             ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderAddDeliveryAction',
-//                ['action', 'items', 'parcels', 'measurements', 'trackingData']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction',
-//                ['action', 'deliveryId', 'measurements', 'trackingData']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderAddReturnInfoAction',
-//                ['action', 'returnDate', 'returnTrackingId', 'items']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderChangeOrderStateAction',
-//                ['action', 'orderState']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderChangePaymentStateAction',
-//                ['action', 'paymentState']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderChangeShipmentStateAction',
-//                ['action', 'shipmentState']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderImportCustomLineItemStateAction',
-//                ['action', 'customLineItemId', 'state']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderImportLineItemStateAction',
-//                ['action', 'lineItemId', 'state']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderSetOrderNumberAction',
-//                ['action', 'orderNumber']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction',
-//                ['action', 'returnItemId', 'paymentState']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction',
-//                ['action', 'returnItemId', 'shipmentState']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction',
-//                ['action', 'customLineItemId', 'quantity', 'fromState', 'toState', 'actualTransitionDate']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderTransitionLineItemStateAction',
-//                ['action', 'lineItemId', 'quantity', 'fromState', 'toState', 'actualTransitionDate']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Orders\Command\OrderUpdateSyncInfoAction',
-//                ['action', 'channel', 'externalId', 'syncedAt']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Customers\Command\CustomerAddAddressAction',
-//                ['action', 'address']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Customers\Command\CustomerChangeAddressAction',
-//                ['action', 'addressId', 'address']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Customers\Command\CustomerChangeEmailAction',
-//                ['action', 'email']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Customers\Command\CustomerChangeNameAction',
-//                ['action', 'firstName', 'lastName', 'middleName', 'title']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Customers\Command\CustomerRemoveAddressAction',
-//                ['action', 'addressId']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Customers\Command\CustomerSetCompanyNameAction',
-//                ['action', 'companyName']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Customers\Command\CustomerSetCustomerGroupAction',
-//                ['action', 'customerGroup']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Customers\Command\CustomerSetCustomerNumberAction',
-//                ['action', 'customerNumber']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Customers\Command\CustomerSetDateOfBirthAction',
-//                ['action', 'dateOfBirth']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Customers\Command\CustomerSetDefaultBillingAddressAction',
-//                ['action', 'addressId']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction',
-//                ['action', 'addressId']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Customers\Command\CustomerSetExternalIdAction',
-//                ['action', 'externalId']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Customers\Command\CustomerSetVatIdAction',
-//                ['action', 'vatId']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Categories\Command\CategoryChangeNameAction',
-//                ['action', 'name']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Categories\Command\CategoryChangeOrderHintAction',
-//                ['action', 'orderHint']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Categories\Command\CategoryChangeParentAction',
-//                ['action', 'parent']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Categories\Command\CategoryChangeSlugAction',
-//                ['action', 'slug']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Categories\Command\CategorySetDescriptionAction',
-//                ['action', 'description']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Categories\Command\CategorySetExternalIdAction',
-//                ['action', 'externalId']
-//            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderAddDeliveryAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Order\DeliveryItemCollection')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction',
+                ['1234567890']
+            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderAddReturnInfoAction',
+            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderChangeOrderStateAction',
+                ['newOrderState']
+            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderChangePaymentStateAction',
+                ['newPaymentState']
+            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderChangeShipmentStateAction',
+                ['newShipmentState']
+            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderImportCustomLineItemStateAction',
+                [
+                    '12345',
+                    $this->getInstance('\Sphere\Core\Model\Order\ItemStateCollection')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderImportLineItemStateAction',
+                [
+                    '12345',
+                    $this->getInstance('\Sphere\Core\Model\Order\ItemStateCollection')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderSetOrderNumberAction',
+            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction',
+                ['12345', 'paymentState']
+            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction',
+                ['12345', 'shipmentState']
+            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction',
+                [
+                    '12345',
+                    2,
+                    $this->getInstance('\Sphere\Core\Model\State\StateReference'),
+                    $this->getInstance('\Sphere\Core\Model\State\StateReference'),
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderTransitionLineItemStateAction',
+                [
+                    '12345',
+                    2,
+                    $this->getInstance('\Sphere\Core\Model\State\StateReference'),
+                    $this->getInstance('\Sphere\Core\Model\State\StateReference'),
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Orders\Command\OrderUpdateSyncInfoAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Channel\ChannelReference')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerAddAddressAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Common\Address')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerChangeAddressAction',
+                [
+                    '1',
+                    $this->getInstance('\Sphere\Core\Model\Common\Address')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerChangeEmailAction',
+                ['john.doe@company.com']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerChangeNameAction',
+                ['John', 'Doe']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerRemoveAddressAction',
+                ['1']
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetCompanyNameAction',
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetCustomerGroupAction',
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetCustomerNumberAction',
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetDateOfBirthAction',
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetDefaultBillingAddressAction',
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction',
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetExternalIdAction',
+            ],
+            [
+                '\Sphere\Core\Request\Customers\Command\CustomerSetVatIdAction',
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategoryChangeNameAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategoryChangeOrderHintAction',
+                ['orderHint']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategoryChangeParentAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Category\CategoryReference')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategoryChangeSlugAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetDescriptionAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetExternalIdAction',
+                ['externalId']
+            ],
             [
                 '\Sphere\Core\Request\Carts\Command\CartAddCustomLineItemAction',
                 [
@@ -554,58 +577,53 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                     $this->getInstance('\Sphere\Core\Model\TaxCategory\TaxCategory')
                 ]
             ],
-//            [
-//                '\Sphere\Core\Request\Carts\Command\CartAddDiscountCodeAction',
-//                ['action', 'code']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Carts\Command\CartAddLineItemAction',
-//                ['action', 'productId', 'variantId', 'quantity']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',
-//                ['action', 'lineItemId', 'quantity']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Carts\Command\CartRecalculateAction',
-//                ['action']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Carts\Command\CartRemoveCustomLineItemAction',
-//                ['action', 'customLineItemId']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Carts\Command\CartRemoveDiscountCodeAction',
-//                ['action', 'discountCode']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Carts\Command\CartRemoveLineItemAction',
-//                ['action', 'lineItemId', 'quantity']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Carts\Command\CartSetBillingAddressAction',
-//                ['action', 'address']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Carts\Command\CartSetCountryAction',
-//                ['action', 'country']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Carts\Command\CartSetCustomerEmailAction',
-//                ['action', 'email']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Carts\Command\CartSetCustomerIdAction',
-//                ['action', 'customerId']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Carts\Command\CartSetShippingAddressAction',
-//                ['action', 'address']
-//            ],
-//            [
-//                '\Sphere\Core\Request\Carts\Command\CartSetShippingMethodAction',
-//                ['action', 'shippingMethod']
-//            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartAddDiscountCodeAction',
+                ['code']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartAddLineItemAction',
+                ['productId', 1, 2]
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',
+                ['lineItemId', 3]
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartRecalculateAction',
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartRemoveCustomLineItemAction',
+                ['customLineItemId']
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartRemoveDiscountCodeAction',
+                [
+                    $this->getInstance('\Sphere\Core\Model\DiscountCode\DiscountCodeReference')
+                ]
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartRemoveLineItemAction',
+                ['lineItemId', 1]
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartSetBillingAddressAction',
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartSetCountryAction',
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartSetCustomerEmailAction',
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartSetCustomerIdAction',
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartSetShippingAddressAction',
+            ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartSetShippingMethodAction',
+            ],
         ];
     }
 
