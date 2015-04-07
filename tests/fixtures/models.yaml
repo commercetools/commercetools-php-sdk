@@ -1,0 +1,240 @@
+cart:
+  domain: cart
+  model: Cart
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - customerId
+    - customerEmail
+    - lineItems
+    - customLineItems
+    - totalPrice
+    - taxedPrice
+    - cartState
+    - shippingAddress
+    - billingAddress
+    - inventoryMode
+    - customerGroup
+    - country
+    - shippingInfo
+    - discountCodes
+
+lineItem:
+  domain: cart
+  model: LineItem
+  fields:
+    - id
+    - productId
+    - name
+    - variant
+    - price
+    - quantity
+    - state
+    - taxRate
+    - supplyChannel
+    - discountedPrice
+
+customLineItem:
+  domain: cart
+  model: CustomLineItem
+  fields:
+    - id
+    - name
+    - money
+    - slug
+    - quantity
+    - state
+    - taxCategory
+    - taxRate
+
+taxedPrice:
+  domain: common
+  model: TaxedPrice
+  fields:
+    - totalNet
+    - totalGross
+    - taxPortions
+
+taxPortion:
+  domain: common
+  model: TaxPortion
+  fields:
+    - rate
+    - amount
+
+shippingInfo:
+  domain: cart
+  model: ShippingInfo
+  fields:
+    - shippingMethodName
+    - price
+    - shippingRate
+    - taxRate
+    - taxCategory
+    - shippingMethod
+    - deliveries
+
+discountCodeReference:
+  domain: cart
+  model: CartDiscountCodeReference
+  fields:
+    - discountCode
+    - state
+
+discountedLineItemPrice:
+  domain: cart
+  model: DiscountedLineItemPrice
+  fields:
+    - value
+    - includedDiscounts
+
+discountedLineItemPortion:
+  domain: cart
+  model: DiscountedLineItemPortion
+  fields:
+    - discount
+    - discountedAmount
+
+cartDiscount:
+  domain: cartDiscount
+  model: CartDiscount
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - description
+    - value
+    - cartPredicate
+    - target
+    - sortOrder
+    - isActive
+    - validFrom
+    - validUntil
+    - requiresDiscountCode
+    - references
+
+cartDiscountValue:
+  domain: cartDiscount
+  model: CartDiscountValue
+  fields:
+    - type
+    - permyriad
+    - money
+
+cartDiscountTarget:
+  domain: cartDiscount
+  model: CartDiscountTarget
+  fields:
+    - type
+    - predicate
+
+category:
+  domain: category
+  model: Category
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - slug
+    - description
+    - ancestors
+    - parent
+    - orderHint
+    - externalId
+
+categoryDraft:
+  domain: category
+  model: CategoryDraft
+  fields:
+    - name
+    - slug
+    - description
+    - parent
+    - orderHint
+    - externalId
+
+address:
+  domain: common
+  model: address
+  fields:
+    - id
+    - title
+    - salutation
+    - firstName
+    - lastName
+    - streetName
+    - streetNumber
+    - additionalStreetInfo
+    - postalCode
+    - city
+    - region
+    - state
+    - country
+    - company
+    - department
+    - building
+    - apartment
+    - pOBox
+    - phone
+    - mobile
+    - email
+    - additionalAddressInfo
+
+discountedPrice:
+  domain: common
+  model: discountedPrice
+  fields:
+    - value
+    - discount
+
+enum:
+  domain: common
+  model: Enum
+  fields:
+    - label
+    - key
+
+image:
+  domain: common
+  model: Image
+  fields:
+    - url
+    - dimensions
+    - label
+
+imageDimension:
+  domain: common
+  model: ImageDimension
+  fields:
+    - w
+    - h
+
+localizedEnum:
+  domain: common
+  model: LocalizedEnum
+  fields:
+    - label
+    - key
+
+money:
+  domain: common
+  model: Money
+  fields:
+    - currencyCode
+    - centAmount
+
+price:
+  domain: common
+  model: Price
+  fields:
+    - value
+    - country
+    - customerGroup
+    - channel
+    - discounted

@@ -13,8 +13,8 @@ namespace Sphere\Core\Model\Common;
  * @method TaxedPrice setTotalNet(Money $totalNet = null)
  * @method Money getTotalGross()
  * @method TaxedPrice setTotalGross(Money $totalGross = null)
- * @method TaxPortionCollection getTotalPortions()
- * @method TaxedPrice setTotalPortions(TaxPortionCollection $totalPortions = null)
+ * @method TaxPortionCollection getTaxPortions()
+ * @method TaxedPrice setTaxPortions(TaxPortionCollection $taxPortions = null)
  */
 class TaxedPrice extends JsonObject
 {
@@ -23,7 +23,7 @@ class TaxedPrice extends JsonObject
         return [
             'totalNet' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
             'totalGross' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
-            'totalPortions' => [static::TYPE => '\Sphere\Core\Model\Common\TaxPortionCollection'],
+            'taxPortions' => [static::TYPE => '\Sphere\Core\Model\Common\TaxPortionCollection'],
         ];
     }
 }

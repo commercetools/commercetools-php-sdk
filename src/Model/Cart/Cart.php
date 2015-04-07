@@ -49,8 +49,8 @@ use Sphere\Core\Model\DiscountCode\DiscountCodeReference;
  * @method Cart setCountry(string $country = null)
  * @method ShippingInfo getShippingInfo()
  * @method Cart setShippingInfo(ShippingInfo $shippingInfo = null)
- * @method DiscountCodeReference getDiscountCodes()
- * @method Cart setDiscountCodes(DiscountCodeReference $discountCodes = null)
+ * @method CartDiscountReferenceCollection getDiscountCodes()
+ * @method Cart setDiscountCodes(CartDiscountReferenceCollection $discountCodes = null)
  */
 class Cart extends JsonObject
 {
@@ -74,7 +74,7 @@ class Cart extends JsonObject
             'customerGroup' => [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
             'country' => [static::TYPE => 'string'],
             'shippingInfo' => [static::TYPE => '\Sphere\Core\Model\Cart\ShippingInfo'],
-            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\DiscountCode\DiscountCodeReference'],
+            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\Cart\CartDiscountReferenceCollection'],
         ];
     }
 }

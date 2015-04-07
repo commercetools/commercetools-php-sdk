@@ -1,0 +1,28 @@
+<?php
+/**
+ * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ */
+
+namespace Sphere\Core\Model\Cart;
+
+use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\DiscountCode\DiscountCodeReference;
+
+/**
+ * Class CartDiscountCodeReference
+ * @package Sphere\Core\Model\Cart
+ * @method DiscountCodeReference getDiscountCode()
+ * @method CartDiscountCodeReference setDiscountCode(DiscountCodeReference $discountCode = null)
+ * @method string getState()
+ * @method CartDiscountCodeReference setState(string $state = null)
+ */
+class CartDiscountCodeReference extends JsonObject
+{
+    public function getFields()
+    {
+        return [
+            'discountCode' => [static::TYPE => '\Sphere\Core\Model\DiscountCode\DiscountCodeReference'],
+            'state' => [static::TYPE => 'string']
+        ];
+    }
+}
