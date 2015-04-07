@@ -1,0 +1,23 @@
+cart:
+  domain: cart
+  model: CartReference
+  typeId: cart
+  obj:
+   domain: Cart
+   model: Cart
+
+cartDiscountReference:
+  domain: cartDiscount
+  model: CartDiscountReference
+  typeId: cart-discount
+  obj:
+    domain: CartDiscount
+    model: CartDiscount
+
+category:
+  domain: category
+  model: categoryReference
+  typeId: category
+  obj:
+    domain: category
+    model: category
