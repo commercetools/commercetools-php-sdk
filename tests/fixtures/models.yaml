@@ -238,3 +238,167 @@ price:
     - customerGroup
     - channel
     - discounted
+
+customer:
+  domain: customer
+  model: Customer
+  fields:
+    - id
+    - version
+    - customerNumber
+    - createdAt
+    - lastModifiedAt
+    - email
+    - firstName
+    - lastName
+    - password
+    - middleName
+    - title
+    - dateOfBirth
+    - companyName
+    - vatId
+    - addresses
+    - defaultShippingAddressId
+    - defaultBillingAddressId
+    - isEmailVerified
+    - externalId
+    - customerGroup
+
+customerSigninResult:
+  domain: customer
+  model: CustomerSigninResult
+  fields:
+    - customer
+    - cart
+
+customerToken:
+  domain: customer
+  model: CustomerToken
+  fields:
+    - id
+    - customerId
+    - createdAt
+    - lastModifiedAt
+    - expiresAt
+    - value
+
+customObject:
+  domain: customObject
+  model: CustomObject
+  fields:
+    - id
+    - createdAt
+    - lastModifiedAt
+    - container
+    - key
+    - value
+    - version
+
+order:
+  domain: order
+  model: Order
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - orderNumber
+    - customerId
+    - customerEmail
+    - lineItems
+    - customLineItems
+    - totalPrice
+    - taxedPrice
+    - shippingAddress
+    - billingAddress
+    - inventoryMode
+    - customerGroup
+    - country
+    - orderState
+    - shipmentState
+    - paymentState
+    - shippingInfo
+    - syncInfo
+    - returnInfo
+    - discountCodes
+    - lastMessageSequenceNumber
+
+syncInfo:
+  domain: order
+  model: SyncInfo
+  fields:
+    - channel
+    - externalId
+    - syncedAt
+
+returnInfo:
+  domain: order
+  model: ReturnInfo
+  fields:
+    - items
+    - returnTrackingId
+    - returnDate
+
+returnItem:
+  domain: order
+  model: ReturnItem
+  fields:
+    - id
+    - quantity
+    - lineItemId
+    - comment
+    - shipmentState
+    - paymentState
+    - lastModifiedAt
+    - createdAt
+
+delivery:
+  domain: order
+  model: Delivery
+  fields:
+    - id
+    - createdAt
+    - items
+    - parcels
+
+deliveryItem:
+  domain: order
+  model: DeliveryItem
+  fields:
+    - id
+    - quantity
+
+parcel:
+  domain: order
+  model: Parcel
+  fields:
+    - id
+    - createdAt
+    - measurements
+    - trackingData
+
+parcelMeasurements:
+  domain: order
+  model: ParcelMeasurements
+  fields:
+    - heightInMillimeter
+    - lengthInMillimeter
+    - widthInMillimeter
+    - weightInGram
+
+trackingData:
+  domain: order
+  model: TrackingData
+  fields:
+    - trackingId
+    - carrier
+    - provider
+    - providerTransaction
+    - isReturn
+
+itemState:
+  domain: order
+  model: ItemState
+  fields:
+    - quantity
+    - state
