@@ -26,7 +26,6 @@
         "sebastian/phpcpd": "1.4.*",
         "covex-nn/phpcb": "1.0.4.*",
         "doctrine/cache": "~1.4",
-        "apigen/apigen": "~4.0",
         "monolog/monolog": "~1.12",
         "behat/behat": "~3.0",
         "phpunit/phpcov": "*"
