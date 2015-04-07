@@ -35,11 +35,14 @@ class State extends JsonObject
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
+            'createdAt' => [static::TYPE => '\DateTime'],
+            'lastModifiedAt' => [static::TYPE => '\DateTime'],
             'key' => [static::TYPE => 'string'],
             'type' => [static::TYPE => 'string'],
             'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'description' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'initial' => [static::TYPE => 'bool'],
+            'builtIn' => [static::TYPE => 'bool'],
             'transitions' => [static::TYPE => '\Sphere\Core\Model\State\StateReferenceCollection']
         ];
     }

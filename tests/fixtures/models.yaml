@@ -402,3 +402,226 @@ itemState:
   fields:
     - quantity
     - state
+
+product:
+  domain: product
+  model: Product
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - productType
+    - masterData
+    - taxCategory
+
+productDraft:
+  domain: product
+  model: ProductDraft
+  fields:
+    - name
+    - slug
+    - description
+    - productType
+    - categories
+    - masterVariant
+    - variants
+    - metaTitle
+    - metaDescription
+    - metaKeywords
+    - taxCategory
+    - searchKeywords
+
+productCatalogData:
+  domain: product
+  model: ProductCatalogData
+  fields:
+    - published
+    - current
+    - staged
+
+productData:
+  domain: product
+  model: ProductData
+  fields:
+    - name
+    - categories
+    - description
+    - slug
+    - metaTitle
+    - metaDescription
+    - metaKeywords
+    - masterVariant
+    - variants
+    - searchKeywords
+
+productProjection:
+  domain: product
+  model: ProductProjection
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - productType
+    - name
+    - description
+    - slug
+    - categories
+    - metaTitle
+    - metaDescription
+    - metaKeywords
+    - searchKeywords
+    - hasStagedChanges
+    - published
+    - masterVariant
+    - variants
+    - taxCategory
+
+productVariant:
+  domain: product
+  model: ProductVariant
+  fields:
+    - id
+    - sku
+    - prices
+    - attributes
+    - images
+    - availability
+
+productVariantAvailability:
+  domain: product
+  model: ProductVariantAvailability
+  fields:
+    - isOnStock
+    - restockableInDays
+
+searchKeyword:
+  domain: product
+  model: SearchKeyword
+  fields:
+    - text
+    - suggestTokenizer
+
+suggestTokenizer:
+  domain: product
+  model: SuggestTokenizer
+  fields:
+    - type
+    - inputs
+
+suggestion:
+  domain: product
+  model: Suggestion
+  fields:
+    - text
+
+productVariantDraft:
+  domain: product
+  model: ProductVariantDraft
+  fields:
+    - sku
+    - prices
+    - attributes
+
+filterRange:
+  domain: product
+  model: FilterRange
+  fields:
+    - from
+    - to
+
+filter:
+  domain: product
+  model: Filter
+  fields:
+    - name
+    - value
+    - alias
+
+facetTerm:
+  domain: product
+  model: FacetTerm
+  fields:
+    - term
+    - count
+
+facetRange:
+  domain: product
+  model: FacetRange
+  fields:
+    - from
+    - fromStr
+    - to
+    - toStr
+    - count
+    - totalCount
+    - total
+    - min
+    - max
+    - mean
+
+facet:
+  domain: product
+  model: Facet
+  fields:
+    - name
+    - value
+    - alias
+
+facetResult:
+  domain: product
+  model: FacetResult
+  fields:
+    - type
+    - missing
+    - total
+    - other
+    - terms
+    - ranges
+
+shippingMethod:
+  domain: shippingMethod
+  model: shippingRate
+  fields:
+    - price
+    - freeAbove
+
+state:
+  domain: state
+  model: State
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - key
+    - type
+    - name
+    - description
+    - initial
+    - builtIn
+    - transitions
+
+taxCategory:
+  domain: taxCategory
+  model: TaxCategory
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - description
+    - rates
+
+taxRate:
+  domain: taxCategory
+  model: TaxRate
+  fields:
+    - id
+    - name
+    - amount
+    - includedInPrice
+    - country
+    - state
