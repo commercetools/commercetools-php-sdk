@@ -20,7 +20,7 @@ build:
     tests:
         override:
             -
-                command: vendor/bin/behat
+                command: vendor/bin/behat -f progress
             -
                 command: vendor/bin/phpunit --coverage-clover=coverage0
 filter:
