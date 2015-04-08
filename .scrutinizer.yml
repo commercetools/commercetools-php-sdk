@@ -23,5 +23,8 @@ build:
                 command: vendor/bin/behat -f progress
             -
                 command: vendor/bin/phpunit --coverage-clover=coverage0
+                coverage:
+                    file: 'coverage0'
+                    format: 'php-clover'
 filter:
     excluded_paths: [build/*, tests/*, docroot/*, features/*]
