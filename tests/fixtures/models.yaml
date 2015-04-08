@@ -625,3 +625,123 @@ taxRate:
     - includedInPrice
     - country
     - state
+
+channel:
+  domain: channel
+  model: Channel
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - key
+    - roles
+    - name
+    - description
+
+customerGroup:
+  domain: customerGroup
+  model: CustomerGroup
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+
+discountCode:
+  domain: discountCode
+  model: DiscountCode
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - description
+    - code
+    - cartDiscounts
+    - cartPredicate
+    - isActive
+    - references
+    - maxApplications
+    - maxApplicationsPerCustomer
+
+productDiscount:
+  domain: productDiscount
+  model: ProductDiscount
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - description
+    - value
+    - predicate
+    - sortOrder
+    - isActive
+    - references
+
+productDiscountValue:
+  domain: productDiscount
+  model: ProductDiscountValue
+  fields:
+    - type
+    - permyriad
+    - money
+
+attributeDefinition:
+  domain: productType
+  model: AttributeDefinition
+  fields:
+    - type
+    - name
+    - label
+    - isRequired
+    - attributeConstraint
+    - inputHint
+    - isSearchable
+
+attributeType:
+  domain: productType
+  model: AttributeType
+  fields:
+    - name
+    - values
+    - referenceTypeId
+    - elementType
+    - typeReference
+
+productType:
+  domain: productType
+  model: ProductType
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - description
+    - attributes
+
+shippingMethod:
+  domain: shippingMethod
+  model: ShippingMethod
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - description
+    - taxCategory
+    - zoneRates
+    - isDefault
+
+zoneRate:
+  domain: shippingMethod
+  model: ZoneRate
+  fields:
+    - zone
+    - shippingRates

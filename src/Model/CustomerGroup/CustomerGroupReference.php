@@ -18,14 +18,23 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @method CustomerGroupReference setTypeId(string $typeId = null)
  * @method string getId()
  * @method CustomerGroupReference setId(string $id = null)
- * @method array getObj()
- * @method CustomerGroupReference setObj(array $obj = null)
+ * @method CustomerGroup getObj()
+ * @method CustomerGroupReference setObj(CustomerGroup $obj = null)
  */
 class CustomerGroupReference extends Reference
 {
     use ReferenceFromArrayTrait;
 
     const TYPE_CUSTOMER_GROUP = 'customer-group';
+
+    public function getFields()
+    {
+        return [
+            'typeId' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string'],
+            'obj' => [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroup']
+        ];
+    }
 
     /**
      * @param string $id

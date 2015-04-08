@@ -18,14 +18,23 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @method ProductDiscountReference setTypeId(string $typeId = null)
  * @method string getId()
  * @method ProductDiscountReference setId(string $id = null)
- * @method array getObj()
- * @method ProductDiscountReference setObj(array $obj = null)
+ * @method ProductDiscount getObj()
+ * @method ProductDiscountReference setObj(ProductDiscount $obj = null)
  */
 class ProductDiscountReference extends Reference
 {
     use ReferenceFromArrayTrait;
 
     const TYPE_PRODUCT_DISCOUNT = 'product-discount';
+
+    public function getFields()
+    {
+        return [
+            'typeId' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string'],
+            'obj' => [static::TYPE => '\Sphere\Core\Model\ProductDiscount\ProductDiscount']
+        ];
+    }
 
     /**
      * @param string $id

@@ -15,8 +15,8 @@ namespace Sphere\Core\Model\Common;
  * @method string getId()
  * @method Reference setTypeId(string $typeId = null)
  * @method Reference setId(string $id = null)
- * @method array getObj()
- * @method Reference setObj(array $obj = null)
+ * @method JsonObject getObj()
+ * @method Reference setObj(JsonObject $obj = null)
  */
 class Reference extends JsonObject
 {
@@ -27,7 +27,7 @@ class Reference extends JsonObject
         return [
             'typeId' => [self::TYPE => 'string'],
             'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => 'array']
+            'obj' => [static::TYPE => '\Sphere\Core\Model\Common\JsonObject']
         ];
     }
 

@@ -18,14 +18,23 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @method TaxCategoryReference setTypeId(string $typeId = null)
  * @method string getId()
  * @method TaxCategoryReference setId(string $id = null)
- * @method array getObj()
- * @method TaxCategoryReference setObj(array $obj = null)
+ * @method TaxCategory getObj()
+ * @method TaxCategoryReference setObj(TaxCategory $obj = null)
  */
 class TaxCategoryReference extends Reference
 {
     use ReferenceFromArrayTrait;
 
     const TYPE_TAX_CATEGORY = 'tax-category';
+
+    public function getFields()
+    {
+        return [
+            'typeId' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string'],
+            'obj' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategory']
+        ];
+    }
 
     /**
      * @param string $id

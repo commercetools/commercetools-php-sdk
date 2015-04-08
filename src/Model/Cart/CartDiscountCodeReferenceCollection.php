@@ -9,10 +9,10 @@ namespace Sphere\Core\Model\Cart;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class CartDiscountReferenceCollection
+ * Class CartDiscountCodeReferenceCollection
  * @package Sphere\Core\Model\Cart
  */
-class CartDiscountReferenceCollection extends Collection
+class CartDiscountCodeReferenceCollection extends Collection
 {
     protected $type = '\Sphere\Core\Model\Cart\CartDiscountCodeReference';
 }

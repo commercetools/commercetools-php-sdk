@@ -27,6 +27,12 @@ use Sphere\Core\Model\Common\LocalizedString;
  * @method State setInitial(bool $initial = null)
  * @method StateReferenceCollection getTransitions()
  * @method State setTransitions(StateReferenceCollection $transitions = null)
+ * @method \DateTime getCreatedAt()
+ * @method State setCreatedAt(\DateTime $createdAt = null)
+ * @method \DateTime getLastModifiedAt()
+ * @method State setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method bool getBuiltIn()
+ * @method State setBuiltIn(bool $builtIn = null)
  */
 class State extends JsonObject
 {

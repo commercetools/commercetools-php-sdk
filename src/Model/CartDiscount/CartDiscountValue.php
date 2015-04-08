@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\CartDiscount;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\DiscountValue;
 use Sphere\Core\Model\Common\MoneyCollection;
 
 /**
@@ -18,14 +18,6 @@ use Sphere\Core\Model\Common\MoneyCollection;
  * @method MoneyCollection getMoney()
  * @method CartDiscountValue setMoney(MoneyCollection $money = null)
  */
-class CartDiscountValue extends JsonObject
+class CartDiscountValue extends DiscountValue
 {
-    public function getFields()
-    {
-        return [
-            'type' => [static::TYPE => 'string'],
-            'permyriad' => [static::TYPE => 'int'],
-            'money' => [static::TYPE => '\Sphere\Core\Model\Common\MoneyCollection']
-        ];
-    }
 }
