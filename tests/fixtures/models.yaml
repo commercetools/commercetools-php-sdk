@@ -580,7 +580,7 @@ facetResult:
     - terms
     - ranges
 
-shippingMethod:
+shippingRate:
   domain: shippingMethod
   model: shippingRate
   fields:
@@ -745,3 +745,14 @@ zoneRate:
   fields:
     - zone
     - shippingRates
+
+stateDraft:
+  domain: state
+  model: StateDraft
+  fields:
+    - key
+    - type
+    - name
+    - description
+    - initial
+    - transitions
