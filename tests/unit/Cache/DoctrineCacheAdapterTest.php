@@ -16,9 +16,14 @@ class DoctrineCacheAdapterTest extends \PHPUnit_Framework_TestCase
      * @var DoctrineCacheAdapter
      */
     protected $adapter;
-    
+
     public function setUp()
     {
+        if (!function_exists('apc_store')) {
+            $this->markTestSkipped(
+                'The APCU extension is not available.'
+            );
+        }
         $cache = new ApcCache();
         $this->adapter = new DoctrineCacheAdapter($cache);
         $this->adapter->store('test', ['key' => 'value']);
