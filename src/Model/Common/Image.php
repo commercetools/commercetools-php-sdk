@@ -36,8 +36,9 @@ class Image extends JsonObject
     /**
      * @param string $size
      * @return string
+     * @internal
      */
-    protected function getThumbnailUrl($size = null)
+    public function getSizeUrl($size = null)
     {
         if (empty($size)) {
             return $this->getUrl();
@@ -57,7 +58,7 @@ class Image extends JsonObject
      */
     public function getThumb()
     {
-        return $this->getThumbnailUrl(static::THUMB);
+        return $this->getSizeUrl(static::THUMB);
     }
 
     /**
@@ -65,7 +66,7 @@ class Image extends JsonObject
      */
     public function getSmall()
     {
-        return $this->getThumbnailUrl(static::SMALL);
+        return $this->getSizeUrl(static::SMALL);
     }
 
     /**
@@ -73,7 +74,7 @@ class Image extends JsonObject
      */
     public function getMedium()
     {
-        return $this->getThumbnailUrl(static::MEDIUM);
+        return $this->getSizeUrl(static::MEDIUM);
     }
 
     /**
@@ -81,7 +82,7 @@ class Image extends JsonObject
      */
     public function getLarge()
     {
-        return $this->getThumbnailUrl(static::LARGE);
+        return $this->getSizeUrl(static::LARGE);
     }
 
     /**
@@ -89,6 +90,6 @@ class Image extends JsonObject
      */
     public function getZoom()
     {
-        return $this->getThumbnailUrl(static::ZOOM);
+        return $this->getSizeUrl(static::ZOOM);
     }
 }

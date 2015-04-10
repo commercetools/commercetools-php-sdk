@@ -90,7 +90,7 @@ class ProductDraft extends JsonObject
     public static function fromArray(array $data, $context = null)
     {
         $draft = new static(
-            ProductTypeReference::fromArray($data['reference'], $context),
+            ProductTypeReference::fromArray($data['productType'], $context),
             LocalizedString::fromArray($data['name'], $context),
             LocalizedString::fromArray($data['slug'], $context),
             $context

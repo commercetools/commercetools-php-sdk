@@ -63,7 +63,13 @@ class Attribute extends JsonObject
         return new static($data, $context);
     }
 
-    protected function getSphereType($field, $value)
+    /**
+     * @param $field
+     * @param $value
+     * @return mixed
+     * @internal
+     */
+    public function getSphereType($field, $value)
     {
         if (isset(static::$types[$field])) {
             return static::$types[$field];
@@ -109,7 +115,7 @@ class Attribute extends JsonObject
             $value = $this->getRaw(static::PROP_VALUE);
             $type = $this->getSphereType($name, $value);
 
-            if ($type !== false && $this->hasInterface($type)) {
+            if ($type !== false && $type != static::T_UNKNOWN && $this->hasInterface($type)) {
                 if ($type == static::T_SET) {
                     $setType = $this->getSphereType('set-' . $name, current($value));
                     $value = ['type' => $setType, 'value' => $value];

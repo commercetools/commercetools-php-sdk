@@ -60,4 +60,12 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         $function = 'get' . ucfirst($size);
         $this->assertSame('/test/test-'. $size, $image->$function());
     }
+
+    public function testGetSizeUrl()
+    {
+        $image = new Image();
+        $image->setUrl('/test/test.jpg');
+
+        $this->assertEquals('/test/test.jpg', $image->getSizeUrl());
+    }
 }
