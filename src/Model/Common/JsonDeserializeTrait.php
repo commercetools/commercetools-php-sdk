@@ -5,9 +5,18 @@
 
 namespace Sphere\Core\Model\Common;
 
-
+/**
+ * Class JsonDeserializeTrait
+ * @package Sphere\Core\Model\Common
+ */
 trait JsonDeserializeTrait
 {
+    abstract protected function initialize($field);
+
+    protected $rawData = [];
+    protected $typeData = [];
+    protected $initialized = [];
+
     protected function getDeserializeInterface()
     {
         return 'Sphere\Core\Model\Common\JsonDeserializeInterface';
@@ -82,5 +91,16 @@ trait JsonDeserializeTrait
             return false;
         }
         return $this->hasInterface($type);
+    }
+
+    protected function getTyped($offset)
+    {
+        if (!isset($this->initialized[$offset])) {
+            $this->initialize($offset);
+        }
+        if (array_key_exists($offset, $this->typeData)) {
+            return $this->typeData[$offset];
+        }
+        return $this->rawData[$offset];
     }
 }

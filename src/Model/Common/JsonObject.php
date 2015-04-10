@@ -23,10 +23,6 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     const INITIALIZED = 'initialized';
     const DECORATOR = 'decorator';
 
-    protected $rawData = [];
-    protected $typeData = [];
-    protected $initialized = [];
-
     public function __construct(array $data = null, $context = null)
     {
         if (!is_null($data)) {
@@ -137,13 +133,7 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
      */
     public function get($field)
     {
-        if (!isset($this->initialized[$field])) {
-            $this->initialize($field);
-        }
-        if (array_key_exists($field, $this->typeData)) {
-            return $this->typeData[$field];
-        }
-        return $this->rawData[$field];
+        return $this->getTyped($field);
     }
 
     /**

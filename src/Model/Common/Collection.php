@@ -25,9 +25,6 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
     protected $type;
 
     protected $pos = 0;
-    protected $rawData = [];
-    protected $typeData = [];
-    protected $initialized = [];
 
     protected $index = [];
 
@@ -152,13 +149,7 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
      */
     public function getAt($offset)
     {
-        if (!isset($this->initialized[$offset])) {
-            $this->initialize($offset);
-        }
-        if (isset($this->typeData[$offset])) {
-            return $this->typeData[$offset];
-        }
-        return $this->rawData[$offset];
+        return $this->getTyped($offset);
     }
 
     /**
