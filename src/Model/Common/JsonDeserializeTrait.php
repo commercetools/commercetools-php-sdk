@@ -70,4 +70,17 @@ trait JsonDeserializeTrait
         }
         return $value instanceof $type;
     }
+
+    protected function isDeserializable($value)
+    {
+        return (is_object($value) && $this->hasInterface(get_class($value)));
+    }
+
+    protected function isDeserializableType($type)
+    {
+        if (!is_string($type)) {
+            return false;
+        }
+        return $this->hasInterface($type);
+    }
 }

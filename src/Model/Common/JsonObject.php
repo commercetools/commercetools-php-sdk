@@ -163,18 +163,42 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     protected function initialize($field)
     {
         $type = $this->getFieldKey($field, static::TYPE);
-        if ($type !== false && is_string($type) && $this->hasInterface($type)) {
+        if ($this->isDeserializableType($type)) {
             /**
              * @var JsonDeserializeInterface $type
              */
-            $this->typeData[$field] = $type::fromArray($this->getRaw($field, []), $this->getContextCallback());
+            $value = $type::fromArray($this->getRaw($field, []), $this->getContextCallback());
         } else {
-            $this->typeData[$field] = $this->getRaw($field);
+            $value = $this->getRaw($field);
         }
-        if ($decorator = $this->getFieldKey($field, static::DECORATOR)) {
-            $this->typeData[$field] = new $decorator($this->typeData[$field]);
-        }
+        $this->typeData[$field] = $this->decorateField($field, $value);
+
         $this->initialized[$field] = true;
+    }
+
+    protected function isValidType($type, $value)
+    {
+        if (!is_string($type)) {
+            return true;
+        }
+        if (is_null($value)) {
+            return true;
+        }
+        return $this->isType($type, $value);
+    }
+
+    protected function isOptional($field, $value)
+    {
+        return ($value === null && $this->getFieldKey($field, static::OPTIONAL) === false);
+    }
+
+    protected function decorateField($field, $value)
+    {
+        if ($decorator = $this->getFieldKey($field, static::DECORATOR)) {
+            $value = new $decorator($value);
+        }
+
+        return $value;
     }
 
     /**
@@ -186,23 +210,20 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     public function set($field, $value)
     {
         $type = $this->getFieldKey($field, static::TYPE);
-        if ($type !== false && $value !== null && is_string($type) && !$this->isType($type, $value)) {
+        if (!$this->isValidType($type, $value)) {
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $field, $type));
         }
-        if ($value === null && $this->getFieldKey($field, static::OPTIONAL) === false) {
+        if ($this->isOptional($field, $value)) {
             throw new \InvalidArgumentException(sprintf(Message::EXPECTS_PARAMETER, $field, $type));
         }
-        if (is_object($value) && $this->hasInterface(get_class($value))) {
+        if ($this->isDeserializable($value)) {
             /**
              * @var JsonDeserializeInterface $value
              */
             $value->setContext($this->getContextCallback());
         }
-        $this->typeData[$field] = $value;
+        $this->typeData[$field] = $this->decorateField($field, $value);
 
-        if ($decorator = $this->getFieldKey($field, static::DECORATOR)) {
-            $this->typeData[$field] = new $decorator($this->typeData[$field]);
-        }
         $this->initialized[$field] = true;
 
         return $this;
