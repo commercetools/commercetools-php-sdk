@@ -32,6 +32,42 @@ class ProductsSuggestRequestTest extends RequestTestCase
         $this->assertInstanceOf('\Sphere\Core\Model\Product\SuggestionCollection', $result);
     }
 
+    public function testAddKeyword()
+    {
+        /**
+         * @var ProductsSuggestRequest $request
+         */
+        $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST);
+        $request->addKeyword('en', 'search');
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('product-projections/suggest?searchKeywords.en=search', $httpRequest->getPath());
+    }
+
+    public function testAddKeywords()
+    {
+        /**
+         * @var ProductsSuggestRequest $request
+         */
+        $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST);
+        $request->addKeywords($this->getKeywords());
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('product-projections/suggest?searchKeywords.en=search', $httpRequest->getPath());
+    }
+
+    public function testSetKeywords()
+    {
+        /**
+         * @var ProductsSuggestRequest $request
+         */
+        $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST);
+        $request->setSearchKeywords($this->getKeywords());
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('product-projections/suggest?searchKeywords.en=search', $httpRequest->getPath());
+    }
+
     public function testHttpRequestMethod()
     {
         $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST, [$this->getKeywords()]);
@@ -42,10 +78,13 @@ class ProductsSuggestRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
+        /**
+         * @var ProductsSuggestRequest
+         */
         $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST, [$this->getKeywords()]);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('product-projections/suggest', $httpRequest->getPath());
+        $this->assertSame('product-projections/suggest?searchKeywords.en=search', $httpRequest->getPath());
     }
 
     public function testHttpRequestObject()

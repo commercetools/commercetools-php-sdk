@@ -15,8 +15,8 @@ namespace Sphere\Core\Model\Common;
  * @method string getId()
  * @method Reference setTypeId(string $typeId = null)
  * @method Reference setId(string $id = null)
- * @method array getObj()
- * @method Reference setObj(array $obj = null)
+ * @method JsonObject getObj()
+ * @method Reference setObj(JsonObject $obj = null)
  */
 class Reference extends JsonObject
 {
@@ -27,23 +27,28 @@ class Reference extends JsonObject
         return [
             'typeId' => [self::TYPE => 'string'],
             'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => 'array']
+            'obj' => [static::TYPE => '\Sphere\Core\Model\Common\JsonObject']
         ];
     }
 
     /**
      * @param string $typeId
      * @param string $id
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($typeId, $id, Context $context = null)
+    public function __construct($typeId, $id, $context = null)
     {
         $this->setContext($context);
         $this->setTypeId($typeId);
         $this->setId($id);
     }
 
-    public static function fromArray(array $data, Context $context = null)
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     * @return static
+     */
+    public static function fromArray(array $data, $context = null)
     {
         $reference = new static(
             $data['typeId'],

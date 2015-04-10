@@ -14,9 +14,9 @@ class Set extends Collection
     /**
      * @param string $type
      * @param array $data
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($type, array $data = [], Context $context = null)
+    public function __construct($type, array $data = [], $context = null)
     {
         $this->type = $type;
         $this->setContext($context);
@@ -24,7 +24,12 @@ class Set extends Collection
         $this->indexData();
     }
 
-    public static function fromArray(array $data, Context $context = null)
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     * @return static
+     */
+    public static function fromArray(array $data, $context = null)
     {
         $type = $data['type'];
         $setData = $data['value'];

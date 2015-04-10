@@ -28,6 +28,7 @@ class CartAddLineItemAction extends AbstractAction
             'productId' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'quantity' => [static::TYPE => 'int'],
+            'supplyChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference']
         ];
     }
 

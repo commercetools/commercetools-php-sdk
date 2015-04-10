@@ -1,0 +1,758 @@
+cart:
+  domain: cart
+  model: Cart
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - customerId
+    - customerEmail
+    - lineItems
+    - customLineItems
+    - totalPrice
+    - taxedPrice
+    - cartState
+    - shippingAddress
+    - billingAddress
+    - inventoryMode
+    - customerGroup
+    - country
+    - shippingInfo
+    - discountCodes
+
+lineItem:
+  domain: cart
+  model: LineItem
+  fields:
+    - id
+    - productId
+    - name
+    - variant
+    - price
+    - quantity
+    - state
+    - taxRate
+    - supplyChannel
+    - discountedPrice
+
+customLineItem:
+  domain: cart
+  model: CustomLineItem
+  fields:
+    - id
+    - name
+    - money
+    - slug
+    - quantity
+    - state
+    - taxCategory
+    - taxRate
+
+taxedPrice:
+  domain: common
+  model: TaxedPrice
+  fields:
+    - totalNet
+    - totalGross
+    - taxPortions
+
+taxPortion:
+  domain: common
+  model: TaxPortion
+  fields:
+    - rate
+    - amount
+
+shippingInfo:
+  domain: cart
+  model: ShippingInfo
+  fields:
+    - shippingMethodName
+    - price
+    - shippingRate
+    - taxRate
+    - taxCategory
+    - shippingMethod
+    - deliveries
+
+discountCodeReference:
+  domain: cart
+  model: CartDiscountCodeReference
+  fields:
+    - discountCode
+    - state
+
+discountedLineItemPrice:
+  domain: cart
+  model: DiscountedLineItemPrice
+  fields:
+    - value
+    - includedDiscounts
+
+discountedLineItemPortion:
+  domain: cart
+  model: DiscountedLineItemPortion
+  fields:
+    - discount
+    - discountedAmount
+
+cartDiscount:
+  domain: cartDiscount
+  model: CartDiscount
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - description
+    - value
+    - cartPredicate
+    - target
+    - sortOrder
+    - isActive
+    - validFrom
+    - validUntil
+    - requiresDiscountCode
+    - references
+
+cartDiscountValue:
+  domain: cartDiscount
+  model: CartDiscountValue
+  fields:
+    - type
+    - permyriad
+    - money
+
+cartDiscountTarget:
+  domain: cartDiscount
+  model: CartDiscountTarget
+  fields:
+    - type
+    - predicate
+
+category:
+  domain: category
+  model: Category
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - slug
+    - description
+    - ancestors
+    - parent
+    - orderHint
+    - externalId
+
+categoryDraft:
+  domain: category
+  model: CategoryDraft
+  fields:
+    - name
+    - slug
+    - description
+    - parent
+    - orderHint
+    - externalId
+
+address:
+  domain: common
+  model: address
+  fields:
+    - id
+    - title
+    - salutation
+    - firstName
+    - lastName
+    - streetName
+    - streetNumber
+    - additionalStreetInfo
+    - postalCode
+    - city
+    - region
+    - state
+    - country
+    - company
+    - department
+    - building
+    - apartment
+    - pOBox
+    - phone
+    - mobile
+    - email
+    - additionalAddressInfo
+
+discountedPrice:
+  domain: common
+  model: discountedPrice
+  fields:
+    - value
+    - discount
+
+enum:
+  domain: common
+  model: Enum
+  fields:
+    - label
+    - key
+
+image:
+  domain: common
+  model: Image
+  fields:
+    - url
+    - dimensions
+    - label
+
+imageDimension:
+  domain: common
+  model: ImageDimension
+  fields:
+    - w
+    - h
+
+localizedEnum:
+  domain: common
+  model: LocalizedEnum
+  fields:
+    - label
+    - key
+
+money:
+  domain: common
+  model: Money
+  fields:
+    - currencyCode
+    - centAmount
+
+price:
+  domain: common
+  model: Price
+  fields:
+    - value
+    - country
+    - customerGroup
+    - channel
+    - discounted
+
+customer:
+  domain: customer
+  model: Customer
+  fields:
+    - id
+    - version
+    - customerNumber
+    - createdAt
+    - lastModifiedAt
+    - email
+    - firstName
+    - lastName
+    - password
+    - middleName
+    - title
+    - dateOfBirth
+    - companyName
+    - vatId
+    - addresses
+    - defaultShippingAddressId
+    - defaultBillingAddressId
+    - isEmailVerified
+    - externalId
+    - customerGroup
+
+customerSigninResult:
+  domain: customer
+  model: CustomerSigninResult
+  fields:
+    - customer
+    - cart
+
+customerToken:
+  domain: customer
+  model: CustomerToken
+  fields:
+    - id
+    - customerId
+    - createdAt
+    - lastModifiedAt
+    - expiresAt
+    - value
+
+customObject:
+  domain: customObject
+  model: CustomObject
+  fields:
+    - id
+    - createdAt
+    - lastModifiedAt
+    - container
+    - key
+    - value
+    - version
+
+order:
+  domain: order
+  model: Order
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - orderNumber
+    - customerId
+    - customerEmail
+    - lineItems
+    - customLineItems
+    - totalPrice
+    - taxedPrice
+    - shippingAddress
+    - billingAddress
+    - inventoryMode
+    - customerGroup
+    - country
+    - orderState
+    - shipmentState
+    - paymentState
+    - shippingInfo
+    - syncInfo
+    - returnInfo
+    - discountCodes
+    - lastMessageSequenceNumber
+
+syncInfo:
+  domain: order
+  model: SyncInfo
+  fields:
+    - channel
+    - externalId
+    - syncedAt
+
+returnInfo:
+  domain: order
+  model: ReturnInfo
+  fields:
+    - items
+    - returnTrackingId
+    - returnDate
+
+returnItem:
+  domain: order
+  model: ReturnItem
+  fields:
+    - id
+    - quantity
+    - lineItemId
+    - comment
+    - shipmentState
+    - paymentState
+    - lastModifiedAt
+    - createdAt
+
+delivery:
+  domain: order
+  model: Delivery
+  fields:
+    - id
+    - createdAt
+    - items
+    - parcels
+
+deliveryItem:
+  domain: order
+  model: DeliveryItem
+  fields:
+    - id
+    - quantity
+
+parcel:
+  domain: order
+  model: Parcel
+  fields:
+    - id
+    - createdAt
+    - measurements
+    - trackingData
+
+parcelMeasurements:
+  domain: order
+  model: ParcelMeasurements
+  fields:
+    - heightInMillimeter
+    - lengthInMillimeter
+    - widthInMillimeter
+    - weightInGram
+
+trackingData:
+  domain: order
+  model: TrackingData
+  fields:
+    - trackingId
+    - carrier
+    - provider
+    - providerTransaction
+    - isReturn
+
+itemState:
+  domain: order
+  model: ItemState
+  fields:
+    - quantity
+    - state
+
+product:
+  domain: product
+  model: Product
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - productType
+    - masterData
+    - taxCategory
+
+productDraft:
+  domain: product
+  model: ProductDraft
+  fields:
+    - name
+    - slug
+    - description
+    - productType
+    - categories
+    - masterVariant
+    - variants
+    - metaTitle
+    - metaDescription
+    - metaKeywords
+    - taxCategory
+    - searchKeywords
+
+productCatalogData:
+  domain: product
+  model: ProductCatalogData
+  fields:
+    - published
+    - current
+    - staged
+
+productData:
+  domain: product
+  model: ProductData
+  fields:
+    - name
+    - categories
+    - description
+    - slug
+    - metaTitle
+    - metaDescription
+    - metaKeywords
+    - masterVariant
+    - variants
+    - searchKeywords
+
+productProjection:
+  domain: product
+  model: ProductProjection
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - productType
+    - name
+    - description
+    - slug
+    - categories
+    - metaTitle
+    - metaDescription
+    - metaKeywords
+    - searchKeywords
+    - hasStagedChanges
+    - published
+    - masterVariant
+    - variants
+    - taxCategory
+
+productVariant:
+  domain: product
+  model: ProductVariant
+  fields:
+    - id
+    - sku
+    - prices
+    - attributes
+    - images
+    - availability
+
+productVariantAvailability:
+  domain: product
+  model: ProductVariantAvailability
+  fields:
+    - isOnStock
+    - restockableInDays
+
+searchKeyword:
+  domain: product
+  model: SearchKeyword
+  fields:
+    - text
+    - suggestTokenizer
+
+suggestTokenizer:
+  domain: product
+  model: SuggestTokenizer
+  fields:
+    - type
+    - inputs
+
+suggestion:
+  domain: product
+  model: Suggestion
+  fields:
+    - text
+
+productVariantDraft:
+  domain: product
+  model: ProductVariantDraft
+  fields:
+    - sku
+    - prices
+    - attributes
+
+filterRange:
+  domain: product
+  model: FilterRange
+  fields:
+    - from
+    - to
+
+filter:
+  domain: product
+  model: Filter
+  fields:
+    - name
+    - value
+    - alias
+
+facetTerm:
+  domain: product
+  model: FacetTerm
+  fields:
+    - term
+    - count
+
+facetRange:
+  domain: product
+  model: FacetRange
+  fields:
+    - from
+    - fromStr
+    - to
+    - toStr
+    - count
+    - totalCount
+    - total
+    - min
+    - max
+    - mean
+
+facet:
+  domain: product
+  model: Facet
+  fields:
+    - name
+    - value
+    - alias
+
+facetResult:
+  domain: product
+  model: FacetResult
+  fields:
+    - type
+    - missing
+    - total
+    - other
+    - terms
+    - ranges
+
+shippingRate:
+  domain: shippingMethod
+  model: shippingRate
+  fields:
+    - price
+    - freeAbove
+
+state:
+  domain: state
+  model: State
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - key
+    - type
+    - name
+    - description
+    - initial
+    - builtIn
+    - transitions
+
+taxCategory:
+  domain: taxCategory
+  model: TaxCategory
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - description
+    - rates
+
+taxRate:
+  domain: taxCategory
+  model: TaxRate
+  fields:
+    - id
+    - name
+    - amount
+    - includedInPrice
+    - country
+    - state
+
+channel:
+  domain: channel
+  model: Channel
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - key
+    - roles
+    - name
+    - description
+
+customerGroup:
+  domain: customerGroup
+  model: CustomerGroup
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+
+discountCode:
+  domain: discountCode
+  model: DiscountCode
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - description
+    - code
+    - cartDiscounts
+    - cartPredicate
+    - isActive
+    - references
+    - maxApplications
+    - maxApplicationsPerCustomer
+
+productDiscount:
+  domain: productDiscount
+  model: ProductDiscount
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - description
+    - value
+    - predicate
+    - sortOrder
+    - isActive
+    - references
+
+productDiscountValue:
+  domain: productDiscount
+  model: ProductDiscountValue
+  fields:
+    - type
+    - permyriad
+    - money
+
+attributeDefinition:
+  domain: productType
+  model: AttributeDefinition
+  fields:
+    - type
+    - name
+    - label
+    - isRequired
+    - attributeConstraint
+    - inputHint
+    - isSearchable
+
+attributeType:
+  domain: productType
+  model: AttributeType
+  fields:
+    - name
+    - values
+    - referenceTypeId
+    - elementType
+    - typeReference
+
+productType:
+  domain: productType
+  model: ProductType
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - description
+    - attributes
+
+shippingMethod:
+  domain: shippingMethod
+  model: ShippingMethod
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - description
+    - taxCategory
+    - zoneRates
+    - isDefault
+
+zoneRate:
+  domain: shippingMethod
+  model: ZoneRate
+  fields:
+    - zone
+    - shippingRates
+
+stateDraft:
+  domain: state
+  model: StateDraft
+  fields:
+    - key
+    - type
+    - name
+    - description
+    - initial
+    - transitions

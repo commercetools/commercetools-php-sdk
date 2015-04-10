@@ -18,8 +18,8 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @method ProductTypeReference setTypeId(string $typeId = null)
  * @method string getId()
  * @method ProductTypeReference setId(string $id = null)
- * @method array getObj()
- * @method ProductTypeReference setObj(array $obj = null)
+ * @method ProductType getObj()
+ * @method ProductTypeReference setObj(ProductType $obj = null)
  */
 class ProductTypeReference extends Reference
 {
@@ -27,11 +27,20 @@ class ProductTypeReference extends Reference
 
     const TYPE_PRODUCT_TYPE = 'product-type';
 
+    public function getFields()
+    {
+        return [
+            'typeId' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string'],
+            'obj' => [static::TYPE => '\Sphere\Core\Model\ProductType\ProductType']
+        ];
+    }
+
     /**
      * @param string $id
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($id, Context $context = null)
+    public function __construct($id, $context = null)
     {
         parent::__construct(static::TYPE_PRODUCT_TYPE, $id, $context);
     }

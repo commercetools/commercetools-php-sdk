@@ -56,9 +56,9 @@ class CustomerDraft extends JsonObject
      * @param string $firstName
      * @param string $lastName
      * @param string $password
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($email, $firstName, $lastName, $password, Context $context = null)
+    public function __construct($email, $firstName, $lastName, $password, $context = null)
     {
         $this->setContext($context);
         $this->setEmail($email);
@@ -69,11 +69,14 @@ class CustomerDraft extends JsonObject
 
     /**
      * @param array $data
+     * @param Context|callable $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function fromArray(array $data, $context = null)
     {
         $draft = new static($data['email'], $data['firstName'], $data['lastName'], $data['password'], $context);
         $draft->setRawData($data);
+
+        return $draft;
     }
 }

@@ -16,6 +16,11 @@ class ApcCacheAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        if (!function_exists('apc_store')) {
+            $this->markTestSkipped(
+                'The APCU extension is not available.'
+            );
+        }
         $this->adapter = new ApcCacheAdapter();
         $this->adapter->store('test', ['key' => 'value']);
     }

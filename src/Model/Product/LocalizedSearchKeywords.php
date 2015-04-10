@@ -22,7 +22,8 @@ class LocalizedSearchKeywords extends Collection
     public function __get($locale)
     {
         $context = new Context();
-        $context->setLanguages([$locale]);
+        $context->setGraceful($this->getContext()->isGraceful())
+            ->setLanguages([$locale]);
         return $this->get($context);
     }
 

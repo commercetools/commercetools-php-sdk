@@ -68,7 +68,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     {
         $response = $this->getResponse();
 
-        $this->assertSame('{"key":"value"}', $response->getBody()->getContents());
+        $this->assertSame('{"key":"value"}', $response->getBody());
     }
 
     public function testJson()

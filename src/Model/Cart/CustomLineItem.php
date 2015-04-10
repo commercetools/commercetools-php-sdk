@@ -29,8 +29,8 @@ use Sphere\Core\Model\TaxCategory\TaxRate;
  * @method CustomLineItem setState(ItemState $state = null)
  * @method TaxCategoryReference getTaxCategory()
  * @method CustomLineItem setTaxCategory(TaxCategoryReference $taxCategory = null)
- * @method TaxRate getPrice()
- * @method CustomLineItem setPrice(TaxRate $price = null)
+ * @method TaxRate getTaxRate()
+ * @method CustomLineItem setTaxRate(TaxRate $taxRate = null)
  */
 class CustomLineItem extends JsonObject
 {
@@ -44,7 +44,7 @@ class CustomLineItem extends JsonObject
             'quantity' => [static::TYPE => 'int'],
             'state' => [static::TYPE => '\Sphere\Core\Model\Order\ItemState'],
             'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference'],
-            'price' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxRate'],
+            'taxRate' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxRate'],
         ];
     }
 }

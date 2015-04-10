@@ -18,8 +18,8 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @method ChannelReference setTypeId(string $typeId = null)
  * @method string getId()
  * @method ChannelReference setId(string $id = null)
- * @method array getObj()
- * @method ChannelReference setObj(array $obj = null)
+ * @method Channel getObj()
+ * @method ChannelReference setObj(Channel $obj = null)
  */
 class ChannelReference extends Reference
 {
@@ -27,11 +27,20 @@ class ChannelReference extends Reference
 
     const TYPE_CHANNEL = 'channel';
 
+    public function getFields()
+    {
+        return [
+            'typeId' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string'],
+            'obj' => [static::TYPE => '\Sphere\Core\Model\Channel\Channel']
+        ];
+    }
+
     /**
      * @param string $id
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($id, Context $context = null)
+    public function __construct($id, $context = null)
     {
         parent::__construct(static::TYPE_CHANNEL, $id, $context);
     }

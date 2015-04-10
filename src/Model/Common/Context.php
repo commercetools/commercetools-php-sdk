@@ -107,4 +107,9 @@ class Context
 
         return $this;
     }
+
+    public static function of()
+    {
+        return new static();
+    }
 }

@@ -9,6 +9,10 @@ namespace Sphere\Core\Model\Type;
 
 use Sphere\Core\Model\Common\JsonObject;
 
+/**
+ * Class JsonObjectTest
+ * @package Sphere\Core\Model\Type
+ */
 class JsonObjectTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -16,6 +20,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
      */
     protected function getObject()
     {
+        date_default_timezone_set('UTC');
         $obj = $this->getMock(
             '\Sphere\Core\Model\Common\JsonObject',
             ['getFields'],
@@ -31,7 +36,11 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
                         'true' => [JsonObject::TYPE => 'bool'],
                         'false' => [JsonObject::TYPE => 'bool'],
                         'localString' => [JsonObject::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-                        'mixed' => []
+                        'mixed' => [],
+                        'decorator' => [
+                            JsonObject::TYPE => '\DateTime',
+                            JsonObject::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                        ]
                     ]
                 )
             );
@@ -153,5 +162,26 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
     {
         $obj = $this->getMock('\Sphere\Core\Model\Common\JsonObject', ['initialize'], [['key' => 'value']]);
         $this->assertSame('value', $obj->get('key'));
+    }
+
+    public function testDecorated()
+    {
+        $obj = $this->getObject();
+        $obj->setRawData(['decorator' => new \DateTime('2015-10-15 15:16:32')]);
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\DateTimeDecorator', $obj->getDecorator());
+    }
+
+    public function testDecoratedString()
+    {
+        $obj = $this->getObject();
+        $obj->setRawData(['decorator' => new \DateTime('2015-10-15 15:16:32')]);
+        $this->assertSame('"2015-10-15T15:16:32+00:00"', json_encode($obj->getDecorator()));
+    }
+
+    public function testSetDecorator()
+    {
+        $obj = $this->getObject();
+        $obj->setDecorator(new \DateTime());
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\DateTimeDecorator', $obj->getDecorator());
     }
 }

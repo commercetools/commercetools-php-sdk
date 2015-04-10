@@ -31,7 +31,11 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
 
     protected $index = [];
 
-    public function __construct(array $data = [], Context $context = null)
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
     {
         $this->setContext($context);
         $this->rawData = $data;
@@ -39,11 +43,19 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
     }
 
     /**
-     * @param array $data
-     * @param Context $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function of()
+    {
+        return new static();
+    }
+
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     * @return static
+     */
+    public static function fromArray(array $data, $context = null)
     {
         return new static($data, $context);
     }
@@ -123,12 +135,12 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
      */
     protected function initialize($offset)
     {
-        $type = $this->type;
+        $type = $this->getType();
         if (!is_null($type) && $this->hasInterface($type)) {
             /**
              * @var JsonDeserializeInterface $type
              */
-            $this->typeData[$offset] = $type::fromArray($this->getRaw($offset), $this->getContext());
+            $this->typeData[$offset] = $type::fromArray($this->getRaw($offset), $this->getContextCallback());
         }
         $this->initialized[$offset] = true;
     }
@@ -165,7 +177,7 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
      */
     public function setAt($offset, $object)
     {
-        $type = $this->type;
+        $type = $this->getType();
         if (!is_null($type) && !is_null($object) && !$this->isType($type, $object)) {
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $offset, $type));
         }
@@ -173,7 +185,7 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
             /**
              * @var JsonDeserializeInterface $object
              */
-            $object->setContext($this->getContext());
+            $object->setContext($this->getContextCallback());
         }
         if (is_null($offset)) {
             $this->typeData[] = $object;
@@ -332,6 +344,7 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
      */
     public function offsetUnset($offset)
     {
-        $this->setAt($offset, null);
+        unset($this->rawData[$offset]);
+        unset($this->typeData[$offset]);
     }
 }

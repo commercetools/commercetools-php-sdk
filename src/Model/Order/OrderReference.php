@@ -18,8 +18,8 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  * @method OrderReference setTypeId(string $typeId = null)
  * @method string getId()
  * @method OrderReference setId(string $id = null)
- * @method array getObj()
- * @method OrderReference setObj(array $obj = null)
+ * @method Order getObj()
+ * @method OrderReference setObj(Order $obj = null)
  */
 class OrderReference extends Reference
 {
@@ -27,11 +27,20 @@ class OrderReference extends Reference
 
     const TYPE_ORDER = 'order';
 
+    public function getFields()
+    {
+        return [
+            'typeId' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string'],
+            'obj' => [static::TYPE => '\Sphere\Core\Model\Order\Order']
+        ];
+    }
+
     /**
      * @param string $id
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($id, Context $context = null)
+    public function __construct($id, $context = null)
     {
         parent::__construct(static::TYPE_ORDER, $id, $context);
     }

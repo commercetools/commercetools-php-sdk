@@ -15,7 +15,7 @@ class TaxRate extends JsonObject
             'id' => [self::TYPE => 'string'],
             'name' => [self::TYPE => 'string'],
             'amount' => [self::TYPE => 'float'],
-            'includeInPrice' => [self::TYPE => 'bool'],
+            'includedInPrice' => [self::TYPE => 'bool'],
             'country' => [self::TYPE => 'string'],
             'state' => [self::TYPE => 'string']
         ];

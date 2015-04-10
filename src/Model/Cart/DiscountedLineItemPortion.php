@@ -12,10 +12,10 @@ use Sphere\Core\Model\Common\Money;
 /**
  * Class DiscountedLineItemPortion
  * @package Sphere\Core\Model\Cart
- * @method Money getDiscountAmount()
- * @method DiscountedLineItemPortion setDiscountAmount(Money $discountAmount = null)
  * @method CartDiscountReference getDiscount()
  * @method DiscountedLineItemPortion setDiscount(CartDiscountReference $discount = null)
+ * @method Money getDiscountedAmount()
+ * @method DiscountedLineItemPortion setDiscountedAmount(Money $discountedAmount = null)
  */
 class DiscountedLineItemPortion extends JsonObject
 {
@@ -23,7 +23,7 @@ class DiscountedLineItemPortion extends JsonObject
     {
         return [
             'discount' => [static::TYPE => '\Sphere\Core\Model\CartDiscount\CartDiscountReference'],
-            'discountAmount' => [static::TYPE => '\Sphere\Core\Model\Common\Money']
+            'discountedAmount' => [static::TYPE => '\Sphere\Core\Model\Common\Money']
         ];
     }
 }

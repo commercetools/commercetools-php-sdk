@@ -64,11 +64,17 @@ class ProductDraft extends JsonObject
         ];
     }
 
+    /**
+     * @param ProductTypeReference $productType
+     * @param LocalizedString $name
+     * @param LocalizedString $slug
+     * @param Context|callable $context
+     */
     public function __construct(
         ProductTypeReference $productType,
         LocalizedString $name,
         LocalizedString $slug,
-        Context $context = null
+        $context = null
     ) {
         $this->setContext($context);
         $this->setName($name);
@@ -78,13 +84,13 @@ class ProductDraft extends JsonObject
 
     /**
      * @param array $data
-     * @param Context $context
+     * @param Context|callable $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function fromArray(array $data, $context = null)
     {
         $draft = new static(
-            ProductTypeReference::fromArray($data['reference'], $context),
+            ProductTypeReference::fromArray($data['productType'], $context),
             LocalizedString::fromArray($data['name'], $context),
             LocalizedString::fromArray($data['slug'], $context),
             $context
