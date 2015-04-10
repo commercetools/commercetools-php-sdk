@@ -12,10 +12,9 @@ use Traversable;
  * Class Collection
  * @package Sphere\Core\Model\Common
  */
-class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterface, \Countable, \ArrayAccess
+class Collection extends AbstractJsonDeserializeObject implements \Iterator, \JsonSerializable, \Countable, \ArrayAccess
 {
     use ContextTrait;
-    use JsonDeserializeTrait;
 
     const DESERIALIZE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
 
@@ -37,14 +36,6 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
         $this->setContext($context);
         $this->rawData = $data;
         $this->indexData();
-    }
-
-    /**
-     * @return static
-     */
-    public static function of()
-    {
-        return new static();
     }
 
     /**
@@ -121,11 +112,6 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
         return $this;
     }
 
-    public function toArray()
-    {
-        return array_merge($this->rawData, $this->typeData);
-    }
-
     /**
      * @param $offset
      * @internal
@@ -154,11 +140,12 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
 
     /**
      * @param $offset
+     * @param mixed $default
      * @return array
      */
-    protected function getRaw($offset)
+    protected function getRaw($offset, $default = [])
     {
-        return isset($this->rawData[$offset])? $this->rawData[$offset]: [];
+        return parent::getRaw($offset, $default);
     }
 
     /**
@@ -208,17 +195,6 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
         return count($uniqueKeys);
     }
 
-    /**
-     * (PHP 5 &gt;= 5.4.0)<br/>
-     * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     */
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
 
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>

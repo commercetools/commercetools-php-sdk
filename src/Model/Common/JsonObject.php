@@ -13,10 +13,9 @@ use Sphere\Core\Error\Message;
  * Class JsonObject
  * @package Sphere\Core\Model\Type
  */
-class JsonObject implements \JsonSerializable, JsonDeserializeInterface
+class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializable, JsonDeserializeInterface
 {
     use ContextTrait;
-    use JsonDeserializeTrait;
 
     const TYPE = 'type';
     const OPTIONAL = 'optional';
@@ -41,14 +40,6 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
         return new static($data, $context);
     }
 
-    /**
-     * @param array $rawData
-     * @internal
-     */
-    public function setRawData(array $rawData)
-    {
-        $this->rawData = $rawData;
-    }
 
     /**
      * @return array
@@ -137,16 +128,6 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
     }
 
     /**
-     * @param $field
-     * @param $default
-     * @return mixed
-     */
-    protected function getRaw($field, $default = null)
-    {
-        return isset($this->rawData[$field])? $this->rawData[$field]: $default;
-    }
-
-    /**
      * @param string $field
      * @internal
      */
@@ -217,33 +198,5 @@ class JsonObject implements \JsonSerializable, JsonDeserializeInterface
         $this->initialized[$field] = true;
 
         return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return array_merge($this->rawData, $this->typeData);
-    }
-
-    /**
-     * (PHP 5 &gt;= 5.4.0)<br/>
-     * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     */
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
-
-    /**
-     * @return static
-     */
-    public static function of()
-    {
-        return new static();
     }
 }

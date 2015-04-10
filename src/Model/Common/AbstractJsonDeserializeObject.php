@@ -6,10 +6,10 @@
 namespace Sphere\Core\Model\Common;
 
 /**
- * Class JsonDeserializeTrait
+ * Class AbstractJsonDeserializeObject
  * @package Sphere\Core\Model\Common
  */
-trait JsonDeserializeTrait
+abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
 {
     abstract protected function initialize($field);
 
@@ -102,5 +102,52 @@ trait JsonDeserializeTrait
             return $this->typeData[$offset];
         }
         return $this->rawData[$offset];
+    }
+
+    /**
+     * @param array $rawData
+     * @internal
+     */
+    public function setRawData(array $rawData)
+    {
+        $this->rawData = $rawData;
+    }
+
+    /**
+     * @param $field
+     * @param $default
+     * @return mixed
+     */
+    protected function getRaw($field, $default = null)
+    {
+        return isset($this->rawData[$field])? $this->rawData[$field]: $default;
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.4.0)<br/>
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return array_merge($this->rawData, $this->typeData);
+    }
+
+    /**
+     * @return static
+     */
+    public static function of()
+    {
+        return new static();
     }
 }
