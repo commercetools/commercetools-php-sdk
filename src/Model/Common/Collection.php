@@ -39,16 +39,6 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
     }
 
     /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        return new static($data, $context);
-    }
-
-    /**
      * @return string
      */
     public function getType()
@@ -156,7 +146,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
     public function setAt($offset, $object)
     {
         $type = $this->getType();
-        if (!is_null($type) && !is_null($object) && !$this->isType($type, $object)) {
+        if (!$this->isValidType($type, $object)) {
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $offset, $type));
         }
         if ($this->hasInterface(get_class($object))) {

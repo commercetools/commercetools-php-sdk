@@ -31,17 +31,6 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
     }
 
     /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        return new static($data, $context);
-    }
-
-
-    /**
      * @return array
      * @internal
      */
@@ -145,17 +134,6 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
         $this->typeData[$field] = $this->decorateField($field, $value);
 
         $this->initialized[$field] = true;
-    }
-
-    protected function isValidType($type, $value)
-    {
-        if (!is_string($type)) {
-            return true;
-        }
-        if (is_null($value)) {
-            return true;
-        }
-        return $this->isType($type, $value);
     }
 
     protected function isOptional($field, $value)

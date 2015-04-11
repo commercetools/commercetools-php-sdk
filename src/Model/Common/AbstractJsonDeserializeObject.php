@@ -66,6 +66,17 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
         return static::$primitives[$type];
     }
 
+    protected function isValidType($type, $value)
+    {
+        if (!is_string($type)) {
+            return true;
+        }
+        if (is_null($value)) {
+            return true;
+        }
+        return $this->isType($type, $value);
+    }
+
     /**
      * @param string $type
      * @param mixed $value
@@ -141,6 +152,16 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
     public function toArray()
     {
         return array_merge($this->rawData, $this->typeData);
+    }
+
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     * @return static
+     */
+    public static function fromArray(array $data, $context = null)
+    {
+        return new static($data, $context);
     }
 
     /**
