@@ -108,7 +108,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
     protected function initialize($offset)
     {
         $type = $this->getType();
-        if (!is_null($type) && $this->hasInterface($type)) {
+        if ($this->isDeserializableType($type)) {
             /**
              * @var JsonDeserializeInterface $type
              */
