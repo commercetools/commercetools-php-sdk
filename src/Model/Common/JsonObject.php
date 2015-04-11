@@ -22,14 +22,6 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
     const INITIALIZED = 'initialized';
     const DECORATOR = 'decorator';
 
-    public function __construct(array $data = null, $context = null)
-    {
-        if (!is_null($data)) {
-            $this->rawData = $data;
-        }
-        $this->setContext($context);
-    }
-
     /**
      * @return array
      * @internal

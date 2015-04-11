@@ -17,6 +17,18 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
     protected $typeData = [];
     protected $initialized = [];
 
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        $this->setContext($context);
+        if (!is_null($data)) {
+            $this->rawData = $data;
+        }
+    }
+
     protected function getDeserializeInterface()
     {
         return 'Sphere\Core\Model\Common\JsonDeserializeInterface';
@@ -30,11 +42,14 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
         'array' => 'is_array'
     ];
 
+    /**
+     * @var bool[]
+     */
     protected static $interfaces = [];
 
     /**
      * @param $type
-     * @return mixed
+     * @return bool
      * @internal
      */
     protected function hasInterface($type)
@@ -66,6 +81,11 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
         return static::$primitives[$type];
     }
 
+    /**
+     * @param string|bool $type
+     * @param mixed $value
+     * @return bool
+     */
     protected function isValidType($type, $value)
     {
         if (!is_string($type)) {
@@ -91,11 +111,19 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
         return $value instanceof $type;
     }
 
+    /**
+     * @param $value
+     * @return bool
+     */
     protected function isDeserializable($value)
     {
         return (is_object($value) && $this->hasInterface(get_class($value)));
     }
 
+    /**
+     * @param $type
+     * @return bool
+     */
     protected function isDeserializableType($type)
     {
         if (!is_string($type)) {

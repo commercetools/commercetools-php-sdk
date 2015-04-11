@@ -33,8 +33,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
      */
     public function __construct(array $data = [], $context = null)
     {
-        $this->setContext($context);
-        $this->rawData = $data;
+        parent::__construct($data, $context);
         $this->indexData();
     }
 
