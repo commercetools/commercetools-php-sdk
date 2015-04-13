@@ -24,7 +24,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         $obj = $this->getMock(
             '\Sphere\Core\Model\Common\JsonObject',
             ['getFields'],
-            [['key' => 'value', 'true' => true, 'false' => false]]
+            [['key' => 'value', 'true' => true, 'false' => false, 'mixed' => '1']]
         );
         $obj->expects($this->any())
             ->method('getFields')
@@ -50,13 +50,23 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testToArray()
     {
-        $this->assertSame(['key' => 'value', 'true' => true, 'false' => false], $this->getObject()->toArray());
+        $this->assertSame(
+            ['key' => 'value', 'true' => true, 'false' => false, 'mixed' => '1'],
+            $this->getObject()->toArray()
+        );
     }
 
     public function testSerializable()
     {
-        $this->assertSame(['key' => 'value', 'true' => true, 'false' => false], $this->getObject()->jsonSerialize());
+        $this->getObject()->getLocalString();
+        $this->getObject()->getDecorator();
+
+        $this->assertJsonStringEqualsJsonString(
+            json_encode(['key' => 'value', 'true' => true, 'false' => false, 'mixed' => '1']),
+            json_encode($this->getObject()->jsonSerialize())
+        );
     }
+
 
     public function testInterface()
     {
@@ -115,6 +125,11 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
     public function testUnknownAction()
     {
         $this->getObject()->hasKey();
+    }
+
+    public function testGetNotTyped()
+    {
+        $this->assertSame('1', $this->getObject()->getMixed());
     }
 
     public function testNotTyped()
