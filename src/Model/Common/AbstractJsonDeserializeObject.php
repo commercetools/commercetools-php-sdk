@@ -88,13 +88,7 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
      */
     protected function isValidType($type, $value)
     {
-        if (!is_string($type)) {
-            return true;
-        }
-        if (is_null($value)) {
-            return true;
-        }
-        return $this->isType($type, $value);
+        return !is_string($type) || is_null($value) || $this->isType($type, $value);
     }
 
     /**
