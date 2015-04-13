@@ -268,22 +268,6 @@ class ReflectedClass
         return $this->abstract;
     }
 
-    protected function isPrimitive($type)
-    {
-        $primitives = [
-            'bool' => 'is_bool',
-            'int' => 'is_int',
-            'string' => 'is_string',
-            'float' => 'is_float',
-            'array' => 'is_array'
-        ];
-        if (!isset($primitives[$type])) {
-            return false;
-        }
-
-        return $primitives[$type];
-    }
-
     /**
      * @return mixed
      */

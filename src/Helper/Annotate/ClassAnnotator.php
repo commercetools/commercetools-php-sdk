@@ -159,10 +159,7 @@ class ClassAnnotator
             'float' => 'is_float',
             'array' => 'is_array'
         ];
-        if (!isset($primitives[$type])) {
-            return false;
-        }
 
-        return $primitives[$type];
+        return isset($primitives[$type]);
     }
 }
