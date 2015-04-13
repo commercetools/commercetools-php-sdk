@@ -6,7 +6,6 @@
 
 namespace Sphere\Core\Model\Common;
 
-use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class Attribute

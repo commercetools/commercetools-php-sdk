@@ -8,7 +8,7 @@ namespace Sphere\Core\Request\Orders\Command;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\State\StateReference;
 use Sphere\Core\Request\AbstractAction;
-use \Sphere\Core\Model\Common\DateTimeDecorator;
+use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
  * Class OrderTransitionCustomLineItemStateAction

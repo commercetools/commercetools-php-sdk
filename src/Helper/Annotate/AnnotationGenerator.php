@@ -3,8 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Helper;
-
+namespace Sphere\Core\Helper\Annotate;
 
 class AnnotationGenerator
 {
@@ -32,6 +31,7 @@ class AnnotationGenerator
 
         foreach ($jsonObjects as $jsonObject) {
             $annotator = new ClassAnnotator($jsonObject);
+
             $annotator->generate();
         }
     }

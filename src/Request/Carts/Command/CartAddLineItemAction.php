@@ -6,6 +6,7 @@
 namespace Sphere\Core\Request\Carts\Command;
 
 use Sphere\Core\Request\AbstractAction;
+use Sphere\Core\Model\Channel\ChannelReference;
 
 /**
  * Class CartAddLineItemAction
@@ -18,6 +19,8 @@ use Sphere\Core\Request\AbstractAction;
  * @method CartAddLineItemAction setVariantId(int $variantId = null)
  * @method int getQuantity()
  * @method CartAddLineItemAction setQuantity(int $quantity = null)
+ * @method ChannelReference getSupplyChannel()
+ * @method CartAddLineItemAction setSupplyChannel(ChannelReference $supplyChannel = null)
  */
 class CartAddLineItemAction extends AbstractAction
 {

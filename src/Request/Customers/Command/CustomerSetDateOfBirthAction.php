@@ -6,7 +6,7 @@
 namespace Sphere\Core\Request\Customers\Command;
 
 use Sphere\Core\Request\AbstractAction;
-use \Sphere\Core\Model\Common\DateDecorator;
+use Sphere\Core\Model\Common\DateDecorator;
 
 /**
  * Class CustomerSetDateOfBirthAction
