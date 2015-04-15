@@ -135,19 +135,17 @@ class ClassAnnotator
         }
         $classHead[] = ' */';
 
-        if ($this->class->getShortClassName() == 'Attribute') {
-            $fileName = $this->class->getFileName();
+        $fileName = $this->class->getFileName();
 
-            $source = file_get_contents($fileName);
+        $source = file_get_contents($fileName);
 
-            $newSource = preg_replace(
-                '~namespace(.*)class~s',
-                implode(PHP_EOL, $classHead) . PHP_EOL . 'class',
-                $source
-            );
+        $newSource = preg_replace(
+            '~namespace(.*)class~s',
+            implode(PHP_EOL, $classHead) . PHP_EOL . 'class',
+            $source
+        );
 
-            file_put_contents($fileName, $newSource);
-        }
+        file_put_contents($fileName, $newSource);
     }
 
     protected function isPrimitive($type)

@@ -23,7 +23,7 @@ before_script:
 
 script:
   - ant phpcs-ci
-  - phpunit
+  - phpunit --testsuite=unit
   - ant behat
 
 after_success:

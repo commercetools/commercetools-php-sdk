@@ -171,12 +171,27 @@
         </exec>
     </target>
 
-    <target name="phpunit"
+    <target name="phpunit" description="Run tests with PHPUnit"
+            depends="unit-test, integration-test">
+    </target>
+
+    <target name="unit-test"
             depends="prepare"
             description="Run unit tests with PHPUnit">
         <exec executable="${toolsdir}phpunit" failonerror="true">
             <arg value="--configuration"/>
             <arg path="${basedir}/phpunit.xml.dist"/>
+            <arg value="--testsuite=unit"/>
+        </exec>
+    </target>
+
+    <target name="integration-test"
+            depends="prepare"
+            description="Run integration tests with PHPUnit">
+        <exec executable="${toolsdir}phpunit" failonerror="true">
+            <arg value="--configuration"/>
+            <arg path="${basedir}/phpunit.xml.dist"/>
+            <arg value="--testsuite=integration"/>
         </exec>
     </target>
 

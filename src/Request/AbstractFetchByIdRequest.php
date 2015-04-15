@@ -22,6 +22,8 @@ use Sphere\Core\Response\SingleResourceResponse;
  */
 abstract class AbstractFetchByIdRequest extends AbstractApiRequest
 {
+    use ExpandTrait;
+
     /**
      * @var string
      */
@@ -63,7 +65,7 @@ abstract class AbstractFetchByIdRequest extends AbstractApiRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/' . $this->getId();
+        return (string)$this->getEndpoint() . '/' . $this->getId() . $this->getParamString();
     }
 
     /**

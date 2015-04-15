@@ -1,0 +1,4 @@
+default:
+    suites:
+        request_features:
+            paths: [ %paths.base%/features/request ]

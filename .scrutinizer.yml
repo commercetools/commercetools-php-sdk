@@ -17,5 +17,14 @@ build:
             - if [[ "`phpenv version-name`" =~ "^5.4" ]] && [ "`phpenv version-name`" != "hhvm" ]; then echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
             #+5.5 uses APCU
             - if [[ ! "`phpenv version-name`" =~ "^5.4" ]] && [ "`phpenv version-name`" != "hhvm" ]; then printf "\n"| echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+    tests:
+        override:
+            -
+                command: vendor/bin/behat -f progress
+            -
+                command: vendor/bin/phpunit --testsuite=unit --coverage-clover=coverage0
+                coverage:
+                    file: 'coverage0'
+                    format: 'php-clover'
 filter:
     excluded_paths: [build/*, tests/*, docroot/*, features/*]

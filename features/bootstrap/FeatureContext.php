@@ -456,7 +456,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'DeleteByIdRequest';
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'DeleteByIdRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $version = $this->objects[$requestContext]['version'];

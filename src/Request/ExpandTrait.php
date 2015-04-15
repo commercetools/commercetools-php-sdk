@@ -13,10 +13,13 @@ namespace Sphere\Core\Request;
 trait ExpandTrait
 {
     /**
-     * @param string $fieldReference
+     * @param $fieldReference
+     * @return $this
      */
     public function expand($fieldReference)
     {
         $this->addParam('expand', $fieldReference);
+
+        return $this;
     }
 }
