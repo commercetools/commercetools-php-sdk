@@ -24,7 +24,7 @@ before_script:
 script:
   - ant phpcs-ci
   - phpunit --testsuite=unit
-  - sh -c "if [ $TRAVIS_PHP_VERSION == '5.4' ] ; then phpunit --testsuite=integration; fi"
+  - if [ $TRAVIS_PHP_VERSION == '5.4' ] ; then phpunit --testsuite=integration; fi
   - ant behat
 
 after_success:
