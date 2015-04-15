@@ -31,7 +31,7 @@ class Client extends AbstractHttpClient
     /**
      * @var ClientRequestInterface[]
      */
-    protected $batchRequests;
+    protected $batchRequests = [];
 
     /**
      * @param array|Config $config

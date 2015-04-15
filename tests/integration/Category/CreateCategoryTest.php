@@ -20,8 +20,9 @@ class CreateCategoryTest extends ApiTestCase
         $items = $this->getClient()->execute(CategoriesQueryRequest::of())->toObject();
 
         foreach ($items as $item) {
-            $this->getClient()->execute(CategoryDeleteByIdRequest::of($item->getId(), $item->getVersion()));
+            $this->getClient()->addBatchRequest(CategoryDeleteByIdRequest::of($item->getId(), $item->getVersion()));
         }
+        $this->getClient()->executeBatch();
     }
 
     public function testCreate()
