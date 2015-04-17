@@ -18,16 +18,6 @@ use Sphere\Core\Request\Categories\Command\CategoryChangeNameAction;
 
 class UpdateCategoryTest extends ApiTestCase
 {
-    protected function cleanup()
-    {
-        $items = $this->getClient()->execute(CategoriesQueryRequest::of())->toObject();
-
-        foreach ($items as $item) {
-            $this->getClient()->addBatchRequest(CategoryDeleteByIdRequest::of($item->getId(), $item->getVersion()));
-        }
-        $this->getClient()->executeBatch();
-    }
-
     /**
      * @param $name
      * @param $slug
@@ -43,14 +33,22 @@ class UpdateCategoryTest extends ApiTestCase
         return $draft;
     }
 
-    public function testUpdateName()
+    protected function createCategory(CategoryDraft $draft)
     {
         /**
          * @var Category $category
          */
         $category = $this->getClient()
-            ->execute(CategoryCreateRequest::of($this->getDraft('update name', 'update-name')))
+            ->execute(CategoryCreateRequest::of($draft))
             ->toObject();
+        $this->cleanupRequests[] = CategoryDeleteByIdRequest::of($category->getId(), $category->getVersion());
+
+        return $category;
+    }
+
+    public function testUpdateName()
+    {
+        $category = $this->createCategory($this->getDraft('update name', 'update-name'));
 
         $result = $this->getClient()->execute(
             CategoryUpdateRequest::of(
@@ -64,5 +62,12 @@ class UpdateCategoryTest extends ApiTestCase
 
         $this->assertInstanceOf('\Sphere\Core\Model\Category\Category', $result);
         $this->assertSame('new name', $result->getName()->en);
+        $this->assertNotSame($category->getVersion(), $result->getVersion());
+
+        $deleteRequest = array_pop($this->cleanupRequests);
+        $deleteRequest->setVersion($result->getVersion());
+        $result = $this->getClient()->execute($deleteRequest)->toObject();
+
+        $this->assertInstanceOf('\Sphere\Core\Model\Category\Category', $result);
     }
 }

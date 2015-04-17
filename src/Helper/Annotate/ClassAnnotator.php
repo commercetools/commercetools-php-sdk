@@ -129,7 +129,8 @@ class ClassAnnotator
         }
 
         foreach ($this->class->getMagicGetSetMethods() as $magicMethod) {
-            $method = $magicMethod['returnTypeHint'] . ' ' . $magicMethod['name'];
+            $method = ($magicMethod['static'] ? 'static ' : '');
+            $method.= $magicMethod['returnTypeHint'] . ' ' . $magicMethod['name'];
             $method.= '(' . implode(', ', $magicMethod['args']) . ')';
             $classHead[] = ' * @method ' . trim($method);
         }

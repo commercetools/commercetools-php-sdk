@@ -15,6 +15,7 @@ use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonDeserializeInterface;
 use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Request\Query\Parameter;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
@@ -80,7 +81,7 @@ abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
     public function setVersion($version)
     {
         $this->version = $version;
-        $this->addParam('version', $version);
+        $this->addParamObject(new Parameter('version', $version));
 
         return $this;
     }

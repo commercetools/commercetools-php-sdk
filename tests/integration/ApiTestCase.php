@@ -11,9 +11,15 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
     protected $client;
 
+    protected $cleanupRequests = [];
+
     protected function cleanup()
     {
-
+        foreach ($this->cleanupRequests as $request) {
+            $this->getClient()->addBatchRequest($request);
+        }
+        $this->getClient()->executeBatch();
+        $this->cleanupRequests = [];
     }
 
     public function tearDown()

@@ -9,6 +9,7 @@ namespace Sphere\Core;
 
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Message\RequestInterface;
+use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Log\LoggerInterface;
@@ -145,7 +146,14 @@ class Client extends AbstractHttpClient
         $responses = [];
         foreach ($results as $key => $result) {
             $request = $this->batchRequests[$key];
-            $responses[$request->getIdentifier()] = $request->buildResponse($result);
+            $httpResponse = $result;
+            if ($result instanceof RequestException) {
+                $httpResponse = $result->getResponse();
+                if (is_null($httpResponse)) {
+                    throw $result;
+                }
+            }
+            $responses[$request->getIdentifier()] = $request->buildResponse($httpResponse);
         }
         $this->batchRequests = [];
 

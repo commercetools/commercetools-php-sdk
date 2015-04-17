@@ -6,10 +6,13 @@
 
 namespace Sphere\Core\Request;
 
+use Sphere\Core\Request\Query\Parameter;
+use Sphere\Core\Request\Query\ParameterInterface;
+
 /**
  * Class QueryTrait
  * @package Sphere\Core\Request
- * @method $this addParam($key, $value)
+ * @method $this addParamObject(ParameterInterface $param)
  */
 trait QueryTrait
 {
@@ -20,7 +23,7 @@ trait QueryTrait
     public function where($where)
     {
         if (!is_null($where)) {
-            $this->addParam('where', $where);
+            $this->addParamObject(new Parameter('where', $where));
         }
 
         return $this;

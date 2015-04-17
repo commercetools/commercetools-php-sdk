@@ -172,9 +172,14 @@ class ReflectedClass
 
     protected function reflectMagicMethods($matches)
     {
-        list(, $returnTypeHint, $returnsReference, $name, $type, $fieldName, $args, $shortDescription) = $matches;
-
-        if (!$this->hasMethod($name)) {
+        list(, $static, $returnTypeHint, $returnsReference, $name, $args, $shortDescription) = $matches;
+        $type = $fieldName = '';
+        if (preg_match('~^(set|get)(.*)~', $name, $matches)) {
+            $type = $matches[1];
+            $fieldName = $matches[2];
+        }
+        $args = array_map('trim', explode(',', $args));
+        if (empty($type) || !$this->hasMethod($name)) {
             $this->magicGetSetMethods[$name] = [
                 'name' => $name,
                 'returnTypeHint' => $returnTypeHint,
@@ -182,6 +187,7 @@ class ReflectedClass
                 'type' => $type,
                 'fieldName' => $fieldName,
                 'args' => $args,
+                'static' => ($static === 'static'),
                 'shortDescription' => $shortDescription
             ];
         }
@@ -200,8 +206,8 @@ class ReflectedClass
      */
     protected function getMethodPattern()
     {
-        return '~@method\\s+(?:([$\\w\\\\]+(?:\\|[$\\w\\\\]+)*)\\s+)?(&)?' .
-        '\\s*((set|get)(\\w+))\\s*\\(\\s*(.*)\\s*\\)\\s*(.*|$)~s';
+        return '~@method (?:(static)\\s+)?(?:([\\w\\\\]+(?:\\|[\\w\\\\]+)*)\\s+)?' .
+            '(&)?\\s*(\\w+)\\s*\\(\\s*(.*)\\s*\\)\\s*(.*|$)~s';
     }
 
     /**
