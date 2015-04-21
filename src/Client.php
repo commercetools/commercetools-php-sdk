@@ -12,6 +12,8 @@ use GuzzleHttp\Message\RequestInterface;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Log\LoggerInterface;
+use Sphere\Core\Error\DeprecatedException;
+use Sphere\Core\Error\Message;
 use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Response\ApiResponseInterface;
 use Sphere\Core\Request\ClientRequestInterface;
@@ -23,6 +25,12 @@ use Sphere\Core\Client\OAuth\Manager;
  */
 class Client extends AbstractHttpClient
 {
+    const DEPRECATION_HEADER = 'X-DEPRECATION-NOTICE';
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
     /**
      * @var Manager
      */
@@ -72,6 +80,7 @@ class Client extends AbstractHttpClient
     protected function setLogger(LoggerInterface $logger = null, $format = null)
     {
         if ($logger instanceof LoggerInterface) {
+            $this->logger = $logger;
             $subscriber = new LogSubscriber($logger, $format);
             $this->getHttpClient()->getEmitter()->attach($subscriber);
         }
@@ -105,6 +114,7 @@ class Client extends AbstractHttpClient
         }
 
         $response = $request->buildResponse($httpResponse);
+        $this->logDeprecatedMethod($response);
 
         return $response;
     }
@@ -153,10 +163,25 @@ class Client extends AbstractHttpClient
                 }
             }
             $responses[$request->getIdentifier()] = $request->buildResponse($httpResponse);
+            $this->logDeprecatedMethod($responses[$request->getIdentifier()]);
         }
         $this->batchRequests = [];
 
         return $responses;
+    }
+
+    public function logDeprecatedMethod(ApiResponseInterface $response)
+    {
+        $deprecatedMessage = $response->getResponse()->getHeader(static::DEPRECATION_HEADER);
+        if (!empty($deprecatedMessage)) {
+            $message = sprintf(
+                Message::DEPRECATED_METHOD,
+                $response->getRequest()->httpRequest()->getPath(),
+                $response->getRequest()->httpRequest()->getHttpMethod(),
+                $deprecatedMessage
+            );
+            $this->logMessage($message);
+        }
     }
 
     /**
@@ -183,5 +208,13 @@ class Client extends AbstractHttpClient
             $request->setContextIfNull($this->getConfig()->getContext());
         }
         $this->batchRequests[] = $request;
+    }
+
+    public function logMessage($message)
+    {
+        if (is_null($this->logger) && !$this->getConfig()->getContext()->isGraceful()) {
+            throw new DeprecatedException($message);
+        }
+        $this->logger->notice($message);
     }
 }

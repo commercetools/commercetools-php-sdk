@@ -8,6 +8,7 @@ namespace Sphere\Core\Model\Common;
 /**
  * Class Document
  * @package Sphere\Core\Model\Common
+ * @method getId()
  */
 abstract class Document extends JsonObject implements ReferenceObjectInterface
 {

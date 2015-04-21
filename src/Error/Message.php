@@ -32,4 +32,6 @@ class Message
     const EXPECTS_PARAMETER = 'Excepts parameter "%s" to be %s, null given.';
 
     const NO_LANGUAGES_PROVIDED = 'No languages provided';
+
+    const DEPRECATED_METHOD = 'Call "%s" with method "%s" is deprecated: "%s"';
 }
