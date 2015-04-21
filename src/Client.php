@@ -9,7 +9,6 @@ namespace Sphere\Core;
 
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Message\RequestInterface;
-use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Log\LoggerInterface;

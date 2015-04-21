@@ -120,21 +120,34 @@ class ReflectedClass
 
     protected function reflectUseStatements()
     {
-        $source = file_get_contents($this->getFileName());
-        preg_match('~namespace(.*)class~s', $source, $matches);
-
-        $headData = $matches[1];
-        preg_match_all('~use (.*);\n~', $headData, $matches);
-
-        if (isset($matches[1])) {
-            foreach ($matches[1] as $match) {
-                $data = explode(' as ', $match);
-                $class = $data[0];
-                $alias = null;
-                if (isset($data[1])) {
-                    $alias = $data[1];
+        $content = file_get_contents($this->getFileName());
+        $tokens = token_get_all($content);
+        for ($index = 0; isset($tokens[$index]); $index++) {
+            if (!isset($tokens[$index][0])) {
+                continue;
+            }
+            if (T_USE == $tokens[$index][0]) {
+                $use = '';
+                $index += 2;
+                while ($tokens[$index][0] != T_AS && isset($tokens[$index]) && is_array($tokens[$index])) {
+                    if ($tokens[$index][0] == T_WHITESPACE) {
+                        $index++;
+                        continue;
+                    }
+                    $use .= $tokens[$index++][1];
                 }
-                $this->addUse($class, $alias);
+                $alias = null;
+                if ($tokens[$index][0] == T_AS) {
+                    $alias = '';
+                    $index += 2;
+                    while (isset($tokens[$index]) && is_array($tokens[$index])) {
+                        $alias .= $tokens[$index++][1];
+                    }
+                }
+                $this->addUse($use, $alias);
+            }
+            if (T_CLASS == $tokens[$index][0]) {
+                break;
             }
         }
     }

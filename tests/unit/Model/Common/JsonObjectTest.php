@@ -8,6 +8,7 @@ namespace Sphere\Core\Model\Type;
 
 
 use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\ProductType\ProductType;
 
 /**
  * Class JsonObjectTest
@@ -23,8 +24,9 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         date_default_timezone_set('UTC');
         $obj = $this->getMock(
             '\Sphere\Core\Model\Common\JsonObject',
-            ['getFields'],
-            [['key' => 'value', 'true' => true, 'false' => false, 'mixed' => '1']]
+            ['getFields', 'getId'],
+            [['key' => 'value', 'true' => true, 'false' => false, 'mixed' => '1']],
+            'MockJsonObject'
         );
         $obj->expects($this->any())
             ->method('getFields')
@@ -43,6 +45,11 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
                         ]
                     ]
                 )
+            );
+        $obj->expects($this->any())
+            ->method('getId')
+            ->will(
+                $this->returnValue('12345')
             );
 
         return $obj;
@@ -198,5 +205,29 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         $obj = $this->getObject();
         $obj->setDecorator(new \DateTime());
         $this->assertInstanceOf('\Sphere\Core\Model\Common\DateTimeDecorator', $obj->getDecorator());
+    }
+
+    public function testGetReference()
+    {
+        $obj = ProductType::of()->setId('123456');
+
+        $reference = $obj->getReference();
+        $this->assertInstanceOf('\Sphere\Core\Model\ProductType\ProductTypeReference', $reference);
+        $this->assertJsonStringEqualsJsonString(
+            '{"typeId": "product-type", "id": "123456"}',
+            json_encode($reference)
+        );
+    }
+
+    public function testGetReferenceWithoutReferenceClass()
+    {
+        $obj = $this->getObject();
+
+        $reference = $obj->getReference();
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\Reference', $reference);
+        $this->assertJsonStringEqualsJsonString(
+            '{"typeId": "mock-json-object", "id": "12345"}',
+            json_encode($reference)
+        );
     }
 }

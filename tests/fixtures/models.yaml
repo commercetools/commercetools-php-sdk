@@ -725,6 +725,14 @@ productType:
     - description
     - attributes
 
+productTypeDraft:
+  domain: productType
+  model: ProductTypeDraft
+  fields:
+    - name
+    - description
+    - attributes
+
 shippingMethod:
   domain: shippingMethod
   model: ShippingMethod

@@ -129,7 +129,7 @@ class ClassAnnotator
         }
 
         foreach ($this->class->getMagicGetSetMethods() as $magicMethod) {
-            $method = ($magicMethod['static'] ? 'static ' : '');
+            $method = (isset($magicMethod['static']) && $magicMethod['static'] ? 'static ' : '');
             $method.= $magicMethod['returnTypeHint'] . ' ' . $magicMethod['name'];
             $method.= '(' . implode(', ', $magicMethod['args']) . ')';
             $classHead[] = ' * @method ' . trim($method);
@@ -141,8 +141,8 @@ class ClassAnnotator
         $source = file_get_contents($fileName);
 
         $newSource = preg_replace(
-            '~namespace(.*)class~s',
-            implode(PHP_EOL, $classHead) . PHP_EOL . 'class',
+            '~namespace(.*)class ' . $this->class->getShortClassName() . '~s',
+            implode(PHP_EOL, $classHead) . PHP_EOL . 'class ' . $this->class->getShortClassName(),
             $source
         );
 

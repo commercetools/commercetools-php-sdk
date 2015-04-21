@@ -17,6 +17,7 @@ use Sphere\Core\Model\TaxCategory\TaxCategory;
 /**
  * Class ProductDraft
  * @package Sphere\Core\Model\Product
+ * @method static ProductDraft of(ProductTypeReference $productType, LocalizedString $name, LocalizedString $slug)
  * @method LocalizedString getName()
  * @method ProductDraft setName(LocalizedString $name = null)
  * @method LocalizedString getSlug()

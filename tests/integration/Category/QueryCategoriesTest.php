@@ -300,6 +300,12 @@ class QueryCategoriesTest extends ApiTestCase
 
     public function testOverpaging()
     {
-
+        $this->createCategory($this->getDraft('myCategory', 'my-category'));
+        $result = $this->getClient()->execute(
+            CategoriesQueryRequest::of()->offset(10000)
+        );
+        $this->assertSame(10000, $result->getOffset());
+        $this->assertSame(0, $result->getCount());
+        $this->assertCount(0, $result->toObject());
     }
 }
