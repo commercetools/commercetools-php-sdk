@@ -150,7 +150,11 @@ class Client extends AbstractHttpClient
      */
     public function executeBatch()
     {
-        $results = Pool::batch($this->getHttpClient(), $this->getBatchHttpRequests());
+        $results = Pool::batch(
+            $this->getHttpClient(),
+            $this->getBatchHttpRequests(),
+            ['pool_size' => $this->getConfig()->getBatchPoolSize()]
+        );
 
         $responses = [];
         foreach ($results as $key => $result) {
