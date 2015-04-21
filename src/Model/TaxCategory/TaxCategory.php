@@ -6,7 +6,7 @@
 namespace Sphere\Core\Model\TaxCategory;
 
 use Sphere\Core\Model\Common\Collection;
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 
 /**
  * Class TaxCategory
@@ -26,7 +26,7 @@ use Sphere\Core\Model\Common\JsonObject;
  * @method Collection getRates()
  * @method TaxCategory setRates(Collection $rates = null)
  */
-class TaxCategory extends JsonObject
+class TaxCategory extends Document
 {
     public function getFields()
     {

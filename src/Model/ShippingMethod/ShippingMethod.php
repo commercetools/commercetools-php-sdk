@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\ShippingMethod;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
@@ -30,7 +30,7 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
  * @method bool getIsDefault()
  * @method ShippingMethod setIsDefault(bool $isDefault = null)
  */
-class ShippingMethod extends JsonObject
+class ShippingMethod extends Document
 {
     public function getFields()
     {

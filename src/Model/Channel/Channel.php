@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\Channel;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
@@ -28,7 +28,7 @@ use Sphere\Core\Model\Common\LocalizedString;
  * @method LocalizedString getDescription()
  * @method Channel setDescription(LocalizedString $description = null)
  */
-class Channel extends JsonObject
+class Channel extends Document
 {
     public function getFields()
     {

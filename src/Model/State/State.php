@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\State;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
@@ -34,7 +34,7 @@ use Sphere\Core\Model\Common\LocalizedString;
  * @method bool getBuiltIn()
  * @method State setBuiltIn(bool $builtIn = null)
  */
-class State extends JsonObject
+class State extends Document
 {
     public function getFields()
     {

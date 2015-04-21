@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\ProductDiscount;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\ReferenceCollection;
 
@@ -35,7 +35,7 @@ use Sphere\Core\Model\Common\ReferenceCollection;
  * @method ReferenceCollection getReferences()
  * @method ProductDiscount setReferences(ReferenceCollection $references = null)
  */
-class ProductDiscount extends JsonObject
+class ProductDiscount extends Document
 {
     public function getFields()
     {

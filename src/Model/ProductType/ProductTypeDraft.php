@@ -34,7 +34,7 @@ class ProductTypeDraft extends JsonObject
      * @param string $description
      * @param Context|callable $context
      */
-    public function __construct($name, $description, Context $context = null)
+    public function __construct($name, $description, $context = null)
     {
         $this->setContext($context)->setName($name)->setDescription($description);
     }

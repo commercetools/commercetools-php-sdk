@@ -6,11 +6,10 @@
 namespace Sphere\Core\Model\Cart;
 
 use Sphere\Core\Model\Common\Address;
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\Common\Money;
 use Sphere\Core\Model\Common\TaxedPrice;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
-use Sphere\Core\Model\DiscountCode\DiscountCodeReference;
 
 /**
  * Class Cart
@@ -52,7 +51,7 @@ use Sphere\Core\Model\DiscountCode\DiscountCodeReference;
  * @method CartDiscountCodeReferenceCollection getDiscountCodes()
  * @method Cart setDiscountCodes(CartDiscountCodeReferenceCollection $discountCodes = null)
  */
-class Cart extends JsonObject
+class Cart extends Document
 {
     public function getFields()
     {

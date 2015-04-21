@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\CustomObject;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 
 /**
  * Class CustomObject
@@ -25,7 +25,7 @@ use Sphere\Core\Model\Common\JsonObject;
  * @method string getValue()
  * @method CustomObject setValue(string $value = null)
  */
-class CustomObject extends JsonObject
+class CustomObject extends Document
 {
     public function getFields()
     {

@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\ProductType;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 
 /**
  * Class ProductType
@@ -25,7 +25,7 @@ use Sphere\Core\Model\Common\JsonObject;
  * @method AttributeDefinitionCollection getAttributes()
  * @method ProductType setAttributes(AttributeDefinitionCollection $attributes = null)
  */
-class ProductType extends JsonObject
+class ProductType extends Document
 {
     /**
      * @return array

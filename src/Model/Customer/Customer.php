@@ -6,7 +6,7 @@
 namespace Sphere\Core\Model\Customer;
 
 use Sphere\Core\Model\Common\AddressCollection;
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
@@ -53,7 +53,7 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
  * @method CustomerGroupReference getCustomerGroup()
  * @method Customer setCustomerGroup(CustomerGroupReference $customerGroup = null)
  */
-class Customer extends JsonObject
+class Customer extends Document
 {
     public function getFields()
     {

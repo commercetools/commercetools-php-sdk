@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\Category;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
@@ -35,7 +35,7 @@ use Sphere\Core\Model\Common\LocalizedString;
  * @method string getExternalId()
  * @method Category setExternalId(string $externalId = null)
  */
-class Category extends JsonObject
+class Category extends Document
 {
     public function getFields()
     {

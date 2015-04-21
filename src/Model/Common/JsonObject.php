@@ -6,7 +6,6 @@
 
 namespace Sphere\Core\Model\Common;
 
-use Sphere\Core\Error\InvalidArgumentException;
 use Sphere\Core\Error\Message;
 
 /**
@@ -168,26 +167,5 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
         $this->initialized[$field] = true;
 
         return $this;
-    }
-
-    /**
-     * @return Reference
-     */
-    public function getReference()
-    {
-        $className = trim(get_called_class(), '\\');
-        $referenceClass = $className . 'Reference';
-        if (class_exists($referenceClass)) {
-            $reference = new $referenceClass($this->getId(), $this->getContextCallback());
-        } else {
-            $classParts = explode('\\', $className);
-            $class = lcfirst(array_pop($classParts));
-            $type = strtolower(preg_replace('/([A-Z])/', '-$1', $class));
-
-            $reference = Reference::of($type, $this->getId(), $this->getContextCallback());
-        }
-        $reference->setObj($this);
-
-        return $reference;
     }
 }

@@ -14,6 +14,11 @@ interface ContextAwareInterface
     public function getContext();
 
     /**
+     * @return callable
+     */
+    public function getContextCallback();
+
+    /**
      * @param Context|callable $context
      * @return mixed
      */

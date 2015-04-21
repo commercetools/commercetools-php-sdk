@@ -206,28 +206,4 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         $obj->setDecorator(new \DateTime());
         $this->assertInstanceOf('\Sphere\Core\Model\Common\DateTimeDecorator', $obj->getDecorator());
     }
-
-    public function testGetReference()
-    {
-        $obj = ProductType::of()->setId('123456');
-
-        $reference = $obj->getReference();
-        $this->assertInstanceOf('\Sphere\Core\Model\ProductType\ProductTypeReference', $reference);
-        $this->assertJsonStringEqualsJsonString(
-            '{"typeId": "product-type", "id": "123456"}',
-            json_encode($reference)
-        );
-    }
-
-    public function testGetReferenceWithoutReferenceClass()
-    {
-        $obj = $this->getObject();
-
-        $reference = $obj->getReference();
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\Reference', $reference);
-        $this->assertJsonStringEqualsJsonString(
-            '{"typeId": "mock-json-object", "id": "12345"}',
-            json_encode($reference)
-        );
-    }
 }

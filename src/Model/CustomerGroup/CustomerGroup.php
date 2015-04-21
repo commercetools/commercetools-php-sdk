@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\CustomerGroup;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 
 /**
  * Class CustomerGroup
@@ -21,7 +21,7 @@ use Sphere\Core\Model\Common\JsonObject;
  * @method string getName()
  * @method CustomerGroup setName(string $name = null)
  */
-class CustomerGroup extends JsonObject
+class CustomerGroup extends Document
 {
     public function getFields()
     {

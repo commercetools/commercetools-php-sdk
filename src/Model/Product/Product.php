@@ -6,7 +6,7 @@
 
 namespace Sphere\Core\Model\Product;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\ProductType\ProductTypeReference;
 use Sphere\Core\Model\TaxCategory\TaxCategory;
 
@@ -28,7 +28,7 @@ use Sphere\Core\Model\TaxCategory\TaxCategory;
  * @method ProductCatalogData getMasterData()
  * @method Product setMasterData(ProductCatalogData $masterData = null)
  */
-class Product extends JsonObject
+class Product extends Document
 {
     public function getFields()
     {

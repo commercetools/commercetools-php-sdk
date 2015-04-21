@@ -9,7 +9,7 @@ use Sphere\Core\Model\Cart\CustomLineItemCollection;
 use Sphere\Core\Model\Cart\LineItemCollection;
 use Sphere\Core\Model\Cart\ShippingInfo;
 use Sphere\Core\Model\Common\Address;
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\Common\Money;
 use Sphere\Core\Model\Common\TaxedPrice;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
@@ -67,7 +67,7 @@ use Sphere\Core\Model\DiscountCode\DiscountCodeReferenceCollection;
  * @method int getLastMessageSequenceNumber()
  * @method Order setLastMessageSequenceNumber(int $lastMessageSequenceNumber = null)
  */
-class Order extends JsonObject
+class Order extends Document
 {
     public function getFields()
     {
