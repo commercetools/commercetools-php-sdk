@@ -26,14 +26,18 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     const TOTAL = 'total';
     const RESULTS = 'results';
 
+    protected $parsed = false;
     protected $count;
     protected $offset;
     protected $total;
     protected $results = [];
 
-    public function __construct(ResponseInterface $response, ClientRequestInterface $request, Context $context = null)
+    protected function parseJsonResponse()
     {
-        parent::__construct($response, $request, $context);
+        if ($this->parsed) {
+            return;
+        }
+        $this->parsed = true;
         if (!$this->isError()) {
             $jsonResponse = $this->toArray();
             $this->setCount($jsonResponse[static::COUNT])
@@ -49,6 +53,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function getCount()
     {
+        $this->parseJsonResponse();
         return $this->count;
     }
 
@@ -68,6 +73,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function getOffset()
     {
+        $this->parseJsonResponse();
         return $this->offset;
     }
 
@@ -87,6 +93,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function getTotal()
     {
+        $this->parseJsonResponse();
         return $this->total;
     }
 
@@ -106,6 +113,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function getResults()
     {
+        $this->parseJsonResponse();
         return $this->results;
     }
 
@@ -129,6 +137,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function getIterator()
     {
+        $this->parseJsonResponse();
         return new \ArrayIterator($this->results);
     }
 
@@ -146,6 +155,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function offsetExists($offset)
     {
+        $this->parseJsonResponse();
         return isset($this->results[$offset]);
     }
 
@@ -160,6 +170,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function offsetGet($offset)
     {
+        $this->parseJsonResponse();
         return $this->results[$offset];
     }
 
@@ -177,6 +188,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function offsetSet($offset, $value)
     {
+        $this->parseJsonResponse();
         if (is_null($offset)) {
             $this->results[] = $value;
         } else {
@@ -195,6 +207,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function offsetUnset($offset)
     {
+        $this->parseJsonResponse();
         unset($this->results[$offset]);
     }
 }

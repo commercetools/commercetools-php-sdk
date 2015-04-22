@@ -5,6 +5,8 @@
  */
 namespace Sphere\Core\Response;
 
+use GuzzleHttp\Message\ResponseInterface;
+use GuzzleHttp\Ring\Future\FutureInterface;
 use Sphere\Core\Request\ClientRequestInterface;
 
 /**
@@ -22,7 +24,7 @@ interface ApiResponseInterface
     public function isError();
 
     /**
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface|FutureInterface
      */
     public function getResponse();
 

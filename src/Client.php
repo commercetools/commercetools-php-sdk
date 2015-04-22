@@ -12,7 +12,6 @@ use GuzzleHttp\Message\RequestInterface;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Log\LoggerInterface;
-use Sphere\Core\Error\DeprecatedException;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Response\ApiResponseInterface;
@@ -103,16 +102,14 @@ class Client extends AbstractHttpClient
         if ($request instanceof ContextAwareInterface) {
             $request->setContextIfNull($this->getConfig()->getContext());
         }
-        $client = $this->getHttpClient();
         try {
-            $httpResponse = $client->send($this->createHttpRequest($request));
+            $httpResponse = $this->getHttpClient()->send($this->createHttpRequest($request));
         } catch (RequestException $exception) {
             $httpResponse = $exception->getResponse();
             if (is_null($httpResponse)) {
                 throw $exception;
             }
         }
-
         $response = $request->buildResponse($httpResponse);
         $this->logDeprecatedMethod($response);
 
@@ -121,12 +118,32 @@ class Client extends AbstractHttpClient
 
     /**
      * @param ClientRequestInterface $request
+     * @return ApiResponseInterface
+     */
+    public function future(ClientRequestInterface $request)
+    {
+        if ($request instanceof ContextAwareInterface) {
+            $request->setContextIfNull($this->getConfig()->getContext());
+        }
+        $httpResponse = $this->getHttpClient()->send($this->createHttpRequest($request, true));
+        $httpResponse->then(
+            function ($httpResponse) use ($request) {
+                $this->logDeprecatedMethod($request->buildResponse($httpResponse));
+                return $httpResponse;
+            }
+        );
+        $response = $request->buildResponse($httpResponse);
+
+        return $response;
+    }
+
+    /**
+     * @param ClientRequestInterface $request
+     * @param bool $future
      * @return RequestInterface
      */
-    protected function createHttpRequest(ClientRequestInterface $request)
+    protected function createHttpRequest(ClientRequestInterface $request, $future = false)
     {
-        $client = $this->getHttpClient();
-
         $method = $request->httpRequest()->getHttpMethod();
         $token = $this->getOAuthManager()->getToken();
         $headers = [
@@ -139,10 +156,12 @@ class Client extends AbstractHttpClient
             'timeout' => 60,
             'connect_timeout' => 10,
             'headers' => $headers,
-            'body' => $request->httpRequest()->getBody()
+            'body' => $request->httpRequest()->getBody(),
+            'future' => $future,
+            'exceptions' => true
         ];
 
-        return $client->createRequest($method, $request->httpRequest()->getPath(), $options);
+        return $this->getHttpClient()->createRequest($method, $request->httpRequest()->getPath(), $options);
     }
 
     /**
@@ -177,14 +196,14 @@ class Client extends AbstractHttpClient
     public function logDeprecatedMethod(ApiResponseInterface $response)
     {
         $deprecatedMessage = $response->getResponse()->getHeader(static::DEPRECATION_HEADER);
-        if (!empty($deprecatedMessage)) {
+        if (!empty($deprecatedMessage) && !is_null($this->logger)) {
             $message = sprintf(
                 Message::DEPRECATED_METHOD,
                 $response->getRequest()->httpRequest()->getPath(),
                 $response->getRequest()->httpRequest()->getHttpMethod(),
                 $deprecatedMessage
             );
-            $this->logMessage($message);
+            $this->logger->warning($message);
         }
     }
 
@@ -212,13 +231,5 @@ class Client extends AbstractHttpClient
             $request->setContextIfNull($this->getConfig()->getContext());
         }
         $this->batchRequests[] = $request;
-    }
-
-    public function logMessage($message)
-    {
-        if (is_null($this->logger) && !$this->getConfig()->getContext()->isGraceful()) {
-            throw new DeprecatedException($message);
-        }
-        $this->logger->notice($message);
     }
 }

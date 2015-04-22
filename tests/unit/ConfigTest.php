@@ -109,4 +109,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config->fromArray($testConfig);
         $this->assertTrue($config->check());
     }
+
+    public function testBatchPoolSize()
+    {
+        $config = new Config();
+        $this->assertSame(25, $config->getBatchPoolSize());
+        $config->setBatchPoolSize(30);
+        $this->assertSame(30, $config->getBatchPoolSize());
+    }
 }

@@ -7,9 +7,11 @@
 namespace Sphere\Core;
 
 
+use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Message\Response;
 use GuzzleHttp\Message\ResponseInterface;
+use GuzzleHttp\Ring\Client\MockHandler;
 use GuzzleHttp\Stream\BufferStream;
 use GuzzleHttp\Subscriber\Mock;
 use Monolog\Handler\TestHandler;
@@ -160,31 +162,52 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $clientMock = $this->getMock(
             '\Sphere\Core\Client',
-            ['getOauthManager', 'createHttpRequest'],
+            ['getOauthManager'],
             [$this->getConfig()]
         );
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
-        $httpRequest = $clientMock->getHttpClient()->createRequest('test');
-        $clientMock->expects($this->any())
-            ->method('createHttpRequest')
-            ->will($this->returnValue($httpRequest));
 
         /**
          * @var Client $clientMock
          */
-        $httpRequest = $clientMock->getHttpClient()->createRequest('test');
-
-        $mock = new Mock();
-        $mock->addException(new ConnectException('test', $httpRequest));
-        // Add the mock subscriber to the client.
-        $clientMock->getHttpClient()->getEmitter()->attach($mock);
-
         $endpoint = new JsonEndpoint('test');
         $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
 
         $clientMock->execute($request);
+    }
+
+    public function testExceptionWithResponse()
+    {
+        $config = $this->getConfig();
+
+        $oauthMock = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
+        $oauthMock->expects($this->any())
+            ->method('getToken')
+            ->will($this->returnValue(new Token('token')));
+
+        $clientMock = $this->getMock(
+            '\Sphere\Core\Client',
+            ['getOauthManager', 'getHttpClient'],
+            [$config]
+        );
+        $clientMock->expects($this->any())
+            ->method('getOauthManager')
+            ->will($this->returnValue($oauthMock));
+
+        $handler = new MockHandler(['status' => 500, 'body' => $this->getSingleOpResult()]);
+        $clientMock->expects($this->any())
+            ->method('getHttpClient')
+            ->will($this->returnValue(new HttpClient(['handler' => $handler])));
+
+        $endpoint = new JsonEndpoint('test');
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+
+        $response = $clientMock->execute($request);
+
+        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertTrue($response->isError());
     }
 
     public function testLogger()
@@ -220,7 +243,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $results = $client->executeBatch();
 
         $this->assertInstanceOf('\Sphere\Core\Response\PagedQueryResponse', $results[$request1->getIdentifier()]);
+        $this->assertFalse($results[$request1->getIdentifier()]->isError());
         $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $results[$request2->getIdentifier()]);
+        $this->assertFalse($results[$request2->getIdentifier()]->isError());
     }
 
     public function testLogDeprecatedMethod()
@@ -247,31 +272,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client->execute($request);
 
         $logEntry = $handler->getRecords()[1];
-        $this->assertSame(Logger::NOTICE, $logEntry['level']);
+        $this->assertSame(Logger::WARNING, $logEntry['level']);
         $this->assertSame('Call "test/id" with method "get" is deprecated: "Deprecated"', $logEntry['message']);
-    }
-
-    /**
-     * @expectedException \Sphere\Core\Error\DeprecatedException
-     */
-    public function testLogDeprecatedException()
-    {
-        $client = $this->getMockClient(
-            $this->getConfig(),
-            $this->getSingleOpResult(),
-            200,
-            null,
-            [
-                Client::DEPRECATION_HEADER => 'Deprecated'
-            ]
-        );
-
-        $endpoint = new JsonEndpoint('test');
-        /**
-         * @var ClientRequestInterface $request
-         */
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
-        $client->execute($request);
     }
 
     /**
@@ -286,31 +288,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $clientMock = $this->getMock(
             '\Sphere\Core\Client',
-            ['getOauthManager', 'createHttpRequest'],
+            ['getOauthManager'],
             [$this->getConfig()]
         );
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
-        $httpRequest = $clientMock->getHttpClient()->createRequest('test');
-        $clientMock->expects($this->any())
-            ->method('createHttpRequest')
-            ->will($this->returnValue($httpRequest));
 
         /**
          * @var Client $clientMock
          */
-        $httpRequest = $clientMock->getHttpClient()->createRequest('test');
-
-        $mock = new Mock(['key' => 'value']);
-        // Add the mock subscriber to the client.
-        $clientMock->getHttpClient()->getEmitter()->attach($mock);
-
-        $mock = new Mock(['key' => 'value']);
-        $mock->addException(new ConnectException('test', $httpRequest));
-        // Add the mock subscriber to the client.
-        $clientMock->getHttpClient()->getEmitter()->attach($mock);
-
         $endpoint1 = new JsonEndpoint('test1');
         $request1 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractQueryRequest', [$endpoint1]);
         $endpoint2 = new JsonEndpoint('test2');
@@ -320,5 +307,45 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $clientMock->addBatchRequest($request2);
 
         $clientMock->executeBatch();
+    }
+
+    public function testBatchExceptionWithResponse()
+    {
+        $oauthMock = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
+        $oauthMock->expects($this->any())
+            ->method('getToken')
+            ->will($this->returnValue(new Token('token')));
+
+        $clientMock = $this->getMock(
+            '\Sphere\Core\Client',
+            ['getOauthManager', 'getHttpClient'],
+            [$this->getConfig()]
+        );
+        $clientMock->expects($this->any())
+            ->method('getOauthManager')
+            ->will($this->returnValue($oauthMock));
+        $handler = new MockHandler(['status' => 500, 'body' => $this->getSingleOpResult()]);
+        $clientMock->expects($this->any())
+            ->method('getHttpClient')
+            ->will($this->returnValue(new HttpClient(['handler' => $handler])));
+
+        /**
+         * @var Client $clientMock
+         */
+        $endpoint1 = new JsonEndpoint('test1');
+        $request1 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint1, 'id']);
+        $endpoint2 = new JsonEndpoint('test2');
+        $request2 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint2, 'id']);
+
+        $clientMock->addBatchRequest($request1);
+        $clientMock->addBatchRequest($request2);
+
+        $results = $clientMock->executeBatch();
+
+        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $results[$request1->getIdentifier()]);
+        $this->assertTrue($results[$request1->getIdentifier()]->isError());
+        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $results[$request2->getIdentifier()]);
+        $this->assertTrue($results[$request2->getIdentifier()]->isError());
+
     }
 }
