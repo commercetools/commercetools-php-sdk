@@ -8,6 +8,7 @@ namespace Sphere\Core\Request;
 
 
 use GuzzleHttp\Message\ResponseInterface;
+use GuzzleHttp\Ring\Future\FutureInterface;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;
@@ -153,7 +154,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
 
     /**
      * @param ResponseInterface $response
-     * @return AbstractApiResponse
+     * @return AbstractApiResponse|FutureInterface
      * @internal
      */
     abstract public function buildResponse(ResponseInterface $response);

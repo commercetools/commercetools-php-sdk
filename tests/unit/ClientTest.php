@@ -108,6 +108,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = $this->getMockClient($this->getConfig(), $this->getQueryResult());
         $response = $client->execute($request);
         $this->assertInstanceOf('\Sphere\Core\Response\PagedQueryResponse', $response);
+        $this->assertJsonStringEqualsJsonString($this->getQueryResult(), json_encode($response->toArray()));
     }
 
     public function testExecuteSingleOp()
@@ -141,13 +142,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testException()
     {
-
         $endpoint = new JsonEndpoint('test');
         $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
 
         $client = $this->getMockClient($this->getConfig(), '', 500);
         $response = $client->execute($request);
         $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertTrue($response->isError());
     }
 
     /**

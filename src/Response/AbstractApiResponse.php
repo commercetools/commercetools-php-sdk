@@ -8,6 +8,8 @@ namespace Sphere\Core\Response;
 
 
 use GuzzleHttp\Message\ResponseInterface;
+use GuzzleHttp\Ring\Future\FutureInterface;
+use React\Promise\PromiseInterface;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Model\Common\ContextTrait;
@@ -17,7 +19,7 @@ use Sphere\Core\Request\ClientRequestInterface;
  * Class AbstractApiResponse
  * @package Sphere\Core\Response
  */
-abstract class AbstractApiResponse implements ApiResponseInterface, ContextAwareInterface
+abstract class AbstractApiResponse implements ApiResponseInterface, ContextAwareInterface, FutureInterface
 {
     use ContextTrait;
 
@@ -98,7 +100,7 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
     }
 
     /**
-     * @return ResponseInterface
+     * @return ResponseInterface|FutureInterface
      */
     public function getResponse()
     {
@@ -111,5 +113,50 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
     public function getRequest()
     {
         return $this->request;
+    }
+
+    /**
+     * Returns the result of the future either from cache or by blocking until
+     * it is complete.
+     *
+     * This method must block until the future has a result or is cancelled.
+     * Throwing an exception in the wait() method will mark the future as
+     * realized and will throw the exception each time wait() is called.
+     * Throwing an instance of GuzzleHttp\Ring\CancelledException will mark
+     * the future as realized, will not throw immediately, but will throw the
+     * exception if the future's wait() method is called again.
+     *
+     * @return mixed
+     */
+    public function wait()
+    {
+        return $this->getResponse()->wait();
+    }
+
+    /**
+     * Cancels the future, if possible.
+     */
+    public function cancel()
+    {
+        $this->getResponse()->cancel();
+    }
+
+    /**
+     * @param callable $onFulfilled
+     * @param callable $onRejected
+     * @param callable $onProgress
+     * @return PromiseInterface
+     */
+    public function then(callable $onFulfilled = null, callable $onRejected = null, callable $onProgress = null)
+    {
+        return $this->getResponse()->then($onFulfilled, $onRejected, $onProgress);
+    }
+
+    /**
+     * @return PromiseInterface
+     */
+    public function promise()
+    {
+        return $this->getResponse()->promise();
     }
 }

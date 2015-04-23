@@ -9,7 +9,9 @@ namespace Sphere\Core;
 
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Message\RequestInterface;
+use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Pool;
+use GuzzleHttp\Ring\Future\FutureInterface;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Log\LoggerInterface;
 use Sphere\Core\Error\Message;
@@ -66,15 +68,18 @@ class Client extends AbstractHttpClient
 
     /**
      * @param Manager $oauthManager
+     * @return $this
      */
     protected function setOauthManager(Manager $oauthManager)
     {
         $this->oauthManager = $oauthManager;
+        return $this;
     }
 
     /**
      * @param LoggerInterface $logger
      * @param string $format
+     * @return $this
      */
     protected function setLogger(LoggerInterface $logger = null, $format = null)
     {
@@ -83,6 +88,7 @@ class Client extends AbstractHttpClient
             $subscriber = new LogSubscriber($logger, $format);
             $this->getHttpClient()->getEmitter()->attach($subscriber);
         }
+        return $this;
     }
 
     /**
@@ -99,18 +105,16 @@ class Client extends AbstractHttpClient
      */
     public function execute(ClientRequestInterface $request)
     {
-        if ($request instanceof ContextAwareInterface) {
-            $request->setContextIfNull($this->getConfig()->getContext());
-        }
+        $response = $this->sendFuture($request);
         try {
-            $httpResponse = $this->getHttpClient()->send($this->createHttpRequest($request));
+            $response->wait();
         } catch (RequestException $exception) {
             $httpResponse = $exception->getResponse();
             if (is_null($httpResponse)) {
                 throw $exception;
             }
+            $response = $request->buildResponse($httpResponse);
         }
-        $response = $request->buildResponse($httpResponse);
         $this->logDeprecatedMethod($response);
 
         return $response;
@@ -118,21 +122,32 @@ class Client extends AbstractHttpClient
 
     /**
      * @param ClientRequestInterface $request
-     * @return ApiResponseInterface
+     * @return ApiResponseInterface|FutureInterface
      */
-    public function future(ClientRequestInterface $request)
+    protected function sendFuture(ClientRequestInterface $request)
     {
         if ($request instanceof ContextAwareInterface) {
             $request->setContextIfNull($this->getConfig()->getContext());
         }
         $httpResponse = $this->getHttpClient()->send($this->createHttpRequest($request, true));
-        $httpResponse->then(
+
+        $response = $request->buildResponse($httpResponse);
+
+        return $response;
+    }
+    /**
+     * @param ClientRequestInterface $request
+     * @return ApiResponseInterface|FutureInterface
+     */
+    public function future(ClientRequestInterface $request)
+    {
+        $response = $this->sendFuture($request);
+        $response->then(
             function ($httpResponse) use ($request) {
                 $this->logDeprecatedMethod($request->buildResponse($httpResponse));
                 return $httpResponse;
             }
         );
-        $response = $request->buildResponse($httpResponse);
 
         return $response;
     }
@@ -193,18 +208,28 @@ class Client extends AbstractHttpClient
         return $responses;
     }
 
-    public function logDeprecatedMethod(ApiResponseInterface $response)
+    /**
+     * @param ApiResponseInterface $response
+     * @return $this
+     */
+    protected function logDeprecatedMethod(ApiResponseInterface $response)
     {
-        $deprecatedMessage = $response->getResponse()->getHeader(static::DEPRECATION_HEADER);
-        if (!empty($deprecatedMessage) && !is_null($this->logger)) {
-            $message = sprintf(
-                Message::DEPRECATED_METHOD,
-                $response->getRequest()->httpRequest()->getPath(),
-                $response->getRequest()->httpRequest()->getHttpMethod(),
-                $deprecatedMessage
-            );
-            $this->logger->warning($message);
+        if (is_null($this->logger)) {
+            return $this;
         }
+        if ($response->getResponse() instanceof ResponseInterface) {
+            $deprecatedMessage = $response->getResponse()->getHeader(static::DEPRECATION_HEADER);
+            if (!empty($deprecatedMessage)) {
+                $message = sprintf(
+                    Message::DEPRECATED_METHOD,
+                    $response->getRequest()->httpRequest()->getPath(),
+                    $response->getRequest()->httpRequest()->getHttpMethod(),
+                    $deprecatedMessage
+                );
+                $this->logger->warning($message);
+            }
+        }
+        return $this;
     }
 
     /**
@@ -224,6 +249,7 @@ class Client extends AbstractHttpClient
 
     /**
      * @param ClientRequestInterface $request
+     * @return $this
      */
     public function addBatchRequest(ClientRequestInterface $request)
     {
@@ -231,5 +257,6 @@ class Client extends AbstractHttpClient
             $request->setContextIfNull($this->getConfig()->getContext());
         }
         $this->batchRequests[] = $request;
+        return $this;
     }
 }
