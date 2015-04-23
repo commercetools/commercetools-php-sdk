@@ -37,7 +37,7 @@ interface ClientRequestInterface
 
     /**
      * @param ResponseInterface $response
-     * @return ApiResponseInterface|FutureInterface
+     * @return ApiResponseInterface
      * @internal
      */
     public function buildResponse(ResponseInterface $response);

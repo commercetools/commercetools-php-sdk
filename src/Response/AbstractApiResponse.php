@@ -10,6 +10,7 @@ namespace Sphere\Core\Response;
 use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Ring\Future\FutureInterface;
 use React\Promise\PromiseInterface;
+use Sphere\Core\Error\Message;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Model\Common\ContextTrait;
@@ -19,7 +20,7 @@ use Sphere\Core\Request\ClientRequestInterface;
  * Class AbstractApiResponse
  * @package Sphere\Core\Response
  */
-abstract class AbstractApiResponse implements ApiResponseInterface, ContextAwareInterface, FutureInterface
+abstract class AbstractApiResponse implements ApiResponseInterface, ContextAwareInterface
 {
     use ContextTrait;
 
@@ -130,6 +131,9 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
      */
     public function wait()
     {
+        if (!$this->getResponse() instanceof FutureInterface) {
+            throw new \BadMethodCallException(Message::FUTURE_BAD_METHOD_CALL);
+        }
         return $this->getResponse()->wait();
     }
 
@@ -138,6 +142,9 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
      */
     public function cancel()
     {
+        if (!$this->getResponse() instanceof FutureInterface) {
+            throw new \BadMethodCallException(Message::FUTURE_BAD_METHOD_CALL);
+        }
         $this->getResponse()->cancel();
     }
 
@@ -149,6 +156,9 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
      */
     public function then(callable $onFulfilled = null, callable $onRejected = null, callable $onProgress = null)
     {
+        if (!$this->getResponse() instanceof FutureInterface) {
+            throw new \BadMethodCallException(Message::FUTURE_BAD_METHOD_CALL);
+        }
         return $this->getResponse()->then($onFulfilled, $onRejected, $onProgress);
     }
 
@@ -157,6 +167,9 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
      */
     public function promise()
     {
+        if (!$this->getResponse() instanceof FutureInterface) {
+            throw new \BadMethodCallException(Message::FUTURE_BAD_METHOD_CALL);
+        }
         return $this->getResponse()->promise();
     }
 }

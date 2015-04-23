@@ -11,7 +11,6 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Message\RequestInterface;
 use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Pool;
-use GuzzleHttp\Ring\Future\FutureInterface;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Log\LoggerInterface;
 use Sphere\Core\Error\Message;
@@ -105,8 +104,8 @@ class Client extends AbstractHttpClient
      */
     public function execute(ClientRequestInterface $request)
     {
-        $response = $this->sendFuture($request);
         try {
+            $response = $this->sendFuture($request);
             $response->wait();
         } catch (RequestException $exception) {
             $httpResponse = $exception->getResponse();
@@ -122,7 +121,7 @@ class Client extends AbstractHttpClient
 
     /**
      * @param ClientRequestInterface $request
-     * @return ApiResponseInterface|FutureInterface
+     * @return ApiResponseInterface
      */
     protected function sendFuture(ClientRequestInterface $request)
     {
@@ -137,7 +136,7 @@ class Client extends AbstractHttpClient
     }
     /**
      * @param ClientRequestInterface $request
-     * @return ApiResponseInterface|FutureInterface
+     * @return ApiResponseInterface
      */
     public function future(ClientRequestInterface $request)
     {

@@ -34,4 +34,5 @@ class Message
     const NO_LANGUAGES_PROVIDED = 'No languages provided';
 
     const DEPRECATED_METHOD = 'Call "%s" with method "%s" is deprecated: "%s"';
+    const FUTURE_BAD_METHOD_CALL = 'Trying to call a function for a non future request';
 }

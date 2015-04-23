@@ -13,7 +13,7 @@ use Sphere\Core\Request\ClientRequestInterface;
  * Interface ApiResponseInterface
  * @package Sphere\Core\Http
  */
-interface ApiResponseInterface
+interface ApiResponseInterface extends FutureInterface
 {
     public function toObject();
 
