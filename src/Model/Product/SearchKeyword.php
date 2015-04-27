@@ -24,4 +24,12 @@ class SearchKeyword extends JsonObject
             'suggestTokenizer' => [static::TYPE => '\Sphere\Core\Model\Product\SuggestTokenizer'],
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getText();
+    }
 }

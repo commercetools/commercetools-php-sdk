@@ -43,4 +43,56 @@ class LocalizedSearchKeywordsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Sphere\Core\Model\Product\SearchKeywords', $collection->getAt(0));
     }
+
+    public function testToString()
+    {
+        $keywords = LocalizedSearchKeywords::fromArray(
+            [
+                'en' => [
+                    ['text' => 'Hello World'],
+                    ['text'=>'Lorem ipsum dolor sit amet']
+                ],
+                'de' => [
+                    ['text'=>'Hallo Welt', 'suggestTokenizer' => ['type' => 'whitespace']],
+                    [
+                        'text'=>'Lorem ipsum dolor sit amet',
+                        'suggestTokenizer' => [
+                            'type' => 'custom',
+                            'inputs' => ['lorem ipsum', 'dolor', 'sit amet']
+                        ]
+                    ]
+                ]
+            ],
+            Context::of()->setLanguages(['de', 'en'])
+        );
+        $this->assertSame('Hallo Welt, Lorem ipsum dolor sit amet', (string)$keywords);
+    }
+
+    public function testFromArray()
+    {
+        $keywords = LocalizedSearchKeywords::fromArray(
+            [
+                'en' => [
+                    ['text' => 'Hello World'],
+                    ['text'=>'Lorem ipsum dolor sit amet']
+                ],
+                'de' => [
+                    ['text'=>'Hallo Welt', 'suggestTokenizer' => ['type' => 'whitespace']],
+                    [
+                        'text'=>'Lorem ipsum dolor sit amet',
+                        'suggestTokenizer' => [
+                            'type' => 'custom',
+                            'inputs' => ['lorem ipsum', 'dolor', 'sit amet']
+                        ]
+                    ]
+                ]
+            ],
+            Context::of()->setLanguages(['de', 'en'])
+        );
+
+        $this->assertSame('Hallo Welt', $keywords->get()->getAt(0)->getText());
+        $this->assertSame('whitespace', $keywords->get()->getAt(0)->getSuggestTokenizer()->getType());
+        $this->assertSame('Hello World', $keywords->en->getAt(0)->getText());
+        $this->assertSame('custom', $keywords->de->getAt(1)->getSuggestTokenizer()->getType());
+    }
 }

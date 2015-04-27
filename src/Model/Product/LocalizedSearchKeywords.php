@@ -71,4 +71,9 @@ class LocalizedSearchKeywords extends Collection
     {
         return parent::add($object);
     }
+
+    public function __toString()
+    {
+        return (string)$this->get();
+    }
 }
