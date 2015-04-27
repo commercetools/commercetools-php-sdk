@@ -349,4 +349,33 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($results[$request2->getIdentifier()]->isError());
 
     }
+
+    public function testFutureLogDeprecatedMethod()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+        $client = $this->getMockClient(
+            $this->getConfig(),
+            $this->getSingleOpResult(),
+            200,
+            $logger,
+            [
+                Client::DEPRECATION_HEADER => 'Deprecated'
+            ]
+        );
+
+        $endpoint = new JsonEndpoint('test');
+        /**
+         * @var ClientRequestInterface $request
+         */
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+        $response = $client->future($request);
+        $response->wait();
+
+        $logEntry = $handler->getRecords()[1];
+        $this->assertSame(Logger::WARNING, $logEntry['level']);
+        $this->assertSame('Call "test/id" with method "get" is deprecated: "Deprecated"', $logEntry['message']);
+    }
 }

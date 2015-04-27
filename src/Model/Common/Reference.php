@@ -10,7 +10,7 @@ namespace Sphere\Core\Model\Common;
 /**
  * Class Reference
  * @package Sphere\Core\Model\Common
- * @method static Reference of(string $typeId, string $id)
+ * @method static Reference of(string $typeId, string $id, $context = null)
  * @method string getTypeId()
  * @method string getId()
  * @method Reference setTypeId(string $typeId = null)

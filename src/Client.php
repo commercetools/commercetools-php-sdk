@@ -105,8 +105,7 @@ class Client extends AbstractHttpClient
     public function execute(ClientRequestInterface $request)
     {
         try {
-            $response = $this->sendFuture($request);
-            $response->wait();
+            $response = $this->sendRequest($request, false);
         } catch (RequestException $exception) {
             $httpResponse = $exception->getResponse();
             if (is_null($httpResponse)) {
@@ -121,14 +120,15 @@ class Client extends AbstractHttpClient
 
     /**
      * @param ClientRequestInterface $request
+     * @param bool $future
      * @return ApiResponseInterface
      */
-    protected function sendFuture(ClientRequestInterface $request)
+    protected function sendRequest(ClientRequestInterface $request, $future = true)
     {
         if ($request instanceof ContextAwareInterface) {
             $request->setContextIfNull($this->getConfig()->getContext());
         }
-        $httpResponse = $this->getHttpClient()->send($this->createHttpRequest($request, true));
+        $httpResponse = $this->getHttpClient()->send($this->createHttpRequest($request, $future));
 
         $response = $request->buildResponse($httpResponse);
 
@@ -140,7 +140,7 @@ class Client extends AbstractHttpClient
      */
     public function future(ClientRequestInterface $request)
     {
-        $response = $this->sendFuture($request);
+        $response = $this->sendRequest($request);
         $response->then(
             function ($httpResponse) use ($request) {
                 $this->logDeprecatedMethod($request->buildResponse($httpResponse));
@@ -171,8 +171,7 @@ class Client extends AbstractHttpClient
             'connect_timeout' => 10,
             'headers' => $headers,
             'body' => $request->httpRequest()->getBody(),
-            'future' => $future,
-            'exceptions' => true
+            'future' => $future
         ];
 
         return $this->getHttpClient()->createRequest($method, $request->httpRequest()->getPath(), $options);

@@ -8,6 +8,7 @@ namespace Sphere\Core\Response;
 
 
 use GuzzleHttp\Message\ResponseInterface;
+use GuzzleHttp\Ring\Exception\CancelledFutureAccessException;
 use GuzzleHttp\Ring\Future\FutureInterface;
 use React\Promise\PromiseInterface;
 use Sphere\Core\Error\Message;
@@ -95,7 +96,11 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
      */
     public function isError()
     {
-        $statusCode = $this->response->getStatusCode();
+        try {
+            $statusCode = $this->response->getStatusCode();
+        } catch (CancelledFutureAccessException $exception) {
+            return true;
+        }
 
         return (!in_array($statusCode, [200, 201]));
     }
@@ -145,7 +150,7 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
         if (!$this->getResponse() instanceof FutureInterface) {
             throw new \BadMethodCallException(Message::FUTURE_BAD_METHOD_CALL);
         }
-        $this->getResponse()->cancel();
+        return $this->getResponse()->cancel();
     }
 
     /**
