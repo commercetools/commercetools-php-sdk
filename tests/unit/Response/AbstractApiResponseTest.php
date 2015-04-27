@@ -29,7 +29,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     /**
      * @return Response
      */
-    protected function getGuzzleResponse($response, $statusCode)
+    protected function getGuzzleResponse($response, $statusCode, $future = false)
     {
         $client = new HttpClient();
         // Create a mock subscriber and queue two responses.
@@ -43,7 +43,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
         $client->getEmitter()->attach($mock);
 
         try {
-            $guzzleResponse = $client->get('/');
+            $guzzleResponse = $client->get('/', ['future' => $future]);
         } catch (RequestException $exception) {
             $guzzleResponse = $exception->getResponse();
         }
@@ -54,11 +54,11 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     /**
      * @return AbstractApiResponse
      */
-    protected function getResponse($response = '{"key":"value"}', $statusCode = 200)
+    protected function getResponse($response = '{"key":"value"}', $statusCode = 200, $future = false)
     {
         $response = $this->getMockForAbstractClass(
             static::ABSTRACT_API_RESPONSE,
-            [$this->getGuzzleResponse($response, $statusCode), $this->getRequest(static::ABSTRACT_API_REQUEST)]
+            [$this->getGuzzleResponse($response, $statusCode, $future), $this->getRequest(static::ABSTRACT_API_REQUEST)]
         );
 
         return $response;
@@ -117,5 +117,68 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     {
         $response = $this->getResponse('{"key":"value"}', 500);
         $this->assertNull($response->toObject());
+    }
+
+    /**
+     * @expectedException \BadMethodCallException
+     */
+    public function testThenFail()
+    {
+        $response = $this->getResponse('{"key":"value"}');
+        $response->then();
+    }
+
+    /**
+     * @expectedException \BadMethodCallException
+     */
+    public function testCancelFail()
+    {
+        $response = $this->getResponse('{"key":"value"}');
+        $response->cancel();
+    }
+
+    /**
+     * @expectedException \BadMethodCallException
+     */
+    public function testWaitFail()
+    {
+        $response = $this->getResponse('{"key":"value"}');
+        $response->wait();
+    }
+
+    /**
+     * @expectedException \BadMethodCallException
+     */
+    public function testPromiseFail()
+    {
+        $response = $this->getResponse('{"key":"value"}');
+        $response->promise();
+    }
+
+    public function testThen()
+    {
+        $response = $this->getResponse('{"key":"value"}', 200, true);
+        $this->assertInstanceOf('\React\Promise\PromiseInterface', $response->then());
+    }
+
+    public function testCancel()
+    {
+        $response = $this->getResponse('{"key":"value"}', 200, true);
+        $response->cancel();
+        $this->assertTrue($response->isError());
+    }
+
+    public function testWait()
+    {
+        $response = $this->getResponse('{"key":"value"}', 200, true);
+        $response->wait();
+        $this->assertJsonStringEqualsJsonString('{"key":"value"}', json_encode($response->toObject()));
+    }
+
+    public function testPromise()
+    {
+        $response = $this->getResponse('{"key":"value"}', 200, true);
+        $this->assertInstanceOf('\React\Promise\PromiseInterface', $response->promise());
+        $response->promise();
     }
 }

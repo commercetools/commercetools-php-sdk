@@ -17,7 +17,7 @@ use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Request\Query\MultiParameter;
 use Sphere\Core\Request\Query\Parameter;
 use Sphere\Core\Request\Query\ParameterInterface;
-use Sphere\Core\Response\AbstractApiResponse;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class AbstractApiRequest
@@ -153,7 +153,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
 
     /**
      * @param ResponseInterface $response
-     * @return AbstractApiResponse
+     * @return ApiResponseInterface
      * @internal
      */
     abstract public function buildResponse(ResponseInterface $response);

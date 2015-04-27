@@ -28,6 +28,7 @@ class PagedSearchResponse extends PagedQueryResponse
      */
     public function getFacets()
     {
+        $this->parseJsonResponse();
         return $this->facets;
     }
 
@@ -39,9 +40,12 @@ class PagedSearchResponse extends PagedQueryResponse
         $this->facets = $facets;
     }
 
-    public function __construct(ResponseInterface $response, ClientRequestInterface $request, Context $context = null)
+    protected function parseJsonResponse()
     {
-        parent::__construct($response, $request, $context);
+        if ($this->parsed) {
+            return;
+        }
+        parent::parseJsonResponse();
         if (!$this->isError()) {
             $jsonResponse = $this->toArray();
             if (isset($jsonResponse[static::FACETS])) {
