@@ -60,7 +60,7 @@ class ProductDraft extends JsonObject
             'metaTitle' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'metaDescription' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategory'],
+            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference'],
             'searchKeywords' => [static::TYPE => '\Sphere\Core\Model\Product\LocalizedSearchKeywords']
         ];
     }
