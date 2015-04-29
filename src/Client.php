@@ -171,7 +171,8 @@ class Client extends AbstractHttpClient
             'connect_timeout' => 10,
             'headers' => $headers,
             'body' => $request->httpRequest()->getBody(),
-            'future' => $future
+            'future' => $future,
+            'exceptions' => !$future
         ];
 
         return $this->getHttpClient()->createRequest($method, $request->httpRequest()->getPath(), $options);
