@@ -14,6 +14,7 @@ use Sphere\Core\Request\AbstractCreateRequest;
 /**
  * Class CategoryCreateRequest
  * @package Sphere\Core\Request\Categories
+ * @link http://dev.sphere.io/http-api-projects-categories.html#create-category
  * @method static CategoryCreateRequest of(CategoryDraft $category)
  */
 class CategoryCreateRequest extends AbstractCreateRequest

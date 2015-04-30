@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class CustomerGroupFetchByIdRequest
  * @package Sphere\Core\Request\CustomerGroups
+ * @link http://dev.sphere.io/http-api-projects-customerGroups.html#customer-group-by-id
  */
 class CustomerGroupFetchByIdRequest extends AbstractFetchByIdRequest
 {

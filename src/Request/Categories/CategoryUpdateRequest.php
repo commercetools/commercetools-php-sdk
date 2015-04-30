@@ -14,6 +14,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class CategoryUpdateRequest
  * @package Sphere\Core\Request\Categories
+ * @link http://dev.sphere.io/http-api-projects-categories.html#update-category
  * @method static CategoryUpdateRequest of(string $id, int $version, array $actions = [])
  */
 class CategoryUpdateRequest extends AbstractUpdateRequest

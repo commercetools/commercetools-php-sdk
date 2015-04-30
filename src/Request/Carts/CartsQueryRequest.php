@@ -14,6 +14,7 @@ use Sphere\Core\Request\CustomerIdTrait;
 /**
  * Class CustomersQueryRequest
  * @package Sphere\Core\Request\Carts
+ * @link http://dev.sphere.io/http-api-projects-carts.html#carts-by-query
  * @method static CartsQueryRequest of()
  */
 class CartsQueryRequest extends AbstractQueryRequest

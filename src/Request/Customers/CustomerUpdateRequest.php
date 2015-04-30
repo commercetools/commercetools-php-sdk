@@ -15,6 +15,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class CustomerUpdateRequest
  * @package Sphere\Core\Request\Customers
+ * @link http://dev.sphere.io/http-api-projects-customers.html#update-customer
  * @method static CustomerUpdateRequest of(string $id, int $version, array $actions = [])
  */
 class CustomerUpdateRequest extends AbstractUpdateRequest

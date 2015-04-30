@@ -11,6 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class CustomerSetCustomerGroupAction
  * @package Sphere\Core\Request\Customers\Command
+ * @link http://dev.sphere.io/http-api-projects-customers.html#set-customer-group
  * @method CustomerGroupReference getCustomerGroup()
  * @method CustomerSetCustomerGroupAction setCustomerGroup(CustomerGroupReference $customerGroup = null)
  * @method string getAction()

@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class CustomerFetchByIdRequest
  * @package Sphere\Core\Request\Customers
+ * @link http://dev.sphere.io/http-api-projects-customers.html#customer-by-id
  * @method static CustomerFetchByIdRequest of(string $id)
  */
 class CustomerFetchByIdRequest extends AbstractFetchByIdRequest

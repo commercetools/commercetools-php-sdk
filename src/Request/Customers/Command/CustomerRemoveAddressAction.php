@@ -10,6 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class CustomerRemoveAddressAction
  * @package Sphere\Core\Request\Customers\Command
+ * @link http://dev.sphere.io/http-api-projects-customers.html#remove-address
  * @method string getAddressId()
  * @method CustomerRemoveAddressAction setAddressId(string $addressId = null)
  * @method string getAction()

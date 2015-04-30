@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class CustomerGroupsQueryRequest
  * @package Sphere\Core\Request\CustomerGroups
+ * @link http://dev.sphere.io/http-api-projects-customerGroups.html#customer-groups-by-query
  */
 class CustomerGroupsQueryRequest extends AbstractQueryRequest
 {

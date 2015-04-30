@@ -16,6 +16,11 @@ use Sphere\Core\Model\Customer\CustomerSigninResult;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 
+/**
+ * Class CustomerLoginRequest
+ * @package Sphere\Core\Request\Customers
+ * @link http://dev.sphere.io/http-api-projects-customers.html#authenticate-customer
+ */
 class CustomerLoginRequest extends AbstractApiRequest
 {
     const EMAIL = 'email';

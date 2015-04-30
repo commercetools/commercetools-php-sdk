@@ -10,6 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class CategorySetExternalIdAction
  * @package Sphere\Core\Request\Categories\Command
+ * @link http://dev.sphere.io/http-api-projects-categories.html#set-external-id
  * @method string getExternalId()
  * @method CategorySetExternalIdAction setExternalId(string $externalId = null)
  * @method string getAction()

@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
 /**
  * Class CustomerGroupDeleteByIdRequest
  * @package Sphere\Core\Request\CustomerGroups
+ * @link http://dev.sphere.io/http-api-projects-customerGroups.html#delete-customer-group
  */
 class CustomerGroupDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

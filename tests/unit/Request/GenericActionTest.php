@@ -289,6 +289,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Sphere\Core\Request\Carts\Command\CartSetShippingMethodAction',
                 ['action', 'shippingMethod']
             ],
+            [
+                '\Sphere\Core\Request\Carts\Command\CartSetCustomShippingMethodAction',
+                ['action', 'shippingMethodName', 'shippingRate', 'taxCategory']
+            ],
         ];
     }
 

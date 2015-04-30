@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
 /**
  * Class CustomerDeleteByIdRequest
  * @package Sphere\Core\Request\Customers
+ * @link http://dev.sphere.io/http-api-projects-customers.html#delete-customer
  * @method static CustomerDeleteByIdRequest of(string $id, int $version)
  */
 class CustomerDeleteByIdRequest extends AbstractDeleteByIdRequest

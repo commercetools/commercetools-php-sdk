@@ -16,6 +16,7 @@ use Sphere\Core\Response\SingleResourceResponse;
 /**
  * Class CustomerEmailTokenRequest
  * @package Sphere\Core\Request\Customers
+ * @link http://dev.sphere.io/http-api-projects-customers.html#create-token-for-verifying-customers-email
  * @method static CustomerEmailTokenRequest of(string $id, int $version, int $ttlMinutes)
  */
 class CustomerEmailTokenRequest extends AbstractUpdateRequest

@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class CommentUpdateRequest
  * @package Sphere\Core\Request\Comments
+ * @link http://dev.sphere.io/http-api-projects-comments.html#update-comment
  */
 class CommentUpdateRequest extends AbstractUpdateRequest
 {

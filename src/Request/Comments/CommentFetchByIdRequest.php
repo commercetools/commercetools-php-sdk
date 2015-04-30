@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class CommentFetchByIdRequest
  * @package Sphere\Core\Request\Comments
+ * @link http://dev.sphere.io/http-api-projects-comments.html#comment-by-id
  */
 class CommentFetchByIdRequest extends AbstractFetchByIdRequest
 {

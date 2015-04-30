@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class CustomerFetchByIdRequest
  * @package Sphere\Core\Request\Carts
+ * @link http://dev.sphere.io/http-api-projects-carts.html#cart-by-id
  * @method static CartFetchByIdRequest of(string $id)
  */
 class CartFetchByIdRequest extends AbstractFetchByIdRequest

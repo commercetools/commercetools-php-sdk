@@ -10,6 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class CartRemoveCustomLineItemAction
  * @package Sphere\Core\Request\Carts\Command
+ * @link http://dev.sphere.io/http-api-projects-carts.html#remove-custom-line-item
  * @method string getAction()
  * @method CartRemoveCustomLineItemAction setAction(string $action = null)
  * @method string getCustomLineItemId()

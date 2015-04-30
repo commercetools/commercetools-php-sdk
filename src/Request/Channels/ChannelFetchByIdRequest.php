@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class ChannelFetchByIdRequest
  * @package Sphere\Core\Request\Channels
+ * @link http://dev.sphere.io/http-api-projects-channels.html#channel-by-id
  */
 class ChannelFetchByIdRequest extends AbstractFetchByIdRequest
 {

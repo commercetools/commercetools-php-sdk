@@ -10,6 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class CartAddDiscountCodeAction
  * @package Sphere\Core\Request\Carts\Command
+ * @link http://dev.sphere.io/http-api-projects-carts.html#add-discount-code
  * @method string getAction()
  * @method CartAddDiscountCodeAction setAction(string $action = null)
  * @method string getCode()
