@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class ReviewFetchByIdRequest
  * @package Sphere\Core\Request\Reviews
+ * @link http://dev.sphere.io/http-api-projects-reviews.html#review-by-id
  */
 class ReviewFetchByIdRequest extends AbstractFetchByIdRequest
 {

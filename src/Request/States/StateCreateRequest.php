@@ -14,6 +14,7 @@ use Sphere\Core\Request\AbstractCreateRequest;
 /**
  * Class StateCreateRequest
  * @package Sphere\Core\Request\States
+ * @link http://dev.sphere.io/http-api-projects-states.html#create-state
  */
 class StateCreateRequest extends AbstractCreateRequest
 {

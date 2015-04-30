@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class OrderFetchByIdRequest
  * @package Sphere\Core\Request\Orders
+ * @link http://dev.sphere.io/http-api-projects-orders.html#order-by-id
  */
 class OrderFetchByIdRequest extends AbstractFetchByIdRequest
 {

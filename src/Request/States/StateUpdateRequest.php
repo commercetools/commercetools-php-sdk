@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class StateUpdateRequest
  * @package Sphere\Core\Request\States
+ * @link http://dev.sphere.io/http-api-projects-states.html#update-state
  */
 class StateUpdateRequest extends AbstractUpdateRequest
 {

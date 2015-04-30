@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class ProductTypesQueryRequest
  * @package Sphere\Core\Request\ProductTypes
+ * @link http://dev.sphere.io/http-api-projects-productTypes.html#product-types-by-query
  */
 class ProductTypesQueryRequest extends AbstractQueryRequest
 {

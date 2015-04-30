@@ -41,6 +41,7 @@ use Sphere\Core\Request\Products\Command\ProductUnpublishAction;
 /**
  * Class ProductUpdateRequest
  * @package Sphere\Core\Request\Products
+ * @link http://dev.sphere.io/http-api-projects-products.html#update-product
  */
 class ProductUpdateRequest extends AbstractUpdateRequest
 {

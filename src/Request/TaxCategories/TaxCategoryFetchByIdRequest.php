@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class TaxCategoryFetchByIdRequest
  * @package Sphere\Core\Request\TaxCategories
+ * @link http://dev.sphere.io/http-api-projects-taxCategories.html#tax-category-by-id
  */
 class TaxCategoryFetchByIdRequest extends AbstractFetchByIdRequest
 {

@@ -17,6 +17,7 @@ use Sphere\Core\Response\SingleResourceResponse;
 /**
  * Class ProductsSearchRequest
  * @package Sphere\Core\Request\Products
+ * @link http://dev.sphere.io/http-api-projects-products-search.html#suggest-query
  * @method static ProductsSuggestRequest of(LocalizedString $keywords)
  */
 class ProductsSuggestRequest extends AbstractProjectionRequest

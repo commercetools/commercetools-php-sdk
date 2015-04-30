@@ -10,6 +10,11 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\CustomObject\CustomObject;
 use Sphere\Core\Request\AbstractCreateRequest;
 
+/**
+ * Class CustomObjectCreateRequest
+ * @package Sphere\Core\Request\CustomObjects
+ * @link http://dev.sphere.io/http-api-projects-custom-objects.html#create-custom-object
+ */
 class CustomObjectCreateRequest extends AbstractCreateRequest
 {
     protected $resultClass = '\Sphere\Core\Model\CustomObject\CustomObject';

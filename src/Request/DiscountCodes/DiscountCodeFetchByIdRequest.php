@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class DiscountCodeFetchByIdRequest
  * @package Sphere\Core\Request\DiscountCodes
+ * @link http://dev.sphere.io/http-api-projects-discountCodes.html#discount-code-by-id
  */
 class DiscountCodeFetchByIdRequest extends AbstractFetchByIdRequest
 {

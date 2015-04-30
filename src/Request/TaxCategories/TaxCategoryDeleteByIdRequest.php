@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
 /**
  * Class TaxCategoryDeleteByIdRequest
  * @package Sphere\Core\Request\TaxCategories
+ * @link http://dev.sphere.io/http-api-projects-taxCategories.html#delete-tax-category
  */
 class TaxCategoryDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

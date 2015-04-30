@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class OrdersQueryRequest
  * @package Sphere\Core\Request\Orders
+ * @link http://dev.sphere.io/http-api-projects-orders.html#orders-by-query
  */
 class OrdersQueryRequest extends AbstractQueryRequest
 {

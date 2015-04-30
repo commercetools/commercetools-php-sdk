@@ -14,6 +14,7 @@ use Sphere\Core\Request\AbstractCreateRequest;
 /**
  * Class ProductCreateRequest
  * @package Sphere\Core\Request\Products
+ * @link http://dev.sphere.io/http-api-projects-products.html#create-product
  * @method static ProductCreateRequest of(ProductDraft $product)
  */
 class ProductCreateRequest extends AbstractCreateRequest

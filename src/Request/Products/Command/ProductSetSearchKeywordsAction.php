@@ -11,6 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class ProductSetSearchKeywordsAction
  * @package Sphere\Core\Request\Products\Command
+ * @link http://dev.sphere.io/http-api-projects-products.html#set-search-keywords
  * @method string getAction()
  * @method ProductSetSearchKeywordsAction setAction(string $action = null)
  * @method LocalizedSearchKeywords getSearchKeywords()

@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class ZoneUpdateRequest
  * @package Sphere\Core\Request\Zones
+ * @link http://dev.sphere.io/http-api-projects-zones.html#update-zone
  */
 class ZoneUpdateRequest extends AbstractUpdateRequest
 {

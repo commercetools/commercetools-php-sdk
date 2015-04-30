@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
 /**
  * Class StateDeleteByIdRequest
  * @package Sphere\Core\Request\States
+ * @link http://dev.sphere.io/http-api-projects-states.html#delete-state
  */
 class StateDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

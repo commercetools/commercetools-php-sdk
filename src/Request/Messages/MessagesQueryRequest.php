@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class MessagesQueryRequest
  * @package Sphere\Core\Request\Messages
+ * @link http://dev.sphere.io/http-api-projects-messages.html#messages-by-query
  */
 class MessagesQueryRequest extends AbstractQueryRequest
 {

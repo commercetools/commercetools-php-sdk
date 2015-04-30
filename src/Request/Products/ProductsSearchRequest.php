@@ -20,6 +20,7 @@ use Sphere\Core\Response\PagedSearchResponse;
 /**
  * Class ProductsSearchRequest
  * @package Sphere\Core\Request\Products
+ * @link http://dev.sphere.io/http-api-projects-products-search.html#product-projections-by-search
  * @method static ProductsSearchRequest of()
  */
 class ProductsSearchRequest extends AbstractProjectionRequest

@@ -11,6 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class OrderSetReturnShipmentStateAction
  * @package Sphere\Core\Request\Orders\Command
+ * @link http://dev.sphere.io/http-api-projects-orders.html#set-return-shipment-state
  * @method string getAction()
  * @method OrderSetReturnShipmentStateAction setAction(string $action = null)
  * @method string getReturnItemId()

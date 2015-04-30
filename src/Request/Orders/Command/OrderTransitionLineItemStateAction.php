@@ -13,6 +13,7 @@ use Sphere\Core\Model\Common\DateTimeDecorator;
 /**
  * Class OrderTransitionLineItemStateAction
  * @package Sphere\Core\Request\Orders\Command
+ * @link http://dev.sphere.io/http-api-projects-orders.html#transition-line-item-state
  * @method string getAction()
  * @method OrderTransitionLineItemStateAction setAction(string $action = null)
  * @method string getLineItemId()

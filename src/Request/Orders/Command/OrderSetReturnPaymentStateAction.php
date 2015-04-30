@@ -11,6 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class OrderSetReturnPaymentStateAction
  * @package Sphere\Core\Request\Orders\Command
+ * @link http://dev.sphere.io/http-api-projects-orders.html#set-return-payment-state
  * @method string getAction()
  * @method OrderSetReturnPaymentStateAction setAction(string $action = null)
  * @method string getReturnItemId()

@@ -13,6 +13,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class ProductFetchByIdRequest
  * @package Sphere\Core\Request\Products
+ * @link http://dev.sphere.io/http-api-projects-products.html#product-by-id
  * @method static ProductFetchByIdRequest of(string $id)
  */
 class ProductFetchByIdRequest extends AbstractFetchByIdRequest

@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class MessageFetchByIdRequest
  * @package Sphere\Core\Request\Messages
+ * @link http://dev.sphere.io/http-api-projects-messages.html#message-by-id
  */
 class MessageFetchByIdRequest extends AbstractFetchByIdRequest
 {

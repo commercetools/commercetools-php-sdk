@@ -10,6 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class ProductRevertStagedChangesAction
  * @package Sphere\Core\Request\Products\Command
+ * @link http://dev.sphere.io/http-api-projects-products.html#revert-staged-changes
  * @method string getAction()
  * @method ProductRevertStagedChangesAction setAction(string $action = null)
  */

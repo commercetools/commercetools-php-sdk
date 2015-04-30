@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class InventoryFetchByIdRequest
  * @package Sphere\Core\Request\Inventory
+ * @link http://dev.sphere.io/http-api-projects-inventory.html#inventory-by-id
  */
 class InventoryFetchByIdRequest extends AbstractFetchByIdRequest
 {

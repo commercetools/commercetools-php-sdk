@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
 /**
  * Class ZoneDeleteByIdRequest
  * @package Sphere\Core\Request\Zones
+ * @link http://dev.sphere.io/http-api-projects-zones.html#delete-zone
  */
 class ZoneDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

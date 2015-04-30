@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class ZonesQueryRequest
  * @package Sphere\Core\Request\Zones
+ * @link http://dev.sphere.io/http-api-projects-zones.html#zones-by-query
  */
 class ZonesQueryRequest extends AbstractQueryRequest
 {

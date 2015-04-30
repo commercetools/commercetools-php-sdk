@@ -9,6 +9,11 @@ namespace Sphere\Core\Request\DiscountCodes;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
 
+/**
+ * Class DiscountCodeUpdateRequest
+ * @package Sphere\Core\Request\DiscountCodes
+ * @link http://dev.sphere.io/http-api-projects-discountCodes.html#update-discount-code
+ */
 class DiscountCodeUpdateRequest extends AbstractUpdateRequest
 {
     protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';

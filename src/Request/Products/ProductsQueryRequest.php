@@ -13,6 +13,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class ProductsQueryRequest
  * @package Sphere\Core\Request\Products
+ * @link http://dev.sphere.io/http-api-projects-products.html#products-by-query
  * @method static ProductsQueryRequest of()
  */
 class ProductsQueryRequest extends AbstractQueryRequest

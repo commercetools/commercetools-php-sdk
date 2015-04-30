@@ -12,6 +12,11 @@ use Sphere\Core\Model\Product\ProductProjection;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
 use Sphere\Core\Request\StagedTrait;
 
+/**
+ * Class ProductProjectionFetchByIdRequest
+ * @package Sphere\Core\Request\Products
+ * @link http://dev.sphere.io/http-api-projects-products.html#product-projection-by-id
+ */
 class ProductProjectionFetchByIdRequest extends AbstractFetchByIdRequest
 {
     use StagedTrait;

@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class TaxCategoriesQueryRequest
  * @package Sphere\Core\Request\TaxCategories
+ * @link http://dev.sphere.io/http-api-projects-taxCategories.html#tax-categories-by-query
  */
 class TaxCategoriesQueryRequest extends AbstractQueryRequest
 {

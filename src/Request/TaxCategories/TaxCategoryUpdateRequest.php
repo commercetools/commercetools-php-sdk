@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class TaxCategoryUpdateRequest
  * @package Sphere\Core\Request\TaxCategories
+ * @link http://dev.sphere.io/http-api-projects-taxCategories.html#update-tax-category
  */
 class TaxCategoryUpdateRequest extends AbstractUpdateRequest
 {
