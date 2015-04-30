@@ -67,7 +67,7 @@ class GenericDeleteByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Zones\ZoneDeleteByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Zone\Zone',
             ],
         ];
     }

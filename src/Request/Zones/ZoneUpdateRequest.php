@@ -15,7 +15,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
  */
 class ZoneUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\Zone\Zone';
 
     /**
      * @param string $id

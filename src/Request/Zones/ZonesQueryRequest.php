@@ -15,7 +15,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
  */
 class ZonesQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\State\StateCollection';
+    protected $resultClass = '\Sphere\Core\Model\Zone\ZoneCollection';
 
     /**
      * @param Context $context

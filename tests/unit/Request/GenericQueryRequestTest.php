@@ -105,7 +105,7 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Zones\ZonesQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\Zone\ZoneCollection',
             ],
         ];
     }

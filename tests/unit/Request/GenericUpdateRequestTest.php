@@ -84,7 +84,7 @@ class GenericUpdateRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Zones\ZoneUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Zone\Zone',
             ],
         ];
     }

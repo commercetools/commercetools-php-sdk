@@ -87,7 +87,7 @@ class GenericFetchByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Zones\ZoneFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Zone\Zone',
             ],
         ];
     }
