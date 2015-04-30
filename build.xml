@@ -199,10 +199,10 @@
         <exec executable="${basedir}/apigen.sh" dir="${basedir}" />
     </target>
     <target name="apigen"
-            depends="prepare,install-apigen"
+            depends="prepare"
             description="Generate project documentation using phpDocumentor">
         <exec executable="php" dir="${basedir}/build/" failonerror="true">
-            <arg value="${basedir}/apigen.phar"/>
+            <arg value="${basedir}/vendor/bin/apigen"/>
             <arg value="generate"/>
             <arg value="--source"/>
             <arg path="${basedir}/src"/>
