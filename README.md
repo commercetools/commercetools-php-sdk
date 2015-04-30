@@ -48,9 +48,15 @@ To get up and running, [create a free test project](http://admin.sphere.io) to g
 
 ```php
 <?php
+
+require '../vendor/autoload.php';
+
+use Sphere\Core\Request\Products\ProductsSearchRequest;
+use Sphere\Core\Client;
+
+header('Content-Type: text/html; charset=utf-8');
+
 $config = [
-    'oauth_url' => 'https://auth.sphere.io/oauth/token',
-    'api_url' => 'https://api.sphere.io',
     'client_id' => 'my client id',
     'client_secret' => 'my client secret',
     'project' => 'my project id'
@@ -59,14 +65,13 @@ $config = [
 /**
  * create search request
  */
-$search = new \Sphere\Core\Request\Products\ProductsSearchRequest();
-$search->addParam('text.en', 'red');
+$search = ProductsSearchRequest::of()->addParam('text.en', 'red');
 
-$client = new \Sphere\Core\Client($config);
-$results = $client->execute($search);
+$client = new Client($config);
+$products = $client->execute($search)->toObject();
 
-foreach($results as $result) {
-    var_dump($result);
+foreach ($products as $product) {
+    echo $product->getName()->en . '<br/>';
 }
 
 ?>
@@ -119,8 +124,6 @@ You can use the `docroot` directory with the built-in PHP web server. Add to the
 
 ```ini
 [sphere]
-oauth_url = 'https://auth.sphere.io/oauth/token'
-api_url = 'https://api.sphere.io'
 client_id = 'my client id'
 client_secret = 'my client secret'
 project = 'my project id'
