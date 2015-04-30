@@ -13,6 +13,7 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 /**
  * Class TaxCategoryReference
  * @package Sphere\Core\Model\TaxCategory
+ * @link http://dev.sphere.io/http-api-types.html#reference
  * @method static TaxCategoryReference of(string $id)
  * @method string getTypeId()
  * @method TaxCategoryReference setTypeId(string $typeId = null)

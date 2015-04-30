@@ -10,6 +10,7 @@ use Sphere\Core\Model\Common\Document;
 /**
  * Class ProductType
  * @package Sphere\Core\Model\ProductType
+ * @link http://dev.sphere.io/http-api-projects-productTypes.html#product-type
  * @method string getId()
  * @method ProductType setId(string $id = null)
  * @method int getVersion()

@@ -13,6 +13,7 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 /**
  * Class StateReference
  * @package Sphere\Core\Model\State
+ * @link http://dev.sphere.io/http-api-types.html#reference
  * @method static StateReference of(string $id)
  * @method string getTypeId()
  * @method StateReference setTypeId(string $typeId = null)

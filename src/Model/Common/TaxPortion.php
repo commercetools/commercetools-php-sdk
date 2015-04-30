@@ -9,6 +9,7 @@ namespace Sphere\Core\Model\Common;
 /**
  * Class TaxPortion
  * @package Sphere\Core\Model\Common
+ * @link http://dev.sphere.io/http-api-projects-carts.html#tax-portion
  * @method int getRate()
  * @method TaxPortion setRate(int $rate = null)
  * @method Money getAmount()

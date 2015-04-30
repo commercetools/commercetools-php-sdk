@@ -10,6 +10,7 @@ use Sphere\Core\Model\Common\JsonObject;
 /**
  * Class SuggestTokenizer
  * @package Sphere\Core\Model\Product
+ * @link http://dev.sphere.io/http-api-projects-products.html#search-keyword-tokenizer
  * @method string getType()
  * @method SuggestTokenizer setType(string $type = null)
  * @method array getInputs()

@@ -9,6 +9,7 @@ namespace Sphere\Core\Model\Common;
 /**
  * Class DiscountValue
  * @package Sphere\Core\Model\Common
+ * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discount-value
  * @method string getType()
  * @method DiscountValue setType(string $type = null)
  * @method int getPermyriad()

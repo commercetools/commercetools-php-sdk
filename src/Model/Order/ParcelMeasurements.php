@@ -10,6 +10,7 @@ use Sphere\Core\Model\Common\JsonObject;
 /**
  * Class ParcelMeasurements
  * @package Sphere\Core\Model\Order
+ * @link http://dev.sphere.io/http-api-projects-orders.html#parcel-measurements
  * @method int getHeightInMillimeter()
  * @method ParcelMeasurements setHeightInMillimeter(int $heightInMillimeter = null)
  * @method int getLengthInMillimeter()

@@ -13,6 +13,7 @@ use Sphere\Core\Model\Common\OfTrait;
 /**
  * Class CustomerDraft
  * @package Sphere\Core\Model\Customer
+ * @link http://dev.sphere.io/http-api-projects-customers.html#create-customer
  * @method string getCustomerNumber()
  * @method string getEmail()
  * @method string getTitle()

@@ -1,39 +1,36 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 27.01.15, 18:22
  */
 
-namespace Sphere\Core\Model\Cart;
+namespace Sphere\Core\Model\Zone;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class CartReference
- * @package Sphere\Core\Model\Cart
- * @link http://dev.sphere.io/http-api-types.html#reference
- * @method static CartReference of(string $id)
+ * Class ZoneReference
+ * @package Sphere\Core\Model\Zone
  * @method string getTypeId()
- * @method CartReference setTypeId(string $typeId = null)
+ * @method ZoneReference setTypeId(string $typeId = null)
  * @method string getId()
- * @method CartReference setId(string $id = null)
- * @method Cart getObj()
- * @method CartReference setObj(Cart $obj = null)
+ * @method ZoneReference setId(string $id = null)
+ * @method Zone getObj()
+ * @method ZoneReference setObj(Zone $obj = null)
  */
-class CartReference extends Reference
+class ZoneReference extends Reference
 {
     use ReferenceFromArrayTrait;
 
-    const TYPE_CART = 'cart';
+    const TYPE_ZONE = 'zone';
 
     public function getFields()
     {
         return [
             'typeId' => [self::TYPE => 'string'],
             'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => '\Sphere\Core\Model\Cart\Cart']
+            'obj' => [static::TYPE => '\Sphere\Core\Model\Zone\Zone']
         ];
     }
 
@@ -43,6 +40,6 @@ class CartReference extends Reference
      */
     public function __construct($id, $context = null)
     {
-        parent::__construct(static::TYPE_CART, $id, $context);
+        parent::__construct(static::TYPE_ZONE, $id, $context);
     }
 }

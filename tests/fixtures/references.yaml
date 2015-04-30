@@ -109,3 +109,11 @@ taxCategory:
   obj:
     domain: taxCategory
     model: TaxCategory
+
+zone:
+  domain: zone
+  model: ZoneReference
+  typeId: zone
+  obj:
+    domain: zone
+    model: Zone

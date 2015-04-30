@@ -11,6 +11,7 @@ use Sphere\Core\Model\State\StateReference;
 /**
  * Class ItemState
  * @package Sphere\Core\Model\Order
+ * @link http://dev.sphere.io/http-api-projects-orders.html#item-state
  * @method int getQuantity()
  * @method ItemState setQuantity(int $quantity = null)
  * @method StateReference getState()

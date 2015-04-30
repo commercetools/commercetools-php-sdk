@@ -13,6 +13,7 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 /**
  * Class CustomerReference
  * @package Sphere\Core\Model\Customer
+ * @link http://dev.sphere.io/http-api-types.html#reference
  * @method static CustomerReference of(string $id)
  * @method string getTypeId()
  * @method CustomerReference setTypeId(string $typeId = null)

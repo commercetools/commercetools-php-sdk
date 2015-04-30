@@ -18,6 +18,7 @@ use Sphere\Core\Model\DiscountCode\DiscountCodeReferenceCollection;
 /**
  * Class Order
  * @package Sphere\Core\Model\Order
+ * @link http://dev.sphere.io/http-api-projects-orders.html#order
  * @method string getId()
  * @method Order setId(string $id = null)
  * @method int getVersion()

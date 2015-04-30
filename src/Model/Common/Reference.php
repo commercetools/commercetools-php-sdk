@@ -10,6 +10,7 @@ namespace Sphere\Core\Model\Common;
 /**
  * Class Reference
  * @package Sphere\Core\Model\Common
+ * @link http://dev.sphere.io/http-api-types.html#reference
  * @method static Reference of(string $typeId, string $id, $context = null)
  * @method string getTypeId()
  * @method string getId()

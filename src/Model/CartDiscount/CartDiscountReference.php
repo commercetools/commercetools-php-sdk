@@ -12,6 +12,7 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 /**
  * Class CartDiscountReference
  * @package Sphere\Core\Model\CartDiscount
+ * @link http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method CartDiscountReference setTypeId(string $typeId = null)
  * @method string getId()

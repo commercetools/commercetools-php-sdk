@@ -11,6 +11,7 @@ use Sphere\Core\Model\ProductDiscount\ProductDiscountReference;
 /**
  * Class DiscountedPrice
  * @package Sphere\Core\Model\Common
+ * @link http://dev.sphere.io/http-api-projects-products.html#discounted-price
  * @method static DiscountedPrice of(Money $value, ProductDiscountReference $discount)
  * @method Money getValue()
  * @method ProductDiscountReference getDiscount()

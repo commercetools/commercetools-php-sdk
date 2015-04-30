@@ -764,3 +764,22 @@ stateDraft:
     - description
     - initial
     - transitions
+
+location:
+  domain: zone
+  model: Location
+  fields:
+    - country
+    - state
+
+zone:
+  domain: zone
+  model: Zone
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - name
+    - description
+    - locations

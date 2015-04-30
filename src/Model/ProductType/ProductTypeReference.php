@@ -13,6 +13,7 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 /**
  * Class ProductTypeReference
  * @package Sphere\Core\Model\ProductType
+ * @link http://dev.sphere.io/http-api-types.html#reference
  * @method static ProductTypeReference of(string $id)
  * @method string getTypeId()
  * @method ProductTypeReference setTypeId(string $typeId = null)

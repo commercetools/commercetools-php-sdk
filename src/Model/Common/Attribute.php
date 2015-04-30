@@ -10,6 +10,7 @@ namespace Sphere\Core\Model\Common;
 /**
  * Class Attribute
  * @package Sphere\Core\Model\Common
+ * @link http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
  * @method static Attribute of($name, $value)
  * @method string getName()
  * @method getValue()

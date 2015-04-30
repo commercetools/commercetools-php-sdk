@@ -10,6 +10,7 @@ use Sphere\Core\Model\Common\Document;
 /**
  * Class CustomerGroup
  * @package Sphere\Core\Model\CustomerGroup
+ * @link http://dev.sphere.io/http-api-projects-customerGroups.html#customer-group
  * @method string getId()
  * @method CustomerGroup setId(string $id = null)
  * @method int getVersion()

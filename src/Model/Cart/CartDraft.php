@@ -11,6 +11,7 @@ use Sphere\Core\Model\Common\OfTrait;
 /**
  * Class CartDraft
  * @package Sphere\Core\Model\Cart
+ * @link http://dev.sphere.io/http-api-projects-carts.html#create-cart
  * @method static CartDraft of(string $currency)
  * @method string getCurrency()
  * @method string getCustomerId()

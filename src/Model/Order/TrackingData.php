@@ -10,6 +10,7 @@ use Sphere\Core\Model\Common\JsonObject;
 /**
  * Class TrackingData
  * @package Sphere\Core\Model\Order
+ * @link http://dev.sphere.io/http-api-projects-orders.html#tracking-data
  * @method string getTrackingId()
  * @method TrackingData setTrackingId(string $trackingId = null)
  * @method string getCarrier()

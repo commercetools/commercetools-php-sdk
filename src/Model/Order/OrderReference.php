@@ -13,6 +13,7 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 /**
  * Class OrderReference
  * @package Sphere\Core\Model\Order
+ * @link http://dev.sphere.io/http-api-types.html#reference
  * @method static OrderReference of(string $id)
  * @method string getTypeId()
  * @method OrderReference setTypeId(string $typeId = null)

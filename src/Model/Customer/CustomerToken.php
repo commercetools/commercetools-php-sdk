@@ -10,6 +10,7 @@ use Sphere\Core\Model\Common\JsonObject;
 /**
  * Class CustomerToken
  * @package Sphere\Core\Model\Customer
+ * @link http://dev.sphere.io/http-api-projects-customers.html#customer-token
  * @method string getId()
  * @method CustomerToken setId(string $id = null)
  * @method string getCustomerId()

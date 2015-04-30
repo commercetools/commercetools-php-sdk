@@ -14,6 +14,7 @@ use Sphere\Core\Model\Common\OfTrait;
 /**
  * Class CategoryDraft
  * @package Sphere\Core\Model\Category
+ * @link http://dev.sphere.io/http-api-projects-categories.html#create-category
  * @method static CategoryDraft of(LocalizedString $name, LocalizedString $slug)
  * @method LocalizedString getName()
  * @method LocalizedString getSlug()

@@ -10,6 +10,7 @@ use Sphere\Core\Model\Common\JsonObject;
 /**
  * Class AttributeType
  * @package Sphere\Core\Model\ProductType
+ * @link http://dev.sphere.io/http-api-projects-productTypes.html#attribute-type
  * @method string getName()
  * @method AttributeType setName(string $name = null)
  * @method getValues()

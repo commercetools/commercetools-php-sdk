@@ -12,7 +12,7 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\ProductType\ProductTypeReference;
-use Sphere\Core\Model\TaxCategory\TaxCategory;
+use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
  * Class ProductDraft
@@ -38,8 +38,8 @@ use Sphere\Core\Model\TaxCategory\TaxCategory;
  * @method ProductDraft setMetaDescription(LocalizedString $metaDescription = null)
  * @method LocalizedString getMetaKeywords()
  * @method ProductDraft setMetaKeywords(LocalizedString $metaKeywords = null)
- * @method TaxCategory getTaxCategory()
- * @method ProductDraft setTaxCategory(TaxCategory $taxCategory = null)
+ * @method TaxCategoryReference getTaxCategory()
+ * @method ProductDraft setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method LocalizedSearchKeywords getSearchKeywords()
  * @method ProductDraft setSearchKeywords(LocalizedSearchKeywords $searchKeywords = null)
  */

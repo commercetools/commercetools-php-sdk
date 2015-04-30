@@ -10,6 +10,7 @@ namespace Sphere\Core\Model\Common;
 /**
  * Class Money
  * @package Sphere\Core\Model\Common
+ * @link http://dev.sphere.io/http-api-types.html#money
  * @method static Money of(string $currencyCode, int $centAmount)
  * @method string getCurrencyCode()
  * @method int getCentAmount()

@@ -12,6 +12,7 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 /**
  * Class Price
  * @package Sphere\Core\Model\Common
+ * @link http://dev.sphere.io/http-api-projects-products.html#product-price
  * @method static Price of(Money $value)
  * @method Money getValue()
  * @method string getCountry()

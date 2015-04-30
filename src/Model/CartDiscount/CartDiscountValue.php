@@ -11,6 +11,7 @@ use Sphere\Core\Model\Common\MoneyCollection;
 /**
  * Class CartDiscountValue
  * @package Sphere\Core\Model\CartDiscount
+ * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discount-value
  * @method string getType()
  * @method CartDiscountValue setType(string $type = null)
  * @method int getPermyriad()
