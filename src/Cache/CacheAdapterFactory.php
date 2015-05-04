@@ -23,28 +23,35 @@ class CacheAdapterFactory
 
     public function __construct()
     {
-        $this->registerCallback(function ($cache) {
-            if ($cache instanceof Cache) {
-                return new DoctrineCacheAdapter($cache);
+        $this->registerCallback(
+            function ($cache) {
+                if ($cache instanceof Cache) {
+                    return new DoctrineCacheAdapter($cache);
+                }
+                return null;
             }
-            return null;
-        });
-        $this->registerCallback(function ($cache) {
-            if ($cache instanceof \Redis) {
-                return new PhpRedisCacheAdapter($cache);
+        )
+        ->registerCallback(
+            function ($cache) {
+                if ($cache instanceof \Redis) {
+                    return new PhpRedisCacheAdapter($cache);
+                }
+                return null;
             }
-            return null;
-        });
+        );
     }
 
     /**
      * registers a callback to resolve a cache adapter interface
      *
-     * @param $callback
+     * @param callable $callback
+     * @return $this
      */
-    public function registerCallback($callback)
+    public function registerCallback(callable $callback)
     {
         $this->callbacks[] = $callback;
+
+        return $this;
     }
 
     /**

@@ -19,7 +19,7 @@ class PhpRedisCacheAdapterTest extends \PHPUnit_Framework_TestCase
     {
         if (!extension_loaded('redis')) {
             $this->markTestSkipped(
-                'The Redis extension is not available.'
+                'The redis extension is not available.'
             );
         }
         $cache = new \Redis();
