@@ -3,57 +3,65 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Sphere\Core\Helper\AnnotationGenerator | SPHERE.IO PHP SDK </title>
+	<title>Class Sphere\Core\Helper\Annotate\AnnotationGenerator | SPHERE.IO PHP SDK </title>
 
-	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
-	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
+	<link rel="stylesheet" href="resources/style.css?a2b5efb503881470385230f40f9bcc3c94d665e7">
 
 </head>
 
 <body>
-	<div id="navigation" class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<a href="index.html" class="brand">SPHERE.IO PHP SDK </a>
-				<div class="nav-collapse">
-					<ul class="nav">
-						<li>
-							<a href="namespace-Sphere.Core.Helper.html" title="Summary of Sphere\Core\Helper"><span>Namespace</span></a>
-						</li>
-						<li class="active">
-<span>Class</span>						</li>
+	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand">SPHERE.IO PHP SDK </a>
+			</div>
+			<div class="collapse navbar-collapse">
 
-						<li class="divider-vertical"></li>
+                <form id="search" class="navbar-form navbar-left" role="search">
+                    <input type="hidden" name="cx" value="">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <div class="form-group">
+                        <input type="text" name="q" class="search-query form-control" placeholder="Search">
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="namespace-Sphere.Core.Helper.Annotate.html" title="Summary of Sphere\Core\Helper\Annotate"><span>Namespace</span></a>
+					</li>
+					<li class="active">
+<span>Class</span>					</li>
+
+					<li class="divider-vertical"></li>
+
+					<li>
+						<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+					</li>
 
 						<li>
-							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+							<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+								<span>Deprecated</span>
+							</a>
 						</li>
 						<li>
-							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
-						</li>
-						<li>
-							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+							<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+								<span>Todo</span>
+							</a>
 						</li>
 
-						<li class="divider-vertical"></li>
+					<li class="divider-vertical"></li>
 
-						<li>
-							<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
-						</li>
-					</ul>
-				</div>
+					<li>
+						<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+					</li>
+				</ul>
 			</div>
 		</div>
-	</div>
+	</nav>
 
 	<div id="left">
 	<div id="menu">
-		<form id="search" class="form-search">
-			<input type="hidden" name="cx" value="">
-			<input type="hidden" name="ie" value="UTF-8">
-			<input type="text" name="q" class="search-query" placeholder="Search">
-		</form>
-
 
 		<div id="groups">
 				<h3>Namespaces</h3>
@@ -91,6 +99,10 @@
 							Helper<span></span>
 						</a>
 							<ul>
+					<li class="active">
+						<a href="namespace-Sphere.Core.Helper.Annotate.html">
+							Annotate						</a>
+							</li>
 					<li>
 						<a href="namespace-Sphere.Core.Helper.State.html">
 							State<span></span>
@@ -169,6 +181,10 @@
 					<li>
 						<a href="namespace-Sphere.Core.Model.TaxCategory.html">
 							TaxCategory						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Zone.html">
+							Zone						</a>
 							</li>
 								</ul></li>
 					<li>
@@ -267,6 +283,10 @@
 							ProductTypes						</a>
 							</li>
 					<li>
+						<a href="namespace-Sphere.Core.Request.Query.html">
+							Query						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Request.Reviews.html">
 							Reviews						</a>
 							</li>
@@ -299,8 +319,9 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-Sphere.Core.Helper.AnnotationGenerator.html">AnnotationGenerator</a></li>
-				<li><a href="class-Sphere.Core.Helper.CurrencyFormatter.html">CurrencyFormatter</a></li>
+				<li class="active"><a href="class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html">AnnotationGenerator</a></li>
+				<li><a href="class-Sphere.Core.Helper.Annotate.ClassAnnotator.html">ClassAnnotator</a></li>
+				<li><a href="class-Sphere.Core.Helper.Annotate.ReflectedClass.html">ReflectedClass</a></li>
 			</ul>
 
 
@@ -331,17 +352,18 @@
 	<div class="alert alert-info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-Sphere.html">Sphere</a>\<a href="namespace-Sphere.Core.html">Core</a>\<a href="namespace-Sphere.Core.Helper.html">Helper</a><br>
+		<b>Namespace:</b> <a href="namespace-Sphere.html">Sphere</a>\<a href="namespace-Sphere.Core.html">Core</a>\<a href="namespace-Sphere.Core.Helper.html">Helper</a>\<a href="namespace-Sphere.Core.Helper.Annotate.html">Annotate</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#9-296" title="Go to source code">Helper/AnnotationGenerator.php</a>
+			<b>Located at</b> <a href="source-class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html#8-84" title="Go to source code">Helper/Annotate/AnnotationGenerator.php</a>
 		<br>
 	</div>
 
 
 
-		<h2>Methods summary</h2>
-		<table class="summary table table-bordered table-striped methods" id="methods">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2>Methods summary</h2></div>
+			<table class="summary table table-bordered table-striped methods" id="methods">
 		<tr data-order="run" id="_run">
 
 			<td class="attributes"><code>
@@ -353,7 +375,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_run">#</a>
-			<code><a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#21-27" title="Go to source code">run</a>( <span> <var>$path</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html#20-26" title="Go to source code">run</a>( <span> <var>$path</var></span> )</code>
 
 			<div class="description short">
 				
@@ -382,7 +404,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_analyzeFiles">#</a>
-			<code><a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#29-41" title="Go to source code">analyzeFiles</a>( <span>RegexIterator <var>$phpFiles</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html#28-37" title="Go to source code">analyzeFiles</a>( <span>RegexIterator <var>$phpFiles</var></span> )</code>
 
 			<div class="description short">
 				
@@ -411,7 +433,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getJsonObjects">#</a>
-			<code><a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#43-57" title="Go to source code">getJsonObjects</a>( <span>RegexIterator <var>$phpFiles</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html#39-53" title="Go to source code">getJsonObjects</a>( <span>RegexIterator <var>$phpFiles</var></span> )</code>
 
 			<div class="description short">
 				
@@ -440,7 +462,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getClassName">#</a>
-			<code><a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#59-81" title="Go to source code">getClassName</a>( <span> <var>$fileName</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html#55-77" title="Go to source code">getClassName</a>( <span> <var>$fileName</var></span> )</code>
 
 			<div class="description short">
 				
@@ -469,7 +491,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_tokenize">#</a>
-			<code><a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#83-87" title="Go to source code">tokenize</a>( <span> <var>$fileName</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html#79-83" title="Go to source code">tokenize</a>( <span> <var>$fileName</var></span> )</code>
 
 			<div class="description short">
 				
@@ -487,25 +509,12 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="getMethodPattern" id="_getMethodPattern">
+			</table>
+		</div>
 
-			<td class="attributes"><code>
-				 protected 
-				
-				
-				</code>
-			</td>
 
-			<td class="name"><div>
-			<a class="anchor" href="#_getMethodPattern">#</a>
-			<code><a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#89-93" title="Go to source code">getMethodPattern</a>( )</code>
 
-			<div class="description short">
-				
-			</div>
 
-			<div class="description detailed hidden">
-				
 
 
 
@@ -513,174 +522,9 @@
 
 
 
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="analyzeMethod" id="_analyzeMethod">
-
-			<td class="attributes"><code>
-				 protected 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_analyzeMethod">#</a>
-			<code><a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#95-146" title="Go to source code">analyzeMethod</a>( <span>string[] <var>$matches</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$matches</var></dt>
-						<dd></dd>
-					</dl></div>
-
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="analyzeDocBlockLine" id="_analyzeDocBlockLine">
-
-			<td class="attributes"><code>
-				 protected 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_analyzeDocBlockLine">#</a>
-			<code><a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#147-158" title="Go to source code">analyzeDocBlockLine</a>( <span> <var>$line</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="analyzeDocBlock" id="_analyzeDocBlock">
-
-			<td class="attributes"><code>
-				 protected 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_analyzeDocBlock">#</a>
-			<code><a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#160-174" title="Go to source code">analyzeDocBlock</a>( )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="generateJsonObjectAnnotations" id="_generateJsonObjectAnnotations">
-
-			<td class="attributes"><code>
-				 protected 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_generateJsonObjectAnnotations">#</a>
-			<code><a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#175-279" title="Go to source code">generateJsonObjectAnnotations</a>( <span> <var>$jsonObject</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="isPrimitive" id="_isPrimitive">
-
-			<td class="attributes"><code>
-				 protected 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_isPrimitive">#</a>
-			<code><a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#281-295" title="Go to source code">isPrimitive</a>( <span> <var>$type</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		</table>
-
-
-
-		<h3>Magic methods summary</h3>
-
-
-
-
-
-
-
-
-		<h2>Properties summary</h2>
-		<table class="summary table table-bordered table-striped properties" id="properties">
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Properties summary</h2></div>
+			<table class="summary table table-bordered table-striped properties" id="properties">
 		<tr data-order="reflectionClass" id="$reflectionClass">
 			<td class="attributes"><code>
 				protected  
@@ -688,7 +532,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#11-14" title="Go to source code"><var>$reflectionClass</var></a>
+					<a href="source-class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html#10-13" title="Go to source code"><var>$reflectionClass</var></a>
 
 				<div class="description short">
 					
@@ -713,7 +557,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#15" title="Go to source code"><var>$newDocBlock</var></a>
+					<a href="source-class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html#14" title="Go to source code"><var>$newDocBlock</var></a>
 
 				<div class="description short">
 					
@@ -738,7 +582,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#16" title="Go to source code"><var>$fields</var></a>
+					<a href="source-class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html#15" title="Go to source code"><var>$fields</var></a>
 
 				<div class="description short">
 					
@@ -763,7 +607,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#17" title="Go to source code"><var>$fieldNames</var></a>
+					<a href="source-class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html#16" title="Go to source code"><var>$fieldNames</var></a>
 
 				<div class="description short">
 					
@@ -788,7 +632,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#18" title="Go to source code"><var>$includes</var></a>
+					<a href="source-class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html#17" title="Go to source code"><var>$includes</var></a>
 
 				<div class="description short">
 					
@@ -813,7 +657,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Helper.AnnotationGenerator.html#19" title="Go to source code"><var>$uses</var></a>
+					<a href="source-class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html#18" title="Go to source code"><var>$uses</var></a>
 
 				<div class="description short">
 					
@@ -831,7 +675,8 @@
 				</div>
 			</td>
 		</tr>
-		</table>
+			</table>
+		</div>
 
 
 

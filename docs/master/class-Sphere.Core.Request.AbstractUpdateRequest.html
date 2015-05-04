@@ -5,55 +5,63 @@
 
 	<title>Class Sphere\Core\Request\AbstractUpdateRequest | SPHERE.IO PHP SDK </title>
 
-	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
-	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
+	<link rel="stylesheet" href="resources/style.css?a2b5efb503881470385230f40f9bcc3c94d665e7">
 
 </head>
 
 <body>
-	<div id="navigation" class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<a href="index.html" class="brand">SPHERE.IO PHP SDK </a>
-				<div class="nav-collapse">
-					<ul class="nav">
-						<li>
-							<a href="namespace-Sphere.Core.Request.html" title="Summary of Sphere\Core\Request"><span>Namespace</span></a>
-						</li>
-						<li class="active">
-<span>Class</span>						</li>
+	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand">SPHERE.IO PHP SDK </a>
+			</div>
+			<div class="collapse navbar-collapse">
 
-						<li class="divider-vertical"></li>
+                <form id="search" class="navbar-form navbar-left" role="search">
+                    <input type="hidden" name="cx" value="">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <div class="form-group">
+                        <input type="text" name="q" class="search-query form-control" placeholder="Search">
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="namespace-Sphere.Core.Request.html" title="Summary of Sphere\Core\Request"><span>Namespace</span></a>
+					</li>
+					<li class="active">
+<span>Class</span>					</li>
+
+					<li class="divider-vertical"></li>
+
+					<li>
+						<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+					</li>
 
 						<li>
-							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+							<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+								<span>Deprecated</span>
+							</a>
 						</li>
 						<li>
-							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
-						</li>
-						<li>
-							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+							<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+								<span>Todo</span>
+							</a>
 						</li>
 
-						<li class="divider-vertical"></li>
+					<li class="divider-vertical"></li>
 
-						<li>
-							<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
-						</li>
-					</ul>
-				</div>
+					<li>
+						<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+					</li>
+				</ul>
 			</div>
 		</div>
-	</div>
+	</nav>
 
 	<div id="left">
 	<div id="menu">
-		<form id="search" class="form-search">
-			<input type="hidden" name="cx" value="">
-			<input type="hidden" name="ie" value="UTF-8">
-			<input type="text" name="q" class="search-query" placeholder="Search">
-		</form>
-
 
 		<div id="groups">
 				<h3>Namespaces</h3>
@@ -91,6 +99,10 @@
 							Helper<span></span>
 						</a>
 							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.Helper.Annotate.html">
+							Annotate						</a>
+							</li>
 					<li>
 						<a href="namespace-Sphere.Core.Helper.State.html">
 							State<span></span>
@@ -169,6 +181,10 @@
 					<li>
 						<a href="namespace-Sphere.Core.Model.TaxCategory.html">
 							TaxCategory						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Zone.html">
+							Zone						</a>
 							</li>
 								</ul></li>
 					<li class="active">
@@ -265,6 +281,10 @@
 					<li>
 						<a href="namespace-Sphere.Core.Request.ProductTypes.html">
 							ProductTypes						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Query.html">
+							Query						</a>
 							</li>
 					<li>
 						<a href="namespace-Sphere.Core.Request.Reviews.html">
@@ -405,14 +425,15 @@
 		<b>Namespace:</b> <a href="namespace-Sphere.html">Sphere</a>\<a href="namespace-Sphere.Core.html">Core</a>\<a href="namespace-Sphere.Core.Request.html">Request</a><br>
 		<b>Package:</b> Sphere\Core\Request<br>
 
-			<b>Located at</b> <a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#19-152" title="Go to source code">Request/AbstractUpdateRequest.php</a>
+			<b>Located at</b> <a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#20-171" title="Go to source code">Request/AbstractUpdateRequest.php</a>
 		<br>
 	</div>
 
 
 
-		<h2>Methods summary</h2>
-		<table class="summary table table-bordered table-striped methods" id="methods">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2>Methods summary</h2></div>
+			<table class="summary table table-bordered table-striped methods" id="methods">
 		<tr data-order="__construct" id="___construct">
 
 			<td class="attributes"><code>
@@ -424,7 +445,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#44-55" title="Go to source code">__construct</a>( <span>Sphere\Core\Client\JsonEndpoint <var>$endpoint</var></span>, <span>string <var>$id</var></span>, <span>integer <var>$version</var></span>, <span>array <var>$actions</var> = []</span>, <span><code><a href="class-Sphere.Core.Model.Common.Context.html">Sphere\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#46-57" title="Go to source code">__construct</a>( <span>Sphere\Core\Client\JsonEndpoint <var>$endpoint</var></span>, <span>string <var>$id</var></span>, <span>integer <var>$version</var></span>, <span>array <var>$actions</var> = []</span>, <span><code><a href="class-Sphere.Core.Model.Common.Context.html">Sphere\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -468,7 +489,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getActions">#</a>
-			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#57-63" title="Go to source code">getActions</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#59-65" title="Go to source code">getActions</a>( )</code>
 
 			<div class="description short">
 				
@@ -501,7 +522,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setActions">#</a>
-			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#65-73" title="Go to source code">setActions</a>( <span>array <var>$actions</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#67-77" title="Go to source code">setActions</a>( <span>array <var>$actions</var></span> )</code>
 
 			<div class="description short">
 				
@@ -517,6 +538,10 @@
 						<dd></dd>
 					</dl></div>
 
+					<h4>Returns</h4>
+					<div class="list">
+						<br>$this
+					</div>
 
 
 
@@ -535,7 +560,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addAction">#</a>
-			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#75-84" title="Go to source code">addAction</a>( <span>array|<code><a href="class-Sphere.Core.Request.AbstractAction.html">Sphere\Core\Request\AbstractAction</a></code> <var>$action</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#79-89" title="Go to source code">addAction</a>( <span>array|<code><a href="class-Sphere.Core.Request.AbstractAction.html">Sphere\Core\Request\AbstractAction</a></code> <var>$action</var></span> )</code>
 
 			<div class="description short">
 				
@@ -562,6 +587,35 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="logUpdateActionLimit" id="_logUpdateActionLimit">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_logUpdateActionLimit">#</a>
+			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#91-104" title="Go to source code">logUpdateActionLimit</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="getId" id="_getId">
 
 			<td class="attributes"><code>
@@ -573,7 +627,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getId">#</a>
-			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#86-92" title="Go to source code">getId</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#105-111" title="Go to source code">getId</a>( )</code>
 
 			<div class="description short">
 				
@@ -606,7 +660,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setId">#</a>
-			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#94-103" title="Go to source code">setId</a>( <span>string <var>$id</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#113-122" title="Go to source code">setId</a>( <span>string <var>$id</var></span> )</code>
 
 			<div class="description short">
 				
@@ -644,7 +698,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getVersion">#</a>
-			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#105-111" title="Go to source code">getVersion</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#124-130" title="Go to source code">getVersion</a>( )</code>
 
 			<div class="description short">
 				
@@ -677,7 +731,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setVersion">#</a>
-			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#113-122" title="Go to source code">setVersion</a>( <span>integer <var>$version</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#132-141" title="Go to source code">setVersion</a>( <span>integer <var>$version</var></span> )</code>
 
 			<div class="description short">
 				
@@ -704,120 +758,158 @@
 			</div>
 			</div></td>
 		</tr>
-		</table>
+			</table>
+		</div>
 
-		<h3>Methods inherited from <a href="class-Sphere.Core.Request.AbstractApiRequest.html#methods">Sphere\Core\Request\AbstractApiRequest</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#_addParam">addParam()</a></code>, 
-			<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#_getIdentifier">getIdentifier()</a></code>, 
-			<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#_mapResult">mapResult()</a></code>, 
-			<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#_setIdentifier">setIdentifier()</a></code>
-		</p>
-		<h3>Methods inherited from <a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#methods">Sphere\Core\Model\Common\ContextAwareInterface</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_getContext">getContext()</a></code>, 
-			<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_setContext">setContext()</a></code>, 
-			<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_setContextIfNull">setContextIfNull()</a></code>
-		</p>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Sphere.Core.Request.AbstractApiRequest.html#methods">Sphere\Core\Request\AbstractApiRequest</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#_addParam">addParam()</a></code>, 
+				<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#_addParamObject">addParamObject()</a></code>, 
+				<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#_getIdentifier">getIdentifier()</a></code>, 
+				<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#_mapResult">mapResult()</a></code>, 
+				<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#_setIdentifier">setIdentifier()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#methods">Sphere\Core\Model\Common\ContextAwareInterface</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_getContext">getContext()</a></code>, 
+				<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_getContextCallback">getContextCallback()</a></code>, 
+				<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_setContext">setContext()</a></code>, 
+				<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_setContextIfNull">setContextIfNull()</a></code>
+			</p>
+		</div>
 
-		<h3>Methods used from <a href="class-Sphere.Core.Model.Common.ContextTrait.html#methods">Sphere\Core\Model\Common\ContextTrait</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_getContext">getContext()</a></code>, 
-			<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_setContext">setContext()</a></code>, 
-			<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_setContextIfNull">setContextIfNull()</a></code>
-		</p>
-		<h3>Methods used from <a href="class-Sphere.Core.Model.Common.OfTrait.html#methods">Sphere\Core\Model\Common\OfTrait</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Model.Common.OfTrait.html#_of">of()</a></code>
-		</p>
-
-		<h3>Magic methods summary</h3>
-
-
-
-
-
-		<h2>Constants summary</h2>
-		<table class="summary table table-bordered table-striped constants" id="constants">
-		<tr data-order="ACTION" id="ACTION">
-
-			<td class="attributes"><code>string</code></td>
-			<td class="name">
-				<code>
-					<a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#25" title="Go to source code"><b>ACTION</b></a>
-				</code>
-
-				<div class="description short">
-					
-				</div>
-
-				<div class="description detailed hidden">
-					
-
-				</div>
-			</td>
-			<td class="value">
-				<div>
-					<a href="#ACTION" class="anchor">#</a>
-					<code><span class="php-quote">'action'</span></code>
-				</div>
-			</td>
-		</tr>
-		<tr data-order="ACTIONS" id="ACTIONS">
-
-			<td class="attributes"><code>string</code></td>
-			<td class="name">
-				<code>
-					<a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#26" title="Go to source code"><b>ACTIONS</b></a>
-				</code>
-
-				<div class="description short">
-					
-				</div>
-
-				<div class="description detailed hidden">
-					
-
-				</div>
-			</td>
-			<td class="value">
-				<div>
-					<a href="#ACTIONS" class="anchor">#</a>
-					<code><span class="php-quote">'actions'</span></code>
-				</div>
-			</td>
-		</tr>
-		<tr data-order="VERSION" id="VERSION">
-
-			<td class="attributes"><code>string</code></td>
-			<td class="name">
-				<code>
-					<a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#27" title="Go to source code"><b>VERSION</b></a>
-				</code>
-
-				<div class="description short">
-					
-				</div>
-
-				<div class="description detailed hidden">
-					
-
-				</div>
-			</td>
-			<td class="value">
-				<div>
-					<a href="#VERSION" class="anchor">#</a>
-					<code><span class="php-quote">'version'</span></code>
-				</div>
-			</td>
-		</tr>
-		</table>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods used from <a href="class-Sphere.Core.Model.Common.ContextTrait.html#methods">Sphere\Core\Model\Common\ContextTrait</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_getContext">getContext()</a></code>, 
+				<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_getContextCallback">getContextCallback()</a></code>, 
+				<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_setContext">setContext()</a></code>, 
+				<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_setContextIfNull">setContextIfNull()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods used from <a href="class-Sphere.Core.Model.Common.OfTrait.html#methods">Sphere\Core\Model\Common\OfTrait</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Model.Common.OfTrait.html#_of">of()</a></code>
+			</p>
+		</div>
 
 
 
 
-		<h2>Properties summary</h2>
-		<table class="summary table table-bordered table-striped properties" id="properties">
+
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Constants summary</h2></div>
+			<table class="summary table table-bordered table-striped constants" id="constants">
+			<tr data-order="ACTION" id="ACTION">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#26" title="Go to source code"><b>ACTION</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#ACTION" class="anchor">#</a>
+						<code><span class="php-quote">'action'</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="ACTIONS" id="ACTIONS">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#27" title="Go to source code"><b>ACTIONS</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#ACTIONS" class="anchor">#</a>
+						<code><span class="php-quote">'actions'</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="VERSION" id="VERSION">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#28" title="Go to source code"><b>VERSION</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#VERSION" class="anchor">#</a>
+						<code><span class="php-quote">'version'</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="ACTION_LIMIT" id="ACTION_LIMIT">
+
+				<td class="attributes"><code>integer</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#29" title="Go to source code"><b>ACTION_LIMIT</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#ACTION_LIMIT" class="anchor">#</a>
+						<code><span class="php-num">50</span></code>
+					</div>
+				</td>
+			</tr>
+			</table>
+		</div>
+
+
+
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Properties summary</h2></div>
+			<table class="summary table table-bordered table-striped properties" id="properties">
 		<tr data-order="id" id="$id">
 			<td class="attributes"><code>
 				protected  
@@ -825,7 +917,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#29-32" title="Go to source code"><var>$id</var></a>
+					<a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#31-34" title="Go to source code"><var>$id</var></a>
 
 				<div class="description short">
 					
@@ -850,7 +942,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#34-37" title="Go to source code"><var>$version</var></a>
+					<a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#36-39" title="Go to source code"><var>$version</var></a>
 
 				<div class="description short">
 					
@@ -875,7 +967,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#39-42" title="Go to source code"><var>$actions</var></a>
+					<a href="source-class-Sphere.Core.Request.AbstractUpdateRequest.html#41-44" title="Go to source code"><var>$actions</var></a>
 
 				<div class="description short">
 					
@@ -893,20 +985,25 @@
 				</div>
 			</td>
 		</tr>
-		</table>
+			</table>
+		</div>
 
-		<h3>Properties inherited from <a href="class-Sphere.Core.Request.AbstractApiRequest.html#properties">Sphere\Core\Request\AbstractApiRequest</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#$endpoint"><var>$endpoint</var></a></code>, 
-			<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#$identifier"><var>$identifier</var></a></code>, 
-			<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#$params"><var>$params</var></a></code>, 
-			<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#$resultClass"><var>$resultClass</var></a></code>
-		</p>
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Properties inherited from <a href="class-Sphere.Core.Request.AbstractApiRequest.html#properties">Sphere\Core\Request\AbstractApiRequest</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#$endpoint"><var>$endpoint</var></a></code>, 
+				<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#$identifier"><var>$identifier</var></a></code>, 
+				<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#$params"><var>$params</var></a></code>, 
+				<code><a href="class-Sphere.Core.Request.AbstractApiRequest.html#$resultClass"><var>$resultClass</var></a></code>
+			</p>
+		</div>
 
-		<h3>Properties used from <a href="class-Sphere.Core.Model.Common.ContextTrait.html#properties">Sphere\Core\Model\Common\ContextTrait</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#$context"><var>$context</var></a></code>
-		</p>
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Properties used from <a href="class-Sphere.Core.Model.Common.ContextTrait.html#properties">Sphere\Core\Model\Common\ContextTrait</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#$context"><var>$context</var></a></code>
+			</p>
+		</div>
 
 
 

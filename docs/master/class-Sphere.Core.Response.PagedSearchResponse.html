@@ -5,55 +5,63 @@
 
 	<title>Class Sphere\Core\Response\PagedSearchResponse | SPHERE.IO PHP SDK </title>
 
-	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
-	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
+	<link rel="stylesheet" href="resources/style.css?a2b5efb503881470385230f40f9bcc3c94d665e7">
 
 </head>
 
 <body>
-	<div id="navigation" class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<a href="index.html" class="brand">SPHERE.IO PHP SDK </a>
-				<div class="nav-collapse">
-					<ul class="nav">
-						<li>
-							<a href="namespace-Sphere.Core.Response.html" title="Summary of Sphere\Core\Response"><span>Namespace</span></a>
-						</li>
-						<li class="active">
-<span>Class</span>						</li>
+	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand">SPHERE.IO PHP SDK </a>
+			</div>
+			<div class="collapse navbar-collapse">
 
-						<li class="divider-vertical"></li>
+                <form id="search" class="navbar-form navbar-left" role="search">
+                    <input type="hidden" name="cx" value="">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <div class="form-group">
+                        <input type="text" name="q" class="search-query form-control" placeholder="Search">
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="namespace-Sphere.Core.Response.html" title="Summary of Sphere\Core\Response"><span>Namespace</span></a>
+					</li>
+					<li class="active">
+<span>Class</span>					</li>
+
+					<li class="divider-vertical"></li>
+
+					<li>
+						<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+					</li>
 
 						<li>
-							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+							<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+								<span>Deprecated</span>
+							</a>
 						</li>
 						<li>
-							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
-						</li>
-						<li>
-							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+							<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+								<span>Todo</span>
+							</a>
 						</li>
 
-						<li class="divider-vertical"></li>
+					<li class="divider-vertical"></li>
 
-						<li>
-							<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
-						</li>
-					</ul>
-				</div>
+					<li>
+						<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+					</li>
+				</ul>
 			</div>
 		</div>
-	</div>
+	</nav>
 
 	<div id="left">
 	<div id="menu">
-		<form id="search" class="form-search">
-			<input type="hidden" name="cx" value="">
-			<input type="hidden" name="ie" value="UTF-8">
-			<input type="text" name="q" class="search-query" placeholder="Search">
-		</form>
-
 
 		<div id="groups">
 				<h3>Namespaces</h3>
@@ -91,6 +99,10 @@
 							Helper<span></span>
 						</a>
 							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.Helper.Annotate.html">
+							Annotate						</a>
+							</li>
 					<li>
 						<a href="namespace-Sphere.Core.Helper.State.html">
 							State<span></span>
@@ -169,6 +181,10 @@
 					<li>
 						<a href="namespace-Sphere.Core.Model.TaxCategory.html">
 							TaxCategory						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Zone.html">
+							Zone						</a>
 							</li>
 								</ul></li>
 					<li>
@@ -265,6 +281,10 @@
 					<li>
 						<a href="namespace-Sphere.Core.Request.ProductTypes.html">
 							ProductTypes						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Query.html">
+							Query						</a>
 							</li>
 					<li>
 						<a href="namespace-Sphere.Core.Request.Reviews.html">
@@ -374,14 +394,15 @@
 		<b>Namespace:</b> <a href="namespace-Sphere.html">Sphere</a>\<a href="namespace-Sphere.Core.html">Core</a>\<a href="namespace-Sphere.Core.Response.html">Response</a><br>
 		<b>Package:</b> Sphere\Core\Response<br>
 
-			<b>Located at</b> <a href="source-class-Sphere.Core.Response.PagedSearchResponse.html#13-53" title="Go to source code">Response/PagedSearchResponse.php</a>
+			<b>Located at</b> <a href="source-class-Sphere.Core.Response.PagedSearchResponse.html#13-57" title="Go to source code">Response/PagedSearchResponse.php</a>
 		<br>
 	</div>
 
 
 
-		<h2>Methods summary</h2>
-		<table class="summary table table-bordered table-striped methods" id="methods">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2>Methods summary</h2></div>
+			<table class="summary table table-bordered table-striped methods" id="methods">
 		<tr data-order="getFacets" id="_getFacets">
 
 			<td class="attributes"><code>
@@ -393,7 +414,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getFacets">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedSearchResponse.html#26-32" title="Go to source code">getFacets</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Response.PagedSearchResponse.html#26-33" title="Go to source code">getFacets</a>( )</code>
 
 			<div class="description short">
 				
@@ -426,7 +447,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setFacets">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedSearchResponse.html#34-40" title="Go to source code">setFacets</a>( <span><code><a href="class-Sphere.Core.Model.Product.FacetResultCollection.html">Sphere\Core\Model\Product\FacetResultCollection</a></code> <var>$facets</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Response.PagedSearchResponse.html#35-41" title="Go to source code">setFacets</a>( <span><code><a href="class-Sphere.Core.Model.Product.FacetResultCollection.html">Sphere\Core\Model\Product\FacetResultCollection</a></code> <var>$facets</var></span> )</code>
 
 			<div class="description short">
 				
@@ -449,18 +470,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="__construct" id="___construct">
+		<tr data-order="parseJsonResponse" id="_parseJsonResponse">
 
 			<td class="attributes"><code>
-				 public 
+				 protected 
 				
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedSearchResponse.html#42-52" title="Go to source code">__construct</a>( <span>GuzzleHttp\Message\ResponseInterface <var>$response</var></span>, <span><code><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span>, <span><code><a href="class-Sphere.Core.Model.Common.Context.html">Sphere\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<a class="anchor" href="#_parseJsonResponse">#</a>
+			<code><a href="source-class-Sphere.Core.Response.PagedSearchResponse.html#43-56" title="Go to source code">parseJsonResponse</a>( )</code>
 
 			<div class="description short">
 				
@@ -470,112 +491,123 @@
 				
 
 
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$response</var></dt>
-						<dd></dd>
-						<dt><var>$request</var></dt>
-						<dd></dd>
-						<dt><var>$context</var></dt>
-						<dd></dd>
-					</dl></div>
 
 
 
 
 					<h4>Overrides</h4>
-					<div class="list"><code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#___construct">Sphere\Core\Response\PagedQueryResponse::__construct</a></code></div>
+					<div class="list"><code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_parseJsonResponse">Sphere\Core\Response\PagedQueryResponse::parseJsonResponse</a></code></div>
 
 			</div>
 			</div></td>
 		</tr>
-		</table>
+			</table>
+		</div>
 
-		<h3>Methods inherited from <a href="class-Sphere.Core.Response.PagedQueryResponse.html#methods">Sphere\Core\Response\PagedQueryResponse</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_getCount">getCount()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_getIterator">getIterator()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_getOffset">getOffset()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_getResults">getResults()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_getTotal">getTotal()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_offsetExists">offsetExists()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_offsetGet">offsetGet()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_offsetSet">offsetSet()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_offsetUnset">offsetUnset()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_setCount">setCount()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_setOffset">setOffset()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_setResults">setResults()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_setTotal">setTotal()</a></code>
-		</p>
-		<h3>Methods inherited from <a href="class-Sphere.Core.Response.AbstractApiResponse.html#methods">Sphere\Core\Response\AbstractApiResponse</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_getBody">getBody()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_getRequest">getRequest()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_getResponse">getResponse()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_isError">isError()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_toArray">toArray()</a></code>, 
-			<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_toObject">toObject()</a></code>
-		</p>
-		<h3>Methods inherited from <a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#methods">Sphere\Core\Model\Common\ContextAwareInterface</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_getContext">getContext()</a></code>, 
-			<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_setContext">setContext()</a></code>, 
-			<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_setContextIfNull">setContextIfNull()</a></code>
-		</p>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Sphere.Core.Response.PagedQueryResponse.html#methods">Sphere\Core\Response\PagedQueryResponse</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_getCount">getCount()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_getIterator">getIterator()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_getOffset">getOffset()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_getResults">getResults()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_getTotal">getTotal()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_offsetExists">offsetExists()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_offsetGet">offsetGet()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_offsetSet">offsetSet()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_offsetUnset">offsetUnset()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_setCount">setCount()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_setOffset">setOffset()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_setResults">setResults()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#_setTotal">setTotal()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Sphere.Core.Response.AbstractApiResponse.html#methods">Sphere\Core\Response\AbstractApiResponse</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#___construct">__construct()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_cancel">cancel()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_getBody">getBody()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_getRequest">getRequest()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_getResponse">getResponse()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_isError">isError()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_promise">promise()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_then">then()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_toArray">toArray()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_toObject">toObject()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_wait">wait()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#methods">Sphere\Core\Model\Common\ContextAwareInterface</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_getContext">getContext()</a></code>, 
+				<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_getContextCallback">getContextCallback()</a></code>, 
+				<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_setContext">setContext()</a></code>, 
+				<code><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html#_setContextIfNull">setContextIfNull()</a></code>
+			</p>
+		</div>
 
-		<h3>Methods used from <a href="class-Sphere.Core.Model.Common.ContextTrait.html#methods">Sphere\Core\Model\Common\ContextTrait</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_getContext">getContext()</a></code>, 
-			<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_setContext">setContext()</a></code>, 
-			<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_setContextIfNull">setContextIfNull()</a></code>
-		</p>
-
-		<h3>Magic methods summary</h3>
-
-
-
-
-
-		<h2>Constants summary</h2>
-		<table class="summary table table-bordered table-striped constants" id="constants">
-		<tr data-order="FACETS" id="FACETS">
-
-			<td class="attributes"><code>string</code></td>
-			<td class="name">
-				<code>
-					<a href="source-class-Sphere.Core.Response.PagedSearchResponse.html#19" title="Go to source code"><b>FACETS</b></a>
-				</code>
-
-				<div class="description short">
-					
-				</div>
-
-				<div class="description detailed hidden">
-					
-
-				</div>
-			</td>
-			<td class="value">
-				<div>
-					<a href="#FACETS" class="anchor">#</a>
-					<code><span class="php-quote">'facets'</span></code>
-				</div>
-			</td>
-		</tr>
-		</table>
-
-		<h3>Constants inherited from <a href="class-Sphere.Core.Response.PagedQueryResponse.html#constants">Sphere\Core\Response\PagedQueryResponse</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#COUNT"><b>COUNT</b></a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#OFFSET"><b>OFFSET</b></a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#RESULTS"><b>RESULTS</b></a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#TOTAL"><b>TOTAL</b></a></code>
-		</p>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods used from <a href="class-Sphere.Core.Model.Common.ContextTrait.html#methods">Sphere\Core\Model\Common\ContextTrait</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_getContext">getContext()</a></code>, 
+				<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_getContextCallback">getContextCallback()</a></code>, 
+				<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_setContext">setContext()</a></code>, 
+				<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#_setContextIfNull">setContextIfNull()</a></code>
+			</p>
+		</div>
 
 
 
-		<h2>Properties summary</h2>
-		<table class="summary table table-bordered table-striped properties" id="properties">
+
+
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Constants summary</h2></div>
+			<table class="summary table table-bordered table-striped constants" id="constants">
+			<tr data-order="FACETS" id="FACETS">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Sphere.Core.Response.PagedSearchResponse.html#19" title="Go to source code"><b>FACETS</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#FACETS" class="anchor">#</a>
+						<code><span class="php-quote">'facets'</span></code>
+					</div>
+				</td>
+			</tr>
+			</table>
+		</div>
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Constants inherited from <a href="class-Sphere.Core.Response.PagedQueryResponse.html#constants">Sphere\Core\Response\PagedQueryResponse</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#COUNT"><b>COUNT</b></a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#OFFSET"><b>OFFSET</b></a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#RESULTS"><b>RESULTS</b></a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#TOTAL"><b>TOTAL</b></a></code>
+			</p>
+		</div>
+
+
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Properties summary</h2></div>
+			<table class="summary table table-bordered table-striped properties" id="properties">
 		<tr data-order="facets" id="$facets">
 			<td class="attributes"><code>
 				protected  
@@ -601,27 +633,35 @@
 				</div>
 			</td>
 		</tr>
-		</table>
+			</table>
+		</div>
 
-		<h3>Properties inherited from <a href="class-Sphere.Core.Response.PagedQueryResponse.html#properties">Sphere\Core\Response\PagedQueryResponse</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#$count"><var>$count</var></a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#$offset"><var>$offset</var></a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#$results"><var>$results</var></a></code>, 
-			<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#$total"><var>$total</var></a></code>
-		</p>
-		<h3>Properties inherited from <a href="class-Sphere.Core.Response.AbstractApiResponse.html#properties">Sphere\Core\Response\AbstractApiResponse</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#$jsonData"><var>$jsonData</var></a></code>, 
-			<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#$request"><var>$request</var></a></code>, 
-			<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#$response"><var>$response</var></a></code>, 
-			<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#$responseBody"><var>$responseBody</var></a></code>
-		</p>
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Properties inherited from <a href="class-Sphere.Core.Response.PagedQueryResponse.html#properties">Sphere\Core\Response\PagedQueryResponse</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#$count"><var>$count</var></a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#$offset"><var>$offset</var></a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#$parsed"><var>$parsed</var></a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#$results"><var>$results</var></a></code>, 
+				<code><a href="class-Sphere.Core.Response.PagedQueryResponse.html#$total"><var>$total</var></a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Properties inherited from <a href="class-Sphere.Core.Response.AbstractApiResponse.html#properties">Sphere\Core\Response\AbstractApiResponse</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#$jsonData"><var>$jsonData</var></a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#$request"><var>$request</var></a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#$response"><var>$response</var></a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#$responseBody"><var>$responseBody</var></a></code>
+			</p>
+		</div>
 
-		<h3>Properties used from <a href="class-Sphere.Core.Model.Common.ContextTrait.html#properties">Sphere\Core\Model\Common\ContextTrait</a></h3>
-		<p class="elementList">
-			<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#$context"><var>$context</var></a></code>
-		</p>
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Properties used from <a href="class-Sphere.Core.Model.Common.ContextTrait.html#properties">Sphere\Core\Model\Common\ContextTrait</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.Model.Common.ContextTrait.html#$context"><var>$context</var></a></code>
+			</p>
+		</div>
 
 
 
