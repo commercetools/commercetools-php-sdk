@@ -24,7 +24,7 @@ class LocalizedSearchKeywordsTest extends \PHPUnit_Framework_TestCase
         $context = new Context();
         $context->setGraceful(true);
         $collection = new LocalizedSearchKeywords([], $context);
-        $this->assertSame('', $collection->en);
+        $this->assertSame('', (string)$collection->en);
     }
 
     /**

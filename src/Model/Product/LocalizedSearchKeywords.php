@@ -15,6 +15,7 @@ use Sphere\Core\Model\Common\Context;
  * Class LocalizedSearchKeywords
  * @package Sphere\Core\Model\Product
  * @link http://dev.sphere.io/http-api-projects-products.html#search-keywords
+ * @method SearchKeywords getAt($offset)
  */
 class LocalizedSearchKeywords extends Collection
 {
@@ -50,7 +51,7 @@ class LocalizedSearchKeywords extends Collection
 
     /**
      * @param Context $context
-     * @return string
+     * @return SearchKeywords
      */
     public function get(Context $context = null)
     {
@@ -62,7 +63,7 @@ class LocalizedSearchKeywords extends Collection
             if (!$context->isGraceful()) {
                 throw new InvalidArgumentException(Message::NO_VALUE_FOR_LOCALE);
             }
-            return '';
+            return new SearchKeywords();
         }
         return $this->getAt($locale);
     }
