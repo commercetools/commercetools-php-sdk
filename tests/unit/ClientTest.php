@@ -8,7 +8,6 @@ namespace Sphere\Core;
 
 
 use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Message\Response;
 use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Ring\Client\MockHandler;

@@ -35,4 +35,6 @@ class Message
 
     const DEPRECATED_METHOD = 'Call "%s" with method "%s" is deprecated: "%s"';
     const FUTURE_BAD_METHOD_CALL = 'Trying to call a function for a non future request';
+
+    const UPDATE_ACTION_LIMIT = 'Update call %s over limit of %s update actions';
 }

@@ -11,6 +11,7 @@ use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
+use Sphere\Core\Error\Message;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonDeserializeInterface;
 use Sphere\Core\Model\Common\JsonObject;
@@ -25,6 +26,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     const ACTION = 'action';
     const ACTIONS = 'actions';
     const VERSION = 'version';
+    const ACTION_LIMIT = 50;
 
     /**
      * @var
@@ -64,10 +66,12 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
 
     /**
      * @param array $actions
+     * @return $this
      */
     public function setActions(array $actions)
     {
         $this->actions = $actions;
+        $this->logUpdateActionLimit();
 
         return $this;
     }
@@ -79,10 +83,25 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     public function addAction($action)
     {
         $this->actions[] = $action;
+        $this->logUpdateActionLimit();
 
         return $this;
     }
 
+    protected function logUpdateActionLimit()
+    {
+        if (count($this->actions) > static::ACTION_LIMIT) {
+            $logger = $this->getContext()->getLogger();
+            if (!is_null($logger)) {
+                $message = sprintf(
+                    Message::UPDATE_ACTION_LIMIT,
+                    $this->getPath(),
+                    static::ACTION_LIMIT
+                );
+                $logger->warning($message);
+            }
+        }
+    }
     /**
      * @return string
      */

@@ -18,7 +18,8 @@
         "php": ">=5.4",
         "guzzlehttp/guzzle": "~5.0",
         "guzzlehttp/log-subscriber": "~1.0",
-        "apigen/apigen": "~4.1"
+        "apigen/apigen": "~4.1",
+        "pimple/pimple": "~3.0"
     },
     "require-dev": {
         "psr/log": "~1.0",
