@@ -16,13 +16,12 @@
     },
     "require": {
         "php": ">=5.4",
+        "psr/log": "~1.0",
         "guzzlehttp/guzzle": "~5.0",
         "guzzlehttp/log-subscriber": "~1.0",
-        "apigen/apigen": "~4.1",
         "pimple/pimple": "~3.0"
     },
     "require-dev": {
-        "psr/log": "~1.0",
         "phpunit/phpunit": "~4.0",
         "phpmd/phpmd": "~1.0",
         "squizlabs/php_codesniffer": "~1.0",
@@ -33,6 +32,7 @@
         "doctrine/cache": "~1.4",
         "monolog/monolog": "~1.12",
         "behat/behat": "~3.0",
+        "apigen/apigen": "~4.1",
         "phpunit/phpcov": "*"
     },
     "suggest": {
