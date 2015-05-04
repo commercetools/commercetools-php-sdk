@@ -12,6 +12,7 @@ use Sphere\Core\Error\InvalidArgumentException;
 /**
  * Class LocalizedString
  * @package Sphere\Core\Model\Type
+ * @link http://dev.sphere.io/http-api-types.html#localized-string
  * @example LocalizedString::of(['en' => 'Hello World', 'de' => 'Hallo Welt'])->add('fr', 'Bonjour le monde');
  */
 class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
@@ -25,9 +26,9 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
 
     /**
      * @param array $values
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct(array $values, Context $context = null)
+    public function __construct(array $values, $context = null)
     {
         $this->setContext($context);
         $this->values = $values;
@@ -136,10 +137,10 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
 
     /**
      * @param array $data
-     * @param Context $context
+     * @param Context|callable $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function fromArray(array $data, $context = null)
     {
         return new static($data, $context);
     }

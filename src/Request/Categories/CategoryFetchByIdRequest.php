@@ -13,6 +13,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class CategoryFetchByIdRequest
  * @package Sphere\Core\Request\Categories
+ * @link http://dev.sphere.io/http-api-projects-categories.html#category-by-id
  * @method static CategoryFetchByIdRequest of(string $id)
  */
 class CategoryFetchByIdRequest extends AbstractFetchByIdRequest

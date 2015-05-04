@@ -5,13 +5,14 @@
 
 namespace Sphere\Core\Model\CartDiscount;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\ReferenceCollection;
 
 /**
  * Class CartDiscount
  * @package Sphere\Core\Model\CartDiscount
+ * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discount
  * @method string getId()
  * @method CartDiscount setId(string $id = null)
  * @method int getVersion()
@@ -43,7 +44,7 @@ use Sphere\Core\Model\Common\ReferenceCollection;
  * @method ReferenceCollection getReferences()
  * @method CartDiscount setReferences(ReferenceCollection $references = null)
  */
-class CartDiscount extends JsonObject
+class CartDiscount extends Document
 {
     public function getFields()
     {

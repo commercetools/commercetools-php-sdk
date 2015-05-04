@@ -12,10 +12,11 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class ZoneFetchByIdRequest
  * @package Sphere\Core\Request\Zones
+ * @link http://dev.sphere.io/http-api-projects-zones.html#zone-by-id
  */
 class ZoneFetchByIdRequest extends AbstractFetchByIdRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\Zone\Zone';
 
     /**
      * @param string $id

@@ -6,12 +6,12 @@
 
 namespace Sphere\Core\Model\Common;
 
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\ProductDiscount\ProductDiscountReference;
 
 /**
  * Class DiscountedPrice
  * @package Sphere\Core\Model\Common
+ * @link http://dev.sphere.io/http-api-projects-products.html#discounted-price
  * @method static DiscountedPrice of(Money $value, ProductDiscountReference $discount)
  * @method Money getValue()
  * @method ProductDiscountReference getDiscount()
@@ -33,8 +33,9 @@ class DiscountedPrice extends JsonObject
     /**
      * @param Money $value
      * @param ProductDiscountReference $discount
+     * @param Context|callable $context
      */
-    public function __construct(Money $value, ProductDiscountReference $discount, Context $context = null)
+    public function __construct(Money $value, ProductDiscountReference $discount, $context = null)
     {
         $this->setContext($context);
         $this->setValue($value);
@@ -43,9 +44,10 @@ class DiscountedPrice extends JsonObject
 
     /**
      * @param array $data
+     * @param Context|callable $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function fromArray(array $data, $context = null)
     {
         return new static(
             Money::fromArray($data['value'], $context),

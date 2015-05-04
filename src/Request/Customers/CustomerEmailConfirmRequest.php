@@ -16,6 +16,7 @@ use Sphere\Core\Response\SingleResourceResponse;
 /**
  * Class CustomerEmailConfirmRequest
  * @package Sphere\Core\Request\Customers
+ * @link http://dev.sphere.io/http-api-projects-customers.html#verify-customers-email
  * @method static CustomerEmailConfirmRequest of(string $id, int $version, string $tokenValue)
  */
 class CustomerEmailConfirmRequest extends AbstractUpdateRequest

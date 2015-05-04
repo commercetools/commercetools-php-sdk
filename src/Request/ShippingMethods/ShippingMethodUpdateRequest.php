@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class ShippingMethodUpdateRequest
  * @package Sphere\Core\Request\ShippingMethods
+ * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#update-shipping-method
  */
 class ShippingMethodUpdateRequest extends AbstractUpdateRequest
 {

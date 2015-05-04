@@ -6,10 +6,12 @@
 namespace Sphere\Core\Model\Common;
 
 
+use Sphere\Core\Error\InvalidArgumentException;
+
 trait ContextTrait
 {
     /**
-     * @var Context
+     * @var Context|callable
      */
     protected $context;
 
@@ -21,14 +23,25 @@ trait ContextTrait
         if (is_null($this->context)) {
             $this->context = new Context();
         }
+        if (is_callable($this->context)) {
+            return call_user_func($this->context);
+        }
         return $this->context;
     }
 
     /**
-     * @param Context $context
+     * @return callable
+     */
+    public function getContextCallback()
+    {
+        return [$this, 'getContext'];
+    }
+
+    /**
+     * @param Context|callable $context
      * @return $this
      */
-    public function setContext(Context $context = null)
+    public function setContext($context = null)
     {
         $this->context = $context;
 
@@ -39,7 +52,7 @@ trait ContextTrait
      * @param Context $context
      * @return $this
      */
-    public function setContextIfNull(Context $context = null)
+    public function setContextIfNull($context = null)
     {
         if (is_null($this->context)) {
             $this->setContext($context);

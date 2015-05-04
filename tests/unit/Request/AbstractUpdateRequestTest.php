@@ -8,8 +8,11 @@ namespace Sphere\Core\Request;
 
 
 use GuzzleHttp\Message\Response;
+use Monolog\Handler\TestHandler;
+use Monolog\Logger;
 use Sphere\Core\AccessorTrait;
 use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Model\Common\Context;
 
 /**
  * Class AbstractCreateRequestTest
@@ -87,5 +90,22 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('{"version":"version","actions":[{"key":"value"}]}', $httpRequest->getBody());
+    }
+
+    public function testLogLimit()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+        $request = $this->getUpdateRequest();
+        $request->setContext(Context::of()->setLogger($logger));
+        for ($i = 0; $i <= 51; $i++) {
+            $request->addAction(['key' => 'value']);
+        }
+
+        $logEntry = $handler->getRecords()[1];
+        $this->assertSame(Logger::WARNING, $logEntry['level']);
+        $this->assertSame('Update call test/id over limit of 50 update actions', $logEntry['message']);
     }
 }

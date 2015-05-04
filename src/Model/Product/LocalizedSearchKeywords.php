@@ -11,6 +11,12 @@ use Sphere\Core\Error\Message;
 use Sphere\Core\Model\Common\Collection;
 use Sphere\Core\Model\Common\Context;
 
+/**
+ * Class LocalizedSearchKeywords
+ * @package Sphere\Core\Model\Product
+ * @link http://dev.sphere.io/http-api-projects-products.html#search-keywords
+ * @method SearchKeywords getAt($offset)
+ */
 class LocalizedSearchKeywords extends Collection
 {
     protected $type = '\Sphere\Core\Model\Product\SearchKeywords';
@@ -22,7 +28,8 @@ class LocalizedSearchKeywords extends Collection
     public function __get($locale)
     {
         $context = new Context();
-        $context->setLanguages([$locale]);
+        $context->setGraceful($this->getContext()->isGraceful())
+            ->setLanguages([$locale]);
         return $this->get($context);
     }
 
@@ -44,7 +51,7 @@ class LocalizedSearchKeywords extends Collection
 
     /**
      * @param Context $context
-     * @return string
+     * @return SearchKeywords
      */
     public function get(Context $context = null)
     {
@@ -56,7 +63,7 @@ class LocalizedSearchKeywords extends Collection
             if (!$context->isGraceful()) {
                 throw new InvalidArgumentException(Message::NO_VALUE_FOR_LOCALE);
             }
-            return '';
+            return new SearchKeywords();
         }
         return $this->getAt($locale);
     }
@@ -69,5 +76,10 @@ class LocalizedSearchKeywords extends Collection
     public function add($object)
     {
         return parent::add($object);
+    }
+
+    public function __toString()
+    {
+        return (string)$this->get();
     }
 }

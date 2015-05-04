@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class ShippingMethodFetchByIdRequest
  * @package Sphere\Core\Request\ShippingMethods
+ * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-method-by-id
  */
 class ShippingMethodFetchByIdRequest extends AbstractFetchByIdRequest
 {

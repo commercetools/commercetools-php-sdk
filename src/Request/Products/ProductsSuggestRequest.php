@@ -17,6 +17,7 @@ use Sphere\Core\Response\SingleResourceResponse;
 /**
  * Class ProductsSearchRequest
  * @package Sphere\Core\Request\Products
+ * @link http://dev.sphere.io/http-api-projects-products-search.html#suggest-query
  * @method static ProductsSuggestRequest of(LocalizedString $keywords)
  */
 class ProductsSuggestRequest extends AbstractProjectionRequest
@@ -34,10 +35,12 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
      * @param LocalizedString $keywords
      * @param Context $context
      */
-    public function __construct(LocalizedString $keywords, Context $context = null)
+    public function __construct(LocalizedString $keywords = null, Context $context = null)
     {
         parent::__construct(ProductSearchEndpoint::endpoint(), $context);
-        $this->addKeywords($keywords);
+        if (!is_null($keywords)) {
+            $this->addKeywords($keywords);
+        }
     }
 
     /**
@@ -91,6 +94,23 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
         $this->searchKeywords = $searchKeywords;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParamString()
+    {
+        $params = [];
+        foreach ($this->searchKeywords->toArray() as $lang => $keyword) {
+            $params[] = 'searchKeywords.' . $lang . '=' . urlencode($keyword);
+        }
+
+        $params = array_merge($params, array_keys($this->params));
+        sort($params);
+        $params = implode('&', $params);
+
+        return (!empty($params) ? '?' . $params : '');
     }
 
     /**

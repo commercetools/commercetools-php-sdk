@@ -6,6 +6,7 @@
 namespace Sphere\Core;
 
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Product\ProductProjection;
 use Sphere\Core\Model\Product\ProductProjectionCollection;
@@ -15,8 +16,7 @@ require '../vendor/autoload.php';
 
 $appConfig = parse_ini_file('myapp.ini', true);
 
-$context = new Context();
-$context->setLanguages(['en'])->setGraceful(true);
+$context = Context::of()->setLanguages(['en'])->setGraceful(true);
 
 // create the sphere config object
 $config = new Config();
@@ -29,13 +29,10 @@ $search = null;
 if (isset($_POST['search'])) {
     $search = $_POST['search'];
 }
-$request = new ProductsSearchRequest($config->getContext());
-$request->addParam('text.' . current($config->getContext()->getLanguages()), $search);
+$request = ProductsSearchRequest::of($config->getContext())
+    ->addParam('text.' . current($config->getContext()->getLanguages()), $search);
 
-/**
- * instantiate client and execute search request
- */
-$log = new \Monolog\Logger('name');
+$log = new Logger('name');
 $log->pushHandler(new StreamHandler('./requests.log'));
 
 $client = new Client($config, null, $log);
@@ -57,7 +54,6 @@ $products = $client->execute($request)->toObject();
         <input type="submit">
     </form>
     <?php
-    $startTime = microtime(true);
     /**
      * @var ProductProjection $product
     */
@@ -67,7 +63,6 @@ $products = $client->execute($request)->toObject();
         <p><?= $product->getDescription() ?></p>
         <?php
     endforeach;
-    $endtime1 = (microtime(true) - $startTime) * 1000;
     ?>
 </body>
 </html>

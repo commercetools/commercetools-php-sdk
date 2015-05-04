@@ -8,6 +8,7 @@ namespace Sphere\Core\Model\Order;
 /**
  * Class ReturnShipmentState
  * @package Sphere\Core\Model\Order
+ * @link http://dev.sphere.io/http-api-projects-orders.html#return-shipment-state
  */
 class ReturnShipmentState
 {

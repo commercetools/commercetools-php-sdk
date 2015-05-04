@@ -171,19 +171,38 @@
         </exec>
     </target>
 
-    <target name="phpunit"
+    <target name="phpunit" description="Run tests with PHPUnit"
+            depends="unit-test, integration-test">
+    </target>
+
+    <target name="unit-test"
             depends="prepare"
             description="Run unit tests with PHPUnit">
         <exec executable="${toolsdir}phpunit" failonerror="true">
             <arg value="--configuration"/>
             <arg path="${basedir}/phpunit.xml.dist"/>
+            <arg value="--testsuite=unit"/>
         </exec>
     </target>
 
+    <target name="integration-test"
+            depends="prepare"
+            description="Run integration tests with PHPUnit">
+        <exec executable="${toolsdir}phpunit" failonerror="true">
+            <arg value="--configuration"/>
+            <arg path="${basedir}/phpunit.xml.dist"/>
+            <arg value="--testsuite=integration"/>
+        </exec>
+    </target>
+
+    <target name="install-apigen">
+        <exec executable="${basedir}/apigen.sh" dir="${basedir}" />
+    </target>
     <target name="apigen"
             depends="prepare"
             description="Generate project documentation using phpDocumentor">
-        <exec executable="${basedir}/${toolsdir}apigen" dir="${basedir}/build/" failonerror="true">
+        <exec executable="php" dir="${basedir}/build/" failonerror="true">
+            <arg value="${basedir}/vendor/bin/apigen"/>
             <arg value="generate"/>
             <arg value="--source"/>
             <arg path="${basedir}/src"/>

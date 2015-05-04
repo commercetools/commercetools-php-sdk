@@ -10,6 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class ProductSetAttributeAction
  * @package Sphere\Core\Request\Products\Command
+ * @link http://dev.sphere.io/http-api-projects-products.html#set-attribute
  * @method string getAction()
  * @method ProductSetAttributeAction setAction(string $action = null)
  * @method int getVariantId()

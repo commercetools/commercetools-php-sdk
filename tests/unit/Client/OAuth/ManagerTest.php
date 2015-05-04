@@ -15,6 +15,15 @@ use Sphere\Core\Config;
 class ManagerTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function setUp()
+    {
+        if (!function_exists('apc_store')) {
+            $this->markTestSkipped(
+                'The APCU extension is not available.'
+            );
+        }
+    }
+
     protected function getConfig()
     {
         $config = new Config();

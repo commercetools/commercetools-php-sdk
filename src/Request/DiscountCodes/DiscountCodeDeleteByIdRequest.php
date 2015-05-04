@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
 /**
  * Class DiscountCodeDeleteByIdRequest
  * @package Sphere\Core\Request\DiscountCodes
+ * @link http://dev.sphere.io/http-api-projects-discountCodes.html#delete-discount-code
  */
 class DiscountCodeDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

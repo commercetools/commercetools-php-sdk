@@ -10,6 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class ProductRemoveImageAction
  * @package Sphere\Core\Request\Products\Command
+ * @link http://dev.sphere.io/http-api-projects-products.html#remove-images
  * @method string getAction()
  * @method ProductRemoveImageAction setAction(string $action = null)
  * @method int getVariantId()

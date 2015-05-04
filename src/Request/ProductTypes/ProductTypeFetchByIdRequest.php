@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class ProductTypeFetchByIdRequest
  * @package Sphere\Core\Request\ProductTypes
+ * @link http://dev.sphere.io/http-api-projects-productTypes.html#product-type-by-id
  */
 class ProductTypeFetchByIdRequest extends AbstractFetchByIdRequest
 {

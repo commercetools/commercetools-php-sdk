@@ -13,6 +13,7 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 /**
  * Class ProductReference
  * @package Sphere\Core\Model\Product
+ * @link http://dev.sphere.io/http-api-types.html#reference
  * @method static ProductReference of(string $id)
  * @method string getTypeId()
  * @method ProductReference setTypeId(string $typeId = null)
@@ -38,9 +39,9 @@ class ProductReference extends Reference
 
     /**
      * @param string $id
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($id, Context $context = null)
+    public function __construct($id, $context = null)
     {
         parent::__construct(static::TYPE_PRODUCT, $id, $context);
     }

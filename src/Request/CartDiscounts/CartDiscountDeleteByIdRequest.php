@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
 /**
  * Class CartDiscountDeleteByIdRequest
  * @package Sphere\Core\Request\CartDiscounts
+ * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#delete-cart-discount
  */
 class CartDiscountDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

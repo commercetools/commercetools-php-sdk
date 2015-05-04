@@ -8,6 +8,8 @@ namespace Sphere\Core\Model\Type;
 
 
 use Sphere\Core\Model\Common\Reference;
+use Sphere\Core\Model\ProductType\ProductType;
+use Sphere\Core\Model\ProductType\ProductTypeReference;
 
 class ReferenceTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,5 +36,14 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         $reference = Reference::fromArray(['typeId' => 'type', 'id' => 'id', 'obj' => 'test']);
         $reference->getId();
         $this->assertSame(['typeId' => 'type', 'id' => 'id', 'obj' => 'test'], $reference->toArray());
+    }
+
+
+    public function testJsonSerialize()
+    {
+        $object = ProductType::of()->setId('123456');
+        $reference = $object->getReference();
+
+        $this->assertJsonStringEqualsJsonString('{"typeId": "product-type", "id": "123456"}', json_encode($reference));
     }
 }

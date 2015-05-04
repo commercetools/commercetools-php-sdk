@@ -10,12 +10,17 @@ namespace Sphere\Core\Model\Common;
 /**
  * Class ReferenceFromArrayTrait
  * @package Sphere\Core\Model\Common
- * @method __construct(string $id, Context $context = null)
+ * @method __construct(string $id, $context = null)
  * @method setRawData(array $data)
  */
 trait ReferenceFromArrayTrait
 {
-    public static function fromArray(array $data, Context $context = null)
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     * @return static
+     */
+    public static function fromArray(array $data, $context = null)
     {
         $reference = new static($data['id'], $context);
         $reference->setRawData($data);

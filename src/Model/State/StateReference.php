@@ -13,6 +13,7 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 /**
  * Class StateReference
  * @package Sphere\Core\Model\State
+ * @link http://dev.sphere.io/http-api-types.html#reference
  * @method static StateReference of(string $id)
  * @method string getTypeId()
  * @method StateReference setTypeId(string $typeId = null)
@@ -38,9 +39,9 @@ class StateReference extends Reference
 
     /**
      * @param string $id
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($id, Context $context = null)
+    public function __construct($id, $context = null)
     {
         parent::__construct(static::TYPE_STATE, $id, $context);
     }

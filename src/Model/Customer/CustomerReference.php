@@ -13,13 +13,14 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 /**
  * Class CustomerReference
  * @package Sphere\Core\Model\Customer
+ * @link http://dev.sphere.io/http-api-types.html#reference
  * @method static CustomerReference of(string $id)
  * @method string getTypeId()
  * @method CustomerReference setTypeId(string $typeId = null)
  * @method string getId()
  * @method CustomerReference setId(string $id = null)
- * @method array getObj()
- * @method CustomerReference setObj(array $obj = null)
+ * @method Customer getObj()
+ * @method CustomerReference setObj(Customer $obj = null)
  */
 class CustomerReference extends Reference
 {
@@ -27,11 +28,20 @@ class CustomerReference extends Reference
 
     const TYPE_CUSTOMER = 'customer';
 
+    public function getFields()
+    {
+        return [
+            'typeId' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string'],
+            'obj' => [static::TYPE => '\Sphere\Core\Model\Customer\Customer']
+        ];
+    }
+
     /**
      * @param string $id
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($id, Context $context = null)
+    public function __construct($id, $context = null)
     {
         parent::__construct(static::TYPE_CUSTOMER, $id);
     }

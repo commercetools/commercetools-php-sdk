@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 /**
  * Class StateFetchByIdRequest
  * @package Sphere\Core\Request\States
+ * @link http://dev.sphere.io/http-api-projects-states.html#states-by-id
  */
 class StateFetchByIdRequest extends AbstractFetchByIdRequest
 {

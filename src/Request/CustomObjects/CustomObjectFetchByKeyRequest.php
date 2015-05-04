@@ -12,6 +12,7 @@ use Sphere\Core\Client\HttpRequest;
 /**
  * Class CustomObjectFetchByKeyRequest
  * @package Sphere\Core\Request\CustomObjects
+ * @link http://dev.sphere.io/http-api-projects-custom-objects.html#custom-object-by-container-and-key
  */
 class CustomObjectFetchByKeyRequest extends AbstractCustomObjectRequest
 {

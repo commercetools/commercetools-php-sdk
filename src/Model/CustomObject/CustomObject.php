@@ -5,11 +5,12 @@
 
 namespace Sphere\Core\Model\CustomObject;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 
 /**
  * Class CustomObject
  * @package Sphere\Core\Model\CustomObject
+ * @link http://dev.sphere.io/http-api-projects-custom-objects.html#custom-object
  * @method string getId()
  * @method CustomObject setId(string $id = null)
  * @method int getVersion()
@@ -25,7 +26,7 @@ use Sphere\Core\Model\Common\JsonObject;
  * @method string getValue()
  * @method CustomObject setValue(string $value = null)
  */
-class CustomObject extends JsonObject
+class CustomObject extends Document
 {
     public function getFields()
     {

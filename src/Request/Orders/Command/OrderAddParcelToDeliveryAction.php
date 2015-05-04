@@ -13,6 +13,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class OrderAddParcelToDeliveryAction
  * @package Sphere\Core\Request\Orders\Command
+ * @link http://dev.sphere.io/http-api-projects-orders.html#add-parcel
  * @method string getAction()
  * @method OrderAddParcelToDeliveryAction setAction(string $action = null)
  * @method string getDeliveryId()

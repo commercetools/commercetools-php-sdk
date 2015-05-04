@@ -8,27 +8,31 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Sphere\\Core\\": "tests/unit/"
+            "Sphere\\Core\\": [
+              "tests/unit/",
+              "tests/integration/"
+            ]
         }
     },
     "require": {
         "php": ">=5.4",
+        "psr/log": "~1.0",
         "guzzlehttp/guzzle": "~5.0",
-        "guzzlehttp/log-subscriber": "~1.0"
+        "guzzlehttp/log-subscriber": "~1.0",
+        "pimple/pimple": "~3.0"
     },
     "require-dev": {
-        "psr/log": "~1.0",
         "phpunit/phpunit": "~4.0",
         "phpmd/phpmd": "~1.0",
         "squizlabs/php_codesniffer": "~1.0",
-        "pdepend/pdepend": "1.1.*",
-        "phploc/phploc": "2.0.*",
-        "sebastian/phpcpd": "1.4.*",
-        "covex-nn/phpcb": "1.0.4.*",
+        "pdepend/pdepend": "~1.1",
+        "phploc/phploc": "~2.0",
+        "sebastian/phpcpd": "~1.4",
+        "mayflower/php-codebrowser": "~1.0",
         "doctrine/cache": "~1.4",
-        "apigen/apigen": "~4.0",
         "monolog/monolog": "~1.12",
         "behat/behat": "~3.0",
+        "apigen/apigen": "~4.1",
         "phpunit/phpcov": "*"
     },
     "suggest": {

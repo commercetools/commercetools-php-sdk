@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class ProductDiscountUpdateRequest
  * @package Sphere\Core\Request\ProductDiscounts
+ * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#update-product-discount
  */
 class ProductDiscountUpdateRequest extends AbstractUpdateRequest
 {

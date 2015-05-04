@@ -5,12 +5,13 @@
 
 namespace Sphere\Core\Model\CartDiscount;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\DiscountValue;
 use Sphere\Core\Model\Common\MoneyCollection;
 
 /**
  * Class CartDiscountValue
  * @package Sphere\Core\Model\CartDiscount
+ * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discount-value
  * @method string getType()
  * @method CartDiscountValue setType(string $type = null)
  * @method int getPermyriad()
@@ -18,14 +19,6 @@ use Sphere\Core\Model\Common\MoneyCollection;
  * @method MoneyCollection getMoney()
  * @method CartDiscountValue setMoney(MoneyCollection $money = null)
  */
-class CartDiscountValue extends JsonObject
+class CartDiscountValue extends DiscountValue
 {
-    public function getFields()
-    {
-        return [
-            'type' => [static::TYPE => 'string'],
-            'permyriad' => [static::TYPE => 'int'],
-            'money' => [static::TYPE => '\Sphere\Core\Model\Common\MoneyCollection']
-        ];
-    }
 }

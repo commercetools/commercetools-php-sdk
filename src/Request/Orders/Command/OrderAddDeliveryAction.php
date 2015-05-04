@@ -15,6 +15,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class OrderAddDeliveryAction
  * @package Sphere\Core\Request\Orders\Command
+ * @link http://dev.sphere.io/http-api-projects-orders.html#add-delivery
  * @method string getAction()
  * @method OrderAddDeliveryAction setAction(string $action = null)
  * @method DeliveryItemCollection getItems()

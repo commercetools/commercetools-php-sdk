@@ -12,6 +12,7 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 /**
  * Class Price
  * @package Sphere\Core\Model\Common
+ * @link http://dev.sphere.io/http-api-projects-products.html#product-price
  * @method static Price of(Money $value)
  * @method Money getValue()
  * @method string getCountry()
@@ -41,8 +42,9 @@ class Price extends JsonObject
 
     /**
      * @param Money $value
+     * @param Context|callable $context
      */
-    public function __construct(Money $value, Context $context = null)
+    public function __construct(Money $value, $context = null)
     {
         $this->setContext($context);
         $this->setValue($value);
@@ -50,10 +52,10 @@ class Price extends JsonObject
 
     /**
      * @param array $data
-     * @param Context $context
+     * @param Context|callable $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function fromArray(array $data, $context = null)
     {
         $price = new static(
             Money::fromArray($data['value'], $context),

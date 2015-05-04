@@ -39,8 +39,8 @@ class AbstractApiRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_API_REQUEST);
         $request->addParam('key', 'value');
         $this->assertSame(
-            ['key=value' => ['key' => 'value']],
-            $this->getPrivateProperty(static::ABSTRACT_API_REQUEST, $request, 'params')
+            '?key=value',
+            $this->invokePrivateMethod(static::ABSTRACT_API_REQUEST, $request, 'getParamString')
         );
     }
 
@@ -74,11 +74,22 @@ class AbstractApiRequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testParamString()
+    public function testParamReplace()
     {
         $request = $this->getRequest(static::ABSTRACT_API_REQUEST);
         $request->addParam('key', 'value1');
         $request->addParam('key', 'value2');
+        $this->assertSame(
+            '?key=value2',
+            $this->invokePrivateMethod(static::ABSTRACT_API_REQUEST, $request, 'getParamString')
+        );
+    }
+
+    public function testParamString()
+    {
+        $request = $this->getRequest(static::ABSTRACT_API_REQUEST);
+        $request->addParam('key', 'value1', false);
+        $request->addParam('key', 'value2', false);
         $this->assertSame(
             '?key=value1&key=value2',
             $this->invokePrivateMethod(static::ABSTRACT_API_REQUEST, $request, 'getParamString')
@@ -97,8 +108,8 @@ class AbstractApiRequestTest extends \PHPUnit_Framework_TestCase
     public function testPath()
     {
         $request = $this->getRequest(static::ABSTRACT_API_REQUEST);
-        $request->addParam('key', 'value1');
-        $request->addParam('key', 'value2');
+        $request->addParam('key', 'value1', false);
+        $request->addParam('key', 'value2', false);
         $request->addParam('abc', 'xyz');
         $this->assertSame(
             'test?abc=xyz&key=value1&key=value2',
@@ -114,13 +125,6 @@ class AbstractApiRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(
             '?abc=xyz&key=value',
             $this->invokePrivateMethod(static::ABSTRACT_API_REQUEST, $request, 'getParamString')
-        );
-        $this->assertSame(
-            [
-                'key=value' => ['key' => 'value'],
-                'abc=xyz' => ['abc' => 'xyz']
-            ],
-            $this->getPrivateProperty(static::ABSTRACT_API_REQUEST, $request, 'params')
         );
     }
 

@@ -93,6 +93,7 @@ class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
     public function testGetFacets()
     {
         $response = $this->getResponse();
+        $response->getFacets();
 
         $this->assertInstanceOf('\Sphere\Core\Model\Product\FacetResultCollection', $response->getFacets());
     }

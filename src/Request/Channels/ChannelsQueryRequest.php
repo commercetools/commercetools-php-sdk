@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class ChannelsQueryRequest
  * @package Sphere\Core\Request\Channels
+ * @link http://dev.sphere.io/http-api-projects-channels.html#channels-by-query
  */
 class ChannelsQueryRequest extends AbstractQueryRequest
 {

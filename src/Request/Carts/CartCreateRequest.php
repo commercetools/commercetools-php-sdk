@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractCreateRequest;
 /**
  * Class CategoryCreateRequest
  * @package Sphere\Core\Request\Carts
+ * @link http://dev.sphere.io/http-api-projects-carts.html#create-cart
  * @method static CartCreateRequest of(CartDraft $cartDraft)
  */
 class CartCreateRequest extends AbstractCreateRequest

@@ -11,6 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class CategoryChangeParentAction
  * @package Sphere\Core\Request\Categories\Command
+ * @link http://dev.sphere.io/http-api-projects-categories.html#change-parent
  * @method string getAction()
  * @method CategoryChangeParentAction setAction(string $action = null)
  * @method CategoryReference getParent()

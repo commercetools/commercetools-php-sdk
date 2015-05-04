@@ -6,10 +6,13 @@
 
 namespace Sphere\Core\Request;
 
+use Sphere\Core\Request\Query\Parameter;
+use Sphere\Core\Request\Query\ParameterInterface;
+
 /**
  * Class PageableTrait
  * @package Sphere\Core\Request
- * @method $this addParam($key, $value)
+ * @method $this addParamObject(ParameterInterface $param)
  */
 trait PageTrait
 {
@@ -20,7 +23,7 @@ trait PageTrait
     public function limit($limit)
     {
         if (!is_null($limit)) {
-            $this->addParam('limit', $limit);
+            $this->addParamObject(new Parameter('limit', $limit));
         }
 
         return $this;
@@ -33,7 +36,7 @@ trait PageTrait
     public function offset($offset)
     {
         if (!is_null($offset)) {
-            $this->addParam('offset', $offset);
+            $this->addParamObject(new Parameter('offset', $offset));
         }
 
         return $this;

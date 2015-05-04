@@ -15,6 +15,11 @@ use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Request\CustomerIdTrait;
 use Sphere\Core\Response\SingleResourceResponse;
 
+/**
+ * Class CartFetchByCustomerIdRequest
+ * @package Sphere\Core\Request\Carts
+ * @link http://dev.sphere.io/http-api-projects-carts.html#cart-by-customer-id
+ */
 class CartFetchByCustomerIdRequest extends AbstractApiRequest
 {
     use CustomerIdTrait;

@@ -6,11 +6,11 @@
 
 namespace Sphere\Core\Model\Common;
 
-use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class Attribute
  * @package Sphere\Core\Model\Common
+ * @link http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
  * @method static Attribute of($name, $value)
  * @method string getName()
  * @method getValue()
@@ -55,15 +55,21 @@ class Attribute extends JsonObject
 
     /**
      * @param array $data
-     * @param Context $context
+     * @param Context|callable $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function fromArray(array $data, $context = null)
     {
         return new static($data, $context);
     }
 
-    protected function getSphereType($field, $value)
+    /**
+     * @param $field
+     * @param $value
+     * @return mixed
+     * @internal
+     */
+    public function getSphereType($field, $value)
     {
         if (isset(static::$types[$field])) {
             return static::$types[$field];
@@ -109,7 +115,7 @@ class Attribute extends JsonObject
             $value = $this->getRaw(static::PROP_VALUE);
             $type = $this->getSphereType($name, $value);
 
-            if ($type !== false && $this->hasInterface($type)) {
+            if ($type !== false && $type != static::T_UNKNOWN && $this->hasInterface($type)) {
                 if ($type == static::T_SET) {
                     $setType = $this->getSphereType('set-' . $name, current($value));
                     $value = ['type' => $setType, 'value' => $value];
@@ -117,7 +123,7 @@ class Attribute extends JsonObject
                 /**
                  * @var JsonDeserializeInterface $type
                  */
-                $this->typeData[$field] = $type::fromArray($value, $this->getContext());
+                $this->typeData[$field] = $type::fromArray($value, $this->getContextCallback());
             } else {
                 $this->typeData[$field] = $value;
             }

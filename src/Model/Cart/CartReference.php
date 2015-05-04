@@ -13,6 +13,7 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 /**
  * Class CartReference
  * @package Sphere\Core\Model\Cart
+ * @link http://dev.sphere.io/http-api-types.html#reference
  * @method static CartReference of(string $id)
  * @method string getTypeId()
  * @method CartReference setTypeId(string $typeId = null)
@@ -38,9 +39,9 @@ class CartReference extends Reference
 
     /**
      * @param string $id
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($id, Context $context = null)
+    public function __construct($id, $context = null)
     {
         parent::__construct(static::TYPE_CART, $id, $context);
     }

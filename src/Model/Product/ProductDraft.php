@@ -12,11 +12,12 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\ProductType\ProductTypeReference;
-use Sphere\Core\Model\TaxCategory\TaxCategory;
+use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
  * Class ProductDraft
  * @package Sphere\Core\Model\Product
+ * @method static ProductDraft of(ProductTypeReference $productType, LocalizedString $name, LocalizedString $slug)
  * @method LocalizedString getName()
  * @method ProductDraft setName(LocalizedString $name = null)
  * @method LocalizedString getSlug()
@@ -37,8 +38,8 @@ use Sphere\Core\Model\TaxCategory\TaxCategory;
  * @method ProductDraft setMetaDescription(LocalizedString $metaDescription = null)
  * @method LocalizedString getMetaKeywords()
  * @method ProductDraft setMetaKeywords(LocalizedString $metaKeywords = null)
- * @method TaxCategory getTaxCategory()
- * @method ProductDraft setTaxCategory(TaxCategory $taxCategory = null)
+ * @method TaxCategoryReference getTaxCategory()
+ * @method ProductDraft setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method LocalizedSearchKeywords getSearchKeywords()
  * @method ProductDraft setSearchKeywords(LocalizedSearchKeywords $searchKeywords = null)
  */
@@ -59,16 +60,22 @@ class ProductDraft extends JsonObject
             'metaTitle' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'metaDescription' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategory'],
+            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference'],
             'searchKeywords' => [static::TYPE => '\Sphere\Core\Model\Product\LocalizedSearchKeywords']
         ];
     }
 
+    /**
+     * @param ProductTypeReference $productType
+     * @param LocalizedString $name
+     * @param LocalizedString $slug
+     * @param Context|callable $context
+     */
     public function __construct(
         ProductTypeReference $productType,
         LocalizedString $name,
         LocalizedString $slug,
-        Context $context = null
+        $context = null
     ) {
         $this->setContext($context);
         $this->setName($name);
@@ -78,13 +85,13 @@ class ProductDraft extends JsonObject
 
     /**
      * @param array $data
-     * @param Context $context
+     * @param Context|callable $context
      * @return static
      */
-    public static function fromArray(array $data, Context $context = null)
+    public static function fromArray(array $data, $context = null)
     {
         $draft = new static(
-            ProductTypeReference::fromArray($data['reference'], $context),
+            ProductTypeReference::fromArray($data['productType'], $context),
             LocalizedString::fromArray($data['name'], $context),
             LocalizedString::fromArray($data['slug'], $context),
             $context

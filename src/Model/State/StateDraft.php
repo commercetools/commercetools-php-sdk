@@ -11,6 +11,7 @@ use Sphere\Core\Model\Common\LocalizedString;
 /**
  * Class StateDraft
  * @package Sphere\Core\Model\State
+ * @link http://dev.sphere.io/http-api-projects-states.html#create-state
  * @method string getKey()
  * @method StateDraft setKey(string $key = null)
  * @method string getType()

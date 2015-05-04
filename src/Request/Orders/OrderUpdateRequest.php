@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class OrderUpdateRequest
  * @package Sphere\Core\Request\Orders
+ * @link http://dev.sphere.io/http-api-projects-orders.html#update-order
  */
 class OrderUpdateRequest extends AbstractUpdateRequest
 {

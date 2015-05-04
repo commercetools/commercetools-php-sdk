@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class CommentsQueryRequest
  * @package Sphere\Core\Request\Comments
+ * @link http://dev.sphere.io/http-api-projects-comments.html#comments-by-query
  */
 class CommentsQueryRequest extends AbstractQueryRequest
 {

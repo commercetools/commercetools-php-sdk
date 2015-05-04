@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
 /**
  * Class ProductTypeDeleteByIdRequest
  * @package Sphere\Core\Request\ProductTypes
+ * @link http://dev.sphere.io/http-api-projects-productTypes.html#delete-product-type
  */
 class ProductTypeDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

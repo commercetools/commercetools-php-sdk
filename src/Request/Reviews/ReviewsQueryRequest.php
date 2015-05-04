@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class ReviewsQueryRequest
  * @package Sphere\Core\Request\Reviews
+ * @link http://dev.sphere.io/http-api-projects-reviews.html#reviews-by-query
  */
 class ReviewsQueryRequest extends AbstractQueryRequest
 {

@@ -11,6 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class CartSetShippingMethodAction
  * @package Sphere\Core\Request\Carts\Command
+ * @link http://dev.sphere.io/http-api-projects-carts.html#set-shipping-method
  * @method string getAction()
  * @method CartSetShippingMethodAction setAction(string $action = null)
  * @method ShippingMethodReference getShippingMethod()

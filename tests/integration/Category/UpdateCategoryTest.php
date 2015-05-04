@@ -1,0 +1,73 @@
+<?php
+/**
+ * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ */
+
+namespace Sphere\Core\Category;
+
+
+use Sphere\Core\ApiTestCase;
+use Sphere\Core\Model\Category\Category;
+use Sphere\Core\Model\Category\CategoryDraft;
+use Sphere\Core\Model\Common\LocalizedString;
+use Sphere\Core\Request\Categories\CategoriesQueryRequest;
+use Sphere\Core\Request\Categories\CategoryCreateRequest;
+use Sphere\Core\Request\Categories\CategoryDeleteByIdRequest;
+use Sphere\Core\Request\Categories\CategoryUpdateRequest;
+use Sphere\Core\Request\Categories\Command\CategoryChangeNameAction;
+
+class UpdateCategoryTest extends ApiTestCase
+{
+    /**
+     * @param $name
+     * @param $slug
+     * @return CategoryDraft
+     */
+    protected function getDraft($name, $slug)
+    {
+        $draft = CategoryDraft::of(
+            LocalizedString::of(['en' => $name]),
+            LocalizedString::of(['en' => $slug])
+        );
+
+        return $draft;
+    }
+
+    protected function createCategory(CategoryDraft $draft)
+    {
+        /**
+         * @var Category $category
+         */
+        $category = $this->getClient()
+            ->execute(CategoryCreateRequest::of($draft))
+            ->toObject();
+        $this->cleanupRequests[] = CategoryDeleteByIdRequest::of($category->getId(), $category->getVersion());
+
+        return $category;
+    }
+
+    public function testUpdateName()
+    {
+        $category = $this->createCategory($this->getDraft('update name', 'update-name'));
+
+        $result = $this->getClient()->execute(
+            CategoryUpdateRequest::of(
+                $category->getId(),
+                $category->getVersion(),
+                [
+                    CategoryChangeNameAction::of(LocalizedString::of(['en' => 'new name']))
+                ]
+            )
+        )->toObject();
+
+        $this->assertInstanceOf('\Sphere\Core\Model\Category\Category', $result);
+        $this->assertSame('new name', $result->getName()->en);
+        $this->assertNotSame($category->getVersion(), $result->getVersion());
+
+        $deleteRequest = array_pop($this->cleanupRequests);
+        $deleteRequest->setVersion($result->getVersion());
+        $result = $this->getClient()->execute($deleteRequest)->toObject();
+
+        $this->assertInstanceOf('\Sphere\Core\Model\Category\Category', $result);
+    }
+}

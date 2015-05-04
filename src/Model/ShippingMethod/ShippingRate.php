@@ -11,6 +11,7 @@ use Sphere\Core\Model\Common\Money;
 /**
  * Class ShippingRate
  * @package Sphere\Core\Model\ShippingMethod
+ * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-rate
  * @method Money getPrice()
  * @method ShippingRate setPrice(Money $price = null)
  * @method Money getFreeAbove()

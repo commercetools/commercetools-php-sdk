@@ -6,10 +6,13 @@
 
 namespace Sphere\Core\Request;
 
+use Sphere\Core\Request\Query\MultiParameter;
+use Sphere\Core\Request\Query\ParameterInterface;
+
 /**
  * Class SortableTrait
  * @package Sphere\Core\Request
- * @method $this addParam($key, $value)
+ * @method $this addParamObject(ParameterInterface $param)
  */
 trait SortTrait
 {
@@ -20,7 +23,7 @@ trait SortTrait
     public function sort($sort)
     {
         if (!is_null($sort)) {
-            $this->addParam('sort', $sort);
+            $this->addParamObject(new MultiParameter('sort', $sort));
         }
 
         return $this;

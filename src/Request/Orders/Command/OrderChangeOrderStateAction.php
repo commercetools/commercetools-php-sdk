@@ -11,6 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class OrderChangeOrderStateAction
  * @package Sphere\Core\Request\Orders\Command
+ * @link http://dev.sphere.io/http-api-projects-orders.html#change-order-state
  * @method string getAction()
  * @method OrderChangeOrderStateAction setAction(string $action = null)
  * @method string getOrderState()

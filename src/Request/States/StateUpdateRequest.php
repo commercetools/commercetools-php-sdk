@@ -12,10 +12,11 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class StateUpdateRequest
  * @package Sphere\Core\Request\States
+ * @link http://dev.sphere.io/http-api-projects-states.html#update-state
  */
 class StateUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\State\State';
 
     /**
      * @param string $id

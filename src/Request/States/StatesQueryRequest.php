@@ -13,6 +13,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class StatesQueryRequest
  * @package Sphere\Core\Request\States
+ * @link http://dev.sphere.io/http-api-projects-states.html#states-by-query
  */
 class StatesQueryRequest extends AbstractQueryRequest
 {

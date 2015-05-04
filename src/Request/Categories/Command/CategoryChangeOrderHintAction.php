@@ -10,6 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class CategoryChangeOrderHintAction
  * @package Sphere\Core\Request\Categories\Command
+ * @link http://dev.sphere.io/http-api-projects-categories.html#change-order-hint
  * @method string getOrderHint()
  * @method CategoryChangeOrderHintAction setOrderHint(string $orderHint = null)
  * @method string getAction()

@@ -6,15 +6,15 @@
 namespace Sphere\Core\Model\Cart;
 
 use Sphere\Core\Model\Common\Address;
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\Common\Money;
 use Sphere\Core\Model\Common\TaxedPrice;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
-use Sphere\Core\Model\DiscountCode\DiscountCodeReference;
 
 /**
  * Class Cart
  * @package Sphere\Core\Model\Cart
+ * @link http://dev.sphere.io/http-api-projects-carts.html#cart
  * @method string getId()
  * @method Cart setId(string $id = null)
  * @method int getVersion()
@@ -49,10 +49,10 @@ use Sphere\Core\Model\DiscountCode\DiscountCodeReference;
  * @method Cart setCountry(string $country = null)
  * @method ShippingInfo getShippingInfo()
  * @method Cart setShippingInfo(ShippingInfo $shippingInfo = null)
- * @method DiscountCodeReference getDiscountCodes()
- * @method Cart setDiscountCodes(DiscountCodeReference $discountCodes = null)
+ * @method CartDiscountCodeReferenceCollection getDiscountCodes()
+ * @method Cart setDiscountCodes(CartDiscountCodeReferenceCollection $discountCodes = null)
  */
-class Cart extends JsonObject
+class Cart extends Document
 {
     public function getFields()
     {
@@ -74,7 +74,7 @@ class Cart extends JsonObject
             'customerGroup' => [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
             'country' => [static::TYPE => 'string'],
             'shippingInfo' => [static::TYPE => '\Sphere\Core\Model\Cart\ShippingInfo'],
-            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\DiscountCode\DiscountCodeReference'],
+            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\Cart\CartDiscountCodeReferenceCollection'],
         ];
     }
 }

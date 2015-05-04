@@ -6,10 +6,12 @@
 namespace Sphere\Core\Request\Carts\Command;
 
 use Sphere\Core\Request\AbstractAction;
+use Sphere\Core\Model\Channel\ChannelReference;
 
 /**
  * Class CartAddLineItemAction
  * @package Sphere\Core\Request\Carts\Command
+ * @link http://dev.sphere.io/http-api-projects-carts.html#add-line-item
  * @method string getAction()
  * @method CartAddLineItemAction setAction(string $action = null)
  * @method string getProductId()
@@ -18,6 +20,8 @@ use Sphere\Core\Request\AbstractAction;
  * @method CartAddLineItemAction setVariantId(int $variantId = null)
  * @method int getQuantity()
  * @method CartAddLineItemAction setQuantity(int $quantity = null)
+ * @method ChannelReference getSupplyChannel()
+ * @method CartAddLineItemAction setSupplyChannel(ChannelReference $supplyChannel = null)
  */
 class CartAddLineItemAction extends AbstractAction
 {
@@ -28,6 +32,7 @@ class CartAddLineItemAction extends AbstractAction
             'productId' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'quantity' => [static::TYPE => 'int'],
+            'supplyChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference']
         ];
     }
 

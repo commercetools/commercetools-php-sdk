@@ -6,6 +6,8 @@
 
 namespace Sphere\Core\Cache;
 
+use Doctrine\Common\Cache\ArrayCache;
+
 function extension_loaded($value)
 {
     if ($value === 'apc') {
@@ -70,6 +72,27 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertInstanceOf('\Sphere\Core\Cache\NullCacheAdapter', $factory->get(new \ArrayObject()));
+    }
+
+    public function testDoctrineCacheCallback()
+    {
+        $factory = $this->getFactory();
+        $adapter = $factory->get(new ArrayCache());
+
+        $this->assertInstanceOf('\Sphere\Core\Cache\DoctrineCacheAdapter', $adapter);
+    }
+
+    public function testPhpRedisCacheCallback()
+    {
+        if (!extension_loaded('redis')) {
+            $this->markTestSkipped(
+                'The redis extension is not available.'
+            );
+        }
+        $factory = $this->getFactory();
+        $adapter = $factory->get(new \Redis());
+
+        $this->assertInstanceOf('\Sphere\Core\Cache\PhpRedisCacheAdapter', $adapter);
     }
 
     /**

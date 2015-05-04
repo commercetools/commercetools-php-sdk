@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class OrderImportLineItemStateAction
  * @package Sphere\Core\Request\Orders\Command
+ * @link http://dev.sphere.io/http-api-projects-orders.html#import-line-item-state
  * @method string getAction()
  * @method OrderImportLineItemStateAction setAction(string $action = null)
  * @method string getLineItemId()

@@ -6,11 +6,13 @@
 
 namespace Sphere\Core\Request;
 
+use Sphere\Core\Request\Query\Parameter;
+use Sphere\Core\Request\Query\ParameterInterface;
 
 /**
  * Class StagedTrait
  * @package Sphere\Core\Request
- * @method $this addParam($key, $value)
+ * @method $this addParamObject(ParameterInterface $param)
  */
 trait StagedTrait
 {
@@ -21,7 +23,7 @@ trait StagedTrait
     public function staged($staged)
     {
         if (is_bool($staged)) {
-            $this->addParam('staged', $staged);
+            $this->addParamObject(new Parameter('staged', $staged));
         }
 
         return $this;

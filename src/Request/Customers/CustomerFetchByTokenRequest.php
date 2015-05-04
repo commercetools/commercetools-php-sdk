@@ -18,6 +18,7 @@ use Sphere\Core\Response\SingleResourceResponse;
 /**
  * Class CustomerFetchByTokenRequest
  * @package Sphere\Core\Request\Customers
+ * @link http://dev.sphere.io/http-api-projects-customers.html#customer-by-password-token
  * @method static CustomerFetchByTokenRequest of(string $token)
  */
 class CustomerFetchByTokenRequest extends AbstractApiRequest

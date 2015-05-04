@@ -14,6 +14,7 @@ use Sphere\Core\Model\Common\PriceCollection;
 /**
  * Class ProductVariant
  * @package Sphere\Core\Model\Product
+ * @link http://dev.sphere.io/http-api-projects-products.html#product-variant
  * @method string getId()
  * @method ProductVariant setId(string $id = null)
  * @method int getSku()

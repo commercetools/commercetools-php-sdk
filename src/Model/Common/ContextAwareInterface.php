@@ -14,10 +14,15 @@ interface ContextAwareInterface
     public function getContext();
 
     /**
-     * @param Context $context
+     * @return callable
+     */
+    public function getContextCallback();
+
+    /**
+     * @param Context|callable $context
      * @return mixed
      */
-    public function setContext(Context $context = null);
+    public function setContext($context = null);
 
-    public function setContextIfNull(Context $context = null);
+    public function setContextIfNull($context = null);
 }

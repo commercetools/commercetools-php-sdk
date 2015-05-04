@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class ChannelUpdateRequest
  * @package Sphere\Core\Request\Channels
+ * @link http://dev.sphere.io/http-api-projects-channels.html#update-channel
  */
 class ChannelUpdateRequest extends AbstractUpdateRequest
 {

@@ -6,12 +6,13 @@
 namespace Sphere\Core\Model\Customer;
 
 use Sphere\Core\Model\Common\AddressCollection;
-use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
  * Class Customer
  * @package Sphere\Core\Model\Customer
+ * @link http://dev.sphere.io/http-api-projects-customers.html#customer
  * @method string getId()
  * @method Customer setId(string $id = null)
  * @method int getVersion()
@@ -53,7 +54,7 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
  * @method CustomerGroupReference getCustomerGroup()
  * @method Customer setCustomerGroup(CustomerGroupReference $customerGroup = null)
  */
-class Customer extends JsonObject
+class Customer extends Document
 {
     public function getFields()
     {

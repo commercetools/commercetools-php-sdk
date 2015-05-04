@@ -10,6 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class CartSetCountryAction
  * @package Sphere\Core\Request\Carts\Command
+ * @link http://dev.sphere.io/http-api-projects-carts.html#set-country
  * @method string getAction()
  * @method CartSetCountryAction setAction(string $action = null)
  * @method string getCountry()

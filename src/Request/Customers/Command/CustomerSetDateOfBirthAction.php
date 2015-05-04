@@ -6,11 +6,12 @@
 namespace Sphere\Core\Request\Customers\Command;
 
 use Sphere\Core\Request\AbstractAction;
-use \Sphere\Core\Model\Common\DateDecorator;
+use Sphere\Core\Model\Common\DateDecorator;
 
 /**
  * Class CustomerSetDateOfBirthAction
  * @package Sphere\Core\Request\Customers\Command
+ * @link http://dev.sphere.io/http-api-projects-customers.html#set-date-of-birth
  * @method DateDecorator getDateOfBirth()
  * @method CustomerSetDateOfBirthAction setDateOfBirth(\DateTime $dateOfBirth = null)
  * @method string getAction()

@@ -11,8 +11,8 @@ interface JsonDeserializeInterface extends ContextAwareInterface
 {
     /**
      * @param array $data
-     * @param Context $context
+     * @param Context|callable $context
      * @return mixed
      */
-    public static function fromArray(array $data, Context $context = null);
+    public static function fromArray(array $data, $context = null);
 }

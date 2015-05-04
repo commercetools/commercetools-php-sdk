@@ -11,6 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class ProductSetTaxCategoryAction
  * @package Sphere\Core\Request\Products\Command
+ * @link http://dev.sphere.io/http-api-projects-products.html#set-tax-category
  * @method string getAction()
  * @method ProductSetTaxCategoryAction setAction(string $action = null)
  * @method TaxCategoryReference getTaxCategory()

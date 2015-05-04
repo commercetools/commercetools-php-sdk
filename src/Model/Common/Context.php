@@ -6,47 +6,50 @@
 namespace Sphere\Core\Model\Common;
 
 
+use Pimple\Container;
+use Psr\Log\LoggerInterface;
 use Sphere\Core\Helper\CurrencyFormatter;
 
-class Context
+class Context extends Container
 {
-    /**
-     * @var bool
-     */
-    protected $graceful = false;
+    const GRACEFUL = 'graceful';
+    const LANGUAGES = 'languages';
+    const CURRENCY_FORMATTER = 'currencyFormatter';
+    const LOCALE = 'locale';
+    const LOGGER = 'logger';
 
-    /**
-     * @var array
-     */
-    protected $languages = [];
+    public function __construct()
+    {
+        parent::__construct();
 
-    /**
-     * @var CurrencyFormatter
-     */
-    protected $currencyFormatter;
-
-    /**
-     * @var
-     */
-    protected $locale;
+        $context = $this;
+        $this[static::GRACEFUL] = false;
+        $this[static::LANGUAGES] = [];
+        $this[static::CURRENCY_FORMATTER] = function () use ($context) {
+            return new CurrencyFormatter($context);
+        };
+        $this[static::LOCALE] = null;
+        if (extension_loaded('intl')) {
+            $this[static::LOCALE] = \Locale::getDefault();
+        }
+        $this[static::LOGGER] = null;
+    }
 
     /**
      * @return string
      */
     public function getLocale()
     {
-        if (is_null($this->locale) && extension_loaded('intl')) {
-            $this->locale = \Locale::getDefault();
-        }
-        return $this->locale;
+        return $this[static::LOCALE];
     }
 
     /**
-     * @param string $locale
+     * @param $locale
+     * @return $this
      */
     public function setLocale($locale)
     {
-        $this->locale = $locale;
+        $this[static::LOCALE] = $locale;
 
         return $this;
     }
@@ -56,18 +59,18 @@ class Context
      */
     public function getCurrencyFormatter()
     {
-        if (is_null($this->currencyFormatter)) {
-            $this->currencyFormatter = new CurrencyFormatter($this);
-        }
-        return $this->currencyFormatter;
+        return $this[static::CURRENCY_FORMATTER];
     }
 
     /**
      * @param CurrencyFormatter $currencyFormatter
+     * @return $this
      */
     public function setCurrencyFormatter(CurrencyFormatter $currencyFormatter)
     {
-        $this->currencyFormatter = $currencyFormatter;
+        $this[static::CURRENCY_FORMATTER] = $currencyFormatter;
+
+        return $this;
     }
 
     /**
@@ -75,7 +78,7 @@ class Context
      */
     public function getLanguages()
     {
-        return $this->languages;
+        return $this[static::LANGUAGES];
     }
 
     /**
@@ -84,7 +87,7 @@ class Context
      */
     public function setLanguages(array $languages)
     {
-        $this->languages = $languages;
+        $this[static::LANGUAGES] = $languages;
 
         return $this;
     }
@@ -94,7 +97,7 @@ class Context
      */
     public function isGraceful()
     {
-        return $this->graceful;
+        return $this[static::GRACEFUL];
     }
 
     /**
@@ -103,8 +106,28 @@ class Context
      */
     public function setGraceful($graceful)
     {
-        $this->graceful = $graceful;
+        $this[static::GRACEFUL] = $graceful;
 
         return $this;
+    }
+
+    /**
+     * @return LoggerInterface
+     */
+    public function getLogger()
+    {
+        return $this[static::LOGGER];
+    }
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this[static::LOGGER] = $logger;
+
+        return $this;
+    }
+
+    public static function of()
+    {
+        return new static();
     }
 }

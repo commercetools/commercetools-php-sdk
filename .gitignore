@@ -3,6 +3,7 @@
 vendor
 build
 cache.properties
+apigen.phar
 composer.phar
 composer.lock
 docroot/myapp.ini

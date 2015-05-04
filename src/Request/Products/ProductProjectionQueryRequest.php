@@ -15,6 +15,7 @@ use Sphere\Core\Request\StagedTrait;
 /**
  * Class ProductProjectionQueryRequest
  * @package Sphere\Core\Request\Products
+ * @link http://dev.sphere.io/http-api-projects-products.html#product-projections-by-query
  */
 class ProductProjectionQueryRequest extends AbstractQueryRequest
 {

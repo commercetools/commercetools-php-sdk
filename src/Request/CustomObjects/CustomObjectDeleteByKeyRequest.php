@@ -12,6 +12,7 @@ use Sphere\Core\Client\HttpRequest;
 /**
  * Class CustomObjectsDeleteByKeyRequest
  * @package Sphere\Core\Request\CustomObjects
+ * @link http://dev.sphere.io/http-api-projects-custom-objects.html#delete-custom-object
  */
 class CustomObjectDeleteByKeyRequest extends AbstractCustomObjectRequest
 {

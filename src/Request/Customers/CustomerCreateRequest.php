@@ -13,6 +13,7 @@ use Sphere\Core\Request\AbstractCreateRequest;
 /**
  * Class CustomerCreateRequest
  * @package Sphere\Core\Request\Customers
+ * @link http://dev.sphere.io/http-api-projects-customers.html#create-customer
  * @method static CustomerCreateRequest of(CustomerDraft $customer)
  */
 class CustomerCreateRequest extends AbstractCreateRequest

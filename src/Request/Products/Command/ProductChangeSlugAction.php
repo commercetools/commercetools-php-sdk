@@ -11,6 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class ProductChangeSlugAction
  * @package Sphere\Core\Request\Products\Command
+ * @link http://dev.sphere.io/http-api-projects-products.html#change-slug
  * @method string getAction()
  * @method ProductChangeSlugAction setAction(string $action = null)
  * @method LocalizedString getSlug()

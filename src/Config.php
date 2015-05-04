@@ -54,6 +54,11 @@ class Config implements ContextAwareInterface
     protected $apiUrl = 'https://api.sphere.io';
 
     /**
+     * @var int
+     */
+    protected $batchPoolSize = 25;
+
+    /**
      * @param array $config
      * @return $this
      */
@@ -199,5 +204,21 @@ class Config implements ContextAwareInterface
         }
 
         return true;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBatchPoolSize()
+    {
+        return $this->batchPoolSize;
+    }
+
+    /**
+     * @param int $batchPoolSize
+     */
+    public function setBatchPoolSize($batchPoolSize)
+    {
+        $this->batchPoolSize = $batchPoolSize;
     }
 }

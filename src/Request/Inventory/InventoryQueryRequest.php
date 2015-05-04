@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class InventoryQueryRequest
  * @package Sphere\Core\Request\Inventory
+ * @link http://dev.sphere.io/http-api-projects-inventory.html#inventories-by-query
  */
 class InventoryQueryRequest extends AbstractQueryRequest
 {

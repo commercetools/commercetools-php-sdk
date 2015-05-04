@@ -10,6 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class CustomerSetDefaultShippingAddressAction
  * @package Sphere\Core\Request\Customers\Command
+ * @link http://dev.sphere.io/http-api-projects-customers.html#set-default-shipping-address
  * @method string getAddressId()
  * @method CustomerSetDefaultShippingAddressAction setAddressId(string $addressId = null)
  * @method string getAction()

@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class CustomerGroupUpdateRequest
  * @package Sphere\Core\Request\CustomerGroups
+ * @link http://dev.sphere.io/http-api-projects-customerGroups.html#update-customer-group
  */
 class CustomerGroupUpdateRequest extends AbstractUpdateRequest
 {

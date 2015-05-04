@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
 /**
  * Class InventoryDeleteByIdRequest
  * @package Sphere\Core\Request\Inventory
+ * @link http://dev.sphere.io/http-api-projects-inventory.html#delete-inventory
  */
 class InventoryDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

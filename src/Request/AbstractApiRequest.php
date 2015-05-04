@@ -8,16 +8,16 @@ namespace Sphere\Core\Request;
 
 
 use GuzzleHttp\Message\ResponseInterface;
-use Sphere\Core\Error\Message;
-use Sphere\Core\Error\InvalidArgumentException;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Model\Common\ContextTrait;
 use Sphere\Core\Model\Common\JsonDeserializeInterface;
-use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\OfTrait;
-use Sphere\Core\Response\AbstractApiResponse;
+use Sphere\Core\Request\Query\MultiParameter;
+use Sphere\Core\Request\Query\Parameter;
+use Sphere\Core\Request\Query\ParameterInterface;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class AbstractApiRequest
@@ -97,24 +97,29 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
     }
 
     /**
-     *
      * @param $key
      * @param $value
+     * @param bool $replace
      * @return $this
      */
-    public function addParam($key, $value)
+    public function addParam($key, $value = null, $replace = true)
     {
-        if (empty($key)) {
-            throw new InvalidArgumentException(Message::NO_KEY_GIVEN);
-        }
-        if (is_null($value)) {
-            $paramStr = $key;
-        } elseif (is_bool($value)) {
-            $paramStr = $key . '=' . ($value ? 'true' : 'false');
+        if ($replace) {
+            $param = new Parameter($key, $value);
         } else {
-            $paramStr = $key . '=' . urlencode((string)$value);
+            $param = new MultiParameter($key, $value);
         }
-        $this->params[$paramStr] = [$key => $value];
+
+        return $this->addParamObject($param);
+    }
+
+    /**
+     * @param ParameterInterface $param
+     * @return $this
+     */
+    public function addParamObject(ParameterInterface $param)
+    {
+        $this->params[$param->getId()] = $param;
 
         return $this;
     }
@@ -125,7 +130,12 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
      */
     protected function getParamString()
     {
-        $params = array_keys($this->params);
+        $params = array_map(
+            function ($param) {
+                return (string)$param;
+            },
+            $this->params
+        );
         sort($params);
         $params = implode('&', $params);
 
@@ -143,7 +153,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
 
     /**
      * @param ResponseInterface $response
-     * @return AbstractApiResponse
+     * @return ApiResponseInterface
      * @internal
      */
     abstract public function buildResponse(ResponseInterface $response);

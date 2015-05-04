@@ -5,18 +5,24 @@
 
 namespace Sphere\Core\Request;
 
+use Sphere\Core\Request\Query\MultiParameter;
+use Sphere\Core\Request\Query\ParameterInterface;
+
 /**
  * Class ExpandTrait
  * @package Sphere\Core\Request
- * @method $this addParam($key, $value)
+ * @method $this addParamObject(ParameterInterface $param)
  */
 trait ExpandTrait
 {
     /**
-     * @param string $fieldReference
+     * @param $fieldReference
+     * @return $this
      */
     public function expand($fieldReference)
     {
-        $this->addParam('expand', $fieldReference);
+        $this->addParamObject(new MultiParameter('expand', $fieldReference));
+
+        return $this;
     }
 }

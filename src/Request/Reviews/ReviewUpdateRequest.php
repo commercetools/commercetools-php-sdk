@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class ReviewUpdateRequest
  * @package Sphere\Core\Request\Reviews
+ * @link http://dev.sphere.io/http-api-projects-reviews.html#update-review
  */
 class ReviewUpdateRequest extends AbstractUpdateRequest
 {

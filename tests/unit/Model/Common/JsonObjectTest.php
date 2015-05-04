@@ -8,7 +8,12 @@ namespace Sphere\Core\Model\Type;
 
 
 use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\ProductType\ProductType;
 
+/**
+ * Class JsonObjectTest
+ * @package Sphere\Core\Model\Type
+ */
 class JsonObjectTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -16,10 +21,12 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
      */
     protected function getObject()
     {
+        date_default_timezone_set('UTC');
         $obj = $this->getMock(
             '\Sphere\Core\Model\Common\JsonObject',
-            ['getFields'],
-            [['key' => 'value', 'true' => true, 'false' => false]]
+            ['getFields', 'getId'],
+            [['key' => 'value', 'true' => true, 'false' => false, 'mixed' => '1']],
+            'MockJsonObject'
         );
         $obj->expects($this->any())
             ->method('getFields')
@@ -31,9 +38,18 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
                         'true' => [JsonObject::TYPE => 'bool'],
                         'false' => [JsonObject::TYPE => 'bool'],
                         'localString' => [JsonObject::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-                        'mixed' => []
+                        'mixed' => [],
+                        'decorator' => [
+                            JsonObject::TYPE => '\DateTime',
+                            JsonObject::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                        ]
                     ]
                 )
+            );
+        $obj->expects($this->any())
+            ->method('getId')
+            ->will(
+                $this->returnValue('12345')
             );
 
         return $obj;
@@ -41,13 +57,23 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testToArray()
     {
-        $this->assertSame(['key' => 'value', 'true' => true, 'false' => false], $this->getObject()->toArray());
+        $this->assertSame(
+            ['key' => 'value', 'true' => true, 'false' => false, 'mixed' => '1'],
+            $this->getObject()->toArray()
+        );
     }
 
     public function testSerializable()
     {
-        $this->assertSame(['key' => 'value', 'true' => true, 'false' => false], $this->getObject()->jsonSerialize());
+        $this->getObject()->getLocalString();
+        $this->getObject()->getDecorator();
+
+        $this->assertJsonStringEqualsJsonString(
+            json_encode(['key' => 'value', 'true' => true, 'false' => false, 'mixed' => '1']),
+            json_encode($this->getObject()->jsonSerialize())
+        );
     }
+
 
     public function testInterface()
     {
@@ -108,6 +134,11 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         $this->getObject()->hasKey();
     }
 
+    public function testGetNotTyped()
+    {
+        $this->assertSame('1', $this->getObject()->getMixed());
+    }
+
     public function testNotTyped()
     {
         $this->assertSame(1.5, $this->getObject()->setMixed(1.5)->getMixed());
@@ -153,5 +184,26 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
     {
         $obj = $this->getMock('\Sphere\Core\Model\Common\JsonObject', ['initialize'], [['key' => 'value']]);
         $this->assertSame('value', $obj->get('key'));
+    }
+
+    public function testDecorated()
+    {
+        $obj = $this->getObject();
+        $obj->setRawData(['decorator' => new \DateTime('2015-10-15 15:16:32')]);
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\DateTimeDecorator', $obj->getDecorator());
+    }
+
+    public function testDecoratedString()
+    {
+        $obj = $this->getObject();
+        $obj->setRawData(['decorator' => new \DateTime('2015-10-15 15:16:32')]);
+        $this->assertSame('"2015-10-15T15:16:32+00:00"', json_encode($obj->getDecorator()));
+    }
+
+    public function testSetDecorator()
+    {
+        $obj = $this->getObject();
+        $obj->setDecorator(new \DateTime());
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\DateTimeDecorator', $obj->getDecorator());
     }
 }

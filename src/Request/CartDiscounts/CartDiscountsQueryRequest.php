@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class CartDiscountsQueryRequest
  * @package Sphere\Core\Request\CartDiscounts
+ * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discounts-by-query
  */
 class CartDiscountsQueryRequest extends AbstractQueryRequest
 {

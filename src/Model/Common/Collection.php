@@ -12,10 +12,9 @@ use Traversable;
  * Class Collection
  * @package Sphere\Core\Model\Common
  */
-class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterface, \Countable, \ArrayAccess
+class Collection extends AbstractJsonDeserializeObject implements \Iterator, \JsonSerializable, \Countable, \ArrayAccess
 {
     use ContextTrait;
-    use JsonDeserializeTrait;
 
     const DESERIALIZE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
 
@@ -25,27 +24,17 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
     protected $type;
 
     protected $pos = 0;
-    protected $rawData = [];
-    protected $typeData = [];
-    protected $initialized = [];
 
     protected $index = [];
 
-    public function __construct(array $data = [], Context $context = null)
-    {
-        $this->setContext($context);
-        $this->rawData = $data;
-        $this->indexData();
-    }
-
     /**
      * @param array $data
-     * @param Context $context
-     * @return static
+     * @param Context|callable $context
      */
-    public static function fromArray(array $data, Context $context = null)
+    public function __construct(array $data = [], $context = null)
     {
-        return new static($data, $context);
+        parent::__construct($data, $context);
+        $this->indexData();
     }
 
     /**
@@ -112,23 +101,18 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
         return $this;
     }
 
-    public function toArray()
-    {
-        return array_merge($this->rawData, $this->typeData);
-    }
-
     /**
      * @param $offset
      * @internal
      */
     protected function initialize($offset)
     {
-        $type = $this->type;
-        if (!is_null($type) && $this->hasInterface($type)) {
+        $type = $this->getType();
+        if ($this->isDeserializableType($type)) {
             /**
              * @var JsonDeserializeInterface $type
              */
-            $this->typeData[$offset] = $type::fromArray($this->getRaw($offset), $this->getContext());
+            $this->typeData[$offset] = $type::fromArray($this->getRaw($offset), $this->getContextCallback());
         }
         $this->initialized[$offset] = true;
     }
@@ -140,22 +124,17 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
      */
     public function getAt($offset)
     {
-        if (!isset($this->initialized[$offset])) {
-            $this->initialize($offset);
-        }
-        if (isset($this->typeData[$offset])) {
-            return $this->typeData[$offset];
-        }
-        return $this->rawData[$offset];
+        return $this->getTyped($offset);
     }
 
     /**
      * @param $offset
+     * @param mixed $default
      * @return array
      */
-    protected function getRaw($offset)
+    protected function getRaw($offset, $default = [])
     {
-        return isset($this->rawData[$offset])? $this->rawData[$offset]: [];
+        return parent::getRaw($offset, $default);
     }
 
     /**
@@ -165,15 +144,15 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
      */
     public function setAt($offset, $object)
     {
-        $type = $this->type;
-        if (!is_null($type) && !is_null($object) && !$this->isType($type, $object)) {
+        $type = $this->getType();
+        if (!$this->isValidType($type, $object)) {
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $offset, $type));
         }
         if ($this->hasInterface(get_class($object))) {
             /**
              * @var JsonDeserializeInterface $object
              */
-            $object->setContext($this->getContext());
+            $object->setContext($this->getContextCallback());
         }
         if (is_null($offset)) {
             $this->typeData[] = $object;
@@ -205,17 +184,6 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
         return count($uniqueKeys);
     }
 
-    /**
-     * (PHP 5 &gt;= 5.4.0)<br/>
-     * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     */
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
 
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
@@ -332,6 +300,7 @@ class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterfa
      */
     public function offsetUnset($offset)
     {
-        $this->setAt($offset, null);
+        unset($this->rawData[$offset]);
+        unset($this->typeData[$offset]);
     }
 }

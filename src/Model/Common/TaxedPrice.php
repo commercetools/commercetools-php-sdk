@@ -9,12 +9,13 @@ namespace Sphere\Core\Model\Common;
 /**
  * Class TaxedPrice
  * @package Sphere\Core\Model\Common
+ * @link http://dev.sphere.io/http-api-projects-carts.html#taxed-price
  * @method Money getTotalNet()
  * @method TaxedPrice setTotalNet(Money $totalNet = null)
  * @method Money getTotalGross()
  * @method TaxedPrice setTotalGross(Money $totalGross = null)
- * @method TaxPortionCollection getTotalPortions()
- * @method TaxedPrice setTotalPortions(TaxPortionCollection $totalPortions = null)
+ * @method TaxPortionCollection getTaxPortions()
+ * @method TaxedPrice setTaxPortions(TaxPortionCollection $taxPortions = null)
  */
 class TaxedPrice extends JsonObject
 {
@@ -23,7 +24,7 @@ class TaxedPrice extends JsonObject
         return [
             'totalNet' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
             'totalGross' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
-            'totalPortions' => [static::TYPE => '\Sphere\Core\Model\Common\TaxPortionCollection'],
+            'taxPortions' => [static::TYPE => '\Sphere\Core\Model\Common\TaxPortionCollection'],
         ];
     }
 }

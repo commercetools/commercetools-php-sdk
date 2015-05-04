@@ -16,6 +16,7 @@ use Sphere\Core\Response\SingleResourceResponse;
 /**
  * Class CustomerPasswordChangeRequest
  * @package Sphere\Core\Request\Customers
+ * @link http://dev.sphere.io/http-api-projects-customers.html#change-password
  * @method static CustomerPasswordChangeRequest of($id, $version, $currentPassword, $newPassword)
  */
 class CustomerPasswordChangeRequest extends AbstractUpdateRequest

@@ -18,6 +18,7 @@ use Sphere\Core\Response\SingleResourceResponse;
 /**
  * Class OrderCreateFromCartRequest
  * @package Sphere\Core\Request\Orders
+ * @link http://dev.sphere.io/http-api-projects-orders.html#create-order-from-cart
  */
 class OrderCreateFromCartRequest extends AbstractApiRequest
 {
@@ -137,14 +138,14 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     public function httpRequest()
     {
         $payload = [
-            static::ID => $this->cartId,
-            static::VERSION => $this->version,
+            static::ID => $this->getCartId(),
+            static::VERSION => $this->getVersion(),
         ];
         if (!is_null($this->paymentState)) {
-            $payload[static::PAYMENT_STATE] = $this->paymentState;
+            $payload[static::PAYMENT_STATE] = $this->getPaymentState();
         }
         if (!is_null($this->orderNumber)) {
-            $payload[static::ORDER_NUMBER] = $this->orderNumber;
+            $payload[static::ORDER_NUMBER] = $this->getOrderNumber();
         }
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }

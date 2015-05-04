@@ -5,17 +5,20 @@
 
 namespace Sphere\Core\Request;
 
+use Sphere\Core\Request\Query\Parameter;
+use Sphere\Core\Request\Query\ParameterInterface;
+
 /**
  * Class CustomerIdTrait
  * @package Sphere\Core\Request
- * @method $this addParam($key, $value)
+ * @method $this addParamObject(ParameterInterface $param)
  */
 trait CustomerIdTrait
 {
     public function byCustomerId($customerId)
     {
         if (!is_null($customerId)) {
-            $this->addParam('customerId', $customerId);
+            $this->addParamObject(new Parameter('customerId', $customerId));
         }
 
         return $this;

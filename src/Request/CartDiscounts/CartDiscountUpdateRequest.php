@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class CartDiscountUpdateRequest
  * @package Sphere\Core\Request\CartDiscounts
+ * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#create-cart-discount
  */
 class CartDiscountUpdateRequest extends AbstractUpdateRequest
 {

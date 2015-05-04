@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class CategoriesQueryRequest
  * @package Sphere\Core\Request\Categories
+ * @link http://dev.sphere.io/http-api-projects-categories.html#categories-by-query
  * @method static CategoriesQueryRequest of()
  */
 class CategoriesQueryRequest extends AbstractQueryRequest

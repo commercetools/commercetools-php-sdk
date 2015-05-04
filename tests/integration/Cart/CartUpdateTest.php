@@ -1,0 +1,74 @@
+<?php
+/**
+ * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ */
+
+namespace Sphere\Core\Cart;
+
+use Sphere\Core\ApiTestCase;
+use Sphere\Core\Model\Cart\Cart;
+use Sphere\Core\Model\Cart\CartDraft;
+use Sphere\Core\Model\Common\Address;
+use Sphere\Core\Request\Carts\CartCreateRequest;
+use Sphere\Core\Request\Carts\CartDeleteByIdRequest;
+use Sphere\Core\Request\Carts\CartUpdateRequest;
+use Sphere\Core\Request\Carts\Command\CartSetShippingAddressAction;
+
+class CartUpdateTest extends ApiTestCase
+{
+    /**
+     * @var CartDeleteByIdRequest
+     */
+    protected $cartDeleteRequest;
+    /**
+     * @return CartDraft
+     */
+    protected function getDraft()
+    {
+        $draft = CartDraft::of('EUR')->setCountry('DE');
+
+        return $draft;
+    }
+
+    protected function createCart(CartDraft $draft)
+    {
+        /**
+         * @var Cart $cart
+         */
+        $cart = $this->getClient()
+            ->execute(CartCreateRequest::of($draft))
+            ->toObject();
+        $this->cartDeleteRequest = CartDeleteByIdRequest::of($cart->getId(), $cart->getVersion());
+        $this->cleanupRequests[] = $this->cartDeleteRequest;
+
+        return $cart;
+    }
+
+    protected function getShippingAddress()
+    {
+        $cart = $this->createCart($this->getDraft());
+        $address = Address::of()->setCountry('DE');
+        /**
+         * @var Cart $cart
+         */
+        $cart = $this->getClient()->execute(
+            CartUpdateRequest::of($cart->getId(), $cart->getVersion())
+                ->addAction(CartSetShippingAddressAction::of()->setAddress($address))
+        )->toObject();
+        $this->cartDeleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($address->getCountry(), $cart->getShippingAddress()->getCountry());
+
+        $cart = $this->getClient()->execute(
+            CartUpdateRequest::of($cart->getId(), $cart->getVersion())
+                ->addAction(CartSetShippingAddressAction::of())
+        )->toObject();
+        $this->cartDeleteRequest->setVersion($cart->getVersion());
+        $this->assertNull($cart->getShippingAddress()->getCountry());
+    }
+
+    public function testAddLineItem()
+    {
+        $this->getShippingAddress();
+    }
+}

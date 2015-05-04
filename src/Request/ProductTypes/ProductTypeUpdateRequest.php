@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class ProductTypeUpdateRequest
  * @package Sphere\Core\Request\ProductTypes
+ * @link http://dev.sphere.io/http-api-projects-productTypes.html#update-product-type
  */
 class ProductTypeUpdateRequest extends AbstractUpdateRequest
 {

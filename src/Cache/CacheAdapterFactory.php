@@ -6,6 +6,7 @@
 
 namespace Sphere\Core\Cache;
 
+use Doctrine\Common\Cache\Cache;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
 
@@ -20,14 +21,37 @@ class CacheAdapterFactory
      */
     protected $callbacks = [];
 
+    public function __construct()
+    {
+        $this->registerCallback(
+            function ($cache) {
+                if ($cache instanceof Cache) {
+                    return new DoctrineCacheAdapter($cache);
+                }
+                return null;
+            }
+        )
+        ->registerCallback(
+            function ($cache) {
+                if ($cache instanceof \Redis) {
+                    return new PhpRedisCacheAdapter($cache);
+                }
+                return null;
+            }
+        );
+    }
+
     /**
      * registers a callback to resolve a cache adapter interface
      *
-     * @param $callback
+     * @param callable $callback
+     * @return $this
      */
-    public function registerCallback($callback)
+    public function registerCallback(callable $callback)
     {
         $this->callbacks[] = $callback;
+
+        return $this;
     }
 
     /**

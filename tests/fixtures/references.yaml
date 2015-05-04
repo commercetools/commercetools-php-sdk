@@ -1,0 +1,119 @@
+cart:
+  domain: cart
+  model: CartReference
+  typeId: cart
+  obj:
+   domain: Cart
+   model: Cart
+
+cartDiscountReference:
+  domain: cartDiscount
+  model: CartDiscountReference
+  typeId: cart-discount
+  obj:
+    domain: CartDiscount
+    model: CartDiscount
+
+category:
+  domain: category
+  model: CategoryReference
+  typeId: category
+  obj:
+    domain: category
+    model: category
+
+channel:
+  domain: channel
+  model: ChannelReference
+  typeId: channel
+  obj:
+    domain: channel
+    model: Channel
+
+customer:
+  domain: customer
+  model: CustomerReference
+  typeId: customer
+  obj:
+    domain: customer
+    model: Customer
+
+customerGroup:
+  domain: customerGroup
+  model: CustomerGroupReference
+  typeId: customer-group
+  obj:
+    domain: customerGroup
+    model: CustomerGroup
+
+discountCode:
+  domain: discountCode
+  model: DiscountCodeReference
+  typeId: discount-code
+  obj:
+    domain: discountCode
+    model: DiscountCode
+
+order:
+  domain: order
+  model: OrderReference
+  typeId: order
+  obj:
+    domain: order
+    model: Order
+
+product:
+  domain: product
+  model: ProductReference
+  typeId: product
+  obj:
+    domain: product
+    model: Product
+
+productDiscount:
+  domain: productDiscount
+  model: ProductDiscountReference
+  typeId: product-discount
+  obj:
+    domain: productDiscount
+    model: ProductDiscount
+
+productType:
+  domain: productType
+  model: ProductTypeReference
+  typeId: product-type
+  obj:
+    domain: productType
+    model: ProductType
+
+shippingMethod:
+  domain: shippingMethod
+  model: ShippingMethodReference
+  typeId: shipping-method
+  obj:
+    domain: shippingMethod
+    model: ShippingMethod
+
+state:
+  domain: state
+  model: StateReference
+  typeId: state
+  obj:
+    domain: state
+    model: State
+
+taxCategory:
+  domain: taxCategory
+  model: TaxCategoryReference
+  typeId: tax-category
+  obj:
+    domain: taxCategory
+    model: TaxCategory
+
+zone:
+  domain: zone
+  model: ZoneReference
+  typeId: zone
+  obj:
+    domain: zone
+    model: Zone

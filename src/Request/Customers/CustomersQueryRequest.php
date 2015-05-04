@@ -13,6 +13,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
 /**
  * Class CustomersQueryRequest
  * @package Sphere\Core\Request\Customers
+ * @link http://dev.sphere.io/http-api-projects-customers.html#customers-by-query
  * @method static CustomersQueryRequest of()
  */
 class CustomersQueryRequest extends AbstractQueryRequest

@@ -12,6 +12,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
 /**
  * Class CartUpdateRequest
  * @package Sphere\Core\Request\Carts
+ * @link http://dev.sphere.io/http-api-projects-carts.html#update-cart
  * @method static CartUpdateRequest of(string $id, int $version, array $actions = [])
  */
 class CartUpdateRequest extends AbstractUpdateRequest

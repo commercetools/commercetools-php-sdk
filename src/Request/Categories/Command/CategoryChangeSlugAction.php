@@ -11,6 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class CategoryChangeSlugAction
  * @package Sphere\Core\Request\Categories\Command
+ * @link http://dev.sphere.io/http-api-projects-categories.html#change-slug
  * @method LocalizedString getSlug()
  * @method CategoryChangeSlugAction setSlug(LocalizedString $slug = null)
  * @method string getAction()

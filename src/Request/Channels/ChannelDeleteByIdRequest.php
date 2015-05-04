@@ -9,6 +9,11 @@ namespace Sphere\Core\Request\Channels;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractDeleteByIdRequest;
 
+/**
+ * Class ChannelDeleteByIdRequest
+ * @package Sphere\Core\Request\Channels
+ * @link http://dev.sphere.io/http-api-projects-channels.html#delete-channel
+ */
 class ChannelDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
     protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
