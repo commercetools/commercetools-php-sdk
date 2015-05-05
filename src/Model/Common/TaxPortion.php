@@ -20,7 +20,7 @@ class TaxPortion extends JsonObject
     public function getFields()
     {
         return [
-            'rate' => [static::TYPE => 'int'],
+            'rate' => [static::TYPE => 'float'],
             'amount' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
         ];
     }
