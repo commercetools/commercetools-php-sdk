@@ -32,7 +32,6 @@
         "doctrine/cache": "~1.4",
         "monolog/monolog": "~1.12",
         "behat/behat": "~3.0",
-        "apigen/apigen": "~4.1",
         "phpunit/phpcov": "*"
     },
     "suggest": {
