@@ -46,6 +46,22 @@ class ProductsSearchRequestTest extends RequestTestCase
         $this->assertSame('product-projections/search?filter=key%3A%22value%22', $httpRequest->getPath());
     }
 
+    public function testAddMultiFilterString()
+    {
+        /**
+         * @var ProductsSearchRequest $request
+         */
+        $request = $this->getRequest(static::PRODUCT_SEARCH_REQUEST);
+        $request->addFilter(Filter::of('string')->setName('key')->setValue('value'));
+        $request->addFilter(Filter::of('string')->setName('foo')->setValue('bar'));
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame(
+            'product-projections/search?filter=foo%3A%22bar%22&filter=key%3A%22value%22',
+            $httpRequest->getPath()
+        );
+    }
+
     public function testAddFilterInt()
     {
         /**
@@ -82,6 +98,38 @@ class ProductsSearchRequestTest extends RequestTestCase
         $this->assertSame('product-projections/search?filter.query=key%3A%22value%22', $httpRequest->getPath());
     }
 
+    public function testAddFilterQueryFacet()
+    {
+        /**
+         * @var ProductsSearchRequest $request
+         */
+        $request = $this->getRequest(static::PRODUCT_SEARCH_REQUEST);
+        $request->addFilterQuery(Filter::of('string')->setName('key')->setValue('value'));
+        $request->addFacet(Facet::of('string')->setName('key')->setValue('value'));
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame(
+            'product-projections/search?facet=key%3A%22value%22&filter.query=key%3A%22value%22',
+            $httpRequest->getPath()
+        );
+    }
+
+    public function testAddMultiFilterQuery()
+    {
+        /**
+         * @var ProductsSearchRequest $request
+         */
+        $request = $this->getRequest(static::PRODUCT_SEARCH_REQUEST);
+        $request->addFilterQuery(Filter::of('string')->setName('key')->setValue('value'));
+        $request->addFilterQuery(Filter::of('string')->setName('foo')->setValue('bar'));
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame(
+            'product-projections/search?filter.query=foo%3A%22bar%22&filter.query=key%3A%22value%22',
+            $httpRequest->getPath()
+        );
+    }
+
     public function testAddFilterFacets()
     {
         /**
@@ -94,6 +142,22 @@ class ProductsSearchRequestTest extends RequestTestCase
         $this->assertSame('product-projections/search?filter.facets=key%3A%22value%22', $httpRequest->getPath());
     }
 
+    public function testAddMultiFilterFacets()
+    {
+        /**
+         * @var ProductsSearchRequest $request
+         */
+        $request = $this->getRequest(static::PRODUCT_SEARCH_REQUEST);
+        $request->addFilterFacets(Filter::of('string')->setName('key')->setValue('value'));
+        $request->addFilterFacets(Filter::of('string')->setName('foo')->setValue('bar'));
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame(
+            'product-projections/search?filter.facets=foo%3A%22bar%22&filter.facets=key%3A%22value%22',
+            $httpRequest->getPath()
+        );
+    }
+
     public function testAddFacet()
     {
         /**
@@ -104,6 +168,22 @@ class ProductsSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search?facet=key%3A%22value%22', $httpRequest->getPath());
+    }
+
+    public function testAddMultiFacet()
+    {
+        /**
+         * @var ProductsSearchRequest $request
+         */
+        $request = $this->getRequest(static::PRODUCT_SEARCH_REQUEST);
+        $request->addFacet(Facet::of('string')->setName('key')->setValue('value'));
+        $request->addFacet(Facet::of('string')->setName('foo')->setValue('bar'));
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame(
+            'product-projections/search?facet=foo%3A%22bar%22&facet=key%3A%22value%22',
+            $httpRequest->getPath()
+        );
     }
 
     public function testHttpRequestMethod()
