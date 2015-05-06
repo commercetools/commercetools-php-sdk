@@ -14,6 +14,6 @@ class FilterRangeCollection extends Collection
 
     public function __toString()
     {
-        return sprintf('range %s', implode(', ', $this->toArray()));
+        return sprintf('range%s', implode(', ', $this->toArray()));
     }
 }
