@@ -12,12 +12,13 @@ use Sphere\Core\Model\Common\TaxedPrice;
 use Sphere\Core\Model\Common\Address;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 use Sphere\Core\Model\Cart\ShippingInfo;
+use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
  * Class ImportOrder
  * @package Sphere\Core\Model\Order
- * @method string getOrderNumder()
- * @method ImportOrder setOrderNumder(string $orderNumder = null)
+ * @method string getOrderNumber()
+ * @method ImportOrder setOrderNumber(string $orderNumber = null)
  * @method string getCustomerId()
  * @method ImportOrder setCustomerId(string $customerId = null)
  * @method string getCustomerEmail()
@@ -46,7 +47,7 @@ use Sphere\Core\Model\Cart\ShippingInfo;
  * @method ImportOrder setPaymentState(string $paymentState = null)
  * @method ShippingInfo getShippingInfo()
  * @method ImportOrder setShippingInfo(ShippingInfo $shippingInfo = null)
- * @method \DateTime getCompletedAt()
+ * @method DateTimeDecorator getCompletedAt()
  * @method ImportOrder setCompletedAt(\DateTime $completedAt = null)
  */
 class ImportOrder extends JsonObject
