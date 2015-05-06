@@ -43,7 +43,7 @@ class Filter extends JsonObject
 
     protected function valueToString($value)
     {
-        if (is_numeric($value)) {
+        if (is_float($value) || is_int($value)) {
             return $value;
         }
         if (is_string($value)) {

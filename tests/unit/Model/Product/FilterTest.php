@@ -17,6 +17,27 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('test:10', (string)$filter);
     }
 
+    public function testIntString()
+    {
+        $filter = new Filter();
+        $filter->setName('test')->setValue('10');
+        $this->assertSame('test:"10"', (string)$filter);
+    }
+
+    public function testIntStringArray()
+    {
+        $filter = new Filter('array');
+        $filter->setName('test')->setValue(['1', '2', '3']);
+        $this->assertSame('test:"1","2","3"', (string)$filter);
+    }
+
+    public function testFloatStringArray()
+    {
+        $filter = new Filter('array');
+        $filter->setName('test')->setValue(['1.1', '2.2', '3.3']);
+        $this->assertSame('test:"1.1","2.2","3.3"', (string)$filter);
+    }
+
     public function testDefaultType()
     {
         $filter = new Filter();
@@ -38,11 +59,18 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('test:"key" as foo', (string)$filter);
     }
 
-    public function testArray()
+    public function testIntArray()
     {
         $filter = new Filter('array');
-        $filter->setName('test')->setValue([1,2,3])->setAlias('foo');
+        $filter->setName('test')->setValue([1, 2, 3])->setAlias('foo');
         $this->assertSame('test:1,2,3 as foo', (string)$filter);
+    }
+
+    public function testFloatArray()
+    {
+        $filter = new Filter('array');
+        $filter->setName('test')->setValue([1.1, 2.2, 3.3])->setAlias('foo');
+        $this->assertSame('test:1.1,2.2,3.3 as foo', (string)$filter);
     }
 
     public function testSingleStringInArray()
