@@ -64,7 +64,7 @@ class Filter extends JsonObject
         $facet = $this->getName();
         $value = $this->getValue();
         $alias = $this->getAlias();
-        if ($value) {
+        if (!is_null($value)) {
             $facet .= ':' . $this->valueToString($value);
         }
         if ($alias) {
