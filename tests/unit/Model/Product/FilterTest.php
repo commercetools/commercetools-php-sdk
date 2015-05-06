@@ -91,4 +91,18 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $filter->setName('test')->setValue($filterRangeCollection)->setAlias('foo');
         $this->assertSame('test:range(1 to 10),(11 to 20) as foo', (string)$filter);
     }
+
+    public function testBoolTrue()
+    {
+        $filter = new Filter('bool');
+        $filter->setName('test')->setValue(true);
+        $this->assertSame('test:true', (string)$filter);
+    }
+
+    public function testBoolFalse()
+    {
+        $filter = new Filter('bool');
+        $filter->setName('test')->setValue(false);
+        $this->assertSame('test:false', (string)$filter);
+    }
 }

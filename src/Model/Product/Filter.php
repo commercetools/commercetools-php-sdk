@@ -43,8 +43,11 @@ class Filter extends JsonObject
 
     protected function valueToString($value)
     {
-        if (is_float($value) || is_int($value)) {
+        if (is_int($value) || is_float($value)) {
             return $value;
+        }
+        if (is_bool($value)) {
+            return $value ? 'true': 'false';
         }
         if (is_string($value)) {
             return '"' . $value . '"';
@@ -61,7 +64,7 @@ class Filter extends JsonObject
         $facet = $this->getName();
         $value = $this->getValue();
         $alias = $this->getAlias();
-        if ($value) {
+        if (!is_null($value)) {
             $facet .= ':' . $this->valueToString($value);
         }
         if ($alias) {
