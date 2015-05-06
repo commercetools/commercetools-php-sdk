@@ -45,6 +45,13 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('test:1,2,3 as foo', (string)$filter);
     }
 
+    public function testSingleStringInArray()
+    {
+        $filter = new Filter('array');
+        $filter->setName('test')->setValue(["test"])->setAlias('foo');
+        $this->assertSame('test:"test" as foo', (string)$filter);
+    }
+
     public function testRange()
     {
         $filter = new Filter('\Sphere\Core\Model\Product\FilterRangeCollection');
