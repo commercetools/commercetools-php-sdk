@@ -46,6 +46,9 @@ class Filter extends JsonObject
         if (is_numeric($value)) {
             return $value;
         }
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
         if (is_string($value)) {
             return '"' . $value . '"';
         }

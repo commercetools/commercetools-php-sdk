@@ -14,6 +14,7 @@ use Traversable;
  */
 class Collection implements \Iterator, \JsonSerializable, JsonDeserializeInterface, \Countable, \ArrayAccess
 {
+    use OfTrait;
     use ContextTrait;
     use JsonDeserializeTrait;
 
