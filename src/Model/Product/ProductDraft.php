@@ -12,7 +12,7 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\ProductType\ProductTypeReference;
-use Sphere\Core\Model\TaxCategory\TaxCategory;
+use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
  * Class ProductDraft
@@ -37,8 +37,8 @@ use Sphere\Core\Model\TaxCategory\TaxCategory;
  * @method ProductDraft setMetaDescription(LocalizedString $metaDescription = null)
  * @method LocalizedString getMetaKeywords()
  * @method ProductDraft setMetaKeywords(LocalizedString $metaKeywords = null)
- * @method TaxCategory getTaxCategory()
- * @method ProductDraft setTaxCategory(TaxCategory $taxCategory = null)
+ * @method TaxCategoryReference getTaxCategory()
+ * @method ProductDraft setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method LocalizedSearchKeywords getSearchKeywords()
  * @method ProductDraft setSearchKeywords(LocalizedSearchKeywords $searchKeywords = null)
  */
@@ -59,7 +59,7 @@ class ProductDraft extends JsonObject
             'metaTitle' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'metaDescription' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategory'],
+            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference'],
             'searchKeywords' => [static::TYPE => '\Sphere\Core\Model\Product\LocalizedSearchKeywords']
         ];
     }
