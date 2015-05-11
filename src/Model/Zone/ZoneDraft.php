@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Model\Zone;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\OfTrait;
 
@@ -34,9 +35,27 @@ class ZoneDraft extends JsonObject
     /**
      * @param string $name
      * @param LocationCollection $locations
+     * @param Context|callable $context
      */
-    public function __construct($name, LocationCollection $locations)
+    public function __construct($name, LocationCollection $locations, $context = null)
     {
-        $this->setName($name)->setLocations($locations);
+        $this->setContext($context)->setName($name)->setLocations($locations);
+    }
+
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     * @return static
+     */
+    public static function fromArray(array $data, $context = null)
+    {
+        $draft = new static(
+            $data['name'],
+            LocationCollection::fromArray($data['locations'], $context),
+            $context
+        );
+        $draft->setRawData($data);
+
+        return $draft;
     }
 }

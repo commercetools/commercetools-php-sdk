@@ -19,11 +19,11 @@ class ZoneCreateRequest extends AbstractCreateRequest
     protected $resultClass = '\Sphere\Core\Model\Zone\Zone';
 
     /**
-     * @param ZoneDraft $state
+     * @param ZoneDraft $zone
      * @param Context $context
      */
-    public function __construct(ZoneDraft $state, Context $context = null)
+    public function __construct(ZoneDraft $zone, Context $context = null)
     {
-        parent::__construct(ZonesEndpoint::endpoint(), $state, $context);
+        parent::__construct(ZonesEndpoint::endpoint(), $zone, $context);
     }
 }

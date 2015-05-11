@@ -21,10 +21,14 @@ class ZoneCreateRequestTest extends RequestTestCase
 
     protected function getZoneDraft()
     {
-        return ZoneDraft::of(
-            'myZone',
-            LocationCollection::of()->add(Location::of()->setCountry('DE')->setState('Berlin'))
-        )->setDescription('Zone 1');
+        return ZoneDraft::fromArray([
+            "name"=> "myZone",
+            "description"=> "Zone 1",
+            "locations"=> [
+                "country"=> "DE",
+                "state"=> "Berlin"
+            ]
+        ]);
     }
     public function testMapResult()
     {
