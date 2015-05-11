@@ -15,11 +15,11 @@ class TaxCategoryCreateRequest extends AbstractCreateRequest
     protected $resultClass = '\Sphere\Core\Model\TaxCategory\TaxCategory';
 
     /**
-     * @param TaxCategoryDraft $state
+     * @param TaxCategoryDraft $taxCategory
      * @param Context $context
      */
-    public function __construct(TaxCategoryDraft $state, Context $context = null)
+    public function __construct(TaxCategoryDraft $taxCategory, Context $context = null)
     {
-        parent::__construct(TaxCategoriesEndpoint::endpoint(), $state, $context);
+        parent::__construct(TaxCategoriesEndpoint::endpoint(), $taxCategory, $context);
     }
 }
