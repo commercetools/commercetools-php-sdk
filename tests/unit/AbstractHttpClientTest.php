@@ -54,4 +54,15 @@ class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\GuzzleHttp\Client', $httpClient);
         $this->assertSame('test', $httpClient->getBaseUrl());
     }
+
+    public function testUserAgent()
+    {
+        $client = $this->getMockForAbstractClass('\Sphere\Core\AbstractHttpClient', [], '', false);
+        /**
+         * @var AbstractHttpClient $client
+         */
+        $httpClient = $client->getHttpClient();
+        $request = $httpClient->createRequest('get', '/test');
+        $this->assertContains('SPHERE.IO PHP-SDK/' . AbstractHttpClient::VERSION, $request->getHeader('user-agent'));
+    }
 }
