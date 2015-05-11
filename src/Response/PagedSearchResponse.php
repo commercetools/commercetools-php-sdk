@@ -28,30 +28,9 @@ class PagedSearchResponse extends PagedQueryResponse
      */
     public function getFacets()
     {
-        $this->parseJsonResponse();
+        if (is_null($this->facets)) {
+            $this->facets = FacetResultCollection::fromArray($this->getResponseKey(static::FACETS));
+        }
         return $this->facets;
-    }
-
-    /**
-     * @param FacetResultCollection $facets
-     */
-    public function setFacets(FacetResultCollection $facets)
-    {
-        $this->facets = $facets;
-    }
-
-    protected function parseJsonResponse()
-    {
-        if ($this->parsed) {
-            return;
-        }
-        parent::parseJsonResponse();
-        if (!$this->isError()) {
-            $jsonResponse = $this->toArray();
-            if (isset($jsonResponse[static::FACETS])) {
-                $facets = FacetResultCollection::fromArray($jsonResponse[static::FACETS]);
-                $this->setFacets($facets);
-            }
-        }
     }
 }

@@ -106,6 +106,18 @@ class PagedQueryResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertSame([['key' => 'value']], $response->getResults());
     }
 
+    public function testGetEmptyResults()
+    {
+        $response = $this->getResponse('{
+            "count": 0,
+            "total": 0,
+            "offset": 0
+        }');
+
+        $this->assertTrue(is_array($response->getResults()));
+        $this->assertEmpty($response->getResults());
+    }
+
     public function testIterator()
     {
         $response = $this->getResponse();

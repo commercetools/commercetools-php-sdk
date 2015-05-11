@@ -29,7 +29,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     /**
      * @return Response
      */
-    protected function getGuzzleResponse($response, $statusCode, $future = false)
+    protected function getGuzzleResponse($response, $statusCode, $future = false, $headers = [])
     {
         $client = new HttpClient();
         // Create a mock subscriber and queue two responses.
@@ -37,7 +37,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
         $mockBody->write($response);
 
         $mock = new Mock([
-            new Response($statusCode, [], $mockBody)
+            new Response($statusCode, $headers, $mockBody)
         ]);
         // Add the mock subscriber to the client.
         $client->getEmitter()->attach($mock);
@@ -54,11 +54,14 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     /**
      * @return AbstractApiResponse
      */
-    protected function getResponse($response = '{"key":"value"}', $statusCode = 200, $future = false)
+    protected function getResponse($response = '{"key":"value"}', $statusCode = 200, $future = false, $headers = [])
     {
         $response = $this->getMockForAbstractClass(
             static::ABSTRACT_API_RESPONSE,
-            [$this->getGuzzleResponse($response, $statusCode, $future), $this->getRequest(static::ABSTRACT_API_REQUEST)]
+            [
+                $this->getGuzzleResponse($response, $statusCode, $future, $headers),
+                $this->getRequest(static::ABSTRACT_API_REQUEST)
+            ]
         );
 
         return $response;
@@ -146,15 +149,6 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
         $response->wait();
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     */
-    public function testPromiseFail()
-    {
-        $response = $this->getResponse('{"key":"value"}');
-        $response->promise();
-    }
-
     public function testThen()
     {
         $response = $this->getResponse('{"key":"value"}', 200, true);
@@ -175,10 +169,15 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertJsonStringEqualsJsonString('{"key":"value"}', json_encode($response->toObject()));
     }
 
-    public function testPromise()
+    public function testHeader()
     {
-        $response = $this->getResponse('{"key":"value"}', 200, true);
-        $this->assertInstanceOf('\React\Promise\PromiseInterface', $response->promise());
-        $response->promise();
+        $response = $this->getResponse('{"key":"value"}', 200, false, ['foo' => 'bar']);
+        $this->assertSame('bar', $response->getHeader('foo'));
+    }
+
+    public function testHeaders()
+    {
+        $response = $this->getResponse('{"key":"value"}', 200, false, ['foo' => 'bar']);
+        $this->assertSame(['foo' => ['bar']], $response->getHeaders());
     }
 }

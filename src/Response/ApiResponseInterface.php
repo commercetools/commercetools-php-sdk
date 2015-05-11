@@ -7,13 +7,14 @@ namespace Sphere\Core\Response;
 
 use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Ring\Future\FutureInterface;
+use React\Promise\PromiseInterface;
 use Sphere\Core\Request\ClientRequestInterface;
 
 /**
  * Interface ApiResponseInterface
  * @package Sphere\Core\Http
  */
-interface ApiResponseInterface extends FutureInterface
+interface ApiResponseInterface
 {
     public function toObject();
 
@@ -32,4 +33,32 @@ interface ApiResponseInterface extends FutureInterface
      * @return ClientRequestInterface
      */
     public function getRequest();
+
+    /**
+     * @return mixed
+     */
+    public function wait();
+
+    /**
+     * @return PromiseInterface
+     */
+    public function then();
+
+    public function cancel();
+
+    /**
+     * @param string $header
+     * @return string
+     */
+    public function getHeader($header);
+
+    /**
+     * @return array
+     */
+    public function getHeaders();
+
+    /**
+     * @return int
+     */
+    public function getStatusCode();
 }

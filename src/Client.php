@@ -216,17 +216,15 @@ class Client extends AbstractHttpClient
         if (is_null($this->logger)) {
             return $this;
         }
-        if ($response->getResponse() instanceof ResponseInterface) {
-            $deprecatedMessage = $response->getResponse()->getHeader(static::DEPRECATION_HEADER);
-            if (!empty($deprecatedMessage)) {
-                $message = sprintf(
-                    Message::DEPRECATED_METHOD,
-                    $response->getRequest()->httpRequest()->getPath(),
-                    $response->getRequest()->httpRequest()->getHttpMethod(),
-                    $deprecatedMessage
-                );
-                $this->logger->warning($message);
-            }
+        $deprecatedMessage = $response->getHeader(static::DEPRECATION_HEADER);
+        if (!empty($deprecatedMessage)) {
+            $message = sprintf(
+                Message::DEPRECATED_METHOD,
+                $response->getRequest()->httpRequest()->getPath(),
+                $response->getRequest()->httpRequest()->getHttpMethod(),
+                $deprecatedMessage
+            );
+            $this->logger->warning($message);
         }
         return $this;
     }

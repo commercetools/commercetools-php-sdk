@@ -21,7 +21,7 @@ use Sphere\Core\Request\ClientRequestInterface;
  * Class AbstractApiResponse
  * @package Sphere\Core\Response
  */
-abstract class AbstractApiResponse implements ApiResponseInterface, ContextAwareInterface
+abstract class AbstractApiResponse implements PromiseInterface, ApiResponseInterface, ContextAwareInterface
 {
     use ContextTrait;
 
@@ -97,12 +97,34 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
     public function isError()
     {
         try {
-            $statusCode = $this->response->getStatusCode();
+            $statusCode = $this->getStatusCode();
         } catch (CancelledFutureAccessException $exception) {
             return true;
         }
 
         return (!in_array($statusCode, [200, 201]));
+    }
+
+    public function getStatusCode()
+    {
+        return $this->getResponse()->getStatusCode();
+    }
+
+    /**
+     * @param $header
+     * @return string
+     */
+    public function getHeader($header)
+    {
+        return $this->getResponse()->getHeader($header);
+    }
+
+    /**
+     * @return array
+     */
+    public function getHeaders()
+    {
+        return $this->getResponse()->getHeaders();
     }
 
     /**
@@ -150,7 +172,7 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
         if (!$this->getResponse() instanceof FutureInterface) {
             throw new \BadMethodCallException(Message::FUTURE_BAD_METHOD_CALL);
         }
-        return $this->getResponse()->cancel();
+        $this->getResponse()->cancel();
     }
 
     /**
@@ -164,17 +186,8 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
         if (!$this->getResponse() instanceof FutureInterface) {
             throw new \BadMethodCallException(Message::FUTURE_BAD_METHOD_CALL);
         }
-        return $this->getResponse()->then($onFulfilled, $onRejected, $onProgress);
-    }
+        $this->getResponse()->then($onFulfilled, $onRejected, $onProgress);
 
-    /**
-     * @return PromiseInterface
-     */
-    public function promise()
-    {
-        if (!$this->getResponse() instanceof FutureInterface) {
-            throw new \BadMethodCallException(Message::FUTURE_BAD_METHOD_CALL);
-        }
-        return $this->getResponse()->promise();
+        return $this;
     }
 }
