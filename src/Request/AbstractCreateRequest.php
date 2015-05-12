@@ -64,7 +64,7 @@ abstract class AbstractCreateRequest extends AbstractApiRequest
      */
     public function httpRequest()
     {
-        return new JsonRequest(HttpMethod::POST, (string)$this->endpoint, $this->getObject());
+        return new JsonRequest(HttpMethod::POST, (string)$this->getPath(), $this->getObject());
     }
 
     /**

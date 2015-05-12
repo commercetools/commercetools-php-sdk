@@ -783,3 +783,47 @@ zone:
     - name
     - description
     - locations
+
+importOrder:
+  domain: order
+  model: importOrder
+  fields:
+    - orderNumber
+    - customerId
+    - customerEmail
+    - lineItems
+    - customLineItems
+    - totalPrice
+    - taxedPrice
+    - shippingAddress
+    - billingAddress
+    - customerGroup
+    - country
+    - orderState
+    - shipmentState
+    - paymentState
+    - shippingInfo
+    - completedAt
+
+importLineItem:
+  domain: order
+  model: importLineItem
+  fields:
+    - productId
+    - name
+    - variant
+    - price
+    - quantity
+    - state
+    - supplyChannel
+    - taxRate
+
+importProductVariant:
+  domain: order
+  model: importProductVariant
+  fields:
+    - id
+    - sku
+    - prices
+    - attributes
+    - images

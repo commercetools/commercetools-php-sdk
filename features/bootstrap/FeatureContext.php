@@ -654,4 +654,15 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $this->request->byCustomerId($customerId);
     }
+
+    /**
+     * @Given i want to import a :context
+     */
+    public function iWantToImportAContext($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ImportRequest';
+        $this->createRequestInstance($request, [$this->getContextObject($context)]);
+    }
 }
