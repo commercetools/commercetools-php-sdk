@@ -32,9 +32,9 @@ class TaxCategoryDraft extends JsonObject
     /**
      * @param string $name
      * @param TaxRateCollection $rates
-     * @param Context $context
+     * @param Context|callable $context
      */
-    public function __construct($name, TaxRateCollection $rates, Context $context = null)
+    public function __construct($name, TaxRateCollection $rates, $context = null)
     {
         $this->setContext($context)
             ->setName($name)
