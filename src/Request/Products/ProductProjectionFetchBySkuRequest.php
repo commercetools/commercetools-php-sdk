@@ -29,7 +29,7 @@ class ProductProjectionFetchBySkuRequest extends AbstractApiRequest
     use ExpandTrait;
 
     /**
-     * @param \Sphere\Core\Client\JsonEndpoint $sku
+     * @param string $sku
      * @param Context $context
      */
     public function __construct($sku, Context $context = null)
