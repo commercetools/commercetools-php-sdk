@@ -10,7 +10,7 @@ Feature: I want to create a new zone
     And the location is locations object
     And set the description to "Zone 1"
 
-  Scenario: create a category
+  Scenario: create a zone
     When i want to create a "zone"
     Then the path should be "zones"
     And the method should be "POST"
