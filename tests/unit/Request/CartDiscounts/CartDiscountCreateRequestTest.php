@@ -13,7 +13,7 @@ class CartDiscountCreateRequestTest extends RequestTestCase
 {
     const CART_DISCOUNT_CREATE_REQUEST = '\Sphere\Core\Request\CartDiscounts\CartDiscountCreateRequest';
 
-    protected function getTaxCategory()
+    protected function getDraft()
     {
         return CartDiscountDraft::fromArray(json_decode(
             '{
@@ -49,13 +49,13 @@ class CartDiscountCreateRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::CART_DISCOUNT_CREATE_REQUEST, [$this->getTaxCategory()]);
+        $result = $this->mapResult(static::CART_DISCOUNT_CREATE_REQUEST, [$this->getDraft()]);
         $this->assertInstanceOf('\Sphere\Core\Model\CartDiscount\CartDiscount', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::CART_DISCOUNT_CREATE_REQUEST, [$this->getTaxCategory()]);
+        $result = $this->mapEmptyResult(static::CART_DISCOUNT_CREATE_REQUEST, [$this->getDraft()]);
         $this->assertNull($result);
     }
 }
