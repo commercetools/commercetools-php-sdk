@@ -13,7 +13,7 @@ Feature: I want to create a new tax category
     And the rates is taxRates object
     And set the description to "TaxCategory 1"
 
-  Scenario: create a category
+  Scenario: create a tax category
     When i want to create a "taxCategory"
     Then the path should be "tax-categories"
     And the method should be "POST"

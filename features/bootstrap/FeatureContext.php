@@ -211,8 +211,13 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theContextFieldIsValueAsType($field, $value, $type)
     {
-        $method = $type . 'val';
-        $this->theContextFieldIsValue($field, $method($value));
+        if ($type == 'bool') {
+            $value = (bool)$value;
+        } else {
+            $method = $type . 'val';
+            $value = $method($value);
+        }
+        $this->theContextFieldIsValue($field, $value);
     }
 
     /**
