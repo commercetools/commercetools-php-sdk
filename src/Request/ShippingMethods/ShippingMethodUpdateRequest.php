@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
  */
 class ShippingMethodUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\ShippingMethod\ShippingMethod';
 
     /**
      * @param string $id

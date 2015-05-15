@@ -93,7 +93,7 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\ShippingMethods\ShippingMethodsQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\ShippingMethod\ShippingMethodCollection',
             ],
             [
                 '\Sphere\Core\Request\States\StatesQueryRequest',

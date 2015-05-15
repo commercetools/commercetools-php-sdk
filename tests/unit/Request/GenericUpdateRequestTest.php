@@ -86,6 +86,10 @@ class GenericUpdateRequestTest extends RequestTestCase
                 '\Sphere\Core\Request\Zones\ZoneUpdateRequest',
                 '\Sphere\Core\Model\Zone\Zone',
             ],
+            [
+                '\Sphere\Core\Request\ShippingMethods\ShippingMethodUpdateRequest',
+                '\Sphere\Core\Model\ShippingMethod\ShippingMethod',
+            ],
         ];
     }
 

@@ -89,6 +89,10 @@ class GenericFetchByIdRequestTest extends RequestTestCase
                 '\Sphere\Core\Request\Zones\ZoneFetchByIdRequest',
                 '\Sphere\Core\Model\Zone\Zone',
             ],
+            [
+                '\Sphere\Core\Request\ShippingMethods\ShippingMethodFetchByIdRequest',
+                '\Sphere\Core\Model\ShippingMethod\ShippingMethod',
+            ],
         ];
     }
 
