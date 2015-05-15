@@ -3,7 +3,7 @@ Feature: I want to create a new inventory entry
     Given i have a inventory draft
     And the sku is "SKU-12345"
     And the quantityInStock is 100 as int
-    And set the restockableInDays to 5
+    And set the restockableInDays to 5 as int
     And set the expectedDelivery date to "2015-05-15 12:00:00"
     And set the channel reference supplyChannel to "supply-channel-id"
 
