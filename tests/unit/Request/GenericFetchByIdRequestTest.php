@@ -47,7 +47,7 @@ class GenericFetchByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Inventory\InventoryFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Inventory\InventoryEntry',
             ],
             [
                 '\Sphere\Core\Request\Messages\MessageFetchByIdRequest',

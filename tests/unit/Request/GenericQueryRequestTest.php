@@ -65,7 +65,7 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Inventory\InventoryQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\Inventory\InventoryEntryCollection',
             ],
             [
                 '\Sphere\Core\Request\Messages\MessagesQueryRequest',

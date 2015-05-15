@@ -43,7 +43,7 @@ class GenericDeleteByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Inventory\InventoryDeleteByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Inventory\InventoryEntry',
             ],
             [
                 '\Sphere\Core\Request\ProductDiscounts\ProductDiscountDeleteByIdRequest',

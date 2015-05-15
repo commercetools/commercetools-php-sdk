@@ -48,7 +48,7 @@ class GenericUpdateRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Inventory\InventoryUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Inventory\InventoryEntry',
             ],
             [
                 '\Sphere\Core\Request\Orders\OrderUpdateRequest',

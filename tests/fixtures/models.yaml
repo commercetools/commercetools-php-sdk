@@ -827,3 +827,18 @@ importProductVariant:
     - prices
     - attributes
     - images
+
+inventoryEntry:
+  domain: inventory
+  model: inventoryEntry
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - sku
+    - supplyChannel
+    - quantityOnStock
+    - availableQuantity
+    - restockableInDays
+    - expectedDelivery
