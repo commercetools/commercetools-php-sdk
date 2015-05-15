@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Model\Product;
 
+use Sphere\Core\Model\Common\DateTimeDecorator;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\OfTrait;
 
@@ -22,8 +23,11 @@ class FilterRange extends JsonObject
 
     protected $valueType;
 
-    public function __construct($valueType)
+    public function __construct($valueType = null)
     {
+        if (is_null($valueType)) {
+            $valueType = 'int';
+        }
         $this->valueType = $valueType;
     }
 
@@ -35,16 +39,26 @@ class FilterRange extends JsonObject
         ];
     }
 
-    protected function mapValue($value)
+    protected function valueToString($value)
     {
         if (is_null($value)) {
             return '*';
         }
-        return $value;
+        if (is_int($value) || is_float($value)) {
+            return $value;
+        }
+        if (is_string($value)) {
+            return '"' . $value . '"';
+        }
+        if ($value instanceof \DateTime) {
+            $decorator = new DateTimeDecorator($value);
+            return '"' . $decorator->jsonSerialize() . '"';
+        }
+        return (string)$value;
     }
 
     public function __toString()
     {
-        return sprintf('(%s to %s)', $this->mapValue($this->getFrom()), $this->mapValue($this->getTo()));
+        return sprintf('(%s to %s)', $this->valueToString($this->getFrom()), $this->valueToString($this->getTo()));
     }
 }

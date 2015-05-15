@@ -40,4 +40,32 @@ class FilterRangeTest extends \PHPUnit_Framework_TestCase
         $range = new FilterRange('int');
         $range->setTo('test');
     }
+
+    public function testStringRange()
+    {
+        $range = new FilterRange('string');
+        $range->setTo('test');
+        $this->assertSame('(* to "test")', (string)$range);
+    }
+
+    public function testDateTimeRange()
+    {
+        $range = new FilterRange('\DateTime');
+        $range->setTo(new \DateTime('2015-01-01 13:11', new \DateTimeZone('CET')));
+        $this->assertSame('(* to "2015-01-01T12:11:00+00:00")', (string)$range);
+    }
+
+    public function testObjectRange()
+    {
+        $range = new FilterRange('\Sphere\Core\Model\Product\RangeTestObject');
+        $range->setTo(new RangeTestObject(4, '"'));
+        $this->assertSame('(* to "4")', (string)$range);
+    }
+
+    public function testDefaultType()
+    {
+        $range = new FilterRange();
+        $range->setTo(1);
+        $this->assertTrue(is_int($range->getTo()));
+    }
 }
