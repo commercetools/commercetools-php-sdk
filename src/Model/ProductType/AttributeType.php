@@ -14,6 +14,7 @@ use Sphere\Core\Model\Common\Collection;
  * @package Sphere\Core\Model\ProductType
  * @link http://dev.sphere.io/http-api-projects-productTypes.html#attribute-type
  * @method string getName()
+ * @method AttributeType setName(string $name = null)
  * @method Collection getValues()
  * @method AttributeType setValues(Collection $values = null)
  * @method string getReferenceTypeId()
@@ -38,9 +39,8 @@ class AttributeType extends JsonObject
 
     /**
      * @param string $name
-     * @return AttributeType
      */
-    public function setName($name)
+    protected function setValuesType($name)
     {
         switch ($name) {
             case "enum":
@@ -50,19 +50,18 @@ class AttributeType extends JsonObject
                 $this->getValues()->setType('\Sphere\Core\Model\Common\LocalizedEnum');
                 break;
         }
-        return parent::setName($name);
     }
 
     /**
      * @param array $data
      * @param Context|callable $context
-     * @return static;
+     * @return static
      */
     public static function fromArray(array $data, $context = null)
     {
         $type = new static($data, $context);
         if (isset($data['name'])) {
-            $type->setName($data['name']);
+            $type->setValuesType($data['name']);
         }
         return $type;
     }
