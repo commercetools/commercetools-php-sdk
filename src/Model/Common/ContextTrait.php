@@ -34,6 +34,9 @@ trait ContextTrait
      */
     public function getContextCallback()
     {
+        if (is_callable($this->context)) {
+            return $this->context;
+        }
         return [$this, 'getContext'];
     }
 

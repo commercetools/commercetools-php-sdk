@@ -59,6 +59,5 @@ class ContextTest extends \PHPUnit_Framework_TestCase
 
         $context->setCurrencyFormatter($formatter);
         $this->assertSame($formatter, $context->getCurrencyFormatter());
-
     }
 }
