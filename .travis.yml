@@ -39,3 +39,7 @@ env:
     - secure: Q4zRyFxLw/7YlHG/iWzyR7V7Srm8LsQ3UgMshckUyqefhzhF19GefoPJdPdALyLVEYQMG3O/U1aebbyt8Puy5jWWKKiwFaQA+mMXzpBFcvhutgxByqBXdIysIhGU65No+WbiCKlpL2WPNtYvE1cMSjFfn7IX8ThGkBxhJQcha38=
     # SPHERE_PROJECT
     - secure: CPj46vCtmLaxGKXycJW+PmNXloXu5ruOV/Qg1mA6tU83oPjlxHVrqMOlb87ykf6U8X6XXAjMrgR0q3gBepPJg3HZmJyeOsVhwSU/jhfN7L1lR7BrQrPdLutvhuC6Fgj+b2Ubzh7PIt7pR6AYZyMCv5ofajW9aBcC5D556WJsSjE=
+notifications:
+  hipchat:
+    rooms:
+      secure: VD5RvUZYVg1aokw8OeMhNfDPc39o2r4Jjq8s6U2QvMXzoiopHpj6+VYX1AHbhxMpBGmsgKfzbYQ6XfubJUeHq+FMzW3YEekwcyqXKCfWi5tLCE7Epb0dCySatztVTkqlXzXaAM6NhzdFxG6kQPiA9OcSvRPZmSwjuX4eYXRokRw=
