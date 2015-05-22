@@ -1,0 +1,25 @@
+<?php
+/**
+ * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ */
+
+namespace Sphere\Core\Request\ProductDiscounts;
+
+
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\ProductDiscount\ProductDiscountDraft;
+use Sphere\Core\Request\AbstractCreateRequest;
+
+class ProductDiscountCreateRequest extends AbstractCreateRequest
+{
+    protected $resultClass = '\Sphere\Core\Model\ProductDiscount\ProductDiscount';
+
+    /**
+     * @param ProductDiscountDraft $productDiscount
+     * @param Context $context
+     */
+    public function __construct(ProductDiscountDraft $productDiscount, Context $context = null)
+    {
+        parent::__construct(ProductDiscountsEndpoint::endpoint(), $productDiscount, $context);
+    }
+}
