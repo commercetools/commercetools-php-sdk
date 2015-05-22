@@ -31,7 +31,7 @@ class GenericFetchByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Comments\CommentFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Comment\Comment',
             ],
             [
                 '\Sphere\Core\Request\CustomerGroups\CustomerGroupFetchByIdRequest',
@@ -71,7 +71,7 @@ class GenericFetchByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Reviews\ReviewFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Review\Review',
             ],
             [
                 '\Sphere\Core\Request\ShippingMethods\ShippingMethodFetchByIdRequest',

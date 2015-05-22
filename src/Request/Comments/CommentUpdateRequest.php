@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
  */
 class CommentUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\Comment\Comment';
 
     /**
      * @param string $id

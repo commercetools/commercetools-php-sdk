@@ -1,0 +1,25 @@
+<?php
+/**
+ * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ */
+
+namespace Sphere\Core\Request\Comments;
+
+
+use Sphere\Core\Model\Comment\CommentDraft;
+use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Request\AbstractCreateRequest;
+
+class CommentCreateRequest extends AbstractCreateRequest
+{
+    protected $resultClass = '\Sphere\Core\Model\Comment\Comment';
+
+    /**
+     * @param CommentDraft $comment
+     * @param Context $context
+     */
+    public function __construct(CommentDraft $comment, Context $context = null)
+    {
+        parent::__construct(CommentsEndpoint::endpoint(), $comment, $context);
+    }
+}

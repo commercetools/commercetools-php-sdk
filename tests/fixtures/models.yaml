@@ -842,3 +842,32 @@ inventoryEntry:
     - availableQuantity
     - restockableInDays
     - expectedDelivery
+
+review:
+  domain: review
+  model: review
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - productId
+    - customerId
+    - authorName
+    - title
+    - text
+    - score
+
+comment:
+  domain: comment
+  model: comment
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - productId
+    - customerId
+    - authorName
+    - title
+    - text

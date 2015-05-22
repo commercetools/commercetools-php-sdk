@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
  */
 class ReviewUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\Review\Review';
 
     /**
      * @param string $id

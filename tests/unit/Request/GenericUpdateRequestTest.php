@@ -32,7 +32,7 @@ class GenericUpdateRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Comments\CommentUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Comment\Comment',
             ],
             [
                 '\Sphere\Core\Request\CustomerGroups\CustomerGroupUpdateRequest',
@@ -68,7 +68,7 @@ class GenericUpdateRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Reviews\ReviewUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Review\Review',
             ],
             [
                 '\Sphere\Core\Request\ShippingMethods\ShippingMethodUpdateRequest',

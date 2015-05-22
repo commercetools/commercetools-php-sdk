@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
  */
 class CommentsQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\Collection';
+    protected $resultClass = '\Sphere\Core\Model\Comment\CommentCollection';
 
     /**
      * @param Context $context

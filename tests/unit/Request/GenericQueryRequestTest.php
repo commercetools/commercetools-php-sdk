@@ -38,7 +38,7 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Comments\CommentsQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\Comment\CommentCollection',
             ],
             [
                 '\Sphere\Core\Request\CustomerGroups\CustomerGroupsQueryRequest',
@@ -89,7 +89,7 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Reviews\ReviewsQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\Review\ReviewCollection',
             ],
             [
                 '\Sphere\Core\Request\ShippingMethods\ShippingMethodsQueryRequest',
