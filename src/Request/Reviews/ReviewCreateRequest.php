@@ -22,5 +22,4 @@ class ReviewCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(ReviewsEndpoint::endpoint(), $review, $context);
     }
-
 }
