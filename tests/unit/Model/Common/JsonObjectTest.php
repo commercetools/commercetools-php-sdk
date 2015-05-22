@@ -8,7 +8,9 @@ namespace Sphere\Core\Model\Type;
 
 
 use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\ProductType\AttributeDefinition;
 use Sphere\Core\Model\ProductType\ProductType;
+use Sphere\Core\Model\ProductType\ProductTypeDraft;
 
 /**
  * Class JsonObjectTest
@@ -205,5 +207,16 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         $obj = $this->getObject();
         $obj->setDecorator(new \DateTime());
         $this->assertInstanceOf('\Sphere\Core\Model\Common\DateTimeDecorator', $obj->getDecorator());
+    }
+
+    public function testContextInheritance()
+    {
+        $obj = new ProductTypeDraft('test', 'test');
+        $obj->getAttributes()->add(AttributeDefinition::of()->setName('test'));
+        $context = $obj->getContext();
+        $contextChild = $obj->getAttributes()->getAt(0)->getContext();
+        $contextChild['test']= 'test';
+
+        $this->assertSame('test', $context['test']);
     }
 }
