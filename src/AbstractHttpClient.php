@@ -16,7 +16,7 @@ use GuzzleHttp\Client as HttpClient;
 abstract class AbstractHttpClient
 {
 
-    const VERSION = '1.0.0-M3';
+    const VERSION = '1.0.0 M3';
 
     /**
      * @var HttpClient
@@ -88,7 +88,7 @@ abstract class AbstractHttpClient
     protected function getUserAgent()
     {
         if (is_null($this->userAgent)) {
-            $agent = 'SPHERE.IO PHP-SDK/' . static::VERSION;
+            $agent = 'sphere-php-sdk ' . static::VERSION;
             if (extension_loaded('curl')) {
                 $agent .= ' curl/' . curl_version()['version'];
             }

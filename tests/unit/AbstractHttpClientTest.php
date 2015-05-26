@@ -63,6 +63,6 @@ class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
          */
         $httpClient = $client->getHttpClient();
         $request = $httpClient->createRequest('get', '/test');
-        $this->assertContains('SPHERE.IO PHP-SDK/' . AbstractHttpClient::VERSION, $request->getHeader('user-agent'));
+        $this->assertContains('sphere-php-sdk ' . AbstractHttpClient::VERSION, $request->getHeader('user-agent'));
     }
 }
