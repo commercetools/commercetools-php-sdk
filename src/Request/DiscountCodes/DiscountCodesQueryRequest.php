@@ -15,7 +15,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
  */
 class DiscountCodesQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\Collection';
+    protected $resultClass = '\Sphere\Core\Model\DiscountCode\DiscountCodeCollection';
 
     /**
      * @param Context $context

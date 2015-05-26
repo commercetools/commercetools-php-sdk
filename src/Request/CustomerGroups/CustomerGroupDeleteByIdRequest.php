@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
  */
 class CustomerGroupDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\CustomerGroup\CustomerGroup';
 
     /**
      * @param string $id

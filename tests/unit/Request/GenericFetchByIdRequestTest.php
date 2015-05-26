@@ -15,7 +15,7 @@ class GenericFetchByIdRequestTest extends RequestTestCase
         return [
             [
                 '\Sphere\Core\Request\CartDiscounts\CartDiscountFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\CartDiscount\CartDiscount',
             ],
             [
                 '\Sphere\Core\Request\Carts\CartFetchByIdRequest',
@@ -27,7 +27,7 @@ class GenericFetchByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Channels\ChannelFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Channel\Channel',
             ],
             [
                 '\Sphere\Core\Request\Comments\CommentFetchByIdRequest',
@@ -35,7 +35,7 @@ class GenericFetchByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\CustomerGroups\CustomerGroupFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\CustomerGroup\CustomerGroup',
             ],
             [
                 '\Sphere\Core\Request\Customers\CustomerFetchByIdRequest',
@@ -43,7 +43,7 @@ class GenericFetchByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\DiscountCodes\DiscountCodeFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\DiscountCode\DiscountCode',
             ],
             [
                 '\Sphere\Core\Request\Inventory\InventoryFetchByIdRequest',
@@ -51,7 +51,7 @@ class GenericFetchByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Messages\MessageFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Message\Message',
             ],
             [
                 '\Sphere\Core\Request\Orders\OrderFetchByIdRequest',
@@ -59,7 +59,7 @@ class GenericFetchByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\ProductDiscounts\ProductDiscountFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\ProductDiscount\ProductDiscount',
             ],
             [
                 '\Sphere\Core\Request\Products\ProductFetchByIdRequest',
@@ -67,7 +67,7 @@ class GenericFetchByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\ProductTypes\ProductTypeFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\ProductType\ProductType',
             ],
             [
                 '\Sphere\Core\Request\Reviews\ReviewFetchByIdRequest',
@@ -75,15 +75,15 @@ class GenericFetchByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\ShippingMethods\ShippingMethodFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\ShippingMethod\ShippingMethod',
             ],
             [
                 '\Sphere\Core\Request\States\StateFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\State\State',
             ],
             [
                 '\Sphere\Core\Request\TaxCategories\TaxCategoryFetchByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\TaxCategory\TaxCategory',
             ],
             [
                 '\Sphere\Core\Request\Zones\ZoneFetchByIdRequest',

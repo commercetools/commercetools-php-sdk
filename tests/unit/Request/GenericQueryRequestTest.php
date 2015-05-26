@@ -15,7 +15,7 @@ class GenericQueryRequestTest extends RequestTestCase
         return [
             [
                 '\Sphere\Core\Request\CartDiscounts\CartDiscountsQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\CartDiscount\CartDiscountCollection',
             ],
             [
                 '\Sphere\Core\Request\Carts\CartsQueryRequest',
@@ -34,7 +34,7 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Channels\ChannelsQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\Channel\ChannelCollection',
             ],
             [
                 '\Sphere\Core\Request\Comments\CommentsQueryRequest',
@@ -42,7 +42,7 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\CustomerGroups\CustomerGroupsQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\CustomerGroup\CustomerGroupCollection',
             ],
             [
                 '\Sphere\Core\Request\Customers\CustomersQueryRequest',
@@ -61,7 +61,7 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\DiscountCodes\DiscountCodesQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\DiscountCode\DiscountCodeCollection',
             ],
             [
                 '\Sphere\Core\Request\Inventory\InventoryQueryRequest',
@@ -69,7 +69,7 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Messages\MessagesQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\Message\MessageCollection',
             ],
             [
                 '\Sphere\Core\Request\Orders\OrdersQueryRequest',
@@ -77,7 +77,7 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\ProductDiscounts\ProductDiscountsQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\ProductDiscount\ProductDiscountCollection',
             ],
             [
                 '\Sphere\Core\Request\Products\ProductsQueryRequest',
@@ -85,7 +85,7 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\ProductTypes\ProductTypesQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\ProductType\ProductTypeCollection',
             ],
             [
                 '\Sphere\Core\Request\Reviews\ReviewsQueryRequest',
@@ -97,11 +97,11 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\States\StatesQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\State\StateCollection',
             ],
             [
                 '\Sphere\Core\Request\TaxCategories\TaxCategoriesQueryRequest',
-                '\Sphere\Core\Model\Common\Collection',
+                '\Sphere\Core\Model\TaxCategory\TaxCategoryCollection',
             ],
             [
                 '\Sphere\Core\Request\Zones\ZonesQueryRequest',

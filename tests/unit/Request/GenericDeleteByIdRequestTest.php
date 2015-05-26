@@ -15,7 +15,7 @@ class GenericDeleteByIdRequestTest extends RequestTestCase
         return [
             [
                 '\Sphere\Core\Request\CartDiscounts\CartDiscountDeleteByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\CartDiscount\CartDiscount',
             ],
             [
                 '\Sphere\Core\Request\Carts\CartDeleteByIdRequest',
@@ -27,11 +27,11 @@ class GenericDeleteByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Channels\ChannelDeleteByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Channel\Channel',
             ],
             [
                 '\Sphere\Core\Request\CustomerGroups\CustomerGroupDeleteByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\CustomerGroup\CustomerGroup',
             ],
             [
                 '\Sphere\Core\Request\Customers\CustomerDeleteByIdRequest',
@@ -39,7 +39,7 @@ class GenericDeleteByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\DiscountCodes\DiscountCodeDeleteByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\DiscountCode\DiscountCode',
             ],
             [
                 '\Sphere\Core\Request\Inventory\InventoryDeleteByIdRequest',
@@ -47,7 +47,7 @@ class GenericDeleteByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\ProductDiscounts\ProductDiscountDeleteByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\ProductDiscount\ProductDiscount',
             ],
             [
                 '\Sphere\Core\Request\Products\ProductDeleteByIdRequest',
@@ -55,15 +55,15 @@ class GenericDeleteByIdRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\ProductTypes\ProductTypeDeleteByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\ProductType\ProductType',
             ],
             [
                 '\Sphere\Core\Request\States\StateDeleteByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\State\State',
             ],
             [
                 '\Sphere\Core\Request\TaxCategories\TaxCategoryDeleteByIdRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\TaxCategory\TaxCategory',
             ],
             [
                 '\Sphere\Core\Request\Zones\ZoneDeleteByIdRequest',

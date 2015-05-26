@@ -871,3 +871,14 @@ comment:
     - authorName
     - title
     - text
+
+message:
+  domain: message
+  model: message
+  fields:
+    - id
+    - sequenceNumber
+    - resource
+    - resourceVersion
+    - type
+    - createdAt
