@@ -40,9 +40,12 @@ interface ApiResponseInterface
     public function wait();
 
     /**
+     * @param callable $onFulfilled
+     * @param callable $onRejected
+     * @param callable $onProgress
      * @return PromiseInterface
      */
-    public function then();
+    public function then(callable $onFulfilled = null, callable $onRejected = null, callable $onProgress = null);
 
     public function cancel();
 

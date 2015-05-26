@@ -78,11 +78,12 @@ class ProductsSearchRequest extends AbstractProjectionRequest
     /**
      * @param string $type
      * @param Filter $filter
+     * @param bool $replace
      * @return $this
      */
-    protected function filter($type, Filter $filter)
+    protected function filter($type, Filter $filter, $replace = false)
     {
-        return $this->addParam($type, $filter, false);
+        return $this->addParam($type, $filter, $replace);
     }
 
     /**
@@ -91,7 +92,7 @@ class ProductsSearchRequest extends AbstractProjectionRequest
      */
     public function addFilter(Filter $filter)
     {
-        return $this->filter(static::FILTER, $filter, false);
+        return $this->filter(static::FILTER, $filter);
     }
 
     /**
@@ -100,7 +101,7 @@ class ProductsSearchRequest extends AbstractProjectionRequest
      */
     public function addFilterQuery(Filter $filter)
     {
-        return $this->filter(static::FILTER_QUERY, $filter, false);
+        return $this->filter(static::FILTER_QUERY, $filter);
     }
 
     /**
@@ -109,7 +110,7 @@ class ProductsSearchRequest extends AbstractProjectionRequest
      */
     public function addFilterFacets(Filter $filter)
     {
-        return $this->filter(static::FILTER_FACETS, $filter, false);
+        return $this->filter(static::FILTER_FACETS, $filter);
     }
 
     /**
@@ -118,6 +119,6 @@ class ProductsSearchRequest extends AbstractProjectionRequest
      */
     public function addFacet(Facet $filter)
     {
-        return $this->filter(static::FACET, $filter, false);
+        return $this->filter(static::FACET, $filter);
     }
 }

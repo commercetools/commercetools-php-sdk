@@ -34,7 +34,6 @@ class ProductRemovePriceAction extends AbstractAction
 
     /**
      * @param int $priceId
-     * @param Price $price
      */
     public function __construct($priceId)
     {
