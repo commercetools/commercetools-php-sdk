@@ -246,6 +246,18 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'externalId']
             ],
             [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaTitleAction',
+                ['action', 'metaTitle']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaDescriptionAction',
+                ['action', 'metaDescription']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaKeywordsAction',
+                ['action', 'metaKeywords']
+            ],
+            [
                 '\Sphere\Core\Request\Carts\Command\CartAddCustomLineItemAction',
                 ['action', 'name', 'quantity', 'money', 'slug', 'taxCategory']
             ],
@@ -591,6 +603,15 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Sphere\Core\Request\Categories\Command\CategorySetExternalIdAction',
                 ['externalId']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaTitleAction',
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaDescriptionAction',
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaKeywordsAction',
             ],
             [
                 '\Sphere\Core\Request\Carts\Command\CartAddCustomLineItemAction',
