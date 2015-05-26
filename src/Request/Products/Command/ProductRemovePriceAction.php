@@ -14,12 +14,12 @@ use Sphere\Core\Request\AbstractAction;
  * @link http://dev.sphere.io/http-api-projects-products.html#remove-price
  * @method string getAction()
  * @method ProductRemovePriceAction setAction(string $action = null)
- * @method int getVariantId()
- * @method ProductRemovePriceAction setVariantId(int $variantId = null)
  * @method Price getPrice()
  * @method ProductRemovePriceAction setPrice(Price $price = null)
  * @method bool getStaged()
  * @method ProductRemovePriceAction setStaged(bool $staged = null)
+ * @method int getPriceId()
+ * @method ProductRemovePriceAction setPriceId(int $priceId = null)
  */
 class ProductRemovePriceAction extends AbstractAction
 {
@@ -27,20 +27,18 @@ class ProductRemovePriceAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'variantId' => [static::TYPE => 'int'],
-            'price' => [static::TYPE => '\Sphere\Core\Model\Common\Price'],
+            'priceId' => [static::TYPE => 'int'],
             'staged' => [static::TYPE => 'bool'],
         ];
     }
 
     /**
-     * @param int $variantId
+     * @param int $priceId
      * @param Price $price
      */
-    public function __construct($variantId, Price $price)
+    public function __construct($priceId)
     {
         $this->setAction('removePrice');
-        $this->setVariantId($variantId);
-        $this->setPrice($price);
+        $this->setPriceId($priceId);
     }
 }

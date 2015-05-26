@@ -204,7 +204,7 @@ Feature: I want to send a Product Update Request
 
   Scenario:
     Given i want to "changePrice" of "product"
-    And the "variantId" is "1" as "int"
+    And the "priceId" is "1" as "int"
     And the "price" is "price" object
     When i want to update a "Product"
     Then the path should be "products/id"
@@ -216,7 +216,7 @@ Feature: I want to send a Product Update Request
       "actions": [
         {
           "action": "changePrice",
-          "variantId": 1,
+          "priceId": 1,
           "price": {
             "value": {
               "currencyCode": "EUR",
@@ -231,7 +231,7 @@ Feature: I want to send a Product Update Request
 
   Scenario:
     Given i want to "removePrice" of "product"
-    And the "variantId" is "1" as "int"
+    And the "priceId" is "1" as "int"
     And the "price" is "price" object
     When i want to update a "Product"
     Then the path should be "products/id"
@@ -243,14 +243,7 @@ Feature: I want to send a Product Update Request
       "actions": [
         {
           "action": "removePrice",
-          "variantId": 1,
-          "price": {
-            "value": {
-              "currencyCode": "EUR",
-              "centAmount": 300
-            },
-            "country": "DE"
-          }
+          "priceId": 1
         }
       ]
     }

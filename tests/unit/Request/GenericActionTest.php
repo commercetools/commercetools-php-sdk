@@ -39,7 +39,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductChangePriceAction',
-                ['action', 'variantId', 'price', 'staged']
+                ['action', 'priceId', 'price', 'staged']
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductChangeSlugAction',
@@ -59,7 +59,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductRemovePriceAction',
-                ['action', 'variantId', 'price', 'staged']
+                ['action', 'priceId', 'staged']
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductRemoveVariantAction',
@@ -372,8 +372,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Sphere\Core\Request\Products\Command\ProductRemovePriceAction',
                 [
-                    10,
-                    $this->getInstance('\Sphere\Core\Model\Common\Price')
+                    10
                 ]
             ],
             [
