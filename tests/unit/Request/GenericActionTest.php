@@ -86,6 +86,18 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'metaTitle', 'metaDescription', 'metaKeywords', 'staged']
             ],
             [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaTitleAction',
+                ['action', 'metaTitle']
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaDescriptionAction',
+                ['action', 'metaDescription']
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaKeywordsAction',
+                ['action', 'metaKeywords']
+            ],
+            [
                 '\Sphere\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
                 ['action', 'searchKeywords', 'staged']
             ],
@@ -399,6 +411,15 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductSetMetaAttributesAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaTitleAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaDescriptionAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaKeywordsAction',
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
