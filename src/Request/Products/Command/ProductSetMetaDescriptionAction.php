@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class ProductSetMetaDescriptionAction
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#set-meta-attributes
+ * @link http://dev.sphere.io/http-api-projects-products.html#set-meta-description
  * @method string getAction()
  * @method ProductSetMetaDescriptionAction setAction(string $action = null)
  * @method LocalizedString getMetaDescription()

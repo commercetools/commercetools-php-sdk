@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class CategorySetMetaKeywordsAction
  * @package Sphere\Core\Request\Categories\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#set-meta-attributes
+ * @link http://dev.sphere.io/http-api-projects-categories.html#set-meta-keywords
  * @method string getAction()
  * @method CategorySetMetaKeywordsAction setAction(string $action = null)
  * @method LocalizedString getMetaKeywords()
