@@ -141,12 +141,6 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i have a "common" "localizedString" object as "metaTitle"
-    Given i have a "common" "localizedString" object as "metaDescription"
-    And the "description" is "metaDescription" in "en"
-    Given i have a "common" "localizedString" object as "metaKeywords"
-    And the "keywords" is "metaKeywords" in "en"
-
     Given i want to "setMetaAttributes" of "product"
     And set the "metaTitle" to "metaTitle" in "en"
     And set the "metaDescription" to "metaDescription" in "en"
@@ -167,6 +161,69 @@ Feature: I want to send a Product Update Request
           "metaDescription": {
             "en": "metaDescription"
           },
+          "metaKeywords": {
+            "en": "metaKeywords"
+          }
+        }
+      ]
+    }
+    """
+
+  Scenario:
+    Given i want to "setMetaTitle" of "product"
+    And set the "metaTitle" to "metaTitle" in "en"
+    When i want to update a "Product"
+    Then the path should be "products/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "setMetaTitle",
+          "metaTitle": {
+            "en": "metaTitle"
+          }
+        }
+      ]
+    }
+    """
+
+  Scenario:
+    Given i want to "setMetaDescription" of "product"
+    And set the "metaDescription" to "metaDescription" in "en"
+    When i want to update a "Product"
+    Then the path should be "products/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "setMetaDescription",
+          "metaDescription": {
+            "en": "metaDescription"
+          }
+        }
+      ]
+    }
+    """
+
+  Scenario:
+    Given i want to "setMetaKeywords" of "product"
+    And set the "metaKeywords" to "metaKeywords" in "en"
+    When i want to update a "Product"
+    Then the path should be "products/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "setMetaKeywords",
           "metaKeywords": {
             "en": "metaKeywords"
           }
