@@ -11,7 +11,6 @@ use Sphere\Core\Model\Common\Reference;
 /**
  * Class Message
  * @package Sphere\Core\Model\Message
- * 
  * @method string getId()
  * @method Message setId(string $id = null)
  * @method \DateTime getCreatedAt()

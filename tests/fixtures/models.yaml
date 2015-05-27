@@ -233,6 +233,7 @@ price:
   domain: common
   model: Price
   fields:
+    - id
     - value
     - country
     - customerGroup
