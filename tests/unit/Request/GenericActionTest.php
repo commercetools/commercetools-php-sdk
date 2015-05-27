@@ -86,6 +86,18 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'metaTitle', 'metaDescription', 'metaKeywords', 'staged']
             ],
             [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaTitleAction',
+                ['action', 'metaTitle']
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaDescriptionAction',
+                ['action', 'metaDescription']
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaKeywordsAction',
+                ['action', 'metaKeywords']
+            ],
+            [
                 '\Sphere\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
                 ['action', 'searchKeywords', 'staged']
             ],
@@ -232,6 +244,18 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Sphere\Core\Request\Categories\Command\CategorySetExternalIdAction',
                 ['action', 'externalId']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaTitleAction',
+                ['action', 'metaTitle']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaDescriptionAction',
+                ['action', 'metaDescription']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaKeywordsAction',
+                ['action', 'metaKeywords']
             ],
             [
                 '\Sphere\Core\Request\Carts\Command\CartAddCustomLineItemAction',
@@ -398,6 +422,15 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductSetMetaAttributesAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaTitleAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaDescriptionAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaKeywordsAction',
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
@@ -569,6 +602,15 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Sphere\Core\Request\Categories\Command\CategorySetExternalIdAction',
                 ['externalId']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaTitleAction',
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaDescriptionAction',
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaKeywordsAction',
             ],
             [
                 '\Sphere\Core\Request\Carts\Command\CartAddCustomLineItemAction',

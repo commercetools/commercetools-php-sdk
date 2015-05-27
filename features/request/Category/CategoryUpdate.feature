@@ -132,3 +132,66 @@ Feature: I want to update a category
       ]
     }
     """
+
+  Scenario:
+    Given i want to "setMetaTitle" of "category"
+    And set the "metaTitle" to "metaTitle" in "en"
+    When i want to update a "Category"
+    Then the path should be "categories/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "setMetaTitle",
+          "metaTitle": {
+            "en": "metaTitle"
+          }
+        }
+      ]
+    }
+    """
+
+  Scenario:
+    Given i want to "setMetaDescription" of "category"
+    And set the "metaDescription" to "metaDescription" in "en"
+    When i want to update a "Category"
+    Then the path should be "categories/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "setMetaDescription",
+          "metaDescription": {
+            "en": "metaDescription"
+          }
+        }
+      ]
+    }
+    """
+
+  Scenario:
+    Given i want to "setMetaKeywords" of "category"
+    And set the "metaKeywords" to "metaKeywords" in "en"
+    When i want to update a "Category"
+    Then the path should be "categories/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "setMetaKeywords",
+          "metaKeywords": {
+            "en": "metaKeywords"
+          }
+        }
+      ]
+    }
+    """
