@@ -93,6 +93,7 @@ brew tap homebrew/dupes
 brew tap homebrew/versions
 brew tap homebrew/homebrew-php
 brew install php55
+brew install php55-intl
 brew install php55-apcu
 brew install php55-xdebug
 brew install ant
