@@ -259,6 +259,40 @@ Feature: I want to send a Product Update Request
     }
     """
 
+  Scenario: add price with validity period
+    Given i have a "common" "price" object as "periodPrice"
+    And the "value" is "money" object
+    And set the "country" to "DE"
+    And set the validFrom date to "2015-05-15 12:00"
+    And set the validUntil date to "2015-05-15 13:00"
+    Given i want to "addPrice" of "product"
+    And the "variantId" is "1" as "int"
+    And the "price" is "periodPrice" object
+    When i want to update a "Product"
+    Then the path should be "products/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": "version",
+      "actions": [
+        {
+          "action": "addPrice",
+          "variantId": 1,
+          "price": {
+            "value": {
+              "currencyCode": "EUR",
+              "centAmount": 300
+            },
+            "country": "DE",
+            "validFrom": "2015-05-15T12:00:00+00:00",
+            "validUntil": "2015-05-15T13:00:00+00:00"
+          }
+        }
+      ]
+    }
+    """
+
   Scenario:
     Given i want to "changePrice" of "product"
     And the "priceId" is "1" as "int"

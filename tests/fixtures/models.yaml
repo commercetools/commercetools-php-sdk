@@ -238,6 +238,8 @@ price:
     - country
     - customerGroup
     - channel
+    - validFrom
+    - validUntil
     - discounted
 
 customer:
