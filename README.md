@@ -25,7 +25,7 @@ curl -sS https://getcomposer.org/installer | php
 Next, run the Composer command to install the latest version of the SDK:
 
 ```bash
-composer require sphere/php-sdk
+composer require sphere/php-sdk dev-master
 ```
 
 After installing, you need to require Composer's autoloader if that's not yet the case:
@@ -34,7 +34,7 @@ After installing, you need to require Composer's autoloader if that's not yet th
 require 'vendor/autoload.php';
 ```
 
-If you don't use Composer, just [download a zip archive](archive/master.zip) of the latest release, manually integrate it and configure your own autoloader.
+If you don't use Composer, just [download a zip archive](https://github.com/sphereio/sphere-php-sdk/archive/master.zip) of the latest release, manually integrate it and configure your own autoloader.
 
 Until the 1.0.0 release M0, M1 etc. milestone releases can contain incompatible changes.  From 1.0.0 on, the project will follow the [semantic versioning](http://semver.org) guidelines, i.e. everything but major version changes are backwards-compatible. This matches composer's default behavior.
 
