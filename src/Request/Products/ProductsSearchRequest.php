@@ -6,7 +6,7 @@
 
 namespace Sphere\Core\Request\Products;
 
-use GuzzleHttp\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Product\Facet;
 use Sphere\Core\Model\Product\Filter;

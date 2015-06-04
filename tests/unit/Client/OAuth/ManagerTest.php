@@ -7,9 +7,10 @@
 namespace Sphere\Core\Client\OAuth;
 
 
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Stream\BufferStream;
-use GuzzleHttp\Subscriber\Mock;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\BufferStream;
+use GuzzleHttp\Psr7\Response;
 use Sphere\Core\Config;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
@@ -50,11 +51,13 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $mockBody = new BufferStream();
         $mockBody->write($returnValue);
 
-        $mock = new Mock([
+        $mock = new MockHandler([
             new Response($statusCode, [], $mockBody)
         ]);
+
+        $handler = HandlerStack::create($mock);
         // Add the mock subscriber to the client.
-        $manager->getHttpClient()->getEmitter()->attach($mock);
+        $manager->getHttpClient(['handler' => $mock]);
 
         return $manager;
     }
@@ -100,7 +103,17 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         );
         $manager->expects($this->any())
             ->method('execute')
-            ->will($this->returnValue(["error" => "invalid_client"]));
+            ->will($this->returnValue(
+                new Response(
+                    401,
+                    [],
+                    json_encode([
+                        'error' => 'invalid_client',
+                        'error_description' =>
+                            'Please provide valid client credentials using HTTP Basic Authentication.'
+                    ])
+                )
+            ));
         $manager->expects($this->any())
             ->method('getCacheToken')
             ->will($this->returnValue(false));

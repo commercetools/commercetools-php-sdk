@@ -33,7 +33,7 @@ class OrderImportRequestTest extends RequestTestCase
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Message\Response', [], [], '', false);
+        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = $this->getRequest(static::ORDER_IMPORT_REQUEST, [ImportOrder::of()]);
         $response = $request->buildResponse($guzzleResponse);
 
@@ -45,7 +45,7 @@ class OrderImportRequestTest extends RequestTestCase
         $request = $this->getRequest(static::ORDER_IMPORT_REQUEST, [ImportOrder::of()]);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::POST, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -53,7 +53,7 @@ class OrderImportRequestTest extends RequestTestCase
         $request = $this->getRequest(static::ORDER_IMPORT_REQUEST, [ImportOrder::of()]);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('orders/import', $httpRequest->getPath());
+        $this->assertSame('/orders/import', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -76,6 +76,6 @@ class OrderImportRequestTest extends RequestTestCase
                 'centAmount' => 100
             ]
         ];
-        $this->assertJsonStringEqualsJsonString(json_encode($expectedResult), $httpRequest->getBody());
+        $this->assertJsonStringEqualsJsonString(json_encode($expectedResult), (string)$httpRequest->getBody());
     }
 }

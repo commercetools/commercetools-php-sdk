@@ -8,13 +8,13 @@ namespace Sphere\Core;
 
 
 use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Message\ResponseInterface;
-use GuzzleHttp\Ring\Client\MockHandler;
-use GuzzleHttp\Stream\BufferStream;
-use GuzzleHttp\Subscriber\Mock;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\BufferStream;
+use GuzzleHttp\Psr7\Response;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
+use Sphere\Core\Client\Adapter\Guzzle6Adapter;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\OAuth\Token;
 use Sphere\Core\Request\ClientRequestInterface;
@@ -27,9 +27,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $config->fromArray([
             Config::CLIENT_ID => 'id',
             Config::CLIENT_SECRET => 'secret',
-            Config::OAUTH_URL => 'oauthUrl',
+            Config::OAUTH_URL => 'http://oauthUrl',
             Config::PROJECT => 'project',
-            Config::API_URL => 'apiUrl'
+            Config::API_URL => 'http://apiUrl'
         ]);
         return $config;
     }
@@ -67,9 +67,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             $responses[] = new Response($statusCode, $headers, $mockBody);
         }
 
-        $mock = new Mock($responses);
+        $mock = new MockHandler($responses);
         // Add the mock subscriber to the client.
-        $clientMock->getHttpClient()->getEmitter()->attach($mock);
+        $handler = HandlerStack::create($mock);
+        // Add the mock subscriber to the client.
+        $clientMock->getHttpClient(['handler' => $mock]);
 
         return $clientMock;
     }
@@ -175,7 +177,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $endpoint = new JsonEndpoint('test');
         $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
 
-        $clientMock->execute($request);
+        $response = $clientMock->execute($request);
     }
 
     public function testExceptionWithResponse()
@@ -189,17 +191,17 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $clientMock = $this->getMock(
             '\Sphere\Core\Client',
-            ['getOauthManager', 'getHttpClient'],
+            ['getOauthManager'],
             [$config]
         );
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
 
-        $handler = new MockHandler(['status' => 500, 'body' => $this->getSingleOpResult()]);
-        $clientMock->expects($this->any())
-            ->method('getHttpClient')
-            ->will($this->returnValue(new HttpClient(['handler' => $handler])));
+        $handler = new MockHandler([
+            new Response(500, [], $this->getSingleOpResult())
+        ]);
+        $clientMock->getHttpClient(['handler' => $handler]);
 
         $endpoint = new JsonEndpoint('test');
         $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
@@ -225,7 +227,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $record = current($handler->getRecords());
 
         $this->assertTrue($handler->hasInfo($record));
-        $this->assertSame('apiUrl/project/test/id', $record['context']['request']->getUrl());
+        $this->assertSame('/project/test/id', (string)$record['context']['request']->getUri());
     }
 
     public function testBatch()
@@ -273,7 +275,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $logEntry = $handler->getRecords()[1];
         $this->assertSame(Logger::WARNING, $logEntry['level']);
-        $this->assertSame('Call "test/id" with method "get" is deprecated: "Deprecated"', $logEntry['message']);
+        $this->assertSame(
+            'Call "/project/test/id" with method "GET" is deprecated: "Deprecated"',
+            $logEntry['message']
+        );
     }
 
     /**
@@ -318,16 +323,17 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $clientMock = $this->getMock(
             '\Sphere\Core\Client',
-            ['getOauthManager', 'getHttpClient'],
+            ['getOauthManager'],
             [$this->getConfig()]
         );
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
-        $handler = new MockHandler(['status' => 500, 'body' => $this->getSingleOpResult()]);
-        $clientMock->expects($this->any())
-            ->method('getHttpClient')
-            ->will($this->returnValue(new HttpClient(['handler' => $handler])));
+        $handler = new MockHandler([
+            new Response(500, [], $this->getSingleOpResult()),
+            new Response(500)
+        ]);
+        $clientMock->getHttpClient(['handler' => $handler]);
 
         /**
          * @var Client $clientMock
@@ -373,8 +379,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $response = $client->future($request);
         $response->wait();
 
+        \GuzzleHttp\Promise\queue()->run();
+
         $logEntry = $handler->getRecords()[1];
         $this->assertSame(Logger::WARNING, $logEntry['level']);
-        $this->assertSame('Call "test/id" with method "get" is deprecated: "Deprecated"', $logEntry['message']);
+        $this->assertSame(
+            'Call "/project/test/id" with method "GET" is deprecated: "Deprecated"',
+            $logEntry['message']
+        );
     }
 }

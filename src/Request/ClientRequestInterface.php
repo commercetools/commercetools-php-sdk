@@ -6,9 +6,8 @@
 
 namespace Sphere\Core\Request;
 
-use GuzzleHttp\Message\ResponseInterface;
-use GuzzleHttp\Ring\Future\FutureInterface;
-use Sphere\Core\Client\HttpRequestInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Response\ApiResponseInterface;
 
@@ -30,7 +29,7 @@ interface ClientRequestInterface
     public function setIdentifier($identifier);
 
     /**
-     * @return HttpRequestInterface
+     * @return RequestInterface
      * @internal
      */
     public function httpRequest();

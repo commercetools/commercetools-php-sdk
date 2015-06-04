@@ -6,7 +6,7 @@
 namespace Sphere\Core\Request\Orders;
 
 
-use GuzzleHttp\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequestInterface;
 use Sphere\Core\Client\JsonRequest;

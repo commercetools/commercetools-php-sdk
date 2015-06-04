@@ -31,7 +31,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Message\Response', [], [], '', false);
+        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = $this->getRequest(static::ORDER_CREATE_REQUEST, ['12345', 1]);
         $response = $request->buildResponse($guzzleResponse);
 
@@ -43,7 +43,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
         $request = $this->getRequest(static::ORDER_CREATE_REQUEST, ['12345', 1]);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::POST, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -51,7 +51,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
         $request = $this->getRequest(static::ORDER_CREATE_REQUEST, ['12345', 1]);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('orders', $httpRequest->getPath());
+        $this->assertSame('/orders', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -71,6 +71,6 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
             'orderNumber' => '12345678',
             'paymentState' => 'paid'
         ];
-        $this->assertJsonStringEqualsJsonString(json_encode($expectedResult), $httpRequest->getBody());
+        $this->assertJsonStringEqualsJsonString(json_encode($expectedResult), (string)$httpRequest->getBody());
     }
 }

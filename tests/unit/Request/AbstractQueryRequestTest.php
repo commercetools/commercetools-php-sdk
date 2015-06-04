@@ -37,7 +37,7 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getQueryRequest();
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::GET, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -45,7 +45,7 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getQueryRequest();
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('test', $httpRequest->getPath());
+        $this->assertSame('/test', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -53,7 +53,7 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getQueryRequest();
         $httpRequest = $request->httpRequest();
 
-        $this->assertNull($httpRequest->getBody());
+        $this->assertEmpty((string)$httpRequest->getBody());
     }
 
     public function testWhere()
@@ -62,7 +62,7 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $request->where('test');
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('test?where=test', $httpRequest->getPath());
+        $this->assertSame('/test?where=test', (string)$httpRequest->getUri());
     }
 
     public function testExpand()
@@ -71,7 +71,7 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $request->expand('test');
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('test?expand=test', $httpRequest->getPath());
+        $this->assertSame('/test?expand=test', (string)$httpRequest->getUri());
     }
 
     public function testSort()
@@ -80,7 +80,7 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $request->sort('test');
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('test?sort=test', $httpRequest->getPath());
+        $this->assertSame('/test?sort=test', (string)$httpRequest->getUri());
     }
 
     public function testLimit()
@@ -89,7 +89,7 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $request->limit(1);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('test?limit=1', $httpRequest->getPath());
+        $this->assertSame('/test?limit=1', (string)$httpRequest->getUri());
     }
 
     public function testOffset()
@@ -98,12 +98,12 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $request->offset(1);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('test?offset=1', $httpRequest->getPath());
+        $this->assertSame('/test?offset=1', (string)$httpRequest->getUri());
     }
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Message\Response', [], [], '', false);
+        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = $this->getRequest(static::ABSTRACT_QUERY_REQUEST);
         $response = $request->buildResponse($guzzleResponse);
 

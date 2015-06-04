@@ -15,11 +15,13 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
 
     protected function cleanup()
     {
-        foreach ($this->cleanupRequests as $request) {
-            $this->getClient()->addBatchRequest($request);
+        if (count($this->cleanupRequests) > 0) {
+            foreach ($this->cleanupRequests as $request) {
+                $this->getClient()->addBatchRequest($request);
+            }
+            $this->getClient()->executeBatch();
+            $this->cleanupRequests = [];
         }
-        $this->getClient()->executeBatch();
-        $this->cleanupRequests = [];
     }
 
     public function tearDown()
@@ -43,12 +45,17 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     {
         if (is_null($this->client)) {
             $context = Context::of()->setGraceful(false)->setLanguages(['en'])->setLocale('en_US');
-            $config = [
-                'client_id' => $_SERVER['SPHERE_CLIENT_ID'],
-                'client_secret' => $_SERVER['SPHERE_CLIENT_SECRET'],
-                'project' => $_SERVER['SPHERE_PROJECT'],
-                'context' => $context
-            ];
+            if (file_exists(__DIR__ . '/myapp.ini')) {
+                $appConfig = parse_ini_file(__DIR__ . '/myapp.ini', true);
+                $config = $appConfig['sphere'];
+            } else {
+                $config = [
+                    'client_id' => $_SERVER['SPHERE_CLIENT_ID'],
+                    'client_secret' => $_SERVER['SPHERE_CLIENT_SECRET'],
+                    'project' => $_SERVER['SPHERE_PROJECT'],
+                    'context' => $context
+                ];
+            }
             $this->client = new Client($config);
         }
 

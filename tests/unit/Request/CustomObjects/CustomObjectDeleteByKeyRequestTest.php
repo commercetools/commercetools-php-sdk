@@ -40,6 +40,6 @@ class CustomObjectDeleteByKeyRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOM_OBJECT_DELETE_REQUEST, ['my-namespace', 'my-key']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::DELETE, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::DELETE, $httpRequest->getMethod());
     }
 }

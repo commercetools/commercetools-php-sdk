@@ -9,7 +9,7 @@ Feature: I want to create a new comment
 
   Scenario: create a comment
     When i want to create a "comment"
-    Then the path should be "comments"
+    Then the path should be "/comments"
     And the method should be "POST"
     And the request should be
     """

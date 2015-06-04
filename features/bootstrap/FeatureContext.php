@@ -80,7 +80,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $httpRequest = $this->request->httpRequest();
 
-        assertSame($expectedPath, $httpRequest->getPath());
+        assertSame($expectedPath, (string)$httpRequest->getUri());
     }
 
     /**
@@ -90,7 +90,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $expectedResult = (string)$result;
         $httpRequest = $this->request->httpRequest();
-        $request = $httpRequest->getBody();
+        $request = (string)$httpRequest->getBody();
 
         assertJsonStringEqualsJsonString($expectedResult, $request);
     }
@@ -102,7 +102,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $httpRequest = $this->request->httpRequest();
 
-        assertSame(strtolower($expectedMethod), $httpRequest->getHttpMethod());
+        assertSame(strtoupper($expectedMethod), $httpRequest->getMethod());
     }
 
     protected function createRequestInstance($className, $params = [])

@@ -17,11 +17,12 @@
     "require": {
         "php": ">=5.4",
         "psr/log": "~1.0",
-        "guzzlehttp/guzzle": "~5.0",
-        "guzzlehttp/log-subscriber": "~1.0",
+        "guzzlehttp/guzzle": "~5.0 | ~6.0",
+        "guzzlehttp/psr7": "~1.0",
         "pimple/pimple": "~3.0"
     },
     "require-dev": {
+        "guzzlehttp/guzzle": "~6.0",
         "phpunit/phpunit": "~4.0",
         "phpmd/phpmd": "~1.0",
         "squizlabs/php_codesniffer": "~1.0",

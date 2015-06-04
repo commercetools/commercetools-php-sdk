@@ -21,7 +21,7 @@ Feature: I want to create a new product type
 
   Scenario: create a product type
     When i want to create a "productType"
-    Then the path should be "product-types"
+    Then the path should be "/product-types"
     And the method should be "POST"
     And the request should be
     """

@@ -18,12 +18,12 @@ class FileRequestTest extends \PHPUnit_Framework_TestCase
     public function testGetBody()
     {
         $fileRequest = new FileRequest(HttpMethod::POST, 'test', 'file', 'application/pdf');
-        $this->assertEmpty($fileRequest->getBody());
+        $this->assertEmpty((string)$fileRequest->getBody());
     }
 
     public function testContentType()
     {
         $fileRequest = new FileRequest(HttpMethod::POST, 'test', 'file', 'application/pdf');
-        $this->assertSame(['Content-Type' => 'application/pdf'], $fileRequest->getHeaders());
+        $this->assertSame(['Content-Type' => ['application/pdf']], $fileRequest->getHeaders());
     }
 }

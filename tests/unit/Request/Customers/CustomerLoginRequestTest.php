@@ -30,7 +30,7 @@ class CustomerLoginRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOMER_LOGIN_REQUEST, ['email', 'password']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::POST, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -38,7 +38,7 @@ class CustomerLoginRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOMER_LOGIN_REQUEST, ['email', 'password']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('login', $httpRequest->getPath());
+        $this->assertSame('/login', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -48,7 +48,7 @@ class CustomerLoginRequestTest extends RequestTestCase
 
         $this->assertJsonStringEqualsJsonString(
             json_encode(['email' => 'email', 'password' => 'password']),
-            $httpRequest->getBody()
+            (string)$httpRequest->getBody()
         );
     }
 
@@ -59,14 +59,14 @@ class CustomerLoginRequestTest extends RequestTestCase
 
         $this->assertJsonStringEqualsJsonString(
             json_encode(['email' => 'email', 'password' => 'password', 'anonymousCartId' => 'cartId']),
-            $httpRequest->getBody()
+            (string)$httpRequest->getBody()
         );
     }
 
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Message\Response', [], [], '', false);
+        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = $this->getRequest(static::CUSTOMER_LOGIN_REQUEST, ['email', 'password']);
         $response = $request->buildResponse($guzzleResponse);
 

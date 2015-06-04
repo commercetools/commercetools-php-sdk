@@ -6,12 +6,10 @@
 
 namespace Sphere\Core\Request\Customers;
 
-use GuzzleHttp\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonDeserializeInterface;
-use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\SingleResourceResponse;
 

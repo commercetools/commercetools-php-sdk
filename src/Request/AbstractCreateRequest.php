@@ -7,14 +7,11 @@
 namespace Sphere\Core\Request;
 
 
-use GuzzleHttp\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
-use Sphere\Core\Error\InvalidArgumentException;
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonDeserializeInterface;
-use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**

@@ -7,7 +7,7 @@
 namespace Sphere\Core\Request;
 
 
-use GuzzleHttp\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;

@@ -8,10 +8,14 @@ namespace Sphere\Core\Response;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Stream\BufferStream;
-use GuzzleHttp\Subscriber\Mock;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\BufferStream;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Sphere\Core\AccessorTrait;
+use Sphere\Core\Client\Adapter\Guzzle6Adapter;
+use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Request\AbstractApiRequest;
 
 /**
@@ -31,24 +35,26 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
      */
     protected function getGuzzleResponse($response, $statusCode, $future = false, $headers = [])
     {
-        $client = new HttpClient();
         // Create a mock subscriber and queue two responses.
         $mockBody = new BufferStream();
         $mockBody->write($response);
 
-        $mock = new Mock([
+        $mock = new MockHandler([
             new Response($statusCode, $headers, $mockBody)
         ]);
-        // Add the mock subscriber to the client.
-        $client->getEmitter()->attach($mock);
 
-        try {
-            $guzzleResponse = $client->get('/', ['future' => $future]);
-        } catch (RequestException $exception) {
-            $guzzleResponse = $exception->getResponse();
+        $handler = HandlerStack::create($mock);
+        // Add the mock subscriber to the client.
+        $client = new Guzzle6Adapter(['handler' => $mock]);
+
+        $request = new Request(HttpMethod::GET, '/');
+        if ($future) {
+            $response = $client->future($request);
+        } else {
+            $response = $client->execute($request);
         }
 
-        return $guzzleResponse;
+        return $response;
     }
 
     /**
@@ -99,7 +105,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     {
         $response = $this->getResponse();
 
-        $this->assertInstanceOf('\GuzzleHttp\Message\ResponseInterface', $response->getResponse());
+        $this->assertInstanceOf('\Psr\Http\Message\ResponseInterface', $response->getResponse());
     }
 
     public function testRequest()
@@ -134,15 +140,6 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \BadMethodCallException
      */
-    public function testCancelFail()
-    {
-        $response = $this->getResponse('{"key":"value"}');
-        $response->cancel();
-    }
-
-    /**
-     * @expectedException \BadMethodCallException
-     */
     public function testWaitFail()
     {
         $response = $this->getResponse('{"key":"value"}');
@@ -152,14 +149,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     public function testThen()
     {
         $response = $this->getResponse('{"key":"value"}', 200, true);
-        $this->assertInstanceOf('\React\Promise\PromiseInterface', $response->then());
-    }
-
-    public function testCancel()
-    {
-        $response = $this->getResponse('{"key":"value"}', 200, true);
-        $response->cancel();
-        $this->assertTrue($response->isError());
+        $this->assertInstanceOf('\Sphere\Core\Response\ApiResponseInterface', $response->then());
     }
 
     public function testWait()
@@ -172,7 +162,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     public function testHeader()
     {
         $response = $this->getResponse('{"key":"value"}', 200, false, ['foo' => 'bar']);
-        $this->assertSame('bar', $response->getHeader('foo'));
+        $this->assertSame(['bar'], $response->getHeader('foo'));
     }
 
     public function testHeaders()

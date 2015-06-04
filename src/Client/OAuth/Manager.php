@@ -7,9 +7,12 @@
 namespace Sphere\Core\Client\OAuth;
 
 
+use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\AbstractHttpClient;
 use Sphere\Core\Cache\CacheAdapterFactory;
 use Sphere\Core\Cache\CacheAdapterInterface;
+use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Error\Message;
 
 /**
@@ -126,15 +129,9 @@ class Manager extends AbstractHttpClient
             'scope' => $scope . ':' . $this->getConfig()->getProject()
         ];
 
-        $options = [
-            'allow_redirects' => false,
-            'verify' => true,
-            'timeout' => 60,
-            'connect_timeout' => 10,
-            'body' => $data,
-            'auth' => [$this->getConfig()->getClientId(), $this->getConfig()->getClientSecret()]
-        ];
-        $result = $this->execute($this->getConfig()->getOauthUrl(), $options);
+        $response = $this->execute($data);
+
+        $result = json_decode($response->getBody(), true);
 
         if (isset($result[static::ERROR])) {
             $message = isset($result[static::ERROR_DESCRIPTION]) ?
@@ -149,13 +146,17 @@ class Manager extends AbstractHttpClient
     }
 
     /**
-     * @param $url
-     * @param $options
-     * @return mixed
+     * @param $data
+     * @return ResponseInterface
      */
-    protected function execute($url, $options)
+    public function execute($data)
     {
-        return $this->getHttpClient()->post($url, $options)->json();
+        return $this->getHttpClient()->authenticate(
+            $this->getConfig()->getOauthUrl(),
+            $this->getConfig()->getClientId(),
+            $this->getConfig()->getClientSecret(),
+            $data
+        );
     }
 
     /**
