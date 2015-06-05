@@ -6,17 +6,49 @@
 namespace Sphere\Core\Client\Adapter;
 
 
+use GuzzleHttp\Client;
+use Sphere\Core\Error\InvalidArgumentException;
+
 class AdapterFactory
 {
-    public function getClass($name)
-    {
-        switch ($name) {
-            case "guzzle5":
-                return '\Sphere\Core\Client\Adapter\Guzzle5Adapter';
-            case "guzzle6":
-            default:
-                return '\Sphere\Core\Client\Adapter\Guzzle6Adapter';
+    protected $adapters = [];
 
+    public function __construct()
+    {
+        $this->register('guzzle5', '\Sphere\Core\Client\Adapter\Guzzle5Adapter')
+            ->register('guzzle6', '\Sphere\Core\Client\Adapter\Guzzle6Adapter');
+
+    }
+
+    /**
+     * @param string $name
+     * @param string $adapterClass
+     * @return $this
+     */
+    public function register($name, $adapterClass)
+    {
+        $this->adapters[$name] = $adapterClass;
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    public function getClass($name = null)
+    {
+        if (is_null($name)) {
+            if (version_compare(Client::VERSION, '6.0.0', '>=')) {
+                $name = 'guzzle6';
+            } else {
+                $name = 'guzzle5';
+            }
         }
+        if (isset($this->adapters[$name])) {
+            return $this->adapters[$name];
+        }
+
+        throw new InvalidArgumentException();
     }
 }

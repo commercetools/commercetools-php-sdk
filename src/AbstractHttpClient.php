@@ -84,7 +84,7 @@ abstract class AbstractHttpClient
                 $options
             );
             $factory = new AdapterFactory();
-            $class = $factory->getClass('guzzle6');
+            $class = $factory->getClass();
 
             $this->httpClient = new $class($options);
         }

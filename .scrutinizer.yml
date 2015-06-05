@@ -11,6 +11,8 @@ tools:
 before_commands:
     - composer install --prefer-source -o
 build:
+    environment:
+        php: '5.5.25'
     dependencies:
         before:
             #Only 5.4 uses APC
