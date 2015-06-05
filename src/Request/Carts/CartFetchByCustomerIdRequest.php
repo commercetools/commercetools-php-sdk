@@ -6,10 +6,9 @@
 namespace Sphere\Core\Request\Carts;
 
 
-use GuzzleHttp\Message\ResponseInterface;
+use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\HttpRequest;
-use Sphere\Core\Model\Cart\Cart;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Request\CustomerIdTrait;
@@ -37,12 +36,12 @@ class CartFetchByCustomerIdRequest extends AbstractApiRequest
     }
 
     /**
-     * @return HttpRequest
+     * @return Request
      * @internal
      */
     public function httpRequest()
     {
-        return new HttpRequest(HttpMethod::GET, $this->getPath());
+        return new Request(HttpMethod::GET, $this->getPath());
     }
 
     /**

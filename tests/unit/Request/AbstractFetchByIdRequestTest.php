@@ -34,7 +34,7 @@ class AbstractFetchByIdRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_FETCH_REQUEST, ['id']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::GET, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -42,7 +42,7 @@ class AbstractFetchByIdRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_FETCH_REQUEST, ['id']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('test/id', $httpRequest->getPath());
+        $this->assertSame('/test/id', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -50,12 +50,12 @@ class AbstractFetchByIdRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_FETCH_REQUEST, ['id']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertNull($httpRequest->getBody());
+        $this->assertEmpty((string)$httpRequest->getBody());
     }
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Message\Response', [], [], '', false);
+        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = $this->getRequest(static::ABSTRACT_FETCH_REQUEST, ['id']);
         $response = $request->buildResponse($guzzleResponse);
 

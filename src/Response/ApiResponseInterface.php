@@ -5,9 +5,8 @@
  */
 namespace Sphere\Core\Response;
 
-use GuzzleHttp\Message\ResponseInterface;
-use GuzzleHttp\Ring\Future\FutureInterface;
-use React\Promise\PromiseInterface;
+use Psr\Http\Message\ResponseInterface;
+use Sphere\Core\Client\Adapter\AdapterPromiseInterface;
 use Sphere\Core\Request\ClientRequestInterface;
 
 /**
@@ -25,7 +24,7 @@ interface ApiResponseInterface
     public function isError();
 
     /**
-     * @return ResponseInterface|FutureInterface
+     * @return ResponseInterface|AdapterPromiseInterface
      */
     public function getResponse();
 
@@ -42,16 +41,13 @@ interface ApiResponseInterface
     /**
      * @param callable $onFulfilled
      * @param callable $onRejected
-     * @param callable $onProgress
-     * @return PromiseInterface
+     * @return AdapterPromiseInterface
      */
-    public function then(callable $onFulfilled = null, callable $onRejected = null, callable $onProgress = null);
-
-    public function cancel();
+    public function then(callable $onFulfilled = null, callable $onRejected = null);
 
     /**
      * @param string $header
-     * @return string
+     * @return array
      */
     public function getHeader($header);
 

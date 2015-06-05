@@ -39,7 +39,7 @@ class AbstractCustomObjectRequestTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Message\Response', [], [], '', false);
+        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = $this->getRequest(static::ABSTRACT_CUSTOM_OBJECT_REQUEST, ['my-namespace', 'my-key']);
         $response = $request->buildResponse($guzzleResponse);
 

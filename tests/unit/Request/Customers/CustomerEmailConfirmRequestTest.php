@@ -22,7 +22,7 @@ class CustomerEmailConfirmRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOMER_EMAIL_CONFIRM_REQUEST, ['customerId', 1, 'token']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::POST, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -30,7 +30,7 @@ class CustomerEmailConfirmRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOMER_EMAIL_CONFIRM_REQUEST, ['customerId', 1, 'token']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('customers/email/confirm', $httpRequest->getPath());
+        $this->assertSame('/customers/email/confirm', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -40,7 +40,7 @@ class CustomerEmailConfirmRequestTest extends RequestTestCase
 
         $this->assertJsonStringEqualsJsonString(
             json_encode(['id' => 'customerId', 'version' => 1, 'tokenValue' => 'token']),
-            $httpRequest->getBody()
+            (string)$httpRequest->getBody()
         );
     }
 }

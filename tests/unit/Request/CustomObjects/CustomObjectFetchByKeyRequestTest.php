@@ -40,6 +40,6 @@ class CustomObjectFetchByKeyRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOM_OBJECT_FETCH_REQUEST, ['my-namespace', 'my-key']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::GET, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
     }
 }

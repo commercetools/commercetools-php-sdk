@@ -55,7 +55,7 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getUpdateRequest();
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::POST, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -63,7 +63,7 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getUpdateRequest();
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('test/id', $httpRequest->getPath());
+        $this->assertSame('/test/id', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -71,12 +71,12 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getUpdateRequest();
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('{"version":"version","actions":[]}', $httpRequest->getBody());
+        $this->assertSame('{"version":"version","actions":[]}', (string)$httpRequest->getBody());
     }
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Message\Response', [], [], '', false);
+        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = $this->getUpdateRequest();
         $response = $request->buildResponse($guzzleResponse);
 
@@ -89,7 +89,7 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
         $request->addAction(['key' => 'value']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('{"version":"version","actions":[{"key":"value"}]}', $httpRequest->getBody());
+        $this->assertSame('{"version":"version","actions":[{"key":"value"}]}', (string)$httpRequest->getBody());
     }
 
     public function testLogLimit()

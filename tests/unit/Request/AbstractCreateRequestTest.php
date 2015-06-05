@@ -27,7 +27,7 @@ class AbstractCreateRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_CREATE_REQUEST, [['key' => 'value']]);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::POST, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -35,7 +35,7 @@ class AbstractCreateRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_CREATE_REQUEST, [['key' => 'value']]);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('test', $httpRequest->getPath());
+        $this->assertSame('/test', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -43,12 +43,12 @@ class AbstractCreateRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_CREATE_REQUEST, [['key' => 'value']]);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('{"key":"value"}', $httpRequest->getBody());
+        $this->assertSame('{"key":"value"}', (string)$httpRequest->getBody());
     }
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Message\Response', [], [], '', false);
+        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = $this->getRequest(static::ABSTRACT_CREATE_REQUEST, [['key' => 'value']]);
         $response = $request->buildResponse($guzzleResponse);
 

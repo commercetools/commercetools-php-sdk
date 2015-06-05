@@ -42,7 +42,7 @@ class AbstractDeleteByIdRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_DELETE_REQUEST, ['id', 'version']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::DELETE, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::DELETE, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -50,7 +50,7 @@ class AbstractDeleteByIdRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_DELETE_REQUEST, ['id', 'version']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('test/id?version=version', $httpRequest->getPath());
+        $this->assertSame('/test/id?version=version', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -58,12 +58,12 @@ class AbstractDeleteByIdRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_DELETE_REQUEST, ['id', 'version']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('test/id?version=version', $httpRequest->getPath());
+        $this->assertSame('/test/id?version=version', (string)$httpRequest->getUri());
     }
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Message\Response', [], [], '', false);
+        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = $this->getRequest(static::ABSTRACT_DELETE_REQUEST, ['id', 'version']);
         $response = $request->buildResponse($guzzleResponse);
 

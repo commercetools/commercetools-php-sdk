@@ -22,7 +22,7 @@ class CustomerPasswordChangeRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOMER_PASSWORD_REQUEST, ['customerId', 1, 'currentPW', 'newPW']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::POST, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -30,7 +30,7 @@ class CustomerPasswordChangeRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOMER_PASSWORD_REQUEST, ['customerId', 1, 'currentPW', 'newPW']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('customers/password', $httpRequest->getPath());
+        $this->assertSame('/customers/password', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -42,7 +42,7 @@ class CustomerPasswordChangeRequestTest extends RequestTestCase
             json_encode(
                 ['id' => 'customerId', 'version' => 1, 'currentPassword' => 'currentPW', 'newPassword' => 'newPW']
             ),
-            $httpRequest->getBody()
+            (string)$httpRequest->getBody()
         );
     }
 }

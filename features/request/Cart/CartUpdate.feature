@@ -20,7 +20,7 @@ Feature: I want to update a cart
     And the variantId is "1" as "int"
     And the quantity is "3" as "int"
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -42,7 +42,7 @@ Feature: I want to update a cart
     And the lineItemId is "lineItemId-1"
     And set the quantity to "3" as "int"
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -63,7 +63,7 @@ Feature: I want to update a cart
     And the lineItemId is "lineItemId-1"
     And the quantity is "3" as "int"
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -87,7 +87,7 @@ Feature: I want to update a cart
     And the slug is "my-custom-line-item"
     And the "taxCategory" is "taxCategory" object
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -123,7 +123,7 @@ Feature: I want to update a cart
     Given i want to "removeCustomLineItem" of "cart"
     And the customLineItemId is "customLineItem-1"
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -142,7 +142,7 @@ Feature: I want to update a cart
     Given i want to "setCustomerEmail" of "cart"
     And set the email to "john.doe@company.com"
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -161,7 +161,7 @@ Feature: I want to update a cart
     Given i want to "setShippingAddress" of "cart"
     And set the "default" object to "address"
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -184,7 +184,7 @@ Feature: I want to update a cart
     Given i want to "setBillingAddress" of "cart"
     And set the "default" object to "address"
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -207,7 +207,7 @@ Feature: I want to update a cart
     Given i want to "setCountry" of "cart"
     And set the country to "DE"
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -228,7 +228,7 @@ Feature: I want to update a cart
     Given i want to "setCustomerId" of "cart"
     And set the "customerId" to "customer-1"
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -247,7 +247,7 @@ Feature: I want to update a cart
     Given i want to "addDiscountCode" of "cart"
     And the "code" is "payless"
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -265,7 +265,7 @@ Feature: I want to update a cart
   Scenario: Recalculate cart
     Given i want to "recalculate" of "cart"
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -283,7 +283,7 @@ Feature: I want to update a cart
     Given i want to "setShippingMethod" of "cart"
     And set the "shippingMethod" reference "shippingMethod" to "myShippingMethod"
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -305,7 +305,7 @@ Feature: I want to update a cart
     Given i want to "removeDiscountCode" of "cart"
     And the "discountCode" reference "discountCode" is "payless"
     When i want to update a "Cart"
-    Then the path should be "carts/id"
+    Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """

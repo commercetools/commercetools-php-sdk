@@ -8,10 +8,13 @@ namespace Sphere\Core\Response;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Stream\BufferStream;
-use GuzzleHttp\Subscriber\Mock;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\BufferStream;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Sphere\Core\AccessorTrait;
+use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Request\AbstractApiRequest;
 
 /**
@@ -42,24 +45,30 @@ class PagedQueryResponseTest extends \PHPUnit_Framework_TestCase
      */
     protected function getGuzzleResponse($response, $statusCode)
     {
-        $client = new HttpClient();
-        // Create a mock subscriber and queue two responses.
-        $mockBody = new BufferStream();
-        $mockBody->write($response);
+        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            // Create a mock subscriber and queue two responses.
+            $mockBody = new BufferStream();
+            $mockBody->write($response);
 
-        $mock = new Mock([
-            new Response($statusCode, [], $mockBody)
-        ]);
-        // Add the mock subscriber to the client.
-        $client->getEmitter()->attach($mock);
+            $mock = new MockHandler([
+                new Response($statusCode, [], $mockBody)
+            ]);
 
-        try {
-            $guzzleResponse = $client->get('/');
-        } catch (RequestException $exception) {
-            $guzzleResponse = $exception->getResponse();
+            $handler = HandlerStack::create($mock);
+            // Add the mock subscriber to the client.
+            $client = new \Sphere\Core\Client\Adapter\Guzzle6Adapter(['handler' => $mock]);
+        } else {
+            $handler = new \GuzzleHttp\Ring\Client\MockHandler(
+                ['status' => $statusCode, 'body' => $response]
+            );
+
+            $client = new \Sphere\Core\Client\Adapter\Guzzle5Adapter(['handler' => $handler]);
         }
 
-        return $guzzleResponse;
+        $request = new Request(HttpMethod::GET, '/');
+        $response = $client->execute($request);
+
+        return $response;
     }
 
     /**

@@ -18,12 +18,13 @@ cache:
 before_script:
   - sh -c "if [ $TRAVIS_PHP_VERSION != 'hhvm' ] && [ $TRAVIS_PHP_VERSION != 'nightly' ] && [ `php-config --vernum` -ge 50500 ] ; then pecl config-set preferred_state beta; printf "yes\n" | pecl install -f apcu ; else echo 'extension="apc.so"' >> ./tests/apc.ini ; fi"
   - sh -c "if [ $TRAVIS_PHP_VERSION != 'hhvm' ] && [ $TRAVIS_PHP_VERSION != 'nightly' ] ; then phpenv config-add ./tests/apc.ini; fi"
+  - if [ $TRAVIS_PHP_VERSION == '5.4' ] ; then ./set_guzzle5.sh; fi
   - composer install --prefer-source -o
 
 script:
   - ant phpcs-ci
   - phpunit --testsuite=unit
-  - if [ $TRAVIS_PHP_VERSION == '5.4' ] ; then phpunit --testsuite=integration; fi
+  - if [ $TRAVIS_PHP_VERSION == '5.5' ] ; then phpunit --testsuite=integration; fi
   - ant behat
 
 after_success:

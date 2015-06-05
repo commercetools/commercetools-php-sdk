@@ -6,12 +6,11 @@
 
 namespace Sphere\Core\Request;
 
-use GuzzleHttp\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Model\Common\Collection;
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonDeserializeInterface;
 use Sphere\Core\Response\PagedQueryResponse;
 
 /**

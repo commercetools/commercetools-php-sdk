@@ -8,6 +8,9 @@ namespace Sphere\Core;
 
 
 use GuzzleHttp\Client as HttpClient;
+use Sphere\Core\Client\Adapter\AdapterFactory;
+use Sphere\Core\Client\Adapter\AdapterInterface;
+use Sphere\Core\Client\Adapter\Guzzle6Adapter;
 
 /**
  * Class AbstractHttpClient
@@ -67,17 +70,23 @@ abstract class AbstractHttpClient
 
 
     /**
-     * @return HttpClient
+     * @param array $options
+     * @return AdapterInterface
      */
-    public function getHttpClient()
+    public function getHttpClient($options = [])
     {
         if (is_null($this->httpClient)) {
-            $this->httpClient = new HttpClient(
+            $options = array_merge(
                 [
-                    'base_url' => $this->getBaseUrl(),
-                ]
+                    'base_uri' => $this->getBaseUrl(),
+                    'headers' => ['User-Agent' => $this->getUserAgent()]
+                ],
+                $options
             );
-            $this->httpClient->setDefaultOption('headers', ['User-Agent' => $this->getUserAgent()]);
+            $factory = new AdapterFactory();
+            $class = $factory->getClass();
+
+            $this->httpClient = new $class($options);
         }
 
         return $this->httpClient;

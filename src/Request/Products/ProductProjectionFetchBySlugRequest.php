@@ -6,7 +6,7 @@
 namespace Sphere\Core\Request\Products;
 
 
-use GuzzleHttp\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Error\InvalidArgumentException;

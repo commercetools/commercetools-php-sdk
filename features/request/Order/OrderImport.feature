@@ -70,7 +70,7 @@ Feature: I want to import a new order
 
   Scenario: import an order from cart
     Given i want to import a "order"
-    Then the path should be "orders/import"
+    Then the path should be "/orders/import"
     And the method should be "POST"
     And the request should be
     """
