@@ -58,6 +58,8 @@ class Config implements ContextAwareInterface
      */
     protected $batchPoolSize = 25;
 
+    protected $adapter;
+
     /**
      * @param array $config
      * @return $this
@@ -220,5 +222,21 @@ class Config implements ContextAwareInterface
     public function setBatchPoolSize($batchPoolSize)
     {
         $this->batchPoolSize = $batchPoolSize;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
+
+    /**
+     * @param string $adapter
+     */
+    public function setAdapter($adapter)
+    {
+        $this->adapter = $adapter;
     }
 }
