@@ -294,7 +294,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(Logger::WARNING, $logEntry['level']);
         $this->assertSame(
             'Call "/project/test/id" with method "GET" is deprecated: "Deprecated"',
-            $logEntry['message']
+            (string)$logEntry['message']
         );
     }
 
