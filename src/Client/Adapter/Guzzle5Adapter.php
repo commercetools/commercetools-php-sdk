@@ -22,13 +22,21 @@ class Guzzle5Adapter implements AdapterInterface
 
     public function __construct($options)
     {
-        $options = [
-            'base_url' => $options['base_uri'],
-            'headers' => $options['headers']
-        ];
+        if (isset($options['base_uri'])) {
+            $options['base_url'] = $options['base_uri'];
+            unset($options['base_uri']);
+        }
         $this->client = new Client($options);
     }
 
+    /**
+     * @internal
+     * @return \GuzzleHttp\Event\Emitter|\GuzzleHttp\Event\EmitterInterface
+     */
+    public function getEmitter()
+    {
+        return $this->client->getEmitter();
+    }
 
     /**
      * @param RequestInterface $request
@@ -41,7 +49,8 @@ class Guzzle5Adapter implements AdapterInterface
             'verify' => true,
             'timeout' => 60,
             'connect_timeout' => 10,
-            'headers' => $request->getHeaders()
+            'headers' => $request->getHeaders(),
+            'body' => (string)$request->getBody()
         ];
 
         try {
@@ -52,6 +61,7 @@ class Guzzle5Adapter implements AdapterInterface
             if (is_null($response)) {
                 throw $exception;
             }
+            $response = $this->packResponse($response);
         }
 
         return $response;
@@ -81,7 +91,7 @@ class Guzzle5Adapter implements AdapterInterface
 
         $results = Pool::batch(
             $this->client,
-            $requests,
+            $this->getBatchHttpRequests($requests),
             $options
         );
 
@@ -94,7 +104,7 @@ class Guzzle5Adapter implements AdapterInterface
                     throw $result;
                 }
             }
-            $responses[$key] = $httpResponse;
+            $responses[$key] = $this->packResponse($httpResponse);
         }
 
         return $responses;

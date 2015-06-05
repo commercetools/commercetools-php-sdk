@@ -7,7 +7,6 @@
 namespace Sphere\Core\Response;
 
 use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\BufferStream;
@@ -35,17 +34,25 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
      */
     protected function getGuzzleResponse($response, $statusCode, $future = false, $headers = [])
     {
-        // Create a mock subscriber and queue two responses.
-        $mockBody = new BufferStream();
-        $mockBody->write($response);
+        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            // Create a mock subscriber and queue two responses.
+            $mockBody = new BufferStream();
+            $mockBody->write($response);
 
-        $mock = new MockHandler([
-            new Response($statusCode, $headers, $mockBody)
-        ]);
+            $mock = new MockHandler([
+                new Response($statusCode, $headers, $mockBody)
+            ]);
 
-        $handler = HandlerStack::create($mock);
-        // Add the mock subscriber to the client.
-        $client = new Guzzle6Adapter(['handler' => $mock]);
+            $handler = HandlerStack::create($mock);
+            // Add the mock subscriber to the client.
+            $client = new Guzzle6Adapter(['handler' => $mock]);
+        } else {
+            $handler = new \GuzzleHttp\Ring\Client\MockHandler(
+                ['status' => $statusCode, 'headers' => $headers, 'body' => $response]
+            );
+
+            $client = new \Sphere\Core\Client\Adapter\Guzzle5Adapter(['handler' => $handler]);
+        }
 
         $request = new Request(HttpMethod::GET, '/');
         if ($future) {

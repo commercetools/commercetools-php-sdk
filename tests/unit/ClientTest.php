@@ -10,11 +10,9 @@ namespace Sphere\Core;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\BufferStream;
 use GuzzleHttp\Psr7\Response;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
-use Sphere\Core\Client\Adapter\Guzzle6Adapter;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\OAuth\Token;
 use Sphere\Core\Request\ClientRequestInterface;
@@ -54,24 +52,38 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
 
+        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            $mockBodyClass = '\GuzzleHttp\Psr7\BufferStream';
+            $responseClass = '\GuzzleHttp\Psr7\Response';
+        } else {
+            $mockBodyClass = '\GuzzleHttp\Stream\BufferStream';
+            $responseClass = '\GuzzleHttp\Message\Response';
+        }
+
         $responses = [];
         if (is_array($returnValue)) {
             foreach ($returnValue as $value) {
-                $mockBody = new BufferStream();
+                $mockBody = new $mockBodyClass();
                 $mockBody->write($value);
-                $responses[] = new Response($statusCode, $headers, $mockBody);
+                $responses[] = new $responseClass($statusCode, $headers, $mockBody);
             }
         } else {
-            $mockBody = new BufferStream();
+            $mockBody = new $mockBodyClass();
             $mockBody->write($returnValue);
-            $responses[] = new Response($statusCode, $headers, $mockBody);
+            $responses[] = new $responseClass($statusCode, $headers, $mockBody);
         }
 
-        $mock = new MockHandler($responses);
-        // Add the mock subscriber to the client.
-        $handler = HandlerStack::create($mock);
-        // Add the mock subscriber to the client.
-        $clientMock->getHttpClient(['handler' => $mock]);
+        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            $mock = new MockHandler($responses);
+
+            $handler = HandlerStack::create($mock);
+            // Add the mock subscriber to the client.
+            $clientMock->getHttpClient(['handler' => $mock]);
+        } else {
+            $mock = new \GuzzleHttp\Subscriber\Mock($responses);
+            // Add the mock subscriber to the client.
+            $clientMock->getHttpClient()->getEmitter()->attach($mock);
+        }
 
         return $clientMock;
     }
@@ -198,9 +210,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
 
-        $handler = new MockHandler([
-            new Response(500, [], $this->getSingleOpResult())
-        ]);
+
+        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            $handler = new MockHandler([
+                new Response(500, [], $this->getSingleOpResult())
+            ]);
+        } else {
+            $handler = new \GuzzleHttp\Ring\Client\MockHandler(['status' => 500, 'body' => $this->getSingleOpResult()]);
+        }
         $clientMock->getHttpClient(['handler' => $handler]);
 
         $endpoint = new JsonEndpoint('test');
@@ -329,10 +346,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
-        $handler = new MockHandler([
-            new Response(500, [], $this->getSingleOpResult()),
-            new Response(500)
-        ]);
+
+        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            $handler = new MockHandler([
+                new Response(500, [], $this->getSingleOpResult()),
+                new Response(500)
+            ]);
+        } else {
+            $handler = new \GuzzleHttp\Ring\Client\MockHandler(['status' => 500, 'body' => $this->getSingleOpResult()]);
+        }
         $clientMock->getHttpClient(['handler' => $handler]);
 
         /**
@@ -379,7 +401,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $response = $client->future($request);
         $response->wait();
 
-        \GuzzleHttp\Promise\queue()->run();
+        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            \GuzzleHttp\Promise\queue()->run();
+        }
 
         $logEntry = $handler->getRecords()[1];
         $this->assertSame(Logger::WARNING, $logEntry['level']);

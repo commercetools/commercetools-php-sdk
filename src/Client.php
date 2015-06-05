@@ -48,13 +48,13 @@ class Client extends AbstractHttpClient
      * @param string $logFormat Guzzle log formatter string
      *      @link https://github.com/guzzle/log-subscriber#logging-with-a-custom-message-format
      */
-    public function __construct($config, $cache = null, LoggerInterface $logger = null, $logFormat = null)
+    public function __construct($config, $cache = null, LoggerInterface $logger = null)
     {
         parent::__construct($config);
 
         $manager = new Manager($config, $cache);
         $this->setOauthManager($manager);
-        $this->setLogger($logger, $logFormat);
+        $this->setLogger($logger);
     }
 
     /**

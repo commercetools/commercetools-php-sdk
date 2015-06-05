@@ -7,10 +7,12 @@
 namespace Sphere\Core\Client\OAuth;
 
 
+use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\BufferStream;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Subscriber\Mock;
 use Sphere\Core\Config;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
@@ -48,16 +50,28 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         if (is_array($returnValue)) {
             $returnValue = json_encode($returnValue);
         }
-        $mockBody = new BufferStream();
-        $mockBody->write($returnValue);
 
-        $mock = new MockHandler([
-            new Response($statusCode, [], $mockBody)
-        ]);
+        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            $mockBody = new BufferStream();
+            $mockBody->write($returnValue);
 
-        $handler = HandlerStack::create($mock);
-        // Add the mock subscriber to the client.
-        $manager->getHttpClient(['handler' => $mock]);
+            $mock = new MockHandler([
+                new Response($statusCode, [], $mockBody)
+            ]);
+
+            $handler = HandlerStack::create($mock);
+            // Add the mock subscriber to the client.
+            $manager->getHttpClient(['handler' => $mock]);
+        } else {
+            $mockBody = new \GuzzleHttp\Stream\BufferStream();
+            $mockBody->write($returnValue);
+
+            $mock = new Mock([
+                new \GuzzleHttp\Message\Response($statusCode, [], $mockBody)
+            ]);
+            // Add the mock subscriber to the client.
+            $manager->getHttpClient()->getEmitter()->attach($mock);
+        }
 
         return $manager;
     }
