@@ -28,6 +28,7 @@ lineItem:
     - id
     - productId
     - name
+    - productSlug
     - variant
     - price
     - quantity

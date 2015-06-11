@@ -48,6 +48,7 @@ class LineItem extends JsonObject
             'id' => [static::TYPE => 'string'],
             'productId' => [static::TYPE => 'string'],
             'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'productSlug' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'variant' => [static::TYPE => '\Sphere\Core\Model\Product\ProductVariant'],
             'price' => [static::TYPE => '\Sphere\Core\Model\Common\Price'],
             'quantity' => [static::TYPE => 'int'],
