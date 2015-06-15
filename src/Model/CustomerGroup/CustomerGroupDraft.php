@@ -14,6 +14,7 @@ use Sphere\Core\Model\Common\OfTrait;
  * @package Sphere\Core\Model\CustomerGroup
  * @method string getGroupName()
  * @method CustomerGroupDraft setGroupName(string $groupName = null)
+ * @method static CustomerGroupDraft of($groupName)
  */
 class CustomerGroupDraft extends JsonObject
 {

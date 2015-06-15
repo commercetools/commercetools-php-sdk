@@ -30,6 +30,7 @@ use Sphere\Core\Model\Common\LocalizedString;
  * @method DiscountCodeDraft setMaxApplications(int $maxApplications = null)
  * @method int getMaxApplicationsPerCustomer()
  * @method DiscountCodeDraft setMaxApplicationsPerCustomer(int $maxApplicationsPerCustomer = null)
+ * @method static DiscountCodeDraft of($code, CartDiscountReferenceCollection $cartDiscounts, $isActive)
  */
 class DiscountCodeDraft extends JsonObject
 {

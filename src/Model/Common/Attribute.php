@@ -11,7 +11,6 @@ namespace Sphere\Core\Model\Common;
  * Class Attribute
  * @package Sphere\Core\Model\Common
  * @link http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
- * @method static Attribute of($name, $value)
  * @method string getName()
  * @method getValue()
  * @method Attribute setName(string $name = null)
@@ -19,8 +18,6 @@ namespace Sphere\Core\Model\Common;
  */
 class Attribute extends JsonObject
 {
-    use OfTrait;
-
     // identifiers for the SPHERE.IO Product Attribute Types:
     const T_UNKNOWN = 'unknown';  // zero, should evaluate to false
     const T_TEXTLIKE = 'string'; //includes date, datetime, time as these are JSON Strings, too

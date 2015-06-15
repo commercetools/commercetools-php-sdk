@@ -94,6 +94,24 @@ class ClassAnnotator
         $this->annotate();
     }
 
+    public function generateOfMethod()
+    {
+        if ($this->class->isAbstract()) {
+            return;
+        }
+
+        $this->class->addMagicMethod(
+            'of',
+            $this->class->getConstructorArgs(),
+            $this->class->getShortClassName(),
+            null,
+            null,
+            true,
+            true
+        );
+        $this->annotate();
+    }
+
     /**
      * @param $field
      * @return bool
@@ -132,7 +150,15 @@ class ClassAnnotator
             $method = (isset($magicMethod['static']) && $magicMethod['static'] ? 'static ' : '');
             $method.= $magicMethod['returnTypeHint'] . ' ' . $magicMethod['name'];
             $method.= '(' . implode(', ', $magicMethod['args']) . ')';
-            $classHead[] = ' * @method ' . trim($method);
+            $methodString = ' * @method ' . trim($method);
+
+            if (strlen($methodString) >= 120) {
+                $classHead[] = ' * @codingStandardsIgnoreStart';
+                $classHead[] = $methodString;
+                $classHead[] = ' * @codingStandardsIgnoreEnd';
+            } else {
+                $classHead[] = $methodString;
+            }
         }
         $classHead[] = ' */';
 

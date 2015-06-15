@@ -39,6 +39,8 @@ use Sphere\Core\Model\TaxCategory\TaxRate;
  * @method LineItem setSupplyChannel(ChannelReference $supplyChannel = null)
  * @method DiscountedLineItemPrice getDiscountedPrice()
  * @method LineItem setDiscountedPrice(DiscountedLineItemPrice $discountedPrice = null)
+ * @method LocalizedString getProductSlug()
+ * @method LineItem setProductSlug(LocalizedString $productSlug = null)
  */
 class LineItem extends JsonObject
 {

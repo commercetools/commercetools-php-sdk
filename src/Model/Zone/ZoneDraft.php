@@ -18,6 +18,7 @@ use Sphere\Core\Model\Common\OfTrait;
  * @method ZoneDraft setDescription(string $description = null)
  * @method LocationCollection getLocations()
  * @method ZoneDraft setLocations(LocationCollection $locations = null)
+ * @method static ZoneDraft of($name, LocationCollection $locations)
  */
 class ZoneDraft extends JsonObject
 {

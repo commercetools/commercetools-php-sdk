@@ -16,6 +16,7 @@ use Sphere\Core\Model\Common\OfTrait;
  * @method FilterRange setFrom($from = null)
  * @method getTo()
  * @method FilterRange setTo($to = null)
+ * @method static FilterRange of()
  */
 class FilterRange extends JsonObject
 {

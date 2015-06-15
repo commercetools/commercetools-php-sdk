@@ -23,6 +23,9 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
  * @method ShippingMethodDraft setZoneRates(ZoneRateCollection $zoneRates = null)
  * @method bool getIsDefault()
  * @method ShippingMethodDraft setIsDefault(bool $isDefault = null)
+ * @codingStandardsIgnoreStart
+ * @method static ShippingMethodDraft of($name, TaxCategoryReference $taxCategory, ZoneRateCollection $zoneRates, $isDefault)
+ * @codingStandardsIgnoreEnd
  */
 class ShippingMethodDraft extends JsonObject
 {

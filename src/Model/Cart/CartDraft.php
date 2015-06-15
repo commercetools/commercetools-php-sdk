@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Model\Cart;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\OfTrait;
 
@@ -12,7 +13,7 @@ use Sphere\Core\Model\Common\OfTrait;
  * Class CartDraft
  * @package Sphere\Core\Model\Cart
  * @link http://dev.sphere.io/http-api-projects-carts.html#create-cart
- * @method static CartDraft of(string $currency)
+ * @method static CartDraft of($currency)
  * @method string getCurrency()
  * @method string getCustomerId()
  * @method string getCountry()
@@ -38,9 +39,11 @@ class CartDraft extends JsonObject
 
     /**
      * @param string $currency
+     * @param Context|callable $context
      */
-    public function __construct($currency)
+    public function __construct($currency, $context = null)
     {
-        $this->setCurrency($currency);
+        $this->setContext($context)
+            ->setCurrency($currency);
     }
 }

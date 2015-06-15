@@ -34,6 +34,9 @@ use Sphere\Core\Model\Common\DateTimeDecorator;
  * @method CartDiscountDraft setValidUntil(\DateTime $validUntil = null)
  * @method bool getRequiresDiscountCode()
  * @method CartDiscountDraft setRequiresDiscountCode(bool $requiresDiscountCode = null)
+ * @codingStandardsIgnoreStart
+ * @method static CartDiscountDraft of(LocalizedString $name, CartDiscountValue $value, $cartPredicate, CartDiscountTarget $target, $sortOrder, $isActive, $requiresDiscountCode)
+ * @codingStandardsIgnoreEnd
  */
 class CartDiscountDraft extends JsonObject
 {

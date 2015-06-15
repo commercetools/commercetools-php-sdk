@@ -17,6 +17,7 @@ use Sphere\Core\Model\Common\OfTrait;
  * @method Filter setAlias(string $alias = null)
  * @method string getName()
  * @method Filter setName(string $name = null)
+ * @method static Filter of()
  */
 class Filter extends JsonObject
 {

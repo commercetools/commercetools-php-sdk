@@ -24,6 +24,7 @@ use Sphere\Core\Model\Channel\ChannelReference;
  * @method InventoryDraft setExpectedDelivery(\DateTime $expectedDelivery = null)
  * @method ChannelReference getSupplyChannel()
  * @method InventoryDraft setSupplyChannel(ChannelReference $supplyChannel = null)
+ * @method static InventoryDraft of($sku, $quantityOnStock)
  */
 class InventoryDraft extends JsonObject
 {

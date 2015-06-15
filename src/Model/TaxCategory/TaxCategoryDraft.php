@@ -18,6 +18,7 @@ use Sphere\Core\Model\Common\OfTrait;
  * @method TaxCategoryDraft setDescription(string $description = null)
  * @method TaxRateCollection getRates()
  * @method TaxCategoryDraft setRates(TaxRateCollection $rates = null)
+ * @method static TaxCategoryDraft of($name, TaxRateCollection $rates)
  */
 class TaxCategoryDraft extends JsonObject
 {

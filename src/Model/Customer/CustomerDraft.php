@@ -32,6 +32,7 @@ use Sphere\Core\Model\Common\OfTrait;
  * @method CustomerDraft setPassword(string $password = null)
  * @method CustomerDraft setAnonymousCartId(string $anonymousCartId = null)
  * @method CustomerDraft setExternalId(string $externalId = null)
+ * @method static CustomerDraft of($email, $firstName, $lastName, $password)
  */
 class CustomerDraft extends JsonObject
 {

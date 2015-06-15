@@ -21,6 +21,7 @@ use Sphere\Core\Model\Common\LocalizedString;
  * @method ChannelDraft setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
  * @method ChannelDraft setDescription(LocalizedString $description = null)
+ * @method static ChannelDraft of($key)
  */
 class ChannelDraft extends JsonObject
 {
