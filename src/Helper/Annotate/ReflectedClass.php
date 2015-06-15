@@ -5,7 +5,10 @@
 
 namespace Sphere\Core\Helper\Annotate;
 
-
+/**
+ * Class ReflectedClass
+ * @package Sphere\Core\Helper\Annotate
+ */
 class ReflectedClass
 {
     /**

@@ -9,6 +9,9 @@ namespace Sphere\Core\Model\Customer;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\OfTrait;
+use Sphere\Core\Model\Common\DateTimeDecorator;
+use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
+use Sphere\Core\Model\Common\AddressCollection;
 
 /**
  * Class CustomerDraft
@@ -33,6 +36,22 @@ use Sphere\Core\Model\Common\OfTrait;
  * @method CustomerDraft setAnonymousCartId(string $anonymousCartId = null)
  * @method CustomerDraft setExternalId(string $externalId = null)
  * @method static CustomerDraft of($email, $firstName, $lastName, $password)
+ * @method DateTimeDecorator getDateOfBirth()
+ * @method CustomerDraft setDateOfBirth(\DateTime $dateOfBirth = null)
+ * @method string getCompanyName()
+ * @method CustomerDraft setCompanyName(string $companyName = null)
+ * @method string getVatId()
+ * @method CustomerDraft setVatId(string $vatId = null)
+ * @method bool getIsEmailVerified()
+ * @method CustomerDraft setIsEmailVerified(bool $isEmailVerified = null)
+ * @method CustomerGroupReference getCustomerGroup()
+ * @method CustomerDraft setCustomerGroup(CustomerGroupReference $customerGroup = null)
+ * @method AddressCollection getAddresses()
+ * @method CustomerDraft setAddresses(AddressCollection $addresses = null)
+ * @method int getDefaultShippingAddressId()
+ * @method CustomerDraft setDefaultShippingAddressId(int $defaultShippingAddressId = null)
+ * @method int getDefaultBillingAddressId()
+ * @method CustomerDraft setDefaultBillingAddressId(int $defaultBillingAddressId = null)
  */
 class CustomerDraft extends JsonObject
 {
@@ -41,15 +60,26 @@ class CustomerDraft extends JsonObject
     public function getFields()
     {
         return [
-            'customerNumber' => [self::TYPE => 'string'],
-            'email' => [self::TYPE => 'string'],
-            'title' => [self::TYPE => 'string'],
-            'firstName' => [self::TYPE => 'string'],
-            'middleName' => [self::TYPE => 'string'],
-            'lastName' => [self::TYPE => 'string'],
-            'password' => [self::TYPE => 'string'],
-            'anonymousCartId' => [self::TYPE => 'string'],
-            'externalId' => [self::TYPE => 'string'],
+            'customerNumber' => [static::TYPE => 'string'],
+            'email' => [static::TYPE => 'string'],
+            'title' => [static::TYPE => 'string'],
+            'firstName' => [static::TYPE => 'string'],
+            'middleName' => [static::TYPE => 'string'],
+            'lastName' => [static::TYPE => 'string'],
+            'password' => [static::TYPE => 'string'],
+            'anonymousCartId' => [static::TYPE => 'string'],
+            'externalId' => [static::TYPE => 'string'],
+            'dateOfBirth' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+            ],
+            'companyName' => [static::TYPE => 'string'],
+            'vatId' => [static::TYPE => 'string'],
+            'isEmailVerified' => [static::TYPE => 'bool'],
+            'customerGroup' => [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
+            'addresses' => [static::TYPE => '\Sphere\Core\Model\Common\AddressCollection'],
+            'defaultShippingAddressId' => [static::TYPE => 'int'],
+            'defaultBillingAddressId' => [static::TYPE => 'int'],
         ];
     }
 
