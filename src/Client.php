@@ -45,8 +45,6 @@ class Client extends AbstractHttpClient
      * @param array|Config $config
      * @param $cache
      * @param LoggerInterface $logger
-     * @param string $logFormat Guzzle log formatter string
-     *      @link https://github.com/guzzle/log-subscriber#logging-with-a-custom-message-format
      */
     public function __construct($config, $cache = null, LoggerInterface $logger = null)
     {
@@ -77,7 +75,6 @@ class Client extends AbstractHttpClient
 
     /**
      * @param LoggerInterface $logger
-     * @param string $format
      * @return $this
      */
     protected function setLogger(LoggerInterface $logger = null)

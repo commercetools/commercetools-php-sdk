@@ -78,7 +78,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
             $handler = HandlerStack::create($mock);
             // Add the mock subscriber to the client.
-            $clientMock->getHttpClient(['handler' => $mock]);
+            $clientMock->getHttpClient(['handler' => $handler]);
         } else {
             $mock = new \GuzzleHttp\Subscriber\Mock($responses);
             // Add the mock subscriber to the client.
@@ -348,10 +348,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($oauthMock));
 
         if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
-            $handler = new MockHandler([
+            $mock = new MockHandler([
                 new Response(500, [], $this->getSingleOpResult()),
                 new Response(500)
             ]);
+            $handler = HandlerStack::create($mock);
         } else {
             $handler = new \GuzzleHttp\Ring\Client\MockHandler(['status' => 500, 'body' => $this->getSingleOpResult()]);
         }
