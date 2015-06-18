@@ -7,10 +7,8 @@
 namespace Sphere\Core\Response;
 
 
-use GuzzleHttp\Message\ResponseInterface;
-use GuzzleHttp\Ring\Exception\CancelledFutureAccessException;
-use GuzzleHttp\Ring\Future\FutureInterface;
-use React\Promise\PromiseInterface;
+use Psr\Http\Message\ResponseInterface;
+use Sphere\Core\Client\Adapter\AdapterPromiseInterface;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;
@@ -26,7 +24,7 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
     use ContextTrait;
 
     /**
-     * @var ResponseInterface
+     * @var ResponseInterface|AdapterPromiseInterface
      */
     protected $response;
 
@@ -75,7 +73,7 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
     public function toArray()
     {
         if (is_null($this->jsonData)) {
-            $this->jsonData = (array)$this->response->json();
+            $this->jsonData = json_decode($this->getBody(), true);
         }
         return $this->jsonData;
     }
@@ -96,17 +94,35 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
      */
     public function isError()
     {
-        try {
-            $statusCode = $this->response->getStatusCode();
-        } catch (CancelledFutureAccessException $exception) {
-            return true;
-        }
+        $statusCode = $this->getStatusCode();
 
         return (!in_array($statusCode, [200, 201]));
     }
 
+    public function getStatusCode()
+    {
+        return $this->getResponse()->getStatusCode();
+    }
+
     /**
-     * @return ResponseInterface|FutureInterface
+     * @param string $header
+     * @return array
+     */
+    public function getHeader($header)
+    {
+        return $this->getResponse()->getHeader($header);
+    }
+
+    /**
+     * @return array
+     */
+    public function getHeaders()
+    {
+        return $this->getResponse()->getHeaders();
+    }
+
+    /**
+     * @return ResponseInterface|AdapterPromiseInterface
      */
     public function getResponse()
     {
@@ -136,45 +152,25 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
      */
     public function wait()
     {
-        if (!$this->getResponse() instanceof FutureInterface) {
+        if (!$this->getResponse() instanceof AdapterPromiseInterface) {
             throw new \BadMethodCallException(Message::FUTURE_BAD_METHOD_CALL);
         }
-        return $this->getResponse()->wait();
-    }
 
-    /**
-     * Cancels the future, if possible.
-     */
-    public function cancel()
-    {
-        if (!$this->getResponse() instanceof FutureInterface) {
-            throw new \BadMethodCallException(Message::FUTURE_BAD_METHOD_CALL);
-        }
-        return $this->getResponse()->cancel();
+        return $this->getResponse()->wait();
     }
 
     /**
      * @param callable $onFulfilled
      * @param callable $onRejected
-     * @param callable $onProgress
-     * @return PromiseInterface
+     * @return ApiResponseInterface
      */
-    public function then(callable $onFulfilled = null, callable $onRejected = null, callable $onProgress = null)
+    public function then(callable $onFulfilled = null, callable $onRejected = null)
     {
-        if (!$this->getResponse() instanceof FutureInterface) {
+        if (!$this->getResponse() instanceof AdapterPromiseInterface) {
             throw new \BadMethodCallException(Message::FUTURE_BAD_METHOD_CALL);
         }
-        return $this->getResponse()->then($onFulfilled, $onRejected, $onProgress);
-    }
+        $this->getResponse()->then($onFulfilled, $onRejected);
 
-    /**
-     * @return PromiseInterface
-     */
-    public function promise()
-    {
-        if (!$this->getResponse() instanceof FutureInterface) {
-            throw new \BadMethodCallException(Message::FUTURE_BAD_METHOD_CALL);
-        }
-        return $this->getResponse()->promise();
+        return $this;
     }
 }

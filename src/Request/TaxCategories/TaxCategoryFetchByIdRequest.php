@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
  */
 class TaxCategoryFetchByIdRequest extends AbstractFetchByIdRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\TaxCategory\TaxCategory';
 
     /**
      * @param string $id

@@ -14,12 +14,12 @@ use Sphere\Core\Request\AbstractAction;
  * @link http://dev.sphere.io/http-api-projects-products.html#change-price
  * @method string getAction()
  * @method ProductChangePriceAction setAction(string $action = null)
- * @method int getVariantId()
- * @method ProductChangePriceAction setVariantId(int $variantId = null)
  * @method Price getPrice()
  * @method ProductChangePriceAction setPrice(Price $price = null)
  * @method bool getStaged()
  * @method ProductChangePriceAction setStaged(bool $staged = null)
+ * @method int getPriceId()
+ * @method ProductChangePriceAction setPriceId(int $priceId = null)
  */
 class ProductChangePriceAction extends AbstractAction
 {
@@ -27,20 +27,20 @@ class ProductChangePriceAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'variantId' => [static::TYPE => 'int'],
+            'priceId' => [static::TYPE => 'int'],
             'price' => [static::TYPE => '\Sphere\Core\Model\Common\Price'],
             'staged' => [static::TYPE => 'bool'],
         ];
     }
 
     /**
-     * @param int $variantId
+     * @param int $priceId
      * @param Price $price
      */
-    public function __construct($variantId, Price $price)
+    public function __construct($priceId, Price $price)
     {
         $this->setAction('changePrice');
-        $this->setVariantId($variantId);
+        $this->setPriceId($priceId);
         $this->setPrice($price);
     }
 }

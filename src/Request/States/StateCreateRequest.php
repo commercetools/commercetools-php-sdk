@@ -7,7 +7,6 @@ namespace Sphere\Core\Request\States;
 
 
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\State\State;
 use Sphere\Core\Model\State\StateDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
 

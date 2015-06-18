@@ -30,7 +30,7 @@ class CartFetchByCustomerIdRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CART_FETCH_BY_CUSTOMER_ID_REQUEST, ['id']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::GET, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -38,7 +38,7 @@ class CartFetchByCustomerIdRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CART_FETCH_BY_CUSTOMER_ID_REQUEST, ['id']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('carts?customerId=id', $httpRequest->getPath());
+        $this->assertSame('/carts?customerId=id', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -46,12 +46,12 @@ class CartFetchByCustomerIdRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CART_FETCH_BY_CUSTOMER_ID_REQUEST, ['id']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertNull($httpRequest->getBody());
+        $this->assertEmpty((string)$httpRequest->getBody());
     }
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Message\Response', [], [], '', false);
+        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = $this->getRequest(static::CART_FETCH_BY_CUSTOMER_ID_REQUEST, ['id']);
         $response = $request->buildResponse($guzzleResponse);
 

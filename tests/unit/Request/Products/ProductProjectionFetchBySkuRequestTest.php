@@ -37,7 +37,7 @@ class ProductProjectionFetchBySkuRequestTest extends RequestTestCase
         $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SKU_REQUEST, ['sku']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::GET, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -46,8 +46,8 @@ class ProductProjectionFetchBySkuRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(
-            'product-projections?limit=1&where=masterVariant%28sku%3D%22sku%22%29+or+variants%28sku%3D%22sku%22%29',
-            $httpRequest->getPath()
+            '/product-projections?limit=1&where=masterVariant%28sku%3D%22sku%22%29+or+variants%28sku%3D%22sku%22%29',
+            (string)$httpRequest->getUri()
         );
     }
 
@@ -56,12 +56,12 @@ class ProductProjectionFetchBySkuRequestTest extends RequestTestCase
         $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SKU_REQUEST, ['sku']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertNull($httpRequest->getBody());
+        $this->assertEmpty((string)$httpRequest->getBody());
     }
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Message\Response', [], [], '', false);
+        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SKU_REQUEST, ['sku']);
         $response = $request->buildResponse($guzzleResponse);
 

@@ -10,23 +10,23 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 {
     public function testPath()
     {
-        $this->assertSame('test', $this->getRequest()->getPath());
+        $this->assertSame('/test', (string)$this->getRequest()->getUri());
     }
 
     public function testMethod()
     {
-        $this->assertSame('get', $this->getRequest()->getHttpMethod());
+        $this->assertSame('GET', $this->getRequest()->getMethod());
     }
 
     public function testBody()
     {
-        $this->assertEmpty($this->getRequest()->getBody());
+        $this->assertEmpty((string)$this->getRequest()->getBody());
     }
 
     public function testContentType()
     {
         $this->assertArrayHasKey('Content-Type', $this->getRequest()->getHeaders());
-        $this->assertSame('application/json', $this->getRequest()->getHeaders()['Content-Type']);
+        $this->assertSame('application/json', $this->getRequest()->getHeader('Content-Type')[0]);
     }
 
     /**

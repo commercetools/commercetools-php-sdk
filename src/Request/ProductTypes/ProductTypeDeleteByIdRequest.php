@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
  */
 class ProductTypeDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\ProductType\ProductType';
 
     /**
      * @param string $id

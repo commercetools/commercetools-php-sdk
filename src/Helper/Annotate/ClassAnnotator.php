@@ -94,6 +94,24 @@ class ClassAnnotator
         $this->annotate();
     }
 
+    public function generateOfMethod()
+    {
+        if ($this->class->isAbstract()) {
+            return;
+        }
+
+        $this->class->addMagicMethod(
+            'of',
+            $this->class->getConstructorArgs(),
+            $this->class->getShortClassName(),
+            null,
+            null,
+            true,
+            true
+        );
+        $this->annotate();
+    }
+
     /**
      * @param $field
      * @return bool
@@ -124,7 +142,11 @@ class ClassAnnotator
 
         $classHead[] = ' * Class ' . $this->class->getShortClassName();
         $classHead[] = ' * @package ' . $this->class->getNamespace();
-        foreach ($this->class->getDocBlockLines() as $line) {
+        $docBlockLines = $this->class->getDocBlockLines();
+        foreach ($docBlockLines as $lineNr => $line) {
+            if ($this->ignoreDocBlockLine($lineNr, $docBlockLines)) {
+                continue;
+            }
             $classHead[] = ' * ' . $line;
         }
 
@@ -132,7 +154,15 @@ class ClassAnnotator
             $method = (isset($magicMethod['static']) && $magicMethod['static'] ? 'static ' : '');
             $method.= $magicMethod['returnTypeHint'] . ' ' . $magicMethod['name'];
             $method.= '(' . implode(', ', $magicMethod['args']) . ')';
-            $classHead[] = ' * @method ' . trim($method);
+            $methodString = ' * @method ' . trim($method);
+
+            if (strlen($methodString) >= 120) {
+                $classHead[] = ' * @codingStandardsIgnoreStart';
+                $classHead[] = $methodString;
+                $classHead[] = ' * @codingStandardsIgnoreEnd';
+            } else {
+                $classHead[] = $methodString;
+            }
         }
         $classHead[] = ' */';
 
@@ -147,6 +177,26 @@ class ClassAnnotator
         );
 
         file_put_contents($fileName, $newSource);
+    }
+
+    protected function ignoreDocBlockLine($lineNr, $lines)
+    {
+        if (
+            isset($lines[$lineNr+1]) &&
+            strpos($lines[$lineNr], '@codingStandardsIgnoreStart') !== false &&
+            strpos($lines[$lineNr+1], '@codingStandardsIgnoreEnd') !== false
+        ) {
+            return true;
+        }
+        if (
+            isset($lines[$lineNr-1]) &&
+            strpos($lines[$lineNr], '@codingStandardsIgnoreEnd') !== false &&
+            strpos($lines[$lineNr-1], '@codingStandardsIgnoreStart') !== false
+        ) {
+            return true;
+        }
+
+        return false;
     }
 
     protected function isPrimitive($type)

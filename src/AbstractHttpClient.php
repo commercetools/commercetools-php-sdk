@@ -8,6 +8,8 @@ namespace Sphere\Core;
 
 
 use GuzzleHttp\Client as HttpClient;
+use Sphere\Core\Client\Adapter\AdapterFactory;
+use Sphere\Core\Client\Adapter\AdapterInterface;
 
 /**
  * Class AbstractHttpClient
@@ -15,15 +17,25 @@ use GuzzleHttp\Client as HttpClient;
  */
 abstract class AbstractHttpClient
 {
+
+    const VERSION = '1.0.0 M3';
+
     /**
      * @var HttpClient
      */
     protected $httpClient;
 
     /**
+     * @var AdapterFactory
+     */
+    protected $adapterFactory;
+
+    /**
      * @var Config
      */
     protected $config;
+
+    protected $userAgent;
 
     /**
      * @param Config|array $config
@@ -62,16 +74,52 @@ abstract class AbstractHttpClient
 
 
     /**
-     * @return HttpClient
+     * @param array $options
+     * @return AdapterInterface
      */
-    public function getHttpClient()
+    public function getHttpClient($options = [])
     {
         if (is_null($this->httpClient)) {
-            $this->httpClient = new HttpClient(['base_url' => $this->getBaseUrl()]);
+            $options = array_merge(
+                [
+                    'base_uri' => $this->getBaseUrl(),
+                    'headers' => ['User-Agent' => $this->getUserAgent()]
+                ],
+                $options
+            );
+            $class = $this->getAdapterFactory()->getClass($this->getConfig()->getAdapter());
+
+            $this->httpClient = new $class($options);
         }
 
         return $this->httpClient;
     }
 
+    /**
+     * @return AdapterFactory
+     */
+    public function getAdapterFactory()
+    {
+        if (is_null($this->adapterFactory)) {
+            $this->adapterFactory = new AdapterFactory();
+        }
+
+        return $this->adapterFactory;
+    }
+
     abstract protected function getBaseUrl();
+
+    protected function getUserAgent()
+    {
+        if (is_null($this->userAgent)) {
+            $agent = 'sphere-php-sdk ' . static::VERSION;
+            if (extension_loaded('curl')) {
+                $agent .= ' curl/' . curl_version()['version'];
+            }
+            $agent .= ' PHP/' . PHP_VERSION;
+            $this->userAgent = $agent;
+        }
+
+        return $this->userAgent;
+    }
 }

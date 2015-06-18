@@ -16,7 +16,7 @@ class GenericUpdateRequestTest extends RequestTestCase
         return [
             [
                 '\Sphere\Core\Request\CartDiscounts\CartDiscountUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\CartDiscount\CartDiscount',
             ],
             [
                 '\Sphere\Core\Request\Carts\CartUpdateRequest',
@@ -28,15 +28,15 @@ class GenericUpdateRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\Channels\ChannelUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Channel\Channel',
             ],
             [
                 '\Sphere\Core\Request\Comments\CommentUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Comment\Comment',
             ],
             [
                 '\Sphere\Core\Request\CustomerGroups\CustomerGroupUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\CustomerGroup\CustomerGroup',
             ],
             [
                 '\Sphere\Core\Request\Customers\CustomerUpdateRequest',
@@ -44,11 +44,11 @@ class GenericUpdateRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\DiscountCodes\DiscountCodeUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\DiscountCode\DiscountCode',
             ],
             [
                 '\Sphere\Core\Request\Inventory\InventoryUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Inventory\InventoryEntry',
             ],
             [
                 '\Sphere\Core\Request\Orders\OrderUpdateRequest',
@@ -56,7 +56,7 @@ class GenericUpdateRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\ProductDiscount\ProductDiscount',
             ],
             [
                 '\Sphere\Core\Request\Products\ProductUpdateRequest',
@@ -64,27 +64,31 @@ class GenericUpdateRequestTest extends RequestTestCase
             ],
             [
                 '\Sphere\Core\Request\ProductTypes\ProductTypeUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\ProductType\ProductType',
             ],
             [
                 '\Sphere\Core\Request\Reviews\ReviewUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\Review\Review',
             ],
             [
                 '\Sphere\Core\Request\ShippingMethods\ShippingMethodUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\ShippingMethod\ShippingMethod',
             ],
             [
                 '\Sphere\Core\Request\States\StateUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\State\State',
             ],
             [
                 '\Sphere\Core\Request\TaxCategories\TaxCategoryUpdateRequest',
-                '\Sphere\Core\Model\Common\JsonObject',
+                '\Sphere\Core\Model\TaxCategory\TaxCategory',
             ],
             [
                 '\Sphere\Core\Request\Zones\ZoneUpdateRequest',
                 '\Sphere\Core\Model\Zone\Zone',
+            ],
+            [
+                '\Sphere\Core\Request\ShippingMethods\ShippingMethodUpdateRequest',
+                '\Sphere\Core\Model\ShippingMethod\ShippingMethod',
             ],
         ];
     }

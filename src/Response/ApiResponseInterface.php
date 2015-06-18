@@ -5,15 +5,15 @@
  */
 namespace Sphere\Core\Response;
 
-use GuzzleHttp\Message\ResponseInterface;
-use GuzzleHttp\Ring\Future\FutureInterface;
+use Psr\Http\Message\ResponseInterface;
+use Sphere\Core\Client\Adapter\AdapterPromiseInterface;
 use Sphere\Core\Request\ClientRequestInterface;
 
 /**
  * Interface ApiResponseInterface
  * @package Sphere\Core\Http
  */
-interface ApiResponseInterface extends FutureInterface
+interface ApiResponseInterface
 {
     public function toObject();
 
@@ -24,7 +24,7 @@ interface ApiResponseInterface extends FutureInterface
     public function isError();
 
     /**
-     * @return ResponseInterface|FutureInterface
+     * @return ResponseInterface|AdapterPromiseInterface
      */
     public function getResponse();
 
@@ -32,4 +32,32 @@ interface ApiResponseInterface extends FutureInterface
      * @return ClientRequestInterface
      */
     public function getRequest();
+
+    /**
+     * @return mixed
+     */
+    public function wait();
+
+    /**
+     * @param callable $onFulfilled
+     * @param callable $onRejected
+     * @return AdapterPromiseInterface
+     */
+    public function then(callable $onFulfilled = null, callable $onRejected = null);
+
+    /**
+     * @param string $header
+     * @return array
+     */
+    public function getHeader($header);
+
+    /**
+     * @return array
+     */
+    public function getHeaders();
+
+    /**
+     * @return int
+     */
+    public function getStatusCode();
 }

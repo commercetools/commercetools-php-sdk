@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
  */
 class TaxCategoriesQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\State\StateCollection';
+    protected $resultClass = '\Sphere\Core\Model\TaxCategory\TaxCategoryCollection';
 
     /**
      * @param Context $context

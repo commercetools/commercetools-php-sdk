@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
  */
 class ChannelsQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\Collection';
+    protected $resultClass = '\Sphere\Core\Model\Channel\ChannelCollection';
 
     /**
      * @param Context $context

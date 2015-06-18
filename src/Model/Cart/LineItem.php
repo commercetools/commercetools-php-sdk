@@ -39,6 +39,8 @@ use Sphere\Core\Model\TaxCategory\TaxRate;
  * @method LineItem setSupplyChannel(ChannelReference $supplyChannel = null)
  * @method DiscountedLineItemPrice getDiscountedPrice()
  * @method LineItem setDiscountedPrice(DiscountedLineItemPrice $discountedPrice = null)
+ * @method LocalizedString getProductSlug()
+ * @method LineItem setProductSlug(LocalizedString $productSlug = null)
  */
 class LineItem extends JsonObject
 {
@@ -48,6 +50,7 @@ class LineItem extends JsonObject
             'id' => [static::TYPE => 'string'],
             'productId' => [static::TYPE => 'string'],
             'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'productSlug' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'variant' => [static::TYPE => '\Sphere\Core\Model\Product\ProductVariant'],
             'price' => [static::TYPE => '\Sphere\Core\Model\Common\Price'],
             'quantity' => [static::TYPE => 'int'],

@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
  */
 class ShippingMethodFetchByIdRequest extends AbstractFetchByIdRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\ShippingMethod\ShippingMethod';
 
     /**
      * @param string $id

@@ -6,7 +6,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "changeOrderState" of "order"
     And the orderState is "Complete"
     When i want to update a "order"
-    Then the path should be "orders/id"
+    Then the path should be "/orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -25,7 +25,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "changeShipmentState" of "order"
     And the shipmentState is "Pending"
     When i want to update a "order"
-    Then the path should be "orders/id"
+    Then the path should be "/orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -44,7 +44,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "changePaymentState" of "order"
     And the paymentState is "Paid"
     When i want to update a "order"
-    Then the path should be "orders/id"
+    Then the path should be "/orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -65,7 +65,7 @@ Feature: I want to send a Customer Update Request
     And set the externalId to "ext-id"
     And set the syncedAt date to "2015-03-15T17:56+02:00"
     When i want to update a "order"
-    Then the path should be "orders/id"
+    Then the path should be "/orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -98,7 +98,7 @@ Feature: I want to send a Customer Update Request
     And set the returnTrackingId to "1234567890"
     And set the returnItems object to items
     When i want to update a "order"
-    Then the path should be "orders/id"
+    Then the path should be "/orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -127,7 +127,7 @@ Feature: I want to send a Customer Update Request
     And the returnItemId is "1234567890"
     And the shipmentState is "Returned"
     When i want to update a "order"
-    Then the path should be "orders/id"
+    Then the path should be "/orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -148,7 +148,7 @@ Feature: I want to send a Customer Update Request
     And the returnItemId is "1234567890"
     And the paymentState is "Refunded"
     When i want to update a "order"
-    Then the path should be "orders/id"
+    Then the path should be "/orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -172,7 +172,7 @@ Feature: I want to send a Customer Update Request
     And the state reference toState is "new"
     And set the actualTransitionDate date to "2015-03-24 12:13"
     When i want to update a "order"
-    Then the path should be "orders/id"
+    Then the path should be "/orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -205,7 +205,7 @@ Feature: I want to send a Customer Update Request
     And the state reference toState is "new"
     And set the actualTransitionDate date to "2015-03-24 12:13"
     When i want to update a "order"
-    Then the path should be "orders/id"
+    Then the path should be "/orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -240,7 +240,7 @@ Feature: I want to send a Customer Update Request
     And the lineItemId is "1234567890"
     And the state is itemStates object
     When i want to update a "order"
-    Then the path should be "orders/id"
+    Then the path should be "/orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -274,7 +274,7 @@ Feature: I want to send a Customer Update Request
     And the customLineItemId is "1234567890"
     And the state is itemStates object
     When i want to update a "order"
-    Then the path should be "orders/id"
+    Then the path should be "/orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -315,7 +315,7 @@ Feature: I want to send a Customer Update Request
     And set the myMeasurement object to measurements
     And set the myTrackingData object to trackingData
     When i want to update a "order"
-    Then the path should be "orders/id"
+    Then the path should be "/orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -347,7 +347,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "setOrderNumber" of "order"
     And set the orderNumber to "1234567890"
     When i want to update a "order"
-    Then the path should be "orders/id"
+    Then the path should be "/orders/id"
     And the method should be "POST"
     And the request should be
     """

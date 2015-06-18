@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractQueryRequest;
  */
 class InventoryQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\Collection';
+    protected $resultClass = '\Sphere\Core\Model\Inventory\InventoryEntryCollection';
 
     /**
      * @param Context $context

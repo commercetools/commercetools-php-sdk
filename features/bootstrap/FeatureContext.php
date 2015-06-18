@@ -80,7 +80,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $httpRequest = $this->request->httpRequest();
 
-        assertSame($expectedPath, $httpRequest->getPath());
+        assertSame($expectedPath, (string)$httpRequest->getUri());
     }
 
     /**
@@ -90,7 +90,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $expectedResult = (string)$result;
         $httpRequest = $this->request->httpRequest();
-        $request = $httpRequest->getBody();
+        $request = (string)$httpRequest->getBody();
 
         assertJsonStringEqualsJsonString($expectedResult, $request);
     }
@@ -102,7 +102,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $httpRequest = $this->request->httpRequest();
 
-        assertSame(strtolower($expectedMethod), $httpRequest->getHttpMethod());
+        assertSame(strtoupper($expectedMethod), $httpRequest->getMethod());
     }
 
     protected function createRequestInstance($className, $params = [])
@@ -211,8 +211,13 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theContextFieldIsValueAsType($field, $value, $type)
     {
-        $method = $type . 'val';
-        $this->theContextFieldIsValue($field, $method($value));
+        if ($type == 'bool') {
+            $value = (bool)$value;
+        } else {
+            $method = $type . 'val';
+            $value = $method($value);
+        }
+        $this->theContextFieldIsValue($field, $value);
     }
 
     /**
@@ -653,5 +658,16 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function queryByCustomersId($customerId)
     {
         $this->request->byCustomerId($customerId);
+    }
+
+    /**
+     * @Given i want to import a :context
+     */
+    public function iWantToImportAContext($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ImportRequest';
+        $this->createRequestInstance($request, [$this->getContextObject($context)]);
     }
 }

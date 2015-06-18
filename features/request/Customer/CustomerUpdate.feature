@@ -17,7 +17,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "changeEmail" of "customer"
     And the email is "john.doe@company.com"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -42,7 +42,7 @@ Feature: I want to send a Customer Update Request
     And the firstName is "John"
     And the lastName is "Doe"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -62,7 +62,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "changeEmail" of "customer"
     And the email is "john.doe@company.com"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -81,7 +81,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "addAddress" of "customer"
     And the "address" is "default" object
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -105,7 +105,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "addAddress" of "customer" as "secondAddress"
     And the "address" is "jane" object
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -136,7 +136,7 @@ Feature: I want to send a Customer Update Request
     And the addressId is "addressId-1"
     And the "address" is "default" object
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -159,7 +159,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "removeAddress" of "customer"
     And the addressId is "addressId-1"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -178,7 +178,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "setDefaultShippingAddress" of "customer"
     And set the addressId to "addressId-1"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -196,7 +196,7 @@ Feature: I want to send a Customer Update Request
   Scenario: Unset customer's default shipping address
     Given i want to "setDefaultShippingAddress" of "customer"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -214,7 +214,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "setDefaultBillingAddress" of "customer"
     And set the addressId to "addressId-1"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -231,7 +231,7 @@ Feature: I want to send a Customer Update Request
   Scenario: Unset customer's default billing address
     Given i want to "setDefaultBillingAddress" of "customer"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -249,7 +249,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "setCustomerGroup" of "customer"
     And set the "customerGroup" reference "customerGroup" to "myCustomerGroup"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -271,7 +271,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "setCustomerNumber" of "customer"
     And set the "customerNumber" to "customer-1"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -290,7 +290,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "setExternalId" of "customer"
     And set the "externalId" to "customer-1"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -309,7 +309,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "setCompanyName" of "customer"
     And set the "companyName" to "myCompany"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -328,7 +328,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "setDateOfBirth" of "customer"
     And set the "DateOfBirth" date to "2014-10-15 15:00"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -347,7 +347,7 @@ Feature: I want to send a Customer Update Request
     Given i want to "setVatId" of "customer"
     And set the "vatId" to "myVatId"
     When i want to update a "Customer"
-    Then the path should be "customers/id"
+    Then the path should be "/customers/id"
     And the method should be "POST"
     And the request should be
     """

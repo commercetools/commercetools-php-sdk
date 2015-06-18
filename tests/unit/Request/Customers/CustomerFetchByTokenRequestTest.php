@@ -18,7 +18,7 @@ class CustomerFetchByTokenRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOMER_FETCH_BY_TOKEN_REQUEST, ['myToken']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::GET, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -26,7 +26,7 @@ class CustomerFetchByTokenRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOMER_FETCH_BY_TOKEN_REQUEST, ['myToken']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('customers?token=myToken', $httpRequest->getPath());
+        $this->assertSame('/customers?token=myToken', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -34,12 +34,12 @@ class CustomerFetchByTokenRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOMER_FETCH_BY_TOKEN_REQUEST, ['myToken']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertNull($httpRequest->getBody());
+        $this->assertEmpty((string)$httpRequest->getBody());
     }
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Message\Response', [], [], '', false);
+        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = $this->getRequest(static::CUSTOMER_FETCH_BY_TOKEN_REQUEST, ['myToken']);
         $response = $request->buildResponse($guzzleResponse);
 

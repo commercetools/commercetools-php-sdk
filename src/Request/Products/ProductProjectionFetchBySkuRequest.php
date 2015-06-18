@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Request\Products;
 
-use GuzzleHttp\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Model\Common\Context;
@@ -29,7 +29,7 @@ class ProductProjectionFetchBySkuRequest extends AbstractApiRequest
     use ExpandTrait;
 
     /**
-     * @param \Sphere\Core\Client\JsonEndpoint $sku
+     * @param string $sku
      * @param Context $context
      */
     public function __construct($sku, Context $context = null)

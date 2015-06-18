@@ -1,17 +1,17 @@
 ![SPHERE.IO icon](https://admin.sphere.io/assets/images/sphere_logo_rgb_long.png)
 # SPHERE.IO PHP SDK
 
-> WARNING: As of now, this is a pre-release partial implementation.
-> See the [Milestone Plan](https://github.com/sphereio/sphere-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned. We love feedback and [Issue reports](https://github.com/sphereio/sphere-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
+> STATUS: technically robust beta version, but we do not yet guarantee API compatibility until the 1.0.0 release.  Please take your time to thoroughly test the upcoming RC (Milestone 4) release. 
+> See the [Milestone Plan](https://github.com/sphereio/sphere-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned in detail. We love feedback and [Issue reports](https://github.com/sphereio/sphere-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
 
 [![Build Status](https://img.shields.io/travis/sphereio/sphere-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/sphereio/sphere-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk)
 
-The PHP SDK allows developers to build applications on the SPHERE.IO REST API using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API. Users gain lots of IDE Auto-Completion and type checks on a literal API.
+The PHP SDK allows developers to build applications on the SPHERE.IO REST API using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API. You gain lots of IDE Auto-Completion, type checks on a literal API, Warnings, Object Mapping, i18n support etc..
 It also manages the OAuth2 security, provides caches and an interface for concurrent and asynchronous API calls.
 
 The SDK is licensed under the permissive [MIT License](LICENSE). Don't hesitate to [contribute](#contribute)!
 
-## Install / Integrate into your Project
+## Install & Integrate the SDK into your Project
 
 The SDK requires a PHP version of 5.4 or higher with the apc(u) PHP extension for its default cache. If you provide an own Cache interface, apc(u) is not necessary. The curl extension is recommended but not strictly necessary because the SDK is using the [Guzzle library](https://github.com/guzzle/guzzle) library, which falls back to PHP stream wrappers if curl is not available.
 
@@ -25,7 +25,7 @@ curl -sS https://getcomposer.org/installer | php
 Next, run the Composer command to install the latest version of the SDK:
 
 ```bash
-composer require sphere/php-sdk
+composer require sphere/php-sdk dev-master
 ```
 
 After installing, you need to require Composer's autoloader if that's not yet the case:
@@ -34,7 +34,7 @@ After installing, you need to require Composer's autoloader if that's not yet th
 require 'vendor/autoload.php';
 ```
 
-If you don't use Composer, just [download a zip archive](archive/master.zip) of the latest release, manually integrate it and configure your own autoloader.
+If you don't use Composer, just [download a zip archive](https://github.com/sphereio/sphere-php-sdk/archive/master.zip) of the latest release, manually integrate it and configure your own autoloader.
 
 Until the 1.0.0 release M0, M1 etc. milestone releases can contain incompatible changes.  From 1.0.0 on, the project will follow the [semantic versioning](http://semver.org) guidelines, i.e. everything but major version changes are backwards-compatible. This matches composer's default behavior.
 
@@ -43,6 +43,8 @@ With composer just run `composer update sphere/php-sdk` to update to compatible 
 Please read the [Changelog](CHANGELOG.md) before updating in any case.
 
 ## Use the SDK
+
+The [PHP API documentation](http://sphereio.github.io/sphere-php-sdk/docs/master) provides all the details you need in a searchable form.
 
 To get up and running, [create a free test project](http://admin.sphere.io) to get a SPHERE project with API credentials (Menu "Developers"->"API Clients").
 
@@ -54,8 +56,6 @@ require '../vendor/autoload.php';
 use Sphere\Core\Request\Products\ProductsSearchRequest;
 use Sphere\Core\Client;
 
-header('Content-Type: text/html; charset=utf-8');
-
 $config = [
     'client_id' => 'my client id',
     'client_secret' => 'my client secret',
@@ -63,12 +63,19 @@ $config = [
 ];
 
 /**
- * create search request
+ * create a search request and a client,
+ * execute the request and get the PHP Object
+ * (the client can and should be re-used)
  */
 $search = ProductsSearchRequest::of()->addParam('text.en', 'red');
 
 $client = new Client($config);
 $products = $client->execute($search)->toObject();
+
+/**
+ * show result (would be a view layer in real world)
+ */
+header('Content-Type: text/html; charset=utf-8');
 
 foreach ($products as $product) {
     echo $product->getName()->en . '<br/>';
@@ -79,9 +86,7 @@ foreach ($products as $product) {
 
 In real world, you will not put your API credentials directly into code but use a config file or your framework's config or dependency injection system for that.
 
-The [API documentation](http://sphereio.github.io/sphere-php-sdk/docs/master) provides all the details you need in a searchable form.
-
-## Develop and Improve
+## Improve & Contribute to the SDK project
 
 prepare your development environment (if necessary).
 
@@ -93,6 +98,7 @@ brew tap homebrew/dupes
 brew tap homebrew/versions
 brew tap homebrew/homebrew-php
 brew install php55
+brew install php55-intl
 brew install php55-apcu
 brew install php55-xdebug
 brew install ant
@@ -144,7 +150,7 @@ To enable code style checks directly in phpStorm you have to configure the path 
 Now you can enable at Preferences > Editor > Inspections > PHP the "PHP code sniffer validation" with PSR-2 standard. Change the severity if needed.
 
 
-## <a name="contribute"></a>Contribute
+### <a name="contribute"></a>Contribute
 
 On bigger effort changes, please open a GitHub [issue](issues) and ask if you can help or get help with your idea. For typos and documentation improvements just make a pull request.
 

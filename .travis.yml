@@ -11,19 +11,25 @@ matrix:
     - php: hhvm
     - php: nightly
 
+services:
+  - redis-server
+
 cache:
   directories:
   - vendor
 
 before_script:
+  - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
+  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - sh -c "if [ $TRAVIS_PHP_VERSION != 'hhvm' ] && [ $TRAVIS_PHP_VERSION != 'nightly' ] && [ `php-config --vernum` -ge 50500 ] ; then pecl config-set preferred_state beta; printf "yes\n" | pecl install -f apcu ; else echo 'extension="apc.so"' >> ./tests/apc.ini ; fi"
   - sh -c "if [ $TRAVIS_PHP_VERSION != 'hhvm' ] && [ $TRAVIS_PHP_VERSION != 'nightly' ] ; then phpenv config-add ./tests/apc.ini; fi"
-  - composer install --prefer-source -o
+  - if [ $TRAVIS_PHP_VERSION == '5.4' ] ; then ./set_guzzle5.sh; fi
+  - composer install -o
 
 script:
   - ant phpcs-ci
   - phpunit --testsuite=unit
-  - if [ $TRAVIS_PHP_VERSION == '5.4' ] ; then phpunit --testsuite=integration; fi
+  - if [ $TRAVIS_PHP_VERSION == '5.5' ] ; then phpunit --testsuite=integration; fi
   - ant behat
 
 after_success:
@@ -39,3 +45,7 @@ env:
     - secure: Q4zRyFxLw/7YlHG/iWzyR7V7Srm8LsQ3UgMshckUyqefhzhF19GefoPJdPdALyLVEYQMG3O/U1aebbyt8Puy5jWWKKiwFaQA+mMXzpBFcvhutgxByqBXdIysIhGU65No+WbiCKlpL2WPNtYvE1cMSjFfn7IX8ThGkBxhJQcha38=
     # SPHERE_PROJECT
     - secure: CPj46vCtmLaxGKXycJW+PmNXloXu5ruOV/Qg1mA6tU83oPjlxHVrqMOlb87ykf6U8X6XXAjMrgR0q3gBepPJg3HZmJyeOsVhwSU/jhfN7L1lR7BrQrPdLutvhuC6Fgj+b2Ubzh7PIt7pR6AYZyMCv5ofajW9aBcC5D556WJsSjE=
+notifications:
+  hipchat:
+    rooms:
+      secure: VD5RvUZYVg1aokw8OeMhNfDPc39o2r4Jjq8s6U2QvMXzoiopHpj6+VYX1AHbhxMpBGmsgKfzbYQ6XfubJUeHq+FMzW3YEekwcyqXKCfWi5tLCE7Epb0dCySatztVTkqlXzXaAM6NhzdFxG6kQPiA9OcSvRPZmSwjuX4eYXRokRw=

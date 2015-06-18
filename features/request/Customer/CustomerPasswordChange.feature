@@ -2,7 +2,7 @@ Feature: I want to change the customer's password
   Scenario: Create Token for password change
     Given a "customer" is identified by the email "john.doe@company.com"
     And i want to create a password token for "customer"
-    Then the path should be "customers/password-token"
+    Then the path should be "/customers/password-token"
     And the method should be "POST"
     And the request should be
     """
@@ -14,7 +14,7 @@ Feature: I want to change the customer's password
   Scenario: Get customer by password token
     Given a "customer" is identified by the token "tokenValue"
     Given i want to fetch a "Customer" by token
-    Then the path should be "customers?token=tokenValue"
+    Then the path should be "/customers?token=tokenValue"
     And the method should be "GET"
 
   Scenario: Reset customers password
@@ -22,7 +22,7 @@ Feature: I want to change the customer's password
     And the "tokenValue" is "token"
     And the "newPassword" is "newPassword"
     And i "reset" the "customer" password
-    Then the path should be "customers/password/reset"
+    Then the path should be "/customers/password/reset"
     And the method should be "POST"
     And the request should be
     """
@@ -39,7 +39,7 @@ Feature: I want to change the customer's password
     And the "currentPassword" is "currentPassword"
     And the "newPassword" is "newPassword"
     And i "change" the "customer" password
-    Then the path should be "customers/password"
+    Then the path should be "/customers/password"
     And the method should be "POST"
     And the request should be
     """

@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
  */
 class ChannelDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\Channel\Channel';
 
     /**
      * @param string $id

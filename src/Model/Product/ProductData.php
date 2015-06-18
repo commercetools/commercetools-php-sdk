@@ -30,8 +30,8 @@ use Sphere\Core\Model\Common\LocalizedString;
  * @method ProductData setMetaKeywords(LocalizedString $metaKeywords = null)
  * @method ProductVariant getMasterVariant()
  * @method ProductData setMasterVariant(ProductVariant $masterVariant = null)
- * @method ProductVariant getVariants()
- * @method ProductData setVariants(ProductVariant $variants = null)
+ * @method ProductVariantCollection getVariants()
+ * @method ProductData setVariants(ProductVariantCollection $variants = null)
  * @method LocalizedSearchKeywords getSearchKeywords()
  * @method ProductData setSearchKeywords(LocalizedSearchKeywords $searchKeywords = null)
  */
@@ -48,7 +48,7 @@ class ProductData extends JsonObject
             'metaDescription' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
             'masterVariant' => [static::TYPE => '\Sphere\Core\Model\Product\ProductVariant'],
-            'variants' => [static::TYPE => '\Sphere\Core\Model\Product\ProductVariant'],
+            'variants' => [static::TYPE => '\Sphere\Core\Model\Product\ProductVariantCollection'],
             'searchKeywords' => [static::TYPE => '\Sphere\Core\Model\Product\LocalizedSearchKeywords']
         ];
     }

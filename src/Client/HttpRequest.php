@@ -6,58 +6,20 @@
 
 namespace Sphere\Core\Client;
 
+use GuzzleHttp\Psr7\Request;
+
 /**
  * Class HttpRequest
  * @package Sphere\Core\Http
  * @internal
  */
-class HttpRequest implements HttpRequestInterface
+class HttpRequest extends Request
 {
-    protected $httpMethod;
-    protected $path;
-    protected $body;
-    protected $headers;
-
     public function __construct($method, $path, $body = null, $contentType = 'application/json')
     {
-        $this->httpMethod = $method;
-        $this->path = $path;
-        $this->body = $body;
-        $this->headers = [
+        $headers = [
             "Content-Type" => $contentType
         ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getHttpMethod()
-    {
-        return $this->httpMethod;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
-     * @return array
-     */
-    public function getHeaders()
-    {
-        return $this->headers;
+        parent::__construct($method, $path, $headers, $body);
     }
 }

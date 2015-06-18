@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractUpdateRequest;
  */
 class DiscountCodeUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\DiscountCode\DiscountCode';
 
     /**
      * @param string $id

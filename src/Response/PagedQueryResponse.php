@@ -26,26 +26,19 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     const TOTAL = 'total';
     const RESULTS = 'results';
 
-    protected $parsed = false;
     protected $count;
     protected $offset;
     protected $total;
-    protected $results = [];
+    protected $results;
 
-    protected function parseJsonResponse()
+    protected function getResponseKey($key, $default = null)
     {
-        if ($this->parsed) {
-            return;
+        $response = $this->toArray();
+        if (isset($response[$key])) {
+            return $response[$key];
         }
-        $this->parsed = true;
-        if (!$this->isError()) {
-            $jsonResponse = $this->toArray();
-            $this->setCount($jsonResponse[static::COUNT])
-                ->setOffset($jsonResponse[static::OFFSET])
-                ->setTotal($jsonResponse[static::TOTAL])
-                ->setResults($jsonResponse[static::RESULTS])
-            ;
-        }
+
+        return $default;
     }
 
     /**
@@ -53,19 +46,10 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function getCount()
     {
-        $this->parseJsonResponse();
+        if (is_null($this->count)) {
+            $this->count = $this->getResponseKey(static::COUNT);
+        }
         return $this->count;
-    }
-
-    /**
-     * @param int $count
-     * @return $this
-     */
-    protected function setCount($count)
-    {
-        $this->count = $count;
-
-        return $this;
     }
 
     /**
@@ -73,19 +57,10 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function getOffset()
     {
-        $this->parseJsonResponse();
+        if (is_null($this->offset)) {
+            $this->offset = $this->getResponseKey(static::OFFSET);
+        }
         return $this->offset;
-    }
-
-    /**
-     * @param int $offset
-     * @return $this
-     */
-    protected function setOffset($offset)
-    {
-        $this->offset = $offset;
-
-        return $this;
     }
 
     /**
@@ -93,19 +68,10 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function getTotal()
     {
-        $this->parseJsonResponse();
+        if (is_null($this->total)) {
+            $this->total = $this->getResponseKey(static::TOTAL);
+        }
         return $this->total;
-    }
-
-    /**
-     * @param int $total
-     * @return $this
-     */
-    protected function setTotal($total)
-    {
-        $this->total = $total;
-
-        return $this;
     }
 
     /**
@@ -113,19 +79,10 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function getResults()
     {
-        $this->parseJsonResponse();
+        if (is_null($this->results)) {
+            $this->results = $this->getResponseKey(static::RESULTS, []);
+        }
         return $this->results;
-    }
-
-    /**
-     * @param array $results
-     * @return $this
-     */
-    protected function setResults(array $results)
-    {
-        $this->results = $results;
-
-        return $this;
     }
 
     /**
@@ -137,7 +94,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function getIterator()
     {
-        $this->parseJsonResponse();
+        $this->getResults();
         return new \ArrayIterator($this->results);
     }
 
@@ -155,8 +112,8 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function offsetExists($offset)
     {
-        $this->parseJsonResponse();
-        return isset($this->results[$offset]);
+        $results = $this->getResults();
+        return isset($results[$offset]);
     }
 
     /**
@@ -170,8 +127,8 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function offsetGet($offset)
     {
-        $this->parseJsonResponse();
-        return $this->results[$offset];
+        $results = $this->getResults();
+        return $results[$offset];
     }
 
     /**
@@ -188,7 +145,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function offsetSet($offset, $value)
     {
-        $this->parseJsonResponse();
+        $this->getResults();
         if (is_null($offset)) {
             $this->results[] = $value;
         } else {
@@ -207,7 +164,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
      */
     public function offsetUnset($offset)
     {
-        $this->parseJsonResponse();
+        $this->getResults();
         unset($this->results[$offset]);
     }
 }

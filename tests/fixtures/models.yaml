@@ -28,6 +28,7 @@ lineItem:
     - id
     - productId
     - name
+    - productSlug
     - variant
     - price
     - quantity
@@ -233,10 +234,13 @@ price:
   domain: common
   model: Price
   fields:
+    - id
     - value
     - country
     - customerGroup
     - channel
+    - validFrom
+    - validUntil
     - discounted
 
 customer:
@@ -783,3 +787,102 @@ zone:
     - name
     - description
     - locations
+
+importOrder:
+  domain: order
+  model: importOrder
+  fields:
+    - orderNumber
+    - customerId
+    - customerEmail
+    - lineItems
+    - customLineItems
+    - totalPrice
+    - taxedPrice
+    - shippingAddress
+    - billingAddress
+    - customerGroup
+    - country
+    - orderState
+    - shipmentState
+    - paymentState
+    - shippingInfo
+    - completedAt
+
+importLineItem:
+  domain: order
+  model: importLineItem
+  fields:
+    - productId
+    - name
+    - variant
+    - price
+    - quantity
+    - state
+    - supplyChannel
+    - taxRate
+
+importProductVariant:
+  domain: order
+  model: importProductVariant
+  fields:
+    - id
+    - sku
+    - prices
+    - attributes
+    - images
+
+inventoryEntry:
+  domain: inventory
+  model: inventoryEntry
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - sku
+    - supplyChannel
+    - quantityOnStock
+    - availableQuantity
+    - restockableInDays
+    - expectedDelivery
+
+review:
+  domain: review
+  model: review
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - productId
+    - customerId
+    - authorName
+    - title
+    - text
+    - score
+
+comment:
+  domain: comment
+  model: comment
+  fields:
+    - id
+    - version
+    - createdAt
+    - lastModifiedAt
+    - productId
+    - customerId
+    - authorName
+    - title
+    - text
+
+message:
+  domain: message
+  model: message
+  fields:
+    - id
+    - sequenceNumber
+    - resource
+    - resourceVersion
+    - type
+    - createdAt

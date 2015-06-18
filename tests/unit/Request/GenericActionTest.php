@@ -39,7 +39,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductChangePriceAction',
-                ['action', 'variantId', 'price', 'staged']
+                ['action', 'priceId', 'price', 'staged']
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductChangeSlugAction',
@@ -59,7 +59,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductRemovePriceAction',
-                ['action', 'variantId', 'price', 'staged']
+                ['action', 'priceId', 'staged']
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductRemoveVariantAction',
@@ -84,6 +84,18 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Sphere\Core\Request\Products\Command\ProductSetMetaAttributesAction',
                 ['action', 'metaTitle', 'metaDescription', 'metaKeywords', 'staged']
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaTitleAction',
+                ['action', 'metaTitle']
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaDescriptionAction',
+                ['action', 'metaDescription']
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaKeywordsAction',
+                ['action', 'metaKeywords']
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
@@ -234,6 +246,18 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'externalId']
             ],
             [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaTitleAction',
+                ['action', 'metaTitle']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaDescriptionAction',
+                ['action', 'metaDescription']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaKeywordsAction',
+                ['action', 'metaKeywords']
+            ],
+            [
                 '\Sphere\Core\Request\Carts\Command\CartAddCustomLineItemAction',
                 ['action', 'name', 'quantity', 'money', 'slug', 'taxCategory']
             ],
@@ -372,8 +396,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Sphere\Core\Request\Products\Command\ProductRemovePriceAction',
                 [
-                    10,
-                    $this->getInstance('\Sphere\Core\Model\Common\Price')
+                    10
                 ]
             ],
             [
@@ -399,6 +422,15 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductSetMetaAttributesAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaTitleAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaDescriptionAction',
+            ],
+            [
+                '\Sphere\Core\Request\Products\Command\ProductSetMetaKeywordsAction',
             ],
             [
                 '\Sphere\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
@@ -570,6 +602,15 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Sphere\Core\Request\Categories\Command\CategorySetExternalIdAction',
                 ['externalId']
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaTitleAction',
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaDescriptionAction',
+            ],
+            [
+                '\Sphere\Core\Request\Categories\Command\CategorySetMetaKeywordsAction',
             ],
             [
                 '\Sphere\Core\Request\Carts\Command\CartAddCustomLineItemAction',

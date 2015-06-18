@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
  */
 class CartDiscountFetchByIdRequest extends AbstractFetchByIdRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\CartDiscount\CartDiscount';
 
     /**
      * @param string $id

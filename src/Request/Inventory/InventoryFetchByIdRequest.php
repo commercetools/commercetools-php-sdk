@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
  */
 class InventoryFetchByIdRequest extends AbstractFetchByIdRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\Inventory\InventoryEntry';
 
     /**
      * @param string $id

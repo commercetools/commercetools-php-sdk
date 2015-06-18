@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
  */
 class CommentFetchByIdRequest extends AbstractFetchByIdRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\Comment\Comment';
 
     /**
      * @param string $id

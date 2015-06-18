@@ -16,7 +16,7 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
  */
 class ProductDiscountDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Sphere\Core\Model\ProductDiscount\ProductDiscount';
 
     /**
      * @param string $id

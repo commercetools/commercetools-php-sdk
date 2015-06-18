@@ -24,6 +24,12 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
  * @method Price setCustomerGroup(CustomerGroupReference $customerGroup = null)
  * @method Price setChannel(ChannelReference $channel = null)
  * @method Price setDiscounted(DiscountedPrice $discounted = null)
+ * @method string getId()
+ * @method Price setId(string $id = null)
+ * @method DateTimeDecorator getValidFrom()
+ * @method Price setValidFrom(\DateTime $validFrom = null)
+ * @method DateTimeDecorator getValidUntil()
+ * @method Price setValidUntil(\DateTime $validUntil = null)
  */
 class Price extends JsonObject
 {
@@ -32,10 +38,19 @@ class Price extends JsonObject
     public function getFields()
     {
         return [
+            'id' => [static::TYPE => 'string'],
             'value' => [self::TYPE => '\Sphere\Core\Model\Common\Money'],
             'country' => [self::TYPE => 'string'],
             'customerGroup' => [self::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
             'channel' => [self::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
+            'validFrom' => [
+                self::TYPE => '\DateTime',
+                self::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+            ],
+            'validUntil' => [
+                self::TYPE => '\DateTime',
+                self::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+            ],
             'discounted' => [self::TYPE => '\Sphere\Core\Model\Common\DiscountedPrice'],
         ];
     }

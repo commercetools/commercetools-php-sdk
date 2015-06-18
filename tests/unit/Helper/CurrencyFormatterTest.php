@@ -18,17 +18,23 @@ function extension_loaded($value)
 
 class CurrencyFormatterTest extends \PHPUnit_Framework_TestCase
 {
-    protected static $intlLoaded = true;
+    protected static $intlActive = true;
 
     public static function getIntlLoaded()
     {
-        return static::$intlLoaded;
+        return static::$intlActive;
     }
+
+    protected function setUp()
+    {
+        static::$intlActive = \extension_loaded('intl');
+    }
+
 
     protected function tearDown()
     {
         parent::tearDown();
-        static::$intlLoaded = true;
+        static::$intlActive = \extension_loaded('intl');
     }
 
     public function testDefaultFormatter()
@@ -46,7 +52,7 @@ class CurrencyFormatterTest extends \PHPUnit_Framework_TestCase
 
     public function testDefaultFormatterNoIntl()
     {
-        static::$intlLoaded = false;
+        static::$intlActive = false;
         $context = new Context();
         $context->setLocale('en_US');
         $formatter = new CurrencyFormatter($context);

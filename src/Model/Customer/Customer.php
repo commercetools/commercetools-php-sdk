@@ -43,10 +43,10 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
  * @method Customer setVatId(string $vatId = null)
  * @method AddressCollection getAddresses()
  * @method Customer setAddresses(AddressCollection $addresses = null)
- * @method string getDefaultShippingAddressId()
- * @method Customer setDefaultShippingAddressId(string $defaultShippingAddressId = null)
- * @method string getDefaultBillingAddressId()
- * @method Customer setDefaultBillingAddressId(string $defaultBillingAddressId = null)
+ * @method int getDefaultShippingAddressId()
+ * @method Customer setDefaultShippingAddressId(int $defaultShippingAddressId = null)
+ * @method int getDefaultBillingAddressId()
+ * @method Customer setDefaultBillingAddressId(int $defaultBillingAddressId = null)
  * @method bool getIsEmailVerified()
  * @method Customer setIsEmailVerified(bool $isEmailVerified = null)
  * @method string getExternalId()
@@ -74,8 +74,8 @@ class Customer extends Document
             'companyName' => [static::TYPE => 'string'],
             'vatId' => [static::TYPE => 'string'],
             'addresses' => [static::TYPE => '\Sphere\Core\Model\Common\AddressCollection'],
-            'defaultShippingAddressId' => [static::TYPE => 'string'],
-            'defaultBillingAddressId' => [static::TYPE => 'string'],
+            'defaultShippingAddressId' => [static::TYPE => 'int'],
+            'defaultBillingAddressId' => [static::TYPE => 'int'],
             'isEmailVerified' => [static::TYPE => 'bool'],
             'externalId' => [static::TYPE => 'string'],
             'customerGroup' => [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],

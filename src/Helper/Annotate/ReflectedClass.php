@@ -5,7 +5,10 @@
 
 namespace Sphere\Core\Helper\Annotate;
 
-
+/**
+ * Class ReflectedClass
+ * @package Sphere\Core\Helper\Annotate
+ */
 class ReflectedClass
 {
     /**
@@ -24,12 +27,15 @@ class ReflectedClass
     protected $magicGetSetMethods = [];
     protected $docBlockLines = [];
 
+    protected $constructorArgs = [];
+
     public function __construct($className)
     {
         $this->className = $className;
         $this->reflectClass();
         $this->reflectUseStatements();
         $this->reflectDocBlock();
+        $this->reflectConstructorArgs();
     }
 
     public function addMagicGetSetMethod(
@@ -62,6 +68,35 @@ class ReflectedClass
         $this->magicGetSetMethods[$name] = $magicMethod;
     }
 
+    public function addMagicMethod(
+        $methodName,
+        $args,
+        $returnTypeHint = null,
+        $returnsReference = null,
+        $shortDescription = null,
+        $static = false,
+        $force = false
+    ) {
+        if (!$force && $this->hasMethod($methodName)) {
+            return;
+        }
+
+        $magicMethod = [
+            'name' => $methodName,
+            'returnTypeHint' => $returnTypeHint,
+            'returnsReference' => $returnsReference,
+            'args' => $args,
+            'shortDescription' => $shortDescription,
+            'static' => $static
+        ];
+
+        if (isset($this->magicGetSetMethods[$methodName])) {
+            $magicMethod = array_merge($this->magicGetSetMethods[$methodName], $magicMethod);
+        }
+
+        $this->magicGetSetMethods[$methodName] = $magicMethod;
+    }
+
     public function hasMethod($methodName)
     {
         return isset($this->methods[$methodName]);
@@ -89,7 +124,15 @@ class ReflectedClass
     }
 
     /**
-     * @param $fieldType
+     * @return array
+     */
+    public function getConstructorArgs()
+    {
+        return $this->constructorArgs;
+    }
+
+    /**
+     * @param $className
      * @param $alias
      */
     public function addUse($className, $alias = null)
@@ -171,6 +214,27 @@ class ReflectedClass
         }
 
         $this->docBlockLines = $lines;
+    }
+
+    protected function reflectConstructorArgs()
+    {
+        $reflectionClass = new \ReflectionClass($this->getClassName());
+        $constructor = $reflectionClass->getConstructor();
+        $parameters = $constructor->getParameters();
+
+        $args = [];
+        foreach ($parameters as $parameter) {
+            if ($parameter->isOptional()) {
+                continue;
+            }
+            $typeClass = $parameter->getClass();
+            $typeName = '';
+            if (!is_null($typeClass)) {
+                $typeName = $typeClass->getShortName();
+            }
+            $args[] = trim($typeName . ' $' . $parameter->getName());
+        }
+        $this->constructorArgs = $args;
     }
 
     /**

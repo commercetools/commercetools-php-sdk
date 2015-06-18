@@ -46,8 +46,8 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
  * @method ProductProjection setPublished(bool $published = null)
  * @method ProductVariant getMasterVariant()
  * @method ProductProjection setMasterVariant(ProductVariant $masterVariant = null)
- * @method ProductVariant getVariants()
- * @method ProductProjection setVariants(ProductVariant $variants = null)
+ * @method ProductVariantCollection getVariants()
+ * @method ProductProjection setVariants(ProductVariantCollection $variants = null)
  * @method TaxCategoryReference getTaxCategory()
  * @method ProductProjection setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method LocalizedSearchKeywords getSearchKeywords()
@@ -73,7 +73,7 @@ class ProductProjection extends JsonObject
             'hasStagedChanges' => [static::TYPE => 'bool'],
             'published' => [static::TYPE => 'bool'],
             'masterVariant' => [static::TYPE => '\Sphere\Core\Model\Product\ProductVariant'],
-            'variants' => [static::TYPE => '\Sphere\Core\Model\Product\ProductVariant'],
+            'variants' => [static::TYPE => '\Sphere\Core\Model\Product\ProductVariantCollection'],
             'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference'],
             'searchKeywords' => [static::TYPE => '\Sphere\Core\Model\Product\LocalizedSearchKeywords']
         ];

@@ -54,8 +54,20 @@ class DateTimeDecorator implements \JsonSerializable
         return $dateTime;
     }
 
+    /**
+     * @return string
+     */
     public function jsonSerialize()
     {
         return $this->getUtcDateTime()->format('c');
+    }
+
+    /**
+     * @param string $format
+     * @return string
+     */
+    public function format($format)
+    {
+        return $this->getDateTime()->format($format);
     }
 }

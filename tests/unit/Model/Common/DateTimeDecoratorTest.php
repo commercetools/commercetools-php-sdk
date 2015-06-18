@@ -36,4 +36,12 @@ class DateTimeDecoratorTest extends \PHPUnit_Framework_TestCase
         $decorator->setDateTime(new \DateTime('2015-01-01 12:00', $timezone));
         $this->assertSame('2015-01-01T12:00:00+00:00', $decorator->jsonSerialize());
     }
+
+    public function testFormat()
+    {
+        $decorator = new DateTimeDecorator();
+        $timezone = new \DateTimeZone('UTC');
+        $decorator->setDateTime(new \DateTime('2015-01-01 12:00', $timezone));
+        $this->assertSame('2015-01-01', $decorator->format('Y-m-d'));
+    }
 }

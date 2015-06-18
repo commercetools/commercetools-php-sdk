@@ -65,7 +65,7 @@ class ProductProjectionFetchBySlugRequestTest extends RequestTestCase
         $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SLUG_REQUEST, $this->getArgs());
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::GET, $httpRequest->getHttpMethod());
+        $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
@@ -74,8 +74,8 @@ class ProductProjectionFetchBySlugRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(
-            'product-projections?limit=1&where=slug%28en%3D%22slug%22%29',
-            $httpRequest->getPath()
+            '/product-projections?limit=1&where=slug%28en%3D%22slug%22%29',
+            (string)$httpRequest->getUri()
         );
     }
 
@@ -88,9 +88,9 @@ class ProductProjectionFetchBySlugRequestTest extends RequestTestCase
         $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SLUG_REQUEST, $args);
         $httpRequest = $request->httpRequest();
 
-        $queryUri = 'product-projections?limit=1&where=slug%28en%3D%2212345678-1234-1234-1234-123456789012%22%29+or' .
+        $queryUri = '/product-projections?limit=1&where=slug%28en%3D%2212345678-1234-1234-1234-123456789012%22%29+or' .
             '+id%3D%2212345678-1234-1234-1234-123456789012%22';
-        $this->assertSame($queryUri, $httpRequest->getPath());
+        $this->assertSame($queryUri, (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -98,12 +98,12 @@ class ProductProjectionFetchBySlugRequestTest extends RequestTestCase
         $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SLUG_REQUEST, $this->getArgs());
         $httpRequest = $request->httpRequest();
 
-        $this->assertNull($httpRequest->getBody());
+        $this->assertEmpty((string)$httpRequest->getBody());
     }
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Message\Response', [], [], '', false);
+        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SLUG_REQUEST, $this->getArgs());
         $response = $request->buildResponse($guzzleResponse);
 
