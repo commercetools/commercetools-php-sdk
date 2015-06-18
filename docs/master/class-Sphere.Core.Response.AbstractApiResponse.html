@@ -86,6 +86,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-Sphere.Core.Client.Adapter.html">
+							Adapter						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Client.OAuth.html">
 							OAuth						</a>
 							</li>
@@ -135,6 +139,10 @@
 							Channel						</a>
 							</li>
 					<li>
+						<a href="namespace-Sphere.Core.Model.Comment.html">
+							Comment						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Model.Common.html">
 							Common						</a>
 							</li>
@@ -155,6 +163,14 @@
 							DiscountCode						</a>
 							</li>
 					<li>
+						<a href="namespace-Sphere.Core.Model.Inventory.html">
+							Inventory						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Message.html">
+							Message						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Model.Order.html">
 							Order						</a>
 							</li>
@@ -169,6 +185,10 @@
 					<li>
 						<a href="namespace-Sphere.Core.Model.ProductType.html">
 							ProductType						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Review.html">
+							Review						</a>
 							</li>
 					<li>
 						<a href="namespace-Sphere.Core.Model.ShippingMethod.html">
@@ -389,7 +409,7 @@
 		<b>Namespace:</b> <a href="namespace-Sphere.html">Sphere</a>\<a href="namespace-Sphere.Core.html">Core</a>\<a href="namespace-Sphere.Core.Response.html">Response</a><br>
 		<b>Package:</b> Sphere\Core\Response<br>
 
-			<b>Located at</b> <a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#20-180" title="Go to source code">Response/AbstractApiResponse.php</a>
+			<b>Located at</b> <a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#18-176" title="Go to source code">Response/AbstractApiResponse.php</a>
 		<br>
 	</div>
 
@@ -409,7 +429,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#48-58" title="Go to source code">__construct</a>( <span>GuzzleHttp\Message\ResponseInterface <var>$response</var></span>, <span><code><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span>, <span><code><a href="class-Sphere.Core.Model.Common.Context.html">Sphere\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#46-56" title="Go to source code">__construct</a>( <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span><code><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span>, <span><code><a href="class-Sphere.Core.Model.Common.Context.html">Sphere\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -447,7 +467,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_toObject">#</a>
-			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#60-70" title="Go to source code">toObject</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#58-68" title="Go to source code">toObject</a>( )</code>
 
 			<div class="description short">
 				
@@ -482,7 +502,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_toArray">#</a>
-			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#72-81" title="Go to source code">toArray</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#70-79" title="Go to source code">toArray</a>( )</code>
 
 			<div class="description short">
 				
@@ -517,7 +537,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getBody">#</a>
-			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#83-92" title="Go to source code">getBody</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#81-90" title="Go to source code">getBody</a>( )</code>
 
 			<div class="description short">
 				
@@ -552,7 +572,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_isError">#</a>
-			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#94-106" title="Go to source code">isError</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#92-100" title="Go to source code">isError</a>( )</code>
 
 			<div class="description short">
 				
@@ -576,18 +596,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="getResponse" id="_getResponse">
+		<tr data-order="getStatusCode" id="_getStatusCode">
 
 			<td class="attributes"><code>
 				 public 
-				GuzzleHttp\Message\ResponseInterface|GuzzleHttp\Ring\Future\FutureInterface
+				integer
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_getResponse">#</a>
-			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#108-114" title="Go to source code">getResponse</a>( )</code>
+			<a class="anchor" href="#_getStatusCode">#</a>
+			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#102-105" title="Go to source code">getStatusCode</a>( )</code>
 
 			<div class="description short">
 				
@@ -600,7 +620,117 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						GuzzleHttp\Message\ResponseInterface|GuzzleHttp\Ring\Future\FutureInterface
+						integer
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Sphere.Core.Response.ApiResponseInterface.html#_getStatusCode">Sphere\Core\Response\ApiResponseInterface::getStatusCode()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getHeader" id="_getHeader">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getHeader">#</a>
+			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#107-114" title="Go to source code">getHeader</a>( <span>string <var>$header</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$header</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Sphere.Core.Response.ApiResponseInterface.html#_getHeader">Sphere\Core\Response\ApiResponseInterface::getHeader()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getHeaders" id="_getHeaders">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getHeaders">#</a>
+			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#116-122" title="Go to source code">getHeaders</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Sphere.Core.Response.ApiResponseInterface.html#_getHeaders">Sphere\Core\Response\ApiResponseInterface::getHeaders()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getResponse" id="_getResponse">
+
+			<td class="attributes"><code>
+				 public 
+				Psr\Http\Message\ResponseInterface|<code><a href="class-Sphere.Core.Client.Adapter.AdapterPromiseInterface.html">Sphere\Core\Client\Adapter\AdapterPromiseInterface</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getResponse">#</a>
+			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#124-130" title="Go to source code">getResponse</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						Psr\Http\Message\ResponseInterface|<code><a href="class-Sphere.Core.Client.Adapter.AdapterPromiseInterface.html">Sphere\Core\Client\Adapter\AdapterPromiseInterface</a></code>
 					</div>
 
 
@@ -622,7 +752,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getRequest">#</a>
-			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#116-122" title="Go to source code">getRequest</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#132-138" title="Go to source code">getRequest</a>( )</code>
 
 			<div class="description short">
 				
@@ -657,7 +787,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_wait">#</a>
-			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#124-143" title="Go to source code">wait</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#140-160" title="Go to source code">wait</a>( )</code>
 
 			<div class="description short">
 				<p>Returns the result of the future either from cache or by blocking until
@@ -685,35 +815,8 @@ exception if the future's wait() method is called again.</p>
 
 
 
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="cancel" id="_cancel">
-
-			<td class="attributes"><code>
-				 public 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_cancel">#</a>
-			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#145-154" title="Go to source code">cancel</a>( )</code>
-
-			<div class="description short">
-				<p>Cancels the future, if possible.</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Cancels the future, if possible.</p>
-
-
-
-
-
-
-
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Sphere.Core.Response.ApiResponseInterface.html#_wait">Sphere\Core\Response\ApiResponseInterface::wait()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -721,14 +824,14 @@ exception if the future's wait() method is called again.</p>
 
 			<td class="attributes"><code>
 				 public 
-				React\Promise\PromiseInterface
+				<code><a href="class-Sphere.Core.Response.ApiResponseInterface.html">Sphere\Core\Response\ApiResponseInterface</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_then">#</a>
-			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#156-168" title="Go to source code">then</a>( <span>callable <var>$onFulfilled</var> = <span class="php-keyword1">null</span></span>, <span>callable <var>$onRejected</var> = <span class="php-keyword1">null</span></span>, <span>callable <var>$onProgress</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#162-175" title="Go to source code">then</a>( <span>callable <var>$onFulfilled</var> = <span class="php-keyword1">null</span></span>, <span>callable <var>$onRejected</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -744,51 +847,18 @@ exception if the future's wait() method is called again.</p>
 						<dd></dd>
 						<dt><var>$onRejected</var></dt>
 						<dd></dd>
-						<dt><var>$onProgress</var></dt>
-						<dd></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
-						React\Promise\PromiseInterface
+						<code><a href="class-Sphere.Core.Response.ApiResponseInterface.html">Sphere\Core\Response\ApiResponseInterface</a></code>
 					</div>
 
 
 
 
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="promise" id="_promise">
-
-			<td class="attributes"><code>
-				 public 
-				React\Promise\PromiseInterface
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_promise">#</a>
-			<code><a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#170-179" title="Go to source code">promise</a>( )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-					<h4>Returns</h4>
-					<div class="list">
-						React\Promise\PromiseInterface
-					</div>
-
-
-
-
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Sphere.Core.Response.ApiResponseInterface.html#_then">Sphere\Core\Response\ApiResponseInterface::then()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -829,11 +899,11 @@ exception if the future's wait() method is called again.</p>
 		<tr data-order="response" id="$response">
 			<td class="attributes"><code>
 				protected  
-				GuzzleHttp\Message\ResponseInterface
+				Psr\Http\Message\ResponseInterface|<code><a href="class-Sphere.Core.Client.Adapter.AdapterPromiseInterface.html">Sphere\Core\Client\Adapter\AdapterPromiseInterface</a></code>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#28-31" title="Go to source code"><var>$response</var></a>
+					<a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#26-29" title="Go to source code"><var>$response</var></a>
 
 				<div class="description short">
 					
@@ -858,7 +928,7 @@ exception if the future's wait() method is called again.</p>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#33-36" title="Go to source code"><var>$request</var></a>
+					<a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#31-34" title="Go to source code"><var>$request</var></a>
 
 				<div class="description short">
 					
@@ -883,7 +953,7 @@ exception if the future's wait() method is called again.</p>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#38-41" title="Go to source code"><var>$jsonData</var></a>
+					<a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#36-39" title="Go to source code"><var>$jsonData</var></a>
 
 				<div class="description short">
 					
@@ -908,7 +978,7 @@ exception if the future's wait() method is called again.</p>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#43-46" title="Go to source code"><var>$responseBody</var></a>
+					<a href="source-class-Sphere.Core.Response.AbstractApiResponse.html#41-44" title="Go to source code"><var>$responseBody</var></a>
 
 				<div class="description short">
 					

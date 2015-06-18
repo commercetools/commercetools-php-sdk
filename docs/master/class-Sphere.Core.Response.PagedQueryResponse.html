@@ -86,6 +86,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-Sphere.Core.Client.Adapter.html">
+							Adapter						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Client.OAuth.html">
 							OAuth						</a>
 							</li>
@@ -135,6 +139,10 @@
 							Channel						</a>
 							</li>
 					<li>
+						<a href="namespace-Sphere.Core.Model.Comment.html">
+							Comment						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Model.Common.html">
 							Common						</a>
 							</li>
@@ -155,6 +163,14 @@
 							DiscountCode						</a>
 							</li>
 					<li>
+						<a href="namespace-Sphere.Core.Model.Inventory.html">
+							Inventory						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Message.html">
+							Message						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Model.Order.html">
 							Order						</a>
 							</li>
@@ -169,6 +185,10 @@
 					<li>
 						<a href="namespace-Sphere.Core.Model.ProductType.html">
 							ProductType						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Review.html">
+							Review						</a>
 							</li>
 					<li>
 						<a href="namespace-Sphere.Core.Model.ShippingMethod.html">
@@ -393,7 +413,7 @@
 		<b>Namespace:</b> <a href="namespace-Sphere.html">Sphere</a>\<a href="namespace-Sphere.Core.html">Core</a>\<a href="namespace-Sphere.Core.Response.html">Response</a><br>
 		<b>Package:</b> Sphere\Core\Response<br>
 
-			<b>Located at</b> <a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#18-213" title="Go to source code">Response/PagedQueryResponse.php</a>
+			<b>Located at</b> <a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#18-170" title="Go to source code">Response/PagedQueryResponse.php</a>
 		<br>
 	</div>
 
@@ -402,7 +422,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Methods summary</h2></div>
 			<table class="summary table table-bordered table-striped methods" id="methods">
-		<tr data-order="parseJsonResponse" id="_parseJsonResponse">
+		<tr data-order="getResponseKey" id="_getResponseKey">
 
 			<td class="attributes"><code>
 				 protected 
@@ -412,8 +432,8 @@
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_parseJsonResponse">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#35-49" title="Go to source code">parseJsonResponse</a>( )</code>
+			<a class="anchor" href="#_getResponseKey">#</a>
+			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#34-42" title="Go to source code">getResponseKey</a>( <span> <var>$key</var></span>, <span> <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -442,7 +462,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCount">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#51-58" title="Go to source code">getCount</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#44-53" title="Go to source code">getCount</a>( )</code>
 
 			<div class="description short">
 				
@@ -456,44 +476,6 @@
 					<h4>Returns</h4>
 					<div class="list">
 						integer
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="setCount" id="_setCount">
-
-			<td class="attributes"><code>
-				 protected 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_setCount">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#60-69" title="Go to source code">setCount</a>( <span>integer <var>$count</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$count</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<br>$this
 					</div>
 
 
@@ -513,7 +495,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getOffset">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#71-78" title="Go to source code">getOffset</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#55-64" title="Go to source code">getOffset</a>( )</code>
 
 			<div class="description short">
 				
@@ -527,44 +509,6 @@
 					<h4>Returns</h4>
 					<div class="list">
 						integer
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="setOffset" id="_setOffset">
-
-			<td class="attributes"><code>
-				 protected 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_setOffset">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#80-89" title="Go to source code">setOffset</a>( <span>integer <var>$offset</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$offset</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<br>$this
 					</div>
 
 
@@ -584,7 +528,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getTotal">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#91-98" title="Go to source code">getTotal</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#66-75" title="Go to source code">getTotal</a>( )</code>
 
 			<div class="description short">
 				
@@ -606,44 +550,6 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="setTotal" id="_setTotal">
-
-			<td class="attributes"><code>
-				 protected 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_setTotal">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#100-109" title="Go to source code">setTotal</a>( <span>integer <var>$total</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$total</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<br>$this
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
 		<tr data-order="getResults" id="_getResults">
 
 			<td class="attributes"><code>
@@ -655,7 +561,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getResults">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#111-118" title="Go to source code">getResults</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#77-86" title="Go to source code">getResults</a>( )</code>
 
 			<div class="description short">
 				
@@ -677,44 +583,6 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="setResults" id="_setResults">
-
-			<td class="attributes"><code>
-				 protected 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_setResults">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#120-129" title="Go to source code">setResults</a>( <span>array <var>$results</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$results</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<br>$this
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
 		<tr data-order="getIterator" id="_getIterator">
 
 			<td class="attributes"><code>
@@ -726,7 +594,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getIterator">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#131-142" title="Go to source code">getIterator</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#88-99" title="Go to source code">getIterator</a>( )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -768,7 +636,7 @@ Retrieve an external iterator</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_offsetExists">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#144-160" title="Go to source code">offsetExists</a>( <span>mixed <var>$offset</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#101-117" title="Go to source code">offsetExists</a>( <span>mixed <var>$offset</var></span> )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -822,7 +690,7 @@ The return value will be casted to boolean if non-boolean was returned.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_offsetGet">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#162-175" title="Go to source code">offsetGet</a>( <span>mixed <var>$offset</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#119-132" title="Go to source code">offsetGet</a>( <span>mixed <var>$offset</var></span> )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -870,7 +738,7 @@ The offset to retrieve.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_offsetSet">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#177-197" title="Go to source code">offsetSet</a>( <span>mixed <var>$offset</var></span>, <span>mixed <var>$value</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#134-154" title="Go to source code">offsetSet</a>( <span>mixed <var>$offset</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -918,7 +786,7 @@ The value to set.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_offsetUnset">#</a>
-			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#199-212" title="Go to source code">offsetUnset</a>( <span>mixed <var>$offset</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#156-169" title="Go to source code">offsetUnset</a>( <span>mixed <var>$offset</var></span> )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -958,12 +826,13 @@ The offset to unset.
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Sphere.Core.Response.AbstractApiResponse.html#methods">Sphere\Core\Response\AbstractApiResponse</a></h3></div>
 			<p class="elementList">
 				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#___construct">__construct()</a></code>, 
-				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_cancel">cancel()</a></code>, 
 				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_getBody">getBody()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_getHeader">getHeader()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_getHeaders">getHeaders()</a></code>, 
 				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_getRequest">getRequest()</a></code>, 
 				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_getResponse">getResponse()</a></code>, 
+				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_getStatusCode">getStatusCode()</a></code>, 
 				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_isError">isError()</a></code>, 
-				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_promise">promise()</a></code>, 
 				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_then">then()</a></code>, 
 				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_toArray">toArray()</a></code>, 
 				<code><a href="class-Sphere.Core.Response.AbstractApiResponse.html#_toObject">toObject()</a></code>, 
@@ -1103,31 +972,6 @@ The offset to unset.
 		<div class="panel panel-default">
             <div class="panel-heading"><h2>Properties summary</h2></div>
 			<table class="summary table table-bordered table-striped properties" id="properties">
-		<tr data-order="parsed" id="$parsed">
-			<td class="attributes"><code>
-				protected  
-				boolean
-			</code></td>
-
-			<td class="name">
-					<a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#29" title="Go to source code"><var>$parsed</var></a>
-
-				<div class="description short">
-					
-				</div>
-
-				<div class="description detailed hidden">
-					
-
-				</div>
-			</td>
-			<td class="value">
-				<div>
-					<a href="#$parsed" class="anchor">#</a>
-					<code><span class="php-keyword1">false</span></code>
-				</div>
-			</td>
-		</tr>
 		<tr data-order="count" id="$count">
 			<td class="attributes"><code>
 				protected  
@@ -1135,7 +979,7 @@ The offset to unset.
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#30" title="Go to source code"><var>$count</var></a>
+					<a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#29" title="Go to source code"><var>$count</var></a>
 
 				<div class="description short">
 					
@@ -1160,7 +1004,7 @@ The offset to unset.
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#31" title="Go to source code"><var>$offset</var></a>
+					<a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#30" title="Go to source code"><var>$offset</var></a>
 
 				<div class="description short">
 					
@@ -1185,7 +1029,7 @@ The offset to unset.
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#32" title="Go to source code"><var>$total</var></a>
+					<a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#31" title="Go to source code"><var>$total</var></a>
 
 				<div class="description short">
 					
@@ -1206,11 +1050,11 @@ The offset to unset.
 		<tr data-order="results" id="$results">
 			<td class="attributes"><code>
 				protected  
-				array
+				
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#33" title="Go to source code"><var>$results</var></a>
+					<a href="source-class-Sphere.Core.Response.PagedQueryResponse.html#32" title="Go to source code"><var>$results</var></a>
 
 				<div class="description short">
 					
@@ -1224,7 +1068,7 @@ The offset to unset.
 			<td class="value">
 				<div>
 					<a href="#$results" class="anchor">#</a>
-					<code>[]</code>
+					<code></code>
 				</div>
 			</td>
 		</tr>

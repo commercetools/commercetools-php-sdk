@@ -86,6 +86,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-Sphere.Core.Client.Adapter.html">
+							Adapter						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Client.OAuth.html">
 							OAuth						</a>
 							</li>
@@ -135,6 +139,10 @@
 							Channel						</a>
 							</li>
 					<li>
+						<a href="namespace-Sphere.Core.Model.Comment.html">
+							Comment						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Model.Common.html">
 							Common						</a>
 							</li>
@@ -155,6 +163,14 @@
 							DiscountCode						</a>
 							</li>
 					<li>
+						<a href="namespace-Sphere.Core.Model.Inventory.html">
+							Inventory						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Message.html">
+							Message						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Model.Order.html">
 							Order						</a>
 							</li>
@@ -169,6 +185,10 @@
 					<li>
 						<a href="namespace-Sphere.Core.Model.ProductType.html">
 							ProductType						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Review.html">
+							Review						</a>
 							</li>
 					<li>
 						<a href="namespace-Sphere.Core.Model.ShippingMethod.html">
@@ -389,12 +409,25 @@
 	<div>
 		<h3>Direct known subclasses</h3>
 		<p class="elementList">
+			<code><a href="class-Sphere.Core.Request.CartDiscounts.CartDiscountCreateRequest.html">Sphere\Core\Request\CartDiscounts\CartDiscountCreateRequest</a></code>, 
 			<code><a href="class-Sphere.Core.Request.Carts.CartCreateRequest.html">Sphere\Core\Request\Carts\CartCreateRequest</a></code>, 
+			<code><a href="class-Sphere.Core.Request.Orders.OrderImportRequest.html">Sphere\Core\Request\Orders\OrderImportRequest</a></code>, 
+			<code><a href="class-Sphere.Core.Request.ProductDiscounts.ProductDiscountCreateRequest.html">Sphere\Core\Request\ProductDiscounts\ProductDiscountCreateRequest</a></code>, 
+			<code><a href="class-Sphere.Core.Request.Products.ProductCreateRequest.html">Sphere\Core\Request\Products\ProductCreateRequest</a></code>, 
+			<code><a href="class-Sphere.Core.Request.ProductTypes.ProductTypeCreateRequest.html">Sphere\Core\Request\ProductTypes\ProductTypeCreateRequest</a></code>, 
+			<code><a href="class-Sphere.Core.Request.Reviews.ReviewCreateRequest.html">Sphere\Core\Request\Reviews\ReviewCreateRequest</a></code>, 
+			<code><a href="class-Sphere.Core.Request.ShippingMethods.ShippingMethodCreateRequest.html">Sphere\Core\Request\ShippingMethods\ShippingMethodCreateRequest</a></code>, 
+			<code><a href="class-Sphere.Core.Request.States.StateCreateRequest.html">Sphere\Core\Request\States\StateCreateRequest</a></code>, 
+			<code><a href="class-Sphere.Core.Request.TaxCategories.TaxCategoryCreateRequest.html">Sphere\Core\Request\TaxCategories\TaxCategoryCreateRequest</a></code>, 
+			<code><a href="class-Sphere.Core.Request.Zones.ZoneCreateRequest.html">Sphere\Core\Request\Zones\ZoneCreateRequest</a></code>, 
 			<code><a href="class-Sphere.Core.Request.Categories.CategoryCreateRequest.html">Sphere\Core\Request\Categories\CategoryCreateRequest</a></code>, 
+			<code><a href="class-Sphere.Core.Request.Channels.ChannelCreateRequest.html">Sphere\Core\Request\Channels\ChannelCreateRequest</a></code>, 
+			<code><a href="class-Sphere.Core.Request.Comments.CommentCreateRequest.html">Sphere\Core\Request\Comments\CommentCreateRequest</a></code>, 
+			<code><a href="class-Sphere.Core.Request.CustomerGroups.CustomerGroupCreateRequest.html">Sphere\Core\Request\CustomerGroups\CustomerGroupCreateRequest</a></code>, 
 			<code><a href="class-Sphere.Core.Request.Customers.CustomerCreateRequest.html">Sphere\Core\Request\Customers\CustomerCreateRequest</a></code>, 
 			<code><a href="class-Sphere.Core.Request.CustomObjects.CustomObjectCreateRequest.html">Sphere\Core\Request\CustomObjects\CustomObjectCreateRequest</a></code>, 
-			<code><a href="class-Sphere.Core.Request.Products.ProductCreateRequest.html">Sphere\Core\Request\Products\ProductCreateRequest</a></code>, 
-			<code><a href="class-Sphere.Core.Request.States.StateCreateRequest.html">Sphere\Core\Request\States\StateCreateRequest</a></code>
+			<code><a href="class-Sphere.Core.Request.DiscountCodes.DiscountCodeCreateRequest.html">Sphere\Core\Request\DiscountCodes\DiscountCodeCreateRequest</a></code>, 
+			<code><a href="class-Sphere.Core.Request.Inventory.InventoryCreateRequest.html">Sphere\Core\Request\Inventory\InventoryCreateRequest</a></code>
 		</p>
 	</div>
 
@@ -409,7 +442,7 @@
 		<b>Namespace:</b> <a href="namespace-Sphere.html">Sphere</a>\<a href="namespace-Sphere.Core.html">Core</a>\<a href="namespace-Sphere.Core.Request.html">Request</a><br>
 		<b>Package:</b> Sphere\Core\Request<br>
 
-			<b>Located at</b> <a href="source-class-Sphere.Core.Request.AbstractCreateRequest.html#20-79" title="Go to source code">Request/AbstractCreateRequest.php</a>
+			<b>Located at</b> <a href="source-class-Sphere.Core.Request.AbstractCreateRequest.html#17-76" title="Go to source code">Request/AbstractCreateRequest.php</a>
 		<br>
 	</div>
 
@@ -429,7 +462,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Sphere.Core.Request.AbstractCreateRequest.html#31-40" title="Go to source code">__construct</a>( <span>Sphere\Core\Client\JsonEndpoint <var>$endpoint</var></span>, <span>mixed <var>$object</var></span>, <span><code><a href="class-Sphere.Core.Model.Common.Context.html">Sphere\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Sphere.Core.Request.AbstractCreateRequest.html#28-37" title="Go to source code">__construct</a>( <span>Sphere\Core\Client\JsonEndpoint <var>$endpoint</var></span>, <span>mixed <var>$object</var></span>, <span><code><a href="class-Sphere.Core.Model.Common.Context.html">Sphere\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -469,7 +502,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getObject">#</a>
-			<code><a href="source-class-Sphere.Core.Request.AbstractCreateRequest.html#42-48" title="Go to source code">getObject</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Request.AbstractCreateRequest.html#39-45" title="Go to source code">getObject</a>( )</code>
 
 			<div class="description short">
 				
@@ -502,7 +535,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setObject">#</a>
-			<code><a href="source-class-Sphere.Core.Request.AbstractCreateRequest.html#50-59" title="Go to source code">setObject</a>( <span> <var>$object</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Request.AbstractCreateRequest.html#47-56" title="Go to source code">setObject</a>( <span> <var>$object</var></span> )</code>
 
 			<div class="description short">
 				
@@ -586,7 +619,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Sphere.Core.Request.AbstractCreateRequest.html#26-29" title="Go to source code"><var>$object</var></a>
+					<a href="source-class-Sphere.Core.Request.AbstractCreateRequest.html#23-26" title="Go to source code"><var>$object</var></a>
 
 				<div class="description short">
 					

@@ -86,6 +86,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-Sphere.Core.Client.Adapter.html">
+							Adapter						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Client.OAuth.html">
 							OAuth						</a>
 							</li>
@@ -135,6 +139,10 @@
 							Channel						</a>
 							</li>
 					<li>
+						<a href="namespace-Sphere.Core.Model.Comment.html">
+							Comment						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Model.Common.html">
 							Common						</a>
 							</li>
@@ -155,6 +163,14 @@
 							DiscountCode						</a>
 							</li>
 					<li>
+						<a href="namespace-Sphere.Core.Model.Inventory.html">
+							Inventory						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Message.html">
+							Message						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Model.Order.html">
 							Order						</a>
 							</li>
@@ -169,6 +185,10 @@
 					<li>
 						<a href="namespace-Sphere.Core.Model.ProductType.html">
 							ProductType						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Review.html">
+							Review						</a>
 							</li>
 					<li>
 						<a href="namespace-Sphere.Core.Model.ShippingMethod.html">
@@ -349,15 +369,6 @@
 	<p>Interface ApiResponseInterface</p>
 	</div>
 
-	<dl class="tree well">
-		<dd style="padding-left:0px">
-<b><span>Sphere\Core\Response\ApiResponseInterface</span></b>			
-			 implements 
-<span>GuzzleHttp\Ring\Future\FutureInterface</span>
-			
-			
-		</dd>
-	</dl>
 
 
 
@@ -386,7 +397,7 @@
 		<b>Namespace:</b> <a href="namespace-Sphere.html">Sphere</a>\<a href="namespace-Sphere.Core.html">Core</a>\<a href="namespace-Sphere.Core.Response.html">Response</a><br>
 		<b>Package:</b> Sphere\Core\Http<br>
 
-			<b>Located at</b> <a href="source-class-Sphere.Core.Response.ApiResponseInterface.html#12-35" title="Go to source code">Response/ApiResponseInterface.php</a>
+			<b>Located at</b> <a href="source-class-Sphere.Core.Response.ApiResponseInterface.html#12-63" title="Go to source code">Response/ApiResponseInterface.php</a>
 		<br>
 	</div>
 
@@ -515,7 +526,7 @@
 
 			<td class="attributes"><code>
 				 public 
-				GuzzleHttp\Message\ResponseInterface|GuzzleHttp\Ring\Future\FutureInterface
+				Psr\Http\Message\ResponseInterface|<code><a href="class-Sphere.Core.Client.Adapter.AdapterPromiseInterface.html">Sphere\Core\Client\Adapter\AdapterPromiseInterface</a></code>
 				
 				</code>
 			</td>
@@ -535,7 +546,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						GuzzleHttp\Message\ResponseInterface|GuzzleHttp\Ring\Future\FutureInterface
+						Psr\Http\Message\ResponseInterface|<code><a href="class-Sphere.Core.Client.Adapter.AdapterPromiseInterface.html">Sphere\Core\Client\Adapter\AdapterPromiseInterface</a></code>
 					</div>
 
 
@@ -569,6 +580,183 @@
 					<h4>Returns</h4>
 					<div class="list">
 						<code><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="wait" id="_wait">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_wait">#</a>
+			<code><a href="source-class-Sphere.Core.Response.ApiResponseInterface.html#36-39" title="Go to source code">wait</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="then" id="_then">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Sphere.Core.Client.Adapter.AdapterPromiseInterface.html">Sphere\Core\Client\Adapter\AdapterPromiseInterface</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_then">#</a>
+			<code><a href="source-class-Sphere.Core.Response.ApiResponseInterface.html#41-46" title="Go to source code">then</a>( <span>callable <var>$onFulfilled</var> = <span class="php-keyword1">null</span></span>, <span>callable <var>$onRejected</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$onFulfilled</var></dt>
+						<dd></dd>
+						<dt><var>$onRejected</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Sphere.Core.Client.Adapter.AdapterPromiseInterface.html">Sphere\Core\Client\Adapter\AdapterPromiseInterface</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getHeader" id="_getHeader">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getHeader">#</a>
+			<code><a href="source-class-Sphere.Core.Response.ApiResponseInterface.html#48-52" title="Go to source code">getHeader</a>( <span>string <var>$header</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$header</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getHeaders" id="_getHeaders">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getHeaders">#</a>
+			<code><a href="source-class-Sphere.Core.Response.ApiResponseInterface.html#54-57" title="Go to source code">getHeaders</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getStatusCode" id="_getStatusCode">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getStatusCode">#</a>
+			<code><a href="source-class-Sphere.Core.Response.ApiResponseInterface.html#59-62" title="Go to source code">getStatusCode</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						integer
 					</div>
 
 

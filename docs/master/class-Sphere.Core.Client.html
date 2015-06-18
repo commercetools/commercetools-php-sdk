@@ -86,6 +86,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-Sphere.Core.Client.Adapter.html">
+							Adapter						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Client.OAuth.html">
 							OAuth						</a>
 							</li>
@@ -135,6 +139,10 @@
 							Channel						</a>
 							</li>
 					<li>
+						<a href="namespace-Sphere.Core.Model.Comment.html">
+							Comment						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Model.Common.html">
 							Common						</a>
 							</li>
@@ -155,6 +163,14 @@
 							DiscountCode						</a>
 							</li>
 					<li>
+						<a href="namespace-Sphere.Core.Model.Inventory.html">
+							Inventory						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Message.html">
+							Message						</a>
+							</li>
+					<li>
 						<a href="namespace-Sphere.Core.Model.Order.html">
 							Order						</a>
 							</li>
@@ -169,6 +185,10 @@
 					<li>
 						<a href="namespace-Sphere.Core.Model.ProductType.html">
 							ProductType						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Review.html">
+							Review						</a>
 							</li>
 					<li>
 						<a href="namespace-Sphere.Core.Model.ShippingMethod.html">
@@ -372,7 +392,7 @@
 		<b>Namespace:</b> <a href="namespace-Sphere.html">Sphere</a>\<a href="namespace-Sphere.Core.html">Core</a><br>
 		<b>Package:</b> Sphere\Core<br>
 
-			<b>Located at</b> <a href="source-class-Sphere.Core.Client.html#22-261" title="Go to source code">Client.php</a>
+			<b>Located at</b> <a href="source-class-Sphere.Core.Client.html#21-249" title="Go to source code">Client.php</a>
 		<br>
 	</div>
 
@@ -392,7 +412,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Sphere.Core.Client.html#44-58" title="Go to source code">__construct</a>( <span>array|<code><a href="class-Sphere.Core.Config.html">Sphere\Core\Config</a></code> <var>$config</var></span>, <span> <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$logFormat</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Sphere.Core.Client.html#44-56" title="Go to source code">__construct</a>( <span>array|<code><a href="class-Sphere.Core.Config.html">Sphere\Core\Config</a></code> <var>$config</var></span>, <span> <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -410,16 +430,10 @@
 						<dd></dd>
 						<dt><var>$logger</var></dt>
 						<dd></dd>
-						<dt><var>$logFormat</var></dt>
-						<dd>Guzzle log formatter string</dd>
 					</dl></div>
 
 
 
-					<h4>Link</h4>
-					<div class="list">
-							<a href="https://github.com/guzzle/log-subscriber#logging-with-a-custom-message-format">https://github.com/guzzle/log-subscriber#logging-with-a-custom-message-format</a><br>
-					</div>
 
 					<h4>Overrides</h4>
 					<div class="list"><code><a href="class-Sphere.Core.AbstractHttpClient.html#___construct">Sphere\Core\AbstractHttpClient::__construct</a></code></div>
@@ -438,7 +452,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getOauthManager">#</a>
-			<code><a href="source-class-Sphere.Core.Client.html#60-66" title="Go to source code">getOauthManager</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Client.html#58-64" title="Go to source code">getOauthManager</a>( )</code>
 
 			<div class="description short">
 				
@@ -471,7 +485,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setOauthManager">#</a>
-			<code><a href="source-class-Sphere.Core.Client.html#68-76" title="Go to source code">setOauthManager</a>( <span>Sphere\Core\Client\OAuth\Manager <var>$oauthManager</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Client.html#66-74" title="Go to source code">setOauthManager</a>( <span>Sphere\Core\Client\OAuth\Manager <var>$oauthManager</var></span> )</code>
 
 			<div class="description short">
 				
@@ -509,7 +523,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setLogger">#</a>
-			<code><a href="source-class-Sphere.Core.Client.html#78-91" title="Go to source code">setLogger</a>( <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$format</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Sphere.Core.Client.html#76-86" title="Go to source code">setLogger</a>( <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -522,8 +536,6 @@
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$logger</var></dt>
-						<dd></dd>
-						<dt><var>$format</var></dt>
 						<dd></dd>
 					</dl></div>
 
@@ -549,7 +561,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getBaseUrl">#</a>
-			<code><a href="source-class-Sphere.Core.Client.html#93-99" title="Go to source code">getBaseUrl</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Client.html#88-94" title="Go to source code">getBaseUrl</a>( )</code>
 
 			<div class="description short">
 				
@@ -582,7 +594,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_execute">#</a>
-			<code><a href="source-class-Sphere.Core.Client.html#101-119" title="Go to source code">execute</a>( <span><code><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Client.html#96-117" title="Go to source code">execute</a>( <span><code><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span> )</code>
 
 			<div class="description short">
 				
@@ -595,46 +607,6 @@
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$request</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Sphere.Core.Response.ApiResponseInterface.html">Sphere\Core\Response\ApiResponseInterface</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="sendRequest" id="_sendRequest">
-
-			<td class="attributes"><code>
-				 protected 
-				<code><a href="class-Sphere.Core.Response.ApiResponseInterface.html">Sphere\Core\Response\ApiResponseInterface</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_sendRequest">#</a>
-			<code><a href="source-class-Sphere.Core.Client.html#121-136" title="Go to source code">sendRequest</a>( <span><code><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span>, <span>boolean <var>$future</var> = <span class="php-keyword1">true</span></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$request</var></dt>
-						<dd></dd>
-						<dt><var>$future</var></dt>
 						<dd></dd>
 					</dl></div>
 
@@ -660,7 +632,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_future">#</a>
-			<code><a href="source-class-Sphere.Core.Client.html#137-152" title="Go to source code">future</a>( <span><code><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Client.html#119-136" title="Go to source code">future</a>( <span><code><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span> )</code>
 
 			<div class="description short">
 				
@@ -691,14 +663,14 @@
 
 			<td class="attributes"><code>
 				 protected 
-				GuzzleHttp\Message\RequestInterface
+				Psr\Http\Message\RequestInterface
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createHttpRequest">#</a>
-			<code><a href="source-class-Sphere.Core.Client.html#154-179" title="Go to source code">createHttpRequest</a>( <span><code><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span>, <span>boolean <var>$future</var> = <span class="php-keyword1">false</span></span> )</code>
+			<code><a href="source-class-Sphere.Core.Client.html#138-153" title="Go to source code">createHttpRequest</a>( <span><code><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span> )</code>
 
 			<div class="description short">
 				
@@ -712,13 +684,11 @@
 					<div class="list"><dl>
 						<dt><var>$request</var></dt>
 						<dd></dd>
-						<dt><var>$future</var></dt>
-						<dd></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
-						GuzzleHttp\Message\RequestInterface
+						Psr\Http\Message\RequestInterface
 					</div>
 
 
@@ -738,7 +708,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_executeBatch">#</a>
-			<code><a href="source-class-Sphere.Core.Client.html#181-208" title="Go to source code">executeBatch</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Client.html#155-173" title="Go to source code">executeBatch</a>( )</code>
 
 			<div class="description short">
 				
@@ -760,7 +730,7 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="logDeprecatedMethod" id="_logDeprecatedMethod">
+		<tr data-order="logRequest" id="_logRequest">
 
 			<td class="attributes"><code>
 				 protected 
@@ -770,8 +740,8 @@
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_logDeprecatedMethod">#</a>
-			<code><a href="source-class-Sphere.Core.Client.html#210-232" title="Go to source code">logDeprecatedMethod</a>( <span><code><a href="class-Sphere.Core.Response.ApiResponseInterface.html">Sphere\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span> )</code>
+			<a class="anchor" href="#_logRequest">#</a>
+			<code><a href="source-class-Sphere.Core.Client.html#175-201" title="Go to source code">logRequest</a>( <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span>Psr\Http\Message\RequestInterface <var>$request</var></span> )</code>
 
 			<div class="description short">
 				
@@ -785,11 +755,82 @@
 					<div class="list"><dl>
 						<dt><var>$response</var></dt>
 						<dd></dd>
+						<dt><var>$request</var></dt>
+						<dd></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
 						<br>$this
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getLogLevel" id="_getLogLevel">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getLogLevel">#</a>
+			<code><a href="source-class-Sphere.Core.Client.html#203-206" title="Go to source code">getLogLevel</a>( <span>Psr\Http\Message\ResponseInterface <var>$response</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="format" id="_format">
+
+			<td class="attributes"><code>
+				 protected 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_format">#</a>
+			<code><a href="source-class-Sphere.Core.Client.html#207-220" title="Go to source code">format</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$request</var></dt>
+						<dd></dd>
+						<dt><var>$response</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
 					</div>
 
 
@@ -809,7 +850,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getBatchHttpRequests">#</a>
-			<code><a href="source-class-Sphere.Core.Client.html#234-247" title="Go to source code">getBatchHttpRequests</a>( )</code>
+			<code><a href="source-class-Sphere.Core.Client.html#222-235" title="Go to source code">getBatchHttpRequests</a>( )</code>
 
 			<div class="description short">
 				
@@ -842,7 +883,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addBatchRequest">#</a>
-			<code><a href="source-class-Sphere.Core.Client.html#249-260" title="Go to source code">addBatchRequest</a>( <span><code><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span> )</code>
+			<code><a href="source-class-Sphere.Core.Client.html#237-248" title="Go to source code">addBatchRequest</a>( <span><code><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span> )</code>
 
 			<div class="description short">
 				
@@ -875,8 +916,10 @@
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Sphere.Core.AbstractHttpClient.html#methods">Sphere\Core\AbstractHttpClient</a></h3></div>
 			<p class="elementList">
+				<code><a href="class-Sphere.Core.AbstractHttpClient.html#_getAdapterFactory">getAdapterFactory()</a></code>, 
 				<code><a href="class-Sphere.Core.AbstractHttpClient.html#_getConfig">getConfig()</a></code>, 
 				<code><a href="class-Sphere.Core.AbstractHttpClient.html#_getHttpClient">getHttpClient()</a></code>, 
+				<code><a href="class-Sphere.Core.AbstractHttpClient.html#_getUserAgent">getUserAgent()</a></code>, 
 				<code><a href="class-Sphere.Core.AbstractHttpClient.html#_setConfig">setConfig()</a></code>
 			</p>
 		</div>
@@ -895,7 +938,7 @@
 				<td class="attributes"><code>string</code></td>
 				<td class="name">
 					<code>
-						<a href="source-class-Sphere.Core.Client.html#28" title="Go to source code"><b>DEPRECATION_HEADER</b></a>
+						<a href="source-class-Sphere.Core.Client.html#27" title="Go to source code"><b>DEPRECATION_HEADER</b></a>
 					</code>
 
 					<div class="description short">
@@ -917,6 +960,12 @@
 			</table>
 		</div>
 
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Constants inherited from <a href="class-Sphere.Core.AbstractHttpClient.html#constants">Sphere\Core\AbstractHttpClient</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Sphere.Core.AbstractHttpClient.html#VERSION"><b>VERSION</b></a></code>
+			</p>
+		</div>
 
 
 
@@ -1004,8 +1053,10 @@
 		<div class="panel panel-default">
             <div class="panel-heading"><h3>Properties inherited from <a href="class-Sphere.Core.AbstractHttpClient.html#properties">Sphere\Core\AbstractHttpClient</a></h3></div>
 			<p class="elementList">
+				<code><a href="class-Sphere.Core.AbstractHttpClient.html#$adapterFactory"><var>$adapterFactory</var></a></code>, 
 				<code><a href="class-Sphere.Core.AbstractHttpClient.html#$config"><var>$config</var></a></code>, 
-				<code><a href="class-Sphere.Core.AbstractHttpClient.html#$httpClient"><var>$httpClient</var></a></code>
+				<code><a href="class-Sphere.Core.AbstractHttpClient.html#$httpClient"><var>$httpClient</var></a></code>, 
+				<code><a href="class-Sphere.Core.AbstractHttpClient.html#$userAgent"><var>$userAgent</var></a></code>
 			</p>
 		</div>
 
