@@ -1,0 +1,1538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/index.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Cache.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Client.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Client.Adapter.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Client.OAuth.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Error.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Helper.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Helper.Annotate.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Helper.State.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Helper.State.Renderer.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Cart.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.CartDiscount.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Category.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Channel.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Comment.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Common.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Customer.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.CustomerGroup.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.CustomObject.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.DiscountCode.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Inventory.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Message.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Order.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Product.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.ProductDiscount.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.ProductType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Review.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.ShippingMethod.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.State.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.TaxCategory.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Model.Zone.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.CartDiscounts.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Carts.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Carts.Command.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Categories.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Categories.Command.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Channels.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Comments.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.CustomerGroups.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Customers.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Customers.Command.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.CustomObjects.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.DiscountCodes.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Inventory.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Messages.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Orders.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Orders.Command.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.ProductDiscounts.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Products.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Products.Command.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.ProductTypes.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Query.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Reviews.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.ShippingMethods.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.States.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.TaxCategories.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Request.Zones.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/namespace-Sphere.Core.Response.html</loc>
+</url>
+
+
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.AbstractHttpClient.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Cache.AbstractCacheAdapter.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Cache.ApcCacheAdapter.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Cache.CacheAdapterFactory.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Cache.DoctrineCacheAdapter.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Cache.NullCacheAdapter.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Cache.PhpRedisCacheAdapter.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Client.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Client.Adapter.AdapterFactory.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Client.Adapter.Guzzle5Adapter.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Client.Adapter.Guzzle5Promise.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Client.Adapter.Guzzle6Adapter.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Client.Adapter.Guzzle6Promise.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Client.HttpMethod.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Client.OAuth.Token.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Config.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Error.Message.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Helper.Annotate.ClassAnnotator.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Helper.Annotate.ReflectedClass.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Helper.CurrencyFormatter.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Helper.State.Renderer.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Helper.State.Renderer.NodeRenderer.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Helper.State.Renderer.TransitionRenderer.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.Cart.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.CartCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.CartDiscountCodeReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.CartDiscountCodeReferenceCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.CartDiscountCodeState.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.CartDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.CartReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.CartState.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.CustomLineItem.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.CustomLineItemCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.DiscountedLineItemPortion.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.DiscountedLineItemPortionCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.DiscountedLineItemPrice.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.InventoryMode.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.LineItem.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.LineItemCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Cart.ShippingInfo.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.CartDiscount.CartDiscount.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.CartDiscount.CartDiscountCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.CartDiscount.CartDiscountDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.CartDiscount.CartDiscountReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.CartDiscount.CartDiscountReferenceCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.CartDiscount.CartDiscountTarget.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.CartDiscount.CartDiscountValue.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Category.Category.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Category.CategoryCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Category.CategoryDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Category.CategoryReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Category.CategoryReferenceCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Channel.Channel.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Channel.ChannelCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Channel.ChannelDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Channel.ChannelReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Channel.ChannelRole.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Comment.Comment.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Comment.CommentCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Comment.CommentDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.AbstractJsonDeserializeObject.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.Address.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.AddressCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.Attribute.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.AttributeCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.Collection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.Context.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.DateDecorator.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.DateTimeDecorator.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.DiscountedPrice.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.DiscountValue.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.Document.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.Enum.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.Image.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.ImageCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.ImageDimension.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.JsonObject.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.LocalizedEnum.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.LocalizedString.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.Money.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.MoneyCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.Price.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.PriceCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.Reference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.ReferenceCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.Set.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.TaxedPrice.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.TaxPortion.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.TaxPortionCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Customer.Customer.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Customer.CustomerCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Customer.CustomerDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Customer.CustomerReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Customer.CustomerSigninResult.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Customer.CustomerToken.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.CustomerGroup.CustomerGroup.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.CustomerGroup.CustomerGroupCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.CustomerGroup.CustomerGroupDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.CustomerGroup.CustomerGroupReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.CustomObject.CustomObject.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.CustomObject.CustomObjectCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.DiscountCode.DiscountCode.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.DiscountCode.DiscountCodeCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.DiscountCode.DiscountCodeDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.DiscountCode.DiscountCodeReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.DiscountCode.DiscountCodeReferenceCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Inventory.InventoryDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Inventory.InventoryEntry.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Inventory.InventoryEntryCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Message.Message.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Message.MessageCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.Delivery.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.DeliveryCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.DeliveryItem.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.DeliveryItemCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ImportLineItem.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ImportLineItemCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ImportOrder.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ImportProductVariant.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ItemState.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ItemStateCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.Order.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.OrderCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.OrderReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.OrderState.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.Parcel.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ParcelCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ParcelMeasurements.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.PaymentState.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ReturnInfo.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ReturnInfoCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ReturnItem.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ReturnItemCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ReturnPaymentState.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ReturnShipmentState.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.ShipmentState.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.SyncInfo.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.SyncInfoCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Order.TrackingData.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.Facet.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.FacetRange.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.FacetRangeCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.FacetResult.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.FacetResultCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.FacetTerm.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.FacetTermCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.Filter.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.FilterRange.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.FilterRangeCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.LocalizedSearchKeywords.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.Product.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.ProductCatalogData.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.ProductCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.ProductData.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.ProductDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.ProductProjection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.ProductProjectionCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.ProductReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.ProductVariant.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.ProductVariantAvailability.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.ProductVariantCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.ProductVariantDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.SearchKeyword.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.SearchKeywords.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.Suggestion.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.SuggestionCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Product.SuggestTokenizer.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ProductDiscount.ProductDiscount.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ProductDiscount.ProductDiscountCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ProductDiscount.ProductDiscountDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ProductDiscount.ProductDiscountReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ProductDiscount.ProductDiscountValue.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ProductType.AttributeDefinition.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ProductType.AttributeDefinitionCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ProductType.AttributeType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ProductType.ProductType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ProductType.ProductTypeCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ProductType.ProductTypeDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ProductType.ProductTypeReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Review.Review.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Review.ReviewCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Review.ReviewDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ShippingMethod.ShippingMethod.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ShippingMethod.ShippingMethodCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ShippingMethod.ShippingMethodDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ShippingMethod.ShippingMethodReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ShippingMethod.ShippingRate.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ShippingMethod.ShippingRateCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ShippingMethod.ZoneRate.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.ShippingMethod.ZoneRateCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.State.State.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.State.StateCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.State.StateDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.State.StateReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.State.StateReferenceCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.TaxCategory.TaxCategory.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.TaxCategory.TaxCategoryCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.TaxCategory.TaxCategoryDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.TaxCategory.TaxCategoryReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.TaxCategory.TaxRate.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.TaxCategory.TaxRateCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Zone.Location.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Zone.LocationCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Zone.Zone.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Zone.ZoneCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Zone.ZoneDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Zone.ZoneReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.AbstractAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.AbstractApiRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.AbstractCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.AbstractDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.AbstractFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.AbstractProjectionRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.AbstractQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.AbstractUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CartDiscounts.CartDiscountCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CartDiscounts.CartDiscountDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CartDiscounts.CartDiscountFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CartDiscounts.CartDiscountsEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CartDiscounts.CartDiscountsQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CartDiscounts.CartDiscountUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.CartCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.CartDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.CartFetchByCustomerIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.CartFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.CartsEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.CartsQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.CartUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartAddCustomLineItemAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartAddDiscountCodeAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartAddLineItemAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartChangeLineItemQuantityAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartRecalculateAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartRemoveCustomLineItemAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartRemoveDiscountCodeAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartRemoveLineItemAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartSetBillingAddressAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartSetCountryAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartSetCustomerEmailAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartSetCustomerIdAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartSetCustomShippingMethodAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartSetShippingAddressAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Carts.Command.CartSetShippingMethodAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.CategoriesEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.CategoriesQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.CategoryCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.CategoryDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.CategoryFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.CategoryUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.Command.CategoryChangeNameAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.Command.CategoryChangeOrderHintAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.Command.CategoryChangeParentAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.Command.CategoryChangeSlugAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.Command.CategorySetDescriptionAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.Command.CategorySetExternalIdAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.Command.CategorySetMetaDescriptionAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.Command.CategorySetMetaKeywordsAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Categories.Command.CategorySetMetaTitleAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Channels.ChannelCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Channels.ChannelDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Channels.ChannelFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Channels.ChannelsEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Channels.ChannelsQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Channels.ChannelUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Comments.CommentCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Comments.CommentFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Comments.CommentsEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Comments.CommentsQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Comments.CommentUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CustomerGroups.CustomerGroupCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CustomerGroups.CustomerGroupDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CustomerGroups.CustomerGroupFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CustomerGroups.CustomerGroupsEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CustomerGroups.CustomerGroupsQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CustomerGroups.CustomerGroupUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.Command.CustomerAddAddressAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.Command.CustomerChangeAddressAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.Command.CustomerChangeEmailAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.Command.CustomerChangeNameAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.Command.CustomerRemoveAddressAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.Command.CustomerSetCompanyNameAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.Command.CustomerSetCustomerGroupAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.Command.CustomerSetCustomerNumberAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.Command.CustomerSetDateOfBirthAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.Command.CustomerSetDefaultBillingAddressAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.Command.CustomerSetDefaultShippingAddressAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.Command.CustomerSetExternalIdAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.Command.CustomerSetVatIdAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.CustomerCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.CustomerDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.CustomerEmailConfirmRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.CustomerEmailTokenRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.CustomerFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.CustomerFetchByTokenRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.CustomerLoginRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.CustomerPasswordChangeRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.CustomerPasswordResetRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.CustomerPasswordTokenRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.CustomersEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.CustomersQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.CustomerUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Customers.LoginEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CustomObjects.AbstractCustomObjectRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CustomObjects.CustomObjectCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CustomObjects.CustomObjectDeleteByKeyRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CustomObjects.CustomObjectFetchByKeyRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CustomObjects.CustomObjectsEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CustomObjects.CustomObjectsQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.DiscountCodes.DiscountCodeCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.DiscountCodes.DiscountCodeDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.DiscountCodes.DiscountCodeFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.DiscountCodes.DiscountCodesEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.DiscountCodes.DiscountCodesQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.DiscountCodes.DiscountCodeUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Inventory.InventoryCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Inventory.InventoryDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Inventory.InventoryEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Inventory.InventoryFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Inventory.InventoryQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Inventory.InventoryUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Messages.MessageFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Messages.MessagesEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Messages.MessagesQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderAddDeliveryAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderAddParcelToDeliveryAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderAddReturnInfoAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderChangeOrderStateAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderChangePaymentStateAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderChangeShipmentStateAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderImportCustomLineItemStateAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderImportLineItemStateAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderSetOrderNumberAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderSetReturnPaymentStateAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderSetReturnShipmentStateAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderTransitionCustomLineItemStateAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderTransitionLineItemStateAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.Command.OrderUpdateSyncInfoAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.OrderCreateFromCartRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.OrderFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.OrderImportRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.OrdersEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.OrdersQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Orders.OrderUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ProductDiscounts.ProductDiscountCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ProductDiscounts.ProductDiscountDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ProductDiscounts.ProductDiscountFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ProductDiscounts.ProductDiscountsEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ProductDiscounts.ProductDiscountsQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ProductDiscounts.ProductDiscountUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductAddExternalImageAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductAddPriceAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductAddToCategoryAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductAddVariantAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductChangeNameAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductChangePriceAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductChangeSlugAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductPublishAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductRemoveFromCategoryAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductRemoveImageAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductRemovePriceAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductRemoveVariantAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductRevertStagedChangesAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductSetAttributeAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductSetAttributeInAllVariantsAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductSetDescriptionAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductSetMetaAttributesAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductSetMetaDescriptionAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductSetMetaKeywordsAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductSetMetaTitleAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductSetSearchKeywordsAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductSetSKUAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductSetTaxCategoryAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.Command.ProductUnpublishAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.ProductCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.ProductDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.ProductFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.ProductProjectionFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.ProductProjectionFetchBySkuRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.ProductProjectionFetchBySlugRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.ProductProjectionQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.ProductSearchEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.ProductsEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.ProductsQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.ProductsSearchRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.ProductsSuggestRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Products.ProductUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ProductTypes.ProductTypeCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ProductTypes.ProductTypeDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ProductTypes.ProductTypeFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ProductTypes.ProductTypesEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ProductTypes.ProductTypesQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ProductTypes.ProductTypeUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Query.MultiParameter.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Query.Parameter.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Reviews.ReviewCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Reviews.ReviewFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Reviews.ReviewsEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Reviews.ReviewsQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Reviews.ReviewUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ShippingMethods.ShippingMethodCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ShippingMethods.ShippingMethodFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ShippingMethods.ShippingMethodsEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ShippingMethods.ShippingMethodsQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ShippingMethods.ShippingMethodUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.States.StateCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.States.StateDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.States.StateFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.States.StatesEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.States.StatesQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.States.StateUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.TaxCategories.TaxCategoriesEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.TaxCategories.TaxCategoriesQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.TaxCategories.TaxCategoryCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.TaxCategories.TaxCategoryDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.TaxCategories.TaxCategoryFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.TaxCategories.TaxCategoryUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Zones.ZoneCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Zones.ZoneDeleteByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Zones.ZoneFetchByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Zones.ZonesEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Zones.ZonesQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Zones.ZoneUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Response.AbstractApiResponse.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Response.PagedQueryResponse.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Response.PagedSearchResponse.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Response.SingleResourceResponse.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Cache.CacheAdapterInterface.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Client.Adapter.AdapterInterface.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Client.Adapter.AdapterPromiseInterface.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Client.HttpRequestInterface.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.ContextAwareInterface.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.JsonDeserializeInterface.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.ReferenceObjectInterface.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ClientRequestInterface.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.Query.ParameterInterface.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Response.ApiResponseInterface.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.ContextTrait.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.OfTrait.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Model.Common.ReferenceFromArrayTrait.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.CustomerIdTrait.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.ExpandTrait.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.PageTrait.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.QueryTrait.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.SortTrait.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Request.StagedTrait.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Client.OAuth.AuthorizeException.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Error.DeprecatedException.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/sphere-php-sdk/docs/master/class-Sphere.Core.Error.InvalidArgumentException.html</loc>
+</url>
+</urlset>

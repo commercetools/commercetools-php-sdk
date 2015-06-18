@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="robots" content="noindex">
+
+	<title>File Model/Order/Order.php | SPHERE.IO PHP SDK </title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
+	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
+
+</head>
+
+<body>
+	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand">SPHERE.IO PHP SDK </a>
+			</div>
+			<div class="collapse navbar-collapse">
+
+                <form id="search" class="navbar-form navbar-left" role="search">
+                    <input type="hidden" name="cx" value="">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <div class="form-group">
+                        <input type="text" name="q" class="search-query form-control" placeholder="Search">
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav">
+					<li>
+<span>Namespace</span>					</li>
+					<li>
+<span>Class</span>					</li>
+
+					<li class="divider-vertical"></li>
+
+					<li>
+						<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+					</li>
+
+						<li>
+							<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+								<span>Deprecated</span>
+							</a>
+						</li>
+						<li>
+							<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+								<span>Todo</span>
+							</a>
+						</li>
+
+					<li class="divider-vertical"></li>
+
+					<li>
+						<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div id="left">
+	<div id="menu">
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li>
+						<a href="namespace-Sphere.html">
+							Sphere<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.html">
+							Core<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.Cache.html">
+							Cache						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Client.html">
+							Client<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.Client.Adapter.html">
+							Adapter						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Client.OAuth.html">
+							OAuth						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Sphere.Core.Error.html">
+							Error						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Helper.html">
+							Helper<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.Helper.Annotate.html">
+							Annotate						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Helper.State.html">
+							State<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.Helper.State.Renderer.html">
+							Renderer						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.html">
+							Model<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Cart.html">
+							Cart						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.CartDiscount.html">
+							CartDiscount						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Category.html">
+							Category						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Channel.html">
+							Channel						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Comment.html">
+							Comment						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Common.html">
+							Common						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Customer.html">
+							Customer						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.CustomerGroup.html">
+							CustomerGroup						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.CustomObject.html">
+							CustomObject						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.DiscountCode.html">
+							DiscountCode						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Inventory.html">
+							Inventory						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Message.html">
+							Message						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Order.html">
+							Order						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Product.html">
+							Product						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.ProductDiscount.html">
+							ProductDiscount						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.ProductType.html">
+							ProductType						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Review.html">
+							Review						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.ShippingMethod.html">
+							ShippingMethod						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.State.html">
+							State						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.TaxCategory.html">
+							TaxCategory						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Model.Zone.html">
+							Zone						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.html">
+							Request<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.Request.CartDiscounts.html">
+							CartDiscounts						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Carts.html">
+							Carts<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Carts.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Categories.html">
+							Categories<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Categories.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Channels.html">
+							Channels						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Comments.html">
+							Comments						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.CustomerGroups.html">
+							CustomerGroups						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Customers.html">
+							Customers<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Customers.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.CustomObjects.html">
+							CustomObjects						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.DiscountCodes.html">
+							DiscountCodes						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Inventory.html">
+							Inventory						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Messages.html">
+							Messages						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Orders.html">
+							Orders<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Orders.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.ProductDiscounts.html">
+							ProductDiscounts						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Products.html">
+							Products<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Products.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.ProductTypes.html">
+							ProductTypes						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Query.html">
+							Query						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Reviews.html">
+							Reviews						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.ShippingMethods.html">
+							ShippingMethods						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.States.html">
+							States						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.TaxCategories.html">
+							TaxCategories						</a>
+							</li>
+					<li>
+						<a href="namespace-Sphere.Core.Request.Zones.html">
+							Zones						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Sphere.Core.Response.html">
+							Response						</a>
+							</li>
+								</ul></li></ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Sphere.Core.AbstractHttpClient.html">Sphere\Core\AbstractHttpClient</a></li>
+				<li><a href="class-Sphere.Core.Cache.AbstractCacheAdapter.html">Sphere\Core\Cache\AbstractCacheAdapter</a></li>
+				<li><a href="class-Sphere.Core.Cache.ApcCacheAdapter.html">Sphere\Core\Cache\ApcCacheAdapter</a></li>
+				<li><a href="class-Sphere.Core.Cache.CacheAdapterFactory.html">Sphere\Core\Cache\CacheAdapterFactory</a></li>
+				<li><a href="class-Sphere.Core.Cache.DoctrineCacheAdapter.html">Sphere\Core\Cache\DoctrineCacheAdapter</a></li>
+				<li><a href="class-Sphere.Core.Cache.NullCacheAdapter.html">Sphere\Core\Cache\NullCacheAdapter</a></li>
+				<li><a href="class-Sphere.Core.Cache.PhpRedisCacheAdapter.html">Sphere\Core\Cache\PhpRedisCacheAdapter</a></li>
+				<li><a href="class-Sphere.Core.Client.html">Sphere\Core\Client</a></li>
+				<li><a href="class-Sphere.Core.Client.Adapter.AdapterFactory.html">Sphere\Core\Client\Adapter\AdapterFactory</a></li>
+				<li><a href="class-Sphere.Core.Client.Adapter.Guzzle5Adapter.html">Sphere\Core\Client\Adapter\Guzzle5Adapter</a></li>
+				<li><a href="class-Sphere.Core.Client.Adapter.Guzzle5Promise.html">Sphere\Core\Client\Adapter\Guzzle5Promise</a></li>
+				<li><a href="class-Sphere.Core.Client.Adapter.Guzzle6Adapter.html">Sphere\Core\Client\Adapter\Guzzle6Adapter</a></li>
+				<li><a href="class-Sphere.Core.Client.Adapter.Guzzle6Promise.html">Sphere\Core\Client\Adapter\Guzzle6Promise</a></li>
+				<li><a href="class-Sphere.Core.Client.HttpMethod.html">Sphere\Core\Client\HttpMethod</a></li>
+				<li><a href="class-Sphere.Core.Client.OAuth.Token.html">Sphere\Core\Client\OAuth\Token</a></li>
+				<li><a href="class-Sphere.Core.Config.html">Sphere\Core\Config</a></li>
+				<li><a href="class-Sphere.Core.Error.Message.html">Sphere\Core\Error\Message</a></li>
+				<li><a href="class-Sphere.Core.Helper.Annotate.AnnotationGenerator.html">Sphere\Core\Helper\Annotate\AnnotationGenerator</a></li>
+				<li><a href="class-Sphere.Core.Helper.Annotate.ClassAnnotator.html">Sphere\Core\Helper\Annotate\ClassAnnotator</a></li>
+				<li><a href="class-Sphere.Core.Helper.Annotate.ReflectedClass.html">Sphere\Core\Helper\Annotate\ReflectedClass</a></li>
+				<li><a href="class-Sphere.Core.Helper.CurrencyFormatter.html">Sphere\Core\Helper\CurrencyFormatter</a></li>
+				<li><a href="class-Sphere.Core.Helper.State.Renderer.html">Sphere\Core\Helper\State\Renderer</a></li>
+				<li><a href="class-Sphere.Core.Helper.State.Renderer.NodeRenderer.html">Sphere\Core\Helper\State\Renderer\NodeRenderer</a></li>
+				<li><a href="class-Sphere.Core.Helper.State.Renderer.TransitionRenderer.html">Sphere\Core\Helper\State\Renderer\TransitionRenderer</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.Cart.html">Sphere\Core\Model\Cart\Cart</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.CartCollection.html">Sphere\Core\Model\Cart\CartCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.CartDiscountCodeReference.html">Sphere\Core\Model\Cart\CartDiscountCodeReference</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.CartDiscountCodeReferenceCollection.html">Sphere\Core\Model\Cart\CartDiscountCodeReferenceCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.CartDiscountCodeState.html">Sphere\Core\Model\Cart\CartDiscountCodeState</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.CartDraft.html">Sphere\Core\Model\Cart\CartDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.CartReference.html">Sphere\Core\Model\Cart\CartReference</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.CartState.html">Sphere\Core\Model\Cart\CartState</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.CustomLineItem.html">Sphere\Core\Model\Cart\CustomLineItem</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.CustomLineItemCollection.html">Sphere\Core\Model\Cart\CustomLineItemCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.DiscountedLineItemPortion.html">Sphere\Core\Model\Cart\DiscountedLineItemPortion</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.DiscountedLineItemPortionCollection.html">Sphere\Core\Model\Cart\DiscountedLineItemPortionCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.DiscountedLineItemPrice.html">Sphere\Core\Model\Cart\DiscountedLineItemPrice</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.InventoryMode.html">Sphere\Core\Model\Cart\InventoryMode</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.LineItem.html">Sphere\Core\Model\Cart\LineItem</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.LineItemCollection.html">Sphere\Core\Model\Cart\LineItemCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Cart.ShippingInfo.html">Sphere\Core\Model\Cart\ShippingInfo</a></li>
+				<li><a href="class-Sphere.Core.Model.CartDiscount.CartDiscount.html">Sphere\Core\Model\CartDiscount\CartDiscount</a></li>
+				<li><a href="class-Sphere.Core.Model.CartDiscount.CartDiscountCollection.html">Sphere\Core\Model\CartDiscount\CartDiscountCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.CartDiscount.CartDiscountDraft.html">Sphere\Core\Model\CartDiscount\CartDiscountDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.CartDiscount.CartDiscountReference.html">Sphere\Core\Model\CartDiscount\CartDiscountReference</a></li>
+				<li><a href="class-Sphere.Core.Model.CartDiscount.CartDiscountReferenceCollection.html">Sphere\Core\Model\CartDiscount\CartDiscountReferenceCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.CartDiscount.CartDiscountTarget.html">Sphere\Core\Model\CartDiscount\CartDiscountTarget</a></li>
+				<li><a href="class-Sphere.Core.Model.CartDiscount.CartDiscountValue.html">Sphere\Core\Model\CartDiscount\CartDiscountValue</a></li>
+				<li><a href="class-Sphere.Core.Model.Category.Category.html">Sphere\Core\Model\Category\Category</a></li>
+				<li><a href="class-Sphere.Core.Model.Category.CategoryCollection.html">Sphere\Core\Model\Category\CategoryCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Category.CategoryDraft.html">Sphere\Core\Model\Category\CategoryDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.Category.CategoryReference.html">Sphere\Core\Model\Category\CategoryReference</a></li>
+				<li><a href="class-Sphere.Core.Model.Category.CategoryReferenceCollection.html">Sphere\Core\Model\Category\CategoryReferenceCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Channel.Channel.html">Sphere\Core\Model\Channel\Channel</a></li>
+				<li><a href="class-Sphere.Core.Model.Channel.ChannelCollection.html">Sphere\Core\Model\Channel\ChannelCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Channel.ChannelDraft.html">Sphere\Core\Model\Channel\ChannelDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.Channel.ChannelReference.html">Sphere\Core\Model\Channel\ChannelReference</a></li>
+				<li><a href="class-Sphere.Core.Model.Channel.ChannelRole.html">Sphere\Core\Model\Channel\ChannelRole</a></li>
+				<li><a href="class-Sphere.Core.Model.Comment.Comment.html">Sphere\Core\Model\Comment\Comment</a></li>
+				<li><a href="class-Sphere.Core.Model.Comment.CommentCollection.html">Sphere\Core\Model\Comment\CommentCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Comment.CommentDraft.html">Sphere\Core\Model\Comment\CommentDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.AbstractJsonDeserializeObject.html">Sphere\Core\Model\Common\AbstractJsonDeserializeObject</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.Address.html">Sphere\Core\Model\Common\Address</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.AddressCollection.html">Sphere\Core\Model\Common\AddressCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.Attribute.html">Sphere\Core\Model\Common\Attribute</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.AttributeCollection.html">Sphere\Core\Model\Common\AttributeCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.Collection.html">Sphere\Core\Model\Common\Collection</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.Context.html">Sphere\Core\Model\Common\Context</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.DateDecorator.html">Sphere\Core\Model\Common\DateDecorator</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.DateTimeDecorator.html">Sphere\Core\Model\Common\DateTimeDecorator</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.DiscountedPrice.html">Sphere\Core\Model\Common\DiscountedPrice</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.DiscountValue.html">Sphere\Core\Model\Common\DiscountValue</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.Document.html">Sphere\Core\Model\Common\Document</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.Enum.html">Sphere\Core\Model\Common\Enum</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.Image.html">Sphere\Core\Model\Common\Image</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.ImageCollection.html">Sphere\Core\Model\Common\ImageCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.ImageDimension.html">Sphere\Core\Model\Common\ImageDimension</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.JsonObject.html">Sphere\Core\Model\Common\JsonObject</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.LocalizedEnum.html">Sphere\Core\Model\Common\LocalizedEnum</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.LocalizedString.html">Sphere\Core\Model\Common\LocalizedString</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.Money.html">Sphere\Core\Model\Common\Money</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.MoneyCollection.html">Sphere\Core\Model\Common\MoneyCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.Price.html">Sphere\Core\Model\Common\Price</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.PriceCollection.html">Sphere\Core\Model\Common\PriceCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.Reference.html">Sphere\Core\Model\Common\Reference</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.ReferenceCollection.html">Sphere\Core\Model\Common\ReferenceCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.Set.html">Sphere\Core\Model\Common\Set</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.TaxedPrice.html">Sphere\Core\Model\Common\TaxedPrice</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.TaxPortion.html">Sphere\Core\Model\Common\TaxPortion</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.TaxPortionCollection.html">Sphere\Core\Model\Common\TaxPortionCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Customer.Customer.html">Sphere\Core\Model\Customer\Customer</a></li>
+				<li><a href="class-Sphere.Core.Model.Customer.CustomerCollection.html">Sphere\Core\Model\Customer\CustomerCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Customer.CustomerDraft.html">Sphere\Core\Model\Customer\CustomerDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.Customer.CustomerReference.html">Sphere\Core\Model\Customer\CustomerReference</a></li>
+				<li><a href="class-Sphere.Core.Model.Customer.CustomerSigninResult.html">Sphere\Core\Model\Customer\CustomerSigninResult</a></li>
+				<li><a href="class-Sphere.Core.Model.Customer.CustomerToken.html">Sphere\Core\Model\Customer\CustomerToken</a></li>
+				<li><a href="class-Sphere.Core.Model.CustomerGroup.CustomerGroup.html">Sphere\Core\Model\CustomerGroup\CustomerGroup</a></li>
+				<li><a href="class-Sphere.Core.Model.CustomerGroup.CustomerGroupCollection.html">Sphere\Core\Model\CustomerGroup\CustomerGroupCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.CustomerGroup.CustomerGroupDraft.html">Sphere\Core\Model\CustomerGroup\CustomerGroupDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.CustomerGroup.CustomerGroupReference.html">Sphere\Core\Model\CustomerGroup\CustomerGroupReference</a></li>
+				<li><a href="class-Sphere.Core.Model.CustomObject.CustomObject.html">Sphere\Core\Model\CustomObject\CustomObject</a></li>
+				<li><a href="class-Sphere.Core.Model.CustomObject.CustomObjectCollection.html">Sphere\Core\Model\CustomObject\CustomObjectCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.DiscountCode.DiscountCode.html">Sphere\Core\Model\DiscountCode\DiscountCode</a></li>
+				<li><a href="class-Sphere.Core.Model.DiscountCode.DiscountCodeCollection.html">Sphere\Core\Model\DiscountCode\DiscountCodeCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.DiscountCode.DiscountCodeDraft.html">Sphere\Core\Model\DiscountCode\DiscountCodeDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.DiscountCode.DiscountCodeReference.html">Sphere\Core\Model\DiscountCode\DiscountCodeReference</a></li>
+				<li><a href="class-Sphere.Core.Model.DiscountCode.DiscountCodeReferenceCollection.html">Sphere\Core\Model\DiscountCode\DiscountCodeReferenceCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Inventory.InventoryDraft.html">Sphere\Core\Model\Inventory\InventoryDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.Inventory.InventoryEntry.html">Sphere\Core\Model\Inventory\InventoryEntry</a></li>
+				<li><a href="class-Sphere.Core.Model.Inventory.InventoryEntryCollection.html">Sphere\Core\Model\Inventory\InventoryEntryCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Message.Message.html">Sphere\Core\Model\Message\Message</a></li>
+				<li><a href="class-Sphere.Core.Model.Message.MessageCollection.html">Sphere\Core\Model\Message\MessageCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.Delivery.html">Sphere\Core\Model\Order\Delivery</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.DeliveryCollection.html">Sphere\Core\Model\Order\DeliveryCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.DeliveryItem.html">Sphere\Core\Model\Order\DeliveryItem</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.DeliveryItemCollection.html">Sphere\Core\Model\Order\DeliveryItemCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ImportLineItem.html">Sphere\Core\Model\Order\ImportLineItem</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ImportLineItemCollection.html">Sphere\Core\Model\Order\ImportLineItemCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ImportOrder.html">Sphere\Core\Model\Order\ImportOrder</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ImportProductVariant.html">Sphere\Core\Model\Order\ImportProductVariant</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ItemState.html">Sphere\Core\Model\Order\ItemState</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ItemStateCollection.html">Sphere\Core\Model\Order\ItemStateCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.Order.html">Sphere\Core\Model\Order\Order</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.OrderCollection.html">Sphere\Core\Model\Order\OrderCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.OrderReference.html">Sphere\Core\Model\Order\OrderReference</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.OrderState.html">Sphere\Core\Model\Order\OrderState</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.Parcel.html">Sphere\Core\Model\Order\Parcel</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ParcelCollection.html">Sphere\Core\Model\Order\ParcelCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ParcelMeasurements.html">Sphere\Core\Model\Order\ParcelMeasurements</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.PaymentState.html">Sphere\Core\Model\Order\PaymentState</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ReturnInfo.html">Sphere\Core\Model\Order\ReturnInfo</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ReturnInfoCollection.html">Sphere\Core\Model\Order\ReturnInfoCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ReturnItem.html">Sphere\Core\Model\Order\ReturnItem</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ReturnItemCollection.html">Sphere\Core\Model\Order\ReturnItemCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ReturnPaymentState.html">Sphere\Core\Model\Order\ReturnPaymentState</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ReturnShipmentState.html">Sphere\Core\Model\Order\ReturnShipmentState</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.ShipmentState.html">Sphere\Core\Model\Order\ShipmentState</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.SyncInfo.html">Sphere\Core\Model\Order\SyncInfo</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.SyncInfoCollection.html">Sphere\Core\Model\Order\SyncInfoCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Order.TrackingData.html">Sphere\Core\Model\Order\TrackingData</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.Facet.html">Sphere\Core\Model\Product\Facet</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.FacetRange.html">Sphere\Core\Model\Product\FacetRange</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.FacetRangeCollection.html">Sphere\Core\Model\Product\FacetRangeCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.FacetResult.html">Sphere\Core\Model\Product\FacetResult</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.FacetResultCollection.html">Sphere\Core\Model\Product\FacetResultCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.FacetTerm.html">Sphere\Core\Model\Product\FacetTerm</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.FacetTermCollection.html">Sphere\Core\Model\Product\FacetTermCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.Filter.html">Sphere\Core\Model\Product\Filter</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.FilterRange.html">Sphere\Core\Model\Product\FilterRange</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.FilterRangeCollection.html">Sphere\Core\Model\Product\FilterRangeCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.LocalizedSearchKeywords.html">Sphere\Core\Model\Product\LocalizedSearchKeywords</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.Product.html">Sphere\Core\Model\Product\Product</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.ProductCatalogData.html">Sphere\Core\Model\Product\ProductCatalogData</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.ProductCollection.html">Sphere\Core\Model\Product\ProductCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.ProductData.html">Sphere\Core\Model\Product\ProductData</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.ProductDraft.html">Sphere\Core\Model\Product\ProductDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.ProductProjection.html">Sphere\Core\Model\Product\ProductProjection</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.ProductProjectionCollection.html">Sphere\Core\Model\Product\ProductProjectionCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.ProductReference.html">Sphere\Core\Model\Product\ProductReference</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.ProductVariant.html">Sphere\Core\Model\Product\ProductVariant</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.ProductVariantAvailability.html">Sphere\Core\Model\Product\ProductVariantAvailability</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.ProductVariantCollection.html">Sphere\Core\Model\Product\ProductVariantCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.ProductVariantDraft.html">Sphere\Core\Model\Product\ProductVariantDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.SearchKeyword.html">Sphere\Core\Model\Product\SearchKeyword</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.SearchKeywords.html">Sphere\Core\Model\Product\SearchKeywords</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.Suggestion.html">Sphere\Core\Model\Product\Suggestion</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.SuggestionCollection.html">Sphere\Core\Model\Product\SuggestionCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Product.SuggestTokenizer.html">Sphere\Core\Model\Product\SuggestTokenizer</a></li>
+				<li><a href="class-Sphere.Core.Model.ProductDiscount.ProductDiscount.html">Sphere\Core\Model\ProductDiscount\ProductDiscount</a></li>
+				<li><a href="class-Sphere.Core.Model.ProductDiscount.ProductDiscountCollection.html">Sphere\Core\Model\ProductDiscount\ProductDiscountCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.ProductDiscount.ProductDiscountDraft.html">Sphere\Core\Model\ProductDiscount\ProductDiscountDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.ProductDiscount.ProductDiscountReference.html">Sphere\Core\Model\ProductDiscount\ProductDiscountReference</a></li>
+				<li><a href="class-Sphere.Core.Model.ProductDiscount.ProductDiscountValue.html">Sphere\Core\Model\ProductDiscount\ProductDiscountValue</a></li>
+				<li><a href="class-Sphere.Core.Model.ProductType.AttributeDefinition.html">Sphere\Core\Model\ProductType\AttributeDefinition</a></li>
+				<li><a href="class-Sphere.Core.Model.ProductType.AttributeDefinitionCollection.html">Sphere\Core\Model\ProductType\AttributeDefinitionCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.ProductType.AttributeType.html">Sphere\Core\Model\ProductType\AttributeType</a></li>
+				<li><a href="class-Sphere.Core.Model.ProductType.ProductType.html">Sphere\Core\Model\ProductType\ProductType</a></li>
+				<li><a href="class-Sphere.Core.Model.ProductType.ProductTypeCollection.html">Sphere\Core\Model\ProductType\ProductTypeCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.ProductType.ProductTypeDraft.html">Sphere\Core\Model\ProductType\ProductTypeDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.ProductType.ProductTypeReference.html">Sphere\Core\Model\ProductType\ProductTypeReference</a></li>
+				<li><a href="class-Sphere.Core.Model.Review.Review.html">Sphere\Core\Model\Review\Review</a></li>
+				<li><a href="class-Sphere.Core.Model.Review.ReviewCollection.html">Sphere\Core\Model\Review\ReviewCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Review.ReviewDraft.html">Sphere\Core\Model\Review\ReviewDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.ShippingMethod.ShippingMethod.html">Sphere\Core\Model\ShippingMethod\ShippingMethod</a></li>
+				<li><a href="class-Sphere.Core.Model.ShippingMethod.ShippingMethodCollection.html">Sphere\Core\Model\ShippingMethod\ShippingMethodCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.ShippingMethod.ShippingMethodDraft.html">Sphere\Core\Model\ShippingMethod\ShippingMethodDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.ShippingMethod.ShippingMethodReference.html">Sphere\Core\Model\ShippingMethod\ShippingMethodReference</a></li>
+				<li><a href="class-Sphere.Core.Model.ShippingMethod.ShippingRate.html">Sphere\Core\Model\ShippingMethod\ShippingRate</a></li>
+				<li><a href="class-Sphere.Core.Model.ShippingMethod.ShippingRateCollection.html">Sphere\Core\Model\ShippingMethod\ShippingRateCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.ShippingMethod.ZoneRate.html">Sphere\Core\Model\ShippingMethod\ZoneRate</a></li>
+				<li><a href="class-Sphere.Core.Model.ShippingMethod.ZoneRateCollection.html">Sphere\Core\Model\ShippingMethod\ZoneRateCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.State.State.html">Sphere\Core\Model\State\State</a></li>
+				<li><a href="class-Sphere.Core.Model.State.StateCollection.html">Sphere\Core\Model\State\StateCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.State.StateDraft.html">Sphere\Core\Model\State\StateDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.State.StateReference.html">Sphere\Core\Model\State\StateReference</a></li>
+				<li><a href="class-Sphere.Core.Model.State.StateReferenceCollection.html">Sphere\Core\Model\State\StateReferenceCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.TaxCategory.TaxCategory.html">Sphere\Core\Model\TaxCategory\TaxCategory</a></li>
+				<li><a href="class-Sphere.Core.Model.TaxCategory.TaxCategoryCollection.html">Sphere\Core\Model\TaxCategory\TaxCategoryCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.TaxCategory.TaxCategoryDraft.html">Sphere\Core\Model\TaxCategory\TaxCategoryDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.TaxCategory.TaxCategoryReference.html">Sphere\Core\Model\TaxCategory\TaxCategoryReference</a></li>
+				<li><a href="class-Sphere.Core.Model.TaxCategory.TaxRate.html">Sphere\Core\Model\TaxCategory\TaxRate</a></li>
+				<li><a href="class-Sphere.Core.Model.TaxCategory.TaxRateCollection.html">Sphere\Core\Model\TaxCategory\TaxRateCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Zone.Location.html">Sphere\Core\Model\Zone\Location</a></li>
+				<li><a href="class-Sphere.Core.Model.Zone.LocationCollection.html">Sphere\Core\Model\Zone\LocationCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Zone.Zone.html">Sphere\Core\Model\Zone\Zone</a></li>
+				<li><a href="class-Sphere.Core.Model.Zone.ZoneCollection.html">Sphere\Core\Model\Zone\ZoneCollection</a></li>
+				<li><a href="class-Sphere.Core.Model.Zone.ZoneDraft.html">Sphere\Core\Model\Zone\ZoneDraft</a></li>
+				<li><a href="class-Sphere.Core.Model.Zone.ZoneReference.html">Sphere\Core\Model\Zone\ZoneReference</a></li>
+				<li><a href="class-Sphere.Core.Request.AbstractAction.html">Sphere\Core\Request\AbstractAction</a></li>
+				<li><a href="class-Sphere.Core.Request.AbstractApiRequest.html">Sphere\Core\Request\AbstractApiRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.AbstractCreateRequest.html">Sphere\Core\Request\AbstractCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.AbstractDeleteByIdRequest.html">Sphere\Core\Request\AbstractDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.AbstractFetchByIdRequest.html">Sphere\Core\Request\AbstractFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.AbstractProjectionRequest.html">Sphere\Core\Request\AbstractProjectionRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.AbstractQueryRequest.html">Sphere\Core\Request\AbstractQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.AbstractUpdateRequest.html">Sphere\Core\Request\AbstractUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CartDiscounts.CartDiscountCreateRequest.html">Sphere\Core\Request\CartDiscounts\CartDiscountCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CartDiscounts.CartDiscountDeleteByIdRequest.html">Sphere\Core\Request\CartDiscounts\CartDiscountDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CartDiscounts.CartDiscountFetchByIdRequest.html">Sphere\Core\Request\CartDiscounts\CartDiscountFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CartDiscounts.CartDiscountsEndpoint.html">Sphere\Core\Request\CartDiscounts\CartDiscountsEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.CartDiscounts.CartDiscountsQueryRequest.html">Sphere\Core\Request\CartDiscounts\CartDiscountsQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CartDiscounts.CartDiscountUpdateRequest.html">Sphere\Core\Request\CartDiscounts\CartDiscountUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.CartCreateRequest.html">Sphere\Core\Request\Carts\CartCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.CartDeleteByIdRequest.html">Sphere\Core\Request\Carts\CartDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.CartFetchByCustomerIdRequest.html">Sphere\Core\Request\Carts\CartFetchByCustomerIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.CartFetchByIdRequest.html">Sphere\Core\Request\Carts\CartFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.CartsEndpoint.html">Sphere\Core\Request\Carts\CartsEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.CartsQueryRequest.html">Sphere\Core\Request\Carts\CartsQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.CartUpdateRequest.html">Sphere\Core\Request\Carts\CartUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartAddCustomLineItemAction.html">Sphere\Core\Request\Carts\Command\CartAddCustomLineItemAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartAddDiscountCodeAction.html">Sphere\Core\Request\Carts\Command\CartAddDiscountCodeAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartAddLineItemAction.html">Sphere\Core\Request\Carts\Command\CartAddLineItemAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartChangeLineItemQuantityAction.html">Sphere\Core\Request\Carts\Command\CartChangeLineItemQuantityAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartRecalculateAction.html">Sphere\Core\Request\Carts\Command\CartRecalculateAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartRemoveCustomLineItemAction.html">Sphere\Core\Request\Carts\Command\CartRemoveCustomLineItemAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartRemoveDiscountCodeAction.html">Sphere\Core\Request\Carts\Command\CartRemoveDiscountCodeAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartRemoveLineItemAction.html">Sphere\Core\Request\Carts\Command\CartRemoveLineItemAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartSetBillingAddressAction.html">Sphere\Core\Request\Carts\Command\CartSetBillingAddressAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartSetCountryAction.html">Sphere\Core\Request\Carts\Command\CartSetCountryAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartSetCustomerEmailAction.html">Sphere\Core\Request\Carts\Command\CartSetCustomerEmailAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartSetCustomerIdAction.html">Sphere\Core\Request\Carts\Command\CartSetCustomerIdAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartSetCustomShippingMethodAction.html">Sphere\Core\Request\Carts\Command\CartSetCustomShippingMethodAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartSetShippingAddressAction.html">Sphere\Core\Request\Carts\Command\CartSetShippingAddressAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Carts.Command.CartSetShippingMethodAction.html">Sphere\Core\Request\Carts\Command\CartSetShippingMethodAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.CategoriesEndpoint.html">Sphere\Core\Request\Categories\CategoriesEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.CategoriesQueryRequest.html">Sphere\Core\Request\Categories\CategoriesQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.CategoryCreateRequest.html">Sphere\Core\Request\Categories\CategoryCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.CategoryDeleteByIdRequest.html">Sphere\Core\Request\Categories\CategoryDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.CategoryFetchByIdRequest.html">Sphere\Core\Request\Categories\CategoryFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.CategoryUpdateRequest.html">Sphere\Core\Request\Categories\CategoryUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.Command.CategoryChangeNameAction.html">Sphere\Core\Request\Categories\Command\CategoryChangeNameAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.Command.CategoryChangeOrderHintAction.html">Sphere\Core\Request\Categories\Command\CategoryChangeOrderHintAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.Command.CategoryChangeParentAction.html">Sphere\Core\Request\Categories\Command\CategoryChangeParentAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.Command.CategoryChangeSlugAction.html">Sphere\Core\Request\Categories\Command\CategoryChangeSlugAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.Command.CategorySetDescriptionAction.html">Sphere\Core\Request\Categories\Command\CategorySetDescriptionAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.Command.CategorySetExternalIdAction.html">Sphere\Core\Request\Categories\Command\CategorySetExternalIdAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.Command.CategorySetMetaDescriptionAction.html">Sphere\Core\Request\Categories\Command\CategorySetMetaDescriptionAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.Command.CategorySetMetaKeywordsAction.html">Sphere\Core\Request\Categories\Command\CategorySetMetaKeywordsAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Categories.Command.CategorySetMetaTitleAction.html">Sphere\Core\Request\Categories\Command\CategorySetMetaTitleAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Channels.ChannelCreateRequest.html">Sphere\Core\Request\Channels\ChannelCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Channels.ChannelDeleteByIdRequest.html">Sphere\Core\Request\Channels\ChannelDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Channels.ChannelFetchByIdRequest.html">Sphere\Core\Request\Channels\ChannelFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Channels.ChannelsEndpoint.html">Sphere\Core\Request\Channels\ChannelsEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.Channels.ChannelsQueryRequest.html">Sphere\Core\Request\Channels\ChannelsQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Channels.ChannelUpdateRequest.html">Sphere\Core\Request\Channels\ChannelUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Comments.CommentCreateRequest.html">Sphere\Core\Request\Comments\CommentCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Comments.CommentFetchByIdRequest.html">Sphere\Core\Request\Comments\CommentFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Comments.CommentsEndpoint.html">Sphere\Core\Request\Comments\CommentsEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.Comments.CommentsQueryRequest.html">Sphere\Core\Request\Comments\CommentsQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Comments.CommentUpdateRequest.html">Sphere\Core\Request\Comments\CommentUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CustomerGroups.CustomerGroupCreateRequest.html">Sphere\Core\Request\CustomerGroups\CustomerGroupCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CustomerGroups.CustomerGroupDeleteByIdRequest.html">Sphere\Core\Request\CustomerGroups\CustomerGroupDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CustomerGroups.CustomerGroupFetchByIdRequest.html">Sphere\Core\Request\CustomerGroups\CustomerGroupFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CustomerGroups.CustomerGroupsEndpoint.html">Sphere\Core\Request\CustomerGroups\CustomerGroupsEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.CustomerGroups.CustomerGroupsQueryRequest.html">Sphere\Core\Request\CustomerGroups\CustomerGroupsQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CustomerGroups.CustomerGroupUpdateRequest.html">Sphere\Core\Request\CustomerGroups\CustomerGroupUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.Command.CustomerAddAddressAction.html">Sphere\Core\Request\Customers\Command\CustomerAddAddressAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.Command.CustomerChangeAddressAction.html">Sphere\Core\Request\Customers\Command\CustomerChangeAddressAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.Command.CustomerChangeEmailAction.html">Sphere\Core\Request\Customers\Command\CustomerChangeEmailAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.Command.CustomerChangeNameAction.html">Sphere\Core\Request\Customers\Command\CustomerChangeNameAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.Command.CustomerRemoveAddressAction.html">Sphere\Core\Request\Customers\Command\CustomerRemoveAddressAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.Command.CustomerSetCompanyNameAction.html">Sphere\Core\Request\Customers\Command\CustomerSetCompanyNameAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.Command.CustomerSetCustomerGroupAction.html">Sphere\Core\Request\Customers\Command\CustomerSetCustomerGroupAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.Command.CustomerSetCustomerNumberAction.html">Sphere\Core\Request\Customers\Command\CustomerSetCustomerNumberAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.Command.CustomerSetDateOfBirthAction.html">Sphere\Core\Request\Customers\Command\CustomerSetDateOfBirthAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.Command.CustomerSetDefaultBillingAddressAction.html">Sphere\Core\Request\Customers\Command\CustomerSetDefaultBillingAddressAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.Command.CustomerSetDefaultShippingAddressAction.html">Sphere\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.Command.CustomerSetExternalIdAction.html">Sphere\Core\Request\Customers\Command\CustomerSetExternalIdAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.Command.CustomerSetVatIdAction.html">Sphere\Core\Request\Customers\Command\CustomerSetVatIdAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.CustomerCreateRequest.html">Sphere\Core\Request\Customers\CustomerCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.CustomerDeleteByIdRequest.html">Sphere\Core\Request\Customers\CustomerDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.CustomerEmailConfirmRequest.html">Sphere\Core\Request\Customers\CustomerEmailConfirmRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.CustomerEmailTokenRequest.html">Sphere\Core\Request\Customers\CustomerEmailTokenRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.CustomerFetchByIdRequest.html">Sphere\Core\Request\Customers\CustomerFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.CustomerFetchByTokenRequest.html">Sphere\Core\Request\Customers\CustomerFetchByTokenRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.CustomerLoginRequest.html">Sphere\Core\Request\Customers\CustomerLoginRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.CustomerPasswordChangeRequest.html">Sphere\Core\Request\Customers\CustomerPasswordChangeRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.CustomerPasswordResetRequest.html">Sphere\Core\Request\Customers\CustomerPasswordResetRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.CustomerPasswordTokenRequest.html">Sphere\Core\Request\Customers\CustomerPasswordTokenRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.CustomersEndpoint.html">Sphere\Core\Request\Customers\CustomersEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.CustomersQueryRequest.html">Sphere\Core\Request\Customers\CustomersQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.CustomerUpdateRequest.html">Sphere\Core\Request\Customers\CustomerUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Customers.LoginEndpoint.html">Sphere\Core\Request\Customers\LoginEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.CustomObjects.AbstractCustomObjectRequest.html">Sphere\Core\Request\CustomObjects\AbstractCustomObjectRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CustomObjects.CustomObjectCreateRequest.html">Sphere\Core\Request\CustomObjects\CustomObjectCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CustomObjects.CustomObjectDeleteByKeyRequest.html">Sphere\Core\Request\CustomObjects\CustomObjectDeleteByKeyRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CustomObjects.CustomObjectFetchByKeyRequest.html">Sphere\Core\Request\CustomObjects\CustomObjectFetchByKeyRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.CustomObjects.CustomObjectsEndpoint.html">Sphere\Core\Request\CustomObjects\CustomObjectsEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.CustomObjects.CustomObjectsQueryRequest.html">Sphere\Core\Request\CustomObjects\CustomObjectsQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.DiscountCodes.DiscountCodeCreateRequest.html">Sphere\Core\Request\DiscountCodes\DiscountCodeCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.DiscountCodes.DiscountCodeDeleteByIdRequest.html">Sphere\Core\Request\DiscountCodes\DiscountCodeDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.DiscountCodes.DiscountCodeFetchByIdRequest.html">Sphere\Core\Request\DiscountCodes\DiscountCodeFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.DiscountCodes.DiscountCodesEndpoint.html">Sphere\Core\Request\DiscountCodes\DiscountCodesEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.DiscountCodes.DiscountCodesQueryRequest.html">Sphere\Core\Request\DiscountCodes\DiscountCodesQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.DiscountCodes.DiscountCodeUpdateRequest.html">Sphere\Core\Request\DiscountCodes\DiscountCodeUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Inventory.InventoryCreateRequest.html">Sphere\Core\Request\Inventory\InventoryCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Inventory.InventoryDeleteByIdRequest.html">Sphere\Core\Request\Inventory\InventoryDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Inventory.InventoryEndpoint.html">Sphere\Core\Request\Inventory\InventoryEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.Inventory.InventoryFetchByIdRequest.html">Sphere\Core\Request\Inventory\InventoryFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Inventory.InventoryQueryRequest.html">Sphere\Core\Request\Inventory\InventoryQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Inventory.InventoryUpdateRequest.html">Sphere\Core\Request\Inventory\InventoryUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Messages.MessageFetchByIdRequest.html">Sphere\Core\Request\Messages\MessageFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Messages.MessagesEndpoint.html">Sphere\Core\Request\Messages\MessagesEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.Messages.MessagesQueryRequest.html">Sphere\Core\Request\Messages\MessagesQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderAddDeliveryAction.html">Sphere\Core\Request\Orders\Command\OrderAddDeliveryAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderAddParcelToDeliveryAction.html">Sphere\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderAddReturnInfoAction.html">Sphere\Core\Request\Orders\Command\OrderAddReturnInfoAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderChangeOrderStateAction.html">Sphere\Core\Request\Orders\Command\OrderChangeOrderStateAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderChangePaymentStateAction.html">Sphere\Core\Request\Orders\Command\OrderChangePaymentStateAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderChangeShipmentStateAction.html">Sphere\Core\Request\Orders\Command\OrderChangeShipmentStateAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderImportCustomLineItemStateAction.html">Sphere\Core\Request\Orders\Command\OrderImportCustomLineItemStateAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderImportLineItemStateAction.html">Sphere\Core\Request\Orders\Command\OrderImportLineItemStateAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderSetOrderNumberAction.html">Sphere\Core\Request\Orders\Command\OrderSetOrderNumberAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderSetReturnPaymentStateAction.html">Sphere\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderSetReturnShipmentStateAction.html">Sphere\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderTransitionCustomLineItemStateAction.html">Sphere\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderTransitionLineItemStateAction.html">Sphere\Core\Request\Orders\Command\OrderTransitionLineItemStateAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.Command.OrderUpdateSyncInfoAction.html">Sphere\Core\Request\Orders\Command\OrderUpdateSyncInfoAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.OrderCreateFromCartRequest.html">Sphere\Core\Request\Orders\OrderCreateFromCartRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.OrderFetchByIdRequest.html">Sphere\Core\Request\Orders\OrderFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.OrderImportRequest.html">Sphere\Core\Request\Orders\OrderImportRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.OrdersEndpoint.html">Sphere\Core\Request\Orders\OrdersEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.OrdersQueryRequest.html">Sphere\Core\Request\Orders\OrdersQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Orders.OrderUpdateRequest.html">Sphere\Core\Request\Orders\OrderUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ProductDiscounts.ProductDiscountCreateRequest.html">Sphere\Core\Request\ProductDiscounts\ProductDiscountCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ProductDiscounts.ProductDiscountDeleteByIdRequest.html">Sphere\Core\Request\ProductDiscounts\ProductDiscountDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ProductDiscounts.ProductDiscountFetchByIdRequest.html">Sphere\Core\Request\ProductDiscounts\ProductDiscountFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ProductDiscounts.ProductDiscountsEndpoint.html">Sphere\Core\Request\ProductDiscounts\ProductDiscountsEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.ProductDiscounts.ProductDiscountsQueryRequest.html">Sphere\Core\Request\ProductDiscounts\ProductDiscountsQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ProductDiscounts.ProductDiscountUpdateRequest.html">Sphere\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductAddExternalImageAction.html">Sphere\Core\Request\Products\Command\ProductAddExternalImageAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductAddPriceAction.html">Sphere\Core\Request\Products\Command\ProductAddPriceAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductAddToCategoryAction.html">Sphere\Core\Request\Products\Command\ProductAddToCategoryAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductAddVariantAction.html">Sphere\Core\Request\Products\Command\ProductAddVariantAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductChangeNameAction.html">Sphere\Core\Request\Products\Command\ProductChangeNameAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductChangePriceAction.html">Sphere\Core\Request\Products\Command\ProductChangePriceAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductChangeSlugAction.html">Sphere\Core\Request\Products\Command\ProductChangeSlugAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductPublishAction.html">Sphere\Core\Request\Products\Command\ProductPublishAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductRemoveFromCategoryAction.html">Sphere\Core\Request\Products\Command\ProductRemoveFromCategoryAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductRemoveImageAction.html">Sphere\Core\Request\Products\Command\ProductRemoveImageAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductRemovePriceAction.html">Sphere\Core\Request\Products\Command\ProductRemovePriceAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductRemoveVariantAction.html">Sphere\Core\Request\Products\Command\ProductRemoveVariantAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductRevertStagedChangesAction.html">Sphere\Core\Request\Products\Command\ProductRevertStagedChangesAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductSetAttributeAction.html">Sphere\Core\Request\Products\Command\ProductSetAttributeAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductSetAttributeInAllVariantsAction.html">Sphere\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductSetDescriptionAction.html">Sphere\Core\Request\Products\Command\ProductSetDescriptionAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductSetMetaAttributesAction.html" class="deprecated">Sphere\Core\Request\Products\Command\ProductSetMetaAttributesAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductSetMetaDescriptionAction.html">Sphere\Core\Request\Products\Command\ProductSetMetaDescriptionAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductSetMetaKeywordsAction.html">Sphere\Core\Request\Products\Command\ProductSetMetaKeywordsAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductSetMetaTitleAction.html">Sphere\Core\Request\Products\Command\ProductSetMetaTitleAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductSetSearchKeywordsAction.html">Sphere\Core\Request\Products\Command\ProductSetSearchKeywordsAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductSetSKUAction.html">Sphere\Core\Request\Products\Command\ProductSetSKUAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductSetTaxCategoryAction.html">Sphere\Core\Request\Products\Command\ProductSetTaxCategoryAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.Command.ProductUnpublishAction.html">Sphere\Core\Request\Products\Command\ProductUnpublishAction</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.ProductCreateRequest.html">Sphere\Core\Request\Products\ProductCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.ProductDeleteByIdRequest.html">Sphere\Core\Request\Products\ProductDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.ProductFetchByIdRequest.html">Sphere\Core\Request\Products\ProductFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.ProductProjectionFetchByIdRequest.html">Sphere\Core\Request\Products\ProductProjectionFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.ProductProjectionFetchBySkuRequest.html">Sphere\Core\Request\Products\ProductProjectionFetchBySkuRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.ProductProjectionFetchBySlugRequest.html">Sphere\Core\Request\Products\ProductProjectionFetchBySlugRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.ProductProjectionQueryRequest.html">Sphere\Core\Request\Products\ProductProjectionQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.ProductSearchEndpoint.html">Sphere\Core\Request\Products\ProductSearchEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.ProductsEndpoint.html">Sphere\Core\Request\Products\ProductsEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.ProductsQueryRequest.html">Sphere\Core\Request\Products\ProductsQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.ProductsSearchRequest.html">Sphere\Core\Request\Products\ProductsSearchRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.ProductsSuggestRequest.html">Sphere\Core\Request\Products\ProductsSuggestRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Products.ProductUpdateRequest.html">Sphere\Core\Request\Products\ProductUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ProductTypes.ProductTypeCreateRequest.html">Sphere\Core\Request\ProductTypes\ProductTypeCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ProductTypes.ProductTypeDeleteByIdRequest.html">Sphere\Core\Request\ProductTypes\ProductTypeDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ProductTypes.ProductTypeFetchByIdRequest.html">Sphere\Core\Request\ProductTypes\ProductTypeFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ProductTypes.ProductTypesEndpoint.html">Sphere\Core\Request\ProductTypes\ProductTypesEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.ProductTypes.ProductTypesQueryRequest.html">Sphere\Core\Request\ProductTypes\ProductTypesQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ProductTypes.ProductTypeUpdateRequest.html">Sphere\Core\Request\ProductTypes\ProductTypeUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Query.MultiParameter.html">Sphere\Core\Request\Query\MultiParameter</a></li>
+				<li><a href="class-Sphere.Core.Request.Query.Parameter.html">Sphere\Core\Request\Query\Parameter</a></li>
+				<li><a href="class-Sphere.Core.Request.Reviews.ReviewCreateRequest.html">Sphere\Core\Request\Reviews\ReviewCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Reviews.ReviewFetchByIdRequest.html">Sphere\Core\Request\Reviews\ReviewFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Reviews.ReviewsEndpoint.html">Sphere\Core\Request\Reviews\ReviewsEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.Reviews.ReviewsQueryRequest.html">Sphere\Core\Request\Reviews\ReviewsQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Reviews.ReviewUpdateRequest.html">Sphere\Core\Request\Reviews\ReviewUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ShippingMethods.ShippingMethodCreateRequest.html">Sphere\Core\Request\ShippingMethods\ShippingMethodCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ShippingMethods.ShippingMethodFetchByIdRequest.html">Sphere\Core\Request\ShippingMethods\ShippingMethodFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ShippingMethods.ShippingMethodsEndpoint.html">Sphere\Core\Request\ShippingMethods\ShippingMethodsEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.ShippingMethods.ShippingMethodsQueryRequest.html">Sphere\Core\Request\ShippingMethods\ShippingMethodsQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.ShippingMethods.ShippingMethodUpdateRequest.html">Sphere\Core\Request\ShippingMethods\ShippingMethodUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.States.StateCreateRequest.html">Sphere\Core\Request\States\StateCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.States.StateDeleteByIdRequest.html">Sphere\Core\Request\States\StateDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.States.StateFetchByIdRequest.html">Sphere\Core\Request\States\StateFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.States.StatesEndpoint.html">Sphere\Core\Request\States\StatesEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.States.StatesQueryRequest.html">Sphere\Core\Request\States\StatesQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.States.StateUpdateRequest.html">Sphere\Core\Request\States\StateUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.TaxCategories.TaxCategoriesEndpoint.html">Sphere\Core\Request\TaxCategories\TaxCategoriesEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.TaxCategories.TaxCategoriesQueryRequest.html">Sphere\Core\Request\TaxCategories\TaxCategoriesQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.TaxCategories.TaxCategoryCreateRequest.html">Sphere\Core\Request\TaxCategories\TaxCategoryCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.TaxCategories.TaxCategoryDeleteByIdRequest.html">Sphere\Core\Request\TaxCategories\TaxCategoryDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.TaxCategories.TaxCategoryFetchByIdRequest.html">Sphere\Core\Request\TaxCategories\TaxCategoryFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.TaxCategories.TaxCategoryUpdateRequest.html">Sphere\Core\Request\TaxCategories\TaxCategoryUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Zones.ZoneCreateRequest.html">Sphere\Core\Request\Zones\ZoneCreateRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Zones.ZoneDeleteByIdRequest.html">Sphere\Core\Request\Zones\ZoneDeleteByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Zones.ZoneFetchByIdRequest.html">Sphere\Core\Request\Zones\ZoneFetchByIdRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Zones.ZonesEndpoint.html">Sphere\Core\Request\Zones\ZonesEndpoint</a></li>
+				<li><a href="class-Sphere.Core.Request.Zones.ZonesQueryRequest.html">Sphere\Core\Request\Zones\ZonesQueryRequest</a></li>
+				<li><a href="class-Sphere.Core.Request.Zones.ZoneUpdateRequest.html">Sphere\Core\Request\Zones\ZoneUpdateRequest</a></li>
+				<li><a href="class-Sphere.Core.Response.AbstractApiResponse.html">Sphere\Core\Response\AbstractApiResponse</a></li>
+				<li><a href="class-Sphere.Core.Response.PagedQueryResponse.html">Sphere\Core\Response\PagedQueryResponse</a></li>
+				<li><a href="class-Sphere.Core.Response.PagedSearchResponse.html">Sphere\Core\Response\PagedSearchResponse</a></li>
+				<li><a href="class-Sphere.Core.Response.SingleResourceResponse.html">Sphere\Core\Response\SingleResourceResponse</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Sphere.Core.Cache.CacheAdapterInterface.html">Sphere\Core\Cache\CacheAdapterInterface</a></li>
+				<li><a href="class-Sphere.Core.Client.Adapter.AdapterInterface.html">Sphere\Core\Client\Adapter\AdapterInterface</a></li>
+				<li><a href="class-Sphere.Core.Client.Adapter.AdapterPromiseInterface.html">Sphere\Core\Client\Adapter\AdapterPromiseInterface</a></li>
+				<li><a href="class-Sphere.Core.Client.HttpRequestInterface.html">Sphere\Core\Client\HttpRequestInterface</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.ContextAwareInterface.html">Sphere\Core\Model\Common\ContextAwareInterface</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.JsonDeserializeInterface.html">Sphere\Core\Model\Common\JsonDeserializeInterface</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.ReferenceObjectInterface.html">Sphere\Core\Model\Common\ReferenceObjectInterface</a></li>
+				<li><a href="class-Sphere.Core.Request.ClientRequestInterface.html">Sphere\Core\Request\ClientRequestInterface</a></li>
+				<li><a href="class-Sphere.Core.Request.Query.ParameterInterface.html">Sphere\Core\Request\Query\ParameterInterface</a></li>
+				<li><a href="class-Sphere.Core.Response.ApiResponseInterface.html">Sphere\Core\Response\ApiResponseInterface</a></li>
+			</ul>
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-Sphere.Core.Model.Common.ContextTrait.html">Sphere\Core\Model\Common\ContextTrait</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.OfTrait.html">Sphere\Core\Model\Common\OfTrait</a></li>
+				<li><a href="class-Sphere.Core.Model.Common.ReferenceFromArrayTrait.html">Sphere\Core\Model\Common\ReferenceFromArrayTrait</a></li>
+				<li><a href="class-Sphere.Core.Request.CustomerIdTrait.html">Sphere\Core\Request\CustomerIdTrait</a></li>
+				<li><a href="class-Sphere.Core.Request.ExpandTrait.html">Sphere\Core\Request\ExpandTrait</a></li>
+				<li><a href="class-Sphere.Core.Request.PageTrait.html">Sphere\Core\Request\PageTrait</a></li>
+				<li><a href="class-Sphere.Core.Request.QueryTrait.html">Sphere\Core\Request\QueryTrait</a></li>
+				<li><a href="class-Sphere.Core.Request.SortTrait.html">Sphere\Core\Request\SortTrait</a></li>
+				<li><a href="class-Sphere.Core.Request.StagedTrait.html">Sphere\Core\Request\StagedTrait</a></li>
+			</ul>
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Sphere.Core.Client.OAuth.AuthorizeException.html">Sphere\Core\Client\OAuth\AuthorizeException</a></li>
+				<li><a href="class-Sphere.Core.Error.DeprecatedException.html">Sphere\Core\Error\DeprecatedException</a></li>
+				<li><a href="class-Sphere.Core.Error.InvalidArgumentException.html">Sphere\Core\Error\InvalidArgumentException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<pre id="source"><code><span id="1" class="l"><a href="#1">  1 </a><span class="xlang">&lt;?php</span>
+</span><span id="2" class="l"><a href="#2">  2 </a><span class="php-comment">/**
+</span></span><span id="3" class="l"><a href="#3">  3 </a><span class="php-comment"> * @author @ct-jensschulze &lt;jens.schulze@commercetools.de&gt;
+</span></span><span id="4" class="l"><a href="#4">  4 </a><span class="php-comment"> */</span>
+</span><span id="5" class="l"><a href="#5">  5 </a>
+</span><span id="6" class="l"><a href="#6">  6 </a><span class="php-keyword1">namespace</span> Sphere\Core\Model\Order;
+</span><span id="7" class="l"><a href="#7">  7 </a>
+</span><span id="8" class="l"><a href="#8">  8 </a><span class="php-keyword1">use</span> Sphere\Core\Model\Cart\CustomLineItemCollection;
+</span><span id="9" class="l"><a href="#9">  9 </a><span class="php-keyword1">use</span> Sphere\Core\Model\Cart\LineItemCollection;
+</span><span id="10" class="l"><a href="#10"> 10 </a><span class="php-keyword1">use</span> Sphere\Core\Model\Cart\ShippingInfo;
+</span><span id="11" class="l"><a href="#11"> 11 </a><span class="php-keyword1">use</span> Sphere\Core\Model\Common\Address;
+</span><span id="12" class="l"><a href="#12"> 12 </a><span class="php-keyword1">use</span> Sphere\Core\Model\Common\Document;
+</span><span id="13" class="l"><a href="#13"> 13 </a><span class="php-keyword1">use</span> Sphere\Core\Model\Common\Money;
+</span><span id="14" class="l"><a href="#14"> 14 </a><span class="php-keyword1">use</span> Sphere\Core\Model\Common\TaxedPrice;
+</span><span id="15" class="l"><a href="#15"> 15 </a><span class="php-keyword1">use</span> Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
+</span><span id="16" class="l"><a href="#16"> 16 </a><span class="php-keyword1">use</span> Sphere\Core\Model\DiscountCode\DiscountCodeReferenceCollection;
+</span><span id="17" class="l"><a href="#17"> 17 </a>
+</span><span id="18" class="l"><a href="#18"> 18 </a><span class="php-comment">/**
+</span></span><span id="19" class="l"><a href="#19"> 19 </a><span class="php-comment"> * Class Order
+</span></span><span id="20" class="l"><a href="#20"> 20 </a><span class="php-comment"> * @package Sphere\Core\Model\Order
+</span></span><span id="21" class="l"><a href="#21"> 21 </a><span class="php-comment"> * @link http://dev.sphere.io/http-api-projects-orders.html#order
+</span></span><span id="22" class="l"><a href="#22"> 22 </a><span class="php-comment"> * @method string getId()
+</span></span><span id="23" class="l"><a href="#23"> 23 </a><span class="php-comment"> * @method Order setId(string $id = null)
+</span></span><span id="24" class="l"><a href="#24"> 24 </a><span class="php-comment"> * @method int getVersion()
+</span></span><span id="25" class="l"><a href="#25"> 25 </a><span class="php-comment"> * @method Order setVersion(int $version = null)
+</span></span><span id="26" class="l"><a href="#26"> 26 </a><span class="php-comment"> * @method \DateTime getCreatedAt()
+</span></span><span id="27" class="l"><a href="#27"> 27 </a><span class="php-comment"> * @method Order setCreatedAt(\DateTime $createdAt = null)
+</span></span><span id="28" class="l"><a href="#28"> 28 </a><span class="php-comment"> * @method \DateTime getLastModifiedAt()
+</span></span><span id="29" class="l"><a href="#29"> 29 </a><span class="php-comment"> * @method Order setLastModifiedAt(\DateTime $lastModifiedAt = null)
+</span></span><span id="30" class="l"><a href="#30"> 30 </a><span class="php-comment"> * @method string getOrderNumber()
+</span></span><span id="31" class="l"><a href="#31"> 31 </a><span class="php-comment"> * @method Order setOrderNumber(string $orderNumber = null)
+</span></span><span id="32" class="l"><a href="#32"> 32 </a><span class="php-comment"> * @method string getCustomerId()
+</span></span><span id="33" class="l"><a href="#33"> 33 </a><span class="php-comment"> * @method Order setCustomerId(string $customerId = null)
+</span></span><span id="34" class="l"><a href="#34"> 34 </a><span class="php-comment"> * @method string getCustomerEmail()
+</span></span><span id="35" class="l"><a href="#35"> 35 </a><span class="php-comment"> * @method Order setCustomerEmail(string $customerEmail = null)
+</span></span><span id="36" class="l"><a href="#36"> 36 </a><span class="php-comment"> * @method LineItemCollection getLineItems()
+</span></span><span id="37" class="l"><a href="#37"> 37 </a><span class="php-comment"> * @method Order setLineItems(LineItemCollection $lineItems = null)
+</span></span><span id="38" class="l"><a href="#38"> 38 </a><span class="php-comment"> * @method CustomLineItemCollection getCustomLineItems()
+</span></span><span id="39" class="l"><a href="#39"> 39 </a><span class="php-comment"> * @method Order setCustomLineItems(CustomLineItemCollection $customLineItems = null)
+</span></span><span id="40" class="l"><a href="#40"> 40 </a><span class="php-comment"> * @method Money getTotalPrice()
+</span></span><span id="41" class="l"><a href="#41"> 41 </a><span class="php-comment"> * @method Order setTotalPrice(Money $totalPrice = null)
+</span></span><span id="42" class="l"><a href="#42"> 42 </a><span class="php-comment"> * @method TaxedPrice getTaxedPrice()
+</span></span><span id="43" class="l"><a href="#43"> 43 </a><span class="php-comment"> * @method Order setTaxedPrice(TaxedPrice $taxedPrice = null)
+</span></span><span id="44" class="l"><a href="#44"> 44 </a><span class="php-comment"> * @method Address getShippingAddress()
+</span></span><span id="45" class="l"><a href="#45"> 45 </a><span class="php-comment"> * @method Order setShippingAddress(Address $shippingAddress = null)
+</span></span><span id="46" class="l"><a href="#46"> 46 </a><span class="php-comment"> * @method Address getBillingAddress()
+</span></span><span id="47" class="l"><a href="#47"> 47 </a><span class="php-comment"> * @method Order setBillingAddress(Address $billingAddress = null)
+</span></span><span id="48" class="l"><a href="#48"> 48 </a><span class="php-comment"> * @method string getInventoryMode()
+</span></span><span id="49" class="l"><a href="#49"> 49 </a><span class="php-comment"> * @method Order setInventoryMode(string $inventoryMode = null)
+</span></span><span id="50" class="l"><a href="#50"> 50 </a><span class="php-comment"> * @method CustomerGroupReference getCustomerGroup()
+</span></span><span id="51" class="l"><a href="#51"> 51 </a><span class="php-comment"> * @method Order setCustomerGroup(CustomerGroupReference $customerGroup = null)
+</span></span><span id="52" class="l"><a href="#52"> 52 </a><span class="php-comment"> * @method string getCountry()
+</span></span><span id="53" class="l"><a href="#53"> 53 </a><span class="php-comment"> * @method Order setCountry(string $country = null)
+</span></span><span id="54" class="l"><a href="#54"> 54 </a><span class="php-comment"> * @method string getOrderState()
+</span></span><span id="55" class="l"><a href="#55"> 55 </a><span class="php-comment"> * @method Order setOrderState(string $orderState = null)
+</span></span><span id="56" class="l"><a href="#56"> 56 </a><span class="php-comment"> * @method string getShipmentState()
+</span></span><span id="57" class="l"><a href="#57"> 57 </a><span class="php-comment"> * @method Order setShipmentState(string $shipmentState = null)
+</span></span><span id="58" class="l"><a href="#58"> 58 </a><span class="php-comment"> * @method string getPaymentState()
+</span></span><span id="59" class="l"><a href="#59"> 59 </a><span class="php-comment"> * @method Order setPaymentState(string $paymentState = null)
+</span></span><span id="60" class="l"><a href="#60"> 60 </a><span class="php-comment"> * @method ShippingInfo getShippingInfo()
+</span></span><span id="61" class="l"><a href="#61"> 61 </a><span class="php-comment"> * @method Order setShippingInfo(ShippingInfo $shippingInfo = null)
+</span></span><span id="62" class="l"><a href="#62"> 62 </a><span class="php-comment"> * @method SyncInfoCollection getSyncInfo()
+</span></span><span id="63" class="l"><a href="#63"> 63 </a><span class="php-comment"> * @method Order setSyncInfo(SyncInfoCollection $syncInfo = null)
+</span></span><span id="64" class="l"><a href="#64"> 64 </a><span class="php-comment"> * @method ReturnInfoCollection getReturnInfo()
+</span></span><span id="65" class="l"><a href="#65"> 65 </a><span class="php-comment"> * @method Order setReturnInfo(ReturnInfoCollection $returnInfo = null)
+</span></span><span id="66" class="l"><a href="#66"> 66 </a><span class="php-comment"> * @method DiscountCodeReferenceCollection getDiscountCodes()
+</span></span><span id="67" class="l"><a href="#67"> 67 </a><span class="php-comment"> * @method Order setDiscountCodes(DiscountCodeReferenceCollection $discountCodes = null)
+</span></span><span id="68" class="l"><a href="#68"> 68 </a><span class="php-comment"> * @method int getLastMessageSequenceNumber()
+</span></span><span id="69" class="l"><a href="#69"> 69 </a><span class="php-comment"> * @method Order setLastMessageSequenceNumber(int $lastMessageSequenceNumber = null)
+</span></span><span id="70" class="l"><a href="#70"> 70 </a><span class="php-comment"> */</span>
+</span><span id="71" class="l"><a href="#71"> 71 </a><span class="php-keyword1">class</span> Order <span class="php-keyword1">extends</span> Document
+</span><span id="72" class="l"><a href="#72"> 72 </a>{
+</span><span id="73" class="l"><a href="#73"> 73 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> getFields()
+</span><span id="74" class="l"><a href="#74"> 74 </a>    {
+</span><span id="75" class="l"><a href="#75"> 75 </a>        <span class="php-keyword1">return</span> [
+</span><span id="76" class="l"><a href="#76"> 76 </a>            <span class="php-quote">'id'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="77" class="l"><a href="#77"> 77 </a>            <span class="php-quote">'version'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'int'</span>],
+</span><span id="78" class="l"><a href="#78"> 78 </a>            <span class="php-quote">'createdAt'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'\DateTime'</span>],
+</span><span id="79" class="l"><a href="#79"> 79 </a>            <span class="php-quote">'lastModifiedAt'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'\DateTime'</span>],
+</span><span id="80" class="l"><a href="#80"> 80 </a>            <span class="php-quote">'orderNumber'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="81" class="l"><a href="#81"> 81 </a>            <span class="php-quote">'customerId'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="82" class="l"><a href="#82"> 82 </a>            <span class="php-quote">'customerEmail'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="83" class="l"><a href="#83"> 83 </a>            <span class="php-quote">'lineItems'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'\Sphere\Core\Model\Cart\LineItemCollection'</span>],
+</span><span id="84" class="l"><a href="#84"> 84 </a>            <span class="php-quote">'customLineItems'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'\Sphere\Core\Model\Cart\CustomLineItemCollection'</span>],
+</span><span id="85" class="l"><a href="#85"> 85 </a>            <span class="php-quote">'totalPrice'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'\Sphere\Core\Model\Common\Money'</span>],
+</span><span id="86" class="l"><a href="#86"> 86 </a>            <span class="php-quote">'taxedPrice'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'\Sphere\Core\Model\Common\TaxedPrice'</span>],
+</span><span id="87" class="l"><a href="#87"> 87 </a>            <span class="php-quote">'shippingAddress'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'\Sphere\Core\Model\Common\Address'</span>],
+</span><span id="88" class="l"><a href="#88"> 88 </a>            <span class="php-quote">'billingAddress'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'\Sphere\Core\Model\Common\Address'</span>],
+</span><span id="89" class="l"><a href="#89"> 89 </a>            <span class="php-quote">'inventoryMode'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="90" class="l"><a href="#90"> 90 </a>            <span class="php-quote">'customerGroup'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'</span>],
+</span><span id="91" class="l"><a href="#91"> 91 </a>            <span class="php-quote">'country'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="92" class="l"><a href="#92"> 92 </a>            <span class="php-quote">'orderState'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="93" class="l"><a href="#93"> 93 </a>            <span class="php-quote">'shipmentState'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="94" class="l"><a href="#94"> 94 </a>            <span class="php-quote">'paymentState'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="95" class="l"><a href="#95"> 95 </a>            <span class="php-quote">'shippingInfo'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'\Sphere\Core\Model\Cart\ShippingInfo'</span>],
+</span><span id="96" class="l"><a href="#96"> 96 </a>            <span class="php-quote">'syncInfo'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'\Sphere\Core\Model\Order\SyncInfoCollection'</span>],
+</span><span id="97" class="l"><a href="#97"> 97 </a>            <span class="php-quote">'returnInfo'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'\Sphere\Core\Model\Order\ReturnInfoCollection'</span>],
+</span><span id="98" class="l"><a href="#98"> 98 </a>            <span class="php-quote">'discountCodes'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'\Sphere\Core\Model\DiscountCode\DiscountCodeReferenceCollection'</span>],
+</span><span id="99" class="l"><a href="#99"> 99 </a>            <span class="php-quote">'lastMessageSequenceNumber'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'int'</span>],
+</span><span id="100" class="l"><a href="#100">100 </a>        ];
+</span><span id="101" class="l"><a href="#101">101 </a>    }
+</span><span id="102" class="l"><a href="#102">102 </a>}
+</span><span id="103" class="l"><a href="#103">103 </a></span></code></pre>
+	</div>
+
+	<div id="footer">
+		SPHERE.IO PHP SDK  API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js?9f401181271b07f703e58969dd5a609f981c416d"></script>
+<script src="elementlist.js?f5f14209c1f17d7e0a75ef4557d8c9d11ecada55"></script>
+</body>
+</html>
