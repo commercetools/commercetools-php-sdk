@@ -1,10 +1,11 @@
 .vagrant
 .idea
-vendor
-build
+/vendor
+/build
 cache.properties
 apigen.phar
 composer.phar
 composer.lock
 myapp.ini
-local/
+/local/
+/tools/node_modules
