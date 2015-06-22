@@ -51,16 +51,6 @@ class Attribute extends JsonObject
     }
 
     /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        return new static($data, $context);
-    }
-
-    /**
      * @param $field
      * @param $value
      * @return mixed
@@ -115,12 +105,13 @@ class Attribute extends JsonObject
             if ($type !== false && $type != static::T_UNKNOWN && $this->hasInterface($type)) {
                 if ($type == static::T_SET) {
                     $setType = $this->getSphereType('set-' . $name, current($value));
-                    $value = ['type' => $setType, 'value' => $value];
+                    $this->typeData[$field] = Set::ofType($setType)->setRawData($value);
+                } else {
+                    /**
+                     * @var JsonDeserializeInterface $type
+                     */
+                    $this->typeData[$field] = $type::fromArray($value, $this->getContextCallback());
                 }
-                /**
-                 * @var JsonDeserializeInterface $type
-                 */
-                $this->typeData[$field] = $type::fromArray($value, $this->getContextCallback());
             } else {
                 $this->typeData[$field] = $value;
             }

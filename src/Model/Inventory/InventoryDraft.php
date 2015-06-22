@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\Inventory;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\Common\DateTimeDecorator;
 use Sphere\Core\Model\Channel\ChannelReference;
 
@@ -24,12 +23,9 @@ use Sphere\Core\Model\Channel\ChannelReference;
  * @method InventoryDraft setExpectedDelivery(\DateTime $expectedDelivery = null)
  * @method ChannelReference getSupplyChannel()
  * @method InventoryDraft setSupplyChannel(ChannelReference $supplyChannel = null)
- * @method static InventoryDraft of($sku, $quantityOnStock)
  */
 class InventoryDraft extends JsonObject
 {
-    use OfTrait;
-
     public function getFields()
     {
         return [

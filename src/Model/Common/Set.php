@@ -13,28 +13,14 @@ namespace Sphere\Core\Model\Common;
 class Set extends Collection
 {
     /**
-     * @param string $type
-     * @param array $data
+     * @param $type
      * @param Context|callable $context
+     * @return $this
      */
-    public function __construct($type, array $data = [], $context = null)
+    public static function ofType($type, $context = null)
     {
-        $this->type = $type;
-        $this->setContext($context);
-        $this->rawData = $data;
-        $this->indexData();
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $type = $data['type'];
-        $setData = $data['value'];
-        return new static($type, $setData, $context);
+        $set = static::of($context);
+        return $set->setType($type);
     }
 
     public function __toString()

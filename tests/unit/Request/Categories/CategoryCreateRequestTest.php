@@ -16,7 +16,7 @@ class CategoryCreateRequestTest extends RequestTestCase
 
     protected function getDraft()
     {
-        return new CategoryDraft(
+        return CategoryDraft::ofNameAndSlug(
             new LocalizedString(['en' => 'category']),
             new LocalizedString(['en' => 'category'])
         );

@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\ShippingMethod;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
@@ -29,8 +28,6 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
  */
 class ShippingMethodDraft extends JsonObject
 {
-    use OfTrait;
-
     public function getFields()
     {
         return [

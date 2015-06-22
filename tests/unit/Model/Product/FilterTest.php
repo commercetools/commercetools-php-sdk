@@ -12,7 +12,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 {
     public function testNumeric()
     {
-        $filter = new Filter('int');
+        $filter = Filter::ofType('int');
         $filter->setName('test')->setValue(10);
         $this->assertSame('test:10', (string)$filter);
     }
@@ -26,14 +26,14 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
     public function testIntStringArray()
     {
-        $filter = new Filter('array');
+        $filter = Filter::ofType('array');
         $filter->setName('test')->setValue(['1', '2', '3']);
         $this->assertSame('test:"1","2","3"', (string)$filter);
     }
 
     public function testFloatStringArray()
     {
-        $filter = new Filter('array');
+        $filter = Filter::ofType('array');
         $filter->setName('test')->setValue(['1.1', '2.2', '3.3']);
         $this->assertSame('test:"1.1","2.2","3.3"', (string)$filter);
     }
@@ -47,42 +47,42 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
     public function testAlias()
     {
-        $filter = new Filter('int');
+        $filter = Filter::ofType('int');
         $filter->setName('test')->setValue(10)->setAlias('foo');
         $this->assertSame('test:10 as foo', (string)$filter);
     }
 
     public function testString()
     {
-        $filter = new Filter('string');
+        $filter = Filter::ofType('string');
         $filter->setName('test')->setValue('key')->setAlias('foo');
         $this->assertSame('test:"key" as foo', (string)$filter);
     }
 
     public function testIntArray()
     {
-        $filter = new Filter('array');
+        $filter = Filter::ofType('array');
         $filter->setName('test')->setValue([1, 2, 3])->setAlias('foo');
         $this->assertSame('test:1,2,3 as foo', (string)$filter);
     }
 
     public function testFloatArray()
     {
-        $filter = new Filter('array');
+        $filter = Filter::ofType('array');
         $filter->setName('test')->setValue([1.1, 2.2, 3.3])->setAlias('foo');
         $this->assertSame('test:1.1,2.2,3.3 as foo', (string)$filter);
     }
 
     public function testSingleStringInArray()
     {
-        $filter = new Filter('array');
+        $filter = Filter::ofType('array');
         $filter->setName('test')->setValue(["test"])->setAlias('foo');
         $this->assertSame('test:"test" as foo', (string)$filter);
     }
 
     public function testRange()
     {
-        $filter = new Filter('\Sphere\Core\Model\Product\FilterRangeCollection');
+        $filter = Filter::ofType('\Sphere\Core\Model\Product\FilterRangeCollection');
 
         $filterRangeCollection = FilterRangeCollection::of()
             ->add(FilterRange::of('int')->setFrom(1)->setTo(10))
@@ -94,14 +94,14 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
     public function testBoolTrue()
     {
-        $filter = new Filter('bool');
+        $filter = Filter::ofType('bool');
         $filter->setName('test')->setValue(true);
         $this->assertSame('test:true', (string)$filter);
     }
 
     public function testBoolFalse()
     {
-        $filter = new Filter('bool');
+        $filter = Filter::ofType('bool');
         $filter->setName('test')->setValue(false);
         $this->assertSame('test:false', (string)$filter);
     }

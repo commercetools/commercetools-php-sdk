@@ -59,7 +59,7 @@ class AttributeType extends JsonObject
      */
     public static function fromArray(array $data, $context = null)
     {
-        $type = new static($data, $context);
+        $type = parent::fromArray($data, $context);
         if (isset($data['name'])) {
             $type->setValuesType($data['name']);
         }

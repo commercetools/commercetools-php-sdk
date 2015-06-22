@@ -24,25 +24,23 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  */
 class ProductDiscountReference extends Reference
 {
-    use ReferenceFromArrayTrait;
-
     const TYPE_PRODUCT_DISCOUNT = 'product-discount';
 
     public function getFields()
     {
-        return [
-            'typeId' => [self::TYPE => 'string'],
-            'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => '\Sphere\Core\Model\ProductDiscount\ProductDiscount']
-        ];
+        $fields = parent::getFields();
+        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\ProductDiscount\ProductDiscount'];
+
+        return $fields;
     }
 
     /**
-     * @param string $id
+     * @param $id
      * @param Context|callable $context
+     * @return ProductDiscountReference
      */
-    public function __construct($id, $context = null)
+    public static function ofId($id, $context = null)
     {
-        parent::__construct(static::TYPE_PRODUCT_DISCOUNT, $id, $context);
+        return static::ofTypeAndId(static::TYPE_PRODUCT_DISCOUNT, $id, $context);
     }
 }

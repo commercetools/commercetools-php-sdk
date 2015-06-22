@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\Cart;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class CartDraft
@@ -25,8 +24,6 @@ use Sphere\Core\Model\Common\OfTrait;
  */
 class CartDraft extends JsonObject
 {
-    use OfTrait;
-
     public function getFields()
     {
         return [
@@ -40,10 +37,11 @@ class CartDraft extends JsonObject
     /**
      * @param string $currency
      * @param Context|callable $context
+     * @return CartDraft
      */
-    public function __construct($currency, $context = null)
+    public static function ofCurrency($currency, $context = null)
     {
-        $this->setContext($context)
-            ->setCurrency($currency);
+        $draft = static::of($context);
+        return $draft->setCurrency($currency);
     }
 }

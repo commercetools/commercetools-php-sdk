@@ -18,7 +18,7 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
      */
     protected function getReference()
     {
-        return Reference::of('test', 'id');
+        return Reference::ofTypeAndId('test', 'id');
     }
 
     public function testGetType()

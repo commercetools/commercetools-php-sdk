@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\TaxCategory;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class TaxCategoryDraft
@@ -22,8 +21,6 @@ use Sphere\Core\Model\Common\OfTrait;
  */
 class TaxCategoryDraft extends JsonObject
 {
-    use OfTrait;
-
     public function getFields()
     {
         return [

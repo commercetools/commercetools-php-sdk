@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\DiscountCode;
 use Sphere\Core\Model\CartDiscount\CartDiscountReferenceCollection;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
@@ -30,12 +29,9 @@ use Sphere\Core\Model\Common\LocalizedString;
  * @method DiscountCodeDraft setMaxApplications(int $maxApplications = null)
  * @method int getMaxApplicationsPerCustomer()
  * @method DiscountCodeDraft setMaxApplicationsPerCustomer(int $maxApplicationsPerCustomer = null)
- * @method static DiscountCodeDraft of($code, CartDiscountReferenceCollection $cartDiscounts, $isActive)
  */
 class DiscountCodeDraft extends JsonObject
 {
-    use OfTrait;
-
     public function getFields()
     {
         return [
@@ -48,17 +44,6 @@ class DiscountCodeDraft extends JsonObject
             'maxApplications' => [static::TYPE => 'int'],
             'maxApplicationsPerCustomer' => [static::TYPE => 'int'],
         ];
-    }
-
-    /**
-     * @param string $code
-     * @param CartDiscountReferenceCollection $cartDiscounts
-     * @param bool $isActive
-     * @param Context|callable $context
-     */
-    public function __construct($code, CartDiscountReferenceCollection $cartDiscounts, $isActive, $context = null)
-    {
-        $this->setContext($context)->setCode($code)->setCartDiscounts($cartDiscounts)->setIsActive($isActive);
     }
 
     /**
@@ -77,5 +62,24 @@ class DiscountCodeDraft extends JsonObject
         $draft->setRawData($data);
 
         return $draft;
+    }
+
+    /**
+     * @param string $code
+     * @param CartDiscountReferenceCollection $cartDiscounts
+     * @param bool $isActive
+     * @param Context|callable $context
+     * @return DiscountCodeDraft
+     */
+    public function ofCodeDiscountsAndActive(
+        $code,
+        CartDiscountReferenceCollection $cartDiscounts,
+        $isActive,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setCode($code)
+            ->setCartDiscounts($cartDiscounts)
+            ->setIsActive($isActive);
     }
 }

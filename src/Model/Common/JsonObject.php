@@ -22,6 +22,15 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
     const DECORATOR = 'decorator';
 
     /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+    }
+
+    /**
      * @return array
      * @internal
      */

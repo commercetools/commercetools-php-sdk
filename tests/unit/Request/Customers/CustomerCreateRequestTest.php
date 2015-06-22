@@ -15,7 +15,7 @@ class CustomerCreateRequestTest extends RequestTestCase
 
     public function getCustomer()
     {
-        return new CustomerDraft(
+        return CustomerDraft::ofEmailNameAndPassword(
             'email',
             'firstname',
             'lastname',

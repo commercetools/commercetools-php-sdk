@@ -28,13 +28,13 @@ class CategoryDraftTest extends \PHPUnit_Framework_TestCase
 
     public function testGetParent()
     {
-        $draft = $this->getDraft()->setParent(CategoryReference::of('id'));
+        $draft = $this->getDraft()->setParent(CategoryReference::ofId('id'));
         $this->assertInstanceOf('\Sphere\Core\Model\Common\Reference', $draft->getParent());
     }
 
     public function testGetParentType()
     {
-        $draft = $this->getDraft()->setParent(CategoryReference::of('id'));
+        $draft = $this->getDraft()->setParent(CategoryReference::ofId('id'));
         $this->assertSame('category', $draft->getParent()->getTypeId());
     }
 
