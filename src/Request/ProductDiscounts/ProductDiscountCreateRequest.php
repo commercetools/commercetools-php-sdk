@@ -22,4 +22,14 @@ class ProductDiscountCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(ProductDiscountsEndpoint::endpoint(), $productDiscount, $context);
     }
+
+    /**
+     * @param ProductDiscountDraft $productDiscount
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(ProductDiscountDraft $productDiscount, Context $context = null)
+    {
+        return new static($productDiscount, $context);
+    }
 }

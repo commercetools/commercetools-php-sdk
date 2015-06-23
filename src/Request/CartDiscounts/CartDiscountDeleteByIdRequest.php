@@ -27,4 +27,15 @@ class CartDiscountDeleteByIdRequest extends AbstractDeleteByIdRequest
     {
         parent::__construct(CartDiscountsEndpoint::endpoint(), $id, $version, $context);
     }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdAndVersion($id, $version, Context $context = null)
+    {
+        return new static($id, $version, $context);
+    }
 }

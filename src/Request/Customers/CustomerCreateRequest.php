@@ -14,7 +14,6 @@ use Sphere\Core\Request\AbstractCreateRequest;
  * Class CustomerCreateRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#create-customer
- * @method static CustomerCreateRequest of(CustomerDraft $customer)
  */
 class CustomerCreateRequest extends AbstractCreateRequest
 {
@@ -27,5 +26,15 @@ class CustomerCreateRequest extends AbstractCreateRequest
     public function __construct(CustomerDraft $customer, Context $context = null)
     {
         parent::__construct(CustomersEndpoint::endpoint(), $customer, $context);
+    }
+
+    /**
+     * @param CustomerDraft $customer
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(CustomerDraft $customer, Context $context = null)
+    {
+        return new static($customer, $context);
     }
 }

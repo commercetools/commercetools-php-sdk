@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Product\LocalizedSearchKeywords;
 use Sphere\Core\Request\AbstractAction;
 
@@ -31,11 +32,22 @@ class ProductSetSearchKeywordsAction extends AbstractAction
     }
 
     /**
-     * @param LocalizedSearchKeywords $keywords
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(LocalizedSearchKeywords $keywords)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setSearchKeywords');
-        $this->setSearchKeywords($keywords);
+    }
+
+    /**
+     * @param LocalizedSearchKeywords $keywords
+     * @param Context|callable $context
+     * @return ProductSetSearchKeywordsAction
+     */
+    public static function ofKeywords(LocalizedSearchKeywords $keywords, $context = null)
+    {
+        return static::of($context)->setSearchKeywords($keywords);
     }
 }

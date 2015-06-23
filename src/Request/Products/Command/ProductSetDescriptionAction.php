@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
@@ -31,11 +32,22 @@ class ProductSetDescriptionAction extends AbstractAction
     }
 
     /**
-     * @param LocalizedString $description
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(LocalizedString $description)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setDescription');
-        $this->setDescription($description);
+    }
+
+    /**
+     * @param LocalizedString $description
+     * @param Context|callable $context
+     * @return ProductSetDescriptionAction
+     */
+    public static function ofDescription(LocalizedString $description, $context = null)
+    {
+        return static::of($context)->setDescription($description);
     }
 }

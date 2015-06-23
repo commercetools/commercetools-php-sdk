@@ -19,22 +19,31 @@ use Sphere\Core\Request\AbstractAction;
  */
 class OrderChangeShipmentStateAction extends AbstractAction
 {
-    /**
-     * @param string $shipmentState
-     * @param Context $context
-     */
-    public function __construct($shipmentState, Context $context = null)
-    {
-        $this->setContext($context)
-            ->setAction('changeShipmentState')
-            ->setShipmentState($shipmentState);
-    }
-
     public function getFields()
     {
         return [
             'action' => [static::TYPE => 'string'],
             'shipmentState' => [static::TYPE => 'string']
         ];
+    }
+
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('changeShipmentState');
+    }
+
+    /**
+     * @param string $shipmentState
+     * @param Context|callable $context
+     * @return OrderChangeShipmentStateAction
+     */
+    public static function ofShipmentState($shipmentState, $context = null)
+    {
+        return static::of($context)->setShipmentState($shipmentState);
     }
 }

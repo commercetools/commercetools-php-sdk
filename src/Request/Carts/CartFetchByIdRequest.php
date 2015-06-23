@@ -13,7 +13,6 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
  * Class CustomerFetchByIdRequest
  * @package Sphere\Core\Request\Carts
  * @link http://dev.sphere.io/http-api-projects-carts.html#cart-by-id
- * @method static CartFetchByIdRequest of(string $id)
  */
 class CartFetchByIdRequest extends AbstractFetchByIdRequest
 {
@@ -26,5 +25,15 @@ class CartFetchByIdRequest extends AbstractFetchByIdRequest
     public function __construct($id, Context $context = null)
     {
         parent::__construct(CartsEndpoint::endpoint(), $id, $context);
+    }
+
+    /**
+     * @param string $id
+     * @param Context $context
+     * @return static
+     */
+    public static function ofId($id, Context $context = null)
+    {
+        return new static($id, $context);
     }
 }

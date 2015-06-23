@@ -28,6 +28,16 @@ class OrderImportRequest extends AbstractCreateRequest
     }
 
     /**
+     * @param ImportOrder $importOrder
+     * @param Context $context
+     * @return static
+     */
+    public static function ofImportOrder(ImportOrder $importOrder, Context $context = null)
+    {
+        return new static($importOrder, $context);
+    }
+
+    /**
      * @return string
      * @internal
      */

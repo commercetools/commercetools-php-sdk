@@ -41,6 +41,18 @@ abstract class AbstractCustomObjectRequest extends AbstractApiRequest
         $this->key = $key;
     }
 
+
+    /**
+     * @param string $container
+     * @param string $key
+     * @param Context $context
+     * @return static
+     */
+    public static function ofContainerAndKey($container, $key, Context $context = null)
+    {
+        return new static($container, $key, $context);
+    }
+
     /**
      * @return string
      * @internal

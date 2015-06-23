@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
@@ -33,13 +34,23 @@ class ProductRemoveImageAction extends AbstractAction
     }
 
     /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('removeImage');
+    }
+
+    /**
      * @param int $variantId
      * @param string $imageUrl
+     * @param Context|callable $context
+     * @return ProductRemoveImageAction
      */
-    public function __construct($variantId, $imageUrl)
+    public static function ofVariantIdAndImageUrl($variantId, $imageUrl, $context = null)
     {
-        $this->setAction('removeImage');
-        $this->setVariantId($variantId);
-        $this->setImageUrl($imageUrl);
+        return static::of($context)->setVariantId($variantId)->setImageUrl($imageUrl);
     }
 }

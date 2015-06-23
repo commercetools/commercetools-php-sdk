@@ -24,4 +24,11 @@ class AttributeTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Sphere\Core\Model\Common\LocalizedEnum', $type->getValues()->getAt(0));
     }
 
+    public function testTypeUnset()
+    {
+        $type = AttributeType::fromArray([
+            'name' => 'text'
+        ]);
+        $this->assertNull($type->getValues()->getType());
+    }
 }

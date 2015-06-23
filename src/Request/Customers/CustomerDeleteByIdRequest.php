@@ -13,7 +13,6 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
  * Class CustomerDeleteByIdRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#delete-customer
- * @method static CustomerDeleteByIdRequest of(string $id, int $version)
  */
 class CustomerDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
@@ -27,5 +26,16 @@ class CustomerDeleteByIdRequest extends AbstractDeleteByIdRequest
     public function __construct($id, $version, Context $context = null)
     {
         parent::__construct(CustomersEndpoint::endpoint(), $id, $version, $context);
+    }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdAndVersion($id, $version, Context $context = null)
+    {
+        return new static($id, $version, $context);
     }
 }

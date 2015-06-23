@@ -35,13 +35,23 @@ class ProductAddExternalImageAction extends AbstractAction
     }
 
     /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('addExternalImage');
+    }
+
+    /**
      * @param int $variantId
      * @param Image $image
+     * @param Context|callable $context
+     * @return ProductAddExternalImageAction
      */
-    public function __construct($variantId, Image $image)
+    public static function ofVariantIdAndImage($variantId, Image $image, $context = null)
     {
-        $this->setAction('addExternalImage');
-        $this->setVariantId($variantId);
-        $this->setImage($image);
+        return static::of($context)->setVariantId($variantId)->setImage($image);
     }
 }

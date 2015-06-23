@@ -36,6 +36,16 @@ class CartFetchByCustomerIdRequest extends AbstractApiRequest
     }
 
     /**
+     * @param string $customerId
+     * @param Context $context
+     * @return static
+     */
+    public static function ofCustomerId($customerId, Context $context = null)
+    {
+        return new static($customerId, $context);
+    }
+
+    /**
      * @return Request
      * @internal
      */

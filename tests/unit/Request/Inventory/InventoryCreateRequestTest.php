@@ -31,13 +31,13 @@ class InventoryCreateRequestTest extends RequestTestCase
     }
     public function testMapResult()
     {
-        $result = $this->mapResult(static::INVENTORY_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapResult(InventoryCreateRequest::ofDraft($this->getDraft()));
         $this->assertInstanceOf('\Sphere\Core\Model\Inventory\InventoryEntry', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::INVENTORY_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapEmptyResult(InventoryCreateRequest::ofDraft($this->getDraft()));
         $this->assertNull($result);
     }
 }

@@ -15,7 +15,7 @@ class CustomerPasswordTokenRequestTest extends RequestTestCase
 
     public function testHttpRequestMethod()
     {
-        $request = $this->getRequest(static::CUSTOMER_PASSWORD_REQUEST, ['john.doe@company.com']);
+        $request = CustomerPasswordTokenRequest::ofEmail('john.doe@company.com');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
@@ -23,7 +23,7 @@ class CustomerPasswordTokenRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = $this->getRequest(static::CUSTOMER_PASSWORD_REQUEST, ['john.doe@company.com']);
+        $request = CustomerPasswordTokenRequest::ofEmail('john.doe@company.com');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('/customers/password-token', (string)$httpRequest->getUri());
@@ -31,7 +31,7 @@ class CustomerPasswordTokenRequestTest extends RequestTestCase
 
     public function testHttpRequestObject()
     {
-        $request = $this->getRequest(static::CUSTOMER_PASSWORD_REQUEST, ['john.doe@company.com']);
+        $request = CustomerPasswordTokenRequest::ofEmail('john.doe@company.com');
         $httpRequest = $request->httpRequest();
 
         $this->assertJsonStringEqualsJsonString(
@@ -45,7 +45,7 @@ class CustomerPasswordTokenRequestTest extends RequestTestCase
     public function testBuildResponse()
     {
         $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
-        $request = $this->getRequest(static::CUSTOMER_PASSWORD_REQUEST, ['john.doe@company.com']);
+        $request = CustomerPasswordTokenRequest::ofEmail('john.doe@company.com');
         $response = $request->buildResponse($guzzleResponse);
 
         $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);

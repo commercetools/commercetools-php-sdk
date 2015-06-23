@@ -22,4 +22,14 @@ class ProductTypeCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(ProductTypesEndpoint::endpoint(), $productType, $context);
     }
+
+    /**
+     * @param ProductTypeDraft $productType
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(ProductTypeDraft $productType, Context $context = null)
+    {
+        return new static($productType, $context);
+    }
 }

@@ -14,7 +14,6 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
  * Class ProductFetchByIdRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products.html#product-by-id
- * @method static ProductFetchByIdRequest of(string $id)
  */
 class ProductFetchByIdRequest extends AbstractFetchByIdRequest
 {
@@ -27,5 +26,15 @@ class ProductFetchByIdRequest extends AbstractFetchByIdRequest
     public function __construct($id, Context $context = null)
     {
         parent::__construct(ProductsEndpoint::endpoint(), $id, $context);
+    }
+
+    /**
+     * @param string $id
+     * @param Context $context
+     * @return static
+     */
+    public static function ofId($id, Context $context = null)
+    {
+        return new static($id, $context);
     }
 }

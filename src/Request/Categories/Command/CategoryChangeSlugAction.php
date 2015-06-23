@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Categories\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
@@ -27,9 +28,23 @@ class CategoryChangeSlugAction extends AbstractAction
         ];
     }
 
-    public function __construct(LocalizedString $slug)
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('changeSlug');
-        $this->setSlug($slug);
+    }
+
+    /**
+     * @param LocalizedString $slug
+     * @param Context|callable $context
+     * @return CategoryChangeSlugAction
+     */
+    public static function ofSlug(LocalizedString $slug, $context = null)
+    {
+        return static::of($context)->setSlug($slug);
     }
 }

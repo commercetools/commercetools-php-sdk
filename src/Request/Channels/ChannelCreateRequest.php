@@ -22,4 +22,14 @@ class ChannelCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(ChannelsEndpoint::endpoint(), $channel, $context);
     }
+
+    /**
+     * @param ChannelDraft $channel
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(ChannelDraft $channel, Context $context = null)
+    {
+        return new static($channel, $context);
+    }
 }

@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
@@ -33,11 +34,22 @@ class ProductSetAttributeInAllVariantsAction extends AbstractAction
     }
 
     /**
-     * @param string $name
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($name)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setAttributeInAllVariants');
-        $this->setName($name);
+    }
+
+    /**
+     * @param string $name
+     * @param Context|callable $context
+     * @return ProductSetAttributeInAllVariantsAction
+     */
+    public static function ofName($name, $context = null)
+    {
+        return static::of($context)->setName($name);
     }
 }

@@ -25,4 +25,13 @@ class OrdersQueryRequest extends AbstractQueryRequest
     {
         parent::__construct(OrdersEndpoint::endpoint(), $context);
     }
+
+    /**
+     * @param Context $context
+     * @return static
+     */
+    public static function of(Context $context = null)
+    {
+        return new static($context);
+    }
 }

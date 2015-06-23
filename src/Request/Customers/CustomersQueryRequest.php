@@ -14,7 +14,6 @@ use Sphere\Core\Request\AbstractQueryRequest;
  * Class CustomersQueryRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#customers-by-query
- * @method static CustomersQueryRequest of()
  */
 class CustomersQueryRequest extends AbstractQueryRequest
 {
@@ -26,5 +25,14 @@ class CustomersQueryRequest extends AbstractQueryRequest
     public function __construct(Context $context = null)
     {
         parent::__construct(CustomersEndpoint::endpoint(), $context);
+    }
+
+    /**
+     * @param Context $context
+     * @return static
+     */
+    public static function of(Context $context = null)
+    {
+        return new static($context);
     }
 }

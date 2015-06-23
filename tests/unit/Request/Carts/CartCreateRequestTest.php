@@ -15,13 +15,13 @@ class CartCreateRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::CART_CREATE_REQUEST, [CartDraft::ofCurrency('EUR')]);
+        $result = $this->mapResult(CartCreateRequest::ofDraft(CartDraft::ofCurrency('EUR')));
         $this->assertInstanceOf('\Sphere\Core\Model\Cart\Cart', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::CART_CREATE_REQUEST, [CartDraft::ofCurrency('EUR')]);
+        $result = $this->mapEmptyResult(CartCreateRequest::ofDraft(CartDraft::ofCurrency('EUR')));
         $this->assertNull($result);
     }
 }

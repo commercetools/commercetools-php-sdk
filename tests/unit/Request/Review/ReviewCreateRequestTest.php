@@ -7,6 +7,7 @@ namespace Sphere\Core\Request\Review;
 
 
 use Sphere\Core\Model\Review\ReviewDraft;
+use Sphere\Core\Request\Reviews\ReviewCreateRequest;
 use Sphere\Core\RequestTestCase;
 
 class ReviewCreateRequestTest extends RequestTestCase
@@ -29,13 +30,13 @@ class ReviewCreateRequestTest extends RequestTestCase
     }
     public function testMapResult()
     {
-        $result = $this->mapResult(static::REVIEW_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapResult(ReviewCreateRequest::ofDraft($this->getDraft()));
         $this->assertInstanceOf('\Sphere\Core\Model\Review\Review', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::REVIEW_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapEmptyResult(ReviewCreateRequest::ofDraft($this->getDraft()));
         $this->assertNull($result);
     }
 }

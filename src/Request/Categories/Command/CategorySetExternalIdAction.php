@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Categories\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
@@ -26,9 +27,23 @@ class CategorySetExternalIdAction extends AbstractAction
         ];
     }
 
-    public function __construct($externalId)
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setExternalId');
-        $this->setExternalId($externalId);
+    }
+
+    /**
+     * @param string $externalId
+     * @param Context|callable $context
+     * @return CategorySetExternalIdAction
+     */
+    public static function ofExternalId($externalId, $context = null)
+    {
+        return static::of($context)->setExternalId($externalId);
     }
 }

@@ -21,7 +21,6 @@ use Sphere\Core\Response\PagedSearchResponse;
  * Class ProductsSearchRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products-search.html#product-projections-by-search
- * @method static ProductsSearchRequest of()
  */
 class ProductsSearchRequest extends AbstractProjectionRequest
 {
@@ -41,6 +40,15 @@ class ProductsSearchRequest extends AbstractProjectionRequest
     public function __construct(Context $context = null)
     {
         parent::__construct(ProductSearchEndpoint::endpoint(), $context);
+    }
+
+    /**
+     * @param Context $context
+     * @return static
+     */
+    public static function of(Context $context = null)
+    {
+        return new static($context);
     }
 
     /**

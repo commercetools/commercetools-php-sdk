@@ -41,13 +41,13 @@ class DiscountCodeCreateRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::DISCOUNT_CODE_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapResult(DiscountCodeCreateRequest::ofDraft($this->getDraft()));
         $this->assertInstanceOf('\Sphere\Core\Model\DiscountCode\DiscountCode', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::DISCOUNT_CODE_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapEmptyResult(DiscountCodeCreateRequest::ofDraft($this->getDraft()));
         $this->assertNull($result);
     }
 }

@@ -22,4 +22,14 @@ class InventoryCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(InventoryEndpoint::endpoint(), $inventory, $context);
     }
+
+    /**
+     * @param InventoryDraft $inventory
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(InventoryDraft $inventory, Context $context = null)
+    {
+        return new static($inventory, $context);
+    }
 }

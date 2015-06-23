@@ -6,6 +6,7 @@
 namespace Sphere\Core\Request\Customers\Command;
 
 use Sphere\Core\Model\Common\Address;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
@@ -28,11 +29,22 @@ class CustomerAddAddressAction extends AbstractAction
     }
 
     /**
-     * @param Address $address
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(Address $address)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('addAddress');
-        $this->setAddress($address);
+    }
+
+    /**
+     * @param Address $address
+     * @param Context|callable $context
+     * @return CustomerAddAddressAction
+     */
+    public static function ofAddress(Address $address, $context = null)
+    {
+        return static::of($context)->setAddress($address);
     }
 }

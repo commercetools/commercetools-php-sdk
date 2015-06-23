@@ -26,7 +26,7 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
 
     protected function getString()
     {
-        $localizedString = LocalizedString::of(['en'=>'test']);
+        $localizedString = LocalizedString::ofLangAndText('en', 'test');
         $localizedString->setContext($this->getContext('en'));
 
         return $localizedString;

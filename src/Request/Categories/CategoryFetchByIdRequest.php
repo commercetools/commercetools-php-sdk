@@ -14,7 +14,6 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
  * Class CategoryFetchByIdRequest
  * @package Sphere\Core\Request\Categories
  * @link http://dev.sphere.io/http-api-projects-categories.html#category-by-id
- * @method static CategoryFetchByIdRequest of(string $id)
  */
 class CategoryFetchByIdRequest extends AbstractFetchByIdRequest
 {
@@ -27,5 +26,15 @@ class CategoryFetchByIdRequest extends AbstractFetchByIdRequest
     public function __construct($id, Context $context = null)
     {
         parent::__construct(CategoriesEndpoint::endpoint(), $id, $context);
+    }
+
+    /**
+     * @param string $id
+     * @param Context $context
+     * @return static
+     */
+    public static function ofId($id, Context $context = null)
+    {
+        return new static($id, $context);
     }
 }

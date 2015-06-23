@@ -49,13 +49,13 @@ class CartDiscountCreateRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::CART_DISCOUNT_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapResult(CartDiscountCreateRequest::ofDraft($this->getDraft()));
         $this->assertInstanceOf('\Sphere\Core\Model\CartDiscount\CartDiscount', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::CART_DISCOUNT_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapEmptyResult(CartDiscountCreateRequest::ofDraft($this->getDraft()));
         $this->assertNull($result);
     }
 }

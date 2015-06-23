@@ -15,19 +15,19 @@ class CustomerLoginRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::CUSTOMER_LOGIN_REQUEST, ['email', 'password']);
+        $result = $this->mapResult(CustomerLoginRequest::ofEmailAndPassword('email', 'password'));
         $this->assertInstanceOf('\Sphere\Core\Model\Customer\CustomerSigninResult', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::CUSTOMER_LOGIN_REQUEST, ['email', 'password']);
+        $result = $this->mapEmptyResult(CustomerLoginRequest::ofEmailAndPassword('email', 'password'));
         $this->assertNull($result);
     }
 
     public function testHttpRequestMethod()
     {
-        $request = $this->getRequest(static::CUSTOMER_LOGIN_REQUEST, ['email', 'password']);
+        $request = CustomerLoginRequest::ofEmailAndPassword('email', 'password');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
@@ -35,7 +35,7 @@ class CustomerLoginRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = $this->getRequest(static::CUSTOMER_LOGIN_REQUEST, ['email', 'password']);
+        $request = CustomerLoginRequest::ofEmailAndPassword('email', 'password');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('/login', (string)$httpRequest->getUri());
@@ -43,7 +43,7 @@ class CustomerLoginRequestTest extends RequestTestCase
 
     public function testHttpRequestObject()
     {
-        $request = $this->getRequest(static::CUSTOMER_LOGIN_REQUEST, ['email', 'password']);
+        $request = CustomerLoginRequest::ofEmailAndPassword('email', 'password');
         $httpRequest = $request->httpRequest();
 
         $this->assertJsonStringEqualsJsonString(
@@ -54,7 +54,7 @@ class CustomerLoginRequestTest extends RequestTestCase
 
     public function testHttpRequestObjectWithCart()
     {
-        $request = $this->getRequest(static::CUSTOMER_LOGIN_REQUEST, ['email', 'password', 'cartId']);
+        $request = CustomerLoginRequest::ofEmailAndPassword('email', 'password', 'cartId');
         $httpRequest = $request->httpRequest();
 
         $this->assertJsonStringEqualsJsonString(
@@ -67,7 +67,7 @@ class CustomerLoginRequestTest extends RequestTestCase
     public function testBuildResponse()
     {
         $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
-        $request = $this->getRequest(static::CUSTOMER_LOGIN_REQUEST, ['email', 'password']);
+        $request = CustomerLoginRequest::ofEmailAndPassword('email', 'password');
         $response = $request->buildResponse($guzzleResponse);
 
         $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);

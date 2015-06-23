@@ -30,4 +30,13 @@ class ProductProjectionQueryRequest extends AbstractQueryRequest
     {
         parent::__construct(ProductSearchEndpoint::endpoint(), $context);
     }
+
+    /**
+     * @param Context $context
+     * @return static
+     */
+    public static function of(Context $context = null)
+    {
+        return new static($context);
+    }
 }

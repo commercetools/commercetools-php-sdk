@@ -22,4 +22,14 @@ class ReviewCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(ReviewsEndpoint::endpoint(), $review, $context);
     }
+
+    /**
+     * @param ReviewDraft $review
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(ReviewDraft $review, Context $context = null)
+    {
+        return new static($review, $context);
+    }
 }

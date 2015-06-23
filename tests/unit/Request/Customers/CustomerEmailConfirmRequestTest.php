@@ -19,7 +19,7 @@ class CustomerEmailConfirmRequestTest extends RequestTestCase
 
     public function testHttpRequestMethod()
     {
-        $request = $this->getRequest(static::CUSTOMER_EMAIL_CONFIRM_REQUEST, ['customerId', 1, 'token']);
+        $request = CustomerEmailConfirmRequest::ofIdVersionAndToken('customerId', 1, 'token');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
@@ -27,7 +27,7 @@ class CustomerEmailConfirmRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = $this->getRequest(static::CUSTOMER_EMAIL_CONFIRM_REQUEST, ['customerId', 1, 'token']);
+        $request = CustomerEmailConfirmRequest::ofIdVersionAndToken('customerId', 1, 'token');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('/customers/email/confirm', (string)$httpRequest->getUri());
@@ -35,7 +35,7 @@ class CustomerEmailConfirmRequestTest extends RequestTestCase
 
     public function testHttpRequestObject()
     {
-        $request = $this->getRequest(static::CUSTOMER_EMAIL_CONFIRM_REQUEST, ['customerId', 1, 'token']);
+        $request = CustomerEmailConfirmRequest::ofIdVersionAndToken('customerId', 1, 'token');
         $httpRequest = $request->httpRequest();
 
         $this->assertJsonStringEqualsJsonString(

@@ -34,11 +34,7 @@ class ProductProjectionFetchBySlugRequestTest extends RequestTestCase
      */
     public function testNoLanguages()
     {
-        $args = [
-            'slug',
-            new Context()
-        ];
-        $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SLUG_REQUEST, $args);
+        ProductProjectionFetchBySlugRequest::ofSlugAndContext('slug', new Context());
     }
 
     public function testMapResult()
@@ -50,19 +46,25 @@ class ProductProjectionFetchBySlugRequestTest extends RequestTestCase
                 ['id' => 'value'],
             ]
         ];
-        $result = $this->mapQueryResult(static::PRODUCT_PROJECTION_FETCH_BY_SLUG_REQUEST, $this->getArgs(), $data);
+        $result = $this->mapQueryResult(
+            ProductProjectionFetchBySlugRequest::ofSlugAndContext('slug', $this->getContext()),
+            [],
+            $data
+        );
         $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjection', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::PRODUCT_PROJECTION_FETCH_BY_SLUG_REQUEST, $this->getArgs());
+        $result = $this->mapEmptyResult(
+            ProductProjectionFetchBySlugRequest::ofSlugAndContext('slug', $this->getContext())
+        );
         $this->assertNull($result);
     }
 
     public function testHttpRequestMethod()
     {
-        $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SLUG_REQUEST, $this->getArgs());
+        $request = ProductProjectionFetchBySlugRequest::ofSlugAndContext('slug', $this->getContext());
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
@@ -70,7 +72,7 @@ class ProductProjectionFetchBySlugRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SLUG_REQUEST, $this->getArgs());
+        $request = ProductProjectionFetchBySlugRequest::ofSlugAndContext('slug', $this->getContext());
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(
@@ -81,11 +83,10 @@ class ProductProjectionFetchBySlugRequestTest extends RequestTestCase
 
     public function testHttpRequestPathWithId()
     {
-        $args = [
+        $request = ProductProjectionFetchBySlugRequest::ofSlugAndContext(
             '12345678-1234-1234-1234-123456789012',
             $this->getContext()
-        ];
-        $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SLUG_REQUEST, $args);
+        );
         $httpRequest = $request->httpRequest();
 
         $queryUri = '/product-projections?limit=1&where=slug%28en%3D%2212345678-1234-1234-1234-123456789012%22%29+or' .
@@ -95,7 +96,7 @@ class ProductProjectionFetchBySlugRequestTest extends RequestTestCase
 
     public function testHttpRequestObject()
     {
-        $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SLUG_REQUEST, $this->getArgs());
+        $request = ProductProjectionFetchBySlugRequest::ofSlugAndContext('slug', $this->getContext());
         $httpRequest = $request->httpRequest();
 
         $this->assertEmpty((string)$httpRequest->getBody());
@@ -104,7 +105,7 @@ class ProductProjectionFetchBySlugRequestTest extends RequestTestCase
     public function testBuildResponse()
     {
         $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
-        $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SLUG_REQUEST, $this->getArgs());
+        $request = ProductProjectionFetchBySlugRequest::ofSlugAndContext('slug', $this->getContext());
         $response = $request->buildResponse($guzzleResponse);
 
         $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);

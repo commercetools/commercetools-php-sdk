@@ -47,24 +47,6 @@ class DiscountCodeDraft extends JsonObject
     }
 
     /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $draft = new static(
-            $data['code'],
-            CartDiscountReferenceCollection::fromArray($data['cartDiscounts'], $context),
-            $data['isActive'],
-            $context
-        );
-        $draft->setRawData($data);
-
-        return $draft;
-    }
-
-    /**
      * @param string $code
      * @param CartDiscountReferenceCollection $cartDiscounts
      * @param bool $isActive

@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
@@ -30,11 +31,22 @@ class ProductRemoveVariantAction extends AbstractAction
     }
 
     /**
-     * @param int $id
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($id)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('removeVariant');
-        $this->setId($id);
+    }
+
+    /**
+     * @param int $variantId
+     * @param Context|callable $context
+     * @return ProductRemovePriceAction
+     */
+    public static function ofVariantId($variantId, $context = null)
+    {
+        return static::of($context)->setId($variantId);
     }
 }

@@ -32,13 +32,13 @@ class ZoneCreateRequestTest extends RequestTestCase
     }
     public function testMapResult()
     {
-        $result = $this->mapResult(static::ZONE_CREATE_REQUEST, [$this->getZoneDraft()]);
+        $result = $this->mapResult(ZoneCreateRequest::ofDraft($this->getZoneDraft()));
         $this->assertInstanceOf('\Sphere\Core\Model\Zone\Zone', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::ZONE_CREATE_REQUEST, [$this->getZoneDraft()]);
+        $result = $this->mapEmptyResult(ZoneCreateRequest::ofDraft($this->getZoneDraft()));
         $this->assertNull($result);
     }
 }

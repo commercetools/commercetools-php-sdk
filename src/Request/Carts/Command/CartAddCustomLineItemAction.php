@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\Money;
 use Sphere\Core\Model\TaxCategory\TaxCategory;
@@ -42,19 +43,37 @@ class CartAddCustomLineItemAction extends AbstractAction
     }
 
     /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('addCustomLineItem');
+    }
+
+    /**
      * @param LocalizedString $name
      * @param int $quantity
      * @param Money $money
      * @param string $slug
      * @param TaxCategory $taxCategory
+     * @param Context|callable $context
+     * @return CartAddCustomLineItemAction
      */
-    public function __construct(LocalizedString $name, $quantity, Money $money, $slug, TaxCategory $taxCategory)
-    {
-        $this->setAction('addCustomLineItem');
-        $this->setName($name);
-        $this->setQuantity($quantity);
-        $this->setMoney($money);
-        $this->setSlug($slug);
-        $this->setTaxCategory($taxCategory);
+    public static function ofNameQuantityMoneySlugAndTaxCategory(
+        LocalizedString $name,
+        $quantity,
+        Money $money,
+        $slug,
+        TaxCategory $taxCategory,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setName($name)
+            ->setQuantity($quantity)
+            ->setMoney($money)
+            ->setSlug($slug)
+            ->setTaxCategory($taxCategory);
     }
 }

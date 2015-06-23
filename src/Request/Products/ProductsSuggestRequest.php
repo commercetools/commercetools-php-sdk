@@ -18,7 +18,6 @@ use Sphere\Core\Response\SingleResourceResponse;
  * Class ProductsSearchRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products-search.html#suggest-query
- * @method static ProductsSuggestRequest of(LocalizedString $keywords)
  */
 class ProductsSuggestRequest extends AbstractProjectionRequest
 {
@@ -41,6 +40,25 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
         if (!is_null($keywords)) {
             $this->addKeywords($keywords);
         }
+    }
+
+    /**
+     * @param Context $context
+     * @return static
+     */
+    public static function of(Context $context = null)
+    {
+        return new static(null, $context);
+    }
+
+    /**
+     * @param LocalizedString $keywords
+     * @param Context $context
+     * @return static
+     */
+    public static function ofKeywords(LocalizedString $keywords, Context $context = null)
+    {
+        return new static($keywords, $context);
     }
 
     /**

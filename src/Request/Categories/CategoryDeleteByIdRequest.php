@@ -14,7 +14,6 @@ use Sphere\Core\Request\AbstractDeleteByIdRequest;
  * Class CategoryDeleteByIdRequest
  * @package Sphere\Core\Request\Categories
  * @link http://dev.sphere.io/http-api-projects-categories.html#delete-category
- * @method static CategoryDeleteByIdRequest of(string $id, int $version)
  */
 class CategoryDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
@@ -28,5 +27,16 @@ class CategoryDeleteByIdRequest extends AbstractDeleteByIdRequest
     public function __construct($id, $version, Context $context = null)
     {
         parent::__construct(CategoriesEndpoint::endpoint(), $id, $version, $context);
+    }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdAndVersion($id, $version, Context $context = null)
+    {
+        return new static($id, $version, $context);
     }
 }

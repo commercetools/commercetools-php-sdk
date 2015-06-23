@@ -24,13 +24,13 @@ class CustomerCreateRequestTest extends RequestTestCase
     }
     public function testMapResult()
     {
-        $result = $this->mapResult(static::CUSTOMER_CREATE_REQUEST, [$this->getCustomer()]);
+        $result = $this->mapResult(CustomerCreateRequest::ofDraft($this->getCustomer()));
         $this->assertInstanceOf('\Sphere\Core\Model\Customer\Customer', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::CUSTOMER_CREATE_REQUEST, [$this->getCustomer()]);
+        $result = $this->mapEmptyResult(CustomerCreateRequest::ofDraft($this->getCustomer()));
         $this->assertNull($result);
     }
 }

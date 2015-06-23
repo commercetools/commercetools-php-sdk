@@ -13,7 +13,6 @@ use Sphere\Core\Request\AbstractQueryRequest;
  * Class CategoriesQueryRequest
  * @package Sphere\Core\Request\Categories
  * @link http://dev.sphere.io/http-api-projects-categories.html#categories-by-query
- * @method static CategoriesQueryRequest of()
  */
 class CategoriesQueryRequest extends AbstractQueryRequest
 {
@@ -25,5 +24,14 @@ class CategoriesQueryRequest extends AbstractQueryRequest
     public function __construct(Context $context = null)
     {
         parent::__construct(CategoriesEndpoint::endpoint(), $context);
+    }
+
+    /**
+     * @param Context $context
+     * @return static
+     */
+    public static function of(Context $context = null)
+    {
+        return new static($context);
     }
 }

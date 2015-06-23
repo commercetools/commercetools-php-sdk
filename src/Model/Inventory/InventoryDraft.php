@@ -44,26 +44,10 @@ class InventoryDraft extends JsonObject
      * @param string $sku
      * @param int $quantityOnStock
      * @param Context|callable $context
+     * @return InventoryDraft
      */
-    public function __construct($sku, $quantityOnStock, $context = null)
+    public static function ofSkuAndQuantityOnStock($sku, $quantityOnStock, $context = null)
     {
-        $this->setContext($context)->setSku($sku)->setQuantityOnStock($quantityOnStock);
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $draft = new static(
-            $data['sku'],
-            $data['quantityOnStock'],
-            $context
-        );
-        $draft->setRawData($data);
-
-        return $draft;
+        return static::of($context)->setSku($sku)->setQuantityOnStock($quantityOnStock);
     }
 }

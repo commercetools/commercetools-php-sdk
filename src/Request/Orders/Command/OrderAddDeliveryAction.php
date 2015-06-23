@@ -41,14 +41,22 @@ class OrderAddDeliveryAction extends AbstractAction
     }
 
     /**
-     * @param DeliveryItemCollection $items
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(DeliveryItemCollection $items, Context $context = null)
+    public function __construct(array $data = [], $context = null)
     {
-        $this->setContext($context)
-            ->setAction('addDelivery')
-            ->setItems($items)
-        ;
+        parent::__construct($data, $context);
+        $this->setAction('addDelivery');
+    }
+
+    /**
+     * @param DeliveryItemCollection $items
+     * @param Context|callable $context
+     * @return OrderAddDeliveryAction
+     */
+    public static function ofDeliveryItems(DeliveryItemCollection $items, $context = null)
+    {
+        return static::of($context)->setItems($items);
     }
 }

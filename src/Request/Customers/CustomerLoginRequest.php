@@ -56,6 +56,18 @@ class CustomerLoginRequest extends AbstractApiRequest
     }
 
     /**
+     * @param string $email
+     * @param string $password
+     * @param string $anonymousCartId
+     * @param Context $context
+     * @return static
+     */
+    public static function ofEmailAndPassword($email, $password, $anonymousCartId = null, Context $context = null)
+    {
+        return new static($email, $password, $anonymousCartId, $context);
+    }
+
+    /**
      * @return JsonRequest
      * @internal
      */

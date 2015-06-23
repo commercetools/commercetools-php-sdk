@@ -17,19 +17,19 @@ class CategoryCreateRequestTest extends RequestTestCase
     protected function getDraft()
     {
         return CategoryDraft::ofNameAndSlug(
-            new LocalizedString(['en' => 'category']),
-            new LocalizedString(['en' => 'category'])
+            LocalizedString::fromArray(['en' => 'category']),
+            LocalizedString::fromArray(['en' => 'category'])
         );
     }
     public function testMapResult()
     {
-        $result = $this->mapResult(static::CATEGORY_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapResult(CategoryCreateRequest::ofDraft($this->getDraft()));
         $this->assertInstanceOf('\Sphere\Core\Model\Category\Category', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::CATEGORY_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapEmptyResult(CategoryCreateRequest::ofDraft($this->getDraft()));
         $this->assertNull($result);
     }
 }

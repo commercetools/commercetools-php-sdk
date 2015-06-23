@@ -59,6 +59,16 @@ class ProductProjectionFetchBySlugRequest extends AbstractApiRequest
     }
 
     /**
+     * @param string $slug
+     * @param Context $context
+     * @return static
+     */
+    public static function ofSlugAndContext($slug, Context $context)
+    {
+        return new static($slug, $context);
+    }
+
+    /**
      * @return HttpRequest
      * @internal
      */

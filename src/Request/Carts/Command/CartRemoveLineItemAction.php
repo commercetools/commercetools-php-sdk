@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
@@ -30,11 +31,22 @@ class CartRemoveLineItemAction extends AbstractAction
     }
 
     /**
-     * @param string $lineItemId
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($lineItemId)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('removeLineItem');
-        $this->setLineItemId($lineItemId);
+    }
+
+    /**
+     * @param $lineItemId
+     * @param Context|callable $context
+     * @return CartRemoveLineItemAction
+     */
+    public static function ofLineItemId($lineItemId, $context = null)
+    {
+        return static::of($context)->setLineItemId($lineItemId);
     }
 }

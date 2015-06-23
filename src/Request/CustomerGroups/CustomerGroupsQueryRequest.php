@@ -25,4 +25,13 @@ class CustomerGroupsQueryRequest extends AbstractQueryRequest
     {
         parent::__construct(CustomerGroupsEndpoint::endpoint(), $context);
     }
+
+    /**
+     * @param Context $context
+     * @return static
+     */
+    public static function of(Context $context = null)
+    {
+        return new static($context);
+    }
 }
