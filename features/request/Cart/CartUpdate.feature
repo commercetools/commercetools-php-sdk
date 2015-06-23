@@ -1,31 +1,23 @@
 Feature: I want to update a cart
-  Background:
-    Given a "cart" is identified by "id" and "version"
-    Given i have a "common" "money" object as "money"
-    And the "currency" is "EUR"
-    And the "centAmount" is "300" as "int"
-    Given i have a "TaxCategory" "TaxRate" object as "TaxRate"
-    And set the "name" to "default"
-    And set the "amount" to "0.19" as float
-    Given i have a "TaxCategory" "TaxCategory" object as "TaxCategory"
-    And set the "name" to "Mwst"
-    And add the "TaxRate" object to "rates" collection
-    Given i have a "common" "address" object as "default"
-    And set the firstName to "John"
-    And set the lastName to "Doe"
-    And set the email to "john.doe@company.com"
+
   Scenario: Add a line item
-    Given i want to "addLineItem" of "cart"
-    And the productId is "productId-1"
-    And the variantId is "1" as "int"
-    And the quantity is "3" as "int"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "cart"
+    And add the "addLineItem" action to "cart" with values
+    """
+    {
+      "action": "addLineItem",
+      "productId": "productId-1",
+      "variantId": 1,
+      "quantity": 3
+    }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "addLineItem",

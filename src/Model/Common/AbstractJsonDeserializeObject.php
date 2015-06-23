@@ -168,7 +168,9 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
      */
     public function jsonSerialize()
     {
-        return $this->toArray();
+        return array_filter($this->toArray(), function ($value) {
+            return !is_null($value);
+        });
     }
 
     /**
