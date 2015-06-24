@@ -29,7 +29,7 @@ class ContextTest extends \PHPUnit_Framework_TestCase
 
     public function testGetLocale()
     {
-        $context = new Context();
+        $context = Context::of();
         if (extension_loaded('intl')) {
             $this->assertNotNull($context->getLocale());
         } else {
@@ -40,21 +40,21 @@ class ContextTest extends \PHPUnit_Framework_TestCase
     public function testGetLocaleNoIntlExtension()
     {
         static::$disableIntl = true;
-        $context = new Context();
+        $context = Context::of();
         $this->assertNull($context->getLocale());
         static::$disableIntl = true;
     }
 
     public function testSetLocale()
     {
-        $context = new Context();
+        $context = Context::of();
         $context->setLocale('de_DE');
         $this->assertSame('de_DE', $context->getLocale());
     }
 
     public function testSetCurrencyFormatter()
     {
-        $context = new Context();
+        $context = Context::of();
         $formatter = new CurrencyFormatter($context);
 
         $context->setCurrencyFormatter($formatter);

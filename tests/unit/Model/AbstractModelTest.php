@@ -32,7 +32,7 @@ abstract class AbstractModelTest extends \PHPUnit_Framework_TestCase
     {
         $class = new \ReflectionClass($className);
         if (!$class->isAbstract()) {
-            $object = $class->newInstanceWithoutConstructor();
+            $object = call_user_func($className . '::of');
         } else {
             $object = $this->getMockForAbstractClass($className, [], '', false);
         }

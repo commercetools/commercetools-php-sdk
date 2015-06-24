@@ -21,23 +21,23 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testAddToIndex()
     {
-        $collection = new AttributeCollection();
-        $collection->add(new Attribute(['name' => 'test']));
+        $collection = AttributeCollection::of();
+        $collection->add(Attribute::fromArray(['name' => 'test']));
 
         $this->assertInstanceOf('\Sphere\Core\Model\Common\Attribute', $collection->getByName('test'));
     }
 
     public function testMagicGet()
     {
-        $collection = new AttributeCollection();
-        $collection->add(new Attribute(['name' => 'test', 'value' => 'Test']));
+        $collection = AttributeCollection::of();
+        $collection->add(Attribute::fromArray(['name' => 'test', 'value' => 'Test']));
 
         $this->assertSame('Test', $collection->test);
     }
 
     public function testMagicGetNotSet()
     {
-        $collection = new AttributeCollection();
+        $collection = AttributeCollection::of();
         $this->assertNull($collection->test);
     }
 }

@@ -21,7 +21,7 @@ class StateCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testAddToIndex()
     {
-        $collection = new StateCollection();
+        $collection = StateCollection::of();
         $collection->add(new State(['key' => 'initial']));
 
         $this->assertInstanceOf('\Sphere\Core\Model\State\State', $collection->getByKey('initial'));

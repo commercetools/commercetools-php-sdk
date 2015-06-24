@@ -34,7 +34,7 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
 
     protected function getContext($language)
     {
-        $context = new Context();
+        $context = Context::of();
         $context->setLanguages([$language]);
 
         return $context;
@@ -68,8 +68,8 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
 
     public function testMerge()
     {
-        $string1 = new LocalizedString(['en' => 'test']);
-        $string2 = new LocalizedString(['de' => 'test']);
+        $string1 = LocalizedString::fromArray(['en' => 'test']);
+        $string2 = LocalizedString::fromArray(['de' => 'test']);
 
         $string1->merge($string2);
         $this->assertSame(['en' => 'test', 'de' => 'test'], $string1->toArray());
@@ -77,9 +77,9 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
 
     public function testLocalized()
     {
-        $context = new Context();
+        $context = Context::of();
         $context->setLanguages(['de', 'en']);
-        $string = new LocalizedString(['en' => 'test'], $context);
+        $string = LocalizedString::fromArray(['en' => 'test'], $context);
 
         $this->assertSame('test', $string->getLocalized());
     }
@@ -95,14 +95,14 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
 
     public function testToString()
     {
-        $string = new LocalizedString(['en' => 'test'], $this->getContext('en'));
+        $string = LocalizedString::fromArray(['en' => 'test'], $this->getContext('en'));
 
         $this->assertSame('test', (string)$string);
     }
 
     public function testMagicGet()
     {
-        $string = new LocalizedString(['en' => 'test']);
+        $string = LocalizedString::fromArray(['en' => 'test']);
 
         $this->assertSame('test', $string->en);
     }

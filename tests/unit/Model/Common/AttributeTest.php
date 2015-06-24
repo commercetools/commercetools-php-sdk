@@ -49,7 +49,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
      */
     public function testFromArray($type, $data)
     {
-        $attribute = new Attribute();
+        $attribute = Attribute::of();
 
         $this->assertSame($type, $attribute->getSphereType($data['name'], $data['value']));
     }
@@ -62,14 +62,14 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
                 ['key' => 'myKey', 'label' => 'myLabel']
             ]
         ];
-        $attribute = new Attribute($data);
+        $attribute = Attribute::fromArray($data);
 
         $this->assertInstanceOf('\Sphere\Core\Model\Common\Enum', $attribute->getValue()->getAt(0));
     }
 
     public function testUnknown()
     {
-        $attribute = new Attribute();
+        $attribute = Attribute::of();
         $this->assertSame('unknown', $attribute->getSphereType('unknown', new \DateTime()));
     }
 }

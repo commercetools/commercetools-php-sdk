@@ -118,13 +118,13 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testGetFields()
     {
-        $obj = new JsonObject();
+        $obj = JsonObject::of();
         $this->assertSame([], $obj->getFields());
     }
 
     public function testConstruct()
     {
-        $obj = new JsonObject(['key' => 'value']);
+        $obj = JsonObject::fromArray(['key' => 'value']);
         $this->assertSame(['key' => 'value'], $obj->toArray());
     }
 

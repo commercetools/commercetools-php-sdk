@@ -64,7 +64,7 @@ class FilterRangeTest extends \PHPUnit_Framework_TestCase
 
     public function testDefaultType()
     {
-        $range = new FilterRange();
+        $range = FilterRange::of();
         $range->setTo(1);
         $this->assertTrue(is_int($range->getTo()));
     }

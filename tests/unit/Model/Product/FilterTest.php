@@ -19,7 +19,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
     public function testIntString()
     {
-        $filter = new Filter();
+        $filter = Filter::of();
         $filter->setName('test')->setValue('10');
         $this->assertSame('test:"10"', (string)$filter);
     }
@@ -40,7 +40,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
     public function testDefaultType()
     {
-        $filter = new Filter();
+        $filter = Filter::of();
         $fields = $filter->getFields();
         $this->assertSame('string', $fields['value'][JsonObject::TYPE]);
     }
