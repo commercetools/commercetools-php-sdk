@@ -44,7 +44,11 @@ trait SphereContext
     public function iHaveAContextDraftWithValuesJson($context, PyStringNode $json)
     {
         $context = $this->getContext($context);
-        $class = '\Sphere\Core\Model\\' . $context . '\\' . $context . 'Draft';
+        if ($context == 'CustomObject') {
+            $class = '\Sphere\Core\Model\\CustomObject\\CustomObject';
+        } else {
+            $class = '\Sphere\Core\Model\\' . $context . '\\' . $context . 'Draft';
+        }
 
         $rawData = json_decode((string)$json, true);
         $object = call_user_func_array($class.'::fromArray', [$rawData]);
@@ -96,7 +100,11 @@ trait SphereContext
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
         $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'CreateRequest';
-        $this->request = call_user_func_array($request. '::ofDraft', [$this->objects[$context]]);
+        if ($context == 'CustomObject') {
+            $this->request = call_user_func_array($request. '::ofObject', [$this->objects[$context]]);
+        } else {
+            $this->request = call_user_func_array($request. '::ofDraft', [$this->objects[$context]]);
+        }
     }
 
     /**
@@ -109,6 +117,18 @@ trait SphereContext
         $this->objects[$requestContext] = ['id' => $id, 'version' => (int)$version, 'params' => []];
         $this->context = $requestContext;
     }
+
+    /**
+     * @Given a :context is identified by :container and key :key
+     */
+    public function aContextIsIdentifiedByContainerAndKey($context, $container, $key)
+    {
+        $context = $this->getContext($context);
+        $requestContext = $context . 'Request';
+        $this->objects[$requestContext] = ['container' => $container, 'key' => $key, 'params' => []];
+        $this->context = $requestContext;
+    }
+
 
     /**
      * @Given a :context is identified by :id
@@ -148,6 +168,20 @@ trait SphereContext
     }
 
     /**
+     * @Given i want to fetch a :context by key
+     */
+    public function iWantToFetchAContextByKey($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'FetchByKeyRequest';
+        $requestContext = $context . 'Request';
+        $container = $this->objects[$requestContext]['container'];
+        $key = $this->objects[$requestContext]['key'];
+        $this->request = call_user_func_array($request. '::ofContainerAndKey', [$container, $key]);
+    }
+
+    /**
      * @Given i want to fetch a :context by customerId
      */
     public function iWantToFetchAContextByCustomerId($context)
@@ -184,6 +218,20 @@ trait SphereContext
         $id = $this->objects[$requestContext]['id'];
         $version = $this->objects[$requestContext]['version'];
         $this->request = call_user_func_array($request. '::ofIdAndVersion', [$id, $version]);
+    }
+
+    /**
+     * @Given i want to delete a :context by key
+     */
+    public function iWantToDeleteAByKey($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'DeleteByKeyRequest';
+        $requestContext = $context . 'Request';
+        $container = $this->objects[$requestContext]['container'];
+        $key = $this->objects[$requestContext]['key'];
+        $this->request = call_user_func_array($request. '::ofContainerAndKey', [$container, $key]);
     }
 
     /**

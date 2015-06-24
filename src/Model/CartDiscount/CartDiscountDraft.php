@@ -39,7 +39,7 @@ class CartDiscountDraft extends JsonObject
     const NAME = 'name';
     const DESCRIPTION = 'description';
     const VALUE = 'value';
-    const CART_PREDICATE =' cartPredicate';
+    const CART_PREDICATE = 'cartPredicate';
     const TARGET = 'target';
     const SORT_ORDER = 'sortOrder';
     const IS_ACTIVE = 'isActive';
