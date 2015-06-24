@@ -22,7 +22,7 @@ class CategoryDraftTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDescription()
     {
-        $draft = $this->getDraft()->setDescription(LocalizedString::of(['en'=>'description']));
+        $draft = $this->getDraft()->setDescription(LocalizedString::fromArray(['en'=>'description']));
         $this->assertInstanceOf('\Sphere\Core\Model\Common\LocalizedString', $draft->getDescription());
     }
 
@@ -52,7 +52,10 @@ class CategoryDraftTest extends \PHPUnit_Framework_TestCase
 
     protected function getDraft()
     {
-        return CategoryDraft::of(LocalizedString::of(['en'=>'name']), LocalizedString::of(['en','slug']));
+        return CategoryDraft::ofNameAndSlug(
+            LocalizedString::fromArray(['en'=>'name']),
+            LocalizedString::fromArray(['en','slug'])
+        );
     }
 
     public function testFromArray()

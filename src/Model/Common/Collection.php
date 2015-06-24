@@ -121,6 +121,21 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
     }
 
     /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $values = $this->rawData;
+        foreach ($this->typeData as $key => $value) {
+            if ($value instanceof AbstractJsonDeserializeObject) {
+                $values[$key] = $value->toArray();
+            }
+        }
+
+        return $values;
+    }
+
+    /**
      * @param $offset
      * @return mixed
      * @internal

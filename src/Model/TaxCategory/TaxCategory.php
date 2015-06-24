@@ -38,7 +38,7 @@ class TaxCategory extends Document
             'lastModifiedAt' => [self::TYPE => '\DateTime'],
             'name' => [self::TYPE => 'string'],
             'description' => [self::TYPE => 'string'],
-            'rates' => [self::TYPE => '\Sphere\Core\Model\Common\Collection']
+            'rates' => [self::TYPE => '\Sphere\Core\Model\TaxCategory\TaxRateCollection']
         ];
     }
 }

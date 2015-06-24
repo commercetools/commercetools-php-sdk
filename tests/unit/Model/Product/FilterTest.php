@@ -85,8 +85,8 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $filter = Filter::ofType('\Sphere\Core\Model\Product\FilterRangeCollection');
 
         $filterRangeCollection = FilterRangeCollection::of()
-            ->add(FilterRange::of('int')->setFrom(1)->setTo(10))
-            ->add(FilterRange::of('int')->setFrom(11)->setTo(20))
+            ->add(FilterRange::ofType('int')->setFrom(1)->setTo(10))
+            ->add(FilterRange::ofType('int')->setFrom(11)->setTo(20))
         ;
         $filter->setName('test')->setValue($filterRangeCollection)->setAlias('foo');
         $this->assertSame('test:range(1 to 10),(11 to 20) as foo', (string)$filter);

@@ -46,27 +46,26 @@ trait SphereContext
         $context = $this->getContext($context);
         $class = '\Sphere\Core\Model\\' . $context . '\\' . $context . 'Draft';
 
-        $object = call_user_func_array($class.'::fromArray', [json_decode((string)$json, true)]);
-        $this->forceTyping($object);
+        $rawData = json_decode((string)$json, true);
+        $object = call_user_func_array($class.'::fromArray', [$rawData]);
+        $this->forceTyping($object, $rawData);
 
         $this->objects[$context] = $object;
         $this->context = $context;
     }
 
-    protected function forceTyping(AbstractJsonDeserializeObject $object)
+    protected function forceTyping($object, $rawData)
     {
         if ($object instanceof JsonObject) {
-            foreach ($object->getFields() as $field => $properties) {
+            foreach ($rawData as $field => $value) {
                 $dummy = $object->get($field);
                 if ($dummy instanceof AbstractJsonDeserializeObject) {
-                    $this->forceTyping($dummy);
-                    $object->set($field, $dummy);
+                    $this->forceTyping($dummy, $value);
                 }
             }
         } elseif ($object instanceof Collection) {
-            foreach ($object as $index => $element) {
-                $this->forceTyping($element);
-                $object->setAt($index, $object->getAt($index));
+            foreach ($rawData as $index => $element) {
+                $this->forceTyping($object->getAt($index), $element);
             }
         }
     }
@@ -74,9 +73,19 @@ trait SphereContext
     /**
      * @Given add the :actionName action to :context with values
      */
-    public function addTheActionToWithValues($actionName, $context, PyStringNode $string)
+    public function addTheActionToWithValues($actionName, $context, PyStringNode $json)
     {
-        throw new \Behat\Behat\Tester\Exception\PendingException();
+        $module = $this->getModuleName($context);
+        $context = $this->getContext($context);
+        $actionName = $this->getContext($actionName);
+        $class = '\Sphere\Core\Request\\' . $module . '\\Command\\' . $context . $actionName . 'Action';
+
+        $rawData = json_decode((string)$json, true);
+        $object = call_user_func_array($class.'::fromArray', [$rawData]);
+        $this->forceTyping($object, $rawData);
+
+
+        $this->request->addAction($object);
     }
 
     /**
@@ -162,6 +171,20 @@ trait SphereContext
         $this->request = call_user_func($request. '::of');
     }
 
+    /**
+     * @Given i want to update a :context
+     */
+    public function iWantToUpdateAContext($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'UpdateRequest';
+
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $version = $this->objects[$requestContext]['version'];
+        $this->request = call_user_func_array($request. '::ofIdAndVersion', [$id, $version]);
+    }
 
     /**
      * @Given query by customers id :customerId
@@ -336,24 +359,7 @@ trait SphereContext
 //        $this->objects[$this->context]['instance'] = $this->request;
 //    }
 //
-//    /**
-//     * @Given i want to update a :context
-//     */
-//    public function iWantToUpdateAContext($context)
-//    {
-//        $context = $this->getContext($context);
-//        $module = $this->getModuleName($context);
-//        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'UpdateRequest';
-//
-//        $requestContext = $context . 'Request';
-//        $id = $this->objects[$requestContext]['id'];
-//        $version = $this->objects[$requestContext]['version'];
-//        $actions = [];
-//        foreach ($this->actions as $actionContext) {
-//            $actions[] = $this->getContextObject($actionContext);
-//        }
-//        $this->createRequestInstance($request, [$id, $version, $actions]);
-//    }
+
 //
 //    /**
 //     * @Given the :field is :value as :type

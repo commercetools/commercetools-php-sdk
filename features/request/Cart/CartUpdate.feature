@@ -30,16 +30,22 @@ Feature: I want to update a cart
     """
 
   Scenario: Remove a line item
-    Given i want to "removeLineItem" of "cart"
-    And the lineItemId is "lineItemId-1"
-    And set the quantity to "3" as "int"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "removeLineItem" action to "cart" with values
+    """
+    {
+      "action": "removeLineItem",
+      "lineItemId": "lineItemId-1",
+      "quantity": 3
+    }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "removeLineItem",
@@ -51,16 +57,22 @@ Feature: I want to update a cart
     """
 
   Scenario: Change a line item quantity
-    Given i want to "changeLineItemQuantity" of "cart"
-    And the lineItemId is "lineItemId-1"
-    And the quantity is "3" as "int"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "changeLineItemQuantity" action to "cart" with values
+    """
+    {
+      "action": "changeLineItemQuantity",
+      "lineItemId": "lineItemId-1",
+      "quantity": 3
+    }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "changeLineItemQuantity",
@@ -72,19 +84,38 @@ Feature: I want to update a cart
     """
 
   Scenario: Add a custom line item
-    Given i want to "addCustomLineItem" of "cart"
-    And the name is "customLineItem" in "en"
-    And the quantity is "3" as "int"
-    And the "money" is "money" object
-    And the slug is "my-custom-line-item"
-    And the "taxCategory" is "taxCategory" object
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "addCustomLineItem" action to "cart" with values
+    """
+        {
+          "action": "addCustomLineItem",
+          "name": {
+            "en": "customLineItem"
+          },
+          "quantity": 3,
+          "money": {
+            "currencyCode": "EUR",
+            "centAmount": 300
+          },
+          "slug": "my-custom-line-item",
+          "taxCategory": {
+            "name": "Mwst",
+            "rates": [
+              {
+                "name": "default",
+                "amount": 0.19
+              }
+            ]
+          }
+        }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "addCustomLineItem",
@@ -112,15 +143,21 @@ Feature: I want to update a cart
     """
 
   Scenario: Remove a custom line item
-    Given i want to "removeCustomLineItem" of "cart"
-    And the customLineItemId is "customLineItem-1"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "removeCustomLineItem" action to "cart" with values
+    """
+        {
+          "action": "removeCustomLineItem",
+          "customLineItemId": "customLineItem-1"
+        }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "removeCustomLineItem",
@@ -139,7 +176,7 @@ Feature: I want to update a cart
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setCustomerEmail",
