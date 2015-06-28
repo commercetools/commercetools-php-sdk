@@ -1,15 +1,12 @@
 Feature: I want to create a new customer
   Scenario: signin a customer
-    Given a "customer" is identified by the email "john.doe@company.com"
-    And the password is "secretPassword"
-    And the anonymousCartId is "abc1234"
-    When i want to signin a "customer"
+    When i want to signin a "customer" with email "john.doe@example.org", password "secretPassword" and anonymousCartId "abc1234"
     Then the path should be "/login"
     And the method should be "POST"
     And the request should be
     """
     {
-      "email": "john.doe@company.com",
+      "email": "john.doe@example.org",
       "password": "secretPassword",
       "anonymousCartId": "abc1234"
     }

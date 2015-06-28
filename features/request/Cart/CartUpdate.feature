@@ -174,7 +174,7 @@ Feature: I want to update a cart
     """
         {
           "action": "setCustomerEmail",
-          "email": "john.doe@company.com"
+          "email": "john.doe@example.org"
         }
 
     """
@@ -187,7 +187,7 @@ Feature: I want to update a cart
       "actions": [
         {
           "action": "setCustomerEmail",
-          "email": "john.doe@company.com"
+          "email": "john.doe@example.org"
         }
       ]
     }
@@ -201,7 +201,7 @@ Feature: I want to update a cart
         {
           "action": "setShippingAddress",
           "address": {
-            "email": "john.doe@company.com",
+            "email": "john.doe@example.org",
             "firstName": "John",
             "lastName": "Doe"
           }
@@ -217,7 +217,7 @@ Feature: I want to update a cart
         {
           "action": "setShippingAddress",
           "address": {
-            "email": "john.doe@company.com",
+            "email": "john.doe@example.org",
             "firstName": "John",
             "lastName": "Doe"
           }
@@ -234,7 +234,7 @@ Feature: I want to update a cart
         {
           "action": "setBillingAddress",
           "address": {
-            "email": "john.doe@company.com",
+            "email": "john.doe@example.org",
             "firstName": "John",
             "lastName": "Doe"
           }
@@ -250,7 +250,7 @@ Feature: I want to update a cart
         {
           "action": "setBillingAddress",
           "address": {
-            "email": "john.doe@company.com",
+            "email": "john.doe@example.org",
             "firstName": "John",
             "lastName": "Doe"
           }
