@@ -39,11 +39,12 @@ class OrderAddReturnInfoAction extends AbstractAction
     }
 
     /**
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(Context $context = null)
+    public function __construct(array $data = [], $context = null)
     {
-        $this->setContext($context)
-            ->setAction('addReturnInfo');
+        parent::__construct($data, $context);
+        $this->setAction('addReturnInfo');
     }
 }

@@ -13,7 +13,6 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
  * Class CustomerFetchByIdRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#customer-by-id
- * @method static CustomerFetchByIdRequest of(string $id)
  */
 class CustomerFetchByIdRequest extends AbstractFetchByIdRequest
 {
@@ -26,5 +25,15 @@ class CustomerFetchByIdRequest extends AbstractFetchByIdRequest
     public function __construct($id, Context $context = null)
     {
         parent::__construct(CustomersEndpoint::endpoint(), $id, $context);
+    }
+
+    /**
+     * @param string $id
+     * @param Context $context
+     * @return static
+     */
+    public static function ofId($id, Context $context = null)
+    {
+        return new static($id, $context);
     }
 }

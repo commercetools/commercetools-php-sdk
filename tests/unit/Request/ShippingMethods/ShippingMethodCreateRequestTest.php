@@ -50,13 +50,13 @@ class ShippingMethodCreateRequestTest extends RequestTestCase
     }
     public function testMapResult()
     {
-        $result = $this->mapResult(static::SHIPPING_METHOD_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapResult(ShippingMethodCreateRequest::ofDraft($this->getDraft()));
         $this->assertInstanceOf('\Sphere\Core\Model\ShippingMethod\ShippingMethod', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::SHIPPING_METHOD_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapEmptyResult(ShippingMethodCreateRequest::ofDraft($this->getDraft()));
         $this->assertNull($result);
     }
 }

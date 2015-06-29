@@ -25,13 +25,16 @@ abstract class Document extends JsonObject implements ReferenceObjectInterface
         $className = trim(get_called_class(), '\\');
         $referenceClass = $className . 'Reference';
         if (class_exists($referenceClass)) {
-            $reference = new $referenceClass($this->getReferenceIdentifier(), $this->getContextCallback());
+            $reference = call_user_func_array(
+                $referenceClass . '::ofId',
+                [$this->getReferenceIdentifier(), $this->getContextCallback()]
+            );
         } else {
             $classParts = explode('\\', $className);
             $class = lcfirst(array_pop($classParts));
             $type = strtolower(preg_replace('/([A-Z])/', '-$1', $class));
 
-            $reference = Reference::of($type, $this->getReferenceIdentifier(), $this->getContextCallback());
+            $reference = Reference::ofTypeAndId($type, $this->getReferenceIdentifier(), $this->getContextCallback());
         }
         $reference->setObj($this);
 

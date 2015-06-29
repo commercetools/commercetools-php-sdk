@@ -26,4 +26,14 @@ class ZoneCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(ZonesEndpoint::endpoint(), $zone, $context);
     }
+
+    /**
+     * @param ZoneDraft $zone
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(ZoneDraft $zone, Context $context = null)
+    {
+        return new static($zone, $context);
+    }
 }

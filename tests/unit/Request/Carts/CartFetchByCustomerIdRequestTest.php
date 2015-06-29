@@ -15,19 +15,19 @@ class CartFetchByCustomerIdRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::CART_FETCH_BY_CUSTOMER_ID_REQUEST, ['id']);
+        $result = $this->mapResult(CartFetchByCustomerIdRequest::ofCustomerId('id'));
         $this->assertInstanceOf('\Sphere\Core\Model\Cart\Cart', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::CART_FETCH_BY_CUSTOMER_ID_REQUEST, ['id']);
+        $result = $this->mapEmptyResult(CartFetchByCustomerIdRequest::ofCustomerId('id'));
         $this->assertNull($result);
     }
 
     public function testHttpRequestMethod()
     {
-        $request = $this->getRequest(static::CART_FETCH_BY_CUSTOMER_ID_REQUEST, ['id']);
+        $request = CartFetchByCustomerIdRequest::ofCustomerId('id');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
@@ -35,7 +35,7 @@ class CartFetchByCustomerIdRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = $this->getRequest(static::CART_FETCH_BY_CUSTOMER_ID_REQUEST, ['id']);
+        $request = CartFetchByCustomerIdRequest::ofCustomerId('id');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('/carts?customerId=id', (string)$httpRequest->getUri());
@@ -43,7 +43,7 @@ class CartFetchByCustomerIdRequestTest extends RequestTestCase
 
     public function testHttpRequestObject()
     {
-        $request = $this->getRequest(static::CART_FETCH_BY_CUSTOMER_ID_REQUEST, ['id']);
+        $request = CartFetchByCustomerIdRequest::ofCustomerId('id');
         $httpRequest = $request->httpRequest();
 
         $this->assertEmpty((string)$httpRequest->getBody());
@@ -52,7 +52,7 @@ class CartFetchByCustomerIdRequestTest extends RequestTestCase
     public function testBuildResponse()
     {
         $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
-        $request = $this->getRequest(static::CART_FETCH_BY_CUSTOMER_ID_REQUEST, ['id']);
+        $request = CartFetchByCustomerIdRequest::ofCustomerId('id');
         $response = $request->buildResponse($guzzleResponse);
 
         $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);

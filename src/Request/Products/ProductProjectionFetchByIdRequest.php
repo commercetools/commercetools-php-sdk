@@ -40,4 +40,14 @@ class ProductProjectionFetchByIdRequest extends AbstractFetchByIdRequest
     {
         return (string)$this->getEndpoint() . '/' . $this->getId() . $this->getParamString();
     }
+
+    /**
+     * @param string $id
+     * @param Context $context
+     * @return static
+     */
+    public static function ofId($id, Context $context = null)
+    {
+        return new static($id, $context);
+    }
 }

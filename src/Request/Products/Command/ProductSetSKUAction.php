@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
@@ -30,11 +31,22 @@ class ProductSetSKUAction extends AbstractAction
     }
 
     /**
-     * @param int $variantId
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($variantId)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setSKU');
-        $this->setVariantId($variantId);
+    }
+
+    /**
+     * @param int $variantId
+     * @param Context|callable $context
+     * @return ProductSetSKUAction
+     */
+    public static function ofVariantId($variantId, $context = null)
+    {
+        return static::of($context)->setVariantId($variantId);
     }
 }

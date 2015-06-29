@@ -24,6 +24,10 @@ abstract class RequestTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function getRequest($className, array $args = [])
     {
+        if ($className instanceof AbstractApiRequest) {
+            return $className;
+        }
+
         $reflection = new \ReflectionClass($className);
         $request = $reflection->newInstanceArgs($args);
 

@@ -13,7 +13,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Model\Common\ContextTrait;
 use Sphere\Core\Model\Common\JsonDeserializeInterface;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Request\Query\MultiParameter;
 use Sphere\Core\Request\Query\Parameter;
 use Sphere\Core\Request\Query\ParameterInterface;
@@ -26,7 +25,6 @@ use Sphere\Core\Response\ApiResponseInterface;
 abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwareInterface
 {
     use ContextTrait;
-    use OfTrait;
 
     /**
      * @var JsonEndpoint

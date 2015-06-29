@@ -1,25 +1,22 @@
 Feature: I want to send a Product Update Request
-  Background:
-    Given a "product" is identified by "id" and "version"
-    Given i have a "common" "money" object as "money"
-    And the "currency" is "EUR"
-    And the "centAmount" is "300" as "int"
-    Given i have a "common" "price" object as "price"
-    And the "value" is "money" object
-    And set the "country" to "DE"
-    Given i have a "common" "priceCollection" object as "prices"
-    And add the "price" object to "prices" collection
-
   Scenario:
-    Given i want to "changeName" of "product"
-    And the "name" is "newProduct" in "en"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "changeName" action to "product" with values
+    """
+        {
+          "action": "changeName",
+          "name": {
+            "en": "newProduct"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "changeName",
@@ -32,15 +29,23 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "setDescription" of "product"
-    And the "description" is "newDescription" in "en"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "setDescription" action to "product" with values
+    """
+        {
+          "action": "setDescription",
+          "description": {
+            "en": "newDescription"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setDescription",
@@ -53,15 +58,23 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "changeSlug" of "product"
-    And the "slug" is "newSlug" in "en"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "changeSlug" action to "product" with values
+    """
+        {
+          "action": "changeSlug",
+          "slug": {
+            "en": "newSlug"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "changeSlug",
@@ -74,15 +87,21 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "addVariant" of "product"
-    And set the "sku" to "variantSKU"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "addVariant" action to "product" with values
+    """
+        {
+          "action": "addVariant",
+          "sku": "variantSKU"
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "addVariant",
@@ -93,16 +112,30 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "addVariant" of "product"
-    And set the "sku" to "variantSKU"
-    And set the "prices" object to "prices"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "addVariant" action to "product" with values
+    """
+        {
+          "action": "addVariant",
+          "sku": "variantSKU",
+          "prices": [
+            {
+              "value": {
+                "currencyCode": "EUR",
+                "centAmount": 300
+              },
+              "country": "DE"
+            }
+          ]
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "addVariant",
@@ -122,15 +155,21 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "removeVariant" of "product"
-    And the "id" is "1" as "int"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "removeVariant" action to "product" with values
+    """
+        {
+          "action": "removeVariant",
+          "id": 1
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "removeVariant",
@@ -141,17 +180,29 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "setMetaAttributes" of "product"
-    And set the "metaTitle" to "metaTitle" in "en"
-    And set the "metaDescription" to "metaDescription" in "en"
-    And set the "metaKeywords" to "metaKeywords" in "en"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "setMetaAttributes" action to "product" with values
+    """
+        {
+          "action": "setMetaAttributes",
+          "metaTitle": {
+            "en": "metaTitle"
+          },
+          "metaDescription": {
+            "en": "metaDescription"
+          },
+          "metaKeywords": {
+            "en": "metaKeywords"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setMetaAttributes",
@@ -170,15 +221,23 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "setMetaTitle" of "product"
-    And set the "metaTitle" to "metaTitle" in "en"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "setMetaTitle" action to "product" with values
+    """
+        {
+          "action": "setMetaTitle",
+          "metaTitle": {
+            "en": "metaTitle"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setMetaTitle",
@@ -191,15 +250,23 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "setMetaDescription" of "product"
-    And set the "metaDescription" to "metaDescription" in "en"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "setMetaDescription" action to "product" with values
+    """
+        {
+          "action": "setMetaDescription",
+          "metaDescription": {
+            "en": "metaDescription"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setMetaDescription",
@@ -212,15 +279,23 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "setMetaKeywords" of "product"
-    And set the "metaKeywords" to "metaKeywords" in "en"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "setMetaKeywords" action to "product" with values
+    """
+        {
+          "action": "setMetaKeywords",
+          "metaKeywords": {
+            "en": "metaKeywords"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setMetaKeywords",
@@ -233,16 +308,28 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "addPrice" of "product"
-    And the "variantId" is "1" as "int"
-    And the "price" is "price" object
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "addPrice" action to "product" with values
+    """
+        {
+          "action": "addPrice",
+          "variantId": 1,
+          "price": {
+            "value": {
+              "currencyCode": "EUR",
+              "centAmount": 300
+            },
+            "country": "DE"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "addPrice",
@@ -260,21 +347,30 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario: add price with validity period
-    Given i have a "common" "price" object as "periodPrice"
-    And the "value" is "money" object
-    And set the "country" to "DE"
-    And set the validFrom date to "2015-05-15 12:00"
-    And set the validUntil date to "2015-05-15 13:00"
-    Given i want to "addPrice" of "product"
-    And the "variantId" is "1" as "int"
-    And the "price" is "periodPrice" object
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "addPrice" action to "product" with values
+    """
+        {
+          "action": "addPrice",
+          "variantId": 1,
+          "price": {
+            "value": {
+              "currencyCode": "EUR",
+              "centAmount": 300
+            },
+            "country": "DE",
+            "validFrom": "2015-05-15T12:00:00+00:00",
+            "validUntil": "2015-05-15T13:00:00+00:00"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "addPrice",
@@ -294,16 +390,28 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "changePrice" of "product"
-    And the "priceId" is "1" as "int"
-    And the "price" is "price" object
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "changePrice" action to "product" with values
+    """
+        {
+          "action": "changePrice",
+          "priceId": 1,
+          "price": {
+            "value": {
+              "currencyCode": "EUR",
+              "centAmount": 300
+            },
+            "country": "DE"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "changePrice",
@@ -321,16 +429,21 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "removePrice" of "product"
-    And the "priceId" is "1" as "int"
-    And the "price" is "price" object
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "removePrice" action to "product" with values
+    """
+        {
+          "action": "removePrice",
+          "priceId": 1
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "removePrice",
@@ -341,17 +454,23 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "setAttribute" of "product"
-    And the "variantId" is "1" as "int"
-    And the "name" is "myAttribute"
-    And set the "value" to "newValue"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "setAttribute" action to "product" with values
+    """
+        {
+          "action": "setAttribute",
+          "variantId": 1,
+          "name": "myAttribute",
+          "value": "newValue"
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setAttribute",
@@ -364,16 +483,22 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "setAttributeInAllVariants" of "product"
-    And the "name" is "myAttribute"
-    And set the "value" to "newValue"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "setAttributeInAllVariants" action to "product" with values
+    """
+        {
+          "action": "setAttributeInAllVariants",
+          "name": "myAttribute",
+          "value": "newValue"
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setAttributeInAllVariants",
@@ -385,15 +510,24 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "addToCategory" of "product"
-    And the "category" reference "category" is "myCategory"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "addToCategory" action to "product" with values
+    """
+        {
+          "action": "addToCategory",
+          "category": {
+            "typeId": "category",
+            "id": "myCategory"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "addToCategory",
@@ -407,15 +541,24 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "removeFromCategory" of "product"
-    And the "category" reference "category" is "myCategory"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "removeFromCategory" action to "product" with values
+    """
+        {
+          "action": "removeFromCategory",
+          "category": {
+            "typeId": "category",
+            "id": "myCategory"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "removeFromCategory",
@@ -429,15 +572,24 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "setTaxCategory" of "product"
-    And set the "taxCategory" reference "taxCategory" to "myTaxCategory"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "setTaxCategory" action to "product" with values
+    """
+        {
+          "action": "setTaxCategory",
+          "taxCategory": {
+            "typeId": "tax-category",
+            "id": "myTaxCategory"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setTaxCategory",
@@ -452,16 +604,22 @@ Feature: I want to send a Product Update Request
 
 
   Scenario:
-    Given i want to "setSKU" of "product"
-    And the "variantId" is "1" as "int"
-    And set the "sku" to "mySKU"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "setSKU" action to "product" with values
+    """
+        {
+          "action": "setSKU",
+          "variantId": 1,
+          "sku": "mySKU"
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setSKU",
@@ -473,36 +631,45 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i have a "product" "suggestTokenizer" object as "whitespaceTokenizer"
-    And set the type to "whitespace"
-    Given i have a "product" "suggestTokenizer" object as "customTokenizer"
-    And set the type to "custom"
-    And set the inputs to "schweizer messer, offiziersmesser, sackmesser" as "array"
-    Given i have a "product" "SearchKeyword" object as "enMultiTool"
-    And set the "text" to "Multi tool"
-    Given i have a "product" "SearchKeyword" object as "enSwissArmyKnife"
-    And set the "text" to "Swiss Army Knife"
-    And set the "whitespaceTokenizer" object to "suggestTokenizer"
-    Given i have a "product" "SearchKeyword" object as "deSwissArmyKnife"
-    And set the "text" to "Schweizer Messer"
-    And set the "customTokenizer" object to "suggestTokenizer"
-    Given i have a "product" "searchKeywords" object as "enKeywords"
-    And add the enMultiTool object to enKeywords collection
-    And add the enSwissArmyKnife object to enKeywords collection
-    Given i have a "product" "searchKeywords" object as "deKeywords"
-    And add the deSwissArmyKnife object to deKeywords collection
-    Given i have a "product" "localizedSearchKeywords" object as "keywords"
-    And set the enKeywords object to keywords collection at "en"
-    And set the deKeywords object to keywords collection at "de"
-    Given i want to "setSearchKeywords" of "product"
-    And the searchKeywords is keywords object
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "setSearchKeywords" action to "product" with values
+    """
+        {
+          "action": "setSearchKeywords",
+          "searchKeywords": {
+            "en": [
+              {
+                "text": "Multi tool"
+              },
+              {
+                "text": "Swiss Army Knife",
+                "suggestTokenizer": {
+                  "type": "whitespace"
+                }
+              }
+            ],
+            "de": [
+              {
+                "text": "Schweizer Messer",
+                "suggestTokenizer": {
+                  "type": "custom", "inputs": [
+                    "schweizer messer",
+                    "offiziersmesser",
+                    "sackmesser"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setSearchKeywords",
@@ -537,14 +704,20 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "revertStagedChanges" of "product"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "revertStagedChanges" action to "product" with values
+    """
+        {
+          "action": "revertStagedChanges"
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "revertStagedChanges"
@@ -554,14 +727,20 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "publish" of "product"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "publish" action to "product" with values
+    """
+        {
+          "action": "publish"
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "publish"
@@ -571,14 +750,20 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "unpublish" of "product"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "unpublish" action to "product" with values
+    """
+        {
+          "action": "unpublish"
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "unpublish"
@@ -588,29 +773,35 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i have a common imageDimension object as imageDimension
-    And set the w to 100 as int
-    And set the h to 100 as int
-    Given i have a "common" "image" object as "extImage"
-    And set the url to "http://mycompany.com/image.jpg"
-    And set the label to "Image"
-    And set the imageDimension object to dimensions
-    Given i want to "addExternalImage" of "product"
-    And the variantId is 1 as int
-    And the image is extImage object
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "addExternalImage" action to "product" with values
+    """
+        {
+          "action": "addExternalImage",
+          "variantId": 1,
+          "image": {
+            "url": "http://example.org/image.jpg",
+            "dimensions": {
+              "w": 100,
+              "h": 100
+            },
+            "label": "Image"
+          }
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "addExternalImage",
           "variantId": 1,
           "image": {
-            "url": "http://mycompany.com/image.jpg",
+            "url": "http://example.org/image.jpg",
             "dimensions": {
               "w": 100,
               "h": 100
@@ -623,21 +814,27 @@ Feature: I want to send a Product Update Request
     """
 
   Scenario:
-    Given i want to "removeImage" of "product"
-    And the variantId is 1 as int
-    And the imageUrl is "http://mycompany.com/image.jpg"
-    When i want to update a "Product"
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
+    And add the "removeImage" action to "product" with values
+    """
+        {
+          "action": "removeImage",
+          "variantId": 1,
+          "imageUrl": "http://example.org/image.jpg"
+        }
+    """
     Then the path should be "/products/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "removeImage",
           "variantId": 1,
-          "imageUrl": "http://mycompany.com/image.jpg"
+          "imageUrl": "http://example.org/image.jpg"
         }
       ]
     }

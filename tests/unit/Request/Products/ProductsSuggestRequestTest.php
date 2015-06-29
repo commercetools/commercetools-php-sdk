@@ -22,22 +22,19 @@ class ProductsSuggestRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapQueryResult(static::PRODUCT_SUGGEST_REQUEST, [$this->getKeywords()]);
+        $result = $this->mapQueryResult(ProductsSuggestRequest::ofKeywords($this->getKeywords()));
         $this->assertInstanceOf('\Sphere\Core\Model\Product\SuggestionCollection', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::PRODUCT_SUGGEST_REQUEST, [$this->getKeywords()]);
+        $result = $this->mapEmptyResult(ProductsSuggestRequest::ofKeywords($this->getKeywords()));
         $this->assertInstanceOf('\Sphere\Core\Model\Product\SuggestionCollection', $result);
     }
 
     public function testAddKeyword()
     {
-        /**
-         * @var ProductsSuggestRequest $request
-         */
-        $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST);
+        $request = ProductsSuggestRequest::of();
         $request->addKeyword('en', 'search');
         $httpRequest = $request->httpRequest();
 
@@ -46,10 +43,7 @@ class ProductsSuggestRequestTest extends RequestTestCase
 
     public function testAddKeywords()
     {
-        /**
-         * @var ProductsSuggestRequest $request
-         */
-        $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST);
+        $request = ProductsSuggestRequest::of();
         $request->addKeywords($this->getKeywords());
         $httpRequest = $request->httpRequest();
 
@@ -58,10 +52,7 @@ class ProductsSuggestRequestTest extends RequestTestCase
 
     public function testSetKeywords()
     {
-        /**
-         * @var ProductsSuggestRequest $request
-         */
-        $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST);
+        $request = ProductsSuggestRequest::of();
         $request->setSearchKeywords($this->getKeywords());
         $httpRequest = $request->httpRequest();
 
@@ -70,7 +61,7 @@ class ProductsSuggestRequestTest extends RequestTestCase
 
     public function testHttpRequestMethod()
     {
-        $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST, [$this->getKeywords()]);
+        $request = ProductsSuggestRequest::ofKeywords($this->getKeywords());
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
@@ -78,10 +69,7 @@ class ProductsSuggestRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        /**
-         * @var ProductsSuggestRequest
-         */
-        $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST, [$this->getKeywords()]);
+        $request = ProductsSuggestRequest::ofKeywords($this->getKeywords());
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('/product-projections/suggest?searchKeywords.en=search', (string)$httpRequest->getUri());
@@ -89,7 +77,7 @@ class ProductsSuggestRequestTest extends RequestTestCase
 
     public function testHttpRequestObject()
     {
-        $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST, [$this->getKeywords()]);
+        $request = ProductsSuggestRequest::ofKeywords($this->getKeywords());
         $httpRequest = $request->httpRequest();
 
         $this->assertEmpty((string)$httpRequest->getBody());
@@ -98,7 +86,7 @@ class ProductsSuggestRequestTest extends RequestTestCase
     public function testBuildResponse()
     {
         $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
-        $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST, [$this->getKeywords()]);
+        $request = ProductsSuggestRequest::ofKeywords($this->getKeywords());
         $response = $request->buildResponse($guzzleResponse);
 
         $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);

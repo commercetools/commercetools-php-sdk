@@ -18,7 +18,7 @@ class CartCreateTest extends ApiTestCase
      */
     protected function getDraft()
     {
-        $draft = CartDraft::of('EUR')->setCountry('DE');
+        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
 
         return $draft;
     }
@@ -29,11 +29,11 @@ class CartCreateTest extends ApiTestCase
          * @var Cart $cart
          */
         $cartResponse = $this->getClient()
-            ->execute(CartCreateRequest::of($draft));
+            ->execute(CartCreateRequest::ofDraft($draft));
 
         $cart = $cartResponse->toObject();
 
-        $this->cleanupRequests[] = CartDeleteByIdRequest::of($cart->getId(), $cart->getVersion());
+        $this->cleanupRequests[] = CartDeleteByIdRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
 
         return $cart;
     }

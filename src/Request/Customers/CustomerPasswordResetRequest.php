@@ -19,7 +19,6 @@ use Sphere\Core\Response\SingleResourceResponse;
  * Class CustomerPasswordResetRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#reset-customers-password
- * @method static CustomerPasswordResetRequest of(string $id, string $version, string $tokenValue, string $newPassword)
  */
 class CustomerPasswordResetRequest extends AbstractUpdateRequest
 {
@@ -54,6 +53,24 @@ class CustomerPasswordResetRequest extends AbstractUpdateRequest
         $this->setVersion($version);
         $this->tokenValue = $tokenValue;
         $this->newPassword = $newPassword;
+    }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param string $tokenValue
+     * @param string $newPassword
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdVersionTokenAndPassword(
+        $id,
+        $version,
+        $tokenValue,
+        $newPassword,
+        Context $context = null
+    ) {
+        return new static($id, $version, $tokenValue, $newPassword, $context);
     }
 
     /**

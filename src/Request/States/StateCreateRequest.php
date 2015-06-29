@@ -27,4 +27,14 @@ class StateCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(StatesEndpoint::endpoint(), $state, $context);
     }
+
+    /**
+     * @param StateDraft $state
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(StateDraft $state, Context $context = null)
+    {
+        return new static($state, $context);
+    }
 }

@@ -25,19 +25,19 @@ class CustomObjectFetchByKeyRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::CUSTOM_OBJECT_FETCH_REQUEST, ['my-namespace', 'my-key']);
+        $result = $this->mapResult(CustomObjectFetchByKeyRequest::ofContainerAndKey('my-namespace', 'my-key'));
         $this->assertInstanceOf('\Sphere\Core\Model\CustomObject\CustomObject', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::CUSTOM_OBJECT_FETCH_REQUEST, ['my-namespace', 'my-key']);
+        $result = $this->mapEmptyResult(CustomObjectFetchByKeyRequest::ofContainerAndKey('my-namespace', 'my-key'));
         $this->assertNull($result);
     }
 
     public function testHttpRequestMethod()
     {
-        $request = $this->getRequest(static::CUSTOM_OBJECT_FETCH_REQUEST, ['my-namespace', 'my-key']);
+        $request = CustomObjectFetchByKeyRequest::ofContainerAndKey('my-namespace', 'my-key');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());

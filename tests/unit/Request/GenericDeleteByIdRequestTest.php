@@ -6,10 +6,23 @@
 namespace Sphere\Core\Request\CartDiscounts;
 
 
+use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\RequestTestCase;
 
 class GenericDeleteByIdRequestTest extends RequestTestCase
 {
+    /**
+     * @param $className
+     * @param array $args
+     * @return AbstractApiRequest
+     */
+    protected function getRequest($className, array $args = [])
+    {
+        $request = call_user_func_array($className . '::ofIdAndVersion', $args);
+
+        return $request;
+    }
+
     public function mapResultProvider()
     {
         return [

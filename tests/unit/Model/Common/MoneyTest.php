@@ -18,7 +18,7 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
 
     public function testToString()
     {
-        $context = new Context();
+        $context = Context::of();
         $context->getCurrencyFormatter()->setFormatCallback(
             function ($centAmount, $currency) {
                 return number_format($centAmount/100, 2) . ' ' . $currency;

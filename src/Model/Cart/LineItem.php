@@ -68,6 +68,6 @@ class LineItem extends JsonObject
     {
         $price = $this->getPrice()->getValue();
         $amount = $this->getQuantity() * $price->getCentAmount();
-        return new Money($price->getCurrencyCode(), $amount, $this->getContext());
+        return Money::ofCurrencyAndAmount($price->getCurrencyCode(), $amount, $this->getContext());
     }
 }

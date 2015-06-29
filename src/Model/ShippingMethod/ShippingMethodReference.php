@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\ShippingMethod;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
-use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
  * Class ShippingMethodReference
@@ -22,25 +21,23 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  */
 class ShippingMethodReference extends Reference
 {
-    use ReferenceFromArrayTrait;
-
     const TYPE_SHIPPING_METHOD = 'shipping-method';
 
     public function getFields()
     {
-        return [
-            'typeId' => [self::TYPE => 'string'],
-            'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => '\Sphere\Core\Model\ShippingMethod\ShippingMethod']
-        ];
+        $fields = parent::getFields();
+        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\ShippingMethod\ShippingMethod'];
+
+        return $fields;
     }
 
     /**
-     * @param string $id
+     * @param $id
      * @param Context|callable $context
+     * @return ShippingMethodReference
      */
-    public function __construct($id, $context = null)
+    public static function ofId($id, $context = null)
     {
-        parent::__construct(static::TYPE_SHIPPING_METHOD, $id, $context);
+        return static::ofTypeAndId(static::TYPE_SHIPPING_METHOD, $id, $context);
     }
 }

@@ -17,7 +17,6 @@ use Sphere\Core\Response\SingleResourceResponse;
  * Class CustomerFetchByTokenRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#customer-by-password-token
- * @method static CustomerFetchByTokenRequest of(string $token)
  */
 class CustomerFetchByTokenRequest extends AbstractApiRequest
 {
@@ -33,6 +32,16 @@ class CustomerFetchByTokenRequest extends AbstractApiRequest
     {
         parent::__construct(CustomersEndpoint::endpoint(), $context);
         $this->addParam(static::TOKEN, $token);
+    }
+
+    /**
+     * @param string $token
+     * @param Context $context
+     * @return static
+     */
+    public static function ofToken($token, Context $context = null)
+    {
+        return new static($token, $context);
     }
 
     /**

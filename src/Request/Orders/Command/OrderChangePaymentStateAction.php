@@ -20,14 +20,13 @@ use Sphere\Core\Request\AbstractAction;
 class OrderChangePaymentStateAction extends AbstractAction
 {
     /**
-     * @param string $paymentState
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($paymentState, Context $context = null)
+    public function __construct(array $data = [], $context = null)
     {
-        $this->setContext($context)
-            ->setAction('changePaymentState')
-            ->setPaymentState($paymentState);
+        parent::__construct($data, $context);
+        $this->setAction('changePaymentState');
     }
 
     public function getFields()
@@ -36,5 +35,15 @@ class OrderChangePaymentStateAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'paymentState' => [static::TYPE => 'string']
         ];
+    }
+
+    /**
+     * @param string $paymentState
+     * @param Context|callable $context
+     * @return OrderChangePaymentStateAction
+     */
+    public static function ofPaymentState($paymentState, $context = null)
+    {
+        return static::of($context)->setPaymentState($paymentState);
     }
 }

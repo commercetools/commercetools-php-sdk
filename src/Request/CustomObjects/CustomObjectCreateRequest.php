@@ -27,4 +27,14 @@ class CustomObjectCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(CustomObjectsEndpoint::endpoint(), $customObject, $context);
     }
+
+    /**
+     * @param CustomObject $customObject
+     * @param Context $context
+     * @return static
+     */
+    public static function ofObject(CustomObject $customObject, Context $context = null)
+    {
+        return new static($customObject, $context);
+    }
 }

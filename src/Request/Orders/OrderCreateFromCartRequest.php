@@ -122,6 +122,17 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
+     * @param string $cartId
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofCartIdAndVersion($cartId, $version, Context $context = null)
+    {
+        return new static($cartId, $version, $context);
+    }
+
+    /**
      * @param ResponseInterface $response
      * @return AbstractApiResponse
      * @internal

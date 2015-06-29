@@ -21,20 +21,20 @@ class OrderImportRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::ORDER_IMPORT_REQUEST, [ImportOrder::of()]);
+        $result = $this->mapResult(OrderImportRequest::ofImportOrder(ImportOrder::of()));
         $this->assertInstanceOf('\Sphere\Core\Model\Order\Order', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::ORDER_IMPORT_REQUEST, [ImportOrder::of()]);
+        $result = $this->mapEmptyResult(OrderImportRequest::ofImportOrder(ImportOrder::of()));
         $this->assertNull($result);
     }
 
     public function testBuildResponse()
     {
         $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
-        $request = $this->getRequest(static::ORDER_IMPORT_REQUEST, [ImportOrder::of()]);
+        $request = OrderImportRequest::ofImportOrder(ImportOrder::of());
         $response = $request->buildResponse($guzzleResponse);
 
         $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
@@ -42,7 +42,7 @@ class OrderImportRequestTest extends RequestTestCase
 
     public function testHttpRequestMethod()
     {
-        $request = $this->getRequest(static::ORDER_IMPORT_REQUEST, [ImportOrder::of()]);
+        $request = OrderImportRequest::ofImportOrder(ImportOrder::of());
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
@@ -50,7 +50,7 @@ class OrderImportRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = $this->getRequest(static::ORDER_IMPORT_REQUEST, [ImportOrder::of()]);
+        $request = OrderImportRequest::ofImportOrder(ImportOrder::of());
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('/orders/import', (string)$httpRequest->getUri());
@@ -63,9 +63,9 @@ class OrderImportRequestTest extends RequestTestCase
          */
         $importOrder = ImportOrder::of()->setOrderNumber('12345678')
             ->setCustomerId('12345')
-            ->setTotalPrice(Money::of('EUR', 100))
+            ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 100))
         ;
-        $request = $this->getRequest(static::ORDER_IMPORT_REQUEST, [$importOrder]);
+        $request = OrderImportRequest::ofImportOrder($importOrder);
         $httpRequest = $request->httpRequest();
 
         $expectedResult = [

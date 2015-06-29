@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\Inventory;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\Common\DateTimeDecorator;
 use Sphere\Core\Model\Channel\ChannelReference;
 
@@ -24,12 +23,9 @@ use Sphere\Core\Model\Channel\ChannelReference;
  * @method InventoryDraft setExpectedDelivery(\DateTime $expectedDelivery = null)
  * @method ChannelReference getSupplyChannel()
  * @method InventoryDraft setSupplyChannel(ChannelReference $supplyChannel = null)
- * @method static InventoryDraft of($sku, $quantityOnStock)
  */
 class InventoryDraft extends JsonObject
 {
-    use OfTrait;
-
     public function getFields()
     {
         return [
@@ -48,26 +44,10 @@ class InventoryDraft extends JsonObject
      * @param string $sku
      * @param int $quantityOnStock
      * @param Context|callable $context
+     * @return InventoryDraft
      */
-    public function __construct($sku, $quantityOnStock, $context = null)
+    public static function ofSkuAndQuantityOnStock($sku, $quantityOnStock, $context = null)
     {
-        $this->setContext($context)->setSku($sku)->setQuantityOnStock($quantityOnStock);
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $draft = new static(
-            $data['sku'],
-            $data['quantityOnStock'],
-            $context
-        );
-        $draft->setRawData($data);
-
-        return $draft;
+        return static::of($context)->setSku($sku)->setQuantityOnStock($quantityOnStock);
     }
 }

@@ -36,16 +36,22 @@ class OrderAddParcelToDeliveryAction extends AbstractAction
     }
 
     /**
-     * @param string $deliveryId
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(
-        $deliveryId,
-        Context $context = null
-    ) {
-        $this->setContext($context)
-            ->setAction('addParcelToDelivery')
-            ->setDeliveryId($deliveryId)
-        ;
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('addParcelToDelivery');
+    }
+
+    /**
+     * @param string $deliveryId
+     * @param Context|callable $context
+     * @return OrderAddParcelToDeliveryAction
+     */
+    public static function ofDeliveryId($deliveryId, $context = null)
+    {
+        return static::of($context)->setDeliveryId($deliveryId);
     }
 }

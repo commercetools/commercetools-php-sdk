@@ -1,6 +1,6 @@
 Feature: I want to update a state
   Background:
-    Given a "state" is identified by "id" and "version"
+    Given a "state" is identified by "id" and version 1
   Scenario: Empty update
     Given i want to update a "state"
     Then the path should be "/states/id"
@@ -8,7 +8,7 @@ Feature: I want to update a state
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
       ]
     }

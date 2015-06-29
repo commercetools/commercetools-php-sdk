@@ -25,4 +25,13 @@ class ZonesQueryRequest extends AbstractQueryRequest
     {
         parent::__construct(ZonesEndpoint::endpoint(), $context);
     }
+
+    /**
+     * @param Context $context
+     * @return static
+     */
+    public static function of(Context $context = null)
+    {
+        return new static($context);
+    }
 }

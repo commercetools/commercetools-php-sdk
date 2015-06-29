@@ -140,10 +140,13 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
     /**
      * @param array $rawData
      * @internal
+     * @return $this
      */
     public function setRawData(array $rawData)
     {
         $this->rawData = $rawData;
+
+        return $this;
     }
 
     /**
@@ -165,7 +168,9 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
      */
     public function jsonSerialize()
     {
-        return $this->toArray();
+        return array_filter($this->toArray(), function ($value) {
+            return !is_null($value);
+        });
     }
 
     /**
@@ -187,10 +192,11 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
     }
 
     /**
+     * @param Context|callable $context
      * @return static
      */
-    public static function of()
+    final public static function of($context = null)
     {
-        return new static();
+        return new static([], $context);
     }
 }

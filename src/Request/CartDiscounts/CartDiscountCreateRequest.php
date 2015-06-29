@@ -22,4 +22,14 @@ class CartDiscountCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(CartDiscountsEndpoint::endpoint(), $cartDiscountDraft, $context);
     }
+
+    /**
+     * @param CartDiscountDraft $cartDiscountDraft
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(CartDiscountDraft $cartDiscountDraft, Context $context = null)
+    {
+        return new static($cartDiscountDraft, $context);
+    }
 }

@@ -42,6 +42,16 @@ class ProductProjectionFetchBySkuRequest extends AbstractApiRequest
     }
 
     /**
+     * @param string $sku
+     * @param Context $context
+     * @return static
+     */
+    public static function ofSku($sku, Context $context = null)
+    {
+        return new static($sku, $context);
+    }
+
+    /**
      * @return HttpRequest
      * @internal
      */

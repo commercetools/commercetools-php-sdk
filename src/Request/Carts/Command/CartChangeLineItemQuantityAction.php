@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
@@ -30,13 +31,24 @@ class CartChangeLineItemQuantityAction extends AbstractAction
     }
 
     /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('changeLineItemQuantity');
+    }
+
+
+    /**
      * @param string $lineItemId
      * @param int $quantity
+     * @param Context|callable $context
+     * @return CartChangeLineItemQuantityAction
      */
-    public function __construct($lineItemId, $quantity)
+    public static function ofLineItemIdAndQuantity($lineItemId, $quantity, $context = null)
     {
-        $this->setAction('changeLineItemQuantity');
-        $this->setLineItemId($lineItemId);
-        $this->setQuantity($quantity);
+        return static::of($context)->setLineItemId($lineItemId)->setQuantity($quantity);
     }
 }

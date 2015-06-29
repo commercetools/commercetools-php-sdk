@@ -27,4 +27,15 @@ class ProductTypeDeleteByIdRequest extends AbstractDeleteByIdRequest
     {
         parent::__construct(ProductTypesEndpoint::endpoint(), $id, $version, $context);
     }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdAndVersion($id, $version, Context $context = null)
+    {
+        return new static($id, $version, $context);
+    }
 }

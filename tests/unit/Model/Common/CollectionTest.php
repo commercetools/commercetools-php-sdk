@@ -13,7 +13,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 {
     protected function getCollection()
     {
-        $collection = new Collection();
+        $collection = Collection::of();
 
         $obj = $this->getMock(
             '\Sphere\Core\Model\Common\JsonObject',
@@ -64,7 +64,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testSetType()
     {
-        $obj = new Collection();
+        $obj = Collection::of();
         $obj->setType('\DateTime');
         $obj->add(new \DateTime());
 
@@ -76,7 +76,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testWrongType()
     {
-        $obj = new Collection();
+        $obj = Collection::of();
         $obj->setType('\DateTime');
         $obj->add('test');
     }
@@ -120,7 +120,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testOffsetSet()
     {
-        $collection = new Collection();
+        $collection = Collection::of();
         $collection->setType('\DateTime');
         $collection[] = new \DateTime();
 
@@ -129,7 +129,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testOffsetUnset()
     {
-        $collection = new Collection();
+        $collection = Collection::of();
         $collection->setType('\DateTime');
         $collection[] = new \DateTime();
         unset($collection[0]);
@@ -162,7 +162,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testSetAt()
     {
-        $collection = new Collection();
+        $collection = Collection::of();
         $collection->setType('\DateTime');
         $collection[1] = new \DateTime();
 

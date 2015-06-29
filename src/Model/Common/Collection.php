@@ -31,7 +31,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
      * @param array $data
      * @param Context|callable $context
      */
-    public function __construct(array $data = [], $context = null)
+    final public function __construct(array $data = [], $context = null)
     {
         parent::__construct($data, $context);
         $this->indexData();
@@ -48,10 +48,13 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
     /**
      * @param string $type
      * @internal
+     * @return $this
      */
     public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
     }
 
     protected function indexData()
@@ -115,6 +118,21 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
             $this->typeData[$offset] = $type::fromArray($this->getRaw($offset), $this->getContextCallback());
         }
         $this->initialized[$offset] = true;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $values = $this->rawData;
+        foreach ($this->typeData as $key => $value) {
+            if ($value instanceof AbstractJsonDeserializeObject) {
+                $values[$key] = $value->toArray();
+            }
+        }
+
+        return $values;
     }
 
     /**

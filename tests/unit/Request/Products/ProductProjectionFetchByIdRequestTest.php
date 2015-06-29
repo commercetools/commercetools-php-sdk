@@ -18,19 +18,19 @@ class ProductProjectionFetchByIdRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::PRODUCT_PROJECTION_FETCH_BY_ID_REQUEST, ['id']);
+        $result = $this->mapResult(ProductProjectionFetchByIdRequest::ofId('id'));
         $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjection', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::PRODUCT_PROJECTION_FETCH_BY_ID_REQUEST, ['id']);
+        $result = $this->mapEmptyResult(ProductProjectionFetchByIdRequest::ofId('id'));
         $this->assertNull($result);
     }
 
     public function testHttpRequestPath()
     {
-        $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_ID_REQUEST, ['id']);
+        $request = ProductProjectionFetchByIdRequest::ofId('id');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('/product-projections/id', (string)$httpRequest->getUri());

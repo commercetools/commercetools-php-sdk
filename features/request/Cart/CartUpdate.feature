@@ -1,31 +1,23 @@
 Feature: I want to update a cart
-  Background:
-    Given a "cart" is identified by "id" and "version"
-    Given i have a "common" "money" object as "money"
-    And the "currency" is "EUR"
-    And the "centAmount" is "300" as "int"
-    Given i have a "TaxCategory" "TaxRate" object as "TaxRate"
-    And set the "name" to "default"
-    And set the "amount" to "0.19" as float
-    Given i have a "TaxCategory" "TaxCategory" object as "TaxCategory"
-    And set the "name" to "Mwst"
-    And add the "TaxRate" object to "rates" collection
-    Given i have a "common" "address" object as "default"
-    And set the firstName to "John"
-    And set the lastName to "Doe"
-    And set the email to "john.doe@company.com"
+
   Scenario: Add a line item
-    Given i want to "addLineItem" of "cart"
-    And the productId is "productId-1"
-    And the variantId is "1" as "int"
-    And the quantity is "3" as "int"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "cart"
+    And add the "addLineItem" action to "cart" with values
+    """
+    {
+      "action": "addLineItem",
+      "productId": "productId-1",
+      "variantId": 1,
+      "quantity": 3
+    }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "addLineItem",
@@ -38,16 +30,22 @@ Feature: I want to update a cart
     """
 
   Scenario: Remove a line item
-    Given i want to "removeLineItem" of "cart"
-    And the lineItemId is "lineItemId-1"
-    And set the quantity to "3" as "int"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "removeLineItem" action to "cart" with values
+    """
+    {
+      "action": "removeLineItem",
+      "lineItemId": "lineItemId-1",
+      "quantity": 3
+    }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "removeLineItem",
@@ -59,16 +57,22 @@ Feature: I want to update a cart
     """
 
   Scenario: Change a line item quantity
-    Given i want to "changeLineItemQuantity" of "cart"
-    And the lineItemId is "lineItemId-1"
-    And the quantity is "3" as "int"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "changeLineItemQuantity" action to "cart" with values
+    """
+    {
+      "action": "changeLineItemQuantity",
+      "lineItemId": "lineItemId-1",
+      "quantity": 3
+    }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "changeLineItemQuantity",
@@ -80,19 +84,38 @@ Feature: I want to update a cart
     """
 
   Scenario: Add a custom line item
-    Given i want to "addCustomLineItem" of "cart"
-    And the name is "customLineItem" in "en"
-    And the quantity is "3" as "int"
-    And the "money" is "money" object
-    And the slug is "my-custom-line-item"
-    And the "taxCategory" is "taxCategory" object
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "addCustomLineItem" action to "cart" with values
+    """
+        {
+          "action": "addCustomLineItem",
+          "name": {
+            "en": "customLineItem"
+          },
+          "quantity": 3,
+          "money": {
+            "currencyCode": "EUR",
+            "centAmount": 300
+          },
+          "slug": "my-custom-line-item",
+          "taxCategory": {
+            "name": "Mwst",
+            "rates": [
+              {
+                "name": "default",
+                "amount": 0.19
+              }
+            ]
+          }
+        }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "addCustomLineItem",
@@ -120,15 +143,21 @@ Feature: I want to update a cart
     """
 
   Scenario: Remove a custom line item
-    Given i want to "removeCustomLineItem" of "cart"
-    And the customLineItemId is "customLineItem-1"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "removeCustomLineItem" action to "cart" with values
+    """
+        {
+          "action": "removeCustomLineItem",
+          "customLineItemId": "customLineItem-1"
+        }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "removeCustomLineItem",
@@ -139,39 +168,56 @@ Feature: I want to update a cart
     """
 
   Scenario: Set customer email
-    Given i want to "setCustomerEmail" of "cart"
-    And set the email to "john.doe@company.com"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "setCustomerEmail" action to "cart" with values
+    """
+        {
+          "action": "setCustomerEmail",
+          "email": "john.doe@example.org"
+        }
+
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setCustomerEmail",
-          "email": "john.doe@company.com"
+          "email": "john.doe@example.org"
         }
       ]
     }
     """
 
   Scenario: Set shipping address
-    Given i want to "setShippingAddress" of "cart"
-    And set the "default" object to "address"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "setShippingAddress" action to "cart" with values
+    """
+        {
+          "action": "setShippingAddress",
+          "address": {
+            "email": "john.doe@example.org",
+            "firstName": "John",
+            "lastName": "Doe"
+          }
+        }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setShippingAddress",
           "address": {
-            "email": "john.doe@company.com",
+            "email": "john.doe@example.org",
             "firstName": "John",
             "lastName": "Doe"
           }
@@ -181,20 +227,30 @@ Feature: I want to update a cart
     """
 
   Scenario: Set billing address
-    Given i want to "setBillingAddress" of "cart"
-    And set the "default" object to "address"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "setBillingAddress" action to "cart" with values
+    """
+        {
+          "action": "setBillingAddress",
+          "address": {
+            "email": "john.doe@example.org",
+            "firstName": "John",
+            "lastName": "Doe"
+          }
+        }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setBillingAddress",
           "address": {
-            "email": "john.doe@company.com",
+            "email": "john.doe@example.org",
             "firstName": "John",
             "lastName": "Doe"
           }
@@ -204,15 +260,21 @@ Feature: I want to update a cart
     """
 
   Scenario: Set country
-    Given i want to "setCountry" of "cart"
-    And set the country to "DE"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "setCountry" action to "cart" with values
+    """
+        {
+          "action": "setCountry",
+          "country": "DE"
+        }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setCountry",
@@ -225,15 +287,21 @@ Feature: I want to update a cart
 
 
   Scenario: Set CustomerId
-    Given i want to "setCustomerId" of "cart"
-    And set the "customerId" to "customer-1"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "setCustomerId" action to "cart" with values
+    """
+        {
+          "action": "setCustomerId",
+          "customerId": "customer-1"
+        }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setCustomerId",
@@ -244,15 +312,21 @@ Feature: I want to update a cart
     """
 
   Scenario: Add discount code
-    Given i want to "addDiscountCode" of "cart"
-    And the "code" is "payless"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "addDiscountCode" action to "cart" with values
+    """
+        {
+          "action": "addDiscountCode",
+          "code": "payless"
+        }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "addDiscountCode",
@@ -263,14 +337,20 @@ Feature: I want to update a cart
     """
 
   Scenario: Recalculate cart
-    Given i want to "recalculate" of "cart"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "recalculate" action to "cart" with values
+    """
+        {
+          "action": "recalculate"
+        }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "recalculate"
@@ -280,15 +360,24 @@ Feature: I want to update a cart
     """
 
   Scenario: Set Shipping Method
-    Given i want to "setShippingMethod" of "cart"
-    And set the "shippingMethod" reference "shippingMethod" to "myShippingMethod"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "setShippingMethod" action to "cart" with values
+    """
+        {
+          "action": "setShippingMethod",
+          "shippingMethod": {
+            "typeId": "shipping-method",
+            "id": "myShippingMethod"
+          }
+        }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setShippingMethod",
@@ -302,15 +391,24 @@ Feature: I want to update a cart
     """
 
   Scenario: Remove discount code
-    Given i want to "removeDiscountCode" of "cart"
-    And the "discountCode" reference "discountCode" is "payless"
-    When i want to update a "Cart"
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "Cart"
+    And add the "removeDiscountCode" action to "cart" with values
+    """
+        {
+          "action": "removeDiscountCode",
+          "discountCode": {
+            "typeId": "discount-code",
+            "id": "payless"
+          }
+        }
+    """
     Then the path should be "/carts/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "removeDiscountCode",

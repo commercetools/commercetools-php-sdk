@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\CartDiscount;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
-use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
  * Class CartDiscountReference
@@ -22,25 +21,23 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  */
 class CartDiscountReference extends Reference
 {
-    use ReferenceFromArrayTrait;
-
     const TYPE_CART_DISCOUNT = 'cart-discount';
 
     public function getFields()
     {
-        return [
-            'typeId' => [self::TYPE => 'string'],
-            'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => '\Sphere\Core\Model\CartDiscount\CartDiscount']
-        ];
+        $fields = parent::getFields();
+        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\CartDiscount\CartDiscount'];
+
+        return $fields;
     }
 
     /**
-     * @param string $id
+     * @param $id
      * @param Context|callable $context
+     * @return CartDiscountReference
      */
-    public function __construct($id, $context = null)
+    public static function ofId($id, $context = null)
     {
-        parent::__construct(static::TYPE_CART_DISCOUNT, $id, $context);
+        return static::ofTypeAndId(static::TYPE_CART_DISCOUNT, $id, $context);
     }
 }

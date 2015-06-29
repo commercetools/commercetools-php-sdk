@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
@@ -16,9 +17,13 @@ use Sphere\Core\Request\AbstractAction;
  */
 class CartRecalculateAction extends AbstractAction
 {
-
-    public function __construct()
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('recalculate');
     }
 }

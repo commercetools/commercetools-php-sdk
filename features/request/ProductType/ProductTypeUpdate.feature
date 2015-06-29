@@ -1,6 +1,6 @@
 Feature: I want to update a product type
   Background:
-    Given a "productType" is identified by "id" and "version"
+    Given a "productType" is identified by "id" and version 1
   Scenario: Empty update
     Given i want to update a "productType"
     Then the path should be "/product-types/id"
@@ -8,7 +8,7 @@ Feature: I want to update a product type
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
       ]
     }

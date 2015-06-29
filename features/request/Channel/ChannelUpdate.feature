@@ -1,6 +1,6 @@
 Feature: I want to update a channel
   Background:
-    Given a "channel" is identified by "id" and "version"
+    Given a "channel" is identified by "id" and version 1
   Scenario: Empty update
     Given i want to update a "channel"
     Then the path should be "/channels/id"
@@ -8,7 +8,7 @@ Feature: I want to update a channel
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
       ]
     }

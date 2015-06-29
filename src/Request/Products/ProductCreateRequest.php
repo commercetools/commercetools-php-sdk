@@ -15,7 +15,6 @@ use Sphere\Core\Request\AbstractCreateRequest;
  * Class ProductCreateRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products.html#create-product
- * @method static ProductCreateRequest of(ProductDraft $product)
  */
 class ProductCreateRequest extends AbstractCreateRequest
 {
@@ -27,5 +26,15 @@ class ProductCreateRequest extends AbstractCreateRequest
     public function __construct(ProductDraft $product, Context $context = null)
     {
         parent::__construct(ProductsEndpoint::endpoint(), $product, $context);
+    }
+
+    /**
+     * @param ProductDraft $product
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(ProductDraft $product, Context $context = null)
+    {
+        return new static($product, $context);
     }
 }

@@ -32,13 +32,13 @@ class ChannelCreateRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::CHANNEL_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapResult(ChannelCreateRequest::ofDraft($this->getDraft()));
         $this->assertInstanceOf('\Sphere\Core\Model\Channel\Channel', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::CHANNEL_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapEmptyResult(ChannelCreateRequest::ofDraft($this->getDraft()));
         $this->assertNull($result);
     }
 }

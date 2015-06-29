@@ -17,7 +17,6 @@ use Sphere\Core\Response\SingleResourceResponse;
  * Class CustomerEmailConfirmRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#verify-customers-email
- * @method static CustomerEmailConfirmRequest of(string $id, int $version, string $tokenValue)
  */
 class CustomerEmailConfirmRequest extends AbstractUpdateRequest
 {
@@ -41,6 +40,18 @@ class CustomerEmailConfirmRequest extends AbstractUpdateRequest
         $this->setId($id);
         $this->setVersion($version);
         $this->tokenValue = $tokenValue;
+    }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param string $tokenValue
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdVersionAndToken($id, $version, $tokenValue, Context $context = null)
+    {
+        return new static($id, $version, $tokenValue, $context);
     }
 
     /**

@@ -30,26 +30,13 @@ use Sphere\Core\Model\Common\DateTimeDecorator;
 class OrderTransitionLineItemStateAction extends AbstractAction
 {
     /**
-     * @param string $lineItemId
-     * @param int $quantity
-     * @param StateReference $fromState
-     * @param StateReference $toState
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(
-        $lineItemId,
-        $quantity,
-        StateReference $fromState,
-        StateReference $toState,
-        Context $context = null
-    ) {
-        $this->setContext($context)
-            ->setAction('transitionLineItemState')
-            ->setLineItemId($lineItemId)
-            ->setQuantity($quantity)
-            ->setFromState($fromState)
-            ->setToState($toState)
-        ;
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('transitionLineItemState');
     }
 
     public function getFields()
@@ -65,5 +52,28 @@ class OrderTransitionLineItemStateAction extends AbstractAction
                 static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
             ],
         ];
+    }
+
+    /**
+     * @param string $lineItemId
+     * @param int $quantity
+     * @param StateReference $fromState
+     * @param StateReference $toState
+     * @param Context|callable $context
+     * @return OrderTransitionCustomLineItemStateAction
+     */
+    public static function ofLineItemIdQuantityAndFromToState(
+        $lineItemId,
+        $quantity,
+        StateReference $fromState,
+        StateReference $toState,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setLineItemId($lineItemId)
+            ->setQuantity($quantity)
+            ->setFromState($fromState)
+            ->setToState($toState)
+            ;
     }
 }

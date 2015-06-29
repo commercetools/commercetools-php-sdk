@@ -1,6 +1,6 @@
 Feature: I want to update a shippingMethod
   Background:
-    Given a "shippingMethod" is identified by "id" and "version"
+    Given a "shippingMethod" is identified by "id" and version 1
   Scenario: Empty update
     Given i want to update a "shippingMethod"
     Then the path should be "/shipping-methods/id"
@@ -8,7 +8,7 @@ Feature: I want to update a shippingMethod
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
       ]
     }

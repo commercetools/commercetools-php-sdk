@@ -22,4 +22,14 @@ class TaxCategoryCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(TaxCategoriesEndpoint::endpoint(), $taxCategory, $context);
     }
+
+    /**
+     * @param TaxCategoryDraft $taxCategory
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(TaxCategoryDraft $taxCategory, Context $context = null)
+    {
+        return new static($taxCategory, $context);
+    }
 }

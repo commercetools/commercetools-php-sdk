@@ -28,7 +28,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testSizesFileName($size)
     {
-        $image = new Image();
+        $image = Image::of();
         $image->setUrl('test.jpg');
 
         $function = 'get' . ucfirst($size);
@@ -41,7 +41,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testSizesUri($size)
     {
-        $image = new Image();
+        $image = Image::of();
         $image->setUrl('/test/test.jpg');
 
         $function = 'get' . ucfirst($size);
@@ -54,7 +54,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testSizesNoExtension($size)
     {
-        $image = new Image();
+        $image = Image::of();
         $image->setUrl('/test/test');
 
         $function = 'get' . ucfirst($size);
@@ -63,7 +63,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSizeUrl()
     {
-        $image = new Image();
+        $image = Image::of();
         $image->setUrl('/test/test.jpg');
 
         $this->assertEquals('/test/test.jpg', $image->getSizeUrl());

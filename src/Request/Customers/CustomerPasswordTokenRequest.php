@@ -18,7 +18,6 @@ use Sphere\Core\Response\SingleResourceResponse;
  * Class CustomerPasswordTokenRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#create-token-for-resetting-customers-password
- * @method static CustomerPasswordTokenRequest of(string $email)
  */
 class CustomerPasswordTokenRequest extends AbstractApiRequest
 {
@@ -39,6 +38,18 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
     {
         parent::__construct(CustomersEndpoint::endpoint(), $context);
         $this->email = $email;
+    }
+
+    /**
+     * @param string $email
+     * @param Context $context
+     * @return static
+     */
+    public static function ofEmail(
+        $email,
+        Context $context = null
+    ) {
+        return new static($email, $context);
     }
 
     /**

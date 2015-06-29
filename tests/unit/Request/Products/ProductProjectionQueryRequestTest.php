@@ -21,14 +21,14 @@ class ProductProjectionQueryRequestTest extends RequestTestCase
                 ['id' => 'value'],
             ]
         ];
-        $result = $this->mapQueryResult(static::PRODUCT_PROJECTIONS_QUERY_REQUEST, [], $data);
+        $result = $this->mapQueryResult(ProductProjectionQueryRequest::of(), [], $data);
         $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjectionCollection', $result);
         $this->assertCount(3, $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::PRODUCT_PROJECTIONS_QUERY_REQUEST);
+        $result = $this->mapEmptyResult(ProductProjectionQueryRequest::of());
         $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjectionCollection', $result);
     }
 }

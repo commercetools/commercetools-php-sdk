@@ -22,19 +22,19 @@ class ProductProjectionFetchBySkuRequestTest extends RequestTestCase
                 ['id' => 'value'],
             ]
         ];
-        $result = $this->mapQueryResult(static::PRODUCT_PROJECTION_FETCH_BY_SKU_REQUEST, ['sku'], $data);
+        $result = $this->mapQueryResult(ProductProjectionFetchBySkuRequest::ofSku('sku'), $data);
         $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjection', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::PRODUCT_PROJECTION_FETCH_BY_SKU_REQUEST, ['sku']);
+        $result = $this->mapEmptyResult(ProductProjectionFetchBySkuRequest::ofSku('sku'));
         $this->assertNull($result);
     }
 
     public function testHttpRequestMethod()
     {
-        $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SKU_REQUEST, ['sku']);
+        $request = ProductProjectionFetchBySkuRequest::ofSku('sku');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
@@ -42,7 +42,7 @@ class ProductProjectionFetchBySkuRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SKU_REQUEST, ['sku']);
+        $request = ProductProjectionFetchBySkuRequest::ofSku('sku');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(
@@ -53,7 +53,7 @@ class ProductProjectionFetchBySkuRequestTest extends RequestTestCase
 
     public function testHttpRequestObject()
     {
-        $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SKU_REQUEST, ['sku']);
+        $request = ProductProjectionFetchBySkuRequest::ofSku('sku');
         $httpRequest = $request->httpRequest();
 
         $this->assertEmpty((string)$httpRequest->getBody());

@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
@@ -27,11 +28,22 @@ class CartAddDiscountCodeAction extends AbstractAction
     }
 
     /**
-     * @param $code
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($code)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('addDiscountCode');
-        $this->setCode($code);
+    }
+
+    /**
+     * @param string $code
+     * @param Context|callable $context
+     * @return CartAddDiscountCodeAction
+     */
+    public static function ofCode($code, $context = null)
+    {
+        return static::of($context)->setCode($code);
     }
 }

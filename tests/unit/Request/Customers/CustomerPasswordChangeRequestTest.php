@@ -19,7 +19,7 @@ class CustomerPasswordChangeRequestTest extends RequestTestCase
 
     public function testHttpRequestMethod()
     {
-        $request = $this->getRequest(static::CUSTOMER_PASSWORD_REQUEST, ['customerId', 1, 'currentPW', 'newPW']);
+        $request = CustomerPasswordChangeRequest::ofIdVersionAndPasswords('customerId', 1, 'currentPW', 'newPW');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
@@ -27,7 +27,7 @@ class CustomerPasswordChangeRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = $this->getRequest(static::CUSTOMER_PASSWORD_REQUEST, ['customerId', 1, 'currentPW', 'newPW']);
+        $request = CustomerPasswordChangeRequest::ofIdVersionAndPasswords('customerId', 1, 'currentPW', 'newPW');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('/customers/password', (string)$httpRequest->getUri());
@@ -35,7 +35,7 @@ class CustomerPasswordChangeRequestTest extends RequestTestCase
 
     public function testHttpRequestObject()
     {
-        $request = $this->getRequest(static::CUSTOMER_PASSWORD_REQUEST, ['customerId', 1, 'currentPW', 'newPW']);
+        $request = CustomerPasswordChangeRequest::ofIdVersionAndPasswords('customerId', 1, 'currentPW', 'newPW');
         $httpRequest = $request->httpRequest();
 
         $this->assertJsonStringEqualsJsonString(

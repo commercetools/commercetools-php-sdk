@@ -32,13 +32,13 @@ class TaxCategoryCreateRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::TAX_CATEGORY_CREATE_REQUEST, [$this->getTaxCategory()]);
+        $result = $this->mapResult(TaxCategoryCreateRequest::ofDraft($this->getTaxCategory()));
         $this->assertInstanceOf('\Sphere\Core\Model\TaxCategory\TaxCategory', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::TAX_CATEGORY_CREATE_REQUEST, [$this->getTaxCategory()]);
+        $result = $this->mapEmptyResult(TaxCategoryCreateRequest::ofDraft($this->getTaxCategory()));
         $this->assertNull($result);
     }
 }

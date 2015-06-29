@@ -13,7 +13,6 @@ use Sphere\Core\Request\AbstractUpdateRequest;
  * Class CartUpdateRequest
  * @package Sphere\Core\Request\Carts
  * @link http://dev.sphere.io/http-api-projects-carts.html#update-cart
- * @method static CartUpdateRequest of(string $id, int $version, array $actions = [])
  */
 class CartUpdateRequest extends AbstractUpdateRequest
 {
@@ -28,5 +27,16 @@ class CartUpdateRequest extends AbstractUpdateRequest
     public function __construct($id, $version, array $actions = [], Context $context = null)
     {
         parent::__construct(CartsEndpoint::endpoint(), $id, $version, $actions, $context);
+    }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdAndVersion($id, $version, Context $context = null)
+    {
+        return new static($id, $version, [], $context);
     }
 }

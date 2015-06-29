@@ -22,4 +22,14 @@ class CustomerGroupCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(CustomerGroupsEndpoint::endpoint(), $customerGroup, $context);
     }
+
+    /**
+     * @param CustomerGroupDraft $customerGroup
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(CustomerGroupDraft $customerGroup, Context $context = null)
+    {
+        return new static($customerGroup, $context);
+    }
 }

@@ -19,20 +19,20 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::ORDER_CREATE_REQUEST, ['12345', 1]);
+        $result = $this->mapResult(OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1));
         $this->assertInstanceOf('\Sphere\Core\Model\Order\Order', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::ORDER_CREATE_REQUEST, ['12345', 1]);
+        $result = $this->mapEmptyResult(OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1));
         $this->assertNull($result);
     }
 
     public function testBuildResponse()
     {
         $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
-        $request = $this->getRequest(static::ORDER_CREATE_REQUEST, ['12345', 1]);
+        $request = OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1);
         $response = $request->buildResponse($guzzleResponse);
 
         $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
@@ -40,7 +40,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
 
     public function testHttpRequestMethod()
     {
-        $request = $this->getRequest(static::ORDER_CREATE_REQUEST, ['12345', 1]);
+        $request = OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1);
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
@@ -48,7 +48,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = $this->getRequest(static::ORDER_CREATE_REQUEST, ['12345', 1]);
+        $request = OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1);
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('/orders', (string)$httpRequest->getUri());
@@ -59,7 +59,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
         /**
          * @var OrderCreateFromCartRequest $request
          */
-        $request = $this->getRequest(static::ORDER_CREATE_REQUEST, ['12345', 1]);
+        $request = OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1);
         $request->setOrderNumber('12345678')
             ->setPaymentState('paid');
 

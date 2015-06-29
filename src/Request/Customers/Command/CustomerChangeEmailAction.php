@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Customers\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
@@ -27,11 +28,23 @@ class CustomerChangeEmailAction extends AbstractAction
     }
 
     /**
-     * @param string $email
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($email)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('changeEmail');
-        $this->setEmail($email);
+    }
+
+
+    /**
+     * @param $email
+     * @param Context|callable $context
+     * @return CustomerChangeEmailAction
+     */
+    public static function ofEmail($email, $context = null)
+    {
+        return static::of($context)->setEmail($email);
     }
 }

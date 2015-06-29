@@ -1,6 +1,6 @@
 Feature: I want to update a customer group
   Background:
-    Given a "customerGroup" is identified by "id" and "version"
+    Given a "customerGroup" is identified by "id" and version 1
   Scenario: Empty update
     Given i want to update a "customerGroup"
     Then the path should be "/customer-groups/id"
@@ -8,7 +8,7 @@ Feature: I want to update a customer group
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
       ]
     }

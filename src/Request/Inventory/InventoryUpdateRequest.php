@@ -28,4 +28,15 @@ class InventoryUpdateRequest extends AbstractUpdateRequest
     {
         parent::__construct(InventoryEndpoint::endpoint(), $id, $version, $actions, $context);
     }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdAndVersion($id, $version, Context $context = null)
+    {
+        return new static($id, $version, [], $context);
+    }
 }

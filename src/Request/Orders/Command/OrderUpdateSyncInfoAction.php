@@ -26,14 +26,13 @@ use Sphere\Core\Model\Common\DateTimeDecorator;
 class OrderUpdateSyncInfoAction extends AbstractAction
 {
     /**
-     * @param ChannelReference $channel
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(ChannelReference $channel, Context $context = null)
+    public function __construct(array $data = [], $context = null)
     {
-        $this->setContext($context)
-            ->setAction('updateSyncInfo')
-            ->setChannel($channel);
+        parent::__construct($data, $context);
+        $this->setAction('updateSyncInfo');
     }
 
     public function getFields()
@@ -47,5 +46,15 @@ class OrderUpdateSyncInfoAction extends AbstractAction
                 static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
             ]
         ];
+    }
+
+    /**
+     * @param ChannelReference $channel
+     * @param Context|callable $context
+     * @return OrderUpdateSyncInfoAction
+     */
+    public static function ofChannel(ChannelReference $channel, $context = null)
+    {
+        return static::of($context)->setChannel($channel);
     }
 }

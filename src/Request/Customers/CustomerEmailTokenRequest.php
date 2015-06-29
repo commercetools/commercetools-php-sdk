@@ -17,7 +17,6 @@ use Sphere\Core\Response\SingleResourceResponse;
  * Class CustomerEmailTokenRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#create-token-for-verifying-customers-email
- * @method static CustomerEmailTokenRequest of(string $id, int $version, int $ttlMinutes)
  */
 class CustomerEmailTokenRequest extends AbstractUpdateRequest
 {
@@ -43,6 +42,18 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
         $this->setId($id);
         $this->setVersion($version);
         $this->ttlMinutes = $ttlMinutes;
+    }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param int $ttlMinutes
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdVersionAndTtl($id, $version, $ttlMinutes, Context $context = null)
+    {
+        return new static($id, $version, $ttlMinutes, $context);
     }
 
     /**

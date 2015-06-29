@@ -118,13 +118,13 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testGetFields()
     {
-        $obj = new JsonObject();
+        $obj = JsonObject::of();
         $this->assertSame([], $obj->getFields());
     }
 
     public function testConstruct()
     {
-        $obj = new JsonObject(['key' => 'value']);
+        $obj = JsonObject::fromArray(['key' => 'value']);
         $this->assertSame(['key' => 'value'], $obj->toArray());
     }
 
@@ -211,7 +211,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testContextInheritance()
     {
-        $obj = new ProductTypeDraft('test', 'test');
+        $obj = ProductTypeDraft::ofNameAndDescription('test', 'test');
         $obj->getAttributes()->add(AttributeDefinition::of()->setName('test'));
         $context = $obj->getContext();
         $contextChild = $obj->getAttributes()->getAt(0)->getContext();

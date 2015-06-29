@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 use Sphere\Core\Model\Channel\ChannelReference;
 
@@ -39,13 +40,22 @@ class CartAddLineItemAction extends AbstractAction
     /**
      * @param string $productId
      * @param string $variantId
+     * @param Context|callable $context
      * @param int $quantity
+     * @return CartAddLineItemAction
      */
-    public function __construct($productId, $variantId, $quantity)
+    public static function ofProductIdVariantIdAndQuantity($productId, $variantId, $quantity, $context = null)
     {
+        return static::of($context)->setProductId($productId)->setVariantId($variantId)->setQuantity($quantity);
+    }
+
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
         $this->setAction('addLineItem');
-        $this->setProductId($productId);
-        $this->setVariantId($variantId);
-        $this->setQuantity($quantity);
     }
 }

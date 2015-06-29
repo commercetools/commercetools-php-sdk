@@ -13,6 +13,7 @@ use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
@@ -81,6 +82,9 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     public function addAction($action)
     {
         $this->actions[] = $action;
+        if ($action instanceof ContextAwareInterface) {
+            $action->setContextIfNull($this->getContextCallback());
+        }
         $this->logUpdateActionLimit();
 
         return $this;

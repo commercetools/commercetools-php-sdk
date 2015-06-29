@@ -26,4 +26,14 @@ class ChannelFetchByIdRequest extends AbstractFetchByIdRequest
     {
         parent::__construct(ChannelsEndpoint::endpoint(), $id, $context);
     }
+
+    /**
+     * @param string $id
+     * @param Context $context
+     * @return static
+     */
+    public static function ofId($id, Context $context = null)
+    {
+        return new static($id, $context);
+    }
 }

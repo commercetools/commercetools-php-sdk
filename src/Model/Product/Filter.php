@@ -6,7 +6,6 @@
 namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class Filter
@@ -17,20 +16,25 @@ use Sphere\Core\Model\Common\OfTrait;
  * @method Filter setAlias(string $alias = null)
  * @method string getName()
  * @method Filter setName(string $name = null)
- * @method static Filter of()
  */
 class Filter extends JsonObject
 {
-    use OfTrait;
+    const DEFAULT_TYPE = 'string';
 
-    protected $valueType;
+    protected $valueType = self::DEFAULT_TYPE;
 
-    public function __construct($valueType = null)
+    /**
+     * @param string $valueType
+     * @return static
+     */
+    public static function ofType($valueType = null)
     {
-        if (is_null($valueType)) {
-            $valueType = 'string';
+        $filter = static::of();
+        if (!is_null($valueType)) {
+            $filter->valueType = $valueType;
         }
-        $this->valueType = $valueType;
+
+        return $filter;
     }
 
     public function getFields()

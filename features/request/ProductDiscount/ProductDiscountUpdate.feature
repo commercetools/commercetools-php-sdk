@@ -1,6 +1,6 @@
 Feature: I want to update a product discount
   Background:
-    Given a "productDiscount" is identified by "id" and "version"
+    Given a "productDiscount" is identified by "id" and version 1
   Scenario: Empty update
     Given i want to update a "productDiscount"
     Then the path should be "/product-discounts/id"
@@ -8,7 +8,7 @@ Feature: I want to update a product discount
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
       ]
     }

@@ -15,7 +15,6 @@ use Sphere\Core\Model\Common\OfTrait;
  * Class CategoryDraft
  * @package Sphere\Core\Model\Category
  * @link http://dev.sphere.io/http-api-projects-categories.html#create-category
- * @method static CategoryDraft of(LocalizedString $name, LocalizedString $slug)
  * @method LocalizedString getName()
  * @method LocalizedString getSlug()
  * @method LocalizedString getDescription()
@@ -31,8 +30,6 @@ use Sphere\Core\Model\Common\OfTrait;
  */
 class CategoryDraft extends JsonObject
 {
-    use OfTrait;
-
     public function getFields()
     {
         return [
@@ -49,28 +46,11 @@ class CategoryDraft extends JsonObject
      * @param LocalizedString $name
      * @param LocalizedString $slug
      * @param Context|callable $context
+     * @return CategoryDraft
      */
-    public function __construct(LocalizedString $name, LocalizedString $slug, $context = null)
+    public static function ofNameAndSlug(LocalizedString $name, LocalizedString $slug, $context = null)
     {
-        $this->setContext($context)
-            ->setName($name)
-            ->setSlug($slug);
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $draft = new static(
-            LocalizedString::fromArray($data['name'], $context),
-            LocalizedString::fromArray($data['slug'], $context),
-            $context
-        );
-        $draft->setRawData($data);
-
-        return $draft;
+        $draft = static::of($context);
+        return $draft->setName($name)->setSlug($slug);
     }
 }

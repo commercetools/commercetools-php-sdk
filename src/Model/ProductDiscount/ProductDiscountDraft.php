@@ -46,8 +46,9 @@ class ProductDiscountDraft extends JsonObject
      * @param string $sortOrder
      * @param bool $isActive
      * @param Context|callable $context
+     * @return ProductDiscountDraft
      */
-    public function __construct(
+    public static function ofNameDiscountPredicateOrderAndActive(
         LocalizedString $name,
         ProductDiscountValue $value,
         $predicate,
@@ -55,32 +56,12 @@ class ProductDiscountDraft extends JsonObject
         $isActive,
         $context = null
     ) {
-        $this->setContext($context)
+        return static::of($context)
             ->setName($name)
             ->setValue($value)
             ->setPredicate($predicate)
             ->setSortOrder($sortOrder)
             ->setIsActive($isActive)
         ;
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $draft = new static(
-            LocalizedString::fromArray($data['name'], $context),
-            ProductDiscountValue::fromArray($data['value'], $context),
-            $data['predicate'],
-            $data['sortOrder'],
-            $data['isActive'],
-            $context
-        );
-        $draft->setRawData($data);
-
-        return $draft;
     }
 }

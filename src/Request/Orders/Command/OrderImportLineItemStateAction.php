@@ -23,16 +23,13 @@ use Sphere\Core\Request\AbstractAction;
 class OrderImportLineItemStateAction extends AbstractAction
 {
     /**
-     * @param string $lineItemId
-     * @param ItemStateCollection $state
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($lineItemId, ItemStateCollection $state, Context $context = null)
+    public function __construct(array $data = [], $context = null)
     {
-        $this->setContext($context)
-            ->setAction('importLineItemState')
-            ->setLineItemId($lineItemId)
-            ->setState($state);
+        parent::__construct($data, $context);
+        $this->setAction('importLineItemState');
     }
 
     public function getFields()
@@ -42,5 +39,16 @@ class OrderImportLineItemStateAction extends AbstractAction
             'lineItemId' => [static::TYPE => 'string'],
             'state' => [static::TYPE => '\Sphere\Core\Model\Order\ItemStateCollection']
         ];
+    }
+
+    /**
+     * @param string $lineItemId
+     * @param ItemStateCollection $state
+     * @param Context|callable $context
+     * @return OrderImportCustomLineItemStateAction
+     */
+    public static function ofLineItemIdAndState($lineItemId, ItemStateCollection $state, $context = null)
+    {
+        return static::of($context)->setLineItemId($lineItemId)->setState($state);
     }
 }

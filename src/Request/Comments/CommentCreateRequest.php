@@ -22,4 +22,14 @@ class CommentCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(CommentsEndpoint::endpoint(), $comment, $context);
     }
+
+    /**
+     * @param CommentDraft $comment
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(CommentDraft $comment, Context $context = null)
+    {
+        return new static($comment, $context);
+    }
 }

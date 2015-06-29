@@ -25,9 +25,9 @@ class QueryCategoriesTest extends ApiTestCase
      */
     protected function getDraft($name, $slug)
     {
-        $draft = CategoryDraft::of(
-            LocalizedString::of(['en' => $name]),
-            LocalizedString::of(['en' => $slug])
+        $draft = CategoryDraft::ofNameAndSlug(
+            LocalizedString::fromArray(['en' => $name]),
+            LocalizedString::fromArray(['en' => $slug])
         );
 
         return $draft;
@@ -39,9 +39,12 @@ class QueryCategoriesTest extends ApiTestCase
          * @var Category $category
          */
         $category = $this->getClient()
-            ->execute(CategoryCreateRequest::of($draft))
+            ->execute(CategoryCreateRequest::ofDraft($draft))
             ->toObject();
-        $this->cleanupRequests[] = CategoryDeleteByIdRequest::of($category->getId(), $category->getVersion());
+        $this->cleanupRequests[] = CategoryDeleteByIdRequest::ofIdAndVersion(
+            $category->getId(),
+            $category->getVersion()
+        );
 
         return $category;
     }
@@ -86,7 +89,7 @@ class QueryCategoriesTest extends ApiTestCase
         $parent = $this->createCategory($this->getDraft('parentCategory', 'parent-category'));
         $child = $this->createCategory(
             $this->getDraft('childCategory', 'child-category')
-                ->setParent(CategoryReference::of($parent->getId()))
+                ->setParent(CategoryReference::ofId($parent->getId()))
         );
 
         $this->assertSame('childCategory', $child->getName()->en);
@@ -114,22 +117,22 @@ class QueryCategoriesTest extends ApiTestCase
         $level1 = $this->createCategory($this->getDraft('level1', 'level1'));
         $level2 = $this->createCategory(
             $this->getDraft('level2', 'level2')
-                ->setParent(CategoryReference::of($level1->getId()))
+                ->setParent(CategoryReference::ofId($level1->getId()))
         );
         $level3 = $this->createCategory(
             $this->getDraft('level3', 'level3')
-                ->setParent(CategoryReference::of($level2->getId()))
+                ->setParent(CategoryReference::ofId($level2->getId()))
         );
         $level4 = $this->createCategory(
             $this->getDraft('level4', 'level4')
-                ->setParent(CategoryReference::of($level3->getId()))
+                ->setParent(CategoryReference::ofId($level3->getId()))
         );
 
         /**
          * @var Category $result
          */
         $result = $this->getClient()->execute(
-            CategoryFetchByIdRequest::of($level4->getId())->expand('ancestors[*].ancestors[*]')
+            CategoryFetchByIdRequest::ofId($level4->getId())->expand('ancestors[*].ancestors[*]')
         )->toObject();
 
         $this->assertCount(3, $result->getAncestors());
@@ -154,14 +157,14 @@ class QueryCategoriesTest extends ApiTestCase
         $level1 = $this->createCategory($this->getDraft('level1', 'level1'));
         $level2 = $this->createCategory(
             $this->getDraft('level2', 'level2')
-                ->setParent(CategoryReference::of($level1->getId()))
+                ->setParent(CategoryReference::ofId($level1->getId()))
         );
 
         /**
          * @var Category $result
          */
         $result = $this->getClient()->execute(
-            CategoryFetchByIdRequest::of($level2->getId())->expand('parent')
+            CategoryFetchByIdRequest::ofId($level2->getId())->expand('parent')
         )->toObject();
         $this->assertSame($level1->getId(), $result->getParent()->getObj()->getId());
     }

@@ -22,4 +22,14 @@ class ShippingMethodCreateRequest extends AbstractCreateRequest
     {
         parent::__construct(ShippingMethodsEndpoint::endpoint(), $shippingMethod, $context);
     }
+
+    /**
+     * @param ShippingMethodDraft $shippingMethod
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(ShippingMethodDraft $shippingMethod, Context $context = null)
+    {
+        return new static($shippingMethod, $context);
+    }
 }

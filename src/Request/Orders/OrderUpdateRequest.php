@@ -28,4 +28,15 @@ class OrderUpdateRequest extends AbstractUpdateRequest
     {
         parent::__construct(OrdersEndpoint::endpoint(), $id, $version, $actions, $context);
     }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdAndVersion($id, $version, Context $context = null)
+    {
+        return new static($id, $version, [], $context);
+    }
 }
