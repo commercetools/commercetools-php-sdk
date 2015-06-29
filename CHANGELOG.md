@@ -1,5 +1,3 @@
-# SPHERE.IO PHP SDK Changelog
-
 ### 1.0.0 Milestone 3
 Major refactoring of the http client handling. Sphere client uses now PSR http messages for internal request and response representation and ships with a guzzle5 and guzzle6 http client adapter which will be automatically used. It's also possible to register new http client adapters implementing Sphere\Core\Client\Adapter\AdapterInterface
 

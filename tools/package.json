@@ -1,6 +1,6 @@
 {
   "name": "sphere-php-sdk",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "Sphere PHP SDK",
   "homepage": "https://github.com/sphereio/sphere-php-sdk",
   "bugs": "https://github.com/sphereio/sphere-php-sdk/issues",
