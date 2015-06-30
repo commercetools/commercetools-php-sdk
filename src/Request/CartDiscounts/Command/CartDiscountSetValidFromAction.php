@@ -12,7 +12,7 @@ use Sphere\Core\Model\Common\DateTimeDecorator;
 /**
  * Class CartDiscountSetValidFromAction
  * @package Sphere\Core\Request\CartDiscounts\Command
- * 
+ *  *
  * @method string getAction()
  * @method CartDiscountSetValidFromAction setAction(string $action = null)
  * @method DateTimeDecorator getValidFrom()
@@ -39,15 +39,5 @@ class CartDiscountSetValidFromAction extends AbstractAction
     {
         parent::__construct($data, $context);
         $this->setAction('setValidFrom');
-    }
-
-    /**
-     * @param \DateTime $validFrom
-     * @param Context|callable $context
-     * @return CartDiscountSetValidFromAction
-     */
-    public static function ofValidFrom($validFrom, $context = null)
-    {
-        return static::of($context)->setValidFrom($validFrom);
     }
 }

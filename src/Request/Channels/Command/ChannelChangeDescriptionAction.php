@@ -12,7 +12,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class ChannelChangeDescriptionAction
  * @package Sphere\Core\Request\Channels\Command
- * 
+ *  *
  * @method string getAction()
  * @method ChannelChangeDescriptionAction setAction(string $action = null)
  * @method LocalizedString getDescription()
@@ -39,7 +39,7 @@ class ChannelChangeDescriptionAction extends AbstractAction
     }
 
     /**
-     * @param LocalizedString $name
+     * @param LocalizedString $description
      * @param Context|callable $context
      * @return ChannelChangeDescriptionAction
      */

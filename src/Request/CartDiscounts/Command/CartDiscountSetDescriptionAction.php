@@ -37,14 +37,4 @@ class CartDiscountSetDescriptionAction extends AbstractAction
         parent::__construct($data, $context);
         $this->setAction('setDescription');
     }
-
-    /**
-     * @param LocalizedString $description
-     * @param Context|callable $context
-     * @return CartDiscountSetDescriptionAction
-     */
-    public static function ofDescription(LocalizedString $description, $context = null)
-    {
-        return static::of($context)->setDescription($description);
-    }
 }

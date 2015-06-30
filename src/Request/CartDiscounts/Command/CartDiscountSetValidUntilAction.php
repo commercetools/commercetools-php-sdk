@@ -40,14 +40,4 @@ class CartDiscountSetValidUntilAction extends AbstractAction
         parent::__construct($data, $context);
         $this->setAction('setValidUntil');
     }
-
-    /**
-     * @param \DateTime $validUntil
-     * @param Context|callable $context
-     * @return CartDiscountSetValidUntilAction
-     */
-    public static function ofValidUntil($validUntil, $context = null)
-    {
-        return static::of($context)->setValidUntil($validUntil);
-    }
 }
