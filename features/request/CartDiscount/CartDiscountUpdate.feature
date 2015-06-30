@@ -29,7 +29,7 @@ Feature: I want to update a cart discount
       }
     }
     """
-    Then the path should be "/cart-discounts/id"
+    Then the path should be "cart-discounts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -60,7 +60,7 @@ Feature: I want to update a cart discount
       "cartPredicate": "cart.value > 100"
     }
     """
-    Then the path should be "/cart-discounts/id"
+    Then the path should be "cart-discounts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -85,7 +85,7 @@ Feature: I want to update a cart discount
       "target": "LineItems"
     }
     """
-    Then the path should be "/cart-discounts/id"
+    Then the path should be "cart-discounts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -110,7 +110,7 @@ Feature: I want to update a cart discount
       "isActive": true
     }
     """
-    Then the path should be "/cart-discounts/id"
+    Then the path should be "cart-discounts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -137,7 +137,7 @@ Feature: I want to update a cart discount
       }
     }
     """
-    Then the path should be "/cart-discounts/id"
+    Then the path should be "cart-discounts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -166,7 +166,7 @@ Feature: I want to update a cart discount
       }
     }
     """
-    Then the path should be "/cart-discounts/id"
+    Then the path should be "cart-discounts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -193,7 +193,7 @@ Feature: I want to update a cart discount
       "sortOrder": "0.1"
     }
     """
-    Then the path should be "/cart-discounts/id"
+    Then the path should be "cart-discounts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -218,7 +218,7 @@ Feature: I want to update a cart discount
       "requiresDiscountCode": true
     }
     """
-    Then the path should be "/cart-discounts/id"
+    Then the path should be "cart-discounts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -243,7 +243,7 @@ Feature: I want to update a cart discount
       "validFrom": "2015-01-15"
     }
     """
-    Then the path should be "/cart-discounts/id"
+    Then the path should be "cart-discounts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -268,7 +268,7 @@ Feature: I want to update a cart discount
       "validUntil": "2015-01-15"
     }
     """
-    Then the path should be "/cart-discounts/id"
+    Then the path should be "cart-discounts/id"
     And the method should be "POST"
     And the request should be
     """
