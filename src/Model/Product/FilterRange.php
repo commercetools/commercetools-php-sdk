@@ -20,7 +20,13 @@ class FilterRange extends JsonObject
 {
     const DEFAULT_TYPE = 'int';
 
-    protected $valueType = self::DEFAULT_TYPE;
+    protected $valueType;
+
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->valueType = static::DEFAULT_TYPE;
+    }
 
     public function getFields()
     {
