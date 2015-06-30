@@ -1,7 +1,6 @@
 Feature: I want to update a comment
-  Background:
-    Given a "comment" is identified by "id" and version 1
   Scenario: Empty update
+    Given a "comment" is identified by "id" and version 1
     Given i want to update a "comment"
     Then the path should be "comments/id"
     And the method should be "POST"
