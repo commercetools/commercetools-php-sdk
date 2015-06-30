@@ -5,7 +5,7 @@ Feature: I want to create custom objects
     And set the key to "myKey"
     And set the value to "myValue"
     When i want to create a "customObject"
-    Then the path should be "/custom-objects"
+    Then the path should be "custom-objects"
     And the method should be "POST"
     And the request should be
     """
@@ -23,7 +23,7 @@ Feature: I want to create custom objects
     And set the value to "myValue"
     And set the version to 1 as int
     When i want to create a "customObject"
-    Then the path should be "/custom-objects"
+    Then the path should be "custom-objects"
     And the method should be "POST"
     And the request should be
     """

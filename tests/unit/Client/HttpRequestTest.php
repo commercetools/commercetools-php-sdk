@@ -6,11 +6,11 @@
 
 namespace Sphere\Core\Client;
 
-class RequestTest extends \PHPUnit_Framework_TestCase
+class HttpRequestTest extends \PHPUnit_Framework_TestCase
 {
     public function testPath()
     {
-        $this->assertSame('/test', (string)$this->getRequest()->getUri());
+        $this->assertSame('test', (string)$this->getRequest()->getUri());
     }
 
     public function testMethod()

@@ -3,7 +3,7 @@ Feature: I want to update a product discount
     Given a "productDiscount" is identified by "id" and "version"
   Scenario: Empty update
     Given i want to update a "productDiscount"
-    Then the path should be "/product-discounts/id"
+    Then the path should be "product-discounts/id"
     And the method should be "POST"
     And the request should be
     """

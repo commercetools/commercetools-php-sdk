@@ -50,7 +50,7 @@ class AbstractDeleteByIdRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_DELETE_REQUEST, ['id', 'version']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/test/id?version=version', (string)$httpRequest->getUri());
+        $this->assertSame('test/id?version=version', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -58,7 +58,7 @@ class AbstractDeleteByIdRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_DELETE_REQUEST, ['id', 'version']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/test/id?version=version', (string)$httpRequest->getUri());
+        $this->assertSame('test/id?version=version', (string)$httpRequest->getUri());
     }
 
     public function testBuildResponse()

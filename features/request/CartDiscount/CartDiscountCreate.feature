@@ -23,7 +23,7 @@ Feature: I want to create a new tax category
 
   Scenario: create a category
     When i want to create a "cartDiscount"
-    Then the path should be "/cart-discounts"
+    Then the path should be "cart-discounts"
     And the method should be "POST"
     And the request should be
     """

@@ -244,7 +244,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $record = current($handler->getRecords());
 
         $this->assertTrue($handler->hasInfo($record));
-        $this->assertSame('/project/test/id', (string)$record['context']['request']->getUri());
+        $this->assertSame('test/id', (string)$record['context']['request']->getUri());
     }
 
     public function testBatch()
@@ -293,7 +293,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $logEntry = $handler->getRecords()[1];
         $this->assertSame(Logger::WARNING, $logEntry['level']);
         $this->assertSame(
-            'Call "/project/test/id" with method "GET" is deprecated: "Deprecated"',
+            'Call "test/id" with method "GET" is deprecated: "Deprecated"',
             (string)$logEntry['message']
         );
     }
@@ -409,7 +409,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $logEntry = $handler->getRecords()[1];
         $this->assertSame(Logger::WARNING, $logEntry['level']);
         $this->assertSame(
-            'Call "/project/test/id" with method "GET" is deprecated: "Deprecated"',
+            'Call "test/id" with method "GET" is deprecated: "Deprecated"',
             $logEntry['message']
         );
     }

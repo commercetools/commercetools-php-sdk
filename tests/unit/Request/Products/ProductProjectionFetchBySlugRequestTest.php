@@ -74,7 +74,7 @@ class ProductProjectionFetchBySlugRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(
-            '/product-projections?limit=1&where=slug%28en%3D%22slug%22%29',
+            'product-projections?limit=1&where=slug%28en%3D%22slug%22%29',
             (string)$httpRequest->getUri()
         );
     }
@@ -88,7 +88,7 @@ class ProductProjectionFetchBySlugRequestTest extends RequestTestCase
         $request = $this->getRequest(static::PRODUCT_PROJECTION_FETCH_BY_SLUG_REQUEST, $args);
         $httpRequest = $request->httpRequest();
 
-        $queryUri = '/product-projections?limit=1&where=slug%28en%3D%2212345678-1234-1234-1234-123456789012%22%29+or' .
+        $queryUri = 'product-projections?limit=1&where=slug%28en%3D%2212345678-1234-1234-1234-123456789012%22%29+or' .
             '+id%3D%2212345678-1234-1234-1234-123456789012%22';
         $this->assertSame($queryUri, (string)$httpRequest->getUri());
     }

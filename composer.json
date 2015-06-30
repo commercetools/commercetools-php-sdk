@@ -25,7 +25,7 @@
         "php": ">=5.4",
         "psr/log": "^1.0",
         "guzzlehttp/guzzle": "^5.0 || ^6.0",
-        "guzzlehttp/psr7": "^1.0",
+        "guzzlehttp/psr7": "^1.1",
         "pimple/pimple": "^3.0"
     },
     "require-dev": {

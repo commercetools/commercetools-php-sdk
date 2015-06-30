@@ -26,7 +26,7 @@ class CustomerFetchByTokenRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOMER_FETCH_BY_TOKEN_REQUEST, ['myToken']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/customers?token=myToken', (string)$httpRequest->getUri());
+        $this->assertSame('customers?token=myToken', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()

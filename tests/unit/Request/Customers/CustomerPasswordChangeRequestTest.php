@@ -30,7 +30,7 @@ class CustomerPasswordChangeRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOMER_PASSWORD_REQUEST, ['customerId', 1, 'currentPW', 'newPW']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/customers/password', (string)$httpRequest->getUri());
+        $this->assertSame('customers/password', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()

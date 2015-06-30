@@ -35,7 +35,7 @@ class AbstractCreateRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_CREATE_REQUEST, [['key' => 'value']]);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/test', (string)$httpRequest->getUri());
+        $this->assertSame('test', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()

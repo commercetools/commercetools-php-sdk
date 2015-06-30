@@ -144,9 +144,9 @@ class Client extends AbstractHttpClient
         $token = $this->getOAuthManager()->getToken();
 
         $httpRequest = $request->httpRequest();
-        $uri = $httpRequest->getUri()->withPath($this->getConfig()->getProject() . $httpRequest->getUri()->getPath());
+//        $uri = $httpRequest->getUri()->withPath($this->getConfig()->getProject() . $httpRequest->getUri()->getPath());
         $httpRequest = $httpRequest
-            ->withUri($uri)
+//            ->withUri($uri)
             ->withHeader('Authorization', 'Bearer ' . $token->getToken())
         ;
         return $httpRequest;
