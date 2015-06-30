@@ -30,7 +30,7 @@ class CustomerEmailConfirmRequestTest extends RequestTestCase
         $request = $this->getRequest(static::CUSTOMER_EMAIL_CONFIRM_REQUEST, ['customerId', 1, 'token']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/customers/email/confirm', (string)$httpRequest->getUri());
+        $this->assertSame('customers/email/confirm', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()

@@ -14,7 +14,7 @@ Feature: I want to send a Product Update Request
     Given i want to "changeName" of "product"
     And the "name" is "newProduct" in "en"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -35,7 +35,7 @@ Feature: I want to send a Product Update Request
     Given i want to "setDescription" of "product"
     And the "description" is "newDescription" in "en"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -56,7 +56,7 @@ Feature: I want to send a Product Update Request
     Given i want to "changeSlug" of "product"
     And the "slug" is "newSlug" in "en"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -77,7 +77,7 @@ Feature: I want to send a Product Update Request
     Given i want to "addVariant" of "product"
     And set the "sku" to "variantSKU"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -97,7 +97,7 @@ Feature: I want to send a Product Update Request
     And set the "sku" to "variantSKU"
     And set the "prices" object to "prices"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -125,7 +125,7 @@ Feature: I want to send a Product Update Request
     Given i want to "removeVariant" of "product"
     And the "id" is "1" as "int"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -146,7 +146,7 @@ Feature: I want to send a Product Update Request
     And set the "metaDescription" to "metaDescription" in "en"
     And set the "metaKeywords" to "metaKeywords" in "en"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -173,7 +173,7 @@ Feature: I want to send a Product Update Request
     Given i want to "setMetaTitle" of "product"
     And set the "metaTitle" to "metaTitle" in "en"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -194,7 +194,7 @@ Feature: I want to send a Product Update Request
     Given i want to "setMetaDescription" of "product"
     And set the "metaDescription" to "metaDescription" in "en"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -215,7 +215,7 @@ Feature: I want to send a Product Update Request
     Given i want to "setMetaKeywords" of "product"
     And set the "metaKeywords" to "metaKeywords" in "en"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -237,7 +237,7 @@ Feature: I want to send a Product Update Request
     And the "variantId" is "1" as "int"
     And the "price" is "price" object
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -269,7 +269,7 @@ Feature: I want to send a Product Update Request
     And the "variantId" is "1" as "int"
     And the "price" is "periodPrice" object
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -298,7 +298,7 @@ Feature: I want to send a Product Update Request
     And the "priceId" is "1" as "int"
     And the "price" is "price" object
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -325,7 +325,7 @@ Feature: I want to send a Product Update Request
     And the "priceId" is "1" as "int"
     And the "price" is "price" object
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -346,7 +346,7 @@ Feature: I want to send a Product Update Request
     And the "name" is "myAttribute"
     And set the "value" to "newValue"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -368,7 +368,7 @@ Feature: I want to send a Product Update Request
     And the "name" is "myAttribute"
     And set the "value" to "newValue"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -388,7 +388,7 @@ Feature: I want to send a Product Update Request
     Given i want to "addToCategory" of "product"
     And the "category" reference "category" is "myCategory"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -410,7 +410,7 @@ Feature: I want to send a Product Update Request
     Given i want to "removeFromCategory" of "product"
     And the "category" reference "category" is "myCategory"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -432,7 +432,7 @@ Feature: I want to send a Product Update Request
     Given i want to "setTaxCategory" of "product"
     And set the "taxCategory" reference "taxCategory" to "myTaxCategory"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -456,7 +456,7 @@ Feature: I want to send a Product Update Request
     And the "variantId" is "1" as "int"
     And set the "sku" to "mySKU"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -497,7 +497,7 @@ Feature: I want to send a Product Update Request
     Given i want to "setSearchKeywords" of "product"
     And the searchKeywords is keywords object
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -539,7 +539,7 @@ Feature: I want to send a Product Update Request
   Scenario:
     Given i want to "revertStagedChanges" of "product"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -556,7 +556,7 @@ Feature: I want to send a Product Update Request
   Scenario:
     Given i want to "publish" of "product"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -573,7 +573,7 @@ Feature: I want to send a Product Update Request
   Scenario:
     Given i want to "unpublish" of "product"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -599,7 +599,7 @@ Feature: I want to send a Product Update Request
     And the variantId is 1 as int
     And the image is extImage object
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -627,7 +627,7 @@ Feature: I want to send a Product Update Request
     And the variantId is 1 as int
     And the imageUrl is "http://mycompany.com/image.jpg"
     When i want to update a "Product"
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """

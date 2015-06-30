@@ -5,7 +5,7 @@ Feature: I want to create a new order
     Given i want to create a "order" from "cart"
     And set the "orderNumber" to "orderNumber"
     And set the "paymentState" to "Paid"
-    Then the path should be "/orders"
+    Then the path should be "orders"
     And the method should be "POST"
     And the request should be
     """

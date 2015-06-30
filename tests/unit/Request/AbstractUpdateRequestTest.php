@@ -63,7 +63,7 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getUpdateRequest();
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/test/id', (string)$httpRequest->getUri());
+        $this->assertSame('test/id', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()

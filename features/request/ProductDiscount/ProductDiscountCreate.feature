@@ -13,7 +13,7 @@ Feature: I want to create a new product discount
 
   Scenario: create a product discount
     When i want to create a "productDiscount"
-    Then the path should be "/product-discounts"
+    Then the path should be "product-discounts"
     And the method should be "POST"
     And the request should be
     """
