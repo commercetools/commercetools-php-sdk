@@ -51,7 +51,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
         $request = OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/orders', (string)$httpRequest->getUri());
+        $this->assertSame('orders', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()

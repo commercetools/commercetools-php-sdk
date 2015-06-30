@@ -38,7 +38,7 @@ class CartFetchByCustomerIdRequestTest extends RequestTestCase
         $request = CartFetchByCustomerIdRequest::ofCustomerId('id');
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/carts?customerId=id', (string)$httpRequest->getUri());
+        $this->assertSame('carts?customerId=id', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()

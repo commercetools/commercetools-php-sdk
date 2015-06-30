@@ -46,7 +46,7 @@ class ProductProjectionFetchBySkuRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(
-            '/product-projections?limit=1&where=masterVariant%28sku%3D%22sku%22%29+or+variants%28sku%3D%22sku%22%29',
+            'product-projections?limit=1&where=masterVariant%28sku%3D%22sku%22%29+or+variants%28sku%3D%22sku%22%29',
             (string)$httpRequest->getUri()
         );
     }

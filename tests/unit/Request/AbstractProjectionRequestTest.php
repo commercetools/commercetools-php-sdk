@@ -47,7 +47,7 @@ class AbstractProjectionRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getProjectionRequest();
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/test/action', (string)$httpRequest->getUri());
+        $this->assertSame('test/action', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
@@ -64,6 +64,6 @@ class AbstractProjectionRequestTest extends \PHPUnit_Framework_TestCase
         $request->staged(true);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/test/action?staged=true', (string)$httpRequest->getUri());
+        $this->assertSame('test/action?staged=true', (string)$httpRequest->getUri());
     }
 }

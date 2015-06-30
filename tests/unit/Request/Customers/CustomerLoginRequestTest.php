@@ -38,7 +38,7 @@ class CustomerLoginRequestTest extends RequestTestCase
         $request = CustomerLoginRequest::ofEmailAndPassword('email', 'password');
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/login', (string)$httpRequest->getUri());
+        $this->assertSame('login', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()

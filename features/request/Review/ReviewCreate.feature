@@ -14,7 +14,7 @@ Feature: I want to create a new review
 
   Scenario: create a review
     When i want to create a "review"
-    Then the path should be "/reviews"
+    Then the path should be "reviews"
     And the method should be "POST"
     And the request should be
     """

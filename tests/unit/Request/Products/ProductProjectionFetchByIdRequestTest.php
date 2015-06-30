@@ -33,6 +33,6 @@ class ProductProjectionFetchByIdRequestTest extends RequestTestCase
         $request = ProductProjectionFetchByIdRequest::ofId('id');
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/product-projections/id', (string)$httpRequest->getUri());
+        $this->assertSame('product-projections/id', (string)$httpRequest->getUri());
     }
 }

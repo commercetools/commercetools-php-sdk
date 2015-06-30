@@ -10,7 +10,7 @@ Feature: I want to create a new cart
 
   Scenario: create a anonymous cart
     When i want to create a "cart"
-    Then the path should be "/carts"
+    Then the path should be "carts"
     And the method should be "POST"
     And the request should be
     """

@@ -12,7 +12,7 @@ Feature: I want to create a new category
     }
     """
     When i want to create a "category"
-    Then the path should be "/categories"
+    Then the path should be "categories"
     And the method should be "POST"
     And the request should be
     """

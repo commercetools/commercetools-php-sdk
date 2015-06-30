@@ -12,7 +12,7 @@ Feature: I want to update a cart
       "quantity": 3
     }
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -40,7 +40,7 @@ Feature: I want to update a cart
       "quantity": 3
     }
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -67,7 +67,7 @@ Feature: I want to update a cart
       "quantity": 3
     }
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -110,7 +110,7 @@ Feature: I want to update a cart
           }
         }
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -152,7 +152,7 @@ Feature: I want to update a cart
           "customLineItemId": "customLineItem-1"
         }
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -178,7 +178,7 @@ Feature: I want to update a cart
         }
 
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -207,7 +207,7 @@ Feature: I want to update a cart
           }
         }
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -240,7 +240,7 @@ Feature: I want to update a cart
           }
         }
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -269,7 +269,7 @@ Feature: I want to update a cart
           "country": "DE"
         }
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -296,7 +296,7 @@ Feature: I want to update a cart
           "customerId": "customer-1"
         }
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -321,7 +321,7 @@ Feature: I want to update a cart
           "code": "payless"
         }
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -345,7 +345,7 @@ Feature: I want to update a cart
           "action": "recalculate"
         }
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -372,7 +372,7 @@ Feature: I want to update a cart
           }
         }
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """
@@ -403,7 +403,7 @@ Feature: I want to update a cart
           }
         }
     """
-    Then the path should be "/carts/id"
+    Then the path should be "carts/id"
     And the method should be "POST"
     And the request should be
     """

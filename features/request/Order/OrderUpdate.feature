@@ -9,7 +9,7 @@ Feature: I want to send a Customer Update Request
           "orderState": "Complete"
         }
     """
-    Then the path should be "/orders/id"
+    Then the path should be "orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -34,7 +34,7 @@ Feature: I want to send a Customer Update Request
           "shipmentState": "Pending"
         }
     """
-    Then the path should be "/orders/id"
+    Then the path should be "orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -59,7 +59,7 @@ Feature: I want to send a Customer Update Request
           "paymentState": "Paid"
         }
     """
-    Then the path should be "/orders/id"
+    Then the path should be "orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -89,7 +89,7 @@ Feature: I want to send a Customer Update Request
           "syncedAt": "2015-03-15T15:56:00+00:00"
         }
     """
-    Then the path should be "/orders/id"
+    Then the path should be "orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -128,7 +128,7 @@ Feature: I want to send a Customer Update Request
           ]
         }
     """
-    Then the path should be "/orders/id"
+    Then the path should be "orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -163,7 +163,7 @@ Feature: I want to send a Customer Update Request
           "shipmentState": "Returned"
         }
     """
-    Then the path should be "/orders/id"
+    Then the path should be "orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -190,7 +190,7 @@ Feature: I want to send a Customer Update Request
           "paymentState": "Refunded"
         }
     """
-    Then the path should be "/orders/id"
+    Then the path should be "orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -226,7 +226,7 @@ Feature: I want to send a Customer Update Request
           "actualTransitionDate": "2015-03-24T12:13:00+00:00"
         }
     """
-    Then the path should be "/orders/id"
+    Then the path should be "orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -271,7 +271,7 @@ Feature: I want to send a Customer Update Request
           "actualTransitionDate": "2015-03-24T12:13:00+00:00"
         }
     """
-    Then the path should be "/orders/id"
+    Then the path should be "orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -315,7 +315,7 @@ Feature: I want to send a Customer Update Request
           ]
         }
     """
-    Then the path should be "/orders/id"
+    Then the path should be "orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -358,7 +358,7 @@ Feature: I want to send a Customer Update Request
           ]
         }
     """
-    Then the path should be "/orders/id"
+    Then the path should be "orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -405,7 +405,7 @@ Feature: I want to send a Customer Update Request
           }
         }
     """
-    Then the path should be "/orders/id"
+    Then the path should be "orders/id"
     And the method should be "POST"
     And the request should be
     """
@@ -443,7 +443,7 @@ Feature: I want to send a Customer Update Request
           "orderNumber": "1234567890"
         }
     """
-    Then the path should be "/orders/id"
+    Then the path should be "orders/id"
     And the method should be "POST"
     And the request should be
     """

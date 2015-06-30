@@ -35,7 +35,7 @@ Feature: I want to create a new zone
 
   Scenario: create a zone
     When i want to create a "shippingMethod"
-    Then the path should be "/shipping-methods"
+    Then the path should be "shipping-methods"
     And the method should be "POST"
     And the request should be
     """

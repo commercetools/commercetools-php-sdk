@@ -20,7 +20,7 @@ Feature: I want to update a category
           }
         }
     """
-    Then the path should be "/categories/id"
+    Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
@@ -55,7 +55,7 @@ Feature: I want to update a category
           }
         }
     """
-    Then the path should be "/categories/id"
+    Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
@@ -85,7 +85,7 @@ Feature: I want to update a category
           }
         }
     """
-    Then the path should be "/categories/id"
+    Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
@@ -115,7 +115,7 @@ Feature: I want to update a category
           }
         }
     """
-    Then the path should be "/categories/id"
+    Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
@@ -142,7 +142,7 @@ Feature: I want to update a category
           "externalId": "category-1"
         }
     """
-    Then the path should be "/categories/id"
+    Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
@@ -167,7 +167,7 @@ Feature: I want to update a category
           "orderHint": "number1"
         }
     """
-    Then the path should be "/categories/id"
+    Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
@@ -194,7 +194,7 @@ Feature: I want to update a category
           }
         }
     """
-    Then the path should be "/categories/id"
+    Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
@@ -223,7 +223,7 @@ Feature: I want to update a category
           }
         }
     """
-    Then the path should be "/categories/id"
+    Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
@@ -252,7 +252,7 @@ Feature: I want to update a category
           }
         }
     """
-    Then the path should be "/categories/id"
+    Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """

@@ -88,7 +88,7 @@ Feature: I want to import a new order
       "completedAt": "2015-05-01T15:20:00+00:00"
     }
     """
-    Then the path should be "/orders/import"
+    Then the path should be "orders/import"
     And the method should be "POST"
     And the request should be
     """

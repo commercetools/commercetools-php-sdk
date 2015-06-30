@@ -30,7 +30,7 @@ class CustomerPasswordResetRequestTest extends RequestTestCase
         $request = CustomerPasswordResetRequest::ofIdVersionTokenAndPassword('customerId', 1, 'resetToken', 'newPW');
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/customers/password/reset', (string)$httpRequest->getUri());
+        $this->assertSame('customers/password/reset', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
