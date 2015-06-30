@@ -53,7 +53,7 @@ class OrderImportRequestTest extends RequestTestCase
         $request = OrderImportRequest::ofImportOrder(ImportOrder::of());
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/orders/import', (string)$httpRequest->getUri());
+        $this->assertSame('orders/import', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()

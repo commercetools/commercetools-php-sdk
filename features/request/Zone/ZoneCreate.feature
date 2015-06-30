@@ -16,7 +16,7 @@ Feature: I want to create a new zone
 
   Scenario: create a zone
     When i want to create a "zone"
-    Then the path should be "/zones"
+    Then the path should be "zones"
     And the method should be "POST"
     And the request should be
     """

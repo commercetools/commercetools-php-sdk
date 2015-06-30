@@ -9,7 +9,7 @@ Feature: I want to create custom objects
     }
     """
     When i want to create a "customObject"
-    Then the path should be "/custom-objects"
+    Then the path should be "custom-objects"
     And the method should be "POST"
     And the request should be
     """
@@ -31,7 +31,7 @@ Feature: I want to create custom objects
     }
     """
     When i want to create a "customObject"
-    Then the path should be "/custom-objects"
+    Then the path should be "custom-objects"
     And the method should be "POST"
     And the request should be
     """

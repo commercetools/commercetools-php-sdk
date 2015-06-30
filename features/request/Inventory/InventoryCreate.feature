@@ -16,7 +16,7 @@ Feature: I want to create a new inventory entry
 
   Scenario: create an inventory entry
     When i want to create a "inventory"
-    Then the path should be "/inventory"
+    Then the path should be "inventory"
     And the method should be "POST"
     And the request should be
     """

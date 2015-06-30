@@ -26,7 +26,7 @@ class CustomerPasswordTokenRequestTest extends RequestTestCase
         $request = CustomerPasswordTokenRequest::ofEmail('john.doe@company.com');
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/customers/password-token', (string)$httpRequest->getUri());
+        $this->assertSame('customers/password-token', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()

@@ -30,7 +30,7 @@ class CustomerEmailTokenRequestTest extends RequestTestCase
         $request = CustomerEmailTokenRequest::ofIdVersionAndTtl('customerId', 1, 5);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/customers/email-token', (string)$httpRequest->getUri());
+        $this->assertSame('customers/email-token', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()

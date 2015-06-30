@@ -9,7 +9,7 @@ Feature: I want to create a new customer group
 
   Scenario: create a customer group
     When i want to create a "customerGroup"
-    Then the path should be "/customer-groups"
+    Then the path should be "customer-groups"
     And the method should be "POST"
     And the request should be
     """

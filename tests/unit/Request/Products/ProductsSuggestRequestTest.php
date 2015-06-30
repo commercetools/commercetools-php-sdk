@@ -38,7 +38,7 @@ class ProductsSuggestRequestTest extends RequestTestCase
         $request->addKeyword('en', 'search');
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/product-projections/suggest?searchKeywords.en=search', (string)$httpRequest->getUri());
+        $this->assertSame('product-projections/suggest?searchKeywords.en=search', (string)$httpRequest->getUri());
     }
 
     public function testAddKeywords()
@@ -47,7 +47,7 @@ class ProductsSuggestRequestTest extends RequestTestCase
         $request->addKeywords($this->getKeywords());
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/product-projections/suggest?searchKeywords.en=search', (string)$httpRequest->getUri());
+        $this->assertSame('product-projections/suggest?searchKeywords.en=search', (string)$httpRequest->getUri());
     }
 
     public function testSetKeywords()
@@ -56,7 +56,7 @@ class ProductsSuggestRequestTest extends RequestTestCase
         $request->setSearchKeywords($this->getKeywords());
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/product-projections/suggest?searchKeywords.en=search', (string)$httpRequest->getUri());
+        $this->assertSame('product-projections/suggest?searchKeywords.en=search', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestMethod()
@@ -72,7 +72,7 @@ class ProductsSuggestRequestTest extends RequestTestCase
         $request = ProductsSuggestRequest::ofKeywords($this->getKeywords());
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/product-projections/suggest?searchKeywords.en=search', (string)$httpRequest->getUri());
+        $this->assertSame('product-projections/suggest?searchKeywords.en=search', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()

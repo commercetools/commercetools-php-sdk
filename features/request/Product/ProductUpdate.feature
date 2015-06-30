@@ -11,7 +11,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -40,7 +40,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -69,7 +69,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -96,7 +96,7 @@ Feature: I want to send a Product Update Request
           "sku": "variantSKU"
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -130,7 +130,7 @@ Feature: I want to send a Product Update Request
           ]
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -164,7 +164,7 @@ Feature: I want to send a Product Update Request
           "id": 1
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -197,7 +197,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -232,7 +232,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -261,7 +261,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -290,7 +290,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -324,7 +324,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -365,7 +365,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -406,7 +406,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -438,7 +438,7 @@ Feature: I want to send a Product Update Request
           "priceId": 1
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -465,7 +465,7 @@ Feature: I want to send a Product Update Request
           "value": "newValue"
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -493,7 +493,7 @@ Feature: I want to send a Product Update Request
           "value": "newValue"
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -522,7 +522,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -553,7 +553,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -584,7 +584,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -614,7 +614,7 @@ Feature: I want to send a Product Update Request
           "sku": "mySKU"
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -664,7 +664,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -712,7 +712,7 @@ Feature: I want to send a Product Update Request
           "action": "revertStagedChanges"
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -735,7 +735,7 @@ Feature: I want to send a Product Update Request
           "action": "publish"
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -758,7 +758,7 @@ Feature: I want to send a Product Update Request
           "action": "unpublish"
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -790,7 +790,7 @@ Feature: I want to send a Product Update Request
           }
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """
@@ -824,7 +824,7 @@ Feature: I want to send a Product Update Request
           "imageUrl": "http://example.org/image.jpg"
         }
     """
-    Then the path should be "/products/id"
+    Then the path should be "products/id"
     And the method should be "POST"
     And the request should be
     """

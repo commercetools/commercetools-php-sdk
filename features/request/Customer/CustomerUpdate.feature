@@ -18,7 +18,7 @@ Feature: I want to send a Customer Update Request
           "email": "john.doe@example.org"
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -49,7 +49,7 @@ Feature: I want to send a Customer Update Request
           "lastName": "Doe"
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -75,7 +75,7 @@ Feature: I want to send a Customer Update Request
           "email": "john.doe@example.org"
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -104,7 +104,7 @@ Feature: I want to send a Customer Update Request
           }
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -147,7 +147,7 @@ Feature: I want to send a Customer Update Request
           }
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -188,7 +188,7 @@ Feature: I want to send a Customer Update Request
           }
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -217,7 +217,7 @@ Feature: I want to send a Customer Update Request
           "addressId": "addressId-1"
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -242,7 +242,7 @@ Feature: I want to send a Customer Update Request
           "addressId": "addressId-1"
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -266,7 +266,7 @@ Feature: I want to send a Customer Update Request
           "action": "setDefaultShippingAddress"
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -290,7 +290,7 @@ Feature: I want to send a Customer Update Request
           "addressId": "addressId-1"
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -313,7 +313,7 @@ Feature: I want to send a Customer Update Request
           "action": "setDefaultBillingAddress"
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -340,7 +340,7 @@ Feature: I want to send a Customer Update Request
           }
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -368,7 +368,7 @@ Feature: I want to send a Customer Update Request
           "customerNumber": "customer-1"
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -393,7 +393,7 @@ Feature: I want to send a Customer Update Request
           "externalId": "customer-1"
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -418,7 +418,7 @@ Feature: I want to send a Customer Update Request
           "companyName": "myCompany"
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -443,7 +443,7 @@ Feature: I want to send a Customer Update Request
           "dateOfBirth": "2014-10-15"
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
@@ -468,7 +468,7 @@ Feature: I want to send a Customer Update Request
           "vatId": "myVatId"
         }
     """
-    Then the path should be "/customers/id"
+    Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """

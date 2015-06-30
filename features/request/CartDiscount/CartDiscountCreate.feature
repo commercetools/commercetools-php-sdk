@@ -33,7 +33,7 @@ Feature: I want to create a new cart discount
 
   Scenario: create a cart discount
     When i want to create a "cartDiscount"
-    Then the path should be "/cart-discounts"
+    Then the path should be "cart-discounts"
     And the method should be "POST"
     And the request should be
     """

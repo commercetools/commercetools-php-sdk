@@ -42,7 +42,7 @@ class AbstractFetchByIdRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_FETCH_REQUEST, ['id']);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('/test/id', (string)$httpRequest->getUri());
+        $this->assertSame('test/id', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()
