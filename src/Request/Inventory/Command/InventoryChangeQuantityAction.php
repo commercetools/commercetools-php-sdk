@@ -5,10 +5,18 @@
 
 namespace Sphere\Core\Request\Inventory\Command;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class InventoryChangeQuantityAction
+ * @package Sphere\Core\Request\Inventory\Command
+ * 
+ * @method string getAction()
+ * @method InventoryChangeQuantityAction setAction(string $action = null)
+ * @method int getQuantity()
+ * @method InventoryChangeQuantityAction setQuantity(int $quantity = null)
+ */
 class InventoryChangeQuantityAction extends AbstractAction
 {
     public function getFields()

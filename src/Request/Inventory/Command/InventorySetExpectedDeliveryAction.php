@@ -5,10 +5,19 @@
 
 namespace Sphere\Core\Request\Inventory\Command;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
+use Sphere\Core\Model\Common\DateTimeDecorator;
 
+/**
+ * Class InventorySetExpectedDeliveryAction
+ * @package Sphere\Core\Request\Inventory\Command
+ * 
+ * @method string getAction()
+ * @method InventorySetExpectedDeliveryAction setAction(string $action = null)
+ * @method DateTimeDecorator getExpectedDelivery()
+ * @method InventorySetExpectedDeliveryAction setExpectedDelivery(\DateTime $expectedDelivery = null)
+ */
 class InventorySetExpectedDeliveryAction extends AbstractAction
 {
     public function getFields()

@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class DiscountCodeChangeIsActiveAction
  * @package Sphere\Core\Request\DiscountCodes\Command
- *
+ *  *
  * @method string getAction()
  * @method DiscountCodeChangeIsActiveAction setAction(string $action = null)
  * @method bool getIsActive()
