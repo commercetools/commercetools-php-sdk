@@ -183,7 +183,7 @@ Feature: I want to update a cart discount
     }
     """
 
-  Scenario: Set cart discount description
+  Scenario: change sort order
     Given a "cartDiscount" is identified by "id" and version "1"
     And i want to update a "cartDiscount"
     And add the "changeSortOrder" action to "cartDiscount" with values
