@@ -40,7 +40,6 @@ class CartChangeLineItemQuantityAction extends AbstractAction
         $this->setAction('changeLineItemQuantity');
     }
 
-
     /**
      * @param string $lineItemId
      * @param int $quantity
