@@ -14,6 +14,7 @@ class AttributeTypeTest extends \PHPUnit_Framework_TestCase
             'name' => 'enum'
         ]);
         $this->assertInstanceOf('\Sphere\Core\Model\Common\Enum', $type->getValues()->getAt(0));
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\EnumCollection', $type->getValues());
     }
 
     public function testTypeLocalizedEnum()
@@ -22,6 +23,7 @@ class AttributeTypeTest extends \PHPUnit_Framework_TestCase
             'name' => 'lenum'
         ]);
         $this->assertInstanceOf('\Sphere\Core\Model\Common\LocalizedEnum', $type->getValues()->getAt(0));
+        $this->assertInstanceOf('\Sphere\Core\Model\Common\LocalizedEnumCollection', $type->getValues());
     }
 
     public function testTypeUnset()

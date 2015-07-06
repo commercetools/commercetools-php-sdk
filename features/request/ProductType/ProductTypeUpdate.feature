@@ -287,7 +287,6 @@ Feature: I want to update a product type
               {
                 "key": "enum_key1",
                 "label": "Enum Key 1"
-                }
               }
             ]
           },
@@ -339,7 +338,6 @@ Feature: I want to update a product type
                   {
                     "key": "enum_key1",
                     "label": "Enum Key 1"
-                    }
                   }
                 ]
               },
