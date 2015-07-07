@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class ShippingMethodChangeIsDefaultAction
  * @package Sphere\Core\Request\ShippingMethods\Command
- *
+ *  *
  * @method string getAction()
  * @method ShippingMethodChangeIsDefaultAction setAction(string $action = null)
  * @method bool getIsDefault()
