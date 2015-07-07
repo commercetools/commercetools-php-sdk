@@ -157,7 +157,7 @@ Feature: I want to update a tax category
       "version": 1,
       "actions": [
         {
-          "action": "replaceTaxRate",
+          "action": "removeTaxRate",
           "rateId": "<tax-rate-id>"
         }
       ]
