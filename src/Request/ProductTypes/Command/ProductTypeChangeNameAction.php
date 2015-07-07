@@ -5,10 +5,18 @@
 
 namespace Sphere\Core\Request\ProductTypes\Command;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class ProductTypeChangeNameAction
+ * @package Sphere\Core\Request\ProductTypes\Command
+ * 
+ * @method string getAction()
+ * @method ProductTypeChangeNameAction setAction(string $action = null)
+ * @method string getName()
+ * @method ProductTypeChangeNameAction setName(string $name = null)
+ */
 class ProductTypeChangeNameAction extends AbstractAction
 {
     public function getFields()

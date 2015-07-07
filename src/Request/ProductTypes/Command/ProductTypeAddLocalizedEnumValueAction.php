@@ -5,11 +5,21 @@
 
 namespace Sphere\Core\Request\ProductTypes\Command;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedEnum;
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class ProductTypeAddLocalizedEnumValueAction
+ * @package Sphere\Core\Request\ProductTypes\Command
+ * 
+ * @method string getAction()
+ * @method ProductTypeAddLocalizedEnumValueAction setAction(string $action = null)
+ * @method string getAttributeName()
+ * @method ProductTypeAddLocalizedEnumValueAction setAttributeName(string $attributeName = null)
+ * @method LocalizedEnum getValue()
+ * @method ProductTypeAddLocalizedEnumValueAction setValue(LocalizedEnum $value = null)
+ */
 class ProductTypeAddLocalizedEnumValueAction extends AbstractAction
 {
     public function getFields()

@@ -5,11 +5,19 @@
 
 namespace Sphere\Core\Request\ProductTypes\Command;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\ProductType\AttributeDefinitionCollection;
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class ProductTypeChangeAttributeOrderAction
+ * @package Sphere\Core\Request\ProductTypes\Command
+ * 
+ * @method string getAction()
+ * @method ProductTypeChangeAttributeOrderAction setAction(string $action = null)
+ * @method AttributeDefinitionCollection getAttributes()
+ * @method ProductTypeChangeAttributeOrderAction setAttributes(AttributeDefinitionCollection $attributes = null)
+ */
 class ProductTypeChangeAttributeOrderAction extends AbstractAction
 {
     public function getFields()

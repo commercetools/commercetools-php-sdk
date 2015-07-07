@@ -5,11 +5,19 @@
 
 namespace Sphere\Core\Request\ProductTypes\Command;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\ProductType\AttributeDefinition;
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class ProductTypeAddAttributeDefinitionAction
+ * @package Sphere\Core\Request\ProductTypes\Command
+ * 
+ * @method string getAction()
+ * @method ProductTypeAddAttributeDefinitionAction setAction(string $action = null)
+ * @method AttributeDefinition getAttribute()
+ * @method ProductTypeAddAttributeDefinitionAction setAttribute(AttributeDefinition $attribute = null)
+ */
 class ProductTypeAddAttributeDefinitionAction extends AbstractAction
 {
     public function getFields()

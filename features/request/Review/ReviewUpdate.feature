@@ -1,5 +1,4 @@
 Feature: I want to update a review
-  Background:
   Scenario: Empty update
     Given a "review" is identified by "id" and version 1
     And i want to update a "review"

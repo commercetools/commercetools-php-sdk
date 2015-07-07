@@ -5,11 +5,21 @@
 
 namespace Sphere\Core\Request\ProductTypes\Command;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class ProductTypeChangeLabelAction
+ * @package Sphere\Core\Request\ProductTypes\Command
+ * 
+ * @method string getAction()
+ * @method ProductTypeChangeLabelAction setAction(string $action = null)
+ * @method string getAttributeName()
+ * @method ProductTypeChangeLabelAction setAttributeName(string $attributeName = null)
+ * @method LocalizedString getLabel()
+ * @method ProductTypeChangeLabelAction setLabel(LocalizedString $label = null)
+ */
 class ProductTypeChangeLabelAction extends AbstractAction
 {
     public function getFields()

@@ -5,11 +5,21 @@
 
 namespace Sphere\Core\Request\ProductTypes\Command;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\EnumCollection;
 use Sphere\Core\Request\AbstractAction;
 
+/**
+ * Class ProductTypeChangePlainEnumValueOrderAction
+ * @package Sphere\Core\Request\ProductTypes\Command
+ * 
+ * @method string getAction()
+ * @method ProductTypeChangePlainEnumValueOrderAction setAction(string $action = null)
+ * @method string getAttributeName()
+ * @method ProductTypeChangePlainEnumValueOrderAction setAttributeName(string $attributeName = null)
+ * @method EnumCollection getValues()
+ * @method ProductTypeChangePlainEnumValueOrderAction setValues(EnumCollection $values = null)
+ */
 class ProductTypeChangePlainEnumValueOrderAction extends AbstractAction
 {
     public function getFields()
