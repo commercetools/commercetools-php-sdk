@@ -23,6 +23,7 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     use PageTrait;
     use SortTrait;
     use ExpandTrait;
+    use WithTotalTrait;
 
     protected $resultClass = '\Sphere\Core\Model\Common\Collection';
 
