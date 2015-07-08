@@ -84,11 +84,11 @@ trait SphereContext
         $context = $this->getContext($context);
         $actionName = $this->getContext($actionName);
         $class = '\Sphere\Core\Request\\' . $module . '\\Command\\' . $context . $actionName . 'Action';
-
-        $rawData = json_decode((string)$json, true);
+        $json = (string)$json;
+        assertJson($json);
+        $rawData = json_decode($json, true);
         $object = call_user_func_array($class.'::fromArray', [$rawData]);
         $this->forceTyping($object, $rawData);
-
 
         $this->request->addAction($object);
     }

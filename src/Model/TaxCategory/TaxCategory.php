@@ -24,8 +24,8 @@ use Sphere\Core\Model\Common\Document;
  * @method TaxCategory setName(string $name = null)
  * @method string getDescription()
  * @method TaxCategory setDescription(string $description = null)
- * @method Collection getRates()
- * @method TaxCategory setRates(Collection $rates = null)
+ * @method TaxRateCollection getRates()
+ * @method TaxCategory setRates(TaxRateCollection $rates = null)
  */
 class TaxCategory extends Document
 {

@@ -21,7 +21,13 @@ class Filter extends JsonObject
 {
     const DEFAULT_TYPE = 'string';
 
-    protected $valueType = self::DEFAULT_TYPE;
+    protected $valueType;
+
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->valueType = static::DEFAULT_TYPE;
+    }
 
     /**
      * @param string $valueType

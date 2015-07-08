@@ -26,11 +26,13 @@ use Sphere\Core\Model\Common\Collection;
  */
 class AttributeType extends JsonObject
 {
+    protected $attributeValuesType = '\Sphere\Core\Model\Common\Collection';
+
     public function getFields()
     {
         return [
             'name' => [static::TYPE => 'string'],
-            'values' => [static::TYPE => '\Sphere\Core\Model\Common\Collection'],
+            'values' => [static::TYPE => $this->attributeValuesType],
             'referenceTypeId' => [static::TYPE => 'string'],
             'elementType' => [static::TYPE => '\Sphere\Core\Model\ProductType\AttributeType'],
             'typeReference' => [static::TYPE => '\Sphere\Core\Model\ProductType\ProductTypeReference']
@@ -39,30 +41,28 @@ class AttributeType extends JsonObject
 
     /**
      * @param string $name
+     * @return string
      */
-    protected function setValuesType($name)
+    protected function getValuesType($name)
     {
         switch ($name) {
             case "enum":
-                $this->getValues()->setType('\Sphere\Core\Model\Common\Enum');
-                break;
+                return '\Sphere\Core\Model\Common\EnumCollection';
             case "lenum":
-                $this->getValues()->setType('\Sphere\Core\Model\Common\LocalizedEnum');
-                break;
+                return '\Sphere\Core\Model\Common\LocalizedEnumCollection';
         }
+        return '\Sphere\Core\Model\Common\Collection';
     }
 
     /**
      * @param array $data
      * @param Context|callable $context
-     * @return static
      */
-    public static function fromArray(array $data, $context = null)
+    public function __construct(array $data = [], $context = null)
     {
-        $type = parent::fromArray($data, $context);
         if (isset($data['name'])) {
-            $type->setValuesType($data['name']);
+            $this->attributeValuesType = $this->getValuesType($data['name']);
         }
-        return $type;
+        parent::__construct($data, $context);
     }
 }

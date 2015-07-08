@@ -7,6 +7,7 @@
 namespace Sphere\Core\Request;
 
 
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Model\Common\Context;
@@ -155,6 +156,13 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
      * @internal
      */
     abstract public function buildResponse(ResponseInterface $response);
+
+    /**
+     * @return RequestInterface
+     * @internal
+     */
+    abstract public function httpRequest();
+
 
     /**
      * @param array $result

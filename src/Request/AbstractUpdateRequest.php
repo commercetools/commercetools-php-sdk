@@ -69,8 +69,10 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
      */
     public function setActions(array $actions)
     {
-        $this->actions = $actions;
-        $this->logUpdateActionLimit();
+        $this->actions = [];
+        foreach ($actions as $action) {
+            $this->addAction($action);
+        }
 
         return $this;
     }

@@ -99,6 +99,9 @@ class Client extends AbstractHttpClient
      */
     public function execute(ClientRequestInterface $request)
     {
+        if ($request instanceof ContextAwareInterface) {
+            $request->setContextIfNull($this->getConfig()->getContext());
+        }
         $httpRequest = $this->createHttpRequest($request);
 
         try {
@@ -107,6 +110,10 @@ class Client extends AbstractHttpClient
             $response = $exception->getResponse();
             if (is_null($response)) {
                 throw $exception;
+            }
+            if ($response->getStatusCode() == 401) {
+                $this->getOauthManager()->refreshToken();
+                return $this->execute($request);
             }
         }
         $this->logRequest($response, $httpRequest);
@@ -122,6 +129,9 @@ class Client extends AbstractHttpClient
      */
     public function future(ClientRequestInterface $request)
     {
+        if ($request instanceof ContextAwareInterface) {
+            $request->setContextIfNull($this->getConfig()->getContext());
+        }
         $httpRequest = $this->createHttpRequest($request);
         $response = $request->buildResponse($this->getHttpClient()->future($httpRequest));
 
