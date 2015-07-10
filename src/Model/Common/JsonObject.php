@@ -67,6 +67,16 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
         }
     }
 
+    public function __get($field)
+    {
+        if (!$this->hasField($field)) {
+            throw new \BadMethodCallException(
+                sprintf(Message::UNKNOWN_FIELD, $field, 'get', $field)
+            );
+        }
+        return $this->get($field);
+    }
+
     /**
      * @param string $field
      * @return bool
