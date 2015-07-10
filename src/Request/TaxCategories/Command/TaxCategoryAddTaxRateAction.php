@@ -12,7 +12,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class TaxCategoryAddTaxRateAction
  * @package Sphere\Core\Request\TaxCategories\Command
- *
+ *  *
  * @method string getAction()
  * @method TaxCategoryAddTaxRateAction setAction(string $action = null)
  * @method TaxRate getTaxRate()

@@ -11,11 +11,13 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class TaxCategoryRemoveTaxRateAction
  * @package Sphere\Core\Request\TaxCategories\Command
- *
+ *  *
  * @method string getAction()
  * @method TaxCategoryRemoveTaxRateAction setAction(string $action = null)
  * @method string getTaxRateId()
  * @method TaxCategoryRemoveTaxRateAction setTaxRateId(string $taxRateId = null)
+ * @method string getRateId()
+ * @method TaxCategoryRemoveTaxRateAction setRateId(string $rateId = null)
  */
 class TaxCategoryRemoveTaxRateAction extends AbstractAction
 {

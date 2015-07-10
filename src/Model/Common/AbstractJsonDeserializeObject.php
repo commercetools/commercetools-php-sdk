@@ -11,6 +11,9 @@ namespace Sphere\Core\Model\Common;
  */
 abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
 {
+    const JSON_DESERIALIZE_INTERFACE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
+    const TYPEABLE_INTERFACE = '\Sphere\Core\Model\Common\TypeableInterface';
+
     abstract protected function initialize($field);
 
     protected $rawData = [];
@@ -29,11 +32,6 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
         }
     }
 
-    protected function getDeserializeInterface()
-    {
-        return 'Sphere\Core\Model\Common\JsonDeserializeInterface';
-    }
-
     protected static $primitives = [
         'bool' => 'is_bool',
         'int' => 'is_int',
@@ -49,22 +47,25 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
 
     /**
      * @param $type
+     * @param $interfaceName
      * @return bool
      * @internal
      */
-    protected function hasInterface($type)
+    protected function hasInterface($type, $interfaceName)
     {
-        if (!isset(static::$interfaces[$type])) {
+        $interfaceName = trim($interfaceName, '\\');
+        $cacheKey = $interfaceName . '-' . $type;
+        if (!isset(static::$interfaces[$cacheKey])) {
             $interface = false;
             if (
                 $this->isPrimitive($type) === false
-                && isset(class_implements($type)[$this->getDeserializeInterface()])
+                && isset(class_implements($type)[$interfaceName])
             ) {
                 $interface = true;
             }
-            static::$interfaces[$type] = $interface;
+            static::$interfaces[$cacheKey] = $interface;
         }
-        return static::$interfaces[$type];
+        return static::$interfaces[$cacheKey];
     }
 
     /**
@@ -111,7 +112,7 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
      */
     protected function isDeserializable($value)
     {
-        return (is_object($value) && $this->hasInterface(get_class($value)));
+        return (is_object($value) && $this->hasInterface(get_class($value), static::JSON_DESERIALIZE_INTERFACE));
     }
 
     /**
@@ -123,7 +124,15 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
         if (!is_string($type)) {
             return false;
         }
-        return $this->hasInterface($type);
+        return $this->hasInterface($type, static::JSON_DESERIALIZE_INTERFACE);
+    }
+
+    protected function isTypeableType($type)
+    {
+        if (!is_string($type)) {
+            return false;
+        }
+        return $this->hasInterface($type, static::TYPEABLE_INTERFACE);
     }
 
     protected function getTyped($offset)

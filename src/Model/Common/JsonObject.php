@@ -20,6 +20,7 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
     const OPTIONAL = 'optional';
     const INITIALIZED = 'initialized';
     const DECORATOR = 'decorator';
+    const ELEMENT_TYPE = 'elementType';
 
     /**
      * @param array $data
@@ -123,7 +124,16 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
     protected function initialize($field)
     {
         $type = $this->getFieldKey($field, static::TYPE);
-        if ($this->isDeserializableType($type)) {
+        if ($this->isTypeableType($type)) {
+            /**
+             * @var TypeableInterface $type
+             */
+            $value = $type::ofTypeAndData(
+                $this->getFieldKey($field, static::ELEMENT_TYPE),
+                $this->getRaw($field, []),
+                $this->getContextCallback()
+            );
+        } elseif ($this->isDeserializableType($type)) {
             /**
              * @var JsonDeserializeInterface $type
              */

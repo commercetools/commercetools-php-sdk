@@ -6,13 +6,16 @@
 namespace Sphere\Core\Model\Common;
 
 
+use Sphere\Core\Model\ProductType\AttributeDefinition;
+use Sphere\Core\Model\ProductType\AttributeType;
+
 class AttributeTest extends \PHPUnit_Framework_TestCase
 {
     public function sphereTypeProvider()
     {
         return [
             ['string', ['name' => 'string', 'value' => 'bar']],
-            ['float', ['name' => 'int', 'value' => 1]],
+            ['int', ['name' => 'int', 'value' => 1]],
             ['float', ['name' => 'float', 'value' => 1.1]],
             ['bool', ['name' => 'bool', 'value' => true]],
             ['\Sphere\Core\Model\Common\LocalizedString', ['name' => 'ltext', 'value' => ['en' => 'Foo']]],
@@ -49,15 +52,19 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
      */
     public function testFromArray($type, $data)
     {
-        $attribute = Attribute::of();
+        $attribute = Attribute::fromArray($data);
 
-        $this->assertSame($type, $attribute->getSphereType($data['name'], $data['value']));
+        if (is_object($attribute->getValue())) {
+            $this->assertInstanceOf($type, $attribute->getValue());
+        } else {
+            $this->assertInternalType($type, $attribute->getValue());
+        }
     }
 
     public function testEnumSet()
     {
         $data = [
-            'name' => 'set',
+            'name' => 'enum-set',
             'value' => [
                 ['key' => 'myKey', 'label' => 'myLabel']
             ]
@@ -67,9 +74,32 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Sphere\Core\Model\Common\Enum', $attribute->getValue()->getAt(0));
     }
 
+    public function testSameTypeForName()
+    {
+        $data = [
+            'name' => 'test-set',
+            'value' => [
+                ['key' => 'myKey', 'label' => 'myLabel']
+            ]
+        ];
+
+        $definition = AttributeDefinition::of()
+            ->setName('test-set')
+            ->setType(AttributeType::of()->setName('set')->setElementType(AttributeType::of()->setName('enum')));
+        Attribute::of()->setAttributeDefinition($definition);
+
+        $attribute2 = Attribute::fromArray(['name' => 'test-set', 'value' => []]);
+        $attribute2->getValue()->getAt(0);
+        $this->assertInstanceOf(
+            '\Sphere\Core\Model\Common\Enum',
+            $attribute2->getValue()->getAt(0)
+        );
+    }
+
     public function testUnknown()
     {
-        $attribute = Attribute::of();
-        $this->assertSame('unknown', $attribute->getSphereType('unknown', new \DateTime()));
+        $attribute = Attribute::fromArray(['name' => 'unknown-field']);
+        $attribute->getValue();
+        $this->assertNull($attribute->getFields()['value'][JsonObject::TYPE]);
     }
 }

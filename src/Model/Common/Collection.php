@@ -6,7 +6,6 @@
 namespace Sphere\Core\Model\Common;
 
 use Sphere\Core\Error\Message;
-use Traversable;
 
 /**
  * Class Collection
@@ -15,8 +14,6 @@ use Traversable;
 class Collection extends AbstractJsonDeserializeObject implements \Iterator, \JsonSerializable, \Countable, \ArrayAccess
 {
     use ContextTrait;
-
-    const DESERIALIZE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
 
     /**
      * @var string
@@ -166,7 +163,8 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
         if (!$this->isValidType($type, $object)) {
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $offset, $type));
         }
-        if ($this->hasInterface(get_class($object))) {
+
+        if ($this->isDeserializable($object)) {
             /**
              * @var JsonDeserializeInterface $object
              */
