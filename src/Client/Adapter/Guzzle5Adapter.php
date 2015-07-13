@@ -9,9 +9,11 @@ namespace Sphere\Core\Client\Adapter;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Sphere\Core\Error\SphereException;
 
 class Guzzle5Adapter implements AdapterInterface
 {
@@ -41,6 +43,15 @@ class Guzzle5Adapter implements AdapterInterface
     /**
      * @param RequestInterface $request
      * @return ResponseInterface
+     * @throws \Sphere\Core\Error\SphereException
+     * @throws \Sphere\Core\Error\BadGatewayException
+     * @throws \Sphere\Core\Error\ConcurrentModificationException
+     * @throws \Sphere\Core\Error\ErrorResponseException
+     * @throws \Sphere\Core\Error\GatewayTimeoutException
+     * @throws \Sphere\Core\Error\InternalServerErrorException
+     * @throws \Sphere\Core\Error\InvalidTokenException
+     * @throws \Sphere\Core\Error\NotFoundException
+     * @throws \Sphere\Core\Error\ServiceUnavailableException
      */
     public function execute(RequestInterface $request)
     {
@@ -54,30 +65,41 @@ class Guzzle5Adapter implements AdapterInterface
         ];
 
         try {
-            $request = $this->client->createRequest($request->getMethod(), (string)$request->getUri(), $options);
-            $response = $this->packResponse($this->client->send($request));
+            $guzzleRequest = $this->client->createRequest($request->getMethod(), (string)$request->getUri(), $options);
+            $guzzleResponse = $this->client->send($guzzleRequest);
+            $response = $this->packResponse($guzzleResponse);
         } catch (RequestException $exception) {
-            $response = $exception->getResponse();
-            if (is_null($response)) {
-                throw $exception;
-            }
-            $response = $this->packResponse($response);
+            $response = $this->packResponse($exception->getResponse());
+            throw SphereException::create($request, $response, $exception);
         }
 
         return $response;
     }
 
-    protected function packResponse(\GuzzleHttp\Message\ResponseInterface $response)
+    protected function packResponse(\GuzzleHttp\Message\ResponseInterface $response = null)
     {
+        if (!$response instanceof \GuzzleHttp\Message\ResponseInterface) {
+            return null;
+        }
         return new Response(
             $response->getStatusCode(),
             $response->getHeaders(),
             (string)$response->getBody()
         );
     }
+
     /**
      * @param RequestInterface[] $requests
-     * @return ResponseInterface[]
+     * @return \Psr\Http\Message\ResponseInterface[]
+     * @throws \Sphere\Core\Error\SphereException
+     * @throws \Sphere\Core\Error\BadGatewayException
+     * @throws \Sphere\Core\Error\ConcurrentModificationException
+     * @throws \Sphere\Core\Error\ErrorResponseException
+     * @throws \Sphere\Core\Error\GatewayTimeoutException
+     * @throws \Sphere\Core\Error\InternalServerErrorException
+     * @throws \Sphere\Core\Error\InvalidTokenException
+     * @throws \Sphere\Core\Error\NotFoundException
+     * @throws \Sphere\Core\Error\ServiceUnavailableException
      */
     public function executeBatch(array $requests)
     {
@@ -97,14 +119,14 @@ class Guzzle5Adapter implements AdapterInterface
 
         $responses = [];
         foreach ($results as $key => $result) {
-            $httpResponse = $result;
-            if ($result instanceof RequestException) {
-                $httpResponse = $result->getResponse();
-                if (is_null($httpResponse)) {
-                    throw $result;
-                }
+            if (!$result instanceof RequestException) {
+                $response = $this->packResponse($result);
+            } else {
+                $httpResponse = $this->packResponse($result->getResponse());
+                $request = $requests[$key];
+                $response = SphereException::create($request, $httpResponse, $result);
             }
-            $responses[$key] = $this->packResponse($httpResponse);
+            $responses[$key] = $response;
         }
 
         return $responses;
@@ -153,10 +175,15 @@ class Guzzle5Adapter implements AdapterInterface
         try {
             $response = $this->client->post($oauthUri, $options);
         } catch (RequestException $exception) {
-            $response = $exception->getResponse();
-            if (is_null($response)) {
-                throw $exception;
-            }
+            $authRequest = $exception->getRequest();
+            $request = new Request(
+                $authRequest->getMethod(),
+                $authRequest->getUrl(),
+                $authRequest->getHeaders(),
+                (string)$authRequest->getBody()
+            );
+            $response = $this->packResponse($exception->getResponse());
+            throw SphereException::create($request, $response);
         }
         return $response;
     }

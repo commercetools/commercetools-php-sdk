@@ -7,10 +7,14 @@ namespace Sphere\Core\Client\Adapter;
 
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;
+use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Sphere\Core\Error\ExceptionFactory;
+use Sphere\Core\Error\SphereException;
 
 class Guzzle6Adapter implements AdapterInterface
 {
@@ -42,9 +46,7 @@ class Guzzle6Adapter implements AdapterInterface
             $response = $this->client->send($request, $options);
         } catch (RequestException $exception) {
             $response = $exception->getResponse();
-            if (is_null($response)) {
-                throw $exception;
-            }
+            throw SphereException::create($request, $response, $exception);
         }
 
         return $response;
@@ -74,10 +76,9 @@ class Guzzle6Adapter implements AdapterInterface
         foreach ($results as $key => $result) {
             $httpResponse = $result;
             if ($result instanceof RequestException) {
+                $request = $requests[$key];
                 $httpResponse = $result->getResponse();
-                if (is_null($httpResponse)) {
-                    throw $result;
-                }
+                $httpResponse = SphereException::create($request, $httpResponse, $result);
             }
             $responses[$key] = $httpResponse;
         }
@@ -106,10 +107,7 @@ class Guzzle6Adapter implements AdapterInterface
         try {
             $response = $this->client->post($oauthUri, $options);
         } catch (RequestException $exception) {
-            $response = $exception->getResponse();
-            if (is_null($response)) {
-                throw $exception;
-            }
+            throw SphereException::create($exception->getRequest(), $exception->getResponse());
         }
         return $response;
     }

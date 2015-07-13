@@ -165,7 +165,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \GuzzleHttp\Exception\ConnectException
+     * @expectedException \Sphere\Core\Error\SphereException
      */
     public function testUnexpectedException()
     {

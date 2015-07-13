@@ -13,6 +13,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Sphere\Core\Error\Message;
+use Sphere\Core\Error\SphereException;
 use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Response\ApiResponseInterface;
 use Sphere\Core\Request\ClientRequestInterface;
@@ -106,7 +107,7 @@ class Client extends AbstractHttpClient
 
         try {
             $response = $this->getHttpClient()->execute($httpRequest);
-        } catch (RequestException $exception) {
+        } catch (SphereException $exception) {
             $response = $exception->getResponse();
             if (is_null($response)) {
                 throw $exception;
