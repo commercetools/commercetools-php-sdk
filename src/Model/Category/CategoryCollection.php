@@ -5,12 +5,13 @@
 
 namespace Sphere\Core\Model\Category;
 
-
 use Sphere\Core\Model\Common\Collection;
 
 /**
  * Class CategoryCollection
  * @package Sphere\Core\Model\Category
+ * @method Category current()
+ * @method Category getAt($offset)
  */
 class CategoryCollection extends Collection
 {

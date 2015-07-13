@@ -32,6 +32,7 @@ class ClassAnnotator
         }
 
         $this->reflectFields();
+        $this->reflectElementType();
     }
 
 
@@ -41,6 +42,9 @@ class ClassAnnotator
     protected function reflectFields()
     {
         $reflectionClass = new \ReflectionClass($this->class->getClassName());
+        if (!$reflectionClass->hasMethod('getFields')) {
+            return;
+        }
         $reflectionMethod = $reflectionClass->getMethod('getFields');
 
         $classObject = $reflectionClass->newInstanceWithoutConstructor();
@@ -82,6 +86,48 @@ class ClassAnnotator
         }
     }
 
+    protected function reflectElementType()
+    {
+        $reflectionClass = new \ReflectionClass($this->class->getClassName());
+        if (!$reflectionClass->hasMethod('getType')) {
+            return;
+        }
+        $reflectionMethod = $reflectionClass->getMethod('getType');
+
+        $classObject = $reflectionClass->newInstanceWithoutConstructor();
+        $elementType = $reflectionMethod->invoke($classObject);
+
+        if ($elementType && !$this->isPrimitive($elementType)) {
+            $elementTypeClass = new \ReflectionClass($elementType);
+            $this->class->addUse($elementTypeClass);
+            $getAtMethod = $reflectionClass->getMethod('getAt');
+            if ($getAtMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
+                $this->class->addMagicMethod(
+                    'getAt',
+                    ['$offset'],
+                    $elementTypeClass->getShortName(),
+                    null,
+                    null,
+                    false,
+                    true
+                );
+
+            }
+            $current = $reflectionClass->getMethod('current');
+            if ($current->getDeclaringClass()->getName() != $this->class->getClassName()) {
+                $this->class->addMagicMethod(
+                    'current',
+                    [],
+                    $elementTypeClass->getShortName(),
+                    null,
+                    null,
+                    false,
+                    true
+                );
+            }
+        }
+    }
+
     /**
      *
      */
@@ -94,21 +140,12 @@ class ClassAnnotator
         $this->annotate();
     }
 
-    public function generateOfMethod()
+    public function generateCurrentMethod()
     {
         if ($this->class->isAbstract()) {
             return;
         }
 
-        $this->class->addMagicMethod(
-            'of',
-            $this->class->getConstructorArgs(),
-            $this->class->getShortClassName(),
-            null,
-            null,
-            true,
-            true
-        );
         $this->annotate();
     }
 

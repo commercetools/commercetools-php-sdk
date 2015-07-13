@@ -5,7 +5,6 @@
 
 namespace Sphere\Core\Model\Product;
 
-
 use Sphere\Core\Error\InvalidArgumentException;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Model\Common\Collection;
@@ -15,6 +14,7 @@ use Sphere\Core\Model\Common\Context;
  * Class LocalizedSearchKeywords
  * @package Sphere\Core\Model\Product
  * @link http://dev.sphere.io/http-api-projects-products.html#search-keywords
+ * @method SearchKeywords current()
  * @method SearchKeywords getAt($offset)
  */
 class LocalizedSearchKeywords extends Collection

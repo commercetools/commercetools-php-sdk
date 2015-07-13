@@ -35,12 +35,12 @@ class AnnotationGenerator
             $annotator->generate();
         }
 
-        $traitObjects = $this->getOfTraitObjects($phpFiles);
+        $collections = $this->getCollectionObjects($phpFiles);
 
-        foreach ($traitObjects as $traitObject) {
-            $annotator = new ClassAnnotator($traitObject);
+        foreach ($collections as $collection) {
+            $annotator = new ClassAnnotator($collection);
 
-            $annotator->generateOfMethod();
+            $annotator->generateCurrentMethod();
         }
     }
 
@@ -60,20 +60,20 @@ class AnnotationGenerator
         return $jsonObjects;
     }
 
-    protected function getOfTraitObjects(\RegexIterator $phpFiles)
+    protected function getCollectionObjects(\RegexIterator $phpFiles)
     {
-        $traitObjects = [];
+        $collectionObjects = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
 
             if (!empty($class)) {
-                if (in_array('Sphere\Core\Model\Common\OfTrait', class_uses($class))) {
-                    $traitObjects[] = $class;
+                if (in_array('Sphere\Core\Model\Common\Collection', class_parents($class))) {
+                    $collectionObjects[] = $class;
                 }
             }
         }
 
-        return $traitObjects;
+        return $collectionObjects;
     }
 
     protected function getClassName($fileName)

@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Model\Cart;
 
-
 use Sphere\Core\Model\Common\Collection;
 
 /**
  * Class LineItemCollection
  * @package Sphere\Core\Model\Cart
- * @method LineItem getAt(int $offset)
+ * @method LineItem current()
+ * @method LineItem getAt($offset)
  */
 class LineItemCollection extends Collection
 {

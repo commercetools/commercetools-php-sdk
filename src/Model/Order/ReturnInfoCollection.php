@@ -5,12 +5,13 @@
 
 namespace Sphere\Core\Model\Order;
 
-
 use Sphere\Core\Model\Common\Collection;
 
 /**
  * Class ReturnInfoCollection
  * @package Sphere\Core\Model\Order
+ * @method ReturnInfo current()
+ * @method ReturnInfo getAt($offset)
  */
 class ReturnInfoCollection extends Collection
 {

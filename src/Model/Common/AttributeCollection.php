@@ -5,9 +5,12 @@
 
 namespace Sphere\Core\Model\Common;
 
+
 /**
  * Class AttributeCollection
  * @package Sphere\Core\Model\Common
+ * @method Attribute current()
+ * @method Attribute getAt($offset)
  */
 class AttributeCollection extends Collection
 {

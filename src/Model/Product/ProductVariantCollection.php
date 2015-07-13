@@ -10,6 +10,8 @@ use Sphere\Core\Model\Common\Collection;
 /**
  * Class ProductVariantCollection
  * @package Sphere\Core\Model\Product
+ * @method ProductVariant current()
+ * @method ProductVariant getAt($offset)
  */
 class ProductVariantCollection extends Collection
 {

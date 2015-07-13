@@ -5,12 +5,13 @@
 
 namespace Sphere\Core\Model\Order;
 
-
 use Sphere\Core\Model\Common\Collection;
 
 /**
  * Class ReturnItemCollection
  * @package Sphere\Core\Model\Order
+ * @method ReturnItem current()
+ * @method ReturnItem getAt($offset)
  */
 class ReturnItemCollection extends Collection
 {
