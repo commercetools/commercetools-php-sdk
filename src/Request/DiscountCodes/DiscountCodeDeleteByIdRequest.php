@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\DiscountCodes;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractDeleteByIdRequest;
+use Sphere\Core\Model\DiscountCode\DiscountCode;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class DiscountCodeDeleteByIdRequest
  * @package Sphere\Core\Request\DiscountCodes
  * @link http://dev.sphere.io/http-api-projects-discountCodes.html#delete-discount-code
+ * @method DiscountCode mapResponse(ApiResponseInterface $response)
  */
 class DiscountCodeDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

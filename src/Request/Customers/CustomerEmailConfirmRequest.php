@@ -6,20 +6,23 @@
 
 namespace Sphere\Core\Request\Customers;
 
-use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ApiResponseInterface;
+use Sphere\Core\Model\Customer\Customer;
 
 /**
  * Class CustomerEmailConfirmRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#verify-customers-email
+ * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerEmailConfirmRequest extends AbstractUpdateRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Customer\Customer';
+
     const ID = 'id';
     const TOKEN_VALUE = 'tokenValue';
 

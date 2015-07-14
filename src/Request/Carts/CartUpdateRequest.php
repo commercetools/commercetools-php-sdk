@@ -8,11 +8,13 @@ namespace Sphere\Core\Request\Carts;
 use Sphere\Core\Model\Cart\Cart;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CartUpdateRequest
  * @package Sphere\Core\Request\Carts
  * @link http://dev.sphere.io/http-api-projects-carts.html#update-cart
+ * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartUpdateRequest extends AbstractUpdateRequest
 {

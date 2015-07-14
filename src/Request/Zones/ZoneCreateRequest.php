@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\Zones;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Zone\ZoneDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\Zone\Zone;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ZoneCreateRequest
  * @package Sphere\Core\Request\Zones
+ * @method Zone mapResponse(ApiResponseInterface $response)
  */
 class ZoneCreateRequest extends AbstractCreateRequest
 {

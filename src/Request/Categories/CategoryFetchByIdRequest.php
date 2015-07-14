@@ -6,14 +6,16 @@
 
 namespace Sphere\Core\Request\Categories;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
+use Sphere\Core\Model\Category\Category;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CategoryFetchByIdRequest
  * @package Sphere\Core\Request\Categories
  * @link http://dev.sphere.io/http-api-projects-categories.html#category-by-id
+ * @method Category mapResponse(ApiResponseInterface $response)
  */
 class CategoryFetchByIdRequest extends AbstractFetchByIdRequest
 {

@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\Channels;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\Channel\Channel;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ChannelUpdateRequest
  * @package Sphere\Core\Request\Channels
  * @link http://dev.sphere.io/http-api-projects-channels.html#update-channel
+ * @method Channel mapResponse(ApiResponseInterface $response)
  */
 class ChannelUpdateRequest extends AbstractUpdateRequest
 {

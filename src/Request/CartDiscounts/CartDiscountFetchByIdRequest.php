@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\CartDiscounts;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
+use Sphere\Core\Model\CartDiscount\CartDiscount;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CartDiscountFetchByIdRequest
  * @package Sphere\Core\Request\CartDiscounts
  * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discount-by-id
+ * @method CartDiscount mapResponse(ApiResponseInterface $response)
  */
 class CartDiscountFetchByIdRequest extends AbstractFetchByIdRequest
 {

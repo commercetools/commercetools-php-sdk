@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\ProductDiscounts;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\ProductDiscount\ProductDiscount;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ProductDiscountUpdateRequest
  * @package Sphere\Core\Request\ProductDiscounts
  * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#update-product-discount
+ * @method ProductDiscount mapResponse(ApiResponseInterface $response)
  */
 class ProductDiscountUpdateRequest extends AbstractUpdateRequest
 {

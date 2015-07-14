@@ -6,19 +6,18 @@
 
 namespace Sphere\Core\Request\Customers;
 
-
-use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Model\Customer\Customer;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CustomerPasswordResetRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#reset-customers-password
+ * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerPasswordResetRequest extends AbstractUpdateRequest
 {

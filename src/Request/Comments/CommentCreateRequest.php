@@ -5,11 +5,18 @@
 
 namespace Sphere\Core\Request\Comments;
 
-
 use Sphere\Core\Model\Comment\CommentDraft;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\Comment\Comment;
+use Sphere\Core\Response\ApiResponseInterface;
 
+/**
+ * Class CommentCreateRequest
+ * @package Sphere\Core\Request\Comments
+ * 
+ * @method Comment mapResponse(ApiResponseInterface $response)
+ */
 class CommentCreateRequest extends AbstractCreateRequest
 {
     protected $resultClass = '\Sphere\Core\Model\Comment\Comment';

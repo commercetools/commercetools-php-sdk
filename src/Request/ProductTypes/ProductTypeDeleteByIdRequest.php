@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\ProductTypes;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractDeleteByIdRequest;
+use Sphere\Core\Model\ProductType\ProductType;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ProductTypeDeleteByIdRequest
  * @package Sphere\Core\Request\ProductTypes
  * @link http://dev.sphere.io/http-api-projects-productTypes.html#delete-product-type
+ * @method ProductType mapResponse(ApiResponseInterface $response)
  */
 class ProductTypeDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

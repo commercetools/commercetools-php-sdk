@@ -5,7 +5,6 @@
 
 namespace Sphere\Core\Request\Products;
 
-
 use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
@@ -19,14 +18,19 @@ use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Request\QueryTrait;
 use Sphere\Core\Request\StagedTrait;
 use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ProductProjectionFetchBySlugRequest
  * @package Sphere\Core\Request\Products
+ * @method ProductProjection mapResponse(ApiResponseInterface $response)
  */
 class ProductProjectionFetchBySlugRequest extends AbstractApiRequest
 {
     const UUID_FORMAT = '/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i';
+
+    protected $resultClass = '\Sphere\Core\Model\Product\ProductProjection';
 
     use QueryTrait;
     use StagedTrait;

@@ -16,13 +16,18 @@ use Sphere\Core\Request\QueryTrait;
 use Sphere\Core\Request\StagedTrait;
 use Sphere\Core\Response\SingleResourceResponse;
 use Sphere\Core\Model\Product\ProductProjection;
+use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ProductProjectionFetchBySkuRequest
  * @package Sphere\Core\Request\Products
+ * @method ProductProjection mapResponse(ApiResponseInterface $response)
  */
 class ProductProjectionFetchBySkuRequest extends AbstractApiRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Product\ProductProjection';
+
     use QueryTrait;
     use StagedTrait;
     use PageTrait;

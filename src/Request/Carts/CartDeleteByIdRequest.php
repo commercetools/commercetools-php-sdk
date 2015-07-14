@@ -6,15 +6,16 @@
 
 namespace Sphere\Core\Request\Carts;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractDeleteByIdRequest;
-use Sphere\Core\Request\Carts\CartsEndpoint;
+use Sphere\Core\Model\Cart\Cart;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CategoryDeleteByIdRequest
+ * Class CartDeleteByIdRequest
  * @package Sphere\Core\Request\Carts
  * @link http://dev.sphere.io/http-api-projects-carts.html#delete-cart
+ * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

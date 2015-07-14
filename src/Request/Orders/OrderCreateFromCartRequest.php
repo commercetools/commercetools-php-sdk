@@ -5,7 +5,6 @@
 
 namespace Sphere\Core\Request\Orders;
 
-
 use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequestInterface;
@@ -14,11 +13,14 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\AbstractApiResponse;
 use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Model\Order\Order;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class OrderCreateFromCartRequest
  * @package Sphere\Core\Request\Orders
  * @link http://dev.sphere.io/http-api-projects-orders.html#create-order-from-cart
+ * @method Order mapResponse(ApiResponseInterface $response)
  */
 class OrderCreateFromCartRequest extends AbstractApiRequest
 {

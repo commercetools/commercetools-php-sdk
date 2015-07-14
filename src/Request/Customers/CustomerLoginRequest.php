@@ -12,11 +12,14 @@ use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Model\Customer\CustomerSigninResult;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CustomerLoginRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#authenticate-customer
+ * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
  */
 class CustomerLoginRequest extends AbstractApiRequest
 {

@@ -7,17 +7,22 @@
 namespace Sphere\Core\Request\Products;
 
 use Psr\Http\Message\ResponseInterface;
+use Sphere\Core\Client;
 use Sphere\Core\Model\Common\Collection;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Model\Product\SuggestionCollection;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductsSearchRequest
+ * Class ProductsSuggestRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products-search.html#suggest-query
+ * @method SingleResourceResponse executeWithClient(Client $client)
+ * @method SuggestionCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductsSuggestRequest extends AbstractProjectionRequest
 {

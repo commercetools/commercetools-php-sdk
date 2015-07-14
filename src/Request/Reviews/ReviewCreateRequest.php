@@ -5,11 +5,18 @@
 
 namespace Sphere\Core\Request\Reviews;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Review\ReviewDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\Review\Review;
+use Sphere\Core\Response\ApiResponseInterface;
 
+/**
+ * Class ReviewCreateRequest
+ * @package Sphere\Core\Request\Reviews
+ * 
+ * @method Review mapResponse(ApiResponseInterface $response)
+ */
 class ReviewCreateRequest extends AbstractCreateRequest
 {
     protected $resultClass = '\Sphere\Core\Model\Review\Review';

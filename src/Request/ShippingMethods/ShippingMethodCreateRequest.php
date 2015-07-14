@@ -5,11 +5,18 @@
 
 namespace Sphere\Core\Request\ShippingMethods;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\ShippingMethod\ShippingMethod;
+use Sphere\Core\Response\ApiResponseInterface;
 
+/**
+ * Class ShippingMethodCreateRequest
+ * @package Sphere\Core\Request\ShippingMethods
+ * 
+ * @method ShippingMethod mapResponse(ApiResponseInterface $response)
+ */
 class ShippingMethodCreateRequest extends AbstractCreateRequest
 {
     protected $resultClass = '\Sphere\Core\Model\ShippingMethod\ShippingMethod';

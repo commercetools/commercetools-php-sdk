@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\Channels;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractDeleteByIdRequest;
+use Sphere\Core\Model\Channel\Channel;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ChannelDeleteByIdRequest
  * @package Sphere\Core\Request\Channels
  * @link http://dev.sphere.io/http-api-projects-channels.html#delete-channel
+ * @method Channel mapResponse(ApiResponseInterface $response)
  */
 class ChannelDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

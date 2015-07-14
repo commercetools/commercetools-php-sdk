@@ -8,6 +8,7 @@ namespace Sphere\Core\Request;
 
 
 use Psr\Http\Message\ResponseInterface;
+use Sphere\Core\Client;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Client\JsonEndpoint;
@@ -18,6 +19,7 @@ use Sphere\Core\Response\SingleResourceResponse;
 /**
  * Class AbstractDeleteByIdRequest
  * @package Sphere\Core\Request
+ * @method SingleResourceResponse executeWithClient(Client $client)
  */
 abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
 {

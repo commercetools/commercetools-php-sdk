@@ -5,7 +5,6 @@
 
 namespace Sphere\Core\Request\Carts;
 
-
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
@@ -13,11 +12,14 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Request\CustomerIdTrait;
 use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Model\Cart\Cart;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CartFetchByCustomerIdRequest
  * @package Sphere\Core\Request\Carts
  * @link http://dev.sphere.io/http-api-projects-carts.html#cart-by-customer-id
+ * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartFetchByCustomerIdRequest extends AbstractApiRequest
 {

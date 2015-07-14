@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\ProductTypes;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\ProductType\ProductType;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ProductTypeUpdateRequest
  * @package Sphere\Core\Request\ProductTypes
  * @link http://dev.sphere.io/http-api-projects-productTypes.html#update-product-type
+ * @method ProductType mapResponse(ApiResponseInterface $response)
  */
 class ProductTypeUpdateRequest extends AbstractUpdateRequest
 {

@@ -6,14 +6,16 @@
 
 namespace Sphere\Core\Request\Products;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractQueryRequest;
+use Sphere\Core\Model\Product\ProductCollection;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ProductsQueryRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products.html#products-by-query
+ * @method ProductCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductsQueryRequest extends AbstractQueryRequest
 {

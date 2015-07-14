@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\CustomerGroups;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractDeleteByIdRequest;
+use Sphere\Core\Model\CustomerGroup\CustomerGroup;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CustomerGroupDeleteByIdRequest
  * @package Sphere\Core\Request\CustomerGroups
  * @link http://dev.sphere.io/http-api-projects-customerGroups.html#delete-customer-group
+ * @method CustomerGroup mapResponse(ApiResponseInterface $response)
  */
 class CustomerGroupDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

@@ -5,15 +5,16 @@
 
 namespace Sphere\Core\Request\States;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\State\StateCollection;
 use Sphere\Core\Request\AbstractQueryRequest;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class StatesQueryRequest
  * @package Sphere\Core\Request\States
  * @link http://dev.sphere.io/http-api-projects-states.html#states-by-query
+ * @method StateCollection mapResponse(ApiResponseInterface $response)
  */
 class StatesQueryRequest extends AbstractQueryRequest
 {
