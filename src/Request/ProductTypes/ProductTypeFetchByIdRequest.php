@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\ProductTypes;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
+use Sphere\Core\Model\ProductType\ProductType;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ProductTypeFetchByIdRequest
  * @package Sphere\Core\Request\ProductTypes
  * @link http://dev.sphere.io/http-api-projects-productTypes.html#product-type-by-id
+ * @method ProductType mapResponse(ApiResponseInterface $response)
  */
 class ProductTypeFetchByIdRequest extends AbstractFetchByIdRequest
 {

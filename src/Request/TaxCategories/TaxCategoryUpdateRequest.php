@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\TaxCategories;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\TaxCategory\TaxCategory;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class TaxCategoryUpdateRequest
  * @package Sphere\Core\Request\TaxCategories
  * @link http://dev.sphere.io/http-api-projects-taxCategories.html#update-tax-category
+ * @method TaxCategory mapResponse(ApiResponseInterface $response)
  */
 class TaxCategoryUpdateRequest extends AbstractUpdateRequest
 {

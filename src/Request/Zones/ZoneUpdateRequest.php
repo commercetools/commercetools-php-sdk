@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\Zones;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\Zone\Zone;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ZoneUpdateRequest
  * @package Sphere\Core\Request\Zones
  * @link http://dev.sphere.io/http-api-projects-zones.html#update-zone
+ * @method Zone mapResponse(ApiResponseInterface $response)
  */
 class ZoneUpdateRequest extends AbstractUpdateRequest
 {

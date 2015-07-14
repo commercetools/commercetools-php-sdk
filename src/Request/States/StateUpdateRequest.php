@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\States;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\State\State;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class StateUpdateRequest
  * @package Sphere\Core\Request\States
  * @link http://dev.sphere.io/http-api-projects-states.html#update-state
+ * @method State mapResponse(ApiResponseInterface $response)
  */
 class StateUpdateRequest extends AbstractUpdateRequest
 {

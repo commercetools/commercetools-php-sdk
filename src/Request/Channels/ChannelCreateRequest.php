@@ -5,11 +5,18 @@
 
 namespace Sphere\Core\Request\Channels;
 
-
 use Sphere\Core\Model\Channel\ChannelDraft;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\Channel\Channel;
+use Sphere\Core\Response\ApiResponseInterface;
 
+/**
+ * Class ChannelCreateRequest
+ * @package Sphere\Core\Request\Channels
+ * 
+ * @method Channel mapResponse(ApiResponseInterface $response)
+ */
 class ChannelCreateRequest extends AbstractCreateRequest
 {
     protected $resultClass = '\Sphere\Core\Model\Channel\Channel';

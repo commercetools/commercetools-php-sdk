@@ -8,11 +8,13 @@ namespace Sphere\Core\Request\Carts;
 use Sphere\Core\Model\Cart\Cart;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CustomerFetchByIdRequest
+ * Class CartFetchByIdRequest
  * @package Sphere\Core\Request\Carts
  * @link http://dev.sphere.io/http-api-projects-carts.html#cart-by-id
+ * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartFetchByIdRequest extends AbstractFetchByIdRequest
 {

@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\Inventory;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\Inventory\InventoryEntry;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class InventoryUpdateRequest
  * @package Sphere\Core\Request\Inventory
  * @link http://dev.sphere.io/http-api-projects-inventory.html#update-inventory
+ * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
 class InventoryUpdateRequest extends AbstractUpdateRequest
 {

@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\ProductDiscounts;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractQueryRequest;
+use Sphere\Core\Model\ProductDiscount\ProductDiscountCollection;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ProductDiscountsQueryRequest
  * @package Sphere\Core\Request\ProductDiscounts
  * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discounts-by-query
+ * @method ProductDiscountCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductDiscountsQueryRequest extends AbstractQueryRequest
 {

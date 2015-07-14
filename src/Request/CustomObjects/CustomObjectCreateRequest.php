@@ -5,15 +5,16 @@
 
 namespace Sphere\Core\Request\CustomObjects;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\CustomObject\CustomObject;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CustomObjectCreateRequest
  * @package Sphere\Core\Request\CustomObjects
  * @link http://dev.sphere.io/http-api-projects-custom-objects.html#create-custom-object
+ * @method CustomObject mapResponse(ApiResponseInterface $response)
  */
 class CustomObjectCreateRequest extends AbstractCreateRequest
 {

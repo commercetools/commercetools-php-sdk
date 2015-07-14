@@ -6,14 +6,16 @@
 
 namespace Sphere\Core\Request\Customers;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractQueryRequest;
+use Sphere\Core\Model\Customer\CustomerCollection;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CustomersQueryRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#customers-by-query
+ * @method CustomerCollection mapResponse(ApiResponseInterface $response)
  */
 class CustomersQueryRequest extends AbstractQueryRequest
 {

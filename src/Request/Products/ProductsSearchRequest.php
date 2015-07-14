@@ -7,6 +7,7 @@
 namespace Sphere\Core\Request\Products;
 
 use Psr\Http\Message\ResponseInterface;
+use Sphere\Core\Client;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Product\Facet;
 use Sphere\Core\Model\Product\Filter;
@@ -14,13 +15,15 @@ use Sphere\Core\Model\Product\ProductProjectionCollection;
 use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Request\SortTrait;
-use Sphere\Core\Response\PagedQueryResponse;
+use Sphere\Core\Response\ApiResponseInterface;
 use Sphere\Core\Response\PagedSearchResponse;
 
 /**
  * Class ProductsSearchRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products-search.html#product-projections-by-search
+ * @method PagedSearchResponse executeWithClient(Client $client)
+ * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductsSearchRequest extends AbstractProjectionRequest
 {
@@ -61,7 +64,7 @@ class ProductsSearchRequest extends AbstractProjectionRequest
 
     /**
      * @param ResponseInterface $response
-     * @return PagedQueryResponse
+     * @return PagedSearchResponse
      * @internal
      */
     public function buildResponse(ResponseInterface $response)

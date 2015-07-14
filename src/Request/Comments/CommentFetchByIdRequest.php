@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\Comments;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
+use Sphere\Core\Model\Comment\Comment;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CommentFetchByIdRequest
  * @package Sphere\Core\Request\Comments
  * @link http://dev.sphere.io/http-api-projects-comments.html#comment-by-id
+ * @method Comment mapResponse(ApiResponseInterface $response)
  */
 class CommentFetchByIdRequest extends AbstractFetchByIdRequest
 {

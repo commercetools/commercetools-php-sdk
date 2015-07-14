@@ -6,15 +6,17 @@
 
 namespace Sphere\Core\Request\Products;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Product\ProductDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\Product\Product;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ProductCreateRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products.html#create-product
+ * @method Product mapResponse(ApiResponseInterface $response)
  */
 class ProductCreateRequest extends AbstractCreateRequest
 {

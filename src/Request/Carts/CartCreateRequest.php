@@ -8,11 +8,14 @@ namespace Sphere\Core\Request\Carts;
 use Sphere\Core\Model\Cart\CartDraft;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\Cart\Cart;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CategoryCreateRequest
+ * Class CartCreateRequest
  * @package Sphere\Core\Request\Carts
  * @link http://dev.sphere.io/http-api-projects-carts.html#create-cart
+ * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartCreateRequest extends AbstractCreateRequest
 {

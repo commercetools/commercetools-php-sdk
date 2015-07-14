@@ -8,11 +8,14 @@ namespace Sphere\Core\Request\Customers;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractDeleteByIdRequest;
+use Sphere\Core\Model\Customer\Customer;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CustomerDeleteByIdRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#delete-customer
+ * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerDeleteByIdRequest extends AbstractDeleteByIdRequest
 {

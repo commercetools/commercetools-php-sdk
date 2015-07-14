@@ -42,6 +42,14 @@ class AnnotationGenerator
 
             $annotator->generateCurrentMethod();
         }
+
+        $requests = $this->getRequestObjects($phpFiles);
+
+        foreach ($requests as $request) {
+            $annotator = new ClassAnnotator($request);
+
+            $annotator->generateMapResponseMethod();
+        }
     }
 
     protected function getJsonObjects(\RegexIterator $phpFiles)
@@ -74,6 +82,22 @@ class AnnotationGenerator
         }
 
         return $collectionObjects;
+    }
+
+    protected function getRequestObjects(\RegexIterator $phpFiles)
+    {
+        $requestObjects = [];
+        foreach ($phpFiles as $phpFile) {
+            $class = $this->getClassName($phpFile->getRealPath());
+
+            if (!empty($class)) {
+                if (in_array('Sphere\Core\Request\AbstractApiRequest', class_parents($class))) {
+                    $requestObjects[] = $class;
+                }
+            }
+        }
+
+        return $requestObjects;
     }
 
     protected function getClassName($fileName)

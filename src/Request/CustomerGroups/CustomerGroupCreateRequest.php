@@ -5,11 +5,18 @@
 
 namespace Sphere\Core\Request\CustomerGroups;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\CustomerGroup\CustomerGroup;
+use Sphere\Core\Response\ApiResponseInterface;
 
+/**
+ * Class CustomerGroupCreateRequest
+ * @package Sphere\Core\Request\CustomerGroups
+ * 
+ * @method CustomerGroup mapResponse(ApiResponseInterface $response)
+ */
 class CustomerGroupCreateRequest extends AbstractCreateRequest
 {
     protected $resultClass = '\Sphere\Core\Model\CustomerGroup\CustomerGroup';

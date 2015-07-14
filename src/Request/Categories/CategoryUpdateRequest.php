@@ -6,15 +6,16 @@
 
 namespace Sphere\Core\Request\Categories;
 
-use Sphere\Core\Model\Category\CategoryReference;
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\Category\Category;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CategoryUpdateRequest
  * @package Sphere\Core\Request\Categories
  * @link http://dev.sphere.io/http-api-projects-categories.html#update-category
+ * @method Category mapResponse(ApiResponseInterface $response)
  */
 class CategoryUpdateRequest extends AbstractUpdateRequest
 {

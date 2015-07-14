@@ -5,13 +5,15 @@
 
 namespace Sphere\Core\Request\DiscountCodes;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractQueryRequest;
+use Sphere\Core\Model\DiscountCode\DiscountCodeCollection;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class DiscountCodesQueryRequest
  * @package Sphere\Core\Request\DiscountCodes
+ * @method DiscountCodeCollection mapResponse(ApiResponseInterface $response)
  */
 class DiscountCodesQueryRequest extends AbstractQueryRequest
 {

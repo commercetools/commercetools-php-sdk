@@ -7,6 +7,7 @@
 namespace Sphere\Core\Request;
 
 use Psr\Http\Message\ResponseInterface;
+use Sphere\Core\Client;
 use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Model\Common\Collection;
@@ -16,6 +17,7 @@ use Sphere\Core\Response\PagedQueryResponse;
 /**
  * Class AbstractQueryRequest
  * @package Sphere\Core\Request
+ * @method PagedQueryResponse executeWithClient(Client $client)
  */
 abstract class AbstractQueryRequest extends AbstractApiRequest
 {

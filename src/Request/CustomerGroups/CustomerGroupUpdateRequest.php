@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\CustomerGroups;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\CustomerGroup\CustomerGroup;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CustomerGroupUpdateRequest
  * @package Sphere\Core\Request\CustomerGroups
  * @link http://dev.sphere.io/http-api-projects-customerGroups.html#update-customer-group
+ * @method CustomerGroup mapResponse(ApiResponseInterface $response)
  */
 class CustomerGroupUpdateRequest extends AbstractUpdateRequest
 {

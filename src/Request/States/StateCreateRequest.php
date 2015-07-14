@@ -5,15 +5,17 @@
 
 namespace Sphere\Core\Request\States;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\State\StateDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\State\State;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class StateCreateRequest
  * @package Sphere\Core\Request\States
  * @link http://dev.sphere.io/http-api-projects-states.html#create-state
+ * @method State mapResponse(ApiResponseInterface $response)
  */
 class StateCreateRequest extends AbstractCreateRequest
 {

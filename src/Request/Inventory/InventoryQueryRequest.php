@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\Inventory;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractQueryRequest;
+use Sphere\Core\Model\Inventory\InventoryEntryCollection;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class InventoryQueryRequest
  * @package Sphere\Core\Request\Inventory
  * @link http://dev.sphere.io/http-api-projects-inventory.html#inventories-by-query
+ * @method InventoryEntryCollection mapResponse(ApiResponseInterface $response)
  */
 class InventoryQueryRequest extends AbstractQueryRequest
 {

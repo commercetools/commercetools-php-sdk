@@ -5,11 +5,18 @@
 
 namespace Sphere\Core\Request\ProductDiscounts;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\ProductDiscount\ProductDiscountDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\ProductDiscount\ProductDiscount;
+use Sphere\Core\Response\ApiResponseInterface;
 
+/**
+ * Class ProductDiscountCreateRequest
+ * @package Sphere\Core\Request\ProductDiscounts
+ * 
+ * @method ProductDiscount mapResponse(ApiResponseInterface $response)
+ */
 class ProductDiscountCreateRequest extends AbstractCreateRequest
 {
     protected $resultClass = '\Sphere\Core\Model\ProductDiscount\ProductDiscount';

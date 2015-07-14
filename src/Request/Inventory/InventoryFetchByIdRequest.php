@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\Inventory;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
+use Sphere\Core\Model\Inventory\InventoryEntry;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class InventoryFetchByIdRequest
  * @package Sphere\Core\Request\Inventory
  * @link http://dev.sphere.io/http-api-projects-inventory.html#inventory-by-id
+ * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
 class InventoryFetchByIdRequest extends AbstractFetchByIdRequest
 {

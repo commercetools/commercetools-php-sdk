@@ -9,11 +9,14 @@ namespace Sphere\Core\Request\Customers;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Customer\CustomerDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\Customer\Customer;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CustomerCreateRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#create-customer
+ * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerCreateRequest extends AbstractCreateRequest
 {

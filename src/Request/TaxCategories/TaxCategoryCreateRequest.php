@@ -5,11 +5,18 @@
 
 namespace Sphere\Core\Request\TaxCategories;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\TaxCategory\TaxCategoryDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\TaxCategory\TaxCategory;
+use Sphere\Core\Response\ApiResponseInterface;
 
+/**
+ * Class TaxCategoryCreateRequest
+ * @package Sphere\Core\Request\TaxCategories
+ * 
+ * @method TaxCategory mapResponse(ApiResponseInterface $response)
+ */
 class TaxCategoryCreateRequest extends AbstractCreateRequest
 {
     protected $resultClass = '\Sphere\Core\Model\TaxCategory\TaxCategory';

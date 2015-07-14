@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\States;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
+use Sphere\Core\Model\State\State;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class StateFetchByIdRequest
  * @package Sphere\Core\Request\States
  * @link http://dev.sphere.io/http-api-projects-states.html#states-by-id
+ * @method State mapResponse(ApiResponseInterface $response)
  */
 class StateFetchByIdRequest extends AbstractFetchByIdRequest
 {

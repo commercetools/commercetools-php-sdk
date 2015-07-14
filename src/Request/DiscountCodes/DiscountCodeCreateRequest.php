@@ -5,11 +5,18 @@
 
 namespace Sphere\Core\Request\DiscountCodes;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\DiscountCode\DiscountCodeDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\DiscountCode\DiscountCode;
+use Sphere\Core\Response\ApiResponseInterface;
 
+/**
+ * Class DiscountCodeCreateRequest
+ * @package Sphere\Core\Request\DiscountCodes
+ * 
+ * @method DiscountCode mapResponse(ApiResponseInterface $response)
+ */
 class DiscountCodeCreateRequest extends AbstractCreateRequest
 {
     protected $resultClass = '\Sphere\Core\Model\DiscountCode\DiscountCode';

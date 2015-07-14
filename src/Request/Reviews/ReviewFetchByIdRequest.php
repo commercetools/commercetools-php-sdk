@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\Reviews;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractFetchByIdRequest;
+use Sphere\Core\Model\Review\Review;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class ReviewFetchByIdRequest
  * @package Sphere\Core\Request\Reviews
  * @link http://dev.sphere.io/http-api-projects-reviews.html#review-by-id
+ * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewFetchByIdRequest extends AbstractFetchByIdRequest
 {

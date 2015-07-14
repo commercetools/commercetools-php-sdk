@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\CartDiscounts;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractQueryRequest;
+use Sphere\Core\Model\CartDiscount\CartDiscountCollection;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class CartDiscountsQueryRequest
  * @package Sphere\Core\Request\CartDiscounts
  * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discounts-by-query
+ * @method CartDiscountCollection mapResponse(ApiResponseInterface $response)
  */
 class CartDiscountsQueryRequest extends AbstractQueryRequest
 {

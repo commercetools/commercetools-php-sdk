@@ -61,7 +61,7 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
     public function toObject()
     {
         if (!$this->isError()) {
-            return $this->getRequest()->mapResult($this->toArray(), $this->getContext());
+            return $this->getRequest()->mapResponse($this);
         }
 
         return null;

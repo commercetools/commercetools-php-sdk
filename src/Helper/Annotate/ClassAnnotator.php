@@ -6,6 +6,7 @@
 namespace Sphere\Core\Helper\Annotate;
 
 use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Request\AbstractApiRequest;
 
 class ClassAnnotator
 {
@@ -19,22 +20,7 @@ class ClassAnnotator
     public function __construct($className)
     {
         $this->class = new ReflectedClass($className);
-        $this->reflect();
     }
-
-    /**
-     *
-     */
-    public function reflect()
-    {
-        if ($this->class->isAbstract()) {
-            return;
-        }
-
-        $this->reflectFields();
-        $this->reflectElementType();
-    }
-
 
     /**
      * @return array
@@ -99,7 +85,7 @@ class ClassAnnotator
 
         if ($elementType && !$this->isPrimitive($elementType)) {
             $elementTypeClass = new \ReflectionClass($elementType);
-            $this->class->addUse($elementTypeClass);
+            $this->class->addUse($elementType);
             $getAtMethod = $reflectionClass->getMethod('getAt');
             if ($getAtMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
                 $this->class->addMagicMethod(
@@ -128,6 +114,35 @@ class ClassAnnotator
         }
     }
 
+    protected function reflectResultClass()
+    {
+        $reflectionClass = new \ReflectionClass($this->class->getClassName());
+        if (!$reflectionClass->hasMethod('getResultClass')) {
+            return;
+        }
+        $reflectionMethod = $reflectionClass->getMethod('getResultClass');
+
+        $classObject = $reflectionClass->newInstanceWithoutConstructor();
+        $resultClass = $reflectionMethod->invoke($classObject);
+
+        $resultClassReflection = new \ReflectionClass($resultClass);
+        $this->class->addUse($resultClass);
+        $mapResponseMethod = $reflectionClass->getMethod('mapResponse');
+        if ($mapResponseMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
+            $this->class->addUse('\Sphere\Core\Response\ApiResponseInterface');
+            $this->class->addMagicMethod(
+                'mapResponse',
+                ['ApiResponseInterface $response'],
+                $resultClassReflection->getShortName(),
+                null,
+                null,
+                false,
+                true
+            );
+
+        }
+    }
+
     /**
      *
      */
@@ -137,6 +152,7 @@ class ClassAnnotator
             return;
         }
 
+        $this->reflectFields();
         $this->annotate();
     }
 
@@ -146,6 +162,17 @@ class ClassAnnotator
             return;
         }
 
+        $this->reflectElementType();
+        $this->annotate();
+    }
+
+    public function generateMapResponseMethod()
+    {
+        if ($this->class->isAbstract()) {
+            return;
+        }
+
+        $this->reflectResultClass();
         $this->annotate();
     }
 

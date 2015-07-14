@@ -5,11 +5,18 @@
 
 namespace Sphere\Core\Request\Inventory;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Inventory\InventoryDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\Inventory\InventoryEntry;
+use Sphere\Core\Response\ApiResponseInterface;
 
+/**
+ * Class InventoryCreateRequest
+ * @package Sphere\Core\Request\Inventory
+ * 
+ * @method InventoryEntry mapResponse(ApiResponseInterface $response)
+ */
 class InventoryCreateRequest extends AbstractCreateRequest
 {
     protected $resultClass = '\Sphere\Core\Model\Inventory\InventoryEntry';

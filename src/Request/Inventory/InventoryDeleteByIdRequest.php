@@ -5,14 +5,16 @@
 
 namespace Sphere\Core\Request\Inventory;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractDeleteByIdRequest;
+use Sphere\Core\Model\Inventory\InventoryEntry;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * Class InventoryDeleteByIdRequest
  * @package Sphere\Core\Request\Inventory
  * @link http://dev.sphere.io/http-api-projects-inventory.html#delete-inventory
+ * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
 class InventoryDeleteByIdRequest extends AbstractDeleteByIdRequest
 {
