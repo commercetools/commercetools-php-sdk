@@ -128,13 +128,13 @@ class Client extends AbstractHttpClient
      * @param ClientRequestInterface $request
      * @return ApiResponseInterface
      */
-    public function future(ClientRequestInterface $request)
+    public function executeAsync(ClientRequestInterface $request)
     {
         if ($request instanceof ContextAwareInterface) {
             $request->setContextIfNull($this->getConfig()->getContext());
         }
         $httpRequest = $this->createHttpRequest($request);
-        $response = $request->buildResponse($this->getHttpClient()->future($httpRequest));
+        $response = $request->buildResponse($this->getHttpClient()->executeAsync($httpRequest));
 
         $response = $response->then(
             function ($httpResponse) use ($httpRequest) {

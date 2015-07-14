@@ -403,7 +403,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          * @var ClientRequestInterface $request
          */
         $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
-        $response = $client->future($request);
+        $response = $client->executeAsync($request);
         $response->wait();
 
         if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {

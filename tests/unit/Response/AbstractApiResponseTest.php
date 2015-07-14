@@ -56,7 +56,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
 
         $request = new Request(HttpMethod::GET, '/');
         if ($future) {
-            $response = $client->future($request);
+            $response = $client->executeAsync($request);
         } else {
             $response = $client->execute($request);
         }

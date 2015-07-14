@@ -36,5 +36,5 @@ interface AdapterInterface
      * @param RequestInterface $request
      * @return AdapterPromiseInterface
      */
-    public function future(RequestInterface $request);
+    public function executeAsync(RequestInterface $request);
 }

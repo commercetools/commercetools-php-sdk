@@ -192,7 +192,7 @@ class Guzzle5Adapter implements AdapterInterface
      * @param RequestInterface $request
      * @return AdapterPromiseInterface
      */
-    public function future(RequestInterface $request)
+    public function executeAsync(RequestInterface $request)
     {
         $options = [
             'allow_redirects' => false,
