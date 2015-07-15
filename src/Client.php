@@ -7,11 +7,11 @@
 namespace Sphere\Core;
 
 
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
+use Sphere\Core\Client\Adapter\AdapterInterface;
+use Sphere\Core\Error\InvalidTokenException;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Error\SphereException;
 use Sphere\Core\Model\Common\ContextAwareInterface;
@@ -41,6 +41,8 @@ class Client extends AbstractHttpClient
      * @var ClientRequestInterface[]
      */
     protected $batchRequests = [];
+
+    protected $tokenRefreshed = false;
 
     /**
      * @param array|Config $config
@@ -87,6 +89,23 @@ class Client extends AbstractHttpClient
     }
 
     /**
+     * @param array $options
+     * @return AdapterInterface
+     */
+    public function getHttpClient($options = [])
+    {
+        if (is_null($this->httpClient)) {
+            $client = parent::getHttpClient($options);
+            if ($this->logger instanceof LoggerInterface) {
+                $client->setLogger($this->logger);
+            }
+        }
+
+        return $this->httpClient;
+    }
+
+
+    /**
      * @return string
      */
     protected function getBaseUrl()
@@ -108,16 +127,17 @@ class Client extends AbstractHttpClient
         try {
             $response = $this->getHttpClient()->execute($httpRequest);
         } catch (SphereException $exception) {
-            $response = $exception->getResponse();
-            if (is_null($response)) {
-                throw $exception;
-            }
-            if ($response->getStatusCode() == 401) {
+            if ($exception instanceof InvalidTokenException && !$this->tokenRefreshed) {
+                $this->tokenRefreshed = true;
                 $this->getOauthManager()->refreshToken();
                 return $this->execute($request);
             }
+            if ($this->getConfig()->getThrowExceptions() || !$exception->getResponse() instanceof ResponseInterface) {
+                throw $exception;
+            }
+            $response = $exception->getResponse();
         }
-        $this->logRequest($response, $httpRequest);
+        $this->logDeprecatedRequest($response, $httpRequest);
 
         $response = $request->buildResponse($response);
 
@@ -138,7 +158,7 @@ class Client extends AbstractHttpClient
 
         $response = $response->then(
             function ($httpResponse) use ($httpRequest) {
-                $this->logRequest($httpResponse, $httpRequest);
+                $this->logDeprecatedRequest($httpResponse, $httpRequest);
                 return $httpResponse;
             }
         );
@@ -175,8 +195,16 @@ class Client extends AbstractHttpClient
         foreach ($httpResponses as $key => $httpResponse) {
             $request = $this->batchRequests[$key];
             $httpRequest = $requests[$key];
+            if ($httpResponse instanceof SphereException) {
+                if ($this->getConfig()->getThrowExceptions() ||
+                    !$httpResponse->getResponse() instanceof ResponseInterface
+                ) {
+                    throw $httpResponse;
+                }
+                $httpResponse = $httpResponse->getResponse();
+            }
             $responses[$request->getIdentifier()] = $request->buildResponse($httpResponse);
-            $this->logRequest($httpResponse, $httpRequest);
+            $this->logDeprecatedRequest($httpResponse, $httpRequest);
         }
         $this->batchRequests = [];
 
@@ -188,17 +216,12 @@ class Client extends AbstractHttpClient
      * @param RequestInterface $request
      * @return $this
      */
-    protected function logRequest(ResponseInterface $response, RequestInterface $request)
+    protected function logDeprecatedRequest(ResponseInterface $response, RequestInterface $request)
     {
         if (is_null($this->logger)) {
             return $this;
         }
 
-        $this->logger->log(
-            $this->getLogLevel($response),
-            $this->format($request, $response),
-            ['request' => $request, 'response' => $response]
-        );
         if ($response->hasHeader(static::DEPRECATION_HEADER)) {
             $message = sprintf(
                 Message::DEPRECATED_METHOD,
@@ -211,10 +234,6 @@ class Client extends AbstractHttpClient
         return $this;
     }
 
-    protected function getLogLevel(ResponseInterface $response)
-    {
-        return substr($response->getStatusCode(), 0, 1) == '2' ? LogLevel::INFO : LogLevel::WARNING;
-    }
     /**
      * @param RequestInterface $request
      * @param ResponseInterface $response

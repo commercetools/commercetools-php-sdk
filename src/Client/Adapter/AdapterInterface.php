@@ -8,9 +8,12 @@ namespace Sphere\Core\Client\Adapter;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 interface AdapterInterface
 {
+    public function setLogger(LoggerInterface $logger);
+
     /**
      * @param RequestInterface $request
      * @return ResponseInterface

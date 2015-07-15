@@ -33,6 +33,11 @@ class SphereException extends \Exception
         $this->response = $response;
     }
 
+    /**
+     * @param RequestInterface $request
+     * @param ResponseInterface|null $response
+     * @param \Exception|null $previous
+     */
     public static function create(
         RequestInterface $request,
         ResponseInterface $response = null,
@@ -59,6 +64,9 @@ class SphereException extends \Exception
             case 400:
                 return new ErrorResponseException($message, $request, $response, $previous);
             case 401:
+                if (strpos((string)$response->getBody(), 'invalid_token') !== false) {
+                    return new InvalidTokenException($message, $request, $response, $previous);
+                }
                 return new InvalidClientCredentialsException($message, $request, $response, $previous);
             case 404:
                 return new NotFoundException($message, $request, $response, $previous);

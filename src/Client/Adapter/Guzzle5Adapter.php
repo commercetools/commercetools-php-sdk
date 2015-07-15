@@ -11,8 +11,10 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 use Sphere\Core\Error\SphereException;
 
 class Guzzle5Adapter implements AdapterInterface
@@ -22,7 +24,14 @@ class Guzzle5Adapter implements AdapterInterface
      */
     protected $client;
 
-    public function __construct($options)
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+    /**
+     * @param array $options
+     */
+    public function __construct(array $options = [])
     {
         if (isset($options['base_uri'])) {
             $options['base_url'] = $options['base_uri'];
@@ -30,6 +39,15 @@ class Guzzle5Adapter implements AdapterInterface
         }
         $this->client = new Client($options);
     }
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+        if ($logger instanceof LoggerInterface) {
+            $this->getEmitter()->attach(new LogSubscriber($logger));
+        }
+    }
+
 
     /**
      * @internal
@@ -183,7 +201,7 @@ class Guzzle5Adapter implements AdapterInterface
                 (string)$authRequest->getBody()
             );
             $response = $this->packResponse($exception->getResponse());
-            throw SphereException::create($request, $response);
+            throw SphereException::create($request, $response, $exception);
         }
         return $response;
     }

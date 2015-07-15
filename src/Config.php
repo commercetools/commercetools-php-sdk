@@ -61,6 +61,11 @@ class Config implements ContextAwareInterface
     protected $adapter;
 
     /**
+     * @var bool
+     */
+    protected $throwExceptions = false;
+
+    /**
      * @param array $config
      * @return $this
      */
@@ -238,5 +243,21 @@ class Config implements ContextAwareInterface
     public function setAdapter($adapter)
     {
         $this->adapter = $adapter;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getThrowExceptions()
+    {
+        return $this->throwExceptions;
+    }
+
+    /**
+     * @param bool $throwExceptions
+     */
+    public function setThrowExceptions($throwExceptions)
+    {
+        $this->throwExceptions = $throwExceptions;
     }
 }

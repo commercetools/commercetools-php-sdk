@@ -7,13 +7,15 @@ namespace Sphere\Core\Client\Adapter;
 
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Middleware;
 use GuzzleHttp\Pool;
-use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Error\ExceptionFactory;
+use Psr\Log\LoggerInterface;
+use Sphere\Core\Error\Message;
 use Sphere\Core\Error\SphereException;
 
 class Guzzle6Adapter implements AdapterInterface
@@ -23,11 +25,19 @@ class Guzzle6Adapter implements AdapterInterface
      */
     protected $client;
 
-    public function __construct($options)
+    protected $logger;
+
+    public function __construct(array $options = [])
     {
         $this->client = new Client($options);
+
     }
 
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+        $this->client->getConfig('handler')->push(Middleware::log($logger, new MessageFormatter()));
+    }
 
     /**
      * @param RequestInterface $request
@@ -107,7 +117,7 @@ class Guzzle6Adapter implements AdapterInterface
         try {
             $response = $this->client->post($oauthUri, $options);
         } catch (RequestException $exception) {
-            throw SphereException::create($exception->getRequest(), $exception->getResponse());
+            throw SphereException::create($exception->getRequest(), $exception->getResponse(), $exception);
         }
         return $response;
     }
