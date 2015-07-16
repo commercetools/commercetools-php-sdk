@@ -25,7 +25,7 @@ class CustomerCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(static::CUSTOMER_CREATE_REQUEST, [$this->getCustomer()]);
-        $this->assertInstanceOf('\Sphere\Core\Model\Customer\Customer', $result);
+        $this->assertInstanceOf('\Sphere\Core\Model\Customer\CustomerSigninResult', $result);
     }
 
     public function testMapEmptyResult()

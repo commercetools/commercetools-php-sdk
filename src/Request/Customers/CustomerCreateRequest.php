@@ -18,7 +18,7 @@ use Sphere\Core\Request\AbstractCreateRequest;
  */
 class CustomerCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Customer\Customer';
+    protected $resultClass = '\Sphere\Core\Model\Customer\CustomerSigninResult';
 
     /**
      * @param CustomerDraft $customer
