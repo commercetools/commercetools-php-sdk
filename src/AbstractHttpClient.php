@@ -7,7 +7,6 @@
 namespace Sphere\Core;
 
 
-use GuzzleHttp\Client as HttpClient;
 use Sphere\Core\Client\Adapter\AdapterFactory;
 use Sphere\Core\Client\Adapter\AdapterInterface;
 
@@ -21,7 +20,7 @@ abstract class AbstractHttpClient
     const VERSION = '1.0.0 M4';
 
     /**
-     * @var HttpClient
+     * @var AdapterInterface
      */
     protected $httpClient;
 

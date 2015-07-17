@@ -7,10 +7,8 @@
 namespace Sphere\Core;
 
 
-use Sphere\Core\Cache\CacheAdapterInterface;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
-use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Model\Common\ContextTrait;
 
@@ -59,6 +57,11 @@ class Config implements ContextAwareInterface
     protected $batchPoolSize = 25;
 
     protected $adapter;
+
+    /**
+     * @var bool
+     */
+    protected $throwExceptions = false;
 
     /**
      * @param array $configValues
@@ -239,6 +242,22 @@ class Config implements ContextAwareInterface
     public function setAdapter($adapter)
     {
         $this->adapter = $adapter;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getThrowExceptions()
+    {
+        return $this->throwExceptions;
+    }
+
+    /**
+     * @param bool $throwExceptions
+     */
+    public function setThrowExceptions($throwExceptions)
+    {
+        $this->throwExceptions = $throwExceptions;
     }
 
     /**

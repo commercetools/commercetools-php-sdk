@@ -24,5 +24,9 @@ interface ContextAwareInterface
      */
     public function setContext($context = null);
 
+    /**
+     * @param Context|callable $context
+     * @return mixed
+     */
     public function setContextIfNull($context = null);
 }

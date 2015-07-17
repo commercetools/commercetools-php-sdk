@@ -13,6 +13,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\BufferStream;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Subscriber\Mock;
+use Sphere\Core\Cache\NullCacheAdapter;
 use Sphere\Core\Config;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
@@ -42,9 +43,13 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @return Manager
      */
-    protected function getManager($config, $returnValue, $statusCode = 200)
+    protected function getManager($config, $returnValue, $statusCode = 200, $noCache = false)
     {
-        $manager = new Manager($config);
+        if ($noCache) {
+            $manager = new Manager($config, new NullCacheAdapter());
+        } else {
+            $manager = new Manager($config);
+        }
 
         if (is_array($returnValue)) {
             $returnValue = json_encode($returnValue);
@@ -60,7 +65,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
             $handler = HandlerStack::create($mock);
             // Add the mock subscriber to the client.
-            $manager->getHttpClient(['handler' => $mock]);
+            $manager->getHttpClient(['handler' => $handler]);
         } else {
             $mockBody = new \GuzzleHttp\Stream\BufferStream();
             $mockBody->write($returnValue);
@@ -105,31 +110,20 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Sphere\Core\Client\OAuth\AuthorizeException
+     * @expectedException \Sphere\Core\Error\InvalidClientCredentialsException
      */
     public function testError()
     {
-        $manager = $this->getMock(
-            '\Sphere\Core\Client\OAuth\Manager',
-            ['execute', 'getCacheToken'],
-            [$this->getConfig()]
+        $manager = $this->getManager(
+            $this->getConfig(),
+            [
+                'error' => 'invalid_client',
+                'error_description' =>
+                    'Please provide valid client credentials using HTTP Basic Authentication.'
+            ],
+            401,
+            true
         );
-        $manager->expects($this->any())
-            ->method('execute')
-            ->will($this->returnValue(
-                new Response(
-                    401,
-                    [],
-                    json_encode([
-                        'error' => 'invalid_client',
-                        'error_description' =>
-                            'Please provide valid client credentials using HTTP Basic Authentication.'
-                    ])
-                )
-            ));
-        $manager->expects($this->any())
-            ->method('getCacheToken')
-            ->will($this->returnValue(false));
 
         /**
          * @var Manager $manager

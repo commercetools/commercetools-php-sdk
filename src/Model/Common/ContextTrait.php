@@ -5,9 +5,10 @@
 
 namespace Sphere\Core\Model\Common;
 
-
-use Sphere\Core\Error\InvalidArgumentException;
-
+/**
+ * Class ContextTrait
+ * @package Sphere\Core\Model\Common
+ */
 trait ContextTrait
 {
     /**
@@ -52,7 +53,7 @@ trait ContextTrait
     }
 
     /**
-     * @param Context $context
+     * @param Context|callable $context
      * @return $this
      */
     public function setContextIfNull($context = null)

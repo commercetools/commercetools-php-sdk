@@ -85,6 +85,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
         return $this->results;
     }
 
+
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Retrieve an external iterator

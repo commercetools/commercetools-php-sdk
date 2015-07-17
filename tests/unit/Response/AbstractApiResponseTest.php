@@ -15,6 +15,7 @@ use GuzzleHttp\Psr7\Response;
 use Sphere\Core\AccessorTrait;
 use Sphere\Core\Client\Adapter\Guzzle6Adapter;
 use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Error\SphereException;
 use Sphere\Core\Request\AbstractApiRequest;
 
 /**
@@ -45,7 +46,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
 
             $handler = HandlerStack::create($mock);
             // Add the mock subscriber to the client.
-            $client = new Guzzle6Adapter(['handler' => $mock]);
+            $client = new Guzzle6Adapter(['handler' => $handler]);
         } else {
             $handler = new \GuzzleHttp\Ring\Client\MockHandler(
                 ['status' => $statusCode, 'headers' => $headers, 'body' => $response]
@@ -56,7 +57,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
 
         $request = new Request(HttpMethod::GET, '/');
         if ($future) {
-            $response = $client->future($request);
+            $response = $client->executeAsync($request);
         } else {
             $response = $client->execute($request);
         }
@@ -69,10 +70,15 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
      */
     protected function getResponse($response = '{"key":"value"}', $statusCode = 200, $future = false, $headers = [])
     {
+        try {
+            $httpResponse = $this->getGuzzleResponse($response, $statusCode, $future, $headers);
+        } catch (SphereException $e) {
+            $httpResponse = $e->getResponse();
+        }
         $response = $this->getMockForAbstractClass(
             static::ABSTRACT_API_RESPONSE,
             [
-                $this->getGuzzleResponse($response, $statusCode, $future, $headers),
+                $httpResponse,
                 $this->getRequest(static::ABSTRACT_API_REQUEST)
             ]
         );

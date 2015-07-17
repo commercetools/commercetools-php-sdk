@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 /**
  * Class ZoneChangeNameAction
  * @package Sphere\Core\Request\Zones\Command
- * 
+ *
  * @method string getAction()
  * @method ZoneChangeNameAction setAction(string $action = null)
  * @method string getName()
@@ -39,8 +39,7 @@ class ZoneChangeNameAction extends AbstractAction
 
 
     /**
-     * @param string $firstName
-     * @param string $lastName
+     * @param string $name
      * @param Context|callable $context
      * @return ZoneChangeNameAction
      */

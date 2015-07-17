@@ -15,6 +15,7 @@ use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\OAuth\Token;
+use Sphere\Core\Error\SphereException;
 use Sphere\Core\Request\ClientRequestInterface;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
@@ -41,9 +42,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockClient($config, $returnValue, $statusCode = 200, $logger = null, $headers = [])
     {
-        $oauthMock = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['getToken'], [$config]);
+        $oauthMock = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['getToken', 'refreshToken'], [$config]);
         $oauthMock->expects($this->any())
             ->method('getToken')
+            ->will($this->returnValue(new Token('token')));
+        $oauthMock->expects($this->any())
+            ->method('refreshToken')
             ->will($this->returnValue(new Token('token')));
 
         $clientMock = $this->getMock('\Sphere\Core\Client', ['getOauthManager'], [$config, null, $logger]);
@@ -88,7 +92,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return ResponseInterface
+     * @return string
      */
     protected function getQueryResult()
     {
@@ -105,7 +109,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return ResponseInterface
+     * @return string
      */
     protected function getSingleOpResult()
     {
@@ -164,7 +168,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \GuzzleHttp\Exception\ConnectException
+     * @expectedException \Sphere\Core\Error\SphereException
      */
     public function testUnexpectedException()
     {
@@ -211,9 +215,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 
         if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
-            $handler = new MockHandler([
+            $mock = new MockHandler([
                 new Response(500, [], $this->getSingleOpResult())
             ]);
+            $handler = HandlerStack::create($mock);
         } else {
             $handler = new \GuzzleHttp\Ring\Client\MockHandler(['status' => 500, 'body' => $this->getSingleOpResult()]);
         }
@@ -243,7 +248,28 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $record = current($handler->getRecords());
 
         $this->assertTrue($handler->hasInfo($record));
-        $this->assertSame('test/id', (string)$record['context']['request']->getUri());
+        $this->assertContains('GET /project/test/id', (string)$record['message']);
+        $this->assertSame(200, $record['level']);
+    }
+
+    public function testFutureLogger()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+        $client = $this->getMockClient($this->getConfig(), $this->getSingleOpResult(), 200, $logger);
+
+        $endpoint = new JsonEndpoint('test');
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+        $response = $client->executeAsync($request);
+
+        $this->assertFalse($response->isError());
+
+        $record = current($handler->getRecords());
+        $this->assertTrue($handler->hasInfo($record));
+        $this->assertContains('GET /project/test/id', (string)$record['message']);
+        $this->assertSame(200, $record['level']);
     }
 
     public function testBatch()
@@ -402,12 +428,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          * @var ClientRequestInterface $request
          */
         $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
-        $response = $client->future($request);
-        $response->wait();
+        $response = $client->executeAsync($request);
 
-        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
-            \GuzzleHttp\Promise\queue()->run();
-        }
+        $this->assertFalse($response->isError());
 
         $logEntry = $handler->getRecords()[1];
         $this->assertSame(Logger::WARNING, $logEntry['level']);
@@ -415,5 +438,51 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'Call "test/id" with method "GET" is deprecated: "Deprecated"',
             $logEntry['message']
         );
+    }
+
+    public function exceptionsData()
+    {
+        return [
+            [400, '\Sphere\Core\Error\ErrorResponseException', ''],
+            [401, '\Sphere\Core\Error\InvalidTokenException', ['invalid_token','invalid_token']],
+            [401, '\Sphere\Core\Error\InvalidClientCredentialsException', ''],
+            [404, '\Sphere\Core\Error\NotFoundException', ''],
+            [409, '\Sphere\Core\Error\ConcurrentModificationException', ''],
+            [500, '\Sphere\Core\Error\InternalServerErrorException', ''],
+            [502, '\Sphere\Core\Error\BadGatewayException', ''],
+            [503, '\Sphere\Core\Error\ServiceUnavailableException', ''],
+            [504, '\Sphere\Core\Error\GatewayTimeoutException', ''],
+        ];
+    }
+
+    /**
+     * @dataProvider exceptionsData
+     * @param $returnCode
+     * @param $exceptionClass
+     * @param $returnBody
+     * @expectedException \Sphere\Core\Error\SphereException
+     */
+    public function testExceptions($returnCode, $exceptionClass, $returnBody)
+    {
+        $client = $this->getMockClient(
+            $this->getConfig(),
+            $returnBody,
+            $returnCode
+        );
+        $client->getConfig()->setThrowExceptions(true);
+
+        $endpoint = new JsonEndpoint('test');
+        /**
+         * @var ClientRequestInterface $request
+         */
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractQueryRequest', [$endpoint]);
+
+        try {
+            $client->execute($request);
+        } catch (\Exception $e) {
+            $this->assertInstanceOf($exceptionClass, $e);
+            $this->assertSame($returnCode, $e->getCode());
+            throw $e;
+        }
     }
 }

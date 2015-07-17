@@ -13,6 +13,7 @@ use Sphere\Core\AbstractHttpClient;
 use Sphere\Core\Cache\CacheAdapterFactory;
 use Sphere\Core\Cache\CacheAdapterInterface;
 use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Error\InvalidClientCredentialsException;
 use Sphere\Core\Error\Message;
 
 /**
@@ -85,7 +86,7 @@ class Manager extends AbstractHttpClient
     /**
      * @param string $scope
      * @return Token
-     * @throws AuthorizeException
+     * @throws InvalidClientCredentialsException
      */
     public function getToken($scope = self::DEFAULT_SCOPE)
     {
@@ -99,7 +100,7 @@ class Manager extends AbstractHttpClient
     /**
      * @param string $scope
      * @return Token
-     * @throws AuthorizeException
+     * @throws InvalidClientCredentialsException
      */
     public function refreshToken($scope = self::DEFAULT_SCOPE)
     {
@@ -133,7 +134,7 @@ class Manager extends AbstractHttpClient
     /**
      * @param string $scope
      * @return Token
-     * @throws AuthorizeException
+     * @throws InvalidClientCredentialsException
      */
     protected function getBearerToken($scope)
     {
@@ -145,12 +146,6 @@ class Manager extends AbstractHttpClient
         $response = $this->execute($data);
 
         $result = json_decode($response->getBody(), true);
-
-        if (isset($result[static::ERROR])) {
-            $message = isset($result[static::ERROR_DESCRIPTION]) ?
-                $result[static::ERROR_DESCRIPTION] : $result[static::ERROR];
-            throw new AuthorizeException(sprintf(Message::AUTHENTICATION_FAIL, $message));
-        }
 
         $token = new Token($result[static::ACCESS_TOKEN], $result[static::EXPIRES_IN]);
         $token->setValidTo(new \DateTime('now +' . $result[static::EXPIRES_IN] . ' seconds'));
