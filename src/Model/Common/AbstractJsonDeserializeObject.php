@@ -177,9 +177,7 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
      */
     public function jsonSerialize()
     {
-        return array_filter($this->toArray(), function ($value) {
-            return !is_null($value);
-        });
+        return $this->toArray();
     }
 
     /**
@@ -187,7 +185,11 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
      */
     public function toArray()
     {
-        return array_merge($this->rawData, $this->typeData);
+        $data = array_merge($this->rawData, $this->typeData);
+        $data = array_filter($data, function ($value) {
+            return !is_null($value);
+        });
+        return $data;
     }
 
     /**

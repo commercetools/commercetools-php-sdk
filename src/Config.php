@@ -7,10 +7,8 @@
 namespace Sphere\Core;
 
 
-use Sphere\Core\Cache\CacheAdapterInterface;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
-use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Model\Common\ContextTrait;
 
@@ -66,23 +64,24 @@ class Config implements ContextAwareInterface
     protected $throwExceptions = false;
 
     /**
-     * @param array $config
-     * @return $this
+     * @param array $configValues
+     * @return Config
      */
-    public function fromArray(array $config)
+    public static function fromArray(array $configValues)
     {
+        $config = Config::of();
         array_walk(
-            $config,
-            function ($value, $key) {
-                $functionName = 'set' . $this->camelize($key);
-                if (!is_callable([$this, $functionName])) {
+            $configValues,
+            function ($value, $key) use ($config) {
+                $functionName = 'set' . $config->camelize($key);
+                if (!is_callable([$config, $functionName])) {
                     throw new InvalidArgumentException(sprintf(Message::SETTER_NOT_IMPLEMENTED, $key));
                 }
-                $this->$functionName($value);
+                $config->$functionName($value);
             }
         );
 
-        return $this;
+        return $config;
     }
 
     protected function camelize($scored)
@@ -259,5 +258,13 @@ class Config implements ContextAwareInterface
     public function setThrowExceptions($throwExceptions)
     {
         $this->throwExceptions = $throwExceptions;
+    }
+
+    /**
+     * @return static
+     */
+    public static function of()
+    {
+        return new static();
     }
 }

@@ -24,8 +24,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $testConfig = $this->getConfig();
         unset($testConfig[Config::OAUTH_URL]);
         unset($testConfig[Config::API_URL]);
-        $config = new Config();
-        $this->assertInstanceOf('\Sphere\Core\Config', $config->fromArray($testConfig));
+        $config = Config::fromArray($testConfig);
+        $this->assertInstanceOf('\Sphere\Core\Config', $config);
 
         $this->assertEquals($testConfig[Config::CLIENT_ID], $config->getClientId());
         $this->assertEquals($testConfig[Config::CLIENT_SECRET], $config->getClientSecret());
@@ -37,8 +37,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testFromArray()
     {
         $testConfig = $this->getConfig();
-        $config = new Config();
-        $this->assertInstanceOf('\Sphere\Core\Config', $config->fromArray($testConfig));
+        $config = Config::fromArray($testConfig);
+        $this->assertInstanceOf('\Sphere\Core\Config', $config);
 
         $this->assertEquals($testConfig[Config::CLIENT_ID], $config->getClientId());
         $this->assertEquals($testConfig[Config::CLIENT_SECRET], $config->getClientSecret());
@@ -105,8 +105,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testValidConfig()
     {
         $testConfig = $this->getConfig();
-        $config = new Config();
-        $config->fromArray($testConfig);
+        $config = Config::fromArray($testConfig);
         $this->assertTrue($config->check());
     }
 

@@ -59,18 +59,19 @@ trait SphereContext
         $this->context = $context;
     }
 
-    protected function forceTyping($object, $rawData)
+    protected function forceTyping($object)
     {
         if ($object instanceof JsonObject) {
-            foreach ($rawData as $field => $value) {
+            $fields = $object->getFields();
+            foreach ($fields as $field => $definition) {
                 $dummy = $object->get($field);
                 if ($dummy instanceof AbstractJsonDeserializeObject) {
-                    $this->forceTyping($dummy, $value);
+                    $this->forceTyping($dummy);
                 }
             }
         } elseif ($object instanceof Collection) {
-            foreach ($rawData as $index => $element) {
-                $this->forceTyping($object->getAt($index), $element);
+            foreach ($object as $index => $element) {
+                $this->forceTyping($element);
             }
         }
     }

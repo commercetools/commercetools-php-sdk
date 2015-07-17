@@ -29,11 +29,9 @@ class CurrencyFormatter
         $amount = $centAmount / 100;
         $currency = mb_strtoupper($currency);
         $locale = $this->context->getLocale();
-        if (extension_loaded('intl')) {
-            $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
-            return $formatter->formatCurrency($amount, $currency);
-        }
-        return number_format($amount, 2) . ' ' . $currency;
+
+        $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
+        return $formatter->formatCurrency($amount, $currency);
     }
 
     /**

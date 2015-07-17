@@ -11,16 +11,17 @@ use Sphere\Core\Model\Customer\CustomerDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
 use Sphere\Core\Model\Customer\Customer;
 use Sphere\Core\Response\ApiResponseInterface;
+use Sphere\Core\Model\Customer\CustomerSigninResult;
 
 /**
  * Class CustomerCreateRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#create-customer
- * @method Customer mapResponse(ApiResponseInterface $response)
+ * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
  */
 class CustomerCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Customer\Customer';
+    protected $resultClass = '\Sphere\Core\Model\Customer\CustomerSigninResult';
 
     /**
      * @param CustomerDraft $customer

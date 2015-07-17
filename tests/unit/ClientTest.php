@@ -22,8 +22,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 {
     protected function getConfig()
     {
-        $config = new Config();
-        $config->fromArray([
+        $config = Config::fromArray([
             Config::CLIENT_ID => 'id',
             Config::CLIENT_SECRET => 'secret',
             Config::OAUTH_URL => 'http://oauthUrl',

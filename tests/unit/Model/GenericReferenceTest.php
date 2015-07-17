@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Model;
 
+use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\Reference;
 
 /**
@@ -100,6 +101,6 @@ class GenericReferenceTest extends AbstractModelTest
          * @var Reference $object
          */
         $object = $this->getInstance($className);
-        $this->assertInstanceOf($objClassName, $object->getObj());
+        $this->assertSame($objClassName, $object->getFields()['obj'][JsonObject::TYPE]);
     }
 }

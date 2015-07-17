@@ -53,7 +53,7 @@ abstract class AbstractHttpClient
         if ($config instanceof Config) {
             $this->config = $config;
         } elseif (is_array($config)) {
-            $this->getConfig()->fromArray($config);
+            $this->config = Config::fromArray($config);
         }
         $this->getConfig()->check();
 
