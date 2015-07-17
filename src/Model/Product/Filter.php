@@ -6,6 +6,7 @@
 namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Model\Product\Search\FilterInterface;
 
 /**
  * Class Filter
@@ -17,7 +18,7 @@ use Sphere\Core\Model\Common\JsonObject;
  * @method string getName()
  * @method Filter setName(string $name = null)
  */
-class Filter extends JsonObject
+class Filter extends JsonObject implements FilterInterface
 {
     const DEFAULT_TYPE = 'string';
 

@@ -9,14 +9,13 @@ namespace Sphere\Core\Request\Products;
 use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client;
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Product\Facet;
-use Sphere\Core\Model\Product\Filter;
 use Sphere\Core\Model\Product\ProductProjectionCollection;
 use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Request\SortTrait;
 use Sphere\Core\Response\ApiResponseInterface;
 use Sphere\Core\Response\PagedSearchResponse;
+use Sphere\Core\Model\Product\Search\FilterInterface;
 
 /**
  * Class ProductsSearchRequest
@@ -88,47 +87,47 @@ class ProductsSearchRequest extends AbstractProjectionRequest
 
     /**
      * @param string $type
-     * @param Filter $filter
+     * @param FilterInterface $filter
      * @param bool $replace
      * @return $this
      */
-    protected function filter($type, Filter $filter, $replace = false)
+    protected function filter($type, FilterInterface $filter, $replace = false)
     {
         return $this->addParam($type, $filter, $replace);
     }
 
     /**
-     * @param Filter $filter
+     * @param FilterInterface $filter
      * @return $this
      */
-    public function addFilter(Filter $filter)
+    public function addFilter(FilterInterface $filter)
     {
         return $this->filter(static::FILTER, $filter);
     }
 
     /**
-     * @param Filter $filter
+     * @param FilterInterface $filter
      * @return $this
      */
-    public function addFilterQuery(Filter $filter)
+    public function addFilterQuery(FilterInterface $filter)
     {
         return $this->filter(static::FILTER_QUERY, $filter);
     }
 
     /**
-     * @param Filter $filter
+     * @param FilterInterface $filter
      * @return $this
      */
-    public function addFilterFacets(Filter $filter)
+    public function addFilterFacets(FilterInterface $filter)
     {
         return $this->filter(static::FILTER_FACETS, $filter);
     }
 
     /**
-     * @param Facet $filter
+     * @param FilterInterface $filter
      * @return $this
      */
-    public function addFacet(Facet $filter)
+    public function addFacet(FilterInterface $filter)
     {
         return $this->filter(static::FACET, $filter);
     }
