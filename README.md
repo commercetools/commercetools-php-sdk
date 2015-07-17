@@ -13,7 +13,9 @@ The SDK is licensed under the permissive [MIT License](LICENSE). Don't hesitate 
 
 ## Install & Integrate the SDK into your Project
 
-The SDK requires a PHP version of 5.4 or higher with the apc(u) PHP extension for its default cache. If you provide an own Cache interface, apc(u) is not necessary. The curl extension is recommended but not strictly necessary because the SDK is using the [Guzzle library](https://github.com/guzzle/guzzle) library, which falls back to PHP stream wrappers if curl is not available.
+The SDK requires a PHP version of 5.4 or higher with the apc(u) PHP extension for its default cache. If you provide an own Cache interface, apc(u) is not necessary. 
+The curl extension is recommended but not strictly necessary because the SDK is using the [Guzzle library](https://github.com/guzzle/guzzle) library, which falls back to PHP stream wrappers if curl is not available.
+The intl extension is required to directly output Money objects as a String. 
 
 The recommended way to install the SDK is through [Composer](http://getcomposer.org).
 
