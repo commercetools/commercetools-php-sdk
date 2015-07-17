@@ -61,23 +61,24 @@ class Config implements ContextAwareInterface
     protected $adapter;
 
     /**
-     * @param array $config
-     * @return $this
+     * @param array $configValues
+     * @return Config
      */
-    public function fromArray(array $config)
+    public static function fromArray(array $configValues)
     {
+        $config = Config::of();
         array_walk(
-            $config,
-            function ($value, $key) {
-                $functionName = 'set' . $this->camelize($key);
-                if (!is_callable([$this, $functionName])) {
+            $configValues,
+            function ($value, $key) use ($config) {
+                $functionName = 'set' . $config->camelize($key);
+                if (!is_callable([$config, $functionName])) {
                     throw new InvalidArgumentException(sprintf(Message::SETTER_NOT_IMPLEMENTED, $key));
                 }
-                $this->$functionName($value);
+                $config->$functionName($value);
             }
         );
 
-        return $this;
+        return $config;
     }
 
     protected function camelize($scored)
@@ -238,5 +239,13 @@ class Config implements ContextAwareInterface
     public function setAdapter($adapter)
     {
         $this->adapter = $adapter;
+    }
+
+    /**
+     * @return static
+     */
+    public static function of()
+    {
+        return new static();
     }
 }

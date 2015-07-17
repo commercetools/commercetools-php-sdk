@@ -256,4 +256,44 @@ class Client extends AbstractHttpClient
         $this->batchRequests[] = $request;
         return $this;
     }
+
+    /**
+     * @param Config $config
+     * @return static
+     */
+    public static function ofConfig(Config $config)
+    {
+        return new static($config);
+    }
+
+    /**
+     * @param Config $config
+     * @param $cache
+     * @return static
+     */
+    public static function ofConfigAndCache(Config $config, $cache)
+    {
+        return new static($config, $cache);
+    }
+
+    /**
+     * @param Config $config
+     * @param LoggerInterface $logger
+     * @return static
+     */
+    public static function ofConfigAndLogger(Config $config, LoggerInterface $logger)
+    {
+        return new static($config, null, $logger);
+    }
+
+    /**
+     * @param Config $config
+     * @param $cache
+     * @param LoggerInterface $logger
+     * @return static
+     */
+    public static function ofConfigCacheAndLogger(Config $config, $cache, LoggerInterface $logger)
+    {
+        return new static($config, $cache, $logger);
+    }
 }

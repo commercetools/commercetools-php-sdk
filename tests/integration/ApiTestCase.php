@@ -49,12 +49,12 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
                 $appConfig = parse_ini_file(__DIR__ . '/myapp.ini', true);
                 $config = $appConfig['sphere'];
             } else {
-                $config = [
+                $config = Config::fromArray([
                     'client_id' => $_SERVER['SPHERE_CLIENT_ID'],
                     'client_secret' => $_SERVER['SPHERE_CLIENT_SECRET'],
                     'project' => $_SERVER['SPHERE_PROJECT'],
                     'context' => $context
-                ];
+                ]);
             }
             $this->client = new Client($config);
         }
