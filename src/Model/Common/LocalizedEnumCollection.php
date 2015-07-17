@@ -9,7 +9,7 @@ namespace Sphere\Core\Model\Common;
 /**
  * Class LocalizedEnumCollection
  * @package Sphere\Core\Model\Common
- * 
+ *  *
  * @method LocalizedEnum current()
  * @method LocalizedEnum getAt($offset)
  */

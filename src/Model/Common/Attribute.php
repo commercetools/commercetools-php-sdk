@@ -7,6 +7,7 @@
 namespace Sphere\Core\Model\Common;
 
 use Sphere\Core\Model\ProductType\AttributeDefinition;
+use Sphere\Core\Model\ProductType\AttributeType;
 
 /**
  * Class Attribute
@@ -93,11 +94,11 @@ class Attribute extends JsonObject
         $sphereType = $this->guessSphereType($value);
         $definition = AttributeDefinition::of($this->getContextCallback());
         $definition->setName($attributeName);
-        $definition->getType()->setName($sphereType);
+        $definition->setType(AttributeType::of()->setName($sphereType));
 
         if ($sphereType == static::SPHERE_SET) {
             $elementType = $this->guessSphereType(current($value));
-            $definition->getType()->getElementType()->setName($elementType);
+            $definition->getType()->setElementType(AttributeType::of()->setName($elementType));
         }
         $this->setAttributeDefinition($definition);
         static::$types[$attributeName] = $definition;

@@ -64,7 +64,7 @@ class CartUpdateTest extends ApiTestCase
                 ->addAction(CartSetShippingAddressAction::of())
         )->toObject();
         $this->cartDeleteRequest->setVersion($cart->getVersion());
-        $this->assertNull($cart->getShippingAddress()->getCountry());
+        $this->assertNull($cart->getShippingAddress());
     }
 
     public function testAddLineItem()

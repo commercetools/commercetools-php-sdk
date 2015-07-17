@@ -6,6 +6,8 @@
 namespace Sphere\Core\Model\ProductType;
 
 
+use Sphere\Core\Model\Common\JsonObject;
+
 class AttributeTypeTest extends \PHPUnit_Framework_TestCase
 {
     public function testTypeEnum()
@@ -13,8 +15,10 @@ class AttributeTypeTest extends \PHPUnit_Framework_TestCase
         $type = AttributeType::fromArray([
             'name' => 'enum'
         ]);
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\Enum', $type->getValues()->getAt(0));
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\EnumCollection', $type->getValues());
+        $this->assertSame(
+            '\Sphere\Core\Model\Common\EnumCollection',
+            $type->getFields()['values'][JsonObject::TYPE]
+        );
     }
 
     public function testTypeLocalizedEnum()
@@ -22,8 +26,10 @@ class AttributeTypeTest extends \PHPUnit_Framework_TestCase
         $type = AttributeType::fromArray([
             'name' => 'lenum'
         ]);
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\LocalizedEnum', $type->getValues()->getAt(0));
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\LocalizedEnumCollection', $type->getValues());
+        $this->assertSame(
+            '\Sphere\Core\Model\Common\LocalizedEnumCollection',
+            $type->getFields()['values'][JsonObject::TYPE]
+        );
     }
 
     public function testTypeUnset()
@@ -31,6 +37,6 @@ class AttributeTypeTest extends \PHPUnit_Framework_TestCase
         $type = AttributeType::fromArray([
             'name' => 'text'
         ]);
-        $this->assertNull($type->getValues()->getType());
+        $this->assertNull($type->getValues());
     }
 }
