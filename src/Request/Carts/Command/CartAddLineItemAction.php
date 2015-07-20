@@ -23,6 +23,8 @@ use Sphere\Core\Model\Channel\ChannelReference;
  * @method CartAddLineItemAction setQuantity(int $quantity = null)
  * @method ChannelReference getSupplyChannel()
  * @method CartAddLineItemAction setSupplyChannel(ChannelReference $supplyChannel = null)
+ * @method ChannelReference getDistributionChannel()
+ * @method CartAddLineItemAction setDistributionChannel(ChannelReference $distributionChannel = null)
  */
 class CartAddLineItemAction extends AbstractAction
 {
@@ -33,7 +35,8 @@ class CartAddLineItemAction extends AbstractAction
             'productId' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'quantity' => [static::TYPE => 'int'],
-            'supplyChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference']
+            'supplyChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
+            'distributionChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
         ];
     }
 

@@ -267,7 +267,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Sphere\Core\Request\Carts\Command\CartAddLineItemAction',
-                ['action', 'productId', 'variantId', 'quantity', 'supplyChannel']
+                ['action', 'productId', 'variantId', 'quantity', 'supplyChannel', 'distributionChannel']
             ],
             [
                 '\Sphere\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',

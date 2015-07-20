@@ -29,6 +29,80 @@ Feature: I want to update a cart
     }
     """
 
+  Scenario: Add a line item with supply channel
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "cart"
+    And add the "addLineItem" action to "cart" with values
+    """
+    {
+      "action": "addLineItem",
+      "productId": "productId-1",
+      "variantId": 1,
+      "quantity": 3,
+      "supplyChannel":  {
+        "typeId": "channel",
+        "id": "<channel-id>"
+      }
+    }
+    """
+    Then the path should be "carts/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": 1,
+      "actions": [
+        {
+          "action": "addLineItem",
+          "productId": "productId-1",
+          "variantId": 1,
+          "quantity": 3,
+          "supplyChannel":  {
+            "typeId": "channel",
+            "id": "<channel-id>"
+          }
+        }
+      ]
+    }
+    """
+
+  Scenario: Add a line item with distribution channel
+    Given a "cart" is identified by "id" and version "1"
+    And i want to update a "cart"
+    And add the "addLineItem" action to "cart" with values
+    """
+    {
+      "action": "addLineItem",
+      "productId": "productId-1",
+      "variantId": 1,
+      "quantity": 3,
+      "distributionChannel":  {
+        "typeId": "channel",
+        "id": "<channel-id>"
+      }
+    }
+    """
+    Then the path should be "carts/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": 1,
+      "actions": [
+        {
+          "action": "addLineItem",
+          "productId": "productId-1",
+          "variantId": 1,
+          "quantity": 3,
+          "distributionChannel":  {
+            "typeId": "channel",
+            "id": "<channel-id>"
+          }
+        }
+      ]
+    }
+    """
+
   Scenario: Remove a line item
     Given a "cart" is identified by "id" and version "1"
     And i want to update a "Cart"

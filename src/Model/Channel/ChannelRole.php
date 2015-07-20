@@ -17,4 +17,5 @@ class ChannelRole
     const ORDER_EXPORT = 'OrderExport';
     const ORDER_IMPORT = 'OrderImport';
     const PRIMARY = 'Primary';
+    const PRODUCT_DISTRIBUTION = 'ProductDistribution';
 }
