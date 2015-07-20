@@ -18,13 +18,13 @@ use Sphere\Core\Response\PagedSearchResponse;
 use Sphere\Core\Model\Product\Search\FilterInterface;
 
 /**
- * Class ProductsSearchRequest
+ * Class ProductProjectionSearchRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products-search.html#product-projections-by-search
  * @method PagedSearchResponse executeWithClient(Client $client)
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
  */
-class ProductsSearchRequest extends AbstractProjectionRequest
+class ProductProjectionSearchRequest extends AbstractProjectionRequest
 {
     const FACET = 'facet';
     const FILTER = 'filter';

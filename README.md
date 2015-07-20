@@ -1,7 +1,7 @@
 ![SPHERE.IO icon](https://admin.sphere.io/assets/images/sphere_logo_rgb_long.png)
 # SPHERE.IO PHP SDK
 
-> STATUS: technically robust beta version, but we do not yet guarantee API compatibility until the 1.0.0 release.  Please take your time to thoroughly test the upcoming RC (Milestone 4) release. 
+> STATUS: technically robust beta version, but we do not yet guarantee API compatibility until the 1.0.0 release.  Please take your time to thoroughly test the upcoming RC (Milestone 4) release.
 > See the [Milestone Plan](https://github.com/sphereio/sphere-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned in detail. We love feedback and [Issue reports](https://github.com/sphereio/sphere-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
 
 [![Build Status](https://img.shields.io/travis/sphereio/sphere-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/sphereio/sphere-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk)
@@ -13,9 +13,9 @@ The SDK is licensed under the permissive [MIT License](LICENSE). Don't hesitate 
 
 ## Install & Integrate the SDK into your Project
 
-The SDK requires a PHP version of 5.4 or higher with the apc(u) PHP extension for its default cache. If you provide an own Cache interface, apc(u) is not necessary. 
+The SDK requires a PHP version of 5.4 or higher with the apc(u) PHP extension for its default cache. If you provide an own Cache interface, apc(u) is not necessary.
 The curl extension is recommended but not strictly necessary because the SDK is using the [Guzzle library](https://github.com/guzzle/guzzle) library, which falls back to PHP stream wrappers if curl is not available.
-The intl extension is required to directly output Money objects as a String. 
+The intl extension is required to directly output Money objects as a String.
 
 The recommended way to install the SDK is through [Composer](http://getcomposer.org).
 
@@ -55,7 +55,7 @@ To get up and running, [create a free test project](http://admin.sphere.io) to g
 
 require '../vendor/autoload.php';
 
-use Sphere\Core\Request\Products\ProductsSearchRequest;
+use Sphere\Core\Request\Products\ProductProjectionSearchRequest;
 use Sphere\Core\Client;
 
 $config = [
@@ -69,7 +69,7 @@ $config = [
  * execute the request and get the PHP Object
  * (the client can and should be re-used)
  */
-$search = ProductsSearchRequest::of()->addParam('text.en', 'red');
+$search = ProductProjectionSearchRequest::of()->addParam('text.en', 'red');
 
 $client = new Client($config);
 $products = $client->execute($search)->toObject();

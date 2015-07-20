@@ -24,22 +24,22 @@ class ProductsSearchRequestTest extends RequestTestCase
                 ['id' => 'value'],
             ]
         ];
-        $result = $this->mapQueryResult(ProductsSearchRequest::of(), [], $data);
+        $result = $this->mapQueryResult(ProductProjectionSearchRequest::of(), [], $data);
         $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjectionCollection', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(ProductsSearchRequest::of());
+        $result = $this->mapEmptyResult(ProductProjectionSearchRequest::of());
         $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjectionCollection', $result);
     }
 
     public function testAddFilterString()
     {
         /**
-         * @var ProductsSearchRequest $request
+         * @var ProductProjectionSearchRequest $request
          */
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $request->addFilter(Filter::ofType('string')->setName('key')->setValue('value'));
         $httpRequest = $request->httpRequest();
 
@@ -49,9 +49,9 @@ class ProductsSearchRequestTest extends RequestTestCase
     public function testAddMultiFilterString()
     {
         /**
-         * @var ProductsSearchRequest $request
+         * @var ProductProjectionSearchRequest $request
          */
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $request->addFilter(Filter::ofType('string')->setName('key')->setValue('value'));
         $request->addFilter(Filter::ofType('string')->setName('foo')->setValue('bar'));
         $httpRequest = $request->httpRequest();
@@ -65,9 +65,9 @@ class ProductsSearchRequestTest extends RequestTestCase
     public function testAddFilterInt()
     {
         /**
-         * @var ProductsSearchRequest $request
+         * @var ProductProjectionSearchRequest $request
          */
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $request->addFilter(Filter::ofType('int')->setName('key')->setValue(10));
         $httpRequest = $request->httpRequest();
 
@@ -77,9 +77,9 @@ class ProductsSearchRequestTest extends RequestTestCase
     public function testAddFilterArray()
     {
         /**
-         * @var ProductsSearchRequest $request
+         * @var ProductProjectionSearchRequest $request
          */
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $request->addFilter(Filter::ofType('array')->setName('key')->setValue([10,20,30]));
         $httpRequest = $request->httpRequest();
 
@@ -89,9 +89,9 @@ class ProductsSearchRequestTest extends RequestTestCase
     public function testAddFilterQuery()
     {
         /**
-         * @var ProductsSearchRequest $request
+         * @var ProductProjectionSearchRequest $request
          */
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $request->addFilterQuery(Filter::ofType('string')->setName('key')->setValue('value'));
         $httpRequest = $request->httpRequest();
 
@@ -101,9 +101,9 @@ class ProductsSearchRequestTest extends RequestTestCase
     public function testAddFilterQueryFacet()
     {
         /**
-         * @var ProductsSearchRequest $request
+         * @var ProductProjectionSearchRequest $request
          */
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $request->addFilterQuery(Filter::ofType('string')->setName('key')->setValue('value'));
         $request->addFacet(Facet::of('string')->setName('key')->setValue('value'));
         $httpRequest = $request->httpRequest();
@@ -117,9 +117,9 @@ class ProductsSearchRequestTest extends RequestTestCase
     public function testAddMultiFilterQuery()
     {
         /**
-         * @var ProductsSearchRequest $request
+         * @var ProductProjectionSearchRequest $request
          */
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $request->addFilterQuery(Filter::ofType('string')->setName('key')->setValue('value'));
         $request->addFilterQuery(Filter::ofType('string')->setName('foo')->setValue('bar'));
         $httpRequest = $request->httpRequest();
@@ -133,9 +133,9 @@ class ProductsSearchRequestTest extends RequestTestCase
     public function testAddFilterFacets()
     {
         /**
-         * @var ProductsSearchRequest $request
+         * @var ProductProjectionSearchRequest $request
          */
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $request->addFilterFacets(Filter::ofType('string')->setName('key')->setValue('value'));
         $httpRequest = $request->httpRequest();
 
@@ -148,9 +148,9 @@ class ProductsSearchRequestTest extends RequestTestCase
     public function testAddMultiFilterFacets()
     {
         /**
-         * @var ProductsSearchRequest $request
+         * @var ProductProjectionSearchRequest $request
          */
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $request->addFilterFacets(Filter::ofType('string')->setName('key')->setValue('value'));
         $request->addFilterFacets(Filter::ofType('string')->setName('foo')->setValue('bar'));
         $httpRequest = $request->httpRequest();
@@ -164,9 +164,9 @@ class ProductsSearchRequestTest extends RequestTestCase
     public function testAddFacet()
     {
         /**
-         * @var ProductsSearchRequest $request
+         * @var ProductProjectionSearchRequest $request
          */
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $request->addFacet(Facet::ofType('string')->setName('key')->setValue('value'));
         $httpRequest = $request->httpRequest();
 
@@ -176,9 +176,9 @@ class ProductsSearchRequestTest extends RequestTestCase
     public function testAddMultiFacet()
     {
         /**
-         * @var ProductsSearchRequest $request
+         * @var ProductProjectionSearchRequest $request
          */
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $request->addFacet(Facet::ofType('string')->setName('key')->setValue('value'));
         $request->addFacet(Facet::ofType('string')->setName('foo')->setValue('bar'));
         $httpRequest = $request->httpRequest();
@@ -191,7 +191,7 @@ class ProductsSearchRequestTest extends RequestTestCase
 
     public function testHttpRequestMethod()
     {
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
@@ -199,7 +199,7 @@ class ProductsSearchRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
@@ -207,7 +207,7 @@ class ProductsSearchRequestTest extends RequestTestCase
 
     public function testHttpRequestObject()
     {
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $httpRequest = $request->httpRequest();
 
         $this->assertEmpty((string)$httpRequest->getBody());
@@ -216,7 +216,7 @@ class ProductsSearchRequestTest extends RequestTestCase
     public function testBuildResponse()
     {
         $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
-        $request = ProductsSearchRequest::of();
+        $request = ProductProjectionSearchRequest::of();
         $response = $request->buildResponse($guzzleResponse);
 
         $this->assertInstanceOf('\Sphere\Core\Response\PagedQueryResponse', $response);
