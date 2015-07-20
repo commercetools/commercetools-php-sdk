@@ -135,7 +135,6 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
     /**
      * @param $offset
      * @return mixed
-     * @internal
      */
     public function getAt($offset)
     {

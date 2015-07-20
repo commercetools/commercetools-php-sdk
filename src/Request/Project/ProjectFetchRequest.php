@@ -5,7 +5,6 @@
 
 namespace Sphere\Core\Request\Project;
 
-
 use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequest;
@@ -13,7 +12,15 @@ use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Model\Project\Project;
+use Sphere\Core\Response\ApiResponseInterface;
 
+/**
+ * Class ProjectFetchRequest
+ * @package Sphere\Core\Request\Project
+ * 
+ * @method Project mapResponse(ApiResponseInterface $response)
+ */
 class ProjectFetchRequest extends AbstractApiRequest
 {
     protected $resultClass = '\Sphere\Core\Model\Project\Project';

@@ -10,7 +10,6 @@ use Sphere\Core\Model\Category\CategoryReferenceCollection;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\ProductType\ProductTypeReference;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 

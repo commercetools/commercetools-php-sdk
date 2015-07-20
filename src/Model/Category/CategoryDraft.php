@@ -9,7 +9,6 @@ namespace Sphere\Core\Model\Category;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Common\OfTrait;
 
 /**
  * Class CategoryDraft

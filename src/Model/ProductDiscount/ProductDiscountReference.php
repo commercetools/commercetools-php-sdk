@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\ProductDiscount;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
-use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
  * Class ProductDiscountReference

@@ -69,8 +69,8 @@ class Attribute extends JsonObject
     public function getFields()
     {
         return [
-            'name' => [self::TYPE => 'string'],
-            'value' => [
+            static::PROP_NAME => [self::TYPE => 'string'],
+            static::PROP_VALUE => [
                 self::TYPE => $this->valueType,
                 self::DECORATOR => $this->valueDecorator,
                 self::ELEMENT_TYPE => $this->valueElementType,

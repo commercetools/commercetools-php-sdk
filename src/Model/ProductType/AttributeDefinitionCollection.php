@@ -29,6 +29,10 @@ class AttributeDefinitionCollection extends Collection
         $this->addToIndex(static::NAME, $offset, $name);
     }
 
+    /**
+     * @param $attributeName
+     * @return AttributeDefinition|null
+     */
     public function getByName($attributeName)
     {
         return $this->getBy(static::NAME, $attributeName);
