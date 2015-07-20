@@ -41,7 +41,7 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest
      */
     public function __construct(Context $context = null)
     {
-        parent::__construct(ProductSearchEndpoint::endpoint(), $context);
+        parent::__construct(ProductProjectionEndpoint::endpoint(), $context);
     }
 
     /**

@@ -39,7 +39,7 @@ class ProductProjectionFetchBySkuRequest extends AbstractApiRequest
      */
     public function __construct($sku, Context $context = null)
     {
-        parent::__construct(ProductSearchEndpoint::endpoint(), $context);
+        parent::__construct(ProductProjectionEndpoint::endpoint(), $context);
         if (!is_null($sku)) {
             $this->where(sprintf('masterVariant(sku="%1$s") or variants(sku="%1$s")', $sku));
         }

@@ -41,7 +41,7 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
      */
     public function __construct(LocalizedString $keywords = null, Context $context = null)
     {
-        parent::__construct(ProductSearchEndpoint::endpoint(), $context);
+        parent::__construct(ProductProjectionEndpoint::endpoint(), $context);
         if (!is_null($keywords)) {
             $this->addKeywords($keywords);
         }

@@ -9,7 +9,7 @@ namespace Sphere\Core\Request\Products;
 
 use Sphere\Core\Client\JsonEndpoint;
 
-class ProductSearchEndpoint
+class ProductProjectionEndpoint
 {
     /**
      * @return JsonEndpoint

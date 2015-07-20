@@ -43,7 +43,7 @@ class ProductProjectionFetchBySlugRequest extends AbstractApiRequest
      */
     public function __construct($slug, Context $context)
     {
-        parent::__construct(ProductSearchEndpoint::endpoint(), $context);
+        parent::__construct(ProductProjectionEndpoint::endpoint(), $context);
         if (count($context->getLanguages()) == 0) {
             throw new InvalidArgumentException(Message::NO_LANGUAGES_PROVIDED);
         }

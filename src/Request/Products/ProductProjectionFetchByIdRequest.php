@@ -30,7 +30,7 @@ class ProductProjectionFetchByIdRequest extends AbstractFetchByIdRequest
      */
     public function __construct($id, Context $context = null)
     {
-        parent::__construct(ProductSearchEndpoint::endpoint(), $id, $context);
+        parent::__construct(ProductProjectionEndpoint::endpoint(), $id, $context);
     }
 
     /**

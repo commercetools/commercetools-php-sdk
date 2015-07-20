@@ -11,9 +11,9 @@ use Sphere\Core\Model\Product\Facet;
 use Sphere\Core\Model\Product\Filter;
 use Sphere\Core\RequestTestCase;
 
-class ProductsSearchRequestTest extends RequestTestCase
+class ProductProjectionSearchRequestTest extends RequestTestCase
 {
-    const PRODUCT_SEARCH_REQUEST = '\Sphere\Core\Request\Products\ProductsSearchRequest';
+    const PRODUCT_PROJECTION_SEARCH_REQUEST = '\Sphere\Core\Request\Products\ProductProjectionSearchRequest';
 
     public function testMapResult()
     {
