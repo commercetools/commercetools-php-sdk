@@ -12,7 +12,6 @@ use Sphere\Core\Model\ShippingMethod\ShippingMethod;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ShippingMethodCreateRequest
  * @package Sphere\Core\Request\ShippingMethods
  * 
  * @method ShippingMethod mapResponse(ApiResponseInterface $response)

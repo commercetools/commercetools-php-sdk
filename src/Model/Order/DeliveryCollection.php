@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Order;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class DeliveryCollection
  * @package Sphere\Core\Model\Order
  * @method Delivery current()
  * @method Delivery getAt($offset)

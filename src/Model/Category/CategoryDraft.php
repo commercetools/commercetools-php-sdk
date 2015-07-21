@@ -11,7 +11,6 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class CategoryDraft
  * @package Sphere\Core\Model\Category
  * @link http://dev.sphere.io/http-api-projects-categories.html#create-category
  * @method LocalizedString getName()

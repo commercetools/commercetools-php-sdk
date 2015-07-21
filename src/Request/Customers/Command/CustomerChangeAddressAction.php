@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerChangeAddressAction
  * @package Sphere\Core\Request\Customers\Command
  * @link http://dev.sphere.io/http-api-projects-customers.html#change-address
  * @method string getAddressId()

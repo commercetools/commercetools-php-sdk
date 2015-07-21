@@ -11,7 +11,6 @@ use Sphere\Core\Request\AbstractFetchByIdRequest;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CartFetchByIdRequest
  * @package Sphere\Core\Request\Carts
  * @link http://dev.sphere.io/http-api-projects-carts.html#cart-by-id
  * @method Cart mapResponse(ApiResponseInterface $response)

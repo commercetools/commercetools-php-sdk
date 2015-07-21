@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Customer;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class CustomerToken
  * @package Sphere\Core\Model\Customer
  * @link http://dev.sphere.io/http-api-projects-customers.html#customer-token
  * @method string getId()

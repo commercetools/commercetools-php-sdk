@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class EnumCollection
  * @package Sphere\Core\Model\Common
  *  *
  * @method Enum current()

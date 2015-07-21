@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 
 /**
- * Class OrderReference
  * @package Sphere\Core\Model\Order
  * @link http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()

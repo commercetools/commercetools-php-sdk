@@ -11,7 +11,6 @@ use Sphere\Core\Model\CartDiscount\CartDiscount;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CartDiscountDeleteByIdRequest
  * @package Sphere\Core\Request\CartDiscounts
  * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#delete-cart-discount
  * @method CartDiscount mapResponse(ApiResponseInterface $response)

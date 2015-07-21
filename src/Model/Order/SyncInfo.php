@@ -9,7 +9,6 @@ use Sphere\Core\Model\Channel\ChannelReference;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class SyncInfo
  * @package Sphere\Core\Model\Order
  * @link http://dev.sphere.io/http-api-projects-orders.html#sync-info
  * @method ChannelReference getChannel()

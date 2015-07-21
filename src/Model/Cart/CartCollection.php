@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Cart;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class CartCollection
  * @package Sphere\Core\Model\Cart
  * @method Cart current()
  * @method Cart getAt($offset)

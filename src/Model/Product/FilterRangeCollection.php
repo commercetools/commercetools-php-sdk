@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Product;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class FilterRangeCollection
  * @package Sphere\Core\Model\Product
  * 
  * @method FilterRange current()

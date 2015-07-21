@@ -16,7 +16,6 @@ use Sphere\Core\Model\Product\ProductVariant;
 use Sphere\Core\Model\TaxCategory\TaxRate;
 
 /**
- * Class LineItem
  * @package Sphere\Core\Model\Cart
  * @link http://dev.sphere.io/http-api-projects-carts.html#line-item
  * @method string getId()

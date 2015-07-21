@@ -12,7 +12,6 @@ use Sphere\Core\Model\Category\Category;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CategoryUpdateRequest
  * @package Sphere\Core\Request\Categories
  * @link http://dev.sphere.io/http-api-projects-categories.html#update-category
  * @method Category mapResponse(ApiResponseInterface $response)

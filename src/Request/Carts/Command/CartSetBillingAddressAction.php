@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CartSetBillingAddressAction
  * @package Sphere\Core\Request\Carts\Command
  * @link http://dev.sphere.io/http-api-projects-carts.html#set-billing-address
  * @method string getAction()

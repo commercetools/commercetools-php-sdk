@@ -11,7 +11,6 @@ use Sphere\Core\Model\ShippingMethod\ShippingMethod;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ShippingMethodUpdateRequest
  * @package Sphere\Core\Request\ShippingMethods
  * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#update-shipping-method
  * @method ShippingMethod mapResponse(ApiResponseInterface $response)

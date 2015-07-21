@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Common;
 use Sphere\Core\Model\ProductType\AttributeDefinitionCollection;
 
 /**
- * Class AttributeCollection
  * @package Sphere\Core\Model\Common
  * @method Attribute current()
  */

@@ -11,7 +11,6 @@ use Sphere\Core\Request\AbstractQueryRequest;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CartsQueryRequest
  * @package Sphere\Core\Request\Carts
  * @link http://dev.sphere.io/http-api-projects-carts.html#carts-by-query
  * @method CartCollection mapResponse(ApiResponseInterface $response)

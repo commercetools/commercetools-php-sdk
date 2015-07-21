@@ -11,7 +11,6 @@ use Sphere\Core\Model\Review\ReviewCollection;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ReviewsQueryRequest
  * @package Sphere\Core\Request\Reviews
  * @link http://dev.sphere.io/http-api-projects-reviews.html#reviews-by-query
  * @method ReviewCollection mapResponse(ApiResponseInterface $response)

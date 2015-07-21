@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class ChannelDraft
  * @package Sphere\Core\Model\Channel
  * @method string getKey()
  * @method ChannelDraft setKey(string $key = null)

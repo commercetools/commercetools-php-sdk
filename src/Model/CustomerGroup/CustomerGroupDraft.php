@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class CustomerGroupDraft
  * @package Sphere\Core\Model\CustomerGroup
  * @method string getGroupName()
  * @method CustomerGroupDraft setGroupName(string $groupName = null)

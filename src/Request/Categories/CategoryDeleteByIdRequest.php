@@ -12,7 +12,6 @@ use Sphere\Core\Model\Category\Category;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CategoryDeleteByIdRequest
  * @package Sphere\Core\Request\Categories
  * @link http://dev.sphere.io/http-api-projects-categories.html#delete-category
  * @method Category mapResponse(ApiResponseInterface $response)

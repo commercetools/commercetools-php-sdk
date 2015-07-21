@@ -11,7 +11,6 @@ use Sphere\Core\Model\ProductDiscount\ProductDiscount;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductDiscountUpdateRequest
  * @package Sphere\Core\Request\ProductDiscounts
  * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#update-product-discount
  * @method ProductDiscount mapResponse(ApiResponseInterface $response)

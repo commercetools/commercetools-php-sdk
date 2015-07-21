@@ -11,7 +11,6 @@ use Sphere\Core\Model\ShippingMethod\ShippingMethodCollection;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ShippingMethodsQueryRequest
  * @package Sphere\Core\Request\ShippingMethods
  * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-methods-by-query
  * @method ShippingMethodCollection mapResponse(ApiResponseInterface $response)

@@ -12,7 +12,6 @@ use Sphere\Core\Model\ProductDiscount\ProductDiscount;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductDiscountCreateRequest
  * @package Sphere\Core\Request\ProductDiscounts
  * 
  * @method ProductDiscount mapResponse(ApiResponseInterface $response)

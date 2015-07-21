@@ -13,7 +13,6 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 use Sphere\Core\Model\Common\AddressCollection;
 
 /**
- * Class CustomerDraft
  * @package Sphere\Core\Model\Customer
  * @link http://dev.sphere.io/http-api-projects-customers.html#create-customer
  * @method string getCustomerNumber()

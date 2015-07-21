@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class TaxPortionCollection
  * @package Sphere\Core\Model\Common
  * 
  * @method TaxPortion current()

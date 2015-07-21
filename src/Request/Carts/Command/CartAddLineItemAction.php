@@ -10,7 +10,6 @@ use Sphere\Core\Request\AbstractAction;
 use Sphere\Core\Model\Channel\ChannelReference;
 
 /**
- * Class CartAddLineItemAction
  * @package Sphere\Core\Request\Carts\Command
  * @link http://dev.sphere.io/http-api-projects-carts.html#add-line-item
  * @method string getAction()

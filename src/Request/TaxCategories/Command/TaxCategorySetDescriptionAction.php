@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class TaxCategorySetDescriptionAction
  * @package Sphere\Core\Request\TaxCategories\Command
  * 
  * @method string getAction()

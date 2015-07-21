@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 
 /**
- * Class DiscountCodeReference
  * @package Sphere\Core\Model\DiscountCode
  * @link http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()

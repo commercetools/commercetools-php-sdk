@@ -11,7 +11,6 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroup;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CustomerGroupDeleteByIdRequest
  * @package Sphere\Core\Request\CustomerGroups
  * @link http://dev.sphere.io/http-api-projects-customerGroups.html#delete-customer-group
  * @method CustomerGroup mapResponse(ApiResponseInterface $response)

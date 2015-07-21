@@ -12,7 +12,6 @@ use Sphere\Core\Model\Customer\Customer;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CustomerUpdateRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#update-customer
  * @method Customer mapResponse(ApiResponseInterface $response)

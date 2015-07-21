@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class Reference
  * @package Sphere\Core\Model\Common
  * @link http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()

@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ChannelChangeKeyAction
  * @package Sphere\Core\Request\Channels\Command
  *  *
  * @method string getAction()

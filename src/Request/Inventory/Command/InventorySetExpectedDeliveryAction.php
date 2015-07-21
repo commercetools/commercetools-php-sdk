@@ -10,7 +10,6 @@ use Sphere\Core\Request\AbstractAction;
 use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
- * Class InventorySetExpectedDeliveryAction
  * @package Sphere\Core\Request\Inventory\Command
  * 
  * @method string getAction()

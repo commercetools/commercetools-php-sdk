@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Product;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class FacetResult
  * @package Sphere\Core\Model\Product
  * @method string getType()
  * @method FacetResult setType(string $type = null)

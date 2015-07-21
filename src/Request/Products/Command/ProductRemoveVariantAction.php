@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductRemoveVariantAction
  * @package Sphere\Core\Request\Products\Command
  * @link http://dev.sphere.io/http-api-projects-products.html#remove-variant
  * @method string getAction()

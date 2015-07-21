@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\ProductDiscount;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class ProductDiscountCollection
  * @package Sphere\Core\Model\ProductDiscount
  * 
  * @method ProductDiscount current()

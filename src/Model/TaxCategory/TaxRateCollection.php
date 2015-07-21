@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\TaxCategory;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class TaxRateCollection
  * @package Sphere\Core\Model\TaxCategory
  * 
  * @method TaxRate current()

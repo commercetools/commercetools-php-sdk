@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class ProductTypeDraft
  * @package Sphere\Core\Model\ProductType
  * @link http://dev.sphere.io/http-api-projects-productTypes.html#create-product-type
  * @method string getName()

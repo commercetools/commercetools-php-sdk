@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 
 /**
- * Class CategoryReference
  * @package Sphere\Core\Model\Category
  * @link  http://dev.sphere.io/http-api-types.html#reference
  * @method static CategoryReference of(string $id)

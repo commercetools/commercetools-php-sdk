@@ -12,7 +12,6 @@ use Sphere\Core\Model\CartDiscount\CartDiscount;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CartDiscountCreateRequest
  * @package Sphere\Core\Request\CartDiscounts
  * 
  * @method CartDiscount mapResponse(ApiResponseInterface $response)

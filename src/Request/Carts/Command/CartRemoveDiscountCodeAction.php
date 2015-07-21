@@ -10,7 +10,6 @@ use Sphere\Core\Model\DiscountCode\DiscountCodeReference;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CartRemoveDiscountCodeAction
  * @package Sphere\Core\Request\Carts\Command
  * @link http://dev.sphere.io/http-api-projects-carts.html#remove-discount-code
  * @method string getAction()

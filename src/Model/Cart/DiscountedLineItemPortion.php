@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\Money;
 
 /**
- * Class DiscountedLineItemPortion
  * @package Sphere\Core\Model\Cart
  * @link http://dev.sphere.io/http-api-projects-carts.html#discounted-line-item-portion
  * @method CartDiscountReference getDiscount()

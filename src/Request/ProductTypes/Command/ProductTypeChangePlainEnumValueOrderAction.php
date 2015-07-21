@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\EnumCollection;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductTypeChangePlainEnumValueOrderAction
  * @package Sphere\Core\Request\ProductTypes\Command
  * 
  * @method string getAction()

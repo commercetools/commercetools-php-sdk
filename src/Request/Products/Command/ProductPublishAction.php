@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductPublishAction
  * @package Sphere\Core\Request\Products\Command
  * @link http://dev.sphere.io/http-api-projects-products.html#publish
  * @method string getAction()

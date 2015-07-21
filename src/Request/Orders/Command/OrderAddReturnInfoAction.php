@@ -11,7 +11,6 @@ use Sphere\Core\Request\AbstractAction;
 use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
- * Class OrderAddReturnInfoAction
  * @package Sphere\Core\Request\Orders\Command
  * @link http://dev.sphere.io/http-api-projects-orders.html#add-return-info
  * @method string getAction()

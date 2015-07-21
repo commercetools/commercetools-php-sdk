@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class TaxCategoryDraft
  * @package Sphere\Core\Model\TaxCategory
  * @method string getName()
  * @method TaxCategoryDraft setName(string $name = null)

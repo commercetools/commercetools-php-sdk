@@ -11,7 +11,6 @@ use Sphere\Core\Model\Comment\CommentCollection;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CommentsQueryRequest
  * @package Sphere\Core\Request\Comments
  * @link http://dev.sphere.io/http-api-projects-comments.html#comments-by-query
  * @method CommentCollection mapResponse(ApiResponseInterface $response)

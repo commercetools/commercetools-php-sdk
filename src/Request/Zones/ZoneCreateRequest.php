@@ -12,7 +12,6 @@ use Sphere\Core\Model\Zone\Zone;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ZoneCreateRequest
  * @package Sphere\Core\Request\Zones
  * @method Zone mapResponse(ApiResponseInterface $response)
  */

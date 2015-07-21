@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class ZoneDraft
  * @package Sphere\Core\Model\Zone
  * @method string getName()
  * @method ZoneDraft setName(string $name = null)

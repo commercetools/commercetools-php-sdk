@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Product\Search\FilterInterface;
 
 /**
- * Class Filter
  * @package Sphere\Core\Model\Product
  * @method getValue()
  * @method Filter setValue($value = null)

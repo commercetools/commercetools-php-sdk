@@ -11,7 +11,6 @@ use Sphere\Core\Model\ShippingMethod\ShippingRate;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
- * Class CartSetCustomShippingMethodAction
  * @package Sphere\Core\Request\Carts\Command
  * @link http://dev.sphere.io/http-api-projects-carts.html#set-custom-shipping-method
  * @method string getAction()

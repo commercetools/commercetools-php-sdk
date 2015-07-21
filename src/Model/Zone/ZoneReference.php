@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 
 /**
- * Class ZoneReference
  * @package Sphere\Core\Model\Zone
  * @method string getTypeId()
  * @method ZoneReference setTypeId(string $typeId = null)

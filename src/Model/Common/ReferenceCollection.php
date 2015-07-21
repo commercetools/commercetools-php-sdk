@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class ReferenceCollection
  * @package Sphere\Core\Model\Common
  * @method Reference current()
  * @method Reference getAt($offset)

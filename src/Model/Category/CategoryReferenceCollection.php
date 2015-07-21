@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Category;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class CategoryReferenceCollection
  * @package Sphere\Core\Model\Category
  * @method CategoryReference current()
  * @method CategoryReference getAt($offset)

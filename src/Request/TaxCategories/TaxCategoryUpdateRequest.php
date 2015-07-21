@@ -11,7 +11,6 @@ use Sphere\Core\Model\TaxCategory\TaxCategory;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class TaxCategoryUpdateRequest
  * @package Sphere\Core\Request\TaxCategories
  * @link http://dev.sphere.io/http-api-projects-taxCategories.html#update-tax-category
  * @method TaxCategory mapResponse(ApiResponseInterface $response)

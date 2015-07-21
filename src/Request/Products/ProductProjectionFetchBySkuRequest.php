@@ -20,7 +20,6 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductProjectionFetchBySkuRequest
  * @package Sphere\Core\Request\Products
  * @method ProductProjection mapResponse(ApiResponseInterface $response)
  */

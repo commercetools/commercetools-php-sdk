@@ -13,7 +13,10 @@ use Sphere\Core\Error\InvalidArgumentException;
  * Class LocalizedString
  * @package Sphere\Core\Model\Type
  * @link http://dev.sphere.io/http-api-types.html#localized-string
- * @example LocalizedString::fromArray(['en' => 'Hello World', 'de' => 'Hallo Welt'])->add('fr', 'Bonjour le monde');
+ * @example
+ * ```php
+ * LocalizedString::fromArray(['en' => 'Hello World', 'de' => 'Hallo Welt'])->add('fr', 'Bonjour le monde');
+ * ```
  */
 class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
 {

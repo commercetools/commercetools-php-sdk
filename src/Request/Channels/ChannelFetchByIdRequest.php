@@ -11,7 +11,6 @@ use Sphere\Core\Model\Channel\Channel;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ChannelFetchByIdRequest
  * @package Sphere\Core\Request\Channels
  * @link http://dev.sphere.io/http-api-projects-channels.html#channel-by-id
  * @method Channel mapResponse(ApiResponseInterface $response)

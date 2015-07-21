@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Enum;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductTypeAddPlainEnumValueAction
  * @package Sphere\Core\Request\ProductTypes\Command
  * 
  * @method string getAction()

@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Cart;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class CustomLineItemCollection
  * @package Sphere\Core\Model\Cart
  * @method CustomLineItem current()
  * @method CustomLineItem getAt($offset)

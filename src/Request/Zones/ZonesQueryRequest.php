@@ -11,7 +11,6 @@ use Sphere\Core\Model\Zone\ZoneCollection;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ZonesQueryRequest
  * @package Sphere\Core\Request\Zones
  * @link http://dev.sphere.io/http-api-projects-zones.html#zones-by-query
  * @method ZoneCollection mapResponse(ApiResponseInterface $response)

@@ -14,7 +14,6 @@ use Sphere\Core\Model\TaxCategory\TaxCategory;
 use Sphere\Core\Model\TaxCategory\TaxRate;
 
 /**
- * Class ShippingInfo
  * @package Sphere\Core\Model\Cart
  * @link http://dev.sphere.io/http-api-projects-carts.html#shipping-info
  * @method string getShippingMethodName()

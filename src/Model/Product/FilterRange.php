@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\DateTimeDecorator;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class FilterRange
  * @package Sphere\Core\Model\Product
  * @method getFrom()
  * @method FilterRange setFrom($from = null)

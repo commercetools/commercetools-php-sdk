@@ -11,7 +11,6 @@ use Sphere\Core\Model\Comment\Comment;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CommentFetchByIdRequest
  * @package Sphere\Core\Request\Comments
  * @link http://dev.sphere.io/http-api-projects-comments.html#comment-by-id
  * @method Comment mapResponse(ApiResponseInterface $response)

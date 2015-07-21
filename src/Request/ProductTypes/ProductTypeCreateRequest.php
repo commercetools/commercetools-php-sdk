@@ -12,7 +12,6 @@ use Sphere\Core\Model\ProductType\ProductType;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductTypeCreateRequest
  * @package Sphere\Core\Request\ProductTypes
  * 
  * @method ProductType mapResponse(ApiResponseInterface $response)

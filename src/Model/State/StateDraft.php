@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class StateDraft
  * @package Sphere\Core\Model\State
  * @link http://dev.sphere.io/http-api-projects-states.html#create-state
  * @method string getKey()

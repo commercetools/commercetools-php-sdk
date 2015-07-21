@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\CustomerGroup;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class CustomerGroupCollection
  * @package Sphere\Core\Model\CustomerGroup
  * 
  * @method CustomerGroup current()

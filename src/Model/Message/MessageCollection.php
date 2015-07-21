@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Message;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class MessageCollection
  * @package Sphere\Core\Model\Message
  * 
  * @method Message current()

@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CartSetCustomerIdAction
  * @package Sphere\Core\Request\Carts\Command
  * @link http://dev.sphere.io/http-api-projects-carts.html#set-customer-id
  * @method string getAction()

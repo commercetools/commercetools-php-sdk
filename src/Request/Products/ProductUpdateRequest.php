@@ -12,7 +12,6 @@ use Sphere\Core\Model\Product\Product;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductUpdateRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products.html#update-product
  * @method Product mapResponse(ApiResponseInterface $response)

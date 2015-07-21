@@ -11,7 +11,6 @@ use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
- * Class CartDiscountDraft
  * @package Sphere\Core\Model\CartDiscount
  * @method LocalizedString getName()
  * @method CartDiscountDraft setName(LocalizedString $name = null)

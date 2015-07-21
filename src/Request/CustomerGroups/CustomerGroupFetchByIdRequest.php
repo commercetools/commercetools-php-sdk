@@ -11,7 +11,6 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroup;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CustomerGroupFetchByIdRequest
  * @package Sphere\Core\Request\CustomerGroups
  * @link http://dev.sphere.io/http-api-projects-customerGroups.html#customer-group-by-id
  * @method CustomerGroup mapResponse(ApiResponseInterface $response)

@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
- * Class ShippingMethod
  * @package Sphere\Core\Model\ShippingMethod
  * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-method
  * @method string getId()

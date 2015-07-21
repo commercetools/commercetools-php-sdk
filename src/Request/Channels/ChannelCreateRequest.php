@@ -12,7 +12,6 @@ use Sphere\Core\Model\Channel\Channel;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ChannelCreateRequest
  * @package Sphere\Core\Request\Channels
  * 
  * @method Channel mapResponse(ApiResponseInterface $response)

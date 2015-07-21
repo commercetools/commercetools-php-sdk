@@ -11,7 +11,6 @@ use Sphere\Core\Model\Zone\Zone;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ZoneDeleteByIdRequest
  * @package Sphere\Core\Request\Zones
  * @link http://dev.sphere.io/http-api-projects-zones.html#delete-zone
  * @method Zone mapResponse(ApiResponseInterface $response)

@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerAddAddressAction
  * @package Sphere\Core\Request\Customers\Command
  * @link http://dev.sphere.io/http-api-projects-customers.html#add-address
  * @method Address getAddress()

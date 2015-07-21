@@ -12,7 +12,6 @@ use Sphere\Core\Model\State\State;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class StateCreateRequest
  * @package Sphere\Core\Request\States
  * @link http://dev.sphere.io/http-api-projects-states.html#create-state
  * @method State mapResponse(ApiResponseInterface $response)

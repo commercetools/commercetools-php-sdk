@@ -11,7 +11,6 @@ use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\ReferenceCollection;
 
 /**
- * Class DiscountCode
  * @package Sphere\Core\Model\DiscountCode
  * @link http://dev.sphere.io/http-api-projects-discountCodes.html#discount-code
  * @method string getId()

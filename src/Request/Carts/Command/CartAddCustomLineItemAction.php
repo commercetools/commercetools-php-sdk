@@ -12,7 +12,6 @@ use Sphere\Core\Model\TaxCategory\TaxCategory;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CartAddCustomLineItemAction
  * @package Sphere\Core\Request\Carts\Command
  * @link http://dev.sphere.io/http-api-projects-carts.html#add-custom-line-item
  * @method string getAction()

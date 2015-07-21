@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class TaxCategoryRemoveTaxRateAction
  * @package Sphere\Core\Request\TaxCategories\Command
  *  *
  * @method string getAction()

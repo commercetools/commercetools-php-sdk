@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class Enum
  * @package Sphere\Core\Model\Common
  * @link http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
  * @method string getLabel()

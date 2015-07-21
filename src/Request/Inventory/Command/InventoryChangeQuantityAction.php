@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class InventoryChangeQuantityAction
  * @package Sphere\Core\Request\Inventory\Command
  * 
  * @method string getAction()

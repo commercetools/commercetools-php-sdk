@@ -11,7 +11,6 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class DiscountCodeDraft
  * @package Sphere\Core\Model\DiscountCode
  * @method LocalizedString getName()
  * @method DiscountCodeDraft setName(LocalizedString $name = null)

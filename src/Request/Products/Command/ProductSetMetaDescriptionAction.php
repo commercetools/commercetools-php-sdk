@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductSetMetaDescriptionAction
  * @package Sphere\Core\Request\Products\Command
  * @link http://dev.sphere.io/http-api-projects-products.html#set-meta-description
  * @method string getAction()

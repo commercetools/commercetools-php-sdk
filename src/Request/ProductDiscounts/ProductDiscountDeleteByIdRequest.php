@@ -11,7 +11,6 @@ use Sphere\Core\Model\ProductDiscount\ProductDiscount;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductDiscountDeleteByIdRequest
  * @package Sphere\Core\Request\ProductDiscounts
  * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#delete-product-discount
  * @method ProductDiscount mapResponse(ApiResponseInterface $response)

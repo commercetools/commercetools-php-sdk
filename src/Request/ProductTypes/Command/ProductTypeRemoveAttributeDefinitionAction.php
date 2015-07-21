@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductTypeRemoveAttributeDefinitionAction
  * @package Sphere\Core\Request\ProductTypes\Command
  * 
  * @method string getAction()

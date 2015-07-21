@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Product;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class FacetRangeCollection
  * @package Sphere\Core\Model\Product
  * @method FacetRange current()
  * @method FacetRange getAt($offset)

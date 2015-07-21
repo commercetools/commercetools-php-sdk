@@ -15,7 +15,6 @@ use Sphere\Core\Model\Cart\ShippingInfo;
 use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
- * Class ImportOrder
  * @package Sphere\Core\Model\Order
  * @method string getOrderNumber()
  * @method ImportOrder setOrderNumber(string $orderNumber = null)

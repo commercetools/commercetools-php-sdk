@@ -10,7 +10,6 @@ use Sphere\Core\Model\ProductType\AttributeDefinition;
 use Sphere\Core\Model\ProductType\AttributeType;
 
 /**
- * Class Attribute
  * @package Sphere\Core\Model\Common
  * @link http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
  * @method string getName()

@@ -11,7 +11,6 @@ use Sphere\Core\Model\State\State;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class StateDeleteByIdRequest
  * @package Sphere\Core\Request\States
  * @link http://dev.sphere.io/http-api-projects-states.html#delete-state
  * @method State mapResponse(ApiResponseInterface $response)

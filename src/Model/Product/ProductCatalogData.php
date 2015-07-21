@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Product;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class ProductCatalogData
  * @package Sphere\Core\Model\Product
  * @link http://dev.sphere.io/http-api-projects-products.html#product-catalog-data
  * @method bool getPublished()

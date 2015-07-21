@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Collection;
 use Sphere\Core\Model\Common\Document;
 
 /**
- * Class TaxCategory
  * @package Sphere\Core\Model\TaxCategory
  * @link http://dev.sphere.io/http-api-projects-taxCategories.html#tax-category
  * @method string getId()

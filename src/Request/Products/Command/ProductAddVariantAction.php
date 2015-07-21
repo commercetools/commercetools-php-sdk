@@ -12,7 +12,6 @@ use Sphere\Core\Model\Common\PriceCollection;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductAddVariantAction
  * @package Sphere\Core\Request\Products\Command
  * @link http://dev.sphere.io/http-api-projects-products.html#add-variant
  * @method string getAction()

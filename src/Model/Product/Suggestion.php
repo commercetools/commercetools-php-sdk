@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Product;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class Suggestion
  * @package Sphere\Core\Model\Product
  * @link http://dev.sphere.io/http-api-projects-products-search.html#suggest-representations-suggestion
  * @method string getText()

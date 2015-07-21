@@ -12,7 +12,6 @@ use Sphere\Core\Model\Inventory\InventoryEntry;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class InventoryCreateRequest
  * @package Sphere\Core\Request\Inventory
  * 
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)

@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\CustomObject;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class CustomObjectCollection
  * @package Sphere\Core\Model\CustomObject
  * 
  * @method CustomObject current()

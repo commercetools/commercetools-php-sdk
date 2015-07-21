@@ -10,7 +10,6 @@ use Sphere\Core\Model\State\StateReferenceCollection;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class StateSetTransitionsAction
  * @package Sphere\Core\Request\States\Command
  * 
  * @method string getAction()

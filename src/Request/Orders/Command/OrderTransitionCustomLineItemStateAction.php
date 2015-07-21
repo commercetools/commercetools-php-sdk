@@ -11,7 +11,6 @@ use Sphere\Core\Request\AbstractAction;
 use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
- * Class OrderTransitionCustomLineItemStateAction
  * @package Sphere\Core\Request\Orders\Command
  * @link http://dev.sphere.io/http-api-projects-orders.html#transition-custom-line-item-state
  * @method string getAction()
