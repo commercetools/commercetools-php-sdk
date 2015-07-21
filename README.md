@@ -90,9 +90,8 @@ In real world, you will not put your API credentials directly into code but use 
 
 ## Improve & Contribute to the SDK project
 
-prepare your development environment (if necessary).
-
-Mac OS X, assuming [Homebrew](http://brew.sh) is installed, do the following:
+### Mac OS X preparations:
+assuming [Homebrew](http://brew.sh) is installed, do the following:
 
 ```sh
 xcode-select --install
@@ -110,13 +109,18 @@ echo "date.timezone='Europe/Berlin'" >> /usr/local/etc/php/5.5/conf.d/60-user.in
 php composer.phar update
 ```
 
-Linux users install php 5.4+, apc(u), xdebug and ant according to their distro's package system.
+### Linux preparations :
+ * install php 5.4+, apc(u), xdebug and ant according to their distro's package system. 
+ * make sure the curl, intl, mbstring, apcu and openssl extensions are activated in php.ini
 
-Windows users:
- * [install plain php](http://windows.php.net/download/) 5.4+, i.e. extract ZIP and make add php.exe location to your PATH
- * enable apc(u), curl, intl and openssl extenstions in php.ini
+### Windows preparations:
+ * [install php](http://windows.php.net/download/) 5.4+, i.e. extract ZIP and make add php.exe location to your PATH. Use WAMP etc. if you like, but plain PHP commandline is all you really need (you can test example code in the built-in webserver).
+ * enable the curl, intl, mbstring and openssl extenstions in php.ini
+ * [install apcu](http://robert-rusu.blogspot.de/2014/06/install-apcu-on-windows.html) OR a redis extension and server
  * make a working ant available in the PATH 
  * and [install composer](https://getcomposer.org/doc/00-intro.md#installation-windows). 
+
+### Start working:
 
 Clone the develop branch of the repository (we're using the [gitflow](http://nvie.com/posts/a-successful-git-branching-model/) branching model, so master is for releases only):
 
@@ -152,7 +156,7 @@ php -S localhost:8000 -t docroot
 
 Now navigate to [http://localhost:8000](http://localhost:8000) in your browser.
 
-### phpStorm
+### phpStorm configuration
 
 To enable code style checks directly in phpStorm you have to configure the path to the phpcs at Preferences > Languages & Frameworks > PHP > Code Sniffer.
 Now you can enable at Preferences > Editor > Inspections > PHP the "PHP code sniffer validation" with PSR-2 standard. Change the severity if needed.
