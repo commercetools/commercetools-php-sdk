@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Zone\ZoneReference;
 
 /**
- * Class ZoneRate
  * @package Sphere\Core\Model\ShippingMethod
  * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#zone-rate
  * @method ZoneReference getZone()

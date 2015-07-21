@@ -12,7 +12,6 @@ use Sphere\Core\Model\TaxCategory\TaxCategory;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class TaxCategoryCreateRequest
  * @package Sphere\Core\Request\TaxCategories
  * 
  * @method TaxCategory mapResponse(ApiResponseInterface $response)

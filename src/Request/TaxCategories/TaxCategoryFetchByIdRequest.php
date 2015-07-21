@@ -11,7 +11,6 @@ use Sphere\Core\Model\TaxCategory\TaxCategory;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class TaxCategoryFetchByIdRequest
  * @package Sphere\Core\Request\TaxCategories
  * @link http://dev.sphere.io/http-api-projects-taxCategories.html#tax-category-by-id
  * @method TaxCategory mapResponse(ApiResponseInterface $response)

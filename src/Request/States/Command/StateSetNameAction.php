@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class StateSetNameAction
  * @package Sphere\Core\Request\States\Command
  * 
  * @method string getAction()

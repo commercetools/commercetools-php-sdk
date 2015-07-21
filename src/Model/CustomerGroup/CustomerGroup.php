@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\CustomerGroup;
 use Sphere\Core\Model\Common\Document;
 
 /**
- * Class CustomerGroup
  * @package Sphere\Core\Model\CustomerGroup
  * @link http://dev.sphere.io/http-api-projects-customerGroups.html#customer-group
  * @method string getId()

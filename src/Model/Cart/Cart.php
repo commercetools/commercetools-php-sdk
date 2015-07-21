@@ -12,7 +12,6 @@ use Sphere\Core\Model\Common\TaxedPrice;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
- * Class Cart
  * @package Sphere\Core\Model\Cart
  * @link http://dev.sphere.io/http-api-projects-carts.html#cart
  * @method string getId()

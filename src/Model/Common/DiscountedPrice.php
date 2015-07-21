@@ -9,7 +9,6 @@ namespace Sphere\Core\Model\Common;
 use Sphere\Core\Model\ProductDiscount\ProductDiscountReference;
 
 /**
- * Class DiscountedPrice
  * @package Sphere\Core\Model\Common
  * @link http://dev.sphere.io/http-api-projects-products.html#discounted-price
  * @method Money getValue()

@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ZoneSetDescriptionAction
  * @package Sphere\Core\Request\Zones\Command
  * 
  * @method string getAction()

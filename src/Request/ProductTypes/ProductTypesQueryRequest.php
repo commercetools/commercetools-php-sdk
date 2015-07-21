@@ -11,7 +11,6 @@ use Sphere\Core\Model\ProductType\ProductTypeCollection;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductTypesQueryRequest
  * @package Sphere\Core\Request\ProductTypes
  * @link http://dev.sphere.io/http-api-projects-productTypes.html#product-types-by-query
  * @method ProductTypeCollection mapResponse(ApiResponseInterface $response)

@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\Channel\ChannelReference;
 
 /**
- * Class InventoryEntry
  * @package Sphere\Core\Model\Inventory
  * @method string getId()
  * @method InventoryEntry setId(string $id = null)

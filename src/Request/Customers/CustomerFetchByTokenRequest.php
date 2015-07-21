@@ -16,7 +16,6 @@ use Sphere\Core\Model\Customer\Customer;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CustomerFetchByTokenRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#customer-by-password-token
  * @method Customer mapResponse(ApiResponseInterface $response)

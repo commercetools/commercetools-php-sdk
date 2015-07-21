@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\TaxCategory;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class TaxRate
  * @package Sphere\Core\Model\TaxCategory
  * @link http://dev.sphere.io/http-api-projects-taxCategories.html#tax-rate
  * @method string getId()

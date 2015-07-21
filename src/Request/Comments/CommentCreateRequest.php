@@ -12,7 +12,6 @@ use Sphere\Core\Model\Comment\Comment;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CommentCreateRequest
  * @package Sphere\Core\Request\Comments
  * 
  * @method Comment mapResponse(ApiResponseInterface $response)

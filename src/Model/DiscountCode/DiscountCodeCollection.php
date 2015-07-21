@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\DiscountCode;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class DiscountCodeCollection
  * @package Sphere\Core\Model\DiscountCode
  * 
  * @method DiscountCode current()

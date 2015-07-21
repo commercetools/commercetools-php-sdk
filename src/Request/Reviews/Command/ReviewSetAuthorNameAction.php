@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ReviewSetAuthorNameAction
  * @package Sphere\Core\Request\Reviews\Command
  * 
  * @method string getAction()

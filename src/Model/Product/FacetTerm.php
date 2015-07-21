@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Product;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class FacetTerm
  * @package Sphere\Core\Model\Product
  * @method string getTerm()
  * @method FacetTerm setTerm(string $term = null)

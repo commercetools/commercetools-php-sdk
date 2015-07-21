@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class DiscountCodeSetCartPredicateAction
  * @package Sphere\Core\Request\DiscountCodes\Command
  * 
  * @method string getAction()

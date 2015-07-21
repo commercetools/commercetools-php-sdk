@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class MoneyCollection
  * @package Sphere\Core\Model\Common
  * @method Money current()
  * @method Money getAt($offset)

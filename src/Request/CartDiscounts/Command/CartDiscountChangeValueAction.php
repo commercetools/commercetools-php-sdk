@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CartDiscountChangeValueAction
  * @package Sphere\Core\Request\CartDiscounts\Command
  * @method string getAction()
  * @method CartDiscountChangeValueAction setAction(string $action = null)

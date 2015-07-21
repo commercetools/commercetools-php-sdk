@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ShippingMethodSetDescriptionAction
  * @package Sphere\Core\Request\ShippingMethods\Command
  * 
  * @method string getAction()

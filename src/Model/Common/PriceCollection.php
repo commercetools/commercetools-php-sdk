@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class PriceCollection
  * @package Sphere\Core\Model\Common
  * @method Price current()
  * @method Price getAt($offset)

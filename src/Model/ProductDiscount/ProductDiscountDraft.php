@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class ProductDiscountDraft
  * @package Sphere\Core\Model\ProductDiscount
  * @method LocalizedString getName()
  * @method ProductDiscountDraft setName(LocalizedString $name = null)

@@ -16,7 +16,6 @@ use Sphere\Core\Model\Cart\Cart;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CartFetchByCustomerIdRequest
  * @package Sphere\Core\Request\Carts
  * @link http://dev.sphere.io/http-api-projects-carts.html#cart-by-customer-id
  * @method Cart mapResponse(ApiResponseInterface $response)

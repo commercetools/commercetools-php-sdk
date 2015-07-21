@@ -11,7 +11,6 @@ use Sphere\Core\Model\ShippingMethod\ShippingMethod;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ShippingMethodFetchByIdRequest
  * @package Sphere\Core\Request\ShippingMethods
  * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-method-by-id
  * @method ShippingMethod mapResponse(ApiResponseInterface $response)

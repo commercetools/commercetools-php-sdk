@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CommentSetAuthorNameAction
  * @package Sphere\Core\Request\Comments\Command
  * 
  * @method string getAction()

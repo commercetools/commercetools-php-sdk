@@ -12,7 +12,6 @@ use Sphere\Core\Model\Customer\Customer;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CustomerFetchByIdRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#customer-by-id
  * @method Customer mapResponse(ApiResponseInterface $response)

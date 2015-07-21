@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Collection;
 use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
- * Class Project
  * @package Sphere\Core\Model\Project
  * 
  * @method string getKey()

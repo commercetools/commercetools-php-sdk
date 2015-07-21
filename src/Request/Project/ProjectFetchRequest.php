@@ -16,7 +16,6 @@ use Sphere\Core\Model\Project\Project;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProjectFetchRequest
  * @package Sphere\Core\Request\Project
  * 
  * @method Project mapResponse(ApiResponseInterface $response)

@@ -10,7 +10,6 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ShippingMethodChangeTaxCategoryAction
  * @package Sphere\Core\Request\ShippingMethods\Command
  * 
  * @method string getAction()

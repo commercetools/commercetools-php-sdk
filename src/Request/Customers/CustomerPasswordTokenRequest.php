@@ -16,7 +16,6 @@ use Sphere\Core\Model\Customer\CustomerToken;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CustomerPasswordTokenRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#create-token-for-resetting-customers-password
  * @method CustomerToken mapResponse(ApiResponseInterface $response)

@@ -11,7 +11,6 @@ use Sphere\Core\Model\Order\Order;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class OrderUpdateRequest
  * @package Sphere\Core\Request\Orders
  * @link http://dev.sphere.io/http-api-projects-orders.html#update-order
  * @method Order mapResponse(ApiResponseInterface $response)

@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class ImageCollection
  * @package Sphere\Core\Model\Common
  * @method Image current()
  * @method Image getAt($offset)

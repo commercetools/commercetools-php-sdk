@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\State;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class StateCollection
  * @package Sphere\Core\Model\State
  * @method State current()
  * @method State getAt($offset)

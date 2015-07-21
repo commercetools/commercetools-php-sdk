@@ -18,7 +18,6 @@ use Sphere\Core\Response\PagedSearchResponse;
 use Sphere\Core\Model\Product\Search\FilterInterface;
 
 /**
- * Class ProductProjectionSearchRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products-search.html#product-projections-by-search
  * @method PagedSearchResponse executeWithClient(Client $client)

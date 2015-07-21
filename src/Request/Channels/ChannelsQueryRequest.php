@@ -11,7 +11,6 @@ use Sphere\Core\Model\Channel\ChannelCollection;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ChannelsQueryRequest
  * @package Sphere\Core\Request\Channels
  * @link http://dev.sphere.io/http-api-projects-channels.html#channels-by-query
  * @method ChannelCollection mapResponse(ApiResponseInterface $response)

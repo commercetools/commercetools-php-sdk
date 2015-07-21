@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 
 /**
- * Class ProductDiscountReference
  * @package Sphere\Core\Model\ProductDiscount
  * @link http://dev.sphere.io/http-api-types.html#reference
  * @method static ProductDiscountReference of(string $id)

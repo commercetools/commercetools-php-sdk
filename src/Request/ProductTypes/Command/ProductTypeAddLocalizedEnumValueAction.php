@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\LocalizedEnum;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductTypeAddLocalizedEnumValueAction
  * @package Sphere\Core\Request\ProductTypes\Command
  * 
  * @method string getAction()

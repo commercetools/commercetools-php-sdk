@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Order;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class ParcelCollection
  * @package Sphere\Core\Model\Order
  * 
  * @method Parcel current()

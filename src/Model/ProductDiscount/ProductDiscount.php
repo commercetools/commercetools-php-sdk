@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\ReferenceCollection;
 
 /**
- * Class ProductDiscount
  * @package Sphere\Core\Model\ProductDiscount
  * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discount
  * @method string getId()

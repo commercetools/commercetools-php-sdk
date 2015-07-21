@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 
 /**
- * Class ProductReference
  * @package Sphere\Core\Model\Product
  * @link http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()

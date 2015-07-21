@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class Channel
  * @package Sphere\Core\Model\Channel
  * @link http://dev.sphere.io/http-api-projects-channels.html#channel
  * @method string getId()

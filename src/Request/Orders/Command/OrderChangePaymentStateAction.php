@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class OrderChangePaymentStateAction
  * @package Sphere\Core\Request\Orders\Command
  * @link http://dev.sphere.io/http-api-projects-orders.html#change-payment-state
  * @method string getAction()

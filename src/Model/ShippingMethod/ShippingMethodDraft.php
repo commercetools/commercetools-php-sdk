@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
- * Class ShippingMethodDraft
  * @package Sphere\Core\Model\ShippingMethod
  * @method string getName()
  * @method ShippingMethodDraft setName(string $name = null)

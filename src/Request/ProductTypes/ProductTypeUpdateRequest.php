@@ -11,7 +11,6 @@ use Sphere\Core\Model\ProductType\ProductType;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductTypeUpdateRequest
  * @package Sphere\Core\Request\ProductTypes
  * @link http://dev.sphere.io/http-api-projects-productTypes.html#update-product-type
  * @method ProductType mapResponse(ApiResponseInterface $response)

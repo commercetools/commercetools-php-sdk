@@ -13,7 +13,6 @@ use Sphere\Core\Request\StagedTrait;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductProjectionQueryRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products.html#product-projections-by-query
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)

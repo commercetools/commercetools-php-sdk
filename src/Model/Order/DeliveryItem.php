@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Order;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class DeliveryItem
  * @package Sphere\Core\Model\Order
  * @link http://dev.sphere.io/http-api-projects-orders.html#delivery-item
  * @method string getId()

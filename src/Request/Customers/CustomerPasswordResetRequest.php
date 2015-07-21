@@ -14,7 +14,6 @@ use Sphere\Core\Model\Customer\Customer;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CustomerPasswordResetRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#reset-customers-password
  * @method Customer mapResponse(ApiResponseInterface $response)

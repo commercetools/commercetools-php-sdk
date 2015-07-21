@@ -11,7 +11,6 @@ use Sphere\Core\Model\Message\Message;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class MessageFetchByIdRequest
  * @package Sphere\Core\Request\Messages
  * @link http://dev.sphere.io/http-api-projects-messages.html#message-by-id
  * @method Message mapResponse(ApiResponseInterface $response)

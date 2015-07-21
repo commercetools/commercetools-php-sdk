@@ -12,7 +12,6 @@ use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\PriceCollection;
 
 /**
- * Class ProductVariant
  * @package Sphere\Core\Model\Product
  * @link http://dev.sphere.io/http-api-projects-products.html#product-variant
  * @method string getId()

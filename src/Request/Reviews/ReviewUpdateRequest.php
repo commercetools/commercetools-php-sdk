@@ -11,7 +11,6 @@ use Sphere\Core\Model\Review\Review;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ReviewUpdateRequest
  * @package Sphere\Core\Request\Reviews
  * @link http://dev.sphere.io/http-api-projects-reviews.html#update-review
  * @method Review mapResponse(ApiResponseInterface $response)

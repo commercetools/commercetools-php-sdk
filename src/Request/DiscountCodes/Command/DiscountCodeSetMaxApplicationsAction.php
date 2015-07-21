@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class DiscountCodeSetMaxApplicationsAction
  * @package Sphere\Core\Request\DiscountCodes\Command
  * 
  * @method string getAction()

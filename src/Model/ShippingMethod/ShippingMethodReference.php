@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 
 /**
- * Class ShippingMethodReference
  * @package Sphere\Core\Model\ShippingMethod
  * @link http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()

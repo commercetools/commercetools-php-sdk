@@ -12,7 +12,6 @@ use Sphere\Core\Model\Channel\ChannelReference;
 use Sphere\Core\Model\TaxCategory\TaxRate;
 
 /**
- * Class ImportLineItem
  * @package Sphere\Core\Model\Order
  * @method string getProductId()
  * @method ImportLineItem setProductId(string $productId = null)

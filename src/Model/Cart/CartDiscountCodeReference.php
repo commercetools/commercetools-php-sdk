@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\DiscountCode\DiscountCodeReference;
 
 /**
- * Class CartDiscountCodeReference
  * @package Sphere\Core\Model\Cart
  * @link http://dev.sphere.io/http-api-projects-carts.html#discount-code-reference
  * @method DiscountCodeReference getDiscountCode()

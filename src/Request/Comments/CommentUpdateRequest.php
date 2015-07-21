@@ -11,7 +11,6 @@ use Sphere\Core\Model\Comment\Comment;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CommentUpdateRequest
  * @package Sphere\Core\Request\Comments
  * @link http://dev.sphere.io/http-api-projects-comments.html#update-comment
  * @method Comment mapResponse(ApiResponseInterface $response)

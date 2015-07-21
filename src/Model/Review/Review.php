@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Review;
 use Sphere\Core\Model\Common\Document;
 
 /**
- * Class Review
  * @package Sphere\Core\Model\Review
  * @method string getId()
  * @method Review setId(string $id = null)

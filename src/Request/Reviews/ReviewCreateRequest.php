@@ -12,7 +12,6 @@ use Sphere\Core\Model\Review\Review;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ReviewCreateRequest
  * @package Sphere\Core\Request\Reviews
  * 
  * @method Review mapResponse(ApiResponseInterface $response)

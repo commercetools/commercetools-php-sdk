@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\CartDiscount;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class CartDiscountReferenceCollection
  * @package Sphere\Core\Model\CartDiscount
  * @method CartDiscountReference current()
  * @method CartDiscountReference getAt($offset)

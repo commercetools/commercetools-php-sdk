@@ -10,7 +10,6 @@ use Sphere\Core\Model\TaxCategory\TaxRate;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class TaxCategoryReplaceTaxRateAction
  * @package Sphere\Core\Request\TaxCategories\Command
  * 
  * @method string getAction()

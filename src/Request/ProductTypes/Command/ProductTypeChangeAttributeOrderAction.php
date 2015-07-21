@@ -10,7 +10,6 @@ use Sphere\Core\Model\ProductType\AttributeDefinitionCollection;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductTypeChangeAttributeOrderAction
  * @package Sphere\Core\Request\ProductTypes\Command
  * 
  * @method string getAction()

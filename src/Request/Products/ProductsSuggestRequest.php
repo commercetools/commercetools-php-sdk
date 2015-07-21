@@ -18,7 +18,6 @@ use Sphere\Core\Model\Product\SuggestionCollection;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductsSuggestRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products-search.html#suggest-query
  * @method SingleResourceResponse executeWithClient(Client $client)

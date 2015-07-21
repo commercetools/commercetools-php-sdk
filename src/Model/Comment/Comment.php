@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Comment;
 use Sphere\Core\Model\Common\Document;
 
 /**
- * Class Comment
  * @package Sphere\Core\Model\Comment
  * @method string getId()
  * @method Comment setId(string $id = null)

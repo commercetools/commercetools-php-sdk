@@ -10,7 +10,6 @@ use Sphere\Core\Request\AbstractAction;
 use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
- * Class CartDiscountSetValidUntilAction
  * @package Sphere\Core\Request\CartDiscounts\Command
  *  *
  * @method string getAction()

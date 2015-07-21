@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class StateChangeKeyAction
  * @package Sphere\Core\Request\States\Command
  * 
  * @method string getAction()

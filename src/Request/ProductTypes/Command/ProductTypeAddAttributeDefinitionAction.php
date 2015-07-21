@@ -10,7 +10,6 @@ use Sphere\Core\Model\ProductType\AttributeDefinition;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductTypeAddAttributeDefinitionAction
  * @package Sphere\Core\Request\ProductTypes\Command
  * 
  * @method string getAction()

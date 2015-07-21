@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\CustomObject;
 use Sphere\Core\Model\Common\Document;
 
 /**
- * Class CustomObject
  * @package Sphere\Core\Model\CustomObject
  * @link http://dev.sphere.io/http-api-projects-custom-objects.html#custom-object
  * @method string getId()

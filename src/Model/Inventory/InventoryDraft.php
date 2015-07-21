@@ -11,7 +11,6 @@ use Sphere\Core\Model\Common\DateTimeDecorator;
 use Sphere\Core\Model\Channel\ChannelReference;
 
 /**
- * Class InventoryDraft
  * @package Sphere\Core\Model\Inventory
  * @method string getSku()
  * @method InventoryDraft setSku(string $sku = null)

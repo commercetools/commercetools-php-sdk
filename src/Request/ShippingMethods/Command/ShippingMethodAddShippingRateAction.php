@@ -11,7 +11,6 @@ use Sphere\Core\Model\Zone\ZoneReference;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ShippingMethodAddShippingRateAction
  * @package Sphere\Core\Request\ShippingMethods\Command
  * 
  * @method string getAction()

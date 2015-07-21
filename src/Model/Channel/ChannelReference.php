@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
 
 /**
- * Class ChannelReference
  * @package Sphere\Core\Model\Channel
  * @link http://dev.sphere.io/http-api-types.html#reference
  * @method static ChannelReference of(string $id)

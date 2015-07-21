@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\ProductType;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class AttributeDefinitionCollection
  * @package Sphere\Core\Model\ProductType
  * @method AttributeDefinition current()
  * @method AttributeDefinition getAt($offset)

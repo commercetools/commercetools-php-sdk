@@ -203,8 +203,6 @@ class ClassAnnotator
         }
         $classHead[] = '';
         $classHead[] = '/**';
-
-        $classHead[] = ' * Class ' . $this->class->getShortClassName();
         $classHead[] = ' * @package ' . $this->class->getNamespace();
         $docBlockLines = $this->class->getDocBlockLines();
         foreach ($docBlockLines as $lineNr => $line) {

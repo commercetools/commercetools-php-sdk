@@ -10,7 +10,6 @@ use Sphere\Core\Model\Zone\ZoneReference;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ShippingMethodRemoveZoneAction
  * @package Sphere\Core\Request\ShippingMethods\Command
  * 
  * @method string getAction()

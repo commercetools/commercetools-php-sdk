@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Inventory;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class InventoryEntryCollection
  * @package Sphere\Core\Model\Inventory
  * 
  * @method InventoryEntry current()

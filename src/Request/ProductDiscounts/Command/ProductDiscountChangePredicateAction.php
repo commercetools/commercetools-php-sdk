@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductDiscountChangePredicateAction
  * @package Sphere\Core\Request\ProductDiscounts\Command
  *  *
  * @method string getAction()

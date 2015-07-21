@@ -10,7 +10,6 @@ use Sphere\Core\Model\ProductDiscount\ProductDiscountValue;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductDiscountChangeValueAction
  * @package Sphere\Core\Request\ProductDiscounts\Command
  *  *
  * @method string getAction()

@@ -11,7 +11,6 @@ use Sphere\Core\Model\Common\Collection;
 use Sphere\Core\Model\Common\Context;
 
 /**
- * Class LocalizedSearchKeywords
  * @package Sphere\Core\Model\Product
  * @link http://dev.sphere.io/http-api-projects-products.html#search-keywords
  * @method SearchKeywords current()

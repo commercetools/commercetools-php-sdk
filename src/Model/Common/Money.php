@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class Money
  * @package Sphere\Core\Model\Common
  * @link http://dev.sphere.io/http-api-types.html#money
  * @method string getCurrencyCode()

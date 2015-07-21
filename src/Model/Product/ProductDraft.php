@@ -14,7 +14,6 @@ use Sphere\Core\Model\ProductType\ProductTypeReference;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
- * Class ProductDraft
  * @package Sphere\Core\Model\Product
  * @method LocalizedString getName()
  * @method ProductDraft setName(LocalizedString $name = null)

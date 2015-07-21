@@ -13,7 +13,6 @@ use Sphere\Core\Model\ProductType\ProductTypeReference;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
- * Class ProductProjection
  * @package Sphere\Core\Model\Product
  * @link http://dev.sphere.io/http-api-projects-products.html#product-projection
  * @method string getId()

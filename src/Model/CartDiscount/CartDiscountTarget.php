@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\CartDiscount;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class CartDiscountTarget
  * @package Sphere\Core\Model\CartDiscount
  * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discount-target
  * @method string getType()

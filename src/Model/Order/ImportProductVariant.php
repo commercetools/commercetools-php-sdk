@@ -11,7 +11,6 @@ use Sphere\Core\Model\Common\AttributeCollection;
 use Sphere\Core\Model\Common\ImageCollection;
 
 /**
- * Class ImportProductVariant
  * @package Sphere\Core\Model\Order
  * @method int getId()
  * @method ImportProductVariant setId(int $id = null)

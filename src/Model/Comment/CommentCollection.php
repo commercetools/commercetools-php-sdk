@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Comment;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class CommentCollection
  * @package Sphere\Core\Model\Comment
  * 
  * @method Comment current()

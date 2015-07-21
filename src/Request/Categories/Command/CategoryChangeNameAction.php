@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CategoryChangeNameAction
  * @package Sphere\Core\Request\Categories\Command
  * @link http://dev.sphere.io/http-api-projects-categories.html#change-name
  * @method LocalizedString getName()

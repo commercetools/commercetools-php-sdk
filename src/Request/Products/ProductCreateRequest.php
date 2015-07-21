@@ -13,7 +13,6 @@ use Sphere\Core\Model\Product\Product;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductCreateRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products.html#create-product
  * @method Product mapResponse(ApiResponseInterface $response)

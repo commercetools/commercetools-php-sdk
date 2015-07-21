@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CartDiscountChangeCartPredicateAction
  * @package Sphere\Core\Request\CartDiscounts\Command
  * @method string getAction()
  * @method CartDiscountChangeCartPredicateAction setAction(string $action = null)

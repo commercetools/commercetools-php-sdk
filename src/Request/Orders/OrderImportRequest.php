@@ -12,7 +12,6 @@ use Sphere\Core\Model\Order\Order;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class OrderImportRequest
  * @package Sphere\Core\Request\Orders
  * @method Order mapResponse(ApiResponseInterface $response)
  */

@@ -10,7 +10,6 @@ use Sphere\Core\Model\Zone\Location;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ZoneAddLocationAction
  * @package Sphere\Core\Request\Zones\Command
  * 
  * @method string getAction()

@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\Product;
 
 
 /**
- * Class Facet
  * @package Sphere\Core\Model\Product
  * 
  * @method string getName()

@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\ShippingMethod;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class ShippingRateCollection
  * @package Sphere\Core\Model\ShippingMethod
  * @method ShippingRate current()
  * @method ShippingRate getAt($offset)

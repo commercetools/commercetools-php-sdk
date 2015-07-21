@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class ReviewDraft
  * @package Sphere\Core\Model\Review
  * @method string getProductId()
  * @method ReviewDraft setProductId(string $productId = null)

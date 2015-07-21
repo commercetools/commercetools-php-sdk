@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CartDiscountChangeSortOrderAction
  * @package Sphere\Core\Request\CartDiscounts\Command
  *  *
  * @method string getAction()

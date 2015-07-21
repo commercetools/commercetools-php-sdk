@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ChannelChangeNameAction
  * @package Sphere\Core\Request\Channels\Command
  * 
  * @method string getAction()

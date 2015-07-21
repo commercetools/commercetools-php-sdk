@@ -11,7 +11,6 @@ use Sphere\Core\Model\DiscountCode\DiscountCodeCollection;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class DiscountCodesQueryRequest
  * @package Sphere\Core\Request\DiscountCodes
  * @method DiscountCodeCollection mapResponse(ApiResponseInterface $response)
  */

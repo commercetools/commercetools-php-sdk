@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Price;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductChangePriceAction
  * @package Sphere\Core\Request\Products\Command
  * @link http://dev.sphere.io/http-api-projects-products.html#change-price
  * @method string getAction()

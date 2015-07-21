@@ -7,7 +7,6 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class TaxPortion
  * @package Sphere\Core\Model\Common
  * @link http://dev.sphere.io/http-api-projects-carts.html#tax-portion
  * @method float getRate()

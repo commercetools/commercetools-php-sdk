@@ -14,7 +14,6 @@ use Sphere\Core\Response\ApiResponseInterface;
 use Sphere\Core\Model\Customer\Customer;
 
 /**
- * Class CustomerEmailConfirmRequest
  * @package Sphere\Core\Request\Customers
  * @link http://dev.sphere.io/http-api-projects-customers.html#verify-customers-email
  * @method Customer mapResponse(ApiResponseInterface $response)

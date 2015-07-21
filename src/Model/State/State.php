@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class State
  * @package Sphere\Core\Model\State
  * @link http://dev.sphere.io/http-api-projects-states.html#state
  * @method string getId()

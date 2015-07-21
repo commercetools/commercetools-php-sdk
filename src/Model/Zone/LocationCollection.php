@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Zone;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class LocationCollection
  * @package Sphere\Core\Model\Zone
  * @method Location current()
  * @method Location getAt($offset)

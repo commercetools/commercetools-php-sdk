@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\ProductType;
 use Sphere\Core\Model\Common\Document;
 
 /**
- * Class ProductType
  * @package Sphere\Core\Model\ProductType
  * @link http://dev.sphere.io/http-api-projects-productTypes.html#product-type
  * @method string getId()

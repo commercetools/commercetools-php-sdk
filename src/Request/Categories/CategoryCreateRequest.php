@@ -13,7 +13,6 @@ use Sphere\Core\Model\Category\Category;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CategoryCreateRequest
  * @package Sphere\Core\Request\Categories
  * @link http://dev.sphere.io/http-api-projects-categories.html#create-category
  * @method Category mapResponse(ApiResponseInterface $response)

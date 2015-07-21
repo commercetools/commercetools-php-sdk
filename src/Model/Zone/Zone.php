@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Zone;
 use Sphere\Core\Model\Common\Document;
 
 /**
- * Class Zone
  * @package Sphere\Core\Model\Zone
  * @link http://dev.sphere.io/http-api-projects-zones.html#zone
  * @method string getId()

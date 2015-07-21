@@ -11,7 +11,6 @@ use Sphere\Core\Model\DiscountCode\DiscountCode;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class DiscountCodeFetchByIdRequest
  * @package Sphere\Core\Request\DiscountCodes
  * @link http://dev.sphere.io/http-api-projects-discountCodes.html#discount-code-by-id
  * @method DiscountCode mapResponse(ApiResponseInterface $response)

@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Image;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductAddExternalImageAction
  * @package Sphere\Core\Request\Products\Command
  * @link http://dev.sphere.io/http-api-projects-products.html#add-external-image
  * @method string getAction()

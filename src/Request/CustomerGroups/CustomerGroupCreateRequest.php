@@ -12,7 +12,6 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroup;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CustomerGroupCreateRequest
  * @package Sphere\Core\Request\CustomerGroups
  * 
  * @method CustomerGroup mapResponse(ApiResponseInterface $response)

@@ -10,7 +10,6 @@ use Sphere\Core\Model\Common\Document;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
- * Class Customer
  * @package Sphere\Core\Model\Customer
  * @link http://dev.sphere.io/http-api-projects-customers.html#customer
  * @method string getId()

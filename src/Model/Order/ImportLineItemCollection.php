@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Order;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class ImportLineItemCollection
  * @package Sphere\Core\Model\Order
  * @method ImportLineItem current()
  * @method ImportLineItem getAt($offset)

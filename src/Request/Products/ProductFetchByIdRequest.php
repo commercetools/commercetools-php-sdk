@@ -12,7 +12,6 @@ use Sphere\Core\Model\Product\Product;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductFetchByIdRequest
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products.html#product-by-id
  * @method Product mapResponse(ApiResponseInterface $response)

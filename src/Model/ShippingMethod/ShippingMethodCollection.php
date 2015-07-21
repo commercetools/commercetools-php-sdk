@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\ShippingMethod;
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class ShippingMethodCollection
  * @package Sphere\Core\Model\ShippingMethod
  * 
  * @method ShippingMethod current()

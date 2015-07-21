@@ -11,7 +11,6 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\PriceCollection;
 
 /**
- * Class ProductVariantDraft
  * @package Sphere\Core\Model\Product
  * @link http://dev.sphere.io/http-api-projects-products.html#new-product-variant
  * @method string getSku()
