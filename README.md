@@ -112,6 +112,12 @@ php composer.phar update
 
 Linux users install php 5.4+, apc(u), xdebug and ant according to their distro's package system.
 
+Windows users:
+ * [install plain php](http://windows.php.net/download/) 5.4+, i.e. extract ZIP and make add php.exe location to your PATH
+ * enable apc(u), curl, intl and openssl extenstions in php.ini
+ * make a working ant available in the PATH 
+ * and [install composer](https://getcomposer.org/doc/00-intro.md#installation-windows). 
+
 Clone the develop branch of the repository (we're using the [gitflow](http://nvie.com/posts/a-successful-git-branching-model/) branching model, so master is for releases only):
 
 ```
