@@ -12,7 +12,6 @@ use Sphere\Core\Model\Common\Reference;
 /**
  * @package Sphere\Core\Model\Category
  * @link  http://dev.sphere.io/http-api-types.html#reference
- * @method static CategoryReference of(string $id)
  * @method string getTypeId()
  * @method CategoryReference setTypeId(string $typeId = null)
  * @method string getId()

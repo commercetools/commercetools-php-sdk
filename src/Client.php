@@ -20,7 +20,108 @@ use Sphere\Core\Request\ClientRequestInterface;
 use Sphere\Core\Client\OAuth\Manager;
 
 /**
- * Class Client
+ * The client for communicating with the commercetools platform
+ *
+ * @description
+ * ## Instantiation ##
+ *
+ * ```php
+ * $config = Config::fromArray(
+ *  ['client_id' => '<client_id>', 'client_secret' => '<client_secret>', 'project' => '<project>']
+ * );
+ * $client = Client::ofConfig($config);
+ * ```
+ *
+ * ### Using a cache adapter ###
+ *
+ * The SDK provides a Doctrine, a Redis and an APCu cache adapter. By default the SDK tries to
+ * instantiate the APCu cache adapter if there is no cache given.
+ *
+ * ```php
+ * $redis = new \Redis();
+ * $redis->connect('localhost');
+ * $client = Client::ofConfigAndCache($config, $redis);
+ *
+ * $memcache = new \Memcache();
+ * $memcache->connect('memcache_host', 11211);
+ *
+ * $cacheDriver = new \Doctrine\Common\Cache\MemcacheCache();
+ * $cacheDriver->setMemcache($memcache);
+ * $client = Client::ofConfigAndCache($config, $cacheDriver);
+ * ```
+ *
+ * ### Using a logger ###
+ *
+ * The client uses the PSR-3 logger interface for logging requests and deprecation notices. To enable
+ * logging provide a PSR-3 compliant logger (e.g. Monolog).
+ *
+ * ```php
+ * $logger = new \Monolog\Logger('name');
+ * $logger->pushHandler(new StreamHandler('./requests.log'));
+ * $client = Client::ofConfigAndLogger($config, $logger);
+ * ```
+ *
+ * ### Using cache and logger ###
+ *
+ * ```php
+ * $client = Client::ofConfigCacheAndLogger($config, $cache, $logger);
+ * ```
+ *
+ * ### Using a custom cache adapter ###
+ *
+ * ```php
+ * class <CacheClass>Adapter implements \Sphere\Core\Cache\CacheAdapterInterface {
+ *     public function __construct(<CacheClass> $cache) {
+ *     }
+ * }
+ *
+ * $client->getAdapterFactory()->registerCallback(function ($cache) {
+ *     if ($cache instanceof <CacheClass>) {
+ *         return new <CacheClass>Adapter($cache);
+ *     }
+ *     return null;
+ * });
+ * ```
+ *
+ * ## Execution ##
+ *
+ * ### Synchronous ###
+ * There are two main approaches for retrieving result objects
+ *
+ * Client centric:
+ *
+ * ```php
+ * $response = $client->execute(ProductProjectionSearchRequest::of());
+ * $products = $response->toObject();
+ * ```
+ *
+ * Request centric:
+ *
+ * ```php
+ * $request = ProductProjectionSearchRequest::of();
+ * $response = $request->executeWithClient($client);
+ * $products = $request->mapResponse($response);
+ * ```
+ *
+ * By using the request centric approach the IDE is capable of resolving the correct classes and give
+ * a maximum of support with available methods.
+ *
+ * ### Asynchronous ###
+ * The asynchronous execution will return a promise to fulfill the request.
+ *
+ * ```php
+ * $response = $client->executeAsync(ProductProjectionSearchRequest::of());
+ * ```
+
+ * ### Batch ###
+ * By filling the batch queue and starting the execution all requests will be executed in parallel.
+ *
+ * ```php
+ * $client->addBatchRequest(ProductProjectionSearchRequest::of())
+ *     ->addBatchRequest(CartFetchByIdRequest::ofId($cartId));
+ * $responses = $client->executeBatch();
+ * ```
+ *
  * @package Sphere\Core
  */
 class Client extends AbstractHttpClient
@@ -28,6 +129,7 @@ class Client extends AbstractHttpClient
     const DEPRECATION_HEADER = 'X-DEPRECATION-NOTICE';
 
     /**
+     * @sideeffect Test123
      * @var LoggerInterface
      */
     protected $logger;
@@ -114,8 +216,13 @@ class Client extends AbstractHttpClient
     }
 
     /**
+     * Executes an API request synchronously
+     *
      * @param ClientRequestInterface $request
      * @return ApiResponseInterface
+     * @throws InvalidTokenException
+     * @throws SphereException
+     * @throws \Exception
      */
     public function execute(ClientRequestInterface $request)
     {
@@ -145,6 +252,7 @@ class Client extends AbstractHttpClient
     }
 
     /**
+     * Executes an API request asynchronously
      * @param ClientRequestInterface $request
      * @return ApiResponseInterface
      */
@@ -175,16 +283,16 @@ class Client extends AbstractHttpClient
         $token = $this->getOAuthManager()->getToken();
 
         $httpRequest = $request->httpRequest();
-//        $uri = $httpRequest->getUri()->withPath($this->getConfig()->getProject() . $httpRequest->getUri()->getPath());
         $httpRequest = $httpRequest
-//            ->withUri($uri)
             ->withHeader('Authorization', 'Bearer ' . $token->getToken())
         ;
         return $httpRequest;
     }
 
     /**
-     * @return ApiResponseInterface[]
+     * Executes API requests in batch
+     * @return Response\ApiResponseInterface[]
+     * @throws SphereException
      */
     public function executeBatch()
     {
@@ -265,6 +373,7 @@ class Client extends AbstractHttpClient
     }
 
     /**
+     * Adds a request to the batch execution queue
      * @param ClientRequestInterface $request
      * @return $this
      */
@@ -278,6 +387,7 @@ class Client extends AbstractHttpClient
     }
 
     /**
+     * Instantiates a client with the given config
      * @param Config $config
      * @return static
      */
@@ -287,6 +397,7 @@ class Client extends AbstractHttpClient
     }
 
     /**
+     * Instantiates a client with the given config and cache adapter
      * @param Config $config
      * @param $cache
      * @return static
@@ -297,6 +408,7 @@ class Client extends AbstractHttpClient
     }
 
     /**
+     * Instantiates a client with the given config and a PSR-3 compliant logger
      * @param Config $config
      * @param LoggerInterface $logger
      * @return static
@@ -307,6 +419,7 @@ class Client extends AbstractHttpClient
     }
 
     /**
+     * Instantiates a client with the given config, a cache adapter and a PSR-3 compliant logger
      * @param Config $config
      * @param $cache
      * @param LoggerInterface $logger

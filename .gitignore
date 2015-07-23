@@ -1,7 +1,8 @@
 .vagrant
 .idea
 /vendor
-/build
+/build/*
+!/build/theme
 cache.properties
 apigen.phar
 composer.phar

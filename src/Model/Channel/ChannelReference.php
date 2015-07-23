@@ -12,7 +12,6 @@ use Sphere\Core\Model\Common\Reference;
 /**
  * @package Sphere\Core\Model\Channel
  * @link http://dev.sphere.io/http-api-types.html#reference
- * @method static ChannelReference of(string $id)
  * @method string getTypeId()
  * @method ChannelReference setTypeId(string $typeId = null)
  * @method string getId()
