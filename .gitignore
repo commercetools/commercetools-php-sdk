@@ -3,6 +3,7 @@
 /vendor
 /build/*
 !/build/theme
+!/build/apigen.neon
 cache.properties
 apigen.phar
 composer.phar

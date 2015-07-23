@@ -205,10 +205,11 @@
     <target name="apigen"
             depends="prepare, install-apigen"
             description="Generate project documentation using phpDocumentor">
-        <exec executable="php" dir="${basedir}/" failonerror="true">
+        <exec executable="php" dir="${basedir}" failonerror="true">
             <arg value="${basedir}/apigen.phar"/>
             <arg value="generate"/>
-            <arg value="--config=apigen.neon"/>
+            <arg value="--config"/>
+            <arg path="${basedir}/build/apigen.neon"/>
         </exec>
     </target>
 </project>

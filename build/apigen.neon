@@ -1,0 +1,18 @@
+title: commercetools platform PHP SDK
+baseUrl: http://sphereio.github.io/sphere-php-sdk/docs/master
+
+source: [src/]
+destination: build/docs
+
+templateConfig: build/theme/config.neon
+accessLevels: [public]
+extensions: [php]
+
+deprecated: Yes
+internal: No
+
+download: Yes
+php: No
+noSourceCode: No
+todo: Yes
+tree: Yes
