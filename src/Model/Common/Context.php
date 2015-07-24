@@ -30,7 +30,7 @@ use Sphere\Core\Helper\CurrencyFormatter;
  * For production environments it's adviced to set the graceful flag to prevent Exceptions by toString conversions()
  *
  * ```php
- * $context->setGraceFul(true);
+ * $context->setGraceful(true);
  * ```
  *
  * ### Locale ###
