@@ -12,11 +12,11 @@ use Sphere\Core\Model\DiscountCode\DiscountCodeReference;
  * @package Sphere\Core\Model\Cart
  * @link http://dev.sphere.io/http-api-projects-carts.html#discount-code-reference
  * @method DiscountCodeReference getDiscountCode()
- * @method CartDiscountCodeReference setDiscountCode(DiscountCodeReference $discountCode = null)
+ * @method DiscountCodeInfo setDiscountCode(DiscountCodeReference $discountCode = null)
  * @method string getState()
- * @method CartDiscountCodeReference setState(string $state = null)
+ * @method DiscountCodeInfo setState(string $state = null)
  */
-class CartDiscountCodeReference extends JsonObject
+class DiscountCodeInfo extends JsonObject
 {
     public function getFields()
     {

@@ -48,8 +48,8 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
  * @method Cart setCountry(string $country = null)
  * @method ShippingInfo getShippingInfo()
  * @method Cart setShippingInfo(ShippingInfo $shippingInfo = null)
- * @method CartDiscountCodeReferenceCollection getDiscountCodes()
- * @method Cart setDiscountCodes(CartDiscountCodeReferenceCollection $discountCodes = null)
+ * @method DiscountCodeInfoCollection getDiscountCodes()
+ * @method Cart setDiscountCodes(DiscountCodeInfoCollection $discountCodes = null)
  */
 class Cart extends Resource
 {
@@ -73,7 +73,7 @@ class Cart extends Resource
             'customerGroup' => [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
             'country' => [static::TYPE => 'string'],
             'shippingInfo' => [static::TYPE => '\Sphere\Core\Model\Cart\ShippingInfo'],
-            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\Cart\CartDiscountCodeReferenceCollection'],
+            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\Cart\DiscountCodeInfoCollection'],
         ];
     }
 }

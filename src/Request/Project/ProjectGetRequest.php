@@ -17,7 +17,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Project
- *
+ *  *
  * @method Project mapResponse(ApiResponseInterface $response)
  */
 class ProjectGetRequest extends AbstractApiRequest

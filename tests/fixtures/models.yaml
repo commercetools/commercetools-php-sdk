@@ -80,7 +80,7 @@ shippingInfo:
 
 discountCodeReference:
   domain: cart
-  model: CartDiscountCodeReference
+  model: DiscountCodeInfo
   fields:
     - discountCode
     - state
