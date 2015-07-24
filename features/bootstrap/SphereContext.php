@@ -163,7 +163,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'FetchByIdRequest';
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByIdGetRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $this->request = call_user_func_array($request. '::ofId', [$id]);
@@ -176,7 +176,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'FetchByKeyRequest';
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByKeyGetRequest';
         $requestContext = $context . 'Request';
         $container = $this->objects[$requestContext]['container'];
         $key = $this->objects[$requestContext]['key'];
@@ -190,7 +190,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'FetchByCustomerIdRequest';
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByCustomerIdGetRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $this->request = call_user_func_array($request. '::ofCustomerId', [$id]);
@@ -385,7 +385,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'FetchByTokenRequest';
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByTokenGetRequest';
         $requestContext = $context . 'Request';
         $token = $this->objects[$requestContext]['token'];
         $this->request = call_user_func_array($request. '::ofToken', [$token]);

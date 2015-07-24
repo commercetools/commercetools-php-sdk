@@ -14,7 +14,7 @@ use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\Categories\CategoriesQueryRequest;
 use Sphere\Core\Request\Categories\CategoryCreateRequest;
 use Sphere\Core\Request\Categories\CategoryDeleteByIdRequest;
-use Sphere\Core\Request\Categories\CategoryFetchByIdRequest;
+use Sphere\Core\Request\Categories\CategoryByIdGetRequest;
 
 class QueryCategoriesTest extends ApiTestCase
 {
@@ -132,7 +132,7 @@ class QueryCategoriesTest extends ApiTestCase
          * @var Category $result
          */
         $result = $this->getClient()->execute(
-            CategoryFetchByIdRequest::ofId($level4->getId())->expand('ancestors[*].ancestors[*]')
+            CategoryByIdGetRequest::ofId($level4->getId())->expand('ancestors[*].ancestors[*]')
         )->toObject();
 
         $this->assertCount(3, $result->getAncestors());
@@ -164,7 +164,7 @@ class QueryCategoriesTest extends ApiTestCase
          * @var Category $result
          */
         $result = $this->getClient()->execute(
-            CategoryFetchByIdRequest::ofId($level2->getId())->expand('parent')
+            CategoryByIdGetRequest::ofId($level2->getId())->expand('parent')
         )->toObject();
         $this->assertSame($level1->getId(), $result->getParent()->getObj()->getId());
     }

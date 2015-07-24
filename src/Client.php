@@ -118,7 +118,7 @@ use Sphere\Core\Client\OAuth\Manager;
  *
  * ```php
  * $client->addBatchRequest(ProductProjectionSearchRequest::of())
- *     ->addBatchRequest(CartFetchByIdRequest::ofId($cartId));
+ *     ->addBatchRequest(CartByIdGetRequest::ofId($cartId));
  * $responses = $client->executeBatch();
  * ```
  *
