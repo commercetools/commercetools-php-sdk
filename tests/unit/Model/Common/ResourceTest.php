@@ -8,7 +8,7 @@ namespace Sphere\Core\Model\Common;
 
 use Sphere\Core\Model\ProductType\ProductType;
 
-class DocumentTest extends \PHPUnit_Framework_TestCase
+class ResourceTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @return JsonObject
@@ -17,9 +17,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     {
         date_default_timezone_set('UTC');
         $obj = $this->getMockForAbstractClass(
-            '\Sphere\Core\Model\Common\Document',
+            '\Sphere\Core\Model\Common\Resource',
             [['id' => '12345']],
-            'MockDocument',
+            'MockResource',
             true,
             true,
             true,
@@ -57,7 +57,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
         $reference = $obj->getReference();
         $this->assertInstanceOf('\Sphere\Core\Model\Common\Reference', $reference);
         $this->assertJsonStringEqualsJsonString(
-            '{"typeId": "mock-document", "id": "12345"}',
+            '{"typeId": "mock-resource", "id": "12345"}',
             json_encode($reference)
         );
     }

@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\ShippingMethod;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
@@ -30,7 +30,7 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
  * @method bool getIsDefault()
  * @method ShippingMethod setIsDefault(bool $isDefault = null)
  */
-class ShippingMethod extends Document
+class ShippingMethod extends Resource
 {
     public function getFields()
     {

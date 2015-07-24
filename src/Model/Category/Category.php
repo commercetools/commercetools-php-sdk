@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\Category;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
@@ -34,7 +34,7 @@ use Sphere\Core\Model\Common\LocalizedString;
  * @method string getExternalId()
  * @method Category setExternalId(string $externalId = null)
  */
-class Category extends Document
+class Category extends Resource
 {
     public function getFields()
     {

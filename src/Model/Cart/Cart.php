@@ -6,7 +6,7 @@
 namespace Sphere\Core\Model\Cart;
 
 use Sphere\Core\Model\Common\Address;
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\Common\Money;
 use Sphere\Core\Model\Common\TaxedPrice;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
@@ -51,7 +51,7 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
  * @method CartDiscountCodeReferenceCollection getDiscountCodes()
  * @method Cart setDiscountCodes(CartDiscountCodeReferenceCollection $discountCodes = null)
  */
-class Cart extends Document
+class Cart extends Resource
 {
     public function getFields()
     {

@@ -6,11 +6,11 @@
 namespace Sphere\Core\Model\Common;
 
 /**
- * Class Document
+ * Class Resource
  * @package Sphere\Core\Model\Common
  * @method getId()
  */
-abstract class Document extends JsonObject implements ReferenceObjectInterface
+abstract class Resource extends JsonObject implements ReferenceObjectInterface
 {
     public function getReferenceIdentifier()
     {

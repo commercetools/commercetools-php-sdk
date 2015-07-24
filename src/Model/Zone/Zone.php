@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\Zone;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 
 /**
  * @package Sphere\Core\Model\Zone
@@ -25,7 +25,7 @@ use Sphere\Core\Model\Common\Document;
  * @method LocationCollection getLocations()
  * @method Zone setLocations(LocationCollection $locations = null)
  */
-class Zone extends Document
+class Zone extends Resource
 {
     public function getFields()
     {

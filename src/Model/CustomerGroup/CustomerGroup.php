@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\CustomerGroup;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 
 /**
  * @package Sphere\Core\Model\CustomerGroup
@@ -21,7 +21,7 @@ use Sphere\Core\Model\Common\Document;
  * @method string getName()
  * @method CustomerGroup setName(string $name = null)
  */
-class CustomerGroup extends Document
+class CustomerGroup extends Resource
 {
     public function getFields()
     {
