@@ -11,8 +11,8 @@ extensions: [php]
 deprecated: Yes
 internal: No
 
-download: Yes
+download: No
 php: No
 noSourceCode: No
-todo: Yes
+todo: No
 tree: Yes

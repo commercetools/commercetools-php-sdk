@@ -205,23 +205,41 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Methods summary</h2></div>
-			<table class="summary table table-bordered table-striped methods" id="methods" n:if="$ownMethods">
+			<table class="summary table table-bordered table-striped methods" id="methods" n:if="$ownMethods || $ownMagicMethods">
 			{foreach $ownMethods as $method}
 				{include method, method => $method}
 			{/foreach}
+			{if $ownMagicMethods}
+			<tr><th colspan="2">Magic methods</th></tr>
+			{foreach $ownMagicMethods as $method}
+				{include method, method => $method}
+			{/foreach}
+			{/if}
 			</table>
 		</div>
 
-		{foreach $inheritedMethods as $parentName => $methods}
+		{if $inheritedMethods || $inheritedMagicMethods}
 		<div class="panel panel-default">
-	        <div class="panel-heading"><h3>Methods inherited from <a href="{$parentName|classUrl}#methods" n:tag-if="$template->getClass($parentName)">{$parentName}</a></h3></div>
-			<table class="summary table table-bordered table-striped methods" id="methods" n:if="$methods">
-			{foreach $methods as $method}
-				{include method, method => $method}
+			<table class="summary table table-bordered table-striped methods" id="methods">
+			{if $inheritedMethods}
+			{foreach $inheritedMethods as $parentName => $methods}
+				<tr><th colspan="2">Methods inherited from <a href="{$parentName|classUrl}#methods" n:tag-if="$template->getClass($parentName)">{$parentName}</a></th></tr>
+				{foreach $methods as $method}
+					{include method, method => $method}
+				{/foreach}
 			{/foreach}
+			{/if}
+			{if $inheritedMagicMethods}
+			{foreach $inheritedMagicMethods as $parentName => $methods}
+				<tr><th colspan="2">Magic methods inherited from <a href="{$parentName|classUrl}#methods" n:tag-if="$template->getClass($parentName)">{$parentName}</a></th></tr>
+				{foreach $methods as $method}
+					<code><a href="{$method|methodUrl}" n:tag-if="$template->getClass($parentName)"><span n:tag-if="$method->deprecated" class="deprecated">{$method->name}()</span></a></code>{sep}, {/sep}
+				{/foreach}
+			{/foreach}
+			{/if}
 			</table>
 		</div>
-		{/foreach}
+		{/if}
 
 		{foreach $usedMethods as $traitName => $methods}
 		<div class="panel panel-default">
@@ -234,27 +252,6 @@
 		</div>
 		{/foreach}
 
-		{if $ownMagicMethods}
-		<div class="panel panel-default">
-	        <div class="panel-heading"><h3>Magic methods summary</h3></div>
-			<table class="summary table table-bordered table-striped methods" id="magicMethods" n:if="$ownMagicMethods">
-			{foreach $ownMagicMethods as $method}
-				{include method, method => $method}
-			{/foreach}
-			</table>
-		</div>
-		{/if}
-
-		{foreach $inheritedMagicMethods as $parentName => $methods}
-		<div class="panel panel-default">
-            <div class="panel-heading"><h3>Magic methods inherited from <a href="{$parentName|classUrl}#methods" n:tag-if="$template->getClass($parentName)">{$parentName}</a></h3></div>
-			<p class="elementList">
-			{foreach $methods as $method}
-				<code><a href="{$method|methodUrl}" n:tag-if="$template->getClass($parentName)"><span n:tag-if="$method->deprecated" class="deprecated">{$method->name}()</span></a></code>{sep}, {/sep}
-			{/foreach}
-			</p>
-		</div>
-		{/foreach}
 
 		{foreach $usedMagicMethods as $traitName => $methods}
 		<div class="panel panel-default">
