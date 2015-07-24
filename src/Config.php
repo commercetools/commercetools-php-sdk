@@ -13,7 +13,44 @@ use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Model\Common\ContextTrait;
 
 /**
- * Class Config
+ * Client configuration object
+ *
+ * @description
+ *
+ * Often configuration like credentials is stored in YAML or INI files. To setup the configuration object
+ * this can be done by the fromArray method.
+ *
+ * Configuration file:
+ *
+ * ```
+ * [sphere]
+ * client_id = '<client-id>'
+ * client_secret = '<client-secret>'
+ * project = '<project>'
+ * ```
+ *
+ * Config instantiation:
+ *
+ * ```php
+ * $iniConfig = parse_ini_file('<config-file>.ini', true);
+ * $config = Config::fromArray($iniConfig['sphere']);
+ * ```
+ *
+ * ### Exceptions ###
+ *
+ * The client by default suppresses exceptions when a response had been returned by the API and the result
+ * can be handled afterwards by checking the isError method of the response. For interacting with Exceptions
+ * they can be enabled with the throwExceptions flag.
+ *
+ * ```php
+ * $config->setThrowExceptions(true);
+ * $client = new Client($config);
+ * try {
+ *     $response = $client->execute($request);
+ * } catch (\Sphere\Core\Error\SphereException $e) {
+ *     // handle Exception
+ * }
+ * ```
  * @package Sphere\Core
  */
 class Config implements ContextAwareInterface

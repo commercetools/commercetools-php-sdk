@@ -10,6 +10,58 @@ use Pimple\Container;
 use Psr\Log\LoggerInterface;
 use Sphere\Core\Helper\CurrencyFormatter;
 
+/**
+ * The context is a container class. Giving the possibility to inject information or behaviour to the models
+ *
+ * @description
+
+ * The context will be set at ContextAware objects like JsonObject and Collection. By adding a context to the client
+ * config the context will be set to all request, responses and also model objects.
+ *
+ * ### Languages ###
+ *
+ * For automatic fallback string conversion e.g. with LocalizedString you can set the available languages. The
+ * LocalizedString will try to resolve a string in the given order.
+ *
+ * ```php
+ * $context->setLanguages(['de', 'en']);
+ * ```
+ *
+ * For production environments it's adviced to set the graceful flag to prevent Exceptions by toString conversions()
+ *
+ * ```php
+ * $context->setGraceFul(true);
+ * ```
+ *
+ * ### Locale ###
+ *
+ * It's adviced to set the locale in the Context as it is used for example by the CurrencyFormatter. If no locale
+ * is set, the default locale given by php config will be used.
+ *
+ * ```php
+ * $context->setLocale('de_DE');
+ * ```
+
+ * ### CurrencyFormatter ###
+ *
+ * The context provides a builtin CurrencyFormatter. The default currency formatter will format a currency with
+ * the help of the intl extension and the locale set.
+ *
+ * Example for custom currency formatter:
+ * ```php
+ * $currencyFormatter = new CurrencyFormatter();
+ * $currencyFormatter->setFormatCallback(function($centAmount, $currency)) {
+ *     $amount = $centAmount / 100;
+ *     $currency = mb_strtoupper($currency);
+ *     $locale = $this->context->getLocale();
+ *
+ *     $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
+ *     return $formatter->formatCurrency($amount, $currency);
+ * }
+ * $context->setCurrencyFormatter($currencyFormatter);
+ * ```
+ * @package Sphere\Core\Model\Common
+ */
 class Context extends Container
 {
     const GRACEFUL = 'graceful';
