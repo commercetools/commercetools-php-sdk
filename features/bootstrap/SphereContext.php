@@ -149,7 +149,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'DeleteByIdRequest';
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'DeleteRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $version = $this->objects[$requestContext]['version'];

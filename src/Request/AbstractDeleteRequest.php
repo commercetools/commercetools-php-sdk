@@ -17,11 +17,11 @@ use Sphere\Core\Request\Query\Parameter;
 use Sphere\Core\Response\SingleResourceResponse;
 
 /**
- * Class AbstractDeleteByIdRequest
+ * Class AbstractDeleteRequest
  * @package Sphere\Core\Request
  * @method SingleResourceResponse executeWithClient(Client $client)
  */
-abstract class AbstractDeleteByIdRequest extends AbstractApiRequest
+abstract class AbstractDeleteRequest extends AbstractApiRequest
 {
     /**
      * @var string

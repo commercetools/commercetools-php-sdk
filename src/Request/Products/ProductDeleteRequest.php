@@ -1,24 +1,23 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 26.01.15, 17:02
  */
 
-namespace Sphere\Core\Request\Carts;
+namespace Sphere\Core\Request\Products;
 
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteByIdRequest;
-use Sphere\Core\Model\Cart\Cart;
+use Sphere\Core\Request\AbstractDeleteRequest;
+use Sphere\Core\Model\Product\Product;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Carts
- * @link http://dev.sphere.io/http-api-projects-carts.html#delete-cart
- * @method Cart mapResponse(ApiResponseInterface $response)
+ * @package Sphere\Core\Request\Products
+ * @link http://dev.sphere.io/http-api-projects-products.html#delete-product
+ * @method Product mapResponse(ApiResponseInterface $response)
  */
-class CartDeleteByIdRequest extends AbstractDeleteByIdRequest
+class ProductDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Cart\Cart';
+    protected $resultClass = '\Sphere\Core\Model\Product\Product';
 
     /**
      * @param string $id
@@ -27,7 +26,7 @@ class CartDeleteByIdRequest extends AbstractDeleteByIdRequest
      */
     public function __construct($id, $version, Context $context = null)
     {
-        parent::__construct(CartsEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(ProductsEndpoint::endpoint(), $id, $version, $context);
     }
 
     /**

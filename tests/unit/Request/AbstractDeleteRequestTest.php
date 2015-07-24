@@ -14,13 +14,13 @@ use Sphere\Core\Client\HttpMethod;
 /**
  * Class AbstractCreateRequestTest
  * @package Sphere\Core\Request
- * @method AbstractDeleteByIdRequest getRequest($class, array $args = [])
+ * @method AbstractDeleteRequest getRequest($class, array $args = [])
  */
-class AbstractDeleteByIdRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractDeleteRequestTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_DELETE_REQUEST = '\Sphere\Core\Request\AbstractDeleteByIdRequest';
+    const ABSTRACT_DELETE_REQUEST = '\Sphere\Core\Request\AbstractDeleteRequest';
 
     public function testGetId()
     {

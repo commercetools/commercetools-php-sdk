@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\TaxCategories;
+namespace Sphere\Core\Request\Inventory;
 
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteByIdRequest;
-use Sphere\Core\Model\TaxCategory\TaxCategory;
+use Sphere\Core\Request\AbstractDeleteRequest;
+use Sphere\Core\Model\Inventory\InventoryEntry;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\TaxCategories
- * @link http://dev.sphere.io/http-api-projects-taxCategories.html#delete-tax-category
- * @method TaxCategory mapResponse(ApiResponseInterface $response)
+ * @package Sphere\Core\Request\Inventory
+ * @link http://dev.sphere.io/http-api-projects-inventory.html#delete-inventory
+ * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
-class TaxCategoryDeleteByIdRequest extends AbstractDeleteByIdRequest
+class InventoryDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\TaxCategory\TaxCategory';
+    protected $resultClass = '\Sphere\Core\Model\Inventory\InventoryEntry';
 
     /**
      * @param string $id
@@ -26,7 +26,7 @@ class TaxCategoryDeleteByIdRequest extends AbstractDeleteByIdRequest
      */
     public function __construct($id, $version, Context $context = null)
     {
-        parent::__construct(TaxCategoriesEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(InventoryEndpoint::endpoint(), $id, $version, $context);
     }
 
     /**

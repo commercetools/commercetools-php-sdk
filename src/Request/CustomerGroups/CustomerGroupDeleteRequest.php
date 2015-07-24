@@ -1,24 +1,23 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 26.01.15, 17:02
  */
 
-namespace Sphere\Core\Request\Categories;
+namespace Sphere\Core\Request\CustomerGroups;
 
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteByIdRequest;
-use Sphere\Core\Model\Category\Category;
+use Sphere\Core\Request\AbstractDeleteRequest;
+use Sphere\Core\Model\CustomerGroup\CustomerGroup;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Categories
- * @link http://dev.sphere.io/http-api-projects-categories.html#delete-category
- * @method Category mapResponse(ApiResponseInterface $response)
+ * @package Sphere\Core\Request\CustomerGroups
+ * @link http://dev.sphere.io/http-api-projects-customerGroups.html#delete-customer-group
+ * @method CustomerGroup mapResponse(ApiResponseInterface $response)
  */
-class CategoryDeleteByIdRequest extends AbstractDeleteByIdRequest
+class CustomerGroupDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Category\Category';
+    protected $resultClass = '\Sphere\Core\Model\CustomerGroup\CustomerGroup';
 
     /**
      * @param string $id
@@ -27,7 +26,7 @@ class CategoryDeleteByIdRequest extends AbstractDeleteByIdRequest
      */
     public function __construct($id, $version, Context $context = null)
     {
-        parent::__construct(CategoriesEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(CustomerGroupsEndpoint::endpoint(), $id, $version, $context);
     }
 
     /**

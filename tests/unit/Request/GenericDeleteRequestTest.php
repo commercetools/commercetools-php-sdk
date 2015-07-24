@@ -9,7 +9,7 @@ namespace Sphere\Core\Request\CartDiscounts;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\RequestTestCase;
 
-class GenericDeleteByIdRequestTest extends RequestTestCase
+class GenericDeleteRequestTest extends RequestTestCase
 {
     /**
      * @param $className
@@ -27,59 +27,59 @@ class GenericDeleteByIdRequestTest extends RequestTestCase
     {
         return [
             [
-                '\Sphere\Core\Request\CartDiscounts\CartDiscountDeleteByIdRequest',
+                '\Sphere\Core\Request\CartDiscounts\CartDiscountDeleteRequest',
                 '\Sphere\Core\Model\CartDiscount\CartDiscount',
             ],
             [
-                '\Sphere\Core\Request\Carts\CartDeleteByIdRequest',
+                '\Sphere\Core\Request\Carts\CartDeleteRequest',
                 '\Sphere\Core\Model\Cart\Cart',
             ],
             [
-                '\Sphere\Core\Request\Categories\CategoryDeleteByIdRequest',
+                '\Sphere\Core\Request\Categories\CategoryDeleteRequest',
                 '\Sphere\Core\Model\Category\Category',
             ],
             [
-                '\Sphere\Core\Request\Channels\ChannelDeleteByIdRequest',
+                '\Sphere\Core\Request\Channels\ChannelDeleteRequest',
                 '\Sphere\Core\Model\Channel\Channel',
             ],
             [
-                '\Sphere\Core\Request\CustomerGroups\CustomerGroupDeleteByIdRequest',
+                '\Sphere\Core\Request\CustomerGroups\CustomerGroupDeleteRequest',
                 '\Sphere\Core\Model\CustomerGroup\CustomerGroup',
             ],
             [
-                '\Sphere\Core\Request\Customers\CustomerDeleteByIdRequest',
+                '\Sphere\Core\Request\Customers\CustomerDeleteRequest',
                 '\Sphere\Core\Model\Customer\Customer',
             ],
             [
-                '\Sphere\Core\Request\DiscountCodes\DiscountCodeDeleteByIdRequest',
+                '\Sphere\Core\Request\DiscountCodes\DiscountCodeDeleteRequest',
                 '\Sphere\Core\Model\DiscountCode\DiscountCode',
             ],
             [
-                '\Sphere\Core\Request\Inventory\InventoryDeleteByIdRequest',
+                '\Sphere\Core\Request\Inventory\InventoryDeleteRequest',
                 '\Sphere\Core\Model\Inventory\InventoryEntry',
             ],
             [
-                '\Sphere\Core\Request\ProductDiscounts\ProductDiscountDeleteByIdRequest',
+                '\Sphere\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest',
                 '\Sphere\Core\Model\ProductDiscount\ProductDiscount',
             ],
             [
-                '\Sphere\Core\Request\Products\ProductDeleteByIdRequest',
+                '\Sphere\Core\Request\Products\ProductDeleteRequest',
                 '\Sphere\Core\Model\Product\Product',
             ],
             [
-                '\Sphere\Core\Request\ProductTypes\ProductTypeDeleteByIdRequest',
+                '\Sphere\Core\Request\ProductTypes\ProductTypeDeleteRequest',
                 '\Sphere\Core\Model\ProductType\ProductType',
             ],
             [
-                '\Sphere\Core\Request\States\StateDeleteByIdRequest',
+                '\Sphere\Core\Request\States\StateDeleteRequest',
                 '\Sphere\Core\Model\State\State',
             ],
             [
-                '\Sphere\Core\Request\TaxCategories\TaxCategoryDeleteByIdRequest',
+                '\Sphere\Core\Request\TaxCategories\TaxCategoryDeleteRequest',
                 '\Sphere\Core\Model\TaxCategory\TaxCategory',
             ],
             [
-                '\Sphere\Core\Request\Zones\ZoneDeleteByIdRequest',
+                '\Sphere\Core\Request\Zones\ZoneDeleteRequest',
                 '\Sphere\Core\Model\Zone\Zone',
             ],
         ];

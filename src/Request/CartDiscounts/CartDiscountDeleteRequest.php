@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Channels;
+namespace Sphere\Core\Request\CartDiscounts;
 
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteByIdRequest;
-use Sphere\Core\Model\Channel\Channel;
+use Sphere\Core\Request\AbstractDeleteRequest;
+use Sphere\Core\Model\CartDiscount\CartDiscount;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Channels
- * @link http://dev.sphere.io/http-api-projects-channels.html#delete-channel
- * @method Channel mapResponse(ApiResponseInterface $response)
+ * @package Sphere\Core\Request\CartDiscounts
+ * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#delete-cart-discount
+ * @method CartDiscount mapResponse(ApiResponseInterface $response)
  */
-class ChannelDeleteByIdRequest extends AbstractDeleteByIdRequest
+class CartDiscountDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Channel\Channel';
+    protected $resultClass = '\Sphere\Core\Model\CartDiscount\CartDiscount';
 
     /**
      * @param string $id
@@ -26,7 +26,7 @@ class ChannelDeleteByIdRequest extends AbstractDeleteByIdRequest
      */
     public function __construct($id, $version, Context $context = null)
     {
-        parent::__construct(ChannelsEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(CartDiscountsEndpoint::endpoint(), $id, $version, $context);
     }
 
     /**

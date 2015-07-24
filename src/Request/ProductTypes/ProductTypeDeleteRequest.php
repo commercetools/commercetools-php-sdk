@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\States;
+namespace Sphere\Core\Request\ProductTypes;
 
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteByIdRequest;
-use Sphere\Core\Model\State\State;
+use Sphere\Core\Request\AbstractDeleteRequest;
+use Sphere\Core\Model\ProductType\ProductType;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\States
- * @link http://dev.sphere.io/http-api-projects-states.html#delete-state
- * @method State mapResponse(ApiResponseInterface $response)
+ * @package Sphere\Core\Request\ProductTypes
+ * @link http://dev.sphere.io/http-api-projects-productTypes.html#delete-product-type
+ * @method ProductType mapResponse(ApiResponseInterface $response)
  */
-class StateDeleteByIdRequest extends AbstractDeleteByIdRequest
+class ProductTypeDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\State\State';
+    protected $resultClass = '\Sphere\Core\Model\ProductType\ProductType';
 
     /**
      * @param string $id
@@ -26,7 +26,7 @@ class StateDeleteByIdRequest extends AbstractDeleteByIdRequest
      */
     public function __construct($id, $version, Context $context = null)
     {
-        parent::__construct(StatesEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(ProductTypesEndpoint::endpoint(), $id, $version, $context);
     }
 
     /**

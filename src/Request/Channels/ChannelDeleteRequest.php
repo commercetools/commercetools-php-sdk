@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductTypes;
+namespace Sphere\Core\Request\Channels;
 
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteByIdRequest;
-use Sphere\Core\Model\ProductType\ProductType;
+use Sphere\Core\Request\AbstractDeleteRequest;
+use Sphere\Core\Model\Channel\Channel;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\ProductTypes
- * @link http://dev.sphere.io/http-api-projects-productTypes.html#delete-product-type
- * @method ProductType mapResponse(ApiResponseInterface $response)
+ * @package Sphere\Core\Request\Channels
+ * @link http://dev.sphere.io/http-api-projects-channels.html#delete-channel
+ * @method Channel mapResponse(ApiResponseInterface $response)
  */
-class ProductTypeDeleteByIdRequest extends AbstractDeleteByIdRequest
+class ChannelDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\ProductType\ProductType';
+    protected $resultClass = '\Sphere\Core\Model\Channel\Channel';
 
     /**
      * @param string $id
@@ -26,7 +26,7 @@ class ProductTypeDeleteByIdRequest extends AbstractDeleteByIdRequest
      */
     public function __construct($id, $version, Context $context = null)
     {
-        parent::__construct(ProductTypesEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(ChannelsEndpoint::endpoint(), $id, $version, $context);
     }
 
     /**

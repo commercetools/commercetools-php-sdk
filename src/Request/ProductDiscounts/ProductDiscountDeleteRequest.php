@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\DiscountCodes;
+namespace Sphere\Core\Request\ProductDiscounts;
 
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteByIdRequest;
-use Sphere\Core\Model\DiscountCode\DiscountCode;
+use Sphere\Core\Request\AbstractDeleteRequest;
+use Sphere\Core\Model\ProductDiscount\ProductDiscount;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\DiscountCodes
- * @link http://dev.sphere.io/http-api-projects-discountCodes.html#delete-discount-code
- * @method DiscountCode mapResponse(ApiResponseInterface $response)
+ * @package Sphere\Core\Request\ProductDiscounts
+ * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#delete-product-discount
+ * @method ProductDiscount mapResponse(ApiResponseInterface $response)
  */
-class DiscountCodeDeleteByIdRequest extends AbstractDeleteByIdRequest
+class ProductDiscountDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\DiscountCode\DiscountCode';
+    protected $resultClass = '\Sphere\Core\Model\ProductDiscount\ProductDiscount';
 
     /**
      * @param string $id
@@ -26,7 +26,7 @@ class DiscountCodeDeleteByIdRequest extends AbstractDeleteByIdRequest
      */
     public function __construct($id, $version, Context $context = null)
     {
-        parent::__construct(DiscountCodesEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(ProductDiscountsEndpoint::endpoint(), $id, $version, $context);
     }
 
     /**

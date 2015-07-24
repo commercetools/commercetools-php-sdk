@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductDiscounts;
+namespace Sphere\Core\Request\Zones;
 
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteByIdRequest;
-use Sphere\Core\Model\ProductDiscount\ProductDiscount;
+use Sphere\Core\Request\AbstractDeleteRequest;
+use Sphere\Core\Model\Zone\Zone;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\ProductDiscounts
- * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#delete-product-discount
- * @method ProductDiscount mapResponse(ApiResponseInterface $response)
+ * @package Sphere\Core\Request\Zones
+ * @link http://dev.sphere.io/http-api-projects-zones.html#delete-zone
+ * @method Zone mapResponse(ApiResponseInterface $response)
  */
-class ProductDiscountDeleteByIdRequest extends AbstractDeleteByIdRequest
+class ZoneDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\ProductDiscount\ProductDiscount';
+    protected $resultClass = '\Sphere\Core\Model\Zone\Zone';
 
     /**
      * @param string $id
@@ -26,7 +26,7 @@ class ProductDiscountDeleteByIdRequest extends AbstractDeleteByIdRequest
      */
     public function __construct($id, $version, Context $context = null)
     {
-        parent::__construct(ProductDiscountsEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(ZonesEndpoint::endpoint(), $id, $version, $context);
     }
 
     /**

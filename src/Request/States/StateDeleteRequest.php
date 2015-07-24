@@ -1,24 +1,23 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
- * @created: 12.02.15, 12:12
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Sphere\Core\Request\States;
 
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteByIdRequest;
-use Sphere\Core\Model\Customer\Customer;
+use Sphere\Core\Request\AbstractDeleteRequest;
+use Sphere\Core\Model\State\State;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#delete-customer
- * @method Customer mapResponse(ApiResponseInterface $response)
+ * @package Sphere\Core\Request\States
+ * @link http://dev.sphere.io/http-api-projects-states.html#delete-state
+ * @method State mapResponse(ApiResponseInterface $response)
  */
-class CustomerDeleteByIdRequest extends AbstractDeleteByIdRequest
+class StateDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Customer\Customer';
+    protected $resultClass = '\Sphere\Core\Model\State\State';
 
     /**
      * @param string $id
@@ -27,7 +26,7 @@ class CustomerDeleteByIdRequest extends AbstractDeleteByIdRequest
      */
     public function __construct($id, $version, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(StatesEndpoint::endpoint(), $id, $version, $context);
     }
 
     /**

@@ -13,7 +13,7 @@ use Sphere\Core\Model\Category\CategoryReference;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\Categories\CategoriesQueryRequest;
 use Sphere\Core\Request\Categories\CategoryCreateRequest;
-use Sphere\Core\Request\Categories\CategoryDeleteByIdRequest;
+use Sphere\Core\Request\Categories\CategoryDeleteRequest;
 use Sphere\Core\Request\Categories\CategoryByIdGetRequest;
 
 class QueryCategoriesTest extends ApiTestCase
@@ -41,7 +41,7 @@ class QueryCategoriesTest extends ApiTestCase
         $category = $this->getClient()
             ->execute(CategoryCreateRequest::ofDraft($draft))
             ->toObject();
-        $this->cleanupRequests[] = CategoryDeleteByIdRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
             $category->getId(),
             $category->getVersion()
         );

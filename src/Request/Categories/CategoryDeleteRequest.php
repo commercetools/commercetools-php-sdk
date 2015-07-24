@@ -1,23 +1,24 @@
 <?php
 /**
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @created: 26.01.15, 17:02
  */
 
-namespace Sphere\Core\Request\Inventory;
+namespace Sphere\Core\Request\Categories;
 
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteByIdRequest;
-use Sphere\Core\Model\Inventory\InventoryEntry;
+use Sphere\Core\Request\AbstractDeleteRequest;
+use Sphere\Core\Model\Category\Category;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Inventory
- * @link http://dev.sphere.io/http-api-projects-inventory.html#delete-inventory
- * @method InventoryEntry mapResponse(ApiResponseInterface $response)
+ * @package Sphere\Core\Request\Categories
+ * @link http://dev.sphere.io/http-api-projects-categories.html#delete-category
+ * @method Category mapResponse(ApiResponseInterface $response)
  */
-class InventoryDeleteByIdRequest extends AbstractDeleteByIdRequest
+class CategoryDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Inventory\InventoryEntry';
+    protected $resultClass = '\Sphere\Core\Model\Category\Category';
 
     /**
      * @param string $id
@@ -26,7 +27,7 @@ class InventoryDeleteByIdRequest extends AbstractDeleteByIdRequest
      */
     public function __construct($id, $version, Context $context = null)
     {
-        parent::__construct(InventoryEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(CategoriesEndpoint::endpoint(), $id, $version, $context);
     }
 
     /**

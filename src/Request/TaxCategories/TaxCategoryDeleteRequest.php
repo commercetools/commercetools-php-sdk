@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CartDiscounts;
+namespace Sphere\Core\Request\TaxCategories;
 
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteByIdRequest;
-use Sphere\Core\Model\CartDiscount\CartDiscount;
+use Sphere\Core\Request\AbstractDeleteRequest;
+use Sphere\Core\Model\TaxCategory\TaxCategory;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\CartDiscounts
- * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#delete-cart-discount
- * @method CartDiscount mapResponse(ApiResponseInterface $response)
+ * @package Sphere\Core\Request\TaxCategories
+ * @link http://dev.sphere.io/http-api-projects-taxCategories.html#delete-tax-category
+ * @method TaxCategory mapResponse(ApiResponseInterface $response)
  */
-class CartDiscountDeleteByIdRequest extends AbstractDeleteByIdRequest
+class TaxCategoryDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\CartDiscount\CartDiscount';
+    protected $resultClass = '\Sphere\Core\Model\TaxCategory\TaxCategory';
 
     /**
      * @param string $id
@@ -26,7 +26,7 @@ class CartDiscountDeleteByIdRequest extends AbstractDeleteByIdRequest
      */
     public function __construct($id, $version, Context $context = null)
     {
-        parent::__construct(CartDiscountsEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(TaxCategoriesEndpoint::endpoint(), $id, $version, $context);
     }
 
     /**
