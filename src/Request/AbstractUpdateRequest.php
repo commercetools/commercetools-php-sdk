@@ -14,7 +14,7 @@ use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ResourceResponse;
 
 /**
  * Class AbstractUpdateRequest
@@ -165,11 +165,11 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
 
     /**
      * @param ResponseInterface $response
-     * @return SingleResourceResponse
+     * @return ResourceResponse
      * @internal
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 }

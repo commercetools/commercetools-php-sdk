@@ -67,6 +67,6 @@ class AbstractDeleteRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_DELETE_REQUEST, ['id', 'version']);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
     }
 }

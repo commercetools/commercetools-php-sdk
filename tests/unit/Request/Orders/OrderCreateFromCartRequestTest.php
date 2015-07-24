@@ -35,7 +35,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
         $request = OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
     }
 
     public function testHttpRequestMethod()

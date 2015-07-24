@@ -48,6 +48,6 @@ class CustomerPasswordTokenRequestTest extends RequestTestCase
         $request = CustomerPasswordTokenRequest::ofEmail('john.doe@company.com');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
     }
 }

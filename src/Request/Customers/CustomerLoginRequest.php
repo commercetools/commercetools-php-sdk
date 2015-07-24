@@ -11,7 +11,7 @@ use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ResourceResponse;
 use Sphere\Core\Model\Customer\CustomerSigninResult;
 use Sphere\Core\Response\ApiResponseInterface;
 
@@ -87,11 +87,11 @@ class CustomerLoginRequest extends AbstractApiRequest
 
     /**
      * @param ResponseInterface $response
-     * @return SingleResourceResponse
+     * @return ResourceResponse
      * @internal
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 }

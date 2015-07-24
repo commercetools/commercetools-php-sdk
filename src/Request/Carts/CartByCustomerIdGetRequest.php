@@ -11,7 +11,7 @@ use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Request\CustomerIdTrait;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ResourceResponse;
 use Sphere\Core\Model\Cart\Cart;
 use Sphere\Core\Response\ApiResponseInterface;
 
@@ -57,10 +57,10 @@ class CartByCustomerIdGetRequest extends AbstractApiRequest
 
     /**
      * @param ResponseInterface $response
-     * @return SingleResourceResponse
+     * @return ResourceResponse
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 }

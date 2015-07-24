@@ -14,12 +14,12 @@ use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\Query\Parameter;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ResourceResponse;
 
 /**
  * Class AbstractDeleteRequest
  * @package Sphere\Core\Request
- * @method SingleResourceResponse executeWithClient(Client $client)
+ * @method ResourceResponse executeWithClient(Client $client)
  */
 abstract class AbstractDeleteRequest extends AbstractApiRequest
 {
@@ -105,11 +105,11 @@ abstract class AbstractDeleteRequest extends AbstractApiRequest
 
     /**
      * @param ResponseInterface $response
-     * @return SingleResourceResponse
+     * @return ResourceResponse
      * @internal
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 }

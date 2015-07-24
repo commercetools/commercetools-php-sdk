@@ -65,6 +65,6 @@ class ProductProjectionBySkuGetRequestTest extends RequestTestCase
         $request = $this->getRequest(static::PRODUCT_PROJECTION_BY_SKU_GET_REQUEST, ['sku']);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
     }
 }

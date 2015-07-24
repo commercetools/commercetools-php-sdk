@@ -134,7 +134,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $client = $this->getMockClient($this->getConfig(), $this->getSingleOpResult());
         $response = $client->execute($request);
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
     }
 
     public function testApiUrl()
@@ -163,7 +163,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $client = $this->getMockClient($this->getConfig(), '', 500);
         $response = $client->execute($request);
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
         $this->assertTrue($response->isError());
     }
 
@@ -229,7 +229,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $response = $clientMock->execute($request);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
         $this->assertTrue($response->isError());
     }
 
@@ -288,7 +288,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Sphere\Core\Response\PagedQueryResponse', $results[$request1->getIdentifier()]);
         $this->assertFalse($results[$request1->getIdentifier()]->isError());
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $results[$request2->getIdentifier()]);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $results[$request2->getIdentifier()]);
         $this->assertFalse($results[$request2->getIdentifier()]->isError());
     }
 
@@ -400,9 +400,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $results = $clientMock->executeBatch();
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $results[$request1->getIdentifier()]);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $results[$request1->getIdentifier()]);
         $this->assertTrue($results[$request1->getIdentifier()]->isError());
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $results[$request2->getIdentifier()]);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $results[$request2->getIdentifier()]);
         $this->assertTrue($results[$request2->getIdentifier()]->isError());
 
     }

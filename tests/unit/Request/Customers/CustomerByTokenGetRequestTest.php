@@ -43,6 +43,6 @@ class CustomerByTokenGetRequestTest extends RequestTestCase
         $request = CustomerByTokenGetRequest::ofToken('myToken');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
     }
 }

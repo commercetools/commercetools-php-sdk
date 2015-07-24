@@ -14,7 +14,7 @@ use Sphere\Core\Request\ExpandTrait;
 use Sphere\Core\Request\PageTrait;
 use Sphere\Core\Request\QueryTrait;
 use Sphere\Core\Request\StagedTrait;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ResourceResponse;
 use Sphere\Core\Model\Product\ProductProjection;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Response\ApiResponseInterface;
@@ -66,11 +66,11 @@ class ProductProjectionBySkuGetRequest extends AbstractApiRequest
 
     /**
      * @param ResponseInterface $response
-     * @return SingleResourceResponse
+     * @return ResourceResponse
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 
     /**

@@ -108,6 +108,6 @@ class ProductProjectionBySlugGetRequestTest extends RequestTestCase
         $request = ProductProjectionBySlugGetRequest::ofSlugAndContext('slug', $this->getContext());
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
     }
 }

@@ -59,6 +59,6 @@ class AbstractByIdGetRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_GET_REQUEST, ['id']);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
     }
 }

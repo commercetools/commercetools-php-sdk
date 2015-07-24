@@ -37,7 +37,7 @@ class OrderImportRequestTest extends RequestTestCase
         $request = OrderImportRequest::ofImportOrder(ImportOrder::of());
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
     }
 
     public function testHttpRequestMethod()

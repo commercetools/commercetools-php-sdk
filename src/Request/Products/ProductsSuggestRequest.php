@@ -13,14 +13,14 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\PageTrait;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ResourceResponse;
 use Sphere\Core\Model\Product\SuggestionCollection;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Products
  * @link http://dev.sphere.io/http-api-projects-products-search.html#suggest-query
- * @method SingleResourceResponse executeWithClient(Client $client)
+ * @method ResourceResponse executeWithClient(Client $client)
  * @method SuggestionCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductsSuggestRequest extends AbstractProjectionRequest
@@ -137,11 +137,11 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
 
     /**
      * @param ResponseInterface $response
-     * @return SingleResourceResponse
+     * @return ResourceResponse
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 
     /**

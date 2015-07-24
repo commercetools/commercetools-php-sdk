@@ -55,6 +55,6 @@ class CartByCustomerIdGetRequestTest extends RequestTestCase
         $request = CartByCustomerIdGetRequest::ofCustomerId('id');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
     }
 }
