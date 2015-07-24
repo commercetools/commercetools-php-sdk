@@ -13,17 +13,17 @@ use Sphere\Core\Model\Common\ImageCollection;
 /**
  * @package Sphere\Core\Model\Order
  * @method int getId()
- * @method ImportProductVariant setId(int $id = null)
+ * @method ProductVariantImportDraft setId(int $id = null)
  * @method string getSku()
- * @method ImportProductVariant setSku(string $sku = null)
+ * @method ProductVariantImportDraft setSku(string $sku = null)
  * @method PriceCollection getPrices()
- * @method ImportProductVariant setPrices(PriceCollection $prices = null)
+ * @method ProductVariantImportDraft setPrices(PriceCollection $prices = null)
  * @method AttributeCollection getAttributes()
- * @method ImportProductVariant setAttributes(AttributeCollection $attributes = null)
+ * @method ProductVariantImportDraft setAttributes(AttributeCollection $attributes = null)
  * @method ImageCollection getImages()
- * @method ImportProductVariant setImages(ImageCollection $images = null)
+ * @method ProductVariantImportDraft setImages(ImageCollection $images = null)
  */
-class ImportProductVariant extends JsonObject
+class ProductVariantImportDraft extends JsonObject
 {
     public function getFields()
     {

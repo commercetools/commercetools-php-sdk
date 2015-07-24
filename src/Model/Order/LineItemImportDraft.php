@@ -14,30 +14,30 @@ use Sphere\Core\Model\TaxCategory\TaxRate;
 /**
  * @package Sphere\Core\Model\Order
  * @method string getProductId()
- * @method ImportLineItem setProductId(string $productId = null)
+ * @method LineItemImportDraft setProductId(string $productId = null)
  * @method LocalizedString getName()
- * @method ImportLineItem setName(LocalizedString $name = null)
- * @method ImportProductVariant getVariant()
- * @method ImportLineItem setVariant(ImportProductVariant $variant = null)
+ * @method LineItemImportDraft setName(LocalizedString $name = null)
+ * @method ProductVariantImportDraft getVariant()
+ * @method LineItemImportDraft setVariant(ProductVariantImportDraft $variant = null)
  * @method Price getPrice()
- * @method ImportLineItem setPrice(Price $price = null)
+ * @method LineItemImportDraft setPrice(Price $price = null)
  * @method int getQuantity()
- * @method ImportLineItem setQuantity(int $quantity = null)
+ * @method LineItemImportDraft setQuantity(int $quantity = null)
  * @method ItemStateCollection getState()
- * @method ImportLineItem setState(ItemStateCollection $state = null)
+ * @method LineItemImportDraft setState(ItemStateCollection $state = null)
  * @method ChannelReference getSupplyChannel()
- * @method ImportLineItem setSupplyChannel(ChannelReference $supplyChannel = null)
+ * @method LineItemImportDraft setSupplyChannel(ChannelReference $supplyChannel = null)
  * @method TaxRate getTaxRate()
- * @method ImportLineItem setTaxRate(TaxRate $taxRate = null)
+ * @method LineItemImportDraft setTaxRate(TaxRate $taxRate = null)
  */
-class ImportLineItem extends JsonObject
+class LineItemImportDraft extends JsonObject
 {
     public function getFields()
     {
         return [
             'productId' => [static::TYPE => 'string'],
             'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'variant' => [static::TYPE => '\Sphere\Core\Model\Order\ImportProductVariant'],
+            'variant' => [static::TYPE => '\Sphere\Core\Model\Order\ProductVariantImportDraft'],
             'price' => [static::TYPE => '\Sphere\Core\Model\Common\Price'],
             'quantity' => [static::TYPE => 'int'],
             'state' => [static::TYPE => '\Sphere\Core\Model\Order\ItemStateCollection'],
