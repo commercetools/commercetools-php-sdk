@@ -15,7 +15,7 @@ use Sphere\Core\Response\ApiResponseInterface;
  * @link http://dev.sphere.io/http-api-projects-custom-objects.html#custom-objects-by-query
  * @method CustomObjectCollection mapResponse(ApiResponseInterface $response)
  */
-class CustomObjectsQueryRequest extends AbstractQueryRequest
+class CustomObjectQueryRequest extends AbstractQueryRequest
 {
     protected $resultClass = '\Sphere\Core\Model\CustomObject\CustomObjectCollection';
 

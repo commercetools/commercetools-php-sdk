@@ -16,7 +16,7 @@ use Sphere\Core\Response\ApiResponseInterface;
  * @link http://dev.sphere.io/http-api-projects-categories.html#categories-by-query
  * @method CategoryCollection mapResponse(ApiResponseInterface $response)
  */
-class CategoriesQueryRequest extends AbstractQueryRequest
+class CategoryQueryRequest extends AbstractQueryRequest
 {
     protected $resultClass = '\Sphere\Core\Model\Category\CategoryCollection';
 

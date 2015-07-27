@@ -15,7 +15,7 @@ use Sphere\Core\Response\ApiResponseInterface;
  * @link http://dev.sphere.io/http-api-projects-taxCategories.html#tax-categories-by-query
  * @method TaxCategoryCollection mapResponse(ApiResponseInterface $response)
  */
-class TaxCategoriesQueryRequest extends AbstractQueryRequest
+class TaxCategoryQueryRequest extends AbstractQueryRequest
 {
     protected $resultClass = '\Sphere\Core\Model\TaxCategory\TaxCategoryCollection';
 

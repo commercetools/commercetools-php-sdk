@@ -16,7 +16,7 @@ use Sphere\Core\Response\ApiResponseInterface;
  * @link http://dev.sphere.io/http-api-projects-customers.html#customers-by-query
  * @method CustomerCollection mapResponse(ApiResponseInterface $response)
  */
-class CustomersQueryRequest extends AbstractQueryRequest
+class CustomerQueryRequest extends AbstractQueryRequest
 {
     protected $resultClass = '\Sphere\Core\Model\Customer\CustomerCollection';
 

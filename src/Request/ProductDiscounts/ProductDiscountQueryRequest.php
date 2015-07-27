@@ -15,7 +15,7 @@ use Sphere\Core\Response\ApiResponseInterface;
  * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discounts-by-query
  * @method ProductDiscountCollection mapResponse(ApiResponseInterface $response)
  */
-class ProductDiscountsQueryRequest extends AbstractQueryRequest
+class ProductDiscountQueryRequest extends AbstractQueryRequest
 {
     protected $resultClass = '\Sphere\Core\Model\ProductDiscount\ProductDiscountCollection';
 

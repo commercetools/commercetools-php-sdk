@@ -10,7 +10,7 @@ use Sphere\Core\ApiTestCase;
 use Sphere\Core\Model\Category\Category;
 use Sphere\Core\Model\Category\CategoryDraft;
 use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Request\Categories\CategoriesQueryRequest;
+use Sphere\Core\Request\Categories\CategoryQueryRequest;
 use Sphere\Core\Request\Categories\CategoryCreateRequest;
 use Sphere\Core\Request\Categories\CategoryDeleteRequest;
 use Sphere\Core\Request\Categories\CategoryUpdateRequest;

@@ -15,7 +15,7 @@ use Sphere\Core\Response\ApiResponseInterface;
  * @link http://dev.sphere.io/http-api-projects-channels.html#channels-by-query
  * @method ChannelCollection mapResponse(ApiResponseInterface $response)
  */
-class ChannelsQueryRequest extends AbstractQueryRequest
+class ChannelQueryRequest extends AbstractQueryRequest
 {
     protected $resultClass = '\Sphere\Core\Model\Channel\ChannelCollection';
 

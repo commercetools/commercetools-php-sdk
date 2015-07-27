@@ -16,7 +16,7 @@ use Sphere\Core\Response\ApiResponseInterface;
  * @link http://dev.sphere.io/http-api-projects-products.html#products-by-query
  * @method ProductCollection mapResponse(ApiResponseInterface $response)
  */
-class ProductsQueryRequest extends AbstractQueryRequest
+class ProductQueryRequest extends AbstractQueryRequest
 {
     protected $resultClass = '\Sphere\Core\Model\Product\ProductCollection';
 

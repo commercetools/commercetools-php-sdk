@@ -3,28 +3,28 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Messages;
+namespace Sphere\Core\Request\Orders;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\Message\MessageCollection;
+use Sphere\Core\Model\Order\OrderCollection;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Messages
- * @link http://dev.sphere.io/http-api-projects-messages.html#messages-by-query
- * @method MessageCollection mapResponse(ApiResponseInterface $response)
+ * @package Sphere\Core\Request\Orders
+ * @link http://dev.sphere.io/http-api-projects-orders.html#orders-by-query
+ * @method OrderCollection mapResponse(ApiResponseInterface $response)
  */
-class MessagesQueryRequest extends AbstractQueryRequest
+class OrderQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Message\MessageCollection';
+    protected $resultClass = '\Sphere\Core\Model\Order\OrderCollection';
 
     /**
      * @param Context $context
      */
     public function __construct(Context $context = null)
     {
-        parent::__construct(MessagesEndpoint::endpoint(), $context);
+        parent::__construct(OrdersEndpoint::endpoint(), $context);
     }
 
     /**

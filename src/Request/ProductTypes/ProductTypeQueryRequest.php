@@ -15,7 +15,7 @@ use Sphere\Core\Response\ApiResponseInterface;
  * @link http://dev.sphere.io/http-api-projects-productTypes.html#product-types-by-query
  * @method ProductTypeCollection mapResponse(ApiResponseInterface $response)
  */
-class ProductTypesQueryRequest extends AbstractQueryRequest
+class ProductTypeQueryRequest extends AbstractQueryRequest
 {
     protected $resultClass = '\Sphere\Core\Model\ProductType\ProductTypeCollection';
 

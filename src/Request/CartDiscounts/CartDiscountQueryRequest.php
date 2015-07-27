@@ -15,7 +15,7 @@ use Sphere\Core\Response\ApiResponseInterface;
  * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discounts-by-query
  * @method CartDiscountCollection mapResponse(ApiResponseInterface $response)
  */
-class CartDiscountsQueryRequest extends AbstractQueryRequest
+class CartDiscountQueryRequest extends AbstractQueryRequest
 {
     protected $resultClass = '\Sphere\Core\Model\CartDiscount\CartDiscountCollection';
 

@@ -3,27 +3,28 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\DiscountCodes;
+namespace Sphere\Core\Request\States;
 
 use Sphere\Core\Model\Common\Context;
+use Sphere\Core\Model\State\StateCollection;
 use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\DiscountCode\DiscountCodeCollection;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\DiscountCodes
- * @method DiscountCodeCollection mapResponse(ApiResponseInterface $response)
+ * @package Sphere\Core\Request\States
+ * @link http://dev.sphere.io/http-api-projects-states.html#states-by-query
+ * @method StateCollection mapResponse(ApiResponseInterface $response)
  */
-class DiscountCodesQueryRequest extends AbstractQueryRequest
+class StateQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\DiscountCode\DiscountCodeCollection';
+    protected $resultClass = '\Sphere\Core\Model\State\StateCollection';
 
     /**
      * @param Context $context
      */
     public function __construct(Context $context = null)
     {
-        parent::__construct(DiscountCodesEndpoint::endpoint(), $context);
+        parent::__construct(StatesEndpoint::endpoint(), $context);
     }
 
     /**

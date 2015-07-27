@@ -34,6 +34,16 @@ trait SphereContext
         return ucfirst($module);
     }
 
+    protected function getQueryContext($context)
+    {
+        if (substr($context, -3) == 'ies') {
+            $context = substr($context, 0, -3) . 'y';
+        } elseif (substr($context, -1) == 's') {
+            $context = substr($context, 0, -1);
+        }
+        return ucfirst($context);
+    }
+
     protected function getContext($context)
     {
         return ucfirst($context);
@@ -201,8 +211,8 @@ trait SphereContext
      */
     public function iWantToQuery($context)
     {
-        $context = $this->getContext($context);
         $module = $this->getModuleName($context);
+        $context = $this->getQueryContext($context);
         $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'QueryRequest';
         $this->request = call_user_func($request. '::of');
     }

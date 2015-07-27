@@ -11,7 +11,7 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Helper\State\Renderer\NodeRenderer;
 use Sphere\Core\Helper\State\Renderer\TransitionRenderer;
 use Sphere\Core\Model\State\StateCollection;
-use Sphere\Core\Request\States\StatesQueryRequest;
+use Sphere\Core\Request\States\StateQueryRequest;
 
 class Renderer
 {
@@ -245,7 +245,7 @@ class Renderer
     public static function run(Client $client, Context $context = null)
     {
         $renderer = new static();
-        $request = new StatesQueryRequest($context);
+        $request = new StateQueryRequest($context);
         $request->expand('transitions[*]');
 
         $states = $client->execute($request)->toObject();

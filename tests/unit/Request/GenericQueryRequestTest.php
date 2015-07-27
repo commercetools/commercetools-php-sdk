@@ -27,11 +27,11 @@ class GenericQueryRequestTest extends RequestTestCase
     {
         return [
             [
-                '\Sphere\Core\Request\CartDiscounts\CartDiscountsQueryRequest',
+                '\Sphere\Core\Request\CartDiscounts\CartDiscountQueryRequest',
                 '\Sphere\Core\Model\CartDiscount\CartDiscountCollection',
             ],
             [
-                '\Sphere\Core\Request\Carts\CartsQueryRequest',
+                '\Sphere\Core\Request\Carts\CartQueryRequest',
                 '\Sphere\Core\Model\Cart\CartCollection',
                 [
                     'results' => [
@@ -42,27 +42,27 @@ class GenericQueryRequestTest extends RequestTestCase
                 ]
             ],
             [
-                '\Sphere\Core\Request\Categories\CategoriesQueryRequest',
+                '\Sphere\Core\Request\Categories\CategoryQueryRequest',
                 '\Sphere\Core\Model\Category\CategoryCollection',
             ],
             [
-                '\Sphere\Core\Request\Channels\ChannelsQueryRequest',
+                '\Sphere\Core\Request\Channels\ChannelQueryRequest',
                 '\Sphere\Core\Model\Channel\ChannelCollection',
             ],
             [
-                '\Sphere\Core\Request\Comments\CommentsQueryRequest',
+                '\Sphere\Core\Request\Comments\CommentQueryRequest',
                 '\Sphere\Core\Model\Comment\CommentCollection',
             ],
             [
-                '\Sphere\Core\Request\CustomerGroups\CustomerGroupsQueryRequest',
+                '\Sphere\Core\Request\CustomerGroups\CustomerGroupQueryRequest',
                 '\Sphere\Core\Model\CustomerGroup\CustomerGroupCollection',
             ],
             [
-                '\Sphere\Core\Request\Customers\CustomersQueryRequest',
+                '\Sphere\Core\Request\Customers\CustomerQueryRequest',
                 '\Sphere\Core\Model\Customer\CustomerCollection',
             ],
             [
-                '\Sphere\Core\Request\CustomObjects\CustomObjectsQueryRequest',
+                '\Sphere\Core\Request\CustomObjects\CustomObjectQueryRequest',
                 '\Sphere\Core\Model\CustomObject\CustomObjectCollection',
                 [
                     'results' => [
@@ -73,7 +73,7 @@ class GenericQueryRequestTest extends RequestTestCase
                 ]
             ],
             [
-                '\Sphere\Core\Request\DiscountCodes\DiscountCodesQueryRequest',
+                '\Sphere\Core\Request\DiscountCodes\DiscountCodeQueryRequest',
                 '\Sphere\Core\Model\DiscountCode\DiscountCodeCollection',
             ],
             [
@@ -81,43 +81,43 @@ class GenericQueryRequestTest extends RequestTestCase
                 '\Sphere\Core\Model\Inventory\InventoryEntryCollection',
             ],
             [
-                '\Sphere\Core\Request\Messages\MessagesQueryRequest',
+                '\Sphere\Core\Request\Messages\MessageQueryRequest',
                 '\Sphere\Core\Model\Message\MessageCollection',
             ],
             [
-                '\Sphere\Core\Request\Orders\OrdersQueryRequest',
+                '\Sphere\Core\Request\Orders\OrderQueryRequest',
                 '\Sphere\Core\Model\Order\OrderCollection',
             ],
             [
-                '\Sphere\Core\Request\ProductDiscounts\ProductDiscountsQueryRequest',
+                '\Sphere\Core\Request\ProductDiscounts\ProductDiscountQueryRequest',
                 '\Sphere\Core\Model\ProductDiscount\ProductDiscountCollection',
             ],
             [
-                '\Sphere\Core\Request\Products\ProductsQueryRequest',
+                '\Sphere\Core\Request\Products\ProductQueryRequest',
                 '\Sphere\Core\Model\Product\ProductCollection',
             ],
             [
-                '\Sphere\Core\Request\ProductTypes\ProductTypesQueryRequest',
+                '\Sphere\Core\Request\ProductTypes\ProductTypeQueryRequest',
                 '\Sphere\Core\Model\ProductType\ProductTypeCollection',
             ],
             [
-                '\Sphere\Core\Request\Reviews\ReviewsQueryRequest',
+                '\Sphere\Core\Request\Reviews\ReviewQueryRequest',
                 '\Sphere\Core\Model\Review\ReviewCollection',
             ],
             [
-                '\Sphere\Core\Request\ShippingMethods\ShippingMethodsQueryRequest',
+                '\Sphere\Core\Request\ShippingMethods\ShippingMethodQueryRequest',
                 '\Sphere\Core\Model\ShippingMethod\ShippingMethodCollection',
             ],
             [
-                '\Sphere\Core\Request\States\StatesQueryRequest',
+                '\Sphere\Core\Request\States\StateQueryRequest',
                 '\Sphere\Core\Model\State\StateCollection',
             ],
             [
-                '\Sphere\Core\Request\TaxCategories\TaxCategoriesQueryRequest',
+                '\Sphere\Core\Request\TaxCategories\TaxCategoryQueryRequest',
                 '\Sphere\Core\Model\TaxCategory\TaxCategoryCollection',
             ],
             [
-                '\Sphere\Core\Request\Zones\ZonesQueryRequest',
+                '\Sphere\Core\Request\Zones\ZoneQueryRequest',
                 '\Sphere\Core\Model\Zone\ZoneCollection',
             ],
         ];

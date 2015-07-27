@@ -15,7 +15,7 @@ use Sphere\Core\Response\ApiResponseInterface;
  * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-methods-by-query
  * @method ShippingMethodCollection mapResponse(ApiResponseInterface $response)
  */
-class ShippingMethodsQueryRequest extends AbstractQueryRequest
+class ShippingMethodQueryRequest extends AbstractQueryRequest
 {
     protected $resultClass = '\Sphere\Core\Model\ShippingMethod\ShippingMethodCollection';
 

@@ -15,7 +15,7 @@ use Sphere\Core\Response\ApiResponseInterface;
  * @link http://dev.sphere.io/http-api-projects-customerGroups.html#customer-groups-by-query
  * @method CustomerGroupCollection mapResponse(ApiResponseInterface $response)
  */
-class CustomerGroupsQueryRequest extends AbstractQueryRequest
+class CustomerGroupQueryRequest extends AbstractQueryRequest
 {
     protected $resultClass = '\Sphere\Core\Model\CustomerGroup\CustomerGroupCollection';
 
