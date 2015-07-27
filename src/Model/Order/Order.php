@@ -13,7 +13,7 @@ use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\Common\Money;
 use Sphere\Core\Model\Common\TaxedPrice;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
-use Sphere\Core\Model\DiscountCode\DiscountCodeReferenceCollection;
+use Sphere\Core\Model\Cart\DiscountCodeInfoCollection;
 
 /**
  * @package Sphere\Core\Model\Order
@@ -62,8 +62,8 @@ use Sphere\Core\Model\DiscountCode\DiscountCodeReferenceCollection;
  * @method Order setSyncInfo(SyncInfoCollection $syncInfo = null)
  * @method ReturnInfoCollection getReturnInfo()
  * @method Order setReturnInfo(ReturnInfoCollection $returnInfo = null)
- * @method DiscountCodeReferenceCollection getDiscountCodes()
- * @method Order setDiscountCodes(DiscountCodeReferenceCollection $discountCodes = null)
+ * @method DiscountCodeInfoCollection getDiscountCodes()
+ * @method Order setDiscountCodes(DiscountCodeInfoCollection $discountCodes = null)
  * @method int getLastMessageSequenceNumber()
  * @method Order setLastMessageSequenceNumber(int $lastMessageSequenceNumber = null)
  */
@@ -94,7 +94,7 @@ class Order extends Resource
             'shippingInfo' => [static::TYPE => '\Sphere\Core\Model\Cart\ShippingInfo'],
             'syncInfo' => [static::TYPE => '\Sphere\Core\Model\Order\SyncInfoCollection'],
             'returnInfo' => [static::TYPE => '\Sphere\Core\Model\Order\ReturnInfoCollection'],
-            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\DiscountCode\DiscountCodeReferenceCollection'],
+            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\Cart\DiscountCodeInfoCollection'],
             'lastMessageSequenceNumber' => [static::TYPE => 'int'],
         ];
     }
