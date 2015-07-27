@@ -6,6 +6,7 @@
 
 * **CustomerCreateRequest:** set correct return object class ([d1c100c9](https://github.com/sphereio/sphere-php-sdk/commit/d1c100c9), closes [#109](https://github.com/sphereio/sphere-php-sdk/issues/109))
 * **Requests:** fix the usage of relative path by requests ([e32d0150](https://github.com/sphereio/sphere-php-sdk/commit/e32d0150))
+* **Order:** set correct return type for order discountCodes ([5bbf4f14](https://github.com/sphereio/sphere-php-sdk/commit/5bbf4f14))
 
 
 #### Features
