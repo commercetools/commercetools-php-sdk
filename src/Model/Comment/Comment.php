@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\Comment;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 
 /**
  * @package Sphere\Core\Model\Comment
@@ -28,7 +28,7 @@ use Sphere\Core\Model\Common\Document;
  * @method string getText()
  * @method Comment setText(string $text = null)
  */
-class Comment extends Document
+class Comment extends Resource
 {
     public function getFields()
     {

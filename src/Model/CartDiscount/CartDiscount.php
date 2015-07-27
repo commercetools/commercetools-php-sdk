@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\CartDiscount;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\ReferenceCollection;
 
@@ -43,7 +43,7 @@ use Sphere\Core\Model\Common\ReferenceCollection;
  * @method ReferenceCollection getReferences()
  * @method CartDiscount setReferences(ReferenceCollection $references = null)
  */
-class CartDiscount extends Document
+class CartDiscount extends Resource
 {
     public function getFields()
     {

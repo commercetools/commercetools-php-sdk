@@ -6,7 +6,7 @@
 namespace Sphere\Core\Model\DiscountCode;
 
 use Sphere\Core\Model\CartDiscount\CartDiscountReferenceCollection;
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\ReferenceCollection;
 
@@ -40,7 +40,7 @@ use Sphere\Core\Model\Common\ReferenceCollection;
  * @method int getMaxApplicationsPerCustomer()
  * @method DiscountCode setMaxApplicationsPerCustomer(int $maxApplicationsPerCustomer = null)
  */
-class DiscountCode extends Document
+class DiscountCode extends Resource
 {
     public function getFields()
     {

@@ -130,11 +130,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testExecuteSingleOp()
     {
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
 
         $client = $this->getMockClient($this->getConfig(), $this->getSingleOpResult());
         $response = $client->execute($request);
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
     }
 
     public function testApiUrl()
@@ -159,11 +159,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testException()
     {
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
 
         $client = $this->getMockClient($this->getConfig(), '', 500);
         $response = $client->execute($request);
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
         $this->assertTrue($response->isError());
     }
 
@@ -190,7 +190,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          * @var Client $clientMock
          */
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
 
         $response = $clientMock->execute($request);
     }
@@ -225,11 +225,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $clientMock->getHttpClient(['handler' => $handler]);
 
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
 
         $response = $clientMock->execute($request);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
         $this->assertTrue($response->isError());
     }
 
@@ -242,7 +242,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = $this->getMockClient($this->getConfig(), $this->getSingleOpResult(), 200, $logger);
 
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
         $client->execute($request);
 
         $record = current($handler->getRecords());
@@ -261,7 +261,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = $this->getMockClient($this->getConfig(), $this->getSingleOpResult(), 200, $logger);
 
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
         $response = $client->executeAsync($request);
 
         $this->assertFalse($response->isError());
@@ -277,7 +277,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $endpoint1 = new JsonEndpoint('test1');
         $request1 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractQueryRequest', [$endpoint1]);
         $endpoint2 = new JsonEndpoint('test2');
-        $request2 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint2, 'id']);
+        $request2 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint2, 'id']);
 
         $client = $this->getMockClient($this->getConfig(), [$this->getQueryResult(), $this->getSingleOpResult()]);
 
@@ -288,7 +288,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Sphere\Core\Response\PagedQueryResponse', $results[$request1->getIdentifier()]);
         $this->assertFalse($results[$request1->getIdentifier()]->isError());
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $results[$request2->getIdentifier()]);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $results[$request2->getIdentifier()]);
         $this->assertFalse($results[$request2->getIdentifier()]->isError());
     }
 
@@ -312,7 +312,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         /**
          * @var ClientRequestInterface $request
          */
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
         $client->execute($request);
 
         $logEntry = $handler->getRecords()[1];
@@ -350,7 +350,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $endpoint1 = new JsonEndpoint('test1');
         $request1 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractQueryRequest', [$endpoint1]);
         $endpoint2 = new JsonEndpoint('test2');
-        $request2 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint2, 'id']);
+        $request2 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint2, 'id']);
 
         $clientMock->addBatchRequest($request1);
         $clientMock->addBatchRequest($request2);
@@ -391,18 +391,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          * @var Client $clientMock
          */
         $endpoint1 = new JsonEndpoint('test1');
-        $request1 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint1, 'id']);
+        $request1 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint1, 'id']);
         $endpoint2 = new JsonEndpoint('test2');
-        $request2 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint2, 'id']);
+        $request2 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint2, 'id']);
 
         $clientMock->addBatchRequest($request1);
         $clientMock->addBatchRequest($request2);
 
         $results = $clientMock->executeBatch();
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $results[$request1->getIdentifier()]);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $results[$request1->getIdentifier()]);
         $this->assertTrue($results[$request1->getIdentifier()]->isError());
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $results[$request2->getIdentifier()]);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $results[$request2->getIdentifier()]);
         $this->assertTrue($results[$request2->getIdentifier()]->isError());
 
     }
@@ -427,7 +427,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         /**
          * @var ClientRequestInterface $request
          */
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractFetchByIdRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
         $response = $client->executeAsync($request);
 
         $this->assertFalse($response->isError());

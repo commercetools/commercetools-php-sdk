@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\ProductType;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 
 /**
  * @package Sphere\Core\Model\ProductType
@@ -25,7 +25,7 @@ use Sphere\Core\Model\Common\Document;
  * @method AttributeDefinitionCollection getAttributes()
  * @method ProductType setAttributes(AttributeDefinitionCollection $attributes = null)
  */
-class ProductType extends Document
+class ProductType extends Resource
 {
     /**
      * @return array

@@ -13,12 +13,12 @@ use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ResourceResponse;
 
 /**
  * Class AbstractCreateRequest
  * @package Sphere\Core\Request
- * @method SingleResourceResponse executeWithClient(Client $client)
+ * @method ResourceResponse executeWithClient(Client $client)
  */
 abstract class AbstractCreateRequest extends AbstractApiRequest
 {
@@ -68,11 +68,11 @@ abstract class AbstractCreateRequest extends AbstractApiRequest
 
     /**
      * @param ResponseInterface $response
-     * @return SingleResourceResponse
+     * @return ResourceResponse
      * @internal
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 }

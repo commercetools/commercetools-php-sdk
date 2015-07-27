@@ -10,14 +10,14 @@ use Sphere\Core\Model\Cart\Cart;
 use Sphere\Core\Model\Cart\CartDraft;
 use Sphere\Core\Model\Common\Address;
 use Sphere\Core\Request\Carts\CartCreateRequest;
-use Sphere\Core\Request\Carts\CartDeleteByIdRequest;
+use Sphere\Core\Request\Carts\CartDeleteRequest;
 use Sphere\Core\Request\Carts\CartUpdateRequest;
 use Sphere\Core\Request\Carts\Command\CartSetShippingAddressAction;
 
 class CartUpdateTest extends ApiTestCase
 {
     /**
-     * @var CartDeleteByIdRequest
+     * @var CartDeleteRequest
      */
     protected $cartDeleteRequest;
     /**
@@ -38,7 +38,7 @@ class CartUpdateTest extends ApiTestCase
         $cart = $this->getClient()
             ->execute(CartCreateRequest::ofDraft($draft))
             ->toObject();
-        $this->cartDeleteRequest = CartDeleteByIdRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
+        $this->cartDeleteRequest = CartDeleteRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
         $this->cleanupRequests[] = $this->cartDeleteRequest;
 
         return $cart;

@@ -34,6 +34,16 @@ trait SphereContext
         return ucfirst($module);
     }
 
+    protected function getQueryContext($context)
+    {
+        if (substr($context, -3) == 'ies') {
+            $context = substr($context, 0, -3) . 'y';
+        } elseif (substr($context, -1) == 's') {
+            $context = substr($context, 0, -1);
+        }
+        return ucfirst($context);
+    }
+
     protected function getContext($context)
     {
         return ucfirst($context);
@@ -149,7 +159,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'DeleteByIdRequest';
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'DeleteRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $version = $this->objects[$requestContext]['version'];
@@ -163,7 +173,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'FetchByIdRequest';
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByIdGetRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $this->request = call_user_func_array($request. '::ofId', [$id]);
@@ -176,7 +186,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'FetchByKeyRequest';
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByKeyGetRequest';
         $requestContext = $context . 'Request';
         $container = $this->objects[$requestContext]['container'];
         $key = $this->objects[$requestContext]['key'];
@@ -190,7 +200,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'FetchByCustomerIdRequest';
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByCustomerIdGetRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $this->request = call_user_func_array($request. '::ofCustomerId', [$id]);
@@ -201,8 +211,8 @@ trait SphereContext
      */
     public function iWantToQuery($context)
     {
-        $context = $this->getContext($context);
         $module = $this->getModuleName($context);
+        $context = $this->getQueryContext($context);
         $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'QueryRequest';
         $this->request = call_user_func($request. '::of');
     }
@@ -385,7 +395,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'FetchByTokenRequest';
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByTokenGetRequest';
         $requestContext = $context . 'Request';
         $token = $this->objects[$requestContext]['token'];
         $this->request = call_user_func_array($request. '::ofToken', [$token]);

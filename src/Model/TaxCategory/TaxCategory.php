@@ -6,7 +6,7 @@
 namespace Sphere\Core\Model\TaxCategory;
 
 use Sphere\Core\Model\Common\Collection;
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 
 /**
  * @package Sphere\Core\Model\TaxCategory
@@ -26,7 +26,7 @@ use Sphere\Core\Model\Common\Document;
  * @method TaxRateCollection getRates()
  * @method TaxCategory setRates(TaxRateCollection $rates = null)
  */
-class TaxCategory extends Document
+class TaxCategory extends Resource
 {
     public function getFields()
     {

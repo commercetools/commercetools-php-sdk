@@ -6,7 +6,7 @@
 namespace Sphere\Core\Model\Cart;
 
 use Sphere\Core\Model\Common\Address;
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\Common\Money;
 use Sphere\Core\Model\Common\TaxedPrice;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
@@ -48,10 +48,10 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
  * @method Cart setCountry(string $country = null)
  * @method ShippingInfo getShippingInfo()
  * @method Cart setShippingInfo(ShippingInfo $shippingInfo = null)
- * @method CartDiscountCodeReferenceCollection getDiscountCodes()
- * @method Cart setDiscountCodes(CartDiscountCodeReferenceCollection $discountCodes = null)
+ * @method DiscountCodeInfoCollection getDiscountCodes()
+ * @method Cart setDiscountCodes(DiscountCodeInfoCollection $discountCodes = null)
  */
-class Cart extends Document
+class Cart extends Resource
 {
     public function getFields()
     {
@@ -73,7 +73,7 @@ class Cart extends Document
             'customerGroup' => [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
             'country' => [static::TYPE => 'string'],
             'shippingInfo' => [static::TYPE => '\Sphere\Core\Model\Cart\ShippingInfo'],
-            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\Cart\CartDiscountCodeReferenceCollection'],
+            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\Cart\DiscountCodeInfoCollection'],
         ];
     }
 }

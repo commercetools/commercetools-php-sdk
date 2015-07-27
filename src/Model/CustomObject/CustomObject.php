@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\CustomObject;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 
 /**
  * @package Sphere\Core\Model\CustomObject
@@ -25,7 +25,7 @@ use Sphere\Core\Model\Common\Document;
  * @method string getValue()
  * @method CustomObject setValue(string $value = null)
  */
-class CustomObject extends Document
+class CustomObject extends Resource
 {
     public function getFields()
     {

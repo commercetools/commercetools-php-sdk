@@ -10,9 +10,9 @@ use Sphere\Core\ApiTestCase;
 use Sphere\Core\Model\Category\Category;
 use Sphere\Core\Model\Category\CategoryDraft;
 use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Request\Categories\CategoriesQueryRequest;
+use Sphere\Core\Request\Categories\CategoryQueryRequest;
 use Sphere\Core\Request\Categories\CategoryCreateRequest;
-use Sphere\Core\Request\Categories\CategoryDeleteByIdRequest;
+use Sphere\Core\Request\Categories\CategoryDeleteRequest;
 use Sphere\Core\Request\Categories\CategoryUpdateRequest;
 use Sphere\Core\Request\Categories\Command\CategoryChangeNameAction;
 
@@ -41,7 +41,7 @@ class UpdateCategoryTest extends ApiTestCase
         $category = $this->getClient()
             ->execute(CategoryCreateRequest::ofDraft($draft))
             ->toObject();
-        $this->cleanupRequests[] = CategoryDeleteByIdRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
             $category->getId(),
             $category->getVersion()
         );

@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\Review;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 
 /**
  * @package Sphere\Core\Model\Review
@@ -30,7 +30,7 @@ use Sphere\Core\Model\Common\Document;
  * @method float getScore()
  * @method Review setScore(float $score = null)
  */
-class Review extends Document
+class Review extends Resource
 {
     public function getFields()
     {

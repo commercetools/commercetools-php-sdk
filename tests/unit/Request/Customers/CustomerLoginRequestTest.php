@@ -70,6 +70,6 @@ class CustomerLoginRequestTest extends RequestTestCase
         $request = CustomerLoginRequest::ofEmailAndPassword('email', 'password');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\SingleResourceResponse', $response);
+        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
     }
 }

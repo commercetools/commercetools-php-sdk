@@ -5,7 +5,7 @@
 
 namespace Sphere\Core\Model\Inventory;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\Channel\ChannelReference;
 
 /**
@@ -31,7 +31,7 @@ use Sphere\Core\Model\Channel\ChannelReference;
  * @method \DateTime getExpectedDelivery()
  * @method InventoryEntry setExpectedDelivery(\DateTime $expectedDelivery = null)
  */
-class InventoryEntry extends Document
+class InventoryEntry extends Resource
 {
     public function getFields()
     {

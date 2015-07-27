@@ -12,7 +12,7 @@ use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\AbstractApiResponse;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ResourceResponse;
 use Sphere\Core\Model\Order\Order;
 use Sphere\Core\Response\ApiResponseInterface;
 
@@ -140,7 +140,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 
     /**
