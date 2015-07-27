@@ -11,7 +11,12 @@ It also manages the OAuth2 security, provides caches and an interface for concur
 
 The SDK is licensed under the permissive [MIT License](LICENSE). Don't hesitate to [contribute](#contribute)!
 
-## Install & Integrate the SDK into your Project
+
+## Using the SDK
+
+The [PHP API documentation](http://sphereio.github.io/sphere-php-sdk/docs/master) provides all the details you need in a searchable form.
+
+### Install & Integrate the SDK into your Project
 
 The SDK requires a PHP version of 5.4 or higher with the apc(u) PHP extension for its default cache. If you provide an own Cache interface, apc(u) is not necessary.
 The curl extension is recommended but not strictly necessary because the SDK is using the [Guzzle library](https://github.com/guzzle/guzzle) library, which falls back to PHP stream wrappers if curl is not available.
@@ -44,9 +49,7 @@ With composer just run `composer update sphere/php-sdk` to update to compatible 
 
 Please read the [Changelog](CHANGELOG.md) before updating in any case.
 
-## Use the SDK
-
-The [PHP API documentation](http://sphereio.github.io/sphere-php-sdk/docs/master) provides all the details you need in a searchable form.
+### Getting started
 
 To get up and running, [create a free test project](http://admin.sphere.io) to get a SPHERE project with API credentials (Menu "Developers"->"API Clients").
 
