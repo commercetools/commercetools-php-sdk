@@ -220,7 +220,7 @@ pre code {
 }
 
 #rightInner {
-	max-width: 1000px;
+	max-width: 1500px; /* orinally 1000px */
 	min-width: 350px;
 }
 
@@ -256,15 +256,18 @@ pre code {
 
 #content > .description {
 	margin: 1.2em 0;
+	max-width: 1000px;
 }
 
 #content .alert-info {
 	margin-top: 18px;
+	max-width: 1000px;
 }
 
 dl.tree {
 	margin: 1.2em 0;
 	padding: 10px;
+	max-width: 1000px;
 }
 
 dl.tree dd {
@@ -283,7 +286,7 @@ h2.switchable {
 }
 
 .summary td:first-child {
-	text-align: right;
+	/* text-align: right; */  /* left because we increased the possible width so much  */
 }
 
 .summary td hr {
