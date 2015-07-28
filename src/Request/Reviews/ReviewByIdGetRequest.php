@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Reviews
- * @link http://dev.sphere.io/http-api-projects-reviews.html#review-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-reviews.html#review-by-id
  * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewByIdGetRequest extends AbstractByIdGetRequest

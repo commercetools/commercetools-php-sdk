@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\CustomObjects
- * @link http://dev.sphere.io/http-api-projects-custom-objects.html#delete-custom-object
+ * @apidoc http://dev.sphere.io/http-api-projects-custom-objects.html#delete-custom-object
  * @method CustomObject mapResponse(ApiResponseInterface $response)
  */
 class CustomObjectDeleteByKeyRequest extends AbstractCustomObjectRequest

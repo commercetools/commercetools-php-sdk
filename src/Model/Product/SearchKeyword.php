@@ -9,7 +9,7 @@ use Sphere\Core\Model\Common\JsonObject;
 
 /**
  * @package Sphere\Core\Model\Product
- * @link http://dev.sphere.io/http-api-projects-products.html#search-keyword
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#search-keyword
  * @method string getText()
  * @method SearchKeyword setText(string $text = null)
  * @method SuggestTokenizer getSuggestTokenizer()

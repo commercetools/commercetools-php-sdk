@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Channels
- * @link http://dev.sphere.io/http-api-projects-channels.html#delete-channel
+ * @apidoc http://dev.sphere.io/http-api-projects-channels.html#delete-channel
  * @method Channel mapResponse(ApiResponseInterface $response)
  */
 class ChannelDeleteRequest extends AbstractDeleteRequest

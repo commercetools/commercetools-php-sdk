@@ -10,7 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Orders\Command
- * @link http://dev.sphere.io/http-api-projects-orders.html#set-order-number
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#set-order-number
  * @method string getAction()
  * @method OrderSetOrderNumberAction setAction(string $action = null)
  * @method string getOrderNumber()

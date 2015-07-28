@@ -15,7 +15,7 @@ use Sphere\Core\Model\Customer\Customer;
 
 /**
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#verify-customers-email
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#verify-customers-email
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerEmailConfirmRequest extends AbstractUpdateRequest

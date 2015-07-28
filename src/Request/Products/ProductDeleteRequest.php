@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Products
- * @link http://dev.sphere.io/http-api-projects-products.html#delete-product
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#delete-product
  * @method Product mapResponse(ApiResponseInterface $response)
  */
 class ProductDeleteRequest extends AbstractDeleteRequest

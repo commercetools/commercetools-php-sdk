@@ -12,7 +12,7 @@ use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Sphere\Core\Request\Orders\Command
- * @link http://dev.sphere.io/http-api-projects-orders.html#add-return-info
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#add-return-info
  * @method string getAction()
  * @method OrderAddReturnInfoAction setAction(string $action = null)
  * @method DateTimeDecorator getReturnDate()

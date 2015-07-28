@@ -10,7 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#publish
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#publish
  * @method string getAction()
  * @method ProductPublishAction setAction(string $action = null)
  */

@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\TaxCategories
- * @link http://dev.sphere.io/http-api-projects-taxCategories.html#tax-category-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-taxCategories.html#tax-category-by-id
  * @method TaxCategory mapResponse(ApiResponseInterface $response)
  */
 class TaxCategoryByIdGetRequest extends AbstractByIdGetRequest

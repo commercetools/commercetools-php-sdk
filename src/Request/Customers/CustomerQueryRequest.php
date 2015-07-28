@@ -13,7 +13,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#customers-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#customers-by-query
  * @method CustomerCollection mapResponse(ApiResponseInterface $response)
  */
 class CustomerQueryRequest extends AbstractQueryRequest

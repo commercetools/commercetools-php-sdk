@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\TaxCategories
- * @link http://dev.sphere.io/http-api-projects-taxCategories.html#update-tax-category
+ * @apidoc http://dev.sphere.io/http-api-projects-taxCategories.html#update-tax-category
  * @method TaxCategory mapResponse(ApiResponseInterface $response)
  */
 class TaxCategoryUpdateRequest extends AbstractUpdateRequest

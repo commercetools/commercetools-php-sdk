@@ -7,7 +7,7 @@ namespace Sphere\Core\Model\Order;
 
 /**
  * @package Sphere\Core\Model\Order
- * @link http://dev.sphere.io/http-api-projects-orders.html#order-state
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#order-state
  */
 class OrderState
 {

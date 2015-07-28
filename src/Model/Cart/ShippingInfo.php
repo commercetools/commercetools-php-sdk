@@ -15,7 +15,7 @@ use Sphere\Core\Model\TaxCategory\TaxRate;
 
 /**
  * @package Sphere\Core\Model\Cart
- * @link http://dev.sphere.io/http-api-projects-carts.html#shipping-info
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#shipping-info
  * @method string getShippingMethodName()
  * @method ShippingInfo setShippingMethodName(string $shippingMethodName = null)
  * @method Money getPrice()

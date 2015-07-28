@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Carts\Command
- * @link http://dev.sphere.io/http-api-projects-carts.html#remove-discount-code
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#remove-discount-code
  * @method string getAction()
  * @method CartRemoveDiscountCodeAction setAction(string $action = null)
  * @method DiscountCodeReference getDiscountCode()

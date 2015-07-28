@@ -10,7 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Carts\Command
- * @link http://dev.sphere.io/http-api-projects-carts.html#change-line-item-quantity
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#change-line-item-quantity
  * @method string getAction()
  * @method CartChangeLineItemQuantityAction setAction(string $action = null)
  * @method string getLineItemId()

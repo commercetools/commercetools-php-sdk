@@ -10,7 +10,7 @@ use Sphere\Core\Model\Common\JsonObject;
 
 /**
  * @package Sphere\Core\Model\ProductType
- * @link http://dev.sphere.io/http-api-projects-productTypes.html#create-product-type
+ * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#create-product-type
  * @method string getName()
  * @method ProductTypeDraft setName(string $name = null)
  * @method string getDescription()

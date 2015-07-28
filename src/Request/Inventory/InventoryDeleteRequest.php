@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Inventory
- * @link http://dev.sphere.io/http-api-projects-inventory.html#delete-inventory
+ * @apidoc http://dev.sphere.io/http-api-projects-inventory.html#delete-inventory
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
 class InventoryDeleteRequest extends AbstractDeleteRequest

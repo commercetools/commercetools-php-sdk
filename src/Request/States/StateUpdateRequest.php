@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\States
- * @link http://dev.sphere.io/http-api-projects-states.html#update-state
+ * @apidoc http://dev.sphere.io/http-api-projects-states.html#update-state
  * @method State mapResponse(ApiResponseInterface $response)
  */
 class StateUpdateRequest extends AbstractUpdateRequest

@@ -8,7 +8,7 @@ namespace Sphere\Core\Model\Common;
 
 /**
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-projects-carts.html#tax-portion
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#tax-portion
  * @method float getRate()
  * @method TaxPortion setRate(float $rate = null)
  * @method Money getAmount()

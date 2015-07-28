@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\CartDiscounts
- * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#delete-cart-discount
+ * @apidoc http://dev.sphere.io/http-api-projects-cartDiscounts.html#delete-cart-discount
  * @method CartDiscount mapResponse(ApiResponseInterface $response)
  */
 class CartDiscountDeleteRequest extends AbstractDeleteRequest

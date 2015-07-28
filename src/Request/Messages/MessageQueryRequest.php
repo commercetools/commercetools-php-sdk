@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Messages
- * @link http://dev.sphere.io/http-api-projects-messages.html#messages-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-messages.html#messages-by-query
  * @method MessageCollection mapResponse(ApiResponseInterface $response)
  */
 class MessageQueryRequest extends AbstractQueryRequest

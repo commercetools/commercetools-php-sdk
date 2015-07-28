@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Messages
- * @link http://dev.sphere.io/http-api-projects-messages.html#message-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-messages.html#message-by-id
  * @method Message mapResponse(ApiResponseInterface $response)
  */
 class MessageByIdGetRequest extends AbstractByIdGetRequest

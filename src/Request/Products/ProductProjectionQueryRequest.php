@@ -14,7 +14,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Products
- * @link http://dev.sphere.io/http-api-projects-products.html#product-projections-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-projections-by-query
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductProjectionQueryRequest extends AbstractQueryRequest

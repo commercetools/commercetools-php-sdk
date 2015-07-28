@@ -10,7 +10,7 @@ use Sphere\Core\Model\Common\Money;
 
 /**
  * @package Sphere\Core\Model\Cart
- * @link http://dev.sphere.io/http-api-projects-carts.html#discounted-line-item-price
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#discounted-line-item-price
  * @method Money getValue()
  * @method DiscountedLineItemPrice setValue(Money $value = null)
  * @method DiscountedLineItemPortionCollection getIncludedDiscounts()

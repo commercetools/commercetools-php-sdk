@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Zones
- * @link http://dev.sphere.io/http-api-projects-zones.html#update-zone
+ * @apidoc http://dev.sphere.io/http-api-projects-zones.html#update-zone
  * @method Zone mapResponse(ApiResponseInterface $response)
  */
 class ZoneUpdateRequest extends AbstractUpdateRequest

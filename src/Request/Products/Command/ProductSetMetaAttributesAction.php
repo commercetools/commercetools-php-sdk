@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#set-meta-attributes
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#set-meta-attributes
  * @deprecated will be removed in RC1
  * @method string getAction()
  * @method ProductSetMetaAttributesAction setAction(string $action = null)

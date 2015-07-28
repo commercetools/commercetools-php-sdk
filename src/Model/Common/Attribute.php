@@ -11,7 +11,7 @@ use Sphere\Core\Model\ProductType\AttributeType;
 
 /**
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
  * @method string getName()
  * @method getValue()
  * @method Attribute setName(string $name = null)

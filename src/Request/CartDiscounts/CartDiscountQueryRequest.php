@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\CartDiscounts
- * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discounts-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discounts-by-query
  * @method CartDiscountCollection mapResponse(ApiResponseInterface $response)
  */
 class CartDiscountQueryRequest extends AbstractQueryRequest

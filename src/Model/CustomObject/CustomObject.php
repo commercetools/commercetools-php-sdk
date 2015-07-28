@@ -9,7 +9,7 @@ use Sphere\Core\Model\Common\Resource;
 
 /**
  * @package Sphere\Core\Model\CustomObject
- * @link http://dev.sphere.io/http-api-projects-custom-objects.html#custom-object
+ * @apidoc http://dev.sphere.io/http-api-projects-custom-objects.html#custom-object
  * @method string getId()
  * @method CustomObject setId(string $id = null)
  * @method int getVersion()

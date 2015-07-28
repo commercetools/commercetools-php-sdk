@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Comments
- * @link http://dev.sphere.io/http-api-projects-comments.html#comment-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-comments.html#comment-by-id
  * @method Comment mapResponse(ApiResponseInterface $response)
  */
 class CommentByIdGetRequest extends AbstractByIdGetRequest

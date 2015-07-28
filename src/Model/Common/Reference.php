@@ -9,7 +9,7 @@ namespace Sphere\Core\Model\Common;
 
 /**
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-types.html#reference
+ * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method string getId()
  * @method Reference setTypeId(string $typeId = null)

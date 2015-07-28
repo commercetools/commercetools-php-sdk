@@ -12,7 +12,7 @@ use Sphere\Core\Model\Common\LocalizedString;
 
 /**
  * @package Sphere\Core\Model\Category
- * @link http://dev.sphere.io/http-api-projects-categories.html#create-category
+ * @apidoc http://dev.sphere.io/http-api-projects-categories.html#create-category
  * @method LocalizedString getName()
  * @method LocalizedString getSlug()
  * @method LocalizedString getDescription()

@@ -13,7 +13,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Categories
- * @link http://dev.sphere.io/http-api-projects-categories.html#delete-category
+ * @apidoc http://dev.sphere.io/http-api-projects-categories.html#delete-category
  * @method Category mapResponse(ApiResponseInterface $response)
  */
 class CategoryDeleteRequest extends AbstractDeleteRequest

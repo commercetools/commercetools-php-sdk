@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\ProductDiscounts
- * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#update-product-discount
+ * @apidoc http://dev.sphere.io/http-api-projects-productDiscounts.html#update-product-discount
  * @method ProductDiscount mapResponse(ApiResponseInterface $response)
  */
 class ProductDiscountUpdateRequest extends AbstractUpdateRequest

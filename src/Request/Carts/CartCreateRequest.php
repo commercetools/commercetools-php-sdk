@@ -13,7 +13,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Carts
- * @link http://dev.sphere.io/http-api-projects-carts.html#create-cart
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#create-cart
  * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartCreateRequest extends AbstractCreateRequest

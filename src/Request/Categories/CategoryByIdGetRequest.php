@@ -13,7 +13,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Categories
- * @link http://dev.sphere.io/http-api-projects-categories.html#category-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-categories.html#category-by-id
  * @method Category mapResponse(ApiResponseInterface $response)
  */
 class CategoryByIdGetRequest extends AbstractByIdGetRequest

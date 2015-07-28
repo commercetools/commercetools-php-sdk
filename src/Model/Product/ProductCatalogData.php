@@ -9,7 +9,7 @@ use Sphere\Core\Model\Common\JsonObject;
 
 /**
  * @package Sphere\Core\Model\Product
- * @link http://dev.sphere.io/http-api-projects-products.html#product-catalog-data
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-catalog-data
  * @method bool getPublished()
  * @method ProductCatalogData setPublished(bool $published = null)
  * @method ProductData getCurrent()

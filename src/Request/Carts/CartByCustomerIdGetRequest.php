@@ -17,7 +17,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Carts
- * @link http://dev.sphere.io/http-api-projects-carts.html#cart-by-customer-id
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#cart-by-customer-id
  * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartByCustomerIdGetRequest extends AbstractApiRequest

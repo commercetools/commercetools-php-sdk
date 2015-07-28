@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Inventory
- * @link http://dev.sphere.io/http-api-projects-inventory.html#inventory-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-inventory.html#inventory-by-id
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
 class InventoryByIdGetRequest extends AbstractByIdGetRequest

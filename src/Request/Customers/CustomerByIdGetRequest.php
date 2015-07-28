@@ -13,7 +13,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#customer-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#customer-by-id
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerByIdGetRequest extends AbstractByIdGetRequest

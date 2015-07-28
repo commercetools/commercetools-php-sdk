@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Inventory
- * @link http://dev.sphere.io/http-api-projects-inventory.html#inventories-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-inventory.html#inventories-by-query
  * @method InventoryEntryCollection mapResponse(ApiResponseInterface $response)
  */
 class InventoryQueryRequest extends AbstractQueryRequest

@@ -15,7 +15,7 @@ use Sphere\Core\Model\Customer\CustomerSigninResult;
 
 /**
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#create-customer
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#create-customer
  * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
  */
 class CustomerCreateRequest extends AbstractCreateRequest

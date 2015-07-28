@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Carts\Command
- * @link http://dev.sphere.io/http-api-projects-carts.html#set-billing-address
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#set-billing-address
  * @method string getAction()
  * @method CartSetBillingAddressAction setAction(string $action = null)
  * @method Address getAddress()

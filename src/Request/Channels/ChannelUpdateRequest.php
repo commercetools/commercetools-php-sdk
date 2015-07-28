@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Channels
- * @link http://dev.sphere.io/http-api-projects-channels.html#update-channel
+ * @apidoc http://dev.sphere.io/http-api-projects-channels.html#update-channel
  * @method Channel mapResponse(ApiResponseInterface $response)
  */
 class ChannelUpdateRequest extends AbstractUpdateRequest

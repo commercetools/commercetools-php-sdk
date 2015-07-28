@@ -11,7 +11,7 @@ use Sphere\Core\Model\Common\ReferenceCollection;
 
 /**
  * @package Sphere\Core\Model\ProductDiscount
- * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discount
+ * @apidoc http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discount
  * @method string getId()
  * @method ProductDiscount setId(string $id = null)
  * @method int getVersion()

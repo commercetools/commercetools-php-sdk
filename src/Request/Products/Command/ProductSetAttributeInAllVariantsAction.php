@@ -10,7 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#set-attribute-in-all-variants
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#set-attribute-in-all-variants
  * @method string getAction()
  * @method ProductSetAttributeInAllVariantsAction setAction(string $action = null)
  * @method string getName()

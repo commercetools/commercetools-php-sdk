@@ -13,7 +13,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Products
- * @link http://dev.sphere.io/http-api-projects-products.html#update-product
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#update-product
  * @method Product mapResponse(ApiResponseInterface $response)
  */
 class ProductUpdateRequest extends AbstractUpdateRequest

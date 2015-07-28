@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\CartDiscounts
- * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discount-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discount-by-id
  * @method CartDiscount mapResponse(ApiResponseInterface $response)
  */
 class CartDiscountByIdGetRequest extends AbstractByIdGetRequest

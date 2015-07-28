@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Zones
- * @link http://dev.sphere.io/http-api-projects-zones.html#zone-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-zones.html#zone-by-id
  * @method Zone mapResponse(ApiResponseInterface $response)
  */
 class ZoneByIdGetRequest extends AbstractByIdGetRequest

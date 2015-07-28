@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\ProductTypes
- * @link http://dev.sphere.io/http-api-projects-productTypes.html#update-product-type
+ * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#update-product-type
  * @method ProductType mapResponse(ApiResponseInterface $response)
  */
 class ProductTypeUpdateRequest extends AbstractUpdateRequest

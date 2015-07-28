@@ -15,7 +15,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#change-password
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#change-password
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerPasswordChangeRequest extends AbstractUpdateRequest

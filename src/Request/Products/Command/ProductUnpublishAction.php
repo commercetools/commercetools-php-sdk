@@ -10,7 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#unpublish
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#unpublish
  * @method string getAction()
  * @method ProductUnpublishAction setAction(string $action = null)
  */

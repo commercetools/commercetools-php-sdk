@@ -10,7 +10,7 @@ use Sphere\Core\Model\Common\Reference;
 
 /**
  * @package Sphere\Core\Model\ShippingMethod
- * @link http://dev.sphere.io/http-api-types.html#reference
+ * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method ShippingMethodReference setTypeId(string $typeId = null)
  * @method string getId()

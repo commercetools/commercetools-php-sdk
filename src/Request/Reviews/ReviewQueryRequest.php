@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Reviews
- * @link http://dev.sphere.io/http-api-projects-reviews.html#reviews-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-reviews.html#reviews-by-query
  * @method ReviewCollection mapResponse(ApiResponseInterface $response)
  */
 class ReviewQueryRequest extends AbstractQueryRequest

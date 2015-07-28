@@ -10,7 +10,7 @@ use Sphere\Core\Model\DiscountCode\DiscountCodeReference;
 
 /**
  * @package Sphere\Core\Model\Cart
- * @link http://dev.sphere.io/http-api-projects-carts.html#discount-code-reference
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#discount-code-reference
  * @method DiscountCodeReference getDiscountCode()
  * @method DiscountCodeInfo setDiscountCode(DiscountCodeReference $discountCode = null)
  * @method string getState()

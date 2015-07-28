@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\ProductDiscounts
- * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discounts-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discounts-by-query
  * @method ProductDiscountCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductDiscountQueryRequest extends AbstractQueryRequest

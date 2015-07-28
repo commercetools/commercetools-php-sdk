@@ -10,7 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Carts\Command
- * @link http://dev.sphere.io/http-api-projects-carts.html#set-customer-email
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#set-customer-email
  * @method string getAction()
  * @method CartSetCustomerEmailAction setAction(string $action = null)
  * @method string getEmail()

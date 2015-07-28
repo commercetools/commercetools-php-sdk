@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#add-to-category
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#add-to-category
  * @method string getAction()
  * @method ProductAddToCategoryAction setAction(string $action = null)
  * @method CategoryReference getCategory()

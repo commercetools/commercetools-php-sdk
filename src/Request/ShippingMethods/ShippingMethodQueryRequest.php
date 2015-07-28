@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\ShippingMethods
- * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-methods-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-methods-by-query
  * @method ShippingMethodCollection mapResponse(ApiResponseInterface $response)
  */
 class ShippingMethodQueryRequest extends AbstractQueryRequest

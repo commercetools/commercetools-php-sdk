@@ -10,7 +10,7 @@ use Sphere\Core\Model\Zone\ZoneReference;
 
 /**
  * @package Sphere\Core\Model\ShippingMethod
- * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#zone-rate
+ * @apidoc http://dev.sphere.io/http-api-projects-shippingMethods.html#zone-rate
  * @method ZoneReference getZone()
  * @method ZoneRate setZone(ZoneReference $zone = null)
  * @method ShippingRateCollection getShippingRates()

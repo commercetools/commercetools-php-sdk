@@ -15,7 +15,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#reset-customers-password
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#reset-customers-password
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerPasswordResetRequest extends AbstractUpdateRequest

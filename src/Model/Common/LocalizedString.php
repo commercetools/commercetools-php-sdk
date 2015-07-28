@@ -11,7 +11,7 @@ use Sphere\Core\Error\InvalidArgumentException;
 
 /**
  * @package Sphere\Core\Model\Type
- * @link http://dev.sphere.io/http-api-types.html#localized-string
+ * @apidoc http://dev.sphere.io/http-api-types.html#localized-string
  * @example
  * ```php
  * LocalizedString::fromArray(['en' => 'Hello World', 'de' => 'Hallo Welt'])->add('fr', 'Bonjour le monde');

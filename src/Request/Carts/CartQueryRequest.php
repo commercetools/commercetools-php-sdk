@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Carts
- * @link http://dev.sphere.io/http-api-projects-carts.html#carts-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#carts-by-query
  * @method CartCollection mapResponse(ApiResponseInterface $response)
  */
 class CartQueryRequest extends AbstractQueryRequest

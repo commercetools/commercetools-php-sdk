@@ -17,7 +17,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#authenticate-customer
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#authenticate-customer
  * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
  */
 class CustomerLoginRequest extends AbstractApiRequest

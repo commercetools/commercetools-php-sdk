@@ -10,7 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Carts\Command
- * @link http://dev.sphere.io/http-api-projects-carts.html#remove-line-item
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#remove-line-item
  * @method string getAction()
  * @method CartRemoveLineItemAction setAction(string $action = null)
  * @method string getLineItemId()

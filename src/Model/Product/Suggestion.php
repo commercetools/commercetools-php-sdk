@@ -9,7 +9,7 @@ use Sphere\Core\Model\Common\JsonObject;
 
 /**
  * @package Sphere\Core\Model\Product
- * @link http://dev.sphere.io/http-api-projects-products-search.html#suggest-representations-suggestion
+ * @apidoc http://dev.sphere.io/http-api-projects-products-search.html#suggest-representations-suggestion
  * @method string getText()
  * @method Suggestion setText(string $text = null)
  */

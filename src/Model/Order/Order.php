@@ -17,7 +17,7 @@ use Sphere\Core\Model\Cart\DiscountCodeInfoCollection;
 
 /**
  * @package Sphere\Core\Model\Order
- * @link http://dev.sphere.io/http-api-projects-orders.html#order
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#order
  * @method string getId()
  * @method Order setId(string $id = null)
  * @method int getVersion()

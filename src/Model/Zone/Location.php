@@ -9,7 +9,7 @@ use Sphere\Core\Model\Common\JsonObject;
 
 /**
  * @package Sphere\Core\Model\Zone
- * @link http://dev.sphere.io/http-api-projects-zones.html#location
+ * @apidoc http://dev.sphere.io/http-api-projects-zones.html#location
  * @method string getCountry()
  * @method Location setCountry(string $country = null)
  * @method string getState()

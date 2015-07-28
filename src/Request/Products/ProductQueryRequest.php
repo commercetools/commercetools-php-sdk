@@ -13,7 +13,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Products
- * @link http://dev.sphere.io/http-api-projects-products.html#products-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#products-by-query
  * @method ProductCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductQueryRequest extends AbstractQueryRequest

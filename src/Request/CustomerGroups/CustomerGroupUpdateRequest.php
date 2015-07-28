@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\CustomerGroups
- * @link http://dev.sphere.io/http-api-projects-customerGroups.html#update-customer-group
+ * @apidoc http://dev.sphere.io/http-api-projects-customerGroups.html#update-customer-group
  * @method CustomerGroup mapResponse(ApiResponseInterface $response)
  */
 class CustomerGroupUpdateRequest extends AbstractUpdateRequest

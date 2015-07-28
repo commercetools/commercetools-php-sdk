@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Orders
- * @link http://dev.sphere.io/http-api-projects-orders.html#orders-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#orders-by-query
  * @method OrderCollection mapResponse(ApiResponseInterface $response)
  */
 class OrderQueryRequest extends AbstractQueryRequest

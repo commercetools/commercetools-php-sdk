@@ -10,7 +10,7 @@ use Sphere\Core\Model\Common\LocalizedString;
 
 /**
  * @package Sphere\Core\Model\State
- * @link http://dev.sphere.io/http-api-projects-states.html#state
+ * @apidoc http://dev.sphere.io/http-api-projects-states.html#state
  * @method string getId()
  * @method State setId(string $id = null)
  * @method int getVersion()

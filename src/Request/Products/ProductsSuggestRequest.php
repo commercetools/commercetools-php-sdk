@@ -19,7 +19,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Products
- * @link http://dev.sphere.io/http-api-projects-products-search.html#suggest-query
+ * @apidoc http://dev.sphere.io/http-api-projects-products-search.html#suggest-query
  * @method ResourceResponse executeWithClient(Client $client)
  * @method SuggestionCollection mapResponse(ApiResponseInterface $response)
  */

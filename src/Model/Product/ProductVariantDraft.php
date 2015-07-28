@@ -12,7 +12,7 @@ use Sphere\Core\Model\Common\PriceCollection;
 
 /**
  * @package Sphere\Core\Model\Product
- * @link http://dev.sphere.io/http-api-projects-products.html#new-product-variant
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#new-product-variant
  * @method string getSku()
  * @method ProductVariantDraft setSku(string $sku = null)
  * @method ProductVariantDraft setPrices(PriceCollection $prices = null)

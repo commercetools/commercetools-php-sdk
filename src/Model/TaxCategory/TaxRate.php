@@ -9,7 +9,7 @@ use Sphere\Core\Model\Common\JsonObject;
 
 /**
  * @package Sphere\Core\Model\TaxCategory
- * @link http://dev.sphere.io/http-api-projects-taxCategories.html#tax-rate
+ * @apidoc http://dev.sphere.io/http-api-projects-taxCategories.html#tax-rate
  * @method string getId()
  * @method TaxRate setId(string $id = null)
  * @method string getName()

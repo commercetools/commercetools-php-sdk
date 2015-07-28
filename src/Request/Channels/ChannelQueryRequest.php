@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Channels
- * @link http://dev.sphere.io/http-api-projects-channels.html#channels-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-channels.html#channels-by-query
  * @method ChannelCollection mapResponse(ApiResponseInterface $response)
  */
 class ChannelQueryRequest extends AbstractQueryRequest

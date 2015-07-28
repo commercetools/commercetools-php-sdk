@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\CustomerGroups
- * @link http://dev.sphere.io/http-api-projects-customerGroups.html#customer-groups-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-customerGroups.html#customer-groups-by-query
  * @method CustomerGroupCollection mapResponse(ApiResponseInterface $response)
  */
 class CustomerGroupQueryRequest extends AbstractQueryRequest

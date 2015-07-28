@@ -9,7 +9,7 @@ use Sphere\Core\Model\Common\Resource;
 
 /**
  * @package Sphere\Core\Model\Zone
- * @link http://dev.sphere.io/http-api-projects-zones.html#zone
+ * @apidoc http://dev.sphere.io/http-api-projects-zones.html#zone
  * @method string getId()
  * @method Zone setId(string $id = null)
  * @method int getVersion()

@@ -14,7 +14,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Categories
- * @link http://dev.sphere.io/http-api-projects-categories.html#create-category
+ * @apidoc http://dev.sphere.io/http-api-projects-categories.html#create-category
  * @method Category mapResponse(ApiResponseInterface $response)
  */
 class CategoryCreateRequest extends AbstractCreateRequest

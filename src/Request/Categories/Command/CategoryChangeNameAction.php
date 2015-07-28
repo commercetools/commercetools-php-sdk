@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Categories\Command
- * @link http://dev.sphere.io/http-api-projects-categories.html#change-name
+ * @apidoc http://dev.sphere.io/http-api-projects-categories.html#change-name
  * @method LocalizedString getName()
  * @method CategoryChangeNameAction setName(LocalizedString $name = null)
  * @method string getAction()

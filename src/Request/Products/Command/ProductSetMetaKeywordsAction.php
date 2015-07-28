@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#set-meta-keywords
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#set-meta-keywords
  * @method string getAction()
  * @method ProductSetMetaKeywordsAction setAction(string $action = null)
  * @method LocalizedString getMetaKeywords()

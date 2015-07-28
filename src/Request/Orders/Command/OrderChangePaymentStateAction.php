@@ -10,7 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Orders\Command
- * @link http://dev.sphere.io/http-api-projects-orders.html#change-payment-state
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#change-payment-state
  * @method string getAction()
  * @method OrderChangePaymentStateAction setAction(string $action = null)
  * @method string getPaymentState()

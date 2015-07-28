@@ -13,7 +13,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#delete-customer
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#delete-customer
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerDeleteRequest extends AbstractDeleteRequest

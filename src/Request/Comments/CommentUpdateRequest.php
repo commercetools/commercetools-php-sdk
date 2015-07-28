@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Comments
- * @link http://dev.sphere.io/http-api-projects-comments.html#update-comment
+ * @apidoc http://dev.sphere.io/http-api-projects-comments.html#update-comment
  * @method Comment mapResponse(ApiResponseInterface $response)
  */
 class CommentUpdateRequest extends AbstractUpdateRequest

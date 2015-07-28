@@ -9,7 +9,7 @@ use Sphere\Core\Model\Common\JsonObject;
 
 /**
  * @package Sphere\Core\Model\CartDiscount
- * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discount-target
+ * @apidoc http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discount-target
  * @method string getType()
  * @method CartDiscountTarget setType(string $type = null)
  * @method string getPredicate()
