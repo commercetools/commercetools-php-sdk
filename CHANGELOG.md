@@ -32,7 +32,9 @@
   * add executeWithClient and mapResponse function with correct type hints ([8cb1b2cc](https://github.com/sphereio/sphere-php-sdk/commit/8cb1b2cc))
   * add withTotal flag for query speed optimization ([b7892401](https://github.com/sphereio/sphere-php-sdk/commit/b7892401))
 * **Review:** add update actions ([4f1d55c8](https://github.com/sphereio/sphere-php-sdk/commit/4f1d55c8))
-* **ShippingMethod:** add update actions ([46993be2](https://github.com/sphereio/sphere-php-sdk/commit/46993be2))
+* **ShippingMethod:**
+  * add update actions ([46993be2](https://github.com/sphereio/sphere-php-sdk/commit/46993be2))
+  * add shipping method getByCartId and getByLocation ([cb522923](https://github.com/sphereio/sphere-php-sdk/commit/cb522923))
 * **State:** add update actions ([3833ad1d](https://github.com/sphereio/sphere-php-sdk/commit/3833ad1d))
 * **TaxCategory:** add update actions ([428ba25a](https://github.com/sphereio/sphere-php-sdk/commit/428ba25a))
 * **Zones:** add update actions ([a74c3517](https://github.com/sphereio/sphere-php-sdk/commit/a74c3517))
