@@ -1,7 +1,7 @@
 {layout '@layout.latte'}
 {var $active = 'class'}
 
-{block title}{if $class->deprecated}Deprecated {/if}{if $class->interface}Interface{elseif $class->trait}Trait{else}Class{/if} {$class->name}{/block}
+{block title}{$class->name} {if $class->deprecated}(Deprecated){/if}{if $class->interface}(Interface){elseif $class->trait}(Trait){else}(Class){/if}{/block}
 
 {block content}
 <div id="content" class="class">
@@ -74,28 +74,30 @@
 	</div>
 
 	<div class="alert alert-info">
-		{if !$class->interface && !$class->trait && ($class->abstract || $class->final)}<b>{if $class->abstract}Abstract{else}Final{/if}</b><br>{/if}
-		{if $class->internal}<b>PHP Extension:</b> <a href="{$class->extension|manualUrl}" title="Go to PHP documentation">{$class->extension->name|firstUpper}</a><br>{/if}
-		{if $class->inNamespace()}<b>Namespace:</b> {$class->namespaceName|namespaceLinks|noescape}<br>{/if}
-		{if $class->inPackage()}<b>Package:</b> {$class->packageName|packageLinks|noescape}<br>{/if}
+	    <table class="class-annotations">
+            {if !$class->interface && !$class->trait && ($class->abstract || $class->final)}<tr><th colspan="2">{if $class->abstract}Abstract{else}Final{/if}</th></tr>{/if}
+            {if $class->internal}<tr><th>PHP Extension</th><td><a href="{$class->extension|manualUrl}" title="Go to PHP documentation">{$class->extension->name|firstUpper}</a></td></tr>{/if}
+            {if $class->inNamespace()}<tr><th>Namespace</th><td>{$class->namespaceName|namespaceLinks|noescape}</td></tr>{/if}
+            {if $class->inPackage()}<tr><th>Package</th><td>{$class->packageName|packageLinks|noescape}</td></tr>{/if}
 
-		{if $class->internal}
-			<b>Documented at:</b> <a href="{$class|manualUrl}" title="Go to PHP documentation">php.net</a><br>
-		{else}
-			<b>Located at:</b> <a n:tag-if="$config->sourceCode" href="{$class|sourceUrl}" title="Go to source code">{$class->fileName|relativePath}</a><br>
-		{/if}
+            {if $class->internal}
+                <tr><th>Documented at</th><td><a href="{$class|manualUrl}" title="Go to PHP documentation">php.net</a></td></tr>
+            {else}
+                <tr><th>Located at</td><td><a n:tag-if="$config->sourceCode" href="{$class|sourceUrl}" title="Go to source code">{$class->fileName|relativePath}</a></td></tr>
+            {/if}
 
-		{foreach $template->annotationSort($template->annotationFilter($class->annotations)) as $annotation => $values}
-			{foreach $values as $value}
-			    {if $annotation == "apidoc"}
-                <span class="api-doc-link"><b>API documentation: <a href="{$value|noescape}" target="api-doc">{$value|noescape}</a></b></span><br>
-			    {else}
-				<b>{$annotation|annotationBeautify}{if $value}:{/if}</b>
-				{$value|annotation:$annotation:$class|noescape}<br>
-				{/if}
-			{/foreach}
-		{/foreach}
-		<br>
+            {foreach $template->annotationSort($template->annotationFilter($class->annotations)) as $annotation => $values}
+                {foreach $values as $value}
+                    {if $annotation == "apidoc"}
+                    <tr><th>API documentation</th><td><b><a href="{$value|noescape}" target="api-doc">{$value|noescape}</a></b></span></td></tr>
+                    {elseif $annotation == "description"}
+                    <tr><td colspan="2">{$value|annotation:$annotation:$class|noescape}</td></tr>
+                    {else}
+                    <tr><th>{$annotation|annotationBeautify}</th><td>{$value|annotation:$annotation:$class|noescape}</td></tr>
+                    {/if}
+                {/foreach}
+            {/foreach}
+		</table>
 	</div>
 
 	{var $ownMethods = $class->ownMethods}
@@ -210,7 +212,7 @@
 
         {if $ownMethods || $ownMagicMethods || $inheritedMethods || $inheritedMagicMethods}
 		<div class="panel panel-default methods">
-			<div class="panel-heading"><h2>Methods summary</h2></div>
+			<div class="panel-heading"><h2>Methods</h2></div>
 			<table class="summary table table-bordered table-striped methods" id="methods" n:if="$ownMethods || $ownMagicMethods || $inheritedMethods || $inheritedMagicMethods">
 			{foreach $ownMethods as $method}
 				{include method, method => $method}
@@ -317,7 +319,7 @@
         {/define}
 
 		<div class="panel panel-default constants">
-            <div class="panel-heading"><h2>Constants summary</h2></div>
+            <div class="panel-heading"><h2>Constants</h2></div>
 			<table class="summary table table-bordered table-striped constants" id="constants" n:if="$ownConstants || $inheritedConstants">
             {foreach $constants as $constant}
                 {include constant, constant => $constant}
@@ -387,7 +389,7 @@
 
         {if $ownProperties || $ownMagicProperties}
             <div class="panel panel-default properties">
-                <div class="panel-heading"><h2>Properties summary</h2></div>
+                <div class="panel-heading"><h2>Properties</h2></div>
                 <table class="summary table table-bordered table-striped properties" id="properties" n:if="$ownProperties">
 
                 {foreach $ownProperties as $property}

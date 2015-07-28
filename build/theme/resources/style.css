@@ -264,6 +264,17 @@ pre code {
 	max-width: 1000px;
 }
 
+.class-annotations th{
+	font-weight: bold;
+	white-space: nowrap;
+	width: 1%;
+	padding-right: 15px;
+}
+.class-annotations td{
+	width: 99%;
+}
+
+
 dl.tree {
 	margin: 1.2em 0;
 	padding: 10px;
@@ -299,6 +310,7 @@ h2.switchable {
 
 .summary tr:hover td {
 	background: #f6f6f4;
+	cursor: help;
 }
 
 .summary .description p {
