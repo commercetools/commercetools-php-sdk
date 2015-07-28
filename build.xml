@@ -11,11 +11,11 @@
     <!-- <property name="toolsdir" value="${basedir}/vendor/bin/"/> -->
 
     <target name="build"
-            depends="prepare,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,apigen"
+            depends="prepare,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,unit-test,apigen"
             description=""/>
 
     <target name="build-parallel"
-            depends="prepare,lint,tools-parallel,phpunit,apigen"
+            depends="prepare,lint,tools-parallel,unit-test,apigen"
             description=""/>
 
     <target name="tools-parallel" description="Run tools in parallel">
