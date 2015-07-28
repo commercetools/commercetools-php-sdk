@@ -230,6 +230,11 @@ pre code {
 	margin-bottom: 0;
 }
 
+#navbar-logo {
+	display: inline-block;
+	height: 32px;
+}
+
 .navbar .nav > li > span {
 	position: relative;
 	display: block;
