@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\CustomObjects;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class CustomObjectsEndpoint
  * @package Sphere\Core\Request\CustomObjects
  */
 class CustomObjectsEndpoint

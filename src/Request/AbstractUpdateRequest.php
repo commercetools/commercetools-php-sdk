@@ -17,7 +17,6 @@ use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Response\ResourceResponse;
 
 /**
- * Class AbstractUpdateRequest
  * @package Sphere\Core\Request
  */
 abstract class AbstractUpdateRequest extends AbstractApiRequest

@@ -14,7 +14,6 @@ use Sphere\Core\Model\Common\JsonDeserializeInterface;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class AbstractProjectionRequest
  * @package Sphere\Core\Request
  */
 abstract class AbstractProjectionRequest extends AbstractApiRequest

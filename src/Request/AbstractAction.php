@@ -8,7 +8,6 @@ namespace Sphere\Core\Request;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class AbstractAction
  * @package Sphere\Core\Request
  * @method string getAction()
  * @method $this setAction(string $action)

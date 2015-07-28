@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\Messages;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class MessagesEndpoint
  * @package Sphere\Core\Request\Messages
  */
 class MessagesEndpoint

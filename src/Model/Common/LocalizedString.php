@@ -10,7 +10,6 @@ use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
 
 /**
- * Class LocalizedString
  * @package Sphere\Core\Model\Type
  * @link http://dev.sphere.io/http-api-types.html#localized-string
  * @example

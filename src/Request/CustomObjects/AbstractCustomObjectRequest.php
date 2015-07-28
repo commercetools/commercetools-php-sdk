@@ -12,7 +12,6 @@ use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\ResourceResponse;
 
 /**
- * Class AbstractCustomObjectRequest
  * @package Sphere\Core\Request\CustomObjects
  */
 abstract class AbstractCustomObjectRequest extends AbstractApiRequest

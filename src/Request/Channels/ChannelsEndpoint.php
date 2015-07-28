@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\Channels;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class ChannelsEndpoint
  * @package Sphere\Core\Request\Channels
  */
 class ChannelsEndpoint

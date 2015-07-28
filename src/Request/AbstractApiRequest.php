@@ -21,7 +21,6 @@ use Sphere\Core\Request\Query\ParameterInterface;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class AbstractApiRequest
  * @package Sphere\Core\Request
  */
 abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwareInterface

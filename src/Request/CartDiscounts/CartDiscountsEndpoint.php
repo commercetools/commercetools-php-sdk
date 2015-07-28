@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\CartDiscounts;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class CartDiscountsEndpoint
  * @package Sphere\Core\Request\CartDiscounts
  */
 class CartDiscountsEndpoint

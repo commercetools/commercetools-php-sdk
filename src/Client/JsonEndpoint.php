@@ -7,7 +7,6 @@
 namespace Sphere\Core\Client;
 
 /**
- * Class JsonEndpoint
  * @package Sphere\Core\Http
  * @internal
  */

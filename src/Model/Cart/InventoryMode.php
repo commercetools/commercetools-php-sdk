@@ -6,7 +6,6 @@
 namespace Sphere\Core\Model\Cart;
 
 /**
- * Class InventoryMode
  * @package Sphere\Core\Model\Cart
  * @link http://dev.sphere.io/http-api-projects-carts.html#inventory-mode
  */

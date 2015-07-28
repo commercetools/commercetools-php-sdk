@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Common;
 use Sphere\Core\Error\Message;
 
 /**
- * Class Collection
  * @package Sphere\Core\Model\Common
  */
 class Collection extends AbstractJsonDeserializeObject implements \Iterator, \JsonSerializable, \Countable, \ArrayAccess

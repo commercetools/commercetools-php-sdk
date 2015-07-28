@@ -16,7 +16,6 @@ use Sphere\Core\Request\ClientRequestInterface;
 use Traversable;
 
 /**
- * Class PagedQueryResponse
  * @package Sphere\Core\Response
  */
 class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggregate, \ArrayAccess

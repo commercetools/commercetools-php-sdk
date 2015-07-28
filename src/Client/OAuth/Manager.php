@@ -17,7 +17,6 @@ use Sphere\Core\Error\InvalidClientCredentialsException;
 use Sphere\Core\Error\Message;
 
 /**
- * Class Manager
  * @package Sphere\Core\OAuth
  * @internal
  */

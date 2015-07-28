@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\ShippingMethods;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class ShippingMethodsEndpoint
  * @package Sphere\Core\Request\ShippingMethods
  */
 class ShippingMethodsEndpoint

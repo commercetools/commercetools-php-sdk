@@ -11,7 +11,6 @@ use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
 
 /**
- * Class CacheAdapterFactory
  * @package Sphere\Core\Cache
  */
 class CacheAdapterFactory

@@ -6,7 +6,6 @@
 namespace Sphere\Core\Model\Common;
 
 /**
- * Class Resource
  * @package Sphere\Core\Model\Common
  * @method getId()
  */

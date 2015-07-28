@@ -7,7 +7,6 @@
 namespace Sphere\Core\Client;
 
 /**
- * Class FileRequest
  * @package Sphere\Core\Http
  * @internal
  */

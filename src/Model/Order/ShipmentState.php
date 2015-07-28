@@ -6,7 +6,6 @@
 namespace Sphere\Core\Model\Order;
 
 /**
- * Class ShipmentState
  * @package Sphere\Core\Model\Order
  * @link http://dev.sphere.io/http-api-projects-orders.html#shipment-state
  */

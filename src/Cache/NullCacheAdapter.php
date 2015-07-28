@@ -7,7 +7,6 @@
 namespace Sphere\Core\Cache;
 
 /**
- * Class NullCacheAdapter
  * @package Sphere\Core\Cache
  */
 class NullCacheAdapter extends AbstractCacheAdapter

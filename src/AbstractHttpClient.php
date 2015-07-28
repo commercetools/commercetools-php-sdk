@@ -11,7 +11,6 @@ use Sphere\Core\Client\Adapter\AdapterFactory;
 use Sphere\Core\Client\Adapter\AdapterInterface;
 
 /**
- * Class AbstractHttpClient
  * @package Sphere\Core
  */
 abstract class AbstractHttpClient

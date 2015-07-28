@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\ProductTypes;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class ProductTypesEndpoint
  * @package Sphere\Core\Request\ProductTypes
  */
 class ProductTypesEndpoint

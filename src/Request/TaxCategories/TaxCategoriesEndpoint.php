@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\TaxCategories;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class TaxCategoriesEndpoint
  * @package Sphere\Core\Request\TaxCategories
  */
 class TaxCategoriesEndpoint
