@@ -310,7 +310,7 @@ h2.switchable {
 
 .summary tr:hover td {
 	background: #f6f6f4;
-	cursor: help;
+	/* cursor: help; */ /* TODO add semantically correct tag that something is expandable by clicking it */
 }
 
 .summary .description p {
