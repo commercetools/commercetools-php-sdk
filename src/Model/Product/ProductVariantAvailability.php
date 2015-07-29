@@ -8,9 +8,8 @@ namespace Sphere\Core\Model\Product;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class ProductVariantAvailability
  * @package Sphere\Core\Model\Product
- * @link http://dev.sphere.io/http-api-projects-products.html#product-variant-availability
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant-availability
  * @method bool getIsOnStock()
  * @method ProductVariantAvailability setIsOnStock(bool $isOnStock = null)
  * @method int getRestockableInDays()

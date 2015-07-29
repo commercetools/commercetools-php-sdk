@@ -1,6 +1,6 @@
 Feature: I want to query customObjects
   Scenario: Fetch a customObject by id
-    Given a "customObject" is identified by "container" and "key"
+    Given a "customObject" is identified by "container" and key "key"
     Given i want to fetch a "customObject" by key
     Then the path should be "custom-objects/container/key"
     And the method should be "GET"

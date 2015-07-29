@@ -9,9 +9,8 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class ProductTypeDraft
  * @package Sphere\Core\Model\ProductType
- * @link http://dev.sphere.io/http-api-projects-productTypes.html#create-product-type
+ * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#create-product-type
  * @method string getName()
  * @method ProductTypeDraft setName(string $name = null)
  * @method string getDescription()
@@ -34,22 +33,11 @@ class ProductTypeDraft extends JsonObject
      * @param string $name
      * @param string $description
      * @param Context|callable $context
+     * @return ProductTypeDraft
      */
-    public function __construct($name, $description, $context = null)
+    public static function ofNameAndDescription($name, $description, $context = null)
     {
-        $this->setContext($context)->setName($name)->setDescription($description);
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $draft = new static($data['name'], $data['description'], $context);
-        $draft->setRawData($data);
-
-        return $draft;
+        $draft = static::of($context);
+        return $draft->setName($name)->setDescription($description);
     }
 }

@@ -7,15 +7,50 @@
 namespace Sphere\Core;
 
 
-use Sphere\Core\Cache\CacheAdapterInterface;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Error\InvalidArgumentException;
-use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Model\Common\ContextTrait;
 
 /**
- * Class Config
+ * Client configuration object
+ *
+ * @description
+ *
+ * Often configuration like credentials is stored in YAML or INI files. To setup the configuration object
+ * this can be done by the fromArray method.
+ *
+ * Configuration file:
+ *
+ * ```
+ * [sphere]
+ * client_id = '<client-id>'
+ * client_secret = '<client-secret>'
+ * project = '<project>'
+ * ```
+ *
+ * Config instantiation:
+ *
+ * ```php
+ * $iniConfig = parse_ini_file('<config-file>.ini', true);
+ * $config = Config::fromArray($iniConfig['sphere']);
+ * ```
+ *
+ * ### Exceptions ###
+ *
+ * The client by default suppresses exceptions when a response had been returned by the API and the result
+ * can be handled afterwards by checking the isError method of the response. For interacting with Exceptions
+ * they can be enabled with the throwExceptions flag.
+ *
+ * ```php
+ * $config->setThrowExceptions(true);
+ * $client = new Client($config);
+ * try {
+ *     $response = $client->execute($request);
+ * } catch (\Sphere\Core\Error\SphereException $e) {
+ *     // handle Exception
+ * }
+ * ```
  * @package Sphere\Core
  */
 class Config implements ContextAwareInterface
@@ -61,23 +96,29 @@ class Config implements ContextAwareInterface
     protected $adapter;
 
     /**
-     * @param array $config
-     * @return $this
+     * @var bool
      */
-    public function fromArray(array $config)
+    protected $throwExceptions = false;
+
+    /**
+     * @param array $configValues
+     * @return Config
+     */
+    public static function fromArray(array $configValues)
     {
+        $config = Config::of();
         array_walk(
-            $config,
-            function ($value, $key) {
-                $functionName = 'set' . $this->camelize($key);
-                if (!is_callable([$this, $functionName])) {
+            $configValues,
+            function ($value, $key) use ($config) {
+                $functionName = 'set' . $config->camelize($key);
+                if (!is_callable([$config, $functionName])) {
                     throw new InvalidArgumentException(sprintf(Message::SETTER_NOT_IMPLEMENTED, $key));
                 }
-                $this->$functionName($value);
+                $config->$functionName($value);
             }
         );
 
-        return $this;
+        return $config;
     }
 
     protected function camelize($scored)
@@ -238,5 +279,29 @@ class Config implements ContextAwareInterface
     public function setAdapter($adapter)
     {
         $this->adapter = $adapter;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getThrowExceptions()
+    {
+        return $this->throwExceptions;
+    }
+
+    /**
+     * @param bool $throwExceptions
+     */
+    public function setThrowExceptions($throwExceptions)
+    {
+        $this->throwExceptions = $throwExceptions;
+    }
+
+    /**
+     * @return static
+     */
+    public static function of()
+    {
+        return new static();
     }
 }

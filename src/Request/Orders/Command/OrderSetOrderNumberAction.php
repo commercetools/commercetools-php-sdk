@@ -9,9 +9,8 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class OrderSetOrderNumberAction
  * @package Sphere\Core\Request\Orders\Command
- * @link http://dev.sphere.io/http-api-projects-orders.html#set-order-number
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#set-order-number
  * @method string getAction()
  * @method OrderSetOrderNumberAction setAction(string $action = null)
  * @method string getOrderNumber()
@@ -28,12 +27,12 @@ class OrderSetOrderNumberAction extends AbstractAction
     }
 
     /**
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(Context $context = null)
+    public function __construct(array $data = [], $context = null)
     {
-        $this->setContext($context)
-            ->setAction('setOrderNumber')
-        ;
+        parent::__construct($data, $context);
+        $this->setAction('setOrderNumber');
     }
 }

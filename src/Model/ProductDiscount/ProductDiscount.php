@@ -5,14 +5,13 @@
 
 namespace Sphere\Core\Model\ProductDiscount;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\ReferenceCollection;
 
 /**
- * Class ProductDiscount
  * @package Sphere\Core\Model\ProductDiscount
- * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discount
+ * @apidoc http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discount
  * @method string getId()
  * @method ProductDiscount setId(string $id = null)
  * @method int getVersion()
@@ -36,7 +35,7 @@ use Sphere\Core\Model\Common\ReferenceCollection;
  * @method ReferenceCollection getReferences()
  * @method ProductDiscount setReferences(ReferenceCollection $references = null)
  */
-class ProductDiscount extends Document
+class ProductDiscount extends Resource
 {
     public function getFields()
     {

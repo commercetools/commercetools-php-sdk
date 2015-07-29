@@ -5,12 +5,12 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductSetAttributeAction
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#set-attribute
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#set-attribute
  * @method string getAction()
  * @method ProductSetAttributeAction setAction(string $action = null)
  * @method int getVariantId()
@@ -36,13 +36,23 @@ class ProductSetAttributeAction extends AbstractAction
     }
 
     /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('setAttribute');
+    }
+
+    /**
      * @param int $variantId
      * @param string $name
+     * @param Context|callable $context
+     * @return ProductSetAttributeAction
      */
-    public function __construct($variantId, $name)
+    public static function ofVariantIdAndName($variantId, $name, $context = null)
     {
-        $this->setAction('setAttribute');
-        $this->setVariantId($variantId);
-        $this->setName($name);
+        return static::of($context)->setVariantId($variantId)->setName($name);
     }
 }

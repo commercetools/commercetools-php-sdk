@@ -9,16 +9,15 @@ use Sphere\Core\Model\Cart\CustomLineItemCollection;
 use Sphere\Core\Model\Cart\LineItemCollection;
 use Sphere\Core\Model\Cart\ShippingInfo;
 use Sphere\Core\Model\Common\Address;
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\Common\Money;
 use Sphere\Core\Model\Common\TaxedPrice;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
-use Sphere\Core\Model\DiscountCode\DiscountCodeReferenceCollection;
+use Sphere\Core\Model\Cart\DiscountCodeInfoCollection;
 
 /**
- * Class Order
  * @package Sphere\Core\Model\Order
- * @link http://dev.sphere.io/http-api-projects-orders.html#order
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#order
  * @method string getId()
  * @method Order setId(string $id = null)
  * @method int getVersion()
@@ -63,12 +62,12 @@ use Sphere\Core\Model\DiscountCode\DiscountCodeReferenceCollection;
  * @method Order setSyncInfo(SyncInfoCollection $syncInfo = null)
  * @method ReturnInfoCollection getReturnInfo()
  * @method Order setReturnInfo(ReturnInfoCollection $returnInfo = null)
- * @method DiscountCodeReferenceCollection getDiscountCodes()
- * @method Order setDiscountCodes(DiscountCodeReferenceCollection $discountCodes = null)
+ * @method DiscountCodeInfoCollection getDiscountCodes()
+ * @method Order setDiscountCodes(DiscountCodeInfoCollection $discountCodes = null)
  * @method int getLastMessageSequenceNumber()
  * @method Order setLastMessageSequenceNumber(int $lastMessageSequenceNumber = null)
  */
-class Order extends Document
+class Order extends Resource
 {
     public function getFields()
     {
@@ -95,7 +94,7 @@ class Order extends Document
             'shippingInfo' => [static::TYPE => '\Sphere\Core\Model\Cart\ShippingInfo'],
             'syncInfo' => [static::TYPE => '\Sphere\Core\Model\Order\SyncInfoCollection'],
             'returnInfo' => [static::TYPE => '\Sphere\Core\Model\Order\ReturnInfoCollection'],
-            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\DiscountCode\DiscountCodeReferenceCollection'],
+            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\Cart\DiscountCodeInfoCollection'],
             'lastMessageSequenceNumber' => [static::TYPE => 'int'],
         ];
     }

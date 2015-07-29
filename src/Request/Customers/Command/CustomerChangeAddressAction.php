@@ -6,12 +6,12 @@
 namespace Sphere\Core\Request\Customers\Command;
 
 use Sphere\Core\Model\Common\Address;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerChangeAddressAction
  * @package Sphere\Core\Request\Customers\Command
- * @link http://dev.sphere.io/http-api-projects-customers.html#change-address
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#change-address
  * @method string getAddressId()
  * @method Address getAddress()
  * @method CustomerChangeAddressAction setAddressId(string $addressId = null)
@@ -31,13 +31,23 @@ class CustomerChangeAddressAction extends AbstractAction
     }
 
     /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('changeAddress');
+    }
+
+    /**
      * @param string $addressId
      * @param Address $address
+     * @param Context|callable $context
+     * @return CustomerChangeAddressAction
      */
-    public function __construct($addressId, Address $address)
+    public static function ofAddressIdAndAddress($addressId, Address $address, $context = null)
     {
-        $this->setAction('changeAddress');
-        $this->setAddressId($addressId);
-        $this->setAddress($address);
+        return static::of($context)->setAddressId($addressId)->setAddress($address);
     }
 }

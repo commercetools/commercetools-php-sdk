@@ -3,15 +3,19 @@
     <!-- By default, we assume all tools to be on the $PATH -->
     <property name="toolsdir" value="vendor/bin/"/>
 
+    <condition property="execPostfix" value=".bat" else="">
+        <os family="windows"/>
+    </condition>
+
     <!-- Uncomment the following when the tools are in ${basedir}/vendor/bin -->
     <!-- <property name="toolsdir" value="${basedir}/vendor/bin/"/> -->
 
     <target name="build"
-            depends="prepare,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,apigen"
+            depends="prepare,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,unit-test,apigen"
             description=""/>
 
     <target name="build-parallel"
-            depends="prepare,lint,tools-parallel,phpunit,apigen"
+            depends="prepare,lint,tools-parallel,unit-test,apigen"
             description=""/>
 
     <target name="tools-parallel" description="Run tools in parallel">
@@ -65,7 +69,7 @@
 
     <target name="phploc"
             description="Measure project size using PHPLOC and print human readable output. Intended for usage on the command line.">
-        <exec executable="${toolsdir}phploc">
+        <exec executable="${toolsdir}phploc${execPostfix}">
             <arg value="--count-tests" />
             <arg path="${basedir}/src" />
             <arg path="${basedir}/tests" />
@@ -75,7 +79,7 @@
     <target name="phploc-ci"
             depends="prepare"
             description="Measure project size using PHPLOC and log result in CSV and XML format. Intended for usage within a continuous integration environment.">
-        <exec executable="${toolsdir}phploc">
+        <exec executable="${toolsdir}phploc${execPostfix}">
             <arg value="--count-tests" />
             <arg value="--log-csv" />
             <arg path="${basedir}/build/logs/phploc.csv" />
@@ -89,7 +93,7 @@
     <target name="pdepend"
             depends="prepare"
             description="Calculate software metrics using PHP_Depend and log result in XML format. Intended for usage within a continuous integration environment.">
-        <exec executable="${toolsdir}pdepend">
+        <exec executable="${toolsdir}pdepend${execPostfix}">
             <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
             <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
             <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
@@ -99,7 +103,7 @@
 
     <target name="phpmd"
             description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
-        <exec executable="${toolsdir}phpmd">
+        <exec executable="${toolsdir}phpmd${execPostfix}">
             <arg path="${basedir}/src" />
             <arg value="text" />
             <arg value="codesize,controversial,design,naming,unusedcode"/>
@@ -110,7 +114,7 @@
     <target name="phpmd-ci"
             depends="prepare"
             description="Perform project mess detection using PHPMD and log result in XML format. Intended for usage within a continuous integration environment.">
-        <exec executable="${toolsdir}phpmd">
+        <exec executable="${toolsdir}phpmd${execPostfix}">
             <arg path="${basedir}/src" />
             <arg value="xml" />
             <arg value="codesize,controversial,design,naming,unusedcode"/>
@@ -122,7 +126,7 @@
 
     <target name="phpcs"
             description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
-        <exec executable="${toolsdir}phpcs" failonerror="true">
+        <exec executable="${toolsdir}phpcs${execPostfix}" failonerror="true">
             <arg value="--standard=PSR2" />
             <arg value="--extensions=php" />
             <arg value="--ignore=autoload.php" />
@@ -134,7 +138,7 @@
     <target name="phpcs-ci"
             depends="prepare"
             description="Find coding standard violations using PHP_CodeSniffer, but not in the unit tests. Intended for usage within a continuous integration environment.">
-        <exec executable="${toolsdir}phpcs" failonerror="true">
+        <exec executable="${toolsdir}phpcs${execPostfix}" failonerror="true">
             <arg value="--standard=PSR2" />
             <arg value="--extensions=php" />
             <arg value="--ignore=autoload.php" />
@@ -144,7 +148,7 @@
 
     <target name="phpcpd"
             description="Find duplicate code using PHPCPD and print human readable output. Intended for usage on the command line before committing.">
-        <exec executable="${toolsdir}phpcpd">
+        <exec executable="${toolsdir}phpcpd${execPostfix}">
             <arg path="${basedir}/src" />
         </exec>
     </target>
@@ -152,7 +156,7 @@
     <target name="phpcpd-ci"
             depends="prepare"
             description="Find duplicate code using PHPCPD and log result in XML format. Intended for usage within a continuous integration environment.">
-        <exec executable="${toolsdir}phpcpd">
+        <exec executable="${toolsdir}phpcpd${execPostfix}">
             <arg value="--log-pmd" />
             <arg path="${basedir}/build/logs/pmd-cpd.xml" />
             <arg path="${basedir}/src" />
@@ -163,7 +167,7 @@
             depends="prepare"
             description="Run behat tests"
             >
-        <exec executable="${toolsdir}behat" failonerror="true">
+        <exec executable="${toolsdir}behat${execPostfix}" failonerror="true">
             <arg value="--format" />
             <arg value="progress" />
             <arg value="--tags" />
@@ -178,7 +182,7 @@
     <target name="unit-test"
             depends="prepare"
             description="Run unit tests with PHPUnit">
-        <exec executable="${toolsdir}phpunit" failonerror="true">
+        <exec executable="${toolsdir}phpunit${execPostfix}" failonerror="true">
             <arg value="--configuration"/>
             <arg path="${basedir}/phpunit.xml.dist"/>
             <arg value="--testsuite=unit"/>
@@ -188,7 +192,7 @@
     <target name="integration-test"
             depends="prepare"
             description="Run integration tests with PHPUnit">
-        <exec executable="${toolsdir}phpunit" failonerror="true">
+        <exec executable="${toolsdir}phpunit${execPostfix}" failonerror="true">
             <arg value="--configuration"/>
             <arg path="${basedir}/phpunit.xml.dist"/>
             <arg value="--testsuite=integration"/>
@@ -196,36 +200,16 @@
     </target>
 
     <target name="install-apigen">
-        <exec executable="${basedir}/install-apigen.sh" dir="${basedir}" />
+        <exec executable="${basedir}/install-apigen.sh${execPostfix}" dir="${basedir}" />
     </target>
     <target name="apigen"
             depends="prepare, install-apigen"
             description="Generate project documentation using phpDocumentor">
-        <exec executable="php" dir="${basedir}/build/" failonerror="true">
+        <exec executable="php" dir="${basedir}" failonerror="true">
             <arg value="${basedir}/apigen.phar"/>
             <arg value="generate"/>
-            <arg value="--source"/>
-            <arg path="${basedir}/src"/>
-            <arg value="--destination"/>
-            <arg path="${basedir}/build/docs"/>
-            <!-- title affects the H1 on the Overview page and the html <title> element, e.g. the Tab label in the Browser)
-                 TODO add version in title via ant parameter -->
-            <arg value="--title=SPHERE.IO PHP SDK "/>
-            <!-- default is default, but this way we know where to change it -->
-            <arg value='--template-theme=bootstrap'/>
-            <!-- triggers creation of the tree view (accessible via the top menu) -->
-            <arg value="--tree"/>
-            <!-- triggers creation of a sitemap.xml, robots.txt and the base url makes sure that Google doesn't index
-                 all versions but just the latest release -->
-            <arg value="--base-url=http://sphereio.github.io/sphere-php-sdk/docs/master"/>
-            <!-- generate documentation for deprecated APIs, too (more transparent) -->
-            <arg value="--deprecated"/>
-            <!-- generate an overview page of Stuff marked with a to do annotation -->
-            <arg value="--todo"/>
-            <!-- generate a downloadable documentation ZIP for offline use -->
-            <arg value="--download"/>
-            <!-- FYI: exclusion of internal APIs that are not guaranteed to stay compatible is done via @internal in the
-                 source, not via the "exclude" parameter -->
+            <arg value="--config"/>
+            <arg path="${basedir}/build/apigen.neon"/>
         </exec>
     </target>
 </project>

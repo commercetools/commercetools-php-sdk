@@ -8,13 +8,10 @@ namespace Sphere\Core\Model\ProductType;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
-use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class ProductTypeReference
  * @package Sphere\Core\Model\ProductType
- * @link http://dev.sphere.io/http-api-types.html#reference
- * @method static ProductTypeReference of(string $id)
+ * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method ProductTypeReference setTypeId(string $typeId = null)
  * @method string getId()
@@ -24,8 +21,6 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  */
 class ProductTypeReference extends Reference
 {
-    use ReferenceFromArrayTrait;
-
     const TYPE_PRODUCT_TYPE = 'product-type';
 
     public function getFields()
@@ -38,11 +33,12 @@ class ProductTypeReference extends Reference
     }
 
     /**
-     * @param string $id
+     * @param $id
      * @param Context|callable $context
+     * @return ProductTypeReference
      */
-    public function __construct($id, $context = null)
+    public static function ofId($id, $context = null)
     {
-        parent::__construct(static::TYPE_PRODUCT_TYPE, $id, $context);
+        return static::ofTypeAndId(static::TYPE_PRODUCT_TYPE, $id, $context);
     }
 }

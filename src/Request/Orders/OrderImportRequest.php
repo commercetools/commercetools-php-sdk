@@ -5,14 +5,15 @@
 
 namespace Sphere\Core\Request\Orders;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Order\ImportOrder;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\Order\Order;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class OrderImportRequest
  * @package Sphere\Core\Request\Orders
+ * @method Order mapResponse(ApiResponseInterface $response)
  */
 class OrderImportRequest extends AbstractCreateRequest
 {
@@ -25,6 +26,16 @@ class OrderImportRequest extends AbstractCreateRequest
     public function __construct(ImportOrder $importOrder, Context $context = null)
     {
         parent::__construct(OrdersEndpoint::endpoint(), $importOrder, $context);
+    }
+
+    /**
+     * @param ImportOrder $importOrder
+     * @param Context $context
+     * @return static
+     */
+    public static function ofImportOrder(ImportOrder $importOrder, Context $context = null)
+    {
+        return new static($importOrder, $context);
     }
 
     /**

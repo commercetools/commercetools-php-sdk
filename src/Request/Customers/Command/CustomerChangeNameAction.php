@@ -5,12 +5,12 @@
 
 namespace Sphere\Core\Request\Customers\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerChangeNameAction
  * @package Sphere\Core\Request\Customers\Command
- * @link http://dev.sphere.io/http-api-projects-customers.html#change-name
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#change-name
  * @method string getFirstName()
  * @method string getLastName()
  * @method string getMiddleName()
@@ -36,13 +36,24 @@ class CustomerChangeNameAction extends AbstractAction
     }
 
     /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('changeName');
+    }
+
+
+    /**
      * @param string $firstName
      * @param string $lastName
+     * @param Context|callable $context
+     * @return CustomerChangeNameAction
      */
-    public function __construct($firstName, $lastName)
+    public static function ofFirstNameAndLastName($firstName, $lastName, $context = null)
     {
-        $this->setAction('changeName');
-        $this->setFirstName($firstName);
-        $this->setLastName($lastName);
+        return static::of($context)->setFirstName($firstName)->setLastName($lastName);
     }
 }

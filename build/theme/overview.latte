@@ -1,0 +1,63 @@
+{layout '@layout.latte'}
+{var $active = 'overview'}
+
+{block title}{$config->title ?: 'Overview'}{/block}
+
+{block content}
+<div id="content">
+	<h1>{include title}</h1>
+
+	{var $group = false}
+
+	<h2>Quick Links</h2>
+	<div class="element-list container-fluid">
+		<div class="row">
+			<div class="col-md-3">
+				<a class="btn btn-default btn-lg btn-block lead" href="class-Sphere.Core.Client.html" role="button">Client</a>
+			</div>
+			<div class="col-md-3">
+				<a class="btn btn-default btn-lg btn-block lead" href="class-Sphere.Core.Config.html" role="button">Config</a>
+			</div>
+			<div class="col-md-3">
+				<a class="btn btn-default btn-lg btn-block lead" href="class-Sphere.Core.Model.Common.Context.html" role="button">Context</a>
+			</div>
+		</div>
+	</div>
+
+	{if count($namespaces)}
+    	<h2>Namespaces summary</h2>
+		<div class="panel panel-default">
+			<table class="summary table table-bordered table-striped" id="namespaces">
+				{foreach $namespaces as $namespace}
+					{continueIf $config->main && 0 !== strpos($namespace, $config->main)}
+					<tr>
+						{var $group = true}
+						<td class="name"><a href="{$namespace|namespaceUrl}">{$namespace}</a></td>
+					</tr>
+				{/foreach}
+			</table>
+		</div>
+	{/if}
+
+	{if count($packages)}
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Packages summary</h2></div>
+			<table class="summary table table-bordered table-striped" id="packages">
+				{foreach $packages as $package}
+					{continueIf $config->main && 0 !== strpos($package, $config->main)}
+					<tr>
+						{var $group = true}
+						<td class="name">
+							<a href="{$package|packageUrl}">{$package}</a>
+						</td>
+					</tr>
+				{/foreach}
+			</table>
+		</div>
+	{/if}
+
+	{if ! $group}
+		{include '@elementlist.latte'}
+	{/if}
+</div>
+{/block}

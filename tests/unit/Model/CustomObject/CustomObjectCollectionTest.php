@@ -26,7 +26,7 @@ class CustomObjectCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testAddToIndex()
     {
-        $collection = new CustomObjectCollection();
+        $collection = CustomObjectCollection::of();
         $collection->add(new CustomObject(['container' => 'myNamespace', 'key' => 'myKey']));
 
         $this->assertInstanceOf('\Sphere\Core\Model\CustomObject\CustomObject', $collection->getByKey('myKey'));

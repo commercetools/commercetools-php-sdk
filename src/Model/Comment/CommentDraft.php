@@ -9,7 +9,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class CommentDraft
  * @package Sphere\Core\Model\Comment
  * @method string getProductId()
  * @method CommentDraft setProductId(string $productId = null)
@@ -35,30 +34,15 @@ class CommentDraft extends JsonObject
         ];
     }
 
+
     /**
      * @param string $productId
      * @param string $customerId
      * @param Context|callable $context
+     * @return CommentDraft
      */
-    public function __construct($productId, $customerId, $context = null)
+    public static function ofProductIdAndCustomerId($productId, $customerId, $context = null)
     {
-        $this->setContext($context)->setProductId($productId)->setCustomerId($customerId);
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $draft = new static(
-            $data['productId'],
-            $data['customerId'],
-            $context
-        );
-        $draft->setRawData($data);
-
-        return $draft;
+        return static::of($context)->setProductId($productId)->setCustomerId($customerId);
     }
 }

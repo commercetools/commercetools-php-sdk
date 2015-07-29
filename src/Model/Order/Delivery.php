@@ -8,9 +8,8 @@ namespace Sphere\Core\Model\Order;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class Delivery
  * @package Sphere\Core\Model\Order
- * @link http://dev.sphere.io/http-api-projects-orders.html#delivery
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#delivery
  * @method string getId()
  * @method Delivery setId(string $id = null)
  * @method \DateTime getCreatedAt()

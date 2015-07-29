@@ -7,9 +7,8 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class LocalizedEnum
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
  * @method LocalizedString getLabel()
  * @method LocalizedEnum setLabel(LocalizedString $label = null)
  * @method string getKey()

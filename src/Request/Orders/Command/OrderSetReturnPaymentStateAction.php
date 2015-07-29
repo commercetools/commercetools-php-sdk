@@ -9,9 +9,8 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class OrderSetReturnPaymentStateAction
  * @package Sphere\Core\Request\Orders\Command
- * @link http://dev.sphere.io/http-api-projects-orders.html#set-return-payment-state
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#set-return-payment-state
  * @method string getAction()
  * @method OrderSetReturnPaymentStateAction setAction(string $action = null)
  * @method string getReturnItemId()
@@ -22,16 +21,13 @@ use Sphere\Core\Request\AbstractAction;
 class OrderSetReturnPaymentStateAction extends AbstractAction
 {
     /**
-     * @param string $returnItemId
-     * @param string $paymentState
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($returnItemId, $paymentState, Context $context = null)
+    public function __construct(array $data = [], $context = null)
     {
-        $this->setContext($context)
-            ->setAction('setReturnPaymentState')
-            ->setReturnItemId($returnItemId)
-            ->setPaymentState($paymentState);
+        parent::__construct($data, $context);
+        $this->setAction('setReturnPaymentState');
     }
 
     public function getFields()
@@ -41,5 +37,16 @@ class OrderSetReturnPaymentStateAction extends AbstractAction
             'returnItemId' => [static::TYPE => 'string'],
             'paymentState' => [static::TYPE => 'string']
         ];
+    }
+
+    /**
+     * @param string $returnItemId
+     * @param string $paymentState
+     * @param Context|callable $context
+     * @return OrderSetReturnPaymentStateAction
+     */
+    public static function ofReturnItemIdAndPaymentState($returnItemId, $paymentState, $context = null)
+    {
+        return static::of($context)->setReturnItemId($returnItemId)->setPaymentState($paymentState);
     }
 }

@@ -9,9 +9,8 @@ use Sphere\Core\Model\Cart\Cart;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class CustomerSigninResult
  * @package Sphere\Core\Model\Customer
- * @link http://dev.sphere.io/http-api-projects-customers.html#customer-sign-in-result
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#customer-sign-in-result
  * @method Customer getCustomer()
  * @method CustomerSigninResult setCustomer(Customer $customer = null)
  * @method Cart getCart()

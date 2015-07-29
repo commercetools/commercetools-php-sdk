@@ -1,13 +1,13 @@
 Feature: I want to change the customer's password
   Scenario: Create Token for password change
-    Given a "customer" is identified by the email "john.doe@company.com"
+    Given a "customer" is identified by the email "john.doe@example.org"
     And i want to create a password token for "customer"
     Then the path should be "customers/password-token"
     And the method should be "POST"
     And the request should be
     """
     {
-      "email": "john.doe@company.com"
+      "email": "john.doe@example.org"
     }
     """
 
@@ -18,34 +18,30 @@ Feature: I want to change the customer's password
     And the method should be "GET"
 
   Scenario: Reset customers password
-    Given a "customer" is identified by "id" and "version"
-    And the "tokenValue" is "token"
-    And the "newPassword" is "newPassword"
-    And i "reset" the "customer" password
+    Given a "customer" is identified by "id" and version 1
+    And i want to reset the "customer" password to "newPassword" with token "token"
     Then the path should be "customers/password/reset"
     And the method should be "POST"
     And the request should be
     """
     {
       "id": "id",
-      "version": "version",
+      "version": 1,
       "tokenValue": "token",
       "newPassword": "newPassword"
     }
     """
 
   Scenario: Change the customers password
-    Given a "customer" is identified by "id" and "version"
-    And the "currentPassword" is "currentPassword"
-    And the "newPassword" is "newPassword"
-    And i "change" the "customer" password
+    Given a "customer" is identified by "id" and version 1
+    And i want to change the "customer" password from "currentPassword" to "newPassword"
     Then the path should be "customers/password"
     And the method should be "POST"
     And the request should be
     """
     {
       "id": "id",
-      "version": "version",
+      "version": 1,
       "currentPassword": "currentPassword",
       "newPassword": "newPassword"
     }

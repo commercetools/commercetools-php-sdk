@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\DiscountCode\DiscountCodeReference;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CartRemoveDiscountCodeAction
  * @package Sphere\Core\Request\Carts\Command
- * @link http://dev.sphere.io/http-api-projects-carts.html#remove-discount-code
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#remove-discount-code
  * @method string getAction()
  * @method CartRemoveDiscountCodeAction setAction(string $action = null)
  * @method DiscountCodeReference getDiscountCode()
@@ -28,11 +28,21 @@ class CartRemoveDiscountCodeAction extends AbstractAction
     }
 
     /**
-     * @param DiscountCodeReference $discountCode
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(DiscountCodeReference $discountCode)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('removeDiscountCode');
-        $this->setDiscountCode($discountCode);
+    }
+
+    /**
+     * @param DiscountCodeReference $discountCode
+     * @param Context|callable $context
+     */
+    public static function ofDiscountCode(DiscountCodeReference $discountCode, $context = null)
+    {
+        return static::of($context)->setDiscountCode($discountCode);
     }
 }

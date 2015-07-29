@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Categories\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CategoryChangeSlugAction
  * @package Sphere\Core\Request\Categories\Command
- * @link http://dev.sphere.io/http-api-projects-categories.html#change-slug
+ * @apidoc http://dev.sphere.io/http-api-projects-categories.html#change-slug
  * @method LocalizedString getSlug()
  * @method CategoryChangeSlugAction setSlug(LocalizedString $slug = null)
  * @method string getAction()
@@ -27,9 +27,23 @@ class CategoryChangeSlugAction extends AbstractAction
         ];
     }
 
-    public function __construct(LocalizedString $slug)
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('changeSlug');
-        $this->setSlug($slug);
+    }
+
+    /**
+     * @param LocalizedString $slug
+     * @param Context|callable $context
+     * @return CategoryChangeSlugAction
+     */
+    public static function ofSlug(LocalizedString $slug, $context = null)
+    {
+        return static::of($context)->setSlug($slug);
     }
 }

@@ -8,13 +8,10 @@ namespace Sphere\Core\Model\Cart;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
-use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class CartReference
  * @package Sphere\Core\Model\Cart
- * @link http://dev.sphere.io/http-api-types.html#reference
- * @method static CartReference of(string $id)
+ * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method CartReference setTypeId(string $typeId = null)
  * @method string getId()
@@ -24,25 +21,23 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  */
 class CartReference extends Reference
 {
-    use ReferenceFromArrayTrait;
-
     const TYPE_CART = 'cart';
 
     public function getFields()
     {
-        return [
-            'typeId' => [self::TYPE => 'string'],
-            'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => '\Sphere\Core\Model\Cart\Cart']
-        ];
+        $fields = parent::getFields();
+        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\Cart\Cart'];
+
+        return $fields;
     }
 
     /**
-     * @param string $id
+     * @param $id
      * @param Context|callable $context
+     * @return CartReference
      */
-    public function __construct($id, $context = null)
+    public static function ofId($id, $context = null)
     {
-        parent::__construct(static::TYPE_CART, $id, $context);
+        return static::ofTypeAndId(static::TYPE_CART, $id, $context);
     }
 }

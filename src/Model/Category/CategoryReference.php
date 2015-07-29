@@ -8,13 +8,10 @@ namespace Sphere\Core\Model\Category;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
-use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class CategoryReference
  * @package Sphere\Core\Model\Category
  * @link  http://dev.sphere.io/http-api-types.html#reference
- * @method static CategoryReference of(string $id)
  * @method string getTypeId()
  * @method CategoryReference setTypeId(string $typeId = null)
  * @method string getId()
@@ -24,25 +21,24 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  */
 class CategoryReference extends Reference
 {
-    use ReferenceFromArrayTrait;
-
     const TYPE_CATEGORY = 'category';
 
     public function getFields()
     {
         return [
-            'typeId' => [self::TYPE => 'string'],
-            'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => '\Sphere\Core\Model\Category\Category']
+            static::TYPE_ID => [self::TYPE => 'string'],
+            static::ID => [self::TYPE => 'string'],
+            static::OBJ => [static::TYPE => '\Sphere\Core\Model\Category\Category']
         ];
     }
 
     /**
-     * @param string $id
+     * @param $id
      * @param Context|callable $context
+     * @return CategoryReference
      */
-    public function __construct($id, $context = null)
+    public static function ofId($id, $context = null)
     {
-        parent::__construct(static::TYPE_CATEGORY, $id, $context);
+        return static::ofTypeAndId(static::TYPE_CATEGORY, $id, $context);
     }
 }

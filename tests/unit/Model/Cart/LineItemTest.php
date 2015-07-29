@@ -13,9 +13,9 @@ class LineItemTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetTotal()
     {
-        $lineItem = new LineItem();
+        $lineItem = LineItem::of();
         $lineItem->setQuantity(3)
-            ->setPrice(Price::of(Money::of('EUR', 100)));
+            ->setPrice(Price::ofMoney(Money::ofCurrencyAndAmount('EUR', 100)));
 
         $this->assertSame(300, $lineItem->getTotal()->getCentAmount());
     }

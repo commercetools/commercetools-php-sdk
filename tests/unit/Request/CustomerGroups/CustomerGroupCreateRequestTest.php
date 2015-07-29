@@ -24,13 +24,13 @@ class CustomerGroupCreateRequestTest extends RequestTestCase
     }
     public function testMapResult()
     {
-        $result = $this->mapResult(static::CUSTOMER_GROUP_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapResult(CustomerGroupCreateRequest::ofDraft($this->getDraft()));
         $this->assertInstanceOf('\Sphere\Core\Model\CustomerGroup\CustomerGroup', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::CUSTOMER_GROUP_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapEmptyResult(CustomerGroupCreateRequest::ofDraft($this->getDraft()));
         $this->assertNull($result);
     }
 }

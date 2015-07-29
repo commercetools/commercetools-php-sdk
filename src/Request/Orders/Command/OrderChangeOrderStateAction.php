@@ -9,9 +9,8 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class OrderChangeOrderStateAction
  * @package Sphere\Core\Request\Orders\Command
- * @link http://dev.sphere.io/http-api-projects-orders.html#change-order-state
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#change-order-state
  * @method string getAction()
  * @method OrderChangeOrderStateAction setAction(string $action = null)
  * @method string getOrderState()
@@ -20,14 +19,13 @@ use Sphere\Core\Request\AbstractAction;
 class OrderChangeOrderStateAction extends AbstractAction
 {
     /**
-     * @param string $orderState
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($orderState, Context $context = null)
+    public function __construct(array $data = [], $context = null)
     {
-        $this->setContext($context)
-            ->setAction('changeOrderState')
-            ->setOrderState($orderState);
+        parent::__construct($data, $context);
+        $this->setAction('changeOrderState');
     }
 
     public function getFields()
@@ -36,5 +34,15 @@ class OrderChangeOrderStateAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'orderState' => [static::TYPE => 'string']
         ];
+    }
+
+    /**
+     * @param $orderState
+     * @param Context|callable $context
+     * @return OrderChangeOrderStateAction
+     */
+    public static function ofOrderState($orderState, $context = null)
+    {
+        return static::of($context)->setOrderState($orderState);
     }
 }

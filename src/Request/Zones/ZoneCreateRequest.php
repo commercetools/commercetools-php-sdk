@@ -5,14 +5,15 @@
 
 namespace Sphere\Core\Request\Zones;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Zone\ZoneDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\Zone\Zone;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ZoneCreateRequest
  * @package Sphere\Core\Request\Zones
+ * @method Zone mapResponse(ApiResponseInterface $response)
  */
 class ZoneCreateRequest extends AbstractCreateRequest
 {
@@ -25,5 +26,15 @@ class ZoneCreateRequest extends AbstractCreateRequest
     public function __construct(ZoneDraft $zone, Context $context = null)
     {
         parent::__construct(ZonesEndpoint::endpoint(), $zone, $context);
+    }
+
+    /**
+     * @param ZoneDraft $zone
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(ZoneDraft $zone, Context $context = null)
+    {
+        return new static($zone, $context);
     }
 }

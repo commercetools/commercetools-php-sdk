@@ -6,14 +6,13 @@
 namespace Sphere\Core\Model\DiscountCode;
 
 use Sphere\Core\Model\CartDiscount\CartDiscountReferenceCollection;
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\ReferenceCollection;
 
 /**
- * Class DiscountCode
  * @package Sphere\Core\Model\DiscountCode
- * @link http://dev.sphere.io/http-api-projects-discountCodes.html#discount-code
+ * @apidoc http://dev.sphere.io/http-api-projects-discountCodes.html#discount-code
  * @method string getId()
  * @method DiscountCode setId(string $id = null)
  * @method int getVersion()
@@ -41,7 +40,7 @@ use Sphere\Core\Model\Common\ReferenceCollection;
  * @method int getMaxApplicationsPerCustomer()
  * @method DiscountCode setMaxApplicationsPerCustomer(int $maxApplicationsPerCustomer = null)
  */
-class DiscountCode extends Document
+class DiscountCode extends Resource
 {
     public function getFields()
     {

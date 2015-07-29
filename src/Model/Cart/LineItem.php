@@ -16,9 +16,8 @@ use Sphere\Core\Model\Product\ProductVariant;
 use Sphere\Core\Model\TaxCategory\TaxRate;
 
 /**
- * Class LineItem
  * @package Sphere\Core\Model\Cart
- * @link http://dev.sphere.io/http-api-projects-carts.html#line-item
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#line-item
  * @method string getId()
  * @method LineItem setId(string $id = null)
  * @method string getProductId()
@@ -41,6 +40,8 @@ use Sphere\Core\Model\TaxCategory\TaxRate;
  * @method LineItem setDiscountedPrice(DiscountedLineItemPrice $discountedPrice = null)
  * @method LocalizedString getProductSlug()
  * @method LineItem setProductSlug(LocalizedString $productSlug = null)
+ * @method ChannelReference getDistributionChannel()
+ * @method LineItem setDistributionChannel(ChannelReference $distributionChannel = null)
  */
 class LineItem extends JsonObject
 {
@@ -58,6 +59,7 @@ class LineItem extends JsonObject
             'taxRate' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxRate'],
             'supplyChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
             'discountedPrice' => [static::TYPE => '\Sphere\Core\Model\Cart\DiscountedLineItemPrice'],
+            'distributionChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
         ];
     }
 
@@ -68,6 +70,6 @@ class LineItem extends JsonObject
     {
         $price = $this->getPrice()->getValue();
         $amount = $this->getQuantity() * $price->getCentAmount();
-        return new Money($price->getCurrencyCode(), $amount, $this->getContext());
+        return Money::ofCurrencyAndAmount($price->getCurrencyCode(), $amount, $this->getContext());
     }
 }

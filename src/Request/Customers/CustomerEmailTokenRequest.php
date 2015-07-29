@@ -6,18 +6,17 @@
 
 namespace Sphere\Core\Request\Customers;
 
-use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Model\Customer\CustomerToken;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CustomerEmailTokenRequest
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#create-token-for-verifying-customers-email
- * @method static CustomerEmailTokenRequest of(string $id, int $version, int $ttlMinutes)
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#create-token-for-verifying-customers-email
+ * @method CustomerToken mapResponse(ApiResponseInterface $response)
  */
 class CustomerEmailTokenRequest extends AbstractUpdateRequest
 {
@@ -43,6 +42,18 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
         $this->setId($id);
         $this->setVersion($version);
         $this->ttlMinutes = $ttlMinutes;
+    }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param int $ttlMinutes
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdVersionAndTtl($id, $version, $ttlMinutes, Context $context = null)
+    {
+        return new static($id, $version, $ttlMinutes, $context);
     }
 
     /**

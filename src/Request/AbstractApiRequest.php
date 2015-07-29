@@ -7,26 +7,25 @@
 namespace Sphere\Core\Request;
 
 
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Sphere\Core\Client;
 use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\ContextAwareInterface;
 use Sphere\Core\Model\Common\ContextTrait;
 use Sphere\Core\Model\Common\JsonDeserializeInterface;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Request\Query\MultiParameter;
 use Sphere\Core\Request\Query\Parameter;
 use Sphere\Core\Request\Query\ParameterInterface;
 use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class AbstractApiRequest
  * @package Sphere\Core\Request
  */
 abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwareInterface
 {
     use ContextTrait;
-    use OfTrait;
 
     /**
      * @var JsonEndpoint
@@ -50,6 +49,15 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
     {
         $this->setContext($context);
         $this->setEndpoint($endpoint);
+    }
+
+    /**
+     * @return string
+     * @internal
+     */
+    public function getResultClass()
+    {
+        return $this->resultClass;
     }
 
     /**
@@ -159,9 +167,17 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
     abstract public function buildResponse(ResponseInterface $response);
 
     /**
+     * @return RequestInterface
+     * @internal
+     */
+    abstract public function httpRequest();
+
+
+    /**
      * @param array $result
      * @param Context $context
      * @return JsonDeserializeInterface|null
+     * @internal
      */
     public function mapResult(array $result, Context $context = null)
     {
@@ -170,5 +186,31 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
             return $object;
         }
         return null;
+    }
+
+    /**
+     * @param ApiResponseInterface $response
+     * @return JsonDeserializeInterface|null
+     */
+    public function mapResponse(ApiResponseInterface $response)
+    {
+        if ($response->isError()) {
+            return null;
+        }
+        $result = $response->toArray();
+        if ($response instanceof ContextAwareInterface) {
+            return $this->mapResult($result, $response->getContext());
+        }
+
+        return $this->mapResult($result, $this->getContext());
+    }
+
+    /**
+     * @param Client $client
+     * @return ApiResponseInterface
+     */
+    public function executeWithClient(Client $client)
+    {
+        return $client->execute($this);
     }
 }

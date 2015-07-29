@@ -19,7 +19,7 @@ class CustomerEmailTokenRequestTest extends RequestTestCase
 
     public function testHttpRequestMethod()
     {
-        $request = $this->getRequest(static::CUSTOMER_EMAIL_TOKEN_REQUEST, ['customerId', 1, 5]);
+        $request = CustomerEmailTokenRequest::ofIdVersionAndTtl('customerId', 1, 5);
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
@@ -27,7 +27,7 @@ class CustomerEmailTokenRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = $this->getRequest(static::CUSTOMER_EMAIL_TOKEN_REQUEST, ['customerId', 1, 5]);
+        $request = CustomerEmailTokenRequest::ofIdVersionAndTtl('customerId', 1, 5);
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('customers/email-token', (string)$httpRequest->getUri());
@@ -35,7 +35,7 @@ class CustomerEmailTokenRequestTest extends RequestTestCase
 
     public function testHttpRequestObject()
     {
-        $request = $this->getRequest(static::CUSTOMER_EMAIL_TOKEN_REQUEST, ['customerId', 1, 5]);
+        $request = CustomerEmailTokenRequest::ofIdVersionAndTtl('customerId', 1, 5);
         $httpRequest = $request->httpRequest();
 
         $this->assertJsonStringEqualsJsonString(

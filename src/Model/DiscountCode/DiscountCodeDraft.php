@@ -8,11 +8,9 @@ namespace Sphere\Core\Model\DiscountCode;
 use Sphere\Core\Model\CartDiscount\CartDiscountReferenceCollection;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class DiscountCodeDraft
  * @package Sphere\Core\Model\DiscountCode
  * @method LocalizedString getName()
  * @method DiscountCodeDraft setName(LocalizedString $name = null)
@@ -30,12 +28,9 @@ use Sphere\Core\Model\Common\LocalizedString;
  * @method DiscountCodeDraft setMaxApplications(int $maxApplications = null)
  * @method int getMaxApplicationsPerCustomer()
  * @method DiscountCodeDraft setMaxApplicationsPerCustomer(int $maxApplicationsPerCustomer = null)
- * @method static DiscountCodeDraft of($code, CartDiscountReferenceCollection $cartDiscounts, $isActive)
  */
 class DiscountCodeDraft extends JsonObject
 {
-    use OfTrait;
-
     public function getFields()
     {
         return [
@@ -55,27 +50,17 @@ class DiscountCodeDraft extends JsonObject
      * @param CartDiscountReferenceCollection $cartDiscounts
      * @param bool $isActive
      * @param Context|callable $context
+     * @return DiscountCodeDraft
      */
-    public function __construct($code, CartDiscountReferenceCollection $cartDiscounts, $isActive, $context = null)
-    {
-        $this->setContext($context)->setCode($code)->setCartDiscounts($cartDiscounts)->setIsActive($isActive);
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $draft = new static(
-            $data['code'],
-            CartDiscountReferenceCollection::fromArray($data['cartDiscounts'], $context),
-            $data['isActive'],
-            $context
-        );
-        $draft->setRawData($data);
-
-        return $draft;
+    public function ofCodeDiscountsAndActive(
+        $code,
+        CartDiscountReferenceCollection $cartDiscounts,
+        $isActive,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setCode($code)
+            ->setCartDiscounts($cartDiscounts)
+            ->setIsActive($isActive);
     }
 }

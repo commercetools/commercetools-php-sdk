@@ -22,19 +22,19 @@ class CategoryDraftTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDescription()
     {
-        $draft = $this->getDraft()->setDescription(LocalizedString::of(['en'=>'description']));
+        $draft = $this->getDraft()->setDescription(LocalizedString::fromArray(['en'=>'description']));
         $this->assertInstanceOf('\Sphere\Core\Model\Common\LocalizedString', $draft->getDescription());
     }
 
     public function testGetParent()
     {
-        $draft = $this->getDraft()->setParent(CategoryReference::of('id'));
+        $draft = $this->getDraft()->setParent(CategoryReference::ofId('id'));
         $this->assertInstanceOf('\Sphere\Core\Model\Common\Reference', $draft->getParent());
     }
 
     public function testGetParentType()
     {
-        $draft = $this->getDraft()->setParent(CategoryReference::of('id'));
+        $draft = $this->getDraft()->setParent(CategoryReference::ofId('id'));
         $this->assertSame('category', $draft->getParent()->getTypeId());
     }
 
@@ -52,7 +52,10 @@ class CategoryDraftTest extends \PHPUnit_Framework_TestCase
 
     protected function getDraft()
     {
-        return CategoryDraft::of(LocalizedString::of(['en'=>'name']), LocalizedString::of(['en','slug']));
+        return CategoryDraft::ofNameAndSlug(
+            LocalizedString::fromArray(['en'=>'name']),
+            LocalizedString::fromArray(['en','slug'])
+        );
     }
 
     public function testFromArray()

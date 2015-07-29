@@ -5,37 +5,35 @@
 
 namespace Sphere\Core\Model\Common;
 
+
 /**
- * Class Set
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
  */
-class Set extends Collection
+class Set extends Collection implements TypeableInterface
 {
     /**
-     * @param string $type
-     * @param array $data
+     * @param $type
      * @param Context|callable $context
+     * @return $this
      */
-    public function __construct($type, array $data = [], $context = null)
+    public static function ofType($type, $context = null)
     {
-        $this->type = $type;
-        $this->setContext($context);
-        $this->rawData = $data;
-        $this->indexData();
+        $set = static::of($context);
+        return $set->setType($type);
     }
 
     /**
+     * @param $type
      * @param array $data
      * @param Context|callable $context
-     * @return static
+     * @return $this
      */
-    public static function fromArray(array $data, $context = null)
+    public static function ofTypeAndData($type, array $data, $context = null)
     {
-        $type = $data['type'];
-        $setData = $data['value'];
-        return new static($type, $setData, $context);
+        return static::ofType($type, $context)->setRawData($data);
     }
+
 
     public function __toString()
     {

@@ -8,9 +8,8 @@ namespace Sphere\Core\Model\Order;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class ReturnItem
  * @package Sphere\Core\Model\Order
- * @link http://dev.sphere.io/http-api-projects-orders.html#return-item
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#return-item
  * @method string getId()
  * @method ReturnItem setId(string $id = null)
  * @method int getQuantity()

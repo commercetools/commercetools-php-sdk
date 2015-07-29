@@ -5,14 +5,15 @@
 
 namespace Sphere\Core\Request\DiscountCodes;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\DiscountCode\DiscountCode;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class DiscountCodeUpdateRequest
  * @package Sphere\Core\Request\DiscountCodes
- * @link http://dev.sphere.io/http-api-projects-discountCodes.html#update-discount-code
+ * @apidoc http://dev.sphere.io/http-api-projects-discountCodes.html#update-discount-code
+ * @method DiscountCode mapResponse(ApiResponseInterface $response)
  */
 class DiscountCodeUpdateRequest extends AbstractUpdateRequest
 {
@@ -27,5 +28,16 @@ class DiscountCodeUpdateRequest extends AbstractUpdateRequest
     public function __construct($id, $version, array $actions = [], Context $context = null)
     {
         parent::__construct(DiscountCodesEndpoint::endpoint(), $id, $version, $actions, $context);
+    }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdAndVersion($id, $version, Context $context = null)
+    {
+        return new static($id, $version, [], $context);
     }
 }

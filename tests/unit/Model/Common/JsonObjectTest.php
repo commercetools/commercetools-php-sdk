@@ -9,6 +9,7 @@ namespace Sphere\Core\Model\Type;
 
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\ProductType\AttributeDefinition;
+use Sphere\Core\Model\ProductType\AttributeDefinitionCollection;
 use Sphere\Core\Model\ProductType\ProductType;
 use Sphere\Core\Model\ProductType\ProductTypeDraft;
 
@@ -118,13 +119,13 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testGetFields()
     {
-        $obj = new JsonObject();
+        $obj = JsonObject::of();
         $this->assertSame([], $obj->getFields());
     }
 
     public function testConstruct()
     {
-        $obj = new JsonObject(['key' => 'value']);
+        $obj = JsonObject::fromArray(['key' => 'value']);
         $this->assertSame(['key' => 'value'], $obj->toArray());
     }
 
@@ -211,8 +212,8 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testContextInheritance()
     {
-        $obj = new ProductTypeDraft('test', 'test');
-        $obj->getAttributes()->add(AttributeDefinition::of()->setName('test'));
+        $obj = ProductTypeDraft::ofNameAndDescription('test', 'test');
+        $obj->setAttributes(AttributeDefinitionCollection::of()->add(AttributeDefinition::of()->setName('test')));
         $context = $obj->getContext();
         $contextChild = $obj->getAttributes()->getAt(0)->getContext();
         $contextChild['test']= 'test';

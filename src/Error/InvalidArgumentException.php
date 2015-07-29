@@ -8,7 +8,6 @@ namespace Sphere\Core\Error;
 
 
 /**
- * Class InvalidArgumentException
  * @package Sphere\Core\Error
  */
 class InvalidArgumentException extends \InvalidArgumentException

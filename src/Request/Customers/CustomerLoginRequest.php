@@ -11,12 +11,14 @@ use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ResourceResponse;
+use Sphere\Core\Model\Customer\CustomerSigninResult;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CustomerLoginRequest
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#authenticate-customer
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#authenticate-customer
+ * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
  */
 class CustomerLoginRequest extends AbstractApiRequest
 {
@@ -56,6 +58,18 @@ class CustomerLoginRequest extends AbstractApiRequest
     }
 
     /**
+     * @param string $email
+     * @param string $password
+     * @param string $anonymousCartId
+     * @param Context $context
+     * @return static
+     */
+    public static function ofEmailAndPassword($email, $password, $anonymousCartId = null, Context $context = null)
+    {
+        return new static($email, $password, $anonymousCartId, $context);
+    }
+
+    /**
      * @return JsonRequest
      * @internal
      */
@@ -73,11 +87,11 @@ class CustomerLoginRequest extends AbstractApiRequest
 
     /**
      * @param ResponseInterface $response
-     * @return SingleResourceResponse
+     * @return ResourceResponse
      * @internal
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 }

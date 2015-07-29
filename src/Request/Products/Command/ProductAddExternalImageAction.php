@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Image;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductAddExternalImageAction
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#add-external-image
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#add-external-image
  * @method string getAction()
  * @method ProductAddExternalImageAction setAction(string $action = null)
  * @method int getVariantId()
@@ -34,13 +34,23 @@ class ProductAddExternalImageAction extends AbstractAction
     }
 
     /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('addExternalImage');
+    }
+
+    /**
      * @param int $variantId
      * @param Image $image
+     * @param Context|callable $context
+     * @return ProductAddExternalImageAction
      */
-    public function __construct($variantId, Image $image)
+    public static function ofVariantIdAndImage($variantId, Image $image, $context = null)
     {
-        $this->setAction('addExternalImage');
-        $this->setVariantId($variantId);
-        $this->setImage($image);
+        return static::of($context)->setVariantId($variantId)->setImage($image);
     }
 }

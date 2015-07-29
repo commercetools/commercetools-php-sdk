@@ -5,15 +5,15 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\Money;
 use Sphere\Core\Model\TaxCategory\TaxCategory;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CartAddCustomLineItemAction
  * @package Sphere\Core\Request\Carts\Command
- * @link http://dev.sphere.io/http-api-projects-carts.html#add-custom-line-item
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#add-custom-line-item
  * @method string getAction()
  * @method CartAddCustomLineItemAction setAction(string $action = null)
  * @method LocalizedString getName()
@@ -42,19 +42,37 @@ class CartAddCustomLineItemAction extends AbstractAction
     }
 
     /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('addCustomLineItem');
+    }
+
+    /**
      * @param LocalizedString $name
      * @param int $quantity
      * @param Money $money
      * @param string $slug
      * @param TaxCategory $taxCategory
+     * @param Context|callable $context
+     * @return CartAddCustomLineItemAction
      */
-    public function __construct(LocalizedString $name, $quantity, Money $money, $slug, TaxCategory $taxCategory)
-    {
-        $this->setAction('addCustomLineItem');
-        $this->setName($name);
-        $this->setQuantity($quantity);
-        $this->setMoney($money);
-        $this->setSlug($slug);
-        $this->setTaxCategory($taxCategory);
+    public static function ofNameQuantityMoneySlugAndTaxCategory(
+        LocalizedString $name,
+        $quantity,
+        Money $money,
+        $slug,
+        TaxCategory $taxCategory,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setName($name)
+            ->setQuantity($quantity)
+            ->setMoney($money)
+            ->setSlug($slug)
+            ->setTaxCategory($taxCategory);
     }
 }

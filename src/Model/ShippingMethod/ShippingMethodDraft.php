@@ -7,11 +7,9 @@ namespace Sphere\Core\Model\ShippingMethod;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
- * Class ShippingMethodDraft
  * @package Sphere\Core\Model\ShippingMethod
  * @method string getName()
  * @method ShippingMethodDraft setName(string $name = null)
@@ -23,14 +21,9 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
  * @method ShippingMethodDraft setZoneRates(ZoneRateCollection $zoneRates = null)
  * @method bool getIsDefault()
  * @method ShippingMethodDraft setIsDefault(bool $isDefault = null)
- * @codingStandardsIgnoreStart
- * @method static ShippingMethodDraft of($name, TaxCategoryReference $taxCategory, ZoneRateCollection $zoneRates, $isDefault)
- * @codingStandardsIgnoreEnd
  */
 class ShippingMethodDraft extends JsonObject
 {
-    use OfTrait;
-
     public function getFields()
     {
         return [
@@ -48,37 +41,19 @@ class ShippingMethodDraft extends JsonObject
      * @param ZoneRateCollection $zoneRates
      * @param bool $isDefault
      * @param Context|callable $context
+     * @return ShippingMethodDraft
      */
-    public function __construct(
+    public static function ofNameTaxCategoryZoneRateAndDefault(
         $name,
         TaxCategoryReference $taxCategory,
         ZoneRateCollection $zoneRates,
         $isDefault,
         $context = null
     ) {
-        $this->setContext($context)
+        return static::of($context)
             ->setName($name)
             ->setTaxCategory($taxCategory)
             ->setZoneRates($zoneRates)
             ->setIsDefault($isDefault);
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $draft = new static(
-            $data['name'],
-            TaxCategoryReference::fromArray($data['taxCategory']),
-            ZoneRateCollection::fromArray($data['zoneRates']),
-            $data['isDefault'],
-            $context
-        );
-        $draft->setRawData($data);
-
-        return $draft;
     }
 }

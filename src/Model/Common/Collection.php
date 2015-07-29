@@ -6,17 +6,13 @@
 namespace Sphere\Core\Model\Common;
 
 use Sphere\Core\Error\Message;
-use Traversable;
 
 /**
- * Class Collection
  * @package Sphere\Core\Model\Common
  */
 class Collection extends AbstractJsonDeserializeObject implements \Iterator, \JsonSerializable, \Countable, \ArrayAccess
 {
     use ContextTrait;
-
-    const DESERIALIZE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
 
     /**
      * @var string
@@ -31,7 +27,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
      * @param array $data
      * @param Context|callable $context
      */
-    public function __construct(array $data = [], $context = null)
+    final public function __construct(array $data = [], $context = null)
     {
         parent::__construct($data, $context);
         $this->indexData();
@@ -48,10 +44,13 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
     /**
      * @param string $type
      * @internal
+     * @return $this
      */
     public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
     }
 
     protected function indexData()
@@ -118,9 +117,23 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
     }
 
     /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $values = $this->rawData;
+        foreach ($this->typeData as $key => $value) {
+            if ($value instanceof JsonDeserializeInterface) {
+                $values[$key] = $value->toArray();
+            }
+        }
+
+        return $values;
+    }
+
+    /**
      * @param $offset
      * @return mixed
-     * @internal
      */
     public function getAt($offset)
     {
@@ -148,7 +161,8 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
         if (!$this->isValidType($type, $object)) {
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $offset, $type));
         }
-        if ($this->hasInterface(get_class($object))) {
+
+        if ($this->isDeserializable($object)) {
             /**
              * @var JsonDeserializeInterface $object
              */

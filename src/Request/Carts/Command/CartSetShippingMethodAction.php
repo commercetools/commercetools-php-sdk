@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\ShippingMethod\ShippingMethodReference;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CartSetShippingMethodAction
  * @package Sphere\Core\Request\Carts\Command
- * @link http://dev.sphere.io/http-api-projects-carts.html#set-shipping-method
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#set-shipping-method
  * @method string getAction()
  * @method CartSetShippingMethodAction setAction(string $action = null)
  * @method ShippingMethodReference getShippingMethod()
@@ -28,10 +28,12 @@ class CartSetShippingMethodAction extends AbstractAction
     }
 
     /**
-     * @param $code
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct()
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setShippingMethod');
     }
 }

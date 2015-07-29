@@ -21,7 +21,7 @@ class ProductProjectionCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testAddToIndex()
     {
-        $collection = new ProductProjectionCollection();
+        $collection = ProductProjectionCollection::of();
         $collection->add(new ProductProjection(['id' => '123456']));
 
         $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjection', $collection->getById('123456'));

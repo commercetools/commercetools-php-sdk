@@ -10,9 +10,8 @@ use Sphere\Core\Model\Order\ItemStateCollection;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class OrderImportCustomLineItemStateAction
  * @package Sphere\Core\Request\Orders\Command
- * @link http://dev.sphere.io/http-api-projects-orders.html#import-custom-line-item-state
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#import-custom-line-item-state
  * @method string getAction()
  * @method OrderImportCustomLineItemStateAction setAction(string $action = null)
  * @method string getCustomLineItemId()
@@ -23,16 +22,13 @@ use Sphere\Core\Request\AbstractAction;
 class OrderImportCustomLineItemStateAction extends AbstractAction
 {
     /**
-     * @param string $lineItemId
-     * @param ItemStateCollection $state
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($lineItemId, ItemStateCollection $state, Context $context = null)
+    public function __construct(array $data = [], $context = null)
     {
-        $this->setContext($context)
-            ->setAction('importCustomLineItemState')
-            ->setCustomLineItemId($lineItemId)
-            ->setState($state);
+        parent::__construct($data, $context);
+        $this->setAction('importCustomLineItemState');
     }
 
     public function getFields()
@@ -42,5 +38,16 @@ class OrderImportCustomLineItemStateAction extends AbstractAction
             'customLineItemId' => [static::TYPE => 'string'],
             'state' => [static::TYPE => '\Sphere\Core\Model\Order\ItemStateCollection']
         ];
+    }
+
+    /**
+     * @param string $customLineItemId
+     * @param ItemStateCollection $state
+     * @param Context|callable $context
+     * @return OrderImportCustomLineItemStateAction
+     */
+    public static function ofCustomLineItemIdAndState($customLineItemId, ItemStateCollection $state, $context = null)
+    {
+        return static::of($context)->setCustomLineItemId($customLineItemId)->setState($state);
     }
 }

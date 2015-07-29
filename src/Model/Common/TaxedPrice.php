@@ -7,9 +7,8 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class TaxedPrice
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-projects-carts.html#taxed-price
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#taxed-price
  * @method Money getTotalNet()
  * @method TaxedPrice setTotalNet(Money $totalNet = null)
  * @method Money getTotalGross()

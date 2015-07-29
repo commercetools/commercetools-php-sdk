@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Price;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductRemovePriceAction
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#remove-price
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#remove-price
  * @method string getAction()
  * @method ProductRemovePriceAction setAction(string $action = null)
  * @method Price getPrice()
@@ -33,11 +33,22 @@ class ProductRemovePriceAction extends AbstractAction
     }
 
     /**
-     * @param int $priceId
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($priceId)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('removePrice');
-        $this->setPriceId($priceId);
+    }
+
+    /**
+     * @param int $priceId
+     * @param Context|callable $context
+     * @return ProductRemovePriceAction
+     */
+    public static function ofPriceId($priceId, $context = null)
+    {
+        return static::of($context)->setPriceId($priceId);
     }
 }

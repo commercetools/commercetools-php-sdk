@@ -8,11 +8,9 @@ namespace Sphere\Core\Model\CartDiscount;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
- * Class CartDiscountDraft
  * @package Sphere\Core\Model\CartDiscount
  * @method LocalizedString getName()
  * @method CartDiscountDraft setName(LocalizedString $name = null)
@@ -34,47 +32,54 @@ use Sphere\Core\Model\Common\DateTimeDecorator;
  * @method CartDiscountDraft setValidUntil(\DateTime $validUntil = null)
  * @method bool getRequiresDiscountCode()
  * @method CartDiscountDraft setRequiresDiscountCode(bool $requiresDiscountCode = null)
- * @codingStandardsIgnoreStart
- * @method static CartDiscountDraft of(LocalizedString $name, CartDiscountValue $value, $cartPredicate, CartDiscountTarget $target, $sortOrder, $isActive, $requiresDiscountCode)
- * @codingStandardsIgnoreEnd
  */
 class CartDiscountDraft extends JsonObject
 {
-    use OfTrait;
+    const NAME = 'name';
+    const DESCRIPTION = 'description';
+    const VALUE = 'value';
+    const CART_PREDICATE = 'cartPredicate';
+    const TARGET = 'target';
+    const SORT_ORDER = 'sortOrder';
+    const IS_ACTIVE = 'isActive';
+    const VALID_FROM = 'validFrom';
+    const VALID_UNTIL = 'validUntil';
+    const REQUIRES_DISCOUNT_CODE = 'requiresDiscountCode';
 
     public function getFields()
     {
         return [
-            'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'value' => [static::TYPE => '\Sphere\Core\Model\CartDiscount\CartDiscountValue'],
-            'cartPredicate' => [static::TYPE => 'string'],
-            'target' => [static::TYPE => '\Sphere\Core\Model\CartDiscount\CartDiscountTarget'],
-            'sortOrder' => [static::TYPE => 'string'],
-            'isActive' => [static::TYPE => 'bool'],
-            'validFrom' => [
+            static::NAME => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            static::DESCRIPTION => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            static::VALUE => [static::TYPE => '\Sphere\Core\Model\CartDiscount\CartDiscountValue'],
+            static::CART_PREDICATE => [static::TYPE => 'string'],
+            static::TARGET => [static::TYPE => '\Sphere\Core\Model\CartDiscount\CartDiscountTarget'],
+            static::SORT_ORDER => [static::TYPE => 'string'],
+            static::IS_ACTIVE => [static::TYPE => 'bool'],
+            static::VALID_FROM => [
                 static::TYPE => '\DateTime',
                 static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
             ],
-            'validUntil' => [
+            static::VALID_UNTIL  => [
                 static::TYPE => '\DateTime',
                 static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
             ],
-            'requiresDiscountCode' => [static::TYPE => 'bool'],
+            static::REQUIRES_DISCOUNT_CODE => [static::TYPE => 'bool'],
         ];
     }
 
     /**
      * @param LocalizedString $name
      * @param CartDiscountValue $value
-     * @param $cartPredicate
+     * @param string $cartPredicate
      * @param CartDiscountTarget $target
-     * @param $sortOrder
-     * @param $isActive
-     * @param $requiresDiscountCode
+     * @param string $sortOrder
+     * @param bool $isActive
+     * @param bool $requiresDiscountCode
      * @param Context|callable $context
+     * @return CartDiscountDraft
      */
-    public function __construct(
+    public function ofNameValuePredicateTargetOrderActiveAndDiscountCode(
         LocalizedString $name,
         CartDiscountValue $value,
         $cartPredicate,
@@ -84,35 +89,13 @@ class CartDiscountDraft extends JsonObject
         $requiresDiscountCode,
         $context = null
     ) {
-        $this->setContext($context)
-            ->setName($name)
+        $draft = static::of($context);
+        return $draft->setName($name)
             ->setValue($value)
             ->setCartPredicate($cartPredicate)
             ->setTarget($target)
             ->setSortOrder($sortOrder)
             ->setIsActive($isActive)
-            ->setRequiresDiscountCode($requiresDiscountCode)
-        ;
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $draft = new static(
-            LocalizedString::fromArray($data['name']),
-            CartDiscountValue::fromArray($data['value']),
-            $data['cartPredicate'],
-            CartDiscountTarget::fromArray($data['target']),
-            $data['sortOrder'],
-            $data['isActive'],
-            $data['requiresDiscountCode']
-        );
-        $draft->setRawData($data);
-
-        return $draft;
+            ->setRequiresDiscountCode($requiresDiscountCode);
     }
 }

@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Categories\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CategorySetMetaTitleAction
  * @package Sphere\Core\Request\Categories\Command
- * @link http://dev.sphere.io/http-api-projects-categories.html#set-meta-title
+ * @apidoc http://dev.sphere.io/http-api-projects-categories.html#set-meta-title
  * @method string getAction()
  * @method CategorySetMetaTitleAction setAction(string $action = null)
  * @method LocalizedString getMetaTitle()
@@ -28,10 +28,12 @@ class CategorySetMetaTitleAction extends AbstractAction
     }
 
     /**
-     *
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct()
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setMetaTitle');
     }
 }

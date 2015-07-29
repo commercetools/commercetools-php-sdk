@@ -11,9 +11,8 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class ProductData
  * @package Sphere\Core\Model\Product
- * @link http://dev.sphere.io/http-api-projects-products.html#product-data
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-data
  * @method LocalizedString getName()
  * @method ProductData setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()

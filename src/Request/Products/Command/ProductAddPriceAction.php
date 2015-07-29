@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Price;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductAddPriceAction
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#add-price
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#add-price
  * @method string getAction()
  * @method ProductAddPriceAction setAction(string $action = null)
  * @method int getVariantId()
@@ -34,13 +34,23 @@ class ProductAddPriceAction extends AbstractAction
     }
 
     /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('addPrice');
+    }
+
+    /**
      * @param int $variantId
      * @param Price $price
+     * @param Context|callable $context
+     * @return ProductAddPriceAction
      */
-    public function __construct($variantId, Price $price)
+    public static function ofVariantIdAndPrice($variantId, Price $price, $context = null)
     {
-        $this->setAction('addPrice');
-        $this->setVariantId($variantId);
-        $this->setPrice($price);
+        return static::of($context)->setVariantId($variantId)->setPrice($price);
     }
 }

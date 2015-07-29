@@ -5,13 +5,12 @@
 
 namespace Sphere\Core\Model\ShippingMethod;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
- * Class ShippingMethod
  * @package Sphere\Core\Model\ShippingMethod
- * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-method
+ * @apidoc http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-method
  * @method string getId()
  * @method ShippingMethod setId(string $id = null)
  * @method int getVersion()
@@ -31,7 +30,7 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
  * @method bool getIsDefault()
  * @method ShippingMethod setIsDefault(bool $isDefault = null)
  */
-class ShippingMethod extends Document
+class ShippingMethod extends Resource
 {
     public function getFields()
     {

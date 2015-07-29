@@ -7,18 +7,21 @@
 namespace Sphere\Core\Request\Products;
 
 use Psr\Http\Message\ResponseInterface;
+use Sphere\Core\Client;
 use Sphere\Core\Model\Common\Collection;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractProjectionRequest;
 use Sphere\Core\Request\PageTrait;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ResourceResponse;
+use Sphere\Core\Model\Product\SuggestionCollection;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ProductsSearchRequest
  * @package Sphere\Core\Request\Products
- * @link http://dev.sphere.io/http-api-projects-products-search.html#suggest-query
- * @method static ProductsSuggestRequest of(LocalizedString $keywords)
+ * @apidoc http://dev.sphere.io/http-api-projects-products-search.html#suggest-query
+ * @method ResourceResponse executeWithClient(Client $client)
+ * @method SuggestionCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductsSuggestRequest extends AbstractProjectionRequest
 {
@@ -37,10 +40,29 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
      */
     public function __construct(LocalizedString $keywords = null, Context $context = null)
     {
-        parent::__construct(ProductSearchEndpoint::endpoint(), $context);
+        parent::__construct(ProductProjectionEndpoint::endpoint(), $context);
         if (!is_null($keywords)) {
             $this->addKeywords($keywords);
         }
+    }
+
+    /**
+     * @param Context $context
+     * @return static
+     */
+    public static function of(Context $context = null)
+    {
+        return new static(null, $context);
+    }
+
+    /**
+     * @param LocalizedString $keywords
+     * @param Context $context
+     * @return static
+     */
+    public static function ofKeywords(LocalizedString $keywords, Context $context = null)
+    {
+        return new static($keywords, $context);
     }
 
     /**
@@ -115,11 +137,11 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
 
     /**
      * @param ResponseInterface $response
-     * @return SingleResourceResponse
+     * @return ResourceResponse
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 
     /**

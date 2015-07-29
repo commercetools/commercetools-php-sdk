@@ -5,7 +5,6 @@
 
 namespace Sphere\Core\Request\Orders;
 
-
 use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\HttpRequestInterface;
@@ -13,12 +12,14 @@ use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Response\AbstractApiResponse;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ResourceResponse;
+use Sphere\Core\Model\Order\Order;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class OrderCreateFromCartRequest
  * @package Sphere\Core\Request\Orders
- * @link http://dev.sphere.io/http-api-projects-orders.html#create-order-from-cart
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#create-order-from-cart
+ * @method Order mapResponse(ApiResponseInterface $response)
  */
 class OrderCreateFromCartRequest extends AbstractApiRequest
 {
@@ -122,13 +123,24 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
+     * @param string $cartId
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofCartIdAndVersion($cartId, $version, Context $context = null)
+    {
+        return new static($cartId, $version, $context);
+    }
+
+    /**
      * @param ResponseInterface $response
      * @return AbstractApiResponse
      * @internal
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 
     /**

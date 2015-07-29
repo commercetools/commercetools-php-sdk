@@ -7,9 +7,8 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class Image
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-projects-products.html#product-images
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-images
  * @method string getUrl()
  * @method Image setUrl(string $url = null)
  * @method ImageDimension getDimensions()

@@ -1,7 +1,7 @@
 ![SPHERE.IO icon](https://admin.sphere.io/assets/images/sphere_logo_rgb_long.png)
 # SPHERE.IO PHP SDK
 
-> STATUS: technically robust beta version, but we do not yet guarantee API compatibility until the 1.0.0 release.  Please take your time to thoroughly test the upcoming RC (Milestone 4) release. 
+> STATUS: technically robust beta version, but we do not yet guarantee API compatibility until the 1.0.0 release.  Please take your time to thoroughly test the upcoming RC (Milestone 4) release.
 > See the [Milestone Plan](https://github.com/sphereio/sphere-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned in detail. We love feedback and [Issue reports](https://github.com/sphereio/sphere-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
 
 [![Build Status](https://img.shields.io/travis/sphereio/sphere-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/sphereio/sphere-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk)
@@ -11,9 +11,16 @@ It also manages the OAuth2 security, provides caches and an interface for concur
 
 The SDK is licensed under the permissive [MIT License](LICENSE). Don't hesitate to [contribute](#contribute)!
 
-## Install & Integrate the SDK into your Project
 
-The SDK requires a PHP version of 5.4 or higher with the apc(u) PHP extension for its default cache. If you provide an own Cache interface, apc(u) is not necessary. The curl extension is recommended but not strictly necessary because the SDK is using the [Guzzle library](https://github.com/guzzle/guzzle) library, which falls back to PHP stream wrappers if curl is not available.
+## Using the SDK
+
+The [PHP API documentation](http://sphereio.github.io/sphere-php-sdk/docs/master) provides all the details you need in a searchable form.
+
+### Install & Integrate the SDK into your Project
+
+The SDK requires a PHP version of 5.4 or higher with the apc(u) PHP extension for its default cache. If you provide an own Cache interface, apc(u) is not necessary.
+The curl extension is recommended but not strictly necessary because the SDK is using the [Guzzle library](https://github.com/guzzle/guzzle) library, which falls back to PHP stream wrappers if curl is not available.
+The intl extension is required to directly output Money objects as a String.
 
 The recommended way to install the SDK is through [Composer](http://getcomposer.org).
 
@@ -42,9 +49,7 @@ With composer just run `composer update sphere/php-sdk` to update to compatible 
 
 Please read the [Changelog](CHANGELOG.md) before updating in any case.
 
-## Use the SDK
-
-The [PHP API documentation](http://sphereio.github.io/sphere-php-sdk/docs/master) provides all the details you need in a searchable form.
+### Getting started
 
 To get up and running, [create a free test project](http://admin.sphere.io) to get a SPHERE project with API credentials (Menu "Developers"->"API Clients").
 
@@ -53,7 +58,7 @@ To get up and running, [create a free test project](http://admin.sphere.io) to g
 
 require '../vendor/autoload.php';
 
-use Sphere\Core\Request\Products\ProductsSearchRequest;
+use Sphere\Core\Request\Products\ProductProjectionSearchRequest;
 use Sphere\Core\Client;
 
 $config = [
@@ -67,7 +72,7 @@ $config = [
  * execute the request and get the PHP Object
  * (the client can and should be re-used)
  */
-$search = ProductsSearchRequest::of()->addParam('text.en', 'red');
+$search = ProductProjectionSearchRequest::of()->addParam('text.en', 'red');
 
 $client = new Client($config);
 $products = $client->execute($search)->toObject();
@@ -88,9 +93,8 @@ In real world, you will not put your API credentials directly into code but use 
 
 ## Improve & Contribute to the SDK project
 
-prepare your development environment (if necessary).
-
-Mac OS X, assuming [Homebrew](http://brew.sh) is installed, do the following:
+### Mac OS X preparations:
+assuming [Homebrew](http://brew.sh) is installed, do the following:
 
 ```sh
 xcode-select --install
@@ -108,7 +112,18 @@ echo "date.timezone='Europe/Berlin'" >> /usr/local/etc/php/5.5/conf.d/60-user.in
 php composer.phar update
 ```
 
-Linux users install php 5.4+, apc(u), xdebug and ant according to their distro's package system.
+### Linux preparations :
+ * install php 5.4+, apc(u), xdebug and ant according to their distro's package system. 
+ * make sure the curl, intl, mbstring, apcu and openssl extensions are activated in php.ini
+
+### Windows preparations:
+ * [install php](http://windows.php.net/download/) 5.4+, i.e. extract ZIP and make add php.exe location to your PATH. Use WAMP etc. if you like, but plain PHP commandline is all you really need (you can test example code in the built-in webserver).
+ * enable the curl, intl, mbstring and openssl extenstions in php.ini
+ * [install apcu](http://robert-rusu.blogspot.de/2014/06/install-apcu-on-windows.html) OR a redis extension and server
+ * make a working ant available in the PATH 
+ * and [install composer](https://getcomposer.org/doc/00-intro.md#installation-windows). 
+
+### Start working:
 
 Clone the develop branch of the repository (we're using the [gitflow](http://nvie.com/posts/a-successful-git-branching-model/) branching model, so master is for releases only):
 
@@ -144,7 +159,7 @@ php -S localhost:8000 -t docroot
 
 Now navigate to [http://localhost:8000](http://localhost:8000) in your browser.
 
-### phpStorm
+### phpStorm configuration
 
 To enable code style checks directly in phpStorm you have to configure the path to the phpcs at Preferences > Languages & Frameworks > PHP > Code Sniffer.
 Now you can enable at Preferences > Editor > Inspections > PHP the "PHP code sniffer validation" with PSR-2 standard. Change the severity if needed.

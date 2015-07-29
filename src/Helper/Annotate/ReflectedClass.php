@@ -6,7 +6,6 @@
 namespace Sphere\Core\Helper\Annotate;
 
 /**
- * Class ReflectedClass
  * @package Sphere\Core\Helper\Annotate
  */
 class ReflectedClass
@@ -138,7 +137,12 @@ class ReflectedClass
     public function addUse($className, $alias = null)
     {
         $className = trim($className, '\\');
-        if (strpos($className, $this->namespace . '\\') === false && !isset($this->uses[$className])) {
+        try {
+            $reflect = new \ReflectionClass($className);
+        } catch (\ReflectionException $e) {
+            return;
+        }
+        if ($reflect->getNamespaceName() !== $this->namespace && !isset($this->uses[$className])) {
             $this->uses[$className] = [
                 'class' => $className,
                 'alias' => $alias

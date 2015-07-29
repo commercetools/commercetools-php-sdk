@@ -5,12 +5,12 @@
 
 namespace Sphere\Core\Request\Customers\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerSetDefaultShippingAddressAction
  * @package Sphere\Core\Request\Customers\Command
- * @link http://dev.sphere.io/http-api-projects-customers.html#set-default-shipping-address
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#set-default-shipping-address
  * @method string getAddressId()
  * @method CustomerSetDefaultShippingAddressAction setAddressId(string $addressId = null)
  * @method string getAction()
@@ -26,8 +26,13 @@ class CustomerSetDefaultShippingAddressAction extends AbstractAction
         ];
     }
 
-    public function __construct()
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setDefaultShippingAddress');
     }
 }

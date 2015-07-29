@@ -6,6 +6,7 @@
 namespace Sphere\Core\Helper\Annotate;
 
 use Sphere\Core\Model\Common\JsonObject;
+use Sphere\Core\Request\AbstractApiRequest;
 
 class ClassAnnotator
 {
@@ -19,21 +20,7 @@ class ClassAnnotator
     public function __construct($className)
     {
         $this->class = new ReflectedClass($className);
-        $this->reflect();
     }
-
-    /**
-     *
-     */
-    public function reflect()
-    {
-        if ($this->class->isAbstract()) {
-            return;
-        }
-
-        $this->reflectFields();
-    }
-
 
     /**
      * @return array
@@ -41,6 +28,9 @@ class ClassAnnotator
     protected function reflectFields()
     {
         $reflectionClass = new \ReflectionClass($this->class->getClassName());
+        if (!$reflectionClass->hasMethod('getFields')) {
+            return;
+        }
         $reflectionMethod = $reflectionClass->getMethod('getFields');
 
         $classObject = $reflectionClass->newInstanceWithoutConstructor();
@@ -82,6 +72,77 @@ class ClassAnnotator
         }
     }
 
+    protected function reflectElementType()
+    {
+        $reflectionClass = new \ReflectionClass($this->class->getClassName());
+        if (!$reflectionClass->hasMethod('getType')) {
+            return;
+        }
+        $reflectionMethod = $reflectionClass->getMethod('getType');
+
+        $classObject = $reflectionClass->newInstanceWithoutConstructor();
+        $elementType = $reflectionMethod->invoke($classObject);
+
+        if ($elementType && !$this->isPrimitive($elementType)) {
+            $elementTypeClass = new \ReflectionClass($elementType);
+            $this->class->addUse($elementType);
+            $getAtMethod = $reflectionClass->getMethod('getAt');
+            if ($getAtMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
+                $this->class->addMagicMethod(
+                    'getAt',
+                    ['$offset'],
+                    $elementTypeClass->getShortName(),
+                    null,
+                    null,
+                    false,
+                    true
+                );
+
+            }
+            $current = $reflectionClass->getMethod('current');
+            if ($current->getDeclaringClass()->getName() != $this->class->getClassName()) {
+                $this->class->addMagicMethod(
+                    'current',
+                    [],
+                    $elementTypeClass->getShortName(),
+                    null,
+                    null,
+                    false,
+                    true
+                );
+            }
+        }
+    }
+
+    protected function reflectResultClass()
+    {
+        $reflectionClass = new \ReflectionClass($this->class->getClassName());
+        if (!$reflectionClass->hasMethod('getResultClass')) {
+            return;
+        }
+        $reflectionMethod = $reflectionClass->getMethod('getResultClass');
+
+        $classObject = $reflectionClass->newInstanceWithoutConstructor();
+        $resultClass = $reflectionMethod->invoke($classObject);
+
+        $resultClassReflection = new \ReflectionClass($resultClass);
+        $this->class->addUse($resultClass);
+        $mapResponseMethod = $reflectionClass->getMethod('mapResponse');
+        if ($mapResponseMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
+            $this->class->addUse('\Sphere\Core\Response\ApiResponseInterface');
+            $this->class->addMagicMethod(
+                'mapResponse',
+                ['ApiResponseInterface $response'],
+                $resultClassReflection->getShortName(),
+                null,
+                null,
+                false,
+                true
+            );
+
+        }
+    }
+
     /**
      *
      */
@@ -91,24 +152,27 @@ class ClassAnnotator
             return;
         }
 
+        $this->reflectFields();
         $this->annotate();
     }
 
-    public function generateOfMethod()
+    public function generateCurrentMethod()
     {
         if ($this->class->isAbstract()) {
             return;
         }
 
-        $this->class->addMagicMethod(
-            'of',
-            $this->class->getConstructorArgs(),
-            $this->class->getShortClassName(),
-            null,
-            null,
-            true,
-            true
-        );
+        $this->reflectElementType();
+        $this->annotate();
+    }
+
+    public function generateMapResponseMethod()
+    {
+        if ($this->class->isAbstract()) {
+            return;
+        }
+
+        $this->reflectResultClass();
         $this->annotate();
     }
 
@@ -139,8 +203,6 @@ class ClassAnnotator
         }
         $classHead[] = '';
         $classHead[] = '/**';
-
-        $classHead[] = ' * Class ' . $this->class->getShortClassName();
         $classHead[] = ' * @package ' . $this->class->getNamespace();
         $docBlockLines = $this->class->getDocBlockLines();
         foreach ($docBlockLines as $lineNr => $line) {

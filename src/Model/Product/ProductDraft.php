@@ -10,14 +10,11 @@ use Sphere\Core\Model\Category\CategoryReferenceCollection;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\ProductType\ProductTypeReference;
 use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
- * Class ProductDraft
  * @package Sphere\Core\Model\Product
- * @method static ProductDraft of(ProductTypeReference $productType, LocalizedString $name, LocalizedString $slug)
  * @method LocalizedString getName()
  * @method ProductDraft setName(LocalizedString $name = null)
  * @method LocalizedString getSlug()
@@ -45,8 +42,6 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
  */
 class ProductDraft extends JsonObject
 {
-    use OfTrait;
-
     public function getFields()
     {
         return [
@@ -70,34 +65,17 @@ class ProductDraft extends JsonObject
      * @param LocalizedString $name
      * @param LocalizedString $slug
      * @param Context|callable $context
+     * @return ProductDraft
      */
-    public function __construct(
+    public static function ofTypeNameAndSlug(
         ProductTypeReference $productType,
         LocalizedString $name,
         LocalizedString $slug,
         $context = null
     ) {
-        $this->setContext($context);
-        $this->setName($name);
-        $this->setProductType($productType);
-        $this->setSlug($slug);
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $draft = new static(
-            ProductTypeReference::fromArray($data['productType'], $context),
-            LocalizedString::fromArray($data['name'], $context),
-            LocalizedString::fromArray($data['slug'], $context),
-            $context
-        );
-        $draft->setRawData($data);
-
-        return $draft;
+        $draft = static::of($context);
+        return $draft->setProductType($productType)
+            ->setName($name)
+            ->setSlug($slug);
     }
 }

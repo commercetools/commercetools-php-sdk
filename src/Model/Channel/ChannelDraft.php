@@ -7,11 +7,9 @@ namespace Sphere\Core\Model\Channel;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\OfTrait;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class ChannelDraft
  * @package Sphere\Core\Model\Channel
  * @method string getKey()
  * @method ChannelDraft setKey(string $key = null)
@@ -21,12 +19,9 @@ use Sphere\Core\Model\Common\LocalizedString;
  * @method ChannelDraft setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
  * @method ChannelDraft setDescription(LocalizedString $description = null)
- * @method static ChannelDraft of($key)
  */
 class ChannelDraft extends JsonObject
 {
-    use OfTrait;
-
     public function getFields()
     {
         return [
@@ -40,24 +35,10 @@ class ChannelDraft extends JsonObject
     /**
      * @param string $key
      * @param Context|callable $context
+     * @return ChannelDraft
      */
-    public function __construct($key, $context = null)
+    public static function ofKey($key, $context = null)
     {
-        $this->setContext($context)->setKey($key);
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $draft = new static(
-            $data['key']
-        );
-        $draft->setRawData($data);
-
-        return $draft;
+        return static::of($context)->setKey($key);
     }
 }

@@ -9,7 +9,6 @@ namespace Sphere\Core\Cache;
 use Doctrine\Common\Cache\Cache;
 
 /**
- * Class DoctrineCacheAdapter
  * @package Sphere\Core\Cache
  */
 class DoctrineCacheAdapter extends AbstractCacheAdapter

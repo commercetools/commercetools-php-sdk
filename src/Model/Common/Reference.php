@@ -8,10 +8,8 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class Reference
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-types.html#reference
- * @method static Reference of($typeId, $id)
+ * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method string getId()
  * @method Reference setTypeId(string $typeId = null)
@@ -21,44 +19,29 @@ namespace Sphere\Core\Model\Common;
  */
 class Reference extends JsonObject
 {
-    use OfTrait;
+    const TYPE_ID = 'typeId';
+    const ID = 'id';
+    const OBJ = 'obj';
 
     public function getFields()
     {
         return [
-            'typeId' => [self::TYPE => 'string'],
-            'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => '\Sphere\Core\Model\Common\JsonObject']
+            static::TYPE_ID => [self::TYPE => 'string'],
+            static::ID => [self::TYPE => 'string'],
+            static::OBJ => [static::TYPE => '\Sphere\Core\Model\Common\JsonObject']
         ];
     }
 
     /**
-     * @param string $typeId
-     * @param string $id
+     * @param $type
+     * @param $id
      * @param Context|callable $context
+     * @return Reference
      */
-    public function __construct($typeId, $id, $context = null)
+    public static function ofTypeAndId($type, $id, $context = null)
     {
-        $this->setContext($context);
-        $this->setTypeId($typeId);
-        $this->setId($id);
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $reference = new static(
-            $data['typeId'],
-            $data['id'],
-            $context
-        );
-        $reference->setRawData($data);
-
-        return $reference;
+        $reference = static::of($context);
+        return $reference->setTypeId($type)->setId($id);
     }
 
     public function jsonSerialize()

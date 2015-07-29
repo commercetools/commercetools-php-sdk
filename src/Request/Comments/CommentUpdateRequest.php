@@ -5,14 +5,15 @@
 
 namespace Sphere\Core\Request\Comments;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\Comment\Comment;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CommentUpdateRequest
  * @package Sphere\Core\Request\Comments
- * @link http://dev.sphere.io/http-api-projects-comments.html#update-comment
+ * @apidoc http://dev.sphere.io/http-api-projects-comments.html#update-comment
+ * @method Comment mapResponse(ApiResponseInterface $response)
  */
 class CommentUpdateRequest extends AbstractUpdateRequest
 {
@@ -27,5 +28,16 @@ class CommentUpdateRequest extends AbstractUpdateRequest
     public function __construct($id, $version, array $actions = [], Context $context = null)
     {
         parent::__construct(CommentsEndpoint::endpoint(), $id, $version, $actions, $context);
+    }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdAndVersion($id, $version, Context $context = null)
+    {
+        return new static($id, $version, [], $context);
     }
 }

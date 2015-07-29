@@ -5,14 +5,15 @@
 
 namespace Sphere\Core\Request\Reviews;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\Review\Review;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class ReviewUpdateRequest
  * @package Sphere\Core\Request\Reviews
- * @link http://dev.sphere.io/http-api-projects-reviews.html#update-review
+ * @apidoc http://dev.sphere.io/http-api-projects-reviews.html#update-review
+ * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewUpdateRequest extends AbstractUpdateRequest
 {
@@ -27,5 +28,16 @@ class ReviewUpdateRequest extends AbstractUpdateRequest
     public function __construct($id, $version, array $actions = [], Context $context = null)
     {
         parent::__construct(ReviewsEndpoint::endpoint(), $id, $version, $actions, $context);
+    }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdAndVersion($id, $version, Context $context = null)
+    {
+        return new static($id, $version, [], $context);
     }
 }

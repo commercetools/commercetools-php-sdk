@@ -5,14 +5,15 @@
 
 namespace Sphere\Core\Request\Orders;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\Order\Order;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class OrderUpdateRequest
  * @package Sphere\Core\Request\Orders
- * @link http://dev.sphere.io/http-api-projects-orders.html#update-order
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#update-order
+ * @method Order mapResponse(ApiResponseInterface $response)
  */
 class OrderUpdateRequest extends AbstractUpdateRequest
 {
@@ -27,5 +28,16 @@ class OrderUpdateRequest extends AbstractUpdateRequest
     public function __construct($id, $version, array $actions = [], Context $context = null)
     {
         parent::__construct(OrdersEndpoint::endpoint(), $id, $version, $actions, $context);
+    }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdAndVersion($id, $version, Context $context = null)
+    {
+        return new static($id, $version, [], $context);
     }
 }

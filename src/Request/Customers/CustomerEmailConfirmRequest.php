@@ -6,21 +6,22 @@
 
 namespace Sphere\Core\Request\Customers;
 
-use GuzzleHttp\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ApiResponseInterface;
+use Sphere\Core\Model\Customer\Customer;
 
 /**
- * Class CustomerEmailConfirmRequest
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#verify-customers-email
- * @method static CustomerEmailConfirmRequest of(string $id, int $version, string $tokenValue)
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#verify-customers-email
+ * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerEmailConfirmRequest extends AbstractUpdateRequest
 {
+    protected $resultClass = '\Sphere\Core\Model\Customer\Customer';
+
     const ID = 'id';
     const TOKEN_VALUE = 'tokenValue';
 
@@ -41,6 +42,18 @@ class CustomerEmailConfirmRequest extends AbstractUpdateRequest
         $this->setId($id);
         $this->setVersion($version);
         $this->tokenValue = $tokenValue;
+    }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param string $tokenValue
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdVersionAndToken($id, $version, $tokenValue, Context $context = null)
+    {
+        return new static($id, $version, $tokenValue, $context);
     }
 
     /**

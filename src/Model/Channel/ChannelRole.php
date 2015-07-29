@@ -7,9 +7,8 @@ namespace Sphere\Core\Model\Channel;
 
 
 /**
- * Class ChannelRole
  * @package Sphere\Core\Model\Channel
- * @link http://dev.sphere.io/http-api-projects-channels.html#channel-role-enum
+ * @apidoc http://dev.sphere.io/http-api-projects-channels.html#channel-role-enum
  */
 class ChannelRole
 {
@@ -17,4 +16,5 @@ class ChannelRole
     const ORDER_EXPORT = 'OrderExport';
     const ORDER_IMPORT = 'OrderImport';
     const PRIMARY = 'Primary';
+    const PRODUCT_DISTRIBUTION = 'ProductDistribution';
 }

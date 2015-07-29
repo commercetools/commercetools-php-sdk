@@ -24,13 +24,13 @@ class CustomObjectCreateRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::CUSTOM_OBJECT_CREATE_REQUEST, [$this->getObject()]);
+        $result = $this->mapResult(CustomObjectCreateRequest::ofObject($this->getObject()));
         $this->assertInstanceOf('\Sphere\Core\Model\CustomObject\CustomObject', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::CUSTOM_OBJECT_CREATE_REQUEST, [$this->getObject()]);
+        $result = $this->mapEmptyResult(CustomObjectCreateRequest::ofObject($this->getObject()));
         $this->assertNull($result);
     }
 }

@@ -1,8 +1,12 @@
 Feature: I want to create a new cart
   Background:
-    Given i have a "cart" draft
-    And the currency is "EUR"
-    And set the "customerId" to "customer-1"
+    Given i have a "cart" draft with values
+    """
+    {
+      "currency": "EUR",
+      "customerId": "customer-1"
+    }
+    """
 
   Scenario: create a anonymous cart
     When i want to create a "cart"

@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Customers\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerSetCustomerGroupAction
  * @package Sphere\Core\Request\Customers\Command
- * @link http://dev.sphere.io/http-api-projects-customers.html#set-customer-group
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#set-customer-group
  * @method CustomerGroupReference getCustomerGroup()
  * @method CustomerSetCustomerGroupAction setCustomerGroup(CustomerGroupReference $customerGroup = null)
  * @method string getAction()
@@ -27,8 +27,13 @@ class CustomerSetCustomerGroupAction extends AbstractAction
         ];
     }
 
-    public function __construct()
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setCustomerGroup');
     }
 }

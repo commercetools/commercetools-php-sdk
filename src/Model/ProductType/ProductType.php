@@ -5,12 +5,11 @@
 
 namespace Sphere\Core\Model\ProductType;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 
 /**
- * Class ProductType
  * @package Sphere\Core\Model\ProductType
- * @link http://dev.sphere.io/http-api-projects-productTypes.html#product-type
+ * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#product-type
  * @method string getId()
  * @method ProductType setId(string $id = null)
  * @method int getVersion()
@@ -26,7 +25,7 @@ use Sphere\Core\Model\Common\Document;
  * @method AttributeDefinitionCollection getAttributes()
  * @method ProductType setAttributes(AttributeDefinitionCollection $attributes = null)
  */
-class ProductType extends Document
+class ProductType extends Resource
 {
     /**
      * @return array

@@ -8,13 +8,10 @@ namespace Sphere\Core\Model\State;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
-use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class StateReference
  * @package Sphere\Core\Model\State
- * @link http://dev.sphere.io/http-api-types.html#reference
- * @method static StateReference of(string $id)
+ * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method StateReference setTypeId(string $typeId = null)
  * @method string getId()
@@ -24,25 +21,24 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  */
 class StateReference extends Reference
 {
-    use ReferenceFromArrayTrait;
-
     const TYPE_STATE = 'state';
 
     public function getFields()
     {
-        return [
-            'typeId' => [self::TYPE => 'string'],
-            'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => '\Sphere\Core\Model\State\State']
-        ];
+        $fields = parent::getFields();
+        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\State\State'];
+
+        return $fields;
     }
 
+
     /**
-     * @param string $id
+     * @param $id
      * @param Context|callable $context
+     * @return StateReference
      */
-    public function __construct($id, $context = null)
+    public static function ofId($id, $context = null)
     {
-        parent::__construct(static::TYPE_STATE, $id, $context);
+        return static::ofTypeAndId(static::TYPE_STATE, $id, $context);
     }
 }

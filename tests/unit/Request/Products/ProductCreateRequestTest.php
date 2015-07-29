@@ -17,22 +17,22 @@ class ProductCreateRequestTest extends RequestTestCase
 
     public function getProduct()
     {
-        return new ProductDraft(
-            new ProductTypeReference('id'),
-            new LocalizedString(['en' => 'productName']),
-            new LocalizedString(['en' => 'product-name'])
+        return ProductDraft::ofTypeNameAndSlug(
+            ProductTypeReference::ofId('id'),
+            LocalizedString::fromArray(['en' => 'productName']),
+            LocalizedString::fromArray(['en' => 'product-name'])
         );
     }
 
     public function testMapResult()
     {
-        $result = $this->mapResult(static::PRODUCT_CREATE_REQUEST, [$this->getProduct()]);
+        $result = $this->mapResult(ProductCreateRequest::ofDraft($this->getProduct()));
         $this->assertInstanceOf('\Sphere\Core\Model\Product\Product', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::PRODUCT_CREATE_REQUEST, [$this->getProduct()]);
+        $result = $this->mapEmptyResult(ProductCreateRequest::ofDraft($this->getProduct()));
         $this->assertNull($result);
     }
 }

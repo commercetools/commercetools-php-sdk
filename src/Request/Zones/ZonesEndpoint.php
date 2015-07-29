@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\Zones;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class ZonesEndpoint
  * @package Sphere\Core\Request\Zones
  */
 class ZonesEndpoint

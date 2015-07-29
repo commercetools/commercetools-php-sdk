@@ -13,9 +13,8 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 use Sphere\Core\Model\TaxCategory\TaxRate;
 
 /**
- * Class CustomLineItem
  * @package Sphere\Core\Model\Cart
- * @link http://dev.sphere.io/http-api-projects-carts.html#custom-line-item
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#custom-line-item
  * @method string getId()
  * @method CustomLineItem setId(string $id = null)
  * @method LocalizedString getName()

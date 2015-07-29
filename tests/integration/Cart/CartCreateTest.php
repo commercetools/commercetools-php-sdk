@@ -9,7 +9,7 @@ use Sphere\Core\ApiTestCase;
 use Sphere\Core\Model\Cart\Cart;
 use Sphere\Core\Model\Cart\CartDraft;
 use Sphere\Core\Request\Carts\CartCreateRequest;
-use Sphere\Core\Request\Carts\CartDeleteByIdRequest;
+use Sphere\Core\Request\Carts\CartDeleteRequest;
 
 class CartCreateTest extends ApiTestCase
 {
@@ -18,7 +18,7 @@ class CartCreateTest extends ApiTestCase
      */
     protected function getDraft()
     {
-        $draft = CartDraft::of('EUR')->setCountry('DE');
+        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
 
         return $draft;
     }
@@ -29,11 +29,11 @@ class CartCreateTest extends ApiTestCase
          * @var Cart $cart
          */
         $cartResponse = $this->getClient()
-            ->execute(CartCreateRequest::of($draft));
+            ->execute(CartCreateRequest::ofDraft($draft));
 
         $cart = $cartResponse->toObject();
 
-        $this->cleanupRequests[] = CartDeleteByIdRequest::of($cart->getId(), $cart->getVersion());
+        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
 
         return $cart;
     }

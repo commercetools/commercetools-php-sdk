@@ -92,6 +92,24 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('test?limit=1', (string)$httpRequest->getUri());
     }
 
+    public function testWithTotalTrue()
+    {
+        $request = $this->getQueryRequest();
+        $request->withTotal(true);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('test?withTotal=true', (string)$httpRequest->getUri());
+    }
+
+    public function testWithTotalFalse()
+    {
+        $request = $this->getQueryRequest();
+        $request->withTotal(false);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('test?withTotal=false', (string)$httpRequest->getUri());
+    }
+
     public function testOffset()
     {
         $request = $this->getQueryRequest();

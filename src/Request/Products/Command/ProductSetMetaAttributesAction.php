@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductSetMetaAttributesAction
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#set-meta-attributes
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#set-meta-attributes
  * @deprecated will be removed in RC1
  * @method string getAction()
  * @method ProductSetMetaAttributesAction setAction(string $action = null)
@@ -38,10 +38,12 @@ class ProductSetMetaAttributesAction extends AbstractAction
     }
 
     /**
-     *
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct()
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setMetaAttributes');
     }
 }

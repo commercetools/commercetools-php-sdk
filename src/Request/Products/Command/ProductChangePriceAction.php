@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Price;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductChangePriceAction
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#change-price
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#change-price
  * @method string getAction()
  * @method ProductChangePriceAction setAction(string $action = null)
  * @method Price getPrice()
@@ -34,13 +34,23 @@ class ProductChangePriceAction extends AbstractAction
     }
 
     /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('changePrice');
+    }
+
+    /**
      * @param int $priceId
      * @param Price $price
+     * @param Context|callable $context
+     * @return ProductChangePriceAction
      */
-    public function __construct($priceId, Price $price)
+    public static function ofPriceIdAndPrice($priceId, Price $price, $context = null)
     {
-        $this->setAction('changePrice');
-        $this->setPriceId($priceId);
-        $this->setPrice($price);
+        return static::of($context)->setPriceId($priceId)->setPrice($price);
     }
 }

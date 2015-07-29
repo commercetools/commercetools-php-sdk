@@ -9,9 +9,8 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class OrderSetReturnShipmentStateAction
  * @package Sphere\Core\Request\Orders\Command
- * @link http://dev.sphere.io/http-api-projects-orders.html#set-return-shipment-state
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#set-return-shipment-state
  * @method string getAction()
  * @method OrderSetReturnShipmentStateAction setAction(string $action = null)
  * @method string getReturnItemId()
@@ -22,16 +21,13 @@ use Sphere\Core\Request\AbstractAction;
 class OrderSetReturnShipmentStateAction extends AbstractAction
 {
     /**
-     * @param string $returnItemId
-     * @param string $shipmentState
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($returnItemId, $shipmentState, Context $context = null)
+    public function __construct(array $data = [], $context = null)
     {
-        $this->setContext($context)
-            ->setAction('setReturnShipmentState')
-            ->setReturnItemId($returnItemId)
-            ->setShipmentState($shipmentState);
+        parent::__construct($data, $context);
+        $this->setAction('setReturnShipmentState');
     }
 
     public function getFields()
@@ -41,5 +37,16 @@ class OrderSetReturnShipmentStateAction extends AbstractAction
             'returnItemId' => [static::TYPE => 'string'],
             'shipmentState' => [static::TYPE => 'string']
         ];
+    }
+
+    /**
+     * @param $returnItemId
+     * @param $shipmentState
+     * @param Context|callable $context
+     * @return OrderSetReturnShipmentStateAction
+     */
+    public static function ofReturnItemIdAndShipmentState($returnItemId, $shipmentState, $context = null)
+    {
+        return static::of($context)->setReturnItemId($returnItemId)->setShipmentState($shipmentState);
     }
 }

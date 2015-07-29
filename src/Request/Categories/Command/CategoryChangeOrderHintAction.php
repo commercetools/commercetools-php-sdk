@@ -5,12 +5,12 @@
 
 namespace Sphere\Core\Request\Categories\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CategoryChangeOrderHintAction
  * @package Sphere\Core\Request\Categories\Command
- * @link http://dev.sphere.io/http-api-projects-categories.html#change-order-hint
+ * @apidoc http://dev.sphere.io/http-api-projects-categories.html#change-order-hint
  * @method string getOrderHint()
  * @method CategoryChangeOrderHintAction setOrderHint(string $orderHint = null)
  * @method string getAction()
@@ -26,9 +26,23 @@ class CategoryChangeOrderHintAction extends AbstractAction
         ];
     }
 
-    public function __construct($orderHint)
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('changeOrderHint');
-        $this->setOrderHint($orderHint);
+    }
+
+    /**
+     * @param string $orderHint
+     * @param Context|callable $context
+     * @return CategoryChangeOrderHintAction
+     */
+    public static function ofOrderHint($orderHint, $context = null)
+    {
+        return static::of($context)->setOrderHint($orderHint);
     }
 }

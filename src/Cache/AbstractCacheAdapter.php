@@ -7,7 +7,6 @@
 namespace Sphere\Core\Cache;
 
 /**
- * Class AbstractCacheAdapter
  * @package Sphere\Core\Cache
  */
 abstract class AbstractCacheAdapter implements CacheAdapterInterface

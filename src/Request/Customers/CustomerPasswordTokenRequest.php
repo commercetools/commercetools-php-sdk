@@ -6,19 +6,19 @@
 
 namespace Sphere\Core\Request\Customers;
 
-
 use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ResourceResponse;
+use Sphere\Core\Model\Customer\CustomerToken;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CustomerPasswordTokenRequest
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#create-token-for-resetting-customers-password
- * @method static CustomerPasswordTokenRequest of(string $email)
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#create-token-for-resetting-customers-password
+ * @method CustomerToken mapResponse(ApiResponseInterface $response)
  */
 class CustomerPasswordTokenRequest extends AbstractApiRequest
 {
@@ -39,6 +39,18 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
     {
         parent::__construct(CustomersEndpoint::endpoint(), $context);
         $this->email = $email;
+    }
+
+    /**
+     * @param string $email
+     * @param Context $context
+     * @return static
+     */
+    public static function ofEmail(
+        $email,
+        Context $context = null
+    ) {
+        return new static($email, $context);
     }
 
     /**
@@ -64,11 +76,11 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
 
     /**
      * @param ResponseInterface $response
-     * @return SingleResourceResponse
+     * @return ResourceResponse
      * @internal
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 }

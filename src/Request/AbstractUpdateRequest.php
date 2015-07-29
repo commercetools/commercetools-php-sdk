@@ -13,10 +13,10 @@ use Sphere\Core\Client\JsonEndpoint;
 use Sphere\Core\Client\JsonRequest;
 use Sphere\Core\Error\Message;
 use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Model\Common\ContextAwareInterface;
+use Sphere\Core\Response\ResourceResponse;
 
 /**
- * Class AbstractUpdateRequest
  * @package Sphere\Core\Request
  */
 abstract class AbstractUpdateRequest extends AbstractApiRequest
@@ -68,8 +68,10 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
      */
     public function setActions(array $actions)
     {
-        $this->actions = $actions;
-        $this->logUpdateActionLimit();
+        $this->actions = [];
+        foreach ($actions as $action) {
+            $this->addAction($action);
+        }
 
         return $this;
     }
@@ -81,6 +83,9 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     public function addAction($action)
     {
         $this->actions[] = $action;
+        if ($action instanceof ContextAwareInterface) {
+            $action->setContextIfNull($this->getContextCallback());
+        }
         $this->logUpdateActionLimit();
 
         return $this;
@@ -159,11 +164,11 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
 
     /**
      * @param ResponseInterface $response
-     * @return SingleResourceResponse
+     * @return ResourceResponse
      * @internal
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 }

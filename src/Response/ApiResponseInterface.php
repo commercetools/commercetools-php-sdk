@@ -41,7 +41,7 @@ interface ApiResponseInterface
     /**
      * @param callable $onFulfilled
      * @param callable $onRejected
-     * @return AdapterPromiseInterface
+     * @return ApiResponseInterface
      */
     public function then(callable $onFulfilled = null, callable $onRejected = null);
 

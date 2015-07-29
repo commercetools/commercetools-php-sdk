@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductChangeSlugAction
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#change-slug
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#change-slug
  * @method string getAction()
  * @method ProductChangeSlugAction setAction(string $action = null)
  * @method LocalizedString getSlug()
@@ -31,11 +31,22 @@ class ProductChangeSlugAction extends AbstractAction
     }
 
     /**
-     * @param LocalizedString $slug
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(LocalizedString $slug)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('changeSlug');
-        $this->setSlug($slug);
+    }
+
+    /**
+     * @param LocalizedString $slug
+     * @param Context|callable $context
+     * @return ProductChangeSlugAction
+     */
+    public static function ofSlug(LocalizedString $slug, $context = null)
+    {
+        return static::of($context)->setSlug($slug);
     }
 }

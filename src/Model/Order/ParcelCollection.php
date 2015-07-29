@@ -5,9 +5,14 @@
 
 namespace Sphere\Core\Model\Order;
 
-
 use Sphere\Core\Model\Common\Collection;
 
+/**
+ * @package Sphere\Core\Model\Order
+ * 
+ * @method Parcel current()
+ * @method Parcel getAt($offset)
+ */
 class ParcelCollection extends Collection
 {
     protected $type = '\Sphere\Core\Model\Order\Parcel';

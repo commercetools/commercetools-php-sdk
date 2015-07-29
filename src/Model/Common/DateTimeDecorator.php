@@ -6,7 +6,6 @@
 namespace Sphere\Core\Model\Common;
 
 /**
- * Class DateTime
  * @package Sphere\Core\Model\Common
  */
 class DateTimeDecorator implements \JsonSerializable
@@ -17,10 +16,13 @@ class DateTimeDecorator implements \JsonSerializable
     protected $dateTime;
 
     /**
-     * @param \DateTime $dateTime
+     * @param \DateTime|string $dateTime
      */
-    public function __construct(\DateTime $dateTime = null)
+    public function __construct($dateTime = null)
     {
+        if (is_string($dateTime)) {
+            $dateTime = new \DateTime($dateTime);
+        }
         $this->setDateTime($dateTime);
     }
 

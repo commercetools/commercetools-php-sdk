@@ -6,12 +6,12 @@
 namespace Sphere\Core\Request\Products\Command;
 
 use Sphere\Core\Model\Category\CategoryReference;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductAddToCategoryAction
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#add-to-category
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#add-to-category
  * @method string getAction()
  * @method ProductAddToCategoryAction setAction(string $action = null)
  * @method CategoryReference getCategory()
@@ -31,11 +31,22 @@ class ProductAddToCategoryAction extends AbstractAction
     }
 
     /**
-     * @param CategoryReference $categoryReference
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(CategoryReference $categoryReference)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('addToCategory');
-        $this->setCategory($categoryReference);
+    }
+
+    /**
+     * @param CategoryReference $categoryReference
+     * @param Context|callable $context
+     * @return ProductAddToCategoryAction
+     */
+    public static function ofCategory(CategoryReference $categoryReference, $context = null)
+    {
+        return static::of($context)->setCategory($categoryReference);
     }
 }

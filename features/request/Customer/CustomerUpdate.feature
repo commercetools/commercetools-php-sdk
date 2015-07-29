@@ -1,28 +1,29 @@
 Feature: I want to send a Customer Update Request
-  Background:
-    Given a "customer" is identified by "id" and "version"
-    Given i have a "common" "address" object as "default"
-    And set the "email" to "john.doe@company.com"
-    And set the "firstName" to "John"
-    And set the "lastName" to "Doe"
-    Given i have a "common" "address" object as "jane"
-    And set the "email" to "jane.doe@company.com"
-    And set the "firstName" to "Jane"
-    And set the "lastName" to "Doe"
 
   Scenario: Change user name and email
-    Given i want to "changeName" of "customer"
-    And the firstName is "John"
-    And the lastName is "Doe"
-    Given i want to "changeEmail" of "customer"
-    And the email is "john.doe@company.com"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "changeName" action to "customer" with values
+    """
+        {
+          "action": "changeName",
+          "firstName": "John",
+          "lastName": "Doe"
+        }
+    """
+    And add the "changeEmail" action to "customer" with values
+    """
+        {
+          "action": "changeEmail",
+          "email": "john.doe@example.org"
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "changeName",
@@ -31,23 +32,29 @@ Feature: I want to send a Customer Update Request
         },
         {
           "action": "changeEmail",
-          "email": "john.doe@company.com"
+          "email": "john.doe@example.org"
         }
       ]
     }
     """
 
   Scenario: Change user name
-    Given i want to "changeName" of "customer"
-    And the firstName is "John"
-    And the lastName is "Doe"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "changeName" action to "customer" with values
+    """
+        {
+          "action": "changeName",
+          "firstName": "John",
+          "lastName": "Doe"
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "changeName",
@@ -59,39 +66,55 @@ Feature: I want to send a Customer Update Request
     """
 
   Scenario: Change email address
-    Given i want to "changeEmail" of "customer"
-    And the email is "john.doe@company.com"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "changeEmail" action to "customer" with values
+    """
+        {
+          "action": "changeEmail",
+          "email": "john.doe@example.org"
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "changeEmail",
-          "email": "john.doe@company.com"
+          "email": "john.doe@example.org"
         }
       ]
     }
     """
 
   Scenario: Add an address to customer
-    Given i want to "addAddress" of "customer"
-    And the "address" is "default" object
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "addAddress" action to "customer" with values
+    """
+        {
+          "action": "addAddress",
+          "address": {
+            "email": "john.doe@example.org",
+            "firstName": "John",
+            "lastName": "Doe"
+          }
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "addAddress",
           "address": {
-            "email": "john.doe@company.com",
+            "email": "john.doe@example.org",
             "firstName": "John",
             "lastName": "Doe"
           }
@@ -100,22 +123,41 @@ Feature: I want to send a Customer Update Request
     }
     """
   Scenario: Add two addresses to customer
-    Given i want to "addAddress" of "customer"
-    And the "address" is "default" object
-    Given i want to "addAddress" of "customer" as "secondAddress"
-    And the "address" is "jane" object
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "addAddress" action to "customer" with values
+    """
+        {
+          "action": "addAddress",
+          "address": {
+            "email": "john.doe@example.org",
+            "firstName": "John",
+            "lastName": "Doe"
+          }
+        }
+    """
+    And add the "addAddress" action to "customer" with values
+    """
+        {
+          "action": "addAddress",
+          "address": {
+            "email": "jane.doe@example.org",
+            "firstName": "Jane",
+            "lastName": "Doe"
+          }
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "addAddress",
           "address": {
-            "email": "john.doe@company.com",
+            "email": "john.doe@example.org",
             "firstName": "John",
             "lastName": "Doe"
           }
@@ -123,7 +165,7 @@ Feature: I want to send a Customer Update Request
         {
           "action": "addAddress",
           "address": {
-            "email": "jane.doe@company.com",
+            "email": "jane.doe@example.org",
             "firstName": "Jane",
             "lastName": "Doe"
           }
@@ -132,22 +174,32 @@ Feature: I want to send a Customer Update Request
     }
     """
   Scenario: Change a customer's address
-    Given i want to "changeAddress" of "customer"
-    And the addressId is "addressId-1"
-    And the "address" is "default" object
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "changeAddress" action to "customer" with values
+    """
+        {
+          "action": "changeAddress",
+          "addressId": "addressId-1",
+          "address": {
+            "email": "john.doe@example.org",
+            "firstName": "John",
+            "lastName": "Doe"
+          }
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "changeAddress",
           "addressId": "addressId-1",
           "address": {
-            "email": "john.doe@company.com",
+            "email": "john.doe@example.org",
             "firstName": "John",
             "lastName": "Doe"
           }
@@ -156,15 +208,21 @@ Feature: I want to send a Customer Update Request
     }
     """
   Scenario: Remove a customer's address
-    Given i want to "removeAddress" of "customer"
-    And the addressId is "addressId-1"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "removeAddress" action to "customer" with values
+    """
+        {
+          "action": "removeAddress",
+          "addressId": "addressId-1"
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "removeAddress",
@@ -175,15 +233,21 @@ Feature: I want to send a Customer Update Request
     """
 
   Scenario: Set customer's default shipping address
-    Given i want to "setDefaultShippingAddress" of "customer"
-    And set the addressId to "addressId-1"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "setDefaultShippingAddress" action to "customer" with values
+    """
+        {
+          "action": "setDefaultShippingAddress",
+          "addressId": "addressId-1"
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setDefaultShippingAddress",
@@ -194,14 +258,20 @@ Feature: I want to send a Customer Update Request
     """
 
   Scenario: Unset customer's default shipping address
-    Given i want to "setDefaultShippingAddress" of "customer"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "setDefaultShippingAddress" action to "customer" with values
+    """
+        {
+          "action": "setDefaultShippingAddress"
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setDefaultShippingAddress"
@@ -211,15 +281,21 @@ Feature: I want to send a Customer Update Request
     """
 
   Scenario: Set customer's default billing address
-    Given i want to "setDefaultBillingAddress" of "customer"
-    And set the addressId to "addressId-1"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "setDefaultBillingAddress" action to "customer" with values
+    """
+        {
+          "action": "setDefaultBillingAddress",
+          "addressId": "addressId-1"
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setDefaultBillingAddress",
@@ -229,14 +305,20 @@ Feature: I want to send a Customer Update Request
     }
     """
   Scenario: Unset customer's default billing address
-    Given i want to "setDefaultBillingAddress" of "customer"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "setDefaultBillingAddress" action to "customer" with values
+    """
+        {
+          "action": "setDefaultBillingAddress"
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setDefaultBillingAddress"
@@ -246,15 +328,24 @@ Feature: I want to send a Customer Update Request
     """
 
   Scenario: Set customer group
-    Given i want to "setCustomerGroup" of "customer"
-    And set the "customerGroup" reference "customerGroup" to "myCustomerGroup"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "setCustomerGroup" action to "customer" with values
+    """
+        {
+          "action": "setCustomerGroup",
+          "customerGroup": {
+            "typeId": "customer-group",
+            "id": "myCustomerGroup"
+          }
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setCustomerGroup",
@@ -268,15 +359,21 @@ Feature: I want to send a Customer Update Request
     """
 
   Scenario: Set customer number
-    Given i want to "setCustomerNumber" of "customer"
-    And set the "customerNumber" to "customer-1"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "setCustomerNumber" action to "customer" with values
+    """
+        {
+          "action": "setCustomerNumber",
+          "customerNumber": "customer-1"
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setCustomerNumber",
@@ -287,15 +384,21 @@ Feature: I want to send a Customer Update Request
     """
 
   Scenario: Set external id
-    Given i want to "setExternalId" of "customer"
-    And set the "externalId" to "customer-1"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "setExternalId" action to "customer" with values
+    """
+        {
+          "action": "setExternalId",
+          "externalId": "customer-1"
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setExternalId",
@@ -306,15 +409,21 @@ Feature: I want to send a Customer Update Request
     """
 
   Scenario: Set company name
-    Given i want to "setCompanyName" of "customer"
-    And set the "companyName" to "myCompany"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "setCompanyName" action to "customer" with values
+    """
+        {
+          "action": "setCompanyName",
+          "companyName": "myCompany"
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setCompanyName",
@@ -325,15 +434,21 @@ Feature: I want to send a Customer Update Request
     """
 
   Scenario: Set Date of Birth
-    Given i want to "setDateOfBirth" of "customer"
-    And set the "DateOfBirth" date to "2014-10-15 15:00"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "setDateOfBirth" action to "customer" with values
+    """
+        {
+          "action": "setDateOfBirth",
+          "dateOfBirth": "2014-10-15"
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setDateOfBirth",
@@ -344,15 +459,21 @@ Feature: I want to send a Customer Update Request
     """
 
   Scenario: Set Vat Id
-    Given i want to "setVatId" of "customer"
-    And set the "vatId" to "myVatId"
-    When i want to update a "Customer"
+    Given a "customer" is identified by "id" and version "1"
+    And i want to update a "customer"
+    And add the "setVatId" action to "customer" with values
+    """
+        {
+          "action": "setVatId",
+          "vatId": "myVatId"
+        }
+    """
     Then the path should be "customers/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setVatId",

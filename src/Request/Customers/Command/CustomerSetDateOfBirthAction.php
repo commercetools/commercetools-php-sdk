@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Customers\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 use Sphere\Core\Model\Common\DateDecorator;
 
 /**
- * Class CustomerSetDateOfBirthAction
  * @package Sphere\Core\Request\Customers\Command
- * @link http://dev.sphere.io/http-api-projects-customers.html#set-date-of-birth
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#set-date-of-birth
  * @method DateDecorator getDateOfBirth()
  * @method CustomerSetDateOfBirthAction setDateOfBirth(\DateTime $dateOfBirth = null)
  * @method string getAction()
@@ -30,8 +30,13 @@ class CustomerSetDateOfBirthAction extends AbstractAction
         ];
     }
 
-    public function __construct()
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setDateOfBirth');
     }
 }

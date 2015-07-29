@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductSetMetaTitleAction
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#set-meta-title
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#set-meta-title
  * @method string getAction()
  * @method ProductSetMetaTitleAction setAction(string $action = null)
  * @method LocalizedString getMetaTitle()
@@ -28,10 +28,12 @@ class ProductSetMetaTitleAction extends AbstractAction
     }
 
     /**
-     *
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct()
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setMetaTitle');
     }
 }

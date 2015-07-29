@@ -5,12 +5,12 @@
 
 namespace Sphere\Core\Request\Customers\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerRemoveAddressAction
  * @package Sphere\Core\Request\Customers\Command
- * @link http://dev.sphere.io/http-api-projects-customers.html#remove-address
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#remove-address
  * @method string getAddressId()
  * @method CustomerRemoveAddressAction setAddressId(string $addressId = null)
  * @method string getAction()
@@ -27,11 +27,22 @@ class CustomerRemoveAddressAction extends AbstractAction
     }
 
     /**
-     * @param string $addressId
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($addressId)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('removeAddress');
-        $this->setAddressId($addressId);
+    }
+
+    /**
+     * @param $addressId
+     * @param Context|callable $context
+     * @return CustomerRemoveAddressAction
+     */
+    public static function ofAddressId($addressId, $context = null)
+    {
+        return static::of($context)->setAddressId($addressId);
     }
 }

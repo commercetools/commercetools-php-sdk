@@ -45,13 +45,13 @@ class ProductTypeCreateRequestTest extends RequestTestCase
     }
     public function testMapResult()
     {
-        $result = $this->mapResult(static::PRODUCT_TYPE_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapResult(ProductTypeCreateRequest::ofDraft($this->getDraft()));
         $this->assertInstanceOf('\Sphere\Core\Model\ProductType\ProductType', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::PRODUCT_TYPE_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapEmptyResult(ProductTypeCreateRequest::ofDraft($this->getDraft()));
         $this->assertNull($result);
     }
 }

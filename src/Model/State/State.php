@@ -5,13 +5,12 @@
 
 namespace Sphere\Core\Model\State;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class State
  * @package Sphere\Core\Model\State
- * @link http://dev.sphere.io/http-api-projects-states.html#state
+ * @apidoc http://dev.sphere.io/http-api-projects-states.html#state
  * @method string getId()
  * @method State setId(string $id = null)
  * @method int getVersion()
@@ -35,7 +34,7 @@ use Sphere\Core\Model\Common\LocalizedString;
  * @method bool getBuiltIn()
  * @method State setBuiltIn(bool $builtIn = null)
  */
-class State extends Document
+class State extends Resource
 {
     public function getFields()
     {

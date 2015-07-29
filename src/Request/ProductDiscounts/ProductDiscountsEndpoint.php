@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\ProductDiscounts;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class ProductDiscountsEndpoint
  * @package Sphere\Core\Request\ProductDiscounts
  */
 class ProductDiscountsEndpoint

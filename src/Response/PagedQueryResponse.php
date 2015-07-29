@@ -16,7 +16,6 @@ use Sphere\Core\Request\ClientRequestInterface;
 use Traversable;
 
 /**
- * Class PagedQueryResponse
  * @package Sphere\Core\Response
  */
 class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggregate, \ArrayAccess
@@ -84,6 +83,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
         }
         return $this->results;
     }
+
 
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>

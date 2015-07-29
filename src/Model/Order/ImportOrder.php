@@ -15,7 +15,6 @@ use Sphere\Core\Model\Cart\ShippingInfo;
 use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
- * Class ImportOrder
  * @package Sphere\Core\Model\Order
  * @method string getOrderNumber()
  * @method ImportOrder setOrderNumber(string $orderNumber = null)
@@ -23,8 +22,8 @@ use Sphere\Core\Model\Common\DateTimeDecorator;
  * @method ImportOrder setCustomerId(string $customerId = null)
  * @method string getCustomerEmail()
  * @method ImportOrder setCustomerEmail(string $customerEmail = null)
- * @method ImportLineItemCollection getLineItems()
- * @method ImportOrder setLineItems(ImportLineItemCollection $lineItems = null)
+ * @method LineItemImportDraftCollection getLineItems()
+ * @method ImportOrder setLineItems(LineItemImportDraftCollection $lineItems = null)
  * @method CustomLineItemCollection getCustomLineItems()
  * @method ImportOrder setCustomLineItems(CustomLineItemCollection $customLineItems = null)
  * @method Money getTotalPrice()
@@ -58,7 +57,7 @@ class ImportOrder extends JsonObject
             'orderNumber' => [static::TYPE => 'string'],
             'customerId' => [static::TYPE => 'string'],
             'customerEmail' => [static::TYPE => 'string'],
-            'lineItems' => [static::TYPE => '\Sphere\Core\Model\Order\ImportLineItemCollection'],
+            'lineItems' => [static::TYPE => '\Sphere\Core\Model\Order\LineItemImportDraftCollection'],
             'customLineItems' => [static::TYPE => '\Sphere\Core\Model\Cart\CustomLineItemCollection'],
             'totalPrice' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
             'taxedPrice' => [static::TYPE => '\Sphere\Core\Model\Common\TaxedPrice'],

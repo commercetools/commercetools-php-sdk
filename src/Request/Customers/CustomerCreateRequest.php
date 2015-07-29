@@ -9,12 +9,14 @@ namespace Sphere\Core\Request\Customers;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Customer\CustomerDraft;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\Customer\Customer;
+use Sphere\Core\Response\ApiResponseInterface;
+use Sphere\Core\Model\Customer\CustomerSigninResult;
 
 /**
- * Class CustomerCreateRequest
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#create-customer
- * @method static CustomerCreateRequest of(CustomerDraft $customer)
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#create-customer
+ * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
  */
 class CustomerCreateRequest extends AbstractCreateRequest
 {
@@ -27,5 +29,15 @@ class CustomerCreateRequest extends AbstractCreateRequest
     public function __construct(CustomerDraft $customer, Context $context = null)
     {
         parent::__construct(CustomersEndpoint::endpoint(), $customer, $context);
+    }
+
+    /**
+     * @param CustomerDraft $customer
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(CustomerDraft $customer, Context $context = null)
+    {
+        return new static($customer, $context);
     }
 }

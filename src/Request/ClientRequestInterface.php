@@ -46,4 +46,10 @@ interface ClientRequestInterface
      * @return mixed
      */
     public function mapResult(array $result, Context $context = null);
+
+    /**
+     * @param ApiResponseInterface $response
+     * @return mixed
+     */
+    public function mapResponse(ApiResponseInterface $response);
 }

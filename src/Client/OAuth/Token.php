@@ -8,7 +8,6 @@ namespace Sphere\Core\Client\OAuth;
 
 
 /**
- * Class Token
  * @package Sphere\Core\OAuth
  */
 class Token

@@ -7,29 +7,24 @@ namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Common\DateTimeDecorator;
 use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\OfTrait;
 
 /**
- * Class FilterRange
  * @package Sphere\Core\Model\Product
  * @method getFrom()
  * @method FilterRange setFrom($from = null)
  * @method getTo()
  * @method FilterRange setTo($to = null)
- * @method static FilterRange of()
  */
 class FilterRange extends JsonObject
 {
-    use OfTrait;
+    const DEFAULT_TYPE = 'int';
 
     protected $valueType;
 
-    public function __construct($valueType = null)
+    public function __construct(array $data = [], $context = null)
     {
-        if (is_null($valueType)) {
-            $valueType = 'int';
-        }
-        $this->valueType = $valueType;
+        parent::__construct($data, $context);
+        $this->valueType = static::DEFAULT_TYPE;
     }
 
     public function getFields()
@@ -61,5 +56,19 @@ class FilterRange extends JsonObject
     public function __toString()
     {
         return sprintf('(%s to %s)', $this->valueToString($this->getFrom()), $this->valueToString($this->getTo()));
+    }
+
+    /**
+     * @param string $valueType
+     * @return static
+     */
+    public static function ofType($valueType = null)
+    {
+        $range = static::of();
+        if (!is_null($valueType)) {
+            $range->valueType = $valueType;
+        }
+
+        return $range;
     }
 }

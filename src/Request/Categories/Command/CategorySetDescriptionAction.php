@@ -5,13 +5,13 @@
 
 namespace Sphere\Core\Request\Categories\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CategorySetDescriptionAction
  * @package Sphere\Core\Request\Categories\Command
- * @link http://dev.sphere.io/http-api-projects-categories.html#set-description
+ * @apidoc http://dev.sphere.io/http-api-projects-categories.html#set-description
  * @method LocalizedString getDescription()
  * @method CategorySetDescriptionAction setDescription(LocalizedString $description = null)
  * @method string getAction()
@@ -27,9 +27,23 @@ class CategorySetDescriptionAction extends AbstractAction
         ];
     }
 
-    public function __construct(LocalizedString $description)
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setDescription');
-        $this->setDescription($description);
+    }
+
+    /**
+     * @param LocalizedString $description
+     * @param Context|callable $context
+     * @return CategorySetDescriptionAction
+     */
+    public static function ofDescription(LocalizedString $description, $context = null)
+    {
+        return static::of($context)->setDescription($description);
     }
 }

@@ -5,12 +5,12 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CartSetCountryAction
  * @package Sphere\Core\Request\Carts\Command
- * @link http://dev.sphere.io/http-api-projects-carts.html#set-country
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#set-country
  * @method string getAction()
  * @method CartSetCountryAction setAction(string $action = null)
  * @method string getCountry()
@@ -26,8 +26,13 @@ class CartSetCountryAction extends AbstractAction
         ];
     }
 
-    public function __construct()
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setCountry');
     }
 }

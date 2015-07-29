@@ -6,14 +6,14 @@
 namespace Sphere\Core\Request\Products\Command;
 
 use Sphere\Core\Model\Common\AttributeCollection;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Model\Common\PriceCollection;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductAddVariantAction
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#add-variant
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#add-variant
  * @method string getAction()
  * @method ProductAddVariantAction setAction(string $action = null)
  * @method string getSku()
@@ -39,10 +39,12 @@ class ProductAddVariantAction extends AbstractAction
     }
 
     /**
-     *
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct()
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('addVariant');
     }
 }

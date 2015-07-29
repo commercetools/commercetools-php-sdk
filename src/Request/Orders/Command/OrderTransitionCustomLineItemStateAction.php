@@ -11,9 +11,8 @@ use Sphere\Core\Request\AbstractAction;
 use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
- * Class OrderTransitionCustomLineItemStateAction
  * @package Sphere\Core\Request\Orders\Command
- * @link http://dev.sphere.io/http-api-projects-orders.html#transition-custom-line-item-state
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#transition-custom-line-item-state
  * @method string getAction()
  * @method OrderTransitionCustomLineItemStateAction setAction(string $action = null)
  * @method string getCustomLineItemId()
@@ -30,26 +29,13 @@ use Sphere\Core\Model\Common\DateTimeDecorator;
 class OrderTransitionCustomLineItemStateAction extends AbstractAction
 {
     /**
-     * @param string $lineItemId
-     * @param int $quantity
-     * @param StateReference $fromState
-     * @param StateReference $toState
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(
-        $lineItemId,
-        $quantity,
-        StateReference $fromState,
-        StateReference $toState,
-        Context $context = null
-    ) {
-        $this->setContext($context)
-            ->setAction('transitionCustomLineItemState')
-            ->setCustomLineItemId($lineItemId)
-            ->setQuantity($quantity)
-            ->setFromState($fromState)
-            ->setToState($toState)
-        ;
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('transitionCustomLineItemState');
     }
 
     public function getFields()
@@ -65,5 +51,28 @@ class OrderTransitionCustomLineItemStateAction extends AbstractAction
                 static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
             ],
         ];
+    }
+
+    /**
+     * @param string $customLineItemId
+     * @param int $quantity
+     * @param StateReference $fromState
+     * @param StateReference $toState
+     * @param Context|callable $context
+     * @return OrderTransitionCustomLineItemStateAction
+     */
+    public static function ofCustomLineItemIdQuantityAndFromToState(
+        $customLineItemId,
+        $quantity,
+        StateReference $fromState,
+        StateReference $toState,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setCustomLineItemId($customLineItemId)
+            ->setQuantity($quantity)
+            ->setFromState($fromState)
+            ->setToState($toState)
+            ;
     }
 }

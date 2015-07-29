@@ -6,10 +6,9 @@
 namespace Sphere\Core\Model\Product;
 
 use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\OfTrait;
+use Sphere\Core\Model\Product\Search\FilterInterface;
 
 /**
- * Class Filter
  * @package Sphere\Core\Model\Product
  * @method getValue()
  * @method Filter setValue($value = null)
@@ -17,20 +16,31 @@ use Sphere\Core\Model\Common\OfTrait;
  * @method Filter setAlias(string $alias = null)
  * @method string getName()
  * @method Filter setName(string $name = null)
- * @method static Filter of()
  */
-class Filter extends JsonObject
+class Filter extends JsonObject implements FilterInterface
 {
-    use OfTrait;
+    const DEFAULT_TYPE = 'string';
 
     protected $valueType;
 
-    public function __construct($valueType = null)
+    public function __construct(array $data = [], $context = null)
     {
-        if (is_null($valueType)) {
-            $valueType = 'string';
+        parent::__construct($data, $context);
+        $this->valueType = static::DEFAULT_TYPE;
+    }
+
+    /**
+     * @param string $valueType
+     * @return static
+     */
+    public static function ofType($valueType = null)
+    {
+        $filter = static::of();
+        if (!is_null($valueType)) {
+            $filter->valueType = $valueType;
         }
-        $this->valueType = $valueType;
+
+        return $filter;
     }
 
     public function getFields()

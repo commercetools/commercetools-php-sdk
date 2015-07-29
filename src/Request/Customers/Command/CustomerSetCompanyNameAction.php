@@ -5,12 +5,12 @@
 
 namespace Sphere\Core\Request\Customers\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerSetCompanyNameAction
  * @package Sphere\Core\Request\Customers\Command
- * @link http://dev.sphere.io/http-api-projects-customers.html#set-company-name
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#set-company-name
  * @method string getCompanyName()
  * @method CustomerSetCompanyNameAction setCompanyName(string $companyName = null)
  * @method string getAction()
@@ -26,8 +26,13 @@ class CustomerSetCompanyNameAction extends AbstractAction
         ];
     }
 
-    public function __construct()
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setCompanyName');
     }
 }

@@ -5,14 +5,15 @@
 
 namespace Sphere\Core\Request\CartDiscounts;
 
-
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractUpdateRequest;
+use Sphere\Core\Model\CartDiscount\CartDiscount;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CartDiscountUpdateRequest
  * @package Sphere\Core\Request\CartDiscounts
- * @link http://dev.sphere.io/http-api-projects-cartDiscounts.html#create-cart-discount
+ * @apidoc http://dev.sphere.io/http-api-projects-cartDiscounts.html#create-cart-discount
+ * @method CartDiscount mapResponse(ApiResponseInterface $response)
  */
 class CartDiscountUpdateRequest extends AbstractUpdateRequest
 {
@@ -27,5 +28,16 @@ class CartDiscountUpdateRequest extends AbstractUpdateRequest
     public function __construct($id, $version, array $actions = [], Context $context = null)
     {
         parent::__construct(CartDiscountsEndpoint::endpoint(), $id, $version, $actions, $context);
+    }
+
+    /**
+     * @param string $id
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofIdAndVersion($id, $version, Context $context = null)
+    {
+        return new static($id, $version, [], $context);
     }
 }

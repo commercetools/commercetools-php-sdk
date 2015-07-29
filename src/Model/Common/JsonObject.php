@@ -9,7 +9,6 @@ namespace Sphere\Core\Model\Common;
 use Sphere\Core\Error\Message;
 
 /**
- * Class JsonObject
  * @package Sphere\Core\Model\Type
  */
 class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializable, JsonDeserializeInterface
@@ -20,6 +19,16 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
     const OPTIONAL = 'optional';
     const INITIALIZED = 'initialized';
     const DECORATOR = 'decorator';
+    const ELEMENT_TYPE = 'elementType';
+
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+    }
 
     /**
      * @return array
@@ -55,6 +64,16 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
             default:
                 throw new \BadMethodCallException(sprintf(Message::UNKNOWN_METHOD, $method, $field));
         }
+    }
+
+    public function __get($field)
+    {
+        if (!$this->hasField($field)) {
+            throw new \BadMethodCallException(
+                sprintf(Message::UNKNOWN_FIELD, $field, 'get', $field)
+            );
+        }
+        return $this->get($field);
     }
 
     /**
@@ -114,15 +133,27 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
     protected function initialize($field)
     {
         $type = $this->getFieldKey($field, static::TYPE);
-        if ($this->isDeserializableType($type)) {
+        if ($this->isTypeableType($type)) {
+            /**
+             * @var TypeableInterface $type
+             */
+            $value = $type::ofTypeAndData(
+                $this->getFieldKey($field, static::ELEMENT_TYPE),
+                $this->getRaw($field, []),
+                $this->getContextCallback()
+            );
+        } elseif ($this->isDeserializableType($type)) {
             /**
              * @var JsonDeserializeInterface $type
              */
-            $value = $type::fromArray($this->getRaw($field, []), $this->getContextCallback());
+            $value = $this->getRaw($field, null);
+            if (!is_null($value)) {
+                $value = $type::fromArray($value, $this->getContextCallback());
+            }
         } else {
             $value = $this->getRaw($field);
         }
-        $this->typeData[$field] = $this->decorateField($field, $value);
+        $this->typeData[$field] = !is_null($value) ? $this->decorateField($field, $value) : null;
 
         $this->initialized[$field] = true;
     }

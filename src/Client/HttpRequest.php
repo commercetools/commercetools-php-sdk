@@ -9,7 +9,6 @@ namespace Sphere\Core\Client;
 use GuzzleHttp\Psr7\Request;
 
 /**
- * Class HttpRequest
  * @package Sphere\Core\Http
  * @internal
  */

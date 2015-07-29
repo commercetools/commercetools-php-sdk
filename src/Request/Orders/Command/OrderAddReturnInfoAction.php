@@ -11,9 +11,8 @@ use Sphere\Core\Request\AbstractAction;
 use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
- * Class OrderAddReturnInfoAction
  * @package Sphere\Core\Request\Orders\Command
- * @link http://dev.sphere.io/http-api-projects-orders.html#add-return-info
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#add-return-info
  * @method string getAction()
  * @method OrderAddReturnInfoAction setAction(string $action = null)
  * @method DateTimeDecorator getReturnDate()
@@ -39,11 +38,12 @@ class OrderAddReturnInfoAction extends AbstractAction
     }
 
     /**
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(Context $context = null)
+    public function __construct(array $data = [], $context = null)
     {
-        $this->setContext($context)
-            ->setAction('addReturnInfo');
+        parent::__construct($data, $context);
+        $this->setAction('addReturnInfo');
     }
 }

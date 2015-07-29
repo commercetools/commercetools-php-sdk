@@ -7,6 +7,7 @@ namespace Sphere\Core\Request\Comment;
 
 
 use Sphere\Core\Model\Comment\CommentDraft;
+use Sphere\Core\Request\Comments\CommentCreateRequest;
 use Sphere\Core\RequestTestCase;
 
 class CommentCreateRequestTest extends RequestTestCase
@@ -28,13 +29,13 @@ class CommentCreateRequestTest extends RequestTestCase
     }
     public function testMapResult()
     {
-        $result = $this->mapResult(static::COMMENT_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapResult(CommentCreateRequest::ofDraft($this->getDraft()));
         $this->assertInstanceOf('\Sphere\Core\Model\Comment\Comment', $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(static::COMMENT_CREATE_REQUEST, [$this->getDraft()]);
+        $result = $this->mapEmptyResult(CommentCreateRequest::ofDraft($this->getDraft()));
         $this->assertNull($result);
     }
 }

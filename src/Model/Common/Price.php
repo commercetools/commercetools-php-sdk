@@ -10,10 +10,8 @@ use Sphere\Core\Model\Channel\ChannelReference;
 use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
- * Class Price
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-projects-products.html#product-price
- * @method static Price of(Money $value)
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-price
  * @method Money getValue()
  * @method string getCountry()
  * @method CustomerGroupReference getCustomerGroup()
@@ -33,52 +31,44 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
  */
 class Price extends JsonObject
 {
-    use OfTrait;
+    const ID = 'id';
+    const VALUE = 'value';
+    const COUNTRY = 'country';
+    const CUSTOMER_GROUP = 'customerGroup';
+    const CHANNEL = 'channel';
+    const VALID_FROM = 'validFrom';
+    const VALID_UNTIL = 'validUntil';
+    const DISCOUNTED = 'discounted';
 
     public function getFields()
     {
         return [
-            'id' => [static::TYPE => 'string'],
-            'value' => [self::TYPE => '\Sphere\Core\Model\Common\Money'],
-            'country' => [self::TYPE => 'string'],
-            'customerGroup' => [self::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
-            'channel' => [self::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
-            'validFrom' => [
+            static::ID => [static::TYPE => 'string'],
+            static::VALUE => [self::TYPE => '\Sphere\Core\Model\Common\Money'],
+            static::COUNTRY => [self::TYPE => 'string'],
+            static::CUSTOMER_GROUP => [self::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
+            static::CHANNEL => [self::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
+            static::VALID_FROM => [
                 self::TYPE => '\DateTime',
                 self::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
             ],
-            'validUntil' => [
+            static::VALID_UNTIL => [
                 self::TYPE => '\DateTime',
                 self::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
             ],
-            'discounted' => [self::TYPE => '\Sphere\Core\Model\Common\DiscountedPrice'],
+            static::DISCOUNTED => [self::TYPE => '\Sphere\Core\Model\Common\DiscountedPrice'],
         ];
     }
 
     /**
-     * @param Money $value
+     * @param Money $money
      * @param Context|callable $context
+     * @return Price
      */
-    public function __construct(Money $value, $context = null)
+    public static function ofMoney(Money $money, $context = null)
     {
-        $this->setContext($context);
-        $this->setValue($value);
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        $price = new static(
-            Money::fromArray($data['value'], $context),
-            $context
-        );
-        $price->setRawData($data);
-
-        return $price;
+        $price = static::of($context);
+        return $price->setValue($money);
     }
 
     public function __toString()

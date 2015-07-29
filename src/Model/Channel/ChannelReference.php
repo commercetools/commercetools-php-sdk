@@ -8,13 +8,10 @@ namespace Sphere\Core\Model\Channel;
 
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Common\Reference;
-use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
 
 /**
- * Class ChannelReference
  * @package Sphere\Core\Model\Channel
- * @link http://dev.sphere.io/http-api-types.html#reference
- * @method static ChannelReference of(string $id)
+ * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method ChannelReference setTypeId(string $typeId = null)
  * @method string getId()
@@ -24,25 +21,23 @@ use Sphere\Core\Model\Common\ReferenceFromArrayTrait;
  */
 class ChannelReference extends Reference
 {
-    use ReferenceFromArrayTrait;
-
     const TYPE_CHANNEL = 'channel';
 
     public function getFields()
     {
-        return [
-            'typeId' => [self::TYPE => 'string'],
-            'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => '\Sphere\Core\Model\Channel\Channel']
-        ];
+        $fields = parent::getFields();
+        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\Channel\Channel'];
+
+        return $fields;
     }
 
     /**
-     * @param string $id
+     * @param $id
      * @param Context|callable $context
+     * @return ChannelReference
      */
-    public function __construct($id, $context = null)
+    public static function ofId($id, $context = null)
     {
-        parent::__construct(static::TYPE_CHANNEL, $id, $context);
+        return static::ofTypeAndId(static::TYPE_CHANNEL, $id, $context);
     }
 }

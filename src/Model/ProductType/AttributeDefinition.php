@@ -9,9 +9,8 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class AttributeDefinition
  * @package Sphere\Core\Model\ProductType
- * @link http://dev.sphere.io/http-api-projects-productTypes.html#attribute-definition
+ * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#attribute-definition
  * @method AttributeType getType()
  * @method AttributeDefinition setType(AttributeType $type = null)
  * @method string getName()

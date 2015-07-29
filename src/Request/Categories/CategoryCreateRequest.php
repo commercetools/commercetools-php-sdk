@@ -6,16 +6,16 @@
 
 namespace Sphere\Core\Request\Categories;
 
-
 use Sphere\Core\Model\Category\CategoryDraft;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractCreateRequest;
+use Sphere\Core\Model\Category\Category;
+use Sphere\Core\Response\ApiResponseInterface;
 
 /**
- * Class CategoryCreateRequest
  * @package Sphere\Core\Request\Categories
- * @link http://dev.sphere.io/http-api-projects-categories.html#create-category
- * @method static CategoryCreateRequest of(CategoryDraft $category)
+ * @apidoc http://dev.sphere.io/http-api-projects-categories.html#create-category
+ * @method Category mapResponse(ApiResponseInterface $response)
  */
 class CategoryCreateRequest extends AbstractCreateRequest
 {
@@ -28,5 +28,15 @@ class CategoryCreateRequest extends AbstractCreateRequest
     public function __construct(CategoryDraft $category, Context $context = null)
     {
         parent::__construct(CategoriesEndpoint::endpoint(), $category, $context);
+    }
+
+    /**
+     * @param CategoryDraft $category
+     * @param Context $context
+     * @return static
+     */
+    public static function ofDraft(CategoryDraft $category, Context $context = null)
+    {
+        return new static($category, $context);
     }
 }

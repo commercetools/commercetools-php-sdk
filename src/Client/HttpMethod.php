@@ -8,7 +8,6 @@ namespace Sphere\Core\Client;
 
 
 /**
- * Class HttpMethod
  * @package Sphere\Core\Http
  */
 class HttpMethod

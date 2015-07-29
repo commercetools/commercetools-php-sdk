@@ -7,21 +7,19 @@
 namespace Sphere\Core;
 
 
-use GuzzleHttp\Client as HttpClient;
 use Sphere\Core\Client\Adapter\AdapterFactory;
 use Sphere\Core\Client\Adapter\AdapterInterface;
 
 /**
- * Class AbstractHttpClient
  * @package Sphere\Core
  */
 abstract class AbstractHttpClient
 {
 
-    const VERSION = '1.0.0 M3';
+    const VERSION = '1.0.0 RC1';
 
     /**
-     * @var HttpClient
+     * @var AdapterInterface
      */
     protected $httpClient;
 
@@ -54,7 +52,7 @@ abstract class AbstractHttpClient
         if ($config instanceof Config) {
             $this->config = $config;
         } elseif (is_array($config)) {
-            $this->getConfig()->fromArray($config);
+            $this->config = Config::fromArray($config);
         }
         $this->getConfig()->check();
 

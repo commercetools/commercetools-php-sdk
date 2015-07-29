@@ -11,9 +11,8 @@ use Sphere\Core\Model\Order\TrackingData;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class OrderAddParcelToDeliveryAction
  * @package Sphere\Core\Request\Orders\Command
- * @link http://dev.sphere.io/http-api-projects-orders.html#add-parcel
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#add-parcel
  * @method string getAction()
  * @method OrderAddParcelToDeliveryAction setAction(string $action = null)
  * @method string getDeliveryId()
@@ -36,16 +35,22 @@ class OrderAddParcelToDeliveryAction extends AbstractAction
     }
 
     /**
-     * @param string $deliveryId
-     * @param Context $context
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(
-        $deliveryId,
-        Context $context = null
-    ) {
-        $this->setContext($context)
-            ->setAction('addParcelToDelivery')
-            ->setDeliveryId($deliveryId)
-        ;
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('addParcelToDelivery');
+    }
+
+    /**
+     * @param string $deliveryId
+     * @param Context|callable $context
+     * @return OrderAddParcelToDeliveryAction
+     */
+    public static function ofDeliveryId($deliveryId, $context = null)
+    {
+        return static::of($context)->setDeliveryId($deliveryId);
     }
 }

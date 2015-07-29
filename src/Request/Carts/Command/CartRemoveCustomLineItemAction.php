@@ -5,12 +5,12 @@
 
 namespace Sphere\Core\Request\Carts\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CartRemoveCustomLineItemAction
  * @package Sphere\Core\Request\Carts\Command
- * @link http://dev.sphere.io/http-api-projects-carts.html#remove-custom-line-item
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#remove-custom-line-item
  * @method string getAction()
  * @method CartRemoveCustomLineItemAction setAction(string $action = null)
  * @method string getCustomLineItemId()
@@ -27,11 +27,22 @@ class CartRemoveCustomLineItemAction extends AbstractAction
     }
 
     /**
-     * @param string $customLineItemId
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($customLineItemId)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('removeCustomLineItem');
-        $this->setCustomLineItemId($customLineItemId);
+    }
+
+    /**
+     * @param $customLineItemId
+     * @param Context|callable $context
+     * @return CartRemoveCustomLineItemAction
+     */
+    public static function ofCustomLineItemId($customLineItemId, $context = null)
+    {
+        return static::of($context)->setCustomLineItemId($customLineItemId);
     }
 }

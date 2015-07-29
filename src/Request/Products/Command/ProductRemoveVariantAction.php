@@ -5,12 +5,12 @@
 
 namespace Sphere\Core\Request\Products\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductRemoveVariantAction
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#remove-variant
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#remove-variant
  * @method string getAction()
  * @method ProductRemoveVariantAction setAction(string $action = null)
  * @method int getId()
@@ -30,11 +30,22 @@ class ProductRemoveVariantAction extends AbstractAction
     }
 
     /**
-     * @param int $id
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct($id)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('removeVariant');
-        $this->setId($id);
+    }
+
+    /**
+     * @param int $variantId
+     * @param Context|callable $context
+     * @return ProductRemovePriceAction
+     */
+    public static function ofVariantId($variantId, $context = null)
+    {
+        return static::of($context)->setId($variantId);
     }
 }

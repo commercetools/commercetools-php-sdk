@@ -7,8 +7,8 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class AddressCollection
  * @package Sphere\Core\Model\Common
+ * @method Address current()
  * @method Address getAt($offset)
  */
 class AddressCollection extends Collection

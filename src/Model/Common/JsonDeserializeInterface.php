@@ -15,4 +15,6 @@ interface JsonDeserializeInterface extends ContextAwareInterface
      * @return mixed
      */
     public static function fromArray(array $data, $context = null);
+
+    public function toArray();
 }

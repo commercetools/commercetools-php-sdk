@@ -5,13 +5,12 @@
 
 namespace Sphere\Core\Model\Channel;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class Channel
  * @package Sphere\Core\Model\Channel
- * @link http://dev.sphere.io/http-api-projects-channels.html#channel
+ * @apidoc http://dev.sphere.io/http-api-projects-channels.html#channel
  * @method string getId()
  * @method Channel setId(string $id = null)
  * @method int getVersion()
@@ -29,7 +28,7 @@ use Sphere\Core\Model\Common\LocalizedString;
  * @method LocalizedString getDescription()
  * @method Channel setDescription(LocalizedString $description = null)
  */
-class Channel extends Document
+class Channel extends Resource
 {
     public function getFields()
     {

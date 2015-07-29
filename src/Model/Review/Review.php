@@ -5,10 +5,9 @@
 
 namespace Sphere\Core\Model\Review;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 
 /**
- * Class Review
  * @package Sphere\Core\Model\Review
  * @method string getId()
  * @method Review setId(string $id = null)
@@ -31,7 +30,7 @@ use Sphere\Core\Model\Common\Document;
  * @method float getScore()
  * @method Review setScore(float $score = null)
  */
-class Review extends Document
+class Review extends Resource
 {
     public function getFields()
     {

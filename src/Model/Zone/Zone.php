@@ -5,12 +5,11 @@
 
 namespace Sphere\Core\Model\Zone;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 
 /**
- * Class Zone
  * @package Sphere\Core\Model\Zone
- * @link http://dev.sphere.io/http-api-projects-zones.html#zone
+ * @apidoc http://dev.sphere.io/http-api-projects-zones.html#zone
  * @method string getId()
  * @method Zone setId(string $id = null)
  * @method int getVersion()
@@ -26,7 +25,7 @@ use Sphere\Core\Model\Common\Document;
  * @method LocationCollection getLocations()
  * @method Zone setLocations(LocationCollection $locations = null)
  */
-class Zone extends Document
+class Zone extends Resource
 {
     public function getFields()
     {

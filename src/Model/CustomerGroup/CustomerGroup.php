@@ -5,12 +5,11 @@
 
 namespace Sphere\Core\Model\CustomerGroup;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 
 /**
- * Class CustomerGroup
  * @package Sphere\Core\Model\CustomerGroup
- * @link http://dev.sphere.io/http-api-projects-customerGroups.html#customer-group
+ * @apidoc http://dev.sphere.io/http-api-projects-customerGroups.html#customer-group
  * @method string getId()
  * @method CustomerGroup setId(string $id = null)
  * @method int getVersion()
@@ -22,7 +21,7 @@ use Sphere\Core\Model\Common\Document;
  * @method string getName()
  * @method CustomerGroup setName(string $name = null)
  */
-class CustomerGroup extends Document
+class CustomerGroup extends Resource
 {
     public function getFields()
     {

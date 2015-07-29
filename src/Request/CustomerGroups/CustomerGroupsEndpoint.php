@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\CustomerGroups;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class CustomerGroupsEndpoint
  * @package Sphere\Core\Request\CustomerGroups
  */
 class CustomerGroupsEndpoint

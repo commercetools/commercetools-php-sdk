@@ -5,6 +5,7 @@
 
 namespace Sphere\Core\Model;
 
+use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\Reference;
 
 /**
@@ -19,7 +20,7 @@ class GenericReferenceTest extends AbstractModelTest
     {
         $class = new \ReflectionClass($className);
         if (!$class->isAbstract()) {
-            $object = $class->newInstanceArgs(['123456']);
+            $object = call_user_func_array($className . '::ofId', ['123456']);
         } else {
             $object = $this->getMockForAbstractClass($className, ['test-type', '123456'], '', false);
         }
@@ -100,6 +101,6 @@ class GenericReferenceTest extends AbstractModelTest
          * @var Reference $object
          */
         $object = $this->getInstance($className);
-        $this->assertInstanceOf($objClassName, $object->getObj());
+        $this->assertSame($objClassName, $object->getFields()['obj'][JsonObject::TYPE]);
     }
 }

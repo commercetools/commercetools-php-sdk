@@ -8,7 +8,6 @@ namespace Sphere\Core\Error;
 
 
 /**
- * Class Message
  * @package Sphere\Core\Error
  */
 class Message

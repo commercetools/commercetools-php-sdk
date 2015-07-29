@@ -6,11 +6,12 @@
 
 namespace Sphere\Core\Model\Common;
 
+use Sphere\Core\Model\ProductType\AttributeDefinition;
+use Sphere\Core\Model\ProductType\AttributeType;
 
 /**
- * Class Attribute
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
  * @method string getName()
  * @method getValue()
  * @method Attribute setName(string $name = null)
@@ -30,50 +31,141 @@ class Attribute extends JsonObject
     const T_SET = '\Sphere\Core\Model\Common\Set';
     const T_NESTED = '\Sphere\Core\Model\Common\AttributeCollection';
     const T_REFERENCE = '\Sphere\Core\Model\Common\Reference';
+    const T_DATETIME = '\DateTime';
+    const T_DATETIME_DECORATOR = '\Sphere\Core\Model\Common\DateTimeDecorator';
+
 
     const PROP_VALUE = "value";
     const PROP_KEY = "key";
     const PROP_NAME = "name";
-    const PROP_CURRENCYCODE = "currencyCode";
-    const PROP_CENTAMOUNT = "centAmount";
-    const PROP_TYPEID = "typeId";
+    const PROP_CURRENCY_CODE = "currencyCode";
+    const PROP_CENT_AMOUNT = "centAmount";
+    const PROP_TYPE_ID = "typeId";
     const PROP_ID = "id";
     const PROP_LABEL = "label";
 
+    const SPHERE_BOOL = 'boolean';
+    const SPHERE_NUMBER = 'number';
+    const SPHERE_TEXT = 'text';
+    const SPHERE_LTEXT = 'ltext';
+    const SPHERE_LENUM = 'lenum';
+    const SPHERE_ENUM = 'enum';
+    const SPHERE_MONEY = 'money';
+    const SPHERE_DATE = 'date';
+    const SPHERE_TIME = 'time';
+    const SPHERE_DATETIME = 'datetime';
+    const SPHERE_SET = 'set';
+    const SPHERE_NESTED = 'nested';
+    const SPHERE_REFERENCE = 'reference';
+
     protected static $types = [];
+
+    protected $attributeDefinition;
+    protected $valueType;
+    protected $valueElementType;
+    protected $valueDecorator;
 
     public function getFields()
     {
         return [
-            'name' => [self::TYPE => 'string'],
-            'value' => [self::OPTIONAL => true],
+            static::PROP_NAME => [self::TYPE => 'string'],
+            static::PROP_VALUE => [
+                self::TYPE => $this->valueType,
+                self::DECORATOR => $this->valueDecorator,
+                self::ELEMENT_TYPE => $this->valueElementType,
+                self::OPTIONAL => true
+            ],
         ];
     }
 
     /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
+     * @param $attributeName
+     * @param $value
+     * @return mixed
      */
-    public static function fromArray(array $data, $context = null)
+    protected function getSphereType($attributeName, $value)
     {
-        return new static($data, $context);
+        if (isset(static::$types[$attributeName])) {
+            $this->setAttributeDefinition(static::$types[$attributeName]);
+            return static::$types[$attributeName];
+        }
+
+        $sphereType = $this->guessSphereType($value);
+        $definition = AttributeDefinition::of($this->getContextCallback());
+        $definition->setName($attributeName);
+        $definition->setType(AttributeType::of()->setName($sphereType));
+
+        if ($sphereType == static::SPHERE_SET) {
+            $elementType = $this->guessSphereType(current($value));
+            $definition->getType()->setElementType(AttributeType::of()->setName($elementType));
+        }
+        $this->setAttributeDefinition($definition);
+        static::$types[$attributeName] = $definition;
+
+        return static::$types[$attributeName];
+    }
+
+    protected function getTypeBySphereType($sphereType)
+    {
+        $typeMapping = [
+            static::SPHERE_BOOL => static::T_BOOLEAN,
+            static::SPHERE_NUMBER => static::T_NUMBER,
+            static::SPHERE_TEXT => static::T_TEXTLIKE,
+            static::SPHERE_LTEXT => static::T_LTEXT,
+            static::SPHERE_LENUM => static::T_LENUM,
+            static::SPHERE_ENUM => static::T_ENUM,
+            static::SPHERE_MONEY => static::T_MONEY,
+            static::SPHERE_DATE => static::T_DATETIME,
+            static::SPHERE_TIME => static::T_DATETIME,
+            static::SPHERE_DATETIME => static::T_DATETIME,
+            static::SPHERE_SET => static::T_SET,
+            static::SPHERE_NESTED => static::T_NESTED,
+            static::SPHERE_REFERENCE => static::T_REFERENCE
+        ];
+
+
+        return isset($typeMapping[$sphereType]) ? $typeMapping[$sphereType] : null;
     }
 
     /**
-     * @param $field
-     * @param $value
-     * @return mixed
-     * @internal
+     * @param AttributeDefinition $definition
+     * @return $this
      */
-    public function getSphereType($field, $value)
+    public function setAttributeDefinition(AttributeDefinition $definition)
     {
-        if (isset(static::$types[$field])) {
-            return static::$types[$field];
-        }
-        static::$types[$field] = $this->guessSphereType($value);
+        static::$types[$definition->getName()] = $definition;
+        $this->attributeDefinition = $definition;
+        $sphereType = $definition->getType()->getName();
+        $this->valueType = $this->getTypeBySphereType($sphereType);
+        $this->valueElementType = null;
+        $this->valueDecorator = null;
 
-        return static::$types[$field];
+        switch ($sphereType) {
+            case static::SPHERE_SET:
+                $this->valueElementType = $this->getTypeBySphereType(
+                    $definition->getType()->getElementType()->getName()
+                );
+                break;
+            case static::SPHERE_TIME:
+            case static::SPHERE_DATETIME:
+            case static::SPHERE_DATE:
+                $this->valueDecorator = static::T_DATETIME_DECORATOR;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $field
+     */
+    protected function initialize($field)
+    {
+        if ($field == static::PROP_VALUE) {
+            $name = $this->getRaw(static::PROP_NAME);
+            $value = $this->getRaw(static::PROP_VALUE);
+            $this->getSphereType($name, $value);
+        }
+        parent::initialize($field);
     }
 
     /**
@@ -105,31 +197,6 @@ class Attribute extends JsonObject
         return static::T_UNKNOWN;
     }
 
-    protected function initialize($field)
-    {
-        if ($field == static::PROP_VALUE) {
-            $name = $this->getRaw(static::PROP_NAME);
-            $value = $this->getRaw(static::PROP_VALUE);
-            $type = $this->getSphereType($name, $value);
-
-            if ($type !== false && $type != static::T_UNKNOWN && $this->hasInterface($type)) {
-                if ($type == static::T_SET) {
-                    $setType = $this->getSphereType('set-' . $name, current($value));
-                    $value = ['type' => $setType, 'value' => $value];
-                }
-                /**
-                 * @var JsonDeserializeInterface $type
-                 */
-                $this->typeData[$field] = $type::fromArray($value, $this->getContextCallback());
-            } else {
-                $this->typeData[$field] = $value;
-            }
-            $this->initialized[$field] = true;
-        } else {
-            parent::initialize($field);
-        }
-    }
-
     protected function hasKeys($value, $keys)
     {
         if (!is_array($value)) {
@@ -146,23 +213,23 @@ class Attribute extends JsonObject
 
     protected function guessTextLike($value)
     {
-        return is_string($value) ? static::T_TEXTLIKE : null;
+        return is_string($value) ? static::SPHERE_TEXT : null;
     }
 
     protected function guessBool($value)
     {
-        return is_bool($value) ? static::T_BOOLEAN : null;
+        return is_bool($value) ? static::SPHERE_BOOL : null;
     }
 
     protected function guessNumber($value)
     {
-        return is_numeric($value) ? static::T_NUMBER : null;
+        return is_numeric($value) ? static::SPHERE_NUMBER : null;
     }
 
     protected function guessEnum($value)
     {
         if ($this->hasKeys($value, [static::PROP_KEY, static::PROP_LABEL]) && is_string($value[static::PROP_LABEL])) {
-            return static::T_ENUM;
+            return static::SPHERE_ENUM;
         }
 
         return null;
@@ -171,7 +238,7 @@ class Attribute extends JsonObject
     protected function guessLocalizedEnum($value)
     {
         if ($this->hasKeys($value, [static::PROP_KEY, static::PROP_LABEL]) && is_array($value[static::PROP_LABEL])) {
-            return static::T_LENUM;
+            return static::SPHERE_LENUM;
         }
 
         return null;
@@ -179,8 +246,8 @@ class Attribute extends JsonObject
 
     protected function guessMoney($value)
     {
-        if ($this->hasKeys($value, [static::PROP_CENTAMOUNT, static::PROP_CURRENCYCODE])) {
-            return static::T_MONEY;
+        if ($this->hasKeys($value, [static::PROP_CENT_AMOUNT, static::PROP_CURRENCY_CODE])) {
+            return static::SPHERE_MONEY;
         }
 
         return null;
@@ -188,8 +255,8 @@ class Attribute extends JsonObject
 
     protected function guessReference($value)
     {
-        if ($this->hasKeys($value, [static::PROP_TYPEID, static::PROP_ID])) {
-            return static::T_REFERENCE;
+        if ($this->hasKeys($value, [static::PROP_TYPE_ID, static::PROP_ID])) {
+            return static::SPHERE_REFERENCE;
         }
 
         return null;
@@ -198,7 +265,7 @@ class Attribute extends JsonObject
     protected function guessLocalizedText($value)
     {
         if (is_array($value) && !is_numeric(key($value))) {
-            return static::T_LTEXT;
+            return static::SPHERE_LTEXT;
         }
 
         return null;
@@ -207,7 +274,7 @@ class Attribute extends JsonObject
     protected function guessSet($value)
     {
         if (is_array($value)) {
-            return static::T_SET;
+            return static::SPHERE_SET;
         }
 
         return null;
@@ -218,7 +285,7 @@ class Attribute extends JsonObject
         if (is_array($value)) {
             $first = reset($value);
             if ($this->hasKeys($first, [static::PROP_NAME, static::PROP_VALUE])) {
-                return static::T_NESTED;
+                return static::SPHERE_NESTED;
             }
         }
 

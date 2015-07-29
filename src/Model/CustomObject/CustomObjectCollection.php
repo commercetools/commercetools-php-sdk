@@ -5,9 +5,14 @@
 
 namespace Sphere\Core\Model\CustomObject;
 
-
 use Sphere\Core\Model\Common\Collection;
 
+/**
+ * @package Sphere\Core\Model\CustomObject
+ * 
+ * @method CustomObject current()
+ * @method CustomObject getAt($offset)
+ */
 class CustomObjectCollection extends Collection
 {
     const KEY = 'key';

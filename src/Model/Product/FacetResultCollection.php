@@ -5,12 +5,12 @@
 
 namespace Sphere\Core\Model\Product;
 
-
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class FacetResultCollection
  * @package Sphere\Core\Model\Product
+ * @method FacetResult current()
+ * @method FacetResult getAt($offset)
  */
 class FacetResultCollection extends Collection
 {

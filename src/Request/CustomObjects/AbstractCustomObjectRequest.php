@@ -9,10 +9,9 @@ namespace Sphere\Core\Request\CustomObjects;
 use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\Response\SingleResourceResponse;
+use Sphere\Core\Response\ResourceResponse;
 
 /**
- * Class AbstractCustomObjectRequest
  * @package Sphere\Core\Request\CustomObjects
  */
 abstract class AbstractCustomObjectRequest extends AbstractApiRequest
@@ -41,6 +40,18 @@ abstract class AbstractCustomObjectRequest extends AbstractApiRequest
         $this->key = $key;
     }
 
+
+    /**
+     * @param string $container
+     * @param string $key
+     * @param Context $context
+     * @return static
+     */
+    public static function ofContainerAndKey($container, $key, Context $context = null)
+    {
+        return new static($container, $key, $context);
+    }
+
     /**
      * @return string
      * @internal
@@ -52,11 +63,11 @@ abstract class AbstractCustomObjectRequest extends AbstractApiRequest
 
     /**
      * @param ResponseInterface $response
-     * @return SingleResourceResponse
+     * @return ResourceResponse
      * @internal
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new SingleResourceResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 }

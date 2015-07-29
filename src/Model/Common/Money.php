@@ -8,10 +8,8 @@ namespace Sphere\Core\Model\Common;
 
 
 /**
- * Class Money
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-types.html#money
- * @method static Money of($currencyCode, $centAmount)
+ * @apidoc http://dev.sphere.io/http-api-types.html#money
  * @method string getCurrencyCode()
  * @method int getCentAmount()
  * @method Money setCurrencyCode(string $currencyCode = null)
@@ -19,40 +17,15 @@ namespace Sphere\Core\Model\Common;
  */
 class Money extends JsonObject
 {
-    use OfTrait;
+    const CURRENCY_CODE = 'currencyCode';
+    const CENT_AMOUNT = 'centAmount';
 
     public function getFields()
     {
         return [
-            'currencyCode' => [self::TYPE => 'string'],
-            'centAmount' => [self::TYPE => 'int'],
+            static::CURRENCY_CODE => [self::TYPE => 'string'],
+            static::CENT_AMOUNT => [self::TYPE => 'int'],
         ];
-    }
-
-    /**
-     * @param string $currencyCode
-     * @param int $centAmount
-     * @param Context|callable $context
-     */
-    public function __construct($currencyCode, $centAmount, $context = null)
-    {
-        $this->setContext($context);
-        $this->setCurrencyCode($currencyCode);
-        $this->setCentAmount($centAmount);
-    }
-
-    /**
-     * @param array $data
-     * @param Context|callable $context
-     * @return static
-     */
-    public static function fromArray(array $data, $context = null)
-    {
-        return new static(
-            $data['currencyCode'],
-            $data['centAmount'],
-            $context
-        );
     }
 
     /**
@@ -61,5 +34,17 @@ class Money extends JsonObject
     public function __toString()
     {
         return $this->getContext()->getCurrencyFormatter()->format($this->getCentAmount(), $this->getCurrencyCode());
+    }
+
+    /**
+     * @param $currencyCode
+     * @param $centAmount
+     * @param Context|callable $context
+     * @return Money
+     */
+    public static function ofCurrencyAndAmount($currencyCode, $centAmount, $context = null)
+    {
+        $money = static::of($context);
+        return $money->setCurrencyCode($currencyCode)->setCentAmount($centAmount);
     }
 }

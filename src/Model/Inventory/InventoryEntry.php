@@ -5,11 +5,10 @@
 
 namespace Sphere\Core\Model\Inventory;
 
-use Sphere\Core\Model\Common\Document;
+use Sphere\Core\Model\Common\Resource;
 use Sphere\Core\Model\Channel\ChannelReference;
 
 /**
- * Class InventoryEntry
  * @package Sphere\Core\Model\Inventory
  * @method string getId()
  * @method InventoryEntry setId(string $id = null)
@@ -32,7 +31,7 @@ use Sphere\Core\Model\Channel\ChannelReference;
  * @method \DateTime getExpectedDelivery()
  * @method InventoryEntry setExpectedDelivery(\DateTime $expectedDelivery = null)
  */
-class InventoryEntry extends Document
+class InventoryEntry extends Resource
 {
     public function getFields()
     {

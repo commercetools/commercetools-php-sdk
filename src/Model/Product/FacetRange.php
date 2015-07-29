@@ -8,7 +8,6 @@ namespace Sphere\Core\Model\Product;
 use Sphere\Core\Model\Common\JsonObject;
 
 /**
- * Class FacetRange
  * @package Sphere\Core\Model\Product
  * @method int getFrom()
  * @method FacetRange setFrom(int $from = null)

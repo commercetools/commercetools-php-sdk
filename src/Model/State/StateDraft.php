@@ -10,9 +10,8 @@ use Sphere\Core\Model\Common\JsonObject;
 use Sphere\Core\Model\Common\LocalizedString;
 
 /**
- * Class StateDraft
  * @package Sphere\Core\Model\State
- * @link http://dev.sphere.io/http-api-projects-states.html#create-state
+ * @apidoc http://dev.sphere.io/http-api-projects-states.html#create-state
  * @method string getKey()
  * @method StateDraft setKey(string $key = null)
  * @method string getType()
@@ -43,30 +42,23 @@ class StateDraft extends JsonObject
     }
 
     /**
-     * @param string $key
-     * @param string $type
+     * @param $key
      * @param Context|callable $context
+     * @return StateDraft
      */
-    public function __construct($key, $type = self::TYPE_LINE_ITEM_STATE, $context = null)
+    public static function ofKey($key, $context = null)
     {
-        $this->setContext($context)->setKey($key)->setType($type);
+        return static::ofKeyAndType($key, self::TYPE_LINE_ITEM_STATE, $context);
     }
 
     /**
-     * @param array $data
+     * @param string $key
+     * @param string $type
      * @param Context|callable $context
-     * @return static
+     * @return StateDraft
      */
-    public static function fromArray(array $data, $context = null)
+    public function ofKeyAndType($key, $type, $context = null)
     {
-        $type = isset($data['type']) ? $data['type'] : static::TYPE_LINE_ITEM_STATE;
-        $draft = new static(
-            $data['key'],
-            $type,
-            $context
-        );
-        $draft->setRawData($data);
-
-        return $draft;
+        return static::of($context)->setKey($key)->setType($type);
     }
 }

@@ -5,12 +5,12 @@
 
 namespace Sphere\Core\Model\Product;
 
-
 use Sphere\Core\Model\Common\Collection;
 
 /**
- * Class ProductCollection
  * @package Sphere\Core\Model\Product
+ * @method Product current()
+ * @method Product getAt($offset)
  */
 class ProductCollection extends Collection
 {

@@ -6,12 +6,12 @@
 namespace Sphere\Core\Request\Products\Command;
 
 use Sphere\Core\Model\Category\CategoryReference;
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class ProductRemoveFromCategoryAction
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#remove-from-category
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#remove-from-category
  * @method string getAction()
  * @method ProductRemoveFromCategoryAction setAction(string $action = null)
  * @method CategoryReference getCategory()
@@ -31,11 +31,22 @@ class ProductRemoveFromCategoryAction extends AbstractAction
     }
 
     /**
-     * @param CategoryReference $categoryReference
+     * @param array $data
+     * @param Context|callable $context
      */
-    public function __construct(CategoryReference $categoryReference)
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('removeFromCategory');
-        $this->setCategory($categoryReference);
+    }
+
+    /**
+     * @param CategoryReference $categoryReference
+     * @param Context|callable $context
+     * @return ProductRemoveFromCategoryAction
+     */
+    public static function ofCategory(CategoryReference $categoryReference, $context = null)
+    {
+        return static::of($context)->setCategory($categoryReference);
     }
 }

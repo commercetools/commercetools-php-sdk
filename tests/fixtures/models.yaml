@@ -35,6 +35,7 @@ lineItem:
     - state
     - taxRate
     - supplyChannel
+    - distributionChannel
     - discountedPrice
 
 customLineItem:
@@ -79,7 +80,7 @@ shippingInfo:
 
 discountCodeReference:
   domain: cart
-  model: CartDiscountCodeReference
+  model: DiscountCodeInfo
   fields:
     - discountCode
     - state
@@ -809,9 +810,9 @@ importOrder:
     - shippingInfo
     - completedAt
 
-importLineItem:
+lineItemImportDraft:
   domain: order
-  model: importLineItem
+  model: lineItemImportDraft
   fields:
     - productId
     - name
@@ -822,9 +823,9 @@ importLineItem:
     - supplyChannel
     - taxRate
 
-importProductVariant:
+productVariantImportDraft:
   domain: order
-  model: importProductVariant
+  model: productVariantImportDraft
   fields:
     - id
     - sku

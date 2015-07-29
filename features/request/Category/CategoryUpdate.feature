@@ -1,19 +1,31 @@
 Feature: I want to update a category
-  Background:
-    Given a "category" is identified by "id" and "version"
-
   Scenario: Change category name
-    Given i want to "changeName" of "category"
-    And the name is "New name" in "en"
-    Given i want to "changeSlug" of "category"
-    And the slug is "new-slug" in "en"
-    When i want to update a "Category"
+    Given a "category" is identified by "id" and version "1"
+    And i want to update a "category"
+    And add the "changeName" action to "category" with values
+    """
+        {
+          "action": "changeName",
+          "name": {
+            "en": "New name"
+          }
+        }
+    """
+    And add the "changeSlug" action to "category" with values
+    """
+        {
+          "action": "changeSlug",
+          "slug": {
+            "en": "new-slug"
+          }
+        }
+    """
     Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "changeName",
@@ -32,15 +44,23 @@ Feature: I want to update a category
     """
 
   Scenario: Change category slug
-    Given i want to "changeSlug" of "category"
-    And the slug is "new-slug" in "en"
-    When i want to update a "Category"
+    Given a "category" is identified by "id" and version "1"
+    And i want to update a "category"
+    And add the "changeSlug" action to "category" with values
+    """
+        {
+          "action": "changeSlug",
+          "slug": {
+            "en": "new-slug"
+          }
+        }
+    """
     Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "changeSlug",
@@ -53,15 +73,24 @@ Feature: I want to update a category
     """
 
   Scenario: Change category parent
-    Given i want to "changeParent" of "category"
-    And the "category" reference "parent" is "newParent"
-    And i want to update a "Category"
+    Given a "category" is identified by "id" and version "1"
+    And i want to update a "category"
+    And add the "changeParent" action to "category" with values
+    """
+        {
+          "action": "changeParent",
+          "parent": {
+            "typeId": "category",
+            "id": "newParent"
+          }
+        }
+    """
     Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "changeParent",
@@ -75,15 +104,23 @@ Feature: I want to update a category
     """
 
   Scenario: Change category description
-    Given i want to "setDescription" of "category"
-    And the description is "Lorem ipsum" in "en"
-    When i want to update a "Category"
+    Given a "category" is identified by "id" and version "1"
+    And i want to update a "category"
+    And add the "setDescription" action to "category" with values
+    """
+        {
+          "action": "setDescription",
+          "description": {
+            "en": "Lorem ipsum"
+          }
+        }
+    """
     Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setDescription",
@@ -96,15 +133,21 @@ Feature: I want to update a category
     """
 
   Scenario: Set external id
-    Given i want to "setExternalId" of "category"
-    And the externalId is "category-1"
-    When i want to update a "Category"
+    Given a "category" is identified by "id" and version "1"
+    And i want to update a "category"
+    And add the "setExternalId" action to "category" with values
+    """
+        {
+          "action": "setExternalId",
+          "externalId": "category-1"
+        }
+    """
     Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setExternalId",
@@ -115,15 +158,21 @@ Feature: I want to update a category
     """
 
   Scenario: Change order hint
-    Given i want to "changeOrderHint" of "category"
-    And the orderHint is "number1"
-    When i want to update a "Category"
+    Given a "category" is identified by "id" and version "1"
+    And i want to update a "category"
+    And add the "changeOrderHint" action to "category" with values
+    """
+        {
+          "action": "changeOrderHint",
+          "orderHint": "number1"
+        }
+    """
     Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "changeOrderHint",
@@ -134,15 +183,23 @@ Feature: I want to update a category
     """
 
   Scenario:
-    Given i want to "setMetaTitle" of "category"
-    And set the "metaTitle" to "metaTitle" in "en"
-    When i want to update a "Category"
+    Given a "category" is identified by "id" and version "1"
+    And i want to update a "category"
+    And add the "setMetaTitle" action to "category" with values
+    """
+        {
+          "action": "setMetaTitle",
+          "metaTitle": {
+            "en": "metaTitle"
+          }
+        }
+    """
     Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setMetaTitle",
@@ -155,15 +212,23 @@ Feature: I want to update a category
     """
 
   Scenario:
-    Given i want to "setMetaDescription" of "category"
-    And set the "metaDescription" to "metaDescription" in "en"
-    When i want to update a "Category"
+    Given a "category" is identified by "id" and version "1"
+    And i want to update a "category"
+    And add the "setMetaDescription" action to "category" with values
+    """
+        {
+          "action": "setMetaDescription",
+          "metaDescription": {
+            "en": "metaDescription"
+          }
+        }
+    """
     Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setMetaDescription",
@@ -176,15 +241,23 @@ Feature: I want to update a category
     """
 
   Scenario:
-    Given i want to "setMetaKeywords" of "category"
-    And set the "metaKeywords" to "metaKeywords" in "en"
-    When i want to update a "Category"
+    Given a "category" is identified by "id" and version "1"
+    And i want to update a "category"
+    And add the "setMetaKeywords" action to "category" with values
+    """
+        {
+          "action": "setMetaKeywords",
+          "metaKeywords": {
+            "en": "metaKeywords"
+          }
+        }
+    """
     Then the path should be "categories/id"
     And the method should be "POST"
     And the request should be
     """
     {
-      "version": "version",
+      "version": 1,
       "actions": [
         {
           "action": "setMetaKeywords",

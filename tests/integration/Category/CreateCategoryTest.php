@@ -10,7 +10,7 @@ use Sphere\Core\Model\Category\Category;
 use Sphere\Core\Model\Category\CategoryDraft;
 use Sphere\Core\Model\Common\LocalizedString;
 use Sphere\Core\Request\Categories\CategoryCreateRequest;
-use Sphere\Core\Request\Categories\CategoryDeleteByIdRequest;
+use Sphere\Core\Request\Categories\CategoryDeleteRequest;
 
 class CreateCategoryTest extends ApiTestCase
 {
@@ -21,9 +21,9 @@ class CreateCategoryTest extends ApiTestCase
      */
     protected function getDraft($name, $slug)
     {
-        $draft = CategoryDraft::of(
-            LocalizedString::of(['en' => $name]),
-            LocalizedString::of(['en' => $slug])
+        $draft = CategoryDraft::ofNameAndSlug(
+            LocalizedString::fromArray(['en' => $name]),
+            LocalizedString::fromArray(['en' => $slug])
         );
 
         return $draft;
@@ -35,9 +35,12 @@ class CreateCategoryTest extends ApiTestCase
          * @var Category $category
          */
         $category = $this->getClient()
-            ->execute(CategoryCreateRequest::of($draft))
+            ->execute(CategoryCreateRequest::ofDraft($draft))
             ->toObject();
-        $this->cleanupRequests[] = CategoryDeleteByIdRequest::of($category->getId(), $category->getVersion());
+        $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
+            $category->getId(),
+            $category->getVersion()
+        );
 
         return $category;
     }

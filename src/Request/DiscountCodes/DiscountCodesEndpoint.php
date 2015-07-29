@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\DiscountCodes;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class DiscountCodesEndpoint
  * @package Sphere\Core\Request\DiscountCodes
  */
 class DiscountCodesEndpoint

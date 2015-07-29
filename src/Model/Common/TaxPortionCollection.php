@@ -6,6 +6,12 @@
 namespace Sphere\Core\Model\Common;
 
 
+/**
+ * @package Sphere\Core\Model\Common
+ * 
+ * @method TaxPortion current()
+ * @method TaxPortion getAt($offset)
+ */
 class TaxPortionCollection extends Collection
 {
     protected $type = '\Sphere\Core\Model\Common\TaxPortion';

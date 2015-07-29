@@ -16,7 +16,6 @@ use Sphere\Core\Model\Common\ContextTrait;
 use Sphere\Core\Request\ClientRequestInterface;
 
 /**
- * Class AbstractApiResponse
  * @package Sphere\Core\Response
  */
 abstract class AbstractApiResponse implements ApiResponseInterface, ContextAwareInterface
@@ -61,7 +60,7 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
     public function toObject()
     {
         if (!$this->isError()) {
-            return $this->getRequest()->mapResult($this->toArray(), $this->getContext());
+            return $this->getRequest()->mapResponse($this);
         }
 
         return null;

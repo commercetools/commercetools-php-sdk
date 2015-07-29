@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\Orders;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class OrdersEndpoint
  * @package Sphere\Core\Request\Orders
  */
 class OrdersEndpoint

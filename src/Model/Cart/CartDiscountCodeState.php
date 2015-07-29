@@ -6,9 +6,8 @@
 namespace Sphere\Core\Model\Cart;
 
 /**
- * Class CartDiscountCodeState
  * @package Sphere\Core\Model\Cart
- * @link http://dev.sphere.io/http-api-projects-carts.html#discount-code-state
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#discount-code-state
  */
 class CartDiscountCodeState
 {

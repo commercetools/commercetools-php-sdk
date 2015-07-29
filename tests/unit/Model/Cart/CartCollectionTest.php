@@ -21,8 +21,8 @@ class CartCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testAddToIndex()
     {
-        $collection = new CartCollection();
-        $collection->add(new Cart(['id' => '123456']));
+        $collection = CartCollection::of();
+        $collection->add(Cart::fromArray(['id' => '123456']));
 
         $this->assertInstanceOf('\Sphere\Core\Model\Cart\Cart', $collection->getById('123456'));
     }

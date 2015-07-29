@@ -5,12 +5,12 @@
 
 namespace Sphere\Core\Request\Customers\Command;
 
+use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractAction;
 
 /**
- * Class CustomerSetCustomerNumberAction
  * @package Sphere\Core\Request\Customers\Command
- * @link http://dev.sphere.io/http-api-projects-customers.html#set-customer-number
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#set-customer-number
  * @method string getCustomerNumber()
  * @method CustomerSetCustomerNumberAction setCustomerNumber(string $customerNumber = null)
  * @method string getAction()
@@ -26,8 +26,13 @@ class CustomerSetCustomerNumberAction extends AbstractAction
         ];
     }
 
-    public function __construct()
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
     {
+        parent::__construct($data, $context);
         $this->setAction('setCustomerNumber');
     }
 }

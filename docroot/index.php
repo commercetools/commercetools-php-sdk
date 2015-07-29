@@ -10,7 +10,7 @@ use Monolog\Logger;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Model\Product\ProductProjection;
 use Sphere\Core\Model\Product\ProductProjectionCollection;
-use Sphere\Core\Request\Products\ProductsSearchRequest;
+use Sphere\Core\Request\Products\ProductProjectionSearchRequest;
 
 require '../vendor/autoload.php';
 
@@ -29,7 +29,7 @@ $search = null;
 if (isset($_POST['search'])) {
     $search = $_POST['search'];
 }
-$request = ProductsSearchRequest::of($config->getContext())
+$request = ProductProjectionSearchRequest::of($config->getContext())
     ->addParam('text.' . current($config->getContext()->getLanguages()), $search);
 
 $log = new Logger('name');
