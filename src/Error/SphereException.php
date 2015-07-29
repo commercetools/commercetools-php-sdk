@@ -9,6 +9,10 @@ namespace Sphere\Core\Error;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Base exception for responses with http status code different than 200 or 201
+ * @package Sphere\Core\Error
+ */
 class SphereException extends \Exception
 {
     /**

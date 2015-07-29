@@ -16,7 +16,6 @@ use Sphere\Core\Model\Common\ContextTrait;
 use Sphere\Core\Request\ClientRequestInterface;
 
 /**
- * Class AbstractApiResponse
  * @package Sphere\Core\Response
  */
 abstract class AbstractApiResponse implements ApiResponseInterface, ContextAwareInterface

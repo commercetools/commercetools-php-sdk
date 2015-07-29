@@ -19,7 +19,7 @@ use Sphere\Core\Model\Product\Search\FilterInterface;
 
 /**
  * @package Sphere\Core\Request\Products
- * @link http://dev.sphere.io/http-api-projects-products-search.html#product-projections-by-search
+ * @apidoc http://dev.sphere.io/http-api-projects-products-search.html#product-projections-by-search
  * @method PagedSearchResponse executeWithClient(Client $client)
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
  */

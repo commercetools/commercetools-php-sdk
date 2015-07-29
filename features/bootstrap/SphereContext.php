@@ -207,6 +207,41 @@ trait SphereContext
     }
 
     /**
+     * @Given i want to fetch a :context by cartId
+     */
+    public function iWantToFetchAContextByCartId($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByCartIdGetRequest';
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $this->request = call_user_func_array($request. '::ofCartId', [$id]);
+    }
+
+    /**
+     * @Given i want to fetch a :context by location
+     */
+    public function iWantToFetchAContextByLocation($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByLocationGetRequest';
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $this->request = call_user_func_array($request. '::ofCountry', [$id]);
+    }
+
+    /**
+     * @Given with :field :value
+     */
+    public function withFieldValue($field, $value)
+    {
+        $method = 'with' . ucfirst($field);
+        $this->request->$method($value);
+    }
+
+    /**
      * @Given i want to query :context
      */
     public function iWantToQuery($context)

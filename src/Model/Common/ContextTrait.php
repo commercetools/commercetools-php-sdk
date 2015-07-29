@@ -6,7 +6,6 @@
 namespace Sphere\Core\Model\Common;
 
 /**
- * Class ContextTrait
  * @package Sphere\Core\Model\Common
  */
 trait ContextTrait

@@ -6,7 +6,6 @@
 namespace Sphere\Core\Model\Common;
 
 /**
- * Class AbstractJsonDeserializeObject
  * @package Sphere\Core\Model\Common
  */
 abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface

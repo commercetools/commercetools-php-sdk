@@ -9,7 +9,7 @@ namespace Sphere\Core\Model\Common;
 
 /**
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-types.html#money
+ * @apidoc http://dev.sphere.io/http-api-types.html#money
  * @method string getCurrencyCode()
  * @method int getCentAmount()
  * @method Money setCurrencyCode(string $currencyCode = null)

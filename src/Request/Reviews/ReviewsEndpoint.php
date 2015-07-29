@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\Reviews;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class ReviewsEndpoint
  * @package Sphere\Core\Request\Reviews
  */
 class ReviewsEndpoint

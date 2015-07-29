@@ -10,7 +10,6 @@ use Sphere\Core\Request\Query\Parameter;
 use Sphere\Core\Request\Query\ParameterInterface;
 
 /**
- * Class StagedTrait
  * @package Sphere\Core\Request
  * @method $this addParamObject(ParameterInterface $param)
  */

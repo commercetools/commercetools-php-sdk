@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#change-name
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#change-name
  * @method string getAction()
  * @method ProductChangeNameAction setAction(string $action = null)
  * @method LocalizedString getName()

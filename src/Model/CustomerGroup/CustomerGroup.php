@@ -9,7 +9,7 @@ use Sphere\Core\Model\Common\Resource;
 
 /**
  * @package Sphere\Core\Model\CustomerGroup
- * @link http://dev.sphere.io/http-api-projects-customerGroups.html#customer-group
+ * @apidoc http://dev.sphere.io/http-api-projects-customerGroups.html#customer-group
  * @method string getId()
  * @method CustomerGroup setId(string $id = null)
  * @method int getVersion()

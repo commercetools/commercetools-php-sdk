@@ -11,7 +11,7 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
  * @package Sphere\Core\Model\Customer
- * @link http://dev.sphere.io/http-api-projects-customers.html#customer
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#customer
  * @method string getId()
  * @method Customer setId(string $id = null)
  * @method int getVersion()

@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Inventory
- * @link http://dev.sphere.io/http-api-projects-inventory.html#update-inventory
+ * @apidoc http://dev.sphere.io/http-api-projects-inventory.html#update-inventory
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
 class InventoryUpdateRequest extends AbstractUpdateRequest

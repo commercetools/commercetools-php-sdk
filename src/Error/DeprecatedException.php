@@ -5,7 +5,6 @@
 
 namespace Sphere\Core\Error;
 
-
 class DeprecatedException extends \Exception
 {
 

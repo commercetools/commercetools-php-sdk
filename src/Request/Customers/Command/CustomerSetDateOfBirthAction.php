@@ -11,7 +11,7 @@ use Sphere\Core\Model\Common\DateDecorator;
 
 /**
  * @package Sphere\Core\Request\Customers\Command
- * @link http://dev.sphere.io/http-api-projects-customers.html#set-date-of-birth
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#set-date-of-birth
  * @method DateDecorator getDateOfBirth()
  * @method CustomerSetDateOfBirthAction setDateOfBirth(\DateTime $dateOfBirth = null)
  * @method string getAction()

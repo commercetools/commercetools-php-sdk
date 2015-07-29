@@ -11,7 +11,7 @@ use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-projects-products.html#product-price
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-price
  * @method Money getValue()
  * @method string getCountry()
  * @method CustomerGroupReference getCustomerGroup()

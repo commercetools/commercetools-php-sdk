@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Zones
- * @link http://dev.sphere.io/http-api-projects-zones.html#delete-zone
+ * @apidoc http://dev.sphere.io/http-api-projects-zones.html#delete-zone
  * @method Zone mapResponse(ApiResponseInterface $response)
  */
 class ZoneDeleteRequest extends AbstractDeleteRequest

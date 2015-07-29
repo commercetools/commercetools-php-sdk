@@ -12,7 +12,7 @@ use Sphere\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Sphere\Core\Request\Orders\Command
- * @link http://dev.sphere.io/http-api-projects-orders.html#update-sync-info
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#update-sync-info
  * @method string getAction()
  * @method OrderUpdateSyncInfoAction setAction(string $action = null)
  * @method ChannelReference getChannel()

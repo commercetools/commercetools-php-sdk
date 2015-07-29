@@ -10,7 +10,7 @@ use Sphere\Core\Model\Common\JsonObject;
 
 /**
  * @package Sphere\Core\Model\Cart
- * @link http://dev.sphere.io/http-api-projects-carts.html#create-cart
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#create-cart
  * @method string getCurrency()
  * @method string getCustomerId()
  * @method string getCountry()

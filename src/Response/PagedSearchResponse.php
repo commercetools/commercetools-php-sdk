@@ -11,7 +11,6 @@ use Sphere\Core\Model\Product\FacetResultCollection;
 use Sphere\Core\Request\ClientRequestInterface;
 
 /**
- * Class PagedSearchResponse
  * @package Sphere\Core\Response
  */
 class PagedSearchResponse extends PagedQueryResponse

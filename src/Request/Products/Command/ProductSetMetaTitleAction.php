@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#set-meta-title
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#set-meta-title
  * @method string getAction()
  * @method ProductSetMetaTitleAction setAction(string $action = null)
  * @method LocalizedString getMetaTitle()

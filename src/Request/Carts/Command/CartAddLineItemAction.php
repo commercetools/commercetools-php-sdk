@@ -11,7 +11,7 @@ use Sphere\Core\Model\Channel\ChannelReference;
 
 /**
  * @package Sphere\Core\Request\Carts\Command
- * @link http://dev.sphere.io/http-api-projects-carts.html#add-line-item
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#add-line-item
  * @method string getAction()
  * @method CartAddLineItemAction setAction(string $action = null)
  * @method string getProductId()

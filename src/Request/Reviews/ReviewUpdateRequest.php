@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Reviews
- * @link http://dev.sphere.io/http-api-projects-reviews.html#update-review
+ * @apidoc http://dev.sphere.io/http-api-projects-reviews.html#update-review
  * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewUpdateRequest extends AbstractUpdateRequest

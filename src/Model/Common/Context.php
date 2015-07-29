@@ -14,35 +14,34 @@ use Sphere\Core\Helper\CurrencyFormatter;
  * The context is a container class. Giving the possibility to inject information or behaviour to the models
  *
  * @description
-
+ * ## Usage
+ *
  * The context will be set at ContextAware objects like JsonObject and Collection. By adding a context to the client
- * config the context will be set to all request, responses and also model objects.
- *
- * ### Languages ###
- *
- * For automatic fallback string conversion e.g. with LocalizedString you can set the available languages. The
- * LocalizedString will try to resolve a string in the given order.
+ * config the context will be set to all request, responses and other ContextAware objects. Besides that you can always
+ * set a new context to every ContextAware object at any time.
  *
  * ```php
- * $context->setLanguages(['de', 'en']);
+ * $context = Context::of();
  * ```
  *
- * For production environments it's adviced to set the graceful flag to prevent Exceptions by toString conversions()
+ * For production environments it's advised to set the graceful flag to prevent Exceptions by toString conversions()
  *
  * ```php
  * $context->setGraceful(true);
  * ```
+
+ * ### Languages and Locales
  *
- * ### Locale ###
- *
- * It's adviced to set the locale in the Context as it is used for example by the CurrencyFormatter. If no locale
- * is set, the default locale given by php config will be used.
+ * For automatic fallback string conversion e.g. with LocalizedString you can set the available languages. The
+ * LocalizedString will try to resolve a string in the given order. It's strongly advised to set the locale in
+ * the Context as it is used for example by the CurrencyFormatter. If no locale is set, the default locale given
+ * by php config will be used.
  *
  * ```php
- * $context->setLocale('de_DE');
+ * $context->setLanguages(['de', 'en'])->setLocale('de_DE');
  * ```
-
- * ### CurrencyFormatter ###
+ *
+ * ### CurrencyFormatter
  *
  * The context provides a builtin CurrencyFormatter. The default currency formatter will format a currency with
  * the help of the intl extension and the locale set.
@@ -60,6 +59,7 @@ use Sphere\Core\Helper\CurrencyFormatter;
  * }
  * $context->setCurrencyFormatter($currencyFormatter);
  * ```
+ *
  * @package Sphere\Core\Model\Common
  */
 class Context extends Container

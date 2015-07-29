@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\ProductDiscounts
- * @link http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discount-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discount-by-id
  * @method ProductDiscount mapResponse(ApiResponseInterface $response)
  */
 class ProductDiscountByIdGetRequest extends AbstractByIdGetRequest

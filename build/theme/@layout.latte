@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex" n:if="!$robots">
 
-	<title>{include title}{if 'overview' !== $active && $config->title} | {$config->title}{/if}</title>
+	<title>ct SDK: {include title}{if 'overview' !== $active && $config->title}{/if}</title>
 
 	<link rel="stylesheet" href="{='resources/bootstrap.min.css'|staticFile}">
 	<link rel="stylesheet" href="{='resources/style.css'|staticFile}">
@@ -29,7 +29,7 @@
 	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a href="index.html" class="navbar-brand">{if $config->title}{$config->title}{else}Overview{/if}</a>
+				<a href="index.html" class="navbar-brand"><img src="{='resources/ct-logo.svg'|staticFile}" id="navbar-logo" alt="commercetools platform PHP SDK">{if $config->title}{$config->title}{else}Overview{/if}</a>
 			</div>
 			<div class="collapse navbar-collapse">
 

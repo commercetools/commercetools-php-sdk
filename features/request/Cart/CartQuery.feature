@@ -5,7 +5,7 @@ Feature: I want to query carts
     Then the path should be "carts/id"
     And the method should be "GET"
 
-  Scenario: Query carts
+  Scenario: Query cart by customerId
     Given a "cart" is identified by "id"
     Given i want to fetch a "cart" by customerId
     And query by customers id "id"

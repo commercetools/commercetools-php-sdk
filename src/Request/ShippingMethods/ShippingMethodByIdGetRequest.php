@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\ShippingMethods
- * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-method-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-method-by-id
  * @method ShippingMethod mapResponse(ApiResponseInterface $response)
  */
 class ShippingMethodByIdGetRequest extends AbstractByIdGetRequest

@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\DiscountCodes
- * @link http://dev.sphere.io/http-api-projects-discountCodes.html#delete-discount-code
+ * @apidoc http://dev.sphere.io/http-api-projects-discountCodes.html#delete-discount-code
  * @method DiscountCode mapResponse(ApiResponseInterface $response)
  */
 class DiscountCodeDeleteRequest extends AbstractDeleteRequest

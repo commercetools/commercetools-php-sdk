@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#add-price
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#add-price
  * @method string getAction()
  * @method ProductAddPriceAction setAction(string $action = null)
  * @method int getVariantId()

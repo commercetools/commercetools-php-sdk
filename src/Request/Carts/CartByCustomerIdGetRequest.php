@@ -5,9 +5,9 @@
 
 namespace Sphere\Core\Request\Carts;
 
-use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 use Sphere\Core\Client\HttpMethod;
+use Sphere\Core\Client\HttpRequest;
 use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Request\AbstractApiRequest;
 use Sphere\Core\Request\CustomerIdTrait;
@@ -17,7 +17,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Carts
- * @link http://dev.sphere.io/http-api-projects-carts.html#cart-by-customer-id
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#cart-by-customer-id
  * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartByCustomerIdGetRequest extends AbstractApiRequest
@@ -47,12 +47,12 @@ class CartByCustomerIdGetRequest extends AbstractApiRequest
     }
 
     /**
-     * @return Request
+     * @return HttpRequest
      * @internal
      */
     public function httpRequest()
     {
-        return new Request(HttpMethod::GET, $this->getPath());
+        return new HttpRequest(HttpMethod::GET, $this->getPath());
     }
 
     /**

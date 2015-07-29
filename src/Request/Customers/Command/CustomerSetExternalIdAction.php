@@ -10,7 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Customers\Command
- * @link http://dev.sphere.io/http-api-projects-customers.html#set-external-id
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#set-external-id
  * @method string getExternalId()
  * @method CustomerSetExternalIdAction setExternalId(string $externalId = null)
  * @method string getAction()

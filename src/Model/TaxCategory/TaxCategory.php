@@ -10,7 +10,7 @@ use Sphere\Core\Model\Common\Resource;
 
 /**
  * @package Sphere\Core\Model\TaxCategory
- * @link http://dev.sphere.io/http-api-projects-taxCategories.html#tax-category
+ * @apidoc http://dev.sphere.io/http-api-projects-taxCategories.html#tax-category
  * @method string getId()
  * @method TaxCategory setId(string $id = null)
  * @method int getVersion()

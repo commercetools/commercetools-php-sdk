@@ -16,7 +16,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Response\ResourceResponse;
 
 /**
- * Class AbstractCreateRequest
  * @package Sphere\Core\Request
  * @method ResourceResponse executeWithClient(Client $client)
  */

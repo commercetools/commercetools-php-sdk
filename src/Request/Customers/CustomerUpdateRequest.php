@@ -13,7 +13,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Customers
- * @link http://dev.sphere.io/http-api-projects-customers.html#update-customer
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#update-customer
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerUpdateRequest extends AbstractUpdateRequest

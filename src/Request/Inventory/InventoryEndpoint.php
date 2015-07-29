@@ -9,7 +9,6 @@ namespace Sphere\Core\Request\Inventory;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class InventoryEndpoint
  * @package Sphere\Core\Request\Inventory
  */
 class InventoryEndpoint

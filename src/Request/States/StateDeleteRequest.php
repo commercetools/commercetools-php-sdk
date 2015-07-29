@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\States
- * @link http://dev.sphere.io/http-api-projects-states.html#delete-state
+ * @apidoc http://dev.sphere.io/http-api-projects-states.html#delete-state
  * @method State mapResponse(ApiResponseInterface $response)
  */
 class StateDeleteRequest extends AbstractDeleteRequest

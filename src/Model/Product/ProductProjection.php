@@ -14,7 +14,7 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
  * @package Sphere\Core\Model\Product
- * @link http://dev.sphere.io/http-api-projects-products.html#product-projection
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-projection
  * @method string getId()
  * @method ProductProjection setId(string $id = null)
  * @method int getVersion()

@@ -23,7 +23,7 @@ use Sphere\Core\Client\OAuth\Manager;
  * The client for communicating with the commercetools platform
  *
  * @description
- * ## Instantiation ##
+ * ## Instantiation
  *
  * ```php
  * $config = Config::fromArray(
@@ -32,60 +32,9 @@ use Sphere\Core\Client\OAuth\Manager;
  * $client = Client::ofConfig($config);
  * ```
  *
- * ### Using a cache adapter ###
+ * ## Execution
  *
- * The SDK provides a Doctrine, a Redis and an APCu cache adapter. By default the SDK tries to
- * instantiate the APCu cache adapter if there is no cache given.
- *
- * ```php
- * $redis = new \Redis();
- * $redis->connect('localhost');
- * $client = Client::ofConfigAndCache($config, $redis);
- *
- * $memcache = new \Memcache();
- * $memcache->connect('memcache_host', 11211);
- *
- * $cacheDriver = new \Doctrine\Common\Cache\MemcacheCache();
- * $cacheDriver->setMemcache($memcache);
- * $client = Client::ofConfigAndCache($config, $cacheDriver);
- * ```
- *
- * ### Using a logger ###
- *
- * The client uses the PSR-3 logger interface for logging requests and deprecation notices. To enable
- * logging provide a PSR-3 compliant logger (e.g. Monolog).
- *
- * ```php
- * $logger = new \Monolog\Logger('name');
- * $logger->pushHandler(new StreamHandler('./requests.log'));
- * $client = Client::ofConfigAndLogger($config, $logger);
- * ```
- *
- * ### Using cache and logger ###
- *
- * ```php
- * $client = Client::ofConfigCacheAndLogger($config, $cache, $logger);
- * ```
- *
- * ### Using a custom cache adapter ###
- *
- * ```php
- * class <CacheClass>Adapter implements \Sphere\Core\Cache\CacheAdapterInterface {
- *     public function __construct(<CacheClass> $cache) {
- *     }
- * }
- *
- * $client->getAdapterFactory()->registerCallback(function ($cache) {
- *     if ($cache instanceof <CacheClass>) {
- *         return new <CacheClass>Adapter($cache);
- *     }
- *     return null;
- * });
- * ```
- *
- * ## Execution ##
- *
- * ### Synchronous ###
+ * ### Synchronous
  * There are two main approaches for retrieving result objects
  *
  * Client centric:
@@ -106,20 +55,71 @@ use Sphere\Core\Client\OAuth\Manager;
  * By using the request centric approach the IDE is capable of resolving the correct classes and give
  * a maximum of support with available methods.
  *
- * ### Asynchronous ###
+ * ### Asynchronous
  * The asynchronous execution will return a promise to fulfill the request.
  *
  * ```php
  * $response = $client->executeAsync(ProductProjectionSearchRequest::of());
  * ```
-
- * ### Batch ###
+ *
+ * ### Batch
  * By filling the batch queue and starting the execution all requests will be executed in parallel.
  *
  * ```php
  * $client->addBatchRequest(ProductProjectionSearchRequest::of())
  *     ->addBatchRequest(CartByIdGetRequest::ofId($cartId));
  * $responses = $client->executeBatch();
+ * ```
+ *
+ * ## Instantiation options
+ *
+ * ### Using a logger
+ *
+ * The client uses the PSR-3 logger interface for logging requests and deprecation notices. To enable
+ * logging provide a PSR-3 compliant logger (e.g. Monolog).
+ *
+ * ```php
+ * $logger = new \Monolog\Logger('name');
+ * $logger->pushHandler(new StreamHandler('./requests.log'));
+ * $client = Client::ofConfigAndLogger($config, $logger);
+ * ```
+ *
+ * ### Using a cache adapter ###
+ *
+ * The client will automatically request an OAuth token and store the token in the APCu cache, which should be the
+ * fastest option as there is no network or socket interface used.
+ *
+ * It's also possible to use a different cache adapter. The SDK provides a Doctrine, a Redis and an APCu cache adapter.
+ * By default the SDK tries to instantiate the APCu cache adapter if there is no cache given. E.g. Redis:
+ *
+ * ```php
+ * $redis = new \Redis();
+ * $redis->connect('localhost');
+ * $client = Client::ofConfigAndCache($config, $redis);
+ * ```
+ *
+ * #### Using cache and logger ####
+ *
+ * ```php
+ * $client = Client::ofConfigCacheAndLogger($config, $cache, $logger);
+ * ```
+ *
+ * #### Using a custom cache adapter ####
+ *
+ * ```php
+ * class <CacheClass>Adapter implements \Sphere\Core\Cache\CacheAdapterInterface {
+ *     protected $cache;
+ *     public function __construct(<CacheClass> $cache) {
+ *         $this->cache = $cache;
+ *     }
+ * }
+ *
+ * $client->getAdapterFactory()->registerCallback(function ($cache) {
+ *     if ($cache instanceof <CacheClass>) {
+ *         return new <CacheClass>Adapter($cache);
+ *     }
+ *     return null;
+ * });
  * ```
  *
  * @package Sphere\Core

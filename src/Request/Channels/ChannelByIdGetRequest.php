@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Channels
- * @link http://dev.sphere.io/http-api-projects-channels.html#channel-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-channels.html#channel-by-id
  * @method Channel mapResponse(ApiResponseInterface $response)
  */
 class ChannelByIdGetRequest extends AbstractByIdGetRequest

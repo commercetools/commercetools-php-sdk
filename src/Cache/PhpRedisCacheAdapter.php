@@ -6,7 +6,6 @@
 namespace Sphere\Core\Cache;
 
 /**
- * Class PhpRedisCacheAdapter
  * @package Sphere\Core\Cache
  */
 class PhpRedisCacheAdapter extends AbstractCacheAdapter

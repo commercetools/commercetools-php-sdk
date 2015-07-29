@@ -15,7 +15,6 @@ use Sphere\Core\Model\Common\Context;
 use Sphere\Core\Response\PagedQueryResponse;
 
 /**
- * Class AbstractQueryRequest
  * @package Sphere\Core\Request
  * @method PagedQueryResponse executeWithClient(Client $client)
  */

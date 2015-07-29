@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\States
- * @link http://dev.sphere.io/http-api-projects-states.html#states-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-states.html#states-by-id
  * @method State mapResponse(ApiResponseInterface $response)
  */
 class StateByIdGetRequest extends AbstractByIdGetRequest

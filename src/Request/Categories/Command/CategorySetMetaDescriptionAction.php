@@ -11,7 +11,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Categories\Command
- * @link http://dev.sphere.io/http-api-projects-categories.html#set-meta-description
+ * @apidoc http://dev.sphere.io/http-api-projects-categories.html#set-meta-description
  * @method string getAction()
  * @method CategorySetMetaDescriptionAction setAction(string $action = null)
  * @method LocalizedString getMetaDescription()

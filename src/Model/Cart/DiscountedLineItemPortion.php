@@ -11,7 +11,7 @@ use Sphere\Core\Model\Common\Money;
 
 /**
  * @package Sphere\Core\Model\Cart
- * @link http://dev.sphere.io/http-api-projects-carts.html#discounted-line-item-portion
+ * @apidoc http://dev.sphere.io/http-api-projects-carts.html#discounted-line-item-portion
  * @method CartDiscountReference getDiscount()
  * @method DiscountedLineItemPortion setDiscount(CartDiscountReference $discount = null)
  * @method Money getDiscountedAmount()

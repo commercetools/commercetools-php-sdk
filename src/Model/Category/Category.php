@@ -10,7 +10,7 @@ use Sphere\Core\Model\Common\LocalizedString;
 
 /**
  * @package Sphere\Core\Model\Category
- * @link http://dev.sphere.io/http-api-projects-categories.html#category
+ * @apidoc http://dev.sphere.io/http-api-projects-categories.html#category
  * @method string getId()
  * @method Category setId(string $id = null)
  * @method int getVersion()

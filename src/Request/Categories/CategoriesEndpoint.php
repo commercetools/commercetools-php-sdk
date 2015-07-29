@@ -10,7 +10,6 @@ namespace Sphere\Core\Request\Categories;
 use Sphere\Core\Client\JsonEndpoint;
 
 /**
- * Class CategoriesEndpoint
  * @package Sphere\Core\Request\Categories
  */
 class CategoriesEndpoint

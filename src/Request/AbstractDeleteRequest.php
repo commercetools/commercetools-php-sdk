@@ -17,7 +17,6 @@ use Sphere\Core\Request\Query\Parameter;
 use Sphere\Core\Response\ResourceResponse;
 
 /**
- * Class AbstractDeleteRequest
  * @package Sphere\Core\Request
  * @method ResourceResponse executeWithClient(Client $client)
  */

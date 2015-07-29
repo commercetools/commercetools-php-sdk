@@ -18,7 +18,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Orders
- * @link http://dev.sphere.io/http-api-projects-orders.html#create-order-from-cart
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#create-order-from-cart
  * @method Order mapResponse(ApiResponseInterface $response)
  */
 class OrderCreateFromCartRequest extends AbstractApiRequest

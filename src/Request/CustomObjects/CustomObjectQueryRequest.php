@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\CustomObjects
- * @link http://dev.sphere.io/http-api-projects-custom-objects.html#custom-objects-by-query
+ * @apidoc http://dev.sphere.io/http-api-projects-custom-objects.html#custom-objects-by-query
  * @method CustomObjectCollection mapResponse(ApiResponseInterface $response)
  */
 class CustomObjectQueryRequest extends AbstractQueryRequest

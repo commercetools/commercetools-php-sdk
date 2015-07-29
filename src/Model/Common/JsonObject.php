@@ -9,7 +9,6 @@ namespace Sphere\Core\Model\Common;
 use Sphere\Core\Error\Message;
 
 /**
- * Class JsonObject
  * @package Sphere\Core\Model\Type
  */
 class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializable, JsonDeserializeInterface

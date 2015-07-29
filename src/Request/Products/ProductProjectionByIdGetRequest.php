@@ -14,7 +14,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Products
- * @link http://dev.sphere.io/http-api-projects-products.html#product-projection-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-projection-by-id
  * @method ProductProjection mapResponse(ApiResponseInterface $response)
  */
 class ProductProjectionByIdGetRequest extends AbstractByIdGetRequest

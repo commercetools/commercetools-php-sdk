@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\ProductTypes
- * @link http://dev.sphere.io/http-api-projects-productTypes.html#product-type-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#product-type-by-id
  * @method ProductType mapResponse(ApiResponseInterface $response)
  */
 class ProductTypeByIdGetRequest extends AbstractByIdGetRequest

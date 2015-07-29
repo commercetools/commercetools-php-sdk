@@ -6,7 +6,6 @@
 namespace Sphere\Core\Model\Common;
 
 /**
- * Class DateTime
  * @package Sphere\Core\Model\Common
  */
 class DateDecorator extends DateTimeDecorator

@@ -13,7 +13,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Categories
- * @link http://dev.sphere.io/http-api-projects-categories.html#update-category
+ * @apidoc http://dev.sphere.io/http-api-projects-categories.html#update-category
  * @method Category mapResponse(ApiResponseInterface $response)
  */
 class CategoryUpdateRequest extends AbstractUpdateRequest

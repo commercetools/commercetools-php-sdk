@@ -10,7 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Customers\Command
- * @link http://dev.sphere.io/http-api-projects-customers.html#set-vat-id
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#set-vat-id
  * @method string getVatId()
  * @method CustomerSetVatIdAction setVatId(string $vatId = null)
  * @method string getAction()

@@ -10,7 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Products\Command
- * @link http://dev.sphere.io/http-api-projects-products.html#remove-variant
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#remove-variant
  * @method string getAction()
  * @method ProductRemoveVariantAction setAction(string $action = null)
  * @method int getId()

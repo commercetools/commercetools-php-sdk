@@ -5,6 +5,20 @@ Feature: I want to query shipping methods
     Then the path should be "shipping-methods/id"
     And the method should be "GET"
 
+  Scenario: Fetch shippingMethods by cartId
+    Given a "shippingMethod" is identified by "12345"
+    Given i want to fetch a "shippingMethod" by cartId
+    Then the path should be "shipping-methods?cartId=12345"
+    And the method should be "GET"
+
+  Scenario: Fetch shippingMethods by location
+    Given a "shippingMethod" is identified by "DE"
+    Given i want to fetch a "shippingMethod" by location
+    And with "state" "Berlin"
+    And with "currency" "EUR"
+    Then the path should be "shipping-methods?country=DE&currency=EUR&state=Berlin"
+    And the method should be "GET"
+
   Scenario: Query customers with filter applied
     Given i want to query "shippingMethods"
     And filter them with criteria 'name="Peter"'

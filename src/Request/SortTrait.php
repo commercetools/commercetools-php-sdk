@@ -10,7 +10,6 @@ use Sphere\Core\Request\Query\MultiParameter;
 use Sphere\Core\Request\Query\ParameterInterface;
 
 /**
- * Class SortableTrait
  * @package Sphere\Core\Request
  * @method $this addParamObject(ParameterInterface $param)
  */

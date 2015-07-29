@@ -12,7 +12,7 @@ use Sphere\Core\Model\Common\Context;
 
 /**
  * @package Sphere\Core\Model\Product
- * @link http://dev.sphere.io/http-api-projects-products.html#search-keywords
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#search-keywords
  * @method SearchKeywords current()
  * @method SearchKeywords getAt($offset)
  */

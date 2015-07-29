@@ -12,7 +12,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\Orders
- * @link http://dev.sphere.io/http-api-projects-orders.html#order-by-id
+ * @apidoc http://dev.sphere.io/http-api-projects-orders.html#order-by-id
  * @method Order mapResponse(ApiResponseInterface $response)
  */
 class OrderByIdGetRequest extends AbstractByIdGetRequest

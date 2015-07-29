@@ -10,7 +10,7 @@ use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
  * @package Sphere\Core\Model\ShippingMethod
- * @link http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-method
+ * @apidoc http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-method
  * @method string getId()
  * @method ShippingMethod setId(string $id = null)
  * @method int getVersion()

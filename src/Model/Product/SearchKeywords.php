@@ -9,7 +9,7 @@ use Sphere\Core\Model\Common\Collection;
 
 /**
  * @package Sphere\Core\Model\Product
- * @link http://dev.sphere.io/http-api-projects-products.html#search-keywords
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#search-keywords
  * @method SearchKeyword current()
  * @method SearchKeyword getAt($offset)
  */

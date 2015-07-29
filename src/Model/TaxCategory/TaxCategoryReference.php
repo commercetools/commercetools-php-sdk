@@ -11,7 +11,7 @@ use Sphere\Core\Model\Common\Reference;
 
 /**
  * @package Sphere\Core\Model\TaxCategory
- * @link http://dev.sphere.io/http-api-types.html#reference
+ * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method TaxCategoryReference setTypeId(string $typeId = null)
  * @method string getId()

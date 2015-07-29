@@ -10,7 +10,7 @@ use Sphere\Core\Request\AbstractAction;
 
 /**
  * @package Sphere\Core\Request\Customers\Command
- * @link http://dev.sphere.io/http-api-projects-customers.html#set-customer-number
+ * @apidoc http://dev.sphere.io/http-api-projects-customers.html#set-customer-number
  * @method string getCustomerNumber()
  * @method CustomerSetCustomerNumberAction setCustomerNumber(string $customerNumber = null)
  * @method string getAction()

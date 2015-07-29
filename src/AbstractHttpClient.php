@@ -11,13 +11,12 @@ use Sphere\Core\Client\Adapter\AdapterFactory;
 use Sphere\Core\Client\Adapter\AdapterInterface;
 
 /**
- * Class AbstractHttpClient
  * @package Sphere\Core
  */
 abstract class AbstractHttpClient
 {
 
-    const VERSION = '1.0.0 M4';
+    const VERSION = '1.0.0 RC1';
 
     /**
      * @var AdapterInterface

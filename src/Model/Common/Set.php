@@ -8,7 +8,7 @@ namespace Sphere\Core\Model\Common;
 
 /**
  * @package Sphere\Core\Model\Common
- * @link http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
+ * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
  */
 class Set extends Collection implements TypeableInterface
 {

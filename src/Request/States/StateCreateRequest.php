@@ -13,7 +13,7 @@ use Sphere\Core\Response\ApiResponseInterface;
 
 /**
  * @package Sphere\Core\Request\States
- * @link http://dev.sphere.io/http-api-projects-states.html#create-state
+ * @apidoc http://dev.sphere.io/http-api-projects-states.html#create-state
  * @method State mapResponse(ApiResponseInterface $response)
  */
 class StateCreateRequest extends AbstractCreateRequest
