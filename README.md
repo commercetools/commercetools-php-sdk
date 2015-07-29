@@ -35,6 +35,19 @@ Next, run the Composer command to install the latest version of the SDK:
 composer require sphere/php-sdk dev-master
 ```
 
+The SDK supports Guzzle6 as well as Guzzle5 as HTTP client. For Guzzle6:
+
+```bash
+composer require guzzlehttp/guzzle ^6.0
+```
+
+When you want to use Guzzle5 you have to add additionally the log subscriber:
+
+```bash
+composer require guzzlehttp/guzzle ^5.0
+composer require guzzlehttp/log-subscriber ^1.0
+```
+
 After installing, you need to require Composer's autoloader if that's not yet the case:
 
 ```php
