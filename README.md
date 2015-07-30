@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/sphereio/sphere-php-sdk/2e4ff670d202ddba7f0e23f9bb17af51753519bb/build/theme/resources/CT_cube_200px.png" style="width:40px;vertical-align:middle;"></img> commercetools PHP SDK
+# <img src="build/theme/resources/CT_cube_200px.png" width="40" align="center"></img> commercetools PHP SDK
 
 >  STATUS: Release Candidate 1.  We have done all planned breaking changes and ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!  
 > 
