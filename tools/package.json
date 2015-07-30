@@ -1,7 +1,7 @@
 {
   "name": "sphere-php-sdk",
   "version": "1.0.0-RC1",
-  "description": "Sphere PHP SDK",
+  "description": "commercetools PHP SDK",
   "homepage": "https://github.com/sphereio/sphere-php-sdk",
   "bugs": "https://github.com/sphereio/sphere-php-sdk/issues",
   "license": "MIT",

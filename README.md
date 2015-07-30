@@ -1,14 +1,14 @@
-![SPHERE.IO icon](https://admin.sphere.io/assets/images/sphere_logo_rgb_long.png)
-# SPHERE.IO PHP SDK
+# <img src="build/theme/resources/CT_cube_200px.png" style="width:40px;vertical-align:middle;"></img> commercetools PHP SDK
 
-> STATUS: Release Candidate 1.  We have done all planned breaking changes and ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!  
+>  STATUS: Release Candidate 1.  We have done all planned breaking changes and ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!  
 > 
 > See the [Milestone Plan](https://github.com/sphereio/sphere-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned in detail. We love feedback and [Issue reports](https://github.com/sphereio/sphere-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
 
 [![Build Status](https://img.shields.io/travis/sphereio/sphere-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/sphereio/sphere-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk)
 
-The PHP SDK allows developers to build applications on the SPHERE.IO REST API using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API. You gain lots of IDE Auto-Completion, type checks on a literal API, Warnings, Object Mapping, i18n support etc..
-It also manages the OAuth2 security, provides caches and an interface for concurrent and asynchronous API calls.
+The PHP SDK allows developers to build applications on the commercetools platform (technically speaking against the SPHERE.IO REST API) using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API. 
+
+You gain lots of IDE Auto-Completion, type checks on a literal API, Warnings, Object Mapping, i18n support etc.. The Client manages the OAuth2 security tokens, provides caches and interfaces for concurrent and asynchronous API calls. 
 
 The SDK is licensed under the permissive [MIT License](LICENSE). Don't hesitate to [contribute](#contribute)!
 
@@ -65,7 +65,7 @@ Please read the [Changelog](CHANGELOG.md) before updating in any case.
 
 ### Getting started
 
-To get up and running, [create a free test project](http://admin.sphere.io) to get a SPHERE project with API credentials (Menu "Developers"->"API Clients").
+To get up and running, [create a free test project](http://admin.sphere.io) on the commercetools platform with API credentials (Menu "Developers"->"API Clients").
 
 ```php
 <?php
