@@ -15,7 +15,7 @@ use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Commercetools\Core\Error\SphereException;
+use Commercetools\Core\Error\ApiException;
 
 class Guzzle5Adapter implements AdapterInterface
 {
@@ -61,7 +61,7 @@ class Guzzle5Adapter implements AdapterInterface
     /**
      * @param RequestInterface $request
      * @return ResponseInterface
-     * @throws \Commercetools\Core\Error\SphereException
+     * @throws \Commercetools\Core\Error\ApiException
      * @throws \Commercetools\Core\Error\BadGatewayException
      * @throws \Commercetools\Core\Error\ConcurrentModificationException
      * @throws \Commercetools\Core\Error\ErrorResponseException
@@ -88,7 +88,7 @@ class Guzzle5Adapter implements AdapterInterface
             $response = $this->packResponse($guzzleResponse);
         } catch (RequestException $exception) {
             $response = $this->packResponse($exception->getResponse());
-            throw SphereException::create($request, $response, $exception);
+            throw ApiException::create($request, $response, $exception);
         }
 
         return $response;
@@ -109,7 +109,7 @@ class Guzzle5Adapter implements AdapterInterface
     /**
      * @param RequestInterface[] $requests
      * @return \Psr\Http\Message\ResponseInterface[]
-     * @throws \Commercetools\Core\Error\SphereException
+     * @throws \Commercetools\Core\Error\ApiException
      * @throws \Commercetools\Core\Error\BadGatewayException
      * @throws \Commercetools\Core\Error\ConcurrentModificationException
      * @throws \Commercetools\Core\Error\ErrorResponseException
@@ -142,7 +142,7 @@ class Guzzle5Adapter implements AdapterInterface
             } else {
                 $httpResponse = $this->packResponse($result->getResponse());
                 $request = $requests[$key];
-                $response = SphereException::create($request, $httpResponse, $result);
+                $response = ApiException::create($request, $httpResponse, $result);
             }
             $responses[$key] = $response;
         }
@@ -201,7 +201,7 @@ class Guzzle5Adapter implements AdapterInterface
                 (string)$authRequest->getBody()
             );
             $response = $this->packResponse($exception->getResponse());
-            throw SphereException::create($request, $response, $exception);
+            throw ApiException::create($request, $response, $exception);
         }
         return $response;
     }

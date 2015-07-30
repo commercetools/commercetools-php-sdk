@@ -15,7 +15,7 @@ use GuzzleHttp\Psr7\Response;
 use Commercetools\Core\AccessorTrait;
 use Commercetools\Core\Client\Adapter\Guzzle6Adapter;
 use Commercetools\Core\Client\HttpMethod;
-use Commercetools\Core\Error\SphereException;
+use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Request\AbstractApiRequest;
 
 /**
@@ -72,7 +72,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $httpResponse = $this->getGuzzleResponse($response, $statusCode, $future, $headers);
-        } catch (SphereException $e) {
+        } catch (ApiException $e) {
             $httpResponse = $e->getResponse();
         }
         $response = $this->getMockForAbstractClass(

@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface;
  * Base exception for responses with http status code different than 200 or 201
  * @package Commercetools\Core\Error
  */
-class SphereException extends \Exception
+class ApiException extends \Exception
 {
     /**
      * @var RequestInterface

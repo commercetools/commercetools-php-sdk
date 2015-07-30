@@ -15,7 +15,7 @@ use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use Commercetools\Core\Client\JsonEndpoint;
 use Commercetools\Core\Client\OAuth\Token;
-use Commercetools\Core\Error\SphereException;
+use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Request\ClientRequestInterface;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
@@ -168,7 +168,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Commercetools\Core\Error\SphereException
+     * @expectedException \Commercetools\Core\Error\ApiException
      */
     public function testUnexpectedException()
     {
@@ -460,7 +460,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      * @param $returnCode
      * @param $exceptionClass
      * @param $returnBody
-     * @expectedException \Commercetools\Core\Error\SphereException
+     * @expectedException \Commercetools\Core\Error\ApiException
      */
     public function testExceptions($returnCode, $exceptionClass, $returnBody)
     {

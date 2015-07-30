@@ -47,7 +47,7 @@ use Commercetools\Core\Model\Common\ContextTrait;
  * $client = new Client($config);
  * try {
  *     $response = $client->execute($request);
- * } catch (\Commercetools\Core\Error\SphereException $e) {
+ * } catch (\Commercetools\Core\Error\ApiException $e) {
  *     // handle Exception
  * }
  * ```

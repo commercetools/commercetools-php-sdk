@@ -13,7 +13,7 @@ use Psr\Log\LoggerInterface;
 use Commercetools\Core\Client\Adapter\AdapterInterface;
 use Commercetools\Core\Error\InvalidTokenException;
 use Commercetools\Core\Error\Message;
-use Commercetools\Core\Error\SphereException;
+use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Model\Common\ContextAwareInterface;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Request\ClientRequestInterface;
@@ -221,7 +221,7 @@ class Client extends AbstractHttpClient
      * @param ClientRequestInterface $request
      * @return ApiResponseInterface
      * @throws InvalidTokenException
-     * @throws SphereException
+     * @throws ApiException
      * @throws \Exception
      */
     public function execute(ClientRequestInterface $request)
@@ -233,7 +233,7 @@ class Client extends AbstractHttpClient
 
         try {
             $response = $this->getHttpClient()->execute($httpRequest);
-        } catch (SphereException $exception) {
+        } catch (ApiException $exception) {
             if ($exception instanceof InvalidTokenException && !$this->tokenRefreshed) {
                 $this->tokenRefreshed = true;
                 $this->getOauthManager()->refreshToken();
@@ -292,7 +292,7 @@ class Client extends AbstractHttpClient
     /**
      * Executes API requests in batch
      * @return Response\ApiResponseInterface[]
-     * @throws SphereException
+     * @throws ApiException
      */
     public function executeBatch()
     {
@@ -303,7 +303,7 @@ class Client extends AbstractHttpClient
         foreach ($httpResponses as $key => $httpResponse) {
             $request = $this->batchRequests[$key];
             $httpRequest = $requests[$key];
-            if ($httpResponse instanceof SphereException) {
+            if ($httpResponse instanceof ApiException) {
                 if ($this->getConfig()->getThrowExceptions() ||
                     !$httpResponse->getResponse() instanceof ResponseInterface
                 ) {

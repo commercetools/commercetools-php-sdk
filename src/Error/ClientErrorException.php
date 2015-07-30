@@ -9,7 +9,7 @@ namespace Commercetools\Core\Error;
  * Base exception for all responses with http status code 4xx
  * @package Commercetools\Core\Error
  */
-class ClientErrorException extends SphereServiceException
+class ClientErrorException extends ApiServiceException
 {
 
 }
