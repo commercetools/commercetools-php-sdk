@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Client\Adapter;
+namespace Commercetools\Core\Client\Adapter;
 
 
 use GuzzleHttp\Client;
@@ -15,8 +15,8 @@ use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Sphere\Core\Error\Message;
-use Sphere\Core\Error\SphereException;
+use Commercetools\Core\Error\Message;
+use Commercetools\Core\Error\SphereException;
 
 class Guzzle6Adapter implements AdapterInterface
 {

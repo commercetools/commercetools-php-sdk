@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\CustomerGroup;
+namespace Commercetools\Core\Model\CustomerGroup;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\CustomerGroup
+ * @package Commercetools\Core\Model\CustomerGroup
  * @method string getGroupName()
  * @method CustomerGroupDraft setGroupName(string $groupName = null)
  */

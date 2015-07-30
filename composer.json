@@ -1,5 +1,5 @@
 {
-  "name": "sphere/php-sdk",
+  "name": "commercetools/php-sdk",
   "license": "MIT",
   "type": "project",
   "description": "The commercetools PHP SDK \n The official PHP Interface to the commercetools eCommerce API",
@@ -12,12 +12,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Sphere\\Core\\": "src/"
+      "Commercetools\\Core\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Sphere\\Core\\": [
+      "Commercetools\\Core\\": [
         "tests/unit/",
         "tests/integration/"
       ]
@@ -45,7 +45,5 @@
     "behat/behat": "^3.0",
     "phpspec/prophecy-phpunit": "^1.0",
     "phpunit/phpcov": "*"
-  },
-  "suggest": {
   }
 }

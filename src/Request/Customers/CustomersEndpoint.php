@@ -4,10 +4,10 @@
  * @created: 11.02.15, 14:17
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 class CustomersEndpoint
 {

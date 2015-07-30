@@ -4,13 +4,13 @@
  * @created: 04.02.15, 17:46
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
-use Sphere\Core\Model\ProductType\AttributeDefinition;
-use Sphere\Core\Model\ProductType\AttributeType;
+use Commercetools\Core\Model\ProductType\AttributeDefinition;
+use Commercetools\Core\Model\ProductType\AttributeType;
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
  * @method string getName()
  * @method getValue()
@@ -22,17 +22,17 @@ class Attribute extends JsonObject
     // identifiers for the SPHERE.IO Product Attribute Types:
     const T_UNKNOWN = 'unknown';  // zero, should evaluate to false
     const T_TEXTLIKE = 'string'; //includes date, datetime, time as these are JSON Strings, too
-    const T_LTEXT = '\Sphere\Core\Model\Common\LocalizedString';
+    const T_LTEXT = '\Commercetools\Core\Model\Common\LocalizedString';
     const T_NUMBER = 'float';
     const T_BOOLEAN = 'bool';
-    const T_ENUM = '\Sphere\Core\Model\Common\Enum';
-    const T_LENUM = '\Sphere\Core\Model\Common\LocalizedEnum';
-    const T_MONEY = '\Sphere\Core\Model\Common\Money';
-    const T_SET = '\Sphere\Core\Model\Common\Set';
-    const T_NESTED = '\Sphere\Core\Model\Common\AttributeCollection';
-    const T_REFERENCE = '\Sphere\Core\Model\Common\Reference';
+    const T_ENUM = '\Commercetools\Core\Model\Common\Enum';
+    const T_LENUM = '\Commercetools\Core\Model\Common\LocalizedEnum';
+    const T_MONEY = '\Commercetools\Core\Model\Common\Money';
+    const T_SET = '\Commercetools\Core\Model\Common\Set';
+    const T_NESTED = '\Commercetools\Core\Model\Common\AttributeCollection';
+    const T_REFERENCE = '\Commercetools\Core\Model\Common\Reference';
     const T_DATETIME = '\DateTime';
-    const T_DATETIME_DECORATOR = '\Sphere\Core\Model\Common\DateTimeDecorator';
+    const T_DATETIME_DECORATOR = '\Commercetools\Core\Model\Common\DateTimeDecorator';
 
 
     const PROP_VALUE = "value";

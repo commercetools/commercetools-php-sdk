@@ -11,7 +11,7 @@ require_once __DIR__ . '/SphereContext.php';
  */
 class FeatureContext implements Context, SnippetAcceptingContext
 {
-    use \Sphere\Core\SphereContext;
+    use \Commercetools\Core\SphereContext;
 
     protected static $coverage;
 

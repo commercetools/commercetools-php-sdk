@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Customers\Command;
+namespace Commercetools\Core\Request\Customers\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Customers\Command
+ * @package Commercetools\Core\Request\Customers\Command
  * @apidoc http://dev.sphere.io/http-api-projects-customers.html#set-customer-group
  * @method CustomerGroupReference getCustomerGroup()
  * @method CustomerSetCustomerGroupAction setCustomerGroup(CustomerGroupReference $customerGroup = null)
@@ -23,7 +23,7 @@ class CustomerSetCustomerGroupAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'customerGroup' => [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
+            'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
         ];
     }
 

@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductTypes;
+namespace Commercetools\Core\Request\ProductTypes;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteRequest;
-use Sphere\Core\Model\ProductType\ProductType;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractDeleteRequest;
+use Commercetools\Core\Model\ProductType\ProductType;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\ProductTypes
+ * @package Commercetools\Core\Request\ProductTypes
  * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#delete-product-type
  * @method ProductType mapResponse(ApiResponseInterface $response)
  */
 class ProductTypeDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\ProductType\ProductType';
+    protected $resultClass = '\Commercetools\Core\Model\ProductType\ProductType';
 
     /**
      * @param string $id

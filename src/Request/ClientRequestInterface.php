@@ -4,16 +4,16 @@
  * @created: 21.01.15, 11:38
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * Interface ClientRequestInterface
- * @package Sphere\Core\Http
+ * @package Commercetools\Core\Http
  */
 interface ClientRequestInterface
 {

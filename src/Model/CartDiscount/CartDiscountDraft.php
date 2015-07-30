@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\CartDiscount;
+namespace Commercetools\Core\Model\CartDiscount;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
- * @package Sphere\Core\Model\CartDiscount
+ * @package Commercetools\Core\Model\CartDiscount
  * @method LocalizedString getName()
  * @method CartDiscountDraft setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
@@ -49,20 +49,20 @@ class CartDiscountDraft extends JsonObject
     public function getFields()
     {
         return [
-            static::NAME => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            static::DESCRIPTION => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            static::VALUE => [static::TYPE => '\Sphere\Core\Model\CartDiscount\CartDiscountValue'],
+            static::NAME => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            static::DESCRIPTION => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            static::VALUE => [static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountValue'],
             static::CART_PREDICATE => [static::TYPE => 'string'],
-            static::TARGET => [static::TYPE => '\Sphere\Core\Model\CartDiscount\CartDiscountTarget'],
+            static::TARGET => [static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountTarget'],
             static::SORT_ORDER => [static::TYPE => 'string'],
             static::IS_ACTIVE => [static::TYPE => 'bool'],
             static::VALID_FROM => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
             static::VALID_UNTIL  => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
             static::REQUIRES_DISCOUNT_CODE => [static::TYPE => 'bool'],
         ];

@@ -3,17 +3,17 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\Product
+ * @package Commercetools\Core\Model\Product
  * @apidoc http://dev.sphere.io/http-api-projects-products-search.html#suggest-representations-result
  * @method Suggestion current()
  * @method Suggestion getAt($offset)
  */
 class SuggestionCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\Product\Suggestion';
+    protected $type = '\Commercetools\Core\Model\Product\Suggestion';
 }

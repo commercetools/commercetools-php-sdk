@@ -4,13 +4,13 @@
  * @created: 20.01.15, 17:54
  */
 
-namespace Sphere\Core;
+namespace Commercetools\Core;
 
 
-use Sphere\Core\Error\Message;
-use Sphere\Core\Error\InvalidArgumentException;
-use Sphere\Core\Model\Common\ContextAwareInterface;
-use Sphere\Core\Model\Common\ContextTrait;
+use Commercetools\Core\Error\Message;
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Model\Common\ContextAwareInterface;
+use Commercetools\Core\Model\Common\ContextTrait;
 
 /**
  * Client configuration object
@@ -47,11 +47,11 @@ use Sphere\Core\Model\Common\ContextTrait;
  * $client = new Client($config);
  * try {
  *     $response = $client->execute($request);
- * } catch (\Sphere\Core\Error\SphereException $e) {
+ * } catch (\Commercetools\Core\Error\SphereException $e) {
  *     // handle Exception
  * }
  * ```
- * @package Sphere\Core
+ * @package Commercetools\Core
  */
 class Config implements ContextAwareInterface
 {

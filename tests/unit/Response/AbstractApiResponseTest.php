@@ -4,7 +4,7 @@
  * @created: 10.02.15, 14:09
  */
 
-namespace Sphere\Core\Response;
+namespace Commercetools\Core\Response;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
@@ -12,23 +12,23 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\BufferStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Sphere\Core\AccessorTrait;
-use Sphere\Core\Client\Adapter\Guzzle6Adapter;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Error\SphereException;
-use Sphere\Core\Request\AbstractApiRequest;
+use Commercetools\Core\AccessorTrait;
+use Commercetools\Core\Client\Adapter\Guzzle6Adapter;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Error\SphereException;
+use Commercetools\Core\Request\AbstractApiRequest;
 
 /**
  * Class AbstractApiResponseTest
- * @package Sphere\Core\Response
+ * @package Commercetools\Core\Response
  * @method AbstractApiRequest getRequest($class)
  */
 class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_API_RESPONSE = '\Sphere\Core\Response\AbstractApiResponse';
-    const ABSTRACT_API_REQUEST = '\Sphere\Core\Request\AbstractApiRequest';
+    const ABSTRACT_API_RESPONSE = '\Commercetools\Core\Response\AbstractApiResponse';
+    const ABSTRACT_API_REQUEST = '\Commercetools\Core\Request\AbstractApiRequest';
 
     /**
      * @return Response
@@ -52,7 +52,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
                 ['status' => $statusCode, 'headers' => $headers, 'body' => $response]
             );
 
-            $client = new \Sphere\Core\Client\Adapter\Guzzle5Adapter(['handler' => $handler]);
+            $client = new \Commercetools\Core\Client\Adapter\Guzzle5Adapter(['handler' => $handler]);
         }
 
         $request = new Request(HttpMethod::GET, '/');
@@ -125,14 +125,14 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     {
         $response = $this->getResponse();
 
-        $this->assertInstanceOf('\Sphere\Core\Request\ClientRequestInterface', $response->getRequest());
+        $this->assertInstanceOf('\Commercetools\Core\Request\ClientRequestInterface', $response->getRequest());
     }
 
 
     public function testToObject()
     {
         $response = $this->getResponse();
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\JsonObject', $response->toObject());
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\JsonObject', $response->toObject());
     }
 
     public function testErrorToObject()
@@ -162,7 +162,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     public function testThen()
     {
         $response = $this->getResponse('{"key":"value"}', 200, true);
-        $this->assertInstanceOf('\Sphere\Core\Response\ApiResponseInterface', $response->then());
+        $this->assertInstanceOf('\Commercetools\Core\Response\ApiResponseInterface', $response->then());
     }
 
     public function testWait()

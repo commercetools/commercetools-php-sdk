@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
 
 /**
- * @package Sphere\Core\Model\Product
+ * @package Commercetools\Core\Model\Product
  * 
  * @method string getName()
  * @method Facet setName(string $name = null)

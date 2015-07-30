@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CustomObjects;
+namespace Commercetools\Core\Request\CustomObjects;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\CustomObject\CustomObject;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\CustomObjects
+ * @package Commercetools\Core\Request\CustomObjects
  * @apidoc http://dev.sphere.io/http-api-projects-custom-objects.html#create-custom-object
  * @method CustomObject mapResponse(ApiResponseInterface $response)
  */
 class CustomObjectCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\CustomObject\CustomObject';
+    protected $resultClass = '\Commercetools\Core\Model\CustomObject\CustomObject';
 
     /**
      * @param CustomObject $customObject

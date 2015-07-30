@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\DiscountCodes;
+namespace Commercetools\Core\Request\DiscountCodes;
 
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 /**
- * @package Sphere\Core\Request\DiscountCodes
+ * @package Commercetools\Core\Request\DiscountCodes
  */
 class DiscountCodesEndpoint
 {

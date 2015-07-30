@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Carts\Command;
+namespace Commercetools\Core\Request\Carts\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
-use Sphere\Core\Model\ShippingMethod\ShippingRate;
-use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Model\ShippingMethod\ShippingRate;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
- * @package Sphere\Core\Request\Carts\Command
+ * @package Commercetools\Core\Request\Carts\Command
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#set-custom-shipping-method
  * @method string getAction()
  * @method CartSetCustomShippingMethodAction setAction(string $action = null)
@@ -29,8 +29,8 @@ class CartSetCustomShippingMethodAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'shippingMethodName' => [static::TYPE => 'string'],
-            'shippingRate' => [static::TYPE => '\Sphere\Core\Model\ShippingMethod\ShippingRate'],
-            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference'],
+            'shippingRate' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingRate'],
+            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
         ];
     }
 

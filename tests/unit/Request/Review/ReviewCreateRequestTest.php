@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Review;
+namespace Commercetools\Core\Request\Review;
 
 
-use Sphere\Core\Model\Review\ReviewDraft;
-use Sphere\Core\Request\Reviews\ReviewCreateRequest;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\Review\ReviewDraft;
+use Commercetools\Core\Request\Reviews\ReviewCreateRequest;
+use Commercetools\Core\RequestTestCase;
 
 class ReviewCreateRequestTest extends RequestTestCase
 {
-    const REVIEW_CREATE_REQUEST = '\Sphere\Core\Request\Reviews\ReviewCreateRequest';
+    const REVIEW_CREATE_REQUEST = '\Commercetools\Core\Request\Reviews\ReviewCreateRequest';
 
     protected function getDraft()
     {
@@ -31,7 +31,7 @@ class ReviewCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ReviewCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Sphere\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
     }
 
     public function testMapEmptyResult()

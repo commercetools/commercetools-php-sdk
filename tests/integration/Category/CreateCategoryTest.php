@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Category;
+namespace Commercetools\Core\Category;
 
-use Sphere\Core\ApiTestCase;
-use Sphere\Core\Model\Category\Category;
-use Sphere\Core\Model\Category\CategoryDraft;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Request\Categories\CategoryCreateRequest;
-use Sphere\Core\Request\Categories\CategoryDeleteRequest;
+use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Category\Category;
+use Commercetools\Core\Model\Category\CategoryDraft;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Request\Categories\CategoryCreateRequest;
+use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
 
 class CreateCategoryTest extends ApiTestCase
 {

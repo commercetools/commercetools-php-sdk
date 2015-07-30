@@ -4,7 +4,7 @@
  * @created: 10.02.15, 15:58
  */
 
-namespace Sphere\Core\Client\OAuth;
+namespace Commercetools\Core\Client\OAuth;
 
 
 class TokenTest extends \PHPUnit_Framework_TestCase

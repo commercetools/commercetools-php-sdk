@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
 class MoneyTest extends \PHPUnit_Framework_TestCase
@@ -11,7 +11,7 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     public function testFromArray()
     {
         $this->assertInstanceOf(
-            '\Sphere\Core\Model\Common\Money',
+            '\Commercetools\Core\Model\Common\Money',
             Money::fromArray(['currencyCode' => 'EUR', 'centAmount' => 100])
         );
     }

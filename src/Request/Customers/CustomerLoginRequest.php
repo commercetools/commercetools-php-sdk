@@ -4,19 +4,19 @@
  * @created: 11.02.15, 15:53
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\JsonRequest;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\Response\ResourceResponse;
-use Sphere\Core\Model\Customer\CustomerSigninResult;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Client\JsonRequest;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Response\ResourceResponse;
+use Commercetools\Core\Model\Customer\CustomerSigninResult;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Customers
+ * @package Commercetools\Core\Request\Customers
  * @apidoc http://dev.sphere.io/http-api-projects-customers.html#authenticate-customer
  * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
  */
@@ -41,7 +41,7 @@ class CustomerLoginRequest extends AbstractApiRequest
      */
     protected $anonymousCartId;
 
-    protected $resultClass = '\Sphere\Core\Model\Customer\CustomerSigninResult';
+    protected $resultClass = '\Commercetools\Core\Model\Customer\CustomerSigninResult';
 
     /**
      * @param string $email

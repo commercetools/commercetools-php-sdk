@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductTypes;
+namespace Commercetools\Core\Request\ProductTypes;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\ProductType\ProductTypeCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\ProductType\ProductTypeCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\ProductTypes
+ * @package Commercetools\Core\Request\ProductTypes
  * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#product-types-by-query
  * @method ProductTypeCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductTypeQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\ProductType\ProductTypeCollection';
+    protected $resultClass = '\Commercetools\Core\Model\ProductType\ProductTypeCollection';
 
     /**
      * @param Context $context

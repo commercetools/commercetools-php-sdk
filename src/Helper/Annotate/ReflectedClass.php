@@ -3,10 +3,10 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Helper\Annotate;
+namespace Commercetools\Core\Helper\Annotate;
 
 /**
- * @package Sphere\Core\Helper\Annotate
+ * @package Commercetools\Core\Helper\Annotate
  */
 class ReflectedClass
 {

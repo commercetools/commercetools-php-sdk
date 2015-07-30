@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ShippingMethods\Command;
+namespace Commercetools\Core\Request\ShippingMethods\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Zone\ZoneReference;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Zone\ZoneReference;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\ShippingMethods\Command
+ * @package Commercetools\Core\Request\ShippingMethods\Command
  * 
  * @method string getAction()
  * @method ShippingMethodAddZoneAction setAction(string $action = null)
@@ -23,7 +23,7 @@ class ShippingMethodAddZoneAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'zone' => [static::TYPE => '\Sphere\Core\Model\Zone\ZoneReference'],
+            'zone' => [static::TYPE => '\Commercetools\Core\Model\Zone\ZoneReference'],
         ];
     }
 

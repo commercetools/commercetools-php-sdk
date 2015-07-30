@@ -3,26 +3,26 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Orders;
+namespace Commercetools\Core\Request\Orders;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Model\Common\Money;
-use Sphere\Core\Model\Order\ImportOrder;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Order\ImportOrder;
+use Commercetools\Core\RequestTestCase;
 
 /**
  * Class OrderCreateFromCartRequestTest
- * @package Sphere\Core\Request\Orders
+ * @package Commercetools\Core\Request\Orders
  */
 class OrderImportRequestTest extends RequestTestCase
 {
-    const ORDER_IMPORT_REQUEST = '\Sphere\Core\Request\Orders\OrderImportRequest';
+    const ORDER_IMPORT_REQUEST = '\Commercetools\Core\Request\Orders\OrderImportRequest';
 
     public function testMapResult()
     {
         $result = $this->mapResult(OrderImportRequest::ofImportOrder(ImportOrder::of()));
-        $this->assertInstanceOf('\Sphere\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
     }
 
     public function testMapEmptyResult()
@@ -37,7 +37,7 @@ class OrderImportRequestTest extends RequestTestCase
         $request = OrderImportRequest::ofImportOrder(ImportOrder::of());
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 
     public function testHttpRequestMethod()

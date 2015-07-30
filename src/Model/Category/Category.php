@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Category;
+namespace Commercetools\Core\Model\Category;
 
-use Sphere\Core\Model\Common\Resource;
-use Sphere\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
- * @package Sphere\Core\Model\Category
+ * @package Commercetools\Core\Model\Category
  * @apidoc http://dev.sphere.io/http-api-projects-categories.html#category
  * @method string getId()
  * @method Category setId(string $id = null)
@@ -43,11 +43,11 @@ class Category extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [static::TYPE => '\DateTime'],
             'lastModifiedAt' => [static::TYPE => '\DateTime'],
-            'name' => [self::TYPE => 'Sphere\Core\Model\Common\LocalizedString'],
-            'slug' => [self::TYPE => 'Sphere\Core\Model\Common\LocalizedString'],
-            'description' => [self::TYPE => 'Sphere\Core\Model\Common\LocalizedString'],
-            'ancestors' => [self::TYPE => '\Sphere\Core\Model\Category\CategoryReferenceCollection'],
-            'parent' => [self::TYPE => '\Sphere\Core\Model\Category\CategoryReference'],
+            'name' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'slug' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'description' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'ancestors' => [self::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
+            'parent' => [self::TYPE => '\Commercetools\Core\Model\Category\CategoryReference'],
             'orderHint' => [self::TYPE => 'string'],
             'externalId' => [self::TYPE => 'string'],
         ];

@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Order;
+namespace Commercetools\Core\Model\Order;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\Order
+ * @package Commercetools\Core\Model\Order
  * @method Delivery current()
  * @method Delivery getAt($offset)
  */
 class DeliveryCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\Order\Delivery';
+    protected $type = '\Commercetools\Core\Model\Order\Delivery';
 }

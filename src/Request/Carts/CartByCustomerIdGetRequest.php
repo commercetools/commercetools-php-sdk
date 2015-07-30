@@ -3,20 +3,20 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Carts;
+namespace Commercetools\Core\Request\Carts;
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\HttpRequest;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\Request\CustomerIdTrait;
-use Sphere\Core\Response\ResourceResponse;
-use Sphere\Core\Model\Cart\Cart;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Client\HttpRequest;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Request\CustomerIdTrait;
+use Commercetools\Core\Response\ResourceResponse;
+use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Carts
+ * @package Commercetools\Core\Request\Carts
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#cart-by-customer-id
  * @method Cart mapResponse(ApiResponseInterface $response)
  */
@@ -24,7 +24,7 @@ class CartByCustomerIdGetRequest extends AbstractApiRequest
 {
     use CustomerIdTrait;
 
-    protected $resultClass = '\Sphere\Core\Model\Cart\Cart';
+    protected $resultClass = '\Commercetools\Core\Model\Cart\Cart';
 
     /**
      * @param string $customerId

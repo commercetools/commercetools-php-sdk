@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Messages;
+namespace Commercetools\Core\Request\Messages;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\Message\MessageCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\Message\MessageCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Messages
+ * @package Commercetools\Core\Request\Messages
  * @apidoc http://dev.sphere.io/http-api-projects-messages.html#messages-by-query
  * @method MessageCollection mapResponse(ApiResponseInterface $response)
  */
 class MessageQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Message\MessageCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Message\MessageCollection';
 
     /**
      * @param Context $context

@@ -3,9 +3,9 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core;
+namespace Commercetools\Core;
 
-use Sphere\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Context;
 
 class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -39,7 +39,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         return $result;
     }
     /**
-     * @return \Sphere\Core\Client
+     * @return \Commercetools\Core\Client
      */
     public function getClient()
     {

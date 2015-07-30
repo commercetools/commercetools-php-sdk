@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Client\Adapter;
+namespace Commercetools\Core\Client\Adapter;
 
 
 use GuzzleHttp\Client;
-use Sphere\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Error\InvalidArgumentException;
 
 class AdapterFactory
 {
@@ -15,8 +15,8 @@ class AdapterFactory
 
     public function __construct()
     {
-        $this->register('guzzle5', '\Sphere\Core\Client\Adapter\Guzzle5Adapter')
-            ->register('guzzle6', '\Sphere\Core\Client\Adapter\Guzzle6Adapter');
+        $this->register('guzzle5', '\Commercetools\Core\Client\Adapter\Guzzle5Adapter')
+            ->register('guzzle6', '\Commercetools\Core\Client\Adapter\Guzzle6Adapter');
 
     }
 

@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\CartDiscount;
+namespace Commercetools\Core\Model\CartDiscount;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
- * @package Sphere\Core\Model\CartDiscount
+ * @package Commercetools\Core\Model\CartDiscount
  * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method CartDiscountReference setTypeId(string $typeId = null)
@@ -25,7 +25,7 @@ class CartDiscountReference extends Reference
     public function getFields()
     {
         $fields = parent::getFields();
-        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\CartDiscount\CartDiscount'];
+        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscount'];
 
         return $fields;
     }

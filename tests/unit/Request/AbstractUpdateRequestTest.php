@@ -4,26 +4,26 @@
  * @created: 10.02.15, 10:29
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
 
 use GuzzleHttp\Message\Response;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
-use Sphere\Core\AccessorTrait;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Model\Common\Context;
+use Commercetools\Core\AccessorTrait;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Common\Context;
 
 /**
  * Class AbstractCreateRequestTest
- * @package Sphere\Core\Request
+ * @package Commercetools\Core\Request
  * @method AbstractUpdateRequest getRequest($class, array $args = [])
  */
 class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_UPDATE_REQUEST = '\Sphere\Core\Request\AbstractUpdateRequest';
+    const ABSTRACT_UPDATE_REQUEST = '\Commercetools\Core\Request\AbstractUpdateRequest';
 
     /**
      * @return AbstractUpdateRequest
@@ -80,7 +80,7 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getUpdateRequest();
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 
     public function testAddAction()

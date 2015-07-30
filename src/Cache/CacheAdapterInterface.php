@@ -4,11 +4,11 @@
  * @created 19.01.15, 17:02
  */
 
-namespace Sphere\Core\Cache;
+namespace Commercetools\Core\Cache;
 
 /**
  * Interface CacheAdapterInterface
- * @package Sphere\Core\Cache
+ * @package Commercetools\Core\Cache
  */
 interface CacheAdapterInterface
 {

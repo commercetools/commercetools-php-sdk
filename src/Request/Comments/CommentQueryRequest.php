@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Comments;
+namespace Commercetools\Core\Request\Comments;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\Comment\CommentCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\Comment\CommentCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Comments
+ * @package Commercetools\Core\Request\Comments
  * @apidoc http://dev.sphere.io/http-api-projects-comments.html#comments-by-query
  * @method CommentCollection mapResponse(ApiResponseInterface $response)
  */
 class CommentQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Comment\CommentCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Comment\CommentCollection';
 
     /**
      * @param Context $context

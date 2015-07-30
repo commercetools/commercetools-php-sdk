@@ -4,9 +4,9 @@
  * @created: 12.02.15, 15:58
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 class LoginEndpoint
 {

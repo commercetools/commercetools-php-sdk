@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Reviews;
+namespace Commercetools\Core\Request\Reviews;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractByIdGetRequest;
-use Sphere\Core\Model\Review\Review;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractByIdGetRequest;
+use Commercetools\Core\Model\Review\Review;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Reviews
+ * @package Commercetools\Core\Request\Reviews
  * @apidoc http://dev.sphere.io/http-api-projects-reviews.html#review-by-id
  * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Review\Review';
+    protected $resultClass = '\Commercetools\Core\Model\Review\Review';
 
     /**
      * @param string $id

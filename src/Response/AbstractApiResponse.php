@@ -4,19 +4,19 @@
  * @created: 26.01.15, 14:44
  */
 
-namespace Sphere\Core\Response;
+namespace Commercetools\Core\Response;
 
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client\Adapter\AdapterPromiseInterface;
-use Sphere\Core\Error\Message;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\ContextAwareInterface;
-use Sphere\Core\Model\Common\ContextTrait;
-use Sphere\Core\Request\ClientRequestInterface;
+use Commercetools\Core\Client\Adapter\AdapterPromiseInterface;
+use Commercetools\Core\Error\Message;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\ContextAwareInterface;
+use Commercetools\Core\Model\Common\ContextTrait;
+use Commercetools\Core\Request\ClientRequestInterface;
 
 /**
- * @package Sphere\Core\Response
+ * @package Commercetools\Core\Response
  */
 abstract class AbstractApiResponse implements ApiResponseInterface, ContextAwareInterface
 {

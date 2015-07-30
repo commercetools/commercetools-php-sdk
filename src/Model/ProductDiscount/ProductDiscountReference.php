@@ -4,13 +4,13 @@
  * @created: 27.01.15, 18:22
  */
 
-namespace Sphere\Core\Model\ProductDiscount;
+namespace Commercetools\Core\Model\ProductDiscount;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
- * @package Sphere\Core\Model\ProductDiscount
+ * @package Commercetools\Core\Model\ProductDiscount
  * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method ProductDiscountReference setTypeId(string $typeId = null)
@@ -26,7 +26,7 @@ class ProductDiscountReference extends Reference
     public function getFields()
     {
         $fields = parent::getFields();
-        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\ProductDiscount\ProductDiscount'];
+        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\ProductDiscount\ProductDiscount'];
 
         return $fields;
     }

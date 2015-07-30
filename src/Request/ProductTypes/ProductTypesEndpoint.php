@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductTypes;
+namespace Commercetools\Core\Request\ProductTypes;
 
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 /**
- * @package Sphere\Core\Request\ProductTypes
+ * @package Commercetools\Core\Request\ProductTypes
  */
 class ProductTypesEndpoint
 {

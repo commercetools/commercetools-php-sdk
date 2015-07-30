@@ -4,7 +4,7 @@
  * @created: 29.01.15, 14:56
  */
 
-namespace Sphere\Core;
+namespace Commercetools\Core;
 
 
 class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
@@ -14,7 +14,7 @@ class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function getClient()
     {
-        return $this->getMockForAbstractClass('\Sphere\Core\AbstractHttpClient', [], '', false);
+        return $this->getMockForAbstractClass('\Commercetools\Core\AbstractHttpClient', [], '', false);
     }
 
     protected function getConfig()
@@ -33,17 +33,17 @@ class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
         $client = $this->getClient();
 
         $client->setConfig($this->getConfig());
-        $this->assertInstanceOf('\Sphere\Core\Config', $client->getConfig());
+        $this->assertInstanceOf('\Commercetools\Core\Config', $client->getConfig());
     }
 
     public function testGetConfig()
     {
-        $this->assertInstanceOf('\Sphere\Core\Config', $this->getClient()->getConfig());
+        $this->assertInstanceOf('\Commercetools\Core\Config', $this->getClient()->getConfig());
     }
 
     public function testGetHttpClient()
     {
-        $client = $this->getMockForAbstractClass('\Sphere\Core\AbstractHttpClient', [], '', false);
+        $client = $this->getMockForAbstractClass('\Commercetools\Core\AbstractHttpClient', [], '', false);
         $client->expects($this->once())
             ->method('getBaseUrl')
             ->will($this->returnValue('test'));
@@ -51,14 +51,14 @@ class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
          * @var AbstractHttpClient $client
          */
         $httpClient = $client->getHttpClient();
-        $this->assertInstanceOf('\Sphere\Core\Client\Adapter\AdapterInterface', $httpClient);
+        $this->assertInstanceOf('\Commercetools\Core\Client\Adapter\AdapterInterface', $httpClient);
         //$this->assertSame('/test', (string)$httpClient->getConfig('base_uri'));
     }
 
     public function testUserAgent()
     {
         $this->markTestIncomplete('ToDo: move');
-        $client = $this->getMockForAbstractClass('\Sphere\Core\AbstractHttpClient', [], '', false);
+        $client = $this->getMockForAbstractClass('\Commercetools\Core\AbstractHttpClient', [], '', false);
         /**
          * @var AbstractHttpClient $client
          */

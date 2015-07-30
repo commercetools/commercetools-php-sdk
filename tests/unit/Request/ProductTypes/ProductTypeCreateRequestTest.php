@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductTypes;
+namespace Commercetools\Core\Request\ProductTypes;
 
 
-use Sphere\Core\Model\ProductType\ProductTypeDraft;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\ProductType\ProductTypeDraft;
+use Commercetools\Core\RequestTestCase;
 
 class ProductTypeCreateRequestTest extends RequestTestCase
 {
-    const PRODUCT_TYPE_CREATE_REQUEST = '\Sphere\Core\Request\ProductTypes\ProductTypeCreateRequest';
+    const PRODUCT_TYPE_CREATE_REQUEST = '\Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest';
 
     protected function getDraft()
     {
@@ -46,7 +46,7 @@ class ProductTypeCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ProductTypeCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Sphere\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
     }
 
     public function testMapEmptyResult()

@@ -3,19 +3,19 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
-use Sphere\Core\Model\ProductType\AttributeDefinitionCollection;
+use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  * @method Attribute current()
  */
 class AttributeCollection extends Collection
 {
     const NAME = 'name';
 
-    protected $type = '\Sphere\Core\Model\Common\Attribute';
+    protected $type = '\Commercetools\Core\Model\Common\Attribute';
 
     /**
      * @var AttributeDefinitionCollection

@@ -3,22 +3,22 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Carts;
+namespace Commercetools\Core\Request\Carts;
 
-use Sphere\Core\Model\Cart\CartDraft;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\Cart\Cart;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Carts
+ * @package Commercetools\Core\Request\Carts
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#create-cart
  * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Cart\Cart';
+    protected $resultClass = '\Commercetools\Core\Model\Cart\Cart';
 
     /**
      * @param CartDraft $cartDraft

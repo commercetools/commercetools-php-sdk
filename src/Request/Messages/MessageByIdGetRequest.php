@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Messages;
+namespace Commercetools\Core\Request\Messages;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractByIdGetRequest;
-use Sphere\Core\Model\Message\Message;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractByIdGetRequest;
+use Commercetools\Core\Model\Message\Message;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Messages
+ * @package Commercetools\Core\Request\Messages
  * @apidoc http://dev.sphere.io/http-api-projects-messages.html#message-by-id
  * @method Message mapResponse(ApiResponseInterface $response)
  */
 class MessageByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Message\Message';
+    protected $resultClass = '\Commercetools\Core\Model\Message\Message';
 
     /**
      * @param string $id

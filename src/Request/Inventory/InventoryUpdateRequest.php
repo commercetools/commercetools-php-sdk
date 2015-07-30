@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Inventory;
+namespace Commercetools\Core\Request\Inventory;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Model\Inventory\InventoryEntry;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractUpdateRequest;
+use Commercetools\Core\Model\Inventory\InventoryEntry;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Inventory
+ * @package Commercetools\Core\Request\Inventory
  * @apidoc http://dev.sphere.io/http-api-projects-inventory.html#update-inventory
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
 class InventoryUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Inventory\InventoryEntry';
+    protected $resultClass = '\Commercetools\Core\Model\Inventory\InventoryEntry';
 
     /**
      * @param string $id

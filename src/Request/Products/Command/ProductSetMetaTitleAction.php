@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Products\Command;
+namespace Commercetools\Core\Request\Products\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Products\Command
+ * @package Commercetools\Core\Request\Products\Command
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#set-meta-title
  * @method string getAction()
  * @method ProductSetMetaTitleAction setAction(string $action = null)
@@ -23,7 +23,7 @@ class ProductSetMetaTitleAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'metaTitle' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'metaTitle' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
         ];
     }
 

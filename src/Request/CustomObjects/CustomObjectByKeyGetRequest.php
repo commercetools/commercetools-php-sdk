@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CustomObjects;
+namespace Commercetools\Core\Request\CustomObjects;
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\HttpRequest;
-use Sphere\Core\Model\CustomObject\CustomObject;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Client\HttpRequest;
+use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\CustomObjects
+ * @package Commercetools\Core\Request\CustomObjects
  * @apidoc http://dev.sphere.io/http-api-projects-custom-objects.html#custom-object-by-container-and-key
  * @method CustomObject mapResponse(ApiResponseInterface $response)
  */

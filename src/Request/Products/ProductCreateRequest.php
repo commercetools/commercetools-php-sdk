@@ -4,22 +4,22 @@
  * @created: 04.02.15, 16:34
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Product\ProductDraft;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\Product\Product;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Product\ProductDraft;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\Product\Product;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Products
+ * @package Commercetools\Core\Request\Products
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#create-product
  * @method Product mapResponse(ApiResponseInterface $response)
  */
 class ProductCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Product\Product';
+    protected $resultClass = '\Commercetools\Core\Model\Product\Product';
     /**
      * @param ProductDraft $product
      * @param Context $context

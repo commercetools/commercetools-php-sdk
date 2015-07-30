@@ -3,17 +3,17 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ProductDiscount;
+namespace Commercetools\Core\Model\ProductDiscount;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\ProductDiscount
+ * @package Commercetools\Core\Model\ProductDiscount
  * 
  * @method ProductDiscount current()
  * @method ProductDiscount getAt($offset)
  */
 class ProductDiscountCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\ProductDiscount\ProductDiscount';
+    protected $type = '\Commercetools\Core\Model\ProductDiscount\ProductDiscount';
 }

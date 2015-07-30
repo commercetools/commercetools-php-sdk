@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CustomObjects;
+namespace Commercetools\Core\Request\CustomObjects;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\CustomObject\CustomObjectCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\CustomObject\CustomObjectCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\CustomObjects
+ * @package Commercetools\Core\Request\CustomObjects
  * @apidoc http://dev.sphere.io/http-api-projects-custom-objects.html#custom-objects-by-query
  * @method CustomObjectCollection mapResponse(ApiResponseInterface $response)
  */
 class CustomObjectQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\CustomObject\CustomObjectCollection';
+    protected $resultClass = '\Commercetools\Core\Model\CustomObject\CustomObjectCollection';
 
     /**
      * @param Context $context

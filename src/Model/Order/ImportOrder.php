@@ -3,19 +3,19 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Order;
+namespace Commercetools\Core\Model\Order;
 
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Cart\CustomLineItemCollection;
-use Sphere\Core\Model\Common\Money;
-use Sphere\Core\Model\Common\TaxedPrice;
-use Sphere\Core\Model\Common\Address;
-use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
-use Sphere\Core\Model\Cart\ShippingInfo;
-use Sphere\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Cart\CustomLineItemCollection;
+use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Common\TaxedPrice;
+use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
+use Commercetools\Core\Model\Cart\ShippingInfo;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
- * @package Sphere\Core\Model\Order
+ * @package Commercetools\Core\Model\Order
  * @method string getOrderNumber()
  * @method ImportOrder setOrderNumber(string $orderNumber = null)
  * @method string getCustomerId()
@@ -57,21 +57,21 @@ class ImportOrder extends JsonObject
             'orderNumber' => [static::TYPE => 'string'],
             'customerId' => [static::TYPE => 'string'],
             'customerEmail' => [static::TYPE => 'string'],
-            'lineItems' => [static::TYPE => '\Sphere\Core\Model\Order\LineItemImportDraftCollection'],
-            'customLineItems' => [static::TYPE => '\Sphere\Core\Model\Cart\CustomLineItemCollection'],
-            'totalPrice' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
-            'taxedPrice' => [static::TYPE => '\Sphere\Core\Model\Common\TaxedPrice'],
-            'shippingAddress' => [static::TYPE => '\Sphere\Core\Model\Common\Address'],
-            'billingAddress' => [static::TYPE => '\Sphere\Core\Model\Common\Address'],
-            'customerGroup' => [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
+            'lineItems' => [static::TYPE => '\Commercetools\Core\Model\Order\LineItemImportDraftCollection'],
+            'customLineItems' => [static::TYPE => '\Commercetools\Core\Model\Cart\CustomLineItemCollection'],
+            'totalPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'taxedPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\TaxedPrice'],
+            'shippingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
+            'billingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
+            'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
             'country' => [static::TYPE => 'string'],
             'orderState' => [static::TYPE => 'string'],
             'shipmentState' => [static::TYPE => 'string'],
             'paymentState' => [static::TYPE => 'string'],
-            'shippingInfo' => [static::TYPE => '\Sphere\Core\Model\Cart\ShippingInfo'],
+            'shippingInfo' => [static::TYPE => '\Commercetools\Core\Model\Cart\ShippingInfo'],
             'completedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
         ];
     }

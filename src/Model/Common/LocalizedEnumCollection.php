@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  *  *
  * @method LocalizedEnum current()
  * @method LocalizedEnum getAt($offset)
  */
 class LocalizedEnumCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\Common\LocalizedEnum';
+    protected $type = '\Commercetools\Core\Model\Common\LocalizedEnum';
 }

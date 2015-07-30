@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\Product
+ * @package Commercetools\Core\Model\Product
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#search-keyword
  * @method string getText()
  * @method SearchKeyword setText(string $text = null)
@@ -21,7 +21,7 @@ class SearchKeyword extends JsonObject
     {
         return [
             'text' => [static::TYPE => 'string'],
-            'suggestTokenizer' => [static::TYPE => '\Sphere\Core\Model\Product\SuggestTokenizer'],
+            'suggestTokenizer' => [static::TYPE => '\Commercetools\Core\Model\Product\SuggestTokenizer'],
         ];
     }
 

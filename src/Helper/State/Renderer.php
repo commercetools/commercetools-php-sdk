@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Helper\State;
+namespace Commercetools\Core\Helper\State;
 
 
-use Sphere\Core\Client;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Helper\State\Renderer\NodeRenderer;
-use Sphere\Core\Helper\State\Renderer\TransitionRenderer;
-use Sphere\Core\Model\State\StateCollection;
-use Sphere\Core\Request\States\StateQueryRequest;
+use Commercetools\Core\Client;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Helper\State\Renderer\NodeRenderer;
+use Commercetools\Core\Helper\State\Renderer\TransitionRenderer;
+use Commercetools\Core\Model\State\StateCollection;
+use Commercetools\Core\Request\States\StateQueryRequest;
 
 class Renderer
 {

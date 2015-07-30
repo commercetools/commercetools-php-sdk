@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Categories\Command;
+namespace Commercetools\Core\Request\Categories\Command;
 
-use Sphere\Core\Model\Category\CategoryReference;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Category\CategoryReference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Categories\Command
+ * @package Commercetools\Core\Request\Categories\Command
  * @apidoc http://dev.sphere.io/http-api-projects-categories.html#change-parent
  * @method string getAction()
  * @method CategoryChangeParentAction setAction(string $action = null)
@@ -23,7 +23,7 @@ class CategoryChangeParentAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'parent' => [static::TYPE => '\Sphere\Core\Model\Category\CategoryReference']
+            'parent' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReference']
         ];
     }
 

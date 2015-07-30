@@ -3,17 +3,17 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ProductType;
+namespace Commercetools\Core\Model\ProductType;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\ProductType
+ * @package Commercetools\Core\Model\ProductType
  * 
  * @method ProductType current()
  * @method ProductType getAt($offset)
  */
 class ProductTypeCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\ProductType\ProductType';
+    protected $type = '\Commercetools\Core\Model\ProductType\ProductType';
 }

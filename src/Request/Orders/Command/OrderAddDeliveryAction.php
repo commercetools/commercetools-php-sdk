@@ -3,17 +3,17 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Orders\Command;
+namespace Commercetools\Core\Request\Orders\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Order\DeliveryItemCollection;
-use Sphere\Core\Model\Order\ParcelCollection;
-use Sphere\Core\Model\Order\ParcelMeasurements;
-use Sphere\Core\Model\Order\TrackingData;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Order\DeliveryItemCollection;
+use Commercetools\Core\Model\Order\ParcelCollection;
+use Commercetools\Core\Model\Order\ParcelMeasurements;
+use Commercetools\Core\Model\Order\TrackingData;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Orders\Command
+ * @package Commercetools\Core\Request\Orders\Command
  * @apidoc http://dev.sphere.io/http-api-projects-orders.html#add-delivery
  * @method string getAction()
  * @method OrderAddDeliveryAction setAction(string $action = null)
@@ -32,10 +32,10 @@ class OrderAddDeliveryAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'items' => [static::TYPE => '\Sphere\Core\Model\Order\DeliveryItemCollection'],
-            'parcels' => [static::TYPE => '\Sphere\Core\Model\Order\ParcelCollection'],
-            'measurements' => [static::TYPE => '\Sphere\Core\Model\Order\ParcelMeasurements'],
-            'trackingData' => [static::TYPE => '\Sphere\Core\Model\Order\TrackingData'],
+            'items' => [static::TYPE => '\Commercetools\Core\Model\Order\DeliveryItemCollection'],
+            'parcels' => [static::TYPE => '\Commercetools\Core\Model\Order\ParcelCollection'],
+            'measurements' => [static::TYPE => '\Commercetools\Core\Model\Order\ParcelMeasurements'],
+            'trackingData' => [static::TYPE => '\Commercetools\Core\Model\Order\TrackingData'],
         ];
     }
 

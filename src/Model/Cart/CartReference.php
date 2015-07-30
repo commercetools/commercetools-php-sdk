@@ -4,13 +4,13 @@
  * @created: 27.01.15, 18:22
  */
 
-namespace Sphere\Core\Model\Cart;
+namespace Commercetools\Core\Model\Cart;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
- * @package Sphere\Core\Model\Cart
+ * @package Commercetools\Core\Model\Cart
  * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method CartReference setTypeId(string $typeId = null)
@@ -26,7 +26,7 @@ class CartReference extends Reference
     public function getFields()
     {
         $fields = parent::getFields();
-        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\Cart\Cart'];
+        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Cart\Cart'];
 
         return $fields;
     }

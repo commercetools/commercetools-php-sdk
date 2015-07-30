@@ -4,7 +4,7 @@
  * @created: 29.01.15, 10:51
  */
 
-namespace Sphere\Core\Client;
+namespace Commercetools\Core\Client;
 
 class HttpRequestTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,6 +34,6 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
      */
     protected function getRequest()
     {
-        return new HttpRequest(\Sphere\Core\Client\HttpMethod::GET, 'test');
+        return new HttpRequest(\Commercetools\Core\Client\HttpMethod::GET, 'test');
     }
 }

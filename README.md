@@ -72,8 +72,8 @@ To get up and running, [create a free test project](http://admin.sphere.io) on t
 
 require '../vendor/autoload.php';
 
-use Sphere\Core\Request\Products\ProductProjectionSearchRequest;
-use Sphere\Core\Client;
+use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
+use Commercetools\Core\Client;
 
 $config = [
     'client_id' => 'my client id',

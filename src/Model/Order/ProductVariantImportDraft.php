@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Order;
+namespace Commercetools\Core\Model\Order;
 
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\PriceCollection;
-use Sphere\Core\Model\Common\AttributeCollection;
-use Sphere\Core\Model\Common\ImageCollection;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\PriceCollection;
+use Commercetools\Core\Model\Common\AttributeCollection;
+use Commercetools\Core\Model\Common\ImageCollection;
 
 /**
- * @package Sphere\Core\Model\Order
+ * @package Commercetools\Core\Model\Order
  * @method int getId()
  * @method ProductVariantImportDraft setId(int $id = null)
  * @method string getSku()
@@ -30,9 +30,9 @@ class ProductVariantImportDraft extends JsonObject
         return [
             'id' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
-            'prices' => [static::TYPE => '\Sphere\Core\Model\Common\PriceCollection'],
-            'attributes' => [static::TYPE => '\Sphere\Core\Model\Common\AttributeCollection'],
-            'images' => [static::TYPE => '\Sphere\Core\Model\Common\ImageCollection'],
+            'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceCollection'],
+            'attributes' => [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
+            'images' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageCollection'],
         ];
     }
 }

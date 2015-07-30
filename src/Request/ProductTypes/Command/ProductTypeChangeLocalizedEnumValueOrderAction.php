@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductTypes\Command;
+namespace Commercetools\Core\Request\ProductTypes\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\LocalizedEnumCollection;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\LocalizedEnumCollection;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\ProductTypes\Command
+ * @package Commercetools\Core\Request\ProductTypes\Command
  * 
  * @method string getAction()
  * @method ProductTypeChangeLocalizedEnumValueOrderAction setAction(string $action = null)
@@ -26,7 +26,7 @@ class ProductTypeChangeLocalizedEnumValueOrderAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'attributeName' => [static::TYPE => 'string'],
-            'values' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedEnumCollection']
+            'values' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedEnumCollection']
         ];
     }
 

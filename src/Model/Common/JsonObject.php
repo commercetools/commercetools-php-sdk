@@ -4,12 +4,12 @@
  * @created: 27.01.15, 14:54
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
-use Sphere\Core\Error\Message;
+use Commercetools\Core\Error\Message;
 
 /**
- * @package Sphere\Core\Model\Type
+ * @package Commercetools\Core\Model\Type
  */
 class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializable, JsonDeserializeInterface
 {

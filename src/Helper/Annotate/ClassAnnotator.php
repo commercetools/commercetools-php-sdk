@@ -3,10 +3,10 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Helper\Annotate;
+namespace Commercetools\Core\Helper\Annotate;
 
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Request\AbstractApiRequest;
 
 class ClassAnnotator
 {
@@ -129,7 +129,7 @@ class ClassAnnotator
         $this->class->addUse($resultClass);
         $mapResponseMethod = $reflectionClass->getMethod('mapResponse');
         if ($mapResponseMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
-            $this->class->addUse('\Sphere\Core\Response\ApiResponseInterface');
+            $this->class->addUse('\Commercetools\Core\Response\ApiResponseInterface');
             $this->class->addMagicMethod(
                 'mapResponse',
                 ['ApiResponseInterface $response'],

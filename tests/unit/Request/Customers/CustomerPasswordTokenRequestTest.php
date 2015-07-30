@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\RequestTestCase;
 
 class CustomerPasswordTokenRequestTest extends RequestTestCase
 {
-    const CUSTOMER_PASSWORD_REQUEST = '\Sphere\Core\Request\Customers\CustomerPasswordTokenRequest';
+    const CUSTOMER_PASSWORD_REQUEST = '\Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest';
 
     public function testHttpRequestMethod()
     {
@@ -48,6 +48,6 @@ class CustomerPasswordTokenRequestTest extends RequestTestCase
         $request = CustomerPasswordTokenRequest::ofEmail('john.doe@company.com');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 }

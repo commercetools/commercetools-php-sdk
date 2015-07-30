@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
-use Sphere\Core\Request\Query\Parameter;
-use Sphere\Core\Request\Query\ParameterInterface;
+use Commercetools\Core\Request\Query\Parameter;
+use Commercetools\Core\Request\Query\ParameterInterface;
 
 /**
- * @package Sphere\Core\Request
+ * @package Commercetools\Core\Request
  * @method $this addParamObject(ParameterInterface $param)
  */
 trait CustomerIdTrait

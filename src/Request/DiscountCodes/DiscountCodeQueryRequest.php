@@ -3,20 +3,20 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\DiscountCodes;
+namespace Commercetools\Core\Request\DiscountCodes;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\DiscountCode\DiscountCodeCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\DiscountCode\DiscountCodeCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\DiscountCodes
+ * @package Commercetools\Core\Request\DiscountCodes
  * @method DiscountCodeCollection mapResponse(ApiResponseInterface $response)
  */
 class DiscountCodeQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\DiscountCode\DiscountCodeCollection';
+    protected $resultClass = '\Commercetools\Core\Model\DiscountCode\DiscountCodeCollection';
 
     /**
      * @param Context $context

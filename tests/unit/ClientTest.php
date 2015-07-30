@@ -4,7 +4,7 @@
  * @created: 29.01.15, 15:16
  */
 
-namespace Sphere\Core;
+namespace Commercetools\Core;
 
 
 use GuzzleHttp\Client as HttpClient;
@@ -13,10 +13,10 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
-use Sphere\Core\Client\JsonEndpoint;
-use Sphere\Core\Client\OAuth\Token;
-use Sphere\Core\Error\SphereException;
-use Sphere\Core\Request\ClientRequestInterface;
+use Commercetools\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\OAuth\Token;
+use Commercetools\Core\Error\SphereException;
+use Commercetools\Core\Request\ClientRequestInterface;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,7 +42,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockClient($config, $returnValue, $statusCode = 200, $logger = null, $headers = [])
     {
-        $oauthMock = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['getToken', 'refreshToken'], [$config]);
+        $oauthMock = $this->getMock('\Commercetools\Core\Client\OAuth\Manager', ['getToken', 'refreshToken'], [$config]);
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
@@ -50,7 +50,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->method('refreshToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMock = $this->getMock('\Sphere\Core\Client', ['getOauthManager'], [$config, null, $logger]);
+        $clientMock = $this->getMock('\Commercetools\Core\Client', ['getOauthManager'], [$config, null, $logger]);
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
@@ -119,22 +119,22 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testExecuteQuery()
     {
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractQueryRequest', [$endpoint]);
+        $request = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractQueryRequest', [$endpoint]);
 
         $client = $this->getMockClient($this->getConfig(), $this->getQueryResult());
         $response = $client->execute($request);
-        $this->assertInstanceOf('\Sphere\Core\Response\PagedQueryResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\PagedQueryResponse', $response);
         $this->assertJsonStringEqualsJsonString($this->getQueryResult(), json_encode($response->toArray()));
     }
 
     public function testExecuteSingleOp()
     {
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
 
         $client = $this->getMockClient($this->getConfig(), $this->getSingleOpResult());
         $response = $client->execute($request);
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 
     public function testApiUrl()
@@ -153,32 +153,32 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testOAuthManager()
     {
         $client = new Client($this->getConfig());
-        $this->assertInstanceOf('\Sphere\Core\Client\OAuth\Manager', $client->getOauthManager());
+        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Manager', $client->getOauthManager());
     }
 
     public function testException()
     {
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
 
         $client = $this->getMockClient($this->getConfig(), '', 500);
         $response = $client->execute($request);
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
         $this->assertTrue($response->isError());
     }
 
     /**
-     * @expectedException \Sphere\Core\Error\SphereException
+     * @expectedException \Commercetools\Core\Error\SphereException
      */
     public function testUnexpectedException()
     {
-        $oauthMock = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
+        $oauthMock = $this->getMock('\Commercetools\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
         $clientMock = $this->getMock(
-            '\Sphere\Core\Client',
+            '\Commercetools\Core\Client',
             ['getOauthManager'],
             [$this->getConfig()]
         );
@@ -190,7 +190,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          * @var Client $clientMock
          */
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
 
         $response = $clientMock->execute($request);
     }
@@ -199,13 +199,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $config = $this->getConfig();
 
-        $oauthMock = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
+        $oauthMock = $this->getMock('\Commercetools\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
         $clientMock = $this->getMock(
-            '\Sphere\Core\Client',
+            '\Commercetools\Core\Client',
             ['getOauthManager'],
             [$config]
         );
@@ -225,11 +225,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $clientMock->getHttpClient(['handler' => $handler]);
 
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
 
         $response = $clientMock->execute($request);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
         $this->assertTrue($response->isError());
     }
 
@@ -242,7 +242,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = $this->getMockClient($this->getConfig(), $this->getSingleOpResult(), 200, $logger);
 
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
         $client->execute($request);
 
         $record = current($handler->getRecords());
@@ -261,7 +261,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = $this->getMockClient($this->getConfig(), $this->getSingleOpResult(), 200, $logger);
 
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
         $response = $client->executeAsync($request);
 
         $this->assertFalse($response->isError());
@@ -275,9 +275,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testBatch()
     {
         $endpoint1 = new JsonEndpoint('test1');
-        $request1 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractQueryRequest', [$endpoint1]);
+        $request1 = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractQueryRequest', [$endpoint1]);
         $endpoint2 = new JsonEndpoint('test2');
-        $request2 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint2, 'id']);
+        $request2 = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractByIdGetRequest', [$endpoint2, 'id']);
 
         $client = $this->getMockClient($this->getConfig(), [$this->getQueryResult(), $this->getSingleOpResult()]);
 
@@ -286,9 +286,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $results = $client->executeBatch();
 
-        $this->assertInstanceOf('\Sphere\Core\Response\PagedQueryResponse', $results[$request1->getIdentifier()]);
+        $this->assertInstanceOf('\Commercetools\Core\Response\PagedQueryResponse', $results[$request1->getIdentifier()]);
         $this->assertFalse($results[$request1->getIdentifier()]->isError());
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $results[$request2->getIdentifier()]);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $results[$request2->getIdentifier()]);
         $this->assertFalse($results[$request2->getIdentifier()]->isError());
     }
 
@@ -312,7 +312,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         /**
          * @var ClientRequestInterface $request
          */
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
         $client->execute($request);
 
         $logEntry = $handler->getRecords()[1];
@@ -330,13 +330,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestSkipped('todo fix segfault');
         return;
-        $oauthMock = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
+        $oauthMock = $this->getMock('\Commercetools\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
         $clientMock = $this->getMock(
-            '\Sphere\Core\Client',
+            '\Commercetools\Core\Client',
             ['getOauthManager'],
             [$this->getConfig()]
         );
@@ -348,9 +348,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          * @var Client $clientMock
          */
         $endpoint1 = new JsonEndpoint('test1');
-        $request1 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractQueryRequest', [$endpoint1]);
+        $request1 = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractQueryRequest', [$endpoint1]);
         $endpoint2 = new JsonEndpoint('test2');
-        $request2 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint2, 'id']);
+        $request2 = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractByIdGetRequest', [$endpoint2, 'id']);
 
         $clientMock->addBatchRequest($request1);
         $clientMock->addBatchRequest($request2);
@@ -362,13 +362,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestSkipped('todo fix segfault');
         return;
-        $oauthMock = $this->getMock('\Sphere\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
+        $oauthMock = $this->getMock('\Commercetools\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
         $clientMock = $this->getMock(
-            '\Sphere\Core\Client',
+            '\Commercetools\Core\Client',
             ['getOauthManager'],
             [$this->getConfig()]
         );
@@ -391,18 +391,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          * @var Client $clientMock
          */
         $endpoint1 = new JsonEndpoint('test1');
-        $request1 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint1, 'id']);
+        $request1 = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractByIdGetRequest', [$endpoint1, 'id']);
         $endpoint2 = new JsonEndpoint('test2');
-        $request2 = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint2, 'id']);
+        $request2 = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractByIdGetRequest', [$endpoint2, 'id']);
 
         $clientMock->addBatchRequest($request1);
         $clientMock->addBatchRequest($request2);
 
         $results = $clientMock->executeBatch();
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $results[$request1->getIdentifier()]);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $results[$request1->getIdentifier()]);
         $this->assertTrue($results[$request1->getIdentifier()]->isError());
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $results[$request2->getIdentifier()]);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $results[$request2->getIdentifier()]);
         $this->assertTrue($results[$request2->getIdentifier()]->isError());
 
     }
@@ -427,7 +427,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         /**
          * @var ClientRequestInterface $request
          */
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
+        $request = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractByIdGetRequest', [$endpoint, 'id']);
         $response = $client->executeAsync($request);
 
         $this->assertFalse($response->isError());
@@ -443,15 +443,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function exceptionsData()
     {
         return [
-            [400, '\Sphere\Core\Error\ErrorResponseException', ''],
-            [401, '\Sphere\Core\Error\InvalidTokenException', ['invalid_token','invalid_token']],
-            [401, '\Sphere\Core\Error\InvalidClientCredentialsException', ''],
-            [404, '\Sphere\Core\Error\NotFoundException', ''],
-            [409, '\Sphere\Core\Error\ConcurrentModificationException', ''],
-            [500, '\Sphere\Core\Error\InternalServerErrorException', ''],
-            [502, '\Sphere\Core\Error\BadGatewayException', ''],
-            [503, '\Sphere\Core\Error\ServiceUnavailableException', ''],
-            [504, '\Sphere\Core\Error\GatewayTimeoutException', ''],
+            [400, '\Commercetools\Core\Error\ErrorResponseException', ''],
+            [401, '\Commercetools\Core\Error\InvalidTokenException', ['invalid_token','invalid_token']],
+            [401, '\Commercetools\Core\Error\InvalidClientCredentialsException', ''],
+            [404, '\Commercetools\Core\Error\NotFoundException', ''],
+            [409, '\Commercetools\Core\Error\ConcurrentModificationException', ''],
+            [500, '\Commercetools\Core\Error\InternalServerErrorException', ''],
+            [502, '\Commercetools\Core\Error\BadGatewayException', ''],
+            [503, '\Commercetools\Core\Error\ServiceUnavailableException', ''],
+            [504, '\Commercetools\Core\Error\GatewayTimeoutException', ''],
         ];
     }
 
@@ -460,7 +460,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      * @param $returnCode
      * @param $exceptionClass
      * @param $returnBody
-     * @expectedException \Sphere\Core\Error\SphereException
+     * @expectedException \Commercetools\Core\Error\SphereException
      */
     public function testExceptions($returnCode, $exceptionClass, $returnBody)
     {
@@ -475,7 +475,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         /**
          * @var ClientRequestInterface $request
          */
-        $request = $this->getMockForAbstractClass('\Sphere\Core\Request\AbstractQueryRequest', [$endpoint]);
+        $request = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractQueryRequest', [$endpoint]);
 
         try {
             $client->execute($request);

@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ProductType;
+namespace Commercetools\Core\Model\ProductType;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\ProductType
+ * @package Commercetools\Core\Model\ProductType
  * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#attribute-type
  * @method string getName()
  * @method AttributeType setName(string $name = null)
@@ -25,7 +25,7 @@ use Sphere\Core\Model\Common\Collection;
  */
 class AttributeType extends JsonObject
 {
-    protected $attributeValuesType = '\Sphere\Core\Model\Common\Collection';
+    protected $attributeValuesType = '\Commercetools\Core\Model\Common\Collection';
 
     public function getFields()
     {
@@ -33,8 +33,8 @@ class AttributeType extends JsonObject
             'name' => [static::TYPE => 'string'],
             'values' => [static::TYPE => $this->attributeValuesType],
             'referenceTypeId' => [static::TYPE => 'string'],
-            'elementType' => [static::TYPE => '\Sphere\Core\Model\ProductType\AttributeType'],
-            'typeReference' => [static::TYPE => '\Sphere\Core\Model\ProductType\ProductTypeReference']
+            'elementType' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeType'],
+            'typeReference' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference']
         ];
     }
 
@@ -46,11 +46,11 @@ class AttributeType extends JsonObject
     {
         switch ($name) {
             case "enum":
-                return '\Sphere\Core\Model\Common\EnumCollection';
+                return '\Commercetools\Core\Model\Common\EnumCollection';
             case "lenum":
-                return '\Sphere\Core\Model\Common\LocalizedEnumCollection';
+                return '\Commercetools\Core\Model\Common\LocalizedEnumCollection';
         }
-        return '\Sphere\Core\Model\Common\Collection';
+        return '\Commercetools\Core\Model\Common\Collection';
     }
 
     /**

@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductDiscounts\Command;
+namespace Commercetools\Core\Request\ProductDiscounts\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\ProductDiscounts\Command
+ * @package Commercetools\Core\Request\ProductDiscounts\Command
  *  *
  * @method string getAction()
  * @method ProductDiscountChangeNameAction setAction(string $action = null)
@@ -23,7 +23,7 @@ class ProductDiscountChangeNameAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
         ];
     }
 

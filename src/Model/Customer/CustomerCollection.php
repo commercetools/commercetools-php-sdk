@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Customer;
+namespace Commercetools\Core\Model\Customer;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\Customer
+ * @package Commercetools\Core\Model\Customer
  * @method Customer current()
  * @method Customer getAt($offset)
  */
 class CustomerCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\Customer\Customer';
+    protected $type = '\Commercetools\Core\Model\Customer\Customer';
 }

@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Project;
+namespace Commercetools\Core\Request\Project;
 
 
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\RequestTestCase;
 
 class ProjectGetRequestTest extends RequestTestCase
 {
     public function testMapResult()
     {
         $result = $this->mapResult(ProjectGetRequest::of());
-        $this->assertInstanceOf('\Sphere\Core\Model\Project\Project', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Project\Project', $result);
     }
 }

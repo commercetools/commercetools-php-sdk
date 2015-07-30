@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
-use Sphere\Core\Error\InvalidArgumentException;
-use Sphere\Core\Model\Product\ProductProjectionCollection;
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Model\Product\ProductProjectionCollection;
 
 class CollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,7 +16,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $collection = Collection::of();
 
         $obj = $this->getMock(
-            '\Sphere\Core\Model\Common\JsonObject',
+            '\Commercetools\Core\Model\Common\JsonObject',
             ['getFields'],
             [['key' => 'value', 'true' => true, 'false' => false]]
         );
@@ -29,11 +29,11 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
                         'dummy' => [JsonObject::TYPE => 'string'],
                         'true' => [JsonObject::TYPE => 'bool'],
                         'false' => [JsonObject::TYPE => 'bool'],
-                        'localString' => [JsonObject::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+                        'localString' => [JsonObject::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
                         'mixed' => [],
                         'decorator' => [
                             JsonObject::TYPE => '\DateTime',
-                            JsonObject::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                            JsonObject::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
                         ]
                     ]
                 )
@@ -59,7 +59,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testOf()
     {
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\Collection', Collection::of());
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Collection', Collection::of());
     }
 
     public function testSetType()
@@ -87,8 +87,8 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             ['currencyCode' => 'EUR', 'centAmount' => 100],
             ['currencyCode' => 'USD', 'centAmount' => 110]
         ]);
-        $obj->setType('\Sphere\Core\Model\Common\Money');
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\Money', $obj->getAt(0));
+        $obj->setType('\Commercetools\Core\Model\Common\Money');
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Money', $obj->getAt(0));
         $this->assertSame('EUR', $obj->getAt(0)->getCurrencyCode());
         $this->assertSame(100, $obj->getAt(0)->getCentAmount());
     }
@@ -108,12 +108,12 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             ['currencyCode' => 'EUR', 'centAmount' => 100],
             ['currencyCode' => 'USD', 'centAmount' => 110]
         ]);
-        $collection->setType('\Sphere\Core\Model\Common\Money');
+        $collection->setType('\Commercetools\Core\Model\Common\Money');
 
         $i = 0;
         foreach ($collection as $key => $obj) {
             $this->assertSame($key, $i);
-            $this->assertInstanceOf('\Sphere\Core\Model\Common\Money', $obj);
+            $this->assertInstanceOf('\Commercetools\Core\Model\Common\Money', $obj);
             $i++;
         }
     }
@@ -140,7 +140,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     public function testIndex()
     {
         $collection = ProductProjectionCollection::fromArray([['id' => '12345']]);
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjection', $collection->getById('12345'));
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $collection->getById('12345'));
     }
 
     public function testNotIndexed()
@@ -152,7 +152,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetReturnRaw()
     {
         $collection = $this->getMock(
-            '\Sphere\Core\Model\Common\Collection',
+            '\Commercetools\Core\Model\Common\Collection',
             ['initialize'],
             [[new \DateTime('2015-01-01')]]
         );

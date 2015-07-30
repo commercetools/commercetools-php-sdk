@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\CustomObject;
+namespace Commercetools\Core\Model\CustomObject;
 
 
 class CustomObjectCollectionTest extends \PHPUnit_Framework_TestCase
@@ -17,9 +17,9 @@ class CustomObjectCollectionTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->assertInstanceOf('\Sphere\Core\Model\CustomObject\CustomObject', $collection->getByKey('myKey'));
+        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $collection->getByKey('myKey'));
         $this->assertInstanceOf(
-            '\Sphere\Core\Model\CustomObject\CustomObject',
+            '\Commercetools\Core\Model\CustomObject\CustomObject',
             $collection->getByContainerKey('myNamespace', 'myKey')
         );
     }
@@ -29,9 +29,9 @@ class CustomObjectCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = CustomObjectCollection::of();
         $collection->add(new CustomObject(['container' => 'myNamespace', 'key' => 'myKey']));
 
-        $this->assertInstanceOf('\Sphere\Core\Model\CustomObject\CustomObject', $collection->getByKey('myKey'));
+        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $collection->getByKey('myKey'));
         $this->assertInstanceOf(
-            '\Sphere\Core\Model\CustomObject\CustomObject',
+            '\Commercetools\Core\Model\CustomObject\CustomObject',
             $collection->getByContainerKey('myNamespace', 'myKey')
         );
     }

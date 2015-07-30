@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Carts\Command;
+namespace Commercetools\Core\Request\Carts\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
-use Sphere\Core\Model\Channel\ChannelReference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Channel\ChannelReference;
 
 /**
- * @package Sphere\Core\Request\Carts\Command
+ * @package Commercetools\Core\Request\Carts\Command
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#add-line-item
  * @method string getAction()
  * @method CartAddLineItemAction setAction(string $action = null)
@@ -34,8 +34,8 @@ class CartAddLineItemAction extends AbstractAction
             'productId' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'quantity' => [static::TYPE => 'int'],
-            'supplyChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
-            'distributionChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
+            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            'distributionChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
         ];
     }
 

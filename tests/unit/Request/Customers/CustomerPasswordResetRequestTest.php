@@ -3,19 +3,19 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\RequestTestCase;
 
 /**
  * Class CustomerPasswordResetRequestTest
- * @package Sphere\Core\Request\Customers
+ * @package Commercetools\Core\Request\Customers
  */
 class CustomerPasswordResetRequestTest extends RequestTestCase
 {
-    const CUSTOMER_PASSWORD_REQUEST = '\Sphere\Core\Request\Customers\CustomerPasswordResetRequest';
+    const CUSTOMER_PASSWORD_REQUEST = '\Commercetools\Core\Request\Customers\CustomerPasswordResetRequest';
 
     public function testHttpRequestMethod()
     {

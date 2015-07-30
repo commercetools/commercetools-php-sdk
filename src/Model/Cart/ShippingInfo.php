@@ -3,18 +3,18 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Cart;
+namespace Commercetools\Core\Model\Cart;
 
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\Money;
-use Sphere\Core\Model\Order\DeliveryCollection;
-use Sphere\Core\Model\ShippingMethod\ShippingMethodReference;
-use Sphere\Core\Model\ShippingMethod\ShippingRate;
-use Sphere\Core\Model\TaxCategory\TaxCategory;
-use Sphere\Core\Model\TaxCategory\TaxRate;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Order\DeliveryCollection;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
+use Commercetools\Core\Model\ShippingMethod\ShippingRate;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
+use Commercetools\Core\Model\TaxCategory\TaxRate;
 
 /**
- * @package Sphere\Core\Model\Cart
+ * @package Commercetools\Core\Model\Cart
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#shipping-info
  * @method string getShippingMethodName()
  * @method ShippingInfo setShippingMethodName(string $shippingMethodName = null)
@@ -37,12 +37,12 @@ class ShippingInfo extends JsonObject
     {
         return [
             'shippingMethodName' => [static::TYPE => 'string'],
-            'price' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
-            'shippingRate' => [static::TYPE => '\Sphere\Core\Model\ShippingMethod\ShippingRate'],
-            'taxRate' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxRate'],
-            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategory'],
-            'shippingMethod' => [static::TYPE => '\Sphere\Core\Model\ShippingMethod\ShippingMethodReference'],
-            'deliveries' => [static::TYPE => '\Sphere\Core\Model\Order\DeliveryCollection'],
+            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'shippingRate' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingRate'],
+            'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
+            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategory'],
+            'shippingMethod' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingMethodReference'],
+            'deliveries' => [static::TYPE => '\Commercetools\Core\Model\Order\DeliveryCollection'],
         ];
     }
 }

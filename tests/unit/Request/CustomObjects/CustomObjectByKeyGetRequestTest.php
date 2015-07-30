@@ -3,20 +3,20 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CustomObjects;
+namespace Commercetools\Core\Request\CustomObjects;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Model\CustomObject\CustomObject;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\RequestTestCase;
 
 /**
  * Class CustomObjectByKeyGetRequestTest
- * @package Sphere\Core\Request\CustomObjects
+ * @package Commercetools\Core\Request\CustomObjects
  */
 class CustomObjectByKeyGetRequestTest extends RequestTestCase
 {
-    const CUSTOM_OBJECT_GET_REQUEST = '\Sphere\Core\Request\CustomObjects\CustomObjectByKeyGetRequest';
+    const CUSTOM_OBJECT_GET_REQUEST = '\Commercetools\Core\Request\CustomObjects\CustomObjectByKeyGetRequest';
 
     public function getObject()
     {
@@ -26,7 +26,7 @@ class CustomObjectByKeyGetRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomObjectByKeyGetRequest::ofContainerAndKey('my-namespace', 'my-key'));
-        $this->assertInstanceOf('\Sphere\Core\Model\CustomObject\CustomObject', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $result);
     }
 
     public function testMapEmptyResult()

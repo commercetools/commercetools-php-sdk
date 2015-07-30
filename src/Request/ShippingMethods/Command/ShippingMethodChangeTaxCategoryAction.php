@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ShippingMethods\Command;
+namespace Commercetools\Core\Request\ShippingMethods\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\ShippingMethods\Command
+ * @package Commercetools\Core\Request\ShippingMethods\Command
  * 
  * @method string getAction()
  * @method ShippingMethodChangeTaxCategoryAction setAction(string $action = null)
@@ -23,7 +23,7 @@ class ShippingMethodChangeTaxCategoryAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference'],
+            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
         ];
     }
 

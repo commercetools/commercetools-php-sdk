@@ -4,21 +4,21 @@
  * @created: 11.02.15, 14:19
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\Customer\CustomerCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\Customer\CustomerCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Customers
+ * @package Commercetools\Core\Request\Customers
  * @apidoc http://dev.sphere.io/http-api-projects-customers.html#customers-by-query
  * @method CustomerCollection mapResponse(ApiResponseInterface $response)
  */
 class CustomerQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Customer\CustomerCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Customer\CustomerCollection';
 
     /**
      * @param Context $context

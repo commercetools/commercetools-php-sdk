@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Orders;
+namespace Commercetools\Core\Request\Orders;
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\HttpRequestInterface;
-use Sphere\Core\Client\JsonRequest;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\Response\AbstractApiResponse;
-use Sphere\Core\Response\ResourceResponse;
-use Sphere\Core\Model\Order\Order;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Client\HttpRequestInterface;
+use Commercetools\Core\Client\JsonRequest;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Response\AbstractApiResponse;
+use Commercetools\Core\Response\ResourceResponse;
+use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Orders
+ * @package Commercetools\Core\Request\Orders
  * @apidoc http://dev.sphere.io/http-api-projects-orders.html#create-order-from-cart
  * @method Order mapResponse(ApiResponseInterface $response)
  */
@@ -33,7 +33,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     protected $orderNumber;
     protected $paymentState;
 
-    protected $resultClass = '\Sphere\Core\Model\Order\Order';
+    protected $resultClass = '\Commercetools\Core\Model\Order\Order';
 
     /**
      * @return mixed

@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Client\Adapter;
+namespace Commercetools\Core\Client\Adapter;
 
 
 use GuzzleHttp\Client;
@@ -15,7 +15,7 @@ use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Sphere\Core\Error\SphereException;
+use Commercetools\Core\Error\SphereException;
 
 class Guzzle5Adapter implements AdapterInterface
 {
@@ -61,15 +61,15 @@ class Guzzle5Adapter implements AdapterInterface
     /**
      * @param RequestInterface $request
      * @return ResponseInterface
-     * @throws \Sphere\Core\Error\SphereException
-     * @throws \Sphere\Core\Error\BadGatewayException
-     * @throws \Sphere\Core\Error\ConcurrentModificationException
-     * @throws \Sphere\Core\Error\ErrorResponseException
-     * @throws \Sphere\Core\Error\GatewayTimeoutException
-     * @throws \Sphere\Core\Error\InternalServerErrorException
-     * @throws \Sphere\Core\Error\InvalidTokenException
-     * @throws \Sphere\Core\Error\NotFoundException
-     * @throws \Sphere\Core\Error\ServiceUnavailableException
+     * @throws \Commercetools\Core\Error\SphereException
+     * @throws \Commercetools\Core\Error\BadGatewayException
+     * @throws \Commercetools\Core\Error\ConcurrentModificationException
+     * @throws \Commercetools\Core\Error\ErrorResponseException
+     * @throws \Commercetools\Core\Error\GatewayTimeoutException
+     * @throws \Commercetools\Core\Error\InternalServerErrorException
+     * @throws \Commercetools\Core\Error\InvalidTokenException
+     * @throws \Commercetools\Core\Error\NotFoundException
+     * @throws \Commercetools\Core\Error\ServiceUnavailableException
      */
     public function execute(RequestInterface $request)
     {
@@ -109,15 +109,15 @@ class Guzzle5Adapter implements AdapterInterface
     /**
      * @param RequestInterface[] $requests
      * @return \Psr\Http\Message\ResponseInterface[]
-     * @throws \Sphere\Core\Error\SphereException
-     * @throws \Sphere\Core\Error\BadGatewayException
-     * @throws \Sphere\Core\Error\ConcurrentModificationException
-     * @throws \Sphere\Core\Error\ErrorResponseException
-     * @throws \Sphere\Core\Error\GatewayTimeoutException
-     * @throws \Sphere\Core\Error\InternalServerErrorException
-     * @throws \Sphere\Core\Error\InvalidTokenException
-     * @throws \Sphere\Core\Error\NotFoundException
-     * @throws \Sphere\Core\Error\ServiceUnavailableException
+     * @throws \Commercetools\Core\Error\SphereException
+     * @throws \Commercetools\Core\Error\BadGatewayException
+     * @throws \Commercetools\Core\Error\ConcurrentModificationException
+     * @throws \Commercetools\Core\Error\ErrorResponseException
+     * @throws \Commercetools\Core\Error\GatewayTimeoutException
+     * @throws \Commercetools\Core\Error\InternalServerErrorException
+     * @throws \Commercetools\Core\Error\InvalidTokenException
+     * @throws \Commercetools\Core\Error\NotFoundException
+     * @throws \Commercetools\Core\Error\ServiceUnavailableException
      */
     public function executeBatch(array $requests)
     {

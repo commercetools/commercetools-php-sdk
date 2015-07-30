@@ -3,19 +3,19 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\Product
+ * @package Commercetools\Core\Model\Product
  * @method ProductProjection current()
  * @method ProductProjection getAt($offset)
  */
 class ProductProjectionCollection extends Collection
 {
     const ID = 'id';
-    protected $type = '\Sphere\Core\Model\Product\ProductProjection';
+    protected $type = '\Commercetools\Core\Model\Product\ProductProjection';
 
     protected function indexRow($offset, $row)
     {

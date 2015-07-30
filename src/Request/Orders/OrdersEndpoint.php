@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Orders;
+namespace Commercetools\Core\Request\Orders;
 
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 /**
- * @package Sphere\Core\Request\Orders
+ * @package Commercetools\Core\Request\Orders
  */
 class OrdersEndpoint
 {

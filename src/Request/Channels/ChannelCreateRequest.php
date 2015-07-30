@@ -3,22 +3,22 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Channels;
+namespace Commercetools\Core\Request\Channels;
 
-use Sphere\Core\Model\Channel\ChannelDraft;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\Channel\Channel;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Channel\ChannelDraft;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\Channel\Channel;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Channels
+ * @package Commercetools\Core\Request\Channels
  * 
  * @method Channel mapResponse(ApiResponseInterface $response)
  */
 class ChannelCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Channel\Channel';
+    protected $resultClass = '\Commercetools\Core\Model\Channel\Channel';
 
     /**
      * @param ChannelDraft $channel

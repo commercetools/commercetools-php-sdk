@@ -4,13 +4,13 @@
  * @created: 04.02.15, 16:43
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
-use Sphere\Core\Model\Channel\ChannelReference;
-use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
+use Commercetools\Core\Model\Channel\ChannelReference;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-price
  * @method Money getValue()
  * @method string getCountry()
@@ -44,19 +44,19 @@ class Price extends JsonObject
     {
         return [
             static::ID => [static::TYPE => 'string'],
-            static::VALUE => [self::TYPE => '\Sphere\Core\Model\Common\Money'],
+            static::VALUE => [self::TYPE => '\Commercetools\Core\Model\Common\Money'],
             static::COUNTRY => [self::TYPE => 'string'],
-            static::CUSTOMER_GROUP => [self::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
-            static::CHANNEL => [self::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
+            static::CUSTOMER_GROUP => [self::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
+            static::CHANNEL => [self::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
             static::VALID_FROM => [
                 self::TYPE => '\DateTime',
-                self::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                self::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
             static::VALID_UNTIL => [
                 self::TYPE => '\DateTime',
-                self::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                self::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
-            static::DISCOUNTED => [self::TYPE => '\Sphere\Core\Model\Common\DiscountedPrice'],
+            static::DISCOUNTED => [self::TYPE => '\Commercetools\Core\Model\Common\DiscountedPrice'],
         ];
     }
 

@@ -4,18 +4,18 @@
  * @created: 29.01.15, 12:24
  */
 
-namespace Sphere\Core\Model\Type;
+namespace Commercetools\Core\Model\Type;
 
 
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\ProductType\AttributeDefinition;
-use Sphere\Core\Model\ProductType\AttributeDefinitionCollection;
-use Sphere\Core\Model\ProductType\ProductType;
-use Sphere\Core\Model\ProductType\ProductTypeDraft;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\ProductType\AttributeDefinition;
+use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
+use Commercetools\Core\Model\ProductType\ProductType;
+use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 
 /**
  * Class JsonObjectTest
- * @package Sphere\Core\Model\Type
+ * @package Commercetools\Core\Model\Type
  */
 class JsonObjectTest extends \PHPUnit_Framework_TestCase
 {
@@ -26,7 +26,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
     {
         date_default_timezone_set('UTC');
         $obj = $this->getMock(
-            '\Sphere\Core\Model\Common\JsonObject',
+            '\Commercetools\Core\Model\Common\JsonObject',
             ['getFields', 'getId'],
             [['key' => 'value', 'true' => true, 'false' => false, 'mixed' => '1']],
             'MockJsonObject'
@@ -40,11 +40,11 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
                         'dummy' => [JsonObject::TYPE => 'string'],
                         'true' => [JsonObject::TYPE => 'bool'],
                         'false' => [JsonObject::TYPE => 'bool'],
-                        'localString' => [JsonObject::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+                        'localString' => [JsonObject::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
                         'mixed' => [],
                         'decorator' => [
                             JsonObject::TYPE => '\DateTime',
-                            JsonObject::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                            JsonObject::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
                         ]
                     ]
                 )
@@ -149,7 +149,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testOf()
     {
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\JsonObject', JsonObject::of());
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\JsonObject', JsonObject::of());
     }
 
     /**
@@ -164,7 +164,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
     {
         $obj = $this->getObject();
         $obj->setRawData(['localString' => ['en' => 'test']]);
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\LocalizedString', $obj->getLocalString());
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\LocalizedString', $obj->getLocalString());
     }
 
     public function testMappedToArray()
@@ -180,12 +180,12 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
     public function testFromArray()
     {
         $obj = JsonObject::fromArray(['key' => 'value']);
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\JsonObject', $obj);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\JsonObject', $obj);
     }
 
     public function testGetReturnRaw()
     {
-        $obj = $this->getMock('\Sphere\Core\Model\Common\JsonObject', ['initialize'], [['key' => 'value']]);
+        $obj = $this->getMock('\Commercetools\Core\Model\Common\JsonObject', ['initialize'], [['key' => 'value']]);
         $this->assertSame('value', $obj->get('key'));
     }
 
@@ -193,7 +193,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
     {
         $obj = $this->getObject();
         $obj->setRawData(['decorator' => new \DateTime('2015-10-15 15:16:32')]);
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\DateTimeDecorator', $obj->getDecorator());
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\DateTimeDecorator', $obj->getDecorator());
     }
 
     public function testDecoratedString()
@@ -207,7 +207,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
     {
         $obj = $this->getObject();
         $obj->setDecorator(new \DateTime());
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\DateTimeDecorator', $obj->getDecorator());
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\DateTimeDecorator', $obj->getDecorator());
     }
 
     public function testContextInheritance()

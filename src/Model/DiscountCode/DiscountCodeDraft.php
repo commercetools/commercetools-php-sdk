@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\DiscountCode;
+namespace Commercetools\Core\Model\DiscountCode;
 
-use Sphere\Core\Model\CartDiscount\CartDiscountReferenceCollection;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
- * @package Sphere\Core\Model\DiscountCode
+ * @package Commercetools\Core\Model\DiscountCode
  * @method LocalizedString getName()
  * @method DiscountCodeDraft setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
@@ -34,10 +34,12 @@ class DiscountCodeDraft extends JsonObject
     public function getFields()
     {
         return [
-            'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'code' => [static::TYPE => 'string'],
-            'cartDiscounts' => [static::TYPE => '\Sphere\Core\Model\CartDiscount\CartDiscountReferenceCollection'],
+            'cartDiscounts' => [
+                static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection'
+            ],
             'cartPredicate' => [static::TYPE => 'string'],
             'isActive' => [static::TYPE => 'bool'],
             'maxApplications' => [static::TYPE => 'int'],

@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Carts\Command;
+namespace Commercetools\Core\Request\Carts\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Carts\Command
+ * @package Commercetools\Core\Request\Carts\Command
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#set-customer-email
  * @method string getAction()
  * @method CartSetCustomerEmailAction setAction(string $action = null)

@@ -4,13 +4,13 @@
  * @created: 04.02.15, 16:37
  */
 
-namespace Sphere\Core\Model\ProductType;
+namespace Commercetools\Core\Model\ProductType;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
- * @package Sphere\Core\Model\ProductType
+ * @package Commercetools\Core\Model\ProductType
  * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method ProductTypeReference setTypeId(string $typeId = null)
@@ -28,7 +28,7 @@ class ProductTypeReference extends Reference
         return [
             'typeId' => [self::TYPE => 'string'],
             'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => '\Sphere\Core\Model\ProductType\ProductType']
+            'obj' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductType']
         ];
     }
 

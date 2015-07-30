@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Cart;
+namespace Commercetools\Core\Model\Cart;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\Cart
+ * @package Commercetools\Core\Model\Cart
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#create-cart
  * @method string getCurrency()
  * @method string getCustomerId()

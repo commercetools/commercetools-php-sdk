@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\DiscountCodes\Command;
+namespace Commercetools\Core\Request\DiscountCodes\Command;
 
-use Sphere\Core\Model\CartDiscount\CartDiscountReference;
-use Sphere\Core\Model\CartDiscount\CartDiscountReferenceCollection;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\CartDiscount\CartDiscountReference;
+use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\DiscountCodes\Command
+ * @package Commercetools\Core\Request\DiscountCodes\Command
  *  *
  * @method string getAction()
  * @method DiscountCodeChangeCartDiscountsAction setAction(string $action = null)
@@ -26,7 +26,9 @@ class DiscountCodeChangeCartDiscountsAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'cartDiscounts' => [static::TYPE => '\Sphere\Core\Model\CartDiscount\CartDiscountReferenceCollection'],
+            'cartDiscounts' => [
+                static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection'
+            ],
         ];
     }
 

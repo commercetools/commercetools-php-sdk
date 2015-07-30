@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\DiscountCode;
+namespace Commercetools\Core\Model\DiscountCode;
 
-use Sphere\Core\Model\CartDiscount\CartDiscountReferenceCollection;
-use Sphere\Core\Model\Common\Resource;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Common\ReferenceCollection;
+use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
+use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\ReferenceCollection;
 
 /**
- * @package Sphere\Core\Model\DiscountCode
+ * @package Commercetools\Core\Model\DiscountCode
  * @apidoc http://dev.sphere.io/http-api-projects-discountCodes.html#discount-code
  * @method string getId()
  * @method DiscountCode setId(string $id = null)
@@ -49,13 +49,15 @@ class DiscountCode extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [static::TYPE => '\DateTime'],
             'lastModifiedAt' => [static::TYPE => '\DateTime'],
-            'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'code' => [static::TYPE => 'string'],
-            'cartDiscounts' => [static::TYPE => '\Sphere\Core\Model\CartDiscount\CartDiscountReferenceCollection'],
+            'cartDiscounts' => [
+                static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection'
+            ],
             'cartPredicate' => [],
             'isActive' => [static::TYPE => 'bool'],
-            'references' => [static::TYPE => '\Sphere\Core\Model\Common\ReferenceCollection'],
+            'references' => [static::TYPE => '\Commercetools\Core\Model\Common\ReferenceCollection'],
             'maxApplications' => [static::TYPE => 'int'],
             'maxApplicationsPerCustomer' => [static::TYPE => 'int'],
         ];

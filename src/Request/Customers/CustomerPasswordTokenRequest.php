@@ -4,19 +4,19 @@
  * @created: 11.02.15, 17:40
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\JsonRequest;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\Response\ResourceResponse;
-use Sphere\Core\Model\Customer\CustomerToken;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Client\JsonRequest;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Response\ResourceResponse;
+use Commercetools\Core\Model\Customer\CustomerToken;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Customers
+ * @package Commercetools\Core\Request\Customers
  * @apidoc http://dev.sphere.io/http-api-projects-customers.html#create-token-for-resetting-customers-password
  * @method CustomerToken mapResponse(ApiResponseInterface $response)
  */
@@ -24,7 +24,7 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
 {
     const EMAIL = 'email';
 
-    protected $resultClass = '\Sphere\Core\Model\Customer\CustomerToken';
+    protected $resultClass = '\Commercetools\Core\Model\Customer\CustomerToken';
 
     /**
      * @var string

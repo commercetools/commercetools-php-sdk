@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Orders\Command;
+namespace Commercetools\Core\Request\Orders\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Order\ReturnItemCollection;
-use Sphere\Core\Request\AbstractAction;
-use Sphere\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Order\ReturnItemCollection;
+use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
- * @package Sphere\Core\Request\Orders\Command
+ * @package Commercetools\Core\Request\Orders\Command
  * @apidoc http://dev.sphere.io/http-api-projects-orders.html#add-return-info
  * @method string getAction()
  * @method OrderAddReturnInfoAction setAction(string $action = null)
@@ -30,10 +30,10 @@ class OrderAddReturnInfoAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'returnDate' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
             'returnTrackingId' => [static::TYPE => 'string'],
-            'items' => [static::TYPE => '\Sphere\Core\Model\Order\ReturnItemCollection']
+            'items' => [static::TYPE => '\Commercetools\Core\Model\Order\ReturnItemCollection']
         ];
     }
 

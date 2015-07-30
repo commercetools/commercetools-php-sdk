@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\TaxCategories;
+namespace Commercetools\Core\Request\TaxCategories;
 
 
-use Sphere\Core\Model\TaxCategory\TaxCategoryDraft;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
+use Commercetools\Core\RequestTestCase;
 
 class TaxCategoryCreateRequestTest extends RequestTestCase
 {
-    const TAX_CATEGORY_CREATE_REQUEST = '\Sphere\Core\Request\TaxCategories\TaxCategoryCreateRequest';
+    const TAX_CATEGORY_CREATE_REQUEST = '\Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest';
 
     protected function getTaxCategory()
     {
@@ -33,7 +33,7 @@ class TaxCategoryCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(TaxCategoryCreateRequest::ofDraft($this->getTaxCategory()));
-        $this->assertInstanceOf('\Sphere\Core\Model\TaxCategory\TaxCategory', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
     }
 
     public function testMapEmptyResult()

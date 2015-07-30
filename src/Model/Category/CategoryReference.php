@@ -4,13 +4,13 @@
  * @created: 27.01.15, 18:22
  */
 
-namespace Sphere\Core\Model\Category;
+namespace Commercetools\Core\Model\Category;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
- * @package Sphere\Core\Model\Category
+ * @package Commercetools\Core\Model\Category
  * @link  http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method CategoryReference setTypeId(string $typeId = null)
@@ -28,7 +28,7 @@ class CategoryReference extends Reference
         return [
             static::TYPE_ID => [self::TYPE => 'string'],
             static::ID => [self::TYPE => 'string'],
-            static::OBJ => [static::TYPE => '\Sphere\Core\Model\Category\Category']
+            static::OBJ => [static::TYPE => '\Commercetools\Core\Model\Category\Category']
         ];
     }
 

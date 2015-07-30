@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\State;
+namespace Commercetools\Core\Model\State;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\State
+ * @package Commercetools\Core\Model\State
  * @method State current()
  * @method State getAt($offset)
  */
@@ -16,7 +16,7 @@ class StateCollection extends Collection
 {
     const KEY = 'key';
 
-    protected $type = '\Sphere\Core\Model\State\State';
+    protected $type = '\Commercetools\Core\Model\State\State';
 
     protected function indexRow($offset, $row)
     {

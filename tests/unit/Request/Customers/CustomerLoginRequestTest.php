@@ -3,20 +3,20 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\RequestTestCase;
 
 class CustomerLoginRequestTest extends RequestTestCase
 {
-    const CUSTOMER_LOGIN_REQUEST = '\Sphere\Core\Request\Customers\CustomerLoginRequest';
+    const CUSTOMER_LOGIN_REQUEST = '\Commercetools\Core\Request\Customers\CustomerLoginRequest';
 
     public function testMapResult()
     {
         $result = $this->mapResult(CustomerLoginRequest::ofEmailAndPassword('email', 'password'));
-        $this->assertInstanceOf('\Sphere\Core\Model\Customer\CustomerSigninResult', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Customer\CustomerSigninResult', $result);
     }
 
     public function testMapEmptyResult()
@@ -70,6 +70,6 @@ class CustomerLoginRequestTest extends RequestTestCase
         $request = CustomerLoginRequest::ofEmailAndPassword('email', 'password');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 }

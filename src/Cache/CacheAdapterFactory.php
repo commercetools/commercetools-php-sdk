@@ -4,14 +4,14 @@
  * @created 19.01.15, 17:17
  */
 
-namespace Sphere\Core\Cache;
+namespace Commercetools\Core\Cache;
 
 use Doctrine\Common\Cache\Cache;
-use Sphere\Core\Error\Message;
-use Sphere\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Error\Message;
+use Commercetools\Core\Error\InvalidArgumentException;
 
 /**
- * @package Sphere\Core\Cache
+ * @package Commercetools\Core\Cache
  */
 class CacheAdapterFactory
 {

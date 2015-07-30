@@ -4,7 +4,7 @@
  * @created: 10.02.15, 14:09
  */
 
-namespace Sphere\Core\Response;
+namespace Commercetools\Core\Response;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
@@ -13,20 +13,20 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\BufferStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Sphere\Core\AccessorTrait;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Request\AbstractApiRequest;
+use Commercetools\Core\AccessorTrait;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Request\AbstractApiRequest;
 
 /**
  * Class AbstractApiResponseTest
- * @package Sphere\Core\Response
+ * @package Commercetools\Core\Response
  * @method AbstractApiRequest getRequest($class)
  */
 class PagedQueryResponseTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_API_REQUEST = '\Sphere\Core\Request\AbstractApiRequest';
+    const ABSTRACT_API_REQUEST = '\Commercetools\Core\Request\AbstractApiRequest';
 
     const RESPONSE = '
     {
@@ -56,13 +56,13 @@ class PagedQueryResponseTest extends \PHPUnit_Framework_TestCase
 
             $handler = HandlerStack::create($mock);
             // Add the mock subscriber to the client.
-            $client = new \Sphere\Core\Client\Adapter\Guzzle6Adapter(['handler' => $mock]);
+            $client = new \Commercetools\Core\Client\Adapter\Guzzle6Adapter(['handler' => $mock]);
         } else {
             $handler = new \GuzzleHttp\Ring\Client\MockHandler(
                 ['status' => $statusCode, 'body' => $response]
             );
 
-            $client = new \Sphere\Core\Client\Adapter\Guzzle5Adapter(['handler' => $handler]);
+            $client = new \Commercetools\Core\Client\Adapter\Guzzle5Adapter(['handler' => $handler]);
         }
 
         $request = new Request(HttpMethod::GET, '/');

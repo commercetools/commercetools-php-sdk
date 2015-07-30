@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\Product
+ * @package Commercetools\Core\Model\Product
  * @method string getType()
  * @method FacetResult setType(string $type = null)
  * @method int getMissing()
@@ -31,8 +31,8 @@ class FacetResult extends JsonObject
             'missing' => [static::TYPE => 'int'],
             'total' => [static::TYPE => 'int'],
             'other' => [static::TYPE => 'int'],
-            'terms' => [static::TYPE => '\Sphere\Core\Model\Product\FacetTermCollection'],
-            'ranges' => [static::TYPE => '\Sphere\Core\Model\Product\FacetRangeCollection']
+            'terms' => [static::TYPE => '\Commercetools\Core\Model\Product\FacetTermCollection'],
+            'ranges' => [static::TYPE => '\Commercetools\Core\Model\Product\FacetRangeCollection']
         ];
     }
 }

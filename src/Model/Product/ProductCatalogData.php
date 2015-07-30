@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\Product
+ * @package Commercetools\Core\Model\Product
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-catalog-data
  * @method bool getPublished()
  * @method ProductCatalogData setPublished(bool $published = null)
@@ -23,8 +23,8 @@ class ProductCatalogData extends JsonObject
     {
         return [
             'published' => [static::TYPE => 'bool'],
-            'current' => [static::TYPE => '\Sphere\Core\Model\Product\ProductData'],
-            'staged' => [static::TYPE => '\Sphere\Core\Model\Product\ProductData']
+            'current' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductData'],
+            'staged' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductData']
         ];
     }
 }

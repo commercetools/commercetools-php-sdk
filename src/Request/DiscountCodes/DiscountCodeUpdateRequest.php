@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\DiscountCodes;
+namespace Commercetools\Core\Request\DiscountCodes;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Model\DiscountCode\DiscountCode;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractUpdateRequest;
+use Commercetools\Core\Model\DiscountCode\DiscountCode;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\DiscountCodes
+ * @package Commercetools\Core\Request\DiscountCodes
  * @apidoc http://dev.sphere.io/http-api-projects-discountCodes.html#update-discount-code
  * @method DiscountCode mapResponse(ApiResponseInterface $response)
  */
 class DiscountCodeUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\DiscountCode\DiscountCode';
+    protected $resultClass = '\Commercetools\Core\Model\DiscountCode\DiscountCode';
 
     /**
      * @param string $id

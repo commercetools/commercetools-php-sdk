@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  * @created: 28.01.15, 10:07
  */
-namespace Sphere\Core\Response;
+namespace Commercetools\Core\Response;
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client\Adapter\AdapterPromiseInterface;
-use Sphere\Core\Request\ClientRequestInterface;
+use Commercetools\Core\Client\Adapter\AdapterPromiseInterface;
+use Commercetools\Core\Request\ClientRequestInterface;
 
 /**
  * Interface ApiResponseInterface
- * @package Sphere\Core\Http
+ * @package Commercetools\Core\Http
  */
 interface ApiResponseInterface
 {

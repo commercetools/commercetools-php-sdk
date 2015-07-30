@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Zone;
+namespace Commercetools\Core\Model\Zone;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\Zone
+ * @package Commercetools\Core\Model\Zone
  * @apidoc http://dev.sphere.io/http-api-projects-zones.html#location
  * @method string getCountry()
  * @method Location setCountry(string $country = null)

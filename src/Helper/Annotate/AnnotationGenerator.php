@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Helper\Annotate;
+namespace Commercetools\Core\Helper\Annotate;
 
 class AnnotationGenerator
 {
@@ -59,7 +59,7 @@ class AnnotationGenerator
             $class = $this->getClassName($phpFile->getRealPath());
 
             if (!empty($class)) {
-                if (in_array('Sphere\Core\Model\Common\JsonObject', class_parents($class))) {
+                if (in_array('Commercetools\Core\Model\Common\JsonObject', class_parents($class))) {
                     $jsonObjects[] = $class;
                 }
             }
@@ -75,7 +75,7 @@ class AnnotationGenerator
             $class = $this->getClassName($phpFile->getRealPath());
 
             if (!empty($class)) {
-                if (in_array('Sphere\Core\Model\Common\Collection', class_parents($class))) {
+                if (in_array('Commercetools\Core\Model\Common\Collection', class_parents($class))) {
                     $collectionObjects[] = $class;
                 }
             }
@@ -91,7 +91,7 @@ class AnnotationGenerator
             $class = $this->getClassName($phpFile->getRealPath());
 
             if (!empty($class)) {
-                if (in_array('Sphere\Core\Request\AbstractApiRequest', class_parents($class))) {
+                if (in_array('Commercetools\Core\Request\AbstractApiRequest', class_parents($class))) {
                     $requestObjects[] = $class;
                 }
             }

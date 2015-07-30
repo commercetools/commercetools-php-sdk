@@ -3,9 +3,9 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core;
+namespace Commercetools\Core;
 
-use Sphere\Core\Helper\Annotate\AnnotationGenerator;
+use Commercetools\Core\Helper\Annotate\AnnotationGenerator;
 
 require '../vendor/autoload.php';
 

@@ -3,10 +3,10 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
-use Sphere\Core\Model\ProductType\ProductType;
+use Commercetools\Core\Model\ProductType\ProductType;
 
 class ResourceTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,7 +17,7 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
     {
         date_default_timezone_set('UTC');
         $obj = $this->getMockForAbstractClass(
-            '\Sphere\Core\Model\Common\Resource',
+            '\Commercetools\Core\Model\Common\Resource',
             [['id' => '12345']],
             'MockResource',
             true,
@@ -43,7 +43,7 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
         $obj = ProductType::of()->setId('123456');
 
         $reference = $obj->getReference();
-        $this->assertInstanceOf('\Sphere\Core\Model\ProductType\ProductTypeReference', $reference);
+        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductTypeReference', $reference);
         $this->assertJsonStringEqualsJsonString(
             '{"typeId": "product-type", "id": "123456"}',
             json_encode($reference)
@@ -55,7 +55,7 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
         $obj = $this->getObject();
 
         $reference = $obj->getReference();
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\Reference', $reference);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Reference', $reference);
         $this->assertJsonStringEqualsJsonString(
             '{"typeId": "mock-resource", "id": "12345"}',
             json_encode($reference)

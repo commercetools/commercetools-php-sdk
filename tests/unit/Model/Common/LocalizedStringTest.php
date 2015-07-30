@@ -4,10 +4,10 @@
  * @created: 29.01.15, 12:22
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
-use Sphere\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Error\InvalidArgumentException;
 
 class LocalizedStringTest extends \PHPUnit_Framework_TestCase
 {
@@ -41,7 +41,7 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Sphere\Core\Error\InvalidArgumentException
+     * @expectedException \Commercetools\Core\Error\InvalidArgumentException
      */
     public function testGetUnknownLocale()
     {

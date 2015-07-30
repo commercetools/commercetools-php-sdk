@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Customer;
+namespace Commercetools\Core\Model\Customer;
 
-use Sphere\Core\Model\Cart\Cart;
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\Customer
+ * @package Commercetools\Core\Model\Customer
  * @apidoc http://dev.sphere.io/http-api-projects-customers.html#customer-sign-in-result
  * @method Customer getCustomer()
  * @method CustomerSigninResult setCustomer(Customer $customer = null)
@@ -21,8 +21,8 @@ class CustomerSigninResult extends JsonObject
     public function getFields()
     {
         return [
-            'customer' => [static::TYPE => '\Sphere\Core\Model\Customer\Customer'],
-            'cart' => [static::TYPE => '\Sphere\Core\Model\Cart\Cart']
+            'customer' => [static::TYPE => '\Commercetools\Core\Model\Customer\Customer'],
+            'cart' => [static::TYPE => '\Commercetools\Core\Model\Cart\Cart']
         ];
     }
 }

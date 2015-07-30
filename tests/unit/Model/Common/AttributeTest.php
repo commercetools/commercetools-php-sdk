@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
-use Sphere\Core\Model\ProductType\AttributeDefinition;
-use Sphere\Core\Model\ProductType\AttributeType;
+use Commercetools\Core\Model\ProductType\AttributeDefinition;
+use Commercetools\Core\Model\ProductType\AttributeType;
 
 class AttributeTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,23 +18,23 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
             ['int', ['name' => 'int', 'value' => 1]],
             ['float', ['name' => 'float', 'value' => 1.1]],
             ['bool', ['name' => 'bool', 'value' => true]],
-            ['\Sphere\Core\Model\Common\LocalizedString', ['name' => 'ltext', 'value' => ['en' => 'Foo']]],
-            ['\Sphere\Core\Model\Common\Enum', ['name' => 'enum', 'value' => ['key' => 'foo', 'label' => 'Foo']]],
+            ['\Commercetools\Core\Model\Common\LocalizedString', ['name' => 'ltext', 'value' => ['en' => 'Foo']]],
+            ['\Commercetools\Core\Model\Common\Enum', ['name' => 'enum', 'value' => ['key' => 'foo', 'label' => 'Foo']]],
             [
-                '\Sphere\Core\Model\Common\LocalizedEnum',
+                '\Commercetools\Core\Model\Common\LocalizedEnum',
                 ['name' => 'lenum', 'value' => ['key' => 'foo', 'label' => ['en' => 'Foo']]]
             ],
             [
-                '\Sphere\Core\Model\Common\Money',
+                '\Commercetools\Core\Model\Common\Money',
                 ['name' => 'money', 'value' => ['currencyCode' => 'EUR', 'centAmount' => 100]]
             ],
-            ['\Sphere\Core\Model\Common\Set', ['name' => 'set', 'value' => ['value1', 'value2']]],
+            ['\Commercetools\Core\Model\Common\Set', ['name' => 'set', 'value' => ['value1', 'value2']]],
             [
-                '\Sphere\Core\Model\Common\Reference',
+                '\Commercetools\Core\Model\Common\Reference',
                 ['name' => 'reference', 'value' => ['typeId' => 'reference', 'id' => '123456']]
             ],
             [
-                '\Sphere\Core\Model\Common\AttributeCollection',
+                '\Commercetools\Core\Model\Common\AttributeCollection',
                 [
                     'name' => 'nested',
                     'value' => [
@@ -71,7 +71,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
         ];
         $attribute = Attribute::fromArray($data);
 
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\Enum', $attribute->getValue()->getAt(0));
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Enum', $attribute->getValue()->getAt(0));
     }
 
     public function testSameTypeForName()
@@ -91,7 +91,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
         $attribute2 = Attribute::fromArray(['name' => 'test-set', 'value' => []]);
         $attribute2->getValue()->getAt(0);
         $this->assertInstanceOf(
-            '\Sphere\Core\Model\Common\Enum',
+            '\Commercetools\Core\Model\Common\Enum',
             $attribute2->getValue()->getAt(0)
         );
     }

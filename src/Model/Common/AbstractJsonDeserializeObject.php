@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  */
 abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
 {
-    const JSON_DESERIALIZE_INTERFACE = 'Sphere\Core\Model\Common\JsonDeserializeInterface';
-    const TYPEABLE_INTERFACE = '\Sphere\Core\Model\Common\TypeableInterface';
+    const JSON_DESERIALIZE_INTERFACE = 'Commercetools\Core\Model\Common\JsonDeserializeInterface';
+    const TYPEABLE_INTERFACE = '\Commercetools\Core\Model\Common\TypeableInterface';
 
     abstract protected function initialize($field);
 

@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Zones;
+namespace Commercetools\Core\Request\Zones;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteRequest;
-use Sphere\Core\Model\Zone\Zone;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractDeleteRequest;
+use Commercetools\Core\Model\Zone\Zone;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Zones
+ * @package Commercetools\Core\Request\Zones
  * @apidoc http://dev.sphere.io/http-api-projects-zones.html#delete-zone
  * @method Zone mapResponse(ApiResponseInterface $response)
  */
 class ZoneDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Zone\Zone';
+    protected $resultClass = '\Commercetools\Core\Model\Zone\Zone';
 
     /**
      * @param string $id

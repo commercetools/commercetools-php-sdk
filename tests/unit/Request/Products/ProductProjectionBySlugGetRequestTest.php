@@ -3,18 +3,18 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Error\InvalidArgumentException;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\RequestTestCase;
 
 class ProductProjectionBySlugGetRequestTest extends RequestTestCase
 {
     const PRODUCT_PROJECTION_BY_SLUG_GET_REQUEST =
-        '\Sphere\Core\Request\Products\ProductProjectionBySlugGetRequest';
+        '\Commercetools\Core\Request\Products\ProductProjectionBySlugGetRequest';
 
     protected function getContext()
     {
@@ -51,7 +51,7 @@ class ProductProjectionBySlugGetRequestTest extends RequestTestCase
             [],
             $data
         );
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjection', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
     }
 
     public function testMapEmptyResult()
@@ -108,6 +108,6 @@ class ProductProjectionBySlugGetRequestTest extends RequestTestCase
         $request = ProductProjectionBySlugGetRequest::ofSlugAndContext('slug', $this->getContext());
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 }

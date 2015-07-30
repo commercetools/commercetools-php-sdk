@@ -3,10 +3,10 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\States;
+namespace Commercetools\Core\Request\States;
 
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 class StatesEndpoint
 {

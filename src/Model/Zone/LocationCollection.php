@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Zone;
+namespace Commercetools\Core\Model\Zone;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\Zone
+ * @package Commercetools\Core\Model\Zone
  * @method Location current()
  * @method Location getAt($offset)
  */
 class LocationCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\Zone\Location';
+    protected $type = '\Commercetools\Core\Model\Zone\Location';
 }

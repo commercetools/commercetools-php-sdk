@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Request
+ * @package Commercetools\Core\Request
  * @method string getAction()
  * @method $this setAction(string $action)
  */

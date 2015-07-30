@@ -4,10 +4,10 @@
  * @created: 10.02.15, 10:16
  */
 
-namespace Sphere\Core;
+namespace Commercetools\Core;
 
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 trait AccessorTrait
 {

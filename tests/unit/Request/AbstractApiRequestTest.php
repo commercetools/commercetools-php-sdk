@@ -4,27 +4,27 @@
  * @created: 10.02.15, 09:57
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
 
-use Sphere\Core\AccessorTrait;
-use Sphere\Core\Error\InvalidArgumentException;
+use Commercetools\Core\AccessorTrait;
+use Commercetools\Core\Error\InvalidArgumentException;
 
 /**
  * Class AbstractApiRequestTest
- * @package Sphere\Core\Request
+ * @package Commercetools\Core\Request
  * @method AbstractCreateRequest getRequest($class)
  */
 class AbstractApiRequestTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_API_REQUEST = '\Sphere\Core\Request\AbstractApiRequest';
+    const ABSTRACT_API_REQUEST = '\Commercetools\Core\Request\AbstractApiRequest';
 
     public function testEndpoint()
     {
         $request = $this->getRequest(static::ABSTRACT_API_REQUEST);
-        $this->assertInstanceOf('\Sphere\Core\Client\JsonEndpoint', $request->getEndpoint());
+        $this->assertInstanceOf('\Commercetools\Core\Client\JsonEndpoint', $request->getEndpoint());
         $this->assertSame('test', $request->getEndpoint()->endpoint());
     }
 
@@ -152,7 +152,7 @@ class AbstractApiRequestTest extends \PHPUnit_Framework_TestCase
     {
         $request = $this->getRequest(static::ABSTRACT_API_REQUEST);
         $result = $request->mapResult(['key' => 'value']);
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\JsonObject', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\JsonObject', $result);
     }
 
     public function testMapEmptyResult()

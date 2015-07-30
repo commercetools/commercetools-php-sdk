@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CustomerGroups;
+namespace Commercetools\Core\Request\CustomerGroups;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\CustomerGroup\CustomerGroupCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\CustomerGroups
+ * @package Commercetools\Core\Request\CustomerGroups
  * @apidoc http://dev.sphere.io/http-api-projects-customerGroups.html#customer-groups-by-query
  * @method CustomerGroupCollection mapResponse(ApiResponseInterface $response)
  */
 class CustomerGroupQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\CustomerGroup\CustomerGroupCollection';
+    protected $resultClass = '\Commercetools\Core\Model\CustomerGroup\CustomerGroupCollection';
 
     /**
      * @param Context $context

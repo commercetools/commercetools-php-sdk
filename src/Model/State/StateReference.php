@@ -4,13 +4,13 @@
  * @created: 27.01.15, 18:22
  */
 
-namespace Sphere\Core\Model\State;
+namespace Commercetools\Core\Model\State;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
- * @package Sphere\Core\Model\State
+ * @package Commercetools\Core\Model\State
  * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method StateReference setTypeId(string $typeId = null)
@@ -26,7 +26,7 @@ class StateReference extends Reference
     public function getFields()
     {
         $fields = parent::getFields();
-        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\State\State'];
+        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\State\State'];
 
         return $fields;
     }

@@ -3,17 +3,17 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Inventory;
+namespace Commercetools\Core\Model\Inventory;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\Inventory
+ * @package Commercetools\Core\Model\Inventory
  * 
  * @method InventoryEntry current()
  * @method InventoryEntry getAt($offset)
  */
 class InventoryEntryCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\Inventory\InventoryEntry';
+    protected $type = '\Commercetools\Core\Model\Inventory\InventoryEntry';
 }

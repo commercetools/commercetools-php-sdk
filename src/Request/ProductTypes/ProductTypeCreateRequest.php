@@ -3,22 +3,22 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductTypes;
+namespace Commercetools\Core\Request\ProductTypes;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\ProductType\ProductTypeDraft;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\ProductType\ProductType;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\ProductType\ProductTypeDraft;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\ProductType\ProductType;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\ProductTypes
+ * @package Commercetools\Core\Request\ProductTypes
  * 
  * @method ProductType mapResponse(ApiResponseInterface $response)
  */
 class ProductTypeCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\ProductType\ProductType';
+    protected $resultClass = '\Commercetools\Core\Model\ProductType\ProductType';
 
     /**
      * @param ProductTypeDraft $productType

@@ -4,20 +4,20 @@
  * @created: 26.01.15, 17:22
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\HttpRequest;
-use Sphere\Core\Client\JsonEndpoint;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\Query\Parameter;
-use Sphere\Core\Response\ResourceResponse;
+use Commercetools\Core\Client;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Client\HttpRequest;
+use Commercetools\Core\Client\JsonEndpoint;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\Query\Parameter;
+use Commercetools\Core\Response\ResourceResponse;
 
 /**
- * @package Sphere\Core\Request
+ * @package Commercetools\Core\Request
  * @method ResourceResponse executeWithClient(Client $client)
  */
 abstract class AbstractDeleteRequest extends AbstractApiRequest

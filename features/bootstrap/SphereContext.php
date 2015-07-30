@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core;
+namespace Commercetools\Core;
 
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
-use Sphere\Core\Model\Common\AbstractJsonDeserializeObject;
-use Sphere\Core\Model\Common\Collection;
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\AbstractJsonDeserializeObject;
+use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\JsonObject;
 
 trait SphereContext
 {
@@ -56,9 +56,9 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         if ($context == 'CustomObject') {
-            $class = '\Sphere\Core\Model\\CustomObject\\CustomObject';
+            $class = '\Commercetools\Core\Model\\CustomObject\\CustomObject';
         } else {
-            $class = '\Sphere\Core\Model\\' . $context . '\\' . $context . 'Draft';
+            $class = '\Commercetools\Core\Model\\' . $context . '\\' . $context . 'Draft';
         }
 
         $rawData = json_decode((string)$json, true);
@@ -94,7 +94,7 @@ trait SphereContext
         $module = $this->getModuleName($context);
         $context = $this->getContext($context);
         $actionName = $this->getContext($actionName);
-        $class = '\Sphere\Core\Request\\' . $module . '\\Command\\' . $context . $actionName . 'Action';
+        $class = '\Commercetools\Core\Request\\' . $module . '\\Command\\' . $context . $actionName . 'Action';
         $json = (string)$json;
         assertJson($json);
         $rawData = json_decode($json, true);
@@ -111,7 +111,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'CreateRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'CreateRequest';
         if ($context == 'CustomObject') {
             $this->request = call_user_func_array($request. '::ofObject', [$this->objects[$context]]);
         } else {
@@ -159,7 +159,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'DeleteRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'DeleteRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $version = $this->objects[$requestContext]['version'];
@@ -173,7 +173,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByIdGetRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'ByIdGetRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $this->request = call_user_func_array($request. '::ofId', [$id]);
@@ -186,7 +186,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByKeyGetRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'ByKeyGetRequest';
         $requestContext = $context . 'Request';
         $container = $this->objects[$requestContext]['container'];
         $key = $this->objects[$requestContext]['key'];
@@ -200,7 +200,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByCustomerIdGetRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'ByCustomerIdGetRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $this->request = call_user_func_array($request. '::ofCustomerId', [$id]);
@@ -213,7 +213,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByCartIdGetRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'ByCartIdGetRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $this->request = call_user_func_array($request. '::ofCartId', [$id]);
@@ -226,7 +226,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByLocationGetRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'ByLocationGetRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $this->request = call_user_func_array($request. '::ofCountry', [$id]);
@@ -248,7 +248,7 @@ trait SphereContext
     {
         $module = $this->getModuleName($context);
         $context = $this->getQueryContext($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'QueryRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'QueryRequest';
         $this->request = call_user_func($request. '::of');
     }
 
@@ -259,7 +259,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'UpdateRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'UpdateRequest';
 
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
@@ -274,7 +274,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'DeleteByKeyRequest';
+        $request = '\Commercetools\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'DeleteByKeyRequest';
         $requestContext = $context . 'Request';
         $container = $this->objects[$requestContext]['container'];
         $key = $this->objects[$requestContext]['key'];
@@ -327,7 +327,7 @@ trait SphereContext
     public function filterThemWithCriteriaName($where)
     {
         /**
-         * @var \Sphere\Core\Request\AbstractQueryRequest $request
+         * @var \Commercetools\Core\Request\AbstractQueryRequest $request
          */
         $this->request->where($where);
     }
@@ -363,7 +363,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'EmailTokenRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'EmailTokenRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $version = $this->objects[$requestContext]['version'];
@@ -380,7 +380,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'LoginRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'LoginRequest';
         $this->request = call_user_func_array(
             $request. '::ofEmailAndPassword',
             [$email, $password, $cartId]
@@ -404,7 +404,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'PasswordTokenRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'PasswordTokenRequest';
         $requestContext = $context . 'Request';
         $email = $this->objects[$requestContext]['email'];
         $this->request = call_user_func_array(
@@ -430,7 +430,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ByTokenGetRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'ByTokenGetRequest';
         $requestContext = $context . 'Request';
         $token = $this->objects[$requestContext]['token'];
         $this->request = call_user_func_array($request. '::ofToken', [$token]);
@@ -443,7 +443,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'PasswordResetRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'PasswordResetRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $version = $this->objects[$requestContext]['version'];
@@ -460,7 +460,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'EmailConfirmRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'EmailConfirmRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $version = $this->objects[$requestContext]['version'];
@@ -477,7 +477,7 @@ trait SphereContext
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'PasswordChangeRequest';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'PasswordChangeRequest';
         $requestContext = $context . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $version = $this->objects[$requestContext]['version'];
@@ -495,7 +495,7 @@ trait SphereContext
         $context = $this->getContext($context);
         $context2 = $this->getContext($context2);
         $module = $this->getModuleName($context);
-        $request = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'CreateFrom' . $context2 . 'Request';
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'CreateFrom' . $context2 . 'Request';
         $requestContext = $context2 . 'Request';
         $id = $this->objects[$requestContext]['id'];
         $version = $this->objects[$requestContext]['version'];
@@ -521,8 +521,8 @@ trait SphereContext
         $module = $this->getModuleName($context);
         $context = $this->getContext($context);
 
-        $importClass = '\Sphere\Core\Model\\' . $context . '\\Import' . $context;
-        $requestClass = '\Sphere\Core\Request\\' . $module . '\\' . $context . 'ImportRequest';
+        $importClass = '\Commercetools\Core\Model\\' . $context . '\\Import' . $context;
+        $requestClass = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'ImportRequest';
 
         $rawData = json_decode((string)$json, true);
         $object = call_user_func_array($importClass.'::fromArray', [$rawData]);

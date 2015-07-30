@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Order;
+namespace Commercetools\Core\Model\Order;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\Order
+ * @package Commercetools\Core\Model\Order
  * @apidoc http://dev.sphere.io/http-api-projects-orders.html#parcel
  * @method string getId()
  * @method Parcel setId(string $id = null)
@@ -26,8 +26,8 @@ class Parcel extends JsonObject
         return [
             'id' => [static::TYPE => 'string'],
             'createdAt' => [static::TYPE => '\DateTime'],
-            'measurements' => [static::TYPE => '\Sphere\Core\Model\Order\ParcelMeasurements'],
-            'trackingData' => [static::TYPE => '\Sphere\Core\Model\Order\TrackingData'],
+            'measurements' => [static::TYPE => '\Commercetools\Core\Model\Order\ParcelMeasurements'],
+            'trackingData' => [static::TYPE => '\Commercetools\Core\Model\Order\TrackingData'],
         ];
     }
 }

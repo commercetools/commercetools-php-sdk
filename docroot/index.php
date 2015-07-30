@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  * @created: 04.02.15, 13:31
  */
-namespace Sphere\Core;
+namespace Commercetools\Core;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Product\ProductProjection;
-use Sphere\Core\Model\Product\ProductProjectionCollection;
-use Sphere\Core\Request\Products\ProductProjectionSearchRequest;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Product\ProductProjection;
+use Commercetools\Core\Model\Product\ProductProjectionCollection;
+use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
 
 require '../vendor/autoload.php';
 

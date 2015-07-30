@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Inventory;
+namespace Commercetools\Core\Request\Inventory;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\Inventory\InventoryEntryCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\Inventory\InventoryEntryCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Inventory
+ * @package Commercetools\Core\Request\Inventory
  * @apidoc http://dev.sphere.io/http-api-projects-inventory.html#inventories-by-query
  * @method InventoryEntryCollection mapResponse(ApiResponseInterface $response)
  */
 class InventoryQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Inventory\InventoryEntryCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Inventory\InventoryEntryCollection';
 
     /**
      * @param Context $context

@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Zones;
+namespace Commercetools\Core\Request\Zones;
 
 
-use Sphere\Core\Model\Zone\Location;
-use Sphere\Core\Model\Zone\LocationCollection;
-use Sphere\Core\Model\Zone\ZoneDraft;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\Zone\Location;
+use Commercetools\Core\Model\Zone\LocationCollection;
+use Commercetools\Core\Model\Zone\ZoneDraft;
+use Commercetools\Core\RequestTestCase;
 
 /**
  * Class ZoneCreateRequestTest
- * @package Sphere\Core\Request\Zones
+ * @package Commercetools\Core\Request\Zones
  */
 class ZoneCreateRequestTest extends RequestTestCase
 {
-    const ZONE_CREATE_REQUEST = '\Sphere\Core\Request\Zones\ZoneCreateRequest';
+    const ZONE_CREATE_REQUEST = '\Commercetools\Core\Request\Zones\ZoneCreateRequest';
 
     protected function getZoneDraft()
     {
@@ -33,7 +33,7 @@ class ZoneCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ZoneCreateRequest::ofDraft($this->getZoneDraft()));
-        $this->assertInstanceOf('\Sphere\Core\Model\Zone\Zone', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result);
     }
 
     public function testMapEmptyResult()

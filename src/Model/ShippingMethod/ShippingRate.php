@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ShippingMethod;
+namespace Commercetools\Core\Model\ShippingMethod;
 
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\Money;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Money;
 
 /**
- * @package Sphere\Core\Model\ShippingMethod
+ * @package Commercetools\Core\Model\ShippingMethod
  * @apidoc http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-rate
  * @method Money getPrice()
  * @method ShippingRate setPrice(Money $price = null)
@@ -21,8 +21,8 @@ class ShippingRate extends JsonObject
     public function getFields()
     {
         return [
-            'price' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
-            'freeAbove' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
+            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'freeAbove' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
         ];
     }
 }

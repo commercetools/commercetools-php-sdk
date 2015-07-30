@@ -3,10 +3,10 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ProductType;
+namespace Commercetools\Core\Model\ProductType;
 
 
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\JsonObject;
 
 class AttributeTypeTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,7 +16,7 @@ class AttributeTypeTest extends \PHPUnit_Framework_TestCase
             'name' => 'enum'
         ]);
         $this->assertSame(
-            '\Sphere\Core\Model\Common\EnumCollection',
+            '\Commercetools\Core\Model\Common\EnumCollection',
             $type->getFields()['values'][JsonObject::TYPE]
         );
     }
@@ -27,7 +27,7 @@ class AttributeTypeTest extends \PHPUnit_Framework_TestCase
             'name' => 'lenum'
         ]);
         $this->assertSame(
-            '\Sphere\Core\Model\Common\LocalizedEnumCollection',
+            '\Commercetools\Core\Model\Common\LocalizedEnumCollection',
             $type->getFields()['values'][JsonObject::TYPE]
         );
     }

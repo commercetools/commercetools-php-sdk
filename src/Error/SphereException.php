@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Error;
+namespace Commercetools\Core\Error;
 
 
 use Psr\Http\Message\RequestInterface;
@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * Base exception for responses with http status code different than 200 or 201
- * @package Sphere\Core\Error
+ * @package Commercetools\Core\Error
  */
 class SphereException extends \Exception
 {

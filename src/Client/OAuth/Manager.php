@@ -4,20 +4,20 @@
  * @created: 22.01.15, 12:34
  */
 
-namespace Sphere\Core\Client\OAuth;
+namespace Commercetools\Core\Client\OAuth;
 
 
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\AbstractHttpClient;
-use Sphere\Core\Cache\CacheAdapterFactory;
-use Sphere\Core\Cache\CacheAdapterInterface;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Error\InvalidClientCredentialsException;
-use Sphere\Core\Error\Message;
+use Commercetools\Core\AbstractHttpClient;
+use Commercetools\Core\Cache\CacheAdapterFactory;
+use Commercetools\Core\Cache\CacheAdapterInterface;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Error\InvalidClientCredentialsException;
+use Commercetools\Core\Error\Message;
 
 /**
- * @package Sphere\Core\OAuth
+ * @package Commercetools\Core\OAuth
  * @internal
  */
 class Manager extends AbstractHttpClient

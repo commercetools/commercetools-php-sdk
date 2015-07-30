@@ -4,11 +4,11 @@
  * @created: 04.02.15, 16:44
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  * @apidoc http://dev.sphere.io/http-api-types.html#money
  * @method string getCurrencyCode()
  * @method int getCentAmount()

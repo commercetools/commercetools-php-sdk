@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CustomObjects;
+namespace Commercetools\Core\Request\CustomObjects;
 
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 /**
- * @package Sphere\Core\Request\CustomObjects
+ * @package Commercetools\Core\Request\CustomObjects
  */
 class CustomObjectsEndpoint
 {
