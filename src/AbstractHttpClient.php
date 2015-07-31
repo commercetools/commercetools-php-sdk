@@ -110,7 +110,7 @@ abstract class AbstractHttpClient
     protected function getUserAgent()
     {
         if (is_null($this->userAgent)) {
-            $agent = 'sphere-php-sdk ' . static::VERSION;
+            $agent = 'commercetools-php-sdk ' . static::VERSION;
             if (extension_loaded('curl')) {
                 $agent .= ' curl/' . curl_version()['version'];
             }

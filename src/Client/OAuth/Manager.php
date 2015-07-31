@@ -22,7 +22,7 @@ use Commercetools\Core\Error\Message;
  */
 class Manager extends AbstractHttpClient
 {
-    const TOKEN_CACHE_KEY = 'sphere-io-access-token';
+    const TOKEN_CACHE_KEY = 'commercetools-io-access-token';
 
     const ACCESS_TOKEN = 'access_token';
     const EXPIRES_IN = 'expires_in';

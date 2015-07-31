@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\Category
- * @link  http://dev.sphere.io/http-api-types.html#reference
+ * @apidoc  http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method CategoryReference setTypeId(string $typeId = null)
  * @method string getId()

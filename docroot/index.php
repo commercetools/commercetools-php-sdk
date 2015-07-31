@@ -18,9 +18,8 @@ $appConfig = parse_ini_file('myapp.ini', true);
 
 $context = Context::of()->setLanguages(['en'])->setGraceful(true);
 
-// create the sphere config object
-$config = new Config();
-$config->fromArray($appConfig['sphere'])->setContext($context);
+// create the api client config object
+$config = Config::fromArray($appConfig['commercetools'])->setContext($context);
 
 /**
  * create search request
@@ -35,7 +34,7 @@ $request = ProductProjectionSearchRequest::of($config->getContext())
 $log = new Logger('name');
 $log->pushHandler(new StreamHandler('./requests.log'));
 
-$client = new Client($config, null, $log);
+$client = Client::ofConfigAndLogger($config, $log);
 
 $products = $client->execute($request)->toObject();
 
@@ -45,7 +44,7 @@ $products = $client->execute($request)->toObject();
 ?>
 <html>
 <head>
-    <title>Sphere PHP SDK example</title>
+    <title>Commercetools PHP SDK example</title>
 </head>
 <body>
     <form method="POST" action=".">

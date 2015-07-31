@@ -23,7 +23,7 @@ use Commercetools\Core\Model\Common\ContextTrait;
  * Configuration file:
  *
  * ```
- * [sphere]
+ * [commercetools]
  * client_id = '<client-id>'
  * client_secret = '<client-secret>'
  * project = '<project>'
@@ -33,7 +33,7 @@ use Commercetools\Core\Model\Common\ContextTrait;
  *
  * ```php
  * $iniConfig = parse_ini_file('<config-file>.ini', true);
- * $config = Config::fromArray($iniConfig['sphere']);
+ * $config = Config::fromArray($iniConfig['commercetools']);
  * ```
  *
  * ### Exceptions ###

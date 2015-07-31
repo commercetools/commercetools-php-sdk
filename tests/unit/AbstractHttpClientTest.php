@@ -64,6 +64,6 @@ class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
          */
         $httpClient = $client->getHttpClient();
         // $headers = $httpClient->getConfig('headers');
-        // $this->assertContains('sphere-php-sdk ' . AbstractHttpClient::VERSION, $headers['User-Agent']);
+        // $this->assertContains('commercetools-php-sdk ' . AbstractHttpClient::VERSION, $headers['User-Agent']);
     }
 }

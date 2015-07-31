@@ -4,14 +4,14 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 
 require_once __DIR__ . '/../../vendor/phpunit/phpunit/src/Framework/Assert/Functions.php';
-require_once __DIR__ . '/SphereContext.php';
+require_once __DIR__ . '/ApiContext.php';
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext implements Context, SnippetAcceptingContext
 {
-    use \Commercetools\Core\SphereContext;
+    use \Commercetools\Core\ApiContext;
 
     protected static $coverage;
 

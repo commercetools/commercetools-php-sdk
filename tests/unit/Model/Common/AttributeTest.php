@@ -11,7 +11,7 @@ use Commercetools\Core\Model\ProductType\AttributeType;
 
 class AttributeTest extends \PHPUnit_Framework_TestCase
 {
-    public function sphereTypeProvider()
+    public function apiTypeProvider()
     {
         return [
             ['string', ['name' => 'string', 'value' => 'bar']],
@@ -46,7 +46,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider sphereTypeProvider
+     * @dataProvider apiTypeProvider
      * @param string $type
      * @param array $data
      */

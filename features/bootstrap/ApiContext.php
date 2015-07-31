@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\AbstractJsonDeserializeObject;
 use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\JsonObject;
 
-trait SphereContext
+trait ApiContext
 {
     protected $request;
 
