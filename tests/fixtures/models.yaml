@@ -527,6 +527,7 @@ productVariantDraft:
   fields:
     - sku
     - prices
+    - images
     - attributes
 
 filterRange:

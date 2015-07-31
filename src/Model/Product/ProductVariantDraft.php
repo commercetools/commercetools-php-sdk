@@ -9,6 +9,7 @@ namespace Commercetools\Core\Model\Product;
 use Commercetools\Core\Model\Common\AttributeCollection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\PriceCollection;
+use Commercetools\Core\Model\Common\ImageCollection;
 
 /**
  * @package Commercetools\Core\Model\Product
@@ -19,6 +20,8 @@ use Commercetools\Core\Model\Common\PriceCollection;
  * @method ProductVariantDraft setAttributes(AttributeCollection $attributes = null)
  * @method PriceCollection getPrices()
  * @method AttributeCollection getAttributes()
+ * @method ImageCollection getImages()
+ * @method ProductVariantDraft setImages(ImageCollection $images = null)
  */
 class ProductVariantDraft extends JsonObject
 {
@@ -27,6 +30,7 @@ class ProductVariantDraft extends JsonObject
         return [
             'sku' => [self::TYPE => 'string'],
             'prices' => [self::TYPE => '\Commercetools\Core\Model\Common\PriceCollection'],
+            'images' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageCollection'],
             'attributes' => [self::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
         ];
     }
