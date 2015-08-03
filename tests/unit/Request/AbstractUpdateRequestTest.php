@@ -100,12 +100,32 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
 
         $request = $this->getUpdateRequest();
         $request->setContext(Context::of()->setLogger($logger));
-        for ($i = 0; $i <= 51; $i++) {
+        for ($i = 0; $i <= (AbstractUpdateRequest::ACTION_WARNING_TRESHOLD); $i++) {
             $request->addAction(['key' => 'value']);
         }
 
-        $logEntry = $handler->getRecords()[1];
+        $logEntry = $handler->getRecords()[0];
         $this->assertSame(Logger::WARNING, $logEntry['level']);
-        $this->assertSame('Update call test/id over limit of 50 update actions', $logEntry['message']);
+        $this->assertSame('Update call test/id has over 400 update actions.', $logEntry['message']);
+    }
+
+    public function testLogLimitNoException()
+    {
+        $request = $this->getUpdateRequest();
+        for ($i = 0; $i < (AbstractUpdateRequest::ACTION_MAX_LIMIT); $i++) {
+            $request->addAction(['key' => 'value']);
+        }
+        $this->assertCount(AbstractUpdateRequest::ACTION_MAX_LIMIT, $request->getActions());
+    }
+
+    /**
+     * @expectedException \Commercetools\Core\Error\UpdateActionLimitException
+     */
+    public function testLogLimitException()
+    {
+        $request = $this->getUpdateRequest();
+        for ($i = 0; $i <= (AbstractUpdateRequest::ACTION_MAX_LIMIT); $i++) {
+            $request->addAction(['key' => 'value']);
+        }
     }
 }
