@@ -4,12 +4,12 @@
  * @created: 29.01.15, 12:29
  */
 
-namespace Sphere\Core\Model\Type;
+namespace Commercetools\Core\Model\Type;
 
 
-use Sphere\Core\Model\Common\Reference;
-use Sphere\Core\Model\ProductType\ProductType;
-use Sphere\Core\Model\ProductType\ProductTypeReference;
+use Commercetools\Core\Model\Common\Reference;
+use Commercetools\Core\Model\ProductType\ProductType;
+use Commercetools\Core\Model\ProductType\ProductTypeReference;
 
 class ReferenceTest extends \PHPUnit_Framework_TestCase
 {

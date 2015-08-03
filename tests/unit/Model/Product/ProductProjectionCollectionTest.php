@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
 
 class ProductProjectionCollectionTest extends \PHPUnit_Framework_TestCase
@@ -16,7 +16,7 @@ class ProductProjectionCollectionTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjection', $collection->getById('123456'));
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $collection->getById('123456'));
     }
 
     public function testAddToIndex()
@@ -24,6 +24,6 @@ class ProductProjectionCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = ProductProjectionCollection::of();
         $collection->add(new ProductProjection(['id' => '123456']));
 
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjection', $collection->getById('123456'));
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $collection->getById('123456'));
     }
 }

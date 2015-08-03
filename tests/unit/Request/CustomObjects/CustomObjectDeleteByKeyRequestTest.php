@@ -3,20 +3,20 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CustomObjects;
+namespace Commercetools\Core\Request\CustomObjects;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Model\CustomObject\CustomObject;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\RequestTestCase;
 
 /**
  * Class CustomObjectDeleteByKeyRequestTest
- * @package Sphere\Core\Request\CustomObjects
+ * @package Commercetools\Core\Request\CustomObjects
  */
 class CustomObjectDeleteByKeyRequestTest extends RequestTestCase
 {
-    const CUSTOM_OBJECT_DELETE_REQUEST = '\Sphere\Core\Request\CustomObjects\CustomObjectDeleteByKeyRequest';
+    const CUSTOM_OBJECT_DELETE_REQUEST = '\Commercetools\Core\Request\CustomObjects\CustomObjectDeleteByKeyRequest';
 
     public function getObject()
     {
@@ -26,7 +26,7 @@ class CustomObjectDeleteByKeyRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomObjectDeleteByKeyRequest::ofContainerAndKey('my-namespace', 'my-key'));
-        $this->assertInstanceOf('\Sphere\Core\Model\CustomObject\CustomObject', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $result);
     }
 
     public function testMapEmptyResult()

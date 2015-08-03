@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Review;
+namespace Commercetools\Core\Model\Review;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\Review
+ * @package Commercetools\Core\Model\Review
  * @method string getProductId()
  * @method ReviewDraft setProductId(string $productId = null)
  * @method string getCustomerId()

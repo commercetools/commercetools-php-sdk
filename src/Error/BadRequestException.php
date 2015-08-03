@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Error;
+namespace Commercetools\Core\Error;
 
 /**
  * Base exception for all responses with status code 400
- * @package Sphere\Core\Error
+ * @package Commercetools\Core\Error
  */
 class BadRequestException extends ClientErrorException
 {

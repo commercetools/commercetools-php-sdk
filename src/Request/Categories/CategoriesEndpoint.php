@@ -4,13 +4,13 @@
  * @created: 23.01.15, 16:25
  */
 
-namespace Sphere\Core\Request\Categories;
+namespace Commercetools\Core\Request\Categories;
 
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 /**
- * @package Sphere\Core\Request\Categories
+ * @package Commercetools\Core\Request\Categories
  */
 class CategoriesEndpoint
 {

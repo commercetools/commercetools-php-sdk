@@ -3,19 +3,25 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ShippingMethods;
-
+namespace Commercetools\Core\Request\ShippingMethods;
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\HttpRequest;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\Response\PagedQueryResponse;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Client\HttpRequest;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Response\PagedQueryResponse;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
+/**
+ * @package Commercetools\Core\Request\ShippingMethods
+ * 
+ * @method ShippingMethodCollection mapResponse(ApiResponseInterface $response)
+ */
 class ShippingMethodByLocationGetRequest extends AbstractApiRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\ShippingMethod\ShippingMethodCollection';
+    protected $resultClass = '\Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection';
 
     /**
      * @var string

@@ -4,10 +4,10 @@
  * @created 19.01.15, 17:06
  */
 
-namespace Sphere\Core\Cache;
+namespace Commercetools\Core\Cache;
 
 /**
- * @package Sphere\Core\Cache
+ * @package Commercetools\Core\Cache
  */
 class NullCacheAdapter extends AbstractCacheAdapter
 {

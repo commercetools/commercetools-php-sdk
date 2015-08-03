@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ShippingMethods;
+namespace Commercetools\Core\Request\ShippingMethods;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Model\ShippingMethod\ShippingMethod;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractUpdateRequest;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\ShippingMethods
+ * @package Commercetools\Core\Request\ShippingMethods
  * @apidoc http://dev.sphere.io/http-api-projects-shippingMethods.html#update-shipping-method
  * @method ShippingMethod mapResponse(ApiResponseInterface $response)
  */
 class ShippingMethodUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\ShippingMethod\ShippingMethod';
+    protected $resultClass = '\Commercetools\Core\Model\ShippingMethod\ShippingMethod';
 
     /**
      * @param string $id

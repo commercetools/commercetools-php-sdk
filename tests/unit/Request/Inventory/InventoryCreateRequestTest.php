@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Inventory;
+namespace Commercetools\Core\Request\Inventory;
 
 
-use Sphere\Core\Model\Inventory\InventoryDraft;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\Inventory\InventoryDraft;
+use Commercetools\Core\RequestTestCase;
 
 class InventoryCreateRequestTest extends RequestTestCase
 {
-    const INVENTORY_CREATE_REQUEST = '\Sphere\Core\Request\Inventory\InventoryCreateRequest';
+    const INVENTORY_CREATE_REQUEST = '\Commercetools\Core\Request\Inventory\InventoryCreateRequest';
 
     protected function getDraft()
     {
@@ -32,7 +32,7 @@ class InventoryCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(InventoryCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Sphere\Core\Model\Inventory\InventoryEntry', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
     }
 
     public function testMapEmptyResult()

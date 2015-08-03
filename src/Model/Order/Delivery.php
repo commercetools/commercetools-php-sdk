@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Order;
+namespace Commercetools\Core\Model\Order;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\Order
+ * @package Commercetools\Core\Model\Order
  * @apidoc http://dev.sphere.io/http-api-projects-orders.html#delivery
  * @method string getId()
  * @method Delivery setId(string $id = null)
@@ -26,8 +26,8 @@ class Delivery extends JsonObject
         return [
             'id' => [static::TYPE => 'string'],
             'createdAt' => [static::TYPE => '\DateTime'],
-            'items' => [static::TYPE => '\Sphere\Core\Model\Order\DeliveryItemCollection'],
-            'parcels' => [static::TYPE => '\Sphere\Core\Model\Order\ParcelCollection'],
+            'items' => [static::TYPE => '\Commercetools\Core\Model\Order\DeliveryItemCollection'],
+            'parcels' => [static::TYPE => '\Commercetools\Core\Model\Order\ParcelCollection'],
         ];
     }
 }

@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Categories\Command;
+namespace Commercetools\Core\Request\Categories\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Categories\Command
+ * @package Commercetools\Core\Request\Categories\Command
  * @apidoc http://dev.sphere.io/http-api-projects-categories.html#set-description
  * @method LocalizedString getDescription()
  * @method CategorySetDescriptionAction setDescription(LocalizedString $description = null)
@@ -23,7 +23,7 @@ class CategorySetDescriptionAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'description' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString']
+            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString']
         ];
     }
 

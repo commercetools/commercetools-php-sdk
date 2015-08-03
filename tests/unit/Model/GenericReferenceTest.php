@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model;
+namespace Commercetools\Core\Model;
 
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
  * Class GenericReferenceTest
- * @package Sphere\Core\Model
+ * @package Commercetools\Core\Model
  */
 class GenericReferenceTest extends AbstractModelTest
 {

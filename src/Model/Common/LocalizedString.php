@@ -4,13 +4,13 @@
  * @created: 26.01.15, 15:19
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
-use Sphere\Core\Error\Message;
-use Sphere\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Error\Message;
+use Commercetools\Core\Error\InvalidArgumentException;
 
 /**
- * @package Sphere\Core\Model\Type
+ * @package Commercetools\Core\Model\Type
  * @apidoc http://dev.sphere.io/http-api-types.html#localized-string
  * @example
  * ```php

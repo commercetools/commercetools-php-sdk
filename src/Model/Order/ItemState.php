@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Order;
+namespace Commercetools\Core\Model\Order;
 
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\State\StateReference;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\State\StateReference;
 
 /**
- * @package Sphere\Core\Model\Order
+ * @package Commercetools\Core\Model\Order
  * @apidoc http://dev.sphere.io/http-api-projects-orders.html#item-state
  * @method int getQuantity()
  * @method ItemState setQuantity(int $quantity = null)
@@ -22,7 +22,7 @@ class ItemState extends JsonObject
     {
         return [
             'quantity' => [static::TYPE => 'int'],
-            'state' => [static::TYPE => '\Sphere\Core\Model\State\StateReference'],
+            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
         ];
     }
 }

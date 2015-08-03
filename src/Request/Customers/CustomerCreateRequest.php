@@ -4,23 +4,23 @@
  * @created: 11.02.15, 14:20
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Customer\CustomerDraft;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\Customer\Customer;
-use Sphere\Core\Response\ApiResponseInterface;
-use Sphere\Core\Model\Customer\CustomerSigninResult;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Customer\CustomerDraft;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Customer\CustomerSigninResult;
 
 /**
- * @package Sphere\Core\Request\Customers
+ * @package Commercetools\Core\Request\Customers
  * @apidoc http://dev.sphere.io/http-api-projects-customers.html#create-customer
  * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
  */
 class CustomerCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Customer\CustomerSigninResult';
+    protected $resultClass = '\Commercetools\Core\Model\Customer\CustomerSigninResult';
 
     /**
      * @param CustomerDraft $customer

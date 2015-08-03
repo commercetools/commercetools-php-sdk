@@ -3,10 +3,10 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Helper\State\Renderer;
+namespace Commercetools\Core\Helper\State\Renderer;
 
 
-use Sphere\Core\Model\State\State;
+use Commercetools\Core\Model\State\State;
 
 class TransitionRenderer
 {

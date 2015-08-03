@@ -4,23 +4,23 @@
  * @created: 10.02.15, 10:29
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
 
 use GuzzleHttp\Message\Response;
-use Sphere\Core\AccessorTrait;
-use Sphere\Core\Client\HttpMethod;
+use Commercetools\Core\AccessorTrait;
+use Commercetools\Core\Client\HttpMethod;
 
 /**
  * Class AbstractCreateRequestTest
- * @package Sphere\Core\Request
+ * @package Commercetools\Core\Request
  * @method AbstractQueryRequest getRequest($class, array $args = [])
  */
 class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_QUERY_REQUEST = '\Sphere\Core\Request\AbstractQueryRequest';
+    const ABSTRACT_QUERY_REQUEST = '\Commercetools\Core\Request\AbstractQueryRequest';
 
     /**
      * @return AbstractQueryRequest
@@ -125,7 +125,7 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_QUERY_REQUEST);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\PagedQueryResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\PagedQueryResponse', $response);
     }
 
     public function testMapResult()
@@ -140,7 +140,7 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
                 ]
             ]
         );
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\Collection', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Collection', $result);
         $this->assertSame(3, count($result));
     }
 
@@ -148,6 +148,6 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
     {
         $request = $this->getRequest(static::ABSTRACT_QUERY_REQUEST);
         $result = $request->mapResult([]);
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\Collection', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Collection', $result);
     }
 }

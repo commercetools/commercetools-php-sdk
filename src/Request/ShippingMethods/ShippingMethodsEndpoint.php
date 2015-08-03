@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ShippingMethods;
+namespace Commercetools\Core\Request\ShippingMethods;
 
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 /**
- * @package Sphere\Core\Request\ShippingMethods
+ * @package Commercetools\Core\Request\ShippingMethods
  */
 class ShippingMethodsEndpoint
 {

@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\CustomObject;
+namespace Commercetools\Core\Model\CustomObject;
 
-use Sphere\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\Resource;
 
 /**
- * @package Sphere\Core\Model\CustomObject
+ * @package Commercetools\Core\Model\CustomObject
  * @apidoc http://dev.sphere.io/http-api-projects-custom-objects.html#custom-object
  * @method string getId()
  * @method CustomObject setId(string $id = null)

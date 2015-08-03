@@ -4,16 +4,16 @@
  * @created: 09.02.15, 10:48
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
-use Sphere\Core\Model\Category\CategoryReferenceCollection;
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\ProductType\ProductTypeReference;
-use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
+use Commercetools\Core\Model\Category\CategoryReferenceCollection;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\ProductType\ProductTypeReference;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
- * @package Sphere\Core\Model\Product
+ * @package Commercetools\Core\Model\Product
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-projection
  * @method string getId()
  * @method ProductProjection setId(string $id = null)
@@ -61,20 +61,20 @@ class ProductProjection extends JsonObject
             'version' => [static::TYPE => 'int'],
             'createdAt' => [static::TYPE => '\DateTime'],
             'lastModifiedAt' => [static::TYPE => '\DateTime'],
-            'productType' => [static::TYPE => '\Sphere\Core\Model\ProductType\ProductTypeReference'],
-            'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'slug' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'categories' => [static::TYPE => '\Sphere\Core\Model\Category\CategoryReferenceCollection'],
-            'metaTitle' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'metaDescription' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'metaKeywords' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'productType' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference'],
+            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'categories' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
+            'metaTitle' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'metaDescription' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'metaKeywords' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'hasStagedChanges' => [static::TYPE => 'bool'],
             'published' => [static::TYPE => 'bool'],
-            'masterVariant' => [static::TYPE => '\Sphere\Core\Model\Product\ProductVariant'],
-            'variants' => [static::TYPE => '\Sphere\Core\Model\Product\ProductVariantCollection'],
-            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference'],
-            'searchKeywords' => [static::TYPE => '\Sphere\Core\Model\Product\LocalizedSearchKeywords']
+            'masterVariant' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariant'],
+            'variants' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariantCollection'],
+            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
+            'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords']
         ];
     }
 }

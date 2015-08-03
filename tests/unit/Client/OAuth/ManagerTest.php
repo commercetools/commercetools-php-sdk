@@ -4,7 +4,7 @@
  * @created: 29.01.15, 14:16
  */
 
-namespace Sphere\Core\Client\OAuth;
+namespace Commercetools\Core\Client\OAuth;
 
 
 use GuzzleHttp\Client as HttpClient;
@@ -13,8 +13,8 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\BufferStream;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Subscriber\Mock;
-use Sphere\Core\Cache\NullCacheAdapter;
-use Sphere\Core\Config;
+use Commercetools\Core\Cache\NullCacheAdapter;
+use Commercetools\Core\Config;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -91,7 +91,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
                 "scope" => "manage_project:project"
             ]
         );
-        $this->assertInstanceOf('\Sphere\Core\Client\OAuth\Token', $manager->getToken());
+        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $manager->getToken());
     }
 
     public function testCache()
@@ -110,7 +110,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Sphere\Core\Error\InvalidClientCredentialsException
+     * @expectedException \Commercetools\Core\Error\InvalidClientCredentialsException
      */
     public function testError()
     {

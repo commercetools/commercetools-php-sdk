@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Zone;
+namespace Commercetools\Core\Model\Zone;
 
-use Sphere\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\Resource;
 
 /**
- * @package Sphere\Core\Model\Zone
+ * @package Commercetools\Core\Model\Zone
  * @apidoc http://dev.sphere.io/http-api-projects-zones.html#zone
  * @method string getId()
  * @method Zone setId(string $id = null)
@@ -36,7 +36,7 @@ class Zone extends Resource
             'lastModifiedAt' => [static::TYPE => '\DateTime'],
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'locations' => [static::TYPE => '\Sphere\Core\Model\Zone\LocationCollection'],
+            'locations' => [static::TYPE => '\Commercetools\Core\Model\Zone\LocationCollection'],
         ];
     }
 }

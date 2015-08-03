@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Orders\Command;
+namespace Commercetools\Core\Request\Orders\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Order\ItemStateCollection;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Order\ItemStateCollection;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Orders\Command
+ * @package Commercetools\Core\Request\Orders\Command
  * @apidoc http://dev.sphere.io/http-api-projects-orders.html#import-custom-line-item-state
  * @method string getAction()
  * @method OrderImportCustomLineItemStateAction setAction(string $action = null)
@@ -36,7 +36,7 @@ class OrderImportCustomLineItemStateAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'customLineItemId' => [static::TYPE => 'string'],
-            'state' => [static::TYPE => '\Sphere\Core\Model\Order\ItemStateCollection']
+            'state' => [static::TYPE => '\Commercetools\Core\Model\Order\ItemStateCollection']
         ];
     }
 

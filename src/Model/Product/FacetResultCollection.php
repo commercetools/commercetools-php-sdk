@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\Product
+ * @package Commercetools\Core\Model\Product
  * @method FacetResult current()
  * @method FacetResult getAt($offset)
  */
@@ -16,7 +16,7 @@ class FacetResultCollection extends Collection
 {
     const OFFSET = 'offset';
 
-    protected $type = '\Sphere\Core\Model\Product\FacetResult';
+    protected $type = '\Commercetools\Core\Model\Product\FacetResult';
 
     /**
      * @param $name

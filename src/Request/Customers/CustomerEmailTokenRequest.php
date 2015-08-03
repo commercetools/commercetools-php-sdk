@@ -4,17 +4,17 @@
  * @created: 12.02.15, 12:34
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\JsonRequest;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Model\Customer\CustomerToken;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Client\JsonRequest;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractUpdateRequest;
+use Commercetools\Core\Model\Customer\CustomerToken;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Customers
+ * @package Commercetools\Core\Request\Customers
  * @apidoc http://dev.sphere.io/http-api-projects-customers.html#create-token-for-verifying-customers-email
  * @method CustomerToken mapResponse(ApiResponseInterface $response)
  */
@@ -23,7 +23,7 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
     const ID = 'id';
     const TTL_MINUTES = 'ttlMinutes';
 
-    protected $resultClass = '\Sphere\Core\Model\Customer\CustomerToken';
+    protected $resultClass = '\Commercetools\Core\Model\Customer\CustomerToken';
 
     /**
      * @var int

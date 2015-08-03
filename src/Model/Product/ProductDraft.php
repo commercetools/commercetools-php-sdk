@@ -4,17 +4,17 @@
  * @created: 04.02.15, 16:35
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
-use Sphere\Core\Model\Category\CategoryReferenceCollection;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\ProductType\ProductTypeReference;
-use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
+use Commercetools\Core\Model\Category\CategoryReferenceCollection;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\ProductType\ProductTypeReference;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
- * @package Sphere\Core\Model\Product
+ * @package Commercetools\Core\Model\Product
  * @method LocalizedString getName()
  * @method ProductDraft setName(LocalizedString $name = null)
  * @method LocalizedString getSlug()
@@ -45,18 +45,18 @@ class ProductDraft extends JsonObject
     public function getFields()
     {
         return [
-            'name' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'slug' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'description' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'productType' => [self::TYPE => '\Sphere\Core\Model\ProductType\ProductTypeReference'],
-            'categories' => [self::TYPE => '\Sphere\Core\Model\Category\CategoryReferenceCollection'],
-            'masterVariant' => [self::TYPE => '\Sphere\Core\Model\Product\ProductVariantDraft'],
-            'variants' => [self::TYPE => '\Sphere\Core\Model\Product\ProductVariantCollection'],
-            'metaTitle' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'metaDescription' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'metaKeywords' => [self::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference'],
-            'searchKeywords' => [static::TYPE => '\Sphere\Core\Model\Product\LocalizedSearchKeywords']
+            'name' => [self::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'slug' => [self::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'description' => [self::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'productType' => [self::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference'],
+            'categories' => [self::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
+            'masterVariant' => [self::TYPE => '\Commercetools\Core\Model\Product\ProductVariantDraft'],
+            'variants' => [self::TYPE => '\Commercetools\Core\Model\Product\ProductVariantCollection'],
+            'metaTitle' => [self::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'metaDescription' => [self::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'metaKeywords' => [self::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
+            'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords']
         ];
     }
 

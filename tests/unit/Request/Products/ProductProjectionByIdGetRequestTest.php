@@ -3,23 +3,23 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
 
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\RequestTestCase;
 
 /**
  * Class ProductProjectionByIdGetRequestTest
- * @package Sphere\Core\Request\Products
+ * @package Commercetools\Core\Request\Products
  */
 class ProductProjectionByIdGetRequestTest extends RequestTestCase
 {
-    const PRODUCT_PROJECTION_BY_ID_GET_REQUEST = '\Sphere\Core\Request\Products\ProductProjectionByIdGetRequest';
+    const PRODUCT_PROJECTION_BY_ID_GET_REQUEST = '\Commercetools\Core\Request\Products\ProductProjectionByIdGetRequest';
 
     public function testMapResult()
     {
         $result = $this->mapResult(ProductProjectionByIdGetRequest::ofId('id'));
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjection', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
     }
 
     public function testMapEmptyResult()

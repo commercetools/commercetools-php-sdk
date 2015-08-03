@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ProductDiscount;
+namespace Commercetools\Core\Model\ProductDiscount;
 
-use Sphere\Core\Model\Common\Resource;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Common\ReferenceCollection;
+use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\ReferenceCollection;
 
 /**
- * @package Sphere\Core\Model\ProductDiscount
+ * @package Commercetools\Core\Model\ProductDiscount
  * @apidoc http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discount
  * @method string getId()
  * @method ProductDiscount setId(string $id = null)
@@ -44,13 +44,13 @@ class ProductDiscount extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [static::TYPE => '\DateTime'],
             'lastModifiedAt' => [static::TYPE => '\DateTime'],
-            'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'value' => [static::TYPE => '\Sphere\Core\Model\ProductDiscount\ProductDiscountValue'],
+            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'value' => [static::TYPE => '\Commercetools\Core\Model\ProductDiscount\ProductDiscountValue'],
             'predicate' => [],
             'sortOrder' => [static::TYPE => 'string'],
             'isActive' => [static::TYPE => 'bool'],
-            'references' => [static::TYPE => '\Sphere\Core\Model\Common\ReferenceCollection'],
+            'references' => [static::TYPE => '\Commercetools\Core\Model\Common\ReferenceCollection'],
         ];
     }
 }

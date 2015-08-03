@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#tax-portion
  * @method float getRate()
  * @method TaxPortion setRate(float $rate = null)
@@ -20,7 +20,7 @@ class TaxPortion extends JsonObject
     {
         return [
             'rate' => [static::TYPE => 'float'],
-            'amount' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
+            'amount' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
         ];
     }
 }

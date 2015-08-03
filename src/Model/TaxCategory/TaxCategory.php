@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\TaxCategory;
+namespace Commercetools\Core\Model\TaxCategory;
 
-use Sphere\Core\Model\Common\Collection;
-use Sphere\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Resource;
 
 /**
- * @package Sphere\Core\Model\TaxCategory
+ * @package Commercetools\Core\Model\TaxCategory
  * @apidoc http://dev.sphere.io/http-api-projects-taxCategories.html#tax-category
  * @method string getId()
  * @method TaxCategory setId(string $id = null)
@@ -37,7 +37,7 @@ class TaxCategory extends Resource
             'lastModifiedAt' => [self::TYPE => '\DateTime'],
             'name' => [self::TYPE => 'string'],
             'description' => [self::TYPE => 'string'],
-            'rates' => [self::TYPE => '\Sphere\Core\Model\TaxCategory\TaxRateCollection']
+            'rates' => [self::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRateCollection']
         ];
     }
 }

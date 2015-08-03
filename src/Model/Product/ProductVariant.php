@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
-use Sphere\Core\Model\Common\AttributeCollection;
-use Sphere\Core\Model\Common\ImageCollection;
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Common\PriceCollection;
+use Commercetools\Core\Model\Common\AttributeCollection;
+use Commercetools\Core\Model\Common\ImageCollection;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\PriceCollection;
 
 /**
- * @package Sphere\Core\Model\Product
+ * @package Commercetools\Core\Model\Product
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant
  * @method string getId()
  * @method ProductVariant setId(string $id = null)
@@ -34,10 +34,10 @@ class ProductVariant extends JsonObject
         return [
             'id' => [static::TYPE => 'string'],
             'sku' => [static::TYPE => 'int'],
-            'prices' => [static::TYPE => '\Sphere\Core\Model\Common\PriceCollection'],
-            'attributes' => [static::TYPE => '\Sphere\Core\Model\Common\AttributeCollection'],
-            'images' => [static::TYPE => '\Sphere\Core\Model\Common\ImageCollection'],
-            'availability' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceCollection'],
+            'attributes' => [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
+            'images' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageCollection'],
+            'availability' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
         ];
     }
 }

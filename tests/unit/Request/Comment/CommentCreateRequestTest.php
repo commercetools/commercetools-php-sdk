@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Comment;
+namespace Commercetools\Core\Request\Comment;
 
 
-use Sphere\Core\Model\Comment\CommentDraft;
-use Sphere\Core\Request\Comments\CommentCreateRequest;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\Comment\CommentDraft;
+use Commercetools\Core\Request\Comments\CommentCreateRequest;
+use Commercetools\Core\RequestTestCase;
 
 class CommentCreateRequestTest extends RequestTestCase
 {
-    const COMMENT_CREATE_REQUEST = '\Sphere\Core\Request\Comments\CommentCreateRequest';
+    const COMMENT_CREATE_REQUEST = '\Commercetools\Core\Request\Comments\CommentCreateRequest';
 
     protected function getDraft()
     {
@@ -30,7 +30,7 @@ class CommentCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CommentCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Sphere\Core\Model\Comment\Comment', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Comment\Comment', $result);
     }
 
     public function testMapEmptyResult()

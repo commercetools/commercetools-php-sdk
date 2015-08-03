@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\TaxCategories\Command;
+namespace Commercetools\Core\Request\TaxCategories\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\TaxCategory\TaxRate;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\TaxCategory\TaxRate;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\TaxCategories\Command
+ * @package Commercetools\Core\Request\TaxCategories\Command
  * 
  * @method string getAction()
  * @method TaxCategoryReplaceTaxRateAction setAction(string $action = null)
@@ -26,7 +26,7 @@ class TaxCategoryReplaceTaxRateAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'taxRateId' => [static::TYPE => 'string'],
-            'taxRate' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxRate'],
+            'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
         ];
     }
 

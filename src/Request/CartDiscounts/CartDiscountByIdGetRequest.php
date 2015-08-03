@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CartDiscounts;
+namespace Commercetools\Core\Request\CartDiscounts;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractByIdGetRequest;
-use Sphere\Core\Model\CartDiscount\CartDiscount;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractByIdGetRequest;
+use Commercetools\Core\Model\CartDiscount\CartDiscount;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\CartDiscounts
+ * @package Commercetools\Core\Request\CartDiscounts
  * @apidoc http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discount-by-id
  * @method CartDiscount mapResponse(ApiResponseInterface $response)
  */
 class CartDiscountByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\CartDiscount\CartDiscount';
+    protected $resultClass = '\Commercetools\Core\Model\CartDiscount\CartDiscount';
 
     /**
      * @param string $id

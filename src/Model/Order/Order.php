@@ -3,20 +3,20 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Order;
+namespace Commercetools\Core\Model\Order;
 
-use Sphere\Core\Model\Cart\CustomLineItemCollection;
-use Sphere\Core\Model\Cart\LineItemCollection;
-use Sphere\Core\Model\Cart\ShippingInfo;
-use Sphere\Core\Model\Common\Address;
-use Sphere\Core\Model\Common\Resource;
-use Sphere\Core\Model\Common\Money;
-use Sphere\Core\Model\Common\TaxedPrice;
-use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
-use Sphere\Core\Model\Cart\DiscountCodeInfoCollection;
+use Commercetools\Core\Model\Cart\CustomLineItemCollection;
+use Commercetools\Core\Model\Cart\LineItemCollection;
+use Commercetools\Core\Model\Cart\ShippingInfo;
+use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Common\TaxedPrice;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
+use Commercetools\Core\Model\Cart\DiscountCodeInfoCollection;
 
 /**
- * @package Sphere\Core\Model\Order
+ * @package Commercetools\Core\Model\Order
  * @apidoc http://dev.sphere.io/http-api-projects-orders.html#order
  * @method string getId()
  * @method Order setId(string $id = null)
@@ -79,22 +79,22 @@ class Order extends Resource
             'orderNumber' => [static::TYPE => 'string'],
             'customerId' => [static::TYPE => 'string'],
             'customerEmail' => [static::TYPE => 'string'],
-            'lineItems' => [static::TYPE => '\Sphere\Core\Model\Cart\LineItemCollection'],
-            'customLineItems' => [static::TYPE => '\Sphere\Core\Model\Cart\CustomLineItemCollection'],
-            'totalPrice' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
-            'taxedPrice' => [static::TYPE => '\Sphere\Core\Model\Common\TaxedPrice'],
-            'shippingAddress' => [static::TYPE => '\Sphere\Core\Model\Common\Address'],
-            'billingAddress' => [static::TYPE => '\Sphere\Core\Model\Common\Address'],
+            'lineItems' => [static::TYPE => '\Commercetools\Core\Model\Cart\LineItemCollection'],
+            'customLineItems' => [static::TYPE => '\Commercetools\Core\Model\Cart\CustomLineItemCollection'],
+            'totalPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'taxedPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\TaxedPrice'],
+            'shippingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
+            'billingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
             'inventoryMode' => [static::TYPE => 'string'],
-            'customerGroup' => [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
+            'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
             'country' => [static::TYPE => 'string'],
             'orderState' => [static::TYPE => 'string'],
             'shipmentState' => [static::TYPE => 'string'],
             'paymentState' => [static::TYPE => 'string'],
-            'shippingInfo' => [static::TYPE => '\Sphere\Core\Model\Cart\ShippingInfo'],
-            'syncInfo' => [static::TYPE => '\Sphere\Core\Model\Order\SyncInfoCollection'],
-            'returnInfo' => [static::TYPE => '\Sphere\Core\Model\Order\ReturnInfoCollection'],
-            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\Cart\DiscountCodeInfoCollection'],
+            'shippingInfo' => [static::TYPE => '\Commercetools\Core\Model\Cart\ShippingInfo'],
+            'syncInfo' => [static::TYPE => '\Commercetools\Core\Model\Order\SyncInfoCollection'],
+            'returnInfo' => [static::TYPE => '\Commercetools\Core\Model\Order\ReturnInfoCollection'],
+            'discountCodes' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountCodeInfoCollection'],
             'lastMessageSequenceNumber' => [static::TYPE => 'int'],
         ];
     }

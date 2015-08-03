@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Category;
+namespace Commercetools\Core\Model\Category;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\Category
+ * @package Commercetools\Core\Model\Category
  * @method Category current()
  * @method Category getAt($offset)
  */
 class CategoryCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\Category\Category';
+    protected $type = '\Commercetools\Core\Model\Category\Category';
 }

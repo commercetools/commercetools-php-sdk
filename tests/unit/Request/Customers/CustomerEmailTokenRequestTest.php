@@ -3,19 +3,19 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\RequestTestCase;
 
 /**
  * Class CustomerEmailTokenRequestTest
- * @package Sphere\Core\Request\Customers
+ * @package Commercetools\Core\Request\Customers
  */
 class CustomerEmailTokenRequestTest extends RequestTestCase
 {
-    const CUSTOMER_EMAIL_TOKEN_REQUEST = '\Sphere\Core\Request\Customers\CustomerEmailTokenRequest';
+    const CUSTOMER_EMAIL_TOKEN_REQUEST = '\Commercetools\Core\Request\Customers\CustomerEmailTokenRequest';
 
     public function testHttpRequestMethod()
     {

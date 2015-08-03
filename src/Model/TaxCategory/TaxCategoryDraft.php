@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\TaxCategory;
+namespace Commercetools\Core\Model\TaxCategory;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\TaxCategory
+ * @package Commercetools\Core\Model\TaxCategory
  * @method string getName()
  * @method TaxCategoryDraft setName(string $name = null)
  * @method string getDescription()
@@ -24,7 +24,7 @@ class TaxCategoryDraft extends JsonObject
         return [
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'rates' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxRateCollection'],
+            'rates' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRateCollection'],
         ];
     }
 

@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Error;
+namespace Commercetools\Core\Error;
 
 /**
  * Base exception for all responses with http status code 4xx
- * @package Sphere\Core\Error
+ * @package Commercetools\Core\Error
  */
-class ClientErrorException extends SphereServiceException
+class ClientErrorException extends ApiServiceException
 {
 
 }

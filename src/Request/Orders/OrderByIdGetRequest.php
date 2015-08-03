@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Orders;
+namespace Commercetools\Core\Request\Orders;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractByIdGetRequest;
-use Sphere\Core\Model\Order\Order;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractByIdGetRequest;
+use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Orders
+ * @package Commercetools\Core\Request\Orders
  * @apidoc http://dev.sphere.io/http-api-projects-orders.html#order-by-id
  * @method Order mapResponse(ApiResponseInterface $response)
  */
 class OrderByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Order\Order';
+    protected $resultClass = '\Commercetools\Core\Model\Order\Order';
 
     /**
      * @param string $id

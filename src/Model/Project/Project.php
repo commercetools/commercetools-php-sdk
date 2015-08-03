@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Project;
+namespace Commercetools\Core\Model\Project;
 
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\Collection;
-use Sphere\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
- * @package Sphere\Core\Model\Project
+ * @package Commercetools\Core\Model\Project
  * 
  * @method string getKey()
  * @method Project setKey(string $key = null)
@@ -34,16 +34,16 @@ class Project extends JsonObject
         return [
             'key' => [static::TYPE => 'string'],
             'name' => [static::TYPE => 'string'],
-            'countries' => [static::TYPE => '\Sphere\Core\Model\Common\Collection'],
-            'currencies' => [static::TYPE => '\Sphere\Core\Model\Common\Collection'],
-            'languages' => [static::TYPE => '\Sphere\Core\Model\Common\Collection'],
+            'countries' => [static::TYPE => '\Commercetools\Core\Model\Common\Collection'],
+            'currencies' => [static::TYPE => '\Commercetools\Core\Model\Common\Collection'],
+            'languages' => [static::TYPE => '\Commercetools\Core\Model\Common\Collection'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
             'trialUntil' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
         ];
     }

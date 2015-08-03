@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CartDiscounts;
+namespace Commercetools\Core\Request\CartDiscounts;
 
 
-use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\RequestTestCase;
 
 class GenericUpdateRequestTest extends RequestTestCase
 {
@@ -27,80 +27,80 @@ class GenericUpdateRequestTest extends RequestTestCase
     {
         return [
             [
-                '\Sphere\Core\Request\CartDiscounts\CartDiscountUpdateRequest',
-                '\Sphere\Core\Model\CartDiscount\CartDiscount',
+                '\Commercetools\Core\Request\CartDiscounts\CartDiscountUpdateRequest',
+                '\Commercetools\Core\Model\CartDiscount\CartDiscount',
             ],
             [
-                '\Sphere\Core\Request\Carts\CartUpdateRequest',
-                '\Sphere\Core\Model\Cart\Cart',
+                '\Commercetools\Core\Request\Carts\CartUpdateRequest',
+                '\Commercetools\Core\Model\Cart\Cart',
             ],
             [
-                '\Sphere\Core\Request\Categories\CategoryUpdateRequest',
-                '\Sphere\Core\Model\Category\Category',
+                '\Commercetools\Core\Request\Categories\CategoryUpdateRequest',
+                '\Commercetools\Core\Model\Category\Category',
             ],
             [
-                '\Sphere\Core\Request\Channels\ChannelUpdateRequest',
-                '\Sphere\Core\Model\Channel\Channel',
+                '\Commercetools\Core\Request\Channels\ChannelUpdateRequest',
+                '\Commercetools\Core\Model\Channel\Channel',
             ],
             [
-                '\Sphere\Core\Request\Comments\CommentUpdateRequest',
-                '\Sphere\Core\Model\Comment\Comment',
+                '\Commercetools\Core\Request\Comments\CommentUpdateRequest',
+                '\Commercetools\Core\Model\Comment\Comment',
             ],
             [
-                '\Sphere\Core\Request\CustomerGroups\CustomerGroupUpdateRequest',
-                '\Sphere\Core\Model\CustomerGroup\CustomerGroup',
+                '\Commercetools\Core\Request\CustomerGroups\CustomerGroupUpdateRequest',
+                '\Commercetools\Core\Model\CustomerGroup\CustomerGroup',
             ],
             [
-                '\Sphere\Core\Request\Customers\CustomerUpdateRequest',
-                '\Sphere\Core\Model\Customer\Customer',
+                '\Commercetools\Core\Request\Customers\CustomerUpdateRequest',
+                '\Commercetools\Core\Model\Customer\Customer',
             ],
             [
-                '\Sphere\Core\Request\DiscountCodes\DiscountCodeUpdateRequest',
-                '\Sphere\Core\Model\DiscountCode\DiscountCode',
+                '\Commercetools\Core\Request\DiscountCodes\DiscountCodeUpdateRequest',
+                '\Commercetools\Core\Model\DiscountCode\DiscountCode',
             ],
             [
-                '\Sphere\Core\Request\Inventory\InventoryUpdateRequest',
-                '\Sphere\Core\Model\Inventory\InventoryEntry',
+                '\Commercetools\Core\Request\Inventory\InventoryUpdateRequest',
+                '\Commercetools\Core\Model\Inventory\InventoryEntry',
             ],
             [
-                '\Sphere\Core\Request\Orders\OrderUpdateRequest',
-                '\Sphere\Core\Model\Order\Order',
+                '\Commercetools\Core\Request\Orders\OrderUpdateRequest',
+                '\Commercetools\Core\Model\Order\Order',
             ],
             [
-                '\Sphere\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest',
-                '\Sphere\Core\Model\ProductDiscount\ProductDiscount',
+                '\Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest',
+                '\Commercetools\Core\Model\ProductDiscount\ProductDiscount',
             ],
             [
-                '\Sphere\Core\Request\Products\ProductUpdateRequest',
-                '\Sphere\Core\Model\Product\Product',
+                '\Commercetools\Core\Request\Products\ProductUpdateRequest',
+                '\Commercetools\Core\Model\Product\Product',
             ],
             [
-                '\Sphere\Core\Request\ProductTypes\ProductTypeUpdateRequest',
-                '\Sphere\Core\Model\ProductType\ProductType',
+                '\Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest',
+                '\Commercetools\Core\Model\ProductType\ProductType',
             ],
             [
-                '\Sphere\Core\Request\Reviews\ReviewUpdateRequest',
-                '\Sphere\Core\Model\Review\Review',
+                '\Commercetools\Core\Request\Reviews\ReviewUpdateRequest',
+                '\Commercetools\Core\Model\Review\Review',
             ],
             [
-                '\Sphere\Core\Request\ShippingMethods\ShippingMethodUpdateRequest',
-                '\Sphere\Core\Model\ShippingMethod\ShippingMethod',
+                '\Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest',
+                '\Commercetools\Core\Model\ShippingMethod\ShippingMethod',
             ],
             [
-                '\Sphere\Core\Request\States\StateUpdateRequest',
-                '\Sphere\Core\Model\State\State',
+                '\Commercetools\Core\Request\States\StateUpdateRequest',
+                '\Commercetools\Core\Model\State\State',
             ],
             [
-                '\Sphere\Core\Request\TaxCategories\TaxCategoryUpdateRequest',
-                '\Sphere\Core\Model\TaxCategory\TaxCategory',
+                '\Commercetools\Core\Request\TaxCategories\TaxCategoryUpdateRequest',
+                '\Commercetools\Core\Model\TaxCategory\TaxCategory',
             ],
             [
-                '\Sphere\Core\Request\Zones\ZoneUpdateRequest',
-                '\Sphere\Core\Model\Zone\Zone',
+                '\Commercetools\Core\Request\Zones\ZoneUpdateRequest',
+                '\Commercetools\Core\Model\Zone\Zone',
             ],
             [
-                '\Sphere\Core\Request\ShippingMethods\ShippingMethodUpdateRequest',
-                '\Sphere\Core\Model\ShippingMethod\ShippingMethod',
+                '\Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest',
+                '\Commercetools\Core\Model\ShippingMethod\ShippingMethod',
             ],
         ];
     }

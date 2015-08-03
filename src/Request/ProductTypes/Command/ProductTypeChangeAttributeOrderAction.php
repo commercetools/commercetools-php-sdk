@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductTypes\Command;
+namespace Commercetools\Core\Request\ProductTypes\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\ProductType\AttributeDefinitionCollection;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\ProductTypes\Command
+ * @package Commercetools\Core\Request\ProductTypes\Command
  * 
  * @method string getAction()
  * @method ProductTypeChangeAttributeOrderAction setAction(string $action = null)
@@ -23,7 +23,7 @@ class ProductTypeChangeAttributeOrderAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'attributes' => [static::TYPE => '\Sphere\Core\Model\ProductType\AttributeDefinitionCollection'],
+            'attributes' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeDefinitionCollection'],
         ];
     }
 

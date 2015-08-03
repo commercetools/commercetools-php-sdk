@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Orders\Command;
+namespace Commercetools\Core\Request\Orders\Command;
 
-use Sphere\Core\Model\Channel\ChannelReference;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
-use Sphere\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Channel\ChannelReference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
- * @package Sphere\Core\Request\Orders\Command
+ * @package Commercetools\Core\Request\Orders\Command
  * @apidoc http://dev.sphere.io/http-api-projects-orders.html#update-sync-info
  * @method string getAction()
  * @method OrderUpdateSyncInfoAction setAction(string $action = null)
@@ -38,11 +38,11 @@ class OrderUpdateSyncInfoAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'channel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
+            'channel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
             'externalId' => [static::TYPE => 'string'],
             'syncedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ]
         ];
     }

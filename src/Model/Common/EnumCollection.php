@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  *  *
  * @method Enum current()
  * @method Enum getAt($offset)
  */
 class EnumCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\Common\Enum';
+    protected $type = '\Commercetools\Core\Model\Common\Enum';
 }

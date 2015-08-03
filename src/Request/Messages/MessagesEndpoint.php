@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Messages;
+namespace Commercetools\Core\Request\Messages;
 
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 /**
- * @package Sphere\Core\Request\Messages
+ * @package Commercetools\Core\Request\Messages
  */
 class MessagesEndpoint
 {

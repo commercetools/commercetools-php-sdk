@@ -3,10 +3,10 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Helper;
+namespace Commercetools\Core\Helper;
 
 
-use Sphere\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Context;
 
 class CurrencyFormatter
 {

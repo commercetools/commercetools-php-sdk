@@ -4,16 +4,16 @@
  * @created: 02.02.15, 17:36
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Product\ProductProjection;
-use Sphere\Core\Request\AbstractByIdGetRequest;
-use Sphere\Core\Request\StagedTrait;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Product\ProductProjection;
+use Commercetools\Core\Request\AbstractByIdGetRequest;
+use Commercetools\Core\Request\StagedTrait;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Products
+ * @package Commercetools\Core\Request\Products
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-projection-by-id
  * @method ProductProjection mapResponse(ApiResponseInterface $response)
  */
@@ -21,7 +21,7 @@ class ProductProjectionByIdGetRequest extends AbstractByIdGetRequest
 {
     use StagedTrait;
 
-    protected $resultClass = '\Sphere\Core\Model\Product\ProductProjection';
+    protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjection';
 
     /**
      * @param string $id

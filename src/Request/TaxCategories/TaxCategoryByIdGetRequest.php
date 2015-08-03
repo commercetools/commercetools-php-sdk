@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\TaxCategories;
+namespace Commercetools\Core\Request\TaxCategories;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractByIdGetRequest;
-use Sphere\Core\Model\TaxCategory\TaxCategory;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractByIdGetRequest;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\TaxCategories
+ * @package Commercetools\Core\Request\TaxCategories
  * @apidoc http://dev.sphere.io/http-api-projects-taxCategories.html#tax-category-by-id
  * @method TaxCategory mapResponse(ApiResponseInterface $response)
  */
 class TaxCategoryByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\TaxCategory\TaxCategory';
+    protected $resultClass = '\Commercetools\Core\Model\TaxCategory\TaxCategory';
 
     /**
      * @param string $id

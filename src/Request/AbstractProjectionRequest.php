@@ -4,17 +4,17 @@
  * @created: 02.02.15, 11:44
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
-use Sphere\Core\Client\HttpRequest;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Model\Common\Collection;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonDeserializeInterface;
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Client\HttpRequest;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonDeserializeInterface;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Request
+ * @package Commercetools\Core\Request
  */
 abstract class AbstractProjectionRequest extends AbstractApiRequest
 {

@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Client\Adapter;
+namespace Commercetools\Core\Client\Adapter;
 
 
 use GuzzleHttp\Client;
@@ -15,7 +15,7 @@ use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Sphere\Core\Error\SphereException;
+use Commercetools\Core\Error\ApiException;
 
 class Guzzle5Adapter implements AdapterInterface
 {
@@ -61,15 +61,15 @@ class Guzzle5Adapter implements AdapterInterface
     /**
      * @param RequestInterface $request
      * @return ResponseInterface
-     * @throws \Sphere\Core\Error\SphereException
-     * @throws \Sphere\Core\Error\BadGatewayException
-     * @throws \Sphere\Core\Error\ConcurrentModificationException
-     * @throws \Sphere\Core\Error\ErrorResponseException
-     * @throws \Sphere\Core\Error\GatewayTimeoutException
-     * @throws \Sphere\Core\Error\InternalServerErrorException
-     * @throws \Sphere\Core\Error\InvalidTokenException
-     * @throws \Sphere\Core\Error\NotFoundException
-     * @throws \Sphere\Core\Error\ServiceUnavailableException
+     * @throws \Commercetools\Core\Error\ApiException
+     * @throws \Commercetools\Core\Error\BadGatewayException
+     * @throws \Commercetools\Core\Error\ConcurrentModificationException
+     * @throws \Commercetools\Core\Error\ErrorResponseException
+     * @throws \Commercetools\Core\Error\GatewayTimeoutException
+     * @throws \Commercetools\Core\Error\InternalServerErrorException
+     * @throws \Commercetools\Core\Error\InvalidTokenException
+     * @throws \Commercetools\Core\Error\NotFoundException
+     * @throws \Commercetools\Core\Error\ServiceUnavailableException
      */
     public function execute(RequestInterface $request)
     {
@@ -88,7 +88,7 @@ class Guzzle5Adapter implements AdapterInterface
             $response = $this->packResponse($guzzleResponse);
         } catch (RequestException $exception) {
             $response = $this->packResponse($exception->getResponse());
-            throw SphereException::create($request, $response, $exception);
+            throw ApiException::create($request, $response, $exception);
         }
 
         return $response;
@@ -109,15 +109,15 @@ class Guzzle5Adapter implements AdapterInterface
     /**
      * @param RequestInterface[] $requests
      * @return \Psr\Http\Message\ResponseInterface[]
-     * @throws \Sphere\Core\Error\SphereException
-     * @throws \Sphere\Core\Error\BadGatewayException
-     * @throws \Sphere\Core\Error\ConcurrentModificationException
-     * @throws \Sphere\Core\Error\ErrorResponseException
-     * @throws \Sphere\Core\Error\GatewayTimeoutException
-     * @throws \Sphere\Core\Error\InternalServerErrorException
-     * @throws \Sphere\Core\Error\InvalidTokenException
-     * @throws \Sphere\Core\Error\NotFoundException
-     * @throws \Sphere\Core\Error\ServiceUnavailableException
+     * @throws \Commercetools\Core\Error\ApiException
+     * @throws \Commercetools\Core\Error\BadGatewayException
+     * @throws \Commercetools\Core\Error\ConcurrentModificationException
+     * @throws \Commercetools\Core\Error\ErrorResponseException
+     * @throws \Commercetools\Core\Error\GatewayTimeoutException
+     * @throws \Commercetools\Core\Error\InternalServerErrorException
+     * @throws \Commercetools\Core\Error\InvalidTokenException
+     * @throws \Commercetools\Core\Error\NotFoundException
+     * @throws \Commercetools\Core\Error\ServiceUnavailableException
      */
     public function executeBatch(array $requests)
     {
@@ -142,7 +142,7 @@ class Guzzle5Adapter implements AdapterInterface
             } else {
                 $httpResponse = $this->packResponse($result->getResponse());
                 $request = $requests[$key];
-                $response = SphereException::create($request, $httpResponse, $result);
+                $response = ApiException::create($request, $httpResponse, $result);
             }
             $responses[$key] = $response;
         }
@@ -201,7 +201,7 @@ class Guzzle5Adapter implements AdapterInterface
                 (string)$authRequest->getBody()
             );
             $response = $this->packResponse($exception->getResponse());
-            throw SphereException::create($request, $response, $exception);
+            throw ApiException::create($request, $response, $exception);
         }
         return $response;
     }

@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ProductType;
+namespace Commercetools\Core\Model\ProductType;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\ProductType
+ * @package Commercetools\Core\Model\ProductType
  * @method AttributeDefinition current()
  * @method AttributeDefinition getAt($offset)
  */
@@ -16,7 +16,7 @@ class AttributeDefinitionCollection extends Collection
 {
     const NAME = 'name';
 
-    protected $type = '\Sphere\Core\Model\ProductType\AttributeDefinition';
+    protected $type = '\Commercetools\Core\Model\ProductType\AttributeDefinition';
 
     protected function indexRow($offset, $row)
     {

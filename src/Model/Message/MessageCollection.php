@@ -3,17 +3,17 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Message;
+namespace Commercetools\Core\Model\Message;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\Message
+ * @package Commercetools\Core\Model\Message
  * 
  * @method Message current()
  * @method Message getAt($offset)
  */
 class MessageCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\Message\Message';
+    protected $type = '\Commercetools\Core\Model\Message\Message';
 }

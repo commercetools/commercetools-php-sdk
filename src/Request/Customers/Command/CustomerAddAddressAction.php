@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Customers\Command;
+namespace Commercetools\Core\Request\Customers\Command;
 
-use Sphere\Core\Model\Common\Address;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Customers\Command
+ * @package Commercetools\Core\Request\Customers\Command
  * @apidoc http://dev.sphere.io/http-api-projects-customers.html#add-address
  * @method Address getAddress()
  * @method CustomerAddAddressAction setAddress(Address $address = null)
@@ -23,7 +23,7 @@ class CustomerAddAddressAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'address' => [static::TYPE => '\Sphere\Core\Model\Common\Address'],
+            'address' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
         ];
     }
 

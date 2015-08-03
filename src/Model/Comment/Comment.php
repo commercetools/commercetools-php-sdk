@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Comment;
+namespace Commercetools\Core\Model\Comment;
 
-use Sphere\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\Resource;
 
 /**
- * @package Sphere\Core\Model\Comment
+ * @package Commercetools\Core\Model\Comment
  * @method string getId()
  * @method Comment setId(string $id = null)
  * @method int getVersion()

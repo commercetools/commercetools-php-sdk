@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ShippingMethod;
+namespace Commercetools\Core\Model\ShippingMethod;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
- * @package Sphere\Core\Model\ShippingMethod
+ * @package Commercetools\Core\Model\ShippingMethod
  * @method string getName()
  * @method ShippingMethodDraft setName(string $name = null)
  * @method string getDescription()
@@ -29,8 +29,8 @@ class ShippingMethodDraft extends JsonObject
         return [
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference'],
-            'zoneRates' => [static::TYPE => '\Sphere\Core\Model\ShippingMethod\ZoneRateCollection'],
+            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
+            'zoneRates' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ZoneRateCollection'],
             'isDefault' => [static::TYPE => 'bool'],
         ];
     }

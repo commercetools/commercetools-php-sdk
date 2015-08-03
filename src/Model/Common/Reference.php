@@ -4,11 +4,11 @@
  * @created: 27.01.15, 14:53
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method string getId()
@@ -28,7 +28,7 @@ class Reference extends JsonObject
         return [
             static::TYPE_ID => [self::TYPE => 'string'],
             static::ID => [self::TYPE => 'string'],
-            static::OBJ => [static::TYPE => '\Sphere\Core\Model\Common\JsonObject']
+            static::OBJ => [static::TYPE => '\Commercetools\Core\Model\Common\JsonObject']
         ];
     }
 

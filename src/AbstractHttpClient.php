@@ -4,19 +4,19 @@
  * @created: 22.01.15, 13:51
  */
 
-namespace Sphere\Core;
+namespace Commercetools\Core;
 
 
-use Sphere\Core\Client\Adapter\AdapterFactory;
-use Sphere\Core\Client\Adapter\AdapterInterface;
+use Commercetools\Core\Client\Adapter\AdapterFactory;
+use Commercetools\Core\Client\Adapter\AdapterInterface;
 
 /**
- * @package Sphere\Core
+ * @package Commercetools\Core
  */
 abstract class AbstractHttpClient
 {
 
-    const VERSION = '1.0.0 RC1';
+    const VERSION = '1.0.0 RC2';
 
     /**
      * @var AdapterInterface
@@ -110,7 +110,7 @@ abstract class AbstractHttpClient
     protected function getUserAgent()
     {
         if (is_null($this->userAgent)) {
-            $agent = 'sphere-php-sdk ' . static::VERSION;
+            $agent = 'commercetools-php-sdk ' . static::VERSION;
             if (extension_loaded('curl')) {
                 $agent .= ' curl/' . curl_version()['version'];
             }

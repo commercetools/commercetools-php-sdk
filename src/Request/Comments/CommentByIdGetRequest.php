@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Comments;
+namespace Commercetools\Core\Request\Comments;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractByIdGetRequest;
-use Sphere\Core\Model\Comment\Comment;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractByIdGetRequest;
+use Commercetools\Core\Model\Comment\Comment;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Comments
+ * @package Commercetools\Core\Request\Comments
  * @apidoc http://dev.sphere.io/http-api-projects-comments.html#comment-by-id
  * @method Comment mapResponse(ApiResponseInterface $response)
  */
 class CommentByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Comment\Comment';
+    protected $resultClass = '\Commercetools\Core\Model\Comment\Comment';
 
     /**
      * @param string $id

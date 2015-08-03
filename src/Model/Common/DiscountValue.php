@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  * @apidoc http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discount-value
  * @method string getType()
  * @method DiscountValue setType(string $type = null)
@@ -23,7 +23,7 @@ class DiscountValue extends JsonObject
         return [
             'type' => [static::TYPE => 'string'],
             'permyriad' => [static::TYPE => 'int'],
-            'money' => [static::TYPE => '\Sphere\Core\Model\Common\MoneyCollection']
+            'money' => [static::TYPE => '\Commercetools\Core\Model\Common\MoneyCollection']
         ];
     }
 }

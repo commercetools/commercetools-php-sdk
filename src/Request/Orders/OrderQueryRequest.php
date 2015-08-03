@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Orders;
+namespace Commercetools\Core\Request\Orders;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\Order\OrderCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\Order\OrderCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Orders
+ * @package Commercetools\Core\Request\Orders
  * @apidoc http://dev.sphere.io/http-api-projects-orders.html#orders-by-query
  * @method OrderCollection mapResponse(ApiResponseInterface $response)
  */
 class OrderQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Order\OrderCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Order\OrderCollection';
 
     /**
      * @param Context $context

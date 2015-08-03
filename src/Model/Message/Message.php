@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Message;
+namespace Commercetools\Core\Model\Message;
 
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
- * @package Sphere\Core\Model\Message
+ * @package Commercetools\Core\Model\Message
  * @method string getId()
  * @method Message setId(string $id = null)
  * @method \DateTime getCreatedAt()
@@ -31,7 +31,7 @@ class Message extends JsonObject
             'id' => [static::TYPE => 'string'],
             'createdAt' => [static::TYPE => '\DateTime'],
             'sequenceNumber' => [static::TYPE => 'int'],
-            'resource' => [static::TYPE => '\Sphere\Core\Model\Common\Reference'],
+            'resource' => [static::TYPE => '\Commercetools\Core\Model\Common\Reference'],
             'resourceVersion' => [static::TYPE => 'int'],
             'type' => [static::TYPE => 'string'],
         ];

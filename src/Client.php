@@ -4,20 +4,20 @@
  * @created 19.01.15, 14:29
  */
 
-namespace Sphere\Core;
+namespace Commercetools\Core;
 
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Sphere\Core\Client\Adapter\AdapterInterface;
-use Sphere\Core\Error\InvalidTokenException;
-use Sphere\Core\Error\Message;
-use Sphere\Core\Error\SphereException;
-use Sphere\Core\Model\Common\ContextAwareInterface;
-use Sphere\Core\Response\ApiResponseInterface;
-use Sphere\Core\Request\ClientRequestInterface;
-use Sphere\Core\Client\OAuth\Manager;
+use Commercetools\Core\Client\Adapter\AdapterInterface;
+use Commercetools\Core\Error\InvalidTokenException;
+use Commercetools\Core\Error\Message;
+use Commercetools\Core\Error\ApiException;
+use Commercetools\Core\Model\Common\ContextAwareInterface;
+use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Request\ClientRequestInterface;
+use Commercetools\Core\Client\OAuth\Manager;
 
 /**
  * The client for communicating with the commercetools platform
@@ -107,7 +107,7 @@ use Sphere\Core\Client\OAuth\Manager;
  * #### Using a custom cache adapter ####
  *
  * ```php
- * class <CacheClass>Adapter implements \Sphere\Core\Cache\CacheAdapterInterface {
+ * class <CacheClass>Adapter implements \Commercetools\Core\Cache\CacheAdapterInterface {
  *     protected $cache;
  *     public function __construct(<CacheClass> $cache) {
  *         $this->cache = $cache;
@@ -122,7 +122,7 @@ use Sphere\Core\Client\OAuth\Manager;
  * });
  * ```
  *
- * @package Sphere\Core
+ * @package Commercetools\Core
  */
 class Client extends AbstractHttpClient
 {
@@ -221,7 +221,7 @@ class Client extends AbstractHttpClient
      * @param ClientRequestInterface $request
      * @return ApiResponseInterface
      * @throws InvalidTokenException
-     * @throws SphereException
+     * @throws ApiException
      * @throws \Exception
      */
     public function execute(ClientRequestInterface $request)
@@ -233,7 +233,7 @@ class Client extends AbstractHttpClient
 
         try {
             $response = $this->getHttpClient()->execute($httpRequest);
-        } catch (SphereException $exception) {
+        } catch (ApiException $exception) {
             if ($exception instanceof InvalidTokenException && !$this->tokenRefreshed) {
                 $this->tokenRefreshed = true;
                 $this->getOauthManager()->refreshToken();
@@ -292,7 +292,7 @@ class Client extends AbstractHttpClient
     /**
      * Executes API requests in batch
      * @return Response\ApiResponseInterface[]
-     * @throws SphereException
+     * @throws ApiException
      */
     public function executeBatch()
     {
@@ -303,7 +303,7 @@ class Client extends AbstractHttpClient
         foreach ($httpResponses as $key => $httpResponse) {
             $request = $this->batchRequests[$key];
             $httpRequest = $requests[$key];
-            if ($httpResponse instanceof SphereException) {
+            if ($httpResponse instanceof ApiException) {
                 if ($this->getConfig()->getThrowExceptions() ||
                     !$httpResponse->getResponse() instanceof ResponseInterface
                 ) {

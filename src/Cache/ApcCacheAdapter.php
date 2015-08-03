@@ -4,11 +4,11 @@
  * @created 20.01.15, 13:42
  */
 
-namespace Sphere\Core\Cache;
+namespace Commercetools\Core\Cache;
 
 
 /**
- * @package Sphere\Core\Cache
+ * @package Commercetools\Core\Cache
  */
 class ApcCacheAdapter extends AbstractCacheAdapter
 {

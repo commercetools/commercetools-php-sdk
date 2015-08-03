@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Channel;
+namespace Commercetools\Core\Model\Channel;
 
-use Sphere\Core\Model\Common\Resource;
-use Sphere\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
- * @package Sphere\Core\Model\Channel
+ * @package Commercetools\Core\Model\Channel
  * @apidoc http://dev.sphere.io/http-api-projects-channels.html#channel
  * @method string getId()
  * @method Channel setId(string $id = null)
@@ -39,8 +39,8 @@ class Channel extends Resource
             'lastModifiedAt' => [static::TYPE => '\DateTime'],
             'key' => [static::TYPE => 'string'],
             'roles' => [static::TYPE => 'array'],
-            'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString']
+            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString']
         ];
     }
 }

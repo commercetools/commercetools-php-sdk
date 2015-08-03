@@ -4,7 +4,7 @@
  * @created: 29.01.15, 11:00
  */
 
-namespace Sphere\Core\Client;
+namespace Commercetools\Core\Client;
 
 class JsonRequestTest extends \PHPUnit_Framework_TestCase
 {

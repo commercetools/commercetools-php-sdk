@@ -4,13 +4,13 @@
  * @created: 04.02.15, 16:46
  */
 
-namespace Sphere\Core\Model\CustomerGroup;
+namespace Commercetools\Core\Model\CustomerGroup;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
- * @package Sphere\Core\Model\CustomerGroup
+ * @package Commercetools\Core\Model\CustomerGroup
  * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method CustomerGroupReference setTypeId(string $typeId = null)
@@ -26,7 +26,7 @@ class CustomerGroupReference extends Reference
     public function getFields()
     {
         $fields = parent::getFields();
-        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroup'];
+        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroup'];
 
         return $fields;
     }

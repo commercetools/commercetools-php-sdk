@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model;
+namespace Commercetools\Core\Model;
 
 
 use Symfony\Component\Yaml\Yaml;

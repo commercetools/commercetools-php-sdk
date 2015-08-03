@@ -4,7 +4,7 @@
  * @created: 09.02.15, 10:45
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
 interface JsonDeserializeInterface extends ContextAwareInterface

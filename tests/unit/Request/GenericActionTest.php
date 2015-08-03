@@ -3,10 +3,10 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
 
-use Sphere\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\LocalizedString;
 
 class GenericActionTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,307 +14,307 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                '\Sphere\Core\Request\AbstractAction',
+                '\Commercetools\Core\Request\AbstractAction',
                 ['action']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductAddExternalImageAction',
+                '\Commercetools\Core\Request\Products\Command\ProductAddExternalImageAction',
                 ['action', 'variantId', 'image', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductAddPriceAction',
+                '\Commercetools\Core\Request\Products\Command\ProductAddPriceAction',
                 ['action', 'variantId', 'price', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductAddToCategoryAction',
+                '\Commercetools\Core\Request\Products\Command\ProductAddToCategoryAction',
                 ['action', 'category', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductAddVariantAction',
+                '\Commercetools\Core\Request\Products\Command\ProductAddVariantAction',
                 ['action', 'prices', 'sku', 'attributes', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductChangeNameAction',
+                '\Commercetools\Core\Request\Products\Command\ProductChangeNameAction',
                 ['action', 'name', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductChangePriceAction',
+                '\Commercetools\Core\Request\Products\Command\ProductChangePriceAction',
                 ['action', 'priceId', 'price', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductChangeSlugAction',
+                '\Commercetools\Core\Request\Products\Command\ProductChangeSlugAction',
                 ['action', 'slug', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductPublishAction',
+                '\Commercetools\Core\Request\Products\Command\ProductPublishAction',
                 ['action']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductRemoveFromCategoryAction',
+                '\Commercetools\Core\Request\Products\Command\ProductRemoveFromCategoryAction',
                 ['action', 'category', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductRemoveImageAction',
+                '\Commercetools\Core\Request\Products\Command\ProductRemoveImageAction',
                 ['action', 'variantId', 'imageUrl', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductRemovePriceAction',
+                '\Commercetools\Core\Request\Products\Command\ProductRemovePriceAction',
                 ['action', 'priceId', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductRemoveVariantAction',
+                '\Commercetools\Core\Request\Products\Command\ProductRemoveVariantAction',
                 ['action', 'id', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductRevertStagedChangesAction',
+                '\Commercetools\Core\Request\Products\Command\ProductRevertStagedChangesAction',
                 ['action']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetAttributeAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetAttributeAction',
                 ['action', 'variantId', 'name', 'value', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction',
                 ['action', 'name', 'value', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetDescriptionAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetDescriptionAction',
                 ['action', 'description', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetMetaAttributesAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetMetaAttributesAction',
                 ['action', 'metaTitle', 'metaDescription', 'metaKeywords', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetMetaTitleAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetMetaTitleAction',
                 ['action', 'metaTitle']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetMetaDescriptionAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetMetaDescriptionAction',
                 ['action', 'metaDescription']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetMetaKeywordsAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetMetaKeywordsAction',
                 ['action', 'metaKeywords']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
                 ['action', 'searchKeywords', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetSKUAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetSKUAction',
                 ['action', 'variantId', 'sku']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetTaxCategoryAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction',
                 ['action', 'taxCategory', 'staged']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductUnpublishAction',
+                '\Commercetools\Core\Request\Products\Command\ProductUnpublishAction',
                 ['action']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderAddDeliveryAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction',
                 ['action', 'items', 'parcels', 'measurements', 'trackingData']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction',
                 ['action', 'deliveryId', 'measurements', 'trackingData']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderAddReturnInfoAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderAddReturnInfoAction',
                 ['action', 'returnDate', 'returnTrackingId', 'items']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderChangeOrderStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderChangeOrderStateAction',
                 ['action', 'orderState']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderChangePaymentStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderChangePaymentStateAction',
                 ['action', 'paymentState']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderChangeShipmentStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderChangeShipmentStateAction',
                 ['action', 'shipmentState']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderImportCustomLineItemStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderImportCustomLineItemStateAction',
                 ['action', 'customLineItemId', 'state']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderImportLineItemStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderImportLineItemStateAction',
                 ['action', 'lineItemId', 'state']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderSetOrderNumberAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction',
                 ['action', 'orderNumber']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction',
                 ['action', 'returnItemId', 'paymentState']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction',
                 ['action', 'returnItemId', 'shipmentState']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction',
                 ['action', 'customLineItemId', 'quantity', 'fromState', 'toState', 'actualTransitionDate']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderTransitionLineItemStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderTransitionLineItemStateAction',
                 ['action', 'lineItemId', 'quantity', 'fromState', 'toState', 'actualTransitionDate']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderUpdateSyncInfoAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction',
                 ['action', 'channel', 'externalId', 'syncedAt']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerAddAddressAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerAddAddressAction',
                 ['action', 'address']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerChangeAddressAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerChangeAddressAction',
                 ['action', 'addressId', 'address']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerChangeEmailAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerChangeEmailAction',
                 ['action', 'email']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerChangeNameAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction',
                 ['action', 'firstName', 'lastName', 'middleName', 'title']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerRemoveAddressAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerRemoveAddressAction',
                 ['action', 'addressId']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetCompanyNameAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetCompanyNameAction',
                 ['action', 'companyName']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetCustomerGroupAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetCustomerGroupAction',
                 ['action', 'customerGroup']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetCustomerNumberAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetCustomerNumberAction',
                 ['action', 'customerNumber']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetDateOfBirthAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetDateOfBirthAction',
                 ['action', 'dateOfBirth']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetDefaultBillingAddressAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetDefaultBillingAddressAction',
                 ['action', 'addressId']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction',
                 ['action', 'addressId']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetExternalIdAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetExternalIdAction',
                 ['action', 'externalId']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetVatIdAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction',
                 ['action', 'vatId']
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategoryChangeNameAction',
+                '\Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction',
                 ['action', 'name']
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategoryChangeOrderHintAction',
+                '\Commercetools\Core\Request\Categories\Command\CategoryChangeOrderHintAction',
                 ['action', 'orderHint']
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategoryChangeParentAction',
+                '\Commercetools\Core\Request\Categories\Command\CategoryChangeParentAction',
                 ['action', 'parent']
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategoryChangeSlugAction',
+                '\Commercetools\Core\Request\Categories\Command\CategoryChangeSlugAction',
                 ['action', 'slug']
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategorySetDescriptionAction',
+                '\Commercetools\Core\Request\Categories\Command\CategorySetDescriptionAction',
                 ['action', 'description']
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategorySetExternalIdAction',
+                '\Commercetools\Core\Request\Categories\Command\CategorySetExternalIdAction',
                 ['action', 'externalId']
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategorySetMetaTitleAction',
+                '\Commercetools\Core\Request\Categories\Command\CategorySetMetaTitleAction',
                 ['action', 'metaTitle']
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategorySetMetaDescriptionAction',
+                '\Commercetools\Core\Request\Categories\Command\CategorySetMetaDescriptionAction',
                 ['action', 'metaDescription']
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategorySetMetaKeywordsAction',
+                '\Commercetools\Core\Request\Categories\Command\CategorySetMetaKeywordsAction',
                 ['action', 'metaKeywords']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartAddCustomLineItemAction',
+                '\Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction',
                 ['action', 'name', 'quantity', 'money', 'slug', 'taxCategory']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartAddDiscountCodeAction',
+                '\Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction',
                 ['action', 'code']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartAddLineItemAction',
+                '\Commercetools\Core\Request\Carts\Command\CartAddLineItemAction',
                 ['action', 'productId', 'variantId', 'quantity', 'supplyChannel', 'distributionChannel']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',
+                '\Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',
                 ['action', 'lineItemId', 'quantity']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartRecalculateAction',
+                '\Commercetools\Core\Request\Carts\Command\CartRecalculateAction',
                 ['action']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartRemoveCustomLineItemAction',
+                '\Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction',
                 ['action', 'customLineItemId']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartRemoveDiscountCodeAction',
+                '\Commercetools\Core\Request\Carts\Command\CartRemoveDiscountCodeAction',
                 ['action', 'discountCode']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartRemoveLineItemAction',
+                '\Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction',
                 ['action', 'lineItemId', 'quantity']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetBillingAddressAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction',
                 ['action', 'address']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetCountryAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetCountryAction',
                 ['action', 'country']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetCustomerEmailAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction',
                 ['action', 'email']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetCustomerIdAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction',
                 ['action', 'customerId']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetShippingAddressAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction',
                 ['action', 'address']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetShippingMethodAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction',
                 ['action', 'shippingMethod']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetCustomShippingMethodAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction',
                 ['action', 'shippingMethodName', 'shippingRate', 'taxCategory']
             ],
         ];
@@ -336,415 +336,415 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                '\Sphere\Core\Request\AbstractAction',
+                '\Commercetools\Core\Request\AbstractAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductAddExternalImageAction',
+                '\Commercetools\Core\Request\Products\Command\ProductAddExternalImageAction',
                 'ofVariantIdAndImage',
                 [
                     10,
-                    $this->getInstance('\Sphere\Core\Model\Common\Image')
+                    $this->getInstance('\Commercetools\Core\Model\Common\Image')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductAddPriceAction',
+                '\Commercetools\Core\Request\Products\Command\ProductAddPriceAction',
                 'ofVariantIdAndPrice',
                 [
                     10,
-                    $this->getInstance('\Sphere\Core\Model\Common\Price')
+                    $this->getInstance('\Commercetools\Core\Model\Common\Price')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductAddToCategoryAction',
+                '\Commercetools\Core\Request\Products\Command\ProductAddToCategoryAction',
                 'ofCategory',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Category\CategoryReference')
+                    $this->getInstance('\Commercetools\Core\Model\Category\CategoryReference')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductAddVariantAction',
+                '\Commercetools\Core\Request\Products\Command\ProductAddVariantAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductChangeNameAction',
+                '\Commercetools\Core\Request\Products\Command\ProductChangeNameAction',
                 'ofName',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString')
+                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductChangePriceAction',
+                '\Commercetools\Core\Request\Products\Command\ProductChangePriceAction',
                 'ofPriceIdAndPrice',
                 [
                     10,
-                    $this->getInstance('\Sphere\Core\Model\Common\Price')
+                    $this->getInstance('\Commercetools\Core\Model\Common\Price')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductChangeSlugAction',
+                '\Commercetools\Core\Request\Products\Command\ProductChangeSlugAction',
                 'ofSlug',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString')
+                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductPublishAction',
+                '\Commercetools\Core\Request\Products\Command\ProductPublishAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductRemoveFromCategoryAction',
+                '\Commercetools\Core\Request\Products\Command\ProductRemoveFromCategoryAction',
                 'ofCategory',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Category\CategoryReference')
+                    $this->getInstance('\Commercetools\Core\Model\Category\CategoryReference')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductRemoveImageAction',
+                '\Commercetools\Core\Request\Products\Command\ProductRemoveImageAction',
                 'ofVariantIdAndImageUrl',
                 [10, 'imageUrl']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductRemovePriceAction',
+                '\Commercetools\Core\Request\Products\Command\ProductRemovePriceAction',
                 'ofPriceId',
                 [
                     10
                 ]
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductRemoveVariantAction',
+                '\Commercetools\Core\Request\Products\Command\ProductRemoveVariantAction',
                 'ofVariantId',
                 [10]
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductRevertStagedChangesAction',
+                '\Commercetools\Core\Request\Products\Command\ProductRevertStagedChangesAction',
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetAttributeAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetAttributeAction',
                 'ofVariantIdAndName',
                 [10, 'attributeName']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction',
                 'ofName',
                 ['attributeName']
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetDescriptionAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetDescriptionAction',
                 'ofDescription',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString')
+                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetMetaAttributesAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetMetaAttributesAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetMetaTitleAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetMetaTitleAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetMetaDescriptionAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetMetaDescriptionAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetMetaKeywordsAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetMetaKeywordsAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
                 'ofKeywords',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Product\LocalizedSearchKeywords')
+                    $this->getInstance('\Commercetools\Core\Model\Product\LocalizedSearchKeywords')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetSKUAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetSKUAction',
                 'ofVariantId',
                 [10]
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductSetTaxCategoryAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Products\Command\ProductUnpublishAction',
+                '\Commercetools\Core\Request\Products\Command\ProductUnpublishAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderAddDeliveryAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction',
                 'ofDeliveryItems',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Order\DeliveryItemCollection')
+                    $this->getInstance('\Commercetools\Core\Model\Order\DeliveryItemCollection')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction',
                 'ofDeliveryId',
                 ['1234567890']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderAddReturnInfoAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderAddReturnInfoAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderChangeOrderStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderChangeOrderStateAction',
                 'ofOrderState',
                 ['newOrderState']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderChangePaymentStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderChangePaymentStateAction',
                 'ofPaymentState',
                 ['newPaymentState']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderChangeShipmentStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderChangeShipmentStateAction',
                 'ofShipmentState',
                 ['newShipmentState']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderImportCustomLineItemStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderImportCustomLineItemStateAction',
                 'ofCustomLineItemIdAndState',
                 [
                     '12345',
-                    $this->getInstance('\Sphere\Core\Model\Order\ItemStateCollection')
+                    $this->getInstance('\Commercetools\Core\Model\Order\ItemStateCollection')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderImportLineItemStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderImportLineItemStateAction',
                 'ofLineItemIdAndState',
                 [
                     '12345',
-                    $this->getInstance('\Sphere\Core\Model\Order\ItemStateCollection')
+                    $this->getInstance('\Commercetools\Core\Model\Order\ItemStateCollection')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderSetOrderNumberAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction',
                 'ofReturnItemIdAndPaymentState',
                 ['12345', 'paymentState']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction',
                 'ofReturnItemIdAndShipmentState',
                 ['12345', 'shipmentState']
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction',
                 'ofCustomLineItemIdQuantityAndFromToState',
                 [
                     '12345',
                     2,
-                    $this->getInstance('\Sphere\Core\Model\State\StateReference'),
-                    $this->getInstance('\Sphere\Core\Model\State\StateReference'),
+                    $this->getInstance('\Commercetools\Core\Model\State\StateReference'),
+                    $this->getInstance('\Commercetools\Core\Model\State\StateReference'),
                 ]
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderTransitionLineItemStateAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderTransitionLineItemStateAction',
                 'ofLineItemIdQuantityAndFromToState',
                 [
                     '12345',
                     2,
-                    $this->getInstance('\Sphere\Core\Model\State\StateReference'),
-                    $this->getInstance('\Sphere\Core\Model\State\StateReference'),
+                    $this->getInstance('\Commercetools\Core\Model\State\StateReference'),
+                    $this->getInstance('\Commercetools\Core\Model\State\StateReference'),
                 ]
             ],
             [
-                '\Sphere\Core\Request\Orders\Command\OrderUpdateSyncInfoAction',
+                '\Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction',
                 'ofChannel',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Channel\ChannelReference')
+                    $this->getInstance('\Commercetools\Core\Model\Channel\ChannelReference')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerAddAddressAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerAddAddressAction',
                 'ofAddress',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Common\Address')
+                    $this->getInstance('\Commercetools\Core\Model\Common\Address')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerChangeAddressAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerChangeAddressAction',
                 'ofAddressIdAndAddress',
                 [
                     '1',
-                    $this->getInstance('\Sphere\Core\Model\Common\Address')
+                    $this->getInstance('\Commercetools\Core\Model\Common\Address')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerChangeEmailAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerChangeEmailAction',
                 'ofEmail',
                 ['john.doe@company.com']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerChangeNameAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction',
                 'ofFirstNameAndLastName',
                 ['John', 'Doe']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerRemoveAddressAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerRemoveAddressAction',
                 'ofAddressId',
                 ['1']
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetCompanyNameAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetCompanyNameAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetCustomerGroupAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetCustomerGroupAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetCustomerNumberAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetCustomerNumberAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetDateOfBirthAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetDateOfBirthAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetDefaultBillingAddressAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetDefaultBillingAddressAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetExternalIdAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetExternalIdAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Customers\Command\CustomerSetVatIdAction',
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategoryChangeNameAction',
+                '\Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction',
                 'ofName',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString')
+                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategoryChangeOrderHintAction',
+                '\Commercetools\Core\Request\Categories\Command\CategoryChangeOrderHintAction',
                 'ofOrderHint',
                 ['orderHint']
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategoryChangeParentAction',
+                '\Commercetools\Core\Request\Categories\Command\CategoryChangeParentAction',
                 'ofParentCategory',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Category\CategoryReference')
+                    $this->getInstance('\Commercetools\Core\Model\Category\CategoryReference')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategoryChangeSlugAction',
+                '\Commercetools\Core\Request\Categories\Command\CategoryChangeSlugAction',
                 'ofSlug',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString')
+                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategorySetDescriptionAction',
+                '\Commercetools\Core\Request\Categories\Command\CategorySetDescriptionAction',
                 'ofDescription',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString')
+                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategorySetExternalIdAction',
+                '\Commercetools\Core\Request\Categories\Command\CategorySetExternalIdAction',
                 'ofExternalId',
                 ['externalId']
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategorySetMetaTitleAction',
+                '\Commercetools\Core\Request\Categories\Command\CategorySetMetaTitleAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategorySetMetaDescriptionAction',
+                '\Commercetools\Core\Request\Categories\Command\CategorySetMetaDescriptionAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Categories\Command\CategorySetMetaKeywordsAction',
+                '\Commercetools\Core\Request\Categories\Command\CategorySetMetaKeywordsAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartAddCustomLineItemAction',
+                '\Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction',
                 'ofNameQuantityMoneySlugAndTaxCategory',
                 [
-                    $this->getInstance('\Sphere\Core\Model\Common\LocalizedString'),
+                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString'),
                     10,
-                    $this->getInstance('\Sphere\Core\Model\Common\Money'),
+                    $this->getInstance('\Commercetools\Core\Model\Common\Money'),
                     'my-custom-line-item',
-                    $this->getInstance('\Sphere\Core\Model\TaxCategory\TaxCategory')
+                    $this->getInstance('\Commercetools\Core\Model\TaxCategory\TaxCategory')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartAddDiscountCodeAction',
+                '\Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction',
                 'ofCode',
                 ['code']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartAddLineItemAction',
+                '\Commercetools\Core\Request\Carts\Command\CartAddLineItemAction',
                 'ofProductIdVariantIdAndQuantity',
                 ['productId', 1, 2]
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',
+                '\Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',
                 'ofLineItemIdAndQuantity',
                 ['lineItemId', 3]
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartRecalculateAction',
+                '\Commercetools\Core\Request\Carts\Command\CartRecalculateAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartRemoveCustomLineItemAction',
+                '\Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction',
                 'ofCustomLineItemId',
                 ['customLineItemId']
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartRemoveDiscountCodeAction',
+                '\Commercetools\Core\Request\Carts\Command\CartRemoveDiscountCodeAction',
                 'ofDiscountCode',
                 [
-                    $this->getInstance('\Sphere\Core\Model\DiscountCode\DiscountCodeReference')
+                    $this->getInstance('\Commercetools\Core\Model\DiscountCode\DiscountCodeReference')
                 ]
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartRemoveLineItemAction',
+                '\Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction',
                 'ofLineItemId',
                 ['lineItemId', 1]
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetBillingAddressAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetCountryAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetCountryAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetCustomerEmailAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetCustomerIdAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetShippingAddressAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetShippingMethodAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction',
                 'of',
             ],
             [
-                '\Sphere\Core\Request\Carts\Command\CartSetCustomShippingMethodAction',
+                '\Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction',
                 'of',
             ],
         ];

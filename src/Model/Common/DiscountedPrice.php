@@ -4,12 +4,12 @@
  * @created: 04.02.15, 17:13
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
-use Sphere\Core\Model\ProductDiscount\ProductDiscountReference;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscountReference;
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#discounted-price
  * @method Money getValue()
  * @method ProductDiscountReference getDiscount()
@@ -22,8 +22,8 @@ class DiscountedPrice extends JsonObject
     public function getFields()
     {
         return [
-            'value' => [self::TYPE => '\Sphere\Core\Model\Common\Money'],
-            'discount' => [self::TYPE => '\Sphere\Core\Model\ProductDiscount\ProductDiscountReference'],
+            'value' => [self::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'discount' => [self::TYPE => '\Commercetools\Core\Model\ProductDiscount\ProductDiscountReference'],
         ];
     }
 

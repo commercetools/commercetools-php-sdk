@@ -3,20 +3,20 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Cart;
+namespace Commercetools\Core\Model\Cart;
 
-use Sphere\Core\Model\Channel\ChannelReference;
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Common\Money;
-use Sphere\Core\Model\Common\Price;
-use Sphere\Core\Model\Order\ItemState;
-use Sphere\Core\Model\Order\ItemStateCollection;
-use Sphere\Core\Model\Product\ProductVariant;
-use Sphere\Core\Model\TaxCategory\TaxRate;
+use Commercetools\Core\Model\Channel\ChannelReference;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Common\Price;
+use Commercetools\Core\Model\Order\ItemState;
+use Commercetools\Core\Model\Order\ItemStateCollection;
+use Commercetools\Core\Model\Product\ProductVariant;
+use Commercetools\Core\Model\TaxCategory\TaxRate;
 
 /**
- * @package Sphere\Core\Model\Cart
+ * @package Commercetools\Core\Model\Cart
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#line-item
  * @method string getId()
  * @method LineItem setId(string $id = null)
@@ -50,16 +50,16 @@ class LineItem extends JsonObject
         return [
             'id' => [static::TYPE => 'string'],
             'productId' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'productSlug' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'variant' => [static::TYPE => '\Sphere\Core\Model\Product\ProductVariant'],
-            'price' => [static::TYPE => '\Sphere\Core\Model\Common\Price'],
+            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'productSlug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'variant' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariant'],
+            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Price'],
             'quantity' => [static::TYPE => 'int'],
-            'state' => [static::TYPE => '\Sphere\Core\Model\Order\ItemStateCollection'],
-            'taxRate' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxRate'],
-            'supplyChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
-            'discountedPrice' => [static::TYPE => '\Sphere\Core\Model\Cart\DiscountedLineItemPrice'],
-            'distributionChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
+            'state' => [static::TYPE => '\Commercetools\Core\Model\Order\ItemStateCollection'],
+            'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
+            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            'discountedPrice' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedLineItemPrice'],
+            'distributionChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
         ];
     }
 

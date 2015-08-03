@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Carts\Command;
+namespace Commercetools\Core\Request\Carts\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\DiscountCode\DiscountCodeReference;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\DiscountCode\DiscountCodeReference;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Carts\Command
+ * @package Commercetools\Core\Request\Carts\Command
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#remove-discount-code
  * @method string getAction()
  * @method CartRemoveDiscountCodeAction setAction(string $action = null)
@@ -23,7 +23,7 @@ class CartRemoveDiscountCodeAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'discountCode' => [static::TYPE => '\Sphere\Core\Model\DiscountCode\DiscountCodeReference'],
+            'discountCode' => [static::TYPE => '\Commercetools\Core\Model\DiscountCode\DiscountCodeReference'],
         ];
     }
 

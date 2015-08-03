@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\TaxCategory;
+namespace Commercetools\Core\Model\TaxCategory;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\TaxCategory
+ * @package Commercetools\Core\Model\TaxCategory
  * @apidoc http://dev.sphere.io/http-api-projects-taxCategories.html#tax-rate
  * @method string getId()
  * @method TaxRate setId(string $id = null)

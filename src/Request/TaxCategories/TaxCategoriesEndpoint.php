@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\TaxCategories;
+namespace Commercetools\Core\Request\TaxCategories;
 
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 /**
- * @package Sphere\Core\Request\TaxCategories
+ * @package Commercetools\Core\Request\TaxCategories
  */
 class TaxCategoriesEndpoint
 {

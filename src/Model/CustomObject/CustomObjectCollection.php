@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\CustomObject;
+namespace Commercetools\Core\Model\CustomObject;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\CustomObject
+ * @package Commercetools\Core\Model\CustomObject
  * 
  * @method CustomObject current()
  * @method CustomObject getAt($offset)
@@ -18,7 +18,7 @@ class CustomObjectCollection extends Collection
     const KEY = 'key';
     const CONTAINER = 'container';
 
-    protected $type = '\Sphere\Core\Model\CustomObject\CustomObject';
+    protected $type = '\Commercetools\Core\Model\CustomObject\CustomObject';
 
     /**
      * @param $offset

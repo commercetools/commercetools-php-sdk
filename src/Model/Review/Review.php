@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Review;
+namespace Commercetools\Core\Model\Review;
 
-use Sphere\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\Resource;
 
 /**
- * @package Sphere\Core\Model\Review
+ * @package Commercetools\Core\Model\Review
  * @method string getId()
  * @method Review setId(string $id = null)
  * @method int getVersion()

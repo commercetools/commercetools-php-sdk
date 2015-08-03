@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductDiscounts;
+namespace Commercetools\Core\Request\ProductDiscounts;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\ProductDiscount\ProductDiscountCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscountCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\ProductDiscounts
+ * @package Commercetools\Core\Request\ProductDiscounts
  * @apidoc http://dev.sphere.io/http-api-projects-productDiscounts.html#product-discounts-by-query
  * @method ProductDiscountCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductDiscountQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\ProductDiscount\ProductDiscountCollection';
+    protected $resultClass = '\Commercetools\Core\Model\ProductDiscount\ProductDiscountCollection';
 
     /**
      * @param Context $context

@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
  * @method LocalizedString getLabel()
  * @method LocalizedEnum setLabel(LocalizedString $label = null)
@@ -22,7 +22,7 @@ class LocalizedEnum extends JsonObject
     public function getFields()
     {
         return [
-            'label' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'label' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'key' => [static::TYPE => 'string']
         ];
     }

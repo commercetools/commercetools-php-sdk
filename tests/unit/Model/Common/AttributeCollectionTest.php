@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
-use Sphere\Core\Model\ProductType\AttributeDefinition;
-use Sphere\Core\Model\ProductType\AttributeDefinitionCollection;
-use Sphere\Core\Model\ProductType\AttributeType;
+use Commercetools\Core\Model\ProductType\AttributeDefinition;
+use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
+use Commercetools\Core\Model\ProductType\AttributeType;
 
 class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,7 +20,7 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\Attribute', $collection->getByName('test'));
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Attribute', $collection->getByName('test'));
     }
 
     public function testAddToIndex()
@@ -28,7 +28,7 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = AttributeCollection::of();
         $collection->add(Attribute::fromArray(['name' => 'test']));
 
-        $this->assertInstanceOf('\Sphere\Core\Model\Common\Attribute', $collection->getByName('test'));
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Attribute', $collection->getByName('test'));
     }
 
     public function testMagicGet()
@@ -76,7 +76,7 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
         $t = $collection->getByName('test-definition-enum');
 
         $fields = $t->getFields();
-        $this->assertSame('\Sphere\Core\Model\Common\Enum', $fields[Attribute::PROP_VALUE][JsonObject::TYPE]);
+        $this->assertSame('\Commercetools\Core\Model\Common\Enum', $fields[Attribute::PROP_VALUE][JsonObject::TYPE]);
         $this->assertNull($fields[Attribute::PROP_VALUE][JsonObject::DECORATOR]);
         $this->assertNull($fields[Attribute::PROP_VALUE][JsonObject::ELEMENT_TYPE]);
     }

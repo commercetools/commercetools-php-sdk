@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Orders;
+namespace Commercetools\Core\Request\Orders;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Order\ImportOrder;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\Order\Order;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Order\ImportOrder;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Orders
+ * @package Commercetools\Core\Request\Orders
  * @method Order mapResponse(ApiResponseInterface $response)
  */
 class OrderImportRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Order\Order';
+    protected $resultClass = '\Commercetools\Core\Model\Order\Order';
 
     /**
      * @param ImportOrder $importOrder

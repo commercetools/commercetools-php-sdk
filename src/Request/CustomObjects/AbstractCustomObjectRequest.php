@@ -3,20 +3,20 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CustomObjects;
+namespace Commercetools\Core\Request\CustomObjects;
 
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\Response\ResourceResponse;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Response\ResourceResponse;
 
 /**
- * @package Sphere\Core\Request\CustomObjects
+ * @package Commercetools\Core\Request\CustomObjects
  */
 abstract class AbstractCustomObjectRequest extends AbstractApiRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\CustomObject\CustomObject';
+    protected $resultClass = '\Commercetools\Core\Model\CustomObject\CustomObject';
 
     /**
      * @var string

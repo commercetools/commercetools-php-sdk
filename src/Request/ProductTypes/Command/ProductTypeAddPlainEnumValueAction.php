@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductTypes\Command;
+namespace Commercetools\Core\Request\ProductTypes\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Enum;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Enum;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\ProductTypes\Command
+ * @package Commercetools\Core\Request\ProductTypes\Command
  * 
  * @method string getAction()
  * @method ProductTypeAddPlainEnumValueAction setAction(string $action = null)
@@ -26,7 +26,7 @@ class ProductTypeAddPlainEnumValueAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'attributeName' => [static::TYPE => 'string'],
-            'value' => [static::TYPE => '\Sphere\Core\Model\Common\Enum']
+            'value' => [static::TYPE => '\Commercetools\Core\Model\Common\Enum']
         ];
     }
 

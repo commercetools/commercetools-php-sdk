@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Inventory;
+namespace Commercetools\Core\Model\Inventory;
 
-use Sphere\Core\Model\Common\Resource;
-use Sphere\Core\Model\Channel\ChannelReference;
+use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Channel\ChannelReference;
 
 /**
- * @package Sphere\Core\Model\Inventory
+ * @package Commercetools\Core\Model\Inventory
  * @method string getId()
  * @method InventoryEntry setId(string $id = null)
  * @method int getVersion()
@@ -41,7 +41,7 @@ class InventoryEntry extends Resource
             'createdAt' => [static::TYPE => '\DateTime'],
             'lastModifiedAt' => [static::TYPE => '\DateTime'],
             'sku' => [static::TYPE => 'string'],
-            'supplyChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
+            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
             'quantityOnStock' => [static::TYPE => 'int'],
             'availableQuantity' => [static::TYPE => 'int'],
             'restockableInDays' => [static::TYPE => 'int'],

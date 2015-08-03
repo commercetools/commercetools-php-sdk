@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CartDiscounts;
+namespace Commercetools\Core\Request\CartDiscounts;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\CartDiscount\CartDiscountCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\CartDiscount\CartDiscountCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\CartDiscounts
+ * @package Commercetools\Core\Request\CartDiscounts
  * @apidoc http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discounts-by-query
  * @method CartDiscountCollection mapResponse(ApiResponseInterface $response)
  */
 class CartDiscountQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\CartDiscount\CartDiscountCollection';
+    protected $resultClass = '\Commercetools\Core\Model\CartDiscount\CartDiscountCollection';
 
     /**
      * @param Context $context

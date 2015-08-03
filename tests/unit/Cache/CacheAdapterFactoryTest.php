@@ -4,7 +4,7 @@
  * @created: 21.01.15, 14:28
  */
 
-namespace Sphere\Core\Cache;
+namespace Commercetools\Core\Cache;
 
 use Doctrine\Common\Cache\ArrayCache;
 
@@ -37,7 +37,7 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
     public function testApcDefault()
     {
         static::$apcLoaded = true;
-        $this->assertInstanceOf('\Sphere\Core\Cache\ApcCacheAdapter', $this->getFactory()->get());
+        $this->assertInstanceOf('\Commercetools\Core\Cache\ApcCacheAdapter', $this->getFactory()->get());
     }
 
     /**
@@ -56,7 +56,7 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
     public function testAdapterInterface()
     {
         static::$apcLoaded = true;
-        $this->assertInstanceOf('\Sphere\Core\Cache\CacheAdapterInterface', $this->getFactory()->get());
+        $this->assertInstanceOf('\Commercetools\Core\Cache\CacheAdapterInterface', $this->getFactory()->get());
     }
 
     /**
@@ -71,7 +71,7 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
             }
         );
 
-        $this->assertInstanceOf('\Sphere\Core\Cache\NullCacheAdapter', $factory->get(new \ArrayObject()));
+        $this->assertInstanceOf('\Commercetools\Core\Cache\NullCacheAdapter', $factory->get(new \ArrayObject()));
     }
 
     public function testDoctrineCacheCallback()
@@ -79,7 +79,7 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = $this->getFactory();
         $adapter = $factory->get(new ArrayCache());
 
-        $this->assertInstanceOf('\Sphere\Core\Cache\DoctrineCacheAdapter', $adapter);
+        $this->assertInstanceOf('\Commercetools\Core\Cache\DoctrineCacheAdapter', $adapter);
     }
 
     public function testPhpRedisCacheCallback()
@@ -92,13 +92,13 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = $this->getFactory();
         $adapter = $factory->get(new \Redis());
 
-        $this->assertInstanceOf('\Sphere\Core\Cache\PhpRedisCacheAdapter', $adapter);
+        $this->assertInstanceOf('\Commercetools\Core\Cache\PhpRedisCacheAdapter', $adapter);
     }
 
     /**
      * test correct type handling
      *
-     * @expectedException \Sphere\Core\Error\InvalidArgumentException
+     * @expectedException \Commercetools\Core\Error\InvalidArgumentException
      */
     public function testNoObjectException()
     {
@@ -108,7 +108,7 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * test correct type handling
      *
-     * @expectedException \Sphere\Core\Error\InvalidArgumentException
+     * @expectedException \Commercetools\Core\Error\InvalidArgumentException
      */
     public function testNoAdapterException()
     {

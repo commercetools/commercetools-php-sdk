@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\RequestTestCase;
 
 class CustomerByTokenGetRequestTest extends RequestTestCase
 {
-    const CUSTOMER_BY_TOKEN_GET_REQUEST = '\Sphere\Core\Request\Customers\CustomerByTokenGetRequest';
+    const CUSTOMER_BY_TOKEN_GET_REQUEST = '\Commercetools\Core\Request\Customers\CustomerByTokenGetRequest';
 
     public function testHttpRequestMethod()
     {
@@ -43,6 +43,6 @@ class CustomerByTokenGetRequestTest extends RequestTestCase
         $request = CustomerByTokenGetRequest::ofToken('myToken');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 }

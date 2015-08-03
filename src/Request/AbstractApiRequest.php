@@ -4,24 +4,24 @@
  * @created: 26.01.15, 11:00
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client;
-use Sphere\Core\Client\JsonEndpoint;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\ContextAwareInterface;
-use Sphere\Core\Model\Common\ContextTrait;
-use Sphere\Core\Model\Common\JsonDeserializeInterface;
-use Sphere\Core\Request\Query\MultiParameter;
-use Sphere\Core\Request\Query\Parameter;
-use Sphere\Core\Request\Query\ParameterInterface;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Client;
+use Commercetools\Core\Client\JsonEndpoint;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\ContextAwareInterface;
+use Commercetools\Core\Model\Common\ContextTrait;
+use Commercetools\Core\Model\Common\JsonDeserializeInterface;
+use Commercetools\Core\Request\Query\MultiParameter;
+use Commercetools\Core\Request\Query\Parameter;
+use Commercetools\Core\Request\Query\ParameterInterface;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request
+ * @package Commercetools\Core\Request
  */
 abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwareInterface
 {
@@ -39,7 +39,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
 
     protected $identifier;
 
-    protected $resultClass = '\Sphere\Core\Model\Common\JsonObject';
+    protected $resultClass = '\Commercetools\Core\Model\Common\JsonObject';
 
     /**
      * @param JsonEndpoint $endpoint

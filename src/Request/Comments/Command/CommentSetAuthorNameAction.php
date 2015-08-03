@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Comments\Command;
+namespace Commercetools\Core\Request\Comments\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Comments\Command
+ * @package Commercetools\Core\Request\Comments\Command
  * 
  * @method string getAction()
  * @method CommentSetAuthorNameAction setAction(string $action = null)

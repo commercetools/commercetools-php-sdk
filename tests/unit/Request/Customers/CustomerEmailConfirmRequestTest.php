@@ -3,19 +3,19 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\RequestTestCase;
 
 /**
  * Class CustomerEmailConfirmRequestTest
- * @package Sphere\Core\Request\Customers
+ * @package Commercetools\Core\Request\Customers
  */
 class CustomerEmailConfirmRequestTest extends RequestTestCase
 {
-    const CUSTOMER_EMAIL_CONFIRM_REQUEST = '\Sphere\Core\Request\Customers\CustomerEmailConfirmRequest';
+    const CUSTOMER_EMAIL_CONFIRM_REQUEST = '\Commercetools\Core\Request\Customers\CustomerEmailConfirmRequest';
 
     public function testHttpRequestMethod()
     {

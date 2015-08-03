@@ -4,14 +4,14 @@
  * @created: 09.02.15, 10:48
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
-use Sphere\Core\Model\Common\Resource;
-use Sphere\Core\Model\ProductType\ProductTypeReference;
-use Sphere\Core\Model\TaxCategory\TaxCategory;
+use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\ProductType\ProductTypeReference;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
 
 /**
- * @package Sphere\Core\Model\Product
+ * @package Commercetools\Core\Model\Product
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#product
  * @method string getId()
  * @method Product setId(string $id = null)
@@ -37,9 +37,9 @@ class Product extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [static::TYPE => '\DateTime'],
             'lastModifiedAt' => [static::TYPE  => '\DateTime'],
-            'productType' => [static::TYPE => '\Sphere\Core\Model\ProductType\ProductTypeReference'],
-            'taxCategory' => [self::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategory'],
-            'masterData' => [self::TYPE => '\Sphere\Core\Model\Product\ProductCatalogData']
+            'productType' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference'],
+            'taxCategory' => [self::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategory'],
+            'masterData' => [self::TYPE => '\Commercetools\Core\Model\Product\ProductCatalogData']
         ];
     }
 }

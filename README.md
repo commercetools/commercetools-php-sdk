@@ -1,21 +1,22 @@
-![SPHERE.IO icon](https://admin.sphere.io/assets/images/sphere_logo_rgb_long.png)
-# SPHERE.IO PHP SDK
+# <img src="build/theme/resources/CT_cube_200px.png" width="40" align="center"></img> commercetools PHP SDK
 
-> STATUS: Release Candidate 1.  We have done all planned breaking changes and ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!  
-> 
-> See the [Milestone Plan](https://github.com/sphereio/sphere-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned in detail. We love feedback and [Issue reports](https://github.com/sphereio/sphere-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
+>  STATUS: Release Candidate 1.  We have done all planned breaking changes and ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!
+>
+> See the [Milestone Plan](https://github.com/sphereio/commercetools-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned in detail. We love feedback and [Issue reports](https://github.com/sphereio/commercetools-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
+> Up-to-Date planning status can be found on this [Waffle Board](https://waffle.io/sphereio/commercetools-php-sdk)
 
-[![Build Status](https://img.shields.io/travis/sphereio/sphere-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/sphereio/sphere-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk)
+[![Build Status](https://img.shields.io/travis/sphereio/commercetools-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/sphereio/commercetools-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/commercetools-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/commercetools-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk)
 
-The PHP SDK allows developers to build applications on the SPHERE.IO REST API using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API. You gain lots of IDE Auto-Completion, type checks on a literal API, Warnings, Object Mapping, i18n support etc..
-It also manages the OAuth2 security, provides caches and an interface for concurrent and asynchronous API calls.
+The PHP SDK allows developers to build applications on the commercetools platform (technically speaking against the SPHERE.IO REST API) using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API.
+
+You gain lots of IDE Auto-Completion, type checks on a literal API, Warnings, Object Mapping, i18n support etc.. The Client manages the OAuth2 security tokens, provides caches and interfaces for concurrent and asynchronous API calls.
 
 The SDK is licensed under the permissive [MIT License](LICENSE). Don't hesitate to [contribute](#contribute)!
 
 
 ## Using the SDK
 
-The [PHP API documentation](http://sphereio.github.io/sphere-php-sdk/docs/master) provides all the details you need in a searchable form (link points to latest stable release).
+The [PHP API documentation](http://sphereio.github.io/commercetools-php-sdk/docs/master) provides all the details you need in a searchable form (link points to latest stable release).
 
 ### Install & Integrate the SDK into your Project
 
@@ -36,13 +37,26 @@ Next, run the Composer command to install the latest version of the SDK:
 composer require sphere/php-sdk dev-master
 ```
 
+The SDK supports Guzzle6 as well as Guzzle5 as HTTP client. For Guzzle6:
+
+```bash
+composer require guzzlehttp/guzzle ^6.0
+```
+
+When you want to use Guzzle5 you have to add additionally the log subscriber:
+
+```bash
+composer require guzzlehttp/guzzle ^5.0
+composer require guzzlehttp/log-subscriber ^1.0
+```
+
 After installing, you need to require Composer's autoloader if that's not yet the case:
 
 ```php
 require 'vendor/autoload.php';
 ```
 
-If you don't use Composer, just [download a zip archive](https://github.com/sphereio/sphere-php-sdk/archive/master.zip) of the latest release, manually integrate it and configure your own autoloader.
+If you don't use Composer, just [download a zip archive](https://github.com/sphereio/commercetools-php-sdk/archive/master.zip) of the latest release, manually integrate it and configure your own autoloader.
 
 Until the 1.0.0 release M0, M1 etc. milestone releases can contain incompatible changes.  From 1.0.0 on, the project will follow the [semantic versioning](http://semver.org) guidelines, i.e. everything but major version changes are backwards-compatible. This matches composer's default behavior.
 
@@ -52,15 +66,15 @@ Please read the [Changelog](CHANGELOG.md) before updating in any case.
 
 ### Getting started
 
-To get up and running, [create a free test project](http://admin.sphere.io) to get a SPHERE project with API credentials (Menu "Developers"->"API Clients").
+To get up and running, [create a free test project](http://admin.sphere.io) on the commercetools platform with API credentials (Menu "Developers"->"API Clients").
 
 ```php
 <?php
 
 require '../vendor/autoload.php';
 
-use Sphere\Core\Request\Products\ProductProjectionSearchRequest;
-use Sphere\Core\Client;
+use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
+use Commercetools\Core\Client;
 
 $config = [
     'client_id' => 'my client id',
@@ -114,22 +128,22 @@ php composer.phar update
 ```
 
 ### Linux preparations :
- * install php 5.4+, apc(u), xdebug and ant according to their distro's package system. 
+ * install php 5.4+, apc(u), xdebug and ant according to their distro's package system.
  * make sure the curl, intl, mbstring, apcu and openssl extensions are activated in php.ini
 
 ### Windows preparations:
  * [install php](http://windows.php.net/download/) 5.4+, i.e. extract ZIP and make add php.exe location to your PATH. Use WAMP etc. if you like, but plain PHP commandline is all you really need (you can test example code in the built-in webserver).
  * enable the curl, intl, mbstring and openssl extenstions in php.ini
  * [install apcu](http://robert-rusu.blogspot.de/2014/06/install-apcu-on-windows.html) OR a redis extension and server
- * make a working ant available in the PATH 
- * and [install composer](https://getcomposer.org/doc/00-intro.md#installation-windows). 
+ * make a working ant available in the PATH
+ * and [install composer](https://getcomposer.org/doc/00-intro.md#installation-windows).
 
 ### Start working:
 
 Clone the develop branch of the repository (we're using the [gitflow](http://nvie.com/posts/a-successful-git-branching-model/) branching model, so master is for releases only):
 
 ```
-git clone git@github.com:sphereio/sphere-php-sdk.git
+git clone git@github.com:sphereio/commercetools-php-sdk.git
 ```
 
 Please follow the [PSR-2](http://www.php-fig.org/psr/psr-2/) coding style, ideally via your IDE settings (see below for phpStorm instructions).
@@ -145,7 +159,7 @@ ant
 You can use the `docroot` directory with the built-in PHP web server. Add to the docroot directory a file called "myapp.ini". Add following content and setup with your API credentials:
 
 ```ini
-[sphere]
+[commercetools]
 client_id = 'my client id'
 client_secret = 'my client secret'
 project = 'my project id'

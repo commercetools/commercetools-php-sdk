@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ShippingMethod;
+namespace Commercetools\Core\Model\ShippingMethod;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\ShippingMethod
+ * @package Commercetools\Core\Model\ShippingMethod
  * @method ShippingRate current()
  * @method ShippingRate getAt($offset)
  */
 class ShippingRateCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\ShippingMethod\ShippingRate';
+    protected $type = '\Commercetools\Core\Model\ShippingMethod\ShippingRate';
 }

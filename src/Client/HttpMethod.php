@@ -4,11 +4,11 @@
  * @created: 23.01.15, 17:17
  */
 
-namespace Sphere\Core\Client;
+namespace Commercetools\Core\Client;
 
 
 /**
- * @package Sphere\Core\Http
+ * @package Commercetools\Core\Http
  */
 class HttpMethod
 {

@@ -3,17 +3,17 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Comment;
+namespace Commercetools\Core\Model\Comment;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\Comment
+ * @package Commercetools\Core\Model\Comment
  * 
  * @method Comment current()
  * @method Comment getAt($offset)
  */
 class CommentCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\Comment\Comment';
+    protected $type = '\Commercetools\Core\Model\Comment\Comment';
 }

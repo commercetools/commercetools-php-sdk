@@ -3,22 +3,22 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Reviews;
+namespace Commercetools\Core\Request\Reviews;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Review\ReviewDraft;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\Review\Review;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Review\ReviewDraft;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\Review\Review;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Reviews
+ * @package Commercetools\Core\Request\Reviews
  * 
  * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Review\Review';
+    protected $resultClass = '\Commercetools\Core\Model\Review\Review';
 
     /**
      * @param ReviewDraft $review

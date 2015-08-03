@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Reviews;
+namespace Commercetools\Core\Request\Reviews;
 
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 /**
- * @package Sphere\Core\Request\Reviews
+ * @package Commercetools\Core\Request\Reviews
  */
 class ReviewsEndpoint
 {

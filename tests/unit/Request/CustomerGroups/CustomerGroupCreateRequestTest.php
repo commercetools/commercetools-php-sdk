@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CustomerGroups;
+namespace Commercetools\Core\Request\CustomerGroups;
 
 
-use Sphere\Core\Model\CustomerGroup\CustomerGroupDraft;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupDraft;
+use Commercetools\Core\RequestTestCase;
 
 class CustomerGroupCreateRequestTest extends RequestTestCase
 {
-    const CUSTOMER_GROUP_CREATE_REQUEST = '\Sphere\Core\Request\CustomerGroups\CustomerGroupCreateRequest';
+    const CUSTOMER_GROUP_CREATE_REQUEST = '\Commercetools\Core\Request\CustomerGroups\CustomerGroupCreateRequest';
 
     protected function getDraft()
     {
@@ -25,7 +25,7 @@ class CustomerGroupCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomerGroupCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Sphere\Core\Model\CustomerGroup\CustomerGroup', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\CustomerGroup\CustomerGroup', $result);
     }
 
     public function testMapEmptyResult()

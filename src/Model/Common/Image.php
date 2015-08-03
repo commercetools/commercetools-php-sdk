@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-images
  * @method string getUrl()
  * @method Image setUrl(string $url = null)
@@ -28,7 +28,7 @@ class Image extends JsonObject
     {
         return [
             'url' => [static::TYPE => 'string'],
-            'dimensions' => [static::TYPE => '\Sphere\Core\Model\Common\ImageDimension'],
+            'dimensions' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageDimension'],
             'label' => [static::TYPE => 'string']
         ];
     }

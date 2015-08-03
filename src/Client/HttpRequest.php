@@ -4,12 +4,12 @@
  * @created: 23.01.15, 16:02
  */
 
-namespace Sphere\Core\Client;
+namespace Commercetools\Core\Client;
 
 use GuzzleHttp\Psr7\Request;
 
 /**
- * @package Sphere\Core\Http
+ * @package Commercetools\Core\Http
  * @internal
  */
 class HttpRequest extends Request

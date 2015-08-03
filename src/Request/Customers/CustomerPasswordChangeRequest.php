@@ -4,17 +4,17 @@
  * @created: 11.02.15, 16:42
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\JsonRequest;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Model\Customer\Customer;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Client\JsonRequest;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractUpdateRequest;
+use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Customers
+ * @package Commercetools\Core\Request\Customers
  * @apidoc http://dev.sphere.io/http-api-projects-customers.html#change-password
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
@@ -24,7 +24,7 @@ class CustomerPasswordChangeRequest extends AbstractUpdateRequest
     const CURRENT_PASSWORD = 'currentPassword';
     const NEW_PASSWORD = 'newPassword';
 
-    protected $resultClass = '\Sphere\Core\Model\Customer\Customer';
+    protected $resultClass = '\Commercetools\Core\Model\Customer\Customer';
 
     /**
      * @var string

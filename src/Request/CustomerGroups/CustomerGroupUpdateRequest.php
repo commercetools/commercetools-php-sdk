@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CustomerGroups;
+namespace Commercetools\Core\Request\CustomerGroups;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Model\CustomerGroup\CustomerGroup;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractUpdateRequest;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\CustomerGroups
+ * @package Commercetools\Core\Request\CustomerGroups
  * @apidoc http://dev.sphere.io/http-api-projects-customerGroups.html#update-customer-group
  * @method CustomerGroup mapResponse(ApiResponseInterface $response)
  */
 class CustomerGroupUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\CustomerGroup\CustomerGroup';
+    protected $resultClass = '\Commercetools\Core\Model\CustomerGroup\CustomerGroup';
 
     /**
      * @param string $id
