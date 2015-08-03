@@ -96,6 +96,7 @@ class Order extends Resource
             'returnInfo' => [static::TYPE => '\Commercetools\Core\Model\Order\ReturnInfoCollection'],
             'discountCodes' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountCodeInfoCollection'],
             'lastMessageSequenceNumber' => [static::TYPE => 'int'],
+            'cart' => [static::TYPE => '\Commercetools\Core\Model\Cart\CartReference']
         ];
     }
 }

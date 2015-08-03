@@ -327,6 +327,7 @@ order:
     - returnInfo
     - discountCodes
     - lastMessageSequenceNumber
+    - cart
 
 syncInfo:
   domain: order
