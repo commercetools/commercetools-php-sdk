@@ -1,5 +1,5 @@
 title: PHP SDK
-baseUrl: http://sphereio.github.io/sphere-php-sdk/docs/master
+baseUrl: http://sphereio.github.io/commercetools-php-sdk/docs/master
 
 source: [src/]
 destination: build/docs

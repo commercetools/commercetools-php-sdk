@@ -10,7 +10,7 @@
 
 if [ $(phpenv version-name) = "5.5" ] ; then ant apigen; fi
 
-if [ "$TRAVIS_REPO_SLUG" == "sphereio/sphere-php-sdk" ] && [ $(phpenv version-name) = "5.5" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && ( [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == `git describe --tags --always HEAD` ] ); then
+if [ "$TRAVIS_REPO_SLUG" == "sphereio/commercetools-php-sdk" ] && [ $(phpenv version-name) = "5.5" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && ( [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == `git describe --tags --always HEAD` ] ); then
   echo -e "Publishing documentation to gh-pages branch ...\n"
 
   cp -R build/docs $HOME/phpdoc-current
@@ -18,7 +18,7 @@ if [ "$TRAVIS_REPO_SLUG" == "sphereio/sphere-php-sdk" ] && [ $(phpenv version-na
   cd $HOME
   git config --global user.email "automation@commercetools.de"
   git config --global user.name "travis CI"
-  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/sphereio/sphere-php-sdk gh-pages > /dev/null
+  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/sphereio/commercetools-php-sdk gh-pages > /dev/null
 
   cd gh-pages
   git rm -rf ./docs/$TRAVIS_BRANCH

@@ -1,3 +1,56 @@
+<a name"1.0.0-RC2"></a>
+### 1.0.0-RC2 (2015-08-03)
+
+
+#### Bug Fixes
+
+* **ProductVariantDraft:** add images definition ([971cfbf4](https://github.com/sphereio/commercetools-php-sdk/commit/971cfbf4), closes [#135](https://github.com/sphereio/commercetools-php-sdk/issues/135))
+
+
+#### Breaking Changes
+
+* SphereException and SphereServiceException have been renamed to ApiException and ApiServiceException
+
+  Before
+  ```
+  try {
+    ...
+  } catch(SphereException $e) {
+  }
+  ```
+
+  After:
+
+  ```
+  try {
+    ...
+  } catch(ApiException $e) {
+  }
+  ```
+
+ ([813a6cb7](https://github.com/sphereio/commercetools-php-sdk/commit/813a6cb7))
+* Namespace Sphere has been renamed to Commercetools
+
+  Namespace and Use statements and fully qualified class names have to be adjusted. E.g.
+
+  Before
+  ```
+  use Sphere\Core\Client;
+
+  $class = '\Sphere\Core\Client';
+  ```
+
+  After:
+
+  ```
+  use Commercetools\Core\Client;
+
+  $class = '\Commercetools\Core\Client';
+  ```
+
+ ([4bc9575f](https://github.com/sphereio/commercetools-php-sdk/commit/4bc9575f))
+
+
 <a name"1.0.0-RC1"></a>
 ### 1.0.0-RC1 (2015-07-27)
 

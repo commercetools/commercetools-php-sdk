@@ -2,10 +2,10 @@
 
 >  STATUS: Release Candidate 1.  We have done all planned breaking changes and ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!
 >
-> See the [Milestone Plan](https://github.com/sphereio/sphere-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned in detail. We love feedback and [Issue reports](https://github.com/sphereio/sphere-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
-> Up-to-Date planning status can be found on this [Waffle Board](https://waffle.io/sphereio/sphere-php-sdk)
+> See the [Milestone Plan](https://github.com/sphereio/commercetools-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned in detail. We love feedback and [Issue reports](https://github.com/sphereio/commercetools-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
+> Up-to-Date planning status can be found on this [Waffle Board](https://waffle.io/sphereio/commercetools-php-sdk)
 
-[![Build Status](https://img.shields.io/travis/sphereio/sphere-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/sphereio/sphere-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) 
+[![Build Status](https://img.shields.io/travis/sphereio/commercetools-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/sphereio/commercetools-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/commercetools-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/commercetools-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk)
 
 The PHP SDK allows developers to build applications on the commercetools platform (technically speaking against the SPHERE.IO REST API) using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API.
 
@@ -16,7 +16,7 @@ The SDK is licensed under the permissive [MIT License](LICENSE). Don't hesitate 
 
 ## Using the SDK
 
-The [PHP API documentation](http://sphereio.github.io/sphere-php-sdk/docs/master) provides all the details you need in a searchable form (link points to latest stable release).
+The [PHP API documentation](http://sphereio.github.io/commercetools-php-sdk/docs/master) provides all the details you need in a searchable form (link points to latest stable release).
 
 ### Install & Integrate the SDK into your Project
 
@@ -56,7 +56,7 @@ After installing, you need to require Composer's autoloader if that's not yet th
 require 'vendor/autoload.php';
 ```
 
-If you don't use Composer, just [download a zip archive](https://github.com/sphereio/sphere-php-sdk/archive/master.zip) of the latest release, manually integrate it and configure your own autoloader.
+If you don't use Composer, just [download a zip archive](https://github.com/sphereio/commercetools-php-sdk/archive/master.zip) of the latest release, manually integrate it and configure your own autoloader.
 
 Until the 1.0.0 release M0, M1 etc. milestone releases can contain incompatible changes.  From 1.0.0 on, the project will follow the [semantic versioning](http://semver.org) guidelines, i.e. everything but major version changes are backwards-compatible. This matches composer's default behavior.
 
@@ -143,7 +143,7 @@ php composer.phar update
 Clone the develop branch of the repository (we're using the [gitflow](http://nvie.com/posts/a-successful-git-branching-model/) branching model, so master is for releases only):
 
 ```
-git clone git@github.com:sphereio/sphere-php-sdk.git
+git clone git@github.com:sphereio/commercetools-php-sdk.git
 ```
 
 Please follow the [PSR-2](http://www.php-fig.org/psr/psr-2/) coding style, ideally via your IDE settings (see below for phpStorm instructions).
