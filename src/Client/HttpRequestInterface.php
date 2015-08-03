@@ -4,12 +4,12 @@
  * @created: 23.01.15, 15:58
  */
 
-namespace Sphere\Core\Client;
+namespace Commercetools\Core\Client;
 
 
 /**
  * Interface HttpRequestInterface
- * @package Sphere\Core\Http
+ * @package Commercetools\Core\Http
  */
 interface HttpRequestInterface
 {

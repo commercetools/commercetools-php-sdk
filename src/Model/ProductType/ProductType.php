@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ProductType;
+namespace Commercetools\Core\Model\ProductType;
 
-use Sphere\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\Resource;
 
 /**
- * @package Sphere\Core\Model\ProductType
+ * @package Commercetools\Core\Model\ProductType
  * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#product-type
  * @method string getId()
  * @method ProductType setId(string $id = null)
@@ -39,7 +39,7 @@ class ProductType extends Resource
             'lastModifiedAt' => [static::TYPE => '\DateTime'],
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'attributes' => [static::TYPE => '\Sphere\Core\Model\ProductType\AttributeDefinitionCollection']
+            'attributes' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeDefinitionCollection']
         ];
     }
 }

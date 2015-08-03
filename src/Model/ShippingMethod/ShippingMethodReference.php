@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ShippingMethod;
+namespace Commercetools\Core\Model\ShippingMethod;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
- * @package Sphere\Core\Model\ShippingMethod
+ * @package Commercetools\Core\Model\ShippingMethod
  * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method ShippingMethodReference setTypeId(string $typeId = null)
@@ -25,7 +25,7 @@ class ShippingMethodReference extends Reference
     public function getFields()
     {
         $fields = parent::getFields();
-        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\ShippingMethod\ShippingMethod'];
+        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingMethod'];
 
         return $fields;
     }

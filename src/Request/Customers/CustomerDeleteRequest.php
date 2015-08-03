@@ -4,21 +4,21 @@
  * @created: 12.02.15, 12:12
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteRequest;
-use Sphere\Core\Model\Customer\Customer;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractDeleteRequest;
+use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Customers
+ * @package Commercetools\Core\Request\Customers
  * @apidoc http://dev.sphere.io/http-api-projects-customers.html#delete-customer
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Customer\Customer';
+    protected $resultClass = '\Commercetools\Core\Model\Customer\Customer';
 
     /**
      * @param string $id

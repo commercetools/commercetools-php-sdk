@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ProductType;
+namespace Commercetools\Core\Model\ProductType;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\ProductType
+ * @package Commercetools\Core\Model\ProductType
  * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#create-product-type
  * @method string getName()
  * @method ProductTypeDraft setName(string $name = null)
@@ -25,7 +25,7 @@ class ProductTypeDraft extends JsonObject
         return [
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'attributes' => [static::TYPE => '\Sphere\Core\Model\ProductType\AttributeDefinitionCollection'],
+            'attributes' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeDefinitionCollection'],
         ];
     }
 

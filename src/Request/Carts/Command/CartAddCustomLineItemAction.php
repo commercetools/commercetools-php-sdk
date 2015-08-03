@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Carts\Command;
+namespace Commercetools\Core\Request\Carts\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Common\Money;
-use Sphere\Core\Model\TaxCategory\TaxCategory;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Carts\Command
+ * @package Commercetools\Core\Request\Carts\Command
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#add-custom-line-item
  * @method string getAction()
  * @method CartAddCustomLineItemAction setAction(string $action = null)
@@ -33,11 +33,11 @@ class CartAddCustomLineItemAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'quantity' => [static::TYPE => 'int'],
-            'money' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
+            'money' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
             'slug' => [static::TYPE => 'string'],
-            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategory'],
+            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategory'],
         ];
     }
 

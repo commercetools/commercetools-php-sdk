@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Inventory;
+namespace Commercetools\Core\Model\Inventory;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\DateTimeDecorator;
-use Sphere\Core\Model\Channel\ChannelReference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Channel\ChannelReference;
 
 /**
- * @package Sphere\Core\Model\Inventory
+ * @package Commercetools\Core\Model\Inventory
  * @method string getSku()
  * @method InventoryDraft setSku(string $sku = null)
  * @method int getQuantityOnStock()
@@ -33,9 +33,9 @@ class InventoryDraft extends JsonObject
             'restockableInDays' => [static::TYPE => 'int'],
             'expectedDelivery' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
-            'supplyChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
+            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
         ];
     }
 

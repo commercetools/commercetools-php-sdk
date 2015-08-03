@@ -3,9 +3,9 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core;
+namespace Commercetools\Core;
 
-use Sphere\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Context;
 
 class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -39,7 +39,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         return $result;
     }
     /**
-     * @return \Sphere\Core\Client
+     * @return \Commercetools\Core\Client
      */
     public function getClient()
     {
@@ -47,7 +47,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
             $context = Context::of()->setGraceful(false)->setLanguages(['en'])->setLocale('en_US');
             if (file_exists(__DIR__ . '/myapp.ini')) {
                 $appConfig = parse_ini_file(__DIR__ . '/myapp.ini', true);
-                $config = $appConfig['sphere'];
+                $config = $appConfig['commercetools'];
             } else {
                 $config = Config::fromArray([
                     'client_id' => $_SERVER['SPHERE_CLIENT_ID'],

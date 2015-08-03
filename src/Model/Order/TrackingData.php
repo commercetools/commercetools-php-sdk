@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Order;
+namespace Commercetools\Core\Model\Order;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\Order
+ * @package Commercetools\Core\Model\Order
  * @apidoc http://dev.sphere.io/http-api-projects-orders.html#tracking-data
  * @method string getTrackingId()
  * @method TrackingData setTrackingId(string $trackingId = null)

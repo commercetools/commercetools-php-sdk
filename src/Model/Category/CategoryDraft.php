@@ -4,14 +4,14 @@
  * @created: 27.01.15, 10:51
  */
 
-namespace Sphere\Core\Model\Category;
+namespace Commercetools\Core\Model\Category;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
- * @package Sphere\Core\Model\Category
+ * @package Commercetools\Core\Model\Category
  * @apidoc http://dev.sphere.io/http-api-projects-categories.html#create-category
  * @method LocalizedString getName()
  * @method LocalizedString getSlug()
@@ -31,10 +31,10 @@ class CategoryDraft extends JsonObject
     public function getFields()
     {
         return [
-            'name' => [self::TYPE => 'Sphere\Core\Model\Common\LocalizedString'],
-            'slug' => [self::TYPE => 'Sphere\Core\Model\Common\LocalizedString'],
-            'description' => [self::TYPE => 'Sphere\Core\Model\Common\LocalizedString'],
-            'parent' => [self::TYPE => '\Sphere\Core\Model\Category\CategoryReference'],
+            'name' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'slug' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'description' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'parent' => [self::TYPE => '\Commercetools\Core\Model\Category\CategoryReference'],
             'orderHint' => [self::TYPE => 'string'],
             'externalId' => [self::TYPE => 'string'],
         ];

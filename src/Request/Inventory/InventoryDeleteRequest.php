@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Inventory;
+namespace Commercetools\Core\Request\Inventory;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteRequest;
-use Sphere\Core\Model\Inventory\InventoryEntry;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractDeleteRequest;
+use Commercetools\Core\Model\Inventory\InventoryEntry;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Inventory
+ * @package Commercetools\Core\Request\Inventory
  * @apidoc http://dev.sphere.io/http-api-projects-inventory.html#delete-inventory
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
 class InventoryDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Inventory\InventoryEntry';
+    protected $resultClass = '\Commercetools\Core\Model\Inventory\InventoryEntry';
 
     /**
      * @param string $id

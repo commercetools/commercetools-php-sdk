@@ -3,19 +3,19 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CustomObjects;
+namespace Commercetools\Core\Request\CustomObjects;
 
 
-use Sphere\Core\Model\CustomObject\CustomObject;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\RequestTestCase;
 
 /**
  * Class CustomObjectCreateRequestTest
- * @package Sphere\Core\Request\CustomObjects
+ * @package Commercetools\Core\Request\CustomObjects
  */
 class CustomObjectCreateRequestTest extends RequestTestCase
 {
-    const CUSTOM_OBJECT_CREATE_REQUEST = '\Sphere\Core\Request\CustomObjects\CustomObjectCreateRequest';
+    const CUSTOM_OBJECT_CREATE_REQUEST = '\Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest';
 
     public function getObject()
     {
@@ -25,7 +25,7 @@ class CustomObjectCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomObjectCreateRequest::ofObject($this->getObject()));
-        $this->assertInstanceOf('\Sphere\Core\Model\CustomObject\CustomObject', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $result);
     }
 
     public function testMapEmptyResult()

@@ -4,21 +4,21 @@
  * @created: 26.01.15, 17:02
  */
 
-namespace Sphere\Core\Request\Categories;
+namespace Commercetools\Core\Request\Categories;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteRequest;
-use Sphere\Core\Model\Category\Category;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractDeleteRequest;
+use Commercetools\Core\Model\Category\Category;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Categories
+ * @package Commercetools\Core\Request\Categories
  * @apidoc http://dev.sphere.io/http-api-projects-categories.html#delete-category
  * @method Category mapResponse(ApiResponseInterface $response)
  */
 class CategoryDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Category\Category';
+    protected $resultClass = '\Commercetools\Core\Model\Category\Category';
 
     /**
      * @param string $id

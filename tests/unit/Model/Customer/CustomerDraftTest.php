@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Customer;
+namespace Commercetools\Core\Model\Customer;
 
 
 class CustomerDraftTest extends \PHPUnit_Framework_TestCase
@@ -11,7 +11,7 @@ class CustomerDraftTest extends \PHPUnit_Framework_TestCase
     public function testFromArray()
     {
         $this->assertInstanceOf(
-            '\Sphere\Core\Model\Customer\CustomerDraft',
+            '\Commercetools\Core\Model\Customer\CustomerDraft',
             CustomerDraft::fromArray(
                 [
                     'email' => 'john.doe@company.com',

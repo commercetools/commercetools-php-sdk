@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
 use Pimple\Container;
 use Psr\Log\LoggerInterface;
-use Sphere\Core\Helper\CurrencyFormatter;
+use Commercetools\Core\Helper\CurrencyFormatter;
 
 /**
  * The context is a container class. Giving the possibility to inject information or behaviour to the models
@@ -60,7 +60,7 @@ use Sphere\Core\Helper\CurrencyFormatter;
  * $context->setCurrencyFormatter($currencyFormatter);
  * ```
  *
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  */
 class Context extends Container
 {

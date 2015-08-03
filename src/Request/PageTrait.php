@@ -4,13 +4,13 @@
  * @created: 27.01.15, 10:39
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
-use Sphere\Core\Request\Query\Parameter;
-use Sphere\Core\Request\Query\ParameterInterface;
+use Commercetools\Core\Request\Query\Parameter;
+use Commercetools\Core\Request\Query\ParameterInterface;
 
 /**
- * @package Sphere\Core\Request
+ * @package Commercetools\Core\Request
  * @method $this addParamObject(ParameterInterface $param)
  */
 trait PageTrait

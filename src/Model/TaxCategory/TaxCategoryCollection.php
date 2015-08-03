@@ -3,17 +3,17 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\TaxCategory;
+namespace Commercetools\Core\Model\TaxCategory;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\TaxCategory
+ * @package Commercetools\Core\Model\TaxCategory
  * 
  * @method TaxCategory current()
  * @method TaxCategory getAt($offset)
  */
 class TaxCategoryCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\TaxCategory\TaxCategory';
+    protected $type = '\Commercetools\Core\Model\TaxCategory\TaxCategory';
 }

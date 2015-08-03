@@ -4,13 +4,13 @@
  * @created: 27.01.15, 18:22
  */
 
-namespace Sphere\Core\Model\TaxCategory;
+namespace Commercetools\Core\Model\TaxCategory;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
- * @package Sphere\Core\Model\TaxCategory
+ * @package Commercetools\Core\Model\TaxCategory
  * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method TaxCategoryReference setTypeId(string $typeId = null)
@@ -26,7 +26,7 @@ class TaxCategoryReference extends Reference
     public function getFields()
     {
         $fields = parent::getFields();
-        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategory'];
+        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategory'];
 
         return $fields;
     }

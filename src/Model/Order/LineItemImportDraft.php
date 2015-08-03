@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Order;
+namespace Commercetools\Core\Model\Order;
 
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Common\Price;
-use Sphere\Core\Model\Channel\ChannelReference;
-use Sphere\Core\Model\TaxCategory\TaxRate;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Price;
+use Commercetools\Core\Model\Channel\ChannelReference;
+use Commercetools\Core\Model\TaxCategory\TaxRate;
 
 /**
- * @package Sphere\Core\Model\Order
+ * @package Commercetools\Core\Model\Order
  * @method string getProductId()
  * @method LineItemImportDraft setProductId(string $productId = null)
  * @method LocalizedString getName()
@@ -36,13 +36,13 @@ class LineItemImportDraft extends JsonObject
     {
         return [
             'productId' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'variant' => [static::TYPE => '\Sphere\Core\Model\Order\ProductVariantImportDraft'],
-            'price' => [static::TYPE => '\Sphere\Core\Model\Common\Price'],
+            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'variant' => [static::TYPE => '\Commercetools\Core\Model\Order\ProductVariantImportDraft'],
+            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Price'],
             'quantity' => [static::TYPE => 'int'],
-            'state' => [static::TYPE => '\Sphere\Core\Model\Order\ItemStateCollection'],
-            'supplyChannel' => [static::TYPE => '\Sphere\Core\Model\Channel\ChannelReference'],
-            'taxRate' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxRate'],
+            'state' => [static::TYPE => '\Commercetools\Core\Model\Order\ItemStateCollection'],
+            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
         ];
     }
 }

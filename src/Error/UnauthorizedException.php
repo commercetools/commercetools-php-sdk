@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Error;
+namespace Commercetools\Core\Error;
 
 /**
  * Base class for responses with status code 401
- * @package Sphere\Core\Error
+ * @package Commercetools\Core\Error
  */
 class UnauthorizedException extends ClientErrorException
 {

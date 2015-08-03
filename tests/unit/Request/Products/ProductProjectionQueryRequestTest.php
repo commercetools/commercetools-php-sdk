@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
 
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\RequestTestCase;
 
 class ProductProjectionQueryRequestTest extends RequestTestCase
 {
-    const PRODUCT_PROJECTIONS_QUERY_REQUEST = '\Sphere\Core\Request\Products\ProductProjectionQueryRequest';
+    const PRODUCT_PROJECTIONS_QUERY_REQUEST = '\Commercetools\Core\Request\Products\ProductProjectionQueryRequest';
 
     public function testMapResult()
     {
@@ -22,13 +22,13 @@ class ProductProjectionQueryRequestTest extends RequestTestCase
             ]
         ];
         $result = $this->mapQueryResult(ProductProjectionQueryRequest::of(), [], $data);
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjectionCollection', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjectionCollection', $result);
         $this->assertCount(3, $result);
     }
 
     public function testMapEmptyResult()
     {
         $result = $this->mapEmptyResult(ProductProjectionQueryRequest::of());
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjectionCollection', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjectionCollection', $result);
     }
 }

@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Channels;
+namespace Commercetools\Core\Request\Channels;
 
 
-use Sphere\Core\Model\Channel\ChannelDraft;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\Channel\ChannelDraft;
+use Commercetools\Core\RequestTestCase;
 
 class ChannelCreateRequestTest extends RequestTestCase
 {
-    const CHANNEL_CREATE_REQUEST = '\Sphere\Core\Request\Channels\ChannelCreateRequest';
+    const CHANNEL_CREATE_REQUEST = '\Commercetools\Core\Request\Channels\ChannelCreateRequest';
 
     protected function getDraft()
     {
@@ -33,7 +33,7 @@ class ChannelCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ChannelCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Sphere\Core\Model\Channel\Channel', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
     }
 
     public function testMapEmptyResult()

@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\DiscountCodes;
+namespace Commercetools\Core\Request\DiscountCodes;
 
 
-use Sphere\Core\Model\DiscountCode\DiscountCodeDraft;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
+use Commercetools\Core\RequestTestCase;
 
 class DiscountCodeCreateRequestTest extends RequestTestCase
 {
-    const DISCOUNT_CODE_CREATE_REQUEST = '\Sphere\Core\Request\DiscountCodes\DiscountCodeCreateRequest';
+    const DISCOUNT_CODE_CREATE_REQUEST = '\Commercetools\Core\Request\DiscountCodes\DiscountCodeCreateRequest';
 
     protected function getDraft()
     {
@@ -42,7 +42,7 @@ class DiscountCodeCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(DiscountCodeCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Sphere\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
     }
 
     public function testMapEmptyResult()

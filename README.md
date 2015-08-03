@@ -1,15 +1,15 @@
 # <img src="build/theme/resources/CT_cube_200px.png" width="40" align="center"></img> commercetools PHP SDK
 
->  STATUS: Release Candidate 1.  We have done all planned breaking changes and ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!  
-> 
+>  STATUS: Release Candidate 1.  We have done all planned breaking changes and ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!
+>
 > See the [Milestone Plan](https://github.com/sphereio/sphere-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned in detail. We love feedback and [Issue reports](https://github.com/sphereio/sphere-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
 > Up-to-Date planning status can be found on this [Waffle Board](https://waffle.io/sphereio/sphere-php-sdk)
 
 [![Build Status](https://img.shields.io/travis/sphereio/sphere-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/sphereio/sphere-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/sphere-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/sphere-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) 
 
-The PHP SDK allows developers to build applications on the commercetools platform (technically speaking against the SPHERE.IO REST API) using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API. 
+The PHP SDK allows developers to build applications on the commercetools platform (technically speaking against the SPHERE.IO REST API) using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API.
 
-You gain lots of IDE Auto-Completion, type checks on a literal API, Warnings, Object Mapping, i18n support etc.. The Client manages the OAuth2 security tokens, provides caches and interfaces for concurrent and asynchronous API calls. 
+You gain lots of IDE Auto-Completion, type checks on a literal API, Warnings, Object Mapping, i18n support etc.. The Client manages the OAuth2 security tokens, provides caches and interfaces for concurrent and asynchronous API calls.
 
 The SDK is licensed under the permissive [MIT License](LICENSE). Don't hesitate to [contribute](#contribute)!
 
@@ -73,8 +73,8 @@ To get up and running, [create a free test project](http://admin.sphere.io) on t
 
 require '../vendor/autoload.php';
 
-use Sphere\Core\Request\Products\ProductProjectionSearchRequest;
-use Sphere\Core\Client;
+use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
+use Commercetools\Core\Client;
 
 $config = [
     'client_id' => 'my client id',
@@ -128,15 +128,15 @@ php composer.phar update
 ```
 
 ### Linux preparations :
- * install php 5.4+, apc(u), xdebug and ant according to their distro's package system. 
+ * install php 5.4+, apc(u), xdebug and ant according to their distro's package system.
  * make sure the curl, intl, mbstring, apcu and openssl extensions are activated in php.ini
 
 ### Windows preparations:
  * [install php](http://windows.php.net/download/) 5.4+, i.e. extract ZIP and make add php.exe location to your PATH. Use WAMP etc. if you like, but plain PHP commandline is all you really need (you can test example code in the built-in webserver).
  * enable the curl, intl, mbstring and openssl extenstions in php.ini
  * [install apcu](http://robert-rusu.blogspot.de/2014/06/install-apcu-on-windows.html) OR a redis extension and server
- * make a working ant available in the PATH 
- * and [install composer](https://getcomposer.org/doc/00-intro.md#installation-windows). 
+ * make a working ant available in the PATH
+ * and [install composer](https://getcomposer.org/doc/00-intro.md#installation-windows).
 
 ### Start working:
 
@@ -159,7 +159,7 @@ ant
 You can use the `docroot` directory with the built-in PHP web server. Add to the docroot directory a file called "myapp.ini". Add following content and setup with your API credentials:
 
 ```ini
-[sphere]
+[commercetools]
 client_id = 'my client id'
 client_secret = 'my client secret'
 project = 'my project id'

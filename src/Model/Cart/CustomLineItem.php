@@ -3,17 +3,17 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Cart;
+namespace Commercetools\Core\Model\Cart;
 
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Common\Money;
-use Sphere\Core\Model\Order\ItemState;
-use Sphere\Core\Model\TaxCategory\TaxCategoryReference;
-use Sphere\Core\Model\TaxCategory\TaxRate;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Order\ItemState;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
+use Commercetools\Core\Model\TaxCategory\TaxRate;
 
 /**
- * @package Sphere\Core\Model\Cart
+ * @package Commercetools\Core\Model\Cart
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#custom-line-item
  * @method string getId()
  * @method CustomLineItem setId(string $id = null)
@@ -38,13 +38,13 @@ class CustomLineItem extends JsonObject
     {
         return [
             'id' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'money' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
-            'slug' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'money' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'quantity' => [static::TYPE => 'int'],
-            'state' => [static::TYPE => '\Sphere\Core\Model\Order\ItemState'],
-            'taxCategory' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxCategoryReference'],
-            'taxRate' => [static::TYPE => '\Sphere\Core\Model\TaxCategory\TaxRate'],
+            'state' => [static::TYPE => '\Commercetools\Core\Model\Order\ItemState'],
+            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
+            'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
         ];
     }
 }

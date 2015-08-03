@@ -3,10 +3,10 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
 
-use Sphere\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Error\InvalidArgumentException;
 
 class FilterRangeTest extends \PHPUnit_Framework_TestCase
 {
@@ -57,7 +57,7 @@ class FilterRangeTest extends \PHPUnit_Framework_TestCase
 
     public function testObjectRange()
     {
-        $range = FilterRange::ofType('\Sphere\Core\Model\Product\RangeTestObject');
+        $range = FilterRange::ofType('\Commercetools\Core\Model\Product\RangeTestObject');
         $range->setTo(new RangeTestObject(4, '"'));
         $this->assertSame('(* to "4")', (string)$range);
     }

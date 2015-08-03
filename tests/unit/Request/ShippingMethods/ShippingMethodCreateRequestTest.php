@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ShippingMethods;
+namespace Commercetools\Core\Request\ShippingMethods;
 
 
-use Sphere\Core\Model\ShippingMethod\ShippingMethodDraft;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
+use Commercetools\Core\RequestTestCase;
 
 class ShippingMethodCreateRequestTest extends RequestTestCase
 {
-    const SHIPPING_METHOD_CREATE_REQUEST = '\Sphere\Core\Request\ShippingMethods\ShippingMethodCreateRequest';
+    const SHIPPING_METHOD_CREATE_REQUEST = '\Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest';
 
     protected function getDraft()
     {
@@ -51,7 +51,7 @@ class ShippingMethodCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ShippingMethodCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Sphere\Core\Model\ShippingMethod\ShippingMethod', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
     }
 
     public function testMapEmptyResult()

@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Zones;
+namespace Commercetools\Core\Request\Zones;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\Zone\ZoneCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\Zone\ZoneCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Zones
+ * @package Commercetools\Core\Request\Zones
  * @apidoc http://dev.sphere.io/http-api-projects-zones.html#zones-by-query
  * @method ZoneCollection mapResponse(ApiResponseInterface $response)
  */
 class ZoneQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Zone\ZoneCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Zone\ZoneCollection';
 
     /**
      * @param Context $context

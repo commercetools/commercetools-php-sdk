@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\DiscountCodes\Command;
+namespace Commercetools\Core\Request\DiscountCodes\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
-use Sphere\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
- * @package Sphere\Core\Request\DiscountCodes\Command
+ * @package Commercetools\Core\Request\DiscountCodes\Command
  * 
  * @method string getAction()
  * @method DiscountCodeSetDescriptionAction setAction(string $action = null)
@@ -23,7 +23,7 @@ class DiscountCodeSetDescriptionAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'description' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
         ];
     }
 

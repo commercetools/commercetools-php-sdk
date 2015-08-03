@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Channels;
+namespace Commercetools\Core\Request\Channels;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteRequest;
-use Sphere\Core\Model\Channel\Channel;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractDeleteRequest;
+use Commercetools\Core\Model\Channel\Channel;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Channels
+ * @package Commercetools\Core\Request\Channels
  * @apidoc http://dev.sphere.io/http-api-projects-channels.html#delete-channel
  * @method Channel mapResponse(ApiResponseInterface $response)
  */
 class ChannelDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Channel\Channel';
+    protected $resultClass = '\Commercetools\Core\Model\Channel\Channel';
 
     /**
      * @param string $id

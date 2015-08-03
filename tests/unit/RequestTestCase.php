@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core;
+namespace Commercetools\Core;
 
 
-use Sphere\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Request\AbstractApiRequest;
 
 /**
  * Class RequestTestCase
- * @package Sphere\Core
+ * @package Commercetools\Core
  */
 abstract class RequestTestCase extends \PHPUnit_Framework_TestCase
 {

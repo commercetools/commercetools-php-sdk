@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Response;
+namespace Commercetools\Core\Response;
 
 use GuzzleHttp\Message\ResponseInterface;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Product\FacetResultCollection;
-use Sphere\Core\Request\ClientRequestInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Product\FacetResultCollection;
+use Commercetools\Core\Request\ClientRequestInterface;
 
 /**
- * @package Sphere\Core\Response
+ * @package Commercetools\Core\Response
  */
 class PagedSearchResponse extends PagedQueryResponse
 {

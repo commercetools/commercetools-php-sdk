@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Zones\Command;
+namespace Commercetools\Core\Request\Zones\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Zone\Location;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Zone\Location;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Zones\Command
+ * @package Commercetools\Core\Request\Zones\Command
  * 
  * @method string getAction()
  * @method ZoneRemoveLocationAction setAction(string $action = null)
@@ -23,7 +23,7 @@ class ZoneRemoveLocationAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'location' => [static::TYPE => '\Sphere\Core\Model\Zone\Location'],
+            'location' => [static::TYPE => '\Commercetools\Core\Model\Zone\Location'],
         ];
     }
 

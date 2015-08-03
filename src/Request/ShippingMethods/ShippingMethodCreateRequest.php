@@ -3,22 +3,22 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ShippingMethods;
+namespace Commercetools\Core\Request\ShippingMethods;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\ShippingMethod\ShippingMethodDraft;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\ShippingMethod\ShippingMethod;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\ShippingMethods
+ * @package Commercetools\Core\Request\ShippingMethods
  * 
  * @method ShippingMethod mapResponse(ApiResponseInterface $response)
  */
 class ShippingMethodCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\ShippingMethod\ShippingMethod';
+    protected $resultClass = '\Commercetools\Core\Model\ShippingMethod\ShippingMethod';
 
     /**
      * @param ShippingMethodDraft $shippingMethod

@@ -4,16 +4,16 @@
  * @created: 02.02.15, 17:28
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Product\ProductProjectionCollection;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Request\StagedTrait;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Product\ProductProjectionCollection;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Request\StagedTrait;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Products
+ * @package Commercetools\Core\Request\Products
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-projections-by-query
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
  */
@@ -21,7 +21,7 @@ class ProductProjectionQueryRequest extends AbstractQueryRequest
 {
     use StagedTrait;
 
-    protected $resultClass = '\Sphere\Core\Model\Product\ProductProjectionCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjectionCollection';
 
     /**
      * @param Context $context

@@ -4,7 +4,7 @@
  * @created: 22.01.15, 10:46
  */
 
-namespace Sphere\Core\Cache;
+namespace Commercetools\Core\Cache;
 
 
 use Doctrine\Common\Cache\ApcCache;

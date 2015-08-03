@@ -4,10 +4,10 @@
  * @created: 02.02.15, 17:20
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
 
-use Sphere\Core\Client\JsonEndpoint;
+use Commercetools\Core\Client\JsonEndpoint;
 
 class ProductProjectionEndpoint
 {

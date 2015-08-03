@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
 
-use Sphere\Core\Error\InvalidArgumentException;
-use Sphere\Core\Model\Common\Context;
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Model\Common\Context;
 
 class LocalizedSearchKeywordsTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,7 +16,7 @@ class LocalizedSearchKeywordsTest extends \PHPUnit_Framework_TestCase
         $collection = LocalizedSearchKeywords::of();
         $collection->setAt('en', new SearchKeywords());
 
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\SearchKeywords', $collection->en);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\SearchKeywords', $collection->en);
     }
 
     public function testMagicGetNotSet()
@@ -41,7 +41,7 @@ class LocalizedSearchKeywordsTest extends \PHPUnit_Framework_TestCase
         $collection = LocalizedSearchKeywords::of();
         $collection->add(new SearchKeywords());
 
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\SearchKeywords', $collection->getAt(0));
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\SearchKeywords', $collection->getAt(0));
     }
 
     public function testToString()

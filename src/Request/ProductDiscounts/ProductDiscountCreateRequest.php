@@ -3,22 +3,22 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductDiscounts;
+namespace Commercetools\Core\Request\ProductDiscounts;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\ProductDiscount\ProductDiscountDraft;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\ProductDiscount\ProductDiscount;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscountDraft;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\ProductDiscounts
+ * @package Commercetools\Core\Request\ProductDiscounts
  * 
  * @method ProductDiscount mapResponse(ApiResponseInterface $response)
  */
 class ProductDiscountCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\ProductDiscount\ProductDiscount';
+    protected $resultClass = '\Commercetools\Core\Model\ProductDiscount\ProductDiscount';
 
     /**
      * @param ProductDiscountDraft $productDiscount

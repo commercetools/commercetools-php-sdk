@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Products\Command;
+namespace Commercetools\Core\Request\Products\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Products\Command
+ * @package Commercetools\Core\Request\Products\Command
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#set-meta-description
  * @method string getAction()
  * @method ProductSetMetaDescriptionAction setAction(string $action = null)
@@ -23,7 +23,7 @@ class ProductSetMetaDescriptionAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'metaDescription' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'metaDescription' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
         ];
     }
 

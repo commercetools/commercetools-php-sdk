@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Zones;
+namespace Commercetools\Core\Request\Zones;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Zone\ZoneDraft;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\Zone\Zone;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Zone\ZoneDraft;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\Zone\Zone;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Zones
+ * @package Commercetools\Core\Request\Zones
  * @method Zone mapResponse(ApiResponseInterface $response)
  */
 class ZoneCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Zone\Zone';
+    protected $resultClass = '\Commercetools\Core\Model\Zone\Zone';
 
     /**
      * @param ZoneDraft $zone

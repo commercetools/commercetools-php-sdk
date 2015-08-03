@@ -3,17 +3,17 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Product\LocalizedSearchKeywords;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Product\LocalizedSearchKeywords;
+use Commercetools\Core\RequestTestCase;
 
 class ProductsSuggestRequestTest extends RequestTestCase
 {
-    const PRODUCT_SUGGEST_REQUEST = '\Sphere\Core\Request\Products\ProductsSuggestRequest';
+    const PRODUCT_SUGGEST_REQUEST = '\Commercetools\Core\Request\Products\ProductsSuggestRequest';
 
     protected function getKeywords()
     {
@@ -23,13 +23,13 @@ class ProductsSuggestRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapQueryResult(ProductsSuggestRequest::ofKeywords($this->getKeywords()));
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\SuggestionCollection', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\SuggestionCollection', $result);
     }
 
     public function testMapEmptyResult()
     {
         $result = $this->mapEmptyResult(ProductsSuggestRequest::ofKeywords($this->getKeywords()));
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\SuggestionCollection', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\SuggestionCollection', $result);
     }
 
     public function testAddKeyword()
@@ -89,6 +89,6 @@ class ProductsSuggestRequestTest extends RequestTestCase
         $request = ProductsSuggestRequest::ofKeywords($this->getKeywords());
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 }

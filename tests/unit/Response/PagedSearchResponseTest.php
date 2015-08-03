@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Response;
+namespace Commercetools\Core\Response;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
@@ -12,19 +12,19 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\BufferStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Sphere\Core\AccessorTrait;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Model\Product\FacetTerm;
+use Commercetools\Core\AccessorTrait;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Product\FacetTerm;
 
 /**
  * Class PagedSearchResponseTest
- * @package Sphere\Core\Response
+ * @package Commercetools\Core\Response
  */
 class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_API_REQUEST = '\Sphere\Core\Request\AbstractApiRequest';
+    const ABSTRACT_API_REQUEST = '\Commercetools\Core\Request\AbstractApiRequest';
 
     const RESPONSE = '
     {
@@ -68,13 +68,13 @@ class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
 
             $handler = HandlerStack::create($mock);
             // Add the mock subscriber to the client.
-            $client = new \Sphere\Core\Client\Adapter\Guzzle6Adapter(['handler' => $mock]);
+            $client = new \Commercetools\Core\Client\Adapter\Guzzle6Adapter(['handler' => $mock]);
         } else {
             $handler = new \GuzzleHttp\Ring\Client\MockHandler(
                 ['status' => $statusCode, 'body' => $response]
             );
 
-            $client = new \Sphere\Core\Client\Adapter\Guzzle5Adapter(['handler' => $handler]);
+            $client = new \Commercetools\Core\Client\Adapter\Guzzle5Adapter(['handler' => $handler]);
         }
 
         $request = new Request(HttpMethod::GET, '/');
@@ -104,7 +104,7 @@ class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
         $response = $this->getResponse();
         $response->getFacets();
 
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\FacetResultCollection', $response->getFacets());
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\FacetResultCollection', $response->getFacets());
     }
 
     public function testGetByName()
@@ -112,7 +112,7 @@ class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
         $response = $this->getResponse();
 
         $this->assertInstanceOf(
-            '\Sphere\Core\Model\Product\FacetResult',
+            '\Commercetools\Core\Model\Product\FacetResult',
             $response->getFacets()->getByName('variants.attributes.brand')
         );
     }
@@ -162,7 +162,7 @@ class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
         $response = $this->getResponse();
 
         $this->assertInstanceOf(
-            '\Sphere\Core\Model\Product\FacetTermCollection',
+            '\Commercetools\Core\Model\Product\FacetTermCollection',
             $response->getFacets()->getByName('variants.attributes.brand')->getTerms()
         );
     }
@@ -173,7 +173,7 @@ class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
 
         $term = $response->getFacets()->getByName('variants.attributes.brand')->getTerms()[0];
         $this->assertInstanceOf(
-            '\Sphere\Core\Model\Product\FacetTerm',
+            '\Commercetools\Core\Model\Product\FacetTerm',
             $term
         );
     }

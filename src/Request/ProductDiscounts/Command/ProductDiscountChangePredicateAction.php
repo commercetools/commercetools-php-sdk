@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductDiscounts\Command;
+namespace Commercetools\Core\Request\ProductDiscounts\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\ProductDiscounts\Command
+ * @package Commercetools\Core\Request\ProductDiscounts\Command
  *  *
  * @method string getAction()
  * @method ProductDiscountChangePredicateAction setAction(string $action = null)

@@ -3,22 +3,22 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Comments;
+namespace Commercetools\Core\Request\Comments;
 
-use Sphere\Core\Model\Comment\CommentDraft;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\Comment\Comment;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Comment\CommentDraft;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\Comment\Comment;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Comments
+ * @package Commercetools\Core\Request\Comments
  * 
  * @method Comment mapResponse(ApiResponseInterface $response)
  */
 class CommentCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Comment\Comment';
+    protected $resultClass = '\Commercetools\Core\Model\Comment\Comment';
 
     /**
      * @param CommentDraft $comment

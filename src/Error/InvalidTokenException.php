@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Error;
+namespace Commercetools\Core\Error;
 
 /**
  * Exception for status code 401
- * @package Sphere\Core\Error
+ * @package Commercetools\Core\Error
  * @description
  * Typically happens when the oauth token is no more valid
  */

@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\State;
+namespace Commercetools\Core\Model\State;
 
 
 class StateCollectionTest extends \PHPUnit_Framework_TestCase
@@ -16,7 +16,7 @@ class StateCollectionTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->assertInstanceOf('\Sphere\Core\Model\State\State', $collection->getByKey('initial'));
+        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $collection->getByKey('initial'));
     }
 
     public function testAddToIndex()
@@ -24,6 +24,6 @@ class StateCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = StateCollection::of();
         $collection->add(new State(['key' => 'initial']));
 
-        $this->assertInstanceOf('\Sphere\Core\Model\State\State', $collection->getByKey('initial'));
+        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $collection->getByKey('initial'));
     }
 }

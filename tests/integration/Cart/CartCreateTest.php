@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Cart;
+namespace Commercetools\Core\Cart;
 
-use Sphere\Core\ApiTestCase;
-use Sphere\Core\Model\Cart\Cart;
-use Sphere\Core\Model\Cart\CartDraft;
-use Sphere\Core\Request\Carts\CartCreateRequest;
-use Sphere\Core\Request\Carts\CartDeleteRequest;
+use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Request\Carts\CartCreateRequest;
+use Commercetools\Core\Request\Carts\CartDeleteRequest;
 
 class CartCreateTest extends ApiTestCase
 {

@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
 class SetTest extends \PHPUnit_Framework_TestCase
@@ -12,7 +12,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
     {
         $set = Set::ofType('int')->setRawData([1,2,3,4]);
         $this->assertInstanceOf(
-            '\Sphere\Core\Model\Common\Set',
+            '\Commercetools\Core\Model\Common\Set',
             $set
         );
     }

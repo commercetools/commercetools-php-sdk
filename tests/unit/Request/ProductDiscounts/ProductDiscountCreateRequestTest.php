@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductDiscounts;
+namespace Commercetools\Core\Request\ProductDiscounts;
 
 
-use Sphere\Core\Model\ProductDiscount\ProductDiscountDraft;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscountDraft;
+use Commercetools\Core\RequestTestCase;
 
 class ProductDiscountCreateRequestTest extends RequestTestCase
 {
-    const PRODUCT_DISCOUNT_CREATE_REQUEST = '\Sphere\Core\Request\ProductDiscounts\ProductDiscountCreateRequest';
+    const PRODUCT_DISCOUNT_CREATE_REQUEST = '\Commercetools\Core\Request\ProductDiscounts\ProductDiscountCreateRequest';
 
     protected function getDraft()
     {
@@ -37,7 +37,7 @@ class ProductDiscountCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ProductDiscountCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Sphere\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
     }
 
     public function testMapEmptyResult()

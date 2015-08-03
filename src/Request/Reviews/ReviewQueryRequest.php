@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Reviews;
+namespace Commercetools\Core\Request\Reviews;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\Review\ReviewCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\Review\ReviewCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Reviews
+ * @package Commercetools\Core\Request\Reviews
  * @apidoc http://dev.sphere.io/http-api-projects-reviews.html#reviews-by-query
  * @method ReviewCollection mapResponse(ApiResponseInterface $response)
  */
 class ReviewQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Review\ReviewCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Review\ReviewCollection';
 
     /**
      * @param Context $context

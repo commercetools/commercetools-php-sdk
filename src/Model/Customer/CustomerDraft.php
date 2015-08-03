@@ -4,16 +4,16 @@
  * @created: 11.02.15, 14:23
  */
 
-namespace Sphere\Core\Model\Customer;
+namespace Commercetools\Core\Model\Customer;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\DateTimeDecorator;
-use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
-use Sphere\Core\Model\Common\AddressCollection;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
+use Commercetools\Core\Model\Common\AddressCollection;
 
 /**
- * @package Sphere\Core\Model\Customer
+ * @package Commercetools\Core\Model\Customer
  * @apidoc http://dev.sphere.io/http-api-projects-customers.html#create-customer
  * @method string getCustomerNumber()
  * @method string getEmail()
@@ -67,13 +67,13 @@ class CustomerDraft extends JsonObject
             'externalId' => [static::TYPE => 'string'],
             'dateOfBirth' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
             'companyName' => [static::TYPE => 'string'],
             'vatId' => [static::TYPE => 'string'],
             'isEmailVerified' => [static::TYPE => 'bool'],
-            'customerGroup' => [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
-            'addresses' => [static::TYPE => '\Sphere\Core\Model\Common\AddressCollection'],
+            'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
+            'addresses' => [static::TYPE => '\Commercetools\Core\Model\Common\AddressCollection'],
             'defaultShippingAddressId' => [static::TYPE => 'int'],
             'defaultBillingAddressId' => [static::TYPE => 'int'],
         ];

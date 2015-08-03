@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Cart;
+namespace Commercetools\Core\Model\Cart;
 
 
-use Sphere\Core\Model\Common\Money;
-use Sphere\Core\Model\Common\Price;
+use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Common\Price;
 
 class LineItemTest extends \PHPUnit_Framework_TestCase
 {

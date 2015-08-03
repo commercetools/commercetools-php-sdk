@@ -3,10 +3,10 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
 
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\JsonObject;
 
 class FilterTest extends \PHPUnit_Framework_TestCase
 {
@@ -82,7 +82,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
     public function testRange()
     {
-        $filter = Filter::ofType('\Sphere\Core\Model\Product\FilterRangeCollection');
+        $filter = Filter::ofType('\Commercetools\Core\Model\Product\FilterRangeCollection');
 
         $filterRangeCollection = FilterRangeCollection::of()
             ->add(FilterRange::ofType('int')->setFrom(1)->setTo(10))

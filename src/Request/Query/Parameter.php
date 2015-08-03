@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Query;
+namespace Commercetools\Core\Request\Query;
 
 
-use Sphere\Core\Error\InvalidArgumentException;
-use Sphere\Core\Error\Message;
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Error\Message;
 
 class Parameter implements ParameterInterface
 {

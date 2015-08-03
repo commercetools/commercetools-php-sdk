@@ -4,18 +4,18 @@
  * @created: 26.01.15, 17:27
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client;
-use Sphere\Core\Client\HttpRequest;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Model\Common\Collection;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Response\PagedQueryResponse;
+use Commercetools\Core\Client;
+use Commercetools\Core\Client\HttpRequest;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Response\PagedQueryResponse;
 
 /**
- * @package Sphere\Core\Request
+ * @package Commercetools\Core\Request
  * @method PagedQueryResponse executeWithClient(Client $client)
  */
 abstract class AbstractQueryRequest extends AbstractApiRequest
@@ -26,7 +26,7 @@ abstract class AbstractQueryRequest extends AbstractApiRequest
     use ExpandTrait;
     use WithTotalTrait;
 
-    protected $resultClass = '\Sphere\Core\Model\Common\Collection';
+    protected $resultClass = '\Commercetools\Core\Model\Common\Collection';
 
     /**
      * @return HttpRequest

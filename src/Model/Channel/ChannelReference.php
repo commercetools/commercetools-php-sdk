@@ -4,13 +4,13 @@
  * @created: 27.01.15, 18:22
  */
 
-namespace Sphere\Core\Model\Channel;
+namespace Commercetools\Core\Model\Channel;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
- * @package Sphere\Core\Model\Channel
+ * @package Commercetools\Core\Model\Channel
  * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method ChannelReference setTypeId(string $typeId = null)
@@ -26,7 +26,7 @@ class ChannelReference extends Reference
     public function getFields()
     {
         $fields = parent::getFields();
-        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\Channel\Channel'];
+        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Channel\Channel'];
 
         return $fields;
     }

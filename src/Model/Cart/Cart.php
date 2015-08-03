@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Cart;
+namespace Commercetools\Core\Model\Cart;
 
-use Sphere\Core\Model\Common\Address;
-use Sphere\Core\Model\Common\Resource;
-use Sphere\Core\Model\Common\Money;
-use Sphere\Core\Model\Common\TaxedPrice;
-use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
+use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Common\TaxedPrice;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
- * @package Sphere\Core\Model\Cart
+ * @package Commercetools\Core\Model\Cart
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#cart
  * @method string getId()
  * @method Cart setId(string $id = null)
@@ -62,18 +62,18 @@ class Cart extends Resource
             'lastModifiedAt' => [static::TYPE => '\DateTime'],
             'customerId' => [static::TYPE => 'string'],
             'customerEmail' => [static::TYPE => 'string'],
-            'lineItems' => [static::TYPE => '\Sphere\Core\Model\Cart\LineItemCollection'],
-            'customLineItems' => [static::TYPE => '\Sphere\Core\Model\Cart\CustomLineItemCollection'],
-            'totalPrice' => [static::TYPE => '\Sphere\Core\Model\Common\Money'],
-            'taxedPrice' => [static::TYPE => '\Sphere\Core\Model\Common\TaxedPrice'],
+            'lineItems' => [static::TYPE => '\Commercetools\Core\Model\Cart\LineItemCollection'],
+            'customLineItems' => [static::TYPE => '\Commercetools\Core\Model\Cart\CustomLineItemCollection'],
+            'totalPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'taxedPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\TaxedPrice'],
             'cartState' => [static::TYPE => 'string'],
-            'shippingAddress' => [static::TYPE => '\Sphere\Core\Model\Common\Address'],
-            'billingAddress' => [static::TYPE => '\Sphere\Core\Model\Common\Address'],
+            'shippingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
+            'billingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
             'inventoryMode' => [static::TYPE => 'string'],
-            'customerGroup' => [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
+            'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
             'country' => [static::TYPE => 'string'],
-            'shippingInfo' => [static::TYPE => '\Sphere\Core\Model\Cart\ShippingInfo'],
-            'discountCodes' => [static::TYPE => '\Sphere\Core\Model\Cart\DiscountCodeInfoCollection'],
+            'shippingInfo' => [static::TYPE => '\Commercetools\Core\Model\Cart\ShippingInfo'],
+            'discountCodes' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountCodeInfoCollection'],
         ];
     }
 }

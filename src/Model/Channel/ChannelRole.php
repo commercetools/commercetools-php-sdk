@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Channel;
+namespace Commercetools\Core\Model\Channel;
 
 
 /**
- * @package Sphere\Core\Model\Channel
+ * @package Commercetools\Core\Model\Channel
  * @apidoc http://dev.sphere.io/http-api-projects-channels.html#channel-role-enum
  */
 class ChannelRole

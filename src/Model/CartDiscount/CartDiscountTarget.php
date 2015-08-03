@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\CartDiscount;
+namespace Commercetools\Core\Model\CartDiscount;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\CartDiscount
+ * @package Commercetools\Core\Model\CartDiscount
  * @apidoc http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discount-target
  * @method string getType()
  * @method CartDiscountTarget setType(string $type = null)

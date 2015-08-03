@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\CartDiscount;
+namespace Commercetools\Core\Model\CartDiscount;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\CartDiscount
+ * @package Commercetools\Core\Model\CartDiscount
  * @method CartDiscount current()
  * @method CartDiscount getAt($offset)
  */
 class CartDiscountCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\CartDiscount\CartDiscount';
+    protected $type = '\Commercetools\Core\Model\CartDiscount\CartDiscount';
 }

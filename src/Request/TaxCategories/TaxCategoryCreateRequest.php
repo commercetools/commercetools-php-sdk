@@ -3,22 +3,22 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\TaxCategories;
+namespace Commercetools\Core\Request\TaxCategories;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\TaxCategory\TaxCategoryDraft;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\TaxCategory\TaxCategory;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\TaxCategories
+ * @package Commercetools\Core\Request\TaxCategories
  * 
  * @method TaxCategory mapResponse(ApiResponseInterface $response)
  */
 class TaxCategoryCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\TaxCategory\TaxCategory';
+    protected $resultClass = '\Commercetools\Core\Model\TaxCategory\TaxCategory';
 
     /**
      * @param TaxCategoryDraft $taxCategory

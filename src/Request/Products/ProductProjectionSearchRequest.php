@@ -4,21 +4,21 @@
  * @created: 02.02.15, 11:26
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Product\ProductProjectionCollection;
-use Sphere\Core\Request\AbstractProjectionRequest;
-use Sphere\Core\Request\PageTrait;
-use Sphere\Core\Request\SortTrait;
-use Sphere\Core\Response\ApiResponseInterface;
-use Sphere\Core\Response\PagedSearchResponse;
-use Sphere\Core\Model\Product\Search\FilterInterface;
+use Commercetools\Core\Client;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Product\ProductProjectionCollection;
+use Commercetools\Core\Request\AbstractProjectionRequest;
+use Commercetools\Core\Request\PageTrait;
+use Commercetools\Core\Request\SortTrait;
+use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Response\PagedSearchResponse;
+use Commercetools\Core\Model\Product\Search\FilterInterface;
 
 /**
- * @package Sphere\Core\Request\Products
+ * @package Commercetools\Core\Request\Products
  * @apidoc http://dev.sphere.io/http-api-projects-products-search.html#product-projections-by-search
  * @method PagedSearchResponse executeWithClient(Client $client)
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
@@ -33,7 +33,7 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest
     use PageTrait;
     use SortTrait;
 
-    protected $resultClass = '\Sphere\Core\Model\Product\ProductProjectionCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjectionCollection';
 
     /**
      * @param Context $context

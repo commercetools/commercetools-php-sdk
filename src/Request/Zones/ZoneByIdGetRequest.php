@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Zones;
+namespace Commercetools\Core\Request\Zones;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractByIdGetRequest;
-use Sphere\Core\Model\Zone\Zone;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractByIdGetRequest;
+use Commercetools\Core\Model\Zone\Zone;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Zones
+ * @package Commercetools\Core\Request\Zones
  * @apidoc http://dev.sphere.io/http-api-projects-zones.html#zone-by-id
  * @method Zone mapResponse(ApiResponseInterface $response)
  */
 class ZoneByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Zone\Zone';
+    protected $resultClass = '\Commercetools\Core\Model\Zone\Zone';
 
     /**
      * @param string $id

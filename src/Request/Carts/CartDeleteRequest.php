@@ -4,21 +4,21 @@
  * @created: 26.01.15, 17:02
  */
 
-namespace Sphere\Core\Request\Carts;
+namespace Commercetools\Core\Request\Carts;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractDeleteRequest;
-use Sphere\Core\Model\Cart\Cart;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractDeleteRequest;
+use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Carts
+ * @package Commercetools\Core\Request\Carts
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#delete-cart
  * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Cart\Cart';
+    protected $resultClass = '\Commercetools\Core\Model\Cart\Cart';
 
     /**
      * @param string $id

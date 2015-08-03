@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\DiscountCode;
+namespace Commercetools\Core\Model\DiscountCode;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\DiscountCode
+ * @package Commercetools\Core\Model\DiscountCode
  * @method DiscountCodeReference current()
  * @method DiscountCodeReference getAt($offset)
  */
 class DiscountCodeReferenceCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\DiscountCode\DiscountCodeReference';
+    protected $type = '\Commercetools\Core\Model\DiscountCode\DiscountCodeReference';
 }

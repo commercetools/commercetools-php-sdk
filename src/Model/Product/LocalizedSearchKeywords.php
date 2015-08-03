@@ -3,22 +3,22 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
-use Sphere\Core\Error\InvalidArgumentException;
-use Sphere\Core\Error\Message;
-use Sphere\Core\Model\Common\Collection;
-use Sphere\Core\Model\Common\Context;
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Error\Message;
+use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Context;
 
 /**
- * @package Sphere\Core\Model\Product
+ * @package Commercetools\Core\Model\Product
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#search-keywords
  * @method SearchKeywords current()
  * @method SearchKeywords getAt($offset)
  */
 class LocalizedSearchKeywords extends Collection
 {
-    protected $type = '\Sphere\Core\Model\Product\SearchKeywords';
+    protected $type = '\Commercetools\Core\Model\Product\SearchKeywords';
 
     /**
      * @param $locale

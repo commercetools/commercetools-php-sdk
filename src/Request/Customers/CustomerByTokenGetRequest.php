@@ -4,19 +4,19 @@
  * @created: 12.02.15, 10:35
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\HttpRequest;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\Response\ResourceResponse;
-use Sphere\Core\Model\Customer\Customer;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Client\HttpRequest;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Response\ResourceResponse;
+use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Customers
+ * @package Commercetools\Core\Request\Customers
  * @apidoc http://dev.sphere.io/http-api-projects-customers.html#customer-by-password-token
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
@@ -24,7 +24,7 @@ class CustomerByTokenGetRequest extends AbstractApiRequest
 {
     const TOKEN = 'token';
 
-    protected $resultClass = '\Sphere\Core\Model\Customer\Customer';
+    protected $resultClass = '\Commercetools\Core\Model\Customer\Customer';
 
     /**
      * @param string $token

@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Customers;
+namespace Commercetools\Core\Request\Customers;
 
 
-use Sphere\Core\Model\Customer\CustomerDraft;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\Customer\CustomerDraft;
+use Commercetools\Core\RequestTestCase;
 
 class CustomerCreateRequestTest extends RequestTestCase
 {
-    const CUSTOMER_CREATE_REQUEST = '\Sphere\Core\Request\Customers\CustomerCreateRequest';
+    const CUSTOMER_CREATE_REQUEST = '\Commercetools\Core\Request\Customers\CustomerCreateRequest';
 
     public function getCustomer()
     {
@@ -25,7 +25,7 @@ class CustomerCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomerCreateRequest::ofDraft($this->getCustomer()));
-        $this->assertInstanceOf('\Sphere\Core\Model\Customer\CustomerSigninResult', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Customer\CustomerSigninResult', $result);
     }
 
     public function testMapEmptyResult()

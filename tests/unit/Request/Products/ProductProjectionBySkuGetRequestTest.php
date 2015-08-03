@@ -3,15 +3,15 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\RequestTestCase;
 
 class ProductProjectionBySkuGetRequestTest extends RequestTestCase
 {
-    const PRODUCT_PROJECTION_BY_SKU_GET_REQUEST = '\Sphere\Core\Request\Products\ProductProjectionBySkuGetRequest';
+    const PRODUCT_PROJECTION_BY_SKU_GET_REQUEST = '\Commercetools\Core\Request\Products\ProductProjectionBySkuGetRequest';
 
     public function testMapResult()
     {
@@ -23,7 +23,7 @@ class ProductProjectionBySkuGetRequestTest extends RequestTestCase
             ]
         ];
         $result = $this->mapQueryResult(ProductProjectionBySkuGetRequest::ofSku('sku'), $data);
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjection', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
     }
 
     public function testMapEmptyResult()
@@ -65,6 +65,6 @@ class ProductProjectionBySkuGetRequestTest extends RequestTestCase
         $request = $this->getRequest(static::PRODUCT_PROJECTION_BY_SKU_GET_REQUEST, ['sku']);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 }

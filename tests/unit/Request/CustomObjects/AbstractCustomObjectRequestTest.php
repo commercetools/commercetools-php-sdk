@@ -3,20 +3,20 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CustomObjects;
+namespace Commercetools\Core\Request\CustomObjects;
 
 
-use Sphere\Core\AccessorTrait;
+use Commercetools\Core\AccessorTrait;
 
 /**
  * Class AbstractCustomObjectRequestTest
- * @package Sphere\Core\Request\CustomObjects
+ * @package Commercetools\Core\Request\CustomObjects
  */
 class AbstractCustomObjectRequestTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_CUSTOM_OBJECT_REQUEST = '\Sphere\Core\Request\CustomObjects\AbstractCustomObjectRequest';
+    const ABSTRACT_CUSTOM_OBJECT_REQUEST = '\Commercetools\Core\Request\CustomObjects\AbstractCustomObjectRequest';
 
     protected function getRequest($class, array $args = [])
     {
@@ -43,6 +43,6 @@ class AbstractCustomObjectRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_CUSTOM_OBJECT_REQUEST, ['my-namespace', 'my-key']);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 }

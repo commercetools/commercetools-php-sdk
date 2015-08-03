@@ -4,11 +4,11 @@
  * @created: 22.01.15, 11:41
  */
 
-namespace Sphere\Core\Client\OAuth;
+namespace Commercetools\Core\Client\OAuth;
 
 
 /**
- * @package Sphere\Core\OAuth
+ * @package Commercetools\Core\OAuth
  */
 class Token
 {

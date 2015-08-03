@@ -4,23 +4,23 @@
  * @created: 10.02.15, 10:29
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
 
 use GuzzleHttp\Message\Response;
-use Sphere\Core\AccessorTrait;
-use Sphere\Core\Client\HttpMethod;
+use Commercetools\Core\AccessorTrait;
+use Commercetools\Core\Client\HttpMethod;
 
 /**
  * Class AbstractCreateRequestTest
- * @package Sphere\Core\Request
+ * @package Commercetools\Core\Request
  * @method AbstractProjectionRequest getRequest($class, array $args = [])
  */
 class AbstractProjectionRequestTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_PROJECTION_REQUEST = '\Sphere\Core\Request\AbstractProjectionRequest';
+    const ABSTRACT_PROJECTION_REQUEST = '\Commercetools\Core\Request\AbstractProjectionRequest';
 
     /**
      * @return AbstractProjectionRequest

@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Channels;
+namespace Commercetools\Core\Request\Channels;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\Channel\ChannelCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\Channel\ChannelCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Channels
+ * @package Commercetools\Core\Request\Channels
  * @apidoc http://dev.sphere.io/http-api-projects-channels.html#channels-by-query
  * @method ChannelCollection mapResponse(ApiResponseInterface $response)
  */
 class ChannelQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Channel\ChannelCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Channel\ChannelCollection';
 
     /**
      * @param Context $context

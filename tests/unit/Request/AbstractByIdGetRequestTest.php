@@ -4,23 +4,23 @@
  * @created: 10.02.15, 10:29
  */
 
-namespace Sphere\Core\Request;
+namespace Commercetools\Core\Request;
 
 
 use GuzzleHttp\Message\Response;
-use Sphere\Core\AccessorTrait;
-use Sphere\Core\Client\HttpMethod;
+use Commercetools\Core\AccessorTrait;
+use Commercetools\Core\Client\HttpMethod;
 
 /**
  * Class AbstractCreateRequestTest
- * @package Sphere\Core\Request
+ * @package Commercetools\Core\Request
  * @method AbstractByIdGetRequest getRequest($class, array $args = [])
  */
 class AbstractByIdGetRequestTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_GET_REQUEST = '\Sphere\Core\Request\AbstractByIdGetRequest';
+    const ABSTRACT_GET_REQUEST = '\Commercetools\Core\Request\AbstractByIdGetRequest';
 
     public function testGetId()
     {
@@ -59,6 +59,6 @@ class AbstractByIdGetRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_GET_REQUEST, ['id']);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 }

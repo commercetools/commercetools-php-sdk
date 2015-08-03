@@ -3,22 +3,22 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CartDiscounts;
+namespace Commercetools\Core\Request\CartDiscounts;
 
-use Sphere\Core\Model\CartDiscount\CartDiscountDraft;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\CartDiscount\CartDiscount;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\CartDiscount\CartDiscount;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\CartDiscounts
+ * @package Commercetools\Core\Request\CartDiscounts
  * 
  * @method CartDiscount mapResponse(ApiResponseInterface $response)
  */
 class CartDiscountCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\CartDiscount\CartDiscount';
+    protected $resultClass = '\Commercetools\Core\Model\CartDiscount\CartDiscount';
 
     /**
      * @param CartDiscountDraft $cartDiscountDraft

@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Comment;
+namespace Commercetools\Core\Model\Comment;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\Comment
+ * @package Commercetools\Core\Model\Comment
  * @method string getProductId()
  * @method CommentDraft setProductId(string $productId = null)
  * @method string getCustomerId()

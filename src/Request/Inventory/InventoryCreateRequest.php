@@ -3,22 +3,22 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Inventory;
+namespace Commercetools\Core\Request\Inventory;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Inventory\InventoryDraft;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\Inventory\InventoryEntry;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Inventory\InventoryDraft;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\Inventory\InventoryEntry;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Inventory
+ * @package Commercetools\Core\Request\Inventory
  * 
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
 class InventoryCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Inventory\InventoryEntry';
+    protected $resultClass = '\Commercetools\Core\Model\Inventory\InventoryEntry';
 
     /**
      * @param InventoryDraft $inventory

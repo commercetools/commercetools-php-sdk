@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="sphere-php-sdk" default="build">
+<project name="commercetools-php-sdk" default="build">
     <!-- By default, we assume all tools to be on the $PATH -->
     <property name="toolsdir" value="vendor/bin/"/>
 

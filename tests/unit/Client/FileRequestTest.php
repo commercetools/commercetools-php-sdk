@@ -4,7 +4,7 @@
  * @created: 10.02.15, 16:04
  */
 
-namespace Sphere\Core\Client;
+namespace Commercetools\Core\Client;
 
 
 class FileRequestTest extends \PHPUnit_Framework_TestCase

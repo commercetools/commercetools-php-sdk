@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Carts\Command;
+namespace Commercetools\Core\Request\Carts\Command;
 
-use Sphere\Core\Model\Common\Address;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Carts\Command
+ * @package Commercetools\Core\Request\Carts\Command
  * @apidoc http://dev.sphere.io/http-api-projects-carts.html#set-shipping-address
  * @method string getAction()
  * @method CartSetShippingAddressAction setAction(string $action = null)
@@ -23,7 +23,7 @@ class CartSetShippingAddressAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'address' => [static::TYPE => '\Sphere\Core\Model\Common\Address'],
+            'address' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
         ];
     }
 

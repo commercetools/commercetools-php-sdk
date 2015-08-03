@@ -4,12 +4,12 @@
  * @created 19.01.15, 17:36
  */
 
-namespace Sphere\Core\Cache;
+namespace Commercetools\Core\Cache;
 
 use Doctrine\Common\Cache\Cache;
 
 /**
- * @package Sphere\Core\Cache
+ * @package Commercetools\Core\Cache
  */
 class DoctrineCacheAdapter extends AbstractCacheAdapter
 {

@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Categories;
+namespace Commercetools\Core\Request\Categories;
 
 
-use Sphere\Core\Model\Category\CategoryDraft;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\Category\CategoryDraft;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\RequestTestCase;
 
 class CategoryCreateRequestTest extends RequestTestCase
 {
-    const CATEGORY_CREATE_REQUEST = '\Sphere\Core\Request\Categories\CategoryCreateRequest';
+    const CATEGORY_CREATE_REQUEST = '\Commercetools\Core\Request\Categories\CategoryCreateRequest';
 
     protected function getDraft()
     {
@@ -24,7 +24,7 @@ class CategoryCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CategoryCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Sphere\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
     }
 
     public function testMapEmptyResult()

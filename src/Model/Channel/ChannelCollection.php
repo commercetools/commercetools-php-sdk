@@ -3,17 +3,17 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Channel;
+namespace Commercetools\Core\Model\Channel;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\Channel
+ * @package Commercetools\Core\Model\Channel
  * 
  * @method Channel current()
  * @method Channel getAt($offset)
  */
 class ChannelCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\Channel\Channel';
+    protected $type = '\Commercetools\Core\Model\Channel\Channel';
 }

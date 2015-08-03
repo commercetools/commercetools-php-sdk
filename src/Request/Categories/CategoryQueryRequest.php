@@ -4,21 +4,21 @@
  * @created: 23.01.15, 16:52
  */
 
-namespace Sphere\Core\Request\Categories;
+namespace Commercetools\Core\Request\Categories;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\Category\CategoryCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\Category\CategoryCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Categories
+ * @package Commercetools\Core\Request\Categories
  * @apidoc http://dev.sphere.io/http-api-projects-categories.html#categories-by-query
  * @method CategoryCollection mapResponse(ApiResponseInterface $response)
  */
 class CategoryQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Category\CategoryCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Category\CategoryCollection';
 
     /**
      * @param Context $context

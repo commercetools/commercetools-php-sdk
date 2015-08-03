@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Client\Adapter;
+namespace Commercetools\Core\Client\Adapter;
 
 
 use GuzzleHttp\Client;
@@ -15,8 +15,8 @@ use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Sphere\Core\Error\Message;
-use Sphere\Core\Error\SphereException;
+use Commercetools\Core\Error\Message;
+use Commercetools\Core\Error\ApiException;
 
 class Guzzle6Adapter implements AdapterInterface
 {
@@ -56,7 +56,7 @@ class Guzzle6Adapter implements AdapterInterface
             $response = $this->client->send($request, $options);
         } catch (RequestException $exception) {
             $response = $exception->getResponse();
-            throw SphereException::create($request, $response, $exception);
+            throw ApiException::create($request, $response, $exception);
         }
 
         return $response;
@@ -88,7 +88,7 @@ class Guzzle6Adapter implements AdapterInterface
             if ($result instanceof RequestException) {
                 $request = $requests[$key];
                 $httpResponse = $result->getResponse();
-                $httpResponse = SphereException::create($request, $httpResponse, $result);
+                $httpResponse = ApiException::create($request, $httpResponse, $result);
             }
             $responses[$key] = $httpResponse;
         }
@@ -117,7 +117,7 @@ class Guzzle6Adapter implements AdapterInterface
         try {
             $response = $this->client->post($oauthUri, $options);
         } catch (RequestException $exception) {
-            throw SphereException::create($exception->getRequest(), $exception->getResponse(), $exception);
+            throw ApiException::create($exception->getRequest(), $exception->getResponse(), $exception);
         }
         return $response;
     }

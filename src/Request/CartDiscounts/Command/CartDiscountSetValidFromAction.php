@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CartDiscounts\Command;
+namespace Commercetools\Core\Request\CartDiscounts\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
-use Sphere\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
- * @package Sphere\Core\Request\CartDiscounts\Command
+ * @package Commercetools\Core\Request\CartDiscounts\Command
  *  *
  * @method string getAction()
  * @method CartDiscountSetValidFromAction setAction(string $action = null)
@@ -25,7 +25,7 @@ class CartDiscountSetValidFromAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'validFrom' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
         ];
     }

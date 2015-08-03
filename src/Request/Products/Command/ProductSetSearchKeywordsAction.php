@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Products\Command;
+namespace Commercetools\Core\Request\Products\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Product\LocalizedSearchKeywords;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Product\LocalizedSearchKeywords;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Products\Command
+ * @package Commercetools\Core\Request\Products\Command
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#set-search-keywords
  * @method string getAction()
  * @method ProductSetSearchKeywordsAction setAction(string $action = null)
@@ -25,7 +25,7 @@ class ProductSetSearchKeywordsAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'searchKeywords' => [static::TYPE => '\Sphere\Core\Model\Product\LocalizedSearchKeywords'],
+            'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords'],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

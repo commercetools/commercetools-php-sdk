@@ -3,20 +3,20 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Carts;
+namespace Commercetools\Core\Request\Carts;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\RequestTestCase;
 
 class CartByCustomerIdGetRequestTest extends RequestTestCase
 {
-    const CART_BY_CUSTOMER_ID_GET_REQUEST = '\Sphere\Core\Request\Carts\CartByCustomerIdGetRequest';
+    const CART_BY_CUSTOMER_ID_GET_REQUEST = '\Commercetools\Core\Request\Carts\CartByCustomerIdGetRequest';
 
     public function testMapResult()
     {
         $result = $this->mapResult(CartByCustomerIdGetRequest::ofCustomerId('id'));
-        $this->assertInstanceOf('\Sphere\Core\Model\Cart\Cart', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Cart\Cart', $result);
     }
 
     public function testMapEmptyResult()
@@ -55,6 +55,6 @@ class CartByCustomerIdGetRequestTest extends RequestTestCase
         $request = CartByCustomerIdGetRequest::ofCustomerId('id');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 }

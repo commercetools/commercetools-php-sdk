@@ -3,24 +3,24 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Orders;
+namespace Commercetools\Core\Request\Orders;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\RequestTestCase;
 
 /**
  * Class OrderCreateFromCartRequestTest
- * @package Sphere\Core\Request\Orders
+ * @package Commercetools\Core\Request\Orders
  */
 class OrderCreateFromCartRequestTest extends RequestTestCase
 {
-    const ORDER_CREATE_REQUEST = '\Sphere\Core\Request\Orders\OrderCreateFromCartRequest';
+    const ORDER_CREATE_REQUEST = '\Commercetools\Core\Request\Orders\OrderCreateFromCartRequest';
 
     public function testMapResult()
     {
         $result = $this->mapResult(OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1));
-        $this->assertInstanceOf('\Sphere\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
     }
 
     public function testMapEmptyResult()
@@ -35,7 +35,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
         $request = OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 
     public function testHttpRequestMethod()

@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ProductType;
+namespace Commercetools\Core\Model\ProductType;
 
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
- * @package Sphere\Core\Model\ProductType
+ * @package Commercetools\Core\Model\ProductType
  * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#attribute-definition
  * @method AttributeType getType()
  * @method AttributeDefinition setType(AttributeType $type = null)
@@ -31,9 +31,9 @@ class AttributeDefinition extends JsonObject
     public function getFields()
     {
         return [
-            'type' => [static::TYPE => '\Sphere\Core\Model\ProductType\AttributeType'],
+            'type' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeType'],
             'name' => [static::TYPE => 'string'],
-            'label' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'label' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'isRequired' => [static::TYPE => 'bool'],
             'attributeConstraint' => [static::TYPE => 'string'],
             'inputHint' => [static::TYPE => 'string'],

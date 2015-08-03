@@ -4,21 +4,21 @@
  * @created: 04.02.15, 16:29
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\Product\ProductCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\Product\ProductCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Products
+ * @package Commercetools\Core\Request\Products
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#products-by-query
  * @method ProductCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Product\ProductCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Product\ProductCollection';
 
     /**
      * @param Context $context

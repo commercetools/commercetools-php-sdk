@@ -4,19 +4,19 @@
  * @created: 28.01.15, 09:26
  */
 
-namespace Sphere\Core\Response;
+namespace Commercetools\Core\Response;
 
 
 use GuzzleHttp\Message\ResponseInterface;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\ContextAwareInterface;
-use Sphere\Core\Model\Common\ContextTrait;
-use Sphere\Core\Model\Product\ProductProjectionCollection;
-use Sphere\Core\Request\ClientRequestInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\ContextAwareInterface;
+use Commercetools\Core\Model\Common\ContextTrait;
+use Commercetools\Core\Model\Product\ProductProjectionCollection;
+use Commercetools\Core\Request\ClientRequestInterface;
 use Traversable;
 
 /**
- * @package Sphere\Core\Response
+ * @package Commercetools\Core\Response
  */
 class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggregate, \ArrayAccess
 {

@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\ProductDiscount;
+namespace Commercetools\Core\Model\ProductDiscount;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
- * @package Sphere\Core\Model\ProductDiscount
+ * @package Commercetools\Core\Model\ProductDiscount
  * @method LocalizedString getName()
  * @method ProductDiscountDraft setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
@@ -29,9 +29,9 @@ class ProductDiscountDraft extends JsonObject
     public function getFields()
     {
         return [
-            'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'value' => [static::TYPE => '\Sphere\Core\Model\ProductDiscount\ProductDiscountValue'],
+            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'value' => [static::TYPE => '\Commercetools\Core\Model\ProductDiscount\ProductDiscountValue'],
             'predicate' => [static::TYPE => 'string'],
             'sortOrder' => [static::TYPE => 'string'],
             'isActive' => [static::TYPE => 'bool'],

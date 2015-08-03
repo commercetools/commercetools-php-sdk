@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Zone;
+namespace Commercetools\Core\Model\Zone;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\Zone
+ * @package Commercetools\Core\Model\Zone
  * @method string getName()
  * @method ZoneDraft setName(string $name = null)
  * @method string getDescription()
@@ -24,7 +24,7 @@ class ZoneDraft extends JsonObject
         return [
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'locations' => [static::TYPE => '\Sphere\Core\Model\Zone\LocationCollection'],
+            'locations' => [static::TYPE => '\Commercetools\Core\Model\Zone\LocationCollection'],
         ];
     }
 

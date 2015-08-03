@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Customer;
+namespace Commercetools\Core\Model\Customer;
 
-use Sphere\Core\Model\Common\AddressCollection;
-use Sphere\Core\Model\Common\Resource;
-use Sphere\Core\Model\CustomerGroup\CustomerGroupReference;
+use Commercetools\Core\Model\Common\AddressCollection;
+use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
- * @package Sphere\Core\Model\Customer
+ * @package Commercetools\Core\Model\Customer
  * @apidoc http://dev.sphere.io/http-api-projects-customers.html#customer
  * @method string getId()
  * @method Customer setId(string $id = null)
@@ -72,12 +72,12 @@ class Customer extends Resource
             'dateOfBirth' => [static::TYPE => '\DateTime'],
             'companyName' => [static::TYPE => 'string'],
             'vatId' => [static::TYPE => 'string'],
-            'addresses' => [static::TYPE => '\Sphere\Core\Model\Common\AddressCollection'],
+            'addresses' => [static::TYPE => '\Commercetools\Core\Model\Common\AddressCollection'],
             'defaultShippingAddressId' => [static::TYPE => 'int'],
             'defaultBillingAddressId' => [static::TYPE => 'int'],
             'isEmailVerified' => [static::TYPE => 'bool'],
             'externalId' => [static::TYPE => 'string'],
-            'customerGroup' => [static::TYPE => '\Sphere\Core\Model\CustomerGroup\CustomerGroupReference'],
+            'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
         ];
     }
 }

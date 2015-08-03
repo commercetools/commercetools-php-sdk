@@ -3,20 +3,20 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Carts;
+namespace Commercetools\Core\Request\Carts;
 
 
-use Sphere\Core\Model\Cart\CartDraft;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\RequestTestCase;
 
 class CartCreateRequestTest extends RequestTestCase
 {
-    const CART_CREATE_REQUEST = '\Sphere\Core\Request\Carts\CartCreateRequest';
+    const CART_CREATE_REQUEST = '\Commercetools\Core\Request\Carts\CartCreateRequest';
 
     public function testMapResult()
     {
         $result = $this->mapResult(CartCreateRequest::ofDraft(CartDraft::ofCurrency('EUR')));
-        $this->assertInstanceOf('\Sphere\Core\Model\Cart\Cart', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Cart\Cart', $result);
     }
 
     public function testMapEmptyResult()

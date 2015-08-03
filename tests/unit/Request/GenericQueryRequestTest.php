@@ -3,11 +3,11 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CartDiscounts;
+namespace Commercetools\Core\Request\CartDiscounts;
 
 
-use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\RequestTestCase;
 
 class GenericQueryRequestTest extends RequestTestCase
 {
@@ -27,12 +27,12 @@ class GenericQueryRequestTest extends RequestTestCase
     {
         return [
             [
-                '\Sphere\Core\Request\CartDiscounts\CartDiscountQueryRequest',
-                '\Sphere\Core\Model\CartDiscount\CartDiscountCollection',
+                '\Commercetools\Core\Request\CartDiscounts\CartDiscountQueryRequest',
+                '\Commercetools\Core\Model\CartDiscount\CartDiscountCollection',
             ],
             [
-                '\Sphere\Core\Request\Carts\CartQueryRequest',
-                '\Sphere\Core\Model\Cart\CartCollection',
+                '\Commercetools\Core\Request\Carts\CartQueryRequest',
+                '\Commercetools\Core\Model\Cart\CartCollection',
                 [
                     'results' => [
                         ['id' => 'value'],
@@ -42,28 +42,28 @@ class GenericQueryRequestTest extends RequestTestCase
                 ]
             ],
             [
-                '\Sphere\Core\Request\Categories\CategoryQueryRequest',
-                '\Sphere\Core\Model\Category\CategoryCollection',
+                '\Commercetools\Core\Request\Categories\CategoryQueryRequest',
+                '\Commercetools\Core\Model\Category\CategoryCollection',
             ],
             [
-                '\Sphere\Core\Request\Channels\ChannelQueryRequest',
-                '\Sphere\Core\Model\Channel\ChannelCollection',
+                '\Commercetools\Core\Request\Channels\ChannelQueryRequest',
+                '\Commercetools\Core\Model\Channel\ChannelCollection',
             ],
             [
-                '\Sphere\Core\Request\Comments\CommentQueryRequest',
-                '\Sphere\Core\Model\Comment\CommentCollection',
+                '\Commercetools\Core\Request\Comments\CommentQueryRequest',
+                '\Commercetools\Core\Model\Comment\CommentCollection',
             ],
             [
-                '\Sphere\Core\Request\CustomerGroups\CustomerGroupQueryRequest',
-                '\Sphere\Core\Model\CustomerGroup\CustomerGroupCollection',
+                '\Commercetools\Core\Request\CustomerGroups\CustomerGroupQueryRequest',
+                '\Commercetools\Core\Model\CustomerGroup\CustomerGroupCollection',
             ],
             [
-                '\Sphere\Core\Request\Customers\CustomerQueryRequest',
-                '\Sphere\Core\Model\Customer\CustomerCollection',
+                '\Commercetools\Core\Request\Customers\CustomerQueryRequest',
+                '\Commercetools\Core\Model\Customer\CustomerCollection',
             ],
             [
-                '\Sphere\Core\Request\CustomObjects\CustomObjectQueryRequest',
-                '\Sphere\Core\Model\CustomObject\CustomObjectCollection',
+                '\Commercetools\Core\Request\CustomObjects\CustomObjectQueryRequest',
+                '\Commercetools\Core\Model\CustomObject\CustomObjectCollection',
                 [
                     'results' => [
                         ['container' => 'myNamespace', 'key' => 'key1', 'value' => 'value1'],
@@ -73,52 +73,52 @@ class GenericQueryRequestTest extends RequestTestCase
                 ]
             ],
             [
-                '\Sphere\Core\Request\DiscountCodes\DiscountCodeQueryRequest',
-                '\Sphere\Core\Model\DiscountCode\DiscountCodeCollection',
+                '\Commercetools\Core\Request\DiscountCodes\DiscountCodeQueryRequest',
+                '\Commercetools\Core\Model\DiscountCode\DiscountCodeCollection',
             ],
             [
-                '\Sphere\Core\Request\Inventory\InventoryQueryRequest',
-                '\Sphere\Core\Model\Inventory\InventoryEntryCollection',
+                '\Commercetools\Core\Request\Inventory\InventoryQueryRequest',
+                '\Commercetools\Core\Model\Inventory\InventoryEntryCollection',
             ],
             [
-                '\Sphere\Core\Request\Messages\MessageQueryRequest',
-                '\Sphere\Core\Model\Message\MessageCollection',
+                '\Commercetools\Core\Request\Messages\MessageQueryRequest',
+                '\Commercetools\Core\Model\Message\MessageCollection',
             ],
             [
-                '\Sphere\Core\Request\Orders\OrderQueryRequest',
-                '\Sphere\Core\Model\Order\OrderCollection',
+                '\Commercetools\Core\Request\Orders\OrderQueryRequest',
+                '\Commercetools\Core\Model\Order\OrderCollection',
             ],
             [
-                '\Sphere\Core\Request\ProductDiscounts\ProductDiscountQueryRequest',
-                '\Sphere\Core\Model\ProductDiscount\ProductDiscountCollection',
+                '\Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest',
+                '\Commercetools\Core\Model\ProductDiscount\ProductDiscountCollection',
             ],
             [
-                '\Sphere\Core\Request\Products\ProductQueryRequest',
-                '\Sphere\Core\Model\Product\ProductCollection',
+                '\Commercetools\Core\Request\Products\ProductQueryRequest',
+                '\Commercetools\Core\Model\Product\ProductCollection',
             ],
             [
-                '\Sphere\Core\Request\ProductTypes\ProductTypeQueryRequest',
-                '\Sphere\Core\Model\ProductType\ProductTypeCollection',
+                '\Commercetools\Core\Request\ProductTypes\ProductTypeQueryRequest',
+                '\Commercetools\Core\Model\ProductType\ProductTypeCollection',
             ],
             [
-                '\Sphere\Core\Request\Reviews\ReviewQueryRequest',
-                '\Sphere\Core\Model\Review\ReviewCollection',
+                '\Commercetools\Core\Request\Reviews\ReviewQueryRequest',
+                '\Commercetools\Core\Model\Review\ReviewCollection',
             ],
             [
-                '\Sphere\Core\Request\ShippingMethods\ShippingMethodQueryRequest',
-                '\Sphere\Core\Model\ShippingMethod\ShippingMethodCollection',
+                '\Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest',
+                '\Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection',
             ],
             [
-                '\Sphere\Core\Request\States\StateQueryRequest',
-                '\Sphere\Core\Model\State\StateCollection',
+                '\Commercetools\Core\Request\States\StateQueryRequest',
+                '\Commercetools\Core\Model\State\StateCollection',
             ],
             [
-                '\Sphere\Core\Request\TaxCategories\TaxCategoryQueryRequest',
-                '\Sphere\Core\Model\TaxCategory\TaxCategoryCollection',
+                '\Commercetools\Core\Request\TaxCategories\TaxCategoryQueryRequest',
+                '\Commercetools\Core\Model\TaxCategory\TaxCategoryCollection',
             ],
             [
-                '\Sphere\Core\Request\Zones\ZoneQueryRequest',
-                '\Sphere\Core\Model\Zone\ZoneCollection',
+                '\Commercetools\Core\Request\Zones\ZoneQueryRequest',
+                '\Commercetools\Core\Model\Zone\ZoneCollection',
             ],
         ];
     }

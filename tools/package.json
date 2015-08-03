@@ -1,7 +1,7 @@
 {
-  "name": "sphere-php-sdk",
+  "name": "commercetools-php-sdk-changelog",
   "version": "1.0.0-RC1",
-  "description": "commercetools PHP SDK",
+  "description": "commercetools PHP SDK changelog generator",
   "homepage": "https://github.com/sphereio/sphere-php-sdk",
   "bugs": "https://github.com/sphereio/sphere-php-sdk/issues",
   "license": "MIT",

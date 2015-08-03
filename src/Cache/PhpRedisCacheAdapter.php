@@ -3,10 +3,10 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Cache;
+namespace Commercetools\Core\Cache;
 
 /**
- * @package Sphere\Core\Cache
+ * @package Commercetools\Core\Cache
  */
 class PhpRedisCacheAdapter extends AbstractCacheAdapter
 {

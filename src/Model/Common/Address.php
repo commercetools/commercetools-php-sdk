@@ -4,11 +4,11 @@
  * @created: 11.02.15, 15:37
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
 
 /**
- * @package Sphere\Core\Model\Common
+ * @package Commercetools\Core\Model\Common
  * @apidoc http://dev.sphere.io/http-api-types.html#address
  * @method string getId()
  * @method string getTitle()

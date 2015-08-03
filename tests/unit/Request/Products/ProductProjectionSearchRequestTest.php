@@ -3,17 +3,17 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
 
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Model\Product\Facet;
-use Sphere\Core\Model\Product\Filter;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Product\Facet;
+use Commercetools\Core\Model\Product\Filter;
+use Commercetools\Core\RequestTestCase;
 
 class ProductProjectionSearchRequestTest extends RequestTestCase
 {
-    const PRODUCT_PROJECTION_SEARCH_REQUEST = '\Sphere\Core\Request\Products\ProductProjectionSearchRequest';
+    const PRODUCT_PROJECTION_SEARCH_REQUEST = '\Commercetools\Core\Request\Products\ProductProjectionSearchRequest';
 
     public function testMapResult()
     {
@@ -25,13 +25,13 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
             ]
         ];
         $result = $this->mapQueryResult(ProductProjectionSearchRequest::of(), [], $data);
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjectionCollection', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjectionCollection', $result);
     }
 
     public function testMapEmptyResult()
     {
         $result = $this->mapEmptyResult(ProductProjectionSearchRequest::of());
-        $this->assertInstanceOf('\Sphere\Core\Model\Product\ProductProjectionCollection', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjectionCollection', $result);
     }
 
     public function testAddFilterString()
@@ -219,6 +219,6 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request = ProductProjectionSearchRequest::of();
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Sphere\Core\Response\PagedQueryResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\PagedQueryResponse', $response);
     }
 }

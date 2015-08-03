@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\CustomerGroup;
+namespace Commercetools\Core\Model\CustomerGroup;
 
-use Sphere\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\Resource;
 
 /**
- * @package Sphere\Core\Model\CustomerGroup
+ * @package Commercetools\Core\Model\CustomerGroup
  * @apidoc http://dev.sphere.io/http-api-projects-customerGroups.html#customer-group
  * @method string getId()
  * @method CustomerGroup setId(string $id = null)

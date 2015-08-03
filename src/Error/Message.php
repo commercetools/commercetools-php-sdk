@@ -4,11 +4,11 @@
  * @created: 26.01.15, 15:37
  */
 
-namespace Sphere\Core\Error;
+namespace Commercetools\Core\Error;
 
 
 /**
- * @package Sphere\Core\Error
+ * @package Commercetools\Core\Error
  */
 class Message
 {

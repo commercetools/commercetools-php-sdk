@@ -4,10 +4,10 @@
  * @created: 28.01.15, 09:26
  */
 
-namespace Sphere\Core\Response;
+namespace Commercetools\Core\Response;
 
 /**
- * @package Sphere\Core\Response
+ * @package Commercetools\Core\Response
  */
 class ResourceResponse extends AbstractApiResponse
 {

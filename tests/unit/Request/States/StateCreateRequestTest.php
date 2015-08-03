@@ -3,20 +3,20 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\States;
+namespace Commercetools\Core\Request\States;
 
 
-use Sphere\Core\Model\State\StateDraft;
-use Sphere\Core\RequestTestCase;
+use Commercetools\Core\Model\State\StateDraft;
+use Commercetools\Core\RequestTestCase;
 
 class StateCreateRequestTest extends RequestTestCase
 {
-    const STATE_CREATE_REQUEST = '\Sphere\Core\Request\States\StateCreateRequest';
+    const STATE_CREATE_REQUEST = '\Commercetools\Core\Request\States\StateCreateRequest';
 
     public function testMapResult()
     {
         $result = $this->mapResult(StateCreateRequest::ofDraft(StateDraft::fromArray(['key' => 'myTestState'])));
-        $this->assertInstanceOf('\Sphere\Core\Model\State\State', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
     }
 
     public function testMapEmptyResult()

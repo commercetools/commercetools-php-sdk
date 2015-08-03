@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Comments;
+namespace Commercetools\Core\Request\Comments;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractUpdateRequest;
-use Sphere\Core\Model\Comment\Comment;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractUpdateRequest;
+use Commercetools\Core\Model\Comment\Comment;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Comments
+ * @package Commercetools\Core\Request\Comments
  * @apidoc http://dev.sphere.io/http-api-projects-comments.html#update-comment
  * @method Comment mapResponse(ApiResponseInterface $response)
  */
 class CommentUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\Comment\Comment';
+    protected $resultClass = '\Commercetools\Core\Model\Comment\Comment';
 
     /**
      * @param string $id

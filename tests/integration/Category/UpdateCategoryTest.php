@@ -3,18 +3,18 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Category;
+namespace Commercetools\Core\Category;
 
 
-use Sphere\Core\ApiTestCase;
-use Sphere\Core\Model\Category\Category;
-use Sphere\Core\Model\Category\CategoryDraft;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Request\Categories\CategoryQueryRequest;
-use Sphere\Core\Request\Categories\CategoryCreateRequest;
-use Sphere\Core\Request\Categories\CategoryDeleteRequest;
-use Sphere\Core\Request\Categories\CategoryUpdateRequest;
-use Sphere\Core\Request\Categories\Command\CategoryChangeNameAction;
+use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Category\Category;
+use Commercetools\Core\Model\Category\CategoryDraft;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Request\Categories\CategoryQueryRequest;
+use Commercetools\Core\Request\Categories\CategoryCreateRequest;
+use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
+use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
+use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
 
 class UpdateCategoryTest extends ApiTestCase
 {
@@ -58,7 +58,7 @@ class UpdateCategoryTest extends ApiTestCase
                 ->addAction(CategoryChangeNameAction::ofName(LocalizedString::fromArray(['en' => 'new name'])))
         )->toObject();
 
-        $this->assertInstanceOf('\Sphere\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
         $this->assertSame('new name', $result->getName()->en);
         $this->assertNotSame($category->getVersion(), $result->getVersion());
 
@@ -66,6 +66,6 @@ class UpdateCategoryTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Sphere\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
     }
 }

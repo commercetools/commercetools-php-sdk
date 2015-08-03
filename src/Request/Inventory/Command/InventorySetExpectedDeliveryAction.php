@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Inventory\Command;
+namespace Commercetools\Core\Request\Inventory\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
-use Sphere\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
- * @package Sphere\Core\Request\Inventory\Command
+ * @package Commercetools\Core\Request\Inventory\Command
  * 
  * @method string getAction()
  * @method InventorySetExpectedDeliveryAction setAction(string $action = null)
@@ -25,7 +25,7 @@ class InventorySetExpectedDeliveryAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'expectedDelivery' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Sphere\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
         ];
     }

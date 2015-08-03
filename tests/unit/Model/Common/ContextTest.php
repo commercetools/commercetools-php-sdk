@@ -3,9 +3,9 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Common;
+namespace Commercetools\Core\Model\Common;
 
-use Sphere\Core\Helper\CurrencyFormatter;
+use Commercetools\Core\Helper\CurrencyFormatter;
 
 function extension_loaded($value)
 {

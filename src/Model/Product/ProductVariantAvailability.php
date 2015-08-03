@@ -3,12 +3,12 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Product;
+namespace Commercetools\Core\Model\Product;
 
-use Sphere\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
- * @package Sphere\Core\Model\Product
+ * @package Commercetools\Core\Model\Product
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant-availability
  * @method bool getIsOnStock()
  * @method ProductVariantAvailability setIsOnStock(bool $isOnStock = null)

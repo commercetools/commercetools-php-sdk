@@ -3,22 +3,22 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\DiscountCodes;
+namespace Commercetools\Core\Request\DiscountCodes;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\DiscountCode\DiscountCodeDraft;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\DiscountCode\DiscountCode;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\DiscountCode\DiscountCode;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\DiscountCodes
+ * @package Commercetools\Core\Request\DiscountCodes
  * 
  * @method DiscountCode mapResponse(ApiResponseInterface $response)
  */
 class DiscountCodeCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\DiscountCode\DiscountCode';
+    protected $resultClass = '\Commercetools\Core\Model\DiscountCode\DiscountCode';
 
     /**
      * @param DiscountCodeDraft $discountCode

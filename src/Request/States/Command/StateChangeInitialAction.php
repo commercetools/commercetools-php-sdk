@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\States\Command;
+namespace Commercetools\Core\Request\States\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\States\Command
+ * @package Commercetools\Core\Request\States\Command
  * 
  * @method string getAction()
  * @method StateChangeInitialAction setAction(string $action = null)

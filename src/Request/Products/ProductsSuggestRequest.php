@@ -4,21 +4,21 @@
  * @created: 02.02.15, 11:26
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client;
-use Sphere\Core\Model\Common\Collection;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Request\AbstractProjectionRequest;
-use Sphere\Core\Request\PageTrait;
-use Sphere\Core\Response\ResourceResponse;
-use Sphere\Core\Model\Product\SuggestionCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Client;
+use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Request\AbstractProjectionRequest;
+use Commercetools\Core\Request\PageTrait;
+use Commercetools\Core\Response\ResourceResponse;
+use Commercetools\Core\Model\Product\SuggestionCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Products
+ * @package Commercetools\Core\Request\Products
  * @apidoc http://dev.sphere.io/http-api-projects-products-search.html#suggest-query
  * @method ResourceResponse executeWithClient(Client $client)
  * @method SuggestionCollection mapResponse(ApiResponseInterface $response)
@@ -32,7 +32,7 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
      */
     protected $searchKeywords;
 
-    protected $resultClass = '\Sphere\Core\Model\Product\SuggestionCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Product\SuggestionCollection';
 
     /**
      * @param LocalizedString $keywords

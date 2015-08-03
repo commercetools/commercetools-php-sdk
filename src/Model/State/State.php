@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\State;
+namespace Commercetools\Core\Model\State;
 
-use Sphere\Core\Model\Common\Resource;
-use Sphere\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
- * @package Sphere\Core\Model\State
+ * @package Commercetools\Core\Model\State
  * @apidoc http://dev.sphere.io/http-api-projects-states.html#state
  * @method string getId()
  * @method State setId(string $id = null)
@@ -45,11 +45,11 @@ class State extends Resource
             'lastModifiedAt' => [static::TYPE => '\DateTime'],
             'key' => [static::TYPE => 'string'],
             'type' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Sphere\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'initial' => [static::TYPE => 'bool'],
             'builtIn' => [static::TYPE => 'bool'],
-            'transitions' => [static::TYPE => '\Sphere\Core\Model\State\StateReferenceCollection']
+            'transitions' => [static::TYPE => '\Commercetools\Core\Model\State\StateReferenceCollection']
         ];
     }
 }

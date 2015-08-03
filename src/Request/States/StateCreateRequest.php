@@ -3,22 +3,22 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\States;
+namespace Commercetools\Core\Request\States;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\State\StateDraft;
-use Sphere\Core\Request\AbstractCreateRequest;
-use Sphere\Core\Model\State\State;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\State\StateDraft;
+use Commercetools\Core\Request\AbstractCreateRequest;
+use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\States
+ * @package Commercetools\Core\Request\States
  * @apidoc http://dev.sphere.io/http-api-projects-states.html#create-state
  * @method State mapResponse(ApiResponseInterface $response)
  */
 class StateCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\State\State';
+    protected $resultClass = '\Commercetools\Core\Model\State\State';
 
     /**
      * @param StateDraft $state

@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\DiscountCode;
+namespace Commercetools\Core\Model\DiscountCode;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
- * @package Sphere\Core\Model\DiscountCode
+ * @package Commercetools\Core\Model\DiscountCode
  * @apidoc http://dev.sphere.io/http-api-types.html#reference
  * @method string getTypeId()
  * @method DiscountCodeReference setTypeId(string $typeId = null)
@@ -25,7 +25,7 @@ class DiscountCodeReference extends Reference
     public function getFields()
     {
         $fields = parent::getFields();
-        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\DiscountCode\DiscountCode'];
+        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\DiscountCode\DiscountCode'];
 
         return $fields;
     }

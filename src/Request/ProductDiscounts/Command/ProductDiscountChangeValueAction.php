@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ProductDiscounts\Command;
+namespace Commercetools\Core\Request\ProductDiscounts\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\ProductDiscount\ProductDiscountValue;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscountValue;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\ProductDiscounts\Command
+ * @package Commercetools\Core\Request\ProductDiscounts\Command
  *  *
  * @method string getAction()
  * @method ProductDiscountChangeValueAction setAction(string $action = null)
@@ -23,7 +23,7 @@ class ProductDiscountChangeValueAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'value' => [static::TYPE => '\Sphere\Core\Model\ProductDiscount\ProductDiscountValue'],
+            'value' => [static::TYPE => '\Commercetools\Core\Model\ProductDiscount\ProductDiscountValue'],
         ];
     }
 

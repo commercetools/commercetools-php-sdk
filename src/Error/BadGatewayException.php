@@ -3,7 +3,7 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Error;
+namespace Commercetools\Core\Error;
 
 
 class BadGatewayException extends ServerErrorException

@@ -3,17 +3,17 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\CustomerGroup;
+namespace Commercetools\Core\Model\CustomerGroup;
 
-use Sphere\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Sphere\Core\Model\CustomerGroup
+ * @package Commercetools\Core\Model\CustomerGroup
  * 
  * @method CustomerGroup current()
  * @method CustomerGroup getAt($offset)
  */
 class CustomerGroupCollection extends Collection
 {
-    protected $type = '\Sphere\Core\Model\CustomerGroup\CustomerGroup';
+    protected $type = '\Commercetools\Core\Model\CustomerGroup\CustomerGroup';
 }

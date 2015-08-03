@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Products\Command;
+namespace Commercetools\Core\Request\Products\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Image;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Image;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Products\Command
+ * @package Commercetools\Core\Request\Products\Command
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#add-external-image
  * @method string getAction()
  * @method ProductAddExternalImageAction setAction(string $action = null)
@@ -28,7 +28,7 @@ class ProductAddExternalImageAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
-            'image' => [static::TYPE => '\Sphere\Core\Model\Common\Image'],
+            'image' => [static::TYPE => '\Commercetools\Core\Model\Common\Image'],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

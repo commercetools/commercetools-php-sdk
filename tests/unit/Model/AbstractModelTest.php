@@ -3,14 +3,14 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model;
+namespace Commercetools\Core\Model;
 
 
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class AbstractModelTest
- * @package Sphere\Core\Model
+ * @package Commercetools\Core\Model
  */
 abstract class AbstractModelTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,6 +42,6 @@ abstract class AbstractModelTest extends \PHPUnit_Framework_TestCase
 
     protected function getClassName($domain, $model)
     {
-        return '\Sphere\Core\Model\\' . ucfirst($domain) . '\\' . ucfirst($model);
+        return '\Commercetools\Core\Model\\' . ucfirst($domain) . '\\' . ucfirst($model);
     }
 }

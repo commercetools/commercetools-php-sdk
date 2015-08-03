@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Model\Zone;
+namespace Commercetools\Core\Model\Zone;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Reference;
 
 /**
- * @package Sphere\Core\Model\Zone
+ * @package Commercetools\Core\Model\Zone
  * @method string getTypeId()
  * @method ZoneReference setTypeId(string $typeId = null)
  * @method string getId()
@@ -24,7 +24,7 @@ class ZoneReference extends Reference
     public function getFields()
     {
         $fields = parent::getFields();
-        $fields[static::OBJ] = [static::TYPE => '\Sphere\Core\Model\Zone\Zone'];
+        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Zone\Zone'];
 
         return $fields;
     }

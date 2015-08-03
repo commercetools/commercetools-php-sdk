@@ -3,18 +3,18 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Category;
+namespace Commercetools\Core\Category;
 
 
-use Sphere\Core\ApiTestCase;
-use Sphere\Core\Model\Category\Category;
-use Sphere\Core\Model\Category\CategoryDraft;
-use Sphere\Core\Model\Category\CategoryReference;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Request\Categories\CategoryQueryRequest;
-use Sphere\Core\Request\Categories\CategoryCreateRequest;
-use Sphere\Core\Request\Categories\CategoryDeleteRequest;
-use Sphere\Core\Request\Categories\CategoryByIdGetRequest;
+use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Category\Category;
+use Commercetools\Core\Model\Category\CategoryDraft;
+use Commercetools\Core\Model\Category\CategoryReference;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Request\Categories\CategoryQueryRequest;
+use Commercetools\Core\Request\Categories\CategoryCreateRequest;
+use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
+use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
 
 class QueryCategoriesTest extends ApiTestCase
 {
@@ -56,7 +56,7 @@ class QueryCategoriesTest extends ApiTestCase
         $result = $this->getClient()->execute(CategoryQueryRequest::of()->where('name(en="myCategory")'))->toObject();
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Sphere\Core\Model\Category\Category', $result->getAt(0));
+        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result->getAt(0));
         $this->assertSame($category->getId(), $result->getAt(0)->getId());
     }
 
@@ -80,7 +80,7 @@ class QueryCategoriesTest extends ApiTestCase
         )->toObject();
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Sphere\Core\Model\Category\Category', $result->getAt(0));
+        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result->getAt(0));
         $this->assertSame($category->getId(), $result->getAt(0)->getId());
     }
 

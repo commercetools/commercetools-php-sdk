@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Products\Command;
+namespace Commercetools\Core\Request\Products\Command;
 
-use Sphere\Core\Model\Common\AttributeCollection;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Common\LocalizedString;
-use Sphere\Core\Model\Common\PriceCollection;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\AttributeCollection;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\PriceCollection;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\Products\Command
+ * @package Commercetools\Core\Request\Products\Command
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#add-variant
  * @method string getAction()
  * @method ProductAddVariantAction setAction(string $action = null)
@@ -32,8 +32,8 @@ class ProductAddVariantAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'sku' => [static::TYPE => 'string'],
-            'prices' => [static::TYPE => '\Sphere\Core\Model\Common\PriceCollection'],
-            'attributes' => [static::TYPE => '\Sphere\Core\Model\Common\AttributeCollection'],
+            'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceCollection'],
+            'attributes' => [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

@@ -3,21 +3,21 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\ShippingMethods;
+namespace Commercetools\Core\Request\ShippingMethods;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractQueryRequest;
-use Sphere\Core\Model\ShippingMethod\ShippingMethodCollection;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\ShippingMethods
+ * @package Commercetools\Core\Request\ShippingMethods
  * @apidoc http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-methods-by-query
  * @method ShippingMethodCollection mapResponse(ApiResponseInterface $response)
  */
 class ShippingMethodQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Sphere\Core\Model\ShippingMethod\ShippingMethodCollection';
+    protected $resultClass = '\Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection';
 
     /**
      * @param Context $context

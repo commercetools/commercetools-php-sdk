@@ -3,33 +3,33 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\Products;
+namespace Commercetools\Core\Request\Products;
 
 use Psr\Http\Message\ResponseInterface;
-use Sphere\Core\Client\HttpMethod;
-use Sphere\Core\Client\HttpRequest;
-use Sphere\Core\Error\InvalidArgumentException;
-use Sphere\Core\Error\Message;
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Model\Product\ProductProjection;
-use Sphere\Core\Request\AbstractApiRequest;
-use Sphere\Core\Request\ExpandTrait;
-use Sphere\Core\Request\PageTrait;
-use Sphere\Core\Request\QueryTrait;
-use Sphere\Core\Request\StagedTrait;
-use Sphere\Core\Response\ResourceResponse;
-use Sphere\Core\Model\Common\JsonObject;
-use Sphere\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Client\HttpRequest;
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Error\Message;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Product\ProductProjection;
+use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Request\ExpandTrait;
+use Commercetools\Core\Request\PageTrait;
+use Commercetools\Core\Request\QueryTrait;
+use Commercetools\Core\Request\StagedTrait;
+use Commercetools\Core\Response\ResourceResponse;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * @package Sphere\Core\Request\Products
+ * @package Commercetools\Core\Request\Products
  * @method ProductProjection mapResponse(ApiResponseInterface $response)
  */
 class ProductProjectionBySlugGetRequest extends AbstractApiRequest
 {
     const UUID_FORMAT = '/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i';
 
-    protected $resultClass = '\Sphere\Core\Model\Product\ProductProjection';
+    protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjection';
 
     use QueryTrait;
     use StagedTrait;

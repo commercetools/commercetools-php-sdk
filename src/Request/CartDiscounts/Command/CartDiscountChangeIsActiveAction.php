@@ -3,13 +3,13 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Sphere\Core\Request\CartDiscounts\Command;
+namespace Commercetools\Core\Request\CartDiscounts\Command;
 
-use Sphere\Core\Model\Common\Context;
-use Sphere\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Sphere\Core\Request\CartDiscounts\Command
+ * @package Commercetools\Core\Request\CartDiscounts\Command
  *  *
  * @method string getAction()
  * @method CartDiscountChangeIsActiveAction setAction(string $action = null)
