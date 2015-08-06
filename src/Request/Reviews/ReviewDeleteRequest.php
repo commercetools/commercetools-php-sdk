@@ -5,12 +5,14 @@
 
 namespace Commercetools\Core\Request\Reviews;
 
-
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
+use Commercetools\Core\Model\Review\Review;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Reviews
+ * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewDeleteRequest extends AbstractDeleteRequest
 {
