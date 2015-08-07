@@ -105,7 +105,7 @@ class Attribute extends JsonObject
         return static::$types[$attributeName];
     }
 
-    protected function getTypeByApiType($apiType)
+    public static function getTypeByApiType($apiType)
     {
         $typeMapping = [
             static::API_BOOL => static::T_BOOLEAN,
@@ -136,13 +136,13 @@ class Attribute extends JsonObject
         static::$types[$definition->getName()] = $definition;
         $this->attributeDefinition = $definition;
         $apiType = $definition->getType()->getName();
-        $this->valueType = $this->getTypeByApiType($apiType);
+        $this->valueType = static::getTypeByApiType($apiType);
         $this->valueElementType = null;
         $this->valueDecorator = null;
 
         switch ($apiType) {
             case static::API_SET:
-                $this->valueElementType = $this->getTypeByApiType(
+                $this->valueElementType = static::getTypeByApiType(
                     $definition->getType()->getElementType()->getName()
                 );
                 break;

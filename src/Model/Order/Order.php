@@ -14,6 +14,7 @@ use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\TaxedPrice;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Cart\DiscountCodeInfoCollection;
+use Commercetools\Core\Model\Cart\CartReference;
 
 /**
  * @package Commercetools\Core\Model\Order
@@ -66,6 +67,8 @@ use Commercetools\Core\Model\Cart\DiscountCodeInfoCollection;
  * @method Order setDiscountCodes(DiscountCodeInfoCollection $discountCodes = null)
  * @method int getLastMessageSequenceNumber()
  * @method Order setLastMessageSequenceNumber(int $lastMessageSequenceNumber = null)
+ * @method CartReference getCart()
+ * @method Order setCart(CartReference $cart = null)
  */
 class Order extends Resource
 {

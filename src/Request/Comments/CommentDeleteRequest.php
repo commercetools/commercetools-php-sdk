@@ -5,12 +5,14 @@
 
 namespace Commercetools\Core\Request\Comments;
 
-
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
+use Commercetools\Core\Model\Comment\Comment;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Comments
+ * @method Comment mapResponse(ApiResponseInterface $response)
  */
 class CommentDeleteRequest extends AbstractDeleteRequest
 {
