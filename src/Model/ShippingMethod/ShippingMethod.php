@@ -32,7 +32,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  */
 class ShippingMethod extends Resource
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

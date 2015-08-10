@@ -51,7 +51,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  */
 class ImportOrder extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'orderNumber' => [static::TYPE => 'string'],

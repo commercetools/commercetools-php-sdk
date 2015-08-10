@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Channels\Command
- * 
+ *
  * @method string getAction()
  * @method ChannelChangeNameAction setAction(string $action = null)
  * @method LocalizedString getName()
@@ -19,7 +19,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ChannelChangeNameAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

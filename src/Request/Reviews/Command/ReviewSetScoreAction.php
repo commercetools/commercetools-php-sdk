@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Reviews\Command
- * 
+ *
  * @method string getAction()
  * @method ReviewSetScoreAction setAction(string $action = null)
  * @method string getScore()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ReviewSetScoreAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

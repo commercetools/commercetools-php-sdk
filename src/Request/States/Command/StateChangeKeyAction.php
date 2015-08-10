@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\States\Command
- * 
+ *
  * @method string getAction()
  * @method StateChangeKeyAction setAction(string $action = null)
  * @method string getKey()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class StateChangeKeyAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

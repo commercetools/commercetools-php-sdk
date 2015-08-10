@@ -22,9 +22,9 @@ class ShippingMethodReference extends Reference
 {
     const TYPE_SHIPPING_METHOD = 'shipping-method';
 
-    public function getFields()
+    public function getPropertyDefinitions()
     {
-        $fields = parent::getFields();
+        $fields = parent::getPropertyDefinitions();
         $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingMethod'];
 
         return $fields;

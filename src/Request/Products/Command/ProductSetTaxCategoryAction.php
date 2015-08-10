@@ -21,7 +21,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ProductSetTaxCategoryAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

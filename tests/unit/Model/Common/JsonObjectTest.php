@@ -27,12 +27,12 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         date_default_timezone_set('UTC');
         $obj = $this->getMock(
             '\Commercetools\Core\Model\Common\JsonObject',
-            ['getFields', 'getId'],
+            ['getPropertyDefinitions', 'getId'],
             [['key' => 'value', 'true' => true, 'false' => false, 'mixed' => '1']],
             'MockJsonObject'
         );
         $obj->expects($this->any())
-            ->method('getFields')
+            ->method('getPropertyDefinitions')
             ->will(
                 $this->returnValue(
                     [
@@ -117,10 +117,10 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         $this->getObject()->setUnknown('unknown');
     }
 
-    public function testGetFields()
+    public function testGetPropertyDefinitions()
     {
         $obj = JsonObject::of();
-        $this->assertSame([], $obj->getFields());
+        $this->assertSame([], $obj->getPropertyDefinitions());
     }
 
     public function testConstruct()

@@ -23,10 +23,10 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
             true,
             true,
             true,
-            ['getFields']
+            ['getPropertyDefinitions']
         );
         $obj->expects($this->any())
-            ->method('getFields')
+            ->method('getPropertyDefinitions')
             ->will(
                 $this->returnValue(
                     [

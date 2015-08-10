@@ -23,7 +23,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class CommentDraft extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'productId' => [static::TYPE => 'string'],

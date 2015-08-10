@@ -20,7 +20,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class SyncInfo extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'channel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],

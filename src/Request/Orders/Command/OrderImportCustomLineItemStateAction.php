@@ -31,7 +31,7 @@ class OrderImportCustomLineItemStateAction extends AbstractAction
         $this->setAction('importCustomLineItemState');
     }
 
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

@@ -28,7 +28,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  */
 class AttributeDefinition extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'type' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeType'],

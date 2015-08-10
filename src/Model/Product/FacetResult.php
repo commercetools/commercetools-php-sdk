@@ -24,7 +24,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class FacetResult extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'type' => [static::TYPE => 'string'],

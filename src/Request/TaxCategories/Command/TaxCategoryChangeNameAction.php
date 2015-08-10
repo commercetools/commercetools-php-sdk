@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories\Command
- * 
+ *
  * @method string getAction()
  * @method TaxCategoryChangeNameAction setAction(string $action = null)
  * @method string getName()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class TaxCategoryChangeNameAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

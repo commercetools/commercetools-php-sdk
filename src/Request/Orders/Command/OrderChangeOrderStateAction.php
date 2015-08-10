@@ -28,7 +28,7 @@ class OrderChangeOrderStateAction extends AbstractAction
         $this->setAction('changeOrderState');
     }
 
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

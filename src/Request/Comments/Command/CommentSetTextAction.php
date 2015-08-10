@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Comments\Command
- * 
+ *
  * @method string getAction()
  * @method CommentSetTextAction setAction(string $action = null)
  * @method string getText()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class CommentSetTextAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

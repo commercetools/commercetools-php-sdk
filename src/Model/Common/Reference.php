@@ -23,7 +23,7 @@ class Reference extends JsonObject
     const ID = 'id';
     const OBJ = 'obj';
 
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             static::TYPE_ID => [self::TYPE => 'string'],

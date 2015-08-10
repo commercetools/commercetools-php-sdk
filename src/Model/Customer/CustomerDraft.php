@@ -53,7 +53,7 @@ use Commercetools\Core\Model\Common\AddressCollection;
 class CustomerDraft extends JsonObject
 {
 
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'customerNumber' => [static::TYPE => 'string'],

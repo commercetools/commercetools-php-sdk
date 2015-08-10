@@ -40,7 +40,7 @@ class GenericReferenceTest extends AbstractModelTest
         $object = $this->getInstance($className);
 
         $validFields = array_flip($validFields);
-        foreach ($object->getFields() as $fieldKey => $field) {
+        foreach ($object->getPropertyDefinitions() as $fieldKey => $field) {
             $this->assertArrayHasKey(
                 $fieldKey,
                 $validFields,
@@ -63,7 +63,7 @@ class GenericReferenceTest extends AbstractModelTest
         foreach ($validFields as $fieldKey) {
             $this->assertArrayHasKey(
                 $fieldKey,
-                $object->getFields(),
+                $object->getPropertyDefinitions(),
                 sprintf('Failed asserting that \'%s\' has a field \'%s\'', $className, $fieldKey)
             );
         }
@@ -101,6 +101,6 @@ class GenericReferenceTest extends AbstractModelTest
          * @var Reference $object
          */
         $object = $this->getInstance($className);
-        $this->assertSame($objClassName, $object->getFields()['obj'][JsonObject::TYPE]);
+        $this->assertSame($objClassName, $object->getPropertyDefinitions()['obj'][JsonObject::TYPE]);
     }
 }

@@ -18,7 +18,7 @@ namespace Commercetools\Core\Model\Common;
  */
 class DiscountValue extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'type' => [static::TYPE => 'string'],

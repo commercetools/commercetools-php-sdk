@@ -16,7 +16,7 @@ namespace Commercetools\Core\Model\Common;
  */
 class TaxPortion extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'rate' => [static::TYPE => 'float'],

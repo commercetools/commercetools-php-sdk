@@ -55,7 +55,7 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
  */
 class Customer extends Resource
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

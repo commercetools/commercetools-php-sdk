@@ -30,7 +30,7 @@ use Commercetools\Core\Model\Common\Resource;
  */
 class Comment extends Resource
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

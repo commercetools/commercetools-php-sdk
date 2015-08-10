@@ -22,7 +22,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  */
 class ChannelDraft extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'key' => [static::TYPE => 'string'],

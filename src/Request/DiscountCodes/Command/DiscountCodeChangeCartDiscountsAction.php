@@ -22,7 +22,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class DiscountCodeChangeCartDiscountsAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

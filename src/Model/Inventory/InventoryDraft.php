@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Channel\ChannelReference;
  */
 class InventoryDraft extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'sku' => [static::TYPE => 'string'],

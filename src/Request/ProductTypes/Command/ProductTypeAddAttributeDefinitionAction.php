@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- * 
+ *
  * @method string getAction()
  * @method ProductTypeAddAttributeDefinitionAction setAction(string $action = null)
  * @method AttributeDefinition getAttribute()
@@ -19,7 +19,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ProductTypeAddAttributeDefinitionAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

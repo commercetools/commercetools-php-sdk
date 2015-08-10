@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class CartDiscountChangeSortOrderAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

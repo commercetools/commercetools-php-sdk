@@ -34,7 +34,7 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
      * @return array
      * @internal
      */
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [];
     }
@@ -83,7 +83,7 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
      */
     protected function hasField($field)
     {
-        if (isset($this->getFields()[$field])) {
+        if (isset($this->getPropertyDefinitions()[$field])) {
             return true;
         }
         return false;
@@ -96,7 +96,7 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
      */
     protected function getField($field)
     {
-        return $this->getFields()[$field];
+        return $this->getPropertyDefinitions()[$field];
     }
 
     /**

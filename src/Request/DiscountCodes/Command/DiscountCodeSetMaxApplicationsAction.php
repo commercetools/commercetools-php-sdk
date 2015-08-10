@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes\Command
- * 
+ *
  * @method string getAction()
  * @method DiscountCodeSetMaxApplicationsAction setAction(string $action = null)
  * @method int getMaxApplications()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class DiscountCodeSetMaxApplicationsAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

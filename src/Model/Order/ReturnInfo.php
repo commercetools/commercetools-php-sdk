@@ -19,7 +19,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class ReturnInfo extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'items' => [static::TYPE => '\Commercetools\Core\Model\Order\ReturnItemCollection'],

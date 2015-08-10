@@ -27,7 +27,7 @@ class FilterRange extends JsonObject
         $this->valueType = static::DEFAULT_TYPE;
     }
 
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'from' => [static::TYPE => $this->valueType],

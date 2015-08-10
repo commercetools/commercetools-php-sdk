@@ -23,7 +23,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class TrackingData extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'trackingId' => [static::TYPE => 'string'],

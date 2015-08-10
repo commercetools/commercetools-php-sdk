@@ -22,7 +22,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class CartDraft extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'currency' => [self::TYPE => 'string'],

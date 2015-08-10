@@ -19,7 +19,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  */
 class ProductDiscountSetDescriptionAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

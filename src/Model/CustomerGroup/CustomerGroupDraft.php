@@ -15,7 +15,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class CustomerGroupDraft extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'groupName' => [static::TYPE => 'string'],

@@ -21,7 +21,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class Parcel extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

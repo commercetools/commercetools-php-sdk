@@ -19,7 +19,7 @@ use Commercetools\Core\Model\Common\Money;
  */
 class DiscountedLineItemPortion extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'discount' => [static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountReference'],

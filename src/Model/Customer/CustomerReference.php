@@ -23,9 +23,9 @@ class CustomerReference extends Reference
 {
     const TYPE_CUSTOMER = 'customer';
 
-    public function getFields()
+    public function getPropertyDefinitions()
     {
-        $fields = parent::getFields();
+        $fields = parent::getPropertyDefinitions();
         $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Customer\Customer'];
 
         return $fields;

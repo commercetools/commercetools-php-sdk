@@ -27,7 +27,7 @@ use Commercetools\Core\Model\Channel\ChannelReference;
  */
 class CartAddLineItemAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

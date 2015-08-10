@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods\Command
- * 
+ *
  * @method string getAction()
  * @method ShippingMethodChangeTaxCategoryAction setAction(string $action = null)
  * @method TaxCategoryReference getTaxCategory()
@@ -19,7 +19,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ShippingMethodChangeTaxCategoryAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

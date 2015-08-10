@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories\Command
- * 
+ *
  * @method string getAction()
  * @method TaxCategoryReplaceTaxRateAction setAction(string $action = null)
  * @method string getTaxRateId()
@@ -21,7 +21,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class TaxCategoryReplaceTaxRateAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

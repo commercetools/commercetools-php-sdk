@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories\Command
- * 
+ *
  * @method string getAction()
  * @method TaxCategorySetDescriptionAction setAction(string $action = null)
  * @method string getDescription()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class TaxCategorySetDescriptionAction extends AbstractAction
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

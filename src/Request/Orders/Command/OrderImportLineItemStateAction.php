@@ -31,7 +31,7 @@ class OrderImportLineItemStateAction extends AbstractAction
         $this->setAction('importLineItemState');
     }
 
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

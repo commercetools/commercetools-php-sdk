@@ -24,7 +24,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  */
 class ShippingMethodDraft extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'name' => [static::TYPE => 'string'],

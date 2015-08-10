@@ -18,7 +18,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class CustomerSigninResult extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'customer' => [static::TYPE => '\Commercetools\Core\Model\Customer\Customer'],

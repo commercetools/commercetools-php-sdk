@@ -20,7 +20,7 @@ class Money extends JsonObject
     const CURRENCY_CODE = 'currencyCode';
     const CENT_AMOUNT = 'centAmount';
 
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             static::CURRENCY_CODE => [self::TYPE => 'string'],

@@ -23,9 +23,9 @@ class CustomerGroupReference extends Reference
 {
     const TYPE_CUSTOMER_GROUP = 'customer-group';
 
-    public function getFields()
+    public function getPropertyDefinitions()
     {
-        $fields = parent::getFields();
+        $fields = parent::getPropertyDefinitions();
         $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroup'];
 
         return $fields;

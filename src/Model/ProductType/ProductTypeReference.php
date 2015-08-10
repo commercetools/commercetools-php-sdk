@@ -23,7 +23,7 @@ class ProductTypeReference extends Reference
 {
     const TYPE_PRODUCT_TYPE = 'product-type';
 
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'typeId' => [self::TYPE => 'string'],

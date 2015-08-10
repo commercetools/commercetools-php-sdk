@@ -760,7 +760,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
         $object = $this->getInstance($className);
 
         $validFields = array_flip($validFields);
-        foreach ($object->getFields() as $fieldKey => $field) {
+        foreach ($object->getPropertyDefinitions() as $fieldKey => $field) {
             $this->assertArrayHasKey(
                 $fieldKey,
                 $validFields,
@@ -781,7 +781,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
         foreach ($validFields as $fieldKey) {
             $this->assertArrayHasKey(
                 $fieldKey,
-                $object->getFields(),
+                $object->getPropertyDefinitions(),
                 sprintf('Failed asserting that \'%s\' has a field \'%s\'', $className, $fieldKey)
             );
         }

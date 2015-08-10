@@ -18,7 +18,7 @@ use Commercetools\Core\Model\Common\Money;
  */
 class ShippingRate extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],

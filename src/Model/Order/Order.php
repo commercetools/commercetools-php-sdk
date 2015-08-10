@@ -72,7 +72,7 @@ use Commercetools\Core\Model\Cart\CartReference;
  */
 class Order extends Resource
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

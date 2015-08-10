@@ -36,7 +36,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  */
 class Category extends Resource
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

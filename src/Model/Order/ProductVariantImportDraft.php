@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\ImageCollection;
  */
 class ProductVariantImportDraft extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'id' => [static::TYPE => 'int'],

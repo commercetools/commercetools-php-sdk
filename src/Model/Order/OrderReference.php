@@ -23,9 +23,9 @@ class OrderReference extends Reference
 {
     const TYPE_ORDER = 'order';
 
-    public function getFields()
+    public function getPropertyDefinitions()
     {
-        $fields = parent::getFields();
+        $fields = parent::getPropertyDefinitions();
         $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Order\Order'];
 
         return $fields;

@@ -21,7 +21,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class ParcelMeasurements extends JsonObject
 {
-    public function getFields()
+    public function getPropertyDefinitions()
     {
         return [
             'heightInMillimeter' => [static::TYPE => 'int'],
