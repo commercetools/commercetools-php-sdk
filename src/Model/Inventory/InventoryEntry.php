@@ -33,7 +33,7 @@ use Commercetools\Core\Model\Channel\ChannelReference;
  */
 class InventoryEntry extends Resource
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

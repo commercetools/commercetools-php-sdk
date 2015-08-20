@@ -29,7 +29,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class ReturnItem extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

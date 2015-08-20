@@ -19,7 +19,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class ZoneDraft extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'name' => [static::TYPE => 'string'],

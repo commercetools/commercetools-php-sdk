@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class StateChangeKeyAction extends AbstractAction
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

@@ -28,10 +28,10 @@ class ClassAnnotator
     protected function reflectFields()
     {
         $reflectionClass = new \ReflectionClass($this->class->getClassName());
-        if (!$reflectionClass->hasMethod('getPropertyDefinitions')) {
+        if (!$reflectionClass->hasMethod('fieldDefinitions')) {
             return;
         }
-        $reflectionMethod = $reflectionClass->getMethod('getPropertyDefinitions');
+        $reflectionMethod = $reflectionClass->getMethod('fieldDefinitions');
 
         $classObject = $reflectionClass->newInstanceWithoutConstructor();
         $this->fields = $reflectionMethod->invoke($classObject);

@@ -19,7 +19,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  */
 class InventorySetExpectedDeliveryAction extends AbstractAction
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

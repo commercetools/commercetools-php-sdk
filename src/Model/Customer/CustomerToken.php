@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class CustomerToken extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

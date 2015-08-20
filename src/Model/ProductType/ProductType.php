@@ -30,7 +30,7 @@ class ProductType extends Resource
     /**
      * @return array
      */
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

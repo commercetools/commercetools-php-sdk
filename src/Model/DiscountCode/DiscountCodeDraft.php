@@ -31,7 +31,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  */
 class DiscountCodeDraft extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],

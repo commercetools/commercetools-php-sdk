@@ -43,7 +43,7 @@ class Filter extends JsonObject implements FilterInterface
         return $filter;
     }
 
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'name' => [static::TYPE => 'string'],

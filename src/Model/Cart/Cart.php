@@ -53,7 +53,7 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
  */
 class Cart extends Resource
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

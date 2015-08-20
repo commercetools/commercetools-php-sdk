@@ -21,7 +21,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ProductTypeChangeLocalizedEnumValueOrderAction extends AbstractAction
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

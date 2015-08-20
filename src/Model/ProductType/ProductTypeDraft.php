@@ -20,7 +20,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class ProductTypeDraft extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'name' => [static::TYPE => 'string'],

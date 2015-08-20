@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class ReviewDraft extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'productId' => [static::TYPE => 'string'],

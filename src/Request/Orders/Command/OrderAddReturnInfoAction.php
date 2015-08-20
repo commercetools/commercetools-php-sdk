@@ -24,7 +24,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  */
 class OrderAddReturnInfoAction extends AbstractAction
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

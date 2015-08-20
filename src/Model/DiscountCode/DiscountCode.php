@@ -42,7 +42,7 @@ use Commercetools\Core\Model\Common\ReferenceCollection;
  */
 class DiscountCode extends Resource
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

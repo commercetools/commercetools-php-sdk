@@ -41,7 +41,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
     public function testDefaultType()
     {
         $filter = Filter::of();
-        $fields = $filter->getPropertyDefinitions();
+        $fields = $filter->fieldDefinitions();
         $this->assertSame('string', $fields['value'][JsonObject::TYPE]);
     }
 

@@ -54,7 +54,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  */
 class ProductProjection extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

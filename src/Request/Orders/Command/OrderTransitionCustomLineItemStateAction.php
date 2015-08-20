@@ -38,7 +38,7 @@ class OrderTransitionCustomLineItemStateAction extends AbstractAction
         $this->setAction('transitionCustomLineItemState');
     }
 
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

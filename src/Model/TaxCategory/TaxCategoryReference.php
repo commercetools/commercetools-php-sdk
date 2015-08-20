@@ -23,9 +23,9 @@ class TaxCategoryReference extends Reference
 {
     const TYPE_TAX_CATEGORY = 'tax-category';
 
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
-        $fields = parent::getPropertyDefinitions();
+        $fields = parent::fieldDefinitions();
         $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategory'];
 
         return $fields;

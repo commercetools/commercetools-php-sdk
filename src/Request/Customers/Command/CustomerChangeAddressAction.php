@@ -21,7 +21,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class CustomerChangeAddressAction extends AbstractAction
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

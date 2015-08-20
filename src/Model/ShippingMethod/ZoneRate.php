@@ -18,7 +18,7 @@ use Commercetools\Core\Model\Zone\ZoneReference;
  */
 class ZoneRate extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'zone' => [static::TYPE => '\Commercetools\Core\Model\Zone\ZoneReference'],

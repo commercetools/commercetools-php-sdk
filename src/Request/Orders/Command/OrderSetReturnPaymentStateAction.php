@@ -30,7 +30,7 @@ class OrderSetReturnPaymentStateAction extends AbstractAction
         $this->setAction('setReturnPaymentState');
     }
 
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

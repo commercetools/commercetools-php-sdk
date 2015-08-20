@@ -75,7 +75,7 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
 
         $t = $collection->getByName('test-definition-enum');
 
-        $fields = $t->getPropertyDefinitions();
+        $fields = $t->fieldDefinitions();
         $this->assertSame('\Commercetools\Core\Model\Common\Enum', $fields[Attribute::PROP_VALUE][JsonObject::TYPE]);
         $this->assertNull($fields[Attribute::PROP_VALUE][JsonObject::DECORATOR]);
         $this->assertNull($fields[Attribute::PROP_VALUE][JsonObject::ELEMENT_TYPE]);

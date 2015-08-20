@@ -42,7 +42,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  */
 class ProductDraft extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'name' => [self::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],

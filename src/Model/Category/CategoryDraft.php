@@ -28,7 +28,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  */
 class CategoryDraft extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'name' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],

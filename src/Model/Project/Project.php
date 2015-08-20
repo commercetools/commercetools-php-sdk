@@ -29,7 +29,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  */
 class Project extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'key' => [static::TYPE => 'string'],

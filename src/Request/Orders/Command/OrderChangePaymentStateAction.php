@@ -28,7 +28,7 @@ class OrderChangePaymentStateAction extends AbstractAction
         $this->setAction('changePaymentState');
     }
 
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

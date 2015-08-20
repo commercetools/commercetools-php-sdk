@@ -23,7 +23,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ProductAddExternalImageAction extends AbstractAction
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

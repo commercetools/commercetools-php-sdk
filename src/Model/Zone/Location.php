@@ -17,7 +17,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class Location extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'country' => [static::TYPE => 'string'],

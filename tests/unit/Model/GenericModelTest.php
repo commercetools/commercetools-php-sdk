@@ -22,7 +22,7 @@ class GenericModelTest extends AbstractModelTest
         $object = $this->getInstance($className);
 
         $validFields = array_flip($validFields);
-        foreach ($object->getPropertyDefinitions() as $fieldKey => $field) {
+        foreach ($object->fieldDefinitions() as $fieldKey => $field) {
             $this->assertArrayHasKey(
                 $fieldKey,
                 $validFields,
@@ -45,7 +45,7 @@ class GenericModelTest extends AbstractModelTest
         foreach ($validFields as $fieldKey) {
             $this->assertArrayHasKey(
                 $fieldKey,
-                $object->getPropertyDefinitions(),
+                $object->fieldDefinitions(),
                 sprintf('Failed asserting that \'%s\' has a field \'%s\'', $className, $fieldKey)
             );
         }

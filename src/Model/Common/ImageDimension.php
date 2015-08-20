@@ -16,7 +16,7 @@ namespace Commercetools\Core\Model\Common;
  */
 class ImageDimension extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'w' => [static::TYPE => 'int'],

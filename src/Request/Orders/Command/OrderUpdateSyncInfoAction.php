@@ -34,7 +34,7 @@ class OrderUpdateSyncInfoAction extends AbstractAction
         $this->setAction('updateSyncInfo');
     }
 
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

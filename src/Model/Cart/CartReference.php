@@ -23,9 +23,9 @@ class CartReference extends Reference
 {
     const TYPE_CART = 'cart';
 
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
-        $fields = parent::getPropertyDefinitions();
+        $fields = parent::fieldDefinitions();
         $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Cart\Cart'];
 
         return $fields;

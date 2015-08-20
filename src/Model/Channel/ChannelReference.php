@@ -23,9 +23,9 @@ class ChannelReference extends Reference
 {
     const TYPE_CHANNEL = 'channel';
 
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
-        $fields = parent::getPropertyDefinitions();
+        $fields = parent::fieldDefinitions();
         $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Channel\Channel'];
 
         return $fields;

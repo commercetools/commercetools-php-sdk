@@ -18,7 +18,7 @@ use Commercetools\Core\Model\State\StateReference;
  */
 class ItemState extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'quantity' => [static::TYPE => 'int'],

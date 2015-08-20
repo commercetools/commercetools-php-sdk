@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ReviewSetScoreAction extends AbstractAction
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

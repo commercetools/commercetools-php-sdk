@@ -19,7 +19,7 @@ class CartDiscountTarget extends JsonObject
 {
     const TYPE_LINE_ITEMS = 'lineItems';
 
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'type' => [static::TYPE => 'string'],

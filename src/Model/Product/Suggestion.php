@@ -15,7 +15,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class Suggestion extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'text' => [static::TYPE => 'string']

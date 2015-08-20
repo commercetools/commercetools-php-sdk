@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class TaxRate extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'id' => [self::TYPE => 'string'],

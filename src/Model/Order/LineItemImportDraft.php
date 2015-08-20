@@ -32,7 +32,7 @@ use Commercetools\Core\Model\TaxCategory\TaxRate;
  */
 class LineItemImportDraft extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'productId' => [static::TYPE => 'string'],

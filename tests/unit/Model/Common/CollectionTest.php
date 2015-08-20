@@ -17,11 +17,11 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
         $obj = $this->getMock(
             '\Commercetools\Core\Model\Common\JsonObject',
-            ['getPropertyDefinitions'],
+            ['fieldDefinitions'],
             [['key' => 'value', 'true' => true, 'false' => false]]
         );
         $obj->expects($this->any())
-            ->method('getPropertyDefinitions')
+            ->method('fieldDefinitions')
             ->will(
                 $this->returnValue(
                     [

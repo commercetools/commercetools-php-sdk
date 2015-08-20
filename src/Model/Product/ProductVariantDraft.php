@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\ImageCollection;
  */
 class ProductVariantDraft extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'sku' => [self::TYPE => 'string'],

@@ -27,7 +27,7 @@ class AttributeType extends JsonObject
 {
     protected $attributeValuesType = '\Commercetools\Core\Model\Common\Collection';
 
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'name' => [static::TYPE => 'string'],

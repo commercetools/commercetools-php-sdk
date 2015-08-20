@@ -17,7 +17,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class ProductVariantAvailability extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'isOnStock' => [static::TYPE => 'bool'],

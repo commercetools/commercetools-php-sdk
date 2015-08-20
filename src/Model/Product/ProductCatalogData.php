@@ -19,7 +19,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class ProductCatalogData extends JsonObject
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'published' => [static::TYPE => 'bool'],

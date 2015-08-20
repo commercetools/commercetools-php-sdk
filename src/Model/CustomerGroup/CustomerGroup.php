@@ -23,7 +23,7 @@ use Commercetools\Core\Model\Common\Resource;
  */
 class CustomerGroup extends Resource
 {
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

@@ -65,7 +65,7 @@ class Attribute extends JsonObject
     protected $valueElementType;
     protected $valueDecorator;
 
-    public function getPropertyDefinitions()
+    public function fieldDefinitions()
     {
         return [
             static::PROP_NAME => [self::TYPE => 'string'],
