@@ -111,7 +111,12 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
             /**
              * @var JsonDeserializeInterface $type
              */
-            $this->typeData[$offset] = $type::fromArray($this->getRaw($offset), $this->getContextCallback());
+            $value = $type::fromArray($this->getRaw($offset), $this->getContextCallback());
+            if ($value instanceof ObjectTreeInterface) {
+                $value->parentSet($this);
+                $value->rootSet($this->rootGet());
+            }
+            $this->typeData[$offset] = $value;
         }
         $this->initialized[$offset] = true;
     }
@@ -162,11 +167,12 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $offset, $type));
         }
 
-        if ($this->isDeserializable($object)) {
-            /**
-             * @var JsonDeserializeInterface $object
-             */
+        if ($object instanceof ContextAwareInterface) {
             $object->setContext($this->getContextCallback());
+        }
+        if ($object instanceof ObjectTreeInterface) {
+            $object->parentSet($this);
+            $object->rootSet($this->rootGet());
         }
         if (is_null($offset)) {
             $this->typeData[] = $object;

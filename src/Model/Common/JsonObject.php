@@ -11,7 +11,7 @@ use Commercetools\Core\Error\Message;
 /**
  * @package Commercetools\Core\Model\Type
  */
-class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializable, JsonDeserializeInterface
+class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializable
 {
     use ContextTrait;
 
@@ -94,7 +94,7 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
      * @return array
      * @internal
      */
-    protected function getField($field)
+    protected function fieldDefinition($field)
     {
         return $this->fieldDefinitions()[$field];
     }
@@ -105,9 +105,9 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
      * @return string|bool
      * @internal
      */
-    protected function getFieldKey($field, $key)
+    protected function fieldDefinitionValue($field, $key)
     {
-        $field = $this->getField($field);
+        $field = $this->fieldDefinition($field);
 
         if (isset($field[$key])) {
             return $field[$key];
@@ -126,19 +126,23 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
         return $this->getTyped($field);
     }
 
+    protected function fieldDefinitionType($field)
+    {
+        return $this->fieldDefinitionValue($field, static::TYPE);
+    }
     /**
      * @param string $field
      * @internal
      */
     protected function initialize($field)
     {
-        $type = $this->getFieldKey($field, static::TYPE);
+        $type = $this->fieldDefinitionType($field);
         if ($this->isTypeableType($type)) {
             /**
              * @var TypeableInterface $type
              */
             $value = $type::ofTypeAndData(
-                $this->getFieldKey($field, static::ELEMENT_TYPE),
+                $this->fieldDefinitionValue($field, static::ELEMENT_TYPE),
                 $this->getRaw($field, []),
                 $this->getContextCallback()
             );
@@ -153,6 +157,10 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
         } else {
             $value = $this->getRaw($field);
         }
+        if ($value instanceof ObjectTreeInterface) {
+            $value->parentSet($this);
+            $value->rootSet($this->rootGet());
+        }
         $this->typeData[$field] = !is_null($value) ? $this->decorateField($field, $value) : null;
 
         $this->initialized[$field] = true;
@@ -160,12 +168,12 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
 
     protected function isOptional($field, $value)
     {
-        return ($value === null && $this->getFieldKey($field, static::OPTIONAL) === false);
+        return ($value === null && $this->fieldDefinitionValue($field, static::OPTIONAL) === false);
     }
 
     protected function decorateField($field, $value)
     {
-        if ($decorator = $this->getFieldKey($field, static::DECORATOR)) {
+        if ($decorator = $this->fieldDefinitionValue($field, static::DECORATOR)) {
             $value = new $decorator($value);
         }
 
@@ -180,18 +188,19 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
      */
     public function set($field, $value)
     {
-        $type = $this->getFieldKey($field, static::TYPE);
+        $type = $this->fieldDefinitionType($field);
         if (!$this->isValidType($type, $value)) {
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $field, $type));
         }
         if ($this->isOptional($field, $value)) {
             throw new \InvalidArgumentException(sprintf(Message::EXPECTS_PARAMETER, $field, $type));
         }
-        if ($this->isDeserializable($value)) {
-            /**
-             * @var JsonDeserializeInterface $value
-             */
+        if ($value instanceof ContextAwareInterface) {
             $value->setContext($this->getContextCallback());
+        }
+        if ($value instanceof ObjectTreeInterface) {
+            $value->parentSet($this);
+            $value->rootSet($this->rootGet());
         }
         $this->typeData[$field] = $this->decorateField($field, $value);
 

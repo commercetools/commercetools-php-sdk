@@ -8,8 +8,10 @@ namespace Commercetools\Core\Model\Common;
 /**
  * @package Commercetools\Core\Model\Common
  */
-abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
+abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface, ObjectTreeInterface
 {
+    use ObjectTreeTrait;
+
     const JSON_DESERIALIZE_INTERFACE = 'Commercetools\Core\Model\Common\JsonDeserializeInterface';
     const TYPEABLE_INTERFACE = '\Commercetools\Core\Model\Common\TypeableInterface';
 
