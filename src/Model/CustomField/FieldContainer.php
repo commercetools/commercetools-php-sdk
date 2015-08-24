@@ -43,7 +43,6 @@ class FieldContainer extends JsonObject
         if (!$fieldType instanceof FieldType) {
             return null;
         }
-        $bla = $fieldType->fieldTypeDefinition();
         return $fieldType->fieldTypeDefinition();
     }
 

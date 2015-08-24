@@ -9,24 +9,24 @@ namespace Commercetools\Core\Model\Type;
 /**
  * @package Commercetools\Core\Model\Type
  * @method string getName()
- * @method EnumType setName(string $name = null)
+ * @method LocalizedEnumType setName(string $name = null)
  * @method getValues()
- * @method EnumType setValues($values = null)
+ * @method LocalizedEnumType setValues($values = null)
  */
-class EnumType extends FieldType
+class LocalizedEnumType extends FieldType
 {
-    const NAME = 'Enum';
+    const NAME = 'LocalizedEnum';
 
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['values'] = [static::TYPE => '\Commercetools\Core\Model\Common\EnumCollection'];
+        $definitions['values'] = [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedEnumCollection'];
 
         return $definitions;
     }
 
     public function fieldTypeDefinition()
     {
-        return [static::TYPE => '\Commercetools\Core\Model\Common\Enum'];
+        return [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedEnum'];
     }
 }

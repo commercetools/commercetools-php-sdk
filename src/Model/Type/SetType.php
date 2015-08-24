@@ -24,4 +24,19 @@ class SetType extends FieldType
 
         return $definitions;
     }
+
+    public function fieldTypeDefinition()
+    {
+        $elementType = '';
+        if ($this->getElementType() instanceof FieldType) {
+            $definition = $this->getElementType()->fieldTypeDefinition();
+            if (isset($definition[static::TYPE])) {
+                $elementType = $definition[static::TYPE];
+            }
+        }
+        return [
+            static::TYPE => '\Commercetools\Core\Model\Common\Set',
+            static::ELEMENT_TYPE => $elementType
+        ];
+    }
 }

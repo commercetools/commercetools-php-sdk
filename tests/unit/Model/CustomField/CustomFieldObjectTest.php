@@ -6,11 +6,12 @@
 namespace Commercetools\Core\Model\CustomField;
 
 
-use Commercetools\Core\Model\Type\FieldDefinition;
-use Commercetools\Core\Model\Type\FieldDefinitionCollection;
-use Commercetools\Core\Model\Type\Type;
-use Commercetools\Core\Model\Type\TypeReference;
+use Commercetools\Core\Model\Common\Collection;
 
+/**
+ * Class CustomFieldObjectTest
+ * @package Commercetools\Core\Model\CustomField
+ */
 class CustomFieldObjectTest extends \PHPUnit_Framework_TestCase
 {
     protected function getContainer()
@@ -49,6 +50,45 @@ class CustomFieldObjectTest extends \PHPUnit_Framework_TestCase
                                 'name' => 'Money'
                             ]
                         ],
+                        [
+                            'name' => 'brand',
+                            'type' => [
+                                'name' => 'Enum',
+                                'values' => [
+                                    [
+                                        'key' => 'audi',
+                                        'label' => 'Audi',
+                                    ],
+                                    [
+                                        'key' => 'bmw',
+                                        'label' => 'BMW',
+                                    ]
+                                ]
+                            ]
+                        ],
+                        [
+                            'name' => 'features',
+                            'type' => [
+                                'name' => 'Set',
+                                'elementType' => [
+                                    'name' => 'LocalizedEnum',
+                                    'values' => [
+                                        [
+                                            'key' => 'aircondition',
+                                            'label' => [
+                                                'en' => 'Air Condition',
+                                            ]
+                                        ],
+                                        [
+                                            'key' => 'navigation',
+                                            'label' => [
+                                                'en' => 'Navigation System',
+                                            ],
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
                     ]
                 ]
             ]
@@ -66,19 +106,33 @@ class CustomFieldObjectTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                ['active' => false]
+                ['active' => false],
+                'boolean'
             ],
             [
-                ['description' => 'my description']
+                ['description' => 'my description'],
+                'string'
             ],
             [
-                ['name' => ['en' => 'My awesome Shirt']]
+                ['name' => ['en' => 'My awesome Shirt']],
+                'Commercetools\Core\Model\Common\LocalizedString'
             ],
             [
-                ['size' => 48]
+                ['size' => 48],
+                'integer'
             ],
             [
-                ['price' => ['centAmount' => 100, 'currency' => 'EUR']]
+                ['price' => ['centAmount' => 100, 'currency' => 'EUR']],
+                'Commercetools\Core\Model\Common\Money'
+            ],
+            [
+                ['brand' => ['key' => 'bmw', 'label' => 'BMW']],
+                'Commercetools\Core\Model\Common\Enum'
+            ],
+            [
+                ['features' => [['key' => 'aircondition'], ['key' => 'navigation']]],
+                'Commercetools\Core\Model\Common\Set',
+                'Commercetools\Core\Model\Common\LocalizedEnum',
             ]
         ];
     }
@@ -86,25 +140,24 @@ class CustomFieldObjectTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getCustomFields
      */
-    public function testData($dataArray)
+    public function testData($dataArray, $type, $elementType = null)
     {
-        $this->markTestIncomplete();
-        return;
-        $startTime = microtime(true);
         $key = key($dataArray);
         $value = current($dataArray);
         $customFields = $this->getContainer();
         $customFields->setFields(FieldContainer::fromArray($dataArray));
-        $method = 'get'.ucfirst($key);
+        $fieldGet = 'get'.ucfirst($key);
 
-        $t = $customFields->getFields()->$method();
-        $endTime = microtime(true);
+        $field = $customFields->getFields()->$fieldGet();
 
-        if (is_object($t)) {
-            var_dump(get_class($t));
-        } else {
-            var_dump(gettype($t));
+        if ($field instanceof Collection) {
+            $this->assertInstanceOf($elementType, $field->getAt(0));
         }
-        var_dump($endTime - $startTime);
+        if (is_object($field)) {
+            $this->assertInstanceOf($type, $field);
+        } else {
+            $this->assertInternalType($type, $field);
+        }
+        $this->assertJsonStringEqualsJsonString(json_encode($value), json_encode($field));
     }
 }
