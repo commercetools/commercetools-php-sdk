@@ -16,6 +16,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 class FieldType extends JsonObject
 {
     const NAME = '';
+
     /**
      * @param array $data
      * @param Context|callable $context
@@ -23,7 +24,8 @@ class FieldType extends JsonObject
     public function __construct(array $data = [], $context = null)
     {
         parent::__construct($data, $context);
-        if (!empty(static::NAME)) {
+        $name = static::NAME;
+        if (!empty($name)) {
             $this->setName(static::NAME);
         }
     }
