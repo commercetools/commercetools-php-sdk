@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Common\AddressCollection;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Customer
@@ -49,6 +50,8 @@ use Commercetools\Core\Model\Common\AddressCollection;
  * @method CustomerDraft setDefaultShippingAddressId(int $defaultShippingAddressId = null)
  * @method int getDefaultBillingAddressId()
  * @method CustomerDraft setDefaultBillingAddressId(int $defaultBillingAddressId = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method CustomerDraft setCustom(CustomFieldObjectDraft $custom = null)
  */
 class CustomerDraft extends JsonObject
 {

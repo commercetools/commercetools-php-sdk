@@ -9,6 +9,7 @@ namespace Commercetools\Core\Model\Category;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Category
@@ -25,6 +26,8 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method CategoryDraft setParent(CategoryReference $parent = null)
  * @method CategoryDraft setOrderHint(string $orderHint = null)
  * @method CategoryDraft setExternalId(string $externalId = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method CategoryDraft setCustom(CustomFieldObjectDraft $custom = null)
  */
 class CategoryDraft extends JsonObject
 {
