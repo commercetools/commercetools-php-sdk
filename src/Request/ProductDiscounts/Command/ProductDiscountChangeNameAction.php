@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductDiscounts\Command
- *  *
+ *
  * @method string getAction()
  * @method ProductDiscountChangeNameAction setAction(string $action = null)
  * @method LocalizedString getName()

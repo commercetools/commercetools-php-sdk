@@ -209,7 +209,7 @@ class ClassAnnotator
             if ($this->ignoreDocBlockLine($lineNr, $docBlockLines)) {
                 continue;
             }
-            $classHead[] = ' * ' . $line;
+            $classHead[] = ' *' . (empty($line) ? '' : ' ' . $line);
         }
 
         foreach ($this->class->getMagicGetSetMethods() as $magicMethod) {

@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Channels\Command
- *  *
+ *
  * @method string getAction()
  * @method ChannelChangeDescriptionAction setAction(string $action = null)
  * @method LocalizedString getDescription()

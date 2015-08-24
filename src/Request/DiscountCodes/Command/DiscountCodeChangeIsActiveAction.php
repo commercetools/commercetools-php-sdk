@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes\Command
- *  *
+ *
  * @method string getAction()
  * @method DiscountCodeChangeIsActiveAction setAction(string $action = null)
  * @method bool getIsActive()

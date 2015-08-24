@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Message
- * 
+ *
  * @method Message current()
  * @method Message getAt($offset)
  */

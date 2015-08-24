@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\TaxCategory
- * 
+ *
  * @method TaxCategory current()
  * @method TaxCategory getAt($offset)
  */

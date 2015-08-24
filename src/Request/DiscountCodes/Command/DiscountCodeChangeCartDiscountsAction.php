@@ -12,7 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes\Command
- *  *
+ *
  * @method string getAction()
  * @method DiscountCodeChangeCartDiscountsAction setAction(string $action = null)
  * @method CartDiscountReferenceCollection getCartDiscounts()

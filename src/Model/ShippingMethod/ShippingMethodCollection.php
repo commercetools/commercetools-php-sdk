@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\ShippingMethod
- * 
+ *
  * @method ShippingMethod current()
  * @method ShippingMethod getAt($offset)
  */

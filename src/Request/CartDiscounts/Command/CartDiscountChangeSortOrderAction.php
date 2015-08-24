@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
- *  *
+ *
  * @method string getAction()
  * @method CartDiscountChangeSortOrderAction setAction(string $action = null)
  * @method string getSortOrder()

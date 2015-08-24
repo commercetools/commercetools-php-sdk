@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Reviews
- * 
+ *
  * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewCreateRequest extends AbstractCreateRequest

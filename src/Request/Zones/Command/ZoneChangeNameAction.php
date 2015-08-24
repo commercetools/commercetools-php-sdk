@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Zones\Command
- *  *
+ *
  * @method string getAction()
  * @method ZoneChangeNameAction setAction(string $action = null)
  * @method string getName()

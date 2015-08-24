@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories\Command
- *  *
+ *
  * @method string getAction()
  * @method TaxCategoryAddTaxRateAction setAction(string $action = null)
  * @method TaxRate getTaxRate()

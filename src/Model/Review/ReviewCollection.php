@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Review
- * 
+ *
  * @method Review current()
  * @method Review getAt($offset)
  */

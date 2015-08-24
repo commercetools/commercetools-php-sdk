@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories
- * 
+ *
  * @method TaxCategory mapResponse(ApiResponseInterface $response)
  */
 class TaxCategoryCreateRequest extends AbstractCreateRequest

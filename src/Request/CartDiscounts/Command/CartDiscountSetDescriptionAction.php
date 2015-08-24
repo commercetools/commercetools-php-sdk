@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
- *  *
+ *
  * @method string getAction()
  * @method CartDiscountSetDescriptionAction setAction(string $action = null)
  * @method LocalizedString getDescription()
