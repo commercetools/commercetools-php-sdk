@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Customer;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Customer
@@ -52,6 +53,8 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
  * @method Customer setExternalId(string $externalId = null)
  * @method CustomerGroupReference getCustomerGroup()
  * @method Customer setCustomerGroup(CustomerGroupReference $customerGroup = null)
+ * @method CustomFieldObject getCustom()
+ * @method Customer setCustom(CustomFieldObject $custom = null)
  */
 class Customer extends Resource
 {
@@ -78,6 +81,7 @@ class Customer extends Resource
             'isEmailVerified' => [static::TYPE => 'bool'],
             'externalId' => [static::TYPE => 'string'],
             'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
 }

@@ -31,12 +31,13 @@ class CategoryDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'name' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'slug' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'parent' => [self::TYPE => '\Commercetools\Core\Model\Category\CategoryReference'],
-            'orderHint' => [self::TYPE => 'string'],
-            'externalId' => [self::TYPE => 'string'],
+            'name' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'slug' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'description' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'parent' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReference'],
+            'orderHint' => [static::TYPE => 'string'],
+            'externalId' => [static::TYPE => 'string'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
         ];
     }
 

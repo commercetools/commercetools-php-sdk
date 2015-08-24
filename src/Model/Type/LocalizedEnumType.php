@@ -5,13 +5,14 @@
 
 namespace Commercetools\Core\Model\Type;
 
+use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 
 /**
  * @package Commercetools\Core\Model\Type
  * @method string getName()
  * @method LocalizedEnumType setName(string $name = null)
- * @method getValues()
- * @method LocalizedEnumType setValues($values = null)
+ * @method LocalizedEnumCollection getValues()
+ * @method LocalizedEnumType setValues(LocalizedEnumCollection $values = null)
  */
 class LocalizedEnumType extends FieldType
 {

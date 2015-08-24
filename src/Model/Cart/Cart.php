@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\TaxedPrice;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -50,6 +51,8 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
  * @method Cart setShippingInfo(ShippingInfo $shippingInfo = null)
  * @method DiscountCodeInfoCollection getDiscountCodes()
  * @method Cart setDiscountCodes(DiscountCodeInfoCollection $discountCodes = null)
+ * @method CustomFieldObject getCustom()
+ * @method Cart setCustom(CustomFieldObject $custom = null)
  */
 class Cart extends Resource
 {
@@ -74,6 +77,7 @@ class Cart extends Resource
             'country' => [static::TYPE => 'string'],
             'shippingInfo' => [static::TYPE => '\Commercetools\Core\Model\Cart\ShippingInfo'],
             'discountCodes' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountCodeInfoCollection'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
 }

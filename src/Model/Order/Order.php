@@ -15,6 +15,7 @@ use Commercetools\Core\Model\Common\TaxedPrice;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Cart\DiscountCodeInfoCollection;
 use Commercetools\Core\Model\Cart\CartReference;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Order
@@ -69,6 +70,8 @@ use Commercetools\Core\Model\Cart\CartReference;
  * @method Order setLastMessageSequenceNumber(int $lastMessageSequenceNumber = null)
  * @method CartReference getCart()
  * @method Order setCart(CartReference $cart = null)
+ * @method CustomFieldObject getCustom()
+ * @method Order setCustom(CustomFieldObject $custom = null)
  */
 class Order extends Resource
 {
@@ -99,7 +102,8 @@ class Order extends Resource
             'returnInfo' => [static::TYPE => '\Commercetools\Core\Model\Order\ReturnInfoCollection'],
             'discountCodes' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountCodeInfoCollection'],
             'lastMessageSequenceNumber' => [static::TYPE => 'int'],
-            'cart' => [static::TYPE => '\Commercetools\Core\Model\Cart\CartReference']
+            'cart' => [static::TYPE => '\Commercetools\Core\Model\Cart\CartReference'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
 }

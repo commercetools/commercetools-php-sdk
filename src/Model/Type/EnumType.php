@@ -5,13 +5,14 @@
 
 namespace Commercetools\Core\Model\Type;
 
+use Commercetools\Core\Model\Common\EnumCollection;
 
 /**
  * @package Commercetools\Core\Model\Type
  * @method string getName()
  * @method EnumType setName(string $name = null)
- * @method getValues()
- * @method EnumType setValues($values = null)
+ * @method EnumCollection getValues()
+ * @method EnumType setValues(EnumCollection $values = null)
  */
 class EnumType extends FieldType
 {

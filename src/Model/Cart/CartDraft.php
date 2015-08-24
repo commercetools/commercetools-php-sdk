@@ -25,10 +25,11 @@ class CartDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'currency' => [self::TYPE => 'string'],
-            'customerId' => [self::TYPE => 'string'],
-            'country' => [self::TYPE => 'string'],
-            'inventoryMode' => [self::TYPE => 'string']
+            'currency' => [static::TYPE => 'string'],
+            'customerId' => [static::TYPE => 'string'],
+            'country' => [static::TYPE => 'string'],
+            'inventoryMode' => [static::TYPE => 'string'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
         ];
     }
 

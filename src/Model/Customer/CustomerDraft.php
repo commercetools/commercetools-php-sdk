@@ -76,6 +76,7 @@ class CustomerDraft extends JsonObject
             'addresses' => [static::TYPE => '\Commercetools\Core\Model\Common\AddressCollection'],
             'defaultShippingAddressId' => [static::TYPE => 'int'],
             'defaultBillingAddressId' => [static::TYPE => 'int'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
         ];
     }
 
