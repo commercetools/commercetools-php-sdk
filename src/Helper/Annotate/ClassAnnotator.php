@@ -28,10 +28,10 @@ class ClassAnnotator
     protected function reflectFields()
     {
         $reflectionClass = new \ReflectionClass($this->class->getClassName());
-        if (!$reflectionClass->hasMethod('getFields')) {
+        if (!$reflectionClass->hasMethod('fieldDefinitions')) {
             return;
         }
-        $reflectionMethod = $reflectionClass->getMethod('getFields');
+        $reflectionMethod = $reflectionClass->getMethod('fieldDefinitions');
 
         $classObject = $reflectionClass->newInstanceWithoutConstructor();
         $this->fields = $reflectionMethod->invoke($classObject);
@@ -209,7 +209,7 @@ class ClassAnnotator
             if ($this->ignoreDocBlockLine($lineNr, $docBlockLines)) {
                 continue;
             }
-            $classHead[] = ' * ' . $line;
+            $classHead[] = ' *' . (empty($line) ? '' : ' ' . $line);
         }
 
         foreach ($this->class->getMagicGetSetMethods() as $magicMethod) {

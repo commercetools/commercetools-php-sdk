@@ -29,7 +29,7 @@ use Commercetools\Core\Model\Common\PriceCollection;
  */
 class ProductVariant extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

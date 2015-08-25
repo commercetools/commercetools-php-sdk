@@ -21,9 +21,9 @@ class ZoneReference extends Reference
 {
     const TYPE_ZONE = 'zone';
 
-    public function getFields()
+    public function fieldDefinitions()
     {
-        $fields = parent::getFields();
+        $fields = parent::fieldDefinitions();
         $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Zone\Zone'];
 
         return $fields;

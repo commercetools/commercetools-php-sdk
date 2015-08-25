@@ -30,7 +30,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategory;
  */
 class Product extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

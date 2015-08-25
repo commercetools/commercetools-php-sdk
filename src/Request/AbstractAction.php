@@ -14,7 +14,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 abstract class AbstractAction extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string']

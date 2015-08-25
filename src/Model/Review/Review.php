@@ -32,7 +32,7 @@ use Commercetools\Core\Model\Common\Resource;
  */
 class Review extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

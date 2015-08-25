@@ -40,7 +40,7 @@ class Price extends JsonObject
     const VALID_UNTIL = 'validUntil';
     const DISCOUNTED = 'discounted';
 
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             static::ID => [static::TYPE => 'string'],

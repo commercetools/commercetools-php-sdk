@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Category;
 
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Category
@@ -33,10 +34,12 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method Category setOrderHint(string $orderHint = null)
  * @method string getExternalId()
  * @method Category setExternalId(string $externalId = null)
+ * @method CustomFieldObject getCustom()
+ * @method Category setCustom(CustomFieldObject $custom = null)
  */
 class Category extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],
@@ -50,6 +53,7 @@ class Category extends Resource
             'parent' => [self::TYPE => '\Commercetools\Core\Model\Category\CategoryReference'],
             'orderHint' => [self::TYPE => 'string'],
             'externalId' => [self::TYPE => 'string'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
 }

@@ -16,7 +16,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class FacetTerm extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'term' => [static::TYPE => 'string'],

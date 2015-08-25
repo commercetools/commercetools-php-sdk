@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\States\Command
- * 
+ *
  * @method string getAction()
  * @method StateSetTransitionsAction setAction(string $action = null)
  * @method StateReferenceCollection getTransitions()
@@ -19,7 +19,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class StateSetTransitionsAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

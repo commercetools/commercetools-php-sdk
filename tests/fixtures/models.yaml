@@ -20,6 +20,7 @@ cart:
     - country
     - shippingInfo
     - discountCodes
+    - custom
 
 lineItem:
   domain: cart
@@ -149,6 +150,7 @@ category:
     - parent
     - orderHint
     - externalId
+    - custom
 
 categoryDraft:
   domain: category
@@ -160,6 +162,7 @@ categoryDraft:
     - parent
     - orderHint
     - externalId
+    - custom
 
 address:
   domain: common
@@ -268,6 +271,7 @@ customer:
     - isEmailVerified
     - externalId
     - customerGroup
+    - custom
 
 customerSigninResult:
   domain: customer
@@ -328,6 +332,7 @@ order:
     - discountCodes
     - lastMessageSequenceNumber
     - cart
+    - custom
 
 syncInfo:
   domain: order

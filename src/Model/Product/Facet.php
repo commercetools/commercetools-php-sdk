@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Product;
 
 /**
  * @package Commercetools\Core\Model\Product
- * 
+ *
  * @method string getName()
  * @method Facet setName(string $name = null)
  * @method getValue()

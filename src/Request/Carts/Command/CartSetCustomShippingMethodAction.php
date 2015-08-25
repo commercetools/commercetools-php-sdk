@@ -24,7 +24,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  */
 class CartSetCustomShippingMethodAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

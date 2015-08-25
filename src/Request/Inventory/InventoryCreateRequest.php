@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Inventory
- * 
+ *
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
 class InventoryCreateRequest extends AbstractCreateRequest

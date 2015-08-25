@@ -22,9 +22,9 @@ class DiscountCodeReference extends Reference
 {
     const TYPE_DISCOUNT_CODE = 'discount-code';
 
-    public function getFields()
+    public function fieldDefinitions()
     {
-        $fields = parent::getFields();
+        $fields = parent::fieldDefinitions();
         $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\DiscountCode\DiscountCode'];
 
         return $fields;

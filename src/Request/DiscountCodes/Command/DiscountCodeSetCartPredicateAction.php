@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes\Command
- * 
+ *
  * @method string getAction()
  * @method DiscountCodeSetCartPredicateAction setAction(string $action = null)
  * @method string getCartPredicate()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class DiscountCodeSetCartPredicateAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

@@ -16,7 +16,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ProductUnpublishAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

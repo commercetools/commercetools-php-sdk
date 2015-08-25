@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Zones\Command
- * 
+ *
  * @method string getAction()
  * @method ZoneRemoveLocationAction setAction(string $action = null)
  * @method Location getLocation()
@@ -19,7 +19,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ZoneRemoveLocationAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

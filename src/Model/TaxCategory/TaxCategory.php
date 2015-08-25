@@ -28,7 +28,7 @@ use Commercetools\Core\Model\Common\Resource;
  */
 class TaxCategory extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [self::TYPE => 'string'],

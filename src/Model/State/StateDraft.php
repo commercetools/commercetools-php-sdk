@@ -29,7 +29,7 @@ class StateDraft extends JsonObject
 {
     const TYPE_LINE_ITEM_STATE = 'LineItemState';
 
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'key' => [static::TYPE => 'string'],

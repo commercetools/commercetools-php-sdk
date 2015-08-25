@@ -12,7 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods\Command
- * 
+ *
  * @method string getAction()
  * @method ShippingMethodRemoveShippingRateAction setAction(string $action = null)
  * @method ZoneReference getZone()
@@ -22,7 +22,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ShippingMethodRemoveShippingRateAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

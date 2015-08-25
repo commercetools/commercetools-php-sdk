@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Channels\Command
- *  *
+ *
  * @method string getAction()
  * @method ChannelChangeKeyAction setAction(string $action = null)
  * @method string getKey()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ChannelChangeKeyAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

@@ -12,7 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes\Command
- *  *
+ *
  * @method string getAction()
  * @method DiscountCodeChangeCartDiscountsAction setAction(string $action = null)
  * @method CartDiscountReferenceCollection getCartDiscounts()
@@ -22,7 +22,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class DiscountCodeChangeCartDiscountsAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

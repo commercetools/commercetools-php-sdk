@@ -24,7 +24,7 @@ class Image extends JsonObject
     const LARGE = 'large';
     const ZOOM = 'zoom';
 
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'url' => [static::TYPE => 'string'],

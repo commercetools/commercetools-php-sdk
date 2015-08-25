@@ -19,7 +19,7 @@ class Enum extends JsonObject
     /**
      * @return array
      */
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'label' => [static::TYPE => 'string'],

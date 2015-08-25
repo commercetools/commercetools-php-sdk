@@ -18,7 +18,7 @@ namespace Commercetools\Core\Model\Common;
  */
 class TaxedPrice extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'totalNet' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],

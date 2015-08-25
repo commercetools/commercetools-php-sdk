@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\ProductDiscount
- * 
+ *
  * @method ProductDiscount current()
  * @method ProductDiscount getAt($offset)
  */

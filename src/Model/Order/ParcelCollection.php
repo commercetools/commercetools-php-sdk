@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Order
- * 
+ *
  * @method Parcel current()
  * @method Parcel getAt($offset)
  */

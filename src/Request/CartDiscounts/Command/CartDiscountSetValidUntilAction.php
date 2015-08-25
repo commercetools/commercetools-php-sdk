@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
- *  *
+ *
  * @method string getAction()
  * @method CartDiscountSetValidUntilAction setAction(string $action = null)
  * @method DateTimeDecorator getValidUntil()
@@ -19,7 +19,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  */
 class CartDiscountSetValidUntilAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

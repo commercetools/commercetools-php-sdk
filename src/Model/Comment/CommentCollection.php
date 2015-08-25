@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Comment
- * 
+ *
  * @method Comment current()
  * @method Comment getAt($offset)
  */

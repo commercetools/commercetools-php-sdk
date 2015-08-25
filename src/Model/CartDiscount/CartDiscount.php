@@ -45,7 +45,7 @@ use Commercetools\Core\Model\Common\ReferenceCollection;
  */
 class CartDiscount extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

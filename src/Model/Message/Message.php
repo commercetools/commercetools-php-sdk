@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
  */
 class Message extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

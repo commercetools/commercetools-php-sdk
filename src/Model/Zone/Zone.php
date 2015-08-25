@@ -27,7 +27,7 @@ use Commercetools\Core\Model\Common\Resource;
  */
 class Zone extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

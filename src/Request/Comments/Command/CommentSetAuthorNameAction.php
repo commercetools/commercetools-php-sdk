@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Comments\Command
- * 
+ *
  * @method string getAction()
  * @method CommentSetAuthorNameAction setAction(string $action = null)
  * @method string getAuthorName()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class CommentSetAuthorNameAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

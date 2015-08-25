@@ -22,9 +22,9 @@ class CartDiscountReference extends Reference
 {
     const TYPE_CART_DISCOUNT = 'cart-discount';
 
-    public function getFields()
+    public function fieldDefinitions()
     {
-        $fields = parent::getFields();
+        $fields = parent::fieldDefinitions();
         $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscount'];
 
         return $fields;

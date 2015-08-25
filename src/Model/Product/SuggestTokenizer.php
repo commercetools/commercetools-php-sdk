@@ -17,7 +17,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class SuggestTokenizer extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'type' => [static::TYPE => 'string'],

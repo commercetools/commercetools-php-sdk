@@ -45,7 +45,7 @@ use Commercetools\Core\Model\TaxCategory\TaxRate;
  */
 class LineItem extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductDiscounts\Command
- *  *
+ *
  * @method string getAction()
  * @method ProductDiscountChangeSortOrderAction setAction(string $action = null)
  * @method string getSortOrder()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ProductDiscountChangeSortOrderAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

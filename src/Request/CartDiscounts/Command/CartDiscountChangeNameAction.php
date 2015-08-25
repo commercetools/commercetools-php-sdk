@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
- *  *
+ *
  * @method string getAction()
  * @method CartDiscountChangeNameAction setAction(string $action = null)
  * @method LocalizedString getName()
@@ -19,7 +19,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class CartDiscountChangeNameAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

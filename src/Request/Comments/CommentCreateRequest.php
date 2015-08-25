@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Comments
- * 
+ *
  * @method Comment mapResponse(ApiResponseInterface $response)
  */
 class CommentCreateRequest extends AbstractCreateRequest

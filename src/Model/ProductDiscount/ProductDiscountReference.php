@@ -23,9 +23,9 @@ class ProductDiscountReference extends Reference
 {
     const TYPE_PRODUCT_DISCOUNT = 'product-discount';
 
-    public function getFields()
+    public function fieldDefinitions()
     {
-        $fields = parent::getFields();
+        $fields = parent::fieldDefinitions();
         $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\ProductDiscount\ProductDiscount'];
 
         return $fields;

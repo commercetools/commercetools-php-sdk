@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductDiscounts\Command
- *  *
+ *
  * @method string getAction()
  * @method ProductDiscountChangeValueAction setAction(string $action = null)
  * @method ProductDiscountValue getValue()
@@ -19,7 +19,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ProductDiscountChangeValueAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

@@ -21,7 +21,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ProductChangeNameAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

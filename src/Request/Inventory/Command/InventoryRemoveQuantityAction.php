@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Inventory\Command
- * 
+ *
  * @method string getAction()
  * @method InventoryRemoveQuantityAction setAction(string $action = null)
  * @method int getQuantity()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class InventoryRemoveQuantityAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

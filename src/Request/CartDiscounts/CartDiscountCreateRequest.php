@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts
- * 
+ *
  * @method CartDiscount mapResponse(ApiResponseInterface $response)
  */
 class CartDiscountCreateRequest extends AbstractCreateRequest
