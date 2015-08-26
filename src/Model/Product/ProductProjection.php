@@ -77,4 +77,17 @@ class ProductProjection extends JsonObject
             'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords']
         ];
     }
+
+    /**
+     * @param $variantId
+     * @return ProductVariant|null
+     */
+    public function getVariantById($variantId)
+    {
+        if ($variantId == $this->getMasterVariant()->getId()) {
+            return $this->getMasterVariant();
+        }
+
+        return $this->getVariants()->getById($variantId);
+    }
 }

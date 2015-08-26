@@ -14,5 +14,25 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ProductVariantCollection extends Collection
 {
+    const ID = 'id';
     protected $type = '\Commercetools\Core\Model\Product\ProductVariant';
+
+    protected function indexRow($offset, $row)
+    {
+        if ($row instanceof ProductVariant) {
+            $id = $row->getId();
+        } else {
+            $id = $row[static::ID];
+        }
+        $this->addToIndex(static::ID, $offset, $id);
+    }
+
+    /**
+     * @param $id
+     * @return ProductVariant
+     */
+    public function getById($id)
+    {
+        return $this->getBy(static::ID, $id);
+    }
 }
