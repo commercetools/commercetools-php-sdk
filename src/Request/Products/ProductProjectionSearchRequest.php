@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Request\Products;
 
+use Commercetools\Core\Request\ExpandTrait;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client;
 use Commercetools\Core\Model\Common\Context;
@@ -30,6 +31,7 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest
     const FILTER_QUERY = 'filter.query';
     const FILTER_FACETS = 'filter.facets';
 
+    use ExpandTrait;
     use PageTrait;
     use SortTrait;
 
