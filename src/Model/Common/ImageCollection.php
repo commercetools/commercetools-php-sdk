@@ -9,6 +9,7 @@ namespace Commercetools\Core\Model\Common;
 /**
  * @package Commercetools\Core\Model\Common
  * @method Image current()
+ * @method ImageCollection add(Image $element)
  * @method Image getAt($offset)
  */
 class ImageCollection extends Collection

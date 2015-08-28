@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\ShippingMethod
  * @method ShippingRate current()
+ * @method ShippingRateCollection add(ShippingRate $element)
  * @method ShippingRate getAt($offset)
  */
 class ShippingRateCollection extends Collection

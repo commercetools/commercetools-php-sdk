@@ -99,6 +99,19 @@ class ClassAnnotator
                 );
 
             }
+            $addMethod = $reflectionClass->getMethod('add');
+            if ($addMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
+                $this->class->addMagicMethod(
+                    'add',
+                    [$elementTypeClass->getShortName() . ' $element'],
+                    $reflectionClass->getShortName(),
+                    null,
+                    null,
+                    false,
+                    true
+                );
+
+            }
             $current = $reflectionClass->getMethod('current');
             if ($current->getDeclaringClass()->getName() != $this->class->getClassName()) {
                 $this->class->addMagicMethod(

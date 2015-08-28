@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\Customer
  * @method Customer current()
+ * @method CustomerCollection add(Customer $element)
  * @method Customer getAt($offset)
  */
 class CustomerCollection extends Collection

@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\ShippingMethod
  * @method ZoneRate current()
+ * @method ZoneRateCollection add(ZoneRate $element)
  * @method ZoneRate getAt($offset)
  */
 class ZoneRateCollection extends Collection

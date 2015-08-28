@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @package Commercetools\Core\Model\CustomerGroup
  *
  * @method CustomerGroup current()
+ * @method CustomerGroupCollection add(CustomerGroup $element)
  * @method CustomerGroup getAt($offset)
  */
 class CustomerGroupCollection extends Collection

@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\Product
  * @method FacetRange current()
+ * @method FacetRangeCollection add(FacetRange $element)
  * @method FacetRange getAt($offset)
  */
 class FacetRangeCollection extends Collection

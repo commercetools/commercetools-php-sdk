@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @package Commercetools\Core\Model\Message
  *
  * @method Message current()
+ * @method MessageCollection add(Message $element)
  * @method Message getAt($offset)
  */
 class MessageCollection extends Collection

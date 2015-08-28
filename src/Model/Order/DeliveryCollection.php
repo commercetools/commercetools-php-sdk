@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\Order
  * @method Delivery current()
+ * @method DeliveryCollection add(Delivery $element)
  * @method Delivery getAt($offset)
  */
 class DeliveryCollection extends Collection

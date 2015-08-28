@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @package Commercetools\Core\Model\Comment
  *
  * @method Comment current()
+ * @method CommentCollection add(Comment $element)
  * @method Comment getAt($offset)
  */
 class CommentCollection extends Collection

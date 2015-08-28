@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @package Commercetools\Core\Model\TaxCategory
  *
  * @method TaxRate current()
+ * @method TaxRateCollection add(TaxRate $element)
  * @method TaxRate getAt($offset)
  */
 class TaxRateCollection extends Collection

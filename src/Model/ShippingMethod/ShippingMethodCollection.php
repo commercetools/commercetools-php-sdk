@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @package Commercetools\Core\Model\ShippingMethod
  *
  * @method ShippingMethod current()
+ * @method ShippingMethodCollection add(ShippingMethod $element)
  * @method ShippingMethod getAt($offset)
  */
 class ShippingMethodCollection extends Collection

@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\Category
  * @method Category current()
+ * @method CategoryCollection add(Category $element)
  * @method Category getAt($offset)
  */
 class CategoryCollection extends Collection

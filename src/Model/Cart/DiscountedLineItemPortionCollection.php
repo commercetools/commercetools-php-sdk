@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\Cart
  * @method DiscountedLineItemPortion current()
+ * @method DiscountedLineItemPortionCollection add(DiscountedLineItemPortion $element)
  * @method DiscountedLineItemPortion getAt($offset)
  */
 class DiscountedLineItemPortionCollection extends Collection

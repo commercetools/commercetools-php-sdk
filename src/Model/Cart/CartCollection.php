@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\Cart
  * @method Cart current()
+ * @method CartCollection add(Cart $element)
  * @method Cart getAt($offset)
  */
 class CartCollection extends Collection

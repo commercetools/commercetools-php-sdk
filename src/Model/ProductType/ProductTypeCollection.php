@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @package Commercetools\Core\Model\ProductType
  *
  * @method ProductType current()
+ * @method ProductTypeCollection add(ProductType $element)
  * @method ProductType getAt($offset)
  */
 class ProductTypeCollection extends Collection

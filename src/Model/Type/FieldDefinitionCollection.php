@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\Type
  * @method FieldDefinition current()
+ * @method FieldDefinitionCollection add(FieldDefinition $element)
  * @method FieldDefinition getAt($offset)
  */
 class FieldDefinitionCollection extends Collection

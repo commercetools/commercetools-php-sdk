@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @package Commercetools\Core\Model\CustomObject
  *
  * @method CustomObject current()
+ * @method CustomObjectCollection add(CustomObject $element)
  * @method CustomObject getAt($offset)
  */
 class CustomObjectCollection extends Collection
