@@ -12,19 +12,19 @@ use Commercetools\Core\Model\Type\TypeReference;
 /**
  * @package Commercetools\Core\Model\CustomField
  *
- * @method TypeReference getType()
- * @method CustomFieldObjectDraft setType(TypeReference $type = null)
  * @method string getTypeKey()
  * @method CustomFieldObjectDraft setTypeKey(string $typeKey = null)
  * @method FieldContainer getFields()
  * @method CustomFieldObjectDraft setFields(FieldContainer $fields = null)
+ * @method string getTypeId()
+ * @method CustomFieldObjectDraft setTypeId(string $typeId = null)
  */
 class CustomFieldObjectDraft extends JsonObject
 {
     public function fieldDefinitions()
     {
         return [
-            'type' => [static::TYPE => '\Commercetools\Core\Model\Type\TypeReference'],
+            'typeId' => [static::TYPE => 'string'],
             'typeKey' => [static::TYPE => 'string'],
             'fields' => [static::TYPE => '\Commercetools\Core\Model\CustomField\FieldContainer']
         ];
