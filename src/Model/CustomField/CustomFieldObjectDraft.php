@@ -42,9 +42,26 @@ class CustomFieldObjectDraft extends JsonObject
         return $draft;
     }
 
+    /**
+     * @param string $typeId
+     * @param Context|callable $context
+     * @return CustomFieldObjectDraft
+     */
+    public static function ofTypeId($typeId, $context = null)
+    {
+        $draft = static::of($context)->setTypeId($typeId);
+
+        return $draft;
+    }
+
+    /**
+     * @param TypeReference $type
+     * @param Context|callable $context
+     * @return CustomFieldObjectDraft
+     */
     public static function ofType(TypeReference $type, $context = null)
     {
-        $draft = static::of($context)->setType($type);
+        $draft = static::of($context)->setTypeId($type->getId());
 
         return $draft;
     }
