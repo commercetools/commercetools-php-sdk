@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model\Comment;
 
 use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Comment
@@ -13,9 +14,9 @@ use Commercetools\Core\Model\Common\Resource;
  * @method Comment setId(string $id = null)
  * @method int getVersion()
  * @method Comment setVersion(int $version = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method Comment setCreatedAt(\DateTime $createdAt = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method Comment setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method string getProductId()
  * @method Comment setProductId(string $productId = null)
@@ -35,8 +36,14 @@ class Comment extends Resource
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
-            'createdAt' => [static::TYPE => '\DateTime'],
-            'lastModifiedAt' => [static::TYPE => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'productId' => [static::TYPE => 'string'],
             'customerId' => [static::TYPE => 'string'],
             'authorName' => [static::TYPE => 'string'],

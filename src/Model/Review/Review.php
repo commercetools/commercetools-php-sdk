@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model\Review;
 
 use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Review
@@ -13,9 +14,9 @@ use Commercetools\Core\Model\Common\Resource;
  * @method Review setId(string $id = null)
  * @method int getVersion()
  * @method Review setVersion(int $version = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method Review setCreatedAt(\DateTime $createdAt = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method Review setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method string getProductId()
  * @method Review setProductId(string $productId = null)
@@ -37,8 +38,14 @@ class Review extends Resource
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
-            'createdAt' => [static::TYPE => '\DateTime'],
-            'lastModifiedAt' => [static::TYPE => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'productId' => [static::TYPE => 'string'],
             'customerId' => [static::TYPE => 'string'],
             'authorName' => [static::TYPE => 'string'],

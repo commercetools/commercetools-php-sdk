@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Customer
@@ -19,9 +20,9 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method Customer setVersion(int $version = null)
  * @method string getCustomerNumber()
  * @method Customer setCustomerNumber(string $customerNumber = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method Customer setCreatedAt(\DateTime $createdAt = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method Customer setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method string getEmail()
  * @method Customer setEmail(string $email = null)
@@ -35,7 +36,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method Customer setMiddleName(string $middleName = null)
  * @method string getTitle()
  * @method Customer setTitle(string $title = null)
- * @method \DateTime getDateOfBirth()
+ * @method DateTimeDecorator getDateOfBirth()
  * @method Customer setDateOfBirth(\DateTime $dateOfBirth = null)
  * @method string getCompanyName()
  * @method Customer setCompanyName(string $companyName = null)
@@ -64,15 +65,24 @@ class Customer extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'customerNumber' => [static::TYPE => 'string'],
-            'createdAt' => [static::TYPE => '\DateTime'],
-            'lastModifiedAt' => [static::TYPE => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'email' => [static::TYPE => 'string'],
             'firstName' => [static::TYPE => 'string'],
             'lastName' => [static::TYPE => 'string'],
             'password' => [static::TYPE => 'string'],
             'middleName' => [static::TYPE => 'string'],
             'title' => [static::TYPE => 'string'],
-            'dateOfBirth' => [static::TYPE => '\DateTime'],
+            'dateOfBirth' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'companyName' => [static::TYPE => 'string'],
             'vatId' => [static::TYPE => 'string'],
             'addresses' => [static::TYPE => '\Commercetools\Core\Model\Common\AddressCollection'],

@@ -7,12 +7,13 @@ namespace Commercetools\Core\Model\Message;
 
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Message
  * @method string getId()
  * @method Message setId(string $id = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method Message setCreatedAt(\DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method Message setSequenceNumber(int $sequenceNumber = null)
@@ -29,7 +30,10 @@ class Message extends JsonObject
     {
         return [
             'id' => [static::TYPE => 'string'],
-            'createdAt' => [static::TYPE => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'sequenceNumber' => [static::TYPE => 'int'],
             'resource' => [static::TYPE => '\Commercetools\Core\Model\Common\Reference'],
             'resourceVersion' => [static::TYPE => 'int'],

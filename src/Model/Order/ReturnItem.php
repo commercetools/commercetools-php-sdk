@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model\Order;
 
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Order
@@ -22,9 +23,9 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method ReturnItem setShipmentState(string $shipmentState = null)
  * @method string getPaymentState()
  * @method ReturnItem setPaymentState(string $paymentState = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method ReturnItem setLastModifiedAt(\DateTime $lastModifiedAt = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method ReturnItem setCreatedAt(\DateTime $createdAt = null)
  */
 class ReturnItem extends JsonObject
@@ -38,8 +39,14 @@ class ReturnItem extends JsonObject
             'comment' => [static::TYPE => 'string'],
             'shipmentState' => [static::TYPE => 'string'],
             'paymentState' => [static::TYPE => 'string'],
-            'lastModifiedAt' => [static::TYPE => '\DateTime'],
-            'createdAt' => [static::TYPE => '\DateTime']
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ]
         ];
     }
 }

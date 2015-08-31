@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Inventory;
 
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Channel\ChannelReference;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Inventory
@@ -14,9 +15,9 @@ use Commercetools\Core\Model\Channel\ChannelReference;
  * @method InventoryEntry setId(string $id = null)
  * @method int getVersion()
  * @method InventoryEntry setVersion(int $version = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method InventoryEntry setCreatedAt(\DateTime $createdAt = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method InventoryEntry setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method string getSku()
  * @method InventoryEntry setSku(string $sku = null)
@@ -28,7 +29,7 @@ use Commercetools\Core\Model\Channel\ChannelReference;
  * @method InventoryEntry setAvailableQuantity(int $availableQuantity = null)
  * @method int getRestockableInDays()
  * @method InventoryEntry setRestockableInDays(int $restockableInDays = null)
- * @method \DateTime getExpectedDelivery()
+ * @method DateTimeDecorator getExpectedDelivery()
  * @method InventoryEntry setExpectedDelivery(\DateTime $expectedDelivery = null)
  */
 class InventoryEntry extends Resource
@@ -38,14 +39,23 @@ class InventoryEntry extends Resource
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
-            'createdAt' => [static::TYPE => '\DateTime'],
-            'lastModifiedAt' => [static::TYPE => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'sku' => [static::TYPE => 'string'],
             'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
             'quantityOnStock' => [static::TYPE => 'int'],
             'availableQuantity' => [static::TYPE => 'int'],
             'restockableInDays' => [static::TYPE => 'int'],
-            'expectedDelivery' => [static::TYPE => '\DateTime'],
+            'expectedDelivery' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
         ];
     }
 }
