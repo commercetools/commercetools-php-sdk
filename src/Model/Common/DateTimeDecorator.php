@@ -34,7 +34,7 @@ class DateTimeDecorator implements \JsonSerializable
         if (is_null($this->dateTime)) {
             $this->dateTime = new \DateTime();
         }
-        return $this->dateTime;
+        return clone $this->dateTime;
     }
 
     /**
@@ -50,7 +50,7 @@ class DateTimeDecorator implements \JsonSerializable
      */
     public function getUtcDateTime()
     {
-        $dateTime = clone $this->getDateTime();
+        $dateTime = $this->getDateTime();
         $dateTime->setTimezone(new \DateTimeZone('UTC'));
 
         return $dateTime;
