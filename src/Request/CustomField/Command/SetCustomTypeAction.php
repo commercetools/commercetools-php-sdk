@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\CustomField\Command;
 
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Type\TypeReference;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\CustomField\FieldContainer;
 
@@ -41,5 +42,35 @@ class SetCustomTypeAction extends AbstractAction
     {
         parent::__construct($data, $context);
         $this->setAction('setCustomType');
+    }
+
+    /**
+     * @param string $typeId
+     * @param Context|callable $context
+     * @return SetCustomTypeAction
+     */
+    public static function ofTypeId($typeId, $context = null)
+    {
+        return static::of($context)->setTypeId($typeId);
+    }
+
+    /**
+     * @param string $typeKey
+     * @param Context|callable $context
+     * @return SetCustomTypeAction
+     */
+    public static function ofTypeKey($typeKey, $context = null)
+    {
+        return static::of($context)->setTypeKey($typeKey);
+    }
+
+    /**
+     * @param TypeReference $type
+     * @param Context|callable $context
+     * @return SetCustomTypeAction
+     */
+    public static function ofType(TypeReference $type, $context = null)
+    {
+        return static::of($context)->setTypeId($type->getId());
     }
 }

@@ -38,4 +38,14 @@ class SetCustomFieldAction extends AbstractAction
         parent::__construct($data, $context);
         $this->setAction('setCustomField');
     }
+
+    /**
+     * @param $name
+     * @param Context|callable $context
+     * @return SetCustomFieldAction
+     */
+    public static function ofName($name, $context = null)
+    {
+        return static::of($context)->setName($name);
+    }
 }

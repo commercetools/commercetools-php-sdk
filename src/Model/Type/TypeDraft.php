@@ -34,4 +34,15 @@ class TypeDraft extends JsonObject
             'fieldDefinitions' => [static::TYPE => '\Commercetools\Core\Model\Type\FieldDefinitionCollection'],
         ];
     }
+
+    public static function ofKeyNameDescriptionAndResourceTypes(
+        $key,
+        LocalizedString $name,
+        LocalizedString $description,
+        array $resourceTypeIds,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setKey($key)->setName($name)->setDescription($description)->setResourceTypeIds($resourceTypeIds);
+    }
 }
