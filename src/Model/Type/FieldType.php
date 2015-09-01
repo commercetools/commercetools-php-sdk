@@ -49,9 +49,11 @@ class FieldType extends JsonObject
      */
     public static function fromArray(array $data, $context = null)
     {
-        $className = '\Commercetools\Core\Model\Type\\' . ucfirst($data['name']) . 'Type';
-        if (class_exists($className)) {
-            return new $className($data, $context);
+        if (isset($data['name'])) {
+            $className = '\Commercetools\Core\Model\Type\\' . ucfirst($data['name']) . 'Type';
+            if (class_exists($className)) {
+                return new $className($data, $context);
+            }
         }
         return new static($data, $context);
     }

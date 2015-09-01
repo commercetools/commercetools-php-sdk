@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Message;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
@@ -26,6 +27,21 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  */
 class Message extends JsonObject
 {
+    const MESSAGE_TYPE = '';
+
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $type = static::MESSAGE_TYPE;
+        if (!empty($type)) {
+            $this->setType(static::MESSAGE_TYPE);
+        }
+    }
+
     public function fieldDefinitions()
     {
         return [
@@ -39,5 +55,21 @@ class Message extends JsonObject
             'resourceVersion' => [static::TYPE => 'int'],
             'type' => [static::TYPE => 'string'],
         ];
+    }
+
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     * @return static
+     */
+    public static function fromArray(array $data, $context = null)
+    {
+        if (isset($data['type'])) {
+            $className = '\Commercetools\Core\Model\Message\\' . ucfirst($data['type']) . 'Message';
+            if (class_exists($className)) {
+                return new $className($data, $context);
+            }
+        }
+        return new static($data, $context);
     }
 }
