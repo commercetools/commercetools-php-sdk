@@ -42,13 +42,13 @@ Feature: I want to update a type
     }
     """
 
-  Scenario: Change description
+  Scenario: Set description
     Given a "type" is identified by "id" and version 1
     And i want to update a "type"
-    And add the "changeDescription" action to "type" with values
+    And add the "setDescription" action to "type" with values
     """
     {
-      "action": "changeDescription",
+      "action": "setDescription",
       "description": {
         "en": "New description"
       }
@@ -62,7 +62,7 @@ Feature: I want to update a type
       "version": 1,
       "actions": [
         {
-          "action": "changeDescription",
+          "action": "setDescription",
           "description": {
             "en": "New description"
           }

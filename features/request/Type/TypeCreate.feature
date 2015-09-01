@@ -20,7 +20,7 @@ Feature: I want to create a new type
           "label": {
             "en": "Custom String"
           },
-          "isRequired": false,
+          "required": false,
           "inputHint": "SingleLine"
         }
       ]
@@ -51,7 +51,7 @@ Feature: I want to create a new type
           "label": {
             "en": "Custom String"
           },
-          "isRequired": false,
+          "required": false,
           "inputHint": "SingleLine"
         }
       ]
