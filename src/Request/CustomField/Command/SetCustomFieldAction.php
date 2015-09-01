@@ -25,7 +25,7 @@ class SetCustomFieldAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'name' => [static::TYPE => 'string'],
-            'value' => [static::TYPE => ''],
+            'value' => [static::TYPE => null],
         ];
     }
 
