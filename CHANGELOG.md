@@ -1,13 +1,45 @@
+<a name="1.0.0-RC3"></a>
+# [1.0.0-RC3](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC2...v1.0.0-RC3) (2015-09-01)
+
+
+### Bug Fixes
+
+* **Comment:** delete comment endpoint functionality ([506644c](https://github.com/sphereio/commercetools-php-sdk/commit/506644c))
+* **CustomFieldObjectDraft:** fix constructor ([1961950](https://github.com/sphereio/commercetools-php-sdk/commit/1961950))
+* **CustomFieldObjectDraft:** typo ([2c49e99](https://github.com/sphereio/commercetools-php-sdk/commit/2c49e99))
+* **CustomTypes:** use correct field name ([01fee35](https://github.com/sphereio/commercetools-php-sdk/commit/01fee35))
+* **ProductDraft:** use ProductVariantDraftCollection for variants ([f252a2d](https://github.com/sphereio/commercetools-php-sdk/commit/f252a2d)), closes [#142](https://github.com/sphereio/commercetools-php-sdk/issues/142)
+
+### Features
+
+* **CustomFields:** add custom field models and mapping by type field definitions ([146ee40](https://github.com/sphereio/commercetools-php-sdk/commit/146ee40))
+* **Message:** add specific message objects ([353b5ab](https://github.com/sphereio/commercetools-php-sdk/commit/353b5ab))
+* **Orders:** add cart field to order ([922d812](https://github.com/sphereio/commercetools-php-sdk/commit/922d812)), closes [#132](https://github.com/sphereio/commercetools-php-sdk/issues/132) [#131](https://github.com/sphereio/commercetools-php-sdk/issues/131)
+* **ProductSearch:** add reference expansion to product search request ([c003de6](https://github.com/sphereio/commercetools-php-sdk/commit/c003de6)), closes [#144](https://github.com/sphereio/commercetools-php-sdk/issues/144)
+* **ProductVariant:** add helper methods to get variant by id ([f2ff1d4](https://github.com/sphereio/commercetools-php-sdk/commit/f2ff1d4))
+* **Products:** add support to set EnumType and LocalizedEnumType attributes by key ([df88267](https://github.com/sphereio/commercetools-php-sdk/commit/df88267))
+* **Products:** add support to set EnumType and LocalizedEnumType attributes by key in all variants ([e07cad6](https://github.com/sphereio/commercetools-php-sdk/commit/e07cad6))
+* **Reviews:** add review delete request ([2c6493e](https://github.com/sphereio/commercetools-php-sdk/commit/2c6493e)), closes [#134](https://github.com/sphereio/commercetools-php-sdk/issues/134)
+* **UpdateActions:** add limit to update actions ([3f728a5](https://github.com/sphereio/commercetools-php-sdk/commit/3f728a5))
+
+
+### BREAKING CHANGES
+
+* comments endpoint has been removed from the API
+
+  All models and request objects have been removed from the SDK
+
+
 <a name"1.0.0-RC2"></a>
-### 1.0.0-RC2 (2015-08-03)
+# 1.0.0-RC2 (2015-08-03)
 
 
-#### Bug Fixes
+### Bug Fixes
 
 * **ProductVariantDraft:** add images definition ([971cfbf4](https://github.com/sphereio/commercetools-php-sdk/commit/971cfbf4), closes [#135](https://github.com/sphereio/commercetools-php-sdk/issues/135))
 
 
-#### Breaking Changes
+### Breaking Changes
 
 * SphereException and SphereServiceException have been renamed to ApiException and ApiServiceException
 
@@ -52,17 +84,17 @@
 
 
 <a name"1.0.0-RC1"></a>
-### 1.0.0-RC1 (2015-07-27)
+# 1.0.0-RC1 (2015-07-27)
 
 
-#### Bug Fixes
+### Bug Fixes
 
 * **CustomerCreateRequest:** set correct return object class ([d1c100c9](https://github.com/sphereio/sphere-php-sdk/commit/d1c100c9), closes [#109](https://github.com/sphereio/sphere-php-sdk/issues/109))
 * **Requests:** fix the usage of relative path by requests ([e32d0150](https://github.com/sphereio/sphere-php-sdk/commit/e32d0150))
 * **Order:** set correct return type for order discountCodes ([5bbf4f14](https://github.com/sphereio/sphere-php-sdk/commit/5bbf4f14))
 
 
-#### Features
+### Features
 
 * **AnnotationGenerator:** add magic method getAt and current with correct type hint to collections ([324886db](https://github.com/sphereio/sphere-php-sdk/commit/324886db))
 * **Attribute:** add feature to set attribute type definitions to attributes ([37546b33](https://github.com/sphereio/sphere-php-sdk/commit/37546b33))
@@ -93,7 +125,7 @@
 * **Zones:** add update actions ([a74c3517](https://github.com/sphereio/sphere-php-sdk/commit/a74c3517))
 
 
-#### Breaking Changes
+### Breaking Changes
 
 * QueryRequests renamed to singular form
 
@@ -304,7 +336,7 @@
 
   ([d19a83c1](https://github.com/sphereio/sphere-php-sdk/commit/d19a83c1))
 
-### 1.0.0-beta.2 (Milestone 3)
+# 1.0.0-beta.2 (Milestone 3)
 Major refactoring of the http client handling. Sphere client uses now PSR http messages for internal request and response representation and ships with a guzzle5 and guzzle6 http client adapter which will be automatically used. It's also possible to register new http client adapters implementing Sphere\Core\Client\Adapter\AdapterInterface
 
  * switch composer to caret operator
@@ -354,7 +386,7 @@ Major refactoring of the http client handling. Sphere client uses now PSR http m
  * fix multi facet and filter params
  * fix type of TaxRate
 
-### 1.0.0-beta.1 (Milestone 2)
+# 1.0.0-beta.1 (Milestone 2)
  * add unit tests for query, fetch and delete requests
  * add tests for order and product update actions
  * add customer, category and cart update action tests
@@ -388,7 +420,7 @@ Major refactoring of the http client handling. Sphere client uses now PSR http m
  * add limit of update action logging to update requests
  * add cache adapter for redis storage
 
-### 1.0.0 Milestone 1
+# 1.0.0 Milestone 1
  * batch execution of requests
  * delete, update, fetchById and query requests for all endpoints
  * cart create and update requests
@@ -401,5 +433,5 @@ Major refactoring of the http client handling. Sphere client uses now PSR http m
  * custom object create request
  * api result to object mapping
 
-### 1.0.0 Milestone 0
+# 1.0.0 Milestone 0
  * initial commit

@@ -1,17 +1,12 @@
 {
   "name": "commercetools-php-sdk-changelog",
-  "version": "1.0.0-RC2",
-  "description": "commercetools PHP SDK changelog generator",
+  "version": "1.0.0-RC3",
+  "description": "commercetools PHP SDK changelog generator package description",
   "homepage": "https://github.com/sphereio/commercetools-php-sdk",
   "bugs": "https://github.com/sphereio/commercetools-php-sdk/issues",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/sphereio/commercetools-php-sdk.git"
-  },
-  "dependencies": {
-  },
-  "devDependencies": {
-    "conventional-changelog": "^0.0.17"
   }
 }
