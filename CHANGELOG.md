@@ -5,21 +5,19 @@
 ### Bug Fixes
 
 * **Comment:** delete comment endpoint functionality ([506644c](https://github.com/sphereio/commercetools-php-sdk/commit/506644c))
-* **CustomFieldObjectDraft:** fix constructor ([1961950](https://github.com/sphereio/commercetools-php-sdk/commit/1961950))
-* **CustomFieldObjectDraft:** typo ([2c49e99](https://github.com/sphereio/commercetools-php-sdk/commit/2c49e99))
-* **CustomTypes:** use correct field name ([01fee35](https://github.com/sphereio/commercetools-php-sdk/commit/01fee35))
 * **ProductDraft:** use ProductVariantDraftCollection for variants ([f252a2d](https://github.com/sphereio/commercetools-php-sdk/commit/f252a2d)), closes [#142](https://github.com/sphereio/commercetools-php-sdk/issues/142)
 
 ### Features
 
-* **CustomFields:** add custom field models and mapping by type field definitions ([146ee40](https://github.com/sphereio/commercetools-php-sdk/commit/146ee40))
-* **Message:** add specific message objects ([353b5ab](https://github.com/sphereio/commercetools-php-sdk/commit/353b5ab))
+* **CustomFields:** add custom field models and mapping by type field definitions ([146ee40](https://github.com/sphereio/commercetools-php-sdk/commit/146ee40)) closes [#119](https://github.com/sphereio/commercetools-php-sdk/issues/119)
+* **Message:** add specific message objects ([353b5ab](https://github.com/sphereio/commercetools-php-sdk/commit/353b5ab)) closes [#128](https://github.com/sphereio/commercetools-php-sdk/issues/128)
 * **Orders:** add cart field to order ([922d812](https://github.com/sphereio/commercetools-php-sdk/commit/922d812)), closes [#132](https://github.com/sphereio/commercetools-php-sdk/issues/132) [#131](https://github.com/sphereio/commercetools-php-sdk/issues/131)
 * **ProductSearch:** add reference expansion to product search request ([c003de6](https://github.com/sphereio/commercetools-php-sdk/commit/c003de6)), closes [#144](https://github.com/sphereio/commercetools-php-sdk/issues/144)
 * **ProductVariant:** add helper methods to get variant by id ([f2ff1d4](https://github.com/sphereio/commercetools-php-sdk/commit/f2ff1d4))
 * **Products:** add support to set EnumType and LocalizedEnumType attributes by key ([df88267](https://github.com/sphereio/commercetools-php-sdk/commit/df88267))
 * **Products:** add support to set EnumType and LocalizedEnumType attributes by key in all variants ([e07cad6](https://github.com/sphereio/commercetools-php-sdk/commit/e07cad6))
 * **Reviews:** add review delete request ([2c6493e](https://github.com/sphereio/commercetools-php-sdk/commit/2c6493e)), closes [#134](https://github.com/sphereio/commercetools-php-sdk/issues/134)
+* **ShippingMethod:** add getByName and getById to ShippingMethodCollection ([2de7668](https://github.com/sphereio/commercetools-php-sdk/commit/2de7668))
 * **UpdateActions:** add limit to update actions ([3f728a5](https://github.com/sphereio/commercetools-php-sdk/commit/3f728a5))
 
 
