@@ -27,7 +27,7 @@ class ProductSetAttributeInAllVariantsAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'name' => [static::TYPE => 'string'],
-            'value' => [],
+            'value' => [static::TYPE => ''],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

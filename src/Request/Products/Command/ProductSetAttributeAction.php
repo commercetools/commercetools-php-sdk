@@ -30,7 +30,7 @@ class ProductSetAttributeAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'name' => [static::TYPE => 'string'],
-            'value' => [],
+            'value' => [static::TYPE => ''],
             'staged' => [static::TYPE => 'bool'],
         ];
     }
