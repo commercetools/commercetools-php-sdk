@@ -50,10 +50,6 @@ class GenericQueryRequestTest extends RequestTestCase
                 '\Commercetools\Core\Model\Channel\ChannelCollection',
             ],
             [
-                '\Commercetools\Core\Request\Comments\CommentQueryRequest',
-                '\Commercetools\Core\Model\Comment\CommentCollection',
-            ],
-            [
                 '\Commercetools\Core\Request\CustomerGroups\CustomerGroupQueryRequest',
                 '\Commercetools\Core\Model\CustomerGroup\CustomerGroupCollection',
             ],
