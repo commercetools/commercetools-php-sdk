@@ -38,6 +38,7 @@ lineItem:
     - supplyChannel
     - distributionChannel
     - discountedPrice
+    - custom
 
 customLineItem:
   domain: cart
@@ -51,6 +52,7 @@ customLineItem:
     - state
     - taxCategory
     - taxRate
+    - custom
 
 taxedPrice:
   domain: common
