@@ -55,6 +55,7 @@ class PhpRedisCacheAdapter extends AbstractCacheAdapter
     {
         $data = serialize($data);
         if (!is_null($lifeTime)) {
+            $lifeTime = $lifeTime * 1000;
             return $this->getCache()->setex($key, $lifeTime, $data);
         } else {
             return $this->getCache()->set($key, $data);
