@@ -6,7 +6,7 @@
 namespace Commercetools\Core\Request;
 
 
-interface WithTotalRequestInterface
+interface WithTotalRequestInterface extends ClientRequestInterface
 {
     /**
      * @param bool $withTotal
