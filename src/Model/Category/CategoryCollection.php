@@ -27,6 +27,7 @@ class CategoryCollection extends Collection
             $slugs = isset($row[static::SLUG]) ? $row[static::SLUG] : [];
         }
         foreach ($slugs as $locale => $slug) {
+            $locale = \Locale::canonicalize($locale);
             $this->addToIndex(static::SLUG, $offset, $locale . '-' . $slug);
         }
     }
@@ -38,6 +39,14 @@ class CategoryCollection extends Collection
      */
     public function getBySlug($slug, $locale)
     {
-        return $this->getBy(static::SLUG, $locale . '-' . $slug);
+        $locale = \Locale::canonicalize($locale);
+        $category = $this->getBy(static::SLUG, $locale . '-' . $slug);
+
+        if ($category instanceof Category) {
+            return $category;
+        }
+
+        $language = \Locale::getPrimaryLanguage($locale);
+        return $this->getBy(static::SLUG, $language . '-' . $slug);
     }
 }
