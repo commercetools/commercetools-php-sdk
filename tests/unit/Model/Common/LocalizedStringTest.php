@@ -106,4 +106,66 @@ class LocalizedStringTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('test', $string->en);
     }
+
+    public function localizedStringProvider()
+    {
+        return [
+            [ ['en' => 'language'], 'en', 'language'],
+            [ ['en' => 'language'], 'en_US', 'language' ],
+            [ ['en' => 'language'], 'en-US', 'language'],
+            [ ['en_US' => 'locale'], 'en', ''],
+            [ ['en_US' => 'locale'], 'en_US', 'locale'],
+            [ ['en_US' => 'locale'], 'en-US', 'locale'],
+            [ ['en-US' => 'locale'], 'en', ''],
+            [ ['en-US' => 'locale'], 'en_US', 'locale'],
+            [ ['en-US' => 'locale'], 'en-US', 'locale'],
+            [ ['en' => 'language', 'en_US' => 'locale'], 'en', 'language'],
+            [ ['en' => 'language', 'en_US' => 'locale'], 'en_US', 'locale'],
+            [ ['en' => 'language', 'en_US' => 'locale'], 'en-US', 'locale'],
+            [ ['en' => 'language', 'en-US' => 'locale'], 'en', 'language'],
+            [ ['en' => 'language', 'en-US' => 'locale'], 'en_US', 'locale'],
+            [ ['en' => 'language', 'en-US' => 'locale'], 'en-US', 'locale'],
+        ];
+    }
+
+    /**
+     * @dataProvider localizedStringProvider
+     */
+    public function testGetByLocale($stringData, $locale, $result)
+    {
+        $localizedString = LocalizedString::fromArray($stringData);
+        $context = Context::of()->setLanguages([$locale])->setGraceful(true);
+        $this->assertSame($result, $localizedString->get($context));
+    }
+
+    /**
+     * @dataProvider localizedStringProvider
+     */
+    public function testGetStringByLocale($stringData, $locale, $result)
+    {
+        $context = Context::of()->setLanguages([$locale])->setGraceful(true);
+        $localizedString = LocalizedString::fromArray($stringData, $context);
+        $this->assertSame($result, (string)$localizedString);
+    }
+
+    public function jsonStringProvider()
+    {
+        return [
+            [ ['en' => 'language'], '{"en": "language"}' ],
+            [ ['en_US' => 'locale'], '{"en-US": "locale"}' ],
+            [ ['en-US' => 'locale'], '{"en-US": "locale"}'],
+            [ ['en' => 'language', 'en_US' => 'locale'], '{"en": "language", "en-US": "locale"}' ],
+            [ ['en' => 'language', 'en-US' => 'locale'], '{"en": "language", "en-US": "locale"}' ],
+        ];
+    }
+
+    /**
+     * @dataProvider jsonStringProvider
+     */
+    public function testJsonSerialize($stringData, $result)
+    {
+        $localizedString = LocalizedString::fromArray($stringData);
+        $this->assertJsonStringEqualsJsonString($result, json_encode($localizedString));
+
+    }
 }
