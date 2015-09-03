@@ -7,6 +7,8 @@
 namespace Commercetools\Core\Request\Products;
 
 use Commercetools\Core\Request\ExpandTrait;
+use Commercetools\Core\Request\QueryRequestInterface;
+use Commercetools\Core\Request\SortRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client;
 use Commercetools\Core\Model\Common\Context;
@@ -24,7 +26,7 @@ use Commercetools\Core\Model\Product\Search\FilterInterface;
  * @method PagedSearchResponse executeWithClient(Client $client)
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
  */
-class ProductProjectionSearchRequest extends AbstractProjectionRequest
+class ProductProjectionSearchRequest extends AbstractProjectionRequest implements SortRequestInterface
 {
     const FACET = 'facet';
     const FILTER = 'filter';
