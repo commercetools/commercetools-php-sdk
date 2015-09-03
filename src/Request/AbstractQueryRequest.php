@@ -18,7 +18,10 @@ use Commercetools\Core\Response\PagedQueryResponse;
  * @package Commercetools\Core\Request
  * @method PagedQueryResponse executeWithClient(Client $client)
  */
-abstract class AbstractQueryRequest extends AbstractApiRequest implements SortRequestInterface, QueryRequestInterface
+abstract class AbstractQueryRequest extends AbstractApiRequest implements
+    SortRequestInterface,
+    QueryRequestInterface,
+    PageRequestInterface
 {
     use QueryTrait;
     use PageTrait;
