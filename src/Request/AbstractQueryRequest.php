@@ -21,7 +21,8 @@ use Commercetools\Core\Response\PagedQueryResponse;
 abstract class AbstractQueryRequest extends AbstractApiRequest implements
     SortRequestInterface,
     QueryRequestInterface,
-    PageRequestInterface
+    PageRequestInterface,
+    WithTotalRequestInterface
 {
     use QueryTrait;
     use PageTrait;
