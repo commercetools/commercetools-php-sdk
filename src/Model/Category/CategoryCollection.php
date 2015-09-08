@@ -16,6 +16,9 @@ use Commercetools\Core\Model\Common\Collection;
 class CategoryCollection extends Collection
 {
     const SLUG = 'slug';
+    const PARENT = 'parent';
+    const ID = 'id';
+    const ROOTS = 'roots';
 
     protected $type = '\Commercetools\Core\Model\Category\Category';
 
@@ -23,13 +26,44 @@ class CategoryCollection extends Collection
     {
         if ($row instanceof Category) {
             $slugs = $row->getSlug()->toArray();
+            $parentId = !is_null($row->getParent()) ? $row->getParent()->getId() : null;
+            $id = $row->getId();
         } else {
             $slugs = isset($row[static::SLUG]) ? $row[static::SLUG] : [];
+            $id = isset($row[static::ID]) ? $row[static::ID] : null;
+            $parentId = isset($row[static::PARENT][static::ID]) ? $row[static::PARENT][static::ID] : null;
         }
         foreach ($slugs as $locale => $slug) {
             $locale = \Locale::canonicalize($locale);
             $this->addToIndex(static::SLUG, $offset, $locale . '-' . $slug);
+            if (is_null($parentId)) {
+                $this->addToIndex(static::ROOTS, $offset, $id);
+            } else {
+                $this->addToIndex(static::PARENT . '-' . $parentId, $offset, $id);
+            }
         }
+    }
+
+    public function getRoots()
+    {
+        $elements = [];
+        foreach ($this->index[static::ROOTS] as $key => $offset) {
+            $elements[$key] = $this->getAt($offset);
+        }
+        return $elements;
+    }
+
+    public function getByParent($parentId)
+    {
+        $elements = [];
+        if (!isset($this->index[static::PARENT . '-' . $parentId])) {
+            return $elements;
+        }
+
+        foreach ($this->index[static::PARENT . '-' . $parentId] as $key => $offset) {
+            $elements[$key] = $this->getAt($offset);
+        }
+        return $elements;
     }
 
     /**
