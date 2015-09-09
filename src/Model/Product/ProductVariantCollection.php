@@ -25,8 +25,8 @@ class ProductVariantCollection extends Collection
             $id = $row->getId();
             $sku = $row->getSku();
         } else {
-            $id = $row[static::ID];
-            $sku = $row[static::SKU];
+            $id = isset($row[static::ID])? $row[static::ID] : null;
+            $sku = isset($row[static::SKU])? $row[static::SKU] : null;
         }
         $this->addToIndex(static::ID, $offset, $id);
         $this->addToIndex(static::SKU, $offset, $sku);
