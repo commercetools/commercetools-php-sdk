@@ -130,10 +130,6 @@
 							Channel						</a>
 							</li>
 					<li>
-						<a href="namespace-Commercetools.Core.Model.Comment.html">
-							Comment						</a>
-							</li>
-					<li>
 						<a href="namespace-Commercetools.Core.Model.Common.html">
 							Common						</a>
 							</li>
@@ -144,6 +140,10 @@
 					<li>
 						<a href="namespace-Commercetools.Core.Model.CustomerGroup.html">
 							CustomerGroup						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomField.html">
+							CustomField						</a>
 							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Model.CustomObject.html">
@@ -204,6 +204,10 @@
 							TaxCategory						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Type.html">
+							Type						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Zone.html">
 							Zone						</a>
 							</li>
@@ -254,16 +258,6 @@
 							</li>
 								</ul></li>
 					<li>
-						<a href="namespace-Commercetools.Core.Request.Comments.html">
-							Comments<span></span>
-						</a>
-							<ul>
-					<li>
-						<a href="namespace-Commercetools.Core.Request.Comments.Command.html">
-							Command						</a>
-							</li>
-								</ul></li>
-					<li>
 						<a href="namespace-Commercetools.Core.Request.CustomerGroups.html">
 							CustomerGroups<span></span>
 						</a>
@@ -280,6 +274,16 @@
 							<ul>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Customers.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.html">
+							CustomField<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.Command.html">
 							Command						</a>
 							</li>
 								</ul></li>
@@ -400,6 +404,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.html">
+							Types<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.Zones.html">
 							Zones<span></span>
 						</a>
@@ -444,6 +458,7 @@
 				<li><a href="class-Commercetools.Core.Model.Product.ProductVariantAvailability.html">ProductVariantAvailability</a></li>
 				<li><a href="class-Commercetools.Core.Model.Product.ProductVariantCollection.html">ProductVariantCollection</a></li>
 				<li><a href="class-Commercetools.Core.Model.Product.ProductVariantDraft.html">ProductVariantDraft</a></li>
+				<li><a href="class-Commercetools.Core.Model.Product.ProductVariantDraftCollection.html">ProductVariantDraftCollection</a></li>
 				<li><a href="class-Commercetools.Core.Model.Product.SearchKeyword.html">SearchKeyword</a></li>
 				<li><a href="class-Commercetools.Core.Model.Product.SearchKeywords.html">SearchKeywords</a></li>
 				<li><a href="class-Commercetools.Core.Model.Product.Suggestion.html">Suggestion</a></li>
@@ -473,8 +488,12 @@
 			<a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html"><span>Commercetools\Core\Model\Common\AbstractJsonDeserializeObject</span></a>
 			
 			 implements 
-				<a href="class-Commercetools.Core.Model.Common.JsonDeserializeInterface.html"><span>Commercetools\Core\Model\Common\JsonDeserializeInterface</span></a>
+				<a href="class-Commercetools.Core.Model.Common.JsonDeserializeInterface.html"><span>Commercetools\Core\Model\Common\JsonDeserializeInterface</span></a>, 
 			
+				<a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html"><span>Commercetools\Core\Model\Common\ObjectTreeInterface</span></a>
+			
+			 uses 
+					<a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html"><span>Commercetools\Core\Model\Common\ObjectTreeTrait</span></a>
 			
 		</dd>
 		<dd style="padding-left:30px">
@@ -516,7 +535,7 @@
             <tr><th>Namespace</th><td><a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Model.html">Model</a>\<a href="namespace-Commercetools.Core.Model.Product.html">Product</a></td></tr>
             <tr><th>Package</th><td>Commercetools\Core\Model\Product</td></tr>
 
-                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Model.Product.SuggestionCollection.html#10-19" title="Go to source code">Model/Product/SuggestionCollection.php</a></td></tr>
+                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Model.Product.SuggestionCollection.html#10-20" title="Go to source code">Model/Product/SuggestionCollection.php</a></td></tr>
 
                     <tr><th>API documentation</th><td><b><a href="http://dev.sphere.io/http-api-projects-products-search.html#suggest-representations-result" target="api-doc">http://dev.sphere.io/http-api-projects-products-search.html#suggest-representations-result</a></b></span></td></tr>
 		</table>
@@ -562,6 +581,44 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="add" id="m_add">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Product.SuggestionCollection.html">Commercetools\Core\Model\Product\SuggestionCollection</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_add">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Product.SuggestionCollection.html#14" title="Go to source code">add</a>( <span><code><a href="class-Commercetools.Core.Model.Product.Suggestion.html">Commercetools\Core\Model\Product\Suggestion</a></code> <var>$element</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$element</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Product.SuggestionCollection.html">Commercetools\Core\Model\Product\SuggestionCollection</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="getAt" id="m_getAt">
 
 			<td class="attributes"><code>
@@ -573,7 +630,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getAt">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Product.SuggestionCollection.html#14" title="Go to source code">getAt</a>( <span> <var>$offset</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Product.SuggestionCollection.html#15" title="Go to source code">getAt</a>( <span> <var>$offset</var></span> )</code>
 
 			<div class="description short">
 				
@@ -680,7 +737,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_count">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#183-199" title="Go to source code">count</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#189-205" title="Go to source code">count</a>( )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.1.0)<br/>
@@ -727,7 +784,7 @@ The return value is cast to an integer.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_current">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#202-211" title="Go to source code">current</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#208-217" title="Go to source code">current</a>( )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -768,7 +825,7 @@ Return the current element</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getAt">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#134-141" title="Go to source code">getAt</a>( <span> <var>$offset</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#139-146" title="Go to source code">getAt</a>( <span> <var>$offset</var></span> )</code>
 
 			<div class="description short">
 				
@@ -879,7 +936,7 @@ Return the current element</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_key">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#224-233" title="Go to source code">key</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#230-239" title="Go to source code">key</a>( )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -920,7 +977,7 @@ Return the key of the current element</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_next">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#213-222" title="Go to source code">next</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#219-228" title="Go to source code">next</a>( )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -961,7 +1018,7 @@ Move forward to next element</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_offsetExists">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#258-273" title="Go to source code">offsetExists</a>( <span>mixed <var>$offset</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#264-279" title="Go to source code">offsetExists</a>( <span>mixed <var>$offset</var></span> )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -1015,7 +1072,7 @@ The return value will be casted to boolean if non-boolean was returned.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_offsetGet">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#275-287" title="Go to source code">offsetGet</a>( <span>mixed <var>$offset</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#281-293" title="Go to source code">offsetGet</a>( <span>mixed <var>$offset</var></span> )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -1063,7 +1120,7 @@ The offset to retrieve.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_offsetSet">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#289-304" title="Go to source code">offsetSet</a>( <span>mixed <var>$offset</var></span>, <span>mixed <var>$value</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#295-310" title="Go to source code">offsetSet</a>( <span>mixed <var>$offset</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -1111,7 +1168,7 @@ The value to set.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_offsetUnset">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#306-319" title="Go to source code">offsetUnset</a>( <span>mixed <var>$offset</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#312-325" title="Go to source code">offsetUnset</a>( <span>mixed <var>$offset</var></span> )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -1155,7 +1212,7 @@ The offset to unset.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_rewind">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#247-256" title="Go to source code">rewind</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#253-262" title="Go to source code">rewind</a>( )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -1196,7 +1253,7 @@ Rewind the Iterator to the first element</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setAt">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#153-181" title="Go to source code">setAt</a>( <span> <var>$offset</var></span>, <span> <var>$object</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#158-187" title="Go to source code">setAt</a>( <span> <var>$offset</var></span>, <span> <var>$object</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1236,7 +1293,7 @@ Rewind the Iterator to the first element</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_toArray">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#119-132" title="Go to source code">toArray</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#124-137" title="Go to source code">toArray</a>( )</code>
 
 			<div class="description short">
 				
@@ -1271,7 +1328,7 @@ Rewind the Iterator to the first element</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_valid">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#235-245" title="Go to source code">valid</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.Collection.html#241-251" title="Go to source code">valid</a>( )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.0.0)<br/>
@@ -1314,7 +1371,7 @@ Returns true on success or false on failure.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_fromArray">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#194-202" title="Go to source code">fromArray</a>( <span>array <var>$data</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#196-204" title="Go to source code">fromArray</a>( <span>array <var>$data</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1356,7 +1413,7 @@ Returns true on success or false on failure.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_jsonSerialize">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#170-180" title="Go to source code">jsonSerialize</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#172-182" title="Go to source code">jsonSerialize</a>( )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.4.0)<br/>
@@ -1396,7 +1453,7 @@ which is a value of any type other than a resource.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_of">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#204-211" title="Go to source code">of</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#206-213" title="Go to source code">of</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1566,6 +1623,118 @@ which is a value of any type other than a resource.</p>
 			</div>
 			</div></td>
 		</tr>
+				<tr><th colspan="2">Methods inherited from <a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#methods">Commercetools\Core\Model\Common\ObjectTreeInterface</a></th></tr>
+		<tr data-order="parentSet" id="_parentSet">
+
+			<td class="attributes"><code>
+				abstract public 
+				static
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parentSet">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#11-16" title="Go to source code">parentSet</a>( <span> <var>$parent</var></span> )</code>
+
+			<div class="description short">
+				<p>set the parent of the object, has to be set on instantiation</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>set the parent of the object, has to be set on instantiation</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$parent</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						static
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="rootGet" id="_rootGet">
+
+			<td class="attributes"><code>
+				abstract public 
+				object
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_rootGet">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#25-30" title="Go to source code">rootGet</a>( )</code>
+
+			<div class="description short">
+				<p>returns the root of the object hierarchy
+if no root is given returns the object itself</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>returns the root of the object hierarchy
+if no root is given returns the object itself</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						object
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="rootSet" id="_rootSet">
+
+			<td class="attributes"><code>
+				abstract public 
+				static
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_rootSet">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#18-23" title="Go to source code">rootSet</a>( <span> <var>$parent</var></span> )</code>
+
+			<div class="description short">
+				<p>sets the root of the object hierarchy, has to be set on instantiation</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>sets the root of the object hierarchy, has to be set on instantiation</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$parent</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						static
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 
 
 			</table>
@@ -1578,6 +1747,12 @@ which is a value of any type other than a resource.</p>
                     <code><a href="class-Commercetools.Core.Model.Common.ContextTrait.html#_getContextCallback">getContextCallback()</a></code>, 
                     <code><a href="class-Commercetools.Core.Model.Common.ContextTrait.html#_setContext">setContext()</a></code>, 
                     <code><a href="class-Commercetools.Core.Model.Common.ContextTrait.html#_setContextIfNull">setContextIfNull()</a></code>
+                </p>
+                <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html#methods">Commercetools\Core\Model\Common\ObjectTreeTrait</a></h3></div>
+                <p class="elementList">
+                    <code><a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html#_parentSet">parentSet()</a></code>, 
+                    <code><a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html#_rootGet">rootGet()</a></code>, 
+                    <code><a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html#_rootSet">rootSet()</a></code>
                 </p>
 
 
@@ -1596,7 +1771,7 @@ which is a value of any type other than a resource.</p>
                 <td class="attributes"><code>string</code></td>
                 <td class="name">
                     <code>
-                        <a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#13" title="Go to source code"><b>JSON_DESERIALIZE_INTERFACE</b></a>
+                        <a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#15" title="Go to source code"><b>JSON_DESERIALIZE_INTERFACE</b></a>
                     </code>
 
                     <div class="description short">
@@ -1619,7 +1794,7 @@ which is a value of any type other than a resource.</p>
                 <td class="attributes"><code>string</code></td>
                 <td class="name">
                     <code>
-                        <a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#14" title="Go to source code"><b>TYPEABLE_INTERFACE</b></a>
+                        <a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#16" title="Go to source code"><b>TYPEABLE_INTERFACE</b></a>
                     </code>
 
                     <div class="description short">

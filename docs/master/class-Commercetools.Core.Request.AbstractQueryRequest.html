@@ -130,10 +130,6 @@
 							Channel						</a>
 							</li>
 					<li>
-						<a href="namespace-Commercetools.Core.Model.Comment.html">
-							Comment						</a>
-							</li>
-					<li>
 						<a href="namespace-Commercetools.Core.Model.Common.html">
 							Common						</a>
 							</li>
@@ -144,6 +140,10 @@
 					<li>
 						<a href="namespace-Commercetools.Core.Model.CustomerGroup.html">
 							CustomerGroup						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomField.html">
+							CustomField						</a>
 							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Model.CustomObject.html">
@@ -204,6 +204,10 @@
 							TaxCategory						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Type.html">
+							Type						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Zone.html">
 							Zone						</a>
 							</li>
@@ -254,16 +258,6 @@
 							</li>
 								</ul></li>
 					<li>
-						<a href="namespace-Commercetools.Core.Request.Comments.html">
-							Comments<span></span>
-						</a>
-							<ul>
-					<li>
-						<a href="namespace-Commercetools.Core.Request.Comments.Command.html">
-							Command						</a>
-							</li>
-								</ul></li>
-					<li>
 						<a href="namespace-Commercetools.Core.Request.CustomerGroups.html">
 							CustomerGroups<span></span>
 						</a>
@@ -280,6 +274,16 @@
 							<ul>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Customers.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.html">
+							CustomField<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.Command.html">
 							Command						</a>
 							</li>
 								</ul></li>
@@ -400,6 +404,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.html">
+							Types<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.Zones.html">
 							Zones<span></span>
 						</a>
@@ -434,6 +448,11 @@
 			<h3>Interfaces</h3>
 			<ul>
 				<li><a href="class-Commercetools.Core.Request.ClientRequestInterface.html">ClientRequestInterface</a></li>
+				<li><a href="class-Commercetools.Core.Request.PageRequestInterface.html">PageRequestInterface</a></li>
+				<li><a href="class-Commercetools.Core.Request.QueryAllRequestInterface.html">QueryAllRequestInterface</a></li>
+				<li><a href="class-Commercetools.Core.Request.QueryRequestInterface.html">QueryRequestInterface</a></li>
+				<li><a href="class-Commercetools.Core.Request.SortRequestInterface.html">SortRequestInterface</a></li>
+				<li><a href="class-Commercetools.Core.Request.WithTotalRequestInterface.html">WithTotalRequestInterface</a></li>
 			</ul>
 
 			<h3>Traits</h3>
@@ -478,6 +497,8 @@
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>Commercetools\Core\Request\AbstractQueryRequest</span></b>			
+			 implements 
+				<a href="class-Commercetools.Core.Request.QueryAllRequestInterface.html"><span>Commercetools\Core\Request\QueryAllRequestInterface</span></a>
 			
 			 uses 
 					<a href="class-Commercetools.Core.Request.QueryTrait.html"><span>Commercetools\Core\Request\QueryTrait</span></a>, 
@@ -499,7 +520,6 @@
 		<p class="elementList">
 			<code><a href="class-Commercetools.Core.Request.CartDiscounts.CartDiscountQueryRequest.html">Commercetools\Core\Request\CartDiscounts\CartDiscountQueryRequest</a></code>, 
 			<code><a href="class-Commercetools.Core.Request.Carts.CartQueryRequest.html">Commercetools\Core\Request\Carts\CartQueryRequest</a></code>, 
-			<code><a href="class-Commercetools.Core.Request.Messages.MessageQueryRequest.html">Commercetools\Core\Request\Messages\MessageQueryRequest</a></code>, 
 			<code><a href="class-Commercetools.Core.Request.Orders.OrderQueryRequest.html">Commercetools\Core\Request\Orders\OrderQueryRequest</a></code>, 
 			<code><a href="class-Commercetools.Core.Request.ProductDiscounts.ProductDiscountQueryRequest.html">Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest</a></code>, 
 			<code><a href="class-Commercetools.Core.Request.Products.ProductProjectionQueryRequest.html">Commercetools\Core\Request\Products\ProductProjectionQueryRequest</a></code>, 
@@ -509,15 +529,16 @@
 			<code><a href="class-Commercetools.Core.Request.ShippingMethods.ShippingMethodQueryRequest.html">Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest</a></code>, 
 			<code><a href="class-Commercetools.Core.Request.States.StateQueryRequest.html">Commercetools\Core\Request\States\StateQueryRequest</a></code>, 
 			<code><a href="class-Commercetools.Core.Request.TaxCategories.TaxCategoryQueryRequest.html">Commercetools\Core\Request\TaxCategories\TaxCategoryQueryRequest</a></code>, 
+			<code><a href="class-Commercetools.Core.Request.Types.TypeQueryRequest.html">Commercetools\Core\Request\Types\TypeQueryRequest</a></code>, 
 			<code><a href="class-Commercetools.Core.Request.Categories.CategoryQueryRequest.html">Commercetools\Core\Request\Categories\CategoryQueryRequest</a></code>, 
 			<code><a href="class-Commercetools.Core.Request.Zones.ZoneQueryRequest.html">Commercetools\Core\Request\Zones\ZoneQueryRequest</a></code>, 
 			<code><a href="class-Commercetools.Core.Request.Channels.ChannelQueryRequest.html">Commercetools\Core\Request\Channels\ChannelQueryRequest</a></code>, 
-			<code><a href="class-Commercetools.Core.Request.Comments.CommentQueryRequest.html">Commercetools\Core\Request\Comments\CommentQueryRequest</a></code>, 
 			<code><a href="class-Commercetools.Core.Request.CustomerGroups.CustomerGroupQueryRequest.html">Commercetools\Core\Request\CustomerGroups\CustomerGroupQueryRequest</a></code>, 
 			<code><a href="class-Commercetools.Core.Request.Customers.CustomerQueryRequest.html">Commercetools\Core\Request\Customers\CustomerQueryRequest</a></code>, 
 			<code><a href="class-Commercetools.Core.Request.CustomObjects.CustomObjectQueryRequest.html">Commercetools\Core\Request\CustomObjects\CustomObjectQueryRequest</a></code>, 
 			<code><a href="class-Commercetools.Core.Request.DiscountCodes.DiscountCodeQueryRequest.html">Commercetools\Core\Request\DiscountCodes\DiscountCodeQueryRequest</a></code>, 
-			<code><a href="class-Commercetools.Core.Request.Inventory.InventoryQueryRequest.html">Commercetools\Core\Request\Inventory\InventoryQueryRequest</a></code>
+			<code><a href="class-Commercetools.Core.Request.Inventory.InventoryQueryRequest.html">Commercetools\Core\Request\Inventory\InventoryQueryRequest</a></code>, 
+			<code><a href="class-Commercetools.Core.Request.Messages.MessageQueryRequest.html">Commercetools\Core\Request\Messages\MessageQueryRequest</a></code>
 		</p>
 	</div>
 
@@ -580,6 +601,8 @@
 
 
 
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Commercetools.Core.Request.ClientRequestInterface.html#_mapResult">Commercetools\Core\Request\ClientRequestInterface::mapResult()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -1029,6 +1052,200 @@
 					<h4>Returns</h4>
 					<div class="list">
 						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+				<tr><th colspan="2">Methods inherited from <a href="class-Commercetools.Core.Request.WithTotalRequestInterface.html#methods">Commercetools\Core\Request\WithTotalRequestInterface</a></th></tr>
+		<tr data-order="withTotal" id="_withTotal">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_withTotal">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.WithTotalRequestInterface.html#11-15" title="Go to source code">withTotal</a>( <span>boolean <var>$withTotal</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$withTotal</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<br>$this
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+				<tr><th colspan="2">Methods inherited from <a href="class-Commercetools.Core.Request.SortRequestInterface.html#methods">Commercetools\Core\Request\SortRequestInterface</a></th></tr>
+		<tr data-order="sort" id="_sort">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_sort">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.SortRequestInterface.html#11-15" title="Go to source code">sort</a>( <span> <var>$sort</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$sort</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<br>$this
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+				<tr><th colspan="2">Methods inherited from <a href="class-Commercetools.Core.Request.QueryRequestInterface.html#methods">Commercetools\Core\Request\QueryRequestInterface</a></th></tr>
+		<tr data-order="where" id="_where">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_where">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.QueryRequestInterface.html#11-15" title="Go to source code">where</a>( <span>string <var>$where</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$where</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<br>$this
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+				<tr><th colspan="2">Methods inherited from <a href="class-Commercetools.Core.Request.PageRequestInterface.html#methods">Commercetools\Core\Request\PageRequestInterface</a></th></tr>
+		<tr data-order="limit" id="_limit">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_limit">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.PageRequestInterface.html#11-15" title="Go to source code">limit</a>( <span>integer <var>$limit</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$limit</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<br>$this
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="offset" id="_offset">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_offset">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.PageRequestInterface.html#17-21" title="Go to source code">offset</a>( <span>integer <var>$offset</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$offset</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<br>$this
 					</div>
 
 

@@ -130,10 +130,6 @@
 							Channel						</a>
 							</li>
 					<li>
-						<a href="namespace-Commercetools.Core.Model.Comment.html">
-							Comment						</a>
-							</li>
-					<li>
 						<a href="namespace-Commercetools.Core.Model.Common.html">
 							Common						</a>
 							</li>
@@ -144,6 +140,10 @@
 					<li>
 						<a href="namespace-Commercetools.Core.Model.CustomerGroup.html">
 							CustomerGroup						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomField.html">
+							CustomField						</a>
 							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Model.CustomObject.html">
@@ -204,6 +204,10 @@
 							TaxCategory						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Type.html">
+							Type						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Zone.html">
 							Zone						</a>
 							</li>
@@ -254,16 +258,6 @@
 							</li>
 								</ul></li>
 					<li>
-						<a href="namespace-Commercetools.Core.Request.Comments.html">
-							Comments<span></span>
-						</a>
-							<ul>
-					<li>
-						<a href="namespace-Commercetools.Core.Request.Comments.Command.html">
-							Command						</a>
-							</li>
-								</ul></li>
-					<li>
 						<a href="namespace-Commercetools.Core.Request.CustomerGroups.html">
 							CustomerGroups<span></span>
 						</a>
@@ -280,6 +274,16 @@
 							<ul>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Customers.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.html">
+							CustomField<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.Command.html">
 							Command						</a>
 							</li>
 								</ul></li>
@@ -400,6 +404,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.html">
+							Types<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.Zones.html">
 							Zones<span></span>
 						</a>
@@ -451,8 +465,12 @@
 			<a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html"><span>Commercetools\Core\Model\Common\AbstractJsonDeserializeObject</span></a>
 			
 			 implements 
-				<a href="class-Commercetools.Core.Model.Common.JsonDeserializeInterface.html"><span>Commercetools\Core\Model\Common\JsonDeserializeInterface</span></a>
+				<a href="class-Commercetools.Core.Model.Common.JsonDeserializeInterface.html"><span>Commercetools\Core\Model\Common\JsonDeserializeInterface</span></a>, 
 			
+				<a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html"><span>Commercetools\Core\Model\Common\ObjectTreeInterface</span></a>
+			
+			 uses 
+					<a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html"><span>Commercetools\Core\Model\Common\ObjectTreeTrait</span></a>
 			
 		</dd>
 		<dd style="padding-left:30px">
@@ -460,9 +478,7 @@
 			<a href="class-Commercetools.Core.Model.Common.JsonObject.html"><span>Commercetools\Core\Model\Common\JsonObject</span></a>
 			
 			 implements 
-<span>JsonSerializable</span>, 
-			
-				<a href="class-Commercetools.Core.Model.Common.JsonDeserializeInterface.html"><span>Commercetools\Core\Model\Common\JsonDeserializeInterface</span></a>
+<span>JsonSerializable</span>
 			
 			 uses 
 					<a href="class-Commercetools.Core.Model.Common.ContextTrait.html"><span>Commercetools\Core\Model\Common\ContextTrait</span></a>
@@ -490,7 +506,7 @@
             <tr><th>Namespace</th><td><a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Model.html">Model</a>\<a href="namespace-Commercetools.Core.Model.Customer.html">Customer</a></td></tr>
             <tr><th>Package</th><td>Commercetools\Core\Model\Customer</td></tr>
 
-                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#15-98" title="Go to source code">Model/Customer/CustomerDraft.php</a></td></tr>
+                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#16-102" title="Go to source code">Model/Customer/CustomerDraft.php</a></td></tr>
 
                     <tr><th>API documentation</th><td><b><a href="http://dev.sphere.io/http-api-projects-customers.html#create-customer" target="api-doc">http://dev.sphere.io/http-api-projects-customers.html#create-customer</a></b></span></td></tr>
 		</table>
@@ -512,7 +528,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofEmailNameAndPassword">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#82-97" title="Go to source code">ofEmailNameAndPassword</a>( <span>string <var>$email</var></span>, <span>string <var>$firstName</var></span>, <span>string <var>$lastName</var></span>, <span>string <var>$password</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#86-101" title="Go to source code">ofEmailNameAndPassword</a>( <span>string <var>$email</var></span>, <span>string <var>$firstName</var></span>, <span>string <var>$lastName</var></span>, <span>string <var>$password</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -560,7 +576,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getCustomerNumber">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#18" title="Go to source code">getCustomerNumber</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#19" title="Go to source code">getCustomerNumber</a>( )</code>
 
 			<div class="description short">
 				
@@ -593,7 +609,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getEmail">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#19" title="Go to source code">getEmail</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#20" title="Go to source code">getEmail</a>( )</code>
 
 			<div class="description short">
 				
@@ -626,7 +642,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getTitle">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#20" title="Go to source code">getTitle</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#21" title="Go to source code">getTitle</a>( )</code>
 
 			<div class="description short">
 				
@@ -659,7 +675,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getFirstName">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#21" title="Go to source code">getFirstName</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#22" title="Go to source code">getFirstName</a>( )</code>
 
 			<div class="description short">
 				
@@ -692,7 +708,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getMiddleName">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#22" title="Go to source code">getMiddleName</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#23" title="Go to source code">getMiddleName</a>( )</code>
 
 			<div class="description short">
 				
@@ -725,7 +741,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getLastName">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#23" title="Go to source code">getLastName</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#24" title="Go to source code">getLastName</a>( )</code>
 
 			<div class="description short">
 				
@@ -758,7 +774,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getPassword">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#24" title="Go to source code">getPassword</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#25" title="Go to source code">getPassword</a>( )</code>
 
 			<div class="description short">
 				
@@ -791,7 +807,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getAnonymousCartId">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#25" title="Go to source code">getAnonymousCartId</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#26" title="Go to source code">getAnonymousCartId</a>( )</code>
 
 			<div class="description short">
 				
@@ -824,7 +840,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getExternalId">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#26" title="Go to source code">getExternalId</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#27" title="Go to source code">getExternalId</a>( )</code>
 
 			<div class="description short">
 				
@@ -857,7 +873,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setCustomerNumber">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#27" title="Go to source code">setCustomerNumber</a>( <span>string <var>$customerNumber</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#28" title="Go to source code">setCustomerNumber</a>( <span>string <var>$customerNumber</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -895,7 +911,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setEmail">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#28" title="Go to source code">setEmail</a>( <span>string <var>$email</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#29" title="Go to source code">setEmail</a>( <span>string <var>$email</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -933,7 +949,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setTitle">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#29" title="Go to source code">setTitle</a>( <span>string <var>$title</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#30" title="Go to source code">setTitle</a>( <span>string <var>$title</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -971,7 +987,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setFirstName">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#30" title="Go to source code">setFirstName</a>( <span>string <var>$firstName</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#31" title="Go to source code">setFirstName</a>( <span>string <var>$firstName</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1009,7 +1025,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setMiddleName">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#31" title="Go to source code">setMiddleName</a>( <span>string <var>$middleName</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#32" title="Go to source code">setMiddleName</a>( <span>string <var>$middleName</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1047,7 +1063,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setLastName">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#32" title="Go to source code">setLastName</a>( <span>string <var>$lastName</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#33" title="Go to source code">setLastName</a>( <span>string <var>$lastName</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1085,7 +1101,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setPassword">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#33" title="Go to source code">setPassword</a>( <span>string <var>$password</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#34" title="Go to source code">setPassword</a>( <span>string <var>$password</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1123,7 +1139,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setAnonymousCartId">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#34" title="Go to source code">setAnonymousCartId</a>( <span>string <var>$anonymousCartId</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#35" title="Go to source code">setAnonymousCartId</a>( <span>string <var>$anonymousCartId</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1161,7 +1177,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setExternalId">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#35" title="Go to source code">setExternalId</a>( <span>string <var>$externalId</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#36" title="Go to source code">setExternalId</a>( <span>string <var>$externalId</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1199,7 +1215,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getDateOfBirth">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#36" title="Go to source code">getDateOfBirth</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#37" title="Go to source code">getDateOfBirth</a>( )</code>
 
 			<div class="description short">
 				
@@ -1232,7 +1248,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setDateOfBirth">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#37" title="Go to source code">setDateOfBirth</a>( <span>DateTime <var>$dateOfBirth</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#38" title="Go to source code">setDateOfBirth</a>( <span>DateTime <var>$dateOfBirth</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1270,7 +1286,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getCompanyName">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#38" title="Go to source code">getCompanyName</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#39" title="Go to source code">getCompanyName</a>( )</code>
 
 			<div class="description short">
 				
@@ -1303,7 +1319,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setCompanyName">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#39" title="Go to source code">setCompanyName</a>( <span>string <var>$companyName</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#40" title="Go to source code">setCompanyName</a>( <span>string <var>$companyName</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1341,7 +1357,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getVatId">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#40" title="Go to source code">getVatId</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#41" title="Go to source code">getVatId</a>( )</code>
 
 			<div class="description short">
 				
@@ -1374,7 +1390,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setVatId">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#41" title="Go to source code">setVatId</a>( <span>string <var>$vatId</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#42" title="Go to source code">setVatId</a>( <span>string <var>$vatId</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1412,7 +1428,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getIsEmailVerified">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#42" title="Go to source code">getIsEmailVerified</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#43" title="Go to source code">getIsEmailVerified</a>( )</code>
 
 			<div class="description short">
 				
@@ -1445,7 +1461,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setIsEmailVerified">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#43" title="Go to source code">setIsEmailVerified</a>( <span>boolean <var>$isEmailVerified</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#44" title="Go to source code">setIsEmailVerified</a>( <span>boolean <var>$isEmailVerified</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1483,7 +1499,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getCustomerGroup">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#44" title="Go to source code">getCustomerGroup</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#45" title="Go to source code">getCustomerGroup</a>( )</code>
 
 			<div class="description short">
 				
@@ -1516,7 +1532,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setCustomerGroup">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#45" title="Go to source code">setCustomerGroup</a>( <span><code><a href="class-Commercetools.Core.Model.CustomerGroup.CustomerGroupReference.html">Commercetools\Core\Model\CustomerGroup\CustomerGroupReference</a></code> <var>$customerGroup</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#46" title="Go to source code">setCustomerGroup</a>( <span><code><a href="class-Commercetools.Core.Model.CustomerGroup.CustomerGroupReference.html">Commercetools\Core\Model\CustomerGroup\CustomerGroupReference</a></code> <var>$customerGroup</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1554,7 +1570,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getAddresses">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#46" title="Go to source code">getAddresses</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#47" title="Go to source code">getAddresses</a>( )</code>
 
 			<div class="description short">
 				
@@ -1587,7 +1603,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setAddresses">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#47" title="Go to source code">setAddresses</a>( <span><code><a href="class-Commercetools.Core.Model.Common.AddressCollection.html">Commercetools\Core\Model\Common\AddressCollection</a></code> <var>$addresses</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#48" title="Go to source code">setAddresses</a>( <span><code><a href="class-Commercetools.Core.Model.Common.AddressCollection.html">Commercetools\Core\Model\Common\AddressCollection</a></code> <var>$addresses</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1625,7 +1641,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getDefaultShippingAddressId">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#48" title="Go to source code">getDefaultShippingAddressId</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#49" title="Go to source code">getDefaultShippingAddressId</a>( )</code>
 
 			<div class="description short">
 				
@@ -1658,7 +1674,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setDefaultShippingAddressId">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#49" title="Go to source code">setDefaultShippingAddressId</a>( <span>integer <var>$defaultShippingAddressId</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#50" title="Go to source code">setDefaultShippingAddressId</a>( <span>integer <var>$defaultShippingAddressId</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1696,7 +1712,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getDefaultBillingAddressId">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#50" title="Go to source code">getDefaultBillingAddressId</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#51" title="Go to source code">getDefaultBillingAddressId</a>( )</code>
 
 			<div class="description short">
 				
@@ -1729,7 +1745,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setDefaultBillingAddressId">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#51" title="Go to source code">setDefaultBillingAddressId</a>( <span>integer <var>$defaultBillingAddressId</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#52" title="Go to source code">setDefaultBillingAddressId</a>( <span>integer <var>$defaultBillingAddressId</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1742,6 +1758,77 @@
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$defaultBillingAddressId</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Customer.CustomerDraft.html">Commercetools\Core\Model\Customer\CustomerDraft</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getCustom" id="m_getCustom">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.CustomField.CustomFieldObjectDraft.html">Commercetools\Core\Model\CustomField\CustomFieldObjectDraft</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getCustom">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#53" title="Go to source code">getCustom</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.CustomField.CustomFieldObjectDraft.html">Commercetools\Core\Model\CustomField\CustomFieldObjectDraft</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setCustom" id="m_setCustom">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Customer.CustomerDraft.html">Commercetools\Core\Model\Customer\CustomerDraft</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setCustom">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Customer.CustomerDraft.html#54" title="Go to source code">setCustom</a>( <span><code><a href="class-Commercetools.Core.Model.CustomField.CustomFieldObjectDraft.html">Commercetools\Core\Model\CustomField\CustomFieldObjectDraft</a></code> <var>$custom</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$custom</var></dt>
 						<dd></dd>
 					</dl></div>
 
@@ -1837,7 +1924,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_fromArray">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#194-202" title="Go to source code">fromArray</a>( <span>array <var>$data</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#196-204" title="Go to source code">fromArray</a>( <span>array <var>$data</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1879,7 +1966,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_jsonSerialize">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#170-180" title="Go to source code">jsonSerialize</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#172-182" title="Go to source code">jsonSerialize</a>( )</code>
 
 			<div class="description short">
 				<p>(PHP 5 &gt;= 5.4.0)<br/>
@@ -1919,7 +2006,7 @@ which is a value of any type other than a resource.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_of">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#204-211" title="Go to source code">of</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#206-213" title="Go to source code">of</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1957,7 +2044,7 @@ which is a value of any type other than a resource.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_toArray">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#182-192" title="Go to source code">toArray</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#184-194" title="Go to source code">toArray</a>( )</code>
 
 			<div class="description short">
 				
@@ -2124,6 +2211,118 @@ which is a value of any type other than a resource.</p>
 			</div>
 			</div></td>
 		</tr>
+				<tr><th colspan="2">Methods inherited from <a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#methods">Commercetools\Core\Model\Common\ObjectTreeInterface</a></th></tr>
+		<tr data-order="parentSet" id="_parentSet">
+
+			<td class="attributes"><code>
+				abstract public 
+				static
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parentSet">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#11-16" title="Go to source code">parentSet</a>( <span> <var>$parent</var></span> )</code>
+
+			<div class="description short">
+				<p>set the parent of the object, has to be set on instantiation</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>set the parent of the object, has to be set on instantiation</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$parent</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						static
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="rootGet" id="_rootGet">
+
+			<td class="attributes"><code>
+				abstract public 
+				object
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_rootGet">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#25-30" title="Go to source code">rootGet</a>( )</code>
+
+			<div class="description short">
+				<p>returns the root of the object hierarchy
+if no root is given returns the object itself</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>returns the root of the object hierarchy
+if no root is given returns the object itself</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						object
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="rootSet" id="_rootSet">
+
+			<td class="attributes"><code>
+				abstract public 
+				static
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_rootSet">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#18-23" title="Go to source code">rootSet</a>( <span> <var>$parent</var></span> )</code>
+
+			<div class="description short">
+				<p>sets the root of the object hierarchy, has to be set on instantiation</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>sets the root of the object hierarchy, has to be set on instantiation</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$parent</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						static
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 
 
 			</table>
@@ -2136,6 +2335,12 @@ which is a value of any type other than a resource.</p>
                     <code><a href="class-Commercetools.Core.Model.Common.ContextTrait.html#_getContextCallback">getContextCallback()</a></code>, 
                     <code><a href="class-Commercetools.Core.Model.Common.ContextTrait.html#_setContext">setContext()</a></code>, 
                     <code><a href="class-Commercetools.Core.Model.Common.ContextTrait.html#_setContextIfNull">setContextIfNull()</a></code>
+                </p>
+                <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html#methods">Commercetools\Core\Model\Common\ObjectTreeTrait</a></h3></div>
+                <p class="elementList">
+                    <code><a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html#_parentSet">parentSet()</a></code>, 
+                    <code><a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html#_rootGet">rootGet()</a></code>, 
+                    <code><a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html#_rootSet">rootSet()</a></code>
                 </p>
 
 
@@ -2270,7 +2475,7 @@ which is a value of any type other than a resource.</p>
                 <td class="attributes"><code>string</code></td>
                 <td class="name">
                     <code>
-                        <a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#13" title="Go to source code"><b>JSON_DESERIALIZE_INTERFACE</b></a>
+                        <a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#15" title="Go to source code"><b>JSON_DESERIALIZE_INTERFACE</b></a>
                     </code>
 
                     <div class="description short">
@@ -2293,7 +2498,7 @@ which is a value of any type other than a resource.</p>
                 <td class="attributes"><code>string</code></td>
                 <td class="name">
                     <code>
-                        <a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#14" title="Go to source code"><b>TYPEABLE_INTERFACE</b></a>
+                        <a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#16" title="Go to source code"><b>TYPEABLE_INTERFACE</b></a>
                     </code>
 
                     <div class="description short">

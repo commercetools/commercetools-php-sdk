@@ -130,10 +130,6 @@
 							Channel						</a>
 							</li>
 					<li>
-						<a href="namespace-Commercetools.Core.Model.Comment.html">
-							Comment						</a>
-							</li>
-					<li>
 						<a href="namespace-Commercetools.Core.Model.Common.html">
 							Common						</a>
 							</li>
@@ -144,6 +140,10 @@
 					<li>
 						<a href="namespace-Commercetools.Core.Model.CustomerGroup.html">
 							CustomerGroup						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomField.html">
+							CustomField						</a>
 							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Model.CustomObject.html">
@@ -204,6 +204,10 @@
 							TaxCategory						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Type.html">
+							Type						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Zone.html">
 							Zone						</a>
 							</li>
@@ -254,16 +258,6 @@
 							</li>
 								</ul></li>
 					<li>
-						<a href="namespace-Commercetools.Core.Request.Comments.html">
-							Comments<span></span>
-						</a>
-							<ul>
-					<li>
-						<a href="namespace-Commercetools.Core.Request.Comments.Command.html">
-							Command						</a>
-							</li>
-								</ul></li>
-					<li>
 						<a href="namespace-Commercetools.Core.Request.CustomerGroups.html">
 							CustomerGroups<span></span>
 						</a>
@@ -280,6 +274,16 @@
 							<ul>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Customers.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.html">
+							CustomField<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.Command.html">
 							Command						</a>
 							</li>
 								</ul></li>
@@ -400,6 +404,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.html">
+							Types<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.Zones.html">
 							Zones<span></span>
 						</a>
@@ -478,8 +492,12 @@
 		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>Commercetools\Core\Request\Products\ProductProjectionSearchRequest</span></b>			
+			 implements 
+				<a href="class-Commercetools.Core.Request.SortRequestInterface.html"><span>Commercetools\Core\Request\SortRequestInterface</span></a>
 			
 			 uses 
+					<a href="class-Commercetools.Core.Request.ExpandTrait.html"><span>Commercetools\Core\Request\ExpandTrait</span></a>, 
+			
 					<a href="class-Commercetools.Core.Request.PageTrait.html"><span>Commercetools\Core\Request\PageTrait</span></a>, 
 			
 					<a href="class-Commercetools.Core.Request.SortTrait.html"><span>Commercetools\Core\Request\SortTrait</span></a>
@@ -501,7 +519,7 @@
             <tr><th>Namespace</th><td><a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Request.html">Request</a>\<a href="namespace-Commercetools.Core.Request.Products.html">Products</a></td></tr>
             <tr><th>Package</th><td>Commercetools\Core\Request\Products</td></tr>
 
-                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#20-133" title="Go to source code">Request/Products/ProductProjectionSearchRequest.php</a></td></tr>
+                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#23-137" title="Go to source code">Request/Products/ProductProjectionSearchRequest.php</a></td></tr>
 
                     <tr><th>API documentation</th><td><b><a href="http://dev.sphere.io/http-api-projects-products-search.html#product-projections-by-search" target="api-doc">http://dev.sphere.io/http-api-projects-products-search.html#product-projections-by-search</a></b></span></td></tr>
 		</table>
@@ -523,7 +541,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#38-44" title="Go to source code">__construct</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#42-48" title="Go to source code">__construct</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -559,7 +577,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_of">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#46-53" title="Go to source code">of</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#50-57" title="Go to source code">of</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -597,7 +615,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_mapResult">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#73-85" title="Go to source code">mapResult</a>( <span>array <var>$result</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#77-89" title="Go to source code">mapResult</a>( <span>array <var>$result</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -623,6 +641,8 @@
 
 
 
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Commercetools.Core.Request.ClientRequestInterface.html#_mapResult">Commercetools\Core\Request\ClientRequestInterface::mapResult()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -637,7 +657,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addFilter">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#98-105" title="Go to source code">addFilter</a>( <span><code><a href="class-Commercetools.Core.Model.Product.Search.FilterInterface.html">Commercetools\Core\Model\Product\Search\FilterInterface</a></code> <var>$filter</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#102-109" title="Go to source code">addFilter</a>( <span><code><a href="class-Commercetools.Core.Model.Product.Search.FilterInterface.html">Commercetools\Core\Model\Product\Search\FilterInterface</a></code> <var>$filter</var></span> )</code>
 
 			<div class="description short">
 				
@@ -675,7 +695,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addFilterQuery">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#107-114" title="Go to source code">addFilterQuery</a>( <span><code><a href="class-Commercetools.Core.Model.Product.Search.FilterInterface.html">Commercetools\Core\Model\Product\Search\FilterInterface</a></code> <var>$filter</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#111-118" title="Go to source code">addFilterQuery</a>( <span><code><a href="class-Commercetools.Core.Model.Product.Search.FilterInterface.html">Commercetools\Core\Model\Product\Search\FilterInterface</a></code> <var>$filter</var></span> )</code>
 
 			<div class="description short">
 				
@@ -713,7 +733,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addFilterFacets">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#116-123" title="Go to source code">addFilterFacets</a>( <span><code><a href="class-Commercetools.Core.Model.Product.Search.FilterInterface.html">Commercetools\Core\Model\Product\Search\FilterInterface</a></code> <var>$filter</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#120-127" title="Go to source code">addFilterFacets</a>( <span><code><a href="class-Commercetools.Core.Model.Product.Search.FilterInterface.html">Commercetools\Core\Model\Product\Search\FilterInterface</a></code> <var>$filter</var></span> )</code>
 
 			<div class="description short">
 				
@@ -751,7 +771,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addFacet">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#125-132" title="Go to source code">addFacet</a>( <span><code><a href="class-Commercetools.Core.Model.Product.Search.FilterInterface.html">Commercetools\Core\Model\Product\Search\FilterInterface</a></code> <var>$filter</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#129-136" title="Go to source code">addFacet</a>( <span><code><a href="class-Commercetools.Core.Model.Product.Search.FilterInterface.html">Commercetools\Core\Model\Product\Search\FilterInterface</a></code> <var>$filter</var></span> )</code>
 
 			<div class="description short">
 				
@@ -791,7 +811,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_executeWithClient">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#23" title="Go to source code">executeWithClient</a>( <span><code><a href="class-Commercetools.Core.Client.html">Commercetools\Core\Client</a></code> <var>$client</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#26" title="Go to source code">executeWithClient</a>( <span><code><a href="class-Commercetools.Core.Client.html">Commercetools\Core\Client</a></code> <var>$client</var></span> )</code>
 
 			<div class="description short">
 				
@@ -829,7 +849,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_mapResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#24" title="Go to source code">mapResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.ProductProjectionSearchRequest.html#27" title="Go to source code">mapResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1234,12 +1254,55 @@
 			</div>
 			</div></td>
 		</tr>
+				<tr><th colspan="2">Methods inherited from <a href="class-Commercetools.Core.Request.SortRequestInterface.html#methods">Commercetools\Core\Request\SortRequestInterface</a></th></tr>
+		<tr data-order="sort" id="_sort">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_sort">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.SortRequestInterface.html#11-15" title="Go to source code">sort</a>( <span> <var>$sort</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$sort</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<br>$this
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 
 
 			</table>
 		</div>
 
             <div class="panel panel-default methods used-methods">
+                <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Request.ExpandTrait.html#methods">Commercetools\Core\Request\ExpandTrait</a></h3></div>
+                <p class="elementList">
+                    <code><a href="class-Commercetools.Core.Request.ExpandTrait.html#_expand">expand()</a></code>
+                </p>
                 <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Request.PageTrait.html#methods">Commercetools\Core\Request\PageTrait</a></h3></div>
                 <p class="elementList">
                     <code><a href="class-Commercetools.Core.Request.PageTrait.html#_limit">limit()</a></code>, 
