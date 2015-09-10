@@ -17,7 +17,7 @@ class AttributeTypeTest extends \PHPUnit_Framework_TestCase
         ]);
         $this->assertSame(
             '\Commercetools\Core\Model\Common\EnumCollection',
-            $type->getFields()['values'][JsonObject::TYPE]
+            $type->fieldDefinitions()['values'][JsonObject::TYPE]
         );
     }
 
@@ -28,7 +28,7 @@ class AttributeTypeTest extends \PHPUnit_Framework_TestCase
         ]);
         $this->assertSame(
             '\Commercetools\Core\Model\Common\LocalizedEnumCollection',
-            $type->getFields()['values'][JsonObject::TYPE]
+            $type->fieldDefinitions()['values'][JsonObject::TYPE]
         );
     }
 

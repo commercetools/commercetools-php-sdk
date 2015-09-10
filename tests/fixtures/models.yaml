@@ -20,6 +20,7 @@ cart:
     - country
     - shippingInfo
     - discountCodes
+    - custom
 
 lineItem:
   domain: cart
@@ -37,6 +38,7 @@ lineItem:
     - supplyChannel
     - distributionChannel
     - discountedPrice
+    - custom
 
 customLineItem:
   domain: cart
@@ -50,6 +52,7 @@ customLineItem:
     - state
     - taxCategory
     - taxRate
+    - custom
 
 taxedPrice:
   domain: common
@@ -149,6 +152,7 @@ category:
     - parent
     - orderHint
     - externalId
+    - custom
 
 categoryDraft:
   domain: category
@@ -160,6 +164,7 @@ categoryDraft:
     - parent
     - orderHint
     - externalId
+    - custom
 
 address:
   domain: common
@@ -268,6 +273,7 @@ customer:
     - isEmailVerified
     - externalId
     - customerGroup
+    - custom
 
 customerSigninResult:
   domain: customer
@@ -327,6 +333,8 @@ order:
     - returnInfo
     - discountCodes
     - lastMessageSequenceNumber
+    - cart
+    - custom
 
 syncInfo:
   domain: order
@@ -863,20 +871,6 @@ review:
     - title
     - text
     - score
-
-comment:
-  domain: comment
-  model: comment
-  fields:
-    - id
-    - version
-    - createdAt
-    - lastModifiedAt
-    - productId
-    - customerId
-    - authorName
-    - title
-    - text
 
 message:
   domain: message

@@ -9,6 +9,7 @@ namespace Commercetools\Core\Model\Product;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Product
@@ -17,9 +18,9 @@ use Commercetools\Core\Model\TaxCategory\TaxCategory;
  * @method Product setId(string $id = null)
  * @method int getVersion()
  * @method Product setVersion(int $version = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method Product setCreatedAt(\DateTime $createdAt = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method Product setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method ProductTypeReference getProductType()
  * @method Product setProductType(ProductTypeReference $productType = null)
@@ -30,13 +31,19 @@ use Commercetools\Core\Model\TaxCategory\TaxCategory;
  */
 class Product extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
-            'createdAt' => [static::TYPE => '\DateTime'],
-            'lastModifiedAt' => [static::TYPE  => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'productType' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference'],
             'taxCategory' => [self::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategory'],
             'masterData' => [self::TYPE => '\Commercetools\Core\Model\Product\ProductCatalogData']

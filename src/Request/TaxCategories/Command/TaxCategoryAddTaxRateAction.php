@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories\Command
- *  *
+ *
  * @method string getAction()
  * @method TaxCategoryAddTaxRateAction setAction(string $action = null)
  * @method TaxRate getTaxRate()
@@ -19,7 +19,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class TaxCategoryAddTaxRateAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

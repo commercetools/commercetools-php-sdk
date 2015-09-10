@@ -9,8 +9,9 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Product
- * 
+ *
  * @method FilterRange current()
+ * @method FilterRangeCollection add(FilterRange $element)
  * @method FilterRange getAt($offset)
  */
 class FilterRangeCollection extends Collection

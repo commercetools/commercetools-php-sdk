@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods\Command
- *  *
+ *
  * @method string getAction()
  * @method ShippingMethodChangeIsDefaultAction setAction(string $action = null)
  * @method bool getIsDefault()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ShippingMethodChangeIsDefaultAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

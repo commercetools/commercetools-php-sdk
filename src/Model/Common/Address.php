@@ -57,7 +57,7 @@ namespace Commercetools\Core\Model\Common;
  */
 class Address extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [self::TYPE => 'string'],

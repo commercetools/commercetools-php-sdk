@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\ShippingMethod;
 
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\ShippingMethod
@@ -15,9 +16,9 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  * @method ShippingMethod setId(string $id = null)
  * @method int getVersion()
  * @method ShippingMethod setVersion(int $version = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method ShippingMethod setCreatedAt(\DateTime $createdAt = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method ShippingMethod setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method string getName()
  * @method ShippingMethod setName(string $name = null)
@@ -32,13 +33,19 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  */
 class ShippingMethod extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
-            'createdAt' => [static::TYPE => '\DateTime'],
-            'lastModifiedAt' => [static::TYPE => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
             'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],

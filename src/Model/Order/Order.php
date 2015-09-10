@@ -14,6 +14,9 @@ use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\TaxedPrice;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Cart\DiscountCodeInfoCollection;
+use Commercetools\Core\Model\Cart\CartReference;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Order
@@ -22,9 +25,9 @@ use Commercetools\Core\Model\Cart\DiscountCodeInfoCollection;
  * @method Order setId(string $id = null)
  * @method int getVersion()
  * @method Order setVersion(int $version = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method Order setCreatedAt(\DateTime $createdAt = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method Order setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method string getOrderNumber()
  * @method Order setOrderNumber(string $orderNumber = null)
@@ -66,16 +69,26 @@ use Commercetools\Core\Model\Cart\DiscountCodeInfoCollection;
  * @method Order setDiscountCodes(DiscountCodeInfoCollection $discountCodes = null)
  * @method int getLastMessageSequenceNumber()
  * @method Order setLastMessageSequenceNumber(int $lastMessageSequenceNumber = null)
+ * @method CartReference getCart()
+ * @method Order setCart(CartReference $cart = null)
+ * @method CustomFieldObject getCustom()
+ * @method Order setCustom(CustomFieldObject $custom = null)
  */
 class Order extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
-            'createdAt' => [static::TYPE => '\DateTime'],
-            'lastModifiedAt' => [static::TYPE => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'orderNumber' => [static::TYPE => 'string'],
             'customerId' => [static::TYPE => 'string'],
             'customerEmail' => [static::TYPE => 'string'],
@@ -96,6 +109,8 @@ class Order extends Resource
             'returnInfo' => [static::TYPE => '\Commercetools\Core\Model\Order\ReturnInfoCollection'],
             'discountCodes' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountCodeInfoCollection'],
             'lastMessageSequenceNumber' => [static::TYPE => 'int'],
+            'cart' => [static::TYPE => '\Commercetools\Core\Model\Cart\CartReference'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
 }

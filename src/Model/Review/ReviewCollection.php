@@ -9,8 +9,9 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Review
- * 
+ *
  * @method Review current()
+ * @method ReviewCollection add(Review $element)
  * @method Review getAt($offset)
  */
 class ReviewCollection extends Collection

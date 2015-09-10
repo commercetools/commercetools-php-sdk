@@ -15,6 +15,7 @@ use Commercetools\Core\Error\Message;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\ContextAwareInterface;
 use Commercetools\Core\Response\ResourceResponse;
+use Commercetools\Core\Error\UpdateActionLimitException;
 
 /**
  * @package Commercetools\Core\Request
@@ -24,7 +25,8 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     const ACTION = 'action';
     const ACTIONS = 'actions';
     const VERSION = 'version';
-    const ACTION_LIMIT = 50;
+    const ACTION_MAX_LIMIT = 500;
+    const ACTION_WARNING_TRESHOLD = 400;
 
     /**
      * @var
@@ -40,6 +42,8 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
      * @var array
      */
     protected $actions = [];
+
+    protected $overLimit = false;
 
     /**
      * @param JsonEndpoint $endpoint
@@ -82,29 +86,40 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
      */
     public function addAction($action)
     {
+
         $this->actions[] = $action;
         if ($action instanceof ContextAwareInterface) {
             $action->setContextIfNull($this->getContextCallback());
         }
-        $this->logUpdateActionLimit();
+        $this->checkActionLimit();
 
         return $this;
     }
 
-    protected function logUpdateActionLimit()
+    protected function checkActionLimit()
     {
-        if (count($this->actions) > static::ACTION_LIMIT) {
+        if (count($this->actions) > static::ACTION_MAX_LIMIT) {
+            $message = sprintf(
+                Message::UPDATE_ACTION_LIMIT,
+                $this->getPath(),
+                static::ACTION_WARNING_TRESHOLD
+            );
+            throw new UpdateActionLimitException($message);
+        }
+        if (!$this->overLimit && count($this->actions) > static::ACTION_WARNING_TRESHOLD) {
+            $this->overLimit = true;
             $logger = $this->getContext()->getLogger();
             if (!is_null($logger)) {
                 $message = sprintf(
-                    Message::UPDATE_ACTION_LIMIT,
+                    Message::UPDATE_ACTION_LIMIT_WARNING,
                     $this->getPath(),
-                    static::ACTION_LIMIT
+                    static::ACTION_WARNING_TRESHOLD
                 );
                 $logger->warning($message);
             }
         }
     }
+
     /**
      * @return string
      */

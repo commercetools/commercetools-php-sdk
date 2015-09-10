@@ -19,7 +19,7 @@ use Commercetools\Core\Model\ProductDiscount\ProductDiscountReference;
 class DiscountedPrice extends JsonObject
 {
 
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'value' => [self::TYPE => '\Commercetools\Core\Model\Common\Money'],

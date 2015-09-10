@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\CustomerGroups\Command
- * 
+ *
  * @method string getAction()
  * @method CustomerGroupChangeNameAction setAction(string $action = null)
  * @method string getName()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class CustomerGroupChangeNameAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

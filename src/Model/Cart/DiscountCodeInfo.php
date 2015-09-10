@@ -18,7 +18,7 @@ use Commercetools\Core\Model\DiscountCode\DiscountCodeReference;
  */
 class DiscountCodeInfo extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'discountCode' => [static::TYPE => '\Commercetools\Core\Model\DiscountCode\DiscountCodeReference'],

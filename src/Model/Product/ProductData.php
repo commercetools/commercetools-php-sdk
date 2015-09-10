@@ -36,7 +36,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  */
 class ProductData extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
@@ -50,5 +50,31 @@ class ProductData extends JsonObject
             'variants' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariantCollection'],
             'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords']
         ];
+    }
+
+    /**
+     * @param $variantId
+     * @return ProductVariant|null
+     */
+    public function getVariantById($variantId)
+    {
+        if ($variantId == $this->getMasterVariant()->getId()) {
+            return $this->getMasterVariant();
+        }
+
+        return $this->getVariants()->getById($variantId);
+    }
+
+    /**
+     * @param $sku
+     * @return ProductVariant
+     */
+    public function getVariantBySku($sku)
+    {
+        if ($sku == $this->getMasterVariant()->getSku()) {
+            return $this->getMasterVariant();
+        }
+
+        return $this->getVariants()->getBySku($sku);
     }
 }

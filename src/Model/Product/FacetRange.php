@@ -32,7 +32,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class FacetRange extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             "from" => [static::TYPE => 'int'],

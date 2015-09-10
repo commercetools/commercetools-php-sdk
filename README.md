@@ -1,11 +1,11 @@
 # <img src="build/theme/resources/CT_cube_200px.png" width="40" align="center"></img> commercetools PHP SDK
 
->  STATUS: Release Candidate 1.  We have done all planned breaking changes and ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!
+>  STATUS: Release Candidate 3.  We ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!
 >
 > See the [Milestone Plan](https://github.com/sphereio/commercetools-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned in detail. We love feedback and [Issue reports](https://github.com/sphereio/commercetools-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
 > Up-to-Date planning status can be found on this [Waffle Board](https://waffle.io/sphereio/commercetools-php-sdk)
 
-[![Build Status](https://img.shields.io/travis/sphereio/commercetools-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/sphereio/commercetools-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/commercetools-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/commercetools-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/sphere/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/sphere/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk)
+[![Build Status](https://img.shields.io/travis/sphereio/commercetools-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/sphereio/commercetools-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/commercetools-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/commercetools-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk)
 
 The PHP SDK allows developers to build applications on the commercetools platform (technically speaking against the SPHERE.IO REST API) using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API.
 
@@ -34,7 +34,7 @@ curl -sS https://getcomposer.org/installer | php
 Next, run the Composer command to install the latest version of the SDK:
 
 ```bash
-composer require sphere/php-sdk dev-master
+composer require commercetools/php-sdk dev-master
 ```
 
 The SDK supports Guzzle6 as well as Guzzle5 as HTTP client. For Guzzle6:
@@ -60,7 +60,7 @@ If you don't use Composer, just [download a zip archive](https://github.com/sphe
 
 Until the 1.0.0 release M0, M1 etc. milestone releases can contain incompatible changes.  From 1.0.0 on, the project will follow the [semantic versioning](http://semver.org) guidelines, i.e. everything but major version changes are backwards-compatible. This matches composer's default behavior.
 
-With composer just run `composer update sphere/php-sdk` to update to compatible versions. Edit your `composer.json` file to update to incompatible versions.
+With composer just run `composer update commercetools/php-sdk` to update to compatible versions. Edit your `composer.json` file to update to incompatible versions.
 
 Please read the [Changelog](CHANGELOG.md) before updating in any case.
 

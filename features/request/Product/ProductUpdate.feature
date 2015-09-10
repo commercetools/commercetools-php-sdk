@@ -485,6 +485,115 @@ Feature: I want to send a Product Update Request
   Scenario:
     Given a "product" is identified by "id" and version 1
     And i want to update a "product"
+    And add the "setAttribute" action to "product" with values
+    """
+        {
+          "action": "setAttribute",
+          "variantId": 1,
+          "name": "myTextAttribute",
+          "value": "newValue"
+        }
+    """
+    And add the "setAttribute" action to "product" with values
+    """
+        {
+          "action": "setAttribute",
+          "variantId": 1,
+          "name": "myLocalizedStringAttribute",
+          "value": {
+            "en": "newValue"
+          }
+        }
+    """
+    And add the "setAttribute" action to "product" with values
+    """
+        {
+          "action": "setAttribute",
+          "variantId": 1,
+          "name": "myMoneyAttribute",
+          "value": {
+            "centAmount": 100,
+            "currency": "EUR"
+          }
+        }
+    """
+    And add the "setAttribute" action to "product" with values
+    """
+        {
+          "action": "setAttribute",
+          "variantId": 1,
+          "name": "myEnumAttribute",
+          "value": "key"
+        }
+    """
+    And add the "setAttribute" action to "product" with values
+    """
+        {
+          "action": "setAttribute",
+          "variantId": 1,
+          "name": "myLocalizedEnumAttribute",
+          "value": {
+            "key": "enumKey",
+            "label": {
+              "en": "Enum Key"
+            }
+          }
+        }
+    """
+    Then the path should be "products/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": 1,
+      "actions": [
+        {
+          "action": "setAttribute",
+          "variantId": 1,
+          "name": "myTextAttribute",
+          "value": "newValue"
+        },
+        {
+          "action": "setAttribute",
+          "variantId": 1,
+          "name": "myLocalizedStringAttribute",
+          "value": {
+            "en": "newValue"
+          }
+        },
+        {
+          "action": "setAttribute",
+          "variantId": 1,
+          "name": "myMoneyAttribute",
+          "value": {
+            "centAmount": 100,
+            "currency": "EUR"
+          }
+        },
+        {
+          "action": "setAttribute",
+          "variantId": 1,
+          "name": "myEnumAttribute",
+          "value": "key"
+        },
+        {
+          "action": "setAttribute",
+          "variantId": 1,
+          "name": "myLocalizedEnumAttribute",
+          "value": {
+            "key": "enumKey",
+            "label": {
+              "en": "Enum Key"
+            }
+          }
+        }
+      ]
+    }
+    """
+
+  Scenario:
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
     And add the "setAttributeInAllVariants" action to "product" with values
     """
         {

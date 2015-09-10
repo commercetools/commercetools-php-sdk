@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- * 
+ *
  * @method string getAction()
  * @method ProductTypeChangePlainEnumValueOrderAction setAction(string $action = null)
  * @method string getAttributeName()
@@ -21,7 +21,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ProductTypeChangePlainEnumValueOrderAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

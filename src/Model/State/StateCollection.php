@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\State
  * @method State current()
+ * @method StateCollection add(State $element)
  * @method State getAt($offset)
  */
 class StateCollection extends Collection

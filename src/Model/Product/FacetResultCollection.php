@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\Product
  * @method FacetResult current()
+ * @method FacetResultCollection add(FacetResult $element)
  * @method FacetResult getAt($offset)
  */
 class FacetResultCollection extends Collection

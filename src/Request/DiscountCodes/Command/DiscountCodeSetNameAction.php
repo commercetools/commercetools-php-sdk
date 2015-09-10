@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes\Command
- * 
+ *
  * @method string getAction()
  * @method DiscountCodeSetNameAction setAction(string $action = null)
  * @method LocalizedString getName()
@@ -19,7 +19,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  */
 class DiscountCodeSetNameAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

@@ -9,6 +9,7 @@ use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\ReferenceCollection;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\DiscountCode
@@ -17,9 +18,9 @@ use Commercetools\Core\Model\Common\ReferenceCollection;
  * @method DiscountCode setId(string $id = null)
  * @method int getVersion()
  * @method DiscountCode setVersion(int $version = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method DiscountCode setCreatedAt(\DateTime $createdAt = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method DiscountCode setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method LocalizedString getName()
  * @method DiscountCode setName(LocalizedString $name = null)
@@ -42,13 +43,19 @@ use Commercetools\Core\Model\Common\ReferenceCollection;
  */
 class DiscountCode extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
-            'createdAt' => [static::TYPE => '\DateTime'],
-            'lastModifiedAt' => [static::TYPE => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'code' => [static::TYPE => 'string'],

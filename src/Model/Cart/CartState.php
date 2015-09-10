@@ -13,4 +13,5 @@ class CartState
 {
     const ACTIVE = 'Active';
     const MERGED = 'Merged';
+    const ORDERED = 'Ordered';
 }

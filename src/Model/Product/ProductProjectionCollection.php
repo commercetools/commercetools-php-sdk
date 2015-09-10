@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\Product
  * @method ProductProjection current()
+ * @method ProductProjectionCollection add(ProductProjection $element)
  * @method ProductProjection getAt($offset)
  */
 class ProductProjectionCollection extends Collection

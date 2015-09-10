@@ -27,8 +27,8 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  * @method ProductDraft setCategories(CategoryReferenceCollection $categories = null)
  * @method ProductVariantDraft getMasterVariant()
  * @method ProductDraft setMasterVariant(ProductVariantDraft $masterVariant = null)
- * @method ProductVariantCollection getVariants()
- * @method ProductDraft setVariants(ProductVariantCollection $variants = null)
+ * @method ProductVariantDraftCollection getVariants()
+ * @method ProductDraft setVariants(ProductVariantDraftCollection $variants = null)
  * @method LocalizedString getMetaTitle()
  * @method ProductDraft setMetaTitle(LocalizedString $metaTitle = null)
  * @method LocalizedString getMetaDescription()
@@ -42,7 +42,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  */
 class ProductDraft extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'name' => [self::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
@@ -51,7 +51,7 @@ class ProductDraft extends JsonObject
             'productType' => [self::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference'],
             'categories' => [self::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
             'masterVariant' => [self::TYPE => '\Commercetools\Core\Model\Product\ProductVariantDraft'],
-            'variants' => [self::TYPE => '\Commercetools\Core\Model\Product\ProductVariantCollection'],
+            'variants' => [self::TYPE => '\Commercetools\Core\Model\Product\ProductVariantDraftCollection'],
             'metaTitle' => [self::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'metaDescription' => [self::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [self::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],

@@ -68,4 +68,29 @@ class UpdateCategoryTest extends ApiTestCase
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
     }
+
+    public function testUpdateLocalizedName()
+    {
+        $category = $this->createCategory($this->getDraft('update name', 'update-name'));
+
+        $result = $this->getClient()->execute(
+            CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
+                ->addAction(
+                    CategoryChangeNameAction::ofName(
+                        LocalizedString::fromArray(['en' => 'new name', 'en-US' => 'new name'])
+                    )
+                )
+        )->toObject();
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertSame('new name', $result->getName()->en);
+        $this->assertSame('new name', $result->getName()->en_US);
+        $this->assertNotSame($category->getVersion(), $result->getVersion());
+
+        $deleteRequest = array_pop($this->cleanupRequests);
+        $deleteRequest->setVersion($result->getVersion());
+        $result = $this->getClient()->execute($deleteRequest)->toObject();
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+    }
 }

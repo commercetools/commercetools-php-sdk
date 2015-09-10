@@ -23,9 +23,9 @@ class ProductReference extends Reference
 {
     const TYPE_PRODUCT = 'product';
 
-    public function getFields()
+    public function fieldDefinitions()
     {
-        $fields = parent::getFields();
+        $fields = parent::fieldDefinitions();
         $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Product\Product'];
 
         return $fields;

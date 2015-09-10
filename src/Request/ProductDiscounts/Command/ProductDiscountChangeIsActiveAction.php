@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductDiscounts\Command
- *  *
+ *
  * @method string getAction()
  * @method ProductDiscountChangeIsActiveAction setAction(string $action = null)
  * @method bool getIsActive()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ProductDiscountChangeIsActiveAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

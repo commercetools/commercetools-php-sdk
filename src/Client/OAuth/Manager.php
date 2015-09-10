@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Client\OAuth;
 
 
+use Commercetools\Core\Error\ApiException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\AbstractHttpClient;
@@ -142,7 +143,11 @@ class Manager extends AbstractHttpClient
             'scope' => $scope . ':' . $this->getConfig()->getProject()
         ];
 
-        $response = $this->execute($data);
+        try {
+            $response = $this->execute($data);
+        } catch (ApiException $exception) {
+            throw ApiException::create($exception->getRequest(), $exception->getResponse());
+        }
 
         $result = json_decode($response->getBody(), true);
 

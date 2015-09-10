@@ -33,7 +33,7 @@ use Commercetools\Core\Model\TaxCategory\TaxRate;
  */
 class ShippingInfo extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'shippingMethodName' => [static::TYPE => 'string'],

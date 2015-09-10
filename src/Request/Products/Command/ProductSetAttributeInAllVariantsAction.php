@@ -15,19 +15,19 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductSetAttributeInAllVariantsAction setAction(string $action = null)
  * @method string getName()
  * @method ProductSetAttributeInAllVariantsAction setName(string $name = null)
- * @method string getValue()
- * @method ProductSetAttributeInAllVariantsAction setValue(string $value = null)
+ * @method getValue()
+ * @method ProductSetAttributeInAllVariantsAction setValue($value = null)
  * @method bool getStaged()
  * @method ProductSetAttributeInAllVariantsAction setStaged(bool $staged = null)
  */
 class ProductSetAttributeInAllVariantsAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],
             'name' => [static::TYPE => 'string'],
-            'value' => [static::TYPE => 'string'],
+            'value' => [static::TYPE => null],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

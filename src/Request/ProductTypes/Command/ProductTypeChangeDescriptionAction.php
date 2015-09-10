@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- * 
+ *
  * @method string getAction()
  * @method ProductTypeChangeDescriptionAction setAction(string $action = null)
  * @method string getDescription()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class ProductTypeChangeDescriptionAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

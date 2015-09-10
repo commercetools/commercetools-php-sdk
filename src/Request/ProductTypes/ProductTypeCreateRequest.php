@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes
- * 
+ *
  * @method ProductType mapResponse(ApiResponseInterface $response)
  */
 class ProductTypeCreateRequest extends AbstractCreateRequest

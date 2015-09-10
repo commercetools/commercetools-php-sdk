@@ -23,7 +23,7 @@ class CategoryReference extends Reference
 {
     const TYPE_CATEGORY = 'category';
 
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             static::TYPE_ID => [self::TYPE => 'string'],

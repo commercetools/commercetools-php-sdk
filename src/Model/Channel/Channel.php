@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Channel;
 
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Channel
@@ -15,9 +16,9 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method Channel setId(string $id = null)
  * @method int getVersion()
  * @method Channel setVersion(int $version = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method Channel setCreatedAt(\DateTime $createdAt = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method Channel setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method string getKey()
  * @method Channel setKey(string $key = null)
@@ -30,13 +31,19 @@ use Commercetools\Core\Model\Common\LocalizedString;
  */
 class Channel extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
-            'createdAt' => [static::TYPE => '\DateTime'],
-            'lastModifiedAt' => [static::TYPE => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'key' => [static::TYPE => 'string'],
             'roles' => [static::TYPE => 'array'],
             'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],

@@ -6,13 +6,14 @@
 namespace Commercetools\Core\Model\Order;
 
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Order
  * @apidoc http://dev.sphere.io/http-api-projects-orders.html#parcel
  * @method string getId()
  * @method Parcel setId(string $id = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method Parcel setCreatedAt(\DateTime $createdAt = null)
  * @method ParcelMeasurements getMeasurements()
  * @method Parcel setMeasurements(ParcelMeasurements $measurements = null)
@@ -21,11 +22,14 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class Parcel extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],
-            'createdAt' => [static::TYPE => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'measurements' => [static::TYPE => '\Commercetools\Core\Model\Order\ParcelMeasurements'],
             'trackingData' => [static::TYPE => '\Commercetools\Core\Model\Order\TrackingData'],
         ];

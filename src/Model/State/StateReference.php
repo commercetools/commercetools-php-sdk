@@ -23,9 +23,9 @@ class StateReference extends Reference
 {
     const TYPE_STATE = 'state';
 
-    public function getFields()
+    public function fieldDefinitions()
     {
-        $fields = parent::getFields();
+        $fields = parent::fieldDefinitions();
         $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\State\State'];
 
         return $fields;

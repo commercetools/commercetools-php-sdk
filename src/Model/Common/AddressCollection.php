@@ -9,6 +9,7 @@ namespace Commercetools\Core\Model\Common;
 /**
  * @package Commercetools\Core\Model\Common
  * @method Address current()
+ * @method AddressCollection add(Address $element)
  * @method Address getAt($offset)
  */
 class AddressCollection extends Collection

@@ -24,7 +24,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class OrderAddParcelToDeliveryAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

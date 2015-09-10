@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class CustomerSetVatIdAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

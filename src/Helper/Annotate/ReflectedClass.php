@@ -213,7 +213,7 @@ class ReflectedClass
             } elseif (preg_match($this->getMethodPattern(), $line, $matches)) {
                 $this->reflectMagicMethods($matches);
             } else {
-                $lines[] = preg_replace('/^ \* /', '', $line);
+                $lines[] = trim(preg_replace('/^ \*/', '', $line));
             }
         }
 

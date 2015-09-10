@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Request\Inventory\Command
- * 
+ *
  * @method string getAction()
  * @method InventorySetExpectedDeliveryAction setAction(string $action = null)
  * @method DateTimeDecorator getExpectedDelivery()
@@ -19,7 +19,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  */
 class InventorySetExpectedDeliveryAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

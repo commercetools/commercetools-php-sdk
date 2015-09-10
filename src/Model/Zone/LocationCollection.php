@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\Zone
  * @method Location current()
+ * @method LocationCollection add(Location $element)
  * @method Location getAt($offset)
  */
 class LocationCollection extends Collection

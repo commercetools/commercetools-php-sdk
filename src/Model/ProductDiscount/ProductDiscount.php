@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\ProductDiscount;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\ReferenceCollection;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\ProductDiscount
@@ -16,9 +17,9 @@ use Commercetools\Core\Model\Common\ReferenceCollection;
  * @method ProductDiscount setId(string $id = null)
  * @method int getVersion()
  * @method ProductDiscount setVersion(int $version = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method ProductDiscount setCreatedAt(\DateTime $createdAt = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method ProductDiscount setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method LocalizedString getName()
  * @method ProductDiscount setName(LocalizedString $name = null)
@@ -37,13 +38,19 @@ use Commercetools\Core\Model\Common\ReferenceCollection;
  */
 class ProductDiscount extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
-            'createdAt' => [static::TYPE => '\DateTime'],
-            'lastModifiedAt' => [static::TYPE => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'value' => [static::TYPE => '\Commercetools\Core\Model\ProductDiscount\ProductDiscountValue'],

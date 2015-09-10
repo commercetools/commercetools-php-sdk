@@ -17,7 +17,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class SearchKeyword extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'text' => [static::TYPE => 'string'],

@@ -8,8 +8,9 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * 
+ *
  * @method TaxPortion current()
+ * @method TaxPortionCollection add(TaxPortion $element)
  * @method TaxPortion getAt($offset)
  */
 class TaxPortionCollection extends Collection

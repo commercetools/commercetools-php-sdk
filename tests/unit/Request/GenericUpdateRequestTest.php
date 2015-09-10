@@ -43,10 +43,6 @@ class GenericUpdateRequestTest extends RequestTestCase
                 '\Commercetools\Core\Model\Channel\Channel',
             ],
             [
-                '\Commercetools\Core\Request\Comments\CommentUpdateRequest',
-                '\Commercetools\Core\Model\Comment\Comment',
-            ],
-            [
                 '\Commercetools\Core\Request\CustomerGroups\CustomerGroupUpdateRequest',
                 '\Commercetools\Core\Model\CustomerGroup\CustomerGroup',
             ],

@@ -14,6 +14,7 @@ use Commercetools\Core\Model\Order\ItemState;
 use Commercetools\Core\Model\Order\ItemStateCollection;
 use Commercetools\Core\Model\Product\ProductVariant;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -42,10 +43,12 @@ use Commercetools\Core\Model\TaxCategory\TaxRate;
  * @method LineItem setProductSlug(LocalizedString $productSlug = null)
  * @method ChannelReference getDistributionChannel()
  * @method LineItem setDistributionChannel(ChannelReference $distributionChannel = null)
+ * @method CustomFieldObject getCustom()
+ * @method LineItem setCustom(CustomFieldObject $custom = null)
  */
 class LineItem extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],
@@ -60,6 +63,7 @@ class LineItem extends JsonObject
             'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
             'discountedPrice' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedLineItemPrice'],
             'distributionChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
 

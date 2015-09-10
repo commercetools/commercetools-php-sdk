@@ -18,7 +18,7 @@ use Commercetools\Core\Model\Common\Money;
  */
 class DiscountedLineItemPrice extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'value' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],

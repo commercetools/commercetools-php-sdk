@@ -17,20 +17,20 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductSetAttributeAction setVariantId(int $variantId = null)
  * @method string getName()
  * @method ProductSetAttributeAction setName(string $name = null)
- * @method string getValue()
- * @method ProductSetAttributeAction setValue(string $value = null)
+ * @method getValue()
+ * @method ProductSetAttributeAction setValue($value = null)
  * @method bool getStaged()
  * @method ProductSetAttributeAction setStaged(bool $staged = null)
  */
 class ProductSetAttributeAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'name' => [static::TYPE => 'string'],
-            'value' => [static::TYPE => 'string'],
+            'value' => [static::TYPE => null],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

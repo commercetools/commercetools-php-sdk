@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Order\ItemState;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -31,10 +32,12 @@ use Commercetools\Core\Model\TaxCategory\TaxRate;
  * @method CustomLineItem setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method TaxRate getTaxRate()
  * @method CustomLineItem setTaxRate(TaxRate $taxRate = null)
+ * @method CustomFieldObject getCustom()
+ * @method CustomLineItem setCustom(CustomFieldObject $custom = null)
  */
 class CustomLineItem extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],
@@ -45,6 +48,7 @@ class CustomLineItem extends JsonObject
             'state' => [static::TYPE => '\Commercetools\Core\Model\Order\ItemState'],
             'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
             'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
 }

@@ -29,7 +29,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class CartAddCustomLineItemAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

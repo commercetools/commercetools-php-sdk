@@ -10,6 +10,8 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\TaxedPrice;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -18,9 +20,9 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
  * @method Cart setId(string $id = null)
  * @method int getVersion()
  * @method Cart setVersion(int $version = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method Cart setCreatedAt(\DateTime $createdAt = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method Cart setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method string getCustomerId()
  * @method Cart setCustomerId(string $customerId = null)
@@ -50,16 +52,24 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
  * @method Cart setShippingInfo(ShippingInfo $shippingInfo = null)
  * @method DiscountCodeInfoCollection getDiscountCodes()
  * @method Cart setDiscountCodes(DiscountCodeInfoCollection $discountCodes = null)
+ * @method CustomFieldObject getCustom()
+ * @method Cart setCustom(CustomFieldObject $custom = null)
  */
 class Cart extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
-            'createdAt' => [static::TYPE => '\DateTime'],
-            'lastModifiedAt' => [static::TYPE => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'customerId' => [static::TYPE => 'string'],
             'customerEmail' => [static::TYPE => 'string'],
             'lineItems' => [static::TYPE => '\Commercetools\Core\Model\Cart\LineItemCollection'],
@@ -74,6 +84,7 @@ class Cart extends Resource
             'country' => [static::TYPE => 'string'],
             'shippingInfo' => [static::TYPE => '\Commercetools\Core\Model\Cart\ShippingInfo'],
             'discountCodes' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountCodeInfoCollection'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
 }

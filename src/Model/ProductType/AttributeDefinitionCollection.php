@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\ProductType
  * @method AttributeDefinition current()
+ * @method AttributeDefinitionCollection add(AttributeDefinition $element)
  * @method AttributeDefinition getAt($offset)
  */
 class AttributeDefinitionCollection extends Collection

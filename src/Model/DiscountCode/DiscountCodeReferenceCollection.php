@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Collection;
 /**
  * @package Commercetools\Core\Model\DiscountCode
  * @method DiscountCodeReference current()
+ * @method DiscountCodeReferenceCollection add(DiscountCodeReference $element)
  * @method DiscountCodeReference getAt($offset)
  */
 class DiscountCodeReferenceCollection extends Collection

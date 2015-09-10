@@ -72,7 +72,7 @@ trait ApiContext
     protected function forceTyping($object)
     {
         if ($object instanceof JsonObject) {
-            $fields = $object->getFields();
+            $fields = $object->fieldDefinitions();
             foreach ($fields as $field => $definition) {
                 $dummy = $object->get($field);
                 if ($dummy instanceof AbstractJsonDeserializeObject) {

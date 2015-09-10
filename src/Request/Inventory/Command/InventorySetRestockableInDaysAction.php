@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Inventory\Command
- * 
+ *
  * @method string getAction()
  * @method InventorySetRestockableInDaysAction setAction(string $action = null)
  * @method int getRestockableInDays()
@@ -18,7 +18,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class InventorySetRestockableInDaysAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],

@@ -46,7 +46,7 @@ class CartDiscountDraft extends JsonObject
     const VALID_UNTIL = 'validUntil';
     const REQUIRES_DISCOUNT_CODE = 'requiresDiscountCode';
 
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             static::NAME => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],

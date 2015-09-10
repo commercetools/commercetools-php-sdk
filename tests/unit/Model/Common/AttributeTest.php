@@ -100,6 +100,6 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
     {
         $attribute = Attribute::fromArray(['name' => 'unknown-field']);
         $attribute->getValue();
-        $this->assertNull($attribute->getFields()['value'][JsonObject::TYPE]);
+        $this->assertNull($attribute->fieldDefinitions()['value'][JsonObject::TYPE]);
     }
 }

@@ -7,6 +7,8 @@ namespace Commercetools\Core\Model\Category;
 
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Category
@@ -15,9 +17,9 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method Category setId(string $id = null)
  * @method int getVersion()
  * @method Category setVersion(int $version = null)
- * @method \DateTime getCreatedAt()
+ * @method DateTimeDecorator getCreatedAt()
  * @method Category setCreatedAt(\DateTime $createdAt = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method Category setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method LocalizedString getName()
  * @method Category setName(LocalizedString $name = null)
@@ -33,16 +35,24 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method Category setOrderHint(string $orderHint = null)
  * @method string getExternalId()
  * @method Category setExternalId(string $externalId = null)
+ * @method CustomFieldObject getCustom()
+ * @method Category setCustom(CustomFieldObject $custom = null)
  */
 class Category extends Resource
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
-            'createdAt' => [static::TYPE => '\DateTime'],
-            'lastModifiedAt' => [static::TYPE => '\DateTime'],
+            'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'name' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
             'slug' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
             'description' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
@@ -50,6 +60,7 @@ class Category extends Resource
             'parent' => [self::TYPE => '\Commercetools\Core\Model\Category\CategoryReference'],
             'orderHint' => [self::TYPE => 'string'],
             'externalId' => [self::TYPE => 'string'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
 }

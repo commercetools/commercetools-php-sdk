@@ -17,7 +17,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class DeliveryItem extends JsonObject
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'id' => [static::TYPE => 'string'],

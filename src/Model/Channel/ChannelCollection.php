@@ -9,8 +9,9 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Channel
- * 
+ *
  * @method Channel current()
+ * @method ChannelCollection add(Channel $element)
  * @method Channel getAt($offset)
  */
 class ChannelCollection extends Collection

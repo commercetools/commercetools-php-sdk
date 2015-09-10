@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories\Command
- *  *
+ *
  * @method string getAction()
  * @method TaxCategoryRemoveTaxRateAction setAction(string $action = null)
  * @method string getTaxRateId()
@@ -20,7 +20,7 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class TaxCategoryRemoveTaxRateAction extends AbstractAction
 {
-    public function getFields()
+    public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],
