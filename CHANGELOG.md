@@ -1,10 +1,11 @@
 <a name="1.0.0-RC3"></a>
-# [1.0.0-RC3](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC2...v1.0.0-RC3) (2015-09-01)
+# [1.0.0-RC3](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC2...v1.0.0-RC3) (2015-09-10)
 
 
 ### Bug Fixes
 
 * **Comment:** delete comment endpoint functionality ([506644c](https://github.com/sphereio/commercetools-php-sdk/commit/506644c))
+* **OAuthManager:** don't expose api credentials through exception callstack ([f0caaa1](https://github.com/sphereio/commercetools-php-sdk/commit/f0caaa1))
 * **ProductDraft:** use ProductVariantDraftCollection for variants ([f252a2d](https://github.com/sphereio/commercetools-php-sdk/commit/f252a2d)), closes [#142](https://github.com/sphereio/commercetools-php-sdk/issues/142)
 
 ### Features
@@ -14,11 +15,19 @@
 * **Orders:** add cart field to order ([922d812](https://github.com/sphereio/commercetools-php-sdk/commit/922d812)), closes [#132](https://github.com/sphereio/commercetools-php-sdk/issues/132) [#131](https://github.com/sphereio/commercetools-php-sdk/issues/131)
 * **ProductSearch:** add reference expansion to product search request ([c003de6](https://github.com/sphereio/commercetools-php-sdk/commit/c003de6)), closes [#144](https://github.com/sphereio/commercetools-php-sdk/issues/144)
 * **ProductVariant:** add helper methods to get variant by id ([f2ff1d4](https://github.com/sphereio/commercetools-php-sdk/commit/f2ff1d4))
+* **Products:** add getBySku method ([ab9a0b9](https://github.com/sphereio/commercetools-php-sdk/commit/ab9a0b9))
 * **Products:** add support to set EnumType and LocalizedEnumType attributes by key ([df88267](https://github.com/sphereio/commercetools-php-sdk/commit/df88267))
 * **Products:** add support to set EnumType and LocalizedEnumType attributes by key in all variants ([e07cad6](https://github.com/sphereio/commercetools-php-sdk/commit/e07cad6))
+* **QueryRequest:** add page request interface ([ecc5666](https://github.com/sphereio/commercetools-php-sdk/commit/ecc5666))
+* **QueryRequest:** add sort and query request interfaces ([d19c127](https://github.com/sphereio/commercetools-php-sdk/commit/d19c127))
+* **QueryRequest:** add with total request interface ([c1059ee](https://github.com/sphereio/commercetools-php-sdk/commit/c1059ee))
+* **RedisCacheAdapter:** unify life time ([7b73d30](https://github.com/sphereio/commercetools-php-sdk/commit/7b73d30))
 * **Reviews:** add review delete request ([2c6493e](https://github.com/sphereio/commercetools-php-sdk/commit/2c6493e)), closes [#134](https://github.com/sphereio/commercetools-php-sdk/issues/134)
 * **ShippingMethod:** add getByName and getById to ShippingMethodCollection ([2de7668](https://github.com/sphereio/commercetools-php-sdk/commit/2de7668))
 * **UpdateActions:** add limit to update actions ([3f728a5](https://github.com/sphereio/commercetools-php-sdk/commit/3f728a5))
+* **CategoryCollection:** add getByParent and getRoots to CategoryCollection ([ece9d87](https://github.com/sphereio/commercetools-php-sdk/commit/ece9d87))
+* **LocalizedString:** add support for locales to LocalizedString ([ea5e1c6](https://github.com/sphereio/commercetools-php-sdk/commit/ea5e1c6))
+* **Image:** return empty thumb image url if no url is set ([a4be01b](https://github.com/sphereio/commercetools-php-sdk/commit/a4be01b))
 
 
 ### BREAKING CHANGES
