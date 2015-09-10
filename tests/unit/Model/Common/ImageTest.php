@@ -68,4 +68,10 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('/test/test.jpg', $image->getSizeUrl());
     }
+
+    public function testEmptyUrlThumb()
+    {
+        $image = Image::of();
+        $this->assertNull($image->getThumb());
+    }
 }

@@ -33,7 +33,9 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
     public function __construct(array $values, $context = null)
     {
         $this->setContext($context);
-        $this->values = $values;
+        foreach ($values as $locale => $value) {
+            $this->add($locale, $value);
+        }
     }
 
     /**
@@ -62,10 +64,17 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
     protected function getLanguage(Context $context)
     {
         $locale = null;
-        foreach ($context->getLanguages() as $language) {
+        foreach ($context->getLanguages() as $locale) {
+            $locale = \Locale::canonicalize($locale);
+            if (isset($this->values[$locale])) {
+                return $locale;
+            }
+            $language = \Locale::getPrimaryLanguage($locale);
+            if ($locale == $language) {
+                continue;
+            }
             if (isset($this->values[$language])) {
-                $locale = $language;
-                break;
+                return $language;
             }
         }
         return $locale;
@@ -97,6 +106,7 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
      */
     public function add($locale, $value)
     {
+        $locale = \Locale::canonicalize($locale);
         $this->values[$locale] = $value;
 
         return $this;
@@ -125,7 +135,13 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
      */
     public function jsonSerialize()
     {
-        return $this->toArray();
+        $values = $this->toArray();
+
+        $data = [];
+        foreach ($values as $key => $value) {
+            $data[str_replace('_', '-', $key)] = $value;
+        }
+        return $data;
     }
 
     /**

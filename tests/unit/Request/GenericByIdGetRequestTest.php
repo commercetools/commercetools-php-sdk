@@ -43,10 +43,6 @@ class GenericByIdGetRequestTest extends RequestTestCase
                 '\Commercetools\Core\Model\Channel\Channel',
             ],
             [
-                '\Commercetools\Core\Request\Comments\CommentByIdGetRequest',
-                '\Commercetools\Core\Model\Comment\Comment',
-            ],
-            [
                 '\Commercetools\Core\Request\CustomerGroups\CustomerGroupByIdGetRequest',
                 '\Commercetools\Core\Model\CustomerGroup\CustomerGroup',
             ],

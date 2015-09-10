@@ -64,4 +64,17 @@ class ProductData extends JsonObject
 
         return $this->getVariants()->getById($variantId);
     }
+
+    /**
+     * @param $sku
+     * @return ProductVariant
+     */
+    public function getVariantBySku($sku)
+    {
+        if ($sku == $this->getMasterVariant()->getSku()) {
+            return $this->getMasterVariant();
+        }
+
+        return $this->getVariants()->getBySku($sku);
+    }
 }

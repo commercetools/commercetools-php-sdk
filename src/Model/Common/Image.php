@@ -40,9 +40,11 @@ class Image extends JsonObject
      */
     public function getSizeUrl($size = null)
     {
-        if (empty($size)) {
-            return $this->getUrl();
+        $url = $this->getUrl();
+        if (empty($url) || empty($size)) {
+            return $url;
         }
+
         $fileInfo = pathinfo($this->getUrl());
 
         $dirName = isset($fileInfo['dirname']) ? $fileInfo['dirname'] : '';

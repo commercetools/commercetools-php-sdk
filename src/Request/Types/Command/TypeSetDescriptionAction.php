@@ -12,11 +12,11 @@ use Commercetools\Core\Model\Common\LocalizedString;
 /**
  * @package Commercetools\Core\Request\Types\Command
  * @method string getAction()
- * @method TypeChangeDescriptionAction setAction(string $action = null)
+ * @method TypeSetDescriptionAction setAction(string $action = null)
  * @method LocalizedString getDescription()
- * @method TypeChangeDescriptionAction setDescription(LocalizedString $description = null)
+ * @method TypeSetDescriptionAction setDescription(LocalizedString $description = null)
  */
-class TypeChangeDescriptionAction extends AbstractAction
+class TypeSetDescriptionAction extends AbstractAction
 {
     public function fieldDefinitions()
     {
@@ -33,16 +33,6 @@ class TypeChangeDescriptionAction extends AbstractAction
     public function __construct(array $data = [], $context = null)
     {
         parent::__construct($data, $context);
-        $this->setAction('changeDescription');
-    }
-
-    /**
-     * @param string $description
-     * @param Context|callable $context
-     * @return TypeChangeDescriptionAction
-     */
-    public static function ofDescription($description, $context = null)
-    {
-        return static::of($context)->setDescription($description);
+        $this->setAction('setDescription');
     }
 }

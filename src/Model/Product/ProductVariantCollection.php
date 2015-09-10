@@ -16,16 +16,20 @@ use Commercetools\Core\Model\Common\Collection;
 class ProductVariantCollection extends Collection
 {
     const ID = 'id';
+    const SKU = 'sku';
     protected $type = '\Commercetools\Core\Model\Product\ProductVariant';
 
     protected function indexRow($offset, $row)
     {
         if ($row instanceof ProductVariant) {
             $id = $row->getId();
+            $sku = $row->getSku();
         } else {
-            $id = $row[static::ID];
+            $id = isset($row[static::ID])? $row[static::ID] : null;
+            $sku = isset($row[static::SKU])? $row[static::SKU] : null;
         }
         $this->addToIndex(static::ID, $offset, $id);
+        $this->addToIndex(static::SKU, $offset, $sku);
     }
 
     /**
@@ -35,5 +39,14 @@ class ProductVariantCollection extends Collection
     public function getById($id)
     {
         return $this->getBy(static::ID, $id);
+    }
+
+    /**
+     * @param $id
+     * @return ProductVariant
+     */
+    public function getBySku($id)
+    {
+        return $this->getBy(static::SKU, $id);
     }
 }

@@ -38,6 +38,7 @@ lineItem:
     - supplyChannel
     - distributionChannel
     - discountedPrice
+    - custom
 
 customLineItem:
   domain: cart
@@ -51,6 +52,7 @@ customLineItem:
     - state
     - taxCategory
     - taxRate
+    - custom
 
 taxedPrice:
   domain: common
@@ -869,20 +871,6 @@ review:
     - title
     - text
     - score
-
-comment:
-  domain: comment
-  model: comment
-  fields:
-    - id
-    - version
-    - createdAt
-    - lastModifiedAt
-    - productId
-    - customerId
-    - authorName
-    - title
-    - text
 
 message:
   domain: message
