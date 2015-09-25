@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Request\Products;
 
 use Commercetools\Core\Request\ExpandTrait;
+use Commercetools\Core\Request\Query\Parameter;
 use Commercetools\Core\Request\QueryRequestInterface;
 use Commercetools\Core\Request\SortRequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -133,5 +134,18 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     public function addFacet(FilterInterface $filter)
     {
         return $this->filter(static::FACET, $filter);
+    }
+
+    /**
+     * @param $fuzzy
+     * @return $this
+     */
+    public function fuzzy($fuzzy)
+    {
+        if (!is_null($fuzzy)) {
+            $this->addParamObject(new Parameter('fuzzy', (bool)$fuzzy));
+        }
+
+        return $this;
     }
 }
