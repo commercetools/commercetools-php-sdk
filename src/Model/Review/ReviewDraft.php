@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Review;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Review
@@ -22,6 +23,8 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method ReviewDraft setText(string $text = null)
  * @method float getScore()
  * @method ReviewDraft setScore(float $score = null)
+ * @method StateReference getState()
+ * @method ReviewDraft setState(StateReference $state = null)
  */
 class ReviewDraft extends JsonObject
 {
@@ -33,7 +36,8 @@ class ReviewDraft extends JsonObject
             'authorName' => [static::TYPE => 'string'],
             'title' => [static::TYPE => 'string'],
             'text' => [static::TYPE => 'string'],
-            'score' => [static::TYPE => 'float']
+            'score' => [static::TYPE => 'float'],
+            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
         ];
     }
 

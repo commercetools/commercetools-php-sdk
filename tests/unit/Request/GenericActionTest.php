@@ -408,7 +408,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\Products\Command\ProductRemovePriceAction',
                 'ofPriceId',
                 [
-                    10
+                    '10'
                 ]
             ],
             [

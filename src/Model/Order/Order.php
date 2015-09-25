@@ -17,6 +17,7 @@ use Commercetools\Core\Model\Cart\DiscountCodeInfoCollection;
 use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Order
@@ -73,6 +74,8 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Order setCart(CartReference $cart = null)
  * @method CustomFieldObject getCustom()
  * @method Order setCustom(CustomFieldObject $custom = null)
+ * @method StateReference getState()
+ * @method Order setState(StateReference $state = null)
  */
 class Order extends Resource
 {
@@ -111,6 +114,7 @@ class Order extends Resource
             'lastMessageSequenceNumber' => [static::TYPE => 'int'],
             'cart' => [static::TYPE => '\Commercetools\Core\Model\Cart\CartReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference']
         ];
     }
 }

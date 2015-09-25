@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Review;
 
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Review
@@ -30,6 +31,8 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Review setText(string $text = null)
  * @method float getScore()
  * @method Review setScore(float $score = null)
+ * @method StateReference getState()
+ * @method Review setState(StateReference $state = null)
  */
 class Review extends Resource
 {
@@ -51,7 +54,8 @@ class Review extends Resource
             'authorName' => [static::TYPE => 'string'],
             'title' => [static::TYPE => 'string'],
             'text' => [static::TYPE => 'string'],
-            'score' => [static::TYPE => 'float']
+            'score' => [static::TYPE => 'float'],
+            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
         ];
     }
 }
