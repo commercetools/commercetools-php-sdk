@@ -27,7 +27,7 @@ class ProductRemovePriceAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'priceId' => [static::TYPE => 'int'],
+            'priceId' => [static::TYPE => 'string'],
             'staged' => [static::TYPE => 'bool'],
         ];
     }
