@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\State\StateReference;
 
 /**
- * @package Commercetools\Core\Request\Payments\Commands
+ * @package Commercetools\Core\Request\Payments\Command
  *
  * @method string getAction()
  * @method PaymentAddTransactionAction setAction(string $action = null)

@@ -8,7 +8,7 @@ namespace Commercetools\Core\Request\Payments\Command;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 
 /**
- * @package Commercetools\Core\Request\Payments\Commands
+ * @package Commercetools\Core\Request\Payments\Command
  *
  * @method string getAction()
  * @method PaymentSetCustomFieldAction setAction(string $action = null)

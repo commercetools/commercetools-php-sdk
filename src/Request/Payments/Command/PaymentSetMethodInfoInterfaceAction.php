@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Commercetools\Core\Request\Payments\Commands
+ * @package Commercetools\Core\Request\Payments\Command
  *
  * @method string getAction()
  * @method PaymentSetMethodInfoInterfaceAction setAction(string $action = null)

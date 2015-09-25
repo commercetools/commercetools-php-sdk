@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
- * @package Commercetools\Core\Request\Payments\Commands
+ * @package Commercetools\Core\Request\Payments\Command
  *
  * @method string getAction()
  * @method PaymentSetAuthorizationAction setAction(string $action = null)

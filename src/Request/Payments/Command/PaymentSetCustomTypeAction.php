@@ -10,7 +10,7 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Model\CustomField\FieldContainer;
 
 /**
- * @package Commercetools\Core\Request\Payments\Commands
+ * @package Commercetools\Core\Request\Payments\Command
  *
  * @method string getAction()
  * @method PaymentSetCustomTypeAction setAction(string $action = null)

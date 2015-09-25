@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Customer\CustomerReference;
 
 /**
- * @package Commercetools\Core\Request\Payments\Commands
+ * @package Commercetools\Core\Request\Payments\Command
  *
  * @method string getAction()
  * @method PaymentSetStatusInterfaceTextAction setAction(string $action = null)
