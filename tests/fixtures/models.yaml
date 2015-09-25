@@ -335,6 +335,7 @@ order:
     - lastMessageSequenceNumber
     - cart
     - custom
+    - state
 
 syncInfo:
   domain: order
@@ -444,6 +445,7 @@ productDraft:
     - metaKeywords
     - taxCategory
     - searchKeywords
+    - state
 
 productCatalogData:
   domain: product
@@ -467,6 +469,7 @@ productData:
     - masterVariant
     - variants
     - searchKeywords
+    - state
 
 productProjection:
   domain: product
@@ -871,6 +874,7 @@ review:
     - title
     - text
     - score
+    - state
 
 message:
   domain: message

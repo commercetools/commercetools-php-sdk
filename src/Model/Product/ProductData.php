@@ -9,6 +9,7 @@ namespace Commercetools\Core\Model\Product;
 use Commercetools\Core\Model\Category\CategoryReferenceCollection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Product
@@ -33,6 +34,8 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method ProductData setVariants(ProductVariantCollection $variants = null)
  * @method LocalizedSearchKeywords getSearchKeywords()
  * @method ProductData setSearchKeywords(LocalizedSearchKeywords $searchKeywords = null)
+ * @method StateReference getState()
+ * @method ProductData setState(StateReference $state = null)
  */
 class ProductData extends JsonObject
 {
@@ -48,7 +51,8 @@ class ProductData extends JsonObject
             'metaKeywords' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'masterVariant' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariant'],
             'variants' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariantCollection'],
-            'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords']
+            'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords'],
+            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
         ];
     }
 
