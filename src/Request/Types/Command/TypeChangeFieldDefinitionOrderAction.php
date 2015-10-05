@@ -14,8 +14,8 @@ use Commercetools\Core\Request\AbstractAction;
  *
  * @method string getAction()
  * @method TypeChangeFieldDefinitionOrderAction setAction(string $action = null)
- * @method FieldDefinitionCollection getFieldDefinitions()
- * @method TypeChangeFieldDefinitionOrderAction setFieldDefinitions(FieldDefinitionCollection $fieldDefinitions = null)
+ * @method array getFieldNames()
+ * @method TypeChangeFieldDefinitionOrderAction setFieldNames(array $fieldNames = null)
  */
 class TypeChangeFieldDefinitionOrderAction extends AbstractAction
 {
@@ -23,7 +23,7 @@ class TypeChangeFieldDefinitionOrderAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'fieldDefinitions' => [static::TYPE => '\Commercetools\Core\Model\Type\FieldDefinitionCollection'],
+            'fieldNames' => [static::TYPE => 'array'],
         ];
     }
 
@@ -42,8 +42,8 @@ class TypeChangeFieldDefinitionOrderAction extends AbstractAction
      * @param Context|callable $context
      * @return TypeChangeFieldDefinitionOrderAction
      */
-    public static function ofFieldDefinitions(FieldDefinitionCollection $fieldDefinitions, $context = null)
+    public static function ofFieldDefinitions(array $fieldNames, $context = null)
     {
-        return static::of($context)->setFieldDefinitions($fieldDefinitions);
+        return static::of($context)->setFieldNames($fieldNames);
     }
 }

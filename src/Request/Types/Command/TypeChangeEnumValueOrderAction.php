@@ -16,8 +16,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method TypeChangeEnumValueOrderAction setAction(string $action = null)
  * @method string getFieldName()
  * @method TypeChangeEnumValueOrderAction setFieldName(string $fieldName = null)
- * @method EnumCollection getValues()
- * @method TypeChangeEnumValueOrderAction setValues(EnumCollection $values = null)
+ * @method array getKeys()
+ * @method TypeChangeEnumValueOrderAction setKeys(array $keys = null)
  */
 class TypeChangeEnumValueOrderAction extends AbstractAction
 {
@@ -26,7 +26,7 @@ class TypeChangeEnumValueOrderAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'fieldName' => [static::TYPE => 'string'],
-            'values' => [static::TYPE => '\Commercetools\Core\Model\Common\EnumCollection']
+            'keys' => [static::TYPE => 'array']
         ];
     }
 
@@ -41,12 +41,12 @@ class TypeChangeEnumValueOrderAction extends AbstractAction
     }
 
     /**
-     * @param EnumCollection $enums
+     * @param array $keys
      * @param Context|callable $context
      * @return TypeChangeEnumValueOrderAction
      */
-    public static function ofEnums(EnumCollection $enums, $context = null)
+    public static function ofEnums(array $keys, $context = null)
     {
-        return static::of($context)->setValues($enums);
+        return static::of($context)->setKeys($keys);
     }
 }

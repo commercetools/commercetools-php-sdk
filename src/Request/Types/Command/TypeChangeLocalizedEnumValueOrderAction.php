@@ -17,8 +17,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method TypeChangeLocalizedEnumValueOrderAction setAction(string $action = null)
  * @method string getFieldName()
  * @method TypeChangeLocalizedEnumValueOrderAction setFieldName(string $fieldName = null)
- * @method LocalizedEnumCollection getValues()
- * @method TypeChangeLocalizedEnumValueOrderAction setValues(LocalizedEnumCollection $values = null)
+ * @method array getKeys()
+ * @method TypeChangeLocalizedEnumValueOrderAction setKeys(array $keys = null)
  */
 class TypeChangeLocalizedEnumValueOrderAction extends AbstractAction
 {
@@ -27,7 +27,7 @@ class TypeChangeLocalizedEnumValueOrderAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'fieldName' => [static::TYPE => 'string'],
-            'values' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedEnumCollection']
+            'keys' => [static::TYPE => 'array']
         ];
     }
 
@@ -42,12 +42,12 @@ class TypeChangeLocalizedEnumValueOrderAction extends AbstractAction
     }
 
     /**
-     * @param LocalizedEnumCollection $enums
+     * @param array $keys
      * @param Context|callable $context
      * @return TypeChangeLocalizedEnumValueOrderAction
      */
-    public static function ofEnums(LocalizedEnumCollection $enums, $context = null)
+    public static function ofEnums(array $keys, $context = null)
     {
-        return static::of($context)->setValues($enums);
+        return static::of($context)->setKeys($keys);
     }
 }
