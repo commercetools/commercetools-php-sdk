@@ -680,7 +680,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                     10,
                     $this->getInstance('\Commercetools\Core\Model\Common\Money'),
                     'my-custom-line-item',
-                    $this->getInstance('\Commercetools\Core\Model\TaxCategory\TaxCategory')
+                    $this->getInstance('\Commercetools\Core\Model\TaxCategory\TaxCategoryReference')
                 ]
             ],
             [
