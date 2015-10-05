@@ -57,7 +57,7 @@ class CartAddCustomLineItemAction extends AbstractAction
      * @param int $quantity
      * @param Money $money
      * @param string $slug
-     * @param TaxCategory $taxCategory
+     * @param TaxCategoryReference $taxCategory
      * @param Context|callable $context
      * @return CartAddCustomLineItemAction
      */
