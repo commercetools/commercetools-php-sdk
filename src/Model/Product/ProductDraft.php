@@ -12,6 +12,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
+use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Product
@@ -39,6 +40,8 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  * @method ProductDraft setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method LocalizedSearchKeywords getSearchKeywords()
  * @method ProductDraft setSearchKeywords(LocalizedSearchKeywords $searchKeywords = null)
+ * @method StateReference getState()
+ * @method ProductDraft setState(StateReference $state = null)
  */
 class ProductDraft extends JsonObject
 {
@@ -56,7 +59,8 @@ class ProductDraft extends JsonObject
             'metaDescription' => [self::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [self::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
-            'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords']
+            'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords'],
+            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
         ];
     }
 

@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core;
 
-
 use Commercetools\Core\Client\Adapter\AdapterFactory;
 use Commercetools\Core\Client\Adapter\AdapterInterface;
 
@@ -16,7 +15,7 @@ use Commercetools\Core\Client\Adapter\AdapterInterface;
 abstract class AbstractHttpClient
 {
 
-    const VERSION = '1.0.0 RC3';
+    const VERSION = '1.0.0-RC4';
 
     /**
      * @var AdapterInterface

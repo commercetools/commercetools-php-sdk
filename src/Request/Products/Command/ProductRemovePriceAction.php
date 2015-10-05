@@ -18,8 +18,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductRemovePriceAction setPrice(Price $price = null)
  * @method bool getStaged()
  * @method ProductRemovePriceAction setStaged(bool $staged = null)
- * @method int getPriceId()
- * @method ProductRemovePriceAction setPriceId(int $priceId = null)
+ * @method string getPriceId()
+ * @method ProductRemovePriceAction setPriceId(string $priceId = null)
  */
 class ProductRemovePriceAction extends AbstractAction
 {
@@ -27,7 +27,7 @@ class ProductRemovePriceAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'priceId' => [static::TYPE => 'int'],
+            'priceId' => [static::TYPE => 'string'],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

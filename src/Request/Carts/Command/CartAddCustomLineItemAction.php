@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
@@ -24,8 +25,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method CartAddCustomLineItemAction setMoney(Money $money = null)
  * @method string getSlug()
  * @method CartAddCustomLineItemAction setSlug(string $slug = null)
- * @method TaxCategory getTaxCategory()
- * @method CartAddCustomLineItemAction setTaxCategory(TaxCategory $taxCategory = null)
+ * @method TaxCategoryReference getTaxCategory()
+ * @method CartAddCustomLineItemAction setTaxCategory(TaxCategoryReference $taxCategory = null)
  */
 class CartAddCustomLineItemAction extends AbstractAction
 {
@@ -37,7 +38,7 @@ class CartAddCustomLineItemAction extends AbstractAction
             'quantity' => [static::TYPE => 'int'],
             'money' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
             'slug' => [static::TYPE => 'string'],
-            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategory'],
+            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
         ];
     }
 
@@ -65,7 +66,7 @@ class CartAddCustomLineItemAction extends AbstractAction
         $quantity,
         Money $money,
         $slug,
-        TaxCategory $taxCategory,
+        TaxCategoryReference $taxCategory,
         $context = null
     ) {
         return static::of($context)

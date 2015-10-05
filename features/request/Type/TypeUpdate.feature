@@ -249,19 +249,7 @@ Feature: I want to update a type
     """
     {
       "action": "changeFieldDefinitionOrder",
-      "attributes": [
-        {
-          "type": {
-            "name": "String"
-          },
-          "name": "custom-string",
-          "label": {
-            "en": "Custom String"
-          },
-          "isRequired": false,
-          "inputHint": "SingleLine"
-        }
-      ]
+      "fieldNames": ["field1", "field2"]
     }
     """
     Then the path should be "types/id"
@@ -273,19 +261,7 @@ Feature: I want to update a type
       "actions": [
         {
           "action": "changeFieldDefinitionOrder",
-          "attributes": [
-            {
-              "type": {
-                "name": "String"
-              },
-              "name": "custom-string",
-              "label": {
-                "en": "Custom String"
-              },
-              "isRequired": false,
-              "inputHint": "SingleLine"
-            }
-          ]
+          "fieldNames": ["field1", "field2"]
         }
       ]
     }
@@ -299,10 +275,7 @@ Feature: I want to update a type
     {
       "action": "changeEnumValueOrder",
       "fieldName": "<field-name>",
-      "values": [{
-        "key": "enumkey",
-        "label": "Enum Label"
-      }]
+      "keys": [ "enumkey1", "enumkey2"]
     }
     """
     Then the path should be "types/id"
@@ -315,10 +288,7 @@ Feature: I want to update a type
         {
           "action": "changeEnumValueOrder",
           "fieldName": "<field-name>",
-          "values": [{
-            "key": "enumkey",
-            "label": "Enum Label"
-          }]
+          "keys": [ "enumkey1", "enumkey2"]
         }
       ]
     }
@@ -332,12 +302,7 @@ Feature: I want to update a type
     {
       "action": "changeLocalizedEnumValueOrder",
       "fieldName": "<field-name>",
-      "values": [{
-        "key": "enumkey",
-        "label": {
-          "en": "Enum Label"
-        }
-      }]
+      "keys": [ "enumkey1", "enumkey2"]
     }
     """
     Then the path should be "types/id"
@@ -350,12 +315,7 @@ Feature: I want to update a type
         {
           "action": "changeLocalizedEnumValueOrder",
           "fieldName": "<field-name>",
-          "values": [{
-            "key": "enumkey",
-            "label": {
-              "en": "Enum Label"
-            }
-          }]
+          "keys": [ "enumkey1", "enumkey2"]
         }
       ]
     }
