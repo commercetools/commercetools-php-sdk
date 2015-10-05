@@ -1,3 +1,28 @@
+<a name="1.0.0-RC4"></a>
+# [1.0.0-RC4](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC3...v1.0.0-RC4) (2015-10-05)
+
+
+### Bug Fixes
+
+* **Cart:** fix addCustomLineItem update action ([b2d704f](https://github.com/sphereio/commercetools-php-sdk/commit/b2d704f)), closes [#154](https://github.com/sphereio/commercetools-php-sdk/issues/154)
+* **CustomTypes:** update to breaking changes of the API ([5e23104](https://github.com/sphereio/commercetools-php-sdk/commit/5e23104))
+* **Product:** fix type for remove price action ([c0a5ccc](https://github.com/sphereio/commercetools-php-sdk/commit/c0a5ccc)), closes [#153](https://github.com/sphereio/commercetools-php-sdk/issues/153)
+
+### Features
+
+* **Order:** add state to order ([3a6cc3d](https://github.com/sphereio/commercetools-php-sdk/commit/3a6cc3d))
+* **Payment:** add payment messages ([b9308c1](https://github.com/sphereio/commercetools-php-sdk/commit/b9308c1))
+* **Payment:** add payment requests and models ([c720eed](https://github.com/sphereio/commercetools-php-sdk/commit/c720eed))
+* **Product:** add state to product ([95437d8](https://github.com/sphereio/commercetools-php-sdk/commit/95437d8))
+* **ProductSearch:** add fuzzy flag to product search request ([0ed8dc8](https://github.com/sphereio/commercetools-php-sdk/commit/0ed8dc8))
+* **Review:** add state to review ([8278313](https://github.com/sphereio/commercetools-php-sdk/commit/8278313))
+
+
+### BREAKING CHANGES
+
+* update actions for changing the order of custom fields have been changed
+
+
 <a name="1.0.0-RC3"></a>
 # [1.0.0-RC3](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC2...v1.0.0-RC3) (2015-09-10)
 
