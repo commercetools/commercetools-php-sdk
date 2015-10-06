@@ -102,11 +102,11 @@ class Config implements ContextAwareInterface
 
     /**
      * @param array $configValues
-     * @return Config
+     * @return static
      */
     public static function fromArray(array $configValues)
     {
-        $config = Config::of();
+        $config = static::of();
         array_walk(
             $configValues,
             function ($value, $key) use ($config) {
