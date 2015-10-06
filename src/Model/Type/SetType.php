@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Type;
 
-
 /**
  * @package Commercetools\Core\Model\Type
  * @method string getName()

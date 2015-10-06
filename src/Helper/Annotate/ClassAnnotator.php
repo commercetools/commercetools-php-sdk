@@ -209,7 +209,10 @@ class ClassAnnotator
     {
         $classHead = [];
         $classHead[] = 'namespace ' . $this->class->getNamespace() . ';';
-        $classHead[] = '';
+
+        if (count($this->class->getUses()) > 0) {
+            $classHead[] = '';
+        }
 
         foreach ($this->class->getUses() as $use) {
             $classHead[] = 'use ' . $use['class'] . (isset($use['alias']) ? ' as ' . $use['alias'] : '') . ';';
