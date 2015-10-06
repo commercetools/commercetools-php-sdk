@@ -37,11 +37,11 @@ class TypeChangeNameAction extends AbstractAction
     }
 
     /**
-     * @param string $name
+     * @param LocalizedString $name
      * @param Context|callable $context
      * @return TypeChangeNameAction
      */
-    public static function ofName($name, $context = null)
+    public static function ofName(LocalizedString $name, $context = null)
     {
         return static::of($context)->setName($name);
     }
