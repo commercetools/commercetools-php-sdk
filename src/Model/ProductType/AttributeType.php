@@ -63,7 +63,7 @@ class AttributeType extends FieldType
     protected static function getTypeByApiType($apiType)
     {
         $typeName = isset(self::$typeMapping[$apiType]) ? self::$typeMapping[$apiType] : $apiType;
-        $className = '\Commercetools\Core\Model\Type\\' . ucfirst($typeName) . 'Type';
+        $className = '\Commercetools\Core\Model\ProductType\\' . ucfirst($typeName) . 'Type';
         return $className;
     }
 }

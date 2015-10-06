@@ -8,8 +8,6 @@ namespace Commercetools\Core\Model\Common;
 
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\AttributeType;
-use Commercetools\Core\Model\Type\FieldDefinition;
-use Commercetools\Core\Model\Type\FieldType;
 
 /**
  * @package Commercetools\Core\Model\Common
@@ -62,11 +60,11 @@ class Attribute extends JsonObject
         if ($field == static::PROP_VALUE) {
             if (isset(static::$types[$this->getName()])) {
                 $fieldDefinition = static::$types[$this->getName()];
-                if (!$fieldDefinition instanceof FieldDefinition) {
+                if (!$fieldDefinition instanceof AttributeDefinition) {
                     return null;
                 }
                 $fieldType = $fieldDefinition->getType();
-                if (!$fieldType instanceof FieldType) {
+                if (!$fieldType instanceof AttributeType) {
                     return null;
                 }
                 return $fieldType->fieldTypeDefinition();

@@ -13,8 +13,8 @@ use Commercetools\Core\Model\Type\FieldType;
 /**
  * @package Commercetools\Core\Model\ProductType
  * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#attribute-definition
- * @method FieldType getType()
- * @method AttributeDefinition setType(FieldType $type = null)
+ * @method AttributeType getType()
+ * @method AttributeDefinition setType(AttributeType $type = null)
  * @method string getName()
  * @method AttributeDefinition setName(string $name = null)
  * @method LocalizedString getLabel()
@@ -33,7 +33,7 @@ class AttributeDefinition extends FieldDefinition
     public function fieldDefinitions()
     {
         return [
-            'type' => [static::TYPE => '\Commercetools\Core\Model\Type\FieldType'],
+            'type' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeType'],
             'name' => [static::TYPE => 'string'],
             'label' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'isRequired' => [static::TYPE => 'bool'],

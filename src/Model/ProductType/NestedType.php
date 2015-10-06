@@ -3,16 +3,16 @@
  * @author @ct-jensschulze <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Model\Type;
+namespace Commercetools\Core\Model\ProductType;
 
 /**
- * @package Commercetools\Core\Model\Type
+ * @package Commercetools\Core\Model\ProductType
  * @method string getName()
  * @method NestedType setName(string $name = null)
  */
-class NestedType extends FieldType
+class NestedType extends AttributeType
 {
-    const NAME = 'Nested';
+    const NAME = 'nested';
 
     public function fieldTypeDefinition()
     {
