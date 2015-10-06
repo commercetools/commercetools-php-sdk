@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model;
 
-
 use Symfony\Component\Yaml\Yaml;
 
 class GenericModelTest extends AbstractModelTest

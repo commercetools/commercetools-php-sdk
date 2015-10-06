@@ -5,7 +5,7 @@
 
 namespace Commercetools\Core\Model\ProductType;
 
-use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Type\FieldDefinitionCollection;
 
 /**
  * @package Commercetools\Core\Model\ProductType
@@ -13,28 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method AttributeDefinitionCollection add(AttributeDefinition $element)
  * @method AttributeDefinition getAt($offset)
  */
-class AttributeDefinitionCollection extends Collection
+class AttributeDefinitionCollection extends FieldDefinitionCollection
 {
-    const NAME = 'name';
-
     protected $type = '\Commercetools\Core\Model\ProductType\AttributeDefinition';
-
-    protected function indexRow($offset, $row)
-    {
-        if ($row instanceof AttributeDefinition) {
-            $name = $row->getName();
-        } else {
-            $name = $row[static::NAME];
-        }
-        $this->addToIndex(static::NAME, $offset, $name);
-    }
-
-    /**
-     * @param $attributeName
-     * @return AttributeDefinition|null
-     */
-    public function getByName($attributeName)
-    {
-        return $this->getBy(static::NAME, $attributeName);
-    }
 }

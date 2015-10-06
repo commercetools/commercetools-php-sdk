@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\ProductType;
 
-
 use Commercetools\Core\Model\Common\JsonObject;
 
 class AttributeTypeTest extends \PHPUnit_Framework_TestCase
@@ -32,11 +31,14 @@ class AttributeTypeTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException \BadMethodCallException
+     */
     public function testTypeUnset()
     {
         $type = AttributeType::fromArray([
             'name' => 'text'
         ]);
-        $this->assertNull($type->getValues());
+        $type->getValues();
     }
 }

@@ -58,8 +58,7 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
         $cacheKey = $interfaceName . '-' . $type;
         if (!isset(static::$interfaces[$cacheKey])) {
             $interface = false;
-            if (
-                $this->isPrimitive($type) === false
+            if ($this->isPrimitive($type) === false
                 && isset(class_implements($type)[$interfaceName])
             ) {
                 $interface = true;

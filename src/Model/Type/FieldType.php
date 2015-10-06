@@ -50,11 +50,17 @@ class FieldType extends JsonObject
     public static function fromArray(array $data, $context = null)
     {
         if (isset($data['name'])) {
-            $className = '\Commercetools\Core\Model\Type\\' . ucfirst($data['name']) . 'Type';
+            $className = static::getTypeByApiType($data['name']);
             if (class_exists($className)) {
                 return new $className($data, $context);
             }
         }
         return new static($data, $context);
+    }
+
+    protected static function getTypeByApiType($apiType)
+    {
+        $className = '\Commercetools\Core\Model\Type\\' . ucfirst($apiType) . 'Type';
+        return $className;
     }
 }
