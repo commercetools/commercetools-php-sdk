@@ -750,6 +750,9 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Payment.PaymentMethodInfo.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Payment.PaymentReference.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Payment.PaymentStatus.html</loc>
 </url>
 <url>
@@ -873,6 +876,33 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.AttributeType.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.BooleanType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.DateTimeType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.DateType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.EnumType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.LocalizedEnumType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.LocalizedStringType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.MoneyType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.NestedType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.NumberType.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.ProductType.html</loc>
 </url>
 <url>
@@ -883,6 +913,18 @@
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.ProductTypeReference.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.ReferenceType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.SetType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.StringType.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ProductType.TimeType.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Project.Project.html</loc>
@@ -1131,6 +1173,9 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartAddPaymentAction.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartChangeLineItemQuantityAction.html</loc>
 </url>
 <url>
@@ -1146,6 +1191,9 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartRemoveLineItemAction.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartRemovePaymentAction.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartSetBillingAddressAction.html</loc>
 </url>
 <url>
@@ -1158,7 +1206,19 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartSetCustomerIdAction.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartSetCustomLineItemCustomFieldAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartSetCustomLineItemCustomTypeAction.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartSetCustomShippingMethodAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartSetLineItemCustomFieldAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartSetLineItemCustomTypeAction.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartSetShippingAddressAction.html</loc>
