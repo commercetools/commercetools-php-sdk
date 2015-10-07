@@ -76,6 +76,8 @@ use Commercetools\Core\Model\State\StateReference;
  * @method Order setCustom(CustomFieldObject $custom = null)
  * @method StateReference getState()
  * @method Order setState(StateReference $state = null)
+ * @method PaymentInfo getPaymentInfo()
+ * @method Order setPaymentInfo(PaymentInfo $paymentInfo = null)
  */
 class Order extends Resource
 {
@@ -114,7 +116,8 @@ class Order extends Resource
             'lastMessageSequenceNumber' => [static::TYPE => 'int'],
             'cart' => [static::TYPE => '\Commercetools\Core\Model\Cart\CartReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference']
+            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Cart\PaymentInfo'],
         ];
     }
 }

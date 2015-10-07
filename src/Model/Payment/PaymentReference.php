@@ -8,6 +8,16 @@ namespace Commercetools\Core\Model\Payment;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\Reference;
 
+/**
+ * @package Commercetools\Core\Model\Payment
+ *
+ * @method string getTypeId()
+ * @method PaymentReference setTypeId(string $typeId = null)
+ * @method string getId()
+ * @method PaymentReference setId(string $id = null)
+ * @method Payment getObj()
+ * @method PaymentReference setObj(Payment $obj = null)
+ */
 class PaymentReference extends Reference
 {
     const TYPE_PAYMENT = 'payment';

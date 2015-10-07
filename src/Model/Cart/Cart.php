@@ -12,6 +12,7 @@ use Commercetools\Core\Model\Common\TaxedPrice;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Payment\PaymentInfo;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -54,6 +55,8 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Cart setDiscountCodes(DiscountCodeInfoCollection $discountCodes = null)
  * @method CustomFieldObject getCustom()
  * @method Cart setCustom(CustomFieldObject $custom = null)
+ * @method PaymentInfo getPaymentInfo()
+ * @method Cart setPaymentInfo(PaymentInfo $paymentInfo = null)
  */
 class Cart extends Resource
 {
@@ -85,6 +88,7 @@ class Cart extends Resource
             'shippingInfo' => [static::TYPE => '\Commercetools\Core\Model\Cart\ShippingInfo'],
             'discountCodes' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountCodeInfoCollection'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Cart\PaymentInfo'],
         ];
     }
 }

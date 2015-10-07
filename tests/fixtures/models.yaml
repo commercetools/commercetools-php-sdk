@@ -21,6 +21,7 @@ cart:
     - shippingInfo
     - discountCodes
     - custom
+    - paymentInfo
 
 lineItem:
   domain: cart
@@ -336,6 +337,7 @@ order:
     - cart
     - custom
     - state
+    - paymentInfo
 
 syncInfo:
   domain: order
