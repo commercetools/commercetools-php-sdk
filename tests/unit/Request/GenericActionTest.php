@@ -259,7 +259,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction',
-                ['action', 'name', 'quantity', 'money', 'slug', 'taxCategory']
+                ['action', 'name', 'quantity', 'money', 'slug', 'taxCategory', 'custom']
             ],
             [
                 '\Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction',
@@ -267,7 +267,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Carts\Command\CartAddLineItemAction',
-                ['action', 'productId', 'variantId', 'quantity', 'supplyChannel', 'distributionChannel']
+                ['action', 'productId', 'variantId', 'quantity', 'supplyChannel', 'distributionChannel', 'custom']
             ],
             [
                 '\Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',

@@ -46,6 +46,16 @@ class FieldContainer extends JsonObject
         return $fieldType->fieldTypeDefinition();
     }
 
+    /**
+     * @param string $field
+     * @param mixed $value
+     * @return $this
+     */
+    public function set($field, $value)
+    {
+        return parent::set($field, $value);
+    }
+
     public function hasField($field)
     {
         return true;
