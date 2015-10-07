@@ -21,7 +21,7 @@ class PaymentCreateRequest extends AbstractCreateRequest
     protected $resultClass = '\Commercetools\Core\Model\Payment\Payment';
 
     /**
-     * @param PaymentDraft $productDiscount
+     * @param PaymentDraft $payment
      * @param Context $context
      */
     public function __construct(PaymentDraft $payment, Context $context = null)

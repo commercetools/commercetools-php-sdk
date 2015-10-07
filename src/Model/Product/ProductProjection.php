@@ -110,4 +110,11 @@ class ProductProjection extends JsonObject
 
         return $this->getVariants()->getBySku($sku);
     }
+
+    public function getAllVariants()
+    {
+        $variants = $this->getRaw('variants', []);
+        array_unshift($variants, $this->getRaw('masterVariant'));
+        return ProductVariantCollection::fromArray($variants);
+    }
 }

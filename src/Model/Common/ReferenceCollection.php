@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Common;
 
-
 /**
  * @package Commercetools\Core\Model\Common
  * @method Reference current()

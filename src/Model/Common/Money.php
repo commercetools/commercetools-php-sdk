@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Model\Common;
 
-
 /**
  * @package Commercetools\Core\Model\Common
  * @apidoc http://dev.sphere.io/http-api-types.html#money

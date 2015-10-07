@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Type;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Resource;
 
 /**
  * @package Commercetools\Core\Model\Type
@@ -30,7 +31,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method FieldDefinitionCollection getFieldDefinitions()
  * @method Type setFieldDefinitions(FieldDefinitionCollection $fieldDefinitions = null)
  */
-class Type extends JsonObject
+class Type extends Resource
 {
     public function fieldDefinitions()
     {

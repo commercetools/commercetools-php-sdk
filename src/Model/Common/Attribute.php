@@ -21,19 +21,6 @@ class Attribute extends JsonObject
 {
     // identifiers for the Api Product Attribute Types:
     const T_UNKNOWN = 'unknown';  // zero, should evaluate to false
-    const T_TEXTLIKE = 'string'; //includes date, datetime, time as these are JSON Strings, too
-    const T_LTEXT = '\Commercetools\Core\Model\Common\LocalizedString';
-    const T_NUMBER = 'float';
-    const T_BOOLEAN = 'bool';
-    const T_ENUM = '\Commercetools\Core\Model\Common\Enum';
-    const T_LENUM = '\Commercetools\Core\Model\Common\LocalizedEnum';
-    const T_MONEY = '\Commercetools\Core\Model\Common\Money';
-    const T_SET = '\Commercetools\Core\Model\Common\Set';
-    const T_NESTED = '\Commercetools\Core\Model\Common\AttributeCollection';
-    const T_REFERENCE = '\Commercetools\Core\Model\Common\Reference';
-    const T_DATETIME = '\DateTime';
-    const T_DATETIME_DECORATOR = '\Commercetools\Core\Model\Common\DateTimeDecorator';
-
 
     const PROP_VALUE = "value";
     const PROP_KEY = "key";
@@ -60,22 +47,31 @@ class Attribute extends JsonObject
 
     protected static $types = [];
 
-    protected $attributeDefinition;
-    protected $valueType;
-    protected $valueElementType;
-    protected $valueDecorator;
-
     public function fieldDefinitions()
     {
         return [
             static::PROP_NAME => [self::TYPE => 'string'],
-            static::PROP_VALUE => [
-                self::TYPE => $this->valueType,
-                self::DECORATOR => $this->valueDecorator,
-                self::ELEMENT_TYPE => $this->valueElementType,
-                self::OPTIONAL => true
-            ],
+            static::PROP_VALUE => [],
         ];
+    }
+
+    public function fieldDefinition($field)
+    {
+        if ($field == static::PROP_VALUE) {
+            if (isset(static::$types[$this->getName()])) {
+                $fieldDefinition = static::$types[$this->getName()];
+                if (!$fieldDefinition instanceof AttributeDefinition) {
+                    return null;
+                }
+                $fieldType = $fieldDefinition->getType();
+                if (!$fieldType instanceof AttributeType) {
+                    return null;
+                }
+                return $fieldType->fieldTypeDefinition();
+            }
+            return null;
+        }
+        return parent::fieldDefinition($field);
     }
 
     /**
@@ -86,45 +82,20 @@ class Attribute extends JsonObject
     protected function getApiType($attributeName, $value)
     {
         if (isset(static::$types[$attributeName])) {
-            $this->setAttributeDefinition(static::$types[$attributeName]);
             return static::$types[$attributeName];
         }
 
         $apiType = $this->guessApiType($value);
         $definition = AttributeDefinition::of($this->getContextCallback());
         $definition->setName($attributeName);
-        $definition->setType(AttributeType::of()->setName($apiType));
+        $definition->setType(AttributeType::fromArray(['name' => $apiType]));
 
         if ($apiType == static::API_SET) {
             $elementType = $this->guessApiType(current($value));
-            $definition->getType()->setElementType(AttributeType::of()->setName($elementType));
+            $definition->getType()->setElementType(AttributeType::fromArray(['name' => $elementType]));
         }
         $this->setAttributeDefinition($definition);
-        static::$types[$attributeName] = $definition;
-
         return static::$types[$attributeName];
-    }
-
-    public static function getTypeByApiType($apiType)
-    {
-        $typeMapping = [
-            static::API_BOOL => static::T_BOOLEAN,
-            static::API_NUMBER => static::T_NUMBER,
-            static::API_TEXT => static::T_TEXTLIKE,
-            static::API_LTEXT => static::T_LTEXT,
-            static::API_LENUM => static::T_LENUM,
-            static::API_ENUM => static::T_ENUM,
-            static::API_MONEY => static::T_MONEY,
-            static::API_DATE => static::T_DATETIME,
-            static::API_TIME => static::T_DATETIME,
-            static::API_DATETIME => static::T_DATETIME,
-            static::API_SET => static::T_SET,
-            static::API_NESTED => static::T_NESTED,
-            static::API_REFERENCE => static::T_REFERENCE
-        ];
-
-
-        return isset($typeMapping[$apiType]) ? $typeMapping[$apiType] : null;
     }
 
     /**
@@ -134,23 +105,6 @@ class Attribute extends JsonObject
     public function setAttributeDefinition(AttributeDefinition $definition)
     {
         static::$types[$definition->getName()] = $definition;
-        $this->attributeDefinition = $definition;
-        $apiType = $definition->getType()->getName();
-        $this->valueType = static::getTypeByApiType($apiType);
-        $this->valueElementType = null;
-        $this->valueDecorator = null;
-
-        switch ($apiType) {
-            case static::API_SET:
-                $this->valueElementType = static::getTypeByApiType(
-                    $definition->getType()->getElementType()->getName()
-                );
-                break;
-            case static::API_TIME:
-            case static::API_DATETIME:
-            case static::API_DATE:
-                $this->valueDecorator = static::T_DATETIME_DECORATOR;
-        }
 
         return $this;
     }

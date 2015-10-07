@@ -1,3 +1,14 @@
+<a name="1.0.0-RC5"></a>
+# [1.0.0-RC5](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC4...v1.0.0-RC5) (2015-10-07)
+
+
+### Features
+
+* **LineItems:** add update actions for custom types on line items ([c64fad0](https://github.com/sphereio/commercetools-php-sdk/commit/c64fad0))
+* **Payment:** add payment update actions for cart ([13e1860](https://github.com/sphereio/commercetools-php-sdk/commit/13e1860))
+
+
+
 <a name="1.0.0-RC4"></a>
 # [1.0.0-RC4](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC3...v1.0.0-RC4) (2015-10-05)
 

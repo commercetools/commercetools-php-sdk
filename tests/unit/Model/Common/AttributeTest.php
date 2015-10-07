@@ -19,7 +19,10 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
             ['float', ['name' => 'float', 'value' => 1.1]],
             ['bool', ['name' => 'bool', 'value' => true]],
             ['\Commercetools\Core\Model\Common\LocalizedString', ['name' => 'ltext', 'value' => ['en' => 'Foo']]],
-            ['\Commercetools\Core\Model\Common\Enum', ['name' => 'enum', 'value' => ['key' => 'foo', 'label' => 'Foo']]],
+            [
+                '\Commercetools\Core\Model\Common\Enum',
+                ['name' => 'enum', 'value' => ['key' => 'foo', 'label' => 'Foo']]
+            ],
             [
                 '\Commercetools\Core\Model\Common\LocalizedEnum',
                 ['name' => 'lenum', 'value' => ['key' => 'foo', 'label' => ['en' => 'Foo']]]
@@ -71,6 +74,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
         ];
         $attribute = Attribute::fromArray($data);
 
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Set', $attribute->getValue());
         $this->assertInstanceOf('\Commercetools\Core\Model\Common\Enum', $attribute->getValue()->getAt(0));
     }
 
@@ -85,7 +89,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
 
         $definition = AttributeDefinition::of()
             ->setName('test-set')
-            ->setType(AttributeType::of()->setName('set')->setElementType(AttributeType::of()->setName('enum')));
+            ->setType(AttributeType::fromArray(['name' => 'set', 'elementType' => ['name' => 'enum']]));
         Attribute::of()->setAttributeDefinition($definition);
 
         $attribute2 = Attribute::fromArray(['name' => 'test-set', 'value' => []]);
@@ -100,6 +104,6 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
     {
         $attribute = Attribute::fromArray(['name' => 'unknown-field']);
         $attribute->getValue();
-        $this->assertNull($attribute->fieldDefinitions()['value'][JsonObject::TYPE]);
+        $this->assertEmpty($attribute->fieldDefinition('value'));
     }
 }

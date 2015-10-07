@@ -725,10 +725,6 @@ attributeType:
   model: AttributeType
   fields:
     - name
-    - values
-    - referenceTypeId
-    - elementType
-    - typeReference
 
 productType:
   domain: productType

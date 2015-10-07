@@ -38,7 +38,7 @@ class TypeChangeFieldDefinitionOrderAction extends AbstractAction
     }
 
     /**
-     * @param FieldDefinitionCollection $fieldDefinitions
+     * @param array $fieldNames
      * @param Context|callable $context
      * @return TypeChangeFieldDefinitionOrderAction
      */

@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
@@ -27,6 +28,8 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  * @method CartAddCustomLineItemAction setSlug(string $slug = null)
  * @method TaxCategoryReference getTaxCategory()
  * @method CartAddCustomLineItemAction setTaxCategory(TaxCategoryReference $taxCategory = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method CartAddCustomLineItemAction setCustom(CustomFieldObjectDraft $custom = null)
  */
 class CartAddCustomLineItemAction extends AbstractAction
 {
@@ -39,6 +42,7 @@ class CartAddCustomLineItemAction extends AbstractAction
             'money' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
             'slug' => [static::TYPE => 'string'],
             'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
         ];
     }
 
@@ -57,7 +61,7 @@ class CartAddCustomLineItemAction extends AbstractAction
      * @param int $quantity
      * @param Money $money
      * @param string $slug
-     * @param TaxCategory $taxCategory
+     * @param TaxCategoryReference $taxCategory
      * @param Context|callable $context
      * @return CartAddCustomLineItemAction
      */

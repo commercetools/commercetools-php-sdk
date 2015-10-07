@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Product;
 
-
 /**
  * @package Commercetools\Core\Model\Product
  *

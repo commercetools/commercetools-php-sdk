@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\Carts\Command;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Channel\ChannelReference;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
@@ -24,6 +25,8 @@ use Commercetools\Core\Model\Channel\ChannelReference;
  * @method CartAddLineItemAction setSupplyChannel(ChannelReference $supplyChannel = null)
  * @method ChannelReference getDistributionChannel()
  * @method CartAddLineItemAction setDistributionChannel(ChannelReference $distributionChannel = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method CartAddLineItemAction setCustom(CustomFieldObjectDraft $custom = null)
  */
 class CartAddLineItemAction extends AbstractAction
 {
@@ -36,6 +39,7 @@ class CartAddLineItemAction extends AbstractAction
             'quantity' => [static::TYPE => 'int'],
             'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
             'distributionChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
         ];
     }
 

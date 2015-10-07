@@ -5,13 +5,13 @@
 
 namespace Commercetools\Core\Request\Products;
 
-
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\RequestTestCase;
 
 class ProductProjectionBySkuGetRequestTest extends RequestTestCase
 {
-    const PRODUCT_PROJECTION_BY_SKU_GET_REQUEST = '\Commercetools\Core\Request\Products\ProductProjectionBySkuGetRequest';
+    const PRODUCT_PROJECTION_BY_SKU_GET_REQUEST =
+        '\Commercetools\Core\Request\Products\ProductProjectionBySkuGetRequest';
 
     public function testMapResult()
     {
