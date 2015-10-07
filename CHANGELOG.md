@@ -5,7 +5,8 @@
 ### Features
 
 * **LineItems:** add update actions for custom types on line items ([c64fad0](https://github.com/sphereio/commercetools-php-sdk/commit/c64fad0))
-* **Payment:** add payment update actions for cart ([13e1860](https://github.com/sphereio/commercetools-php-sdk/commit/13e1860))
+* **Payment:** add payment info to cart and order ([e279d1a](https://github.com/sphereio/commercetools-php-sdk/commit/e279d1a))
+* **Payment:** add payment update actions for cart and order ([13e1860](https://github.com/sphereio/commercetools-php-sdk/commit/13e1860))
 
 
 
