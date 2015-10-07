@@ -7,7 +7,16 @@ namespace Commercetools\Core\Request\Carts\Command;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Payment\PaymentReference;
 
+/**
+ * @package Commercetools\Core\Request\Carts\Command
+ *
+ * @method string getAction()
+ * @method CartRemovePaymentAction setAction(string $action = null)
+ * @method PaymentReference getPayment()
+ * @method CartRemovePaymentAction setPayment(PaymentReference $payment = null)
+ */
 class CartRemovePaymentAction extends AbstractAction
 {
     public function fieldDefinitions()
