@@ -117,7 +117,7 @@ class Order extends Resource
             'cart' => [static::TYPE => '\Commercetools\Core\Model\Cart\CartReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
             'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
-            'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Cart\PaymentInfo'],
+            'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentInfo'],
         ];
     }
 }
