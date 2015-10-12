@@ -88,7 +88,7 @@ class Cart extends Resource
             'shippingInfo' => [static::TYPE => '\Commercetools\Core\Model\Cart\ShippingInfo'],
             'discountCodes' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountCodeInfoCollection'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
-            'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Cart\PaymentInfo'],
+            'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentInfo'],
         ];
     }
 }
