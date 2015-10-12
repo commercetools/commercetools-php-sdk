@@ -6,11 +6,9 @@
 
 namespace Commercetools\Core\Model\Type;
 
-
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
-use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 
 /**

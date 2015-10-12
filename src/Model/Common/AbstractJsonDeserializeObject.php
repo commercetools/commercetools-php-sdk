@@ -46,6 +46,11 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
      */
     protected static $interfaces = [];
 
+    public function __sleep()
+    {
+        return array_diff(array_keys(get_object_vars($this)), ['context']);
+    }
+
     /**
      * @param $type
      * @param $interfaceName
@@ -189,6 +194,15 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
         $data = array_filter($data, function ($value) {
             return !is_null($value);
         });
+        $data = array_map(
+            function ($value) {
+                if ($value instanceof JsonDeserializeInterface) {
+                    return $value->toArray();
+                }
+                return $value;
+            },
+            $data
+        );
         return $data;
     }
 
