@@ -45,6 +45,12 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method LineItem setDistributionChannel(ChannelReference $distributionChannel = null)
  * @method CustomFieldObject getCustom()
  * @method LineItem setCustom(CustomFieldObject $custom = null)
+ * @method Money getTotalPrice()
+ * @method LineItem setTotalPrice(Money $totalPrice = null)
+ * @method DiscountedPricePerQuantityCollection getDiscountedPricePerQuantity()
+ * @codingStandardsIgnoreStart
+ * @method LineItem setDiscountedPricePerQuantity(DiscountedPricePerQuantityCollection $discountedPricePerQuantity = null)
+ * @codingStandardsIgnoreEnd
  */
 class LineItem extends JsonObject
 {
@@ -61,19 +67,12 @@ class LineItem extends JsonObject
             'state' => [static::TYPE => '\Commercetools\Core\Model\Order\ItemStateCollection'],
             'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
             'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
-            'discountedPrice' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedLineItemPrice'],
             'distributionChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'totalPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'discountedPricePerQuantity' => [
+                static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedPricePerQuantityCollection'
+            ],
         ];
-    }
-
-    /**
-     * @return Money
-     */
-    public function getTotal()
-    {
-        $price = $this->getPrice()->getValue();
-        $amount = $this->getQuantity() * $price->getCentAmount();
-        return Money::ofCurrencyAndAmount($price->getCurrencyCode(), $amount, $this->getContext());
     }
 }
