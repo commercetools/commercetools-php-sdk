@@ -34,6 +34,12 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method CustomLineItem setTaxRate(TaxRate $taxRate = null)
  * @method CustomFieldObject getCustom()
  * @method CustomLineItem setCustom(CustomFieldObject $custom = null)
+ * @method Money getTotalPrice()
+ * @method CustomLineItem setTotalPrice(Money $totalPrice = null)
+ * @method DiscountedPricePerQuantityCollection getDiscountedPricePerQuantity()
+ * @codingStandardsIgnoreStart
+ * @method CustomLineItem setDiscountedPricePerQuantity(DiscountedPricePerQuantityCollection $discountedPricePerQuantity = null)
+ * @codingStandardsIgnoreEnd
  */
 class CustomLineItem extends JsonObject
 {
@@ -49,6 +55,10 @@ class CustomLineItem extends JsonObject
             'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
             'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'totalPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'discountedPricePerQuantity' => [
+                static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedPricePerQuantityCollection'
+            ],
         ];
     }
 }

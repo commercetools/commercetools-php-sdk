@@ -38,8 +38,9 @@ lineItem:
     - taxRate
     - supplyChannel
     - distributionChannel
-    - discountedPrice
     - custom
+    - discountedPricePerQuantity
+    - totalPrice
 
 customLineItem:
   domain: cart
@@ -54,6 +55,8 @@ customLineItem:
     - taxCategory
     - taxRate
     - custom
+    - discountedPricePerQuantity
+    - totalPrice
 
 taxedPrice:
   domain: common

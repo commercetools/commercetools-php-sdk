@@ -18,6 +18,7 @@ use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\State\StateReference;
+use Commercetools\Core\Model\Payment\PaymentInfo;
 
 /**
  * @package Commercetools\Core\Model\Order

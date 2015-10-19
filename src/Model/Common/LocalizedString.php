@@ -127,7 +127,13 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
      */
     public function toArray()
     {
-        return $this->values;
+        $values = $this->values;
+
+        $data = [];
+        foreach ($values as $key => $value) {
+            $data[str_replace('_', '-', $key)] = $value;
+        }
+        return $data;
     }
 
     /**
@@ -135,13 +141,7 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
      */
     public function jsonSerialize()
     {
-        $values = $this->toArray();
-
-        $data = [];
-        foreach ($values as $key => $value) {
-            $data[str_replace('_', '-', $key)] = $value;
-        }
-        return $data;
+        return $this->toArray();
     }
 
     /**
