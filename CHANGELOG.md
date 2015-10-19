@@ -1,3 +1,41 @@
+<a name="1.0.0-RC7"></a>
+# [1.0.0-RC7](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC5...v1.0.0-RC7) (2015-10-19)
+
+
+### Bug Fixes
+
+* **Cart:** add corrected cart discount fields ([b0bf1b7](https://github.com/sphereio/commercetools-php-sdk/commit/b0bf1b7))
+* **LocalizedString:** fix array conversion of locales for LocalizedString ([ea50790](https://github.com/sphereio/commercetools-php-sdk/commit/ea50790))
+* **PaymentInfo** correct class path ([a9501fc](https://github.com/sphereio/commercetools-php-sdk/commit/a9501fc))
+
+### Features
+
+* **JsonObject:** recurse toArray method to child objects ([feb3729](https://github.com/sphereio/commercetools-php-sdk/commit/feb3729))
+
+### BREAKING CHANGES
+
+* discountedPrice at LineItems has been removed
+
+  The discountedPrice field has been deprecated at the API and therefor was removed from the SDK.
+
+  Before:
+  ```
+  $lineItem->getDiscountedPrice();
+  $discountedCentAmount = $lineItem->getDiscountedPrice()->getValue()->getCentAmount();
+  ```
+
+  After:
+
+  ```
+  $lineItem->getDiscountedPricePerQuantity();
+  $discountedCentAmount = 0;
+  foreach ($lineItem->getDiscountedPricePerQuantity() as $discountedPricePerQuantity) {
+    $discountedCentAmount += $discountedPricePerQuantity()->getQuantity() *
+      $discountedPricePerQuantity->getDiscountedPrice()->getValue()->getCentAmount();
+  }
+  ```
+  ([b0bf1b7](https://github.com/sphereio/commercetools-php-sdk/commit/b0bf1b7))
+
 <a name="1.0.0-RC5"></a>
 # [1.0.0-RC5](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC4...v1.0.0-RC5) (2015-10-07)
 
