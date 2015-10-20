@@ -126,7 +126,7 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
      */
     protected function isDeserializableType($type)
     {
-        if (!is_string($type)) {
+        if (!is_string($type) || empty($type)) {
             return false;
         }
         return $this->hasInterface($type, static::JSON_DESERIALIZE_INTERFACE);
@@ -134,7 +134,7 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
 
     protected function isTypeableType($type)
     {
-        if (!is_string($type)) {
+        if (!is_string($type) || empty($type)) {
             return false;
         }
         return $this->hasInterface($type, static::TYPEABLE_INTERFACE);
