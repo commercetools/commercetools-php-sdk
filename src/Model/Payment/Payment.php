@@ -78,7 +78,7 @@ class Payment extends Resource
             'paymentMethodInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentMethodInfo'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
             'paymentStatus' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentStatus'],
-            'transactions' => [static::TYPE => ''],
+            'transactions' => [static::TYPE => '\Commercetools\Core\Model\Payment\TransactionCollection'],
             'interfaceInteractions' => [
                 static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectCollection'
             ],
