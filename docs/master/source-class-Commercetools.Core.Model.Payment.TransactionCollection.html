@@ -1163,7 +1163,7 @@
 </span><span id="25" class="l">        <span class="php-keyword1">if</span> (<span class="php-var">$row</span> <span class="php-keyword1">instanceof</span> Transaction) {
 </span><span id="26" class="l">            <span class="php-var">$id</span> = <span class="php-var">$row</span>-&gt;getInteractionId();
 </span><span id="27" class="l">        } <span class="php-keyword1">else</span> {
-</span><span id="28" class="l">            <span class="php-var">$id</span> = <span class="php-var">$row</span>[<span class="php-keyword1">static</span>::INTERACTION_ID];
+</span><span id="28" class="l">            <span class="php-var">$id</span> = <span class="php-keyword1">isset</span>(<span class="php-var">$row</span>[<span class="php-keyword1">static</span>::INTERACTION_ID]) ? <span class="php-var">$row</span>[<span class="php-keyword1">static</span>::INTERACTION_ID] : <span class="php-keyword1">null</span>;
 </span><span id="29" class="l">        }
 </span><span id="30" class="l">        <span class="php-var">$this</span>-&gt;addToIndex(<span class="php-keyword1">static</span>::INTERACTION_ID, <span class="php-var">$offset</span>, <span class="php-var">$id</span>);
 </span><span id="31" class="l">    }
