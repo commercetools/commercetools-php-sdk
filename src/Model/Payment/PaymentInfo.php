@@ -10,15 +10,15 @@ use Commercetools\Core\Model\Common\JsonObject;
 /**
  * @package Commercetools\Core\Model\Payment
  *
- * @method PaymentCollection getPayments()
- * @method PaymentInfo setPayments(PaymentCollection $payments = null)
+ * @method PaymentReferenceCollection getPayments()
+ * @method PaymentInfo setPayments(PaymentReferenceCollection $payments = null)
  */
 class PaymentInfo extends JsonObject
 {
     public function fieldDefinitions()
     {
         return [
-            'payments' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentCollection'],
+            'payments' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentReferenceCollection'],
         ];
     }
 }
