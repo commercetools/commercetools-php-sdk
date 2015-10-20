@@ -25,7 +25,7 @@ class TransactionCollection extends Collection
         if ($row instanceof Transaction) {
             $id = $row->getInteractionId();
         } else {
-            $id = $row[static::INTERACTION_ID];
+            $id = isset($row[static::INTERACTION_ID]) ? $row[static::INTERACTION_ID] : null;
         }
         $this->addToIndex(static::INTERACTION_ID, $offset, $id);
     }

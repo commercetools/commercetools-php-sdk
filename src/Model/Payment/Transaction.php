@@ -23,6 +23,12 @@ use Commercetools\Core\Model\Common\Money;
  */
 class Transaction extends JsonObject
 {
+    const AUTHORIZATION = 'Authorization';
+    const CANCEL_AUTHORIZATION = 'CancelAuthorization';
+    const CHARGE = 'Charge';
+    const REFUND = 'Refund';
+    const CHARGE_BACK = 'Chargeback';
+
     public function fieldDefinitions()
     {
         return [
