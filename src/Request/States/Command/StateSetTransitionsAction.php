@@ -42,7 +42,7 @@ class StateSetTransitionsAction extends AbstractAction
      * @param Context|callable $context
      * @return StateSetTransitionsAction
      */
-    public function ofTransitions(StateReferenceCollection $transitions, $context = null)
+    public static function ofTransitions(StateReferenceCollection $transitions, $context = null)
     {
         return static::of($context)->setTransitions($transitions);
     }

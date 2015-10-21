@@ -42,7 +42,7 @@ class PaymentSetInterfaceIdAction extends AbstractAction
      * @param Context|callable $context
      * @return PaymentSetInterfaceIdAction
      */
-    public function ofInterfaceId($interfaceId, $context = null)
+    public static function ofInterfaceId($interfaceId, $context = null)
     {
         return static::of($context)->setInterfaceId($interfaceId);
     }

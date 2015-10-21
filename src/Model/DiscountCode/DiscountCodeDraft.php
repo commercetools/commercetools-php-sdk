@@ -54,7 +54,7 @@ class DiscountCodeDraft extends JsonObject
      * @param Context|callable $context
      * @return DiscountCodeDraft
      */
-    public function ofCodeDiscountsAndActive(
+    public static function ofCodeDiscountsAndActive(
         $code,
         CartDiscountReferenceCollection $cartDiscounts,
         $isActive,

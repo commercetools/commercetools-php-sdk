@@ -57,7 +57,7 @@ class StateDraft extends JsonObject
      * @param Context|callable $context
      * @return StateDraft
      */
-    public function ofKeyAndType($key, $type, $context = null)
+    public static function ofKeyAndType($key, $type, $context = null)
     {
         return static::of($context)->setKey($key)->setType($type);
     }

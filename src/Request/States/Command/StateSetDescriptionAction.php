@@ -42,7 +42,7 @@ class StateSetDescriptionAction extends AbstractAction
      * @param Context|callable $context
      * @return StateSetDescriptionAction
      */
-    public function ofDescription(LocalizedString $description, $context = null)
+    public static function ofDescription(LocalizedString $description, $context = null)
     {
         return static::of($context)->setDescription($description);
     }

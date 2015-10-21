@@ -42,7 +42,7 @@ class StateSetNameAction extends AbstractAction
      * @param Context|callable $context
      * @return StateSetNameAction
      */
-    public function ofName(LocalizedString $name, $context = null)
+    public static function ofName(LocalizedString $name, $context = null)
     {
         return static::of($context)->setName($name);
     }
