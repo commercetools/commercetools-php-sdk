@@ -44,8 +44,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectCollection;
  * @method Payment setCustom(CustomFieldObject $custom = null)
  * @method PaymentStatus getPaymentStatus()
  * @method Payment setPaymentStatus(PaymentStatus $paymentStatus = null)
- * @method getTransactions()
- * @method Payment setTransactions($transactions = null)
+ * @method TransactionCollection getTransactions()
+ * @method Payment setTransactions(TransactionCollection $transactions = null)
  * @method CustomFieldObjectCollection getInterfaceInteractions()
  * @method Payment setInterfaceInteractions(CustomFieldObjectCollection $interfaceInteractions = null)
  */
