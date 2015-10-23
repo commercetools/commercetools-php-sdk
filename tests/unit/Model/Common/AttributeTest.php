@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Common;
 
-
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\AttributeType;
 

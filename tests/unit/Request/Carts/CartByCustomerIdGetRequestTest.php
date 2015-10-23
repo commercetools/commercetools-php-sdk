@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Carts;
 
-
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\RequestTestCase;
 

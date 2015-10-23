@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Client;
 
-
 class FileRequestTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetFile()

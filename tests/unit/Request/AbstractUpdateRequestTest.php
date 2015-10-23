@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Request;
 
-
 use GuzzleHttp\Message\Response;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;

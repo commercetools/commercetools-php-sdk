@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Common;
 
-
 use Commercetools\Core\Model\ProductType\ProductType;
 
 class ResourceTest extends \PHPUnit_Framework_TestCase

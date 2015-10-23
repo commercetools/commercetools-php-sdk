@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Common;
 
-
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountReference;
 
 class DiscountedPriceTest extends \PHPUnit_Framework_TestCase

@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Categories;
 
-
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\RequestTestCase;

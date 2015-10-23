@@ -6,10 +6,8 @@
 
 namespace Commercetools\Core\Cache;
 
-
 class PhpRedisCacheAdapterTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var DoctrineCacheAdapter
      */

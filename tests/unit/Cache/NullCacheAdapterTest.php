@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Cache;
 
-
 class NullCacheAdapterTest extends \PHPUnit_Framework_TestCase
 {
     /**

@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\CustomObjects;
 
-
 use Commercetools\Core\Model\CustomObject\CustomObject;
 use Commercetools\Core\RequestTestCase;
 

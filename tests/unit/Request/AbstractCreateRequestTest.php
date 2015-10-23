@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Request;
 
-
 use GuzzleHttp\Message\Response;
 use Commercetools\Core\AccessorTrait;
 use Commercetools\Core\Client\HttpMethod;

@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Products;
 
-
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Model\Product\Facet;
 use Commercetools\Core\Model\Product\Filter;
@@ -89,7 +88,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
          * @var ProductProjectionSearchRequest $request
          */
         $request = ProductProjectionSearchRequest::of();
-        $request->addFilter(Filter::ofType('array')->setName('key')->setValue([10,20,30]));
+        $request->addFilter(Filter::ofType('array')->setName('key')->setValue([10, 20, 30]));
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search?filter=key%3A10%2C20%2C30', (string)$httpRequest->getUri());

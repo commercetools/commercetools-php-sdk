@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request;
 
-
 use Commercetools\Core\Model\Channel\ChannelRole;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Type\TypeReference;

@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Review;
 
-
 use Commercetools\Core\Model\Review\ReviewDraft;
 use Commercetools\Core\Request\Reviews\ReviewCreateRequest;
 use Commercetools\Core\RequestTestCase;

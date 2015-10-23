@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Product;
 
-
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Model\Common\Context;
 

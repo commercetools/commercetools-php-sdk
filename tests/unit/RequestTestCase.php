@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core;
 
-
 use Commercetools\Core\Request\AbstractApiRequest;
 
 /**

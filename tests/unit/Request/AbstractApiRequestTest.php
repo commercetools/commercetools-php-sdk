@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Request;
 
-
 use Commercetools\Core\AccessorTrait;
 use Commercetools\Core\Error\InvalidArgumentException;
 

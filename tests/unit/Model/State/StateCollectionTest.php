@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\State;
 
-
 class StateCollectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testIndex()

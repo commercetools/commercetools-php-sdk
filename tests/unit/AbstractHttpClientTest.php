@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core;
 
-
 class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
 {
     /**

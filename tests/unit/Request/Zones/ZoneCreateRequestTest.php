@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Zones;
 
-
 use Commercetools\Core\Model\Zone\Location;
 use Commercetools\Core\Model\Zone\LocationCollection;
 use Commercetools\Core\Model\Zone\ZoneDraft;

@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core;
 
-
 class TestUtils
 {
     public static function randomString()

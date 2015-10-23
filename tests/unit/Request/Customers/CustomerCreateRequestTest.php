@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Customers;
 
-
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\RequestTestCase;
 
