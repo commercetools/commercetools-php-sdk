@@ -5,8 +5,6 @@
 
 namespace Commercetools\Core\Error;
 
-
 class UpdateActionLimitException extends \Exception
 {
-
 }

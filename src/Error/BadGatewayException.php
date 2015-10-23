@@ -5,8 +5,6 @@
 
 namespace Commercetools\Core\Error;
 
-
 class BadGatewayException extends ServerErrorException
 {
-
 }

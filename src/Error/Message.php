@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Error;
 
-
 /**
  * @package Commercetools\Core\Error
  */

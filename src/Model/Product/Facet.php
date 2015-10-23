@@ -17,5 +17,4 @@ namespace Commercetools\Core\Model\Product;
  */
 class Facet extends Filter
 {
-
 }

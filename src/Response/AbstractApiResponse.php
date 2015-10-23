@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Response;
 
-
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\Adapter\AdapterPromiseInterface;
 use Commercetools\Core\Error\Message;

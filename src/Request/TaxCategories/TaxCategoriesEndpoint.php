@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\TaxCategories;
 
-
 use Commercetools\Core\Client\JsonEndpoint;
 
 /**

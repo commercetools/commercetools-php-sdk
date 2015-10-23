@@ -14,9 +14,6 @@ use Commercetools\Core\Request\AbstractAction;
  * @method string getAction()
  * @method DiscountCodeSetMaxApplicationsPerCustomerAction setAction(string $action = null)
  * @method int getMaxApplicationsPerCustomer()
- * @codingStandardsIgnoreStart
- * @method DiscountCodeSetMaxApplicationsPerCustomerAction setMaxApplicationsPerCustomer(int $maxApplicationsPerCustomer = null)
- * @codingStandardsIgnoreEnd
  */
 class DiscountCodeSetMaxApplicationsPerCustomerAction extends AbstractAction
 {
@@ -36,5 +33,14 @@ class DiscountCodeSetMaxApplicationsPerCustomerAction extends AbstractAction
     {
         parent::__construct($data, $context);
         $this->setAction('setMaxApplicationsPerCustomer');
+    }
+
+    /**
+     * @param int $maxApplicationsPerCustomer
+     * @return static
+     */
+    public function setMaxApplicationsPerCustomer($maxApplicationsPerCustomer = null)
+    {
+        return parent::setMaxApplicationsPerCustomer($maxApplicationsPerCustomer);
     }
 }

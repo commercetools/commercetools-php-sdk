@@ -13,5 +13,4 @@ namespace Commercetools\Core\Error;
  */
 class InvalidClientCredentialsException extends UnauthorizedException
 {
-
 }

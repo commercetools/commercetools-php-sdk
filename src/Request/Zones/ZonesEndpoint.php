@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Zones;
 
-
 use Commercetools\Core\Client\JsonEndpoint;
 
 /**

@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Query;
 
-
 interface ParameterInterface
 {
     /**

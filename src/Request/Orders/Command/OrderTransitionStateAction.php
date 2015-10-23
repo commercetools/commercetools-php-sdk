@@ -18,5 +18,4 @@ use Commercetools\Core\Model\State\StateReference;
  */
 class OrderTransitionStateAction extends TransitionStateAction
 {
-
 }

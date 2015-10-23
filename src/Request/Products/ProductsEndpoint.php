@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Request\Products;
 
-
 use Commercetools\Core\Client\JsonEndpoint;
 
 class ProductsEndpoint

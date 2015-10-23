@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request;
 
-
 interface PageRequestInterface extends ClientRequestInterface
 {
     /**

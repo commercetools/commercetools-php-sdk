@@ -13,7 +13,6 @@ use Doctrine\Common\Cache\Cache;
  */
 class DoctrineCacheAdapter extends AbstractCacheAdapter
 {
-
     /**
      * @param \Doctrine\Common\Cache\Cache $cache
      */

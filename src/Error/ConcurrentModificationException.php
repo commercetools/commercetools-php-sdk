@@ -14,5 +14,4 @@ namespace Commercetools\Core\Error;
  */
 class ConcurrentModificationException extends ClientErrorException
 {
-
 }

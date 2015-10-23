@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Client;
 
-
 /**
  * @package Commercetools\Core\Http
  */

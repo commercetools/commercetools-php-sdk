@@ -18,7 +18,6 @@ use Commercetools\Core\Model\ProductDiscount\ProductDiscountReference;
  */
 class DiscountedPrice extends JsonObject
 {
-
     public function fieldDefinitions()
     {
         return [

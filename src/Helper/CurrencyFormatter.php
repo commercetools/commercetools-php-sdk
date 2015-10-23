@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Helper;
 
-
 use Commercetools\Core\Model\Common\Context;
 
 class CurrencyFormatter

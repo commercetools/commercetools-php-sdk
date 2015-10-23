@@ -11,5 +11,4 @@ namespace Commercetools\Core\Error;
  */
 class NotFoundException extends ClientErrorException
 {
-
 }

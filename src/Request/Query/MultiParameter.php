@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Query;
 
-
 class MultiParameter extends Parameter
 {
     public function getId()

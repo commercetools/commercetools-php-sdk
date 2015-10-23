@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Client\OAuth;
 
-
 /**
  * @package Commercetools\Core\OAuth
  */

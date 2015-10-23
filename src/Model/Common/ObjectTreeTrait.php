@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Common;
 
-
 trait ObjectTreeTrait
 {
     protected $parent;

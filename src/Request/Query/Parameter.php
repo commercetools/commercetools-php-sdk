@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Query;
 
-
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Error\Message;
 

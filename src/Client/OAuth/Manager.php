@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Client\OAuth;
 
-
 use Commercetools\Core\Error\ApiException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;

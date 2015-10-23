@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Inventory;
 
-
 use Commercetools\Core\Client\JsonEndpoint;
 
 /**

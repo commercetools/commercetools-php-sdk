@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Client;
 
-
 /**
  * Interface HttpRequestInterface
  * @package Commercetools\Core\Http

@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Response;
 
-
 use GuzzleHttp\Message\ResponseInterface;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\ContextAwareInterface;

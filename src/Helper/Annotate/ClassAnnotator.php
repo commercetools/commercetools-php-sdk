@@ -97,7 +97,6 @@ class ClassAnnotator
                     false,
                     true
                 );
-
             }
             $addMethod = $reflectionClass->getMethod('add');
             if ($addMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
@@ -110,7 +109,6 @@ class ClassAnnotator
                     false,
                     true
                 );
-
             }
             $current = $reflectionClass->getMethod('current');
             if ($current->getDeclaringClass()->getName() != $this->class->getClassName()) {
@@ -152,7 +150,6 @@ class ClassAnnotator
                 false,
                 true
             );
-
         }
     }
 
@@ -259,15 +256,13 @@ class ClassAnnotator
 
     protected function ignoreDocBlockLine($lineNr, $lines)
     {
-        if (
-            isset($lines[$lineNr+1]) &&
+        if (isset($lines[$lineNr+1]) &&
             strpos($lines[$lineNr], '@codingStandardsIgnoreStart') !== false &&
             strpos($lines[$lineNr+1], '@codingStandardsIgnoreEnd') !== false
         ) {
             return true;
         }
-        if (
-            isset($lines[$lineNr-1]) &&
+        if (isset($lines[$lineNr-1]) &&
             strpos($lines[$lineNr], '@codingStandardsIgnoreEnd') !== false &&
             strpos($lines[$lineNr-1], '@codingStandardsIgnoreStart') !== false
         ) {
