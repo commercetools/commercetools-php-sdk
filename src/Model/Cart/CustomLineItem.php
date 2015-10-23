@@ -54,7 +54,7 @@ class CustomLineItem extends JsonObject
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
             'totalPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
             'discountedPricePerQuantity' => [
-                static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedPriceQuantityCollection'
+                static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedPricePerQuantityCollection'
             ],
         ];
     }
