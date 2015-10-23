@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\CartDiscounts;
 
-
 use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\RequestTestCase;
 
@@ -91,12 +90,12 @@ class GenericUpdateRequestTest extends RequestTestCase
                 '\Commercetools\Core\Model\TaxCategory\TaxCategory',
             ],
             [
-                '\Commercetools\Core\Request\Zones\ZoneUpdateRequest',
-                '\Commercetools\Core\Model\Zone\Zone',
+                '\Commercetools\Core\Request\Types\TypeUpdateRequest',
+                '\Commercetools\Core\Model\Type\Type',
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest',
-                '\Commercetools\Core\Model\ShippingMethod\ShippingMethod',
+                '\Commercetools\Core\Request\Zones\ZoneUpdateRequest',
+                '\Commercetools\Core\Model\Zone\Zone',
             ],
         ];
     }

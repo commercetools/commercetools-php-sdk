@@ -6,7 +6,9 @@
 namespace Commercetools\Core\Request;
 
 
+use Commercetools\Core\Model\Channel\ChannelRole;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Type\TypeReference;
 
 class GenericActionTest extends \PHPUnit_Framework_TestCase
 {
@@ -316,6 +318,82 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction',
                 ['action', 'shippingMethodName', 'shippingRate', 'taxCategory']
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeCartPredicateAction',
+                ['action', 'cartPredicate']
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeIsActiveAction',
+                ['action', 'isActive']
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeNameAction',
+                ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeRequiresDiscountCodeAction',
+                ['action', 'requiresDiscountCode']
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeSortOrderAction',
+                ['action', 'sortOrder']
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeTargetAction',
+                ['action', 'target']
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeValueAction',
+                ['action', 'value']
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetDescriptionAction',
+                ['action', 'description']
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAction',
+                ['action', 'validFrom']
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidUntilAction',
+                ['action', 'validUntil']
+            ],
+            [
+                '\Commercetools\Core\Request\Channels\Command\ChannelAddRolesAction',
+                ['action', 'roles']
+            ],
+            [
+                '\Commercetools\Core\Request\Channels\Command\ChannelChangeDescriptionAction',
+                ['action', 'description']
+            ],
+            [
+                '\Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction',
+                ['action', 'key']
+            ],
+            [
+                '\Commercetools\Core\Request\Channels\Command\ChannelChangeNameAction',
+                ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction',
+                ['action', 'roles']
+            ],
+            [
+                '\Commercetools\Core\Request\Channels\Command\ChannelSetRolesAction',
+                ['action', 'roles']
+            ],
+            [
+                '\Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupChangeNameAction',
+                ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction',
+                ['action', 'name', 'value']
+            ],
+            [
+                '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
+                ['action', 'typeId', 'typeKey', 'fields']
             ],
         ];
     }
@@ -694,6 +772,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['productId', 1, 2]
             ],
             [
+                '\Commercetools\Core\Request\Carts\Command\CartAddPaymentAction',
+                'of',
+            ],
+            [
                 '\Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',
                 'ofLineItemIdAndQuantity',
                 ['lineItemId', 3]
@@ -720,6 +802,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['lineItemId', 1]
             ],
             [
+                '\Commercetools\Core\Request\Carts\Command\CartRemovePaymentAction',
+                'of',
+            ],
+            [
                 '\Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction',
                 'of',
             ],
@@ -736,6 +822,22 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 'of',
             ],
             [
+                '\Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomFieldAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction',
+                'of',
+            ],
+            [
                 '\Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction',
                 'of',
             ],
@@ -746,6 +848,108 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction',
                 'of',
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeCartPredicateAction',
+                'ofCartPredicate',
+                ['cartPredicate']
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeIsActiveAction',
+                'ofIsActive',
+                [true]
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeNameAction',
+                'ofName',
+                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeRequiresDiscountCodeAction',
+                'ofRequiresDiscountCode',
+                [true]
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeSortOrderAction',
+                'ofSortOrder',
+                ['0.1']
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeTargetAction',
+                'ofTarget',
+                ['target']
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeValueAction',
+                'ofCartDiscountValue',
+                [$this->getInstance('\Commercetools\Core\Model\CartDiscount\CartDiscountValue')]
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetDescriptionAction',
+                'of'
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAction',
+                'of'
+            ],
+            [
+                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidUntilAction',
+                'of'
+            ],
+            [
+                '\Commercetools\Core\Request\Channels\Command\ChannelAddRolesAction',
+                'ofRoles',
+                [[ChannelRole::INVENTORY_SUPPLY]]
+            ],
+            [
+                '\Commercetools\Core\Request\Channels\Command\ChannelChangeDescriptionAction',
+                'ofDescription',
+                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+            ],
+            [
+                '\Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction',
+                'ofKey',
+                ['key']
+            ],
+            [
+                '\Commercetools\Core\Request\Channels\Command\ChannelChangeNameAction',
+                'ofName',
+                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+            ],
+            [
+                '\Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction',
+                'ofRoles',
+                [[ChannelRole::INVENTORY_SUPPLY]]
+            ],
+            [
+                '\Commercetools\Core\Request\Channels\Command\ChannelSetRolesAction',
+                'ofRoles',
+                [[ChannelRole::INVENTORY_SUPPLY]]
+            ],
+            [
+                '\Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupChangeNameAction',
+                'ofName',
+                ['customerGroup']
+            ],
+            [
+                '\Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction',
+                'ofName',
+                ['fieldName']
+            ],
+            [
+                '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
+                'ofTypeId',
+                ['typeId']
+            ],
+            [
+                '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
+                'ofTypeKey',
+                ['typeKey']
+            ],
+            [
+                '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
+                'ofType',
+                [TypeReference::ofId('typeId')]
             ],
         ];
     }

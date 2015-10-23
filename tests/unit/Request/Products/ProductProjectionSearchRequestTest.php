@@ -15,6 +15,15 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
 {
     const PRODUCT_PROJECTION_SEARCH_REQUEST = '\Commercetools\Core\Request\Products\ProductProjectionSearchRequest';
 
+    public function testFuzzy()
+    {
+        $request = $this->getRequest(static::PRODUCT_PROJECTION_SEARCH_REQUEST);
+        $request->fuzzy(true);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('product-projections/search?fuzzy=true', (string)$httpRequest->getUri());
+    }
+
     public function testMapResult()
     {
         $data = [

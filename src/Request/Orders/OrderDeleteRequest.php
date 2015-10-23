@@ -7,9 +7,12 @@ namespace Commercetools\Core\Request\Orders;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
+use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Orders
+ * @method Order mapResponse(ApiResponseInterface $response)
  */
 class OrderDeleteRequest extends AbstractDeleteRequest
 {
