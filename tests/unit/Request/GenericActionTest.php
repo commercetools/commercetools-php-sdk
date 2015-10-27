@@ -729,6 +729,70 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveAttributeDefinitionAction',
                 ['action', 'name']
             ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentAddInterfaceInteractionAction',
+                ['action', 'typeId', 'typeKey', 'fields']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentAddTransactionAction',
+                ['action', 'transaction']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetAmountPaidAction',
+                ['action', 'amount']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetAmountRefundedAction',
+                ['action', 'amount']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetAuthorizationAction',
+                ['action', 'amount', 'until']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetCustomerAction',
+                ['action', 'customer']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetCustomFieldAction',
+                ['action', 'name', 'value']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetCustomTypeAction',
+                ['action', 'typeId', 'typeKey', 'fields']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetExternalIdAction',
+                ['action', 'externalId']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetInterfaceIdAction',
+                ['action', 'interfaceId']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoInterfaceAction',
+                ['action', 'interface']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoMethodAction',
+                ['action', 'method']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoNameAction',
+                ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceCodeAction',
+                ['action', 'interfaceCode']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceTextAction',
+                ['action', 'interfaceText']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentTransitionStateAction',
+                ['action', 'state']
+            ],
         ];
     }
 
@@ -1608,6 +1672,75 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveAttributeDefinitionAction',
                 'ofName',
                 ['name']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentAddInterfaceInteractionAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentAddTransactionAction',
+                'ofTransaction',
+                [$this->getInstance('\Commercetools\Core\Model\Payment\Transaction')]
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetAmountPaidAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetAmountRefundedAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetAuthorizationAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetCustomerAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetCustomFieldAction',
+                'ofName',
+                ['name']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetCustomTypeAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetExternalIdAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetInterfaceIdAction',
+                'ofInterfaceId',
+                ['interfaceId']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoInterfaceAction',
+                'ofInterface',
+                ['interface']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoMethodAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoNameAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceCodeAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceTextAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentTransitionStateAction',
+                'ofState',
+                [$this->getInstance('\Commercetools\Core\Model\State\StateReference')]
             ],
         ];
     }
