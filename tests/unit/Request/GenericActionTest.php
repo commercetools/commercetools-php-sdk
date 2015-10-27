@@ -11,6 +11,73 @@ use Commercetools\Core\Model\Type\TypeReference;
 
 class GenericActionTest extends \PHPUnit_Framework_TestCase
 {
+    protected function getInstance($className)
+    {
+        $class = new \ReflectionClass($className);
+        if (!$class->isAbstract()) {
+            $object = $class->newInstanceWithoutConstructor();
+        } else {
+            $object = $this->getMockForAbstractClass($className, [], '', false);
+        }
+
+        return $object;
+    }
+
+    /**
+     * @dataProvider actionFieldProvider
+     * @param string $className
+     * @param array $validFields
+     */
+    public function testValidProperties($className, array $validFields = [])
+    {
+        $object = $this->getInstance($className);
+
+        $validFields = array_flip($validFields);
+        foreach ($object->fieldDefinitions() as $fieldKey => $field) {
+            $this->assertArrayHasKey(
+                $fieldKey,
+                $validFields,
+                sprintf('Failed asserting that \'%s\' is a valid field at \'%s\'', $fieldKey, $className)
+            );
+        }
+    }
+
+    /**
+     * @dataProvider actionFieldProvider
+     * @param string $className
+     * @param array $validFields
+     */
+    public function testPropertiesExist($className, array $validFields = [])
+    {
+        $object = $this->getInstance($className);
+
+        foreach ($validFields as $fieldKey) {
+            $this->assertArrayHasKey(
+                $fieldKey,
+                $object->fieldDefinitions(),
+                sprintf('Failed asserting that \'%s\' has a field \'%s\'', $className, $fieldKey)
+            );
+        }
+    }
+
+    /**
+     * @dataProvider actionArgumentProvider
+     * @param $className
+     * @param $constructor
+     * @param array $args
+     */
+    public function testConstruct($className, $constructor = 'of', array $args = [])
+    {
+        $class = new \ReflectionClass($className);
+        if (!$class->isAbstract()) {
+            $object = call_user_func_array($className . '::' . $constructor, $args);
+        } else {
+            $object = $this->getMockForAbstractClass($className, $args);
+        }
+
+        $this->assertInstanceOf($className, $object);
+    }
+
     public function actionFieldProvider()
     {
         return [
@@ -518,19 +585,111 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\States\Command\TransitionStateAction',
                 ['action', 'state']
             ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction',
+                ['action', 'cartDiscounts']
+            ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeIsActiveAction',
+                ['action', 'isActive']
+            ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetCartPredicateAction',
+                ['action', 'cartPredicate']
+            ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetDescriptionAction',
+                ['action', 'description']
+            ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsAction',
+                ['action', 'maxApplications']
+            ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsPerCustomerAction',
+                ['action', 'maxApplicationsPerCustomer']
+            ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetNameAction',
+                ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\Inventory\Command\InventoryAddQuantityAction',
+                ['action', 'quantity']
+            ],
+            [
+                '\Commercetools\Core\Request\Inventory\Command\InventoryChangeQuantityAction',
+                ['action', 'quantity']
+            ],
+            [
+                '\Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction',
+                ['action', 'quantity']
+            ],
+            [
+                '\Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAction',
+                ['action', 'expectedDelivery']
+            ],
+            [
+                '\Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction',
+                ['action', 'restockableInDays']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeIsActiveAction',
+                ['action', 'isActive']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeNameAction',
+                ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangePredicateAction',
+                ['action', 'predicate']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeSortOrderAction',
+                ['action', 'sortOrder']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeValueAction',
+                ['action', 'value']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetDescriptionAction',
+                ['action', 'description']
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddShippingRateAction',
+                ['action', 'zone', 'shippingRate']
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddZoneAction',
+                ['action', 'zone']
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeIsDefaultAction',
+                ['action', 'isDefault']
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeNameAction',
+                ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeTaxCategoryAction',
+                ['action', 'taxCategory']
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveShippingRateAction',
+                ['action', 'zone', 'shippingRate']
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction',
+                ['action', 'zone']
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction',
+                ['action', 'description']
+            ],
         ];
-    }
-
-    protected function getInstance($className)
-    {
-        $class = new \ReflectionClass($className);
-        if (!$class->isAbstract()) {
-            $object = $class->newInstanceWithoutConstructor();
-        } else {
-            $object = $this->getMockForAbstractClass($className, [], '', false);
-        }
-
-        return $object;
     }
 
     public function actionArgumentProvider()
@@ -1222,61 +1381,138 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 'ofState',
                 [$this->getInstance('\Commercetools\Core\Model\State\StateReference')]
             ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction',
+                'ofCartDiscountReferences',
+                [$this->getInstance('\Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection')]
+            ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction',
+                'ofCartDiscountReference',
+                [$this->getInstance('\Commercetools\Core\Model\CartDiscount\CartDiscountReference')]
+            ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeIsActiveAction',
+                'ofIsActive',
+                [true]
+            ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetCartPredicateAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetDescriptionAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsPerCustomerAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetNameAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Inventory\Command\InventoryAddQuantityAction',
+                'ofQuantity',
+                [1]
+            ],
+            [
+                '\Commercetools\Core\Request\Inventory\Command\InventoryChangeQuantityAction',
+                'ofQuantity',
+                [2]
+            ],
+            [
+                '\Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction',
+                'ofQuantity',
+                [3]
+            ],
+            [
+                '\Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeIsActiveAction',
+                'ofIsActive',
+                [true]
+            ],
+            [
+                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeNameAction',
+                'ofName',
+                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+            ],
+            [
+                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangePredicateAction',
+                'ofPredicate',
+                ['predicate']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeSortOrderAction',
+                'ofSortOrder',
+                ['sortOrder']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeValueAction',
+                'ofProductDiscountValue',
+                [$this->getInstance('\Commercetools\Core\Model\ProductDiscount\ProductDiscountValue')]
+            ],
+            [
+                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetDescriptionAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddShippingRateAction',
+                'ofZoneAndShippingRate',
+                [
+                    $this->getInstance('\Commercetools\Core\Model\Zone\ZoneReference'),
+                    $this->getInstance('\Commercetools\Core\Model\ShippingMethod\ShippingRate')
+                ]
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddZoneAction',
+                'ofZone',
+                [$this->getInstance('\Commercetools\Core\Model\Zone\ZoneReference')]
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeIsDefaultAction',
+                'ofIsDefault',
+                [true]
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeNameAction',
+                'ofName',
+                ['newName']
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeTaxCategoryAction',
+                'ofTaxCategory',
+                [$this->getInstance('\Commercetools\Core\Model\TaxCategory\TaxCategoryReference')]
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveShippingRateAction',
+                'ofZoneAndShippingRate',
+                [
+                    $this->getInstance('\Commercetools\Core\Model\Zone\ZoneReference'),
+                    $this->getInstance('\Commercetools\Core\Model\ShippingMethod\ShippingRate')
+                ]
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction',
+                'ofZone',
+                [$this->getInstance('\Commercetools\Core\Model\Zone\ZoneReference')]
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction',
+                'of',
+            ],
         ];
-    }
-
-    /**
-     * @dataProvider actionFieldProvider
-     * @param string $className
-     * @param array $validFields
-     */
-    public function testValidProperties($className, array $validFields = [])
-    {
-        $object = $this->getInstance($className);
-
-        $validFields = array_flip($validFields);
-        foreach ($object->fieldDefinitions() as $fieldKey => $field) {
-            $this->assertArrayHasKey(
-                $fieldKey,
-                $validFields,
-                sprintf('Failed asserting that \'%s\' is a valid field at \'%s\'', $fieldKey, $className)
-            );
-        }
-    }
-
-    /**
-     * @dataProvider actionFieldProvider
-     * @param string $className
-     * @param array $validFields
-     */
-    public function testPropertiesExist($className, array $validFields = [])
-    {
-        $object = $this->getInstance($className);
-
-        foreach ($validFields as $fieldKey) {
-            $this->assertArrayHasKey(
-                $fieldKey,
-                $object->fieldDefinitions(),
-                sprintf('Failed asserting that \'%s\' has a field \'%s\'', $className, $fieldKey)
-            );
-        }
-    }
-
-    /**
-     * @dataProvider actionArgumentProvider
-     * @param $className
-     * @param $constructor
-     * @param array $args
-     */
-    public function testConstruct($className, $constructor = 'of', array $args = [])
-    {
-        $class = new \ReflectionClass($className);
-        if (!$class->isAbstract()) {
-            $object = call_user_func_array($className . '::' . $constructor, $args);
-        } else {
-            $object = $this->getMockForAbstractClass($className, $args);
-        }
-
-        $this->assertInstanceOf($className, $object);
     }
 }
