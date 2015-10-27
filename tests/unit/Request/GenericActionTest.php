@@ -394,6 +394,130 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
                 ['action', 'typeId', 'typeKey', 'fields']
             ],
+            [
+                '\Commercetools\Core\Request\Zones\Command\ZoneAddLocationAction',
+                ['action', 'location']
+            ],
+            [
+                '\Commercetools\Core\Request\Zones\Command\ZoneChangeNameAction',
+                ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\Zones\Command\ZoneRemoveLocationAction',
+                ['action', 'location']
+            ],
+            [
+                '\Commercetools\Core\Request\Zones\Command\ZoneSetDescriptionAction',
+                ['action', 'description']
+            ],
+            [
+                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryAddTaxRateAction',
+                ['action', 'taxRate']
+            ],
+            [
+                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryChangeNameAction',
+                ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryRemoveTaxRateAction',
+                ['action', 'rateId']
+            ],
+            [
+                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryReplaceTaxRateAction',
+                ['action', 'taxRateId', 'taxRate']
+            ],
+            [
+                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetDescriptionAction',
+                ['action', 'description']
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetAuthorNameAction',
+                ['action', 'authorName']
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetScoreAction',
+                ['action', 'score']
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTextAction',
+                ['action', 'text']
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTitleAction',
+                ['action', 'title']
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewTransitionStateAction',
+                ['action', 'state']
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeAddEnumValueAction',
+                ['action', 'fieldName', 'value']
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeAddFieldDefinitionAction',
+                ['action', 'fieldDefinition']
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeAddLocalizedEnumValueAction',
+                ['action', 'fieldName', 'value']
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeEnumValueOrderAction',
+                ['action', 'fieldName', 'keys']
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeFieldDefinitionOrderAction',
+                ['action', 'fieldNames']
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeLabelAction',
+                ['action', 'fieldName', 'label']
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeLocalizedEnumValueOrderAction',
+                ['action', 'fieldName', 'keys']
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeNameAction',
+                ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeRemoveFieldDefinitionAction',
+                ['action', 'fieldName']
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeSetDescriptionAction',
+                ['action', 'description']
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateChangeInitialAction',
+                ['action', 'initial']
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateChangeKeyAction',
+                ['action', 'key']
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateChangeTypeAction',
+                ['action', 'type']
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateSetDescriptionAction',
+                ['action', 'description']
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateSetNameAction',
+                ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateSetTransitionsAction',
+                ['action', 'transitions']
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\TransitionStateAction',
+                ['action', 'state']
+            ],
         ];
     }
 
@@ -949,6 +1073,154 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
                 'ofType',
                 [TypeReference::ofId('typeId')]
+            ],
+            [
+                '\Commercetools\Core\Request\Zones\Command\ZoneAddLocationAction',
+                'ofLocation',
+                [$this->getInstance('\Commercetools\Core\Model\Zone\Location')]
+            ],
+            [
+                '\Commercetools\Core\Request\Zones\Command\ZoneChangeNameAction',
+                'ofName',
+                ['newName']
+            ],
+            [
+                '\Commercetools\Core\Request\Zones\Command\ZoneRemoveLocationAction',
+                'ofLocation',
+                [$this->getInstance('\Commercetools\Core\Model\Zone\Location')]
+            ],
+            [
+                '\Commercetools\Core\Request\Zones\Command\ZoneSetDescriptionAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryAddTaxRateAction',
+                'ofTaxRate',
+                [$this->getInstance('\Commercetools\Core\Model\TaxCategory\TaxRate')]
+            ],
+            [
+                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryChangeNameAction',
+                'ofName',
+                ['newName']
+            ],
+            [
+                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryRemoveTaxRateAction',
+                'ofTaxRateId',
+                ['taxRateId']
+            ],
+            [
+                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryReplaceTaxRateAction',
+                'ofTaxRateIdAndTaxRate',
+                ['taxRateId', $this->getInstance('\Commercetools\Core\Model\TaxCategory\TaxRate')]
+            ],
+            [
+                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetDescriptionAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetAuthorNameAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetScoreAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTextAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTitleAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewTransitionStateAction',
+                'ofState',
+                [$this->getInstance('\Commercetools\Core\Model\State\StateReference')]
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeAddEnumValueAction',
+                'ofEnum',
+                [$this->getInstance('\Commercetools\Core\Model\Common\Enum')]
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeAddFieldDefinitionAction',
+                'ofFieldDefinition',
+                [$this->getInstance('\Commercetools\Core\Model\Type\FieldDefinition')]
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeAddLocalizedEnumValueAction',
+                'ofEnum',
+                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedEnum')]
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeEnumValueOrderAction',
+                'ofEnums',
+                [['key1', 'key2']]
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeFieldDefinitionOrderAction',
+                'ofFieldDefinitions',
+                [['name1', 'name2']]
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeLabelAction',
+                'ofLabel',
+                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeLocalizedEnumValueOrderAction',
+                'ofEnums',
+                [['key1', 'key2']]
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeNameAction',
+                'ofName',
+                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeRemoveFieldDefinitionAction',
+                'ofFieldName',
+                ['fieldName']
+            ],
+            [
+                '\Commercetools\Core\Request\Types\Command\TypeSetDescriptionAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateChangeInitialAction',
+                'ofInitial',
+                [true]
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateChangeKeyAction',
+                'ofKey',
+                ['newKey']
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateChangeTypeAction',
+                'ofType',
+                ['newType']
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateSetDescriptionAction',
+                'ofDescription',
+                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateSetNameAction',
+                'ofName',
+                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateSetTransitionsAction',
+                'ofTransitions',
+                [$this->getInstance('\Commercetools\Core\Model\State\StateReferenceCollection')]
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\TransitionStateAction',
+                'ofState',
+                [$this->getInstance('\Commercetools\Core\Model\State\StateReference')]
             ],
         ];
     }
