@@ -689,6 +689,46 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction',
                 ['action', 'description']
             ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction',
+                ['action', 'attribute']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumValueAction',
+                ['action', 'attributeName', 'value']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction',
+                ['action', 'attributeName', 'value']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeOrderAction',
+                ['action', 'attributes']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeDescriptionAction',
+                ['action', 'description']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction',
+                ['action', 'attributeName', 'label']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLocalizedEnumValueOrderAction',
+                ['action', 'attributeName', 'values']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeNameAction',
+                ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangePlainEnumValueOrderAction',
+                ['action', 'attributeName', 'values']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveAttributeDefinitionAction',
+                ['action', 'name']
+            ],
         ];
     }
 
@@ -1512,6 +1552,62 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction',
                 'of',
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction',
+                'ofAttribute',
+                [$this->getInstance('\Commercetools\Core\Model\ProductType\AttributeDefinition')]
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumValueAction',
+                'ofAttributeNameAndValue',
+                [
+                    'attributeName',
+                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedEnum')
+                ]
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction',
+                'ofAttributeNameAndValue',
+                [
+                    'attributeName',
+                    $this->getInstance('\Commercetools\Core\Model\Common\Enum')
+                ]
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeOrderAction',
+                'ofAttributes',
+                [$this->getInstance('\Commercetools\Core\Model\ProductType\AttributeDefinitionCollection')]
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeDescriptionAction',
+                'ofDescription',
+                ['new description']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction',
+                'ofAttributeNameAndLabel',
+                ['attributeName', $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLocalizedEnumValueOrderAction',
+                'ofAttributeNameAndValues',
+                ['attributeName', $this->getInstance('\Commercetools\Core\Model\Common\LocalizedEnumCollection')]
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeNameAction',
+                'ofName',
+                ['new name']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangePlainEnumValueOrderAction',
+                'ofAttributeNameAndValues',
+                ['attributeName', $this->getInstance('\Commercetools\Core\Model\Common\EnumCollection')]
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveAttributeDefinitionAction',
+                'ofName',
+                ['name']
             ],
         ];
     }
