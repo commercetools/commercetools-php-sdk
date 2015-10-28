@@ -166,6 +166,14 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'metaKeywords']
             ],
             [
+                '\Commercetools\Core\Request\Products\Command\ProductSetPriceCustomFieldAction',
+                ['action', 'priceId', 'staged', 'name', 'value'],
+            ],
+            [
+                '\Commercetools\Core\Request\Products\Command\ProductSetPriceCustomTypeAction',
+                ['action', 'typeId', 'typeKey', 'priceId', 'staged', 'fields'],
+            ],
+            [
                 '\Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
                 ['action', 'searchKeywords', 'staged']
             ],
@@ -914,6 +922,14 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductSetMetaKeywordsAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Products\Command\ProductSetPriceCustomFieldAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Products\Command\ProductSetPriceCustomTypeAction',
                 'of',
             ],
             [
