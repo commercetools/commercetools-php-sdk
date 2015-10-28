@@ -816,7 +816,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 'ofVariantIdAndPrice',
                 [
                     10,
-                    $this->getInstance('\Commercetools\Core\Model\Common\Price')
+                    $this->getInstance('\Commercetools\Core\Model\Common\PriceDraft')
                 ]
             ],
             [
@@ -842,7 +842,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 'ofPriceIdAndPrice',
                 [
                     10,
-                    $this->getInstance('\Commercetools\Core\Model\Common\Price')
+                    $this->getInstance('\Commercetools\Core\Model\Common\PriceDraft')
                 ]
             ],
             [
