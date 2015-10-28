@@ -8,9 +8,9 @@ namespace Commercetools\Core\Model\Common;
 /**
  * @package Commercetools\Core\Model\Common
  *
- * @method PriceDraft getAt($offset)
  * @method PriceDraftCollection add(PriceDraft $element)
  * @method PriceDraft current()
+ * @method PriceDraft getAt($offset)
  */
 class PriceDraftCollection extends Collection
 {

@@ -823,6 +823,7 @@ importOrder:
     - paymentState
     - shippingInfo
     - completedAt
+    - custom
 
 lineItemImportDraft:
   domain: order
@@ -836,6 +837,7 @@ lineItemImportDraft:
     - state
     - supplyChannel
     - taxRate
+    - custom
 
 productVariantImportDraft:
   domain: order
