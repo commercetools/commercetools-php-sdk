@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Cache;
 
-
 /**
  * @package Commercetools\Core\Cache
  */

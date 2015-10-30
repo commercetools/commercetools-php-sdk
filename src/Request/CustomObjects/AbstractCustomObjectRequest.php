@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\CustomObjects;
 
-
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractApiRequest;

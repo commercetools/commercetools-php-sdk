@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Payment;
 
-
 class TransactionType
 {
     const AUTHORIZATION = 'AUTHORIZATION';

@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Common;
 
 use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Common
@@ -28,6 +29,8 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
  * @method Price setValidFrom(\DateTime $validFrom = null)
  * @method DateTimeDecorator getValidUntil()
  * @method Price setValidUntil(\DateTime $validUntil = null)
+ * @method CustomFieldObject getCustom()
+ * @method Price setCustom(CustomFieldObject $custom = null)
  */
 class Price extends JsonObject
 {
@@ -39,6 +42,7 @@ class Price extends JsonObject
     const VALID_FROM = 'validFrom';
     const VALID_UNTIL = 'validUntil';
     const DISCOUNTED = 'discounted';
+    const CUSTOM = 'custom';
 
     public function fieldDefinitions()
     {
@@ -57,6 +61,7 @@ class Price extends JsonObject
                 self::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
             static::DISCOUNTED => [self::TYPE => '\Commercetools\Core\Model\Common\DiscountedPrice'],
+            static::CUSTOM => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
 

@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Client\OAuth;
 
-
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -18,7 +17,6 @@ use Commercetools\Core\Config;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         if (!function_exists('apc_store')) {

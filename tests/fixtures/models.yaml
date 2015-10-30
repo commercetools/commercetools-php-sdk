@@ -252,6 +252,7 @@ price:
     - validFrom
     - validUntil
     - discounted
+    - custom
 
 customer:
   domain: customer
@@ -822,6 +823,7 @@ importOrder:
     - paymentState
     - shippingInfo
     - completedAt
+    - custom
 
 lineItemImportDraft:
   domain: order
@@ -835,6 +837,7 @@ lineItemImportDraft:
     - state
     - supplyChannel
     - taxRate
+    - custom
 
 productVariantImportDraft:
   domain: order

@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Payments;
 
-
 use Commercetools\Core\Client\JsonEndpoint;
 
 class PaymentsEndpoint

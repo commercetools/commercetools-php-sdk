@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\MessageFormatter;
@@ -30,7 +29,6 @@ class Guzzle6Adapter implements AdapterInterface
     public function __construct(array $options = [])
     {
         $this->client = new Client($options);
-
     }
 
     public function setLogger(LoggerInterface $logger)

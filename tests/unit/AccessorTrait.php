@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core;
 
-
 use Commercetools\Core\Client\JsonEndpoint;
 
 trait AccessorTrait

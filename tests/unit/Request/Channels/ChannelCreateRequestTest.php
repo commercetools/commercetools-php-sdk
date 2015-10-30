@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Channels;
 
-
 use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\RequestTestCase;
 

@@ -18,7 +18,6 @@ use Commercetools\Core\Model\ProductDiscount\ProductDiscountReference;
  */
 class DiscountedPrice extends JsonObject
 {
-
     public function fieldDefinitions()
     {
         return [
@@ -34,7 +33,7 @@ class DiscountedPrice extends JsonObject
      * @param Context|callable $context
      * @return DiscountedPrice
      */
-    public function ofMoneyAndDiscount(Money $value, ProductDiscountReference $discount, $context = null)
+    public static function ofMoneyAndDiscount(Money $value, ProductDiscountReference $discount, $context = null)
     {
         $price = static::of($context);
         return $price->setValue($value)->setDiscount($discount);

@@ -446,7 +446,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($results[$request1->getIdentifier()]->isError());
         $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $results[$request2->getIdentifier()]);
         $this->assertTrue($results[$request2->getIdentifier()]->isError());
-
     }
 
     public function testFutureLogDeprecatedMethod()

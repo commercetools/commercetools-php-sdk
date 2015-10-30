@@ -44,7 +44,7 @@ class PaymentAddTransactionAction extends AbstractAction
      * @param Context|callable $context
      * @return PaymentAddTransactionAction
      */
-    public function ofTransaction(Transaction $transaction, $context = null)
+    public static function ofTransaction(Transaction $transaction, $context = null)
     {
         return static::of($context)->setTransaction($transaction);
     }

@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Common;
 
-
 interface TypeableInterface
 {
     public static function ofType($type, $context = null);

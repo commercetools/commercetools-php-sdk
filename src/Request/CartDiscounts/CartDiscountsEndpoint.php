@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\CartDiscounts;
 
-
 use Commercetools\Core\Client\JsonEndpoint;
 
 /**

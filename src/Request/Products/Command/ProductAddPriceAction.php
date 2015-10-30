@@ -6,7 +6,7 @@
 namespace Commercetools\Core\Request\Products\Command;
 
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Model\Common\Price;
+use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
@@ -16,8 +16,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductAddPriceAction setAction(string $action = null)
  * @method int getVariantId()
  * @method ProductAddPriceAction setVariantId(int $variantId = null)
- * @method Price getPrice()
- * @method ProductAddPriceAction setPrice(Price $price = null)
+ * @method PriceDraft getPrice()
+ * @method ProductAddPriceAction setPrice(PriceDraft $price = null)
  * @method bool getStaged()
  * @method ProductAddPriceAction setStaged(bool $staged = null)
  */
@@ -28,7 +28,7 @@ class ProductAddPriceAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
-            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Price'],
+            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceDraft'],
             'staged' => [static::TYPE => 'bool'],
         ];
     }
@@ -45,11 +45,11 @@ class ProductAddPriceAction extends AbstractAction
 
     /**
      * @param int $variantId
-     * @param Price $price
+     * @param PriceDraft $price
      * @param Context|callable $context
      * @return ProductAddPriceAction
      */
-    public static function ofVariantIdAndPrice($variantId, Price $price, $context = null)
+    public static function ofVariantIdAndPrice($variantId, PriceDraft $price, $context = null)
     {
         return static::of($context)->setVariantId($variantId)->setPrice($price);
     }

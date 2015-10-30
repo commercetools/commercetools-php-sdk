@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Cart;
 
-
 class CartCollectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testIndex()

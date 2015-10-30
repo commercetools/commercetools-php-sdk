@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\States;
 
-
 use Commercetools\Core\Model\State\StateDraft;
 use Commercetools\Core\RequestTestCase;
 

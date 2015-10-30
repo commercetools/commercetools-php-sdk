@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Product;
 
-
 use Commercetools\Core\Error\InvalidArgumentException;
 
 class FilterRangeTest extends \PHPUnit_Framework_TestCase

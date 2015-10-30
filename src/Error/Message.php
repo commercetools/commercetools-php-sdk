@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Error;
 
-
 /**
  * @package Commercetools\Core\Error
  */
@@ -25,7 +24,7 @@ class Message
 
     const AUTHENTICATION_FAIL = 'Authentication failed: %s';
 
-    const UNKNOWN_METHOD = 'Unknown method: %s (unknown field: %s)';
+    const UNKNOWN_METHOD = 'Unknown method: %s';
     const UNKNOWN_FIELD = 'Unknown field: "%s" - called: %s(%s)';
     const WRONG_TYPE = 'Wrong type for field "%s". Expected %s.';
     const EXPECTS_PARAMETER = 'Excepts parameter "%s" to be %s, null given.';

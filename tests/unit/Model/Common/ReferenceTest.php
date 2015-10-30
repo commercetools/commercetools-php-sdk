@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Model\Type;
 
-
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;

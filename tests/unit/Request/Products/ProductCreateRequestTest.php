@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Products;
 
-
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;

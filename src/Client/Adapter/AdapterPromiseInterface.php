@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
-
 use Psr\Http\Message\ResponseInterface;
 
 interface AdapterPromiseInterface extends ResponseInterface

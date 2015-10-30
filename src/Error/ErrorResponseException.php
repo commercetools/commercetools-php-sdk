@@ -32,5 +32,4 @@ namespace Commercetools\Core\Error;
  */
 class ErrorResponseException extends BadRequestException
 {
-
 }

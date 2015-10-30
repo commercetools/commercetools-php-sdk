@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Category;
 
-
 use Commercetools\Core\Model\Common\LocalizedString;
 
 class CategoryDraftTest extends \PHPUnit_Framework_TestCase
@@ -54,7 +53,7 @@ class CategoryDraftTest extends \PHPUnit_Framework_TestCase
     {
         return CategoryDraft::ofNameAndSlug(
             LocalizedString::fromArray(['en'=>'name']),
-            LocalizedString::fromArray(['en','slug'])
+            LocalizedString::fromArray(['en', 'slug'])
         );
     }
 

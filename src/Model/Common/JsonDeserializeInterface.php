@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Model\Common;
 
-
 interface JsonDeserializeInterface extends ContextAwareInterface
 {
     /**

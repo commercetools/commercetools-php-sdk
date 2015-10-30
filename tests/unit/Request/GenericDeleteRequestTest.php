@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\CartDiscounts;
 
-
 use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\RequestTestCase;
 
@@ -59,6 +58,14 @@ class GenericDeleteRequestTest extends RequestTestCase
                 '\Commercetools\Core\Model\Inventory\InventoryEntry',
             ],
             [
+                '\Commercetools\Core\Request\Orders\OrderDeleteRequest',
+                '\Commercetools\Core\Model\Order\Order',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\PaymentDeleteRequest',
+                '\Commercetools\Core\Model\Payment\Payment',
+            ],
+            [
                 '\Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest',
                 '\Commercetools\Core\Model\ProductDiscount\ProductDiscount',
             ],
@@ -71,12 +78,20 @@ class GenericDeleteRequestTest extends RequestTestCase
                 '\Commercetools\Core\Model\ProductType\ProductType',
             ],
             [
+                '\Commercetools\Core\Request\Reviews\ReviewDeleteRequest',
+                '\Commercetools\Core\Model\Review\Review',
+            ],
+            [
                 '\Commercetools\Core\Request\States\StateDeleteRequest',
                 '\Commercetools\Core\Model\State\State',
             ],
             [
                 '\Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest',
                 '\Commercetools\Core\Model\TaxCategory\TaxCategory',
+            ],
+            [
+                '\Commercetools\Core\Request\Types\TypeDeleteRequest',
+                '\Commercetools\Core\Model\Type\Type',
             ],
             [
                 '\Commercetools\Core\Request\Zones\ZoneDeleteRequest',

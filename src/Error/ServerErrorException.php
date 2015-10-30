@@ -11,5 +11,4 @@ namespace Commercetools\Core\Error;
  */
 class ServerErrorException extends ApiServiceException
 {
-
 }

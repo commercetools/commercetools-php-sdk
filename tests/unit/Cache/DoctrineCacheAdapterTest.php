@@ -6,12 +6,10 @@
 
 namespace Commercetools\Core\Cache;
 
-
 use Doctrine\Common\Cache\ApcCache;
 
 class DoctrineCacheAdapterTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var DoctrineCacheAdapter
      */

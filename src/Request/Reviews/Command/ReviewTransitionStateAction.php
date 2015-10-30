@@ -18,5 +18,4 @@ use Commercetools\Core\Model\State\StateReference;
  */
 class ReviewTransitionStateAction extends TransitionStateAction
 {
-
 }

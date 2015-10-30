@@ -35,16 +35,17 @@
   "require-dev": {
     "guzzlehttp/guzzle": "^6.0",
     "phpunit/phpunit": "^4.0",
-    "phpmd/phpmd": "^1.0",
-    "squizlabs/php_codesniffer": "^1.0",
-    "pdepend/pdepend": "^1.1",
+    "phpmd/phpmd": "@stable",
+    "squizlabs/php_codesniffer": "@stable",
+    "sebastian/phpcpd": "@stable",
+    "pdepend/pdepend": "@stable",
     "phploc/phploc": "^2.0",
-    "sebastian/phpcpd": "^1.4",
     "mayflower/php-codebrowser": "^1.0",
     "doctrine/cache": "^1.4",
     "monolog/monolog": "^1.12",
     "behat/behat": "^3.0",
     "phpspec/prophecy-phpunit": "^1.0",
-    "phpunit/phpcov": "*"
+    "phpunit/phpcov": "*",
+    "fabpot/php-cs-fixer": "@stable"
   }
 }

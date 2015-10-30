@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Request;
 
-
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client;

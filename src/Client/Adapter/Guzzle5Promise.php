@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
-
 use GuzzleHttp\Message\FutureResponse;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Ring\Future\FutureInterface;

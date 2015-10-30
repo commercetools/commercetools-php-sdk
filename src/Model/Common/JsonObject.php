@@ -51,9 +51,13 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
         $field = lcfirst(substr($method, 3));
 
         if (!$this->hasField($field)) {
-            throw new \BadMethodCallException(
-                sprintf(Message::UNKNOWN_FIELD, $field, $method, implode(', ', $arguments))
-            );
+            if ($action == 'get' || $action == 'set') {
+                throw new \BadMethodCallException(
+                    sprintf(Message::UNKNOWN_FIELD, $field, $method, implode(', ', $arguments))
+                );
+            } else {
+                throw new \BadMethodCallException(sprintf(Message::UNKNOWN_METHOD, $method, $field));
+            }
         }
         switch ($action) {
             case 'get':

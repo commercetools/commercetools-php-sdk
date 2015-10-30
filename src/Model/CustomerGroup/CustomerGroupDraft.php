@@ -27,7 +27,7 @@ class CustomerGroupDraft extends JsonObject
      * @param Context|callable $context
      * @return CustomerGroupDraft
      */
-    public function ofGroupName($groupName, $context = null)
+    public static function ofGroupName($groupName, $context = null)
     {
         return static::of($context)->setGroupName($groupName);
     }

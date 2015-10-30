@@ -41,7 +41,7 @@ class StateChangeTypeAction extends AbstractAction
      * @param Context|callable $context
      * @return StateChangeTypeAction
      */
-    public function ofType($type, $context = null)
+    public static function ofType($type, $context = null)
     {
         return static::of($context)->setType($type);
     }

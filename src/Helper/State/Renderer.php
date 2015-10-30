@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Helper\State;
 
-
 use Commercetools\Core\Client;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Helper\State\Renderer\NodeRenderer;

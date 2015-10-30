@@ -46,7 +46,7 @@ class TaxCategoryReplaceTaxRateAction extends AbstractAction
      * @param Context|callable $context
      * @return TaxCategoryReplaceTaxRateAction
      */
-    public function ofTaxRateIdAndTaxRate($taxRateId, TaxRate $taxRate, $context = null)
+    public static function ofTaxRateIdAndTaxRate($taxRateId, TaxRate $taxRate, $context = null)
     {
         return static::of($context)->setTaxRateId($taxRateId)->setTaxRate($taxRate);
     }

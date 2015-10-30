@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Helper\State\Renderer;
 
-
 use Commercetools\Core\Model\State\State;
 
 class TransitionRenderer

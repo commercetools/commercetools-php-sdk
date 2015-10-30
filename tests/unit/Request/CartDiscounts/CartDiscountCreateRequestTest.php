@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\CartDiscounts;
 
-
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\RequestTestCase;
 

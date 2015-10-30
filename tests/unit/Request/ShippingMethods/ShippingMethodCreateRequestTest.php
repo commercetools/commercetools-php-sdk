@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\ShippingMethods;
 
-
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Commercetools\Core\RequestTestCase;
 

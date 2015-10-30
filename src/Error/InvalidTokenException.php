@@ -13,5 +13,4 @@ namespace Commercetools\Core\Error;
  */
 class InvalidTokenException extends UnauthorizedException
 {
-
 }

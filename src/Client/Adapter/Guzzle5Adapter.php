@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;

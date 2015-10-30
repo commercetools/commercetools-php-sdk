@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Messages;
 
-
 use Commercetools\Core\Client\JsonEndpoint;
 
 /**

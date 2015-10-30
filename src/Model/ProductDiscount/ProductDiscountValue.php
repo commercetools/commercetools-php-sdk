@@ -20,5 +20,4 @@ use Commercetools\Core\Model\Common\MoneyCollection;
  */
 class ProductDiscountValue extends DiscountValue
 {
-
 }

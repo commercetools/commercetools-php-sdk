@@ -79,7 +79,7 @@ class CartDiscountDraft extends JsonObject
      * @param Context|callable $context
      * @return CartDiscountDraft
      */
-    public function ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+    public static function ofNameValuePredicateTargetOrderActiveAndDiscountCode(
         LocalizedString $name,
         CartDiscountValue $value,
         $cartPredicate,

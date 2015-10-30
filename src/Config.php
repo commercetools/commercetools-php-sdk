@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core;
 
-
 use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Model\Common\ContextAwareInterface;

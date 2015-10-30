@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\CartDiscounts;
 
-
 use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\RequestTestCase;
 
@@ -85,6 +84,10 @@ class GenericQueryRequestTest extends RequestTestCase
                 '\Commercetools\Core\Model\Order\OrderCollection',
             ],
             [
+                '\Commercetools\Core\Request\Payments\PaymentQueryRequest',
+                '\Commercetools\Core\Model\Payment\PaymentCollection',
+            ],
+            [
                 '\Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest',
                 '\Commercetools\Core\Model\ProductDiscount\ProductDiscountCollection',
             ],
@@ -111,6 +114,10 @@ class GenericQueryRequestTest extends RequestTestCase
             [
                 '\Commercetools\Core\Request\TaxCategories\TaxCategoryQueryRequest',
                 '\Commercetools\Core\Model\TaxCategory\TaxCategoryCollection',
+            ],
+            [
+                '\Commercetools\Core\Request\Types\TypeQueryRequest',
+                '\Commercetools\Core\Model\Type\TypeCollection',
             ],
             [
                 '\Commercetools\Core\Request\Zones\ZoneQueryRequest',

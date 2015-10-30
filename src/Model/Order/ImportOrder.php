@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Cart\ShippingInfo;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Order
@@ -48,6 +49,8 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method ImportOrder setShippingInfo(ShippingInfo $shippingInfo = null)
  * @method DateTimeDecorator getCompletedAt()
  * @method ImportOrder setCompletedAt(\DateTime $completedAt = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method ImportOrder setCustom(CustomFieldObjectDraft $custom = null)
  */
 class ImportOrder extends JsonObject
 {
@@ -73,6 +76,7 @@ class ImportOrder extends JsonObject
                 static::TYPE => '\DateTime',
                 static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft']
         ];
     }
 }

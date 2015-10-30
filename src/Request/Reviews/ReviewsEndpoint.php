@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Reviews;
 
-
 use Commercetools\Core\Client\JsonEndpoint;
 
 /**

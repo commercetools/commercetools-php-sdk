@@ -18,5 +18,4 @@ use Commercetools\Core\Model\Payment\PaymentReference;
  */
 class OrderAddPaymentAction extends CartAddPaymentAction
 {
-
 }

@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\ProductTypes;
 
-
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\RequestTestCase;
 

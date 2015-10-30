@@ -5,12 +5,10 @@
 
 namespace Commercetools\Core\Request;
 
-
 interface QueryAllRequestInterface extends
     PageRequestInterface,
     QueryRequestInterface,
     SortRequestInterface,
     WithTotalRequestInterface
 {
-
 }

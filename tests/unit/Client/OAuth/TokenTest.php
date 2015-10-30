@@ -6,10 +6,8 @@
 
 namespace Commercetools\Core\Client\OAuth;
 
-
 class TokenTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testGetTtl()
     {
         $token = new Token('token', 1000);

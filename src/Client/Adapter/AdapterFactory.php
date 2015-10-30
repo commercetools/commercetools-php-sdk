@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
-
 use GuzzleHttp\Client;
 use Commercetools\Core\Error\InvalidArgumentException;
 
@@ -17,7 +16,6 @@ class AdapterFactory
     {
         $this->register('guzzle5', '\Commercetools\Core\Client\Adapter\Guzzle5Adapter')
             ->register('guzzle6', '\Commercetools\Core\Client\Adapter\Guzzle6Adapter');
-
     }
 
     /**

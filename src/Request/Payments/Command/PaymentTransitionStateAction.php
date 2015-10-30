@@ -21,5 +21,4 @@ use Commercetools\Core\Request\States\Command\TransitionStateAction;
  */
 class PaymentTransitionStateAction extends TransitionStateAction
 {
-
 }

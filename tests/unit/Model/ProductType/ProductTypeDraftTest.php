@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\ProductType;
 
-
 class ProductTypeDraftTest extends \PHPUnit_Framework_TestCase
 {
     public function testFromArray()

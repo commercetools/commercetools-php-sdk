@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Product;
 
-
 class RangeTestObject
 {
     protected $value;

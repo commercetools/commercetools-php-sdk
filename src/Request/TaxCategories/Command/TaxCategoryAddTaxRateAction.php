@@ -42,7 +42,7 @@ class TaxCategoryAddTaxRateAction extends AbstractAction
      * @param Context|callable $context
      * @return TaxCategoryAddTaxRateAction
      */
-    public function ofTaxRate(TaxRate $taxRate, $context = null)
+    public static function ofTaxRate(TaxRate $taxRate, $context = null)
     {
         return static::of($context)->setTaxRate($taxRate);
     }

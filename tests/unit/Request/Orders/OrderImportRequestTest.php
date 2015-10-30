@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Orders;
 
-
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Order\ImportOrder;

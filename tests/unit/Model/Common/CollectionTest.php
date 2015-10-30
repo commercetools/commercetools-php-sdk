@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Common;
 
-
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Model\Product\ProductProjectionCollection;
 
@@ -167,6 +166,5 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $collection[1] = new \DateTime();
 
         $this->assertInstanceOf('\DateTime', $collection[1]);
-
     }
 }

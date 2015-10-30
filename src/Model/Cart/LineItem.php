@@ -48,9 +48,6 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method Money getTotalPrice()
  * @method LineItem setTotalPrice(Money $totalPrice = null)
  * @method DiscountedPricePerQuantityCollection getDiscountedPricePerQuantity()
- * @codingStandardsIgnoreStart
- * @method LineItem setDiscountedPricePerQuantity(DiscountedPricePerQuantityCollection $discountedPricePerQuantity = null)
- * @codingStandardsIgnoreEnd
  */
 class LineItem extends JsonObject
 {
@@ -74,5 +71,15 @@ class LineItem extends JsonObject
                 static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedPricePerQuantityCollection'
             ],
         ];
+    }
+
+    /**
+     * @param DiscountedPricePerQuantityCollection $discountedPricePerQuantity
+     * @return static
+     */
+    public function setDiscountedPricePerQuantity(
+        DiscountedPricePerQuantityCollection $discountedPricePerQuantity = null
+    ) {
+        return parent::setDiscountedPricePerQuantity($discountedPricePerQuantity);
     }
 }

@@ -45,7 +45,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($testConfig[Config::OAUTH_URL], $config->getOauthUrl());
         $this->assertEquals($testConfig[Config::PROJECT], $config->getProject());
         $this->assertEquals($testConfig[Config::API_URL], $config->getApiUrl());
-
     }
 
 

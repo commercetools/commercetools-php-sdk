@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Project;
 
-
 use Commercetools\Core\RequestTestCase;
 
 class ProjectGetRequestTest extends RequestTestCase

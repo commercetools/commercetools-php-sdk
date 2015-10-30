@@ -11,5 +11,4 @@ namespace Commercetools\Core\Response;
  */
 class ResourceResponse extends AbstractApiResponse
 {
-
 }

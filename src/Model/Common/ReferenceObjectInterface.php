@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Common;
 
-
 interface ReferenceObjectInterface extends ContextAwareInterface
 {
     /**

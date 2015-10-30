@@ -55,7 +55,6 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  */
 class CustomerDraft extends JsonObject
 {
-
     public function fieldDefinitions()
     {
         return [

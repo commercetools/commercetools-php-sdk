@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\TaxCategories;
 
-
 use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
 use Commercetools\Core\RequestTestCase;
 

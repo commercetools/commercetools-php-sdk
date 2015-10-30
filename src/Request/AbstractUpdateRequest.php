@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Request;
 
-
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\JsonEndpoint;
@@ -86,7 +85,6 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
      */
     public function addAction($action)
     {
-
         $this->actions[] = $action;
         if ($action instanceof ContextAwareInterface) {
             $action->setContextIfNull($this->getContextCallback());

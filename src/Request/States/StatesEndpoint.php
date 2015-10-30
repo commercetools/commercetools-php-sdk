@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\States;
 
-
 use Commercetools\Core\Client\JsonEndpoint;
 
 class StatesEndpoint

@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Common;
 
-
 class MoneyTest extends \PHPUnit_Framework_TestCase
 {
     public function testFromArray()

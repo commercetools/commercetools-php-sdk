@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\CustomField;
 
-
 use Commercetools\Core\Model\Common\Collection;
 
 /**

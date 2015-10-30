@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Cache;
 
-
 class ApcCacheAdapterTest extends \PHPUnit_Framework_TestCase
 {
     /**

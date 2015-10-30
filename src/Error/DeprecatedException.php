@@ -7,5 +7,4 @@ namespace Commercetools\Core\Error;
 
 class DeprecatedException extends \Exception
 {
-
 }

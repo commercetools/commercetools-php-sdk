@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\Products;
 
-
 use Commercetools\Core\RequestTestCase;
 
 class ProductProjectionQueryRequestTest extends RequestTestCase

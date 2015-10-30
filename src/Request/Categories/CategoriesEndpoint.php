@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Request\Categories;
 
-
 use Commercetools\Core\Client\JsonEndpoint;
 
 /**

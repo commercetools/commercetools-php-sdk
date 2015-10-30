@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Product\Search;
 
-
 interface FilterInterface
 {
     public function __toString();

@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Common;
 
-
 class DateTimeDecoratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetDateTime()

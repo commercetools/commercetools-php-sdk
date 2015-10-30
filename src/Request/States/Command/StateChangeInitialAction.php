@@ -41,7 +41,7 @@ class StateChangeInitialAction extends AbstractAction
      * @param Context|callable $context
      * @return StateChangeInitialAction
      */
-    public function ofInitial($initial, $context = null)
+    public static function ofInitial($initial, $context = null)
     {
         return static::of($context)->setInitial($initial);
     }

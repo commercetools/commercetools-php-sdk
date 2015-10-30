@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\Product;
 
-
 use Commercetools\Core\Model\Common\JsonObject;
 
 class FilterTest extends \PHPUnit_Framework_TestCase

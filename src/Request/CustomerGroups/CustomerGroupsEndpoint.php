@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\CustomerGroups;
 
-
 use Commercetools\Core\Client\JsonEndpoint;
 
 /**

@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\DiscountCodes;
 
-
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
 use Commercetools\Core\RequestTestCase;
 

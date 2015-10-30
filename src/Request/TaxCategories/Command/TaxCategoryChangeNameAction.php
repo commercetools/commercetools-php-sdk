@@ -41,7 +41,7 @@ class TaxCategoryChangeNameAction extends AbstractAction
      * @param Context|callable $context
      * @return TaxCategoryChangeNameAction
      */
-    public function ofName($name, $context = null)
+    public static function ofName($name, $context = null)
     {
         return static::of($context)->setName($name);
     }
