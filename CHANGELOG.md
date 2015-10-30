@@ -1,3 +1,29 @@
+<a name="1.0.0-RC8"></a>
+# [1.0.0-RC8](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC7...v1.0.0-RC8) (2015-10-30)
+
+
+### Bug Fixes
+
+* **Cart:** typo in custom line item model ([c583fb9](https://github.com/sphereio/commercetools-php-sdk/commit/c583fb9))
+* **JsonObject:** add missing static keyword to named constructors ([f83e4c6](https://github.com/sphereio/commercetools-php-sdk/commit/f83e4c6))
+* **JsonObject:** fix error message for unknown method ([22431f8](https://github.com/sphereio/commercetools-php-sdk/commit/22431f8))
+* **Payment:** add missing type for payment transactions ([c6d3765](https://github.com/sphereio/commercetools-php-sdk/commit/c6d3765))
+* **Payment:** correct type for PaymentInfo model ([b942a06](https://github.com/sphereio/commercetools-php-sdk/commit/b942a06))
+
+### Features
+
+* **CustomFields:** add customs fields and types for prices ([cfbc0bb](https://github.com/sphereio/commercetools-php-sdk/commit/cfbc0bb)), closes [#156](https://github.com/sphereio/commercetools-php-sdk/issues/156)
+* **ImportOrder:** add custom fields to ImportOrder ([008702f](https://github.com/sphereio/commercetools-php-sdk/commit/008702f))
+* **Order:** add order delete request ([5944de7](https://github.com/sphereio/commercetools-php-sdk/commit/5944de7))
+
+
+### BREAKING CHANGES
+
+* added PriceDraft to price update actions
+
+  The new PriceDraft object has been added as type hint to ProductAddPriceAction and ProductChangePriceAction. The ProductVariantDraft expects now a PriceDraftCollection
+
+
 <a name="1.0.0-RC7"></a>
 # [1.0.0-RC7](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC5...v1.0.0-RC7) (2015-10-19)
 
