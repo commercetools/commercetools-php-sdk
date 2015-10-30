@@ -469,6 +469,8 @@
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetMetaDescriptionAction.html">ProductSetMetaDescriptionAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetMetaKeywordsAction.html">ProductSetMetaKeywordsAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetMetaTitleAction.html">ProductSetMetaTitleAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetPriceCustomFieldAction.html">ProductSetPriceCustomFieldAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetPriceCustomTypeAction.html">ProductSetPriceCustomTypeAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetSearchKeywordsAction.html">ProductSetSearchKeywordsAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetSKUAction.html">ProductSetSKUAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetTaxCategoryAction.html">ProductSetTaxCategoryAction</a></li>
@@ -606,7 +608,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofPriceIdAndPrice">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductChangePriceAction.html#46-55" title="Go to source code">ofPriceIdAndPrice</a>( <span>integer <var>$priceId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Price.html">Commercetools\Core\Model\Common\Price</a></code> <var>$price</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductChangePriceAction.html#46-55" title="Go to source code">ofPriceIdAndPrice</a>( <span>integer <var>$priceId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.PriceDraft.html">Commercetools\Core\Model\Common\PriceDraft</a></code> <var>$price</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -716,7 +718,7 @@
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Model.Common.Price.html">Commercetools\Core\Model\Common\Price</a></code>
+				<code><a href="class-Commercetools.Core.Model.Common.PriceDraft.html">Commercetools\Core\Model\Common\PriceDraft</a></code>
 				
 				</code>
 			</td>
@@ -736,7 +738,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Model.Common.Price.html">Commercetools\Core\Model\Common\Price</a></code>
+						<code><a href="class-Commercetools.Core.Model.Common.PriceDraft.html">Commercetools\Core\Model\Common\PriceDraft</a></code>
 					</div>
 
 
@@ -756,7 +758,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setPrice">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductChangePriceAction.html#18" title="Go to source code">setPrice</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Price.html">Commercetools\Core\Model\Common\Price</a></code> <var>$price</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductChangePriceAction.html#18" title="Go to source code">setPrice</a>( <span><code><a href="class-Commercetools.Core.Model.Common.PriceDraft.html">Commercetools\Core\Model\Common\PriceDraft</a></code> <var>$price</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -938,7 +940,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___get">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.JsonObject.html#69-77" title="Go to source code">__get</a>( <span> <var>$field</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.JsonObject.html#73-81" title="Go to source code">__get</a>( <span> <var>$field</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1153,7 +1155,7 @@ which is a value of any type other than a resource.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_parentSet">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#11-16" title="Go to source code">parentSet</a>( <span> <var>$parent</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#10-15" title="Go to source code">parentSet</a>( <span> <var>$parent</var></span> )</code>
 
 			<div class="description short">
 				<p>set the parent of the object, has to be set on instantiation</p>
@@ -1191,7 +1193,7 @@ which is a value of any type other than a resource.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_rootGet">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#25-30" title="Go to source code">rootGet</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#24-29" title="Go to source code">rootGet</a>( )</code>
 
 			<div class="description short">
 				<p>returns the root of the object hierarchy
@@ -1226,7 +1228,7 @@ if no root is given returns the object itself</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_rootSet">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#18-23" title="Go to source code">rootSet</a>( <span> <var>$parent</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#17-22" title="Go to source code">rootSet</a>( <span> <var>$parent</var></span> )</code>
 
 			<div class="description short">
 				<p>sets the root of the object hierarchy, has to be set on instantiation</p>
@@ -1265,7 +1267,7 @@ if no root is given returns the object itself</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getContext">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.ContextAwareInterface.html#11-14" title="Go to source code">getContext</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.ContextAwareInterface.html#10-13" title="Go to source code">getContext</a>( )</code>
 
 			<div class="description short">
 				
@@ -1298,7 +1300,7 @@ if no root is given returns the object itself</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getContextCallback">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.ContextAwareInterface.html#16-19" title="Go to source code">getContextCallback</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.ContextAwareInterface.html#15-18" title="Go to source code">getContextCallback</a>( )</code>
 
 			<div class="description short">
 				
@@ -1331,7 +1333,7 @@ if no root is given returns the object itself</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setContext">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.ContextAwareInterface.html#21-25" title="Go to source code">setContext</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.ContextAwareInterface.html#20-24" title="Go to source code">setContext</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1369,7 +1371,7 @@ if no root is given returns the object itself</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setContextIfNull">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.ContextAwareInterface.html#27-31" title="Go to source code">setContextIfNull</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.ContextAwareInterface.html#26-30" title="Go to source code">setContextIfNull</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
