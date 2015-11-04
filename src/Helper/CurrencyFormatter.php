@@ -25,11 +25,12 @@ class CurrencyFormatter
      */
     protected function defaultFormatCallback($centAmount, $currency)
     {
-        $amount = $centAmount / 100;
-        $currency = mb_strtoupper($currency);
         $locale = $this->context->getLocale();
-
         $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
+        $fractionUnits = pow(10, $formatter->getAttribute(\NumberFormatter::FRACTION_DIGITS));
+        $amount = $centAmount / $fractionUnits;
+        $currency = strtoupper($currency);
+
         return $formatter->formatCurrency($amount, $currency);
     }
 
