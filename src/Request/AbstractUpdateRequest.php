@@ -73,22 +73,38 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     {
         $this->actions = [];
         foreach ($actions as $action) {
-            $this->addAction($action);
+            if ($action instanceof AbstractAction) {
+                $this->addAction($action);
+            } elseif (is_array($action)) {
+                $this->addActionAsArray($action);
+            }
         }
 
         return $this;
     }
 
     /**
-     * @param array|AbstractAction $action
+     * @param AbstractAction $action
      * @return $this
      */
-    public function addAction($action)
+    public function addAction(AbstractAction $action)
     {
         $this->actions[] = $action;
         if ($action instanceof ContextAwareInterface) {
             $action->setContextIfNull($this->getContextCallback());
         }
+        $this->checkActionLimit();
+
+        return $this;
+    }
+
+    /**
+     * @param array $action
+     * @return $this
+     */
+    public function addActionAsArray(array $action)
+    {
+        $this->actions[] = $action;
         $this->checkActionLimit();
 
         return $this;
