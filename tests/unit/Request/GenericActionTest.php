@@ -849,7 +849,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\Products\Command\ProductChangePriceAction',
                 'ofPriceIdAndPrice',
                 [
-                    10,
+                    '10',
                     $this->getInstance('\Commercetools\Core\Model\Common\PriceDraft')
                 ]
             ],

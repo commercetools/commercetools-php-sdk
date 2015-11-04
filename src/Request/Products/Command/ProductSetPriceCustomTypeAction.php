@@ -19,7 +19,7 @@ use Commercetools\Core\Model\CustomField\FieldContainer;
  * @method string getTypeKey()
  * @method ProductSetPriceCustomTypeAction setTypeKey(string $typeKey = null)
  * @method int getPriceId()
- * @method ProductSetPriceCustomTypeAction setPriceId(int $priceId = null)
+ * @method ProductSetPriceCustomTypeAction setPriceId(string $priceId = null)
  * @method bool getStaged()
  * @method ProductSetPriceCustomTypeAction setStaged(bool $staged = null)
  * @method FieldContainer getFields()
@@ -33,7 +33,7 @@ class ProductSetPriceCustomTypeAction extends SetCustomTypeAction
             'action' => [static::TYPE => 'string'],
             'typeId' => [static::TYPE => 'string'],
             'typeKey' => [static::TYPE => 'string'],
-            'priceId' => [static::TYPE => 'int'],
+            'priceId' => [static::TYPE => 'string'],
             'staged' => [static::TYPE => 'bool'],
             'fields' => [static::TYPE => '\Commercetools\Core\Model\CustomField\FieldContainer'],
         ];

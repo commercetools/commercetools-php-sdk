@@ -27,7 +27,7 @@ class ProductChangePriceAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'priceId' => [static::TYPE => 'int'],
+            'priceId' => [static::TYPE => 'string'],
             'price' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceDraft'],
             'staged' => [static::TYPE => 'bool'],
         ];
@@ -44,7 +44,7 @@ class ProductChangePriceAction extends AbstractAction
     }
 
     /**
-     * @param int $priceId
+     * @param string $priceId
      * @param PriceDraft $price
      * @param Context|callable $context
      * @return ProductChangePriceAction
