@@ -7,6 +7,22 @@ namespace Commercetools\Core\Helper;
 
 use Commercetools\Core\Model\Common\Context;
 
+/**
+ * Formats a given currency for display. As default the intl extensions capabilities are used for formatting.
+ * Given the locale of the context and the currency, the amount will be formatted with intl NumberFormatter.
+ * The formatter reads the fraction digits from the formatter for the given currency and locale. This information
+ * is used to calculate the currency value from the centAmount
+ *
+ * Example:
+ * $centAmount = 123456;
+ * $currency = 'JPY';
+ * $str = $this->format($centAmount, $currency); // '¥123,456'
+ * $currency = 'USD';
+ * $str = $this->format($centAmount, $currency); // '$1,234.56'
+ * $currency = 'EUR';
+ * $str = $this->format($centAmount, $currency); // '1.234,56 €'
+ * @package Commercetools\Core\Helper
+ */
 class CurrencyFormatter
 {
     protected $context;

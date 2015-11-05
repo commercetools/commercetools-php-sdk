@@ -130,6 +130,8 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
         foreach ($this->typeData as $key => $value) {
             if ($value instanceof JsonDeserializeInterface) {
                 $values[$key] = $value->toArray();
+            } else {
+                $values[$key] = $value;
             }
         }
 
