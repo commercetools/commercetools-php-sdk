@@ -115,6 +115,6 @@ class ProductProjection extends JsonObject
     {
         $variants = $this->getRaw('variants', []);
         array_unshift($variants, $this->getRaw('masterVariant'));
-        return ProductVariantCollection::fromArray($variants);
+        return ProductVariantCollection::fromArray($variants, $this->getContextCallback());
     }
 }
