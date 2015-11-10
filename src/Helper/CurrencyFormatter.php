@@ -39,7 +39,7 @@ class CurrencyFormatter
      * @param $currency
      * @return string
      */
-    protected function defaultFormatCallback($centAmount, $currency)
+    protected function defaultFormat($centAmount, $currency)
     {
         $locale = $this->context->getLocale();
         $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
@@ -66,7 +66,7 @@ class CurrencyFormatter
     public function format($centAmount, $currency)
     {
         if (is_null($this->formatCallback)) {
-            $this->formatCallback = [$this, 'defaultFormatCallback'];
+            return $this->defaultFormat($centAmount, $currency);
         }
         return call_user_func_array($this->formatCallback, [$centAmount, $currency]);
     }
