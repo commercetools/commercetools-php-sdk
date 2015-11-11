@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Product;
 
 use Commercetools\Core\Model\Common\AttributeCollection;
 use Commercetools\Core\Model\Common\JsonObject;
-use Commercetools\Core\Model\Common\PriceCollection;
+use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\Common\ImageCollection;
 
 /**
@@ -16,9 +16,9 @@ use Commercetools\Core\Model\Common\ImageCollection;
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#new-product-variant
  * @method string getSku()
  * @method ProductVariantDraft setSku(string $sku = null)
- * @method ProductVariantDraft setPrices(PriceCollection $prices = null)
+ * @method ProductVariantDraft setPrices(PriceDraftCollection $prices = null)
  * @method ProductVariantDraft setAttributes(AttributeCollection $attributes = null)
- * @method PriceCollection getPrices()
+ * @method PriceDraftCollection getPrices()
  * @method AttributeCollection getAttributes()
  * @method ImageCollection getImages()
  * @method ProductVariantDraft setImages(ImageCollection $images = null)
@@ -29,7 +29,7 @@ class ProductVariantDraft extends JsonObject
     {
         return [
             'sku' => [self::TYPE => 'string'],
-            'prices' => [self::TYPE => '\Commercetools\Core\Model\Common\PriceCollection'],
+            'prices' => [self::TYPE => '\Commercetools\Core\Model\Common\PriceDraftCollection'],
             'images' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageCollection'],
             'attributes' => [self::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
         ];

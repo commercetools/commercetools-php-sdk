@@ -62,6 +62,10 @@ class GenericUpdateRequestTest extends RequestTestCase
                 '\Commercetools\Core\Model\Order\Order',
             ],
             [
+                '\Commercetools\Core\Request\Payments\PaymentUpdateRequest',
+                '\Commercetools\Core\Model\Payment\Payment',
+            ],
+            [
                 '\Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest',
                 '\Commercetools\Core\Model\ProductDiscount\ProductDiscount',
             ],

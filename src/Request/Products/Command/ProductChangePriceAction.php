@@ -6,7 +6,7 @@
 namespace Commercetools\Core\Request\Products\Command;
 
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Model\Common\Price;
+use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
@@ -14,8 +14,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @apidoc http://dev.sphere.io/http-api-projects-products.html#change-price
  * @method string getAction()
  * @method ProductChangePriceAction setAction(string $action = null)
- * @method Price getPrice()
- * @method ProductChangePriceAction setPrice(Price $price = null)
+ * @method PriceDraft getPrice()
+ * @method ProductChangePriceAction setPrice(PriceDraft $price = null)
  * @method bool getStaged()
  * @method ProductChangePriceAction setStaged(bool $staged = null)
  * @method int getPriceId()
@@ -27,8 +27,8 @@ class ProductChangePriceAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'priceId' => [static::TYPE => 'int'],
-            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Price'],
+            'priceId' => [static::TYPE => 'string'],
+            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceDraft'],
             'staged' => [static::TYPE => 'bool'],
         ];
     }
@@ -44,12 +44,12 @@ class ProductChangePriceAction extends AbstractAction
     }
 
     /**
-     * @param int $priceId
-     * @param Price $price
+     * @param string $priceId
+     * @param PriceDraft $price
      * @param Context|callable $context
      * @return ProductChangePriceAction
      */
-    public static function ofPriceIdAndPrice($priceId, Price $price, $context = null)
+    public static function ofPriceIdAndPrice($priceId, PriceDraft $price, $context = null)
     {
         return static::of($context)->setPriceId($priceId)->setPrice($price);
     }

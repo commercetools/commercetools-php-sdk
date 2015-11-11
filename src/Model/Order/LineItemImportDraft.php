@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Price;
 use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Order
@@ -29,6 +30,8 @@ use Commercetools\Core\Model\TaxCategory\TaxRate;
  * @method LineItemImportDraft setSupplyChannel(ChannelReference $supplyChannel = null)
  * @method TaxRate getTaxRate()
  * @method LineItemImportDraft setTaxRate(TaxRate $taxRate = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method LineItemImportDraft setCustom(CustomFieldObjectDraft $custom = null)
  */
 class LineItemImportDraft extends JsonObject
 {
@@ -43,6 +46,7 @@ class LineItemImportDraft extends JsonObject
             'state' => [static::TYPE => '\Commercetools\Core\Model\Order\ItemStateCollection'],
             'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
             'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft']
         ];
     }
 }

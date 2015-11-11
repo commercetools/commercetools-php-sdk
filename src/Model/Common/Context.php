@@ -76,9 +76,7 @@ class Context extends Container
         $context = $this;
         $this[static::GRACEFUL] = false;
         $this[static::LANGUAGES] = [];
-        $this[static::CURRENCY_FORMATTER] = function () use ($context) {
-            return new CurrencyFormatter($context);
-        };
+        $this[static::CURRENCY_FORMATTER] = new CurrencyFormatter($context);
         $this[static::LOCALE] = null;
         if (extension_loaded('intl')) {
             $this[static::LOCALE] = \Locale::getDefault();

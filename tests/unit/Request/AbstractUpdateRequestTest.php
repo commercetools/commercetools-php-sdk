@@ -85,7 +85,7 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
     public function testAddAction()
     {
         $request = $this->getUpdateRequest();
-        $request->addAction(['key' => 'value']);
+        $request->addActionAsArray(['key' => 'value']);
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('{"version":"version","actions":[{"key":"value"}]}', (string)$httpRequest->getBody());
@@ -100,7 +100,7 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getUpdateRequest();
         $request->setContext(Context::of()->setLogger($logger));
         for ($i = 0; $i <= (AbstractUpdateRequest::ACTION_WARNING_TRESHOLD); $i++) {
-            $request->addAction(['key' => 'value']);
+            $request->addActionAsArray(['key' => 'value']);
         }
 
         $logEntry = $handler->getRecords()[0];
@@ -112,7 +112,7 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
     {
         $request = $this->getUpdateRequest();
         for ($i = 0; $i < (AbstractUpdateRequest::ACTION_MAX_LIMIT); $i++) {
-            $request->addAction(['key' => 'value']);
+            $request->addActionAsArray(['key' => 'value']);
         }
         $this->assertCount(AbstractUpdateRequest::ACTION_MAX_LIMIT, $request->getActions());
     }
@@ -124,7 +124,7 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
     {
         $request = $this->getUpdateRequest();
         for ($i = 0; $i <= (AbstractUpdateRequest::ACTION_MAX_LIMIT); $i++) {
-            $request->addAction(['key' => 'value']);
+            $request->addActionAsArray(['key' => 'value']);
         }
     }
 }

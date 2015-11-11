@@ -43,7 +43,7 @@ class ProductRemovePriceAction extends AbstractAction
     }
 
     /**
-     * @param int $priceId
+     * @param string $priceId
      * @param Context|callable $context
      * @return ProductRemovePriceAction
      */
