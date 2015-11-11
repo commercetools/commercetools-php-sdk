@@ -59,6 +59,6 @@ class DoctrineCacheAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testRemoveFail()
     {
-        $this->assertFalse($this->adapter->remove('test1'));
+        $this->assertTrue($this->adapter->remove('test1'));
     }
 }

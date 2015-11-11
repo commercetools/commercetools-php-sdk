@@ -13,13 +13,13 @@ use Commercetools\Core\Request\Query\ParameterInterface;
 /**
  * @method $this addParamObject(ParameterInterface $param)
  */
-trait PriceTrait
+trait SelectTrait
 {
 
-    protected function priceSelect($key, $value)
+    protected function select($key, $value)
     {
         if (!is_null($value)) {
-            $this->addParamObject(new Parameter('price.' . $key, $value));
+            $this->addParamObject(new Parameter($key, $value));
         }
 
         return $this;
@@ -29,35 +29,35 @@ trait PriceTrait
      * @param string $currency
      * @return $this
      */
-    public function priceCurrency($currency)
+    public function currency($currency)
     {
-        return $this->priceSelect('currency', $currency);
+        return $this->select('currency', $currency);
     }
 
     /**
      * @param string $country
      * @return $this
      */
-    public function priceCountry($country)
+    public function country($country)
     {
-        return $this->priceSelect('country', $country);
+        return $this->select('country', $country);
     }
 
     /**
      * @param ChannelReference $channel
      * @return $this
      */
-    public function priceChannel(ChannelReference $channel)
+    public function channel(ChannelReference $channel)
     {
-        return $this->priceSelect('channel', $channel->getId());
+        return $this->select('channel', $channel->getId());
     }
 
     /**
      * @param CustomerGroupReference $customerGroup
      * @return $this
      */
-    public function priceCustomerGroup(CustomerGroupReference $customerGroup)
+    public function customerGroup(CustomerGroupReference $customerGroup)
     {
-        return $this->priceSelect('customerGroup', $customerGroup->getId());
+        return $this->select('customerGroup', $customerGroup->getId());
     }
 }
