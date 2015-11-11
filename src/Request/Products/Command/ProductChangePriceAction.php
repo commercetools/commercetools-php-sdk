@@ -18,8 +18,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductChangePriceAction setPrice(PriceDraft $price = null)
  * @method bool getStaged()
  * @method ProductChangePriceAction setStaged(bool $staged = null)
- * @method int getPriceId()
- * @method ProductChangePriceAction setPriceId(int $priceId = null)
+ * @method string getPriceId()
+ * @method ProductChangePriceAction setPriceId(string $priceId = null)
  */
 class ProductChangePriceAction extends AbstractAction
 {
