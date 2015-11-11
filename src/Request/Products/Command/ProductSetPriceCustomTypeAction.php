@@ -18,7 +18,7 @@ use Commercetools\Core\Model\CustomField\FieldContainer;
  * @method ProductSetPriceCustomTypeAction setTypeId(string $typeId = null)
  * @method string getTypeKey()
  * @method ProductSetPriceCustomTypeAction setTypeKey(string $typeKey = null)
- * @method int getPriceId()
+ * @method string getPriceId()
  * @method ProductSetPriceCustomTypeAction setPriceId(string $priceId = null)
  * @method bool getStaged()
  * @method ProductSetPriceCustomTypeAction setStaged(bool $staged = null)

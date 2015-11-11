@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Request\Products;
 
 use Commercetools\Core\Request\ExpandTrait;
+use Commercetools\Core\Request\SelectTrait;
 use Commercetools\Core\Request\Query\Parameter;
 use Commercetools\Core\Request\QueryRequestInterface;
 use Commercetools\Core\Request\SortRequestInterface;
@@ -37,6 +38,7 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     use ExpandTrait;
     use PageTrait;
     use SortTrait;
+    use SelectTrait;
 
     protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjectionCollection';
 

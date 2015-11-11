@@ -507,6 +507,7 @@ productVariant:
     - id
     - sku
     - prices
+    - price
     - attributes
     - images
     - availability
