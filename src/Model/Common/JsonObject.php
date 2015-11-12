@@ -106,10 +106,11 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
     /**
      * @param string $field
      * @param string $key
-     * @return string|bool
+     * @param $default
+     * @return bool|string
      * @internal
      */
-    protected function fieldDefinitionValue($field, $key)
+    protected function fieldDefinitionValue($field, $key, $default = false)
     {
         $field = $this->fieldDefinition($field);
 
@@ -117,7 +118,7 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
             return $field[$key];
         }
 
-        return false;
+        return $default;
     }
 
     /**
@@ -170,9 +171,9 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
         $this->initialized[$field] = true;
     }
 
-    protected function isOptional($field, $value)
+    public function isOptional($field)
     {
-        return ($value === null && $this->fieldDefinitionValue($field, static::OPTIONAL) === false);
+        return $this->fieldDefinitionValue($field, static::OPTIONAL, false);
     }
 
     protected function decorateField($field, $value)
@@ -196,7 +197,7 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
         if (!$this->isValidType($type, $value)) {
             throw new \InvalidArgumentException(sprintf(Message::WRONG_TYPE, $field, $type));
         }
-        if ($this->isOptional($field, $value)) {
+        if ($value === null && !$this->isOptional($field)) {
             throw new \InvalidArgumentException(sprintf(Message::EXPECTS_PARAMETER, $field, $type));
         }
         if ($value instanceof ContextAwareInterface) {

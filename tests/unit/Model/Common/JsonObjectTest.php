@@ -218,4 +218,34 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('test', $context['test']);
     }
+
+    public function testOptional()
+    {
+        $obj = $this->getMock(
+            '\Commercetools\Core\Model\Common\JsonObject',
+            ['fieldDefinitions', 'getId'],
+            [],
+            'MockJsonObject'
+        );
+        $obj->expects($this->any())
+            ->method('fieldDefinitions')
+            ->will(
+                $this->returnValue(
+                    [
+                        'implicit' => [JsonObject::TYPE => 'string'],
+                        'optional' => [JsonObject::TYPE => 'string', JsonObject::OPTIONAL => true],
+                        'required' => [JsonObject::TYPE => 'string', JsonObject::OPTIONAL => false],
+                    ]
+                )
+            );
+        $obj->expects($this->any())
+            ->method('getId')
+            ->will(
+                $this->returnValue('12345')
+            );
+
+        $this->assertFalse($obj->isOptional('implicit'));
+        $this->assertTrue($obj->isOptional('optional'));
+        $this->assertFalse($obj->isOptional('required'));
+    }
 }
