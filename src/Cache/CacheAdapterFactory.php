@@ -87,7 +87,7 @@ class CacheAdapterFactory
      */
     protected function getDefaultCache()
     {
-        if (extension_loaded('apc')) {
+        if (extension_loaded('apcu')) {
             return new ApcCacheAdapter();
         }
 

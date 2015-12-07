@@ -8,46 +8,14 @@ namespace Commercetools\Core\Cache;
 
 use Doctrine\Common\Cache\ArrayCache;
 
-function extension_loaded($value)
-{
-    if ($value === 'apc') {
-        return CacheAdapterFactoryTest::getApcLoaded();
-    }
-    return \extension_loaded($value);
-}
-
 class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    protected static $apcLoaded;
-
-    public static function getApcLoaded()
-    {
-        return static::$apcLoaded;
-    }
-
-    protected function tearDown()
-    {
-        parent::tearDown();
-        static::$apcLoaded = true;
-    }
-
     /**
      * test if apc is default cache adapter and APC module is available
      */
     public function testApcDefault()
     {
-        static::$apcLoaded = true;
         $this->assertInstanceOf('\Commercetools\Core\Cache\ApcCacheAdapter', $this->getFactory()->get());
-    }
-
-    /**
-     * test if no cache adapter is given and APC module is not available
-     * @expectedException \InvalidArgumentException
-     */
-    public function testNullDefault()
-    {
-        static::$apcLoaded = false;
-        $this->getFactory()->get();
     }
 
     /**
@@ -55,7 +23,6 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testAdapterInterface()
     {
-        static::$apcLoaded = true;
         $this->assertInstanceOf('\Commercetools\Core\Cache\CacheAdapterInterface', $this->getFactory()->get());
     }
 
