@@ -33,6 +33,7 @@
     "ext-mbstring": "*"
   },
   "require-dev": {
+    "ext-apcu": ">=4.0",
     "guzzlehttp/guzzle": "^6.0",
     "phpunit/phpunit": "^4.0",
     "phpmd/phpmd": "@stable",
