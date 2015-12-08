@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\CustomField;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Type\TypeReference;
+use Commercetools\Core\Model\Common\ResourceIdentifier;
 
 /**
  * @package Commercetools\Core\Model\CustomField
@@ -18,14 +19,15 @@ use Commercetools\Core\Model\Type\TypeReference;
  * @method CustomFieldObjectDraft setFields(FieldContainer $fields = null)
  * @method string getTypeId()
  * @method CustomFieldObjectDraft setTypeId(string $typeId = null)
+ * @method ResourceIdentifier getType()
+ * @method CustomFieldObjectDraft setType(ResourceIdentifier $type = null)
  */
 class CustomFieldObjectDraft extends JsonObject
 {
     public function fieldDefinitions()
     {
         return [
-            'typeId' => [static::TYPE => 'string'],
-            'typeKey' => [static::TYPE => 'string'],
+            'type' => [static::TYPE => '\Commercetools\Core\Model\Common\ResourceIdentifier'],
             'fields' => [static::TYPE => '\Commercetools\Core\Model\CustomField\FieldContainer']
         ];
     }
