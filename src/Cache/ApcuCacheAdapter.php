@@ -9,7 +9,7 @@ namespace Commercetools\Core\Cache;
 /**
  * @package Commercetools\Core\Cache
  */
-class ApcCacheAdapter extends AbstractCacheAdapter
+class ApcuCacheAdapter extends AbstractCacheAdapter
 {
     /**
      * @param $key
@@ -18,7 +18,7 @@ class ApcCacheAdapter extends AbstractCacheAdapter
      */
     public function has($key, $options = null)
     {
-        return apc_exists($key);
+        return apcu_exists($key);
     }
 
     /**
@@ -28,7 +28,7 @@ class ApcCacheAdapter extends AbstractCacheAdapter
      */
     public function fetch($key, $options = null)
     {
-        return apc_fetch($key);
+        return apcu_fetch($key);
     }
 
     /**
@@ -40,7 +40,7 @@ class ApcCacheAdapter extends AbstractCacheAdapter
      */
     public function store($key, $data, $lifeTime = null, $options = null)
     {
-        return apc_store($key, $data, $lifeTime);
+        return apcu_store($key, $data, $lifeTime);
     }
 
     /**
@@ -50,6 +50,6 @@ class ApcCacheAdapter extends AbstractCacheAdapter
      */
     public function remove($key, $options = null)
     {
-        return apc_delete($key);
+        return apcu_delete($key);
     }
 }

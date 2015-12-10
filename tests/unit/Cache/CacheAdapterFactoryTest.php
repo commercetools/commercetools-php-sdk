@@ -15,7 +15,11 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testApcDefault()
     {
-        $this->assertInstanceOf('\Commercetools\Core\Cache\ApcCacheAdapter', $this->getFactory()->get());
+        if (extension_loaded('apcu')) {
+            $this->assertInstanceOf('\Commercetools\Core\Cache\ApcuCacheAdapter', $this->getFactory()->get());
+        } else {
+            $this->assertInstanceOf('\Commercetools\Core\Cache\ApcCacheAdapter', $this->getFactory()->get());
+        }
     }
 
     /**

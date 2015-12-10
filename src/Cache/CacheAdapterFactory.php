@@ -88,6 +88,10 @@ class CacheAdapterFactory
     protected function getDefaultCache()
     {
         if (extension_loaded('apcu')) {
+            return new ApcuCacheAdapter();
+        }
+
+        if (extension_loaded('apc')) {
             return new ApcCacheAdapter();
         }
 
