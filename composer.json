@@ -41,7 +41,7 @@
     "pdepend/pdepend": "@stable",
     "phploc/phploc": "^2.0",
     "mayflower/php-codebrowser": "^1.0",
-    "doctrine/cache": "^1.4",
+    "doctrine/cache": "dev-master",
     "monolog/monolog": "^1.12",
     "behat/behat": "^3.0",
     "phpspec/prophecy-phpunit": "^1.0",

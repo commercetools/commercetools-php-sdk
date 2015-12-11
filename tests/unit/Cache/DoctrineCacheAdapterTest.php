@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Cache;
 
 use Doctrine\Common\Cache\ApcCache;
+use Doctrine\Common\Cache\ApcuCache;
 
 class DoctrineCacheAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,12 +18,16 @@ class DoctrineCacheAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!function_exists('apc_store')) {
+        if (!extension_loaded('apc') && !extension_loaded('apcu')) {
             $this->markTestSkipped(
-                'The APCU extension is not available in backward compatible mode.'
+                'The APCu extension is not loaded.'
             );
         }
-        $cache = new ApcCache();
+        if (extension_loaded('apcu')) {
+            $cache = new ApcuCache();
+        } else {
+            $cache = new ApcCache();
+        }
         $this->adapter = new DoctrineCacheAdapter($cache);
         $this->adapter->store('test', ['key' => 'value']);
     }
