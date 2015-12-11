@@ -10,7 +10,6 @@ namespace Commercetools\Core\Model\Common;
  *
  * @method string getTypeId()
  * @method KeyResourceIdentifier setTypeId(string $typeId = null)
- * @method KeyResourceIdentifier setId(string $id = null)
  * @method string getKey()
  * @method KeyResourceIdentifier setKey(string $key = null)
  */
