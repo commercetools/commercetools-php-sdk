@@ -19,7 +19,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        if (!extension_loaded('apcu')) {
+        if (!extension_loaded('apcu') && !extension_loaded('apc')) {
             $this->markTestSkipped(
                 'The APCU extension is not available.'
             );
