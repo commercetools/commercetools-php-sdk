@@ -10,20 +10,28 @@ namespace Commercetools\Core\Model\Common;
  *
  * @method string getTypeId()
  * @method KeyResourceIdentifier setTypeId(string $typeId = null)
+ * @method KeyResourceIdentifier setId(string $id = null)
  * @method string getKey()
  * @method KeyResourceIdentifier setKey(string $key = null)
  */
 class KeyResourceIdentifier extends ResourceIdentifier
 {
     /**
-     * @return array
      * @internal
+     * @return null
      */
-    public function fieldDefinitions()
+    public function getId()
     {
-        return [
-            'typeId' => [static::TYPE => 'string'],
-            'key' => [static::TYPE => 'string']
-        ];
+        return null;
+    }
+
+    /**
+     * @internal
+     * @param null $id
+     * @return $this
+     */
+    public function setId($id = null)
+    {
+        return $this;
     }
 }

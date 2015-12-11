@@ -16,31 +16,16 @@ namespace Commercetools\Core\Model\Common;
  * @method JsonObject getObj()
  * @method Reference setObj(JsonObject $obj = null)
  */
-class Reference extends JsonObject
+class Reference extends ResourceIdentifier
 {
-    const TYPE_ID = 'typeId';
-    const ID = 'id';
     const OBJ = 'obj';
 
     public function fieldDefinitions()
     {
-        return [
-            static::TYPE_ID => [self::TYPE => 'string'],
-            static::ID => [self::TYPE => 'string'],
-            static::OBJ => [static::TYPE => '\Commercetools\Core\Model\Common\JsonObject']
-        ];
-    }
+        $fieldDefinitions = parent::fieldDefinitions();
+        $fieldDefinitions[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Common\JsonObject'];
 
-    /**
-     * @param $type
-     * @param $id
-     * @param Context|callable $context
-     * @return Reference
-     */
-    public static function ofTypeAndId($type, $id, $context = null)
-    {
-        $reference = static::of($context);
-        return $reference->setTypeId($type)->setId($id);
+        return $fieldDefinitions;
     }
 
     public function jsonSerialize()
@@ -49,5 +34,24 @@ class Reference extends JsonObject
         unset($data['obj']);
 
         return $data;
+    }
+
+    /**
+     * @internal
+     * @return null
+     */
+    public function getKey()
+    {
+        return null;
+    }
+
+    /**
+     * @internal
+     * @param null $key
+     * @return $this
+     */
+    public function setKey($key = null)
+    {
+        return $this;
     }
 }
