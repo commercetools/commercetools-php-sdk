@@ -76,10 +76,14 @@ abstract class AbstractHttpClient
     public function getHttpClient($options = [])
     {
         if (is_null($this->httpClient)) {
+            $headers = ['User-Agent' => $this->getUserAgent()];
+            if (!is_null($this->getConfig()->getAcceptEncoding())) {
+                $headers['Accept-Encoding'] = $this->getConfig()->getAcceptEncoding();
+            }
             $options = array_merge(
                 [
                     'base_uri' => $this->getBaseUrl(),
-                    'headers' => ['User-Agent' => $this->getUserAgent()]
+                    'headers' => $headers
                 ],
                 $options
             );
