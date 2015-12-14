@@ -99,7 +99,7 @@ class Config implements ContextAwareInterface
      */
     protected $throwExceptions = false;
 
-    protected $acceptEncoding;
+    protected $acceptEncoding = 'gzip';
 
     /**
      * @param array $configValues
