@@ -44,7 +44,6 @@
     "doctrine/cache": "dev-master",
     "monolog/monolog": "^1.12",
     "behat/behat": "^3.0",
-    "phpspec/prophecy-phpunit": "^1.0",
     "phpunit/phpcov": "*",
     "fabpot/php-cs-fixer": "@stable"
   }
