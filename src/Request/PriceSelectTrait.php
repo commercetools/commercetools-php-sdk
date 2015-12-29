@@ -13,7 +13,7 @@ use Commercetools\Core\Request\Query\ParameterInterface;
 /**
  * @method $this addParamObject(ParameterInterface $param)
  */
-trait SelectTrait
+trait PriceSelectTrait
 {
 
     protected function select($key, $value)
@@ -31,7 +31,7 @@ trait SelectTrait
      */
     public function currency($currency)
     {
-        return $this->select('currency', $currency);
+        return $this->select('priceCurrency', $currency);
     }
 
     /**
@@ -40,7 +40,7 @@ trait SelectTrait
      */
     public function country($country)
     {
-        return $this->select('country', $country);
+        return $this->select('priceCountry', $country);
     }
 
     /**
@@ -49,7 +49,7 @@ trait SelectTrait
      */
     public function channel(ChannelReference $channel)
     {
-        return $this->select('channel', $channel->getId());
+        return $this->select('priceChannel', $channel->getId());
     }
 
     /**
@@ -58,6 +58,6 @@ trait SelectTrait
      */
     public function customerGroup(CustomerGroupReference $customerGroup)
     {
-        return $this->select('customerGroup', $customerGroup->getId());
+        return $this->select('priceCustomerGroup', $customerGroup->getId());
     }
 }

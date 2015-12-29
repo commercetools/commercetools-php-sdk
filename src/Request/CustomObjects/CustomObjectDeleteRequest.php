@@ -36,4 +36,3 @@ class CustomObjectDeleteRequest extends AbstractDeleteRequest
         return new static($id, $version, $context);
     }
 }
-
