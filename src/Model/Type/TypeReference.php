@@ -17,6 +17,8 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method TypeReference setId(string $id = null)
  * @method Type getObj()
  * @method TypeReference setObj(Type $obj = null)
+ * @method string getKey()
+ * @method TypeReference setKey(string $key = null)
  */
 class TypeReference extends Reference
 {

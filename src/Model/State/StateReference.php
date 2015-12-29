@@ -18,6 +18,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method StateReference setId(string $id = null)
  * @method State getObj()
  * @method StateReference setObj(State $obj = null)
+ * @method string getKey()
+ * @method StateReference setKey(string $key = null)
  */
 class StateReference extends Reference
 {

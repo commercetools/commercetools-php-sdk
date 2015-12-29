@@ -18,6 +18,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method OrderReference setId(string $id = null)
  * @method Order getObj()
  * @method OrderReference setObj(Order $obj = null)
+ * @method string getKey()
+ * @method OrderReference setKey(string $key = null)
  */
 class OrderReference extends Reference
 {

@@ -18,6 +18,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method TaxCategoryReference setId(string $id = null)
  * @method TaxCategory getObj()
  * @method TaxCategoryReference setObj(TaxCategory $obj = null)
+ * @method string getKey()
+ * @method TaxCategoryReference setKey(string $key = null)
  */
 class TaxCategoryReference extends Reference
 {

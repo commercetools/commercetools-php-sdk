@@ -18,6 +18,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method ProductReference setId(string $id = null)
  * @method Product getObj()
  * @method ProductReference setObj(Product $obj = null)
+ * @method string getKey()
+ * @method ProductReference setKey(string $key = null)
  */
 class ProductReference extends Reference
 {

@@ -17,6 +17,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method ShippingMethodReference setId(string $id = null)
  * @method ShippingMethod getObj()
  * @method ShippingMethodReference setObj(ShippingMethod $obj = null)
+ * @method string getKey()
+ * @method ShippingMethodReference setKey(string $key = null)
  */
 class ShippingMethodReference extends Reference
 {

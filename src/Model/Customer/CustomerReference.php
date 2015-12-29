@@ -18,6 +18,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method CustomerReference setId(string $id = null)
  * @method Customer getObj()
  * @method CustomerReference setObj(Customer $obj = null)
+ * @method string getKey()
+ * @method CustomerReference setKey(string $key = null)
  */
 class CustomerReference extends Reference
 {

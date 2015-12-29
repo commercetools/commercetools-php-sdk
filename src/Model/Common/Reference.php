@@ -15,15 +15,19 @@ namespace Commercetools\Core\Model\Common;
  * @method Reference setId(string $id = null)
  * @method JsonObject getObj()
  * @method Reference setObj(JsonObject $obj = null)
+ * @method string getKey()
+ * @method Reference setKey(string $key = null)
  */
 class Reference extends ResourceIdentifier
 {
     const OBJ = 'obj';
 
+    const TYPE_CLASS = '\Commercetools\Core\Model\Common\JsonObject';
+
     public function fieldDefinitions()
     {
         $fieldDefinitions = parent::fieldDefinitions();
-        $fieldDefinitions[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Common\JsonObject'];
+        $fieldDefinitions[static::OBJ] = [static::TYPE => static::TYPE_CLASS];
 
         return $fieldDefinitions;
     }
@@ -34,24 +38,5 @@ class Reference extends ResourceIdentifier
         unset($data['obj']);
 
         return $data;
-    }
-
-    /**
-     * @internal
-     * @return null
-     */
-    public function getKey()
-    {
-        return null;
-    }
-
-    /**
-     * @internal
-     * @param null $key
-     * @return $this
-     */
-    public function setKey($key = null)
-    {
-        return $this;
     }
 }

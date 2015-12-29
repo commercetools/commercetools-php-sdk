@@ -18,6 +18,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method ChannelReference setId(string $id = null)
  * @method Channel getObj()
  * @method ChannelReference setObj(Channel $obj = null)
+ * @method string getKey()
+ * @method ChannelReference setKey(string $key = null)
  */
 class ChannelReference extends Reference
 {

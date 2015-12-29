@@ -17,6 +17,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method CartDiscountReference setId(string $id = null)
  * @method CartDiscount getObj()
  * @method CartDiscountReference setObj(CartDiscount $obj = null)
+ * @method string getKey()
+ * @method CartDiscountReference setKey(string $key = null)
  */
 class CartDiscountReference extends Reference
 {

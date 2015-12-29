@@ -7,9 +7,12 @@ namespace Commercetools\Core\Request\CustomObjects;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
+use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
- * Class CustomObjectDeleteRequest
+ * @package Commercetools\Core\Request\CustomObjects
+ * @method CustomObject mapResponse(ApiResponseInterface $response)
  */
 class CustomObjectDeleteRequest extends AbstractDeleteRequest
 {

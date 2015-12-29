@@ -17,6 +17,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method PaymentReference setId(string $id = null)
  * @method Payment getObj()
  * @method PaymentReference setObj(Payment $obj = null)
+ * @method string getKey()
+ * @method PaymentReference setKey(string $key = null)
  */
 class PaymentReference extends Reference
 {
