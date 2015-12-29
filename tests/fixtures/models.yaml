@@ -511,6 +511,7 @@ productVariant:
     - attributes
     - images
     - availability
+    - isMatchingVariant
 
 productVariantAvailability:
   domain: product
