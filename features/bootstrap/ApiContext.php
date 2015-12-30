@@ -188,6 +188,19 @@ trait ApiContext
         $module = $this->getModuleName($context);
         $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'ByKeyGetRequest';
         $requestContext = $context . 'Request';
+        $key = $this->objects[$requestContext]['id'];
+        $this->request = call_user_func_array($request. '::ofKey', [$key]);
+    }
+
+    /**
+     * @Given i want to fetch a :context by container and key
+     */
+    public function iWantToFetchAContextByContainerAndKey($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'ByKeyGetRequest';
+        $requestContext = $context . 'Request';
         $container = $this->objects[$requestContext]['container'];
         $key = $this->objects[$requestContext]['key'];
         $this->request = call_user_func_array($request. '::ofContainerAndKey', [$container, $key]);
@@ -268,9 +281,39 @@ trait ApiContext
     }
 
     /**
+     * @Given i want to update a :context by key
+     */
+    public function iWantToUpdateAContextByKey($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'UpdateByKeyRequest';
+
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $version = $this->objects[$requestContext]['version'];
+        $this->request = call_user_func_array($request. '::ofKeyAndVersion', [$id, $version]);
+    }
+
+
+    /**
      * @Given i want to delete a :context by key
      */
-    public function iWantToDeleteAByKey($context)
+    public function iWantToDeleteAContextByKey($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Commercetools\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'DeleteByKeyRequest';
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $version = $this->objects[$requestContext]['version'];
+        $this->request = call_user_func_array($request. '::ofKeyAndVersion', [$id, $version]);
+    }
+
+    /**
+     * @Given i want to delete a :context by container and key
+     */
+    public function iWantToDeleteAContextByContainerAndKey($context)
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);

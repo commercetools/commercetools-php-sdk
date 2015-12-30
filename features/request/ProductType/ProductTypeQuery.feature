@@ -5,6 +5,12 @@ Feature: I want to query productTypes
     Then the path should be "product-types/id"
     And the method should be "GET"
 
+  Scenario: Fetch a productType by id
+    Given a "productType" is identified by "mytype"
+    Given i want to fetch a "productType" by key
+    Then the path should be "product-types/key=mytype"
+    And the method should be "GET"
+
   Scenario: Query customers with filter applied
     Given i want to query "productTypes"
     And filter them with criteria 'name="Peter"'
