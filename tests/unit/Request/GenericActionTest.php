@@ -171,7 +171,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductSetPriceCustomTypeAction',
-                ['action', 'typeId', 'typeKey', 'priceId', 'staged', 'fields'],
+                ['action', 'type', 'priceId', 'staged', 'fields'],
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
@@ -467,7 +467,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
-                ['action', 'typeId', 'typeKey', 'fields']
+                ['action', 'type', 'fields']
             ],
             [
                 '\Commercetools\Core\Request\Zones\Command\ZoneAddLocationAction',
@@ -739,7 +739,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentAddInterfaceInteractionAction',
-                ['action', 'typeId', 'typeKey', 'fields']
+                ['action', 'type', 'fields']
             ],
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentAddTransactionAction',
@@ -767,7 +767,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentSetCustomTypeAction',
-                ['action', 'typeId', 'typeKey', 'fields']
+                ['action', 'type', 'fields']
             ],
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentSetExternalIdAction',
@@ -1352,6 +1352,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
                 'ofType',
                 [TypeReference::ofId('typeId')]
+            ],
+            [
+                '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
+                'ofType',
+                [TypeReference::ofKey('typeKey')]
             ],
             [
                 '\Commercetools\Core\Request\Zones\Command\ZoneAddLocationAction',

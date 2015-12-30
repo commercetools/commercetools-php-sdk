@@ -23,14 +23,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 class TypeReference extends Reference
 {
     const TYPE_TYPE = 'type';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Type\Type'];
-
-        return $fields;
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\Type\Type';
 
     /**
      * @param $id
@@ -39,6 +32,17 @@ class TypeReference extends Reference
      */
     public static function ofId($id, $context = null)
     {
-        return static::ofTypeAndId(static::TYPE_TYPE, $id, $context);
+        $test = static::ofTypeAndId(static::TYPE_TYPE, $id, $context);
+        return $test;
+    }
+
+    /**
+     * @param $key
+     * @param Context|callable $context
+     * @return TypeReference
+     */
+    public static function ofKey($key, $context = null)
+    {
+        return static::ofTypeAndKey(static::TYPE_TYPE, $key, $context);
     }
 }
