@@ -7,7 +7,6 @@ namespace Commercetools\Core\Model\Message;
 
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
-use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Model\Category\Category;
 
 /**
@@ -25,8 +24,6 @@ use Commercetools\Core\Model\Category\Category;
  * @method CategoryCreatedMessage setResourceVersion(int $resourceVersion = null)
  * @method string getType()
  * @method CategoryCreatedMessage setType(string $type = null)
- * @method ProductProjection getProductProjection()
- * @method ProductPublishedMessage setProductProjection(ProductProjection $productProjection = null)
  * @method Category getCategory()
  * @method CategoryCreatedMessage setCategory(Category $category = null)
  */
