@@ -663,6 +663,7 @@ channel:
     - roles
     - name
     - description
+    - custom
 
 customerGroup:
   domain: customerGroup

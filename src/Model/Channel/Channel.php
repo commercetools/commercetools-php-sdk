@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Channel;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Channel
@@ -28,6 +29,8 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Channel setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
  * @method Channel setDescription(LocalizedString $description = null)
+ * @method CustomFieldObject getCustom()
+ * @method Channel setCustom(CustomFieldObject $custom = null)
  */
 class Channel extends Resource
 {
@@ -47,7 +50,8 @@ class Channel extends Resource
             'key' => [static::TYPE => 'string'],
             'roles' => [static::TYPE => 'array'],
             'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString']
+            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
 }

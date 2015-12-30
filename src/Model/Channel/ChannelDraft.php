@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Channel;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Channel
@@ -19,6 +20,8 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method ChannelDraft setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
  * @method ChannelDraft setDescription(LocalizedString $description = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method ChannelDraft setCustom(CustomFieldObjectDraft $custom = null)
  */
 class ChannelDraft extends JsonObject
 {
@@ -29,6 +32,7 @@ class ChannelDraft extends JsonObject
             'roles' => [static::TYPE => 'array'],
             'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
         ];
     }
 
