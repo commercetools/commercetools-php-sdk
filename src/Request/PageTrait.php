@@ -22,6 +22,7 @@ trait PageTrait
     public function limit($limit)
     {
         if (!is_null($limit)) {
+            $limit = max(0, min(PageRequestInterface::MAX_PAGE_SIZE, $limit));
             $this->addParamObject(new Parameter('limit', $limit));
         }
 

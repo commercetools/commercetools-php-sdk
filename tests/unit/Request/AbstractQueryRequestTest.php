@@ -91,6 +91,25 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('test?limit=1', (string)$httpRequest->getUri());
     }
 
+    public function testLimitMinimum()
+    {
+        $request = $this->getQueryRequest();
+        $request->limit(-1);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('test?limit=0', (string)$httpRequest->getUri());
+    }
+
+    public function testLimitMaximum()
+    {
+        $max = PageRequestInterface::MAX_PAGE_SIZE + 1;
+        $request = $this->getQueryRequest();
+        $request->limit($max);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('test?limit=' . PageRequestInterface::MAX_PAGE_SIZE, (string)$httpRequest->getUri());
+    }
+
     public function testWithTotalTrue()
     {
         $request = $this->getQueryRequest();
