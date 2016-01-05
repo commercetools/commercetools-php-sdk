@@ -55,11 +55,7 @@ trait ApiContext
     public function iHaveAContextDraftWithValuesJson($context, PyStringNode $json)
     {
         $context = $this->getContext($context);
-        if ($context == 'CustomObject') {
-            $class = '\Commercetools\Core\Model\\CustomObject\\CustomObject';
-        } else {
-            $class = '\Commercetools\Core\Model\\' . $context . '\\' . $context . 'Draft';
-        }
+        $class = '\Commercetools\Core\Model\\' . $context . '\\' . $context . 'Draft';
 
         $rawData = json_decode((string)$json, true);
         $object = call_user_func_array($class.'::fromArray', [$rawData]);

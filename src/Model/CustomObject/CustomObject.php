@@ -23,8 +23,8 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method CustomObject setContainer(string $container = null)
  * @method string getKey()
  * @method CustomObject setKey(string $key = null)
- * @method string getValue()
- * @method CustomObject setValue(string $value = null)
+ * @method getValue()
+ * @method CustomObject setValue($value = null)
  */
 class CustomObject extends Resource
 {
@@ -43,7 +43,7 @@ class CustomObject extends Resource
             ],
             'container' => [static::TYPE => 'string'],
             'key' => [static::TYPE => 'string'],
-            'value' => [static::TYPE => 'string'],
+            'value' => [],
         ];
     }
 }

@@ -7,6 +7,7 @@ namespace Commercetools\Core\Request\CustomObjects;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Response\ApiResponseInterface;
 
@@ -20,20 +21,20 @@ class CustomObjectCreateRequest extends AbstractCreateRequest
     protected $resultClass = '\Commercetools\Core\Model\CustomObject\CustomObject';
 
     /**
-     * @param CustomObject $customObject
+     * @param CustomObjectDraft $customObject
      * @param Context $context
      */
-    public function __construct(CustomObject $customObject, Context $context = null)
+    public function __construct(CustomObjectDraft $customObject, Context $context = null)
     {
         parent::__construct(CustomObjectsEndpoint::endpoint(), $customObject, $context);
     }
 
     /**
-     * @param CustomObject $customObject
+     * @param CustomObjectDraft $customObject
      * @param Context $context
      * @return static
      */
-    public static function ofObject(CustomObject $customObject, Context $context = null)
+    public static function ofObject(CustomObjectDraft $customObject, Context $context = null)
     {
         return new static($customObject, $context);
     }

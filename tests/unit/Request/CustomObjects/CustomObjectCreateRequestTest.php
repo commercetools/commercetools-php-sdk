@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\CustomObjects;
 
 use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
 use Commercetools\Core\RequestTestCase;
 
 /**
@@ -18,7 +19,7 @@ class CustomObjectCreateRequestTest extends RequestTestCase
 
     public function getObject()
     {
-        return new CustomObject();
+        return new CustomObjectDraft();
     }
 
     public function testMapResult()
