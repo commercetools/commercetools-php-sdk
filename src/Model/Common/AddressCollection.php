@@ -13,5 +13,26 @@ namespace Commercetools\Core\Model\Common;
  */
 class AddressCollection extends Collection
 {
+    const ID = 'id';
+
     protected $type = '\Commercetools\Core\Model\Common\Address';
+
+    protected function indexRow($offset, $row)
+    {
+        if ($row instanceof Address) {
+            $name = $row->getId();
+        } else {
+            $name = $row[static::ID];
+        }
+        $this->addToIndex(static::ID, $offset, $name);
+    }
+
+    /**
+     * @param $id
+     * @return Address|null
+     */
+    public function getById($id)
+    {
+        return $this->getBy(static::ID, $id);
+    }
 }

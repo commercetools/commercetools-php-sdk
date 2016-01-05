@@ -46,10 +46,10 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method CustomerDraft setCustomerGroup(CustomerGroupReference $customerGroup = null)
  * @method AddressCollection getAddresses()
  * @method CustomerDraft setAddresses(AddressCollection $addresses = null)
- * @method int getDefaultShippingAddressId()
- * @method CustomerDraft setDefaultShippingAddressId(int $defaultShippingAddressId = null)
- * @method int getDefaultBillingAddressId()
- * @method CustomerDraft setDefaultBillingAddressId(int $defaultBillingAddressId = null)
+ * @method int getDefaultShippingAddress()
+ * @method CustomerDraft setDefaultShippingAddress(int $defaultShippingAddress = null)
+ * @method int getDefaultBillingAddress()
+ * @method CustomerDraft setDefaultBillingAddress(int $defaultBillingAddress = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method CustomerDraft setCustom(CustomFieldObjectDraft $custom = null)
  */
@@ -76,8 +76,8 @@ class CustomerDraft extends JsonObject
             'isEmailVerified' => [static::TYPE => 'bool'],
             'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
             'addresses' => [static::TYPE => '\Commercetools\Core\Model\Common\AddressCollection'],
-            'defaultShippingAddressId' => [static::TYPE => 'int'],
-            'defaultBillingAddressId' => [static::TYPE => 'int'],
+            'defaultShippingAddress' => [static::TYPE => 'int'],
+            'defaultBillingAddress' => [static::TYPE => 'int'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
         ];
     }

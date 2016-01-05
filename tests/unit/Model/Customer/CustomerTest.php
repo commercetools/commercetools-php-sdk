@@ -24,4 +24,35 @@ class CustomerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('John', $customer->getFirstName());
         $this->assertSame('Test', $customer->getCustomerGroup()->getObj()->getName());
     }
+
+    protected function getCustomer()
+    {
+        return Customer::fromArray(
+            [
+                'addresses' => [
+                    [
+                        'id' => 'defaultShippingAddress'
+                    ],
+                    [
+                        'id' => 'defaultBillingAddress'
+                    ],
+                ],
+                'defaultShippingAddressId' => 'defaultShippingAddress',
+                'defaultBillingAddressId' => 'defaultBillingAddress',
+            ]
+        );
+    }
+    public function testGetDefaultShippingAddress()
+    {
+        $t = $this->getCustomer();
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Address', $t->getDefaultShippingAddress());
+        $this->assertSame('defaultShippingAddress', $t->getDefaultShippingAddress()->getId());
+    }
+
+    public function testGetDefaultBillingAddress()
+    {
+        $t = $this->getCustomer();
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Address', $t->getDefaultBillingAddress());
+        $this->assertSame('defaultBillingAddress', $t->getDefaultBillingAddress()->getId());
+    }
 }
