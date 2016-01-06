@@ -13,21 +13,17 @@ use Commercetools\Core\Model\Common\ResourceIdentifier;
 /**
  * @package Commercetools\Core\Model\CustomField
  *
- * @method string getTypeKey()
- * @method CustomFieldObjectDraft setTypeKey(string $typeKey = null)
  * @method FieldContainer getFields()
  * @method CustomFieldObjectDraft setFields(FieldContainer $fields = null)
- * @method string getTypeId()
- * @method CustomFieldObjectDraft setTypeId(string $typeId = null)
- * @method ResourceIdentifier getType()
- * @method CustomFieldObjectDraft setType(ResourceIdentifier $type = null)
+ * @method TypeReference getType()
+ * @method CustomFieldObjectDraft setType(TypeReference $type = null)
  */
 class CustomFieldObjectDraft extends JsonObject
 {
     public function fieldDefinitions()
     {
         return [
-            'type' => [static::TYPE => '\Commercetools\Core\Model\Common\ResourceIdentifier'],
+            'type' => [static::TYPE => '\Commercetools\Core\Model\Type\TypeReference'],
             'fields' => [static::TYPE => '\Commercetools\Core\Model\CustomField\FieldContainer']
         ];
     }
@@ -39,7 +35,7 @@ class CustomFieldObjectDraft extends JsonObject
      */
     public static function ofTypeKey($typeKey, $context = null)
     {
-        $draft = static::of($context)->setTypeKey($typeKey);
+        $draft = static::of($context)->setType(TypeReference::ofKey($typeKey));
 
         return $draft;
     }
@@ -51,7 +47,7 @@ class CustomFieldObjectDraft extends JsonObject
      */
     public static function ofTypeId($typeId, $context = null)
     {
-        $draft = static::of($context)->setTypeId($typeId);
+        $draft = static::of($context)->setType(TypeReference::ofId($typeId));
 
         return $draft;
     }
@@ -63,7 +59,7 @@ class CustomFieldObjectDraft extends JsonObject
      */
     public static function ofType(TypeReference $type, $context = null)
     {
-        $draft = static::of($context)->setTypeId($type->getId());
+        $draft = static::of($context)->setType($type);
 
         return $draft;
     }
