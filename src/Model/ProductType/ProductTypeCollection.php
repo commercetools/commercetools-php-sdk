@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\ProductType;
@@ -16,5 +16,38 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ProductTypeCollection extends Collection
 {
+    const ID = 'id';
+    const NAME = 'name';
     protected $type = '\Commercetools\Core\Model\ProductType\ProductType';
+
+    protected function indexRow($offset, $row)
+    {
+        if ($row instanceof ProductType) {
+            $id = $row->getId();
+            $name = $row->getName();
+        } else {
+            $id = isset($row[static::ID]) ? $row[static::ID] : null;
+            $name = isset($row[static::NAME]) ? $row[static::NAME] : null;
+        }
+        $this->addToIndex(static::ID, $offset, $id);
+        $this->addToIndex(static::NAME, $offset, $name);
+    }
+
+    /**
+     * @param $id
+     * @return ProductType
+     */
+    public function getById($id)
+    {
+        return $this->getBy(static::ID, $id);
+    }
+
+    /**
+     * @param $name
+     * @return ProductType
+     */
+    public function getByName($name)
+    {
+        return $this->getBy(static::NAME, $name);
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Product;
@@ -17,6 +17,7 @@ class ProductVariantCollection extends Collection
 {
     const ID = 'id';
     const SKU = 'sku';
+    const MATCHING = 'isMatchingVariant';
     protected $type = '\Commercetools\Core\Model\Product\ProductVariant';
 
     protected function indexRow($offset, $row)
@@ -24,12 +25,15 @@ class ProductVariantCollection extends Collection
         if ($row instanceof ProductVariant) {
             $id = $row->getId();
             $sku = $row->getSku();
+            $matching = $row->getIsMatchingVariant();
         } else {
             $id = isset($row[static::ID])? $row[static::ID] : null;
             $sku = isset($row[static::SKU])? $row[static::SKU] : null;
+            $matching = isset($row[static::MATCHING])? $row[static::MATCHING] : false;
         }
         $this->addToIndex(static::ID, $offset, $id);
         $this->addToIndex(static::SKU, $offset, $sku);
+        $this->addToIndex(static::MATCHING, $offset, $matching);
     }
 
     /**
@@ -48,5 +52,10 @@ class ProductVariantCollection extends Collection
     public function getBySku($id)
     {
         return $this->getBy(static::SKU, $id);
+    }
+
+    public function getMatchingVariant()
+    {
+        return $this->getBy(static::MATCHING, true);
     }
 }

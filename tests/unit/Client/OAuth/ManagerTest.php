@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 29.01.15, 14:16
  */
 
@@ -19,7 +19,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        if (!function_exists('apc_store')) {
+        if (!extension_loaded('apcu') && !extension_loaded('apc')) {
             $this->markTestSkipped(
                 'The APCU extension is not available.'
             );

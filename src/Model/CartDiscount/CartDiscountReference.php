@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CartDiscount;
@@ -17,6 +17,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method CartDiscountReference setId(string $id = null)
  * @method CartDiscount getObj()
  * @method CartDiscountReference setObj(CartDiscount $obj = null)
+ * @method string getKey()
+ * @method CartDiscountReference setKey(string $key = null)
  */
 class CartDiscountReference extends Reference
 {

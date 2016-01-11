@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 27.01.15, 18:22
  */
 
@@ -18,6 +18,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method TaxCategoryReference setId(string $id = null)
  * @method TaxCategory getObj()
  * @method TaxCategoryReference setObj(TaxCategory $obj = null)
+ * @method string getKey()
+ * @method TaxCategoryReference setKey(string $key = null)
  */
 class TaxCategoryReference extends Reference
 {

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 22.01.15, 13:51
  */
 
@@ -14,7 +14,7 @@ use Commercetools\Core\Client\Adapter\AdapterInterface;
  */
 abstract class AbstractHttpClient
 {
-    const VERSION = '1.0.0-RC8';
+    const VERSION = '1.0.0-RC9';
 
     /**
      * @var AdapterInterface
@@ -76,10 +76,14 @@ abstract class AbstractHttpClient
     public function getHttpClient($options = [])
     {
         if (is_null($this->httpClient)) {
+            $headers = ['User-Agent' => $this->getUserAgent()];
+            if (!is_null($this->getConfig()->getAcceptEncoding())) {
+                $headers['Accept-Encoding'] = $this->getConfig()->getAcceptEncoding();
+            }
             $options = array_merge(
                 [
                     'base_uri' => $this->getBaseUrl(),
-                    'headers' => ['User-Agent' => $this->getUserAgent()]
+                    'headers' => $headers
                 ],
                 $options
             );

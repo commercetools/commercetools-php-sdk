@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Product;
@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\ImageCollection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\PriceCollection;
+use Commercetools\Core\Model\Common\Price;
 
 /**
  * @package Commercetools\Core\Model\Product
@@ -26,6 +27,10 @@ use Commercetools\Core\Model\Common\PriceCollection;
  * @method ProductVariant setImages(ImageCollection $images = null)
  * @method LocalizedString getAvailability()
  * @method ProductVariant setAvailability(LocalizedString $availability = null)
+ * @method Price getPrice()
+ * @method ProductVariant setPrice(Price $price = null)
+ * @method bool getIsMatchingVariant()
+ * @method ProductVariant setIsMatchingVariant(bool $isMatchingVariant = null)
  */
 class ProductVariant extends JsonObject
 {
@@ -35,9 +40,11 @@ class ProductVariant extends JsonObject
             'id' => [static::TYPE => 'string'],
             'sku' => [static::TYPE => 'int'],
             'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceCollection'],
+            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Price'],
             'attributes' => [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
             'images' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageCollection'],
             'availability' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'isMatchingVariant' => [static::TYPE => 'bool']
         ];
     }
 }

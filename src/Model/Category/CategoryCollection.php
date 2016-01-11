@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Category;
@@ -33,6 +33,7 @@ class CategoryCollection extends Collection
             $id = isset($row[static::ID]) ? $row[static::ID] : null;
             $parentId = isset($row[static::PARENT][static::ID]) ? $row[static::PARENT][static::ID] : null;
         }
+        $this->addToIndex(static::ID, $offset, $id);
         foreach ($slugs as $locale => $slug) {
             $locale = \Locale::canonicalize($locale);
             $this->addToIndex(static::SLUG, $offset, $locale . '-' . $slug);
@@ -44,6 +45,18 @@ class CategoryCollection extends Collection
         }
     }
 
+    /**
+     * @param $id
+     * @return Category|null
+     */
+    public function getById($id)
+    {
+        return $this->getBy(static::ID, $id);
+    }
+
+    /**
+     * @return Category[]
+     */
     public function getRoots()
     {
         $elements = [];
@@ -53,6 +66,10 @@ class CategoryCollection extends Collection
         return $elements;
     }
 
+    /**
+     * @param $parentId
+     * @return Category[]
+     */
     public function getByParent($parentId)
     {
         $elements = [];

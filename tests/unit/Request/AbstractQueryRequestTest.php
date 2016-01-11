@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 10.02.15, 10:29
  */
 
@@ -89,6 +89,25 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('test?limit=1', (string)$httpRequest->getUri());
+    }
+
+    public function testLimitMinimum()
+    {
+        $request = $this->getQueryRequest();
+        $request->limit(-1);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('test?limit=0', (string)$httpRequest->getUri());
+    }
+
+    public function testLimitMaximum()
+    {
+        $max = PageRequestInterface::MAX_PAGE_SIZE + 1;
+        $request = $this->getQueryRequest();
+        $request->limit($max);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('test?limit=' . PageRequestInterface::MAX_PAGE_SIZE, (string)$httpRequest->getUri());
     }
 
     public function testWithTotalTrue()

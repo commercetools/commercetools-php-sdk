@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 20.01.15, 17:54
  */
 
@@ -98,6 +98,8 @@ class Config implements ContextAwareInterface
      * @var bool
      */
     protected $throwExceptions = false;
+
+    protected $acceptEncoding = 'gzip';
 
     /**
      * @param array $configValues
@@ -226,6 +228,8 @@ class Config implements ContextAwareInterface
     public function setApiUrl($apiUrl)
     {
         $this->apiUrl = $apiUrl;
+
+        return $this;
     }
 
     /**
@@ -262,6 +266,8 @@ class Config implements ContextAwareInterface
     public function setBatchPoolSize($batchPoolSize)
     {
         $this->batchPoolSize = $batchPoolSize;
+
+        return $this;
     }
 
     /**
@@ -278,6 +284,8 @@ class Config implements ContextAwareInterface
     public function setAdapter($adapter)
     {
         $this->adapter = $adapter;
+
+        return $this;
     }
 
     /**
@@ -294,6 +302,26 @@ class Config implements ContextAwareInterface
     public function setThrowExceptions($throwExceptions)
     {
         $this->throwExceptions = $throwExceptions;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAcceptEncoding()
+    {
+        return $this->acceptEncoding;
+    }
+
+    /**
+     * @param string $acceptEncoding
+     */
+    public function setAcceptEncoding($acceptEncoding)
+    {
+        $this->acceptEncoding = $acceptEncoding;
+
+        return $this;
     }
 
     /**

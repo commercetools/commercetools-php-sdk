@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Customer;
@@ -44,10 +44,10 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Customer setVatId(string $vatId = null)
  * @method AddressCollection getAddresses()
  * @method Customer setAddresses(AddressCollection $addresses = null)
- * @method int getDefaultShippingAddressId()
- * @method Customer setDefaultShippingAddressId(int $defaultShippingAddressId = null)
- * @method int getDefaultBillingAddressId()
- * @method Customer setDefaultBillingAddressId(int $defaultBillingAddressId = null)
+ * @method string getDefaultShippingAddressId()
+ * @method Customer setDefaultShippingAddressId(string $defaultShippingAddressId = null)
+ * @method string getDefaultBillingAddressId()
+ * @method Customer setDefaultBillingAddressId(string $defaultBillingAddressId = null)
  * @method bool getIsEmailVerified()
  * @method Customer setIsEmailVerified(bool $isEmailVerified = null)
  * @method string getExternalId()
@@ -86,12 +86,22 @@ class Customer extends Resource
             'companyName' => [static::TYPE => 'string'],
             'vatId' => [static::TYPE => 'string'],
             'addresses' => [static::TYPE => '\Commercetools\Core\Model\Common\AddressCollection'],
-            'defaultShippingAddressId' => [static::TYPE => 'int'],
-            'defaultBillingAddressId' => [static::TYPE => 'int'],
+            'defaultShippingAddressId' => [static::TYPE => 'string'],
+            'defaultBillingAddressId' => [static::TYPE => 'string'],
             'isEmailVerified' => [static::TYPE => 'bool'],
             'externalId' => [static::TYPE => 'string'],
             'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
+    }
+
+    public function getDefaultShippingAddress()
+    {
+        return $this->getAddresses()->getById($this->getDefaultShippingAddressId());
+    }
+
+    public function getDefaultBillingAddress()
+    {
+        return $this->getAddresses()->getById($this->getDefaultBillingAddressId());
     }
 }

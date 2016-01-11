@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 04.02.15, 16:37
  */
 
@@ -18,19 +18,13 @@ use Commercetools\Core\Model\Common\Reference;
  * @method ProductTypeReference setId(string $id = null)
  * @method ProductType getObj()
  * @method ProductTypeReference setObj(ProductType $obj = null)
+ * @method string getKey()
+ * @method ProductTypeReference setKey(string $key = null)
  */
 class ProductTypeReference extends Reference
 {
     const TYPE_PRODUCT_TYPE = 'product-type';
-
-    public function fieldDefinitions()
-    {
-        return [
-            'typeId' => [self::TYPE => 'string'],
-            'id' => [self::TYPE => 'string'],
-            'obj' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductType']
-        ];
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\ProductType\ProductType';
 
     /**
      * @param $id

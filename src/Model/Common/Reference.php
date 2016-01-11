@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 27.01.15, 14:53
  */
 
@@ -15,32 +15,21 @@ namespace Commercetools\Core\Model\Common;
  * @method Reference setId(string $id = null)
  * @method JsonObject getObj()
  * @method Reference setObj(JsonObject $obj = null)
+ * @method string getKey()
+ * @method Reference setKey(string $key = null)
  */
-class Reference extends JsonObject
+class Reference extends ResourceIdentifier
 {
-    const TYPE_ID = 'typeId';
-    const ID = 'id';
     const OBJ = 'obj';
+
+    const TYPE_CLASS = '\Commercetools\Core\Model\Common\JsonObject';
 
     public function fieldDefinitions()
     {
-        return [
-            static::TYPE_ID => [self::TYPE => 'string'],
-            static::ID => [self::TYPE => 'string'],
-            static::OBJ => [static::TYPE => '\Commercetools\Core\Model\Common\JsonObject']
-        ];
-    }
+        $fieldDefinitions = parent::fieldDefinitions();
+        $fieldDefinitions[static::OBJ] = [static::TYPE => static::TYPE_CLASS];
 
-    /**
-     * @param $type
-     * @param $id
-     * @param Context|callable $context
-     * @return Reference
-     */
-    public static function ofTypeAndId($type, $id, $context = null)
-    {
-        $reference = static::of($context);
-        return $reference->setTypeId($type)->setId($id);
+        return $fieldDefinitions;
     }
 
     public function jsonSerialize()

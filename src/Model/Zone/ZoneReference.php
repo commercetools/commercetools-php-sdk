@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Zone;
@@ -16,6 +16,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method ZoneReference setId(string $id = null)
  * @method Zone getObj()
  * @method ZoneReference setObj(Zone $obj = null)
+ * @method string getKey()
+ * @method ZoneReference setKey(string $key = null)
  */
 class ZoneReference extends Reference
 {

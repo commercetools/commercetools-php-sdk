@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 04.02.15, 16:46
  */
 
@@ -18,6 +18,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method CustomerGroupReference setId(string $id = null)
  * @method CustomerGroup getObj()
  * @method CustomerGroupReference setObj(CustomerGroup $obj = null)
+ * @method string getKey()
+ * @method CustomerGroupReference setKey(string $key = null)
  */
 class CustomerGroupReference extends Reference
 {

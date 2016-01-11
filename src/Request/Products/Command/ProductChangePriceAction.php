@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -18,8 +18,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductChangePriceAction setPrice(PriceDraft $price = null)
  * @method bool getStaged()
  * @method ProductChangePriceAction setStaged(bool $staged = null)
- * @method int getPriceId()
- * @method ProductChangePriceAction setPriceId(int $priceId = null)
+ * @method string getPriceId()
+ * @method ProductChangePriceAction setPriceId(string $priceId = null)
  */
 class ProductChangePriceAction extends AbstractAction
 {
@@ -27,7 +27,7 @@ class ProductChangePriceAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'priceId' => [static::TYPE => 'int'],
+            'priceId' => [static::TYPE => 'string'],
             'price' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceDraft'],
             'staged' => [static::TYPE => 'bool'],
         ];
@@ -44,7 +44,7 @@ class ProductChangePriceAction extends AbstractAction
     }
 
     /**
-     * @param int $priceId
+     * @param string $priceId
      * @param PriceDraft $price
      * @param Context|callable $context
      * @return ProductChangePriceAction

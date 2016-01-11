@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Carts\Command;
@@ -8,19 +8,18 @@ namespace Commercetools\Core\Request\Carts\Command;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Model\CustomField\FieldContainer;
+use Commercetools\Core\Model\Type\TypeReference;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
  * @method string getAction()
  * @method CartSetLineItemCustomTypeAction setAction(string $action = null)
- * @method string getTypeId()
- * @method CartSetLineItemCustomTypeAction setTypeId(string $typeId = null)
- * @method string getTypeKey()
- * @method CartSetLineItemCustomTypeAction setTypeKey(string $typeKey = null)
  * @method string getLineItemId()
  * @method CartSetLineItemCustomTypeAction setLineItemId(string $lineItemId = null)
  * @method FieldContainer getFields()
  * @method CartSetLineItemCustomTypeAction setFields(FieldContainer $fields = null)
+ * @method TypeReference getType()
+ * @method CartSetLineItemCustomTypeAction setType(TypeReference $type = null)
  */
 class CartSetLineItemCustomTypeAction extends SetCustomTypeAction
 {
@@ -28,8 +27,7 @@ class CartSetLineItemCustomTypeAction extends SetCustomTypeAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'typeId' => [static::TYPE => 'string'],
-            'typeKey' => [static::TYPE => 'string'],
+            'type' => [static::TYPE => '\Commercetools\Core\Model\Type\TypeReference'],
             'lineItemId' => [static::TYPE => 'string'],
             'fields' => [static::TYPE => '\Commercetools\Core\Model\CustomField\FieldContainer'],
         ];

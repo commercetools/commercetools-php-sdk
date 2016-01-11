@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -8,22 +8,21 @@ namespace Commercetools\Core\Request\Products\Command;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Model\CustomField\FieldContainer;
+use Commercetools\Core\Model\Type\TypeReference;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
  *
  * @method string getAction()
  * @method ProductSetPriceCustomTypeAction setAction(string $action = null)
- * @method string getTypeId()
- * @method ProductSetPriceCustomTypeAction setTypeId(string $typeId = null)
- * @method string getTypeKey()
- * @method ProductSetPriceCustomTypeAction setTypeKey(string $typeKey = null)
- * @method int getPriceId()
- * @method ProductSetPriceCustomTypeAction setPriceId(int $priceId = null)
+ * @method string getPriceId()
+ * @method ProductSetPriceCustomTypeAction setPriceId(string $priceId = null)
  * @method bool getStaged()
  * @method ProductSetPriceCustomTypeAction setStaged(bool $staged = null)
  * @method FieldContainer getFields()
  * @method ProductSetPriceCustomTypeAction setFields(FieldContainer $fields = null)
+ * @method TypeReference getType()
+ * @method ProductSetPriceCustomTypeAction setType(TypeReference $type = null)
  */
 class ProductSetPriceCustomTypeAction extends SetCustomTypeAction
 {
@@ -31,9 +30,8 @@ class ProductSetPriceCustomTypeAction extends SetCustomTypeAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'typeId' => [static::TYPE => 'string'],
-            'typeKey' => [static::TYPE => 'string'],
-            'priceId' => [static::TYPE => 'int'],
+            'type' => [static::TYPE => '\Commercetools\Core\Model\Type\TypeReference'],
+            'priceId' => [static::TYPE => 'string'],
             'staged' => [static::TYPE => 'bool'],
             'fields' => [static::TYPE => '\Commercetools\Core\Model\CustomField\FieldContainer'],
         ];

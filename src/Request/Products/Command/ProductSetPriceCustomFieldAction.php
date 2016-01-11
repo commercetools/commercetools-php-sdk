@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -13,8 +13,8 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
  *
  * @method string getAction()
  * @method ProductSetPriceCustomFieldAction setAction(string $action = null)
- * @method int getPriceId()
- * @method ProductSetPriceCustomFieldAction setPriceId(int $priceId = null)
+ * @method string getPriceId()
+ * @method ProductSetPriceCustomFieldAction setPriceId(string $priceId = null)
  * @method bool getStaged()
  * @method ProductSetPriceCustomFieldAction setStaged(bool $staged = null)
  * @method string getName()
@@ -28,7 +28,7 @@ class ProductSetPriceCustomFieldAction extends SetCustomFieldAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'priceId' => [static::TYPE => 'int'],
+            'priceId' => [static::TYPE => 'string'],
             'staged' => [static::TYPE => 'bool'],
             'name' => [static::TYPE => 'string'],
             'value' => [static::TYPE => null],

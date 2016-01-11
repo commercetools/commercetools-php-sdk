@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 27.01.15, 10:39
  */
 
@@ -22,6 +22,7 @@ trait PageTrait
     public function limit($limit)
     {
         if (!is_null($limit)) {
+            $limit = max(0, min(PageRequestInterface::MAX_PAGE_SIZE, $limit));
             $this->addParamObject(new Parameter('limit', $limit));
         }
 

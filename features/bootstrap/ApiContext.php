@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core;
@@ -55,11 +55,7 @@ trait ApiContext
     public function iHaveAContextDraftWithValuesJson($context, PyStringNode $json)
     {
         $context = $this->getContext($context);
-        if ($context == 'CustomObject') {
-            $class = '\Commercetools\Core\Model\\CustomObject\\CustomObject';
-        } else {
-            $class = '\Commercetools\Core\Model\\' . $context . '\\' . $context . 'Draft';
-        }
+        $class = '\Commercetools\Core\Model\\' . $context . '\\' . $context . 'Draft';
 
         $rawData = json_decode((string)$json, true);
         $object = call_user_func_array($class.'::fromArray', [$rawData]);
@@ -188,6 +184,19 @@ trait ApiContext
         $module = $this->getModuleName($context);
         $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'ByKeyGetRequest';
         $requestContext = $context . 'Request';
+        $key = $this->objects[$requestContext]['id'];
+        $this->request = call_user_func_array($request. '::ofKey', [$key]);
+    }
+
+    /**
+     * @Given i want to fetch a :context by container and key
+     */
+    public function iWantToFetchAContextByContainerAndKey($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'ByKeyGetRequest';
+        $requestContext = $context . 'Request';
         $container = $this->objects[$requestContext]['container'];
         $key = $this->objects[$requestContext]['key'];
         $this->request = call_user_func_array($request. '::ofContainerAndKey', [$container, $key]);
@@ -268,9 +277,39 @@ trait ApiContext
     }
 
     /**
+     * @Given i want to update a :context by key
+     */
+    public function iWantToUpdateAContextByKey($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'UpdateByKeyRequest';
+
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $version = $this->objects[$requestContext]['version'];
+        $this->request = call_user_func_array($request. '::ofKeyAndVersion', [$id, $version]);
+    }
+
+
+    /**
      * @Given i want to delete a :context by key
      */
-    public function iWantToDeleteAByKey($context)
+    public function iWantToDeleteAContextByKey($context)
+    {
+        $context = $this->getContext($context);
+        $module = $this->getModuleName($context);
+        $request = '\Commercetools\Core\Request\\' . ucfirst($module) . '\\' . ucfirst($context) . 'DeleteByKeyRequest';
+        $requestContext = $context . 'Request';
+        $id = $this->objects[$requestContext]['id'];
+        $version = $this->objects[$requestContext]['version'];
+        $this->request = call_user_func_array($request. '::ofKeyAndVersion', [$id, $version]);
+    }
+
+    /**
+     * @Given i want to delete a :context by container and key
+     */
+    public function iWantToDeleteAContextByContainerAndKey($context)
     {
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);

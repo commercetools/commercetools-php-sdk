@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 09.02.15, 10:48
  */
 
@@ -115,6 +115,6 @@ class ProductProjection extends JsonObject
     {
         $variants = $this->getRaw('variants', []);
         array_unshift($variants, $this->getRaw('masterVariant'));
-        return ProductVariantCollection::fromArray($variants);
+        return ProductVariantCollection::fromArray($variants, $this->getContextCallback());
     }
 }

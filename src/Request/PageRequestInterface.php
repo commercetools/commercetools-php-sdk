@@ -1,12 +1,14 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request;
 
 interface PageRequestInterface extends ClientRequestInterface
 {
+    const MAX_PAGE_SIZE = 500;
+
     /**
      * @param int $limit
      * @return $this

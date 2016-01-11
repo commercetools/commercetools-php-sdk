@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created 19.01.15, 17:17
  */
 
@@ -87,6 +87,10 @@ class CacheAdapterFactory
      */
     protected function getDefaultCache()
     {
+        if (extension_loaded('apcu')) {
+            return new ApcuCacheAdapter();
+        }
+
         if (extension_loaded('apc')) {
             return new ApcCacheAdapter();
         }

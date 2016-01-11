@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\CustomField\Command;
@@ -15,12 +15,10 @@ use Commercetools\Core\Model\CustomField\FieldContainer;
  *
  * @method string getAction()
  * @method SetCustomTypeAction setAction(string $action = null)
- * @method string getTypeId()
- * @method SetCustomTypeAction setTypeId(string $typeId = null)
- * @method string getTypeKey()
- * @method SetCustomTypeAction setTypeKey(string $typeKey = null)
  * @method FieldContainer getFields()
  * @method SetCustomTypeAction setFields(FieldContainer $fields = null)
+ * @method TypeReference getType()
+ * @method SetCustomTypeAction setType(TypeReference $type = null)
  */
 class SetCustomTypeAction extends AbstractAction
 {
@@ -28,8 +26,7 @@ class SetCustomTypeAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'typeId' => [static::TYPE => 'string'],
-            'typeKey' => [static::TYPE => 'string'],
+            'type' => [static::TYPE => '\Commercetools\Core\Model\Type\TypeReference'],
             'fields' => [static::TYPE => '\Commercetools\Core\Model\CustomField\FieldContainer'],
         ];
     }
@@ -51,7 +48,7 @@ class SetCustomTypeAction extends AbstractAction
      */
     public static function ofTypeId($typeId, $context = null)
     {
-        return static::of($context)->setTypeId($typeId);
+        return static::ofType(TypeReference::ofId($typeId), $context);
     }
 
     /**
@@ -61,7 +58,7 @@ class SetCustomTypeAction extends AbstractAction
      */
     public static function ofTypeKey($typeKey, $context = null)
     {
-        return static::of($context)->setTypeKey($typeKey);
+        return static::ofType(TypeReference::ofKey($typeKey), $context);
     }
 
     /**
@@ -71,6 +68,6 @@ class SetCustomTypeAction extends AbstractAction
      */
     public static function ofType(TypeReference $type, $context = null)
     {
-        return static::of($context)->setTypeId($type->getId());
+        return static::of($context)->setType($type);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Common;
@@ -59,5 +59,12 @@ class ContextTest extends \PHPUnit_Framework_TestCase
 
         $context->setCurrencyFormatter($formatter);
         $this->assertSame($formatter, $context->getCurrencyFormatter());
+    }
+
+    public function testSerialize()
+    {
+        $context = Context::of();
+        $contextStr = serialize($context);
+        $this->assertInternalType('string', $contextStr);
     }
 }

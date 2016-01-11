@@ -8,7 +8,7 @@
 
 # to be called as "after_success: - ./push-docs-to-gh-pages.sh" in .travis.yml
 
-if [ $(phpenv version-name) = "5.5" ] ; then ant apigen; fi
+if [ $(phpenv version-name) = "5.6" ] ; then ant apigen; fi
 
 if [ "$TRAVIS_REPO_SLUG" == "sphereio/commercetools-php-sdk" ] && [ $(phpenv version-name) = "5.5" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && ( [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == `git describe --tags --always HEAD` ] ); then
   echo -e "Publishing documentation to gh-pages branch ...\n"

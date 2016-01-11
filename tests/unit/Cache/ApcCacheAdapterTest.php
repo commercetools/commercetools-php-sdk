@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 21.01.15, 15:37
  */
 
@@ -15,12 +15,16 @@ class ApcCacheAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!function_exists('apc_store')) {
+        if (!extension_loaded('apcu') && !extension_loaded('apc')) {
             $this->markTestSkipped(
                 'The APCU extension is not available.'
             );
         }
-        $this->adapter = new ApcCacheAdapter();
+        if (extension_loaded('apcu')) {
+            $this->adapter = new ApcuCacheAdapter();
+        } else {
+            $this->adapter = new ApcCacheAdapter();
+        }
         $this->adapter->store('test', ['key' => 'value']);
     }
 

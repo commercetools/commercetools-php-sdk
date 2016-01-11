@@ -1,12 +1,13 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 22.01.15, 10:46
  */
 
 namespace Commercetools\Core\Cache;
 
 use Doctrine\Common\Cache\ApcCache;
+use Doctrine\Common\Cache\ApcuCache;
 
 class DoctrineCacheAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,12 +18,16 @@ class DoctrineCacheAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!function_exists('apc_store')) {
+        if (!extension_loaded('apc') && !extension_loaded('apcu')) {
             $this->markTestSkipped(
-                'The APCU extension is not available.'
+                'The APCu extension is not loaded.'
             );
         }
-        $cache = new ApcCache();
+        if (class_exists('\Doctrine\Common\Cache\ApcuCache')) {
+            $cache = new ApcuCache();
+        } else {
+            $cache = new ApcCache();
+        }
         $this->adapter = new DoctrineCacheAdapter($cache);
         $this->adapter->store('test', ['key' => 'value']);
     }
@@ -59,6 +64,6 @@ class DoctrineCacheAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testRemoveFail()
     {
-        $this->assertFalse($this->adapter->remove('test1'));
+        $this->assertTrue($this->adapter->remove('test1'));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 27.01.15, 18:22
  */
 
@@ -18,6 +18,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method StateReference setId(string $id = null)
  * @method State getObj()
  * @method StateReference setObj(State $obj = null)
+ * @method string getKey()
+ * @method StateReference setKey(string $key = null)
  */
 class StateReference extends Reference
 {

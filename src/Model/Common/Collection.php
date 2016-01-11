@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Common;
@@ -130,6 +130,8 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
         foreach ($this->typeData as $key => $value) {
             if ($value instanceof JsonDeserializeInterface) {
                 $values[$key] = $value->toArray();
+            } else {
+                $values[$key] = $value;
             }
         }
 

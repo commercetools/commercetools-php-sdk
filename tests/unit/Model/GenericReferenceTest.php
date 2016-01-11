@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model;
@@ -35,7 +35,7 @@ class GenericReferenceTest extends AbstractModelTest
      */
     public function testValidProperties($domain, $model)
     {
-        $validFields = ['typeId', 'id', 'obj'];
+        $validFields = ['typeId', 'id', 'obj', 'key'];
         $className = $this->getClassName($domain, $model);
         $object = $this->getInstance($className);
 

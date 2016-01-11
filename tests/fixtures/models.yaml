@@ -507,9 +507,11 @@ productVariant:
     - id
     - sku
     - prices
+    - price
     - attributes
     - images
     - availability
+    - isMatchingVariant
 
 productVariantAvailability:
   domain: product
@@ -661,6 +663,7 @@ channel:
     - roles
     - name
     - description
+    - custom
 
 customerGroup:
   domain: customerGroup

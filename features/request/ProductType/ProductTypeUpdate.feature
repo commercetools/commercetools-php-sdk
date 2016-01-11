@@ -13,6 +13,20 @@ Feature: I want to update a product type
     }
     """
 
+  Scenario: Empty update by key
+    Given a "productType" is identified by "mytype" and version 1
+    And i want to update a "productType" by key
+    Then the path should be "product-types/key=mytype"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": 1,
+      "actions": [
+      ]
+    }
+    """
+
   Scenario: change name
     Given a "productType" is identified by "id" and version 1
     And i want to update a "productType"

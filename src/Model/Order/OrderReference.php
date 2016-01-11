@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  * @created: 27.01.15, 18:22
  */
 
@@ -18,6 +18,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method OrderReference setId(string $id = null)
  * @method Order getObj()
  * @method OrderReference setObj(Order $obj = null)
+ * @method string getKey()
+ * @method OrderReference setKey(string $key = null)
  */
 class OrderReference extends Reference
 {

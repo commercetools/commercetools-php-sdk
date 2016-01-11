@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @ct-jensschulze <jens.schulze@commercetools.de>
+ * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -43,7 +43,7 @@ class ProductRemovePriceAction extends AbstractAction
     }
 
     /**
-     * @param int $priceId
+     * @param string $priceId
      * @param Context|callable $context
      * @return ProductRemovePriceAction
      */
