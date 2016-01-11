@@ -1,3 +1,74 @@
+<a name="1.0.0-RC9"></a>
+# [1.0.0-RC9](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC8...v1.0.0-RC9) (2016-01-11)
+
+
+### Bug Fixes
+
+* **Collection:** fix serialization of collection with primitive types ([0e1251f](https://github.com/sphereio/commercetools-php-sdk/commit/0e1251f))
+* **CustomField:** fix custom field object draft to reflect API changes ([90156aa](https://github.com/sphereio/commercetools-php-sdk/commit/90156aa))
+* **CustomFields:** fix custom type update actions to match changed API ([26efdcf](https://github.com/sphereio/commercetools-php-sdk/commit/26efdcf))
+* **CustomObject:** remove type for custom object value ([b37c604](https://github.com/sphereio/commercetools-php-sdk/commit/b37c604)), closes [#163](https://github.com/sphereio/commercetools-php-sdk/issues/163)
+* **Product:** fix type of priceId ([23c2de5](https://github.com/sphereio/commercetools-php-sdk/commit/23c2de5))
+* **ProductProjection:** fix context of getAllVariants helper method ([28526db](https://github.com/sphereio/commercetools-php-sdk/commit/28526db))
+
+### Features
+
+* **Cart:** add fields to cart draft ([8b2ab3b](https://github.com/sphereio/commercetools-php-sdk/commit/8b2ab3b))
+* **Category:** add CategoryCreated and CategorySlugChanged messages ([014dde2](https://github.com/sphereio/commercetools-php-sdk/commit/014dde2))
+* **CategoryCollection:** add getById to CategoryCollection ([1a79cbc](https://github.com/sphereio/commercetools-php-sdk/commit/1a79cbc))
+* **Channel:** add custom field to channel ([5e9601d](https://github.com/sphereio/commercetools-php-sdk/commit/5e9601d))
+* **Client:** add config option for accept encoding (e.g. enabling gzip compression) ([c57f2ee](https://github.com/sphereio/commercetools-php-sdk/commit/c57f2ee))
+* **Client:** add gzip as default acceptEncoding ([2ddd99d](https://github.com/sphereio/commercetools-php-sdk/commit/2ddd99d))
+* **CurrencyFormatter:** change currencyFormatter to use fraction digits from intl extension ([e8d058b](https://github.com/sphereio/commercetools-php-sdk/commit/e8d058b))
+* **Customer:** add CustomerCreated message ([12c9bff](https://github.com/sphereio/commercetools-php-sdk/commit/12c9bff))
+* **Customer:** add getter for default shipping and billing address ([7b776f9](https://github.com/sphereio/commercetools-php-sdk/commit/7b776f9)), closes [#162](https://github.com/sphereio/commercetools-php-sdk/issues/162)
+* **CustomFields:** update custom field draft to API changes ([dfae984](https://github.com/sphereio/commercetools-php-sdk/commit/dfae984))
+* **CustomObject:** add delete by id request ([9eb8ba7](https://github.com/sphereio/commercetools-php-sdk/commit/9eb8ba7))
+* **Inventory:** add SetSupplyChannel action ([d453e5e](https://github.com/sphereio/commercetools-php-sdk/commit/d453e5e))
+* **Payment:** add change transaction state, timestamp and interactionId actions ([3eee823](https://github.com/sphereio/commercetools-php-sdk/commit/3eee823))
+* **Payment:** add PaymentTransactionChanged message ([7c3e6d8](https://github.com/sphereio/commercetools-php-sdk/commit/7c3e6d8))
+* **Payment:** add state and id to payment transaction ([b7ee577](https://github.com/sphereio/commercetools-php-sdk/commit/b7ee577))
+* **Product:** add price field to variant for price selection ([ea8169e](https://github.com/sphereio/commercetools-php-sdk/commit/ea8169e))
+* **Product:** add ProductCreated and ProductSlugChanged messages ([dbb8a28](https://github.com/sphereio/commercetools-php-sdk/commit/dbb8a28))
+* **Product:** support resource identifier for product type at product creation ([d7e1980](https://github.com/sphereio/commercetools-php-sdk/commit/d7e1980))
+* **ProductSearch:** add matching variant to ProductVariant object ([2e336df](https://github.com/sphereio/commercetools-php-sdk/commit/2e336df))
+* **ProductSearch:** add price select methods for search ([ad8b4cd](https://github.com/sphereio/commercetools-php-sdk/commit/ad8b4cd))
+* **ProductSearch:** add price select methods to ProductProjectionSearchRequest ([51f889d](https://github.com/sphereio/commercetools-php-sdk/commit/51f889d))
+* **ProductSearch:** add price select parameters ([f1717b8](https://github.com/sphereio/commercetools-php-sdk/commit/f1717b8))
+* **ProductType:** add get, update and delete by key requests ([0ad3973](https://github.com/sphereio/commercetools-php-sdk/commit/0ad3973))
+* **ProductType:** add getByName and getById to ProductTypeCollection ([2b2e005](https://github.com/sphereio/commercetools-php-sdk/commit/2b2e005))
+* **Request:** add min and max for query limit ([66947e6](https://github.com/sphereio/commercetools-php-sdk/commit/66947e6))
+
+
+### BREAKING CHANGES
+
+* CustomObject: CustomObjectCreateRequest expects CustomObjectDraft object
+
+  Before:
+  ```
+  $request = CustomObjectCreateRequest::ofObject(CustomObject::of()->setContainer('test')->setKey('test-key')->setValue(json_encode($value)));
+  ```
+
+  After:
+  ```
+  $request = CustomObjectCreateRequest::ofObject(CustomObjectDraft::ofContainerKeyAndValue('test', 'test-key', $value));
+  ```
+* CustomFields: the type reference had been changed at the API
+
+  Before:
+  ```
+  $customFieldObjectDraft->setTypeId('type-12345');
+  $customFieldObjectDraft->setTypeKey('type-key');
+  ```
+
+  After:
+  ```
+  $customFieldObjectDraft->setType(TypeReference::ofId('type-12345'));
+  $customFieldObjectDraft->setType(TypeReference::ofKey('type-key'));
+  ```
+
+
+
 <a name="1.0.0-RC8"></a>
 # [1.0.0-RC8](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC7...v1.0.0-RC8) (2015-10-30)
 
