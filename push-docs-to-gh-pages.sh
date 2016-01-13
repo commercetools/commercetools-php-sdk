@@ -15,6 +15,7 @@ if [ "$TRAVIS_REPO_SLUG" == "sphereio/commercetools-php-sdk" ] && [ $(phpenv ver
   echo -e "Publishing documentation to gh-pages branch ...\n"
 
   cp -R build/docs $HOME/phpdoc-current
+  cp tools/docs_index.php $HOME/docs_index.php
 
   cd $HOME
   git config --global user.email "automation@commercetools.de"
@@ -25,6 +26,7 @@ if [ "$TRAVIS_REPO_SLUG" == "sphereio/commercetools-php-sdk" ] && [ $(phpenv ver
   git rm -rf ./docs/$TRAVIS_BRANCH
   mkdir -p ./docs/$TRAVIS_BRANCH
   cp -Rf $HOME/phpdoc-current/* ./docs/$TRAVIS_BRANCH/
+  php $HOME/docs_index.php
   git add -f .
   # for testing the big conditional we do "git status" only for now.
   git status
