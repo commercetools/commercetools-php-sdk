@@ -10,7 +10,7 @@
 
 if [ $(phpenv version-name) = "5.6" ] ; then ant apigen; fi
 
-if [ "$TRAVIS_REPO_SLUG" == "sphereio/commercetools-php-sdk" ] && [ $(phpenv version-name) = "5.5" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && ( [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == `git describe --tags --always HEAD` ] ); then
+if [ "$TRAVIS_REPO_SLUG" == "sphereio/commercetools-php-sdk" ] && [ $(phpenv version-name) = "5.6" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && ( [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == `git describe --tags --always HEAD` ] ); then
   echo -e "Publishing documentation to gh-pages branch ...\n"
 
   cp -R build/docs $HOME/phpdoc-current
