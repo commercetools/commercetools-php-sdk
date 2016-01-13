@@ -8,6 +8,7 @@
 
 # to be called as "after_success: - ./push-docs-to-gh-pages.sh" in .travis.yml
 
+export SDK_VERSION=$TRAVIS_BRANCH;
 if [ $(phpenv version-name) = "5.6" ] ; then ant apigen; fi
 
 if [ "$TRAVIS_REPO_SLUG" == "sphereio/commercetools-php-sdk" ] && [ $(phpenv version-name) = "5.6" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && ( [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == `git describe --tags --always HEAD` ] ); then
