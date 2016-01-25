@@ -97,11 +97,17 @@ class Customer extends Resource
 
     public function getDefaultShippingAddress()
     {
-        return $this->getAddresses()->getById($this->getDefaultShippingAddressId());
+        if (!is_null($this->getAddresses())) {
+            return $this->getAddresses()->getById($this->getDefaultShippingAddressId());
+        }
+        return null;
     }
 
     public function getDefaultBillingAddress()
     {
-        return $this->getAddresses()->getById($this->getDefaultBillingAddressId());
+        if (!is_null($this->getAddresses())) {
+            return $this->getAddresses()->getById($this->getDefaultBillingAddressId());
+        }
+        return null;
     }
 }

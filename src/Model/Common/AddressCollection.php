@@ -31,7 +31,7 @@ class AddressCollection extends Collection
      * @param $id
      * @return Address|null
      */
-    public function getById($id)
+    public function getById($id = null)
     {
         return $this->getBy(static::ID, $id);
     }

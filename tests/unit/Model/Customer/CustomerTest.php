@@ -55,4 +55,11 @@ class CustomerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Commercetools\Core\Model\Common\Address', $t->getDefaultBillingAddress());
         $this->assertSame('defaultBillingAddress', $t->getDefaultBillingAddress()->getId());
     }
+
+    public function testGetDefaultShippingAddressForEmptyCustomer()
+    {
+        $customer = Customer::fromArray([]);
+        $this->assertNull($customer->getDefaultShippingAddress());
+        $this->assertNull($customer->getDefaultBillingAddress());
+    }
 }
