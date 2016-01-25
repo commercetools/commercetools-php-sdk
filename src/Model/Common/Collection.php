@@ -21,6 +21,8 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
 
     protected $pos = 0;
 
+    protected $keys = [];
+
     protected $index = [];
 
     /**
@@ -55,9 +57,23 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
 
     protected function indexData()
     {
+        $this->keys = array_keys($this->rawData);
         foreach ($this->rawData as $offset => $row) {
             $this->indexRow($offset, $row);
         }
+    }
+
+    /**
+     * @param array $rawData
+     * @internal
+     * @return $this
+     */
+    public function setRawData(array $rawData)
+    {
+        parent::setRawData($rawData);
+        $this->indexData();
+
+        return $this;
     }
 
     /**
@@ -183,6 +199,9 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
             $this->typeData[$offset] = $object;
         }
         $this->initialized[$offset] = true;
+        if (!in_array($offset, $this->keys)) {
+            $this->keys[] = $offset;
+        }
         $this->indexRow($offset, $object);
 
         return $this;
@@ -215,7 +234,10 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
      */
     public function current()
     {
-        return $this->getAt($this->pos);
+        if (isset($this->keys[$this->pos])) {
+            return $this->getAt($this->keys[$this->pos]);
+        }
+        return null;
     }
 
     /**
@@ -237,7 +259,10 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
      */
     public function key()
     {
-        return $this->pos;
+        if (isset($this->keys[$this->pos])) {
+            return $this->keys[$this->pos];
+        }
+        return null;
     }
 
     /**
@@ -249,7 +274,10 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
      */
     public function valid()
     {
-        return $this->offsetExists($this->pos);
+        if (isset($this->keys[$this->pos])) {
+            return $this->offsetExists($this->keys[$this->pos]);
+        }
+        return false;
     }
 
     /**
