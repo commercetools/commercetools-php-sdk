@@ -131,20 +131,26 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
         return $this;
     }
 
+    protected function convertToString($params)
+    {
+        $params = array_map(
+            function ($param) {
+                return (string)$param;
+            },
+            $params
+        );
+        sort($params);
+        $params = implode('&', $params);
+
+        return $params;
+    }
     /**
      * @return string
      * @internal
      */
     protected function getParamString()
     {
-        $params = array_map(
-            function ($param) {
-                return (string)$param;
-            },
-            $this->params
-        );
-        sort($params);
-        $params = implode('&', $params);
+        $params = $this->convertToString($this->params);
 
         return (!empty($params) ? '?' . $params : '');
     }

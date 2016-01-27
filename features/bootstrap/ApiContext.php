@@ -10,6 +10,7 @@ use Behat\Gherkin\Node\PyStringNode;
 use Commercetools\Core\Model\Common\AbstractJsonDeserializeObject;
 use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Product\Filter;
 
 trait ApiContext
 {
@@ -262,6 +263,15 @@ trait ApiContext
     }
 
     /**
+     * @Given i want to search products
+     */
+    public function iWantToSearchProducts()
+    {
+        $request = '\Commercetools\Core\Request\\Products\\ProductProjectionSearchRequest';
+        $this->request = call_user_func($request. '::of');
+    }
+
+    /**
      * @Given i want to update a :context
      */
     public function iWantToUpdateAContext($context)
@@ -351,6 +361,18 @@ trait ApiContext
     }
 
     /**
+     * @Then the body should be
+     */
+    public function theBodyShouldBe(PyStringNode $result)
+    {
+        $expectedResult = (string)$result;
+        $httpRequest = $this->request->httpRequest();
+        $request = (string)$httpRequest->getBody();
+
+        assertEquals($expectedResult, $request);
+    }
+
+    /**
      * @Then the method should be :method
      */
     public function theMethodShouldBe($expectedMethod)
@@ -369,6 +391,18 @@ trait ApiContext
          * @var \Commercetools\Core\Request\AbstractQueryRequest $request
          */
         $this->request->where($where);
+    }
+
+    /**
+     * @Given filter :field with value :value
+     */
+    public function filterFieldWithValue($field, $value)
+    {
+        /**
+         * @var \Commercetools\Core\Request\AbstractQueryRequest $request
+         */
+        $filter = Filter::of()->setName($field)->setValue($value);
+        $this->request->addFilter($filter);
     }
 
     /**

@@ -8,11 +8,13 @@ namespace Commercetools\Core\Request\Products;
 
 use Commercetools\Core\Request\ExpandTrait;
 use Commercetools\Core\Request\PriceSelectTrait;
+use Commercetools\Core\Request\Query\MultiParameter;
 use Commercetools\Core\Request\Query\Parameter;
-use Commercetools\Core\Request\QueryRequestInterface;
 use Commercetools\Core\Request\SortRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client;
+use Commercetools\Core\Client\HttpRequest;
+use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Product\ProductProjectionCollection;
 use Commercetools\Core\Request\AbstractProjectionRequest;
@@ -39,6 +41,8 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     use PageTrait;
     use SortTrait;
     use PriceSelectTrait;
+
+    protected $filters = [];
 
     protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjectionCollection';
 
@@ -99,7 +103,15 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
      */
     protected function filter($type, FilterInterface $filter, $replace = false)
     {
-        return $this->addParam($type, $filter, $replace);
+        if ($replace) {
+            $filterParam = new Parameter($type, $filter, false);
+        } else {
+            $filterParam = new MultiParameter($type, $filter, false);
+        }
+
+        $this->filters[$filterParam->getId()] = $filterParam;
+
+        return $this;
     }
 
     /**
@@ -149,5 +161,15 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
         }
 
         return $this;
+    }
+
+    /**
+     * @return HttpRequest
+     * @internal
+     */
+    public function httpRequest()
+    {
+        $body = $this->convertToString($this->filters);
+        return new HttpRequest(HttpMethod::POST, $this->getPath(), $body, 'application/x-www-form-urlencoded');
     }
 }

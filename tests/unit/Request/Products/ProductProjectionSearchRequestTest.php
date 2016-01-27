@@ -51,7 +51,8 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request->addFilter(Filter::ofType('string')->setName('key')->setValue('value'));
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('product-projections/search?filter=key%3A%22value%22', (string)$httpRequest->getUri());
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertSame('filter=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testAddMultiFilterString()
@@ -64,10 +65,8 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request->addFilter(Filter::ofType('string')->setName('foo')->setValue('bar'));
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(
-            'product-projections/search?filter=foo%3A%22bar%22&filter=key%3A%22value%22',
-            (string)$httpRequest->getUri()
-        );
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertSame('filter=foo%3A%22bar%22&filter=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testAddFilterInt()
@@ -79,7 +78,8 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request->addFilter(Filter::ofType('int')->setName('key')->setValue(10));
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('product-projections/search?filter=key%3A10', (string)$httpRequest->getUri());
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertSame('filter=key%3A10', (string)$httpRequest->getBody());
     }
 
     public function testAddFilterArray()
@@ -91,7 +91,8 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request->addFilter(Filter::ofType('array')->setName('key')->setValue([10, 20, 30]));
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('product-projections/search?filter=key%3A10%2C20%2C30', (string)$httpRequest->getUri());
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertSame('filter=key%3A10%2C20%2C30', (string)$httpRequest->getBody());
     }
 
     public function testAddFilterQuery()
@@ -103,7 +104,8 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request->addFilterQuery(Filter::ofType('string')->setName('key')->setValue('value'));
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('product-projections/search?filter.query=key%3A%22value%22', (string)$httpRequest->getUri());
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertSame('filter.query=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testAddFilterQueryFacet()
@@ -116,10 +118,8 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request->addFacet(Facet::of('string')->setName('key')->setValue('value'));
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(
-            'product-projections/search?facet=key%3A%22value%22&filter.query=key%3A%22value%22',
-            (string)$httpRequest->getUri()
-        );
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertSame('facet=key%3A%22value%22&filter.query=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testAddMultiFilterQuery()
@@ -132,9 +132,10 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request->addFilterQuery(Filter::ofType('string')->setName('foo')->setValue('bar'));
         $httpRequest = $request->httpRequest();
 
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
         $this->assertSame(
-            'product-projections/search?filter.query=foo%3A%22bar%22&filter.query=key%3A%22value%22',
-            (string)$httpRequest->getUri()
+            'filter.query=foo%3A%22bar%22&filter.query=key%3A%22value%22',
+            (string)$httpRequest->getBody()
         );
     }
 
@@ -147,10 +148,8 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request->addFilterFacets(Filter::ofType('string')->setName('key')->setValue('value'));
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(
-            'product-projections/search?filter.facets=key%3A%22value%22',
-            (string)$httpRequest->getUri()
-        );
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertSame('filter.facets=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testAddMultiFilterFacets()
@@ -163,9 +162,10 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request->addFilterFacets(Filter::ofType('string')->setName('foo')->setValue('bar'));
         $httpRequest = $request->httpRequest();
 
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
         $this->assertSame(
-            'product-projections/search?filter.facets=foo%3A%22bar%22&filter.facets=key%3A%22value%22',
-            (string)$httpRequest->getUri()
+            'filter.facets=foo%3A%22bar%22&filter.facets=key%3A%22value%22',
+            (string)$httpRequest->getBody()
         );
     }
 
@@ -178,7 +178,8 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request->addFacet(Facet::ofType('string')->setName('key')->setValue('value'));
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('product-projections/search?facet=key%3A%22value%22', (string)$httpRequest->getUri());
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertSame('facet=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testAddMultiFacet()
@@ -191,10 +192,8 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request->addFacet(Facet::ofType('string')->setName('foo')->setValue('bar'));
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(
-            'product-projections/search?facet=foo%3A%22bar%22&facet=key%3A%22value%22',
-            (string)$httpRequest->getUri()
-        );
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertSame('facet=foo%3A%22bar%22&facet=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testHttpRequestMethod()
@@ -202,7 +201,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request = ProductProjectionSearchRequest::of();
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
+        $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
     }
 
     public function testHttpRequestPath()
