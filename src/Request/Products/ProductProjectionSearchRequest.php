@@ -8,7 +8,6 @@ namespace Commercetools\Core\Request\Products;
 
 use Commercetools\Core\Request\ExpandTrait;
 use Commercetools\Core\Request\PriceSelectTrait;
-use Commercetools\Core\Request\Query\MultiParameter;
 use Commercetools\Core\Request\Query\Parameter;
 use Commercetools\Core\Request\SortRequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -41,8 +40,6 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     use PageTrait;
     use SortTrait;
     use PriceSelectTrait;
-
-    protected $filters = [];
 
     protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjectionCollection';
 
@@ -103,15 +100,7 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
      */
     protected function filter($type, FilterInterface $filter, $replace = false)
     {
-        if ($replace) {
-            $filterParam = new Parameter($type, $filter, false);
-        } else {
-            $filterParam = new MultiParameter($type, $filter, false);
-        }
-
-        $this->filters[$filterParam->getId()] = $filterParam;
-
-        return $this;
+        return $this->addParam($type, $filter, $replace);
     }
 
     /**
@@ -164,12 +153,21 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     }
 
     /**
-     * @return HttpRequest
+     * @return string
+     * @internal
+     */
+    protected function getPath()
+    {
+        return (string)$this->getEndpoint() . '/' . $this->getProjectionAction();
+    }
+
+    /**
+     * @return Client\HttpRequest
      * @internal
      */
     public function httpRequest()
     {
-        $body = $this->convertToString($this->filters);
+        $body = $this->convertToString($this->params);
         return new HttpRequest(HttpMethod::POST, $this->getPath(), $body, 'application/x-www-form-urlencoded');
     }
 }

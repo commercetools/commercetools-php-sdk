@@ -9,6 +9,7 @@ use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Model\Product\Facet;
 use Commercetools\Core\Model\Product\Filter;
 use Commercetools\Core\RequestTestCase;
+use GuzzleHttp\Psr7\Response;
 
 class ProductProjectionSearchRequestTest extends RequestTestCase
 {
@@ -16,11 +17,15 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
 
     public function testFuzzy()
     {
+        /**
+         * @var ProductProjectionSearchRequest $request
+         */
         $request = $this->getRequest(static::PRODUCT_PROJECTION_SEARCH_REQUEST);
         $request->fuzzy(true);
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('product-projections/search?fuzzy=true', (string)$httpRequest->getUri());
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertSame('fuzzy=true', (string)$httpRequest->getBody());
     }
 
     public function testMapResult()
@@ -222,6 +227,9 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
 
     public function testBuildResponse()
     {
+        /**
+         * @var Response $guzzleResponse
+         */
         $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
         $request = ProductProjectionSearchRequest::of();
         $response = $request->buildResponse($guzzleResponse);
