@@ -9,7 +9,8 @@ tools:
     php_cs_fixer:
         config: { level: psr2 }
 before_commands:
-    - composer install --prefer-source -o
+    - composer global require hirak/prestissimo
+    - composer install --prefer-dist -o
 build:
     environment:
         php: '5.5.25'
