@@ -15,7 +15,7 @@ namespace Commercetools\Core\Model\Common;
  * @method string getKey()
  * @method ResourceIdentifier setKey(string $key = null)
  */
-abstract class ResourceIdentifier extends JsonObject
+class ResourceIdentifier extends JsonObject
 {
     const TYPE_ID = 'typeId';
     const ID = 'id';

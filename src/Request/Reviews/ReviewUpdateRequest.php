@@ -40,4 +40,15 @@ class ReviewUpdateRequest extends AbstractUpdateRequest
     {
         return new static($id, $version, [], $context);
     }
+
+    /**
+     * @param string $key
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofKeyAndVersion($key, $version, Context $context = null)
+    {
+        return new static('key=' . $key, $version, [], $context);
+    }
 }

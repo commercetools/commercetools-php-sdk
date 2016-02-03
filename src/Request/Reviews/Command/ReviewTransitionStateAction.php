@@ -15,6 +15,8 @@ use Commercetools\Core\Model\State\StateReference;
  * @method ReviewTransitionStateAction setAction(string $action = null)
  * @method StateReference getState()
  * @method ReviewTransitionStateAction setState(StateReference $state = null)
+ * @method bool getForce()
+ * @method ReviewTransitionStateAction setForce(bool $force = null)
  */
 class ReviewTransitionStateAction extends TransitionStateAction
 {

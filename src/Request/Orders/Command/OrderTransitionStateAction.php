@@ -15,6 +15,8 @@ use Commercetools\Core\Model\State\StateReference;
  * @method OrderTransitionStateAction setAction(string $action = null)
  * @method StateReference getState()
  * @method OrderTransitionStateAction setState(StateReference $state = null)
+ * @method bool getForce()
+ * @method OrderTransitionStateAction setForce(bool $force = null)
  */
 class OrderTransitionStateAction extends TransitionStateAction
 {

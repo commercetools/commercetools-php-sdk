@@ -34,6 +34,8 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method State setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method bool getBuiltIn()
  * @method State setBuiltIn(bool $builtIn = null)
+ * @method array getRoles()
+ * @method State setRoles(array $roles = null)
  */
 class State extends Resource
 {
@@ -56,6 +58,7 @@ class State extends Resource
             'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'initial' => [static::TYPE => 'bool'],
             'builtIn' => [static::TYPE => 'bool'],
+            'roles' => [static::TYPE => 'array'],
             'transitions' => [static::TYPE => '\Commercetools\Core\Model\State\StateReferenceCollection']
         ];
     }

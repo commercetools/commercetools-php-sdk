@@ -510,10 +510,6 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'authorName']
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetScoreAction',
-                ['action', 'score']
-            ],
-            [
                 '\Commercetools\Core\Request\Reviews\Command\ReviewSetTextAction',
                 ['action', 'text']
             ],
@@ -523,7 +519,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Reviews\Command\ReviewTransitionStateAction',
-                ['action', 'state']
+                ['action', 'state', 'force']
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeAddEnumValueAction',
@@ -591,7 +587,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\States\Command\TransitionStateAction',
-                ['action', 'state']
+                ['action', 'state', 'force']
             ],
             [
                 '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction',
@@ -799,7 +795,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentTransitionStateAction',
-                ['action', 'state']
+                ['action', 'state', 'force']
             ],
         ];
     }
@@ -1403,10 +1399,6 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Reviews\Command\ReviewSetAuthorNameAction',
-                'of',
-            ],
-            [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetScoreAction',
                 'of',
             ],
             [

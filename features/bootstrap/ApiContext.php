@@ -117,6 +117,17 @@ trait ApiContext
     }
 
     /**
+     * @Given a :context is identified by key :key and version :version
+     */
+    public function aContextIsIdentifiedByKeyAndVersionNr($context, $key, $version)
+    {
+        $context = $this->getContext($context);
+        $requestContext = $context . 'Request';
+        $this->objects[$requestContext] = ['key' => $key, 'version' => (int)$version, 'params' => []];
+        $this->context = $requestContext;
+    }
+
+    /**
      * @Given a :context is identified by :id and version :version
      */
     public function aContextIsIdentifiedByIdAndVersionNr($context, $id, $version)
@@ -281,9 +292,15 @@ trait ApiContext
         $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'UpdateRequest';
 
         $requestContext = $context . 'Request';
-        $id = $this->objects[$requestContext]['id'];
+        if (isset($this->objects[$requestContext]['key'])) {
+            $id = $this->objects[$requestContext]['key'];
+            $method = 'ofKeyAndVersion';
+        } else {
+            $id = $this->objects[$requestContext]['id'];
+            $method = 'ofIdAndVersion';
+        }
         $version = $this->objects[$requestContext]['version'];
-        $this->request = call_user_func_array($request. '::ofIdAndVersion', [$id, $version]);
+        $this->request = call_user_func_array($request . '::' . $method, [$id, $version]);
     }
 
     /**
