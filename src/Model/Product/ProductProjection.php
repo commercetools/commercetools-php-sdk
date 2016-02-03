@@ -12,6 +12,8 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Review\ReviewRatingStatistics;
+use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Product
@@ -52,6 +54,12 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method ProductProjection setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method LocalizedSearchKeywords getSearchKeywords()
  * @method ProductProjection setSearchKeywords(LocalizedSearchKeywords $searchKeywords = null)
+ * @method ReviewRatingStatistics getReviewRatingStatistics()
+ * @method ProductProjection setReviewRatingStatistics(ReviewRatingStatistics $reviewRatingStatistics = null)
+ * @method StateReference getState()
+ * @method ProductProjection setState(StateReference $state = null)
+ * @method string getCategoryOrderHints()
+ * @method ProductProjection setCategoryOrderHints(string $categoryOrderHints = null)
  */
 class ProductProjection extends JsonObject
 {
@@ -73,6 +81,7 @@ class ProductProjection extends JsonObject
             'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'categories' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
+            'categoryOrderHints' => [static::TYPE => 'string'],
             'metaTitle' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'metaDescription' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
@@ -81,7 +90,9 @@ class ProductProjection extends JsonObject
             'masterVariant' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariant'],
             'variants' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariantCollection'],
             'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
-            'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords']
+            'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords'],
+            'reviewRatingStatistics' => [static::TYPE => '\Commercetools\Core\Model\Review\ReviewRatingStatistics'],
+            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
         ];
     }
 

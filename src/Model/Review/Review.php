@@ -8,6 +8,9 @@ namespace Commercetools\Core\Model\Review;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\State\StateReference;
+use Commercetools\Core\Model\Common\ResourceIdentifier;
+use Commercetools\Core\Model\Customer\CustomerReference;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Review
@@ -33,6 +36,22 @@ use Commercetools\Core\Model\State\StateReference;
  * @method Review setScore(float $score = null)
  * @method StateReference getState()
  * @method Review setState(StateReference $state = null)
+ * @method string getKey()
+ * @method Review setKey(string $key = null)
+ * @method string getUniquenessValue()
+ * @method Review setUniquenessValue(string $uniquenessValue = null)
+ * @method string getLocale()
+ * @method Review setLocale(string $locale = null)
+ * @method ResourceIdentifier getTarget()
+ * @method Review setTarget(ResourceIdentifier $target = null)
+ * @method int getRating()
+ * @method Review setRating(int $rating = null)
+ * @method bool getIncludedInStatistics()
+ * @method Review setIncludedInStatistics(bool $includedInStatistics = null)
+ * @method CustomerReference getCustomer()
+ * @method Review setCustomer(CustomerReference $customer = null)
+ * @method CustomFieldObject getCustom()
+ * @method Review setCustom(CustomFieldObject $custom = null)
  */
 class Review extends Resource
 {
@@ -49,13 +68,18 @@ class Review extends Resource
                 static::TYPE => '\DateTime',
                 static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
-            'productId' => [static::TYPE => 'string'],
-            'customerId' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string'],
+            'uniquenessValue' => [static::TYPE => 'string'],
+            'locale' => [static::TYPE => 'string'],
             'authorName' => [static::TYPE => 'string'],
             'title' => [static::TYPE => 'string'],
             'text' => [static::TYPE => 'string'],
-            'score' => [static::TYPE => 'float'],
+            'target' => [static::TYPE => '\Commercetools\Core\Model\Common\ResourceIdentifier'],
+            'rating' => [static::TYPE => 'int'],
             'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'includedInStatistics' => [static::TYPE => 'bool'],
+            'customer' => [static::TYPE => '\Commercetools\Core\Model\Customer\CustomerReference'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
 }

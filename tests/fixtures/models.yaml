@@ -434,7 +434,8 @@ product:
     - productType
     - masterData
     - taxCategory
-
+    - reviewRatingStatistics
+    - state
 productDraft:
   domain: product
   model: ProductDraft
@@ -475,7 +476,7 @@ productData:
     - masterVariant
     - variants
     - searchKeywords
-    - state
+    - categoryOrderHints
 
 productProjection:
   domain: product
@@ -499,6 +500,9 @@ productProjection:
     - masterVariant
     - variants
     - taxCategory
+    - categoryOrderHints
+    - state
+    - reviewRatingStatistics
 
 productVariant:
   domain: product
@@ -627,6 +631,7 @@ state:
     - initial
     - builtIn
     - transitions
+    - roles
 
 taxCategory:
   domain: taxCategory
@@ -664,6 +669,7 @@ channel:
     - name
     - description
     - custom
+    - reviewRatingStatistics
 
 customerGroup:
   domain: customerGroup
@@ -875,13 +881,18 @@ review:
     - version
     - createdAt
     - lastModifiedAt
-    - productId
-    - customerId
+    - key
+    - uniquenessValue
+    - target
     - authorName
     - title
     - text
-    - score
+    - rating
     - state
+    - locale
+    - includedInStatistics
+    - customer
+    - custom
 
 message:
   domain: message

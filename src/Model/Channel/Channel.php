@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\Review\ReviewRatingStatistics;
 
 /**
  * @package Commercetools\Core\Model\Channel
@@ -31,6 +32,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method Channel setDescription(LocalizedString $description = null)
  * @method CustomFieldObject getCustom()
  * @method Channel setCustom(CustomFieldObject $custom = null)
+ * @method ReviewRatingStatistics getReviewRatingStatistics()
+ * @method Channel setReviewRatingStatistics(ReviewRatingStatistics $reviewRatingStatistics = null)
  */
 class Channel extends Resource
 {
@@ -51,6 +54,7 @@ class Channel extends Resource
             'roles' => [static::TYPE => 'array'],
             'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'reviewRatingStatistics' => [static::TYPE => '\Commercetools\Core\Model\Review\ReviewRatingStatistics'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
