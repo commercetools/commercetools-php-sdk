@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model\Cart;
 
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Money;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -23,5 +24,16 @@ class DiscountedPricePerQuantity extends JsonObject
             'quantity' => [static::TYPE => 'int'],
             'discountedPrice' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedLineItemPrice']
         ];
+    }
+
+    /**
+     * @return Money
+     */
+    public function getDiscountedTotal()
+    {
+        return Money::ofCurrencyAndAmount(
+            $this->getDiscountedPrice()->getValue()->getCurrencyCode(),
+            $this->getDiscountedPrice()->getValue()->getCentAmount() * $this->getQuantity()
+        );
     }
 }
