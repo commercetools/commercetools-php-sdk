@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Message
- *
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#message
  * @method Message current()
  * @method MessageCollection add(Message $element)
  * @method Message getAt($offset)

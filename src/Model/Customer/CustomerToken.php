@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Customer
- * @link http://dev.commercetools.com/http-api-projects-customers.html#customer-token
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#customer-token
  * @method string getId()
  * @method CustomerToken setId(string $id = null)
  * @method string getCustomerId()

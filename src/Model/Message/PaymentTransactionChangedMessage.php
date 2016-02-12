@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Payment\Transaction;
 
 /**
  * @package Commercetools\Core\Model\Message
- *
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#payment-transaction-state-changed-message
  * @method string getId()
  * @method PaymentTransactionChangedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

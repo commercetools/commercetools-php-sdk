@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Product\ProductProjection;
 
 /**
  * @package Commercetools\Core\Model\Message
- *
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#product-published-message
  * @method string getId()
  * @method ProductPublishedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

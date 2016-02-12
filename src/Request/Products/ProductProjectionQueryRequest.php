@@ -14,7 +14,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link http://dev.commercetools.com/http-api-projects-products.html#product-projections-by-query
+ * @link https://dev.commercetools.com/http-api-projects-products.html#product-projections-by-query
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductProjectionQueryRequest extends AbstractQueryRequest

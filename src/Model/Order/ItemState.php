@@ -10,7 +10,7 @@ use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link http://dev.commercetools.com/http-api-projects-orders.html#item-state
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#item-state
  * @method int getQuantity()
  * @method ItemState setQuantity(int $quantity = null)
  * @method StateReference getState()

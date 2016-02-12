@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
+ * @link https://dev.commercetools.com/http-api-types.html#reference
  * @method Reference current()
  * @method ReferenceCollection add(Reference $element)
  * @method Reference getAt($offset)

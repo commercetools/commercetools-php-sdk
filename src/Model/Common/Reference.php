@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link http://dev.commercetools.com/http-api-types.html#reference
+ * @link https://dev.commercetools.com/http-api-types.html#reference
  * @method string getTypeId()
  * @method string getId()
  * @method Reference setTypeId(string $typeId = null)

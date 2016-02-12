@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Carts
- * @link http://dev.commercetools.com/http-api-projects-carts.html#create-cart
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#create-cart
  * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartCreateRequest extends AbstractCreateRequest

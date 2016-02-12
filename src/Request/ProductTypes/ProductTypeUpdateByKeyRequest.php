@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes
- * @link http://dev.commercetools.com/http-api-projects-productTypes.html#update-product-type
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#update-product-type
  * @method ProductType mapResponse(ApiResponseInterface $response)
  */
 class ProductTypeUpdateByKeyRequest extends AbstractUpdateByKeyRequest

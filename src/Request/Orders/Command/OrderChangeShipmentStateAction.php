@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @link http://dev.commercetools.com/http-api-projects-orders.html#change-shipment-state
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#change-shipment-state
  * @method string getAction()
  * @method OrderChangeShipmentStateAction setAction(string $action = null)
  * @method string getShipmentState()

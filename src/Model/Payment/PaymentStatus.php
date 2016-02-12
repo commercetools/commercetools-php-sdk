@@ -10,7 +10,7 @@ use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Payment
- *
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#paymentStatus
  * @method string getInterfaceCode()
  * @method PaymentStatus setInterfaceCode(string $interfaceCode = null)
  * @method string getInterfaceText()

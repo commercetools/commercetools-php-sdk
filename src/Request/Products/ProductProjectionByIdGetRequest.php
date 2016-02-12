@@ -14,7 +14,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link http://dev.commercetools.com/http-api-projects-products.html#product-projection-by-id
+ * @link https://dev.commercetools.com/http-api-projects-products.html#product-projection-by-id
  * @method ProductProjection mapResponse(ApiResponseInterface $response)
  */
 class ProductProjectionByIdGetRequest extends AbstractByIdGetRequest

@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\TaxCategory
+ * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#create-tax-category
  * @method string getName()
  * @method TaxCategoryDraft setName(string $name = null)
  * @method string getDescription()

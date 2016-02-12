@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Project
- *
+ * @link https://dev.commercetools.com/http-api-projects-project.html#project
  * @method string getKey()
  * @method Project setKey(string $key = null)
  * @method string getName()

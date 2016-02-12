@@ -9,6 +9,8 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
+ * @link https://dev.commercetools.com/http-api-types.html#reference-types
+ * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#cart-discount
  * @method CartDiscountReference current()
  * @method CartDiscountReferenceCollection add(CartDiscountReference $element)
  * @method CartDiscountReference getAt($offset)

@@ -11,7 +11,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Common
- *
+ * @link https://dev.commercetools.com/http-api-projects-products.html#new-product-price
  * @method Money getValue()
  * @method PriceDraft setValue(Money $value = null)
  * @method string getCountry()

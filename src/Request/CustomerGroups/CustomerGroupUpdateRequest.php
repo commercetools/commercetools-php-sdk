@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomerGroups
- * @link http://dev.commercetools.com/http-api-projects-customerGroups.html#update-customer-group
+ * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#update-customer-group
  * @method CustomerGroup mapResponse(ApiResponseInterface $response)
  */
 class CustomerGroupUpdateRequest extends AbstractUpdateRequest

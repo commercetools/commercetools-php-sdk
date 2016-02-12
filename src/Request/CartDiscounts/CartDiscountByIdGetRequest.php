@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts
- * @link http://dev.commercetools.com/http-api-projects-cartDiscounts.html#cart-discount-by-id
+ * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#cart-discount-by-id
  * @method CartDiscount mapResponse(ApiResponseInterface $response)
  */
 class CartDiscountByIdGetRequest extends AbstractByIdGetRequest

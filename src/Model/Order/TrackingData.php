@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link http://dev.commercetools.com/http-api-projects-orders.html#tracking-data
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#tracking-data
  * @method string getTrackingId()
  * @method TrackingData setTrackingId(string $trackingId = null)
  * @method string getCarrier()

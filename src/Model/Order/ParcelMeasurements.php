@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link http://dev.commercetools.com/http-api-projects-orders.html#parcel-measurements
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#parcel-measurements
  * @method int getHeightInMillimeter()
  * @method ParcelMeasurements setHeightInMillimeter(int $heightInMillimeter = null)
  * @method int getLengthInMillimeter()

@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\ProductType
- * @link http://dev.commercetools.com/http-api-projects-productTypes.html#product-type
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#product-type
  * @method string getId()
  * @method ProductType setId(string $id = null)
  * @method int getVersion()

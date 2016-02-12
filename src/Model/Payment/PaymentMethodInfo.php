@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Model\Payment
- *
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#paymentMethodInfo
  * @method string getPaymentInterface()
  * @method PaymentMethodInfo setPaymentInterface(string $paymentInterface = null)
  * @method string getMethod()

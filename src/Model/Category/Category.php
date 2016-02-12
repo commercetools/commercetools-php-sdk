@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Category
- * @link http://dev.commercetools.com/http-api-projects-categories.html#category
+ * @link https://dev.commercetools.com/http-api-projects-categories.html#category
  * @method string getId()
  * @method Category setId(string $id = null)
  * @method int getVersion()

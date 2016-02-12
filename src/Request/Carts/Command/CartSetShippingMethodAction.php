@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link http://dev.commercetools.com/http-api-projects-carts.html#set-shipping-method
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#set-shipping-method
  * @method string getAction()
  * @method CartSetShippingMethodAction setAction(string $action = null)
  * @method ShippingMethodReference getShippingMethod()

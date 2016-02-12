@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\Money;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link http://dev.commercetools.com/http-api-projects-carts.html#discounted-line-item-price-for-quantity
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#discounted-line-item-price-for-quantity
  * @method int getQuantity()
  * @method DiscountedPricePerQuantity setQuantity(int $quantity = null)
  * @method DiscountedLineItemPrice getDiscountedPrice()

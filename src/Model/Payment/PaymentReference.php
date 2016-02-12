@@ -10,7 +10,8 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\Payment
- *
+ * @link https://dev.commercetools.com/http-api-types.html#reference-types
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#payment
  * @method string getTypeId()
  * @method PaymentReference setTypeId(string $typeId = null)
  * @method string getId()

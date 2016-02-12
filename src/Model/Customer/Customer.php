@@ -13,7 +13,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Customer
- * @link http://dev.commercetools.com/http-api-projects-customers.html#customer
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#customer
  * @method string getId()
  * @method Customer setId(string $id = null)
  * @method int getVersion()

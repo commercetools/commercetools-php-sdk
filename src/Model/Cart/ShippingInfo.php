@@ -15,7 +15,7 @@ use Commercetools\Core\Model\TaxCategory\TaxRate;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link http://dev.commercetools.com/http-api-projects-carts.html#shipping-info
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#shipping-info
  * @method string getShippingMethodName()
  * @method ShippingInfo setShippingMethodName(string $shippingMethodName = null)
  * @method Money getPrice()

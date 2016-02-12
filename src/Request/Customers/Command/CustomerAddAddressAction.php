@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @link http://dev.commercetools.com/http-api-projects-customers.html#add-address
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#add-address
  * @method Address getAddress()
  * @method CustomerAddAddressAction setAddress(Address $address = null)
  * @method string getAction()

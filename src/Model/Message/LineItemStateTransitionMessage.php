@@ -11,7 +11,7 @@ use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Message
- *
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#line-item-state-transition-message
  * @method string getId()
  * @method LineItemStateTransitionMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

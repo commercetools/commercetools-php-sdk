@@ -11,7 +11,8 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link http://dev.commercetools.com/http-api-types.html#reference
+ * @link https://dev.commercetools.com/http-api-types.html#reference-types
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#cart
  * @method string getTypeId()
  * @method CartReference setTypeId(string $typeId = null)
  * @method string getId()

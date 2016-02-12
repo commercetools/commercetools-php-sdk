@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @link http://dev.commercetools.com/http-api-projects-orders.html#transition-custom-line-item-state
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#transition-custom-line-item-state
  * @method string getAction()
  * @method OrderTransitionCustomLineItemStateAction setAction(string $action = null)
  * @method string getCustomLineItemId()

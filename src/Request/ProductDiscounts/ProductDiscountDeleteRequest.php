@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductDiscounts
- * @link http://dev.commercetools.com/http-api-projects-productDiscounts.html#delete-product-discount
+ * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#delete-product-discount
  * @method ProductDiscount mapResponse(ApiResponseInterface $response)
  */
 class ProductDiscountDeleteRequest extends AbstractDeleteRequest

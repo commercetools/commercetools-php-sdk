@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @link http://dev.commercetools.com/http-api-projects-customers.html#change-email
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#change-email
  * @method string getEmail()
  * @method CustomerChangeEmailAction setEmail(string $email = null)
  * @method string getAction()

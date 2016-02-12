@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Cart
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#cart
  * @method Cart current()
  * @method CartCollection add(Cart $element)
  * @method Cart getAt($offset)

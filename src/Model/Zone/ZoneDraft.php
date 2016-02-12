@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Zone
+ * @link https://dev.commercetools.com/http-api-projects-zones.html#create-zone
  * @method string getName()
  * @method ZoneDraft setName(string $name = null)
  * @method string getDescription()

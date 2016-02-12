@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Carts
- * @link http://dev.commercetools.com/http-api-projects-carts.html#delete-cart
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#delete-cart
  * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartDeleteRequest extends AbstractDeleteRequest

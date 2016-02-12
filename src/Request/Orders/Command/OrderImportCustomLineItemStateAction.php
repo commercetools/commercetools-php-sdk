@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @link http://dev.commercetools.com/http-api-projects-orders.html#import-custom-line-item-state
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#import-custom-line-item-state
  * @method string getAction()
  * @method OrderImportCustomLineItemStateAction setAction(string $action = null)
  * @method string getCustomLineItemId()

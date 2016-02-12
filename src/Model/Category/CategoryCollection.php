@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Category
+ * @link https://dev.commercetools.com/http-api-projects-categories.html#category
  * @method Category current()
  * @method CategoryCollection add(Category $element)
  * @method Category getAt($offset)

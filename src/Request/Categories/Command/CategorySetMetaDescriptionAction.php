@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @link http://dev.commercetools.com/http-api-projects-categories.html#set-meta-description
+ * @link https://dev.commercetools.com/http-api-projects-categories.html#set-meta-description
  * @method string getAction()
  * @method CategorySetMetaDescriptionAction setAction(string $action = null)
  * @method LocalizedString getMetaDescription()

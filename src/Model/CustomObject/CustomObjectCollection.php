@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\CustomObject
- *
+ * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#custom-object
  * @method CustomObject current()
  * @method CustomObjectCollection add(CustomObject $element)
  * @method CustomObject getAt($offset)

@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Payment
- *
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#payment
  * @method PaymentCollection add(Payment $element)
  * @method Payment current()
  * @method Payment getAt($offset)

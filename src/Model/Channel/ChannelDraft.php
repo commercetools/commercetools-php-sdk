@@ -12,6 +12,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Channel
+ * @link https://dev.commercetools.com/http-api-projects-channels.html#create-channel
  * @method string getKey()
  * @method ChannelDraft setKey(string $key = null)
  * @method array getRoles()

@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
+ * @link https://dev.commercetools.com/http-api-types.html#address
  * @method Address current()
  * @method AddressCollection add(Address $element)
  * @method Address getAt($offset)

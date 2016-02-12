@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Zone
- * @link http://dev.commercetools.com/http-api-projects-zones.html#zone
+ * @link https://dev.commercetools.com/http-api-projects-zones.html#zone
  * @method string getId()
  * @method Zone setId(string $id = null)
  * @method int getVersion()

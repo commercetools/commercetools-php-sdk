@@ -14,6 +14,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Order
+ * @link https://dev.commercetools.com/http-api-projects-orders-import.html#import-line-item
  * @method string getProductId()
  * @method LineItemImportDraft setProductId(string $productId = null)
  * @method LocalizedString getName()

@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @link http://dev.commercetools.com/http-api-projects-categories.html#set-meta-keywords
+ * @link https://dev.commercetools.com/http-api-projects-categories.html#set-meta-keywords
  * @method string getAction()
  * @method CategorySetMetaKeywordsAction setAction(string $action = null)
  * @method LocalizedString getMetaKeywords()

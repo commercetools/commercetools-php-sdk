@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Review
- *
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#review
  * @method Review current()
  * @method ReviewCollection add(Review $element)
  * @method Review getAt($offset)

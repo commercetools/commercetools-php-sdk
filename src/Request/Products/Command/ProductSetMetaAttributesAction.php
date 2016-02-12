@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link http://dev.commercetools.com/http-api-projects-products.html#set-meta-attributes
+ * @link https://dev.commercetools.com/http-api-projects-products.html#set-meta-attributes
  * @deprecated will be removed in RC1
  * @method string getAction()
  * @method ProductSetMetaAttributesAction setAction(string $action = null)

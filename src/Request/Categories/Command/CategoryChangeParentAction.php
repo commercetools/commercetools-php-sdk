@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @link http://dev.commercetools.com/http-api-projects-categories.html#change-parent
+ * @link https://dev.commercetools.com/http-api-projects-categories.html#change-parent
  * @method string getAction()
  * @method CategoryChangeParentAction setAction(string $action = null)
  * @method CategoryReference getParent()

@@ -12,7 +12,7 @@ use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Payment
- *
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#transaction
  * @method DateTimeDecorator getTimestamp()
  * @method Transaction setTimestamp(\DateTime $timestamp = null)
  * @method string getType()

@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\ProductType
- * @link http://dev.commercetools.com/http-api-projects-productTypes.html#create-product-type
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#create-product-type
  * @method string getName()
  * @method ProductTypeDraft setName(string $name = null)
  * @method string getDescription()

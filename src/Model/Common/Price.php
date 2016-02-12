@@ -12,7 +12,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link http://dev.commercetools.com/http-api-projects-products.html#product-price
+ * @link https://dev.commercetools.com/http-api-projects-products.html#product-price
  * @method Money getValue()
  * @method string getCountry()
  * @method CustomerGroupReference getCustomerGroup()

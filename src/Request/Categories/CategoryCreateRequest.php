@@ -14,7 +14,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Categories
- * @link http://dev.commercetools.com/http-api-projects-categories.html#create-category
+ * @link https://dev.commercetools.com/http-api-projects-categories.html#create-category
  * @method Category mapResponse(ApiResponseInterface $response)
  */
 class CategoryCreateRequest extends AbstractCreateRequest

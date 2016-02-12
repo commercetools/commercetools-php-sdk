@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link http://dev.commercetools.com/http-api-types.html#money
+ * @link https://dev.commercetools.com/http-api-types.html#money
  * @method string getCurrencyCode()
  * @method int getCentAmount()
  * @method Money setCurrencyCode(string $currencyCode = null)

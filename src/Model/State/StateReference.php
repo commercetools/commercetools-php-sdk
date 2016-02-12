@@ -11,7 +11,8 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\State
- * @link http://dev.commercetools.com/http-api-types.html#reference
+ * @link https://dev.commercetools.com/http-api-types.html#reference-types
+ * @link https://dev.commercetools.com/http-api-projects-states.html#state
  * @method string getTypeId()
  * @method StateReference setTypeId(string $typeId = null)
  * @method string getId()

@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\DateDecorator;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @link http://dev.commercetools.com/http-api-projects-customers.html#set-date-of-birth
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#set-date-of-birth
  * @method DateDecorator getDateOfBirth()
  * @method CustomerSetDateOfBirthAction setDateOfBirth(\DateTime $dateOfBirth = null)
  * @method string getAction()

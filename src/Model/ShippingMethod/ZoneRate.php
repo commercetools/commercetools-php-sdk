@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Zone\ZoneReference;
 
 /**
  * @package Commercetools\Core\Model\ShippingMethod
- * @link http://dev.commercetools.com/http-api-projects-shippingMethods.html#zone-rate
+ * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#zone-rate
  * @method ZoneReference getZone()
  * @method ZoneRate setZone(ZoneReference $zone = null)
  * @method ShippingRateCollection getShippingRates()

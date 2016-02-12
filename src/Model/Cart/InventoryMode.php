@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Cart;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link http://dev.commercetools.com/http-api-projects-carts.html#inventory-mode
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#inventory-mode
  */
 class InventoryMode
 {

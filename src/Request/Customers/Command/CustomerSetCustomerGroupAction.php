@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @link http://dev.commercetools.com/http-api-projects-customers.html#set-customer-group
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#set-customer-group
  * @method CustomerGroupReference getCustomerGroup()
  * @method CustomerSetCustomerGroupAction setCustomerGroup(CustomerGroupReference $customerGroup = null)
  * @method string getAction()

@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories
- * @link http://dev.commercetools.com/http-api-projects-taxCategories.html#tax-categories-by-query
+ * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#tax-categories-by-query
  * @method TaxCategoryCollection mapResponse(ApiResponseInterface $response)
  */
 class TaxCategoryQueryRequest extends AbstractQueryRequest

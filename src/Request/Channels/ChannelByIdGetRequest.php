@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Channels
- * @link http://dev.commercetools.com/http-api-projects-channels.html#channel-by-id
+ * @link https://dev.commercetools.com/http-api-projects-channels.html#channel-by-id
  * @method Channel mapResponse(ApiResponseInterface $response)
  */
 class ChannelByIdGetRequest extends AbstractByIdGetRequest

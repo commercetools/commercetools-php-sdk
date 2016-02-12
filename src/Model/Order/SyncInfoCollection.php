@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Order
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#sync-info
  * @method SyncInfo current()
  * @method SyncInfoCollection add(SyncInfo $element)
  * @method SyncInfo getAt($offset)

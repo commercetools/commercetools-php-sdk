@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\DiscountCode
- *
+ * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#discount-code
  * @method DiscountCode current()
  * @method DiscountCodeCollection add(DiscountCode $element)
  * @method DiscountCode getAt($offset)

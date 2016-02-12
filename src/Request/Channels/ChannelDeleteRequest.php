@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Channels
- * @link http://dev.commercetools.com/http-api-projects-channels.html#delete-channel
+ * @link https://dev.commercetools.com/http-api-projects-channels.html#delete-channel
  * @method Channel mapResponse(ApiResponseInterface $response)
  */
 class ChannelDeleteRequest extends AbstractDeleteRequest

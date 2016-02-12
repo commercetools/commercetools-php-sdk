@@ -10,7 +10,8 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
- * @link http://dev.commercetools.com/http-api-types.html#reference
+ * @link https://dev.commercetools.com/http-api-types.html#reference-types
+ * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#cart-discount
  * @method string getTypeId()
  * @method CartDiscountReference setTypeId(string $typeId = null)
  * @method string getId()

@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Channels
- * @link http://dev.commercetools.com/http-api-projects-channels.html#update-channel
+ * @link https://dev.commercetools.com/http-api-projects-channels.html#update-channel
  * @method Channel mapResponse(ApiResponseInterface $response)
  */
 class ChannelUpdateRequest extends AbstractUpdateRequest

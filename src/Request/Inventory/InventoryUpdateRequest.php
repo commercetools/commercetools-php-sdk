@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Inventory
- * @link http://dev.commercetools.com/http-api-projects-inventory.html#update-inventory
+ * @link https://dev.commercetools.com/http-api-projects-inventory.html#update-inventory
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
 class InventoryUpdateRequest extends AbstractUpdateRequest

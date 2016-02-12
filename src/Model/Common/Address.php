@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link http://dev.commercetools.com/http-api-types.html#address
+ * @link https://dev.commercetools.com/http-api-types.html#address
  * @method string getId()
  * @method string getTitle()
  * @method string getSalutation()

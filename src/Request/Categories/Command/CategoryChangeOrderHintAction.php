@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @link http://dev.commercetools.com/http-api-projects-categories.html#change-order-hint
+ * @link https://dev.commercetools.com/http-api-projects-categories.html#change-order-hint
  * @method string getOrderHint()
  * @method CategoryChangeOrderHintAction setOrderHint(string $orderHint = null)
  * @method string getAction()

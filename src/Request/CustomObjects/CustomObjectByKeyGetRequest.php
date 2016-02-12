@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomObjects
- * @link http://dev.commercetools.com/http-api-projects-custom-objects.html#custom-object-by-container-and-key
+ * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#custom-object-by-container-and-key
  * @method CustomObject mapResponse(ApiResponseInterface $response)
  */
 class CustomObjectByKeyGetRequest extends AbstractCustomObjectRequest

@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Messages
- * @link http://dev.commercetools.com/http-api-projects-messages.html#messages-by-query
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#messages-by-query
  * @method MessageCollection mapResponse(ApiResponseInterface $response)
  */
 class MessageQueryRequest extends AbstractQueryRequest

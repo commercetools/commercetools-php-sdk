@@ -17,7 +17,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @link http://dev.commercetools.com/http-api-projects-customers.html#create-token-for-resetting-customers-password
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#create-token-for-resetting-customers-password
  * @method CustomerToken mapResponse(ApiResponseInterface $response)
  */
 class CustomerPasswordTokenRequest extends AbstractApiRequest

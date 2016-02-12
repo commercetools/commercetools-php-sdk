@@ -17,7 +17,7 @@ use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link http://dev.commercetools.com/http-api-projects-products.html#product-projection
+ * @link https://dev.commercetools.com/http-api-projects-products.html#product-projection
  * @method string getId()
  * @method ProductProjection setId(string $id = null)
  * @method int getVersion()

@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 
 /**
  * @package Commercetools\Core\Model\Type
+ * @link https://dev.commercetools.com/http-api-projects-types.html#localized-enum-type
  * @method string getName()
  * @method LocalizedEnumType setName(string $name = null)
  * @method LocalizedEnumCollection getValues()

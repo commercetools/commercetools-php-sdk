@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link http://dev.commercetools.com/http-api-projects-carts.html#set-billing-address
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#set-billing-address
  * @method string getAction()
  * @method CartSetBillingAddressAction setAction(string $action = null)
  * @method Address getAddress()

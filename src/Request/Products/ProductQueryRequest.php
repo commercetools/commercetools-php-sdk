@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link http://dev.commercetools.com/http-api-projects-products.html#products-by-query
+ * @link https://dev.commercetools.com/http-api-projects-products.html#products-by-query
  * @method ProductCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductQueryRequest extends AbstractQueryRequest

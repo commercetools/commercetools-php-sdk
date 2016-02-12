@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\CustomObject
- * @link http://dev.commercetools.com/http-api-projects-custom-objects.html#custom-object
+ * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#custom-object
  * @method string getId()
  * @method CustomObject setId(string $id = null)
  * @method int getVersion()

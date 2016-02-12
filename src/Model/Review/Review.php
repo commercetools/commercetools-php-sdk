@@ -14,6 +14,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Review
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#review
  * @method string getId()
  * @method Review setId(string $id = null)
  * @method int getVersion()

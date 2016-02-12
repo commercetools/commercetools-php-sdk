@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods
- * @link http://dev.commercetools.com/http-api-projects-shippingMethods.html#update-shipping-method
+ * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#update-shipping-method
  * @method ShippingMethod mapResponse(ApiResponseInterface $response)
  */
 class ShippingMethodUpdateRequest extends AbstractUpdateRequest

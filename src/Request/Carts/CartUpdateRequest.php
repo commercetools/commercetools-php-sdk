@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Carts
- * @link http://dev.commercetools.com/http-api-projects-carts.html#update-cart
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#update-cart
  * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartUpdateRequest extends AbstractUpdateRequest

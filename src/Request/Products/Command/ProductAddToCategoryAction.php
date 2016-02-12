@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link http://dev.commercetools.com/http-api-projects-products.html#add-to-category
+ * @link https://dev.commercetools.com/http-api-projects-products.html#add-to-category
  * @method string getAction()
  * @method ProductAddToCategoryAction setAction(string $action = null)
  * @method CategoryReference getCategory()

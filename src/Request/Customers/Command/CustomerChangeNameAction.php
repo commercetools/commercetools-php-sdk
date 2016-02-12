@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @link http://dev.commercetools.com/http-api-projects-customers.html#change-name
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#change-name
  * @method string getFirstName()
  * @method string getLastName()
  * @method string getMiddleName()

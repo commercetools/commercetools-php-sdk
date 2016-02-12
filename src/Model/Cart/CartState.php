@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Cart;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link http://dev.commercetools.com/http-api-projects-carts.html#cart-state
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#cart-state
  */
 class CartState
 {

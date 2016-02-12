@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Zones
- * @link http://dev.commercetools.com/http-api-projects-zones.html#delete-zone
+ * @link https://dev.commercetools.com/http-api-projects-zones.html#delete-zone
  * @method Zone mapResponse(ApiResponseInterface $response)
  */
 class ZoneDeleteRequest extends AbstractDeleteRequest

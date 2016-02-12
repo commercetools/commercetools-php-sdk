@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @link http://dev.commercetools.com/http-api-projects-customers.html#customer-by-id
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#customer-by-id
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerByIdGetRequest extends AbstractByIdGetRequest

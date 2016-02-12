@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\States
- * @link http://dev.commercetools.com/http-api-projects-states.html#update-state
+ * @link https://dev.commercetools.com/http-api-projects-states.html#update-state
  * @method State mapResponse(ApiResponseInterface $response)
  */
 class StateUpdateRequest extends AbstractUpdateRequest

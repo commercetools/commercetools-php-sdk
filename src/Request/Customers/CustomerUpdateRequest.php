@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @link http://dev.commercetools.com/http-api-projects-customers.html#update-customer
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#update-customer
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerUpdateRequest extends AbstractUpdateRequest

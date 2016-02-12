@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Type\FieldType;
 
 /**
  * @package Commercetools\Core\Model\ProductType
- * @link http://dev.commercetools.com/http-api-projects-productTypes.html#attribute-definition
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#attribute-definition
  * @method AttributeType getType()
  * @method AttributeDefinition setType(AttributeType $type = null)
  * @method string getName()

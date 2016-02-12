@@ -15,7 +15,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @link http://dev.commercetools.com/http-api-projects-customers.html#reset-customers-password
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#reset-customers-password
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerPasswordResetRequest extends AbstractUpdateRequest

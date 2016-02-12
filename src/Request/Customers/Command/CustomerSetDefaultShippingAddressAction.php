@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @link http://dev.commercetools.com/http-api-projects-customers.html#set-default-shipping-address
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#set-default-shipping-address
  * @method string getAddressId()
  * @method CustomerSetDefaultShippingAddressAction setAddressId(string $addressId = null)
  * @method string getAction()

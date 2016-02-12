@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\State
- * @link http://dev.commercetools.com/http-api-projects-states.html#state
+ * @link https://dev.commercetools.com/http-api-projects-states.html#state
  * @method string getId()
  * @method State setId(string $id = null)
  * @method int getVersion()

@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Product\Search\FilterInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link http://dev.commercetools.com/http-api-projects-products-search.html#product-projections-by-search
+ * @link https://dev.commercetools.com/http-api-projects-products-search.html#product-projections-by-search
  * @method PagedSearchResponse executeWithClient(Client $client)
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
  */

@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\Context;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link http://dev.commercetools.com/http-api-projects-products.html#search-keywords
+ * @link https://dev.commercetools.com/http-api-projects-products.html#search-keywords
  * @method SearchKeywords current()
  * @method SearchKeywords getAt($offset)
  */

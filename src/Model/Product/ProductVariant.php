@@ -14,7 +14,7 @@ use Commercetools\Core\Model\Common\Price;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link http://dev.commercetools.com/http-api-projects-products.html#product-variant
+ * @link https://dev.commercetools.com/http-api-projects-products.html#product-variant
  * @method string getId()
  * @method ProductVariant setId(string $id = null)
  * @method int getSku()
