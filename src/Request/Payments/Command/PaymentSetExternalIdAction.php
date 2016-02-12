@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Customer\CustomerReference;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#set-external-id
  * @method string getAction()
  * @method PaymentSetExternalIdAction setAction(string $action = null)
  * @method string getExternalId()

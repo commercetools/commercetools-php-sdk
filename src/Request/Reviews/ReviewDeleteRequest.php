@@ -12,6 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Reviews
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#delete-review-by-id
  * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewDeleteRequest extends AbstractDeleteRequest

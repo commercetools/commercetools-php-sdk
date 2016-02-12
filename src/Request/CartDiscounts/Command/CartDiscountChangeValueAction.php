@@ -11,6 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
+ * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#change-value
  * @method string getAction()
  * @method CartDiscountChangeValueAction setAction(string $action = null)
  * @method CartDiscountValue getValue()

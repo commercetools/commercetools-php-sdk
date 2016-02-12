@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#change-target
  * @method string getAction()
  * @method CartDiscountChangeTargetAction setAction(string $action = null)
  * @method string getTarget()

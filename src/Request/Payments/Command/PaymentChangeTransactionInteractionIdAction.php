@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#change-transaction-interaction-id
  * @method string getAction()
  * @method PaymentChangeTransactionInteractionIdAction setAction(string $action = null)
  * @method string getTransactionId()

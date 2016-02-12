@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#set-methodinfo-method
  * @method string getAction()
  * @method PaymentSetMethodInfoMethodAction setAction(string $action = null)
  * @method string getMethod()

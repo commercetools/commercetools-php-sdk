@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Zones\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-zones.html#remove-location
  * @method string getAction()
  * @method ZoneRemoveLocationAction setAction(string $action = null)
  * @method Location getLocation()

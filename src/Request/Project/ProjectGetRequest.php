@@ -17,7 +17,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Project
- *
+ * @link https://dev.commercetools.com/http-api-projects-project.html#get-project
  * @method Project mapResponse(ApiResponseInterface $response)
  */
 class ProjectGetRequest extends AbstractApiRequest

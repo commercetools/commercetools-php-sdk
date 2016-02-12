@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\ResourceIdentifier;
 
 /**
  * @package Commercetools\Core\Request\Reviews\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#set-target
  * @method string getAction()
  * @method ReviewSetTargetAction setAction(string $action = null)
  * @method ResourceIdentifier getTarget()

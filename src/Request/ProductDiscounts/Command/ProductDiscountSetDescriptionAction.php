@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Request\ProductDiscounts\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#set-description
  * @method string getAction()
  * @method ProductDiscountSetDescriptionAction setAction(string $action = null)
  * @method LocalizedString getDescription()

@@ -12,6 +12,7 @@ use Commercetools\Core\Model\Type\TypeReference;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#set-line-item-custom-type
  * @method string getAction()
  * @method CartSetLineItemCustomTypeAction setAction(string $action = null)
  * @method string getLineItemId()

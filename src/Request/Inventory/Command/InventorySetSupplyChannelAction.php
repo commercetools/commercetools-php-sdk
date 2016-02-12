@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Channel\Channel;
 
 /**
  * @package Commercetools\Core\Request\Inventory\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-inventory.html#set-supply-channel
  * @method string getAction()
  * @method InventorySetSupplyChannelAction setAction(string $action = null)
  * @method Channel getSupplyChannel()

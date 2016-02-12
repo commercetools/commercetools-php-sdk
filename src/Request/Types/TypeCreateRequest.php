@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Types
- *
+ * @link https://dev.commercetools.com/http-api-projects-types.html#create-type
  * @method Type mapResponse(ApiResponseInterface $response)
  */
 class TypeCreateRequest extends AbstractCreateRequest

@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Types\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-types.html#add-enum-value-to-field-definition
  * @method string getAction()
  * @method TypeAddEnumValueAction setAction(string $action = null)
  * @method string getFieldName()

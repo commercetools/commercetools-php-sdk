@@ -13,6 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Orders
+ * @link https://dev.commercetools.com/http-api-projects-orders-import.html#create-order-by-import
  * @method Order mapResponse(ApiResponseInterface $response)
  */
 class OrderImportRequest extends AbstractCreateRequest

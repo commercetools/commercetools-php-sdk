@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#set-cartPredicate
  * @method string getAction()
  * @method DiscountCodeSetCartPredicateAction setAction(string $action = null)
  * @method string getCartPredicate()

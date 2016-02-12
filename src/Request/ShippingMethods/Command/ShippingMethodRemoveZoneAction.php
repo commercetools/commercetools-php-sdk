@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#remove-zone
  * @method string getAction()
  * @method ShippingMethodRemoveZoneAction setAction(string $action = null)
  * @method ZoneReference getZone()

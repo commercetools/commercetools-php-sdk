@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#change-description
  * @method string getAction()
  * @method ProductTypeChangeDescriptionAction setAction(string $action = null)
  * @method string getDescription()

@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Payments
- *
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#payments-by-query
  * @method PaymentCollection mapResponse(ApiResponseInterface $response)
  */
 class PaymentQueryRequest extends AbstractQueryRequest

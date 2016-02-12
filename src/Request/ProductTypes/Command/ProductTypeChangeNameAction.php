@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#change-name
  * @method string getAction()
  * @method ProductTypeChangeNameAction setAction(string $action = null)
  * @method string getName()

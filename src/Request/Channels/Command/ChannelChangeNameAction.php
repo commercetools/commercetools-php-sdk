@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Channels\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-channels.html#change-name
  * @method string getAction()
  * @method ChannelChangeNameAction setAction(string $action = null)
  * @method LocalizedString getName()

@@ -12,6 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Orders
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#delete-order
  * @method Order mapResponse(ApiResponseInterface $response)
  */
 class OrderDeleteRequest extends AbstractDeleteRequest

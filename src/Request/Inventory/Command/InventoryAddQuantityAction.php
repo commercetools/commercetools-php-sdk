@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Inventory\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#update-discount-code
  * @method string getAction()
  * @method InventoryAddQuantityAction setAction(string $action = null)
  * @method int getQuantity()

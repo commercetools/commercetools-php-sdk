@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Channels\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-channels.html#remove-roles
  * @method string getAction()
  * @method ChannelRemoveRolesAction setAction(string $action = null)
  * @method array getRoles()

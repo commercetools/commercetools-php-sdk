@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods
- *
+ * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#create-shipping-method
  * @method ShippingMethod mapResponse(ApiResponseInterface $response)
  */
 class ShippingMethodCreateRequest extends AbstractCreateRequest

@@ -10,7 +10,7 @@ namespace Commercetools\Core\Model\Common;
  * @link https://dev.commercetools.com/http-api-projects-products.html#product-variant-attribute
  * @link https://dev.commercetools.com/http-api-projects-productTypes.html#set-type
  * @link https://dev.commercetools.com/http-api-projects-productTypes.html#attribute-type
- * */
+ */
 class Set extends Collection implements TypeableInterface
 {
     /**

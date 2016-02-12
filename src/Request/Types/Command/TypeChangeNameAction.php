@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Request\Types\Command
+ * @link https://dev.commercetools.com/http-api-projects-types.html#change-name
  * @method string getAction()
  * @method TypeChangeNameAction setAction(string $action = null)
  * @method LocalizedString getName()

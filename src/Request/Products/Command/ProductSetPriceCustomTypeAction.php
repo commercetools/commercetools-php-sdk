@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Type\TypeReference;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-products.html#set-price-custom-type
  * @method string getAction()
  * @method ProductSetPriceCustomTypeAction setAction(string $action = null)
  * @method string getPriceId()

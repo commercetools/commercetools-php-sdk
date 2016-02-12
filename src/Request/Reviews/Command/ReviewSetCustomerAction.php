@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Customer\CustomerReference;
 
 /**
  * @package Commercetools\Core\Request\Reviews\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#set-customer
  * @method string getAction()
  * @method ReviewSetCustomerAction setAction(string $action = null)
  * @method CustomerReference getCustomer()

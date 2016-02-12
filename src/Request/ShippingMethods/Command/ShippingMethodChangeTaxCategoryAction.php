@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#change-tax-category
  * @method string getAction()
  * @method ShippingMethodChangeTaxCategoryAction setAction(string $action = null)
  * @method TaxCategoryReference getTaxCategory()

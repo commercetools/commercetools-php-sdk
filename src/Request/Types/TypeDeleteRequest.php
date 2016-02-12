@@ -12,6 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Types
+ * @link https://dev.commercetools.com/http-api-projects-types.html#delete-type-by-id
  * @method Type mapResponse(ApiResponseInterface $response)
  */
 class TypeDeleteRequest extends AbstractDeleteRequest

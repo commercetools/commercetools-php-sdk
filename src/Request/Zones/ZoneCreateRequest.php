@@ -13,6 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Zones
+ * @link https://dev.commercetools.com/http-api-projects-zones.html#create-zone
  * @method Zone mapResponse(ApiResponseInterface $response)
  */
 class ZoneCreateRequest extends AbstractCreateRequest

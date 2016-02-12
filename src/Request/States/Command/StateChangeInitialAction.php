@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\States\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-states.html#change-initial-state
  * @method string getAction()
  * @method StateChangeInitialAction setAction(string $action = null)
  * @method bool getInitial()

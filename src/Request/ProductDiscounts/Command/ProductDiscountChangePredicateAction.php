@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductDiscounts\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#change-predicate
  * @method string getAction()
  * @method ProductDiscountChangePredicateAction setAction(string $action = null)
  * @method string getPredicate()
