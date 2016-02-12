@@ -15,7 +15,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#custom-line-item
+ * @link http://dev.commercetools.com/http-api-projects-carts.html#custom-line-item
  * @method LocalizedString getName()
  * @method CustomLineItemDraft setName(LocalizedString $name = null)
  * @method Money getMoney()

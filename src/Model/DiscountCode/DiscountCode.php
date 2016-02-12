@@ -13,7 +13,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\DiscountCode
- * @apidoc http://dev.sphere.io/http-api-projects-discountCodes.html#discount-code
+ * @link http://dev.commercetools.com/http-api-projects-discountCodes.html#discount-code
  * @method string getId()
  * @method DiscountCode setId(string $id = null)
  * @method int getVersion()

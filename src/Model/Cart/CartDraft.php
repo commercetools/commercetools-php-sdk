@@ -13,7 +13,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#create-cart
+ * @link http://dev.commercetools.com/http-api-projects-carts.html#create-cart
  * @method string getCurrency()
  * @method string getCustomerId()
  * @method string getCountry()

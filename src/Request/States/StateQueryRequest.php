@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\States
- * @apidoc http://dev.sphere.io/http-api-projects-states.html#states-by-query
+ * @link http://dev.commercetools.com/http-api-projects-states.html#states-by-query
  * @method StateCollection mapResponse(ApiResponseInterface $response)
  */
 class StateQueryRequest extends AbstractQueryRequest

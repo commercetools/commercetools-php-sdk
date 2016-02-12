@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @apidoc http://dev.sphere.io/http-api-projects-customers.html#change-address
+ * @link http://dev.commercetools.com/http-api-projects-customers.html#change-address
  * @method string getAddressId()
  * @method Address getAddress()
  * @method CustomerChangeAddressAction setAddressId(string $addressId = null)

@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @apidoc http://dev.sphere.io/http-api-projects-orders.html#parcel
+ * @link http://dev.commercetools.com/http-api-projects-orders.html#parcel
  * @method string getId()
  * @method Parcel setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

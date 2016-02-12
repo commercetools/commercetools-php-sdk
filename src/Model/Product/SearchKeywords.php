@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#search-keywords
+ * @link http://dev.commercetools.com/http-api-projects-products.html#search-keywords
  * @method SearchKeyword current()
  * @method SearchKeywords add(SearchKeyword $element)
  * @method SearchKeyword getAt($offset)

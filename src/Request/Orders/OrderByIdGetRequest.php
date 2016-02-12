@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Orders
- * @apidoc http://dev.sphere.io/http-api-projects-orders.html#order-by-id
+ * @link http://dev.commercetools.com/http-api-projects-orders.html#order-by-id
  * @method Order mapResponse(ApiResponseInterface $response)
  */
 class OrderByIdGetRequest extends AbstractByIdGetRequest

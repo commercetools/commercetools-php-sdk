@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @apidoc http://dev.sphere.io/http-api-projects-orders.html#return-item
+ * @link http://dev.commercetools.com/http-api-projects-orders.html#return-item
  * @method string getId()
  * @method ReturnItem setId(string $id = null)
  * @method int getQuantity()

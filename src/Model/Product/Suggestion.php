@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @apidoc http://dev.sphere.io/http-api-projects-products-search.html#suggest-representations-suggestion
+ * @link http://dev.commercetools.com/http-api-projects-products-search.html#suggest-representations-suggestion
  * @method string getText()
  * @method Suggestion setText(string $text = null)
  */

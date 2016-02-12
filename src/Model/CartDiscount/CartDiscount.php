@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
- * @apidoc http://dev.sphere.io/http-api-projects-cartDiscounts.html#cart-discount
+ * @link http://dev.commercetools.com/http-api-projects-cartDiscounts.html#cart-discount
  * @method string getId()
  * @method CartDiscount setId(string $id = null)
  * @method int getVersion()

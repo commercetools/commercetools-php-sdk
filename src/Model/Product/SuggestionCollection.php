@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @apidoc http://dev.sphere.io/http-api-projects-products-search.html#suggest-representations-result
+ * @link http://dev.commercetools.com/http-api-projects-products-search.html#suggest-representations-result
  * @method Suggestion current()
  * @method SuggestionCollection add(Suggestion $element)
  * @method Suggestion getAt($offset)

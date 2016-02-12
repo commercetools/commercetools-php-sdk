@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Carts
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#cart-by-id
+ * @link http://dev.commercetools.com/http-api-projects-carts.html#cart-by-id
  * @method Cart mapResponse(ApiResponseInterface $response)
  */
 class CartByIdGetRequest extends AbstractByIdGetRequest

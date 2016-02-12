@@ -13,7 +13,7 @@ use Commercetools\Core\Model\Review\ReviewRatingStatistics;
 
 /**
  * @package Commercetools\Core\Model\Channel
- * @apidoc http://dev.sphere.io/http-api-projects-channels.html#channel
+ * @link http://dev.commercetools.com/http-api-projects-channels.html#channel
  * @method string getId()
  * @method Channel setId(string $id = null)
  * @method int getVersion()

@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Zone
- * @apidoc http://dev.sphere.io/http-api-projects-zones.html#location
+ * @link http://dev.commercetools.com/http-api-projects-zones.html#location
  * @method string getCountry()
  * @method Location setCountry(string $country = null)
  * @method string getState()

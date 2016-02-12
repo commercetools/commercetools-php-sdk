@@ -15,7 +15,7 @@ use Commercetools\Core\Model\Customer\Customer;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @apidoc http://dev.sphere.io/http-api-projects-customers.html#verify-customers-email
+ * @link http://dev.commercetools.com/http-api-projects-customers.html#verify-customers-email
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerEmailConfirmRequest extends AbstractUpdateRequest

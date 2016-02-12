@@ -15,7 +15,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#add-custom-line-item
+ * @link http://dev.commercetools.com/http-api-projects-carts.html#add-custom-line-item
  * @method string getAction()
  * @method CartAddCustomLineItemAction setAction(string $action = null)
  * @method LocalizedString getName()

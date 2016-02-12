@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories
- * @apidoc http://dev.sphere.io/http-api-projects-taxCategories.html#update-tax-category
+ * @link http://dev.commercetools.com/http-api-projects-taxCategories.html#update-tax-category
  * @method TaxCategory mapResponse(ApiResponseInterface $response)
  */
 class TaxCategoryUpdateRequest extends AbstractUpdateRequest

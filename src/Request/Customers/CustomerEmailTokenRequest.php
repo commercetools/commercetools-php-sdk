@@ -15,7 +15,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @apidoc http://dev.sphere.io/http-api-projects-customers.html#create-token-for-verifying-customers-email
+ * @link http://dev.commercetools.com/http-api-projects-customers.html#create-token-for-verifying-customers-email
  * @method CustomerToken mapResponse(ApiResponseInterface $response)
  */
 class CustomerEmailTokenRequest extends AbstractUpdateRequest

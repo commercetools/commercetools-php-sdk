@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @apidoc http://dev.sphere.io/http-api-projects-categories.html#change-slug
+ * @link http://dev.commercetools.com/http-api-projects-categories.html#change-slug
  * @method LocalizedString getSlug()
  * @method CategoryChangeSlugAction setSlug(LocalizedString $slug = null)
  * @method string getAction()

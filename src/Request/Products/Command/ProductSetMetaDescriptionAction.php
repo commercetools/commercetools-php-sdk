@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#set-meta-description
+ * @link http://dev.commercetools.com/http-api-projects-products.html#set-meta-description
  * @method string getAction()
  * @method ProductSetMetaDescriptionAction setAction(string $action = null)
  * @method LocalizedString getMetaDescription()

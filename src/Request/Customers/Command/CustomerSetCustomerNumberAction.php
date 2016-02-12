@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @apidoc http://dev.sphere.io/http-api-projects-customers.html#set-customer-number
+ * @link http://dev.commercetools.com/http-api-projects-customers.html#set-customer-number
  * @method string getCustomerNumber()
  * @method CustomerSetCustomerNumberAction setCustomerNumber(string $customerNumber = null)
  * @method string getAction()

@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @apidoc http://dev.sphere.io/http-api-projects-orders.html#sync-info
+ * @link http://dev.commercetools.com/http-api-projects-orders.html#sync-info
  * @method ChannelReference getChannel()
  * @method SyncInfo setChannel(ChannelReference $channel = null)
  * @method string getExternalId()

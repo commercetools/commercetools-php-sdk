@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomObjects
- * @apidoc http://dev.sphere.io/http-api-projects-custom-objects.html#custom-objects-by-query
+ * @link http://dev.commercetools.com/http-api-projects-custom-objects.html#custom-objects-by-query
  * @method CustomObjectCollection mapResponse(ApiResponseInterface $response)
  */
 class CustomObjectQueryRequest extends AbstractQueryRequest

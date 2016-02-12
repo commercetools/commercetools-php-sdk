@@ -15,7 +15,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @apidoc http://dev.sphere.io/http-api-projects-customers.html#change-password
+ * @link http://dev.commercetools.com/http-api-projects-customers.html#change-password
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerPasswordChangeRequest extends AbstractUpdateRequest

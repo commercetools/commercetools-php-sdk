@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Channel;
 
 /**
  * @package Commercetools\Core\Model\Channel
- * @apidoc http://dev.sphere.io/http-api-projects-channels.html#channel-role-enum
+ * @link http://dev.commercetools.com/http-api-projects-channels.html#channel-role-enum
  */
 class ChannelRole
 {

@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
+ * @link http://dev.commercetools.com/http-api-projects-products.html#product-variant-attribute
  */
 class Set extends Collection implements TypeableInterface
 {

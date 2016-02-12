@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @apidoc http://dev.sphere.io/http-api-projects-orders.html#change-order-state
+ * @link http://dev.commercetools.com/http-api-projects-orders.html#change-order-state
  * @method string getAction()
  * @method OrderChangeOrderStateAction setAction(string $action = null)
  * @method string getOrderState()

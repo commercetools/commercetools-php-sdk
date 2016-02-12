@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @apidoc http://dev.sphere.io/http-api-projects-customers.html#set-vat-id
+ * @link http://dev.commercetools.com/http-api-projects-customers.html#set-vat-id
  * @method string getVatId()
  * @method CustomerSetVatIdAction setVatId(string $vatId = null)
  * @method string getAction()

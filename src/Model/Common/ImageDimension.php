@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-images
+ * @link http://dev.commercetools.com/http-api-projects-products.html#product-images
  * @method int getW()
  * @method ImageDimension setW(int $w = null)
  * @method int getH()

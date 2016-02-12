@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomerGroups
- * @apidoc http://dev.sphere.io/http-api-projects-customerGroups.html#customer-groups-by-query
+ * @link http://dev.commercetools.com/http-api-projects-customerGroups.html#customer-groups-by-query
  * @method CustomerGroupCollection mapResponse(ApiResponseInterface $response)
  */
 class CustomerGroupQueryRequest extends AbstractQueryRequest

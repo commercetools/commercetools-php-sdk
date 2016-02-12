@@ -13,7 +13,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Category
- * @apidoc http://dev.sphere.io/http-api-projects-categories.html#create-category
+ * @link http://dev.commercetools.com/http-api-projects-categories.html#create-category
  * @method LocalizedString getName()
  * @method LocalizedString getSlug()
  * @method LocalizedString getDescription()

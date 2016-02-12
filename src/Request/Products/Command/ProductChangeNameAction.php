@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#change-name
+ * @link http://dev.commercetools.com/http-api-projects-products.html#change-name
  * @method string getAction()
  * @method ProductChangeNameAction setAction(string $action = null)
  * @method LocalizedString getName()

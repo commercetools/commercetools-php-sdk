@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\States
- * @apidoc http://dev.sphere.io/http-api-projects-states.html#states-by-id
+ * @link http://dev.commercetools.com/http-api-projects-states.html#states-by-id
  * @method State mapResponse(ApiResponseInterface $response)
  */
 class StateByIdGetRequest extends AbstractByIdGetRequest

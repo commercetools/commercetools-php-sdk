@@ -15,7 +15,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Customer
- * @apidoc http://dev.sphere.io/http-api-projects-customers.html#create-customer
+ * @link http://dev.commercetools.com/http-api-projects-customers.html#create-customer
  * @method string getCustomerNumber()
  * @method string getEmail()
  * @method string getTitle()

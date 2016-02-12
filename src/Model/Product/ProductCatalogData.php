@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-catalog-data
+ * @link http://dev.commercetools.com/http-api-projects-products.html#product-catalog-data
  * @method bool getPublished()
  * @method ProductCatalogData setPublished(bool $published = null)
  * @method ProductData getCurrent()

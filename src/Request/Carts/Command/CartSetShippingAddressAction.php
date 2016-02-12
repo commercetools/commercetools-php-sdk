@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#set-shipping-address
+ * @link http://dev.commercetools.com/http-api-projects-carts.html#set-shipping-address
  * @method string getAction()
  * @method CartSetShippingAddressAction setAction(string $action = null)
  * @method Address getAddress()

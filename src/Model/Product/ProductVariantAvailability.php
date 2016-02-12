@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant-availability
+ * @link http://dev.commercetools.com/http-api-projects-products.html#product-variant-availability
  * @method bool getIsOnStock()
  * @method ProductVariantAvailability setIsOnStock(bool $isOnStock = null)
  * @method int getRestockableInDays()

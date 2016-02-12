@@ -10,7 +10,7 @@ use Commercetools\Core\Model\ProductDiscount\ProductDiscountReference;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#discounted-price
+ * @link http://dev.commercetools.com/http-api-projects-products.html#discounted-price
  * @method Money getValue()
  * @method ProductDiscountReference getDiscount()
  * @method DiscountedPrice setValue(Money $value = null)

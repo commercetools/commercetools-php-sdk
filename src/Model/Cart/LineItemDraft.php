@@ -18,7 +18,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#line-item
+ * @link http://dev.commercetools.com/http-api-projects-carts.html#line-item
  * @method string getProductId()
  * @method LineItemDraft setProductId(string $productId = null)
  * @method int getVariantId()

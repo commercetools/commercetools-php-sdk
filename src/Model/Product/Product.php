@@ -15,7 +15,7 @@ use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#product
+ * @link http://dev.commercetools.com/http-api-projects-products.html#product
  * @method string getId()
  * @method Product setId(string $id = null)
  * @method int getVersion()

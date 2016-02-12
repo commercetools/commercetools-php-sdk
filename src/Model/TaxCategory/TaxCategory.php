@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\TaxCategory
- * @apidoc http://dev.sphere.io/http-api-projects-taxCategories.html#tax-category
+ * @link http://dev.commercetools.com/http-api-projects-taxCategories.html#tax-category
  * @method string getId()
  * @method TaxCategory setId(string $id = null)
  * @method int getVersion()

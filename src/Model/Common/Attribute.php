@@ -11,7 +11,7 @@ use Commercetools\Core\Model\ProductType\AttributeType;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
+ * @link http://dev.commercetools.com/http-api-projects-products.html#product-variant-attribute
  * @method string getName()
  * @method getValue()
  * @method Attribute setName(string $name = null)

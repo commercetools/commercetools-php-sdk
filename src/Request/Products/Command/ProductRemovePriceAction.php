@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#remove-price
+ * @link http://dev.commercetools.com/http-api-projects-products.html#remove-price
  * @method string getAction()
  * @method ProductRemovePriceAction setAction(string $action = null)
  * @method Price getPrice()

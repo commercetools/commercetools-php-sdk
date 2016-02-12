@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Model\State
- * @apidoc http://dev.sphere.io/http-api-projects-states.html#create-state
+ * @link http://dev.commercetools.com/http-api-projects-states.html#create-state
  * @method string getKey()
  * @method StateDraft setKey(string $key = null)
  * @method string getType()

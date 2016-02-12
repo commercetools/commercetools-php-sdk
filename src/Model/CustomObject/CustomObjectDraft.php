@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\CustomObject
- * @apidoc http://dev.sphere.io/http-api-projects-custom-objects.html#custom-object
+ * @link http://dev.commercetools.com/http-api-projects-custom-objects.html#custom-object
  * @method string getContainer()
  * @method CustomObjectDraft setContainer(string $container = null)
  * @method string getKey()

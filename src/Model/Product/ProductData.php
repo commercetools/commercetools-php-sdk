@@ -13,7 +13,7 @@ use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-data
+ * @link http://dev.commercetools.com/http-api-projects-products.html#product-data
  *
  * @method LocalizedString getName()
  * @method ProductData setName(LocalizedString $name = null)

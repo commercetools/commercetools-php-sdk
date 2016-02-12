@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\Money;
 
 /**
  * @package Commercetools\Core\Model\ShippingMethod
- * @apidoc http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-rate
+ * @link http://dev.commercetools.com/http-api-projects-shippingMethods.html#shipping-rate
  * @method Money getPrice()
  * @method ShippingRate setPrice(Money $price = null)
  * @method Money getFreeAbove()

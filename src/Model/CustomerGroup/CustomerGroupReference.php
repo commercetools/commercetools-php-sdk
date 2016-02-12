@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\CustomerGroup
- * @apidoc http://dev.sphere.io/http-api-types.html#reference
+ * @link http://dev.commercetools.com/http-api-types.html#reference
  * @method string getTypeId()
  * @method CustomerGroupReference setTypeId(string $typeId = null)
  * @method string getId()

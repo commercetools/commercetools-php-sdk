@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @apidoc http://dev.sphere.io/http-api-projects-categories.html#change-name
+ * @link http://dev.commercetools.com/http-api-projects-categories.html#change-name
  * @method LocalizedString getName()
  * @method CategoryChangeNameAction setName(LocalizedString $name = null)
  * @method string getAction()

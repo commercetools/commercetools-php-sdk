@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes
- * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#product-type-by-id
+ * @link http://dev.commercetools.com/http-api-projects-productTypes.html#product-type-by-id
  * @method ProductType mapResponse(ApiResponseInterface $response)
  */
 class ProductTypeByIdGetRequest extends AbstractByIdGetRequest

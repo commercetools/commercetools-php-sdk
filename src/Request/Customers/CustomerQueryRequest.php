@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @apidoc http://dev.sphere.io/http-api-projects-customers.html#customers-by-query
+ * @link http://dev.commercetools.com/http-api-projects-customers.html#customers-by-query
  * @method CustomerCollection mapResponse(ApiResponseInterface $response)
  */
 class CustomerQueryRequest extends AbstractQueryRequest

@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#set-search-keywords
+ * @link http://dev.commercetools.com/http-api-projects-products.html#set-search-keywords
  * @method string getAction()
  * @method ProductSetSearchKeywordsAction setAction(string $action = null)
  * @method LocalizedSearchKeywords getSearchKeywords()

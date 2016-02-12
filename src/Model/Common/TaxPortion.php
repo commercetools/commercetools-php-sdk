@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#tax-portion
+ * @link http://dev.commercetools.com/http-api-projects-carts.html#tax-portion
  * @method float getRate()
  * @method TaxPortion setRate(float $rate = null)
  * @method Money getAmount()
