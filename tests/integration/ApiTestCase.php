@@ -9,19 +9,18 @@ use Commercetools\Core\Model\Common\Context;
 
 class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
+    private static $testRun;
     protected $client;
 
     protected $cleanupRequests = [];
 
-    protected function cleanup()
+    public function getTestRun()
     {
-        if (count($this->cleanupRequests) > 0) {
-            foreach ($this->cleanupRequests as $request) {
-                $this->getClient()->addBatchRequest($request);
-            }
-            $this->getClient()->executeBatch();
-            $this->cleanupRequests = [];
+        if (is_null(self::$testRun)) {
+            self::$testRun = md5(microtime());
         }
+
+        return self::$testRun;
     }
 
     public function tearDown()
@@ -29,15 +28,6 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         $this->cleanup();
     }
 
-    protected function map(callable $callback, $collection)
-    {
-        $result = [];
-        foreach ($collection as $item) {
-            $result[] = $callback($item);
-        }
-
-        return $result;
-    }
     /**
      * @return \Commercetools\Core\Client
      */
@@ -60,5 +50,26 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         }
 
         return $this->client;
+    }
+
+    protected function cleanup()
+    {
+        if (count($this->cleanupRequests) > 0) {
+            foreach ($this->cleanupRequests as $request) {
+                $this->getClient()->addBatchRequest($request);
+            }
+            $this->getClient()->executeBatch();
+            $this->cleanupRequests = [];
+        }
+    }
+
+    protected function map(callable $callback, $collection)
+    {
+        $result = [];
+        foreach ($collection as $item) {
+            $result[] = $callback($item);
+        }
+
+        return $result;
     }
 }

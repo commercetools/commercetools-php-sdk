@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 
-class CartCreateTest extends ApiTestCase
+class CartCreateRequestTest extends ApiTestCase
 {
     /**
      * @return CartDraft
@@ -28,10 +28,10 @@ class CartCreateTest extends ApiTestCase
         /**
          * @var Cart $cart
          */
-        $cartResponse = $this->getClient()
+        $response = $this->getClient()
             ->execute(CartCreateRequest::ofDraft($draft));
 
-        $cart = $cartResponse->toObject();
+        $cart = $response->toObject();
 
         $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
 

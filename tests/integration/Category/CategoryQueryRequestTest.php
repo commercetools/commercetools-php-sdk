@@ -15,7 +15,7 @@ use Commercetools\Core\Request\Categories\CategoryCreateRequest;
 use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
 use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
 
-class QueryCategoriesTest extends ApiTestCase
+class CategoryQueryRequestTest extends ApiTestCase
 {
     /**
      * @param $name
@@ -46,6 +46,17 @@ class QueryCategoriesTest extends ApiTestCase
         );
 
         return $category;
+    }
+
+    public function testQueryById()
+    {
+        $category = $this->createCategory($this->getDraft('myCategory', 'my-category'));
+
+        $result = $this->getClient()->execute(CategoryByIdGetRequest::ofId($category->getId()))->toObject();
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertSame($category->getId(), $result->getId());
+
     }
 
     public function testQueryByName()

@@ -15,7 +15,7 @@ use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
 use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
 
-class UpdateCategoryTest extends ApiTestCase
+class CategoryUpdateRequestTest extends ApiTestCase
 {
     /**
      * @param $name
@@ -25,8 +25,8 @@ class UpdateCategoryTest extends ApiTestCase
     protected function getDraft($name, $slug)
     {
         $draft = CategoryDraft::ofNameAndSlug(
-            LocalizedString::fromArray(['en' => $name]),
-            LocalizedString::fromArray(['en' => $slug])
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name),
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $slug)
         );
 
         return $draft;
@@ -50,15 +50,19 @@ class UpdateCategoryTest extends ApiTestCase
 
     public function testUpdateName()
     {
-        $category = $this->createCategory($this->getDraft('update name', 'update-name'));
+        $draft = $this->getDraft('update name', 'update-name');
+        $category = $this->createCategory($draft);
 
         $result = $this->getClient()->execute(
-            CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-                ->addAction(CategoryChangeNameAction::ofName(LocalizedString::fromArray(['en' => 'new name'])))
+            CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())->addAction(
+                CategoryChangeNameAction::ofName(
+                    LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name')
+                )
+            )
         )->toObject();
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
-        $this->assertSame('new name', $result->getName()->en);
+        $this->assertSame($this->getTestRun() .'-new name', $result->getName()->en);
         $this->assertNotSame($category->getVersion(), $result->getVersion());
 
         $deleteRequest = array_pop($this->cleanupRequests);
@@ -70,20 +74,22 @@ class UpdateCategoryTest extends ApiTestCase
 
     public function testUpdateLocalizedName()
     {
-        $category = $this->createCategory($this->getDraft('update name', 'update-name'));
+        $draft = $this->getDraft('update name', 'update-name');
+        $category = $this->createCategory($draft);
 
         $result = $this->getClient()->execute(
             CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
                 ->addAction(
                     CategoryChangeNameAction::ofName(
-                        LocalizedString::fromArray(['en' => 'new name', 'en-US' => 'new name'])
+                        LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name')
+                            ->add('en-US', $this->getTestRun() . '-new name')
                     )
                 )
         )->toObject();
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
-        $this->assertSame('new name', $result->getName()->en);
-        $this->assertSame('new name', $result->getName()->en_US);
+        $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en);
+        $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en_US);
         $this->assertNotSame($category->getVersion(), $result->getVersion());
 
         $deleteRequest = array_pop($this->cleanupRequests);

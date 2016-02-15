@@ -14,7 +14,7 @@ use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
 
-class CartUpdateTest extends ApiTestCase
+class CartUpdateRequestTest extends ApiTestCase
 {
     /**
      * @var CartDeleteRequest
