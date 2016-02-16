@@ -29,13 +29,9 @@ class ChannelCreateRequestTest extends ApiTestCase
 
     protected function createChannel(ChannelDraft $draft)
     {
-        /**
-         * @var Channel $channel
-         */
-        $response = $this->getClient()
-            ->execute(ChannelCreateRequest::ofDraft($draft));
-
-        $channel = $response->toObject();
+        $request = ChannelCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $channel = $request->mapResponse($response);
 
         $this->cleanupRequests[] = ChannelDeleteRequest::ofIdAndVersion(
             $channel->getId(),

@@ -32,12 +32,10 @@ class CartUpdateRequestTest extends ApiTestCase
 
     protected function createCart(CartDraft $draft)
     {
-        /**
-         * @var Cart $cart
-         */
-        $cart = $this->getClient()
-            ->execute(CartCreateRequest::ofDraft($draft))
-            ->toObject();
+        $request = CartCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
         $this->cartDeleteRequest = CartDeleteRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
         $this->cleanupRequests[] = $this->cartDeleteRequest;
 

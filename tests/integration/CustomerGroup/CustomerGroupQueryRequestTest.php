@@ -31,13 +31,9 @@ class CustomerGroupQueryRequestTest extends ApiTestCase
 
     protected function createCustomerGroup(CustomerGroupDraft $draft)
     {
-        /**
-         * @var CustomerGroup $customerGroup
-         */
-        $response = $this->getClient()
-            ->execute(CustomerGroupCreateRequest::ofDraft($draft));
-
-        $customerGroup = $response->toObject();
+        $request = CustomerGroupCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $customerGroup = $request->mapResponse($response);
 
         $this->cleanupRequests[] = CustomerGroupDeleteRequest::ofIdAndVersion(
             $customerGroup->getId(),

@@ -42,13 +42,9 @@ class CartDiscountCreateRequestTest extends ApiTestCase
 
     protected function createCartDiscount(CartDiscountDraft $draft)
     {
-        /**
-         * @var CartDiscount $cartDiscount
-         */
-        $response = $this->getClient()
-            ->execute(CartDiscountCreateRequest::ofDraft($draft));
-
-        $cartDiscount = $response->toObject();
+        $request = CartDiscountCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $cartDiscount = $request->mapResponse($response);
 
         $this->cleanupRequests[] = CartDiscountDeleteRequest::ofIdAndVersion(
             $cartDiscount->getId(),

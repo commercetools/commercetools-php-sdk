@@ -31,12 +31,10 @@ class CategoryCreateRequestTest extends ApiTestCase
 
     protected function createCategory(CategoryDraft $draft)
     {
-        /**
-         * @var Category $category
-         */
-        $category = $this->getClient()
-            ->execute(CategoryCreateRequest::ofDraft($draft))
-            ->toObject();
+        $request = CategoryCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $category = $request->mapResponse($response);
+
         $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
             $category->getId(),
             $category->getVersion()
