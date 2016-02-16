@@ -17,7 +17,6 @@ use Commercetools\Core\Model\ShippingMethod\ZoneRate;
 use Commercetools\Core\Model\ShippingMethod\ZoneRateCollection;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
-use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\TaxCategory\TaxRateCollection;
 use Commercetools\Core\Model\Zone\Location;
