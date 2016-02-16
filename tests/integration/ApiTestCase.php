@@ -6,6 +6,7 @@
 namespace Commercetools\Core;
 
 use Commercetools\Core\Model\Common\Context;
+use Symfony\Component\Yaml\Yaml;
 
 class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -35,9 +36,9 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     {
         if (is_null($this->client)) {
             $context = Context::of()->setGraceful(false)->setLanguages(['en'])->setLocale('en_US');
-            if (file_exists(__DIR__ . '/myapp.ini')) {
-                $appConfig = parse_ini_file(__DIR__ . '/myapp.ini', true);
-                $config = $appConfig['commercetools'];
+            if (file_exists(__DIR__ . '/../../docroot/myapp.yml')) {
+                $appConfig = Yaml::parse(file_get_contents(__DIR__ . '/../../docroot/myapp.yml'));
+                $config = $appConfig['parameters'];
             } else {
                 $config = Config::fromArray([
                     'client_id' => $_SERVER['SPHERE_CLIENT_ID'],

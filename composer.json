@@ -45,6 +45,27 @@
     "monolog/monolog": "^1.12",
     "behat/behat": "^3.0",
     "phpunit/phpcov": "*",
-    "fabpot/php-cs-fixer": "@stable"
+    "fabpot/php-cs-fixer": "@stable",
+    "symfony/yaml": "*",
+    "incenteev/composer-parameter-handler": "^2.0"
+  },
+  "scripts": {
+    "updateConfig": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+    ],
+    "post-update-cmd": "@updateConfig",
+    "post-install-cmd": "@updateConfig"
+  },
+  "extra": {
+    "incenteev-parameters": [
+      {
+        "file": "docroot/myapp.yml",
+        "env-map": {
+          "client_id": "SPHERE_CLIENT_ID",
+          "client_secret": "SPHERE_CLIENT_SECRET",
+          "project": "SPHERE_PROJECT"
+        }
+      }
+    ]
   }
 }

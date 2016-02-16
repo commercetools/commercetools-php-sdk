@@ -42,11 +42,11 @@ env:
     # GH_TOKEN environment variable for pushing documentation:
     - secure: "i0TL7GsZ8TIZgr7WB5qXEs8fF5sSJHGagLXEsn4DSgxI52GatfjeEaSJuAbbWV/Tg0jYidNevdhCpe7LT3IWwa2cLVRpaV1TDoQ6K4wo8zzMzAw4AMB8DO2dBY3Mz+puRN55YAV3OpEF/RiiIc7zXLW/+5H9UCOXrcnnpg6PpxE="
     # SPHERE_CLIENT_ID
-    - secure: MEht7kleJ/K9/daNOjEpPNJnXxKyQZ36oEM8fImi612BoJmZp/uwjuKpqKscIyyLwXSpsr7c9w+V2CfSk3QI+NGLnhSNgjJWE2QXxzxD6OgM0gKFTDtBq//+k77Sx4UnQDi0pQPRZ1BrfBUqrxw4H07i53hXd/kmjZnknRcbODc=
+    - secure: "RzguDIx5MvRy5EpAcLSXXPLgwZsS0dQjCy3uA6G6+s7WJMKAAWV6pKO9whwxdfFmyK5l4pmmpDoDtobsoZM6xrLU2FOsMlGgRfkwOC7AWpHOH8k5e8FDrWV15+IzNRgT9FkCGjfpBeCCql0dAAoynoYygpCHKonn4xBvLmstZrI="
     # SPHERE_CLIENT_SECRET
-    - secure: Q4zRyFxLw/7YlHG/iWzyR7V7Srm8LsQ3UgMshckUyqefhzhF19GefoPJdPdALyLVEYQMG3O/U1aebbyt8Puy5jWWKKiwFaQA+mMXzpBFcvhutgxByqBXdIysIhGU65No+WbiCKlpL2WPNtYvE1cMSjFfn7IX8ThGkBxhJQcha38=
+    - secure: "Qqx9WbiVfHvipsF28c1j713MSJCyDgMXyNQihHzEmtefDKW82PdiJnfhBxA1pQVgoDNRd5nE2VpMlETFhpnNCjBqNJf9n0AKdp3UyQ60EeF5qWArPoQxwzIraojeZalKt4tZfk/3+jqrh9R00WJtKE8VeIh09pHhikO4od3qNMU="
     # SPHERE_PROJECT
-    - secure: CPj46vCtmLaxGKXycJW+PmNXloXu5ruOV/Qg1mA6tU83oPjlxHVrqMOlb87ykf6U8X6XXAjMrgR0q3gBepPJg3HZmJyeOsVhwSU/jhfN7L1lR7BrQrPdLutvhuC6Fgj+b2Ubzh7PIt7pR6AYZyMCv5ofajW9aBcC5D556WJsSjE=
+    - secure: "j3l6lRXfWgqgWHjQkJ0jyypQg/1u/X03Sot15+grQsxzcd1sBrDlej9rynuwz2HxiTJ4e6J3YGQ1DqvfdcrJMWbBc+D17wPJwji+mulsSce/Uj6IusKlRychL2j235oukYDHGm2PMuljHshWVsbWCW3Pudc3kh5o2XtD4yZm2oI="
 notifications:
   hipchat:
     rooms:

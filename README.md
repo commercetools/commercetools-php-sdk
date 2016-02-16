@@ -156,13 +156,13 @@ ant
 
 ### Built In Test Server
 
-You can use the `docroot` directory with the built-in PHP web server. Add to the docroot directory a file called "myapp.ini". Add following content and setup with your API credentials:
+You can use the `docroot` directory with the built-in PHP web server. Add to the docroot directory a file called "myapp.yml". Add following content and setup with your API credentials:
 
-```ini
-[commercetools]
-client_id = 'my client id'
-client_secret = 'my client secret'
-project = 'my project id'
+```yaml
+parameters:
+	client_id: my client id
+	client_secret: my client secret
+	project: my project id
 ```
 
 Then activate the php builtin web server
