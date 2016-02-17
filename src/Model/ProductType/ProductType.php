@@ -25,6 +25,8 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method ProductType setDescription(string $description = null)
  * @method AttributeDefinitionCollection getAttributes()
  * @method ProductType setAttributes(AttributeDefinitionCollection $attributes = null)
+ * @method string getKey()
+ * @method ProductType setKey(string $key = null)
  */
 class ProductType extends Resource
 {
@@ -44,6 +46,7 @@ class ProductType extends Resource
                 static::TYPE => '\DateTime',
                 static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
+            'key' => [static::TYPE => 'string'],
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
             'attributes' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeDefinitionCollection']

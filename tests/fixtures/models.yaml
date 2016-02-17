@@ -749,6 +749,7 @@ productType:
     - version
     - createdAt
     - lastModifiedAt
+    - key
     - name
     - description
     - attributes
@@ -757,6 +758,7 @@ productTypeDraft:
   domain: productType
   model: ProductTypeDraft
   fields:
+    - key
     - name
     - description
     - attributes

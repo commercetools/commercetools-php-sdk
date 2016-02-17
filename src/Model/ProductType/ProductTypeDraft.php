@@ -17,6 +17,8 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method ProductTypeDraft setDescription(string $description = null)
  * @method AttributeDefinitionCollection getAttributes()
  * @method ProductTypeDraft setAttributes(AttributeDefinitionCollection $attributes = null)
+ * @method string getKey()
+ * @method ProductTypeDraft setKey(string $key = null)
  */
 class ProductTypeDraft extends JsonObject
 {
@@ -24,6 +26,7 @@ class ProductTypeDraft extends JsonObject
     {
         return [
             'name' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
             'attributes' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeDefinitionCollection'],
         ];
