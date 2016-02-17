@@ -53,16 +53,4 @@ class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Commercetools\Core\Client\Adapter\AdapterInterface', $httpClient);
         //$this->assertSame('/test', (string)$httpClient->getConfig('base_uri'));
     }
-
-    public function testUserAgent()
-    {
-        $this->markTestIncomplete('ToDo: move');
-        $client = $this->getMockForAbstractClass('\Commercetools\Core\AbstractHttpClient', [], '', false);
-        /**
-         * @var AbstractHttpClient $client
-         */
-        $httpClient = $client->getHttpClient();
-        // $headers = $httpClient->getConfig('headers');
-        // $this->assertContains('commercetools-php-sdk ' . AbstractHttpClient::VERSION, $headers['User-Agent']);
-    }
 }
