@@ -36,6 +36,10 @@ class Guzzle5Adapter implements AdapterInterface
             $options['base_url'] = $options['base_uri'];
             unset($options['base_uri']);
         }
+        if (isset($options['headers'])) {
+            $options['defaults']['headers'] = $options['headers'];
+            unset($options['headers']);
+        }
         $this->client = new Client($options);
     }
 

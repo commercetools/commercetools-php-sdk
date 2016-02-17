@@ -9,7 +9,10 @@ namespace Commercetools\Core;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Subscriber\History;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use Commercetools\Core\Client\JsonEndpoint;
@@ -527,6 +530,63 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf($exceptionClass, $e);
             $this->assertSame($returnCode, $e->getCode());
             throw $e;
+        }
+    }
+
+    public function testUserAgent()
+    {
+        $config = $this->getConfig();
+
+        $oauthMock = $this->getMock('\Commercetools\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
+        $oauthMock->expects($this->any())
+            ->method('getToken')
+            ->will($this->returnValue(new Token('token')));
+
+        $clientMock = $this->getMock(
+            '\Commercetools\Core\Client',
+            ['getOauthManager'],
+            [$config]
+        );
+        $clientMock->expects($this->any())
+            ->method('getOauthManager')
+            ->will($this->returnValue($oauthMock));
+
+        $container = [];
+        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            $mock = new MockHandler([
+                new Response(200, [], $this->getSingleOpResult())
+            ]);
+            $history = Middleware::history($container);
+            $handler = HandlerStack::create($mock);
+            $handler->push($history);
+            $clientMock->getHttpClient(['handler' => $handler]);
+        } else {
+            $container = new History();
+            $handler = new \GuzzleHttp\Ring\Client\MockHandler(['status' => 200, 'body' => $this->getSingleOpResult()]);
+            $clientMock->getHttpClient(['handler' => $handler]);
+            $clientMock->getHttpClient()->getEmitter()->attach($container);
+        }
+        $clientMock->getHttpClient(['handler' => $handler]);
+
+        $endpoint = new JsonEndpoint('test');
+        $request = $this->getMockForAbstractClass(
+            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            [$endpoint, 'id']
+        );
+
+        $response = $clientMock->execute($request);
+
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        /**
+         * @var Request $request
+         */
+        foreach ($container as $entry) {
+            $request = $entry['request'];
+            $userAgent = $request->getHeader('user-agent');
+            if (is_array($userAgent)) {
+                $userAgent = current($userAgent);
+            }
+            $this->assertContains('commercetools-php-sdk ' . AbstractHttpClient::VERSION, $userAgent);
         }
     }
 }
