@@ -50,7 +50,7 @@ class PaymentQueryRequestTest extends ApiTestCase
         return $payment;
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $payment = $this->createPayment($draft);
@@ -64,12 +64,14 @@ class PaymentQueryRequestTest extends ApiTestCase
         $this->assertSame($payment->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $payment = $this->createPayment($draft);
 
-        $result = $this->getClient()->execute(PaymentByIdGetRequest::ofId($payment->getId()))->toObject();
+        $request = PaymentByIdGetRequest::ofId($payment->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $payment);
         $this->assertSame($payment->getId(), $result->getId());

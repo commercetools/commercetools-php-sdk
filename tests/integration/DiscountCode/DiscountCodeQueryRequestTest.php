@@ -101,7 +101,7 @@ class DiscountCodeQueryRequestTest extends ApiTestCase
         return $discountCode;
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $discountCode = $this->createDiscountCode($draft);
@@ -115,12 +115,14 @@ class DiscountCodeQueryRequestTest extends ApiTestCase
         $this->assertSame($discountCode->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $discountCode = $this->createDiscountCode($draft);
 
-        $result = $this->getClient()->execute(DiscountCodeByIdGetRequest::ofId($discountCode->getId()))->toObject();
+        $request = DiscountCodeByIdGetRequest::ofId($discountCode->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $discountCode);
         $this->assertSame($discountCode->getId(), $result->getId());

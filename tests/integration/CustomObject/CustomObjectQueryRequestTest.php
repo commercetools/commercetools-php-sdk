@@ -44,7 +44,7 @@ class CustomObjectQueryRequestTest extends ApiTestCase
         return $customObject;
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $customObject = $this->createCustomObject($draft);
@@ -52,7 +52,6 @@ class CustomObjectQueryRequestTest extends ApiTestCase
         $request = CustomObjectQueryRequest::of()->where(
             'container="' . $draft->getContainer() . '" and key="' . $draft->getKey() . '"'
         );
-
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
@@ -61,17 +60,17 @@ class CustomObjectQueryRequestTest extends ApiTestCase
         $this->assertSame($customObject->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $customObject = $this->createCustomObject($draft);
 
-        $result = $this->getClient()->execute(
-            CustomObjectByKeyGetRequest::ofContainerAndKey(
-                $customObject->getContainer(),
-                $customObject->getKey()
-            )
-        )->toObject();
+        $request = CustomObjectByKeyGetRequest::ofContainerAndKey(
+            $customObject->getContainer(),
+            $customObject->getKey()
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $customObject);
         $this->assertSame($customObject->getId(), $result->getId());

@@ -43,26 +43,28 @@ class InventoryQueryRequestTest extends ApiTestCase
         return $inventory;
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $inventory = $this->createInventory($draft);
 
-        $result = $this->getClient()->execute(
-            InventoryQueryRequest::of()->where('sku="' . $draft->getSku() . '"')
-        )->toObject();
+        $request = InventoryQueryRequest::of()->where('sku="' . $draft->getSku() . '"');
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
         $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result->getAt(0));
         $this->assertSame($inventory->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $inventory = $this->createInventory($draft);
 
-        $result = $this->getClient()->execute(InventoryByIdGetRequest::ofId($inventory->getId()))->toObject();
+        $request = InventoryByIdGetRequest::ofId($inventory->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $inventory);
         $this->assertSame($inventory->getId(), $result->getId());

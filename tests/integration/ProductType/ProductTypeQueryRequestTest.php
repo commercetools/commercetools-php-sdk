@@ -11,6 +11,7 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\Request\ProductTypes\ProductTypeByIdGetRequest;
+use Commercetools\Core\Request\ProductTypes\ProductTypeByKeyGetRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeQueryRequest;
@@ -26,6 +27,7 @@ class ProductTypeQueryRequestTest extends ApiTestCase
             'test-' . $this->getTestRun() . '-name',
             'test-' . $this->getTestRun() . '-description'
         );
+        $draft->setKey('key-' . $this->getTestRun());
 
         return $draft;
     }
@@ -35,7 +37,6 @@ class ProductTypeQueryRequestTest extends ApiTestCase
         $request = ProductTypeCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
         $productType = $request->mapResponse($response);
-
         $this->cleanupRequests[] = ProductTypeDeleteRequest::ofIdAndVersion(
             $productType->getId(),
             $productType->getVersion()
@@ -44,26 +45,42 @@ class ProductTypeQueryRequestTest extends ApiTestCase
         return $productType;
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $productType = $this->createProductType($draft);
 
-        $result = $this->getClient()->execute(
-            ProductTypeQueryRequest::of()->where('name="' . $draft->getName() . '"')
-        )->toObject();
+        $request = ProductTypeQueryRequest::of()->where('name="' . $draft->getName() . '"');
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
         $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result->getAt(0));
         $this->assertSame($productType->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $productType = $this->createProductType($draft);
 
-        $result = $this->getClient()->execute(ProductTypeByIdGetRequest::ofId($productType->getId()))->toObject();
+        $request = ProductTypeByIdGetRequest::ofId($productType->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $productType);
+        $this->assertSame($productType->getId(), $result->getId());
+
+    }
+
+    public function testGetByKey()
+    {
+        $draft = $this->getDraft();
+        $productType = $this->createProductType($draft);
+
+        $request = ProductTypeByKeyGetRequest::ofKey($productType->getKey());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $productType);
         $this->assertSame($productType->getId(), $result->getId());

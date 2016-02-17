@@ -62,26 +62,28 @@ class TaxCategoryQueryRequestTest extends ApiTestCase
         return $taxCategory;
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $taxCategory = $this->createTaxCategory($draft);
 
-        $result = $this->getClient()->execute(
-            TaxCategoryQueryRequest::of()->where('name="' . $draft->getName() . '"')
-        )->toObject();
+        $request = TaxCategoryQueryRequest::of()->where('name="' . $draft->getName() . '"');
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
         $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result->getAt(0));
         $this->assertSame($taxCategory->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $taxCategory = $this->createTaxCategory($draft);
 
-        $result = $this->getClient()->execute(TaxCategoryByIdGetRequest::ofId($taxCategory->getId()))->toObject();
+        $request = TaxCategoryByIdGetRequest::ofId($taxCategory->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $taxCategory);
         $this->assertSame($taxCategory->getId(), $result->getId());

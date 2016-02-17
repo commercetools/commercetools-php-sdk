@@ -43,26 +43,28 @@ class ChannelQueryRequestTest extends ApiTestCase
         return $channel;
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $channel = $this->createChannel($draft);
 
-        $result = $this->getClient()->execute(
-            ChannelQueryRequest::of()->where('key="' . $draft->getKey() . '"')
-        )->toObject();
+        $request = ChannelQueryRequest::of()->where('key="' . $draft->getKey() . '"');
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
         $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result->getAt(0));
         $this->assertSame($channel->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $channel = $this->createChannel($draft);
 
-        $result = $this->getClient()->execute(ChannelByIdGetRequest::ofId($channel->getId()))->toObject();
+        $request = ChannelByIdGetRequest::ofId($channel->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $channel);
         $this->assertSame($channel->getId(), $result->getId());

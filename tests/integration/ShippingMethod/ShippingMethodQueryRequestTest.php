@@ -162,26 +162,28 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
         return $shippingMethod;
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $shippingMethod = $this->createShippingMethod($draft);
 
-        $result = $this->getClient()->execute(
-            ShippingMethodQueryRequest::of()->where('name="' . $draft->getName() . '"')
-        )->toObject();
+        $request = ShippingMethodQueryRequest::of()->where('name="' . $draft->getName() . '"');
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
         $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result->getAt(0));
         $this->assertSame($shippingMethod->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $shippingMethod = $this->createShippingMethod($draft);
 
-        $result = $this->getClient()->execute(ShippingMethodByIdGetRequest::ofId($shippingMethod->getId()))->toObject();
+        $request = ShippingMethodByIdGetRequest::ofId($shippingMethod->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $shippingMethod);
         $this->assertSame($shippingMethod->getId(), $result->getId());

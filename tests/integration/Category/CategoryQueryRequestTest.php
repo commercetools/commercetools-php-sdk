@@ -46,7 +46,7 @@ class CategoryQueryRequestTest extends ApiTestCase
         return $category;
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $category = $this->createCategory($this->getDraft('myCategory', 'my-category'));
 
@@ -57,7 +57,7 @@ class CategoryQueryRequestTest extends ApiTestCase
 
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $category = $this->createCategory($this->getDraft('myCategory', 'my-category'));
 

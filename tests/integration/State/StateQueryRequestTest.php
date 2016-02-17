@@ -44,26 +44,28 @@ class StateQueryRequestTest extends ApiTestCase
         return $state;
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $state = $this->createState($draft);
 
-        $result = $this->getClient()->execute(
-            StateQueryRequest::of()->where('key="' . $draft->getKey() . '"')
-        )->toObject();
+        $request = StateQueryRequest::of()->where('key="' . $draft->getKey() . '"');
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
         $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result->getAt(0));
         $this->assertSame($state->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $state = $this->createState($draft);
 
-        $result = $this->getClient()->execute(StateByIdGetRequest::ofId($state->getId()))->toObject();
+        $request = StateByIdGetRequest::ofId($state->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $state);
         $this->assertSame($state->getId(), $result->getId());

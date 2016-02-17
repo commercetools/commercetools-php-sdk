@@ -43,26 +43,28 @@ class ReviewQueryRequestTest extends ApiTestCase
         return $review;
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $review = $this->createReview($draft);
 
-        $result = $this->getClient()->execute(
-            ReviewQueryRequest::of()->where('title="' . $draft->getTitle() . '"')
-        )->toObject();
+        $request = ReviewQueryRequest::of()->where('title="' . $draft->getTitle() . '"');
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
         $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result->getAt(0));
         $this->assertSame($review->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $review = $this->createReview($draft);
 
-        $result = $this->getClient()->execute(ReviewByIdGetRequest::ofId($review->getId()))->toObject();
+        $request = ReviewByIdGetRequest::ofId($review->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $review);
         $this->assertSame($review->getId(), $result->getId());

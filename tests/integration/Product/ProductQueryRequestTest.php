@@ -90,7 +90,7 @@ class ProductQueryRequestTest extends ApiTestCase
         return $product;
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $product = $this->createProduct($draft);
@@ -104,12 +104,14 @@ class ProductQueryRequestTest extends ApiTestCase
         $this->assertSame($product->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $product = $this->createProduct($draft);
 
-        $result = $this->getClient()->execute(ProductByIdGetRequest::ofId($product->getId()))->toObject();
+        $request = ProductByIdGetRequest::ofId($product->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $product);
         $this->assertSame($product->getId(), $result->getId());

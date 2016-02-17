@@ -43,26 +43,28 @@ class CustomerGroupQueryRequestTest extends ApiTestCase
         return $customerGroup;
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $customerGroup = $this->createCustomerGroup($draft);
 
-        $result = $this->getClient()->execute(
-            CustomerGroupQueryRequest::of()->where('name="' . $draft->getGroupName() . '"')
-        )->toObject();
+        $request = CustomerGroupQueryRequest::of()->where('name="' . $draft->getGroupName() . '"');
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
         $this->assertInstanceOf('\Commercetools\Core\Model\CustomerGroup\CustomerGroup', $result->getAt(0));
         $this->assertSame($customerGroup->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $customerGroup = $this->createCustomerGroup($draft);
 
-        $result = $this->getClient()->execute(CustomerGroupByIdGetRequest::ofId($customerGroup->getId()))->toObject();
+        $request = CustomerGroupByIdGetRequest::ofId($customerGroup->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\CustomerGroup\CustomerGroup', $customerGroup);
         $this->assertSame($customerGroup->getId(), $result->getId());

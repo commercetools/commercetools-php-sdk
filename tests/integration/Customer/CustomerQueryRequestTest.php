@@ -45,26 +45,29 @@ class CustomerQueryRequestTest extends ApiTestCase
         return $result->getCustomer();
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $customer = $this->createCustomer($draft);
 
-        $result = $this->getClient()->execute(
-            CustomerQueryRequest::of()->where('email="' . $draft->getEmail() . '"')
-        )->toObject();
+        $request = CustomerQueryRequest::of()->where('email="' . $draft->getEmail() . '"');
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
 
         $this->assertCount(1, $result);
         $this->assertInstanceOf('\Commercetools\Core\Model\Customer\Customer', $result->getAt(0));
         $this->assertSame($customer->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $customer = $this->createCustomer($draft);
 
-        $result = $this->getClient()->execute(CustomerByIdGetRequest::ofId($customer->getId()))->toObject();
+        $request = CustomerByIdGetRequest::ofId($customer->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Customer\Customer', $customer);
         $this->assertSame($customer->getId(), $result->getId());

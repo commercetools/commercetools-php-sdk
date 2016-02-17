@@ -56,26 +56,28 @@ class CartDiscountQueryRequestTest extends ApiTestCase
         return $cartDiscount;
     }
 
-    public function testQueryByName()
+    public function testQuery()
     {
         $draft = $this->getDraft();
         $cartDiscount = $this->createCartDiscount($draft);
 
-        $result = $this->getClient()->execute(
-            CartDiscountQueryRequest::of()->where('name(en="' . $draft->getName()->en . '")')
-        )->toObject();
+        $request = CartDiscountQueryRequest::of()->where('name(en="' . $draft->getName()->en . '")');
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
         $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result->getAt(0));
         $this->assertSame($cartDiscount->getId(), $result->getAt(0)->getId());
     }
 
-    public function testQueryById()
+    public function testGetById()
     {
         $draft = $this->getDraft();
         $cartDiscount = $this->createCartDiscount($draft);
 
-        $result = $this->getClient()->execute(CartDiscountByIdGetRequest::ofId($cartDiscount->getId()))->toObject();
+        $request = CartDiscountByIdGetRequest::ofId($cartDiscount->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $cartDiscount);
         $this->assertSame($cartDiscount->getId(), $result->getId());
