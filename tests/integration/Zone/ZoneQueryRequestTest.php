@@ -6,15 +6,8 @@
 
 namespace Commercetools\Core\Zone;
 
-
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\Model\Zone\ZoneDraft;
-use Commercetools\Core\Model\Zone\ShippingRate;
-use Commercetools\Core\Model\Zone\ShippingRateCollection;
-use Commercetools\Core\Model\Zone\ZoneRate;
-use Commercetools\Core\Model\Zone\ZoneRateCollection;
 use Commercetools\Core\Model\Zone\Location;
 use Commercetools\Core\Model\Zone\LocationCollection;
 use Commercetools\Core\Request\Zones\ZoneByIdGetRequest;
