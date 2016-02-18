@@ -151,6 +151,11 @@ class Attribute extends JsonObject
         return static::T_UNKNOWN;
     }
 
+    /**
+     * @param $value
+     * @param string[] $keys
+     * @return bool
+     */
     protected function hasKeys($value, $keys)
     {
         if (!is_array($value)) {

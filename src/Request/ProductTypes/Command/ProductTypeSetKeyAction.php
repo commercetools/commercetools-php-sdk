@@ -37,7 +37,7 @@ class ProductTypeSetKeyAction extends AbstractAction
     }
 
     /**
-     * @param string $name
+     * @param string $key
      * @param Context|callable $context
      * @return ProductTypeSetKeyAction
      */

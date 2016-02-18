@@ -10,7 +10,6 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\Price;
-use Commercetools\Core\Model\Order\ItemState;
 use Commercetools\Core\Model\Order\ItemStateCollection;
 use Commercetools\Core\Model\Product\ProductVariant;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
