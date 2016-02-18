@@ -29,7 +29,7 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
     {
         $this->setContext($context);
         if (!is_null($data)) {
-            $this->rawData = $data;
+            $this->rawData = $this->typeData = $data;
         }
     }
 
@@ -158,7 +158,7 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
      */
     public function setRawData(array $rawData)
     {
-        $this->rawData = $rawData;
+        $this->rawData = $this->typeData = $rawData;
 
         return $this;
     }
@@ -190,8 +190,7 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
      */
     public function toArray()
     {
-        $data = array_merge($this->rawData, $this->typeData);
-        $data = array_filter($data, function ($value) {
+        $data = array_filter($this->typeData, function ($value) {
             return !is_null($value);
         });
         $data = array_map(

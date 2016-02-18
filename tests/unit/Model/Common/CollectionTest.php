@@ -213,7 +213,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             [[new \DateTime('2015-01-01')]]
         );
         $collection->setType('\DateTime');
-        $this->assertSame('2015-01-01', $collection->getAt(0)->format('Y-m-d'));
+        $this->assertSame('2015-01-01', $collection->current()->format('Y-m-d'));
     }
 
     public function testSetAt()
@@ -223,5 +223,16 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $collection[1] = new \DateTime();
 
         $this->assertInstanceOf('\DateTime', $collection[1]);
+    }
+
+    public function testAdd()
+    {
+        $collection = Collection::fromArray([
+            ['currencyCode' => 'EUR', 'centAmount' => 100],
+        ]);
+        $collection->setType('\Commercetools\Core\Model\Common\Money');
+        $collection->add(Money::ofCurrencyAndAmount('USD', 110));
+
+        $this->assertCount(2, $collection);
     }
 }

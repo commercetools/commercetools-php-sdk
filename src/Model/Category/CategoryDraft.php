@@ -28,6 +28,12 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method CategoryDraft setExternalId(string $externalId = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method CategoryDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method LocalizedString getMetaDescription()
+ * @method CategoryDraft setMetaDescription(LocalizedString $metaDescription = null)
+ * @method LocalizedString getMetaTitle()
+ * @method CategoryDraft setMetaTitle(LocalizedString $metaTitle = null)
+ * @method LocalizedString getMetaKeywords()
+ * @method CategoryDraft setMetaKeywords(LocalizedString $metaKeywords = null)
  */
 class CategoryDraft extends JsonObject
 {
