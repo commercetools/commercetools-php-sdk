@@ -40,6 +40,9 @@ class CategoryDraft extends JsonObject
             'parent' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReference'],
             'orderHint' => [static::TYPE => 'string'],
             'externalId' => [static::TYPE => 'string'],
+            'metaDescription' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'metaTitle' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'metaKeywords' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
         ];
     }

@@ -157,6 +157,9 @@ category:
     - orderHint
     - externalId
     - custom
+    - metaDescription
+    - metaKeywords
+    - metaTitle
 
 categoryDraft:
   domain: category
@@ -168,6 +171,9 @@ categoryDraft:
     - parent
     - orderHint
     - externalId
+    - metaDescription
+    - metaKeywords
+    - metaTitle
     - custom
 
 address:
