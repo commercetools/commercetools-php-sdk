@@ -11,6 +11,7 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
 use Commercetools\Core\Request\CustomObjects\CustomObjectByKeyGetRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest;
+use Commercetools\Core\Request\CustomObjects\CustomObjectDeleteByKeyRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectDeleteRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectQueryRequest;
 
@@ -74,6 +75,21 @@ class CustomObjectQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $customObject);
         $this->assertSame($customObject->getId(), $result->getId());
+    }
 
+    public function testDeleteByKey()
+    {
+        $draft = $this->getDraft();
+
+        $request = CustomObjectCreateRequest::ofObject($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $customObject = $request->mapResponse($response);
+
+        $deleteRequest = CustomObjectDeleteByKeyRequest::ofContainerAndKey(
+            $customObject->getContainer(),
+            $customObject->getKey()
+        );
+        $response = $deleteRequest->executeWithClient($this->getClient());
+        $this->assertSame(200, $response->getStatusCode());
     }
 }
