@@ -313,6 +313,7 @@ class Client extends AbstractHttpClient
             $responses[$request->getIdentifier()] = $request->buildResponse($httpResponse);
             $this->logDeprecatedRequest($httpResponse, $httpRequest);
         }
+        unset($this->batchRequests);
         $this->batchRequests = [];
 
         return $responses;
