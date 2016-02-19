@@ -15,11 +15,6 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
 
     protected $cleanupRequests = [];
 
-    public function setUp()
-    {
-        gc_collect_cycles();
-    }
-
     public function getTestRun()
     {
         if (is_null(self::$testRun)) {
