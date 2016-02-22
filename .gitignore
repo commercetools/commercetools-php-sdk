@@ -13,3 +13,4 @@ myapp.ini
 /local/
 /tools/node_modules
 requests.log
+env.list

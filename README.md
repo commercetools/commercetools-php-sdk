@@ -180,6 +180,25 @@ To enable code style checks directly in phpStorm you have to configure the path 
 Now you can enable at Preferences > Editor > Inspections > PHP the "PHP code sniffer validation" with PSR-2 standard. Change the severity if needed.
 
 
+### Running tests using docker
+
+Build the container for tests
+
+```sh
+docker build -t commercetools-php-sdk-tests .
+```
+
+Running the image:
+
+```sh
+echo "COMMERCETOOLS_CLIENT_ID=YourClientID" >> env.list
+echo "COMMERCETOOLS_CLIENT_SECRET=YourClientSecret" >> env.list
+echo "COMMERCETOOLS_PROJECT=YourProjectKey" >> env.list
+echo "COMMERCETOOLS_OAUTH_URL=https://auth.sphere.io/oauth/token" >> env.list
+echo "COMMERCETOOLS_API_URL=https://api.sphere.io" >> env.list
+docker run --env-file ./env.list commercetools-php-sdk-tests
+```
+
 ### <a name="contribute"></a>Contribute
 
 On bigger effort changes, please open a GitHub [issue](issues) and ask if you can help or get help with your idea. For typos and documentation improvements just make a pull request.
