@@ -41,9 +41,9 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
                 $config = $appConfig['parameters'];
             } else {
                 $config = Config::fromArray([
-                    'client_id' => $_SERVER['SPHERE_CLIENT_ID'],
-                    'client_secret' => $_SERVER['SPHERE_CLIENT_SECRET'],
-                    'project' => $_SERVER['SPHERE_PROJECT'],
+                    'client_id' => $_SERVER['COMMERCETOOLS_CLIENT_ID'],
+                    'client_secret' => $_SERVER['COMMERCETOOLS_CLIENT_SECRET'],
+                    'project' => $_SERVER['COMMERCETOOLS_PROJECT'],
                     'context' => $context
                 ]);
             }

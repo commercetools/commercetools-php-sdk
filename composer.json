@@ -61,9 +61,9 @@
       {
         "file": "docroot/myapp.yml",
         "env-map": {
-          "client_id": "SPHERE_CLIENT_ID",
-          "client_secret": "SPHERE_CLIENT_SECRET",
-          "project": "SPHERE_PROJECT"
+          "client_id": "COMMERCETOOLS_CLIENT_ID",
+          "client_secret": "COMMERCETOOLS_CLIENT_SECRET",
+          "project": "COMMERCETOOLS_PROJECT"
         }
       }
     ]
