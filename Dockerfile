@@ -23,12 +23,12 @@ ADD composer.json composer.json
 ADD phpunit.xml.dist phpunit.xml.dist
 ADD behat.yml behat.yml
 
-RUN composer global require hirak/prestissimo
+RUN composer -n global require hirak/prestissimo
 
 ENV COMMERCETOOLS_CLIENT_ID="client_id" \
     COMMERCETOOLS_CLIENT_SECRET="client_secret" \
     COMMERCETOOLS_PROJECT="project_key"
-RUN composer install --prefer-dist -o
+RUN composer -n install --prefer-dist -o
 
 ADD tools/60-user.ini /usr/local/etc/php/conf.d/
 COPY tools/phpunit.sh /

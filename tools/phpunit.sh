@@ -3,6 +3,6 @@ set -e
 
 service redis-server start
 
-composer run-script updateConfig
+composer -n run-script updateConfig
 
 vendor/bin/phpunit "$@"
