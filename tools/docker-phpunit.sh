@@ -3,6 +3,5 @@ set -e
 
 service redis-server start
 
-composer -n run-script updateConfig
-
+composer -n install --prefer-dist -o
 vendor/bin/phpunit "$@"

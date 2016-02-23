@@ -182,21 +182,16 @@ Now you can enable at Preferences > Editor > Inspections > PHP the "PHP code sni
 
 ### Running tests using docker
 
-Build the container for tests
+Running the test image:
 
 ```sh
-docker build -t commercetools-php-sdk-tests .
-```
-
-Running the image:
-
-```sh
-echo "COMMERCETOOLS_CLIENT_ID=YourClientID" >> env.list
+echo "COMMERCETOOLS_CLIENT_ID=YourClientID" > env.list
 echo "COMMERCETOOLS_CLIENT_SECRET=YourClientSecret" >> env.list
 echo "COMMERCETOOLS_PROJECT=YourProjectKey" >> env.list
 echo "COMMERCETOOLS_OAUTH_URL=https://auth.sphere.io/oauth/token" >> env.list
 echo "COMMERCETOOLS_API_URL=https://api.sphere.io" >> env.list
-docker run --env-file ./env.list commercetools-php-sdk-tests
+
+docker run -e env.list -v $PWD:/opt/app -w /opt/app --rm=true jaysde/php-test-base tools/docker-phpunit.sh
 ```
 
 ### <a name="contribute"></a>Contribute
