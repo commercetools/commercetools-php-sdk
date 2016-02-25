@@ -7,6 +7,7 @@
 cache.properties
 apigen.phar
 composer.phar
+composer.lock
 myapp.yml
 myapp.ini
 /local/

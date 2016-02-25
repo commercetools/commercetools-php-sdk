@@ -47,9 +47,15 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
                     'context' => $context
                 ]);
             }
+            $verifySSL = getenv('PHP_SDK_IT_SSL_VERIFY');
+            $verify = true;
+            if ($verifySSL === 'false') {
+                $verify = false;
+            }
+            var_dump($verify);
             $this->client = Client::ofConfig($config);
-            $this->client->getOauthManager()->getHttpClient(['verify' => false]);
-            $this->client->getHttpClient(['verify' => false]);
+            $this->client->getOauthManager()->getHttpClient([$verify]);
+            $this->client->getHttpClient([$verify]);
         }
 
         return $this->client;
