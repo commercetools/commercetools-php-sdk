@@ -52,10 +52,9 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
             if ($verifySSL === 'false') {
                 $verify = false;
             }
-            var_dump($verify);
             $this->client = Client::ofConfig($config);
-            $this->client->getOauthManager()->getHttpClient([$verify]);
-            $this->client->getHttpClient([$verify]);
+            $this->client->getOauthManager()->getHttpClient(['verify' => $verify]);
+            $this->client->getHttpClient(['verify' => $verify]);
         }
 
         return $this->client;
