@@ -38,7 +38,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
             $context = Context::of()->setGraceful(false)->setLanguages(['en'])->setLocale('en_US');
             if (file_exists(__DIR__ . '/../../docroot/myapp.yml')) {
                 $appConfig = Yaml::parse(file_get_contents(__DIR__ . '/../../docroot/myapp.yml'));
-                $config = $appConfig['parameters'];
+                $config = Config::fromArray($appConfig['parameters']);
             } else {
                 $config = Config::fromArray([
                     'client_id' => $_SERVER['COMMERCETOOLS_CLIENT_ID'],
@@ -47,7 +47,9 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
                     'context' => $context
                 ]);
             }
-            $this->client = new Client($config);
+            $this->client = Client::ofConfig($config);
+            $this->client->getOauthManager()->getHttpClient(['verify' => false]);
+            $this->client->getHttpClient(['verify' => false]);
         }
 
         return $this->client;

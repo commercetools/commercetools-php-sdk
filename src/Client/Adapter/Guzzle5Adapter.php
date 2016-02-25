@@ -40,6 +40,16 @@ class Guzzle5Adapter implements AdapterInterface
             $options['defaults']['headers'] = $options['headers'];
             unset($options['headers']);
         }
+        $options = array_merge(
+            [
+                'allow_redirects' => false,
+                'verify' => true,
+                'timeout' => 60,
+                'connect_timeout' => 10,
+                'pool_size' => 25
+            ],
+            $options
+        );
         $this->client = new Client($options);
     }
 
@@ -77,10 +87,6 @@ class Guzzle5Adapter implements AdapterInterface
     public function execute(RequestInterface $request)
     {
         $options = [
-            'allow_redirects' => false,
-            'verify' => true,
-            'timeout' => 60,
-            'connect_timeout' => 10,
             'headers' => $request->getHeaders(),
             'body' => (string)$request->getBody()
         ];
@@ -124,18 +130,9 @@ class Guzzle5Adapter implements AdapterInterface
      */
     public function executeBatch(array $requests)
     {
-        $options = [
-            'allow_redirects' => false,
-            'verify' => true,
-            'timeout' => 60,
-            'connect_timeout' => 10,
-            'pool_size' => 25
-        ];
-
         $results = Pool::batch(
             $this->client,
-            $this->getBatchHttpRequests($requests),
-            $options
+            $this->getBatchHttpRequests($requests)
         );
 
         $responses = [];
@@ -185,10 +182,6 @@ class Guzzle5Adapter implements AdapterInterface
     public function authenticate($oauthUri, $clientId, $clientSecret, $formParams)
     {
         $options = [
-            'allow_redirects' => false,
-            'verify' => true,
-            'timeout' => 60,
-            'connect_timeout' => 10,
             'body' => $formParams,
             'auth' => [$clientId, $clientSecret]
         ];
@@ -216,10 +209,6 @@ class Guzzle5Adapter implements AdapterInterface
     public function executeAsync(RequestInterface $request)
     {
         $options = [
-            'allow_redirects' => false,
-            'verify' => true,
-            'timeout' => 60,
-            'connect_timeout' => 10,
             'future' => true,
             'exceptions' => false,
             'headers' => $request->getHeaders()
