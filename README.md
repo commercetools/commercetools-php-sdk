@@ -191,7 +191,7 @@ echo "COMMERCETOOLS_PROJECT=YourProjectKey" >> env.list
 echo "COMMERCETOOLS_OAUTH_URL=https://auth.sphere.io/oauth/token" >> env.list
 echo "COMMERCETOOLS_API_URL=https://api.sphere.io" >> env.list
 
-docker run -e env.list -v $PWD:/opt/app -w /opt/app --rm=true jaysde/php-test-base tools/docker-phpunit.sh
+docker run --env-file env.list -v $PWD:/opt/app -w /opt/app --rm=true jaysde/php-test-base tools/docker-phpunit.sh
 ```
 
 ### <a name="contribute"></a>Contribute

@@ -64,8 +64,8 @@
           "client_id": "COMMERCETOOLS_CLIENT_ID",
           "client_secret": "COMMERCETOOLS_CLIENT_SECRET",
           "project": "COMMERCETOOLS_PROJECT",
-          "oauth_url": "COMMERCETOOLS_OAUTH_URI",
-          "api_url": "COMMERCETOOLS_API_URI"
+          "oauth_url": "COMMERCETOOLS_OAUTH_URL",
+          "api_url": "COMMERCETOOLS_API_URL"
         }
       }
     ]
