@@ -10,6 +10,7 @@ namespace Commercetools\Core\State;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\State\StateDraft;
+use Commercetools\Core\Model\State\StateReferenceCollection;
 use Commercetools\Core\Model\State\StateRole;
 use Commercetools\Core\Request\States\Command\StateAddRolesAction;
 use Commercetools\Core\Request\States\Command\StateChangeInitialAction;
@@ -19,6 +20,7 @@ use Commercetools\Core\Request\States\Command\StateRemoveRolesAction;
 use Commercetools\Core\Request\States\Command\StateSetDescriptionAction;
 use Commercetools\Core\Request\States\Command\StateSetNameAction;
 use Commercetools\Core\Request\States\Command\StateSetRolesAction;
+use Commercetools\Core\Request\States\Command\StateSetTransitionsAction;
 use Commercetools\Core\Request\States\StateCreateRequest;
 use Commercetools\Core\Request\States\StateDeleteRequest;
 use Commercetools\Core\Request\States\StateUpdateRequest;
@@ -184,6 +186,44 @@ class StateUpdateRequestTest extends ApiTestCase
         $deleteRequest = array_pop($this->cleanupRequests);
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+    }
+
+    public function testSetTransition()
+    {
+        $draft = $this->getDraft('set-transition-1');
+        $state = $this->createState($draft);
+
+        $draft = $this->getDraft('set-transition-2');
+        $request = StateCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $state2 = $request->mapResponse($response);
+
+        $request = StateUpdateRequest::ofIdAndVersion(
+            $state->getId(),
+            $state->getVersion()
+        )
+            ->addAction(StateSetTransitionsAction::ofTransitions(
+                StateReferenceCollection::of()->add($state2->getReference())
+            ))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertSame($state2->getId(), $result->getTransitions()->current()->getId());
+        $this->assertNotSame($state->getVersion(), $result->getVersion());
+
+        $deleteRequest = array_pop($this->cleanupRequests);
+        $deleteRequest->setVersion($result->getVersion());
+        $result = $this->getClient()->execute($deleteRequest)->toObject();
+
+        $deleteRequest = StateDeleteRequest::ofIdAndVersion(
+            $state2->getId(),
+            $state2->getVersion()
+        );
+        $this->getClient()->execute($deleteRequest)->toObject();
 
         $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
     }
