@@ -47,7 +47,8 @@
     "phpunit/phpcov": "*",
     "fabpot/php-cs-fixer": "@stable",
     "symfony/yaml": "*",
-    "incenteev/composer-parameter-handler": "^2.0"
+    "incenteev/composer-parameter-handler": "^2.0",
+    "munkie/phpunit-teamcity-testlistener": "^1.2"
   },
   "scripts": {
     "updateConfig": [
