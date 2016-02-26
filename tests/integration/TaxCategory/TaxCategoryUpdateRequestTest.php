@@ -130,7 +130,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
             ->setAmount(0.3)
             ->setIncludedInPrice(true)
             ->setCountry('DE')
-            ->setState($this->getState());
+            ->setState('new-' . $this->getState());
         $request = TaxCategoryUpdateRequest::ofIdAndVersion(
             $taxCategory->getId(),
             $taxCategory->getVersion()
@@ -147,7 +147,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
 
         $request = TaxCategoryUpdateRequest::ofIdAndVersion(
             $taxCategory->getId(),
-            $taxCategory->getVersion()
+            $actualVersion
         )
             ->addAction(TaxCategoryRemoveTaxRateAction::ofTaxRateId($result->getRates()->current()->getId()))
         ;

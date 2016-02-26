@@ -15,8 +15,6 @@ use Commercetools\Core\Request\AbstractAction;
  * @method TaxCategoryRemoveTaxRateAction setAction(string $action = null)
  * @method string getTaxRateId()
  * @method TaxCategoryRemoveTaxRateAction setTaxRateId(string $taxRateId = null)
- * @method string getRateId()
- * @method TaxCategoryRemoveTaxRateAction setRateId(string $rateId = null)
  */
 class TaxCategoryRemoveTaxRateAction extends AbstractAction
 {
@@ -24,7 +22,7 @@ class TaxCategoryRemoveTaxRateAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'rateId' => [static::TYPE => 'string']
+            'taxRateId' => [static::TYPE => 'string']
         ];
     }
 
@@ -45,6 +43,6 @@ class TaxCategoryRemoveTaxRateAction extends AbstractAction
      */
     public static function ofTaxRateId($taxRateId, $context = null)
     {
-        return static::of($context)->setRateId($taxRateId);
+        return static::of($context)->setTaxRateId($taxRateId);
     }
 }

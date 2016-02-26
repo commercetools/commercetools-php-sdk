@@ -19,11 +19,6 @@ class ZoneQueryRequestTest extends ApiTestCase
 {
     private $state;
 
-    protected function cleanup()
-    {
-        parent::cleanup();
-    }
-
     private function getState()
     {
         if (is_null($this->state)) {

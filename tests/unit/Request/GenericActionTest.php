@@ -495,7 +495,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryRemoveTaxRateAction',
-                ['action', 'rateId']
+                ['action', 'taxRateId']
             ],
             [
                 '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryReplaceTaxRateAction',

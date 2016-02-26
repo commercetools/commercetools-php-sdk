@@ -12,7 +12,14 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Response\ResourceResponse;
 use Psr\Http\Message\ResponseInterface;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Response\ApiResponseInterface;
 
+/**
+ * @package Commercetools\Core\Request\GraphQL
+ *
+ * @method JsonObject mapResponse(ApiResponseInterface $response)
+ */
 class GraphQLQueryRequest extends AbstractApiRequest
 {
     /**
