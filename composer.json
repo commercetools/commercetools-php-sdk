@@ -48,7 +48,8 @@
     "fabpot/php-cs-fixer": "@stable",
     "symfony/yaml": "*",
     "incenteev/composer-parameter-handler": "^2.0",
-    "munkie/phpunit-teamcity-testlistener": "^1.2"
+    "munkie/phpunit-teamcity-testlistener": "^1.2",
+    "micheh/teamcity-clover": "^0.6.0"
   },
   "scripts": {
     "updateConfig": [
