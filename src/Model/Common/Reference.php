@@ -31,12 +31,4 @@ class Reference extends ResourceIdentifier
 
         return $fieldDefinitions;
     }
-
-    public function jsonSerialize()
-    {
-        $data = parent::jsonSerialize();
-        unset($data['obj']);
-
-        return $data;
-    }
 }

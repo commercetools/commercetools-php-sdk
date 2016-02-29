@@ -60,7 +60,7 @@ class PriceDraft extends JsonObject
     /**
      * @param Money $money
      * @param Context|callable $context
-     * @return Price
+     * @return PriceDraft
      */
     public static function ofMoney(Money $money, $context = null)
     {
@@ -68,6 +68,9 @@ class PriceDraft extends JsonObject
         return $price->setValue($money);
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getValue()->__toString();
