@@ -1275,7 +1275,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeTargetAction',
                 'ofTarget',
-                ['target']
+                [$this->getInstance('\Commercetools\Core\Model\CartDiscount\CartDiscountTarget')]
             ],
             [
                 '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeValueAction',

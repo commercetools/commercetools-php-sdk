@@ -7,14 +7,15 @@ namespace Commercetools\Core\Request\CartDiscounts\Command;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
  * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#change-target
  * @method string getAction()
  * @method CartDiscountChangeTargetAction setAction(string $action = null)
- * @method string getTarget()
- * @method CartDiscountChangeTargetAction setTarget(string $target = null)
+ * @method CartDiscountTarget getTarget()
+ * @method CartDiscountChangeTargetAction setTarget(CartDiscountTarget $target = null)
  */
 class CartDiscountChangeTargetAction extends AbstractAction
 {
@@ -22,7 +23,7 @@ class CartDiscountChangeTargetAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'target' => [static::TYPE => 'string'],
+            'target' => [static::TYPE => 'Commercetools\Core\Model\CartDiscount\CartDiscountTarget'],
         ];
     }
 
