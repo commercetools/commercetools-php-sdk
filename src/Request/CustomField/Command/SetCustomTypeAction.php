@@ -44,7 +44,7 @@ class SetCustomTypeAction extends AbstractAction
     /**
      * @param string $typeId
      * @param Context|callable $context
-     * @return SetCustomTypeAction
+     * @return static
      */
     public static function ofTypeId($typeId, $context = null)
     {
@@ -54,7 +54,7 @@ class SetCustomTypeAction extends AbstractAction
     /**
      * @param string $typeKey
      * @param Context|callable $context
-     * @return SetCustomTypeAction
+     * @return static
      */
     public static function ofTypeKey($typeKey, $context = null)
     {
@@ -64,7 +64,7 @@ class SetCustomTypeAction extends AbstractAction
     /**
      * @param TypeReference $type
      * @param Context|callable $context
-     * @return SetCustomTypeAction
+     * @return static
      */
     public static function ofType(TypeReference $type, $context = null)
     {
