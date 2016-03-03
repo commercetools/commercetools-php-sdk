@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\DateDecorator;
 
 /**
  * @package Commercetools\Core\Model\Customer
@@ -36,7 +37,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Customer setMiddleName(string $middleName = null)
  * @method string getTitle()
  * @method Customer setTitle(string $title = null)
- * @method DateTimeDecorator getDateOfBirth()
+ * @method DateDecorator getDateOfBirth()
  * @method Customer setDateOfBirth(\DateTime $dateOfBirth = null)
  * @method string getCompanyName()
  * @method Customer setCompanyName(string $companyName = null)
@@ -81,7 +82,7 @@ class Customer extends Resource
             'title' => [static::TYPE => 'string'],
             'dateOfBirth' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateDecorator'
             ],
             'companyName' => [static::TYPE => 'string'],
             'vatId' => [static::TYPE => 'string'],
