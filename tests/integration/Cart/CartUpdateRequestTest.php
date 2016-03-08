@@ -24,6 +24,7 @@ use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
 use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
@@ -492,6 +493,46 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->cartDeleteRequest->setVersion($cart->getVersion());
 
         $this->assertSame($type->getId(), $cart->getLineItems()->current()->getCustom()->getType()->getId());
+    }
+
+    public function testAddLineItemWithCustomType()
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $type = $this->getType('key-' . $this->getTestRun(), 'line-item');
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
+                    ->setCustom(
+                        CustomFieldObjectDraft::ofTypeKey($type->getKey())
+                            ->setFields(
+                                FieldContainer::of()
+                                    ->setTestField('1')
+                            )
+                    )
+            )
+            ->addAction(
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
+                    ->setCustom(
+                        CustomFieldObjectDraft::ofTypeKey($type->getKey())
+                            ->setFields(
+                                FieldContainer::of()
+                                    ->setTestField('2')
+                            )
+                    )
+            )
+        ;
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->cartDeleteRequest->setVersion($cart->getVersion());
+
+        $this->markTestSkipped('Must be fixed by API');
+        $this->assertCount(2, $cart->getLineItems());
     }
 
     public function testCustomLineItemCustomType()

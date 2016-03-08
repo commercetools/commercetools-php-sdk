@@ -22,8 +22,8 @@ use Commercetools\Core\Model\State\StateReference;
  * @method ProductData setSlug(LocalizedString $slug = null)
  * @method CategoryReferenceCollection getCategories()
  * @method ProductData setCategories(CategoryReferenceCollection $categories = null)
- * @method string getCategoryOrderHints()
- * @method ProductData setCategoryOrderHints(string $categoryOrderHints = null)
+ * @method array getCategoryOrderHints()
+ * @method ProductData setCategoryOrderHints(array $categoryOrderHints = null)
  * @method LocalizedString getMetaTitle()
  * @method ProductData setMetaTitle(LocalizedString $metaTitle = null)
  * @method LocalizedString getMetaDescription()
@@ -46,7 +46,7 @@ class ProductData extends JsonObject
             'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'categories' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
-            'categoryOrderHints' => [static::TYPE => 'string'],
+            'categoryOrderHints' => [static::TYPE => 'array'],
             'metaTitle' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'metaDescription' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
