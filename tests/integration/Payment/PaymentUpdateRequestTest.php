@@ -52,7 +52,7 @@ use Commercetools\Core\Request\States\StateDeleteRequest;
 use Commercetools\Core\Request\Types\TypeCreateRequest;
 use Commercetools\Core\Request\Types\TypeDeleteRequest;
 
-class PaymentQueryRequestTest extends ApiTestCase
+class PaymentUpdateRequestTest extends ApiTestCase
 {
     /**
      * @var PaymentDeleteRequest
