@@ -9,6 +9,7 @@ tools:
     php_cs_fixer:
         config: { level: psr2 }
 before_commands:
+    - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
     - composer global require hirak/prestissimo
     - composer install --prefer-dist -o
 build:
