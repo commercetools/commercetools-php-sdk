@@ -7,8 +7,6 @@ namespace Commercetools\Core\Model\ProductType;
 
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Model\Type\FieldDefinition;
-use Commercetools\Core\Model\Type\FieldType;
 
 /**
  * @package Commercetools\Core\Model\ProductType
@@ -28,7 +26,7 @@ use Commercetools\Core\Model\Type\FieldType;
  * @method bool getIsSearchable()
  * @method AttributeDefinition setIsSearchable(bool $isSearchable = null)
  */
-class AttributeDefinition extends FieldDefinition
+class AttributeDefinition extends JsonObject
 {
     public function fieldDefinitions()
     {
