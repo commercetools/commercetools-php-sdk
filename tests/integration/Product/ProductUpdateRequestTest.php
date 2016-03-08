@@ -977,10 +977,10 @@ class ProductUpdateRequestTest extends ApiTestCase
             $response = $request->executeWithClient($this->getClient());
             $this->state2 = $state = $request->mapResponse($response);
 
-            $this->stateCleanupRequests[] = StateDeleteRequest::ofIdAndVersion(
+            array_unshift($this->stateCleanupRequests, StateDeleteRequest::ofIdAndVersion(
                 $state->getId(),
                 $state->getVersion()
-            );
+            ));
         }
 
         return [$this->state1, $this->state2];
@@ -994,6 +994,8 @@ class ProductUpdateRequestTest extends ApiTestCase
             }
         }
         $this->stateCleanupRequests = [];
+        $this->state1 = null;
+        $this->state2 = null;
     }
 
     private function getType($key, $type)
