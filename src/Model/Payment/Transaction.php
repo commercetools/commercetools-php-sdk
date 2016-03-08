@@ -23,8 +23,8 @@ use Commercetools\Core\Model\State\StateReference;
  * @method Transaction setInteractionId(string $interactionId = null)
  * @method string getId()
  * @method Transaction setId(string $id = null)
- * @method StateReference getState()
- * @method Transaction setState(StateReference $state = null)
+ * @method string getState()
+ * @method Transaction setState(string $state = null)
  */
 class Transaction extends JsonObject
 {
@@ -38,7 +38,7 @@ class Transaction extends JsonObject
     {
         return [
             'id' => [static::TYPE => 'string'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'state' => [static::TYPE => 'string'],
             'timestamp' => [
                 static::TYPE => '\DateTime',
                 static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
