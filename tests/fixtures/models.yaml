@@ -740,6 +740,7 @@ attributeDefinition:
     - attributeConstraint
     - inputHint
     - isSearchable
+    - inputTip
 
 attributeType:
   domain: productType

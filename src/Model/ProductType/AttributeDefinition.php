@@ -25,6 +25,8 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method AttributeDefinition setInputHint(string $inputHint = null)
  * @method bool getIsSearchable()
  * @method AttributeDefinition setIsSearchable(bool $isSearchable = null)
+ * @method LocalizedString getInputTip()
+ * @method AttributeDefinition setInputTip(LocalizedString $inputTip = null)
  */
 class AttributeDefinition extends JsonObject
 {
@@ -38,6 +40,7 @@ class AttributeDefinition extends JsonObject
             'attributeConstraint' => [static::TYPE => 'string'],
             'inputHint' => [static::TYPE => 'string'],
             'isSearchable' => [static::TYPE => 'bool'],
+            'inputTip' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
         ];
     }
 }
