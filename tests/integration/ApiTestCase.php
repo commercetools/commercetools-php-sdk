@@ -254,15 +254,15 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         $this->deleteZone();
         $this->deleteProduct();
         $this->deleteTaxCategory();
-        $this->deleteStates();
-        $this->deleteProductType();
-        $this->deleteType();
         $this->deleteCustomer();
         $this->deleteCustomerGroup();
         $this->deletePayment();
         $this->deleteDiscountCode();
         $this->deleteCartDiscount();
-
+        $this->deleteProductType();
+        $this->deleteType();
+        $this->deleteChannel();
+        $this->deleteStates();
     }
 
     protected function map(callable $callback, $collection)
