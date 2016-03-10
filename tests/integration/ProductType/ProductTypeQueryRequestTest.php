@@ -6,9 +6,7 @@
 
 namespace Commercetools\Core\ProductType;
 
-
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\Request\ProductTypes\ProductTypeByIdGetRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeByKeyGetRequest;

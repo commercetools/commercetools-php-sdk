@@ -233,7 +233,7 @@ Feature: I want to update a review
       "actions": [
         {
           "action": "setLocale",
-          "locale": "en_US"
+          "locale": "en-US"
         }
       ]
     }

@@ -7,38 +7,12 @@ namespace Commercetools\Core\Cart;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Cart\CartDraft;
-use Commercetools\Core\Model\Common\Address;
-use Commercetools\Core\Model\Common\AddressCollection;
-use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Customer\Customer;
-use Commercetools\Core\Model\Customer\CustomerDraft;
-use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
-use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
-use Commercetools\Core\Model\ShippingMethod\ShippingRate;
-use Commercetools\Core\Model\ShippingMethod\ShippingRateCollection;
-use Commercetools\Core\Model\ShippingMethod\ZoneRate;
-use Commercetools\Core\Model\ShippingMethod\ZoneRateCollection;
-use Commercetools\Core\Model\TaxCategory\TaxCategory;
-use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
-use Commercetools\Core\Model\TaxCategory\TaxRate;
-use Commercetools\Core\Model\TaxCategory\TaxRateCollection;
-use Commercetools\Core\Model\Zone\Location;
-use Commercetools\Core\Model\Zone\LocationCollection;
-use Commercetools\Core\Model\Zone\Zone;
-use Commercetools\Core\Model\Zone\ZoneDraft;
 use Commercetools\Core\Request\Carts\CartByCustomerIdGetRequest;
 use Commercetools\Core\Request\Carts\CartQueryRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
-use Commercetools\Core\Request\Customers\CustomerCreateRequest;
-use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
-use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
-use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
-use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
-use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
-use Commercetools\Core\Request\Zones\ZoneCreateRequest;
-use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
 
 class CartQueryRequestTest extends ApiTestCase
 {

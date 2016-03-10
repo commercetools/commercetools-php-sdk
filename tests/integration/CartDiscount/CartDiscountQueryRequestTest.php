@@ -6,9 +6,7 @@
 
 namespace Commercetools\Core\CartDiscount;
 
-
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 use Commercetools\Core\Model\CartDiscount\CartDiscountValue;

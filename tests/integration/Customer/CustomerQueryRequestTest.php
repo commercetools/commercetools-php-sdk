@@ -6,9 +6,7 @@
 
 namespace Commercetools\Core\Customer;
 
-
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;

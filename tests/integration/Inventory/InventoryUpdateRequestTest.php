@@ -6,11 +6,7 @@
 namespace Commercetools\Core\Inventory;
 
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\Channel\Channel;
-use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
-use Commercetools\Core\Request\Channels\ChannelCreateRequest;
-use Commercetools\Core\Request\Channels\ChannelDeleteRequest;
 use Commercetools\Core\Request\Inventory\Command\InventoryAddQuantityAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryChangeQuantityAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction;

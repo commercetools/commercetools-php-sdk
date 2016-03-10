@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\DiscountCode;
 
-
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;

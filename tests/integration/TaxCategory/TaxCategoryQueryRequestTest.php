@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\TaxCategory;
 
-
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
 use Commercetools\Core\Model\TaxCategory\TaxRate;

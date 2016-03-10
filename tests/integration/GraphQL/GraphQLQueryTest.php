@@ -7,29 +7,7 @@
 namespace Commercetools\Core\GraphQL;
 
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Model\Common\PriceDraft;
-use Commercetools\Core\Model\Common\PriceDraftCollection;
-use Commercetools\Core\Model\Product\Product;
-use Commercetools\Core\Model\Product\ProductDraft;
-use Commercetools\Core\Model\Product\ProductVariantDraft;
-use Commercetools\Core\Model\ProductType\ProductType;
-use Commercetools\Core\Model\ProductType\ProductTypeDraft;
-use Commercetools\Core\Model\TaxCategory\TaxCategory;
-use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
-use Commercetools\Core\Model\TaxCategory\TaxRate;
-use Commercetools\Core\Model\TaxCategory\TaxRateCollection;
 use Commercetools\Core\Request\GraphQL\GraphQLQueryRequest;
-use Commercetools\Core\Request\Products\Command\ProductPublishAction;
-use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
-use Commercetools\Core\Request\Products\ProductCreateRequest;
-use Commercetools\Core\Request\Products\ProductDeleteRequest;
-use Commercetools\Core\Request\Products\ProductUpdateRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest;
-use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
-use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
 
 class GraphQLQueryTest extends ApiTestCase
 {

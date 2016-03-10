@@ -6,9 +6,7 @@
 
 namespace Commercetools\Core\CustomerGroup;
 
-
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupDraft;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupByIdGetRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupCreateRequest;

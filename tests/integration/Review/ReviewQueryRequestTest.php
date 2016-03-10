@@ -6,9 +6,7 @@
 
 namespace Commercetools\Core\Review;
 
-
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\Review\ReviewDraft;
 use Commercetools\Core\Request\Reviews\ReviewByIdGetRequest;
 use Commercetools\Core\Request\Reviews\ReviewCreateRequest;

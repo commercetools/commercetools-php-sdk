@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Zone;
 
-
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Zone\Location;
 use Commercetools\Core\Model\Zone\LocationCollection;

@@ -8,7 +8,6 @@ namespace Commercetools\Core\Product;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Category\Category;
-use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
@@ -17,25 +16,10 @@ use Commercetools\Core\Model\Product\LocalizedSearchKeywords;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\SearchKeyword;
 use Commercetools\Core\Model\Product\SearchKeywords;
-use Commercetools\Core\Model\ProductType\AttributeDefinition;
-use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
 use Commercetools\Core\Model\ProductType\ProductType;
-use Commercetools\Core\Model\ProductType\ProductTypeDraft;
-use Commercetools\Core\Model\ProductType\StringType;
 use Commercetools\Core\Model\State\State;
-use Commercetools\Core\Model\State\StateDraft;
-use Commercetools\Core\Model\State\StateReferenceCollection;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
-use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
-use Commercetools\Core\Model\TaxCategory\TaxRate;
-use Commercetools\Core\Model\TaxCategory\TaxRateCollection;
-use Commercetools\Core\Model\Type\FieldDefinition;
-use Commercetools\Core\Model\Type\FieldDefinitionCollection;
 use Commercetools\Core\Model\Type\Type;
-use Commercetools\Core\Model\Type\TypeDraft;
-use Commercetools\Core\Model\Type\StringType as CustomStringType;
-use Commercetools\Core\Request\Categories\CategoryCreateRequest;
-use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
 use Commercetools\Core\Request\Products\Command\ProductAddPriceAction;
 use Commercetools\Core\Request\Products\Command\ProductAddToCategoryAction;
 use Commercetools\Core\Request\Products\Command\ProductAddVariantAction;
@@ -65,14 +49,7 @@ use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest;
-use Commercetools\Core\Request\States\StateCreateRequest;
 use Commercetools\Core\Request\States\StateDeleteRequest;
-use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
-use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
-use Commercetools\Core\Request\Types\TypeCreateRequest;
-use Commercetools\Core\Request\Types\TypeDeleteRequest;
 
 class ProductUpdateRequestTest extends ApiTestCase
 {

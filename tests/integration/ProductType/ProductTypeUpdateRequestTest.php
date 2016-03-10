@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\ProductType;
 
-
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\Enum;
 use Commercetools\Core\Model\Common\EnumCollection;
@@ -16,10 +15,8 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\EnumType;
 use Commercetools\Core\Model\ProductType\LocalizedEnumType;
-use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\Model\ProductType\StringType;
-use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumValueAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction;
@@ -30,11 +27,8 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeNameAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveAttributeDefinitionAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction;
-use Commercetools\Core\Request\ProductTypes\ProductTypeByIdGetRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeByKeyGetRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeQueryRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateByKeyRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
 

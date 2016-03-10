@@ -6,12 +6,10 @@
 
 namespace Commercetools\Core\State;
 
-
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\State\StateDraft;
 use Commercetools\Core\Model\State\StateReferenceCollection;
-use Commercetools\Core\Model\State\StateRole;
 use Commercetools\Core\Request\States\Command\StateAddRolesAction;
 use Commercetools\Core\Request\States\Command\StateChangeInitialAction;
 use Commercetools\Core\Request\States\Command\StateChangeKeyAction;

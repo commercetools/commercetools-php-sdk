@@ -6,10 +6,8 @@
 
 namespace Commercetools\Core\Payment;
 
-
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\Model\Payment\PaymentMethodInfo;
 use Commercetools\Core\Request\Payments\PaymentByIdGetRequest;

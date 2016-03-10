@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Type;
 
-
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Type\Type;

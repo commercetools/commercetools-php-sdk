@@ -6,7 +6,6 @@
 namespace Commercetools\Core\Category;
 
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\Categories\CategoryCreateRequest;

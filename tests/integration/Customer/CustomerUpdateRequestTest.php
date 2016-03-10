@@ -8,18 +8,8 @@ namespace Commercetools\Core\Customer;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\Address;
-use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Customer\CustomerDraft;
-use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
-use Commercetools\Core\Model\CustomerGroup\CustomerGroupDraft;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
-use Commercetools\Core\Model\Type\FieldDefinition;
-use Commercetools\Core\Model\Type\FieldDefinitionCollection;
-use Commercetools\Core\Model\Type\StringType;
-use Commercetools\Core\Model\Type\Type;
-use Commercetools\Core\Model\Type\TypeDraft;
-use Commercetools\Core\Request\CustomerGroups\CustomerGroupCreateRequest;
-use Commercetools\Core\Request\CustomerGroups\CustomerGroupDeleteRequest;
 use Commercetools\Core\Request\Customers\Command\CustomerAddAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerChangeAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerChangeEmailAction;
@@ -41,8 +31,6 @@ use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
 use Commercetools\Core\Request\Customers\CustomerUpdateRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
-use Commercetools\Core\Request\Types\TypeCreateRequest;
-use Commercetools\Core\Request\Types\TypeDeleteRequest;
 
 class CustomerUpdateRequestTest extends ApiTestCase
 {

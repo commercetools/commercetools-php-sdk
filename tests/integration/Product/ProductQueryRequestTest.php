@@ -6,19 +6,13 @@
 
 namespace Commercetools\Core\Product;
 
-
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Product\ProductDraft;
-use Commercetools\Core\Model\ProductType\ProductType;
-use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\Request\Products\ProductByIdGetRequest;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
 use Commercetools\Core\Request\Products\ProductQueryRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest;
-
 
 class ProductQueryRequestTest extends ApiTestCase
 {

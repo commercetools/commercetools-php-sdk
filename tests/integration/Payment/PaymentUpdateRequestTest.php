@@ -9,22 +9,11 @@ namespace Commercetools\Core\Payment;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Model\Customer\Customer;
-use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\Model\Payment\PaymentMethodInfo;
 use Commercetools\Core\Model\Payment\Transaction;
 use Commercetools\Core\Model\Payment\TransactionState;
 use Commercetools\Core\Model\State\State;
-use Commercetools\Core\Model\State\StateDraft;
-use Commercetools\Core\Model\State\StateReferenceCollection;
-use Commercetools\Core\Model\Type\FieldDefinition;
-use Commercetools\Core\Model\Type\FieldDefinitionCollection;
-use Commercetools\Core\Model\Type\StringType;
-use Commercetools\Core\Model\Type\Type;
-use Commercetools\Core\Model\Type\TypeDraft;
-use Commercetools\Core\Request\Customers\CustomerCreateRequest;
-use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
 use Commercetools\Core\Request\Payments\Command\PaymentAddInterfaceInteractionAction;
 use Commercetools\Core\Request\Payments\Command\PaymentAddTransactionAction;
 use Commercetools\Core\Request\Payments\Command\PaymentChangeAmountPlannedAction;
@@ -47,10 +36,6 @@ use Commercetools\Core\Request\Payments\Command\PaymentTransitionStateAction;
 use Commercetools\Core\Request\Payments\PaymentCreateRequest;
 use Commercetools\Core\Request\Payments\PaymentDeleteRequest;
 use Commercetools\Core\Request\Payments\PaymentUpdateRequest;
-use Commercetools\Core\Request\States\StateCreateRequest;
-use Commercetools\Core\Request\States\StateDeleteRequest;
-use Commercetools\Core\Request\Types\TypeCreateRequest;
-use Commercetools\Core\Request\Types\TypeDeleteRequest;
 
 class PaymentUpdateRequestTest extends ApiTestCase
 {

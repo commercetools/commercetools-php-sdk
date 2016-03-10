@@ -6,7 +6,6 @@
 namespace Commercetools\Core\Cart;
 
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;

@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Inventory;
 
-
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
 use Commercetools\Core\Request\Inventory\InventoryByIdGetRequest;

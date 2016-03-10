@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\CustomObject;
 
-
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
 use Commercetools\Core\Request\CustomObjects\CustomObjectByKeyGetRequest;
