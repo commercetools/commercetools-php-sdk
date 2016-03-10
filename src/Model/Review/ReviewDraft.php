@@ -86,4 +86,13 @@ class ReviewDraft extends JsonObject
     {
         return static::of($context)->setRating($rating);
     }
+
+    public function jsonSerialize()
+    {
+        $data = parent::jsonSerialize();
+        if (isset($data['locale'])) {
+            $data['locale'] = str_replace('_', '-', $data['locale']);
+        }
+        return $data;
+    }
 }

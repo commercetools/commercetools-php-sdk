@@ -35,4 +35,13 @@ class ReviewSetLocaleAction extends AbstractAction
         parent::__construct($data, $context);
         $this->setAction('setLocale');
     }
+
+    public function jsonSerialize()
+    {
+        $data = parent::jsonSerialize();
+        if (isset($data['locale'])) {
+            $data['locale'] = str_replace('_', '-', $data['locale']);
+        }
+        return $data;
+    }
 }

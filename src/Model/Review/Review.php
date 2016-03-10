@@ -83,4 +83,13 @@ class Review extends Resource
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
+
+    public function jsonSerialize()
+    {
+        $data = parent::jsonSerialize();
+        if (isset($data['locale'])) {
+            $data['locale'] = str_replace('_', '-', $data['locale']);
+        }
+        return $data;
+    }
 }
