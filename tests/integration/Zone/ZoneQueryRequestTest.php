@@ -17,18 +17,7 @@ use Commercetools\Core\Request\Zones\ZoneQueryRequest;
 
 class ZoneQueryRequestTest extends ApiTestCase
 {
-    private $state;
-
-    private function getState()
-    {
-        if (is_null($this->state)) {
-            $this->state = (string)mt_rand(1, 1000);
-        }
-
-        return $this->state;
-    }
-
-      /**
+    /**
      * @return ZoneDraft
      */
     protected function getDraft()
@@ -36,7 +25,7 @@ class ZoneQueryRequestTest extends ApiTestCase
         $draft = ZoneDraft::ofNameAndLocations(
             'test-' . $this->getTestRun() . '-name',
             LocationCollection::of()->add(
-                Location::of()->setCountry('DE')->setState($this->getState())
+                Location::of()->setCountry('DE')->setState($this->getRegion())
             )
         );
 

@@ -55,36 +55,6 @@ use Commercetools\Core\Request\Types\TypeDeleteRequest;
 class PaymentUpdateRequestTest extends ApiTestCase
 {
     /**
-     * @var PaymentDeleteRequest
-     */
-    private $paymentDeleteRequest;
-
-    /**
-     * @var Customer
-     */
-    private $customer;
-
-    /**
-     * @var Type
-     */
-    private $type;
-
-    /**
-     * @var State
-     */
-    private $state1;
-
-    /**
-     * @var State
-     */
-    private $state2;
-
-    /**
-     * @var StateDeleteRequest[]
-     */
-    private $stateCleanupRequests;
-
-    /**
      * @return PaymentDraft
      */
     protected function getDraft()
@@ -107,7 +77,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $payment = $request->mapResponse($response);
 
-        $this->cleanupRequests[] = $this->paymentDeleteRequest = PaymentDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = PaymentDeleteRequest::ofIdAndVersion(
             $payment->getId(),
             $payment->getVersion()
         );
@@ -128,7 +98,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($amount, $result->getAmountPlanned()->getCentAmount());
@@ -148,7 +118,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($customer->getId(), $result->getCustomer()->getId());
@@ -168,7 +138,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($externalId, $result->getExternalId());
@@ -191,7 +161,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($amount->getCentAmount(), $result->getAmountAuthorized()->getCentAmount());
@@ -213,7 +183,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($amount->getCentAmount(), $result->getAmountPaid()->getCentAmount());
@@ -234,7 +204,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($amount->getCentAmount(), $result->getAmountRefunded()->getCentAmount());
@@ -258,7 +228,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($interface, $result->getPaymentMethodInfo()->getPaymentInterface());
@@ -282,7 +252,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($method, $result->getPaymentMethodInfo()->getMethod());
@@ -306,7 +276,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($name, $result->getPaymentMethodInfo()->getName()->en);
@@ -327,7 +297,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($code, $result->getPaymentStatus()->getInterfaceCode());
@@ -348,7 +318,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($text, $result->getPaymentStatus()->getInterfaceText());
@@ -364,7 +334,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
          * @var State $state1
          * @var State $state2
          */
-        list($state1, $state2) = $this->createStates();
+        list($state1, $state2) = $this->createStates('PaymentState');
         $request = PaymentUpdateRequest::ofIdAndVersion($payment->getId(), $payment->getVersion())
             ->addAction(
                 PaymentTransitionStateAction::ofState($state1->getReference())
@@ -372,7 +342,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
         $payment = $result;
 
         $request = PaymentUpdateRequest::ofIdAndVersion($payment->getId(), $payment->getVersion())
@@ -382,7 +352,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($state2->getId(), $result->getPaymentStatus()->getState()->getId());
@@ -406,7 +376,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($transaction->getInteractionId(), $result->getTransactions()->current()->getInteractionId());
@@ -423,7 +393,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame(TransactionState::SUCCESS, $result->getTransactions()->current()->getState());
@@ -441,7 +411,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertEquals($timestamp, $result->getTransactions()->current()->getTimestamp()->getDateTime());
@@ -459,7 +429,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($interactionId, $result->getTransactions()->current()->getInteractionId());
@@ -480,7 +450,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($type->getId(), $result->getInterfaceInteractions()->current()->getType()->getId());
@@ -501,7 +471,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
@@ -522,7 +492,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
         $payment = $result;
 
         $value = $this->getTestRun() . '-value';
@@ -534,149 +504,10 @@ class PaymentUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->paymentDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($value, $result->getCustom()->getFields()->getTestField());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
-    }
-
-    protected function cleanup()
-    {
-        parent::cleanup();
-        $this->deleteType();
-        $this->deleteCustomer();
-        $this->deleteStates();
-    }
-
-    /**
-     * @return CustomerDraft
-     */
-    protected function getCustomerDraft()
-    {
-        $draft = CustomerDraft::ofEmailNameAndPassword(
-            'test-' . $this->getTestRun() . '-email',
-            'test-' . $this->getTestRun() . '-firstName',
-            'test-' . $this->getTestRun() . '-lastName',
-            'test-' . $this->getTestRun() . '-password'
-        );
-
-        return $draft;
-    }
-
-    protected function getCustomer()
-    {
-        if (is_null($this->customer)) {
-            $draft = $this->getCustomerDraft();
-            $request = CustomerCreateRequest::ofDraft($draft);
-            $response = $request->executeWithClient($this->getClient());
-            $result = $request->mapResponse($response);
-            $this->customer = $result->getCustomer();
-        }
-
-        return $this->customer;
-    }
-
-    protected function deleteCustomer()
-    {
-        if (!is_null($this->customer)) {
-            $request = CustomerDeleteRequest::ofIdAndVersion(
-                $this->customer->getId(),
-                $this->customer->getVersion()
-            );
-            $response = $request->executeWithClient($this->getClient());
-            $this->customer = $request->mapResponse($response);
-        }
-
-        $this->customer = null;
-    }
-
-    private function getType($key, $type)
-    {
-        if (is_null($this->type)) {
-            $name = $this->getTestRun() . '-name';
-            $typeDraft = TypeDraft::ofKeyNameDescriptionAndResourceTypes(
-                $key,
-                LocalizedString::ofLangAndText('en', $name),
-                LocalizedString::ofLangAndText('en', $name),
-                [$type]
-            );
-            $typeDraft->setFieldDefinitions(
-                FieldDefinitionCollection::of()
-                    ->add(
-                        FieldDefinition::of()
-                            ->setName('testField')
-                            ->setLabel(LocalizedString::ofLangAndText('en', 'testField'))
-                            ->setRequired(false)
-                            ->setType(StringType::of())
-                    )
-            );
-            $request = TypeCreateRequest::ofDraft($typeDraft);
-            $response = $request->executeWithClient($this->getClient());
-            $this->type = $request->mapResponse($response);
-        }
-
-        return $this->type;
-    }
-
-    private function deleteType()
-    {
-        if (!is_null($this->type)) {
-            $request = TypeDeleteRequest::ofIdAndVersion(
-                $this->type->getId(),
-                $this->type->getVersion()
-            );
-            $response = $request->executeWithClient($this->getClient());
-            $this->type = $request->mapResponse($response);
-        }
-        $this->type = null;
-    }
-
-    /**
-     * @return State[]
-     */
-    private function createStates()
-    {
-        if (is_null($this->state1) && is_null($this->state2)) {
-            $draft = StateDraft::ofKeyAndType(
-                'test-' . $this->getTestRun() . '-key1',
-                'PaymentState'
-            )->setInitial(true);
-            $request = StateCreateRequest::ofDraft($draft);
-            $response = $request->executeWithClient($this->getClient());
-            $this->state1 = $state = $request->mapResponse($response);
-
-            $this->stateCleanupRequests[] = StateDeleteRequest::ofIdAndVersion(
-                $state->getId(),
-                $state->getVersion()
-            );
-
-            $draft = StateDraft::ofKeyAndType(
-                'test-' . $this->getTestRun() . '-key2',
-                'PaymentState'
-            )->setTransitions(StateReferenceCollection::of()->add($this->state1->getReference()));
-            $request = StateCreateRequest::ofDraft($draft);
-            $response = $request->executeWithClient($this->getClient());
-            $this->state2 = $state = $request->mapResponse($response);
-
-            array_unshift($this->stateCleanupRequests, StateDeleteRequest::ofIdAndVersion(
-                $state->getId(),
-                $state->getVersion()
-            ));
-        }
-
-        return [$this->state1, $this->state2];
-    }
-
-    private function deleteStates()
-    {
-        if (!empty($this->stateCleanupRequests)) {
-            foreach ($this->stateCleanupRequests as $request) {
-                $request->executeWithClient($this->getClient());
-            }
-        }
-        $this->stateCleanupRequests = [];
-        $this->state1 = null;
-        $this->state2 = null;
     }
 }

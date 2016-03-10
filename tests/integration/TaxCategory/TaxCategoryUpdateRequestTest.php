@@ -21,17 +21,6 @@ use Commercetools\Core\Request\TaxCategories\TaxCategoryUpdateRequest;
 
 class TaxCategoryUpdateRequestTest extends ApiTestCase
 {
-    private $state;
-
-    private function getState()
-    {
-        if (is_null($this->state)) {
-            $this->state = (string)mt_rand(1, 1000);
-        }
-
-        return $this->state;
-    }
-
     /**
      * @var $name
      * @return TaxCategoryDraft
@@ -45,7 +34,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
                     ->setAmount(0.2)
                     ->setIncludedInPrice(true)
                     ->setCountry('DE')
-                    ->setState($this->getState())
+                    ->setState($this->getRegion())
             )
         );
 

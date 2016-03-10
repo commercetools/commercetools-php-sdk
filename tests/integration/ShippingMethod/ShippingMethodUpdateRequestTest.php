@@ -43,99 +43,7 @@ use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
 
 class ShippingMethodUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @var TaxCategory
-     */
-    private $taxCategory;
-
-    /**
-     * @var Zone
-     */
-    private $zone;
-
-    private $state;
-
-    protected function cleanup()
-    {
-        parent::cleanup();
-        $this->deleteTaxCategory();
-        $this->deleteZone();
-    }
-
-    private function getState()
-    {
-        if (is_null($this->state)) {
-            $this->state = (string)mt_rand(1, 1000);
-        }
-
-        return $this->state;
-    }
-
-    private function getTaxCategory()
-    {
-        if (is_null($this->taxCategory)) {
-            $taxCategoryDraft = TaxCategoryDraft::ofNameAndRates(
-                'test-' . $this->getTestRun() . '-name',
-                TaxRateCollection::of()->add(
-                    TaxRate::of()->setName('test-' . $this->getTestRun() . '-name')
-                        ->setAmount(0.2)
-                        ->setIncludedInPrice(true)
-                        ->setCountry('DE')
-                        ->setState($this->getState())
-                )
-            );
-            $request = TaxCategoryCreateRequest::ofDraft($taxCategoryDraft);
-            $response = $request->executeWithClient($this->getClient());
-            $this->taxCategory = $request->mapResponse($response);
-        }
-
-        return $this->taxCategory;
-    }
-
-    private function deleteTaxCategory()
-    {
-        if (!is_null($this->taxCategory)) {
-            $request = TaxCategoryDeleteRequest::ofIdAndVersion(
-                $this->taxCategory->getId(),
-                $this->taxCategory->getVersion()
-            );
-            $response = $request->executeWithClient($this->getClient());
-            $this->taxCategory = $request->mapResponse($response);
-        }
-        $this->taxCategory = null;
-    }
-
-    private function getZone()
-    {
-        if (is_null($this->zone)) {
-            $zoneDraft = ZoneDraft::ofNameAndLocations(
-                'test-' . $this->getTestRun() . '-name',
-                LocationCollection::of()->add(
-                    Location::of()->setCountry('DE')->setState($this->getState())
-                )
-            );
-            $request = ZoneCreateRequest::ofDraft($zoneDraft);
-            $response = $request->executeWithClient($this->getClient());
-            $this->zone = $request->mapResponse($response);
-        }
-
-        return $this->zone;
-    }
-
-    private function deleteZone()
-    {
-        if (!is_null($this->zone)) {
-            $request = ZoneDeleteRequest::ofIdAndVersion(
-                $this->zone->getId(),
-                $this->zone->getVersion()
-            );
-            $response = $request->executeWithClient($this->getClient());
-            $this->zone = $request->mapResponse($response);
-        }
-        $this->zone = null;
-    }
-
-    /**
+     /**
      * @param $name
      * @return ShippingMethodDraft
      */
@@ -238,7 +146,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
                     ->setAmount(0.2)
                     ->setIncludedInPrice(true)
                     ->setCountry('DE')
-                    ->setState($this->getState())
+                    ->setState($this->getRegion())
             )
         );
         $request = TaxCategoryCreateRequest::ofDraft($taxCategoryDraft);
@@ -262,12 +170,6 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
         $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
-
-        $request = TaxCategoryDeleteRequest::ofIdAndVersion(
-            $this->taxCategory->getId(),
-            $this->taxCategory->getVersion()
-        );
-        $request->executeWithClient($this->getClient());
     }
 
     public function testChangeIsDefault()
@@ -355,7 +257,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         $zoneDraft = ZoneDraft::ofNameAndLocations(
             'test-' . $this->getTestRun() . '-new-name',
             LocationCollection::of()->add(
-                Location::of()->setCountry('DE')->setState('new-' . $this->getState())
+                Location::of()->setCountry('DE')->setState('new-' . $this->getRegion())
             )
         );
         $request = ZoneCreateRequest::ofDraft($zoneDraft);

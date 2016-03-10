@@ -47,21 +47,6 @@ use Commercetools\Core\Request\Types\TypeDeleteRequest;
 class CustomerUpdateRequestTest extends ApiTestCase
 {
     /**
-     * @var CustomerDeleteRequest
-     */
-    private $customerDeleteRequest;
-
-    /**
-     * @var CustomerGroup
-     */
-    private $customerGroup;
-
-    /**
-     * @var Type
-     */
-    private $type;
-
-    /**
      * @return CustomerDraft
      */
     protected function getDraft($name)
@@ -82,7 +67,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->cleanupRequests[] = $this->customerDeleteRequest = CustomerDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
             $result->getCustomer()->getId(),
             $result->getCustomer()->getVersion()
         );
@@ -101,7 +86,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($email, $customer->getEmail());
     }
@@ -118,7 +103,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($firstName, $customer->getFirstName());
     }
@@ -135,7 +120,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($lastName, $customer->getLastName());
     }
@@ -152,7 +137,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($middleName, $customer->getMiddleName());
     }
@@ -169,7 +154,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($title, $customer->getTitle());
     }
@@ -188,7 +173,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertCount(1, $customer->getAddresses());
         $this->assertSame($address->getFirstName(), $customer->getAddresses()->current()->getFirstName());
@@ -206,7 +191,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertNull($customer->getAddresses()->current()->getFirstName());
         $this->assertSame($address->getLastName(), $customer->getAddresses()->current()->getLastName());
@@ -216,7 +201,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
         $this->assertCount(0, $customer->getAddresses());
     }
 
@@ -234,7 +219,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertCount(1, $customer->getAddresses());
 
@@ -247,7 +232,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($address->getFirstName(), $customer->getDefaultShippingAddress()->getFirstName());
     }
@@ -266,7 +251,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertCount(1, $customer->getAddresses());
 
@@ -279,7 +264,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($address->getFirstName(), $customer->getDefaultBillingAddress()->getFirstName());
     }
@@ -296,7 +281,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($customerGroup->getId(), $customer->getCustomerGroup()->getId());
     }
@@ -313,7 +298,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($customerNumber, $customer->getCustomerNumber());
     }
@@ -330,7 +315,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($externalId, $customer->getExternalId());
     }
@@ -347,7 +332,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($companyName, $customer->getCompanyName());
     }
@@ -364,7 +349,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertEquals($dateOfBirth->modify('today'), $customer->getDateOfBirth()->getDateTime());
     }
@@ -381,7 +366,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertEquals($vatId, $customer->getVatId());
     }
@@ -400,7 +385,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($type->getId(), $customer->getCustom()->getType()->getId());
     }
@@ -421,94 +406,8 @@ class CustomerUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);
-        $this->customerDeleteRequest->setVersion($customer->getVersion());
+        $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($this->getTestRun(), $customer->getCustom()->getFields()->getTestField());
-    }
-
-    public function tearDown()
-    {
-        parent::tearDown();
-        $this->deleteCustomerGroup();
-        $this->deleteType();
-    }
-
-    /**
-     * @param $name
-     * @return CustomerGroupDraft
-     */
-    protected function getCustomerGroupDraft($name)
-    {
-        $draft = CustomerGroupDraft::ofGroupName(
-            'test-' . $this->getTestRun() . '-' . $name
-        );
-
-        return $draft;
-    }
-
-    protected function getCustomerGroup()
-    {
-        if (is_null($this->customerGroup)) {
-            $draft = $this->getCustomerGroupDraft('group');
-            $request = CustomerGroupCreateRequest::ofDraft($draft);
-            $response = $request->executeWithClient($this->getClient());
-            $this->customerGroup = $request->mapResponse($response);
-        }
-
-        return $this->customerGroup;
-    }
-
-    protected function deleteCustomerGroup()
-    {
-        if (!is_null($this->customerGroup)) {
-            $request = CustomerGroupDeleteRequest::ofIdAndVersion(
-                $this->customerGroup->getId(),
-                $this->customerGroup->getVersion()
-            );
-            $request->executeWithClient($this->getClient());
-        }
-
-        $this->customerGroup = null;
-    }
-
-    private function getType($key, $type)
-    {
-        if (is_null($this->type)) {
-            $name = $this->getTestRun() . '-name';
-            $typeDraft = TypeDraft::ofKeyNameDescriptionAndResourceTypes(
-                $key,
-                LocalizedString::ofLangAndText('en', $name),
-                LocalizedString::ofLangAndText('en', $name),
-                [$type]
-            );
-            $typeDraft->setFieldDefinitions(
-                FieldDefinitionCollection::of()
-                    ->add(
-                        FieldDefinition::of()
-                            ->setName('testField')
-                            ->setLabel(LocalizedString::ofLangAndText('en', 'testField'))
-                            ->setRequired(false)
-                            ->setType(StringType::of())
-                    )
-            );
-            $request = TypeCreateRequest::ofDraft($typeDraft);
-            $response = $request->executeWithClient($this->getClient());
-            $this->type = $request->mapResponse($response);
-        }
-
-        return $this->type;
-    }
-
-    private function deleteType()
-    {
-        if (!is_null($this->type)) {
-            $request = TypeDeleteRequest::ofIdAndVersion(
-                $this->type->getId(),
-                $this->type->getVersion()
-            );
-            $response = $request->executeWithClient($this->getClient());
-            $this->type = $request->mapResponse($response);
-        }
-        $this->type = null;
     }
 }

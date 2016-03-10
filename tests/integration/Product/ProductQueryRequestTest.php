@@ -23,52 +23,12 @@ use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest;
 class ProductQueryRequestTest extends ApiTestCase
 {
     /**
-     * @var ProductType
-     */
-    private $type;
-
-    protected function cleanup()
-    {
-        parent::cleanup();
-        $this->deleteType();
-    }
-
-
-    protected function getType()
-    {
-        if (is_null($this->type)) {
-            $productTypeDraft = ProductTypeDraft::ofNameAndDescription(
-                'test-' . $this->getTestRun() . '-productType',
-                'test-' . $this->getTestRun() . '-productType'
-            );
-            $request = ProductTypeCreateRequest::ofDraft($productTypeDraft);
-            $response = $request->executeWithClient($this->getClient());
-            $this->type = $request->mapResponse($response);
-        }
-
-        return $this->type;
-    }
-
-    protected function deleteType()
-    {
-        if (!is_null($this->type)) {
-            $request = ProductTypeDeleteRequest::ofIdAndVersion(
-                $this->type->getId(),
-                $this->type->getVersion()
-            );
-            $response = $request->executeWithClient($this->getClient());
-            $this->type = $request->mapResponse($response);
-        }
-        $this->type = null;
-    }
-    
-    /**
      * @return ProductDraft
      */
     protected function getDraft()
     {
         $draft = ProductDraft::ofTypeNameAndSlug(
-            $this->getType()->getReference(),
+            $this->getProductType()->getReference(),
             LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product'),
             LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product')
         );

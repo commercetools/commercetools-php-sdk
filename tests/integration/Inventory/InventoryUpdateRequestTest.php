@@ -24,53 +24,6 @@ use Commercetools\Core\Request\Inventory\InventoryUpdateRequest;
 class InventoryUpdateRequestTest extends ApiTestCase
 {
     /**
-     * @var Channel
-     */
-    private $channel;
-
-    protected function cleanup()
-    {
-        parent::cleanup();
-        $this->deleteChannel();
-    }
-
-    /**
-     * @return ChannelDraft
-     */
-    protected function getChannelDraft()
-    {
-        $draft = ChannelDraft::ofKey(
-            'test-' . $this->getTestRun() . '-key'
-        );
-
-        return $draft;
-    }
-
-    protected function getChannel()
-    {
-        if (is_null($this->channel)) {
-            $draft = $this->getChannelDraft();
-            $request = ChannelCreateRequest::ofDraft($draft);
-            $response = $request->executeWithClient($this->getClient());
-            $this->channel = $request->mapResponse($response);
-        }
-
-        return $this->channel;
-    }
-
-    protected function deleteChannel()
-    {
-        if (!is_null($this->channel)) {
-            $request = ChannelDeleteRequest::ofIdAndVersion(
-                $this->channel->getId(),
-                $this->channel->getVersion()
-            );
-            $request->executeWithClient($this->getClient());
-            $this->channel = null;
-        }
-    }
-
-    /**
      * @param $sku
      * @param int $quantity
      * @return InventoryDraft
