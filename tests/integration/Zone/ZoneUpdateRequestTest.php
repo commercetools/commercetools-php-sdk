@@ -109,7 +109,7 @@ class ZoneUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('add-location');
         $zone = $this->createZone($draft);
 
-        $location = Location::of()->setCountry('DE')->setState('new-' . $this->getState());
+        $location = Location::of()->setCountry('DE')->setState('new-' . $this->getRegion());
         $request = ZoneUpdateRequest::ofIdAndVersion(
             $zone->getId(),
             $zone->getVersion()
