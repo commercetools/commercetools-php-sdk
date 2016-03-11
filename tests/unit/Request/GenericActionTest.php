@@ -1416,8 +1416,8 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeAddEnumValueAction',
-                'ofEnum',
-                [$this->getInstance('\Commercetools\Core\Model\Common\Enum')]
+                'ofNameAndEnum',
+                ['fieldName', $this->getInstance('\Commercetools\Core\Model\Common\Enum')]
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeAddFieldDefinitionAction',
@@ -1426,13 +1426,13 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeAddLocalizedEnumValueAction',
-                'ofEnum',
-                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedEnum')]
+                'ofNameAndEnum',
+                ['fieldName', $this->getInstance('\Commercetools\Core\Model\Common\LocalizedEnum')]
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeChangeEnumValueOrderAction',
-                'ofEnums',
-                [['key1', 'key2']]
+                'ofNameAndEnums',
+                ['fieldName', ['key1', 'key2']]
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeChangeFieldDefinitionOrderAction',
@@ -1441,13 +1441,13 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeChangeLabelAction',
-                'ofLabel',
-                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+                'ofNameAndLabel',
+                ['fieldName', $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeChangeLocalizedEnumValueOrderAction',
-                'ofEnums',
-                [['key1', 'key2']]
+                'ofNameAndEnums',
+                ['fieldName', ['key1', 'key2']]
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeChangeNameAction',

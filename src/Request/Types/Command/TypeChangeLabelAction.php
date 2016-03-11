@@ -41,12 +41,13 @@ class TypeChangeLabelAction extends AbstractAction
     }
 
     /**
+     * @param string $fieldname
      * @param LocalizedString $label
      * @param Context|callable $context
      * @return TypeChangeLabelAction
      */
-    public static function ofLabel(LocalizedString $label, $context = null)
+    public static function ofNameAndLabel($fieldname, LocalizedString $label, $context = null)
     {
-        return static::of($context)->setLabel($label);
+        return static::of($context)->setFieldName($fieldname)->setLabel($label);
     }
 }

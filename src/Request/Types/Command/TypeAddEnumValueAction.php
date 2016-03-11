@@ -41,12 +41,13 @@ class TypeAddEnumValueAction extends AbstractAction
     }
 
     /**
+     * @param string $fieldName
      * @param Enum $enum
      * @param Context|callable $context
      * @return TypeAddEnumValueAction
      */
-    public static function ofEnum(Enum $enum, $context = null)
+    public static function ofNameAndEnum($fieldName, Enum $enum, $context = null)
     {
-        return static::of($context)->setValue($enum);
+        return static::of($context)->setFieldName($fieldName)->setValue($enum);
     }
 }

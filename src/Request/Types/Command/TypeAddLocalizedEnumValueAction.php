@@ -41,12 +41,13 @@ class TypeAddLocalizedEnumValueAction extends AbstractAction
     }
 
     /**
+     * @param string $fieldName
      * @param LocalizedEnum $enum
      * @param Context|callable $context
      * @return TypeAddLocalizedEnumValueAction
      */
-    public static function ofEnum(LocalizedEnum $enum, $context = null)
+    public static function ofNameAndEnum($fieldName, LocalizedEnum $enum, $context = null)
     {
-        return static::of($context)->setValue($enum);
+        return static::of($context)->setFieldName($fieldName)->setValue($enum);
     }
 }

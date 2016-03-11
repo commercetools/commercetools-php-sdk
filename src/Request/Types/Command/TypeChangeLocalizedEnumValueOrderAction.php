@@ -42,12 +42,13 @@ class TypeChangeLocalizedEnumValueOrderAction extends AbstractAction
     }
 
     /**
+     * @param string $fieldName
      * @param array $keys
      * @param Context|callable $context
      * @return TypeChangeLocalizedEnumValueOrderAction
      */
-    public static function ofEnums(array $keys, $context = null)
+    public static function ofNameAndEnums($fieldName, array $keys, $context = null)
     {
-        return static::of($context)->setKeys($keys);
+        return static::of($context)->setFieldName($fieldName)->setKeys($keys);
     }
 }
