@@ -45,7 +45,7 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
     public function __get($locale)
     {
         $context = new Context();
-        $context->setLanguages([$locale]);
+        $context->setLanguages([$locale])->setGraceful($this->getContext()->isGraceful());
         return $this->get($context);
     }
 
