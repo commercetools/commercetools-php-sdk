@@ -180,7 +180,7 @@ class CategoryQueryRequestTest extends ApiTestCase
     protected function predicateTestCase($predicate)
     {
         $this->createCategory($this->getDraft('1', 'test-1'));
-        $draft = $this->getDraft('2', '2');
+        $draft = $this->getDraft('2', 'test-2');
         $draft->getName()->add('cn', 'x');
         $this->createCategory($draft);
         $this->createCategory($this->getDraft('10', 'test-10'));
