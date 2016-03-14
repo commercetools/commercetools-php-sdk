@@ -179,11 +179,11 @@ class CategoryQueryRequestTest extends ApiTestCase
 
     protected function predicateTestCase($predicate)
     {
-        $this->createCategory($this->getDraft('1', '1'));
+        $this->createCategory($this->getDraft('1', 'test-1'));
         $draft = $this->getDraft('2', '2');
         $draft->getName()->add('cn', 'x');
         $this->createCategory($draft);
-        $this->createCategory($this->getDraft('10', '10'));
+        $this->createCategory($this->getDraft('10', 'test-10'));
 
         return $this->getClient()->execute(
             CategoryQueryRequest::of()->where($predicate)->sort('createdAt DESC')
@@ -318,5 +318,40 @@ class CategoryQueryRequestTest extends ApiTestCase
         $this->assertSame(10000, $result->getOffset());
         $this->assertSame(0, $result->getCount());
         $this->assertCount(0, $result->toObject());
+    }
+
+    public function testMinSlug()
+    {
+        $draft = $this->getDraft('min', '1');
+        $request = CategoryCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+
+        $category = $request->mapResponse($response);
+        if ($category instanceof Category) {
+            $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
+                $category->getId(),
+                $category->getVersion()
+            );
+        }
+
+        $this->markTestSkipped('Enable when API validates slug');
+        $this->assertTrue($response->isError());
+    }
+
+    public function testMaxSlug()
+    {
+        $draft = $this->getDraft('max', str_pad('1', 257, '0'));
+        $request = CategoryCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $category = $request->mapResponse($response);
+        if ($category instanceof Category) {
+            $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
+                $category->getId(),
+                $category->getVersion()
+            );
+        }
+
+        $this->markTestSkipped('Enable when API validates slug');
+        $this->assertTrue($response->isError());
     }
 }
