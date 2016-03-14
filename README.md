@@ -75,12 +75,16 @@ require '../vendor/autoload.php';
 
 use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
 use Commercetools\Core\Client;
+use Commercetools\Core\Config;
+use Commercetools\Core\Model\Common\Context;
 
 $config = [
     'client_id' => 'my client id',
     'client_secret' => 'my client secret',
     'project' => 'my project id'
 ];
+$context = Context::of()->setLanguages(['en'])->setLocale('en_US')->setGraceful(true);
+$config = Config::fromArray($config)->setContext($context);
 
 /**
  * create a search request and a client,
@@ -89,7 +93,7 @@ $config = [
  */
 $search = ProductProjectionSearchRequest::of()->addParam('text.en', 'red');
 
-$client = new Client($config);
+$client = Client::ofConfig($config);
 $products = $client->execute($search)->toObject();
 
 /**
