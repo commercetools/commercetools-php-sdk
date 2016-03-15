@@ -38,10 +38,6 @@ script:
 after_success:
   - ./push-docs-to-gh-pages.sh
 
-env:
-  global:
-    # GH_TOKEN environment variable for pushing documentation:
-    - secure: "i0TL7GsZ8TIZgr7WB5qXEs8fF5sSJHGagLXEsn4DSgxI52GatfjeEaSJuAbbWV/Tg0jYidNevdhCpe7LT3IWwa2cLVRpaV1TDoQ6K4wo8zzMzAw4AMB8DO2dBY3Mz+puRN55YAV3OpEF/RiiIc7zXLW/+5H9UCOXrcnnpg6PpxE="
 notifications:
   hipchat:
     rooms:

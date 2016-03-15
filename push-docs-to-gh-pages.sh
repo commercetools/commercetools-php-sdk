@@ -20,7 +20,7 @@ if [ "$TRAVIS_REPO_SLUG" == "sphereio/commercetools-php-sdk" ] && [ $(phpenv ver
   cd $HOME
   git config --global user.email "automation@commercetools.de"
   git config --global user.name "travis CI"
-  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/sphereio/commercetools-php-sdk gh-pages > /dev/null
+  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/sphereio/commercetools-php-sdk gh-pages > /dev/null 2>&1
 
   cd gh-pages
   git rm -rf ./docs/$TRAVIS_BRANCH
@@ -31,7 +31,7 @@ if [ "$TRAVIS_REPO_SLUG" == "sphereio/commercetools-php-sdk" ] && [ $(phpenv ver
   # for testing the big conditional we do "git status" only for now.
   git status
   git commit -m "Auto-pushed phpdoc for $TRAVIS_BRANCH on successful travis build $TRAVIS_BUILD_NUMBER to gh-pages"
-  git push -fq origin gh-pages > /dev/null
+  git push -fq origin gh-pages > /dev/null 2>&1
 
   echo -e "Published Documentation to gh-pages.\n"
 
