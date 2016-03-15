@@ -330,7 +330,9 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('date-of-birth');
         $customer = $this->createCustomer($draft);
 
-        $dateOfBirth = new \DateTime();
+        $timezone = date_default_timezone_get();
+        date_default_timezone_set('CET');
+        $dateOfBirth = new \DateTime('today');
 
         $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
             ->addAction(CustomerSetDateOfBirthAction::of()->setDateOfBirth($dateOfBirth))
@@ -339,7 +341,8 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $customer = $request->mapResponse($response);
         $this->deleteRequest->setVersion($customer->getVersion());
 
-        $this->assertEquals($dateOfBirth->modify('today'), $customer->getDateOfBirth()->getDateTime());
+        $this->assertEquals($dateOfBirth, $customer->getDateOfBirth()->getDateTime());
+        date_default_timezone_set($timezone);
     }
 
     public function testVatId()
