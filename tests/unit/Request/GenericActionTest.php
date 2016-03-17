@@ -294,6 +294,22 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'externalId']
             ],
             [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetFirstNameAction',
+                ['action', 'firstName']
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetLastNameAction',
+                ['action', 'lastName']
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetMiddleNameAction',
+                ['action', 'middleName']
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction',
+                ['action', 'title']
+            ],
+            [
                 '\Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction',
                 ['action', 'vatId']
             ],
@@ -1092,6 +1108,22 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Customers\Command\CustomerSetExternalIdAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetFirstNameAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetLastNameAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetMiddleNameAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction',
                 'of',
             ],
             [

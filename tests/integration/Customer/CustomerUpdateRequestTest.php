@@ -24,7 +24,7 @@ use Commercetools\Core\Request\Customers\Command\CustomerSetExternalIdAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetFirstNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetLastNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetMiddleNameAction;
-use Commercetools\Core\Request\Customers\Command\CustomerSetTitleNameAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
 use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
@@ -138,7 +138,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $title = 'new-' . $this->getTestRun() . '-title';
 
         $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(CustomerSetTitleNameAction::of()->setTitle($title))
+            ->addAction(CustomerSetTitleAction::of()->setTitle($title))
         ;
         $response = $request->executeWithClient($this->getClient());
         $customer = $request->mapResponse($response);

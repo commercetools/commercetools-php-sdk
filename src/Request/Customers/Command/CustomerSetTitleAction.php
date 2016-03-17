@@ -12,11 +12,11 @@ use Commercetools\Core\Request\AbstractAction;
  * @package Commercetools\Core\Request\Customers\Command
  * @link http://dev.commercetools.com/http-api-projects-customers.html#set-title
  * @method string getAction()
- * @method CustomerSetTitleNameAction setAction(string $action = null)
+ * @method CustomerSetTitleAction setAction(string $action = null)
  * @method string getTitle()
- * @method CustomerSetTitleNameAction setTitle(string $title = null)
+ * @method CustomerSetTitleAction setTitle(string $title = null)
  */
-class CustomerSetTitleNameAction extends AbstractAction
+class CustomerSetTitleAction extends AbstractAction
 {
     public function fieldDefinitions()
     {

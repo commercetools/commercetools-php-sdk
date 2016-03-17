@@ -50,6 +50,10 @@ class GenericDeleteRequestTest extends RequestTestCase
                 '\Commercetools\Core\Model\Customer\Customer',
             ],
             [
+                '\Commercetools\Core\Request\CustomObjects\CustomObjectDeleteRequest',
+                '\Commercetools\Core\Model\CustomObject\CustomObject',
+            ],
+            [
                 '\Commercetools\Core\Request\DiscountCodes\DiscountCodeDeleteRequest',
                 '\Commercetools\Core\Model\DiscountCode\DiscountCode',
             ],
