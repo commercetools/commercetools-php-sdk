@@ -146,6 +146,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'name', 'value', 'staged']
             ],
             [
+                '\Commercetools\Core\Request\Products\Command\ProductSetCategoryOrderHintAction',
+                ['action', 'categoryId', 'orderHint', 'staged']
+            ],
+            [
                 '\Commercetools\Core\Request\Products\Command\ProductSetDescriptionAction',
                 ['action', 'description', 'staged']
             ],
@@ -174,6 +178,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'type', 'priceId', 'staged', 'fields'],
             ],
             [
+                '\Commercetools\Core\Request\Products\Command\ProductSetPricesAction',
+                ['action', 'variantId', 'prices', 'staged'],
+            ],
+            [
                 '\Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
                 ['action', 'searchKeywords', 'staged']
             ],
@@ -184,6 +192,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction',
                 ['action', 'taxCategory', 'staged']
+            ],
+            [
+                '\Commercetools\Core\Request\Products\Command\ProductTransitionStateAction',
+                ['action', 'state', 'force']
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductUnpublishAction',
@@ -654,6 +666,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'restockableInDays']
             ],
             [
+                '\Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction',
+                ['action', 'supplyChannel']
+            ],
+            [
                 '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeIsActiveAction',
                 ['action', 'isActive']
             ],
@@ -756,6 +772,22 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentAddTransactionAction',
                 ['action', 'transaction']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeAmountPlannedAction',
+                ['action', 'amount']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionInteractionIdAction',
+                ['action', 'transactionId', 'interactionId']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionStateAction',
+                ['action', 'transactionId', 'state']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionTimestampAction',
+                ['action', 'transactionId', 'timestamp']
             ],
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentSetAmountPaidAction',
@@ -914,6 +946,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['attributeName']
             ],
             [
+                '\Commercetools\Core\Request\Products\Command\ProductSetCategoryOrderHintAction',
+                'ofCategoryId',
+                ['categoryId']
+            ],
+            [
                 '\Commercetools\Core\Request\Products\Command\ProductSetDescriptionAction',
                 'ofDescription',
                 [
@@ -945,6 +982,14 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 'of',
             ],
             [
+                '\Commercetools\Core\Request\Products\Command\ProductSetPricesAction',
+                'ofVariantIdAndPrices',
+                [
+                    1,
+                    $this->getInstance('\Commercetools\Core\Model\Common\PriceDraftCollection')
+                ]
+            ],
+            [
                 '\Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
                 'ofKeywords',
                 [
@@ -959,6 +1004,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction',
                 'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Products\Command\ProductTransitionStateAction',
+                'ofState',
+                [$this->getInstance('\Commercetools\Core\Model\State\StateReference')]
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductUnpublishAction',
@@ -1589,6 +1639,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 'of',
             ],
             [
+                '\Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction',
+                'of',
+            ],
+            [
                 '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeIsActiveAction',
                 'ofIsActive',
                 [true]
@@ -1726,6 +1780,25 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\Payments\Command\PaymentAddTransactionAction',
                 'ofTransaction',
                 [$this->getInstance('\Commercetools\Core\Model\Payment\Transaction')]
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeAmountPlannedAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionInteractionIdAction',
+                'ofTransactionIdAndInteractionId',
+                ['transactionId', 'interactionId']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionStateAction',
+                'ofTransactionIdAndState',
+                ['transactionId', 'state']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionTimestampAction',
+                'ofTransactionIdAndTimestamp',
+                ['transactionId', new \DateTime()]
             ],
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentSetAmountPaidAction',

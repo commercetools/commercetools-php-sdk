@@ -46,7 +46,7 @@ class PaymentChangeTransactionInteractionIdAction extends AbstractAction
      * @param Context|callable $context
      * @return PaymentAddTransactionAction
      */
-    public static function ofTransactionIdAndState($transactionId, $interactionId, $context = null)
+    public static function ofTransactionIdAndInteractionId($transactionId, $interactionId, $context = null)
     {
         return static::of($context)->setTransactionId($transactionId)->setInteractionId($interactionId);
     }

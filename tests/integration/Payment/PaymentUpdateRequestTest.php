@@ -407,9 +407,10 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $interactionId = $this->getTestRun() . '-new';
         $request = PaymentUpdateRequest::ofIdAndVersion($payment->getId(), $payment->getVersion())
             ->addAction(
-                PaymentChangeTransactionInteractionIdAction::of()
-                    ->setTransactionId($transaction->getId())
-                    ->setInteractionId($interactionId)
+                PaymentChangeTransactionInteractionIdAction::ofTransactionIdAndInteractionId(
+                    $transaction->getId(),
+                    $interactionId
+                )
             )
         ;
         $response = $request->executeWithClient($this->getClient());
