@@ -746,6 +746,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'description']
             ],
             [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeIsSearchableAction',
+                ['action', 'attributeName', 'isSearchable']
+            ],
+            [
                 '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction',
                 ['action', 'attributeName', 'label']
             ],
@@ -764,6 +768,14 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveAttributeDefinitionAction',
                 ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction',
+                ['action', 'attributeName', 'inputTip']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction',
+                ['action', 'key']
             ],
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentAddInterfaceInteractionAction',
@@ -1748,6 +1760,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['new description']
             ],
             [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeIsSearchableAction',
+                'ofAttributeNameAndIsSearchable',
+                ['attributeName', true]
+            ],
+            [
                 '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction',
                 'ofAttributeNameAndLabel',
                 ['attributeName', $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
@@ -1771,6 +1788,16 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveAttributeDefinitionAction',
                 'ofName',
                 ['name']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction',
+                'ofAttributeName',
+                ['attributeName']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction',
+                'ofKey',
+                ['typeKey']
             ],
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentAddInterfaceInteractionAction',
