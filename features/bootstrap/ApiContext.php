@@ -418,7 +418,7 @@ trait ApiContext
         /**
          * @var \Commercetools\Core\Request\AbstractQueryRequest $request
          */
-        $filter = Filter::of()->setName($field)->setValue($value);
+        $filter = Filter::ofName($field)->setValue($value);
         $this->request->addFilter($filter);
     }
 
