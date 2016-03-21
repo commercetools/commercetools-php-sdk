@@ -249,13 +249,13 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
             $this->cleanupRequests = [];
         }
 
+        $this->deleteProduct();
+        $this->deleteCustomer();
+        $this->deleteCustomerGroup();
         $this->deleteCategory();
         $this->deleteShippingMethod();
         $this->deleteZone();
-        $this->deleteProduct();
         $this->deleteTaxCategory();
-        $this->deleteCustomer();
-        $this->deleteCustomerGroup();
         $this->deletePayment();
         $this->deleteDiscountCode();
         $this->deleteCartDiscount();
