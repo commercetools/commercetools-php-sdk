@@ -39,7 +39,7 @@ use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateRequest;
 
-class OrderQueryRequestTest extends ApiTestCase
+class OrderUpdateRequestTest extends ApiTestCase
 {
     /**
      * @return CartDraft
