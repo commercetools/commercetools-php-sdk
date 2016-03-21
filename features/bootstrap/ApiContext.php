@@ -10,7 +10,7 @@ use Behat\Gherkin\Node\PyStringNode;
 use Commercetools\Core\Model\Common\AbstractJsonDeserializeObject;
 use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\JsonObject;
-use Commercetools\Core\Model\Product\Filter;
+use Commercetools\Core\Model\Product\Search\Filter;
 
 trait ApiContext
 {

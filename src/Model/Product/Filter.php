@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Product\Search\FilterInterface;
 
 /**
  * @package Commercetools\Core\Model\Product
+ * @deprecated use \Commercetools\Core\Model\Product\Search\Filter instead. Will be removed in v1.0.0
  * @method getValue()
  * @method Filter setValue($value = null)
  * @method string getAlias()

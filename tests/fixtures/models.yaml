@@ -559,21 +559,6 @@ productVariantDraft:
     - images
     - attributes
 
-filterRange:
-  domain: product
-  model: FilterRange
-  fields:
-    - from
-    - to
-
-filter:
-  domain: product
-  model: Filter
-  fields:
-    - name
-    - value
-    - alias
-
 facetTerm:
   domain: product
   model: FacetTerm
@@ -595,14 +580,6 @@ facetRange:
     - min
     - max
     - mean
-
-facet:
-  domain: product
-  model: Facet
-  fields:
-    - name
-    - value
-    - alias
 
 facetResult:
   domain: product
