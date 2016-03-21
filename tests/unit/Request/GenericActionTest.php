@@ -538,6 +538,26 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'authorName']
             ],
             [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetCustomerAction',
+                ['action', 'customer']
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetKeyAction',
+                ['action', 'key']
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetLocaleAction',
+                ['action', 'locale']
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetRatingAction',
+                ['action', 'rating']
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTargetAction',
+                ['action', 'target']
+            ],
+            [
                 '\Commercetools\Core\Request\Reviews\Command\ReviewSetTextAction',
                 ['action', 'text']
             ],
@@ -570,6 +590,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'fieldNames']
             ],
             [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeKeyAction',
+                ['action', 'key']
+            ],
+            [
                 '\Commercetools\Core\Request\Types\Command\TypeChangeLabelAction',
                 ['action', 'fieldName', 'label']
             ],
@@ -590,6 +614,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'description']
             ],
             [
+                '\Commercetools\Core\Request\States\Command\StateAddRolesAction',
+                ['action', 'roles']
+            ],
+            [
                 '\Commercetools\Core\Request\States\Command\StateChangeInitialAction',
                 ['action', 'initial']
             ],
@@ -602,12 +630,20 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'type']
             ],
             [
+                '\Commercetools\Core\Request\States\Command\StateRemoveRolesAction',
+                ['action', 'roles']
+            ],
+            [
                 '\Commercetools\Core\Request\States\Command\StateSetDescriptionAction',
                 ['action', 'description']
             ],
             [
                 '\Commercetools\Core\Request\States\Command\StateSetNameAction',
                 ['action', 'name']
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateSetRolesAction',
+                ['action', 'roles']
             ],
             [
                 '\Commercetools\Core\Request\States\Command\StateSetTransitionsAction',
@@ -1496,6 +1532,18 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 'of',
             ],
             [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetCustomerAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetKeyAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTargetAction',
+                'of',
+            ],
+            [
                 '\Commercetools\Core\Request\Reviews\Command\ReviewSetTextAction',
                 'of',
             ],
@@ -1534,6 +1582,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 [['name1', 'name2']]
             ],
             [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeKeyAction',
+                'ofKey',
+                ['new-key']
+            ],
+            [
                 '\Commercetools\Core\Request\Types\Command\TypeChangeLabelAction',
                 'ofNameAndLabel',
                 ['fieldName', $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
@@ -1558,6 +1611,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 'of',
             ],
             [
+                '\Commercetools\Core\Request\States\Command\StateAddRolesAction',
+                'ofRoles',
+                [['role1']]
+            ],
+            [
                 '\Commercetools\Core\Request\States\Command\StateChangeInitialAction',
                 'ofInitial',
                 [true]
@@ -1573,6 +1631,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['newType']
             ],
             [
+                '\Commercetools\Core\Request\States\Command\StateRemoveRolesAction',
+                'ofRoles',
+                [['role1']]
+            ],
+            [
                 '\Commercetools\Core\Request\States\Command\StateSetDescriptionAction',
                 'ofDescription',
                 [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
@@ -1581,6 +1644,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\States\Command\StateSetNameAction',
                 'ofName',
                 [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateSetRolesAction',
+                'ofRoles',
+                [['role1']]
             ],
             [
                 '\Commercetools\Core\Request\States\Command\StateSetTransitionsAction',
