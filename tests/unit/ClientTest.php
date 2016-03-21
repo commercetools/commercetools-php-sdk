@@ -17,7 +17,6 @@ use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use Commercetools\Core\Client\JsonEndpoint;
 use Commercetools\Core\Client\OAuth\Token;
-use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Request\ClientRequestInterface;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
@@ -357,12 +356,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \GuzzleHttp\Exception\ConnectException
+     * @expectedException \Commercetools\Core\Error\ApiException
      */
     public function testBatchException()
     {
-        $this->markTestSkipped('todo fix segfault');
-        return;
         $oauthMock = $this->getMock('\Commercetools\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
         $oauthMock->expects($this->any())
             ->method('getToken')
@@ -399,8 +396,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testBatchExceptionWithResponse()
     {
-        $this->markTestSkipped('todo fix segfault');
-        return;
         $oauthMock = $this->getMock('\Commercetools\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
         $oauthMock->expects($this->any())
             ->method('getToken')
