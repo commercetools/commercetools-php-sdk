@@ -10,6 +10,7 @@ use Commercetools\Core\Client\HttpRequest;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Request\AbstractByKeyGetRequest;
 use Commercetools\Core\Request\ExpandTrait;
 use Commercetools\Core\Request\PageTrait;
 use Commercetools\Core\Request\QueryTrait;
@@ -22,14 +23,9 @@ use Psr\Http\Message\ResponseInterface;
  * @package Commercetools\Core\Request\Types
  * @method Type mapResponse(ApiResponseInterface $response)
  */
-class TypeByKeyGetRequest extends AbstractApiRequest
+class TypeByKeyGetRequest extends AbstractByKeyGetRequest
 {
     protected $resultClass = '\Commercetools\Core\Model\Type\Type';
-
-    use QueryTrait;
-    use StagedTrait;
-    use PageTrait;
-    use ExpandTrait;
 
     /**
      * @param string $key
@@ -37,11 +33,7 @@ class TypeByKeyGetRequest extends AbstractApiRequest
      */
     public function __construct($key, Context $context = null)
     {
-        parent::__construct(TypesEndpoint::endpoint(), $context);
-        if (!is_null($key)) {
-            $this->where(sprintf('key="%1$s"', $key));
-        }
-        $this->limit(1);
+        parent::__construct(TypesEndpoint::endpoint(), $key, $context);
     }
 
     /**
@@ -52,37 +44,5 @@ class TypeByKeyGetRequest extends AbstractApiRequest
     public static function ofKey($key, Context $context = null)
     {
         return new static($key, $context);
-    }
-
-    /**
-     * @return HttpRequest
-     * @internal
-     */
-    public function httpRequest()
-    {
-        return new HttpRequest(HttpMethod::GET, $this->getPath());
-    }
-
-    /**
-     * @param ResponseInterface $response
-     * @return ResourceResponse
-     */
-    public function buildResponse(ResponseInterface $response)
-    {
-        return new ResourceResponse($response, $this, $this->getContext());
-    }
-
-    /**
-     * @param array $result
-     * @param Context $context
-     * @return Type|null
-     */
-    public function mapResult(array $result, Context $context = null)
-    {
-        if (!empty($result['results'])) {
-            $data = current($result['results']);
-            return Type::fromArray($data, $context);
-        }
-        return null;
     }
 }
