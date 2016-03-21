@@ -27,6 +27,7 @@ use Commercetools\Core\Request\Payments\Command\PaymentSetCustomerAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetCustomFieldAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetCustomTypeAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetExternalIdAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetInterfaceIdAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoInterfaceAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoMethodAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoNameAction;
@@ -127,6 +128,26 @@ class PaymentUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
         $this->assertSame($externalId, $result->getExternalId());
+        $this->assertNotSame($payment->getVersion(), $result->getVersion());
+    }
+
+    public function testSetInterfaceId()
+    {
+        $draft = $this->getDraft();
+        $payment = $this->createPayment($draft);
+
+        $interfaceId = $this->getTestRun() . '-interfaceId';
+        $request = PaymentUpdateRequest::ofIdAndVersion($payment->getId(), $payment->getVersion())
+            ->addAction(
+                PaymentSetInterfaceIdAction::of()->setInterfaceId($interfaceId)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertSame($interfaceId, $result->getExternalId());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
 
