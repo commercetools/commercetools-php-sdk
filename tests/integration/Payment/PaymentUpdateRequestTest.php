@@ -147,7 +147,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
-        $this->assertSame($interfaceId, $result->getExternalId());
+        $this->assertSame($interfaceId, $result->getInterfaceId());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
 
