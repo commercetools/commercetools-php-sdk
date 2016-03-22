@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: http://sphereio.github.io/commercetools-php-sdk/docs/master/sitemap.xml
