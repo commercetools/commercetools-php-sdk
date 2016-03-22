@@ -1,3 +1,73 @@
+<a name="1.0.0-RC10"></a>
+# [1.0.0-RC10](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC9...v1.0.0-RC10) (2016-03-22)
+
+
+### Bug Fixes
+
+* **CartDiscount:** fix cart discount target with correct type ([220c1da](https://github.com/sphereio/commercetools-php-sdk/commit/220c1da))
+* **Client:** fix guzzle5 adapter to send user agent ([3ae8748](https://github.com/sphereio/commercetools-php-sdk/commit/3ae8748))
+* **Collection:** fix add function for collection ([993cddd](https://github.com/sphereio/commercetools-php-sdk/commit/993cddd))
+* **Collection:** fix collection iterator for associative collections ([2442677](https://github.com/sphereio/commercetools-php-sdk/commit/2442677))
+* **Customer:** fix exception on getDefaultAddresses for empty customer address ([7bd63a4](https://github.com/sphereio/commercetools-php-sdk/commit/7bd63a4))
+* **DateDecorator:** fix date overflow for date decorator on serialization ([9009b8f](https://github.com/sphereio/commercetools-php-sdk/commit/9009b8f))
+* **Inventory:** fix setSupplyChannel action for inventory update ([f356179](https://github.com/sphereio/commercetools-php-sdk/commit/f356179))
+* **LocalizedString:** use graceful flag for language property getter ([621195d](https://github.com/sphereio/commercetools-php-sdk/commit/621195d))
+* **Payment:** correct type mapping for transaction state ([0c6f36d](https://github.com/sphereio/commercetools-php-sdk/commit/0c6f36d))
+* **Reference:** remove obj from serialized result if resource is embedded ([79f8cba](https://github.com/sphereio/commercetools-php-sdk/commit/79f8cba))
+* **Review:** fix locale serialization for review models ([973129d](https://github.com/sphereio/commercetools-php-sdk/commit/973129d))
+
+### Features
+
+* **Category:** add metaDescription, metaKeywords, metaTitle to Category and CategoryDraft model ([5468676](https://github.com/sphereio/commercetools-php-sdk/commit/5468676))
+* **Customer:** add update actions to set customer's firstName, middleName, lastName and title ([b122225](https://github.com/sphereio/commercetools-php-sdk/commit/b122225))
+* **GraphQL:** add request to query GraphQL endpoint ([182641a](https://github.com/sphereio/commercetools-php-sdk/commit/182641a))
+* **LineItem:** add helper function to calculate discounted price ([961a493](https://github.com/sphereio/commercetools-php-sdk/commit/961a493))
+* **Payment:** add change amount planned update action ([2815f98](https://github.com/sphereio/commercetools-php-sdk/commit/2815f98))
+* **Product:** add product setCategoryOrderHint action ([9f8de04](https://github.com/sphereio/commercetools-php-sdk/commit/9f8de04))
+* **Product:** add set prices update action ([a8c4206](https://github.com/sphereio/commercetools-php-sdk/commit/a8c4206))
+* **ProductSearch:** support POST for filters and facets ([caeb0a5](https://github.com/sphereio/commercetools-php-sdk/commit/caeb0a5))
+* **ProductType:** add change isSearchable update action ([95395f9](https://github.com/sphereio/commercetools-php-sdk/commit/95395f9))
+* **ProductType:** add inputTip to attribute definition ([09288a4](https://github.com/sphereio/commercetools-php-sdk/commit/09288a4))
+* **ProductType:** add key to product type ([4e1d393](https://github.com/sphereio/commercetools-php-sdk/commit/4e1d393))
+* **Review:** add by key requests ([ebc4ece](https://github.com/sphereio/commercetools-php-sdk/commit/ebc4ece))
+* **Review:** add update by key request ([710c89e](https://github.com/sphereio/commercetools-php-sdk/commit/710c89e))
+* **Review:** update Review requests and models to API changes ([6634658](https://github.com/sphereio/commercetools-php-sdk/commit/6634658))
+* **ShippingMethod:** add delete request for shipping methods ([e5510f6](https://github.com/sphereio/commercetools-php-sdk/commit/e5510f6))
+* **State:** add set, add and remove roles update action ([7c9a28d](https://github.com/sphereio/commercetools-php-sdk/commit/7c9a28d))
+* **Type:** add by key delete requests ([509616f](https://github.com/sphereio/commercetools-php-sdk/commit/509616f))
+* **Type:** add type change key action ([1c2ebf4](https://github.com/sphereio/commercetools-php-sdk/commit/1c2ebf4))
+* **Type:** add type update by key request ([72e4bd2](https://github.com/sphereio/commercetools-php-sdk/commit/72e4bd2))
+* **Types:** add delete type by key request ([2450b7a](https://github.com/sphereio/commercetools-php-sdk/commit/2450b7a))
+* **Types:** add request to get type by key ([2b34ae9](https://github.com/sphereio/commercetools-php-sdk/commit/2b34ae9)), closes [#169](https://github.com/sphereio/commercetools-php-sdk/issues/169)
+
+### DEPRECATION NOTE
+Facet, Filter, FilterRange and FilterRangeCollection in namespace Commercetools\Core\Model\Product have been marked as deprecated and will be removed in v1.0.0. Please use the classes found in namespace Commercetools\Core\Model\Product\Search instead.
+
+### BREAKING CHANGES
+* Changed named constructors for type update actions
+  
+  Before:
+  
+  ```
+  TypeAddLocalizedEnumValueAction::ofEnum(...)
+  TypeAddEnumValueAction::ofEnum(...)
+  TypeChangeEnumValueOrderAction::ofEnums(...)
+  TypeChangeLocalizedEnumValueOrderAction::ofEnums(...)
+  TypeChangeLabelAction::ofLabel(...)
+  ```
+  
+  After:
+  
+  ```
+  TypeAddLocalizedEnumValueAction::ofNameAndEnum(...)
+  TypeAddEnumValueAction::ofNameAndEnum(...)
+  TypeChangeEnumValueOrderAction::ofNameAndEnums(...)
+  TypeChangeLocalizedEnumValueOrderAction::ofNameAndEnums(...)
+  TypeChangeLabelAction::ofNameAndLabel(...)
+  ```
+
+
+
 <a name="1.0.0-RC9"></a>
 # [1.0.0-RC9](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC8...v1.0.0-RC9) (2016-01-11)
 
