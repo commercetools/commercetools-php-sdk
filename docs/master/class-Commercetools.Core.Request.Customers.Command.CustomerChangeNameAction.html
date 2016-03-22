@@ -3,11 +3,11 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>CTP SDK master: Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction (Class)</title>
+	<title>CTP SDK master: Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction (Deprecated)(Class)</title>
 
 	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
 	<link rel="stylesheet" href="resources/style.css?6c7e011bc92edb55834afff24c1fc85b1794ef5e">
-
+    <link rel="shortcut icon" type="image/png" href="resources/favicon.png?9c2a6ec825b4dbff6085830fb749cd4d0299fcea">
 </head>
 
 <body>
@@ -306,6 +306,10 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
+							GraphQL						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.Inventory.html">
 							Inventory<span></span>
 						</a>
@@ -452,7 +456,7 @@
 				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerAddAddressAction.html">CustomerAddAddressAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeAddressAction.html">CustomerChangeAddressAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeEmailAction.html">CustomerChangeEmailAction</a></li>
-				<li class="active"><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html">CustomerChangeNameAction</a></li>
+				<li class="active"><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html" class="deprecated">CustomerChangeNameAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerRemoveAddressAction.html">CustomerRemoveAddressAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerSetCompanyNameAction.html">CustomerSetCompanyNameAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerSetCustomerGroupAction.html">CustomerSetCustomerGroupAction</a></li>
@@ -461,6 +465,10 @@
 				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerSetDefaultBillingAddressAction.html">CustomerSetDefaultBillingAddressAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerSetDefaultShippingAddressAction.html">CustomerSetDefaultShippingAddressAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerSetExternalIdAction.html">CustomerSetExternalIdAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerSetFirstNameAction.html">CustomerSetFirstNameAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerSetLastNameAction.html">CustomerSetLastNameAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerSetMiddleNameAction.html">CustomerSetMiddleNameAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerSetTitleAction.html">CustomerSetTitleAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Customers.Command.CustomerSetVatIdAction.html">CustomerSetVatIdAction</a></li>
 			</ul>
 
@@ -477,7 +485,7 @@
 <div id="right">
 	<div id="rightInner">
 <div id="content" class="class">
-	<h1>Class CustomerChangeNameAction</h1>
+	<h1 class="deprecated">Class CustomerChangeNameAction</h1>
 
 
 
@@ -514,7 +522,7 @@
 		</dd>
 		<dd style="padding-left:90px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</span></b>			
+<b><span class="deprecated">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</span></b>			
 			
 			
 		</dd>
@@ -534,9 +542,11 @@
             <tr><th>Namespace</th><td><a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Request.html">Request</a>\<a href="namespace-Commercetools.Core.Request.Customers.html">Customers</a>\<a href="namespace-Commercetools.Core.Request.Customers.Command.html">Command</a></td></tr>
             <tr><th>Package</th><td>Commercetools\Core\Request\Customers\Command</td></tr>
 
-                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#11-59" title="Go to source code">Request/Customers/Command/CustomerChangeNameAction.php</a></td></tr>
+                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#11-60" title="Go to source code">Request/Customers/Command/CustomerChangeNameAction.php</a></td></tr>
 
-                    <tr><th>API documentation</th><td><b><a href="http://dev.sphere.io/http-api-projects-customers.html#change-name" target="api-doc">http://dev.sphere.io/http-api-projects-customers.html#change-name</a></b></span></td></tr>
+                    <tr><th>Deprecated</th><td>this action has been deprecated by the API, use setFirstName, setLastName, setMiddleName or setTitle</td></tr>
+                    <tr><th>API documentation</th><td>
+                    <b><a href="https://dev.commercetools.com/http-api-projects-customers.html#change-name" target="api-doc">https://dev.commercetools.com/http-api-projects-customers.html#change-name</a></b></span></td></tr>
 		</table>
 	</div>
 
@@ -545,7 +555,7 @@
 		<div class="panel panel-default methods">
 			<div class="panel-heading"><h2>Methods</h2></div>
 			<table class="summary table table-bordered table-striped methods" id="methods">
-		<tr data-order="__construct" id="___construct">
+		<tr data-order="__construct" id="___construct" class="deprecated">
 
 			<td class="attributes"><code>
 				 public 
@@ -556,7 +566,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#38-46" title="Go to source code">__construct</a>( <span>array <var>$data</var> = []</span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#39-47" title="Go to source code">__construct</a>( <span>array <var>$data</var> = []</span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -583,18 +593,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="ofFirstNameAndLastName" id="_ofFirstNameAndLastName">
+		<tr data-order="ofFirstNameAndLastName" id="_ofFirstNameAndLastName" class="deprecated">
 
 			<td class="attributes"><code>
 				 public static
-				<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
+				<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html" class="deprecated">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofFirstNameAndLastName">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#49-58" title="Go to source code">ofFirstNameAndLastName</a>( <span>string <var>$firstName</var></span>, <span>string <var>$lastName</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#50-59" title="Go to source code">ofFirstNameAndLastName</a>( <span>string <var>$firstName</var></span>, <span>string <var>$lastName</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -616,7 +626,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
+						<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html" class="deprecated">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
 					</div>
 
 
@@ -627,7 +637,7 @@
 		</tr>
 
 			<tr><th colspan="2">Magic methods</th></tr>
-		<tr data-order="getFirstName" id="m_getFirstName">
+		<tr data-order="getFirstName" id="m_getFirstName" class="deprecated">
 
 			<td class="attributes"><code>
 				 public 
@@ -638,7 +648,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getFirstName">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#14" title="Go to source code">getFirstName</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#15" title="Go to source code">getFirstName</a>( )</code>
 
 			<div class="description short">
 				
@@ -660,7 +670,7 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="getLastName" id="m_getLastName">
+		<tr data-order="getLastName" id="m_getLastName" class="deprecated">
 
 			<td class="attributes"><code>
 				 public 
@@ -671,7 +681,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getLastName">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#15" title="Go to source code">getLastName</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#16" title="Go to source code">getLastName</a>( )</code>
 
 			<div class="description short">
 				
@@ -693,7 +703,7 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="getMiddleName" id="m_getMiddleName">
+		<tr data-order="getMiddleName" id="m_getMiddleName" class="deprecated">
 
 			<td class="attributes"><code>
 				 public 
@@ -704,7 +714,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getMiddleName">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#16" title="Go to source code">getMiddleName</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#17" title="Go to source code">getMiddleName</a>( )</code>
 
 			<div class="description short">
 				
@@ -726,7 +736,7 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="getTitle" id="m_getTitle">
+		<tr data-order="getTitle" id="m_getTitle" class="deprecated">
 
 			<td class="attributes"><code>
 				 public 
@@ -737,7 +747,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getTitle">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#17" title="Go to source code">getTitle</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#18" title="Go to source code">getTitle</a>( )</code>
 
 			<div class="description short">
 				
@@ -759,18 +769,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="setFirstName" id="m_setFirstName">
+		<tr data-order="setFirstName" id="m_setFirstName" class="deprecated">
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
+				<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html" class="deprecated">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setFirstName">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#18" title="Go to source code">setFirstName</a>( <span>string <var>$firstName</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#19" title="Go to source code">setFirstName</a>( <span>string <var>$firstName</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -788,7 +798,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
+						<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html" class="deprecated">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
 					</div>
 
 
@@ -797,18 +807,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="setLastName" id="m_setLastName">
+		<tr data-order="setLastName" id="m_setLastName" class="deprecated">
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
+				<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html" class="deprecated">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setLastName">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#19" title="Go to source code">setLastName</a>( <span>string <var>$lastName</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#20" title="Go to source code">setLastName</a>( <span>string <var>$lastName</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -826,7 +836,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
+						<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html" class="deprecated">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
 					</div>
 
 
@@ -835,18 +845,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="setMiddleName" id="m_setMiddleName">
+		<tr data-order="setMiddleName" id="m_setMiddleName" class="deprecated">
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
+				<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html" class="deprecated">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setMiddleName">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#20" title="Go to source code">setMiddleName</a>( <span>string <var>$middleName</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#21" title="Go to source code">setMiddleName</a>( <span>string <var>$middleName</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -864,7 +874,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
+						<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html" class="deprecated">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
 					</div>
 
 
@@ -873,18 +883,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="setTitle" id="m_setTitle">
+		<tr data-order="setTitle" id="m_setTitle" class="deprecated">
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
+				<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html" class="deprecated">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setTitle">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#21" title="Go to source code">setTitle</a>( <span>string <var>$title</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#22" title="Go to source code">setTitle</a>( <span>string <var>$title</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -902,7 +912,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
+						<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html" class="deprecated">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
 					</div>
 
 
@@ -911,7 +921,7 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="getAction" id="m_getAction">
+		<tr data-order="getAction" id="m_getAction" class="deprecated">
 
 			<td class="attributes"><code>
 				 public 
@@ -922,7 +932,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getAction">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#22" title="Go to source code">getAction</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#23" title="Go to source code">getAction</a>( )</code>
 
 			<div class="description short">
 				
@@ -946,18 +956,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="setAction" id="m_setAction">
+		<tr data-order="setAction" id="m_setAction" class="deprecated">
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
+				<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html" class="deprecated">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setAction">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#23" title="Go to source code">setAction</a>( <span>string <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html#24" title="Go to source code">setAction</a>( <span>string <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -975,7 +985,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
+						<code><a href="class-Commercetools.Core.Request.Customers.Command.CustomerChangeNameAction.html" class="deprecated">Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction</a></code>
 					</div>
 
 
@@ -1085,7 +1095,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_fromArray">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#209-217" title="Go to source code">fromArray</a>( <span>array <var>$data</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#220-228" title="Go to source code">fromArray</a>( <span>array <var>$data</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1167,7 +1177,7 @@ which is a value of any type other than a resource.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_of">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#219-226" title="Go to source code">of</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#230-237" title="Go to source code">of</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1205,7 +1215,7 @@ which is a value of any type other than a resource.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_toArray">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#188-207" title="Go to source code">toArray</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#200-218" title="Go to source code">toArray</a>( )</code>
 
 			<div class="description short">
 				

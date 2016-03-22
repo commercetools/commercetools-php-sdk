@@ -169,6 +169,9 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/namespace-Commercetools.Core.Request.DiscountCodes.Command.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/namespace-Commercetools.Core.Request.GraphQL.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/namespace-Commercetools.Core.Request.Inventory.html</loc>
 </url>
 <url>
@@ -900,6 +903,18 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Product.ProductVariantDraftCollection.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Product.Search.Facet.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Product.Search.Filter.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Product.Search.FilterRange.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Product.Search.FilterRangeCollection.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Product.SearchKeyword.html</loc>
 </url>
 <url>
@@ -1002,6 +1017,9 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Review.ReviewDraft.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Review.ReviewRatingStatistics.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShippingMethod.ShippingMethod.html</loc>
 </url>
 <url>
@@ -1039,6 +1057,9 @@
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.State.StateReferenceCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.State.StateRole.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.TaxCategory.TaxCategory.html</loc>
@@ -1437,6 +1458,18 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerSetExternalIdAction.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerSetFirstNameAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerSetLastNameAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerSetMiddleNameAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerSetTitleAction.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerSetVatIdAction.html</loc>
 </url>
 <url>
@@ -1546,6 +1579,12 @@
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.DiscountCodes.DiscountCodeUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.GraphQL.GraphQLEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.GraphQL.GraphQLQueryRequest.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Inventory.Command.InventoryAddQuantityAction.html</loc>
@@ -1669,6 +1708,9 @@
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Payments.Command.PaymentAddTransactionAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Payments.Command.PaymentChangeAmountPlannedAction.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Payments.Command.PaymentChangeTransactionInteractionIdAction.html</loc>
@@ -1821,6 +1863,9 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Products.Command.ProductSetAttributeInAllVariantsAction.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Products.Command.ProductSetCategoryOrderHintAction.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Products.Command.ProductSetDescriptionAction.html</loc>
 </url>
 <url>
@@ -1840,6 +1885,9 @@
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Products.Command.ProductSetPriceCustomTypeAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Products.Command.ProductSetPricesAction.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Products.Command.ProductSetSearchKeywordsAction.html</loc>
@@ -1911,6 +1959,9 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ProductTypes.Command.ProductTypeChangeDescriptionAction.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ProductTypes.Command.ProductTypeChangeIsSearchableAction.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ProductTypes.Command.ProductTypeChangeLabelAction.html</loc>
 </url>
 <url>
@@ -1924,6 +1975,12 @@
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ProductTypes.Command.ProductTypeRemoveAttributeDefinitionAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ProductTypes.Command.ProductTypeSetInputTipAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ProductTypes.Command.ProductTypeSetKeyAction.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ProductTypes.ProductTypeByIdGetRequest.html</loc>
@@ -1965,7 +2022,19 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.Command.ReviewSetAuthorNameAction.html</loc>
 </url>
 <url>
-	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.Command.ReviewSetScoreAction.html</loc>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.Command.ReviewSetCustomerAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.Command.ReviewSetKeyAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.Command.ReviewSetLocaleAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.Command.ReviewSetRatingAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.Command.ReviewSetTargetAction.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.Command.ReviewSetTextAction.html</loc>
@@ -1980,7 +2049,13 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.ReviewByIdGetRequest.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.ReviewByKeyGetRequest.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.ReviewCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.ReviewDeleteByKeyRequest.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.ReviewDeleteRequest.html</loc>
@@ -1990,6 +2065,9 @@
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.ReviewsEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.ReviewUpdateByKeyRequest.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Reviews.ReviewUpdateRequest.html</loc>
@@ -2031,6 +2109,9 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShippingMethods.ShippingMethodCreateRequest.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShippingMethods.ShippingMethodDeleteRequest.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShippingMethods.ShippingMethodQueryRequest.html</loc>
 </url>
 <url>
@@ -2038,6 +2119,9 @@
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShippingMethods.ShippingMethodUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.States.Command.StateAddRolesAction.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.States.Command.StateChangeInitialAction.html</loc>
@@ -2049,10 +2133,16 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.States.Command.StateChangeTypeAction.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.States.Command.StateRemoveRolesAction.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.States.Command.StateSetDescriptionAction.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.States.Command.StateSetNameAction.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.States.Command.StateSetRolesAction.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.States.Command.StateSetTransitionsAction.html</loc>
@@ -2127,6 +2217,9 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Types.Command.TypeChangeFieldDefinitionOrderAction.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Types.Command.TypeChangeKeyAction.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Types.Command.TypeChangeLabelAction.html</loc>
 </url>
 <url>
@@ -2145,7 +2238,13 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Types.TypeByIdGetRequest.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Types.TypeByKeyGetRequest.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Types.TypeCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Types.TypeDeleteByKeyRequest.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Types.TypeDeleteRequest.html</loc>
@@ -2155,6 +2254,9 @@
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Types.TypesEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Types.TypeUpdateByKeyRequest.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Types.TypeUpdateRequest.html</loc>
