@@ -93,6 +93,9 @@ use Commercetools\Core\Request\Types\TypeCreateRequest;
 use Commercetools\Core\Request\Types\TypeDeleteRequest;
 use Commercetools\Core\Request\Zones\ZoneCreateRequest;
 use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Psr\Log\LogLevel;
 use Symfony\Component\Yaml\Yaml;
 
 class ApiTestCase extends \PHPUnit_Framework_TestCase
@@ -230,7 +233,9 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
             if ($verifySSL === 'false') {
                 $verify = false;
             }
-            $this->client = Client::ofConfig($config);
+            $logger = new Logger('test');
+            $logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
+            $this->client = Client::ofConfigAndLogger($config, $logger);
             $this->client->getOauthManager()->getHttpClient(['verify' => $verify]);
             $this->client->getHttpClient(['verify' => $verify]);
         }
@@ -254,8 +259,8 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         $this->deleteCustomerGroup();
         $this->deleteCategory();
         $this->deleteShippingMethod();
-        $this->deleteZone();
         $this->deleteTaxCategory();
+        $this->deleteZone();
         $this->deletePayment();
         $this->deleteDiscountCode();
         $this->deleteCartDiscount();

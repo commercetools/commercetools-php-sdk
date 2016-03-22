@@ -425,6 +425,8 @@ class ProductUpdateRequestTest extends ApiTestCase
 
     public function testSku()
     {
+        $this->markTestSkipped('SKU not yet stageable');
+
         $draft = $this->getDraft('sku');
         $product = $this->createProduct($draft);
 
@@ -445,7 +447,6 @@ class ProductUpdateRequestTest extends ApiTestCase
             $sku,
             $result->getMasterData()->getStaged()->getMasterVariant()->getSku()
         );
-        $this->markTestSkipped('SKU not yet stageable');
         $this->assertNull($result->getMasterData()->getCurrent()->getMasterVariant()->getSku());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }

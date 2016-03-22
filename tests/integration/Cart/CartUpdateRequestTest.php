@@ -374,6 +374,8 @@ class CartUpdateRequestTest extends ApiTestCase
 
     public function testAddLineItemWithCustomType()
     {
+        $this->markTestSkipped('Must be fixed by API');
+
         $draft = $this->getDraft();
         $cart = $this->createCart($draft);
 
@@ -408,7 +410,6 @@ class CartUpdateRequestTest extends ApiTestCase
         $cart = $request->mapResponse($response);
         $this->deleteRequest->setVersion($cart->getVersion());
 
-        $this->markTestSkipped('Must be fixed by API');
         $this->assertCount(2, $cart->getLineItems());
     }
 
