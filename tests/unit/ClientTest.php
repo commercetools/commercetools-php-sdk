@@ -62,22 +62,32 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
             $mockBodyClass = '\GuzzleHttp\Psr7\BufferStream';
+            $mockFactory = false;
             $responseClass = '\GuzzleHttp\Psr7\Response';
         } else {
-            $mockBodyClass = '\GuzzleHttp\Stream\BufferStream';
+            $mockBodyClass = '\GuzzleHttp\Stream\Stream';
+            $mockFactory = 'factory';
             $responseClass = '\GuzzleHttp\Message\Response';
         }
 
         $responses = [];
         if (is_array($returnValue)) {
             foreach ($returnValue as $value) {
-                $mockBody = new $mockBodyClass();
-                $mockBody->write($value);
+                if ($mockFactory) {
+                    $mockBody = $mockBodyClass::$mockFactory($value);
+                } else {
+                    $mockBody = new $mockBodyClass();
+                    $mockBody->write($value);
+                }
                 $responses[] = new $responseClass($statusCode, $headers, $mockBody);
             }
         } else {
-            $mockBody = new $mockBodyClass();
-            $mockBody->write($returnValue);
+            if ($mockFactory) {
+                $mockBody = $mockBodyClass::$mockFactory($returnValue);
+            } else {
+                $mockBody = new $mockBodyClass();
+                $mockBody->write($returnValue);
+            }
             $responses[] = new $responseClass($statusCode, $headers, $mockBody);
         }
 
