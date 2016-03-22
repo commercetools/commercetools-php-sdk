@@ -1,6 +1,6 @@
 # <img src="build/theme/resources/CT_cube_200px.png" width="40" align="center"></img> commercetools PHP SDK
 
->  STATUS: Release Candidate 9.  We ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!
+>  STATUS: Release Candidate 10.  We ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!
 >
 > See the [Milestone Plan](https://github.com/sphereio/commercetools-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned in detail. We love feedback and [Issue reports](https://github.com/sphereio/commercetools-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
 > Up-to-Date planning status can be found on this [Waffle Board](https://waffle.io/sphereio/commercetools-php-sdk)
