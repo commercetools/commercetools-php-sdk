@@ -12,6 +12,7 @@ namespace Commercetools\Core\Model\Order;
 class OrderState
 {
     const OPEN = 'Open';
+    const CONFIRMED = 'Confirmed';
     const COMPLETE = 'Complete';
     const CANCELLED = 'Cancelled';
 }

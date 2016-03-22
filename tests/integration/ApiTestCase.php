@@ -834,10 +834,13 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         return $draft;
     }
 
-    protected function getChannel()
+    protected function getChannel($roles = null)
     {
         if (is_null($this->channel)) {
             $draft = $this->getChannelDraft();
+            if (is_array($roles)) {
+                $draft->setRoles($roles);
+            }
             $request = ChannelCreateRequest::ofDraft($draft);
             $response = $request->executeWithClient($this->getClient());
             $this->channel = $request->mapResponse($response);

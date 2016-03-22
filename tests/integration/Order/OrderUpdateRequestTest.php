@@ -108,7 +108,7 @@ class OrderUpdateRequestTest extends ApiTestCase
 
         $this->assertNotSame($order->getVersion(), $result->getVersion());
         $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
-        $this->assertSame(OrderState::COMPLETE, $result->getState());
+        $this->assertSame(OrderState::COMPLETE, $result->getOrderState());
     }
 
     public function testChangeShipmentState()
@@ -150,7 +150,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $cartDraft = $this->getCartDraft();
         $order = $this->createOrder($cartDraft);
 
-        $channel = $this->getChannel();
+        $channel = $this->getChannel(['OrderExport']);
         $syncedAt = new \DateTime();
         $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
             ->addAction(OrderUpdateSyncInfoAction::ofChannel($channel->getReference())->setSyncedAt($syncedAt))
@@ -264,12 +264,12 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($order->getVersion(), $result->getVersion());
         $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
         $delivery = $result->getShippingInfo()->getDeliveries()->current();
-        $this->assertSame($lineItem->getId(), $delivery->getId());
+        $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
         $order = $result;
 
         $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
             ->addAction(
-                OrderAddParcelToDeliveryAction::ofDeliveryId($delivery)
+                OrderAddParcelToDeliveryAction::ofDeliveryId($delivery->getId())
                     ->setMeasurements(
                         ParcelMeasurements::of()
                             ->setHeightInMillimeter(100)
