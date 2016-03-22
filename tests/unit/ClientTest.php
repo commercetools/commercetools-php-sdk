@@ -355,6 +355,92 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testLoggingBody()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+        $errorBody = '
+        {
+            "statusCode": 400,
+            "message": "Some error",
+            "errors": [
+                {
+                    "code": "InvalidOperation",
+                    "message": "Some error"
+                }
+            ]
+        }';
+        $client = $this->getMockClient(
+            $this->getConfig(),
+            $errorBody,
+            400,
+            $logger
+        );
+
+        $endpoint = new JsonEndpoint('test');
+        /**
+         * @var ClientRequestInterface $request
+         */
+        $request = $this->getMockForAbstractClass(
+            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            [$endpoint, 'id']
+        );
+        $client->execute($request);
+
+        $logEntry = $handler->getRecords()[1];
+        $this->assertSame(Logger::ERROR, $logEntry['level']);
+        $this->assertSame(
+            'Client error response [url] test/id [status code] 400 [reason phrase] Bad Request',
+            (string)$logEntry['message']
+        );
+        $this->assertJsonStringEqualsJsonString($errorBody, $logEntry['context']['responseBody']);
+    }
+
+    public function testLoggingBatchBody()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+        $errorBody = '
+        {
+            "statusCode": 400,
+            "message": "Some error",
+            "errors": [
+                {
+                    "code": "InvalidOperation",
+                    "message": "Some error"
+                }
+            ]
+        }';
+        $client = $this->getMockClient(
+            $this->getConfig(),
+            $errorBody,
+            400,
+            $logger
+        );
+
+        $endpoint = new JsonEndpoint('test');
+        /**
+         * @var ClientRequestInterface $request
+         */
+        $request = $this->getMockForAbstractClass(
+            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            [$endpoint, 'id']
+        );
+        $client->addBatchRequest($request);
+        $client->executeBatch();
+
+        $logEntry = $handler->getRecords()[1];
+        $this->assertSame(Logger::ERROR, $logEntry['level']);
+        $this->assertSame(
+            'Client error response [url] test/id [status code] 400 [reason phrase] Bad Request',
+            (string)$logEntry['message']
+        );
+        $this->assertJsonStringEqualsJsonString($errorBody, $logEntry['context']['responseBody']);
+    }
     /**
      * @expectedException \Commercetools\Core\Error\ApiException
      */

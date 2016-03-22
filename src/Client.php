@@ -242,6 +242,7 @@ class Client extends AbstractHttpClient
                 throw $exception;
             }
             $response = $exception->getResponse();
+            $this->logException($exception);
         }
         $this->logDeprecatedRequest($response, $httpRequest);
 
@@ -308,6 +309,7 @@ class Client extends AbstractHttpClient
                 ) {
                     throw $httpResponse;
                 }
+                $this->logException($httpResponse);
                 $httpResponse = $httpResponse->getResponse();
             }
             $responses[$request->getIdentifier()] = $request->buildResponse($httpResponse);
@@ -317,6 +319,30 @@ class Client extends AbstractHttpClient
         $this->batchRequests = [];
 
         return $responses;
+    }
+
+    /**
+     * @param $exception
+     * @return $this
+     */
+    protected function logException(ApiException $exception)
+    {
+        if (is_null($this->logger)) {
+            return $this;
+        }
+        $response = $exception->getResponse();
+
+        $context = [];
+        if ($response instanceof ResponseInterface) {
+            $context = [
+                'responseStatusCode' => $response->getStatusCode(),
+                'responseHeaders' => $response->getHeaders(),
+                'responseBody' => (string)$response->getBody(),
+            ];
+        }
+        $this->logger->error($exception->getMessage(), $context);
+
+        return $this;
     }
 
     /**
