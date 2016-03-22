@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
+ * @link https://dev.commercetools.com/http-api-types.html#address
  * @method Address current()
  * @method AddressCollection add(Address $element)
  * @method Address getAt($offset)
@@ -31,7 +32,7 @@ class AddressCollection extends Collection
      * @param $id
      * @return Address|null
      */
-    public function getById($id)
+    public function getById($id = null)
     {
         return $this->getBy(static::ID, $id);
     }

@@ -12,6 +12,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
+ * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#cart-discount
  * @method LocalizedString getName()
  * @method CartDiscountDraft setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()

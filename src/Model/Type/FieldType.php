@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Type
+ * @link https://dev.commercetools.com/http-api-projects-types.html#field-type
  * @method string getName()
  * @method FieldType setName(string $name = null)
  */

@@ -7,12 +7,10 @@ namespace Commercetools\Core\Model\ProductType;
 
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Model\Type\FieldDefinition;
-use Commercetools\Core\Model\Type\FieldType;
 
 /**
  * @package Commercetools\Core\Model\ProductType
- * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#attribute-definition
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#attribute-definition
  * @method AttributeType getType()
  * @method AttributeDefinition setType(AttributeType $type = null)
  * @method string getName()
@@ -27,8 +25,10 @@ use Commercetools\Core\Model\Type\FieldType;
  * @method AttributeDefinition setInputHint(string $inputHint = null)
  * @method bool getIsSearchable()
  * @method AttributeDefinition setIsSearchable(bool $isSearchable = null)
+ * @method LocalizedString getInputTip()
+ * @method AttributeDefinition setInputTip(LocalizedString $inputTip = null)
  */
-class AttributeDefinition extends FieldDefinition
+class AttributeDefinition extends JsonObject
 {
     public function fieldDefinitions()
     {
@@ -40,6 +40,7 @@ class AttributeDefinition extends FieldDefinition
             'attributeConstraint' => [static::TYPE => 'string'],
             'inputHint' => [static::TYPE => 'string'],
             'isSearchable' => [static::TYPE => 'bool'],
+            'inputTip' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
         ];
     }
 }

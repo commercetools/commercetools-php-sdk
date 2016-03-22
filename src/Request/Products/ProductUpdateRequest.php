@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#update-product
+ * @link https://dev.commercetools.com/http-api-projects-products.html#update-product
  * @method Product mapResponse(ApiResponseInterface $response)
  */
 class ProductUpdateRequest extends AbstractUpdateRequest

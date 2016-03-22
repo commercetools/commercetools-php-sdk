@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @apidoc http://dev.sphere.io/http-api-projects-customers.html#remove-address
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#remove-address
  * @method string getAddressId()
  * @method CustomerRemoveAddressAction setAddressId(string $addressId = null)
  * @method string getAction()

@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#change-price
+ * @link https://dev.commercetools.com/http-api-projects-products.html#change-price
  * @method string getAction()
  * @method ProductChangePriceAction setAction(string $action = null)
  * @method PriceDraft getPrice()

@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\TaxCategory
- * @apidoc http://dev.sphere.io/http-api-projects-taxCategories.html#tax-rate
+ * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#tax-rate
  * @method string getId()
  * @method TaxRate setId(string $id = null)
  * @method string getName()

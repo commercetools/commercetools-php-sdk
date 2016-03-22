@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @apidoc http://dev.sphere.io/http-api-projects-customers.html#set-company-name
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#set-company-name
  * @method string getCompanyName()
  * @method CustomerSetCompanyNameAction setCompanyName(string $companyName = null)
  * @method string getAction()

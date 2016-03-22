@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#change-slug
+ * @link https://dev.commercetools.com/http-api-projects-products.html#change-slug
  * @method string getAction()
  * @method ProductChangeSlugAction setAction(string $action = null)
  * @method LocalizedString getSlug()

@@ -17,7 +17,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @apidoc http://dev.sphere.io/http-api-projects-customers.html#customer-by-password-token
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#customer-by-password-token
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerByTokenGetRequest extends AbstractApiRequest

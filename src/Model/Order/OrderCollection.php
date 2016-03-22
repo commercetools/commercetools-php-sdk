@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Order
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#order
  * @method Order current()
  * @method OrderCollection add(Order $element)
  * @method Order getAt($offset)

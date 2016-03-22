@@ -6,12 +6,11 @@
 namespace Commercetools\Core\Cart;
 
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 
-class CartCreateTest extends ApiTestCase
+class CartCreateRequestTest extends ApiTestCase
 {
     /**
      * @return CartDraft
@@ -25,13 +24,9 @@ class CartCreateTest extends ApiTestCase
 
     protected function createCart(CartDraft $draft)
     {
-        /**
-         * @var Cart $cart
-         */
-        $cartResponse = $this->getClient()
-            ->execute(CartCreateRequest::ofDraft($draft));
-
-        $cart = $cartResponse->toObject();
+        $request = CartCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
 
         $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
 

@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#add-external-image
+ * @link https://dev.commercetools.com/http-api-projects-products.html#add-external-image
  * @method string getAction()
  * @method ProductAddExternalImageAction setAction(string $action = null)
  * @method int getVariantId()

@@ -10,6 +10,8 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\Zone
+ * @link https://dev.commercetools.com/http-api-types.html#reference-types
+ * @link https://dev.commercetools.com/http-api-projects-zones.html#zone
  * @method string getTypeId()
  * @method ZoneReference setTypeId(string $typeId = null)
  * @method string getId()

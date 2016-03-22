@@ -12,6 +12,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Request\Types\Command
+ * @link https://dev.commercetools.com/http-api-projects-types.html#add-field-definition
  * @method string getAction()
  * @method TypeAddFieldDefinitionAction setAction(string $action = null)
  * @method FieldDefinition getFieldDefinition()

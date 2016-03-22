@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\States\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-states.html#set-transitions
  * @method string getAction()
  * @method StateSetTransitionsAction setAction(string $action = null)
  * @method StateReferenceCollection getTransitions()

@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#add-plain-enum-value-to-attribute-definition
  * @method string getAction()
  * @method ProductTypeAddPlainEnumValueAction setAction(string $action = null)
  * @method string getAttributeName()

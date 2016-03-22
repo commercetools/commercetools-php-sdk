@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Reviews
- * @apidoc http://dev.sphere.io/http-api-projects-reviews.html#review-by-id
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#review-by-id
  * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewByIdGetRequest extends AbstractByIdGetRequest

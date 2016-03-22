@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#change-line-item-quantity
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#change-line-item-quantity
  * @method string getAction()
  * @method CartChangeLineItemQuantityAction setAction(string $action = null)
  * @method string getLineItemId()

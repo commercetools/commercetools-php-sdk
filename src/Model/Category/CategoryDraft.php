@@ -13,7 +13,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Category
- * @apidoc http://dev.sphere.io/http-api-projects-categories.html#create-category
+ * @link https://dev.commercetools.com/http-api-projects-categories.html#create-category
  * @method LocalizedString getName()
  * @method LocalizedString getSlug()
  * @method LocalizedString getDescription()
@@ -28,6 +28,12 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method CategoryDraft setExternalId(string $externalId = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method CategoryDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method LocalizedString getMetaDescription()
+ * @method CategoryDraft setMetaDescription(LocalizedString $metaDescription = null)
+ * @method LocalizedString getMetaTitle()
+ * @method CategoryDraft setMetaTitle(LocalizedString $metaTitle = null)
+ * @method LocalizedString getMetaKeywords()
+ * @method CategoryDraft setMetaKeywords(LocalizedString $metaKeywords = null)
  */
 class CategoryDraft extends JsonObject
 {
@@ -40,6 +46,9 @@ class CategoryDraft extends JsonObject
             'parent' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReference'],
             'orderHint' => [static::TYPE => 'string'],
             'externalId' => [static::TYPE => 'string'],
+            'metaDescription' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'metaTitle' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'metaKeywords' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
         ];
     }

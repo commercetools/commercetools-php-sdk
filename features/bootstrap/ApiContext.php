@@ -10,6 +10,7 @@ use Behat\Gherkin\Node\PyStringNode;
 use Commercetools\Core\Model\Common\AbstractJsonDeserializeObject;
 use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Product\Search\Filter;
 
 trait ApiContext
 {
@@ -113,6 +114,17 @@ trait ApiContext
         } else {
             $this->request = call_user_func_array($request. '::ofDraft', [$this->objects[$context]]);
         }
+    }
+
+    /**
+     * @Given a :context is identified by key :key and version :version
+     */
+    public function aContextIsIdentifiedByKeyAndVersionNr($context, $key, $version)
+    {
+        $context = $this->getContext($context);
+        $requestContext = $context . 'Request';
+        $this->objects[$requestContext] = ['key' => $key, 'version' => (int)$version, 'params' => []];
+        $this->context = $requestContext;
     }
 
     /**
@@ -262,6 +274,15 @@ trait ApiContext
     }
 
     /**
+     * @Given i want to search products
+     */
+    public function iWantToSearchProducts()
+    {
+        $request = '\Commercetools\Core\Request\\Products\\ProductProjectionSearchRequest';
+        $this->request = call_user_func($request. '::of');
+    }
+
+    /**
      * @Given i want to update a :context
      */
     public function iWantToUpdateAContext($context)
@@ -271,9 +292,15 @@ trait ApiContext
         $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'UpdateRequest';
 
         $requestContext = $context . 'Request';
-        $id = $this->objects[$requestContext]['id'];
+        if (isset($this->objects[$requestContext]['key'])) {
+            $id = $this->objects[$requestContext]['key'];
+            $method = 'ofKeyAndVersion';
+        } else {
+            $id = $this->objects[$requestContext]['id'];
+            $method = 'ofIdAndVersion';
+        }
         $version = $this->objects[$requestContext]['version'];
-        $this->request = call_user_func_array($request. '::ofIdAndVersion', [$id, $version]);
+        $this->request = call_user_func_array($request . '::' . $method, [$id, $version]);
     }
 
     /**
@@ -351,6 +378,18 @@ trait ApiContext
     }
 
     /**
+     * @Then the body should be
+     */
+    public function theBodyShouldBe(PyStringNode $result)
+    {
+        $expectedResult = (string)$result;
+        $httpRequest = $this->request->httpRequest();
+        $request = (string)$httpRequest->getBody();
+
+        assertEquals($expectedResult, $request);
+    }
+
+    /**
      * @Then the method should be :method
      */
     public function theMethodShouldBe($expectedMethod)
@@ -369,6 +408,18 @@ trait ApiContext
          * @var \Commercetools\Core\Request\AbstractQueryRequest $request
          */
         $this->request->where($where);
+    }
+
+    /**
+     * @Given filter :field with value :value
+     */
+    public function filterFieldWithValue($field, $value)
+    {
+        /**
+         * @var \Commercetools\Core\Request\AbstractQueryRequest $request
+         */
+        $filter = Filter::ofName($field)->setValue($value);
+        $this->request->addFilter($filter);
     }
 
     /**

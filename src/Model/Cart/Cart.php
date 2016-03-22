@@ -16,7 +16,7 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#cart
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#cart
  * @method string getId()
  * @method Cart setId(string $id = null)
  * @method int getVersion()

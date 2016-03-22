@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Channels\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-channels.html#set-roles
  * @method string getAction()
  * @method ChannelSetRolesAction setAction(string $action = null)
  * @method array getRoles()

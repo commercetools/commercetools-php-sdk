@@ -13,7 +13,7 @@ use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-data
+ * @link https://dev.commercetools.com/http-api-projects-products.html#product-data
  * @method LocalizedString getName()
  * @method ProductData setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
@@ -22,6 +22,8 @@ use Commercetools\Core\Model\State\StateReference;
  * @method ProductData setSlug(LocalizedString $slug = null)
  * @method CategoryReferenceCollection getCategories()
  * @method ProductData setCategories(CategoryReferenceCollection $categories = null)
+ * @method array getCategoryOrderHints()
+ * @method ProductData setCategoryOrderHints(array $categoryOrderHints = null)
  * @method LocalizedString getMetaTitle()
  * @method ProductData setMetaTitle(LocalizedString $metaTitle = null)
  * @method LocalizedString getMetaDescription()
@@ -34,8 +36,6 @@ use Commercetools\Core\Model\State\StateReference;
  * @method ProductData setVariants(ProductVariantCollection $variants = null)
  * @method LocalizedSearchKeywords getSearchKeywords()
  * @method ProductData setSearchKeywords(LocalizedSearchKeywords $searchKeywords = null)
- * @method StateReference getState()
- * @method ProductData setState(StateReference $state = null)
  */
 class ProductData extends JsonObject
 {
@@ -46,13 +46,13 @@ class ProductData extends JsonObject
             'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'categories' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
+            'categoryOrderHints' => [static::TYPE => 'array'],
             'metaTitle' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'metaDescription' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'masterVariant' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariant'],
             'variants' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariantCollection'],
             'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
         ];
     }
 

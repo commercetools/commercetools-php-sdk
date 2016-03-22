@@ -13,7 +13,7 @@ use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#add-transaction
  * @method string getAction()
  * @method PaymentAddTransactionAction setAction(string $action = null)
  * @method Transaction getTransaction()

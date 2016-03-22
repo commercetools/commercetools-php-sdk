@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Inventory
- * @apidoc http://dev.sphere.io/http-api-projects-inventory.html#inventories-by-query
+ * @link https://dev.commercetools.com/http-api-projects-inventory.html#inventories-by-query
  * @method InventoryEntryCollection mapResponse(ApiResponseInterface $response)
  */
 class InventoryQueryRequest extends AbstractQueryRequest

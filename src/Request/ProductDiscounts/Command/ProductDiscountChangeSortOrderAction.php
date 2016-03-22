@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductDiscounts\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#change-sort-order
  * @method string getAction()
  * @method ProductDiscountChangeSortOrderAction setAction(string $action = null)
  * @method string getSortOrder()

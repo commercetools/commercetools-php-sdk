@@ -14,6 +14,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectCollection;
 
 /**
  * @package Commercetools\Core\Model\Payment
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#payment
  * @method string getId()
  * @method Payment setId(string $id = null)
  * @method int getVersion()

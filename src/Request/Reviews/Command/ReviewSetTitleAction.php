@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Reviews\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#set-title
  * @method string getAction()
  * @method ReviewSetTitleAction setAction(string $action = null)
  * @method string getTitle()

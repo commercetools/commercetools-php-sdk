@@ -17,7 +17,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @apidoc http://dev.sphere.io/http-api-projects-customers.html#authenticate-customer
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#authenticate-customer
  * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
  */
 class CustomerLoginRequest extends AbstractApiRequest

@@ -45,6 +45,31 @@
     "monolog/monolog": "^1.12",
     "behat/behat": "^3.0",
     "phpunit/phpcov": "*",
-    "fabpot/php-cs-fixer": "@stable"
+    "fabpot/php-cs-fixer": "@stable",
+    "symfony/yaml": "*",
+    "incenteev/composer-parameter-handler": "^2.0",
+    "munkie/phpunit-teamcity-testlistener": "^1.2",
+    "micheh/teamcity-clover": "^0.6.0"
+  },
+  "scripts": {
+    "updateConfig": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+    ],
+    "post-update-cmd": "@updateConfig",
+    "post-install-cmd": "@updateConfig"
+  },
+  "extra": {
+    "incenteev-parameters": [
+      {
+        "file": "docroot/myapp.yml",
+        "env-map": {
+          "client_id": "COMMERCETOOLS_CLIENT_ID",
+          "client_secret": "COMMERCETOOLS_CLIENT_SECRET",
+          "project": "COMMERCETOOLS_PROJECT",
+          "oauth_url": "COMMERCETOOLS_OAUTH_URL",
+          "api_url": "COMMERCETOOLS_API_URL"
+        }
+      }
+    ]
   }
 }

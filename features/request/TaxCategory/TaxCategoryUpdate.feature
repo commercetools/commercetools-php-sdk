@@ -146,7 +146,7 @@ Feature: I want to update a tax category
     """
     {
       "action": "removeTaxRate",
-      "rateId": "<tax-rate-id>"
+      "taxRateId": "<tax-rate-id>"
     }
     """
     Then the path should be "tax-categories/id"
@@ -158,7 +158,7 @@ Feature: I want to update a tax category
       "actions": [
         {
           "action": "removeTaxRate",
-          "rateId": "<tax-rate-id>"
+          "taxRateId": "<tax-rate-id>"
         }
       ]
     }

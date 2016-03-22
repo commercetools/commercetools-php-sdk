@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Type
- *
+ * @link https://dev.commercetools.com/http-api-projects-types.html#type
  * @method Type current()
  * @method TypeCollection add(Type $element)
  * @method Type getAt($offset)

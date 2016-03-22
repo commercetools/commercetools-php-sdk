@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Reviews\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#set-author-name
  * @method string getAction()
  * @method ReviewSetAuthorNameAction setAction(string $action = null)
  * @method string getAuthorName()

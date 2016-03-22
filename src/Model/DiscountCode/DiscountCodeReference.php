@@ -10,7 +10,8 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\DiscountCode
- * @apidoc http://dev.sphere.io/http-api-types.html#reference
+ * @link https://dev.commercetools.com/http-api-types.html#reference-types
+ * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#discount-code
  * @method string getTypeId()
  * @method DiscountCodeReference setTypeId(string $typeId = null)
  * @method string getId()

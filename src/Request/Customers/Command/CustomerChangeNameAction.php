@@ -10,7 +10,8 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @apidoc http://dev.sphere.io/http-api-projects-customers.html#change-name
+ * @deprecated this action has been deprecated by the API, use setFirstName, setLastName, setMiddleName or setTitle
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#change-name
  * @method string getFirstName()
  * @method string getLastName()
  * @method string getMiddleName()

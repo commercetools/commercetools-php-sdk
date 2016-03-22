@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Cart;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#discount-code-state
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#discount-code-state
  */
 class CartDiscountCodeState
 {

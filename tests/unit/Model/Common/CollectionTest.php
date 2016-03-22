@@ -115,6 +115,63 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf('\Commercetools\Core\Model\Common\Money', $obj);
             $i++;
         }
+        $this->assertSame($collection->count(), $i);
+    }
+
+    public function testIteratorTyped()
+    {
+        $collection = Collection::fromArray([
+            ['currencyCode' => 'EUR', 'centAmount' => 100],
+            ['currencyCode' => 'USD', 'centAmount' => 110]
+        ]);
+        $collection->setType('\Commercetools\Core\Model\Common\Money');
+        $collection->getAt(1);
+        $i = 0;
+        foreach ($collection as $key => $obj) {
+            $this->assertSame($key, $i);
+            $this->assertInstanceOf('\Commercetools\Core\Model\Common\Money', $obj);
+            $i++;
+        }
+        $this->assertSame($collection->count(), $i);
+    }
+
+    public function testNamedIterator()
+    {
+        $data = [
+            'eur' => ['currencyCode' => 'EUR', 'centAmount' => 100],
+            'usd' => ['currencyCode' => 'USD', 'centAmount' => 110],
+        ];
+        $collection = Collection::fromArray($data);
+        $collection->setType('\Commercetools\Core\Model\Common\Money');
+
+        $i = 0;
+        $keys = array_keys($data);
+        foreach ($collection as $key => $obj) {
+            $this->assertSame($keys[$i], $key);
+            $this->assertInstanceOf('\Commercetools\Core\Model\Common\Money', $obj);
+            $i++;
+        }
+        $this->assertSame($collection->count(), $i);
+    }
+
+    public function testNamedIteratorTyped()
+    {
+        $data = [
+            'eur' => ['currencyCode' => 'EUR', 'centAmount' => 100],
+            'usd' => ['currencyCode' => 'USD', 'centAmount' => 110],
+        ];
+        $collection = Collection::fromArray($data);
+        $collection->setType('\Commercetools\Core\Model\Common\Money');
+        $collection->getAt('usd');
+
+        $i = 0;
+        $keys = array_keys($data);
+        foreach ($collection as $key => $obj) {
+            $this->assertSame($keys[$i], $key);
+            $this->assertInstanceOf('\Commercetools\Core\Model\Common\Money', $obj);
+            $i++;
+        }
+        $this->assertSame($collection->count(), $i);
     }
 
     public function testOffsetSet()
@@ -156,7 +213,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             [[new \DateTime('2015-01-01')]]
         );
         $collection->setType('\DateTime');
-        $this->assertSame('2015-01-01', $collection->getAt(0)->format('Y-m-d'));
+        $this->assertSame('2015-01-01', $collection->current()->format('Y-m-d'));
     }
 
     public function testSetAt()
@@ -166,5 +223,16 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $collection[1] = new \DateTime();
 
         $this->assertInstanceOf('\DateTime', $collection[1]);
+    }
+
+    public function testAdd()
+    {
+        $collection = Collection::fromArray([
+            ['currencyCode' => 'EUR', 'centAmount' => 100],
+        ]);
+        $collection->setType('\Commercetools\Core\Model\Common\Money');
+        $collection->add(Money::ofCurrencyAndAmount('USD', 110));
+
+        $this->assertCount(2, $collection);
     }
 }

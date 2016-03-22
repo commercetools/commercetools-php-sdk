@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @apidoc http://dev.sphere.io/http-api-projects-categories.html#set-description
+ * @link https://dev.commercetools.com/http-api-projects-categories.html#set-description
  * @method LocalizedString getDescription()
  * @method CategorySetDescriptionAction setDescription(LocalizedString $description = null)
  * @method string getAction()

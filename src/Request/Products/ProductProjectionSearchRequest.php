@@ -9,10 +9,11 @@ namespace Commercetools\Core\Request\Products;
 use Commercetools\Core\Request\ExpandTrait;
 use Commercetools\Core\Request\PriceSelectTrait;
 use Commercetools\Core\Request\Query\Parameter;
-use Commercetools\Core\Request\QueryRequestInterface;
 use Commercetools\Core\Request\SortRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client;
+use Commercetools\Core\Client\HttpRequest;
+use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Product\ProductProjectionCollection;
 use Commercetools\Core\Request\AbstractProjectionRequest;
@@ -24,7 +25,7 @@ use Commercetools\Core\Model\Product\Search\FilterInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @apidoc http://dev.sphere.io/http-api-projects-products-search.html#product-projections-by-search
+ * @link https://dev.commercetools.com/http-api-projects-products-search.html#product-projections-by-search
  * @method PagedSearchResponse executeWithClient(Client $client)
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
  */
@@ -149,5 +150,24 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
         }
 
         return $this;
+    }
+
+    /**
+     * @return string
+     * @internal
+     */
+    protected function getPath()
+    {
+        return (string)$this->getEndpoint() . '/' . $this->getProjectionAction();
+    }
+
+    /**
+     * @return Client\HttpRequest
+     * @internal
+     */
+    public function httpRequest()
+    {
+        $body = $this->convertToString($this->params);
+        return new HttpRequest(HttpMethod::POST, $this->getPath(), $body, 'application/x-www-form-urlencoded');
     }
 }

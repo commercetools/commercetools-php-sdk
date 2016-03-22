@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Product
+ * @deprecated use \Commercetools\Core\Model\Product\Search\FilterRange instead. Will be removed in v1.0.0
  * @method getFrom()
  * @method FilterRange setFrom($from = null)
  * @method getTo()

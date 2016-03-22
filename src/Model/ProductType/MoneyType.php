@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\ProductType;
 
 /**
  * @package Commercetools\Core\Model\ProductType
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#money-type
  * @method string getName()
  * @method MoneyType setName(string $name = null)
  */

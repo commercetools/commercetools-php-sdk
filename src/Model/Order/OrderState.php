@@ -7,11 +7,12 @@ namespace Commercetools\Core\Model\Order;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @apidoc http://dev.sphere.io/http-api-projects-orders.html#order-state
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#order-state
  */
 class OrderState
 {
     const OPEN = 'Open';
+    const CONFIRMED = 'Confirmed';
     const COMPLETE = 'Complete';
     const CANCELLED = 'Cancelled';
 }

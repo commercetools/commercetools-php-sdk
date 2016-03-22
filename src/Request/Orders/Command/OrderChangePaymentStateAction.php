@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @apidoc http://dev.sphere.io/http-api-projects-orders.html#change-payment-state
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#change-payment-state
  * @method string getAction()
  * @method OrderChangePaymentStateAction setAction(string $action = null)
  * @method string getPaymentState()

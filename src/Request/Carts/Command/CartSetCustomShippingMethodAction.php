@@ -12,7 +12,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#set-custom-shipping-method
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#set-custom-shipping-method
  * @method string getAction()
  * @method CartSetCustomShippingMethodAction setAction(string $action = null)
  * @method string getShippingMethodName()

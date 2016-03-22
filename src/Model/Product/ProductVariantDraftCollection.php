@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Product
+ * @link https://dev.commercetools.com/http-api-projects-products.html#new-product-variant
  * @method ProductVariantDraftCollection add(ProductVariantDraft $element)
  * @method ProductVariantDraft current()
  * @method ProductVariantDraft getAt($offset)

@@ -6,13 +6,12 @@
 namespace Commercetools\Core\Category;
 
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\Categories\CategoryCreateRequest;
 use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
 
-class CreateCategoryTest extends ApiTestCase
+class CategoryCreateRequestTest extends ApiTestCase
 {
     /**
      * @param $name
@@ -22,8 +21,8 @@ class CreateCategoryTest extends ApiTestCase
     protected function getDraft($name, $slug)
     {
         $draft = CategoryDraft::ofNameAndSlug(
-            LocalizedString::fromArray(['en' => $name]),
-            LocalizedString::fromArray(['en' => $slug])
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name),
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $slug)
         );
 
         return $draft;
@@ -31,12 +30,10 @@ class CreateCategoryTest extends ApiTestCase
 
     protected function createCategory(CategoryDraft $draft)
     {
-        /**
-         * @var Category $category
-         */
-        $category = $this->getClient()
-            ->execute(CategoryCreateRequest::ofDraft($draft))
-            ->toObject();
+        $request = CategoryCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $category = $request->mapResponse($response);
+
         $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
             $category->getId(),
             $category->getVersion()
@@ -48,9 +45,10 @@ class CreateCategoryTest extends ApiTestCase
 
     public function testCreate()
     {
-        $category = $this->createCategory($this->getDraft('myCategory', 'my-category'));
-        $this->assertSame('myCategory', $category->getName()->en);
-        $this->assertSame('my-category', $category->getSlug()->en);
+        $draft = $this->getDraft('myCategory', 'my-category');
+        $category = $this->createCategory($draft);
+        $this->assertSame($draft->getName()->en, $category->getName()->en);
+        $this->assertSame($draft->getSlug()->en, $category->getSlug()->en);
         $this->assertNotEmpty($category->getId());
         $this->assertSame(1, $category->getVersion());
     }

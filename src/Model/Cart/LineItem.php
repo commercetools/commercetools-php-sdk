@@ -10,7 +10,6 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\Price;
-use Commercetools\Core\Model\Order\ItemState;
 use Commercetools\Core\Model\Order\ItemStateCollection;
 use Commercetools\Core\Model\Product\ProductVariant;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
@@ -18,7 +17,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#line-item
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#line-item
  * @method string getId()
  * @method LineItem setId(string $id = null)
  * @method string getProductId()
@@ -37,8 +36,6 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method LineItem setTaxRate(TaxRate $taxRate = null)
  * @method ChannelReference getSupplyChannel()
  * @method LineItem setSupplyChannel(ChannelReference $supplyChannel = null)
- * @method DiscountedLineItemPrice getDiscountedPrice()
- * @method LineItem setDiscountedPrice(DiscountedLineItemPrice $discountedPrice = null)
  * @method LocalizedString getProductSlug()
  * @method LineItem setProductSlug(LocalizedString $productSlug = null)
  * @method ChannelReference getDistributionChannel()
@@ -81,5 +78,18 @@ class LineItem extends JsonObject
         DiscountedPricePerQuantityCollection $discountedPricePerQuantity = null
     ) {
         return parent::setDiscountedPricePerQuantity($discountedPricePerQuantity);
+    }
+
+    /**
+     * @return Money
+     */
+    public function getDiscountedPrice()
+    {
+        $centAmount = 0;
+        $currencyCode = $this->getPrice()->getValue()->getCurrencyCode();
+        foreach ($this->getDiscountedPricePerQuantity() as $discountedPricePerQuantity) {
+            $centAmount += $discountedPricePerQuantity->getDiscountedTotal()->getCentAmount();
+        }
+        return Money::ofCurrencyAndAmount($currencyCode, $centAmount);
     }
 }

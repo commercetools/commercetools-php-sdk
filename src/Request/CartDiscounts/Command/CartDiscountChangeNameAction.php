@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#change-name
  * @method string getAction()
  * @method CartDiscountChangeNameAction setAction(string $action = null)
  * @method LocalizedString getName()

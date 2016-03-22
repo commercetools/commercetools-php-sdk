@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#recalculate
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#recalculate
  * @method string getAction()
  * @method CartRecalculateAction setAction(string $action = null)
  */

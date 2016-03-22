@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\EnumCollection;
 
 /**
  * @package Commercetools\Core\Model\ProductType
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#enum-type
  * @method string getName()
  * @method EnumType setName(string $name = null)
  * @method EnumCollection getValues()

@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- *
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#tax-portion
  * @method TaxPortion current()
  * @method TaxPortionCollection add(TaxPortion $element)
  * @method TaxPortion getAt($offset)

@@ -3,9 +3,8 @@
  * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Request\CartDiscounts;
+namespace Commercetools\Core\Request;
 
-use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\RequestTestCase;
 
 class GenericUpdateRequestTest extends RequestTestCase

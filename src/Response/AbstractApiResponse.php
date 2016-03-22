@@ -106,6 +106,10 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
      * @param string $header
      * @return array
      */
+    /**
+     * @param string $header
+     * @return string[]
+     */
     public function getHeader($header)
     {
         return $this->getResponse()->getHeader($header);

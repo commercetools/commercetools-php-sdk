@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- *
+ * @link https://dev.commercetools.com/http-api-types.html#resource-identifier
  * @method string getTypeId()
  * @method ResourceIdentifier setTypeId(string $typeId = null)
  * @method string getId()
@@ -15,7 +15,7 @@ namespace Commercetools\Core\Model\Common;
  * @method string getKey()
  * @method ResourceIdentifier setKey(string $key = null)
  */
-abstract class ResourceIdentifier extends JsonObject
+class ResourceIdentifier extends JsonObject
 {
     const TYPE_ID = 'typeId';
     const ID = 'id';

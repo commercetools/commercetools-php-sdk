@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Orders
- * @apidoc http://dev.sphere.io/http-api-projects-orders.html#update-order
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#update-order
  * @method Order mapResponse(ApiResponseInterface $response)
  */
 class OrderUpdateRequest extends AbstractUpdateRequest

@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#remove-images
+ * @link https://dev.commercetools.com/http-api-projects-products.html#remove-images
  * @method string getAction()
  * @method ProductRemoveImageAction setAction(string $action = null)
  * @method int getVariantId()

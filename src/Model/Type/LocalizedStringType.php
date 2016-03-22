@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Type;
 
 /**
  * @package Commercetools\Core\Model\Type
+ * @link https://dev.commercetools.com/http-api-projects-types.html#localized-string-type
  * @method string getName()
  * @method LocalizedStringType setName(string $name = null)
  */

@@ -11,7 +11,9 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- *
+ * @codingStandardsIgnoreStart
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#add-localizable-enum-value-to-attribute-definition
+ * @codingStandardsIgnoreEnd
  * @method string getAction()
  * @method ProductTypeAddLocalizedEnumValueAction setAction(string $action = null)
  * @method string getAttributeName()

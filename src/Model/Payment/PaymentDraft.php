@@ -16,6 +16,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraftCollection;
 
 /**
  * @package Commercetools\Core\Model\Payment
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#payment-draft
  * @method CustomerReference getCustomer()
  * @method PaymentDraft setCustomer(CustomerReference $customer = null)
  * @method string getExternalId()

@@ -14,7 +14,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @apidoc http://dev.sphere.io/http-api-projects-orders.html#add-delivery
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#add-delivery
  * @method string getAction()
  * @method OrderAddDeliveryAction setAction(string $action = null)
  * @method DeliveryItemCollection getItems()

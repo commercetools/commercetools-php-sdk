@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#publish
+ * @link https://dev.commercetools.com/http-api-projects-products.html#publish
  * @method string getAction()
  * @method ProductPublishAction setAction(string $action = null)
  */

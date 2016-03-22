@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\CustomerGroups\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#change-name
  * @method string getAction()
  * @method CustomerGroupChangeNameAction setAction(string $action = null)
  * @method string getName()

@@ -1,6 +1,6 @@
 # <img src="build/theme/resources/CT_cube_200px.png" width="40" align="center"></img> commercetools PHP SDK
 
->  STATUS: Release Candidate 9.  We ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!
+>  STATUS: Release Candidate 10.  We ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!
 >
 > See the [Milestone Plan](https://github.com/sphereio/commercetools-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned in detail. We love feedback and [Issue reports](https://github.com/sphereio/commercetools-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
 > Up-to-Date planning status can be found on this [Waffle Board](https://waffle.io/sphereio/commercetools-php-sdk)
@@ -75,12 +75,16 @@ require '../vendor/autoload.php';
 
 use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
 use Commercetools\Core\Client;
+use Commercetools\Core\Config;
+use Commercetools\Core\Model\Common\Context;
 
 $config = [
     'client_id' => 'my client id',
     'client_secret' => 'my client secret',
     'project' => 'my project id'
 ];
+$context = Context::of()->setLanguages(['en'])->setLocale('en_US')->setGraceful(true);
+$config = Config::fromArray($config)->setContext($context);
 
 /**
  * create a search request and a client,
@@ -89,7 +93,7 @@ $config = [
  */
 $search = ProductProjectionSearchRequest::of()->addParam('text.en', 'red');
 
-$client = new Client($config);
+$client = Client::ofConfig($config);
 $products = $client->execute($search)->toObject();
 
 /**
@@ -156,13 +160,13 @@ ant
 
 ### Built In Test Server
 
-You can use the `docroot` directory with the built-in PHP web server. Add to the docroot directory a file called "myapp.ini". Add following content and setup with your API credentials:
+You can use the `docroot` directory with the built-in PHP web server. Add to the docroot directory a file called "myapp.yml". Add following content and setup with your API credentials:
 
-```ini
-[commercetools]
-client_id = 'my client id'
-client_secret = 'my client secret'
-project = 'my project id'
+```yaml
+parameters:
+	client_id: my client id
+	client_secret: my client secret
+	project: my project id
 ```
 
 Then activate the php builtin web server
@@ -179,6 +183,20 @@ Now navigate to [http://localhost:8000](http://localhost:8000) in your browser.
 To enable code style checks directly in phpStorm you have to configure the path to the phpcs at Preferences > Languages & Frameworks > PHP > Code Sniffer.
 Now you can enable at Preferences > Editor > Inspections > PHP the "PHP code sniffer validation" with PSR-2 standard. Change the severity if needed.
 
+
+### Running tests using docker
+
+Running the test image:
+
+```sh
+echo "COMMERCETOOLS_CLIENT_ID=YourClientID" > env.list
+echo "COMMERCETOOLS_CLIENT_SECRET=YourClientSecret" >> env.list
+echo "COMMERCETOOLS_PROJECT=YourProjectKey" >> env.list
+echo "COMMERCETOOLS_OAUTH_URL=https://auth.sphere.io/oauth/token" >> env.list
+echo "COMMERCETOOLS_API_URL=https://api.sphere.io" >> env.list
+
+docker run --env-file env.list -v $PWD:/opt/app -w /opt/app --rm=true jaysde/php-test-base tools/docker-phpunit.sh
+```
 
 ### <a name="contribute"></a>Contribute
 

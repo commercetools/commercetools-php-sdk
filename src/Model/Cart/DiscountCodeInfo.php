@@ -10,7 +10,7 @@ use Commercetools\Core\Model\DiscountCode\DiscountCodeReference;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#discount-code-reference
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#discount-code-reference
  * @method DiscountCodeReference getDiscountCode()
  * @method DiscountCodeInfo setDiscountCode(DiscountCodeReference $discountCode = null)
  * @method string getState()

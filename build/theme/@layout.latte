@@ -6,12 +6,12 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex" n:if="!$robots">
 
-	<title>ct SDK: {include title}{if 'overview' !== $active && $config->title}{/if}</title>
+	<title>CTP SDK {getenv('SDK_VERSION')}: {include title}{if 'overview' !== $active && $config->title}{/if}</title>
 
 	<link rel="stylesheet" href="{='resources/bootstrap.min.css'|staticFile}">
 	<link rel="stylesheet" href="{='resources/style.css'|staticFile}">
 	<link n:if="$config->googleCseId" rel="search" type="application/opensearchdescription+xml" title="{$config->title}" href="{$config->baseUrl}/opensearch.xml">
-
+    <link rel="shortcut icon" type="image/png" href="{='resources/favicon.png'|staticFile}">
 	<script n:if="$config->googleAnalytics">
 		var _gaq = _gaq || [];
 		_gaq.push(['_setAccount', {$config->googleAnalytics}]);
@@ -29,7 +29,7 @@
 	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a href="index.html" class="navbar-brand"><img src="{='resources/ct-logo.svg'|staticFile}" id="navbar-logo" alt="commercetools platform PHP SDK">{if $config->title}{$config->title}{else}Overview{/if}</a>
+				<a href="index.html" class="navbar-brand"><img src="{='resources/ct-logo.svg'|staticFile}" id="navbar-logo" alt="commercetools platform PHP SDK">{if $config->title}{$config->title} {getenv('SDK_VERSION')}{else}Overview{/if}</a>
 			</div>
 			<div class="collapse navbar-collapse">
 

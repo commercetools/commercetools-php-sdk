@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#set-description
  * @method string getAction()
  * @method TaxCategorySetDescriptionAction setAction(string $action = null)
  * @method string getDescription()

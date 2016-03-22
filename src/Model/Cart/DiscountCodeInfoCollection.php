@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Cart
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#discount-code-reference
  * @method DiscountCodeInfo current()
  * @method DiscountCodeInfoCollection add(DiscountCodeInfo $element)
  * @method DiscountCodeInfo getAt($offset)

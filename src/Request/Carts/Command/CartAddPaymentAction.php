@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Payment\PaymentReference;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#add-payment
  * @method string getAction()
  * @method CartAddPaymentAction setAction(string $action = null)
  * @method PaymentReference getPayment()

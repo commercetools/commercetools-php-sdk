@@ -16,6 +16,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method TransitionStateAction setAction(string $action = null)
  * @method StateReference getState()
  * @method TransitionStateAction setState(StateReference $state = null)
+ * @method bool getForce()
+ * @method TransitionStateAction setForce(bool $force = null)
  */
 class TransitionStateAction extends AbstractAction
 {
@@ -24,6 +26,7 @@ class TransitionStateAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'force' =>  [static::TYPE => 'bool']
         ];
     }
 

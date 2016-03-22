@@ -12,6 +12,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Message
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#message
  * @method string getId()
  * @method Message setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

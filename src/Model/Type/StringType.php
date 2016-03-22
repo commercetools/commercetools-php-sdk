@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 
 /**
  * @package Commercetools\Core\Model\Type
+ * @link https://dev.commercetools.com/http-api-projects-types.html#string-type
  * @method string getName()
  * @method StringType setName(string $name = null)
  */

@@ -9,6 +9,7 @@ use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
 
 /**
  * @package Commercetools\Core\Model\Common
+ * @link https://dev.commercetools.com/http-api-projects-products.html#product-variant-attribute
  * @method Attribute current()
  * @method AttributeCollection add(Attribute $element)
  */

@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Cart
- *
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#discounted-line-item-price-for-quantity
  * @method DiscountedPricePerQuantityCollection add(DiscountedPricePerQuantity $element)
  * @method DiscountedPricePerQuantity current()
  * @method DiscountedPricePerQuantity getAt($offset)

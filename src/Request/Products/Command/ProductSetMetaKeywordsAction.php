@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#set-meta-keywords
+ * @link https://dev.commercetools.com/http-api-projects-products.html#set-meta-keywords
  * @method string getAction()
  * @method ProductSetMetaKeywordsAction setAction(string $action = null)
  * @method LocalizedString getMetaKeywords()

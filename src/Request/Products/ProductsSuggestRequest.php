@@ -19,7 +19,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @apidoc http://dev.sphere.io/http-api-projects-products-search.html#suggest-query
+ * @link https://dev.commercetools.com/http-api-projects-products-search.html#suggest-query
  * @method ResourceResponse executeWithClient(Client $client)
  * @method SuggestionCollection mapResponse(ApiResponseInterface $response)
  */

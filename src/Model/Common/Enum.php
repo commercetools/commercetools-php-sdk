@@ -7,7 +7,8 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#product-variant-attribute
+ * @link https://dev.commercetools.com/http-api-projects-products.html#product-variant-attribute
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#plain-enum-value
  * @method string getLabel()
  * @method Enum setLabel(string $label = null)
  * @method string getKey()

@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Payments
- *
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#delete-payment
  * @method Payment mapResponse(ApiResponseInterface $response)
  */
 class PaymentDeleteRequest extends AbstractDeleteRequest

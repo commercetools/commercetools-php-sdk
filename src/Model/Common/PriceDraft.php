@@ -11,7 +11,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Common
- *
+ * @link https://dev.commercetools.com/http-api-projects-products.html#new-product-price
  * @method Money getValue()
  * @method PriceDraft setValue(Money $value = null)
  * @method string getCountry()
@@ -60,7 +60,7 @@ class PriceDraft extends JsonObject
     /**
      * @param Money $money
      * @param Context|callable $context
-     * @return Price
+     * @return PriceDraft
      */
     public static function ofMoney(Money $money, $context = null)
     {
@@ -68,6 +68,9 @@ class PriceDraft extends JsonObject
         return $price->setValue($money);
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getValue()->__toString();

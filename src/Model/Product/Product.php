@@ -10,10 +10,12 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Review\ReviewRatingStatistics;
+use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#product
+ * @link https://dev.commercetools.com/http-api-projects-products.html#product
  * @method string getId()
  * @method Product setId(string $id = null)
  * @method int getVersion()
@@ -28,6 +30,10 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Product setTaxCategory(TaxCategory $taxCategory = null)
  * @method ProductCatalogData getMasterData()
  * @method Product setMasterData(ProductCatalogData $masterData = null)
+ * @method ReviewRatingStatistics getReviewRatingStatistics()
+ * @method Product setReviewRatingStatistics(ReviewRatingStatistics $reviewRatingStatistics = null)
+ * @method StateReference getState()
+ * @method Product setState(StateReference $state = null)
  */
 class Product extends Resource
 {
@@ -46,7 +52,9 @@ class Product extends Resource
             ],
             'productType' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference'],
             'taxCategory' => [self::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategory'],
-            'masterData' => [self::TYPE => '\Commercetools\Core\Model\Product\ProductCatalogData']
+            'masterData' => [self::TYPE => '\Commercetools\Core\Model\Product\ProductCatalogData'],
+            'reviewRatingStatistics' => [static::TYPE => '\Commercetools\Core\Model\Review\ReviewRatingStatistics'],
+            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
         ];
     }
 }

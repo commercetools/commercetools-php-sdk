@@ -9,10 +9,12 @@ tools:
     php_cs_fixer:
         config: { level: psr2 }
 before_commands:
-    - composer install --prefer-source -o
+    - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
+    - composer global require hirak/prestissimo
+    - composer install --prefer-dist -o
 build:
     environment:
-        php: '5.5.25'
+        php: '7.0'
     dependencies:
         before:
             #Only 5.4 uses APC
@@ -24,7 +26,7 @@ build:
             -
                 command: vendor/bin/behat -f progress
             -
-                command: vendor/bin/phpunit --testsuite=unit --coverage-clover=coverage0
+                command: vendor/bin/phpunit -d zend.enable_gc=0 --coverage-clover=coverage0
                 coverage:
                     file: 'coverage0'
                     format: 'php-clover'

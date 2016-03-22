@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#change-is-default
  * @method string getAction()
  * @method ShippingMethodChangeIsDefaultAction setAction(string $action = null)
  * @method bool getIsDefault()

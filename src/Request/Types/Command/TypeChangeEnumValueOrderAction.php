@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Types\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-types.html#change-order-enum-values-field-definition
  * @method string getAction()
  * @method TypeChangeEnumValueOrderAction setAction(string $action = null)
  * @method string getFieldName()
@@ -41,12 +41,13 @@ class TypeChangeEnumValueOrderAction extends AbstractAction
     }
 
     /**
+     * @param string $fieldName
      * @param array $keys
      * @param Context|callable $context
      * @return TypeChangeEnumValueOrderAction
      */
-    public static function ofEnums(array $keys, $context = null)
+    public static function ofNameAndEnums($fieldName, array $keys, $context = null)
     {
-        return static::of($context)->setKeys($keys);
+        return static::of($context)->setFieldName($fieldName)->setKeys($keys);
     }
 }

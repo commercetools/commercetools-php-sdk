@@ -11,15 +11,15 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Model\Product\ProductProjectionCollection;
 use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
+use Symfony\Component\Yaml\Yaml;
 
 require '../vendor/autoload.php';
 
-$appConfig = parse_ini_file('myapp.ini', true);
-
+$appConfig = Yaml::parse(file_get_contents('myapp.yml'));
 $context = Context::of()->setLanguages(['en'])->setGraceful(true);
 
 // create the api client config object
-$config = Config::fromArray($appConfig['commercetools'])->setContext($context);
+$config = Config::fromArray($appConfig['parameters'])->setContext($context);
 
 /**
  * create search request

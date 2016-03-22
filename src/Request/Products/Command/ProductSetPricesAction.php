@@ -1,0 +1,57 @@
+<?php
+/**
+ * @author @jayS-de <jens.schulze@commercetools.de>
+ */
+
+namespace Commercetools\Core\Request\Products\Command;
+
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\PriceDraft;
+use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\PriceDraftCollection;
+
+/**
+ * @package Commercetools\Core\Request\Products\Command
+ * @link https://dev.commercetools.com/http-api-projects-products.html#change-price
+ * @method string getAction()
+ * @method ProductSetPricesAction setAction(string $action = null)
+ * @method PriceDraftCollection getPrices()
+ * @method ProductSetPricesAction setPrices(PriceDraftCollection $prices = null)
+ * @method bool getStaged()
+ * @method ProductSetPricesAction setStaged(bool $staged = null)
+ * @method int getVariantId()
+ * @method ProductSetPricesAction setVariantId(int $variantId = null)
+ */
+class ProductSetPricesAction extends AbstractAction
+{
+    public function fieldDefinitions()
+    {
+        return [
+            'action' => [static::TYPE => 'string'],
+            'variantId' => [static::TYPE => 'int'],
+            'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceDraftCollection'],
+            'staged' => [static::TYPE => 'bool'],
+        ];
+    }
+
+    /**
+     * @param array $data
+     * @param Context|callable $context
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        parent::__construct($data, $context);
+        $this->setAction('setPrices');
+    }
+
+    /**
+     * @param $variantId
+     * @param PriceDraftCollection $prices
+     * @param Context|callable $context
+     * @return ProductSetPricesAction
+     */
+    public static function ofVariantIdAndPrices($variantId, PriceDraftCollection $prices, $context = null)
+    {
+        return static::of($context)->setVariantId($variantId)->setPrices($prices);
+    }
+}

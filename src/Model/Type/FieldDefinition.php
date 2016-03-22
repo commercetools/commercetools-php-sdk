@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Model\Type
+ * @link https://dev.commercetools.com/http-api-projects-types.html#field-definition
  * @method FieldType getType()
  * @method FieldDefinition setType(FieldType $type = null)
  * @method string getName()

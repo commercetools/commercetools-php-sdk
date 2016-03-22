@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#replace-tax-rate
  * @method string getAction()
  * @method TaxCategoryReplaceTaxRateAction setAction(string $action = null)
  * @method string getTaxRateId()

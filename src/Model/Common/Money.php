@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @apidoc http://dev.sphere.io/http-api-types.html#money
+ * @link https://dev.commercetools.com/http-api-types.html#money
  * @method string getCurrencyCode()
  * @method int getCentAmount()
  * @method Money setCurrencyCode(string $currencyCode = null)
@@ -28,7 +28,7 @@ class Money extends JsonObject
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function __toString()
     {

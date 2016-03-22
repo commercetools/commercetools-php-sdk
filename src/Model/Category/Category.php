@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Category
- * @apidoc http://dev.sphere.io/http-api-projects-categories.html#category
+ * @link https://dev.commercetools.com/http-api-projects-categories.html#category
  * @method string getId()
  * @method Category setId(string $id = null)
  * @method int getVersion()
@@ -37,6 +37,12 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Category setExternalId(string $externalId = null)
  * @method CustomFieldObject getCustom()
  * @method Category setCustom(CustomFieldObject $custom = null)
+ * @method LocalizedString getMetaDescription()
+ * @method Category setMetaDescription(LocalizedString $metaDescription = null)
+ * @method LocalizedString getMetaTitle()
+ * @method Category setMetaTitle(LocalizedString $metaTitle = null)
+ * @method LocalizedString getMetaKeywords()
+ * @method Category setMetaKeywords(LocalizedString $metaKeywords = null)
  */
 class Category extends Resource
 {
@@ -53,13 +59,16 @@ class Category extends Resource
                 static::TYPE => '\DateTime',
                 static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
-            'name' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'slug' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [self::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'ancestors' => [self::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
-            'parent' => [self::TYPE => '\Commercetools\Core\Model\Category\CategoryReference'],
-            'orderHint' => [self::TYPE => 'string'],
-            'externalId' => [self::TYPE => 'string'],
+            'name' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'slug' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'description' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'ancestors' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
+            'parent' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReference'],
+            'orderHint' => [static::TYPE => 'string'],
+            'externalId' => [static::TYPE => 'string'],
+            'metaDescription' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'metaTitle' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'metaKeywords' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }

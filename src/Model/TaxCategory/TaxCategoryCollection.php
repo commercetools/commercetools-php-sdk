@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\TaxCategory
- *
+ * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#tax-category
  * @method TaxCategory current()
  * @method TaxCategoryCollection add(TaxCategory $element)
  * @method TaxCategory getAt($offset)

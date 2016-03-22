@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\CustomerGroup
+ * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#create-customer-group
  * @method string getGroupName()
  * @method CustomerGroupDraft setGroupName(string $groupName = null)
  */

@@ -12,6 +12,6 @@ class DateDecorator extends DateTimeDecorator
 {
     public function jsonSerialize()
     {
-        return $this->getUtcDateTime()->format('Y-m-d');
+        return $this->getDateTime()->format('Y-m-d');
     }
 }

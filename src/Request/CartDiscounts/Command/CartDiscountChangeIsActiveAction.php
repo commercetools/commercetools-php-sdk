@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#change-isActive
  * @method string getAction()
  * @method CartDiscountChangeIsActiveAction setAction(string $action = null)
  * @method bool getIsActive()

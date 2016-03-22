@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#set-customer-id
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#set-customer-id
  * @method string getAction()
  * @method CartSetCustomerIdAction setAction(string $action = null)
  * @method string getCustomerId()

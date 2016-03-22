@@ -28,6 +28,16 @@ class Guzzle6Adapter implements AdapterInterface
 
     public function __construct(array $options = [])
     {
+        $options = array_merge(
+            [
+                'allow_redirects' => false,
+                'verify' => true,
+                'timeout' => 60,
+                'connect_timeout' => 10,
+                'pool_size' => 25
+            ],
+            $options
+        );
         $this->client = new Client($options);
     }
 
@@ -43,15 +53,8 @@ class Guzzle6Adapter implements AdapterInterface
      */
     public function execute(RequestInterface $request)
     {
-        $options = [
-            'allow_redirects' => false,
-            'verify' => true,
-            'timeout' => 60,
-            'connect_timeout' => 10,
-        ];
-
         try {
-            $response = $this->client->send($request, $options);
+            $response = $this->client->send($request);
         } catch (RequestException $exception) {
             $response = $exception->getResponse();
             throw ApiException::create($request, $response, $exception);
@@ -66,18 +69,9 @@ class Guzzle6Adapter implements AdapterInterface
      */
     public function executeBatch(array $requests)
     {
-        $options = [
-            'allow_redirects' => false,
-            'verify' => true,
-            'timeout' => 60,
-            'connect_timeout' => 10,
-            'pool_size' => 25
-        ];
-
         $results = Pool::batch(
             $this->client,
-            $requests,
-            $options
+            $requests
         );
 
         $responses = [];
@@ -104,10 +98,6 @@ class Guzzle6Adapter implements AdapterInterface
     public function authenticate($oauthUri, $clientId, $clientSecret, $formParams)
     {
         $options = [
-            'allow_redirects' => false,
-            'verify' => true,
-            'timeout' => 60,
-            'connect_timeout' => 10,
             'form_params' => $formParams,
             'auth' => [$clientId, $clientSecret]
         ];
@@ -126,13 +116,7 @@ class Guzzle6Adapter implements AdapterInterface
      */
     public function executeAsync(RequestInterface $request)
     {
-        $options = [
-            'allow_redirects' => false,
-            'verify' => true,
-            'timeout' => 60,
-            'connect_timeout' => 10,
-        ];
-        $guzzlePromise = $this->client->sendAsync($request, $options);
+        $guzzlePromise = $this->client->sendAsync($request);
 
         return new Guzzle6Promise($guzzlePromise);
     }

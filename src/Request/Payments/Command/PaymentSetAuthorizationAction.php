@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#set-authorization
  * @method string getAction()
  * @method PaymentSetAuthorizationAction setAction(string $action = null)
  * @method Money getAmount()

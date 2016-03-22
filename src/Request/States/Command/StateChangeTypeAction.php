@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\States\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-states.html#change-state-type
  * @method string getAction()
  * @method StateChangeTypeAction setAction(string $action = null)
  * @method string getType()

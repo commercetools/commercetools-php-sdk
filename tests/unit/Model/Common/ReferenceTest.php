@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Model\Type;
 
 use Commercetools\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;
 
@@ -44,5 +45,16 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         $reference = $object->getReference();
 
         $this->assertJsonStringEqualsJsonString('{"typeId": "product-type", "id": "123456"}', json_encode($reference));
+    }
+
+    public function testEmbeddedReferenceSerialize()
+    {
+        $type = ProductType::of()->setId('123456');
+        $object = Product::of()->setProductType($type->getReference());
+
+        $this->assertJsonStringEqualsJsonString(
+            '{"productType": {"typeId": "product-type", "id": "123456"}}',
+            json_encode($object)
+        );
     }
 }

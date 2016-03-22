@@ -42,7 +42,7 @@ class SetCustomFieldAction extends AbstractAction
     /**
      * @param $name
      * @param Context|callable $context
-     * @return SetCustomFieldAction
+     * @return static
      */
     public static function ofName($name, $context = null)
     {

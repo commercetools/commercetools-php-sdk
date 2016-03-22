@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @apidoc http://dev.sphere.io/http-api-projects-products.html#unpublish
+ * @link https://dev.commercetools.com/http-api-projects-products.html#unpublish
  * @method string getAction()
  * @method ProductUnpublishAction setAction(string $action = null)
  */

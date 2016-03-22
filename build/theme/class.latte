@@ -86,11 +86,18 @@
                 <tr><th>Located at</td><td><a n:tag-if="$config->sourceCode" href="{$class|sourceUrl}" title="Go to source code">{$class->fileName|relativePath}</a></td></tr>
             {/if}
 
+            {var $sphereDoc = '//dev.commercetools.com/'}
             {foreach $template->annotationSort($template->annotationFilter($class->annotations)) as $annotation => $values}
                 {foreach $values as $value}
-                    {if $annotation == "apidoc"}
-                    <tr><th>API documentation</th><td><b><a href="{$value|noescape}" target="api-doc">{$value|noescape}</a></b></span></td></tr>
-                    {elseif $annotation == "description"}
+                    {if $annotation == "link"}
+                    {php if (strpos($value, $sphereDoc) === false) continue; }
+                    <tr><th>API documentation</th><td>
+                    <b><a href="{$value|noescape}" target="api-doc">{$value|noescape}</a></b></span></td></tr>
+                    {/if}
+                {/foreach}
+                {foreach $values as $value}
+                    {php if (strpos($value, $sphereDoc) !== false) continue; }
+                    {if $annotation == "description"}
                     <tr><td colspan="2">{$value|annotation:$annotation:$class|noescape}</td></tr>
                     {else}
                     <tr><th>{$annotation|annotationBeautify}</th><td>{$value|annotation:$annotation:$class|noescape}</td></tr>

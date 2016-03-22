@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\TaxCategory
- *
+ * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#tax-rate
  * @method TaxRate current()
  * @method TaxRateCollection add(TaxRate $element)
  * @method TaxRate getAt($offset)

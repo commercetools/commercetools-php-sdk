@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Categories
- * @apidoc http://dev.sphere.io/http-api-projects-categories.html#delete-category
+ * @link https://dev.commercetools.com/http-api-projects-categories.html#delete-category
  * @method Category mapResponse(ApiResponseInterface $response)
  */
 class CategoryDeleteRequest extends AbstractDeleteRequest

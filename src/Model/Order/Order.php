@@ -22,7 +22,7 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @apidoc http://dev.sphere.io/http-api-projects-orders.html#order
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#order
  * @method string getId()
  * @method Order setId(string $id = null)
  * @method int getVersion()

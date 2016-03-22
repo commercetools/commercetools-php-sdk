@@ -14,6 +14,7 @@ use Commercetools\Core\Model\Type\TypeReference;
 
 /**
  * @package Commercetools\Core\Model\CustomField
+ * @link https://dev.commercetools.com/http-api-projects-custom-fields.html#custom-fields
  */
 class FieldContainer extends JsonObject
 {

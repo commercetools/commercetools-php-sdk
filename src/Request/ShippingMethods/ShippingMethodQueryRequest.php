@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods
- * @apidoc http://dev.sphere.io/http-api-projects-shippingMethods.html#shipping-methods-by-query
+ * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#shipping-methods-by-query
  * @method ShippingMethodCollection mapResponse(ApiResponseInterface $response)
  */
 class ShippingMethodQueryRequest extends AbstractQueryRequest

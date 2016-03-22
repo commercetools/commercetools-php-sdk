@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\State
+ * @link https://dev.commercetools.com/http-api-projects-states.html#state
  * @method State current()
  * @method StateCollection add(State $element)
  * @method State getAt($offset)

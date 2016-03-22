@@ -11,7 +11,7 @@ use Commercetools\Core\Error\InvalidArgumentException;
 
 /**
  * @package Commercetools\Core\Model\Type
- * @apidoc http://dev.sphere.io/http-api-types.html#localized-string
+ * @link https://dev.commercetools.com/http-api-types.html#localized-string
  * @example
  * ```php
  * LocalizedString::fromArray(['en' => 'Hello World', 'de' => 'Hallo Welt'])->add('fr', 'Bonjour le monde');
@@ -45,7 +45,7 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
     public function __get($locale)
     {
         $context = new Context();
-        $context->setLanguages([$locale]);
+        $context->setLanguages([$locale])->setGraceful($this->getContext()->isGraceful());
         return $this->get($context);
     }
 

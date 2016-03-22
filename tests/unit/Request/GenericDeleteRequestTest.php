@@ -3,9 +3,8 @@
  * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Request\CartDiscounts;
+namespace Commercetools\Core\Request;
 
-use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\RequestTestCase;
 
 class GenericDeleteRequestTest extends RequestTestCase
@@ -50,6 +49,10 @@ class GenericDeleteRequestTest extends RequestTestCase
                 '\Commercetools\Core\Model\Customer\Customer',
             ],
             [
+                '\Commercetools\Core\Request\CustomObjects\CustomObjectDeleteRequest',
+                '\Commercetools\Core\Model\CustomObject\CustomObject',
+            ],
+            [
                 '\Commercetools\Core\Request\DiscountCodes\DiscountCodeDeleteRequest',
                 '\Commercetools\Core\Model\DiscountCode\DiscountCode',
             ],
@@ -80,6 +83,10 @@ class GenericDeleteRequestTest extends RequestTestCase
             [
                 '\Commercetools\Core\Request\Reviews\ReviewDeleteRequest',
                 '\Commercetools\Core\Model\Review\Review',
+            ],
+            [
+                '\Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest',
+                '\Commercetools\Core\Model\ShippingMethod\ShippingMethod',
             ],
             [
                 '\Commercetools\Core\Request\States\StateDeleteRequest',

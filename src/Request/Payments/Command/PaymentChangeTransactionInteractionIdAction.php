@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#change-transaction-interaction-id
  * @method string getAction()
  * @method PaymentChangeTransactionInteractionIdAction setAction(string $action = null)
  * @method string getTransactionId()
@@ -46,7 +46,7 @@ class PaymentChangeTransactionInteractionIdAction extends AbstractAction
      * @param Context|callable $context
      * @return PaymentAddTransactionAction
      */
-    public static function ofTransactionIdAndState($transactionId, $interactionId, $context = null)
+    public static function ofTransactionIdAndInteractionId($transactionId, $interactionId, $context = null)
     {
         return static::of($context)->setTransactionId($transactionId)->setInteractionId($interactionId);
     }

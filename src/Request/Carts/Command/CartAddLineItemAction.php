@@ -12,7 +12,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#add-line-item
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#add-line-item
  * @method string getAction()
  * @method CartAddLineItemAction setAction(string $action = null)
  * @method string getProductId()

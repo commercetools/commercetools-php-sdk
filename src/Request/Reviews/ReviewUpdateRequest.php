@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Reviews
- * @apidoc http://dev.sphere.io/http-api-projects-reviews.html#update-review
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#update-review
  * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewUpdateRequest extends AbstractUpdateRequest
@@ -39,5 +39,16 @@ class ReviewUpdateRequest extends AbstractUpdateRequest
     public static function ofIdAndVersion($id, $version, Context $context = null)
     {
         return new static($id, $version, [], $context);
+    }
+
+    /**
+     * @param string $key
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofKeyAndVersion($key, $version, Context $context = null)
+    {
+        return new static('key=' . $key, $version, [], $context);
     }
 }

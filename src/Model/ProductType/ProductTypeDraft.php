@@ -10,13 +10,15 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\ProductType
- * @apidoc http://dev.sphere.io/http-api-projects-productTypes.html#create-product-type
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#create-product-type
  * @method string getName()
  * @method ProductTypeDraft setName(string $name = null)
  * @method string getDescription()
  * @method ProductTypeDraft setDescription(string $description = null)
  * @method AttributeDefinitionCollection getAttributes()
  * @method ProductTypeDraft setAttributes(AttributeDefinitionCollection $attributes = null)
+ * @method string getKey()
+ * @method ProductTypeDraft setKey(string $key = null)
  */
 class ProductTypeDraft extends JsonObject
 {
@@ -24,6 +26,7 @@ class ProductTypeDraft extends JsonObject
     {
         return [
             'name' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
             'attributes' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeDefinitionCollection'],
         ];

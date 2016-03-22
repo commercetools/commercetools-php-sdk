@@ -12,7 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Types\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-types.html#change-field-definition-label
  * @method string getAction()
  * @method TypeChangeLocalizedEnumValueOrderAction setAction(string $action = null)
  * @method string getFieldName()
@@ -42,12 +42,13 @@ class TypeChangeLocalizedEnumValueOrderAction extends AbstractAction
     }
 
     /**
+     * @param string $fieldName
      * @param array $keys
      * @param Context|callable $context
      * @return TypeChangeLocalizedEnumValueOrderAction
      */
-    public static function ofEnums(array $keys, $context = null)
+    public static function ofNameAndEnums($fieldName, array $keys, $context = null)
     {
-        return static::of($context)->setKeys($keys);
+        return static::of($context)->setFieldName($fieldName)->setKeys($keys);
     }
 }

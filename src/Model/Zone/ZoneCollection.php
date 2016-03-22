@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Zone
+ * @link https://dev.commercetools.com/http-api-projects-zones.html#zone
  * @method Zone current()
  * @method ZoneCollection add(Zone $element)
  * @method Zone getAt($offset)

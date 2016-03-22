@@ -8,7 +8,9 @@ cache.properties
 apigen.phar
 composer.phar
 composer.lock
+myapp.yml
 myapp.ini
 /local/
 /tools/node_modules
 requests.log
+env.list

@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @apidoc http://dev.sphere.io/http-api-types.html#reference
+ * @link https://dev.commercetools.com/http-api-types.html#reference
  * @method string getTypeId()
  * @method string getId()
  * @method Reference setTypeId(string $typeId = null)
@@ -30,13 +30,5 @@ class Reference extends ResourceIdentifier
         $fieldDefinitions[static::OBJ] = [static::TYPE => static::TYPE_CLASS];
 
         return $fieldDefinitions;
-    }
-
-    public function jsonSerialize()
-    {
-        $data = parent::jsonSerialize();
-        unset($data['obj']);
-
-        return $data;
     }
 }

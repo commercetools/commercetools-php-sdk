@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Zones\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-zones.html#add-location
  * @method string getAction()
  * @method ZoneAddLocationAction setAction(string $action = null)
  * @method Location getLocation()

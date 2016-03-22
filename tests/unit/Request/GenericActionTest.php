@@ -146,6 +146,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'name', 'value', 'staged']
             ],
             [
+                '\Commercetools\Core\Request\Products\Command\ProductSetCategoryOrderHintAction',
+                ['action', 'categoryId', 'orderHint', 'staged']
+            ],
+            [
                 '\Commercetools\Core\Request\Products\Command\ProductSetDescriptionAction',
                 ['action', 'description', 'staged']
             ],
@@ -174,6 +178,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'type', 'priceId', 'staged', 'fields'],
             ],
             [
+                '\Commercetools\Core\Request\Products\Command\ProductSetPricesAction',
+                ['action', 'variantId', 'prices', 'staged'],
+            ],
+            [
                 '\Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
                 ['action', 'searchKeywords', 'staged']
             ],
@@ -184,6 +192,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction',
                 ['action', 'taxCategory', 'staged']
+            ],
+            [
+                '\Commercetools\Core\Request\Products\Command\ProductTransitionStateAction',
+                ['action', 'state', 'force']
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductUnpublishAction',
@@ -292,6 +304,22 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\Customers\Command\CustomerSetExternalIdAction',
                 ['action', 'externalId']
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetFirstNameAction',
+                ['action', 'firstName']
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetLastNameAction',
+                ['action', 'lastName']
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetMiddleNameAction',
+                ['action', 'middleName']
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction',
+                ['action', 'title']
             ],
             [
                 '\Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction',
@@ -495,7 +523,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryRemoveTaxRateAction',
-                ['action', 'rateId']
+                ['action', 'taxRateId']
             ],
             [
                 '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryReplaceTaxRateAction',
@@ -510,8 +538,24 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'authorName']
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetScoreAction',
-                ['action', 'score']
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetCustomerAction',
+                ['action', 'customer']
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetKeyAction',
+                ['action', 'key']
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetLocaleAction',
+                ['action', 'locale']
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetRatingAction',
+                ['action', 'rating']
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTargetAction',
+                ['action', 'target']
             ],
             [
                 '\Commercetools\Core\Request\Reviews\Command\ReviewSetTextAction',
@@ -523,7 +567,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Reviews\Command\ReviewTransitionStateAction',
-                ['action', 'state']
+                ['action', 'state', 'force']
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeAddEnumValueAction',
@@ -546,6 +590,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'fieldNames']
             ],
             [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeKeyAction',
+                ['action', 'key']
+            ],
+            [
                 '\Commercetools\Core\Request\Types\Command\TypeChangeLabelAction',
                 ['action', 'fieldName', 'label']
             ],
@@ -566,6 +614,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'description']
             ],
             [
+                '\Commercetools\Core\Request\States\Command\StateAddRolesAction',
+                ['action', 'roles']
+            ],
+            [
                 '\Commercetools\Core\Request\States\Command\StateChangeInitialAction',
                 ['action', 'initial']
             ],
@@ -578,6 +630,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'type']
             ],
             [
+                '\Commercetools\Core\Request\States\Command\StateRemoveRolesAction',
+                ['action', 'roles']
+            ],
+            [
                 '\Commercetools\Core\Request\States\Command\StateSetDescriptionAction',
                 ['action', 'description']
             ],
@@ -586,12 +642,16 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'name']
             ],
             [
+                '\Commercetools\Core\Request\States\Command\StateSetRolesAction',
+                ['action', 'roles']
+            ],
+            [
                 '\Commercetools\Core\Request\States\Command\StateSetTransitionsAction',
                 ['action', 'transitions']
             ],
             [
                 '\Commercetools\Core\Request\States\Command\TransitionStateAction',
-                ['action', 'state']
+                ['action', 'state', 'force']
             ],
             [
                 '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction',
@@ -640,6 +700,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction',
                 ['action', 'restockableInDays']
+            ],
+            [
+                '\Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction',
+                ['action', 'supplyChannel']
             ],
             [
                 '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeIsActiveAction',
@@ -718,6 +782,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'description']
             ],
             [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeIsSearchableAction',
+                ['action', 'attributeName', 'isSearchable']
+            ],
+            [
                 '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction',
                 ['action', 'attributeName', 'label']
             ],
@@ -738,12 +806,36 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'name']
             ],
             [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction',
+                ['action', 'attributeName', 'inputTip']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction',
+                ['action', 'key']
+            ],
+            [
                 '\Commercetools\Core\Request\Payments\Command\PaymentAddInterfaceInteractionAction',
                 ['action', 'type', 'fields']
             ],
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentAddTransactionAction',
                 ['action', 'transaction']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeAmountPlannedAction',
+                ['action', 'amount']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionInteractionIdAction',
+                ['action', 'transactionId', 'interactionId']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionStateAction',
+                ['action', 'transactionId', 'state']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionTimestampAction',
+                ['action', 'transactionId', 'timestamp']
             ],
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentSetAmountPaidAction',
@@ -799,7 +891,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentTransitionStateAction',
-                ['action', 'state']
+                ['action', 'state', 'force']
             ],
         ];
     }
@@ -902,6 +994,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['attributeName']
             ],
             [
+                '\Commercetools\Core\Request\Products\Command\ProductSetCategoryOrderHintAction',
+                'ofCategoryId',
+                ['categoryId']
+            ],
+            [
                 '\Commercetools\Core\Request\Products\Command\ProductSetDescriptionAction',
                 'ofDescription',
                 [
@@ -933,6 +1030,14 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 'of',
             ],
             [
+                '\Commercetools\Core\Request\Products\Command\ProductSetPricesAction',
+                'ofVariantIdAndPrices',
+                [
+                    1,
+                    $this->getInstance('\Commercetools\Core\Model\Common\PriceDraftCollection')
+                ]
+            ],
+            [
                 '\Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
                 'ofKeywords',
                 [
@@ -947,6 +1052,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction',
                 'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Products\Command\ProductTransitionStateAction',
+                'ofState',
+                [$this->getInstance('\Commercetools\Core\Model\State\StateReference')]
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductUnpublishAction',
@@ -1096,6 +1206,22 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Customers\Command\CustomerSetExternalIdAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetFirstNameAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetLastNameAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetMiddleNameAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction',
                 'of',
             ],
             [
@@ -1279,7 +1405,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeTargetAction',
                 'ofTarget',
-                ['target']
+                [$this->getInstance('\Commercetools\Core\Model\CartDiscount\CartDiscountTarget')]
             ],
             [
                 '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeValueAction',
@@ -1406,7 +1532,15 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetScoreAction',
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetCustomerAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetKeyAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTargetAction',
                 'of',
             ],
             [
@@ -1424,8 +1558,8 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeAddEnumValueAction',
-                'ofEnum',
-                [$this->getInstance('\Commercetools\Core\Model\Common\Enum')]
+                'ofNameAndEnum',
+                ['fieldName', $this->getInstance('\Commercetools\Core\Model\Common\Enum')]
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeAddFieldDefinitionAction',
@@ -1434,13 +1568,13 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeAddLocalizedEnumValueAction',
-                'ofEnum',
-                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedEnum')]
+                'ofNameAndEnum',
+                ['fieldName', $this->getInstance('\Commercetools\Core\Model\Common\LocalizedEnum')]
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeChangeEnumValueOrderAction',
-                'ofEnums',
-                [['key1', 'key2']]
+                'ofNameAndEnums',
+                ['fieldName', ['key1', 'key2']]
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeChangeFieldDefinitionOrderAction',
@@ -1448,14 +1582,19 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 [['name1', 'name2']]
             ],
             [
+                '\Commercetools\Core\Request\Types\Command\TypeChangeKeyAction',
+                'ofKey',
+                ['new-key']
+            ],
+            [
                 '\Commercetools\Core\Request\Types\Command\TypeChangeLabelAction',
-                'ofLabel',
-                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+                'ofNameAndLabel',
+                ['fieldName', $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeChangeLocalizedEnumValueOrderAction',
-                'ofEnums',
-                [['key1', 'key2']]
+                'ofNameAndEnums',
+                ['fieldName', ['key1', 'key2']]
             ],
             [
                 '\Commercetools\Core\Request\Types\Command\TypeChangeNameAction',
@@ -1470,6 +1609,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 '\Commercetools\Core\Request\Types\Command\TypeSetDescriptionAction',
                 'of',
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateAddRolesAction',
+                'ofRoles',
+                [['role1']]
             ],
             [
                 '\Commercetools\Core\Request\States\Command\StateChangeInitialAction',
@@ -1487,6 +1631,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['newType']
             ],
             [
+                '\Commercetools\Core\Request\States\Command\StateRemoveRolesAction',
+                'ofRoles',
+                [['role1']]
+            ],
+            [
                 '\Commercetools\Core\Request\States\Command\StateSetDescriptionAction',
                 'ofDescription',
                 [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
@@ -1495,6 +1644,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\States\Command\StateSetNameAction',
                 'ofName',
                 [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+            ],
+            [
+                '\Commercetools\Core\Request\States\Command\StateSetRolesAction',
+                'ofRoles',
+                [['role1']]
             ],
             [
                 '\Commercetools\Core\Request\States\Command\StateSetTransitionsAction',
@@ -1562,6 +1716,10 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction',
                 'of',
             ],
             [
@@ -1670,6 +1828,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['new description']
             ],
             [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeIsSearchableAction',
+                'ofAttributeNameAndIsSearchable',
+                ['attributeName', true]
+            ],
+            [
                 '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction',
                 'ofAttributeNameAndLabel',
                 ['attributeName', $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
@@ -1695,6 +1858,16 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['name']
             ],
             [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction',
+                'ofAttributeName',
+                ['attributeName']
+            ],
+            [
+                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction',
+                'ofKey',
+                ['typeKey']
+            ],
+            [
                 '\Commercetools\Core\Request\Payments\Command\PaymentAddInterfaceInteractionAction',
                 'of',
             ],
@@ -1702,6 +1875,25 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 '\Commercetools\Core\Request\Payments\Command\PaymentAddTransactionAction',
                 'ofTransaction',
                 [$this->getInstance('\Commercetools\Core\Model\Payment\Transaction')]
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeAmountPlannedAction',
+                'of',
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionInteractionIdAction',
+                'ofTransactionIdAndInteractionId',
+                ['transactionId', 'interactionId']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionStateAction',
+                'ofTransactionIdAndState',
+                ['transactionId', 'state']
+            ],
+            [
+                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionTimestampAction',
+                'ofTransactionIdAndTimestamp',
+                ['transactionId', new \DateTime()]
             ],
             [
                 '\Commercetools\Core\Request\Payments\Command\PaymentSetAmountPaidAction',

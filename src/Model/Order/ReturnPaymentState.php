@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Order;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @apidoc http://dev.sphere.io/http-api-projects-orders.html#return-payment-state
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#return-payment-state
  */
 class ReturnPaymentState
 {

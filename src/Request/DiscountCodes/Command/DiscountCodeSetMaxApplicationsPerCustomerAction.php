@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#set-maxApplicationsPerCustomer
  * @method string getAction()
  * @method DiscountCodeSetMaxApplicationsPerCustomerAction setAction(string $action = null)
  * @method int getMaxApplicationsPerCustomer()

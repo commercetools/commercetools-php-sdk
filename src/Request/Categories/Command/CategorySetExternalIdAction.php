@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @apidoc http://dev.sphere.io/http-api-projects-categories.html#set-external-id
+ * @link https://dev.commercetools.com/http-api-projects-categories.html#set-external-id
  * @method string getExternalId()
  * @method CategorySetExternalIdAction setExternalId(string $externalId = null)
  * @method string getAction()

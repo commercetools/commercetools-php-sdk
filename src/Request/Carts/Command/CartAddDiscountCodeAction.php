@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @apidoc http://dev.sphere.io/http-api-projects-carts.html#add-discount-code
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#add-discount-code
  * @method string getAction()
  * @method CartAddDiscountCodeAction setAction(string $action = null)
  * @method string getCode()

@@ -13,11 +13,13 @@ use Commercetools\Core\Request\States\Command\TransitionStateAction;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#transition-state
  * @method string getAction()
  * @method PaymentTransitionStateAction setAction(string $action = null)
  * @method StateReference getState()
  * @method PaymentTransitionStateAction setState(StateReference $state = null)
+ * @method bool getForce()
+ * @method PaymentTransitionStateAction setForce(bool $force = null)
  */
 class PaymentTransitionStateAction extends TransitionStateAction
 {

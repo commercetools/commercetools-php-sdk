@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Inventory\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-inventory.html#change-quantity
  * @method string getAction()
  * @method InventoryChangeQuantityAction setAction(string $action = null)
  * @method int getQuantity()

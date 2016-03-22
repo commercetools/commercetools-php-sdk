@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\ResourceIdentifier;
 
 /**
  * @package Commercetools\Core\Model\CustomField
- *
+ * @link https://dev.commercetools.com/http-api-projects-custom-fields.html#new-custom-fields
  * @method FieldContainer getFields()
  * @method CustomFieldObjectDraft setFields(FieldContainer $fields = null)
  * @method TypeReference getType()

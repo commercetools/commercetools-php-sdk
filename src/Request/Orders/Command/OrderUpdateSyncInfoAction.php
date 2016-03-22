@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @apidoc http://dev.sphere.io/http-api-projects-orders.html#update-sync-info
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#update-sync-info
  * @method string getAction()
  * @method OrderUpdateSyncInfoAction setAction(string $action = null)
  * @method ChannelReference getChannel()

@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Customer
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#customer
  * @method Customer current()
  * @method CustomerCollection add(Customer $element)
  * @method Customer getAt($offset)

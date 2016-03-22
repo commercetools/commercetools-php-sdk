@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Zones\Command
- *
+ * @link https://dev.commercetools.com/http-api-projects-zones.html#set-description
  * @method string getAction()
  * @method ZoneSetDescriptionAction setAction(string $action = null)
  * @method string getDescription()

@@ -82,7 +82,10 @@ Feature: I want to update a cart discount
     """
     {
       "action": "changeTarget",
-      "target": "LineItems"
+      "target": {
+        "type": "lineItems",
+        "predicate": "1=1"
+      }
     }
     """
     Then the path should be "cart-discounts/id"
@@ -94,7 +97,10 @@ Feature: I want to update a cart discount
       "actions": [
         {
           "action": "changeTarget",
-          "target": "LineItems"
+          "target": {
+            "type": "lineItems",
+            "predicate": "1=1"
+          }
         }
       ]
     }
