@@ -11,6 +11,8 @@ use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Request\Customers\CustomerByTokenGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
 use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
+use Commercetools\Core\Request\Customers\CustomerEmailConfirmRequest;
+use Commercetools\Core\Request\Customers\CustomerEmailTokenRequest;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordChangeRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordResetRequest;
@@ -142,5 +144,33 @@ class CustomerLoginRequestTest extends ApiTestCase
         $request = CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $draft->getPassword());
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
+    }
+
+    public function testVerifyEmail()
+    {
+        $draft = $this->getDraft('email');
+        $customer = $this->createCustomer($draft);
+
+        $this->assertFalse($customer->getIsEmailVerified());
+
+        $request = CustomerEmailTokenRequest::ofIdVersionAndTtl(
+            $customer->getId(),
+            $customer->getVersion(),
+            15
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $token = $result->getValue();
+        $this->assertNotEmpty($token);
+
+        $request = CustomerEmailConfirmRequest::ofToken(
+            $token
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertTrue($result->getIsEmailVerified());
     }
 }
