@@ -18,15 +18,12 @@ Feature: I want to change the customer's password
     And the method should be "GET"
 
   Scenario: Reset customers password
-    Given a "customer" is identified by "id" and version 1
-    And i want to reset the "customer" password to "newPassword" with token "token"
+    Given i want to reset the "customer" password to "newPassword" with token "token"
     Then the path should be "customers/password/reset"
     And the method should be "POST"
     And the request should be
     """
     {
-      "id": "id",
-      "version": 1,
       "tokenValue": "token",
       "newPassword": "newPassword"
     }

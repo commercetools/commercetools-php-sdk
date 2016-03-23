@@ -16,4 +16,5 @@ class ShipmentState
     const PENDING = 'Pending';
     const PARTIAL = 'Partial';
     const BACKORDER = 'Backorder';
+    const DELAYED = 'Delayed';
 }
