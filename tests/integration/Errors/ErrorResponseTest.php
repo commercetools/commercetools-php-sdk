@@ -20,16 +20,17 @@ class ErrorResponseTest extends ApiTestCase
 
         $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())->addAction(
             CategoryChangeNameAction::ofName(
-                LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name')
+                LocalizedString::ofLangAndText('en', $this->getTestRun() . '-concurrent')
             )
         );
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->category = $result;
         $this->assertFalse($response->isError());
 
         $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())->addAction(
             CategoryChangeNameAction::ofName(
-                LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name 2')
+                LocalizedString::ofLangAndText('en', $this->getTestRun() . '-concurrent 2')
             )
         );
         $response = $request->executeWithClient($this->getClient());

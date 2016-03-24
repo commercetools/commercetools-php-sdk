@@ -118,7 +118,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @var Category
      */
-    private $category;
+    protected $category;
 
     /**
      * @var TaxCategory

@@ -54,49 +54,9 @@ use Commercetools\Core\Request\States\StateDeleteRequest;
 class ProductUpdateRequestTest extends ApiTestCase
 {
     /**
-     * @var ProductType
-     */
-    private $productType;
-
-    /**
      * @var ProductDeleteRequest
      */
     private $productDeleteRequest;
-
-    /**
-     * @var Category
-     */
-    private $category;
-
-    /**
-     * @var TaxCategory
-     */
-    private $taxCategory;
-
-    /**
-     * @var string
-     */
-    private $region;
-
-    /**
-     * @var State
-     */
-    private $state1;
-
-    /**
-     * @var State
-     */
-    private $state2;
-
-    /**
-     * @var StateDeleteRequest[]
-     */
-    private $stateCleanupRequests;
-
-    /**
-     * @var Type
-     */
-    private $type;
 
     public function testChangeName()
     {
