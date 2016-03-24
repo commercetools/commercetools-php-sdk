@@ -49,12 +49,4 @@ class ErrorResponse extends AbstractApiResponse
         }
         return $this->message;
     }
-
-    public function getStatusCode()
-    {
-        if (is_null($this->statusCode)) {
-            $this->statusCode = $this->getResponseField('statusCode');
-        }
-        return $this->statusCode;
-    }
 }

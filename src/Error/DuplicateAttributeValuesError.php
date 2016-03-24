@@ -14,8 +14,8 @@ use Commercetools\Core\Model\Common\AttributeCollection;
  * @method DuplicateAttributeValuesError setCode(string $code = null)
  * @method string getMessage()
  * @method DuplicateAttributeValuesError setMessage(string $message = null)
- * @method AttributeCollection getAttribute()
- * @method DuplicateAttributeValuesError setAttribute(AttributeCollection $attribute = null)
+ * @method AttributeCollection getAttributes()
+ * @method DuplicateAttributeValuesError setAttributes(AttributeCollection $attributes = null)
  */
 class DuplicateAttributeValuesError extends ApiError
 {
@@ -24,7 +24,7 @@ class DuplicateAttributeValuesError extends ApiError
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['attribute'] = [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'];
+        $definitions['attributes'] = [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'];
 
         return $definitions;
     }

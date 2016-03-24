@@ -108,7 +108,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @var ProductType
      */
-    private $productType;
+    protected $productType;
 
     /**
      * @var AbstractDeleteRequest

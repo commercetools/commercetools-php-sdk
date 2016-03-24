@@ -9,15 +9,15 @@ namespace Commercetools\Core\Error;
  * @package Commercetools\Core\Error
  *
  * @method string getCode()
- * @method DuplicateVariantValues setCode(string $code = null)
+ * @method DuplicateVariantValuesError setCode(string $code = null)
  * @method string getMessage()
- * @method DuplicateVariantValues setMessage(string $message = null)
+ * @method DuplicateVariantValuesError setMessage(string $message = null)
  * @method array getVariantValues()
- * @method DuplicateVariantValues setVariantValues(array $variantValues = null)
+ * @method DuplicateVariantValuesError setVariantValues(array $variantValues = null)
  */
-class DuplicateVariantValues extends ApiError
+class DuplicateVariantValuesError extends ApiError
 {
-    const CODE = 'DuplicateVariant';
+    const CODE = 'DuplicateVariantValues';
 
     public function fieldDefinitions()
     {
