@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Response;
 
+use Commercetools\Core\Error\ErrorContainer;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\Adapter\AdapterPromiseInterface;
 use Commercetools\Core\Error\Message;
@@ -40,6 +41,11 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
      * @var string
      */
     protected $responseBody;
+
+    /**
+     * @var ErrorContainer
+     */
+    private $errors;
 
     /**
      * @param ResponseInterface $response
@@ -95,6 +101,23 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
         $statusCode = $this->getStatusCode();
 
         return (!in_array($statusCode, [200, 201]));
+    }
+
+    protected function getResponseField($fieldName, $default = '')
+    {
+        $result = $this->toArray();
+        return isset($result[$fieldName]) ? $result[$fieldName]: $default;
+    }
+
+    /**
+     * @return array
+     */
+    public function getErrors()
+    {
+        if (is_null($this->errors)) {
+            $this->errors = ErrorContainer::fromArray($this->getResponseField('errors', []), $this->getContext());
+        }
+        return $this->errors;
     }
 
     public function getStatusCode()

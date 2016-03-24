@@ -9,11 +9,12 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteByKeyRequest;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Review\Review;
 
 /**
- * @package Commercetools\Core\Request\Types
+ * @package Commercetools\Core\Request\Reviews
  * @link http://dev.commercetools.com/http-api-projects-reviews.html#delete-review-by-key
- * @method Type mapResponse(ApiResponseInterface $response)
+ * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewDeleteByKeyRequest extends AbstractDeleteByKeyRequest
 {

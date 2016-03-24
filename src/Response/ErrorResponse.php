@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Response;
 
+use Commercetools\Core\Error\ErrorContainer;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\ClientRequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -15,6 +16,9 @@ class ErrorResponse extends AbstractApiResponse
      * @var \Exception
      */
     private $exception;
+
+    private $message;
+    private $statusCode;
 
     /**
      * ErrorResponse constructor.
@@ -38,20 +42,19 @@ class ErrorResponse extends AbstractApiResponse
         return true;
     }
 
-    /**
-     * @return array
-     */
-    public function getErrors()
-    {
-        $result = $this->toArray();
-
-        return isset($result['errors']) ? $result['errors']: [];
-    }
-
     public function getMessage()
     {
-        $result = $this->toArray();
+        if (is_null($this->message)) {
+            $this->message = $this->getResponseField('message');
+        }
+        return $this->message;
+    }
 
-        return isset($result['message']) ? $result['message']: '';
+    public function getStatusCode()
+    {
+        if (is_null($this->statusCode)) {
+            $this->statusCode = $this->getResponseField('statusCode');
+        }
+        return $this->statusCode;
     }
 }
