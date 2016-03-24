@@ -525,7 +525,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
 
     }
 
-    private function deleteProduct()
+    protected function deleteProduct()
     {
         if (!is_null($this->product)) {
             $request = ProductUpdateRequest::ofIdAndVersion($this->product->getId(), $this->product->getVersion())
