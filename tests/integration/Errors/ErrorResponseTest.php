@@ -257,6 +257,47 @@ class ErrorResponseTest extends ApiTestCase
         $this->assertNotEmpty($error->getVariantValues());
     }
 
+    public function testDuplicateVariantValuesWithPrice()
+    {
+        $product = $this->getProduct();
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductAddVariantAction::of()
+                    ->setPrices(
+                        PriceDraftCollection::of()->add(PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100)))
+                    )
+                    ->setAttributes(
+                        AttributeCollection::of()->add(
+                            Attribute::of()->setName('testField')->setValue('123456')
+                        )
+                    )
+            )
+            ->addAction(
+                ProductAddVariantAction::of()
+                    ->setPrices(
+                        PriceDraftCollection::of()->add(PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100)))
+                    )
+                    ->setAttributes(
+                        AttributeCollection::of()->add(
+                            Attribute::of()->setName('testField')->setValue('123456')
+                        )
+                    )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $this->assertFalse($response->isError());
+//        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+//        $this->assertSame(400, $response->getStatusCode());
+//        $error = $response->getErrors()->current();
+//        $this->assertInstanceOf(
+//            '\Commercetools\Core\Error\DuplicateVariantValuesError',
+//            $error
+//        );
+//        $this->assertSame(DuplicateVariantValuesError::CODE, $error->getCode());
+//        $this->assertNotEmpty($error->getVariantValues());
+    }
+
     public function testDuplicateAttributeValue()
     {
         $productType = $this->getProductType();
