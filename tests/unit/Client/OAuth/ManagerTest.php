@@ -87,9 +87,12 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
                 "token_type" => "Bearer",
                 "expires_in" => 1000,
                 "scope" => "manage_project:project"
-            ]
+            ],
+            200,
+            true
         );
         $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $manager->getToken());
+        $this->assertSame($manager->getConfig()->getScope(), $manager->getToken()->getScope());
     }
 
     public function testScope()
@@ -109,9 +112,37 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
                 "token_type" => "Bearer",
                 "expires_in" => 1000,
                 "scope" => "test_scope:project"
-            ]
+            ],
+            200,
+            true
         );
         $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $manager->getToken());
+        $this->assertSame($manager->getConfig()->getScope(), $manager->getToken()->getScope());
+    }
+
+    public function testScopes()
+    {
+        $config = Config::fromArray([
+            Config::CLIENT_ID => 'id',
+            Config::CLIENT_SECRET => 'secret',
+            Config::SCOPE => ['scope1', 'scope2'],
+            Config::OAUTH_URL => 'oauthUrl',
+            Config::PROJECT => 'project',
+            Config::API_URL => 'apiUrl'
+        ]);
+        $manager = $this->getManager(
+            $config,
+            [
+                "access_token" => "myToken",
+                "token_type" => "Bearer",
+                "expires_in" => 1000,
+                "scope" => "scope1:project scope2:project"
+            ],
+            200,
+            true
+        );
+        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $manager->getToken());
+        $this->assertSame($manager->getConfig()->getScope(), $manager->getToken()->getScope());
     }
 
     public function testCache()

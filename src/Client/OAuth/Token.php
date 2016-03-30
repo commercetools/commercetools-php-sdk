@@ -26,9 +26,14 @@ class Token
      */
     protected $ttl;
 
-    public function __construct($token = null, $ttl = null)
+    /**
+     * @var string
+     */
+    protected $scope;
+
+    public function __construct($token = null, $ttl = null, $scope = null)
     {
-        $this->setToken($token)->setTtl($ttl);
+        $this->setToken($token)->setTtl($ttl)->setScope($scope);
     }
 
     /**
@@ -79,11 +84,32 @@ class Token
 
     /**
      * @param int $ttl
+     * @return $this
      */
     public function setTtl($ttl)
     {
         $this->ttl = $ttl;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScope()
+    {
+        return $this->scope;
+    }
+
+    /**
+     * @param string $scope
+     * @return $this
+     */
+    public function setScope($scope)
+    {
+        $this->scope = $scope;
+
+        return $this;
+
     }
 }

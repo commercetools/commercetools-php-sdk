@@ -115,4 +115,71 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config->setBatchPoolSize(30);
         $this->assertSame(30, $config->getBatchPoolSize());
     }
+
+    public function testDefaultScope()
+    {
+        $config = Config::fromArray($this->getConfig());
+
+        $this->assertSame('manage_project:project', $config->getScope());
+    }
+
+    /**
+     * @dataProvider getScopes
+     */
+    public function testScopes($project, $scope, $expectedResult)
+    {
+        $config = [
+            Config::PROJECT => $project,
+            Config::SCOPE => $scope,
+        ];
+        $config = Config::fromArray($config);
+
+        $this->assertSame($expectedResult, $config->getScope());
+    }
+
+    public function getScopes()
+    {
+        return [
+            [
+                'project',
+                'scope',
+                'scope:project'
+            ],
+            [
+                'project',
+                'scope1:project1 scope2:project2',
+                'scope1:project1 scope2:project2'
+            ],
+            [
+                'project',
+                'scope1 scope2',
+                'scope1:project scope2:project'
+            ],
+            [
+                'project',
+                'scope1 scope2:project2',
+                'scope1:project scope2:project2'
+            ],
+            [
+                'project',
+                ['scope1'],
+                'scope1:project'
+            ],
+            [
+                'project',
+                ['scope1', 'scope2'],
+                'scope1:project scope2:project'
+            ],
+            [
+                'project',
+                ['scope1' => 'project1', 'scope2' => 'project2'],
+                'scope1:project1 scope2:project2'
+            ],
+            [
+                'project',
+                ['scope1', 'scope2' => 'project2'],
+                'scope1:project scope2:project2'
+            ],
+        ];
+    }
 }

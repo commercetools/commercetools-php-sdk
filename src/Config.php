@@ -79,9 +79,9 @@ class Config implements ContextAwareInterface
     protected $project;
 
     /**
-     * @var string
+     * @var array
      */
-    protected $scope = 'manage_project';
+    protected $scope = ['manage_project'];
 
     /**
      * @var string
@@ -206,7 +206,23 @@ class Config implements ContextAwareInterface
      */
     public function getScope()
     {
-        return $this->scope;
+        $scope = $this->scope;
+        $project = $this->getProject();
+
+        $scopes = [];
+        foreach ($scope as $scopeKey => $scopeValue) {
+            if (is_numeric($scopeKey)) {
+                if (strpos($scopeValue, ':') === false) {
+                    $scopeValue = $scopeValue . ':' . $project;
+                }
+                $scopes[] = $scopeValue;
+            } else {
+                $scopes[] = $scopeKey . ':' . $scopeValue;
+            }
+        }
+        $scope = implode(' ', $scopes);
+
+        return $scope;
     }
 
     /**
@@ -215,7 +231,11 @@ class Config implements ContextAwareInterface
      */
     public function setScope($scope)
     {
+        if (!is_array($scope)) {
+            $scope = explode(' ', $scope);
+        }
         $this->scope = $scope;
+
         return $this;
     }
 
