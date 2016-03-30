@@ -7,8 +7,7 @@ namespace Commercetools\Core\Request\Products\Command;
 
 use Commercetools\Core\Model\Common\AttributeCollection;
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Model\Common\PriceCollection;
+use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
@@ -18,8 +17,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductAddVariantAction setAction(string $action = null)
  * @method string getSku()
  * @method ProductAddVariantAction setSku(string $sku = null)
- * @method PriceCollection getPrices()
- * @method ProductAddVariantAction setPrices(PriceCollection $prices = null)
+ * @method PriceDraftCollection getPrices()
+ * @method ProductAddVariantAction setPrices(PriceDraftCollection $prices = null)
  * @method AttributeCollection getAttributes()
  * @method ProductAddVariantAction setAttributes(AttributeCollection $attributes = null)
  * @method bool getStaged()
@@ -32,7 +31,7 @@ class ProductAddVariantAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'sku' => [static::TYPE => 'string'],
-            'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceCollection'],
+            'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceDraftCollection'],
             'attributes' => [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
             'staged' => [static::TYPE => 'bool'],
         ];

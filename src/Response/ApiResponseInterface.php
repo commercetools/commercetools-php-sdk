@@ -5,6 +5,7 @@
  */
 namespace Commercetools\Core\Response;
 
+use Commercetools\Core\Error\ErrorContainer;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\Adapter\AdapterPromiseInterface;
 use Commercetools\Core\Request\ClientRequestInterface;
@@ -17,11 +18,25 @@ interface ApiResponseInterface
 {
     public function toObject();
 
+    /**
+     * @return array
+     */
     public function toArray();
 
+    /**
+     * @return string
+     */
     public function getBody();
 
+    /**
+     * @return bool
+     */
     public function isError();
+
+    /**
+     * @return ErrorContainer
+     */
+    public function getErrors();
 
     /**
      * @return ResponseInterface|AdapterPromiseInterface

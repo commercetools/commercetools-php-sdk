@@ -184,7 +184,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $client = $this->getMockClient($this->getConfig(), '', 500);
         $response = $client->execute($request);
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
         $this->assertTrue($response->isError());
     }
 
@@ -216,7 +216,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             [$endpoint, 'id']
         );
 
-        $response = $clientMock->execute($request);
+        $clientMock->execute($request);
     }
 
     public function testExceptionWithResponse()
@@ -256,7 +256,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $response = $clientMock->execute($request);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
         $this->assertTrue($response->isError());
     }
 
@@ -536,9 +536,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $results = $clientMock->executeBatch();
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $results[$request1->getIdentifier()]);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $results[$request1->getIdentifier()]);
         $this->assertTrue($results[$request1->getIdentifier()]->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $results[$request2->getIdentifier()]);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $results[$request2->getIdentifier()]);
         $this->assertTrue($results[$request2->getIdentifier()]->isError());
     }
 

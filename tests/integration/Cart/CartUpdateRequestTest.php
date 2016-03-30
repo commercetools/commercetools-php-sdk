@@ -14,6 +14,7 @@ use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
+use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
@@ -46,6 +47,63 @@ use Commercetools\Core\Request\Products\ProductUpdateRequest;
 
 class CartUpdateRequestTest extends ApiTestCase
 {
+    public function testLineItemsOfRemovedProducts()
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertFalse($response->isError());
+
+        $this->deleteProduct();
+
+        $request = CartByIdGetRequest::ofId($cart->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->assertNotEmpty($cart->getLineItems());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartRecalculateAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->assertTrue($response->isError());
+
+        $request = CartByIdGetRequest::ofId($cart->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $lineItem = $cart->getLineItems()->current()->getId();
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartRemoveLineItemAction::ofLineItemId($lineItem))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertFalse($response->isError());
+        $this->assertEmpty($cart->getLineItems());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartRecalculateAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+        $this->assertFalse($response->isError());
+    }
+
     public function testLineItem()
     {
         $draft = $this->getDraft();

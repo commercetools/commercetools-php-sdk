@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core;
 
+use Commercetools\Core\Response\ErrorResponse;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -231,7 +232,8 @@ class Client extends AbstractHttpClient
         $httpRequest = $this->createHttpRequest($request);
 
         try {
-            $response = $this->getHttpClient()->execute($httpRequest);
+            $httpResponse = $this->getHttpClient()->execute($httpRequest);
+            $response = $request->buildResponse($httpResponse);
         } catch (ApiException $exception) {
             if ($exception instanceof InvalidTokenException && !$this->tokenRefreshed) {
                 $this->tokenRefreshed = true;
@@ -241,12 +243,12 @@ class Client extends AbstractHttpClient
             if ($this->getConfig()->getThrowExceptions() || !$exception->getResponse() instanceof ResponseInterface) {
                 throw $exception;
             }
-            $response = $exception->getResponse();
+            $httpResponse = $exception->getResponse();
             $this->logException($exception);
+            $response = new ErrorResponse($exception, $request, $httpResponse);
         }
-        $this->logDeprecatedRequest($response, $httpRequest);
+        $this->logDeprecatedRequest($httpResponse, $httpRequest);
 
-        $response = $request->buildResponse($response);
 
         return $response;
     }
@@ -304,15 +306,22 @@ class Client extends AbstractHttpClient
             $request = $this->batchRequests[$key];
             $httpRequest = $requests[$key];
             if ($httpResponse instanceof ApiException) {
+                $exception = $httpResponse;
                 if ($this->getConfig()->getThrowExceptions() ||
                     !$httpResponse->getResponse() instanceof ResponseInterface
                 ) {
-                    throw $httpResponse;
+                    throw $exception;
                 }
                 $this->logException($httpResponse);
-                $httpResponse = $httpResponse->getResponse();
+                $httpResponse = $exception->getResponse();
+                $responses[$request->getIdentifier()] = new ErrorResponse(
+                    $exception,
+                    $request,
+                    $httpResponse
+                );
+            } else {
+                $responses[$request->getIdentifier()] = $request->buildResponse($httpResponse);
             }
-            $responses[$request->getIdentifier()] = $request->buildResponse($httpResponse);
             $this->logDeprecatedRequest($httpResponse, $httpRequest);
         }
         unset($this->batchRequests);

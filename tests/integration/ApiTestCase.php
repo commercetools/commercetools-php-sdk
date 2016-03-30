@@ -108,7 +108,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @var ProductType
      */
-    private $productType;
+    protected $productType;
 
     /**
      * @var AbstractDeleteRequest
@@ -118,7 +118,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @var Category
      */
-    private $category;
+    protected $category;
 
     /**
      * @var TaxCategory
@@ -525,7 +525,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
 
     }
 
-    private function deleteProduct()
+    protected function deleteProduct()
     {
         if (!is_null($this->product)) {
             $request = ProductUpdateRequest::ofIdAndVersion($this->product->getId(), $this->product->getVersion())
