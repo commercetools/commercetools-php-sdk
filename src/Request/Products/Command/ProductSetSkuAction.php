@@ -12,13 +12,15 @@ use Commercetools\Core\Request\AbstractAction;
  * @package Commercetools\Core\Request\Products\Command
  * @link https://dev.commercetools.com/http-api-projects-products.html#set-sku
  * @method string getAction()
- * @method ProductSetSKUAction setAction(string $action = null)
+ * @method ProductSetSkuAction setAction(string $action = null)
  * @method int getVariantId()
- * @method ProductSetSKUAction setVariantId(int $variantId = null)
+ * @method ProductSetSkuAction setVariantId(int $variantId = null)
  * @method string getSku()
- * @method ProductSetSKUAction setSku(string $sku = null)
+ * @method ProductSetSkuAction setSku(string $sku = null)
+ * @method bool getStaged()
+ * @method ProductSetSkuAction setStaged(bool $staged = null)
  */
-class ProductSetSKUAction extends AbstractAction
+class ProductSetSkuAction extends AbstractAction
 {
     public function fieldDefinitions()
     {
@@ -26,6 +28,7 @@ class ProductSetSKUAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
+            'staged' => [static::TYPE => 'bool']
         ];
     }
 
@@ -36,13 +39,13 @@ class ProductSetSKUAction extends AbstractAction
     public function __construct(array $data = [], $context = null)
     {
         parent::__construct($data, $context);
-        $this->setAction('setSKU');
+        $this->setAction('setSku');
     }
 
     /**
      * @param int $variantId
      * @param Context|callable $context
-     * @return ProductSetSKUAction
+     * @return ProductSetSkuAction
      */
     public static function ofVariantId($variantId, $context = null)
     {

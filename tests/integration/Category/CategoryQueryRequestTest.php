@@ -322,8 +322,6 @@ class CategoryQueryRequestTest extends ApiTestCase
 
     public function testMinSlug()
     {
-        $this->markTestSkipped('Enable when API validates slug');
-
         $draft = $this->getDraft('min', '1');
         $request = CategoryCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
@@ -341,8 +339,6 @@ class CategoryQueryRequestTest extends ApiTestCase
 
     public function testMaxSlug()
     {
-        $this->markTestSkipped('Enable when API validates slug');
-
         $draft = $this->getDraft('max', str_pad('1', 257, '0'));
         $request = CategoryCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
