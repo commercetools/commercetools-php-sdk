@@ -287,7 +287,6 @@ class ErrorResponseTest extends ApiTestCase
             )
         ;
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
         $this->assertSame(400, $response->getStatusCode());
