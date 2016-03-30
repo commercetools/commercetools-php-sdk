@@ -59,6 +59,7 @@ class Config implements ContextAwareInterface
     const OAUTH_URL = 'oauth_url';
     const CLIENT_ID = 'client_id';
     const CLIENT_SECRET = 'client_secret';
+    const SCOPE = 'scope';
     const PROJECT = 'project';
     const API_URL = 'api_url';
 
@@ -76,6 +77,11 @@ class Config implements ContextAwareInterface
      * @var string
      */
     protected $project;
+
+    /**
+     * @var string
+     */
+    protected $scope = 'manage_project';
 
     /**
      * @var string
@@ -198,6 +204,24 @@ class Config implements ContextAwareInterface
     /**
      * @return string
      */
+    public function getScope()
+    {
+        return $this->scope;
+    }
+
+    /**
+     * @param string $scope
+     * @return $this
+     */
+    public function setScope($scope)
+    {
+        $this->scope = $scope;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getOauthUrl()
     {
         return $this->oauthUrl;
@@ -224,6 +248,7 @@ class Config implements ContextAwareInterface
 
     /**
      * @param string $apiUrl
+     * @return $this
      */
     public function setApiUrl($apiUrl)
     {
@@ -262,6 +287,7 @@ class Config implements ContextAwareInterface
 
     /**
      * @param int $batchPoolSize
+     * @return $this
      */
     public function setBatchPoolSize($batchPoolSize)
     {
@@ -280,6 +306,7 @@ class Config implements ContextAwareInterface
 
     /**
      * @param string $adapter
+     * @return $this
      */
     public function setAdapter($adapter)
     {
@@ -298,6 +325,7 @@ class Config implements ContextAwareInterface
 
     /**
      * @param bool $throwExceptions
+     * @return $this
      */
     public function setThrowExceptions($throwExceptions)
     {
@@ -316,6 +344,7 @@ class Config implements ContextAwareInterface
 
     /**
      * @param string $acceptEncoding
+     * @return $this
      */
     public function setAcceptEncoding($acceptEncoding)
     {

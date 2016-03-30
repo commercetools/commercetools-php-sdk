@@ -92,6 +92,28 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $manager->getToken());
     }
 
+    public function testScope()
+    {
+        $config = Config::fromArray([
+            Config::CLIENT_ID => 'id',
+            Config::CLIENT_SECRET => 'secret',
+            Config::SCOPE => 'test_scope',
+            Config::OAUTH_URL => 'oauthUrl',
+            Config::PROJECT => 'project',
+            Config::API_URL => 'apiUrl'
+        ]);
+        $manager = $this->getManager(
+            $config,
+            [
+                "access_token" => "myToken",
+                "token_type" => "Bearer",
+                "expires_in" => 1000,
+                "scope" => "test_scope:project"
+            ]
+        );
+        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $manager->getToken());
+    }
+
     public function testCache()
     {
         $manager = $this->getManager(

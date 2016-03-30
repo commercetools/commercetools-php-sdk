@@ -17,8 +17,10 @@ class ErrorResponse extends AbstractApiResponse
      */
     private $exception;
 
+    /**
+     * @var string
+     */
     private $message;
-    private $statusCode;
 
     /**
      * ErrorResponse constructor.
@@ -30,7 +32,7 @@ class ErrorResponse extends AbstractApiResponse
     public function __construct(
         \Exception $exception,
         ClientRequestInterface $request,
-        ResponseInterface $response = null,
+        ResponseInterface $response,
         Context $context = null
     ) {
         parent::__construct($response, $request, $context);

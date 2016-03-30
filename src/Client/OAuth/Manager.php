@@ -29,7 +29,6 @@ class Manager extends AbstractHttpClient
     const ERROR = 'error';
     const ERROR_DESCRIPTION = 'error_description';
 
-    const DEFAULT_SCOPE = 'manage_project';
     /**
      * @var array
      */
@@ -87,8 +86,11 @@ class Manager extends AbstractHttpClient
      * @return Token
      * @throws InvalidClientCredentialsException
      */
-    public function getToken($scope = self::DEFAULT_SCOPE)
+    public function getToken($scope = null)
     {
+        if (is_null($scope)) {
+            $scope = $this->getConfig()->getScope();
+        }
         if ($token = $this->getCacheToken($scope)) {
             return new Token($token);
         }
@@ -101,8 +103,11 @@ class Manager extends AbstractHttpClient
      * @return Token
      * @throws InvalidClientCredentialsException
      */
-    public function refreshToken($scope = self::DEFAULT_SCOPE)
+    public function refreshToken($scope = null)
     {
+        if (is_null($scope)) {
+            $scope = $this->getConfig()->getScope();
+        }
         $token = $this->getBearerToken($scope);
         // ensure token to be invalidated in cache before TTL
         $ttl = max(1, floor($token->getTtl()/2));
