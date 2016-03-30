@@ -715,7 +715,7 @@ Feature: I want to send a Product Update Request
   Scenario:
     Given a "product" is identified by "id" and version 1
     And i want to update a "product"
-    And add the "setSKU" action to "product" with values
+    And add the "setSkuNotStageable" action to "product" with values
     """
         {
           "action": "setSKU",

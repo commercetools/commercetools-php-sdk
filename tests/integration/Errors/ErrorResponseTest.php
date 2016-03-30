@@ -42,6 +42,7 @@ use Commercetools\Core\Request\Customers\CustomerUpdateRequest;
 use Commercetools\Core\Request\Products\Command\ProductAddPriceAction;
 use Commercetools\Core\Request\Products\Command\ProductAddVariantAction;
 use Commercetools\Core\Request\Products\ProductByIdGetRequest;
+use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction;
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
@@ -90,10 +91,10 @@ class ErrorResponseTest extends ApiTestCase
         $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\InvalidSubjectError',
+            '\Commercetools\Core\Error\ResourceNotFoundError',
             $error
         );
-        $this->assertSame(InvalidSubjectError::CODE, $error->getCode());
+        $this->assertSame(ResourceNotFoundError::CODE, $error->getCode());
     }
 
     public function testResourceNotFoundByPost()
@@ -286,17 +287,19 @@ class ErrorResponseTest extends ApiTestCase
             )
         ;
         $response = $request->executeWithClient($this->getClient());
-        $this->assertFalse($response->isError());
-        $this->product = $request->mapResponse($response);
-//        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
-//        $this->assertSame(400, $response->getStatusCode());
-//        $error = $response->getErrors()->current();
-//        $this->assertInstanceOf(
-//            '\Commercetools\Core\Error\DuplicateVariantValuesError',
-//            $error
-//        );
-//        $this->assertSame(DuplicateVariantValuesError::CODE, $error->getCode());
-//        $this->assertNotEmpty($error->getVariantValues());
+
+        if (!$response->isError()) {
+            $this->product = $request->mapResponse($response);
+        }
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertSame(400, $response->getStatusCode());
+        $error = $response->getErrors()->current();
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Error\DuplicateVariantValuesError',
+            $error
+        );
+        $this->assertSame(DuplicateVariantValuesError::CODE, $error->getCode());
+        $this->assertNotEmpty($error->getVariantValues());
     }
 
     public function testDuplicateAttributeValue()
@@ -535,5 +538,18 @@ class ErrorResponseTest extends ApiTestCase
         $this->assertSame('enumField', $error->getField());
         $this->assertSame('unknown', $error->getInvalidValue());
         $this->assertSame(['test'], $error->getAllowedValues());
+    }
+
+    public function testInvalidClientScope()
+    {
+        $draft = $this->getProductDraft();
+
+        $request = ProductCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient('view_products'));
+
+        $this->assertTrue($response->isError());
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertSame(403, $response->getStatusCode());
+        $this->assertSame('Insufficient scope', $response->getBody());
     }
 }
