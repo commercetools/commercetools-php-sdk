@@ -209,18 +209,18 @@ class Config implements ContextAwareInterface
         $scope = $this->scope;
         $project = $this->getProject();
 
-        $scopes = [];
-        foreach ($scope as $scopeKey => $scopeValue) {
-            if (is_numeric($scopeKey)) {
-                if (strpos($scopeValue, ':') === false) {
-                    $scopeValue = $scopeValue . ':' . $project;
+        $permissions = [];
+        foreach ($scope as $key => $value) {
+            if (is_numeric($key)) { // scope defined as string e.g. scope:project_key
+                if (strpos($value, ':') === false) { // scope without project key
+                    $value = $value . ':' . $project;
                 }
-                $scopes[] = $scopeValue;
-            } else {
-                $scopes[] = $scopeKey . ':' . $scopeValue;
+                $permissions[] = $value;
+            } else { // scope defined as array
+                $permissions[] = $key . ':' . $value;
             }
         }
-        $scope = implode(' ', $scopes);
+        $scope = implode(' ', $permissions);
 
         return $scope;
     }
