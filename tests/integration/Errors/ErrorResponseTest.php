@@ -17,7 +17,6 @@ use Commercetools\Core\Error\InvalidCredentialsError;
 use Commercetools\Core\Error\InvalidCurrentPasswordError;
 use Commercetools\Core\Error\InvalidFieldError;
 use Commercetools\Core\Error\InvalidOperationError;
-use Commercetools\Core\Error\InvalidSubjectError;
 use Commercetools\Core\Error\RequiredFieldError;
 use Commercetools\Core\Error\ResourceNotFoundError;
 use Commercetools\Core\Model\Common\Attribute;
@@ -26,29 +25,64 @@ use Commercetools\Core\Model\Common\Enum;
 use Commercetools\Core\Model\Common\EnumCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Model\Common\Price;
-use Commercetools\Core\Model\Common\PriceCollection;
 use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\EnumType;
 use Commercetools\Core\Model\ProductType\StringType;
-use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
 use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordChangeRequest;
-use Commercetools\Core\Request\Customers\CustomerUpdateRequest;
+use Commercetools\Core\Request\Orders\OrderQueryRequest;
 use Commercetools\Core\Request\Products\Command\ProductAddPriceAction;
 use Commercetools\Core\Request\Products\Command\ProductAddVariantAction;
 use Commercetools\Core\Request\Products\ProductByIdGetRequest;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
+use Commercetools\Core\Request\Products\ProductQueryRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction;
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
 
 class ErrorResponseTest extends ApiTestCase
 {
+    public function testNarrowedScope()
+    {
+        $client = $this->getClient('view_products');
+        $client->getConfig()->setScope(['view_orders']);
+        $client->getOauthManager()->refreshToken();
+
+        $request = ProductQueryRequest::of()->limit(1);
+        $response = $request->executeWithClient($client);
+        $this->assertTrue($response->isError());
+
+        $request = OrderQueryRequest::of()->limit(1);
+        $response = $request->executeWithClient($client);
+        $this->assertFalse($response->isError());
+
+        $client->getConfig()->setScope(['view_products']);
+        $client->getOauthManager()->refreshToken();
+
+        $request = ProductQueryRequest::of()->limit(1);
+        $response = $request->executeWithClient($client);
+        $this->assertFalse($response->isError());
+
+        $request = OrderQueryRequest::of()->limit(1);
+        $response = $request->executeWithClient($client);
+        $this->assertTrue($response->isError());
+
+        $client->getConfig()->setScope(['view_orders', 'view_products']);
+        $client->getOauthManager()->refreshToken();
+
+        $request = ProductQueryRequest::of()->limit(1);
+        $response = $request->executeWithClient($client);
+        $this->assertFalse($response->isError());
+
+        $request = OrderQueryRequest::of()->limit(1);
+        $response = $request->executeWithClient($client);
+        $this->assertFalse($response->isError());
+    }
+
     public function testConcurrentModification()
     {
         $category = $this->getCategory();
