@@ -31,6 +31,7 @@ use Commercetools\Core\Model\Common\Resource;
  * @method Type setResourceTypeIds(array $resourceTypeIds = null)
  * @method FieldDefinitionCollection getFieldDefinitions()
  * @method Type setFieldDefinitions(FieldDefinitionCollection $fieldDefinitions = null)
+ * @method TypeReference getReference()
  */
 class Type extends Resource
 {

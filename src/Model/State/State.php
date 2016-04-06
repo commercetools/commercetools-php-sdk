@@ -36,6 +36,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method State setBuiltIn(bool $builtIn = null)
  * @method array getRoles()
  * @method State setRoles(array $roles = null)
+ * @method StateReference getReference()
  */
 class State extends Resource
 {

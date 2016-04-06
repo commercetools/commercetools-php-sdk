@@ -21,6 +21,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method CustomerGroup setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method string getName()
  * @method CustomerGroup setName(string $name = null)
+ * @method CustomerGroupReference getReference()
  */
 class CustomerGroup extends Resource
 {

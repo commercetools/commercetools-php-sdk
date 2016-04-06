@@ -30,6 +30,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method ShippingMethod setZoneRates(ZoneRateCollection $zoneRates = null)
  * @method bool getIsDefault()
  * @method ShippingMethod setIsDefault(bool $isDefault = null)
+ * @method ShippingMethodReference getReference()
  */
 class ShippingMethod extends Resource
 {

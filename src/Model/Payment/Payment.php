@@ -49,6 +49,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectCollection;
  * @method Payment setTransactions(TransactionCollection $transactions = null)
  * @method CustomFieldObjectCollection getInterfaceInteractions()
  * @method Payment setInterfaceInteractions(CustomFieldObjectCollection $interfaceInteractions = null)
+ * @method PaymentReference getReference()
  */
 class Payment extends Resource
 {

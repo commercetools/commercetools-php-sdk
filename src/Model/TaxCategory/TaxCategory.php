@@ -26,6 +26,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method TaxCategory setDescription(string $description = null)
  * @method TaxRateCollection getRates()
  * @method TaxCategory setRates(TaxRateCollection $rates = null)
+ * @method TaxCategoryReference getReference()
  */
 class TaxCategory extends Resource
 {

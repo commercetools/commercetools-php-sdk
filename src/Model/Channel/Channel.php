@@ -34,6 +34,7 @@ use Commercetools\Core\Model\Review\ReviewRatingStatistics;
  * @method Channel setCustom(CustomFieldObject $custom = null)
  * @method ReviewRatingStatistics getReviewRatingStatistics()
  * @method Channel setReviewRatingStatistics(ReviewRatingStatistics $reviewRatingStatistics = null)
+ * @method ChannelReference getReference()
  */
 class Channel extends Resource
 {

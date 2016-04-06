@@ -43,6 +43,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method CartDiscount setRequiresDiscountCode(bool $requiresDiscountCode = null)
  * @method ReferenceCollection getReferences()
  * @method CartDiscount setReferences(ReferenceCollection $references = null)
+ * @method CartDiscountReference getReference()
  */
 class CartDiscount extends Resource
 {

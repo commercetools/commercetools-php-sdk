@@ -35,6 +35,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method ProductDiscount setIsActive(bool $isActive = null)
  * @method ReferenceCollection getReferences()
  * @method ProductDiscount setReferences(ReferenceCollection $references = null)
+ * @method ProductDiscountReference getReference()
  */
 class ProductDiscount extends Resource
 {

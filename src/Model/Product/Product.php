@@ -34,6 +34,7 @@ use Commercetools\Core\Model\State\StateReference;
  * @method Product setReviewRatingStatistics(ReviewRatingStatistics $reviewRatingStatistics = null)
  * @method StateReference getState()
  * @method Product setState(StateReference $state = null)
+ * @method ProductReference getReference()
  */
 class Product extends Resource
 {

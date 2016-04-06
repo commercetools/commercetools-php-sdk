@@ -40,6 +40,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method DiscountCode setMaxApplications(int $maxApplications = null)
  * @method int getMaxApplicationsPerCustomer()
  * @method DiscountCode setMaxApplicationsPerCustomer(int $maxApplicationsPerCustomer = null)
+ * @method DiscountCodeReference getReference()
  */
 class DiscountCode extends Resource
 {
