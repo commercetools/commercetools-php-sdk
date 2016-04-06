@@ -1,3 +1,82 @@
+<a name="1.0.0-RC11"></a>
+# [1.0.0-RC11](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC10...v1.0.0-RC11) (2016-04-06)
+
+
+### Bug Fixes
+
+* **Product:** change type of price collection ([8cc1262](https://github.com/sphereio/commercetools-php-sdk/commit/8cc1262))
+
+### Code Refactoring
+
+* **Customer:** adjust customer email verification request to API changes ([2e3dd32](https://github.com/sphereio/commercetools-php-sdk/commit/2e3dd32))
+* **Customer:** adjust customer password change request to API changes ([318e93f](https://github.com/sphereio/commercetools-php-sdk/commit/318e93f))
+
+### Features
+
+* **Client:** add support for oauth scopes ([5545dfd](https://github.com/sphereio/commercetools-php-sdk/commit/5545dfd))
+* **Client:** log response body and headers of api exceptions ([f371979](https://github.com/sphereio/commercetools-php-sdk/commit/f371979)), closes [#186](https://github.com/sphereio/commercetools-php-sdk/issues/186)
+* **Product:** add update action for stageable SKU ([870a1f8](https://github.com/sphereio/commercetools-php-sdk/commit/870a1f8))
+* **Response:** add getter for correlation id ([6029a02](https://github.com/sphereio/commercetools-php-sdk/commit/6029a02)), closes [#69](https://github.com/sphereio/commercetools-php-sdk/issues/69)
+
+
+### BREAKING CHANGES
+
+* Product: renamed the ProductSetSKUAction to ProductSetSKUNotStageableAction
+
+  Before:
+  
+  ```
+  ProductSetSKUAction::ofVariantId()
+  ```
+
+  After:
+  
+  ```
+  ProductSetSKUNotStageableAction::ofVariantId() // old behavior action
+  ProductSetSkuAction::ofVariantId() // stageable action
+  ```
+* Product: fix type of price collections
+  
+  Before:
+  
+  ```
+  ProductAddVariantAction::of()->setPrices(PriceCollection::of()->add(Price::of()))
+  ```
+
+  After:
+  
+  ```
+  ProductAddVariantAction::of()->setPrices(PriceDraftCollection::of()->add(PriceDraft::of()))
+  ```
+* Customer: adjust customer email verification request to API changes
+
+  Before:
+  
+  ```
+  CustomerEmailConfirmRequest::ofIdVersionAndToken($id, $version, $token)
+  ```
+
+  After:
+  
+  ```
+  CustomerEmailConfirmRequest::ofToken($token)
+  ```
+* Customer: adjust customer password change request to API changes
+
+  Before:
+  
+  ```
+  CustomerPasswordResetRequest::ofIdVersionTokenAndPassword($id, $version, $token, $newPassword)
+  ```
+
+  After:
+  
+  ```
+  CustomerPasswordResetRequest::ofTokenAndPassword($token, $newPassword)
+  ```
+
+
+
 <a name="1.0.0-RC10"></a>
 # [1.0.0-RC10](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC9...v1.0.0-RC10) (2016-03-22)
 
