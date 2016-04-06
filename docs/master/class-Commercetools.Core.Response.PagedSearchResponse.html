@@ -454,6 +454,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-Commercetools.Core.Response.AbstractApiResponse.html">AbstractApiResponse</a></li>
+				<li><a href="class-Commercetools.Core.Response.ErrorResponse.html">ErrorResponse</a></li>
 				<li><a href="class-Commercetools.Core.Response.PagedQueryResponse.html">PagedQueryResponse</a></li>
 				<li class="active"><a href="class-Commercetools.Core.Response.PagedSearchResponse.html">PagedSearchResponse</a></li>
 				<li><a href="class-Commercetools.Core.Response.ResourceResponse.html">ResourceResponse</a></li>
@@ -952,7 +953,7 @@ The offset to unset.
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#44-54" title="Go to source code">__construct</a>( <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span><code><a href="class-Commercetools.Core.Request.ClientRequestInterface.html">Commercetools\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#51-61" title="Go to source code">__construct</a>( <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span><code><a href="class-Commercetools.Core.Request.ClientRequestInterface.html">Commercetools\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -990,7 +991,7 @@ The offset to unset.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getBody">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#79-88" title="Go to source code">getBody</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#86-95" title="Go to source code">getBody</a>( )</code>
 
 			<div class="description short">
 				
@@ -1014,6 +1015,76 @@ The offset to unset.
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getCorrelationId" id="_getCorrelationId">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getCorrelationId">#</a>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#124-127" title="Go to source code">getCorrelationId</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html#_getCorrelationId">Commercetools\Core\Response\ApiResponseInterface::getCorrelationId()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getErrors" id="_getErrors">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getErrors">#</a>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#113-122" title="Go to source code">getErrors</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html#_getErrors">Commercetools\Core\Response\ApiResponseInterface::getErrors()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="getHeader" id="_getHeader">
 
 			<td class="attributes"><code>
@@ -1025,7 +1096,7 @@ The offset to unset.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHeader">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#109-116" title="Go to source code">getHeader</a>( <span>string <var>$header</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#138-145" title="Go to source code">getHeader</a>( <span>string <var>$header</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1065,7 +1136,7 @@ The offset to unset.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHeaders">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#118-124" title="Go to source code">getHeaders</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#147-153" title="Go to source code">getHeaders</a>( )</code>
 
 			<div class="description short">
 				
@@ -1100,7 +1171,7 @@ The offset to unset.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getRequest">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#134-140" title="Go to source code">getRequest</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#163-169" title="Go to source code">getRequest</a>( )</code>
 
 			<div class="description short">
 				
@@ -1135,7 +1206,7 @@ The offset to unset.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#126-132" title="Go to source code">getResponse</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#155-161" title="Go to source code">getResponse</a>( )</code>
 
 			<div class="description short">
 				
@@ -1170,7 +1241,7 @@ The offset to unset.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getStatusCode">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#100-103" title="Go to source code">getStatusCode</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#129-132" title="Go to source code">getStatusCode</a>( )</code>
 
 			<div class="description short">
 				
@@ -1205,7 +1276,7 @@ The offset to unset.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_isError">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#90-98" title="Go to source code">isError</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#97-105" title="Go to source code">isError</a>( )</code>
 
 			<div class="description short">
 				
@@ -1240,7 +1311,7 @@ The offset to unset.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_then">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#164-177" title="Go to source code">then</a>( <span>callable <var>$onFulfilled</var> = <span class="php-keyword1">null</span></span>, <span>callable <var>$onRejected</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#193-206" title="Go to source code">then</a>( <span>callable <var>$onFulfilled</var> = <span class="php-keyword1">null</span></span>, <span>callable <var>$onRejected</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1282,7 +1353,7 @@ The offset to unset.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_toArray">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#68-77" title="Go to source code">toArray</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#75-84" title="Go to source code">toArray</a>( )</code>
 
 			<div class="description short">
 				
@@ -1317,7 +1388,7 @@ The offset to unset.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_toObject">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#56-66" title="Go to source code">toObject</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#63-73" title="Go to source code">toObject</a>( )</code>
 
 			<div class="description short">
 				
@@ -1352,7 +1423,7 @@ The offset to unset.
 
 			<td class="name"><div>
 			<a class="anchor" href="#_wait">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#142-162" title="Go to source code">wait</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#171-191" title="Go to source code">wait</a>( )</code>
 
 			<div class="description short">
 				<p>Returns the result of the future either from cache or by blocking until
@@ -1643,6 +1714,30 @@ exception if the future's wait() method is called again.</p>
                     <div>
                         <a href="#TOTAL" class="anchor">#</a>
                         <code><span class="php-quote">'total'</span></code>
+                    </div>
+                </td>
+			</tr>
+                <tr><th colspan="3">Constants inherited from <a href="class-Commercetools.Core.Response.AbstractApiResponse.html#constants">Commercetools\Core\Response\AbstractApiResponse</a></th></tr>
+			<tr id="X_CORRELATION_ID">
+                <td class="attributes"><code>string</code></td>
+                <td class="name">
+                    <code>
+                        <a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#23" title="Go to source code"><b>X_CORRELATION_ID</b></a>
+                    </code>
+
+                    <div class="description short">
+                        
+                    </div>
+
+                    <div class="description detailed hidden">
+                        
+
+                    </div>
+                </td>
+                <td class="value">
+                    <div>
+                        <a href="#X_CORRELATION_ID" class="anchor">#</a>
+                        <code><span class="php-quote">'X-Correlation-ID'</span></code>
                     </div>
                 </td>
 			</tr>

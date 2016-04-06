@@ -454,6 +454,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-Commercetools.Core.Response.AbstractApiResponse.html">AbstractApiResponse</a></li>
+				<li><a href="class-Commercetools.Core.Response.ErrorResponse.html">ErrorResponse</a></li>
 				<li><a href="class-Commercetools.Core.Response.PagedQueryResponse.html">PagedQueryResponse</a></li>
 				<li><a href="class-Commercetools.Core.Response.PagedSearchResponse.html">PagedSearchResponse</a></li>
 				<li><a href="class-Commercetools.Core.Response.ResourceResponse.html">ResourceResponse</a></li>
@@ -497,6 +498,7 @@
 	<div>
 		<h3>Indirect known implementers</h3>
 		<p class="elementList">
+			<code><a href="class-Commercetools.Core.Response.ErrorResponse.html">Commercetools\Core\Response\ErrorResponse</a></code>, 
 			<code><a href="class-Commercetools.Core.Response.PagedQueryResponse.html">Commercetools\Core\Response\PagedQueryResponse</a></code>, 
 			<code><a href="class-Commercetools.Core.Response.PagedSearchResponse.html">Commercetools\Core\Response\PagedSearchResponse</a></code>, 
 			<code><a href="class-Commercetools.Core.Response.ResourceResponse.html">Commercetools\Core\Response\ResourceResponse</a></code>
@@ -512,7 +514,7 @@
             <tr><th>Namespace</th><td><a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Response.html">Response</a></td></tr>
             <tr><th>Package</th><td>Commercetools\Core\Http</td></tr>
 
-                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#12-63" title="Go to source code">Response/ApiResponseInterface.php</a></td></tr>
+                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#13-83" title="Go to source code">Response/ApiResponseInterface.php</a></td></tr>
 
 		</table>
 	</div>
@@ -533,7 +535,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_toObject">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#18" title="Go to source code">toObject</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#19" title="Go to source code">toObject</a>( )</code>
 
 			<div class="description short">
 				
@@ -555,14 +557,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				array
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_toArray">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#20" title="Go to source code">toArray</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#21-24" title="Go to source code">toArray</a>( )</code>
 
 			<div class="description short">
 				
@@ -573,6 +575,10 @@
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
 
 
 
@@ -584,14 +590,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getBody">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#22" title="Go to source code">getBody</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#26-29" title="Go to source code">getBody</a>( )</code>
 
 			<div class="description short">
 				
@@ -602,6 +608,10 @@
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
 
 
 
@@ -613,14 +623,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				boolean
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_isError">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#24" title="Go to source code">isError</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#31-34" title="Go to source code">isError</a>( )</code>
 
 			<div class="description short">
 				
@@ -631,6 +641,43 @@
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getErrors" id="_getErrors">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Error.ErrorContainer.html">Commercetools\Core\Error\ErrorContainer</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getErrors">#</a>
+			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#36-39" title="Go to source code">getErrors</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Error.ErrorContainer.html">Commercetools\Core\Error\ErrorContainer</a></code>
+					</div>
 
 
 
@@ -649,7 +696,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#26-29" title="Go to source code">getResponse</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#41-44" title="Go to source code">getResponse</a>( )</code>
 
 			<div class="description short">
 				
@@ -682,7 +729,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getRequest">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#31-34" title="Go to source code">getRequest</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#46-49" title="Go to source code">getRequest</a>( )</code>
 
 			<div class="description short">
 				
@@ -715,7 +762,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_wait">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#36-39" title="Go to source code">wait</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#51-54" title="Go to source code">wait</a>( )</code>
 
 			<div class="description short">
 				
@@ -748,7 +795,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_then">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#41-46" title="Go to source code">then</a>( <span>callable <var>$onFulfilled</var> = <span class="php-keyword1">null</span></span>, <span>callable <var>$onRejected</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#56-61" title="Go to source code">then</a>( <span>callable <var>$onFulfilled</var> = <span class="php-keyword1">null</span></span>, <span>callable <var>$onRejected</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -788,7 +835,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHeader">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#48-52" title="Go to source code">getHeader</a>( <span>string <var>$header</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#63-67" title="Go to source code">getHeader</a>( <span>string <var>$header</var></span> )</code>
 
 			<div class="description short">
 				
@@ -826,7 +873,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHeaders">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#54-57" title="Go to source code">getHeaders</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#69-72" title="Go to source code">getHeaders</a>( )</code>
 
 			<div class="description short">
 				
@@ -859,7 +906,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getStatusCode">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#59-62" title="Go to source code">getStatusCode</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#74-77" title="Go to source code">getStatusCode</a>( )</code>
 
 			<div class="description short">
 				
@@ -873,6 +920,39 @@
 					<h4>Returns</h4>
 					<div class="list">
 						integer
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getCorrelationId" id="_getCorrelationId">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getCorrelationId">#</a>
+			<code><a href="source-class-Commercetools.Core.Response.ApiResponseInterface.html#79-82" title="Go to source code">getCorrelationId</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
 					</div>
 
 
