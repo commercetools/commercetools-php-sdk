@@ -41,7 +41,7 @@ class ZoneUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $zone = $request->mapResponse($response);
 
-        $this->cleanupRequests[] = ZoneDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = ZoneDeleteRequest::ofIdAndVersion(
             $zone->getId(),
             $zone->getVersion()
         );
@@ -64,16 +64,11 @@ class ZoneUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result);
         $this->assertSame($description, $result->getDescription());
         $this->assertNotSame($zone->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result);
     }
 
     public function testChangeName()
@@ -91,16 +86,11 @@ class ZoneUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result);
         $this->assertSame($name, $result->getName());
         $this->assertNotSame($zone->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result);
     }
 
     public function testAddRemoveLocation()
@@ -117,30 +107,25 @@ class ZoneUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result);
         $this->assertCount(2, $result->getLocations());
         $this->assertNotSame($zone->getVersion(), $result->getVersion());
-        $actualVersion = $result->getVersion();
+        $zone = $result;
 
         $request = ZoneUpdateRequest::ofIdAndVersion(
             $zone->getId(),
-            $actualVersion
+            $zone->getVersion()
         )
             ->addAction(ZoneRemoveLocationAction::ofLocation($location))
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result);
         $this->assertCount(1, $result->getLocations());
-        $this->assertNotSame($actualVersion, $result->getVersion());
-        $actualVersion = $result->getVersion();
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($actualVersion);
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result);
+        $this->assertNotSame($zone->getVersion(), $result->getVersion());
     }
 }

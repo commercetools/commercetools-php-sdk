@@ -534,12 +534,9 @@ trait ApiContext
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
         $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'PasswordResetRequest';
-        $requestContext = $context . 'Request';
-        $id = $this->objects[$requestContext]['id'];
-        $version = $this->objects[$requestContext]['version'];
         $this->request = call_user_func_array(
-            $request. '::ofIdVersionTokenAndPassword',
-            [$id, $version, $token, $newPassword]
+            $request. '::ofTokenAndPassword',
+            [$token, $newPassword]
         );
     }
 
@@ -551,12 +548,9 @@ trait ApiContext
         $context = $this->getContext($context);
         $module = $this->getModuleName($context);
         $request = '\Commercetools\Core\Request\\' . $module . '\\' . $context . 'EmailConfirmRequest';
-        $requestContext = $context . 'Request';
-        $id = $this->objects[$requestContext]['id'];
-        $version = $this->objects[$requestContext]['version'];
         $this->request = call_user_func_array(
-            $request. '::ofIdVersionAndToken',
-            [$id, $version, $token]
+            $request. '::ofToken',
+            [$token]
         );
     }
 

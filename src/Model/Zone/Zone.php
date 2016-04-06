@@ -25,6 +25,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Zone setDescription(string $description = null)
  * @method LocationCollection getLocations()
  * @method Zone setLocations(LocationCollection $locations = null)
+ * @method ZoneReference getReference()
  */
 class Zone extends Resource
 {

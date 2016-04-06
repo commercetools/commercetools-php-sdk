@@ -57,6 +57,7 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method Customer setCustomerGroup(CustomerGroupReference $customerGroup = null)
  * @method CustomFieldObject getCustom()
  * @method Customer setCustom(CustomFieldObject $custom = null)
+ * @method CustomerReference getReference()
  */
 class Customer extends Resource
 {

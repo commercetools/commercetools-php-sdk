@@ -186,7 +186,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'searchKeywords', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetSKUAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetSkuNotStageableAction',
                 ['action', 'variantId', 'sku']
             ],
             [
@@ -1045,7 +1045,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetSKUAction',
+                '\Commercetools\Core\Request\Products\Command\ProductSetSkuNotStageableAction',
                 'ofVariantId',
                 [10]
             ],

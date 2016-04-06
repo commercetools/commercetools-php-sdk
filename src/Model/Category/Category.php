@@ -43,6 +43,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Category setMetaTitle(LocalizedString $metaTitle = null)
  * @method LocalizedString getMetaKeywords()
  * @method Category setMetaKeywords(LocalizedString $metaKeywords = null)
+ * @method CategoryReference getReference()
  */
 class Category extends Resource
 {

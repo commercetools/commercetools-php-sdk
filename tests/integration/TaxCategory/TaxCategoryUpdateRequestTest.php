@@ -47,7 +47,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $taxCategory = $request->mapResponse($response);
 
-        $this->cleanupRequests[] = TaxCategoryDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = TaxCategoryDeleteRequest::ofIdAndVersion(
             $taxCategory->getId(),
             $taxCategory->getVersion()
         );
@@ -70,16 +70,11 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
         $this->assertSame($name, $result->getName());
         $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
     }
 
     public function testSetDescription()
@@ -97,16 +92,11 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
         $this->assertSame($description, $result->getDescription());
         $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
     }
 
     public function testAddRemoveTaxRate()
@@ -128,31 +118,26 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $actualVersion = $result->getVersion();
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
         $this->assertCount(2, $result->getRates());
         $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
+        $taxCategory = $result;
 
         $request = TaxCategoryUpdateRequest::ofIdAndVersion(
             $taxCategory->getId(),
-            $actualVersion
+            $taxCategory->getVersion()
         )
             ->addAction(TaxCategoryRemoveTaxRateAction::ofTaxRateId($result->getRates()->current()->getId()))
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
         $this->assertCount(1, $result->getRates());
-        $this->assertNotSame($actualVersion, $result->getVersion());
-
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
+        $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
     }
 
     public function testReplaceTaxRate()
@@ -177,15 +162,10 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
         $this->assertSame($taxRate->getName(), $result->getRates()->current()->getName());
         $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
     }
 }

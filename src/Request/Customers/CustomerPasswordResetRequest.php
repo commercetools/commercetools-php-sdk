@@ -9,19 +9,19 @@ namespace Commercetools\Core\Request\Customers;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\JsonRequest;
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Request\AbstractUpdateRequest;
+use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Response\ResourceResponse;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
  * @link https://dev.commercetools.com/http-api-projects-customers.html#reset-customers-password
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
-class CustomerPasswordResetRequest extends AbstractUpdateRequest
+class CustomerPasswordResetRequest extends AbstractApiRequest
 {
-    const ID = 'id';
-    const VERSION = 'version';
     const TOKEN_VALUE = 'tokenValue';
     const NEW_PASSWORD = 'newPassword';
 
@@ -44,31 +44,25 @@ class CustomerPasswordResetRequest extends AbstractUpdateRequest
      * @param string $newPassword
      * @param Context $context
      */
-    public function __construct($id, $version, $tokenValue, $newPassword, Context $context = null)
+    public function __construct($tokenValue, $newPassword, Context $context = null)
     {
-        parent::__construct(CustomersEndpoint::endpoint(), $id, $version, [], $context);
-        $this->setId($id);
-        $this->setVersion($version);
+        parent::__construct(CustomersEndpoint::endpoint(), $context);
         $this->tokenValue = $tokenValue;
         $this->newPassword = $newPassword;
     }
 
     /**
-     * @param string $id
-     * @param int $version
      * @param string $tokenValue
      * @param string $newPassword
      * @param Context $context
      * @return static
      */
-    public static function ofIdVersionTokenAndPassword(
-        $id,
-        $version,
+    public static function ofTokenAndPassword(
         $tokenValue,
         $newPassword,
         Context $context = null
     ) {
-        return new static($id, $version, $tokenValue, $newPassword, $context);
+        return new static($tokenValue, $newPassword, $context);
     }
 
     /**
@@ -87,11 +81,14 @@ class CustomerPasswordResetRequest extends AbstractUpdateRequest
     public function httpRequest()
     {
         $payload = [
-            static::ID => $this->getId(),
-            static::VERSION => $this->getVersion(),
             static::TOKEN_VALUE => $this->tokenValue,
             static::NEW_PASSWORD => $this->newPassword
         ];
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
+    }
+
+    public function buildResponse(ResponseInterface $response)
+    {
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 }

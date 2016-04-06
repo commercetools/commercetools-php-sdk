@@ -14,15 +14,12 @@ Feature: I want to confirm a customer's email
     """
 
   Scenario: Confirm Token for email change
-    Given a "customer" is identified by "id" and version 1
     Given i want to confirm the "Customer" email with token "token"
     Then the path should be "customers/email/confirm"
     And the method should be "POST"
     And the request should be
     """
     {
-      "id": "id",
-      "version": 1,
       "tokenValue": "token"
     }
     """

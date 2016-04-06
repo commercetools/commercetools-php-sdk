@@ -34,7 +34,7 @@
   },
   "require-dev": {
     "guzzlehttp/guzzle": "^6.0",
-    "phpunit/phpunit": "^4.0",
+    "phpunit/phpunit": "^5.0 || ^4.0",
     "phpmd/phpmd": "@stable",
     "squizlabs/php_codesniffer": "@stable",
     "sebastian/phpcpd": "@stable",
@@ -47,9 +47,7 @@
     "phpunit/phpcov": "*",
     "fabpot/php-cs-fixer": "@stable",
     "symfony/yaml": "*",
-    "incenteev/composer-parameter-handler": "^2.0",
-    "munkie/phpunit-teamcity-testlistener": "^1.2",
-    "micheh/teamcity-clover": "^0.6.0"
+    "incenteev/composer-parameter-handler": "^2.0"
   },
   "scripts": {
     "updateConfig": [
@@ -65,6 +63,8 @@
         "env-map": {
           "client_id": "COMMERCETOOLS_CLIENT_ID",
           "client_secret": "COMMERCETOOLS_CLIENT_SECRET",
+          "view_products-client_id": "COMMERCETOOLS_CLIENT_ID_VIEW",
+          "view_products-client_secret": "COMMERCETOOLS_CLIENT_SECRET_VIEW",
           "project": "COMMERCETOOLS_PROJECT",
           "oauth_url": "COMMERCETOOLS_OAUTH_URL",
           "api_url": "COMMERCETOOLS_API_URL"

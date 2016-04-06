@@ -103,4 +103,45 @@ class ApiException extends \Exception
     {
         return $this->response;
     }
+
+    protected function getResponseJson()
+    {
+        $response = $this->getResponse();
+        if ($response instanceof ResponseInterface) {
+            $json = json_decode($response->getBody(), true);
+            return $json;
+        }
+
+        return [];
+    }
+
+    /**
+     * @return array
+     */
+    public function getErrors()
+    {
+        $data = $this->getResponseJson();
+
+        return isset($data['errors']) ? $data['errors'] : [];
+    }
+
+    /**
+     * @return string
+     */
+    public function getResponseMessage()
+    {
+        $data = $this->getResponseJson();
+
+        return isset($data['message']) ? $data['message'] : '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getResponseStatusCode()
+    {
+        $data = $this->getResponseJson();
+
+        return isset($data['statusCode']) ? $data['statusCode'] : '';
+    }
 }

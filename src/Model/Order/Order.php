@@ -79,6 +79,7 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method Order setState(StateReference $state = null)
  * @method PaymentInfo getPaymentInfo()
  * @method Order setPaymentInfo(PaymentInfo $paymentInfo = null)
+ * @method OrderReference getReference()
  */
 class Order extends Resource
 {

@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Product\Search;
 use Commercetools\Core\Model\Common\Collection;
 
 /**
- * @package Commercetools\Core\Model\Product
+ * @package Commercetools\Core\Model\Product\Search
  *
  * @method FilterRange current()
  * @method FilterRangeCollection add(FilterRange $element)

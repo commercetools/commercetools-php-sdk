@@ -27,6 +27,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method ProductType setAttributes(AttributeDefinitionCollection $attributes = null)
  * @method string getKey()
  * @method ProductType setKey(string $key = null)
+ * @method ProductTypeReference getReference()
  */
 class ProductType extends Resource
 {

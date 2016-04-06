@@ -11,6 +11,8 @@ namespace Commercetools\Core\Cache;
  */
 class NullCacheAdapter extends AbstractCacheAdapter
 {
+    protected $cache = [];
+
     /**
      * @param $key
      * @param $options
@@ -18,7 +20,7 @@ class NullCacheAdapter extends AbstractCacheAdapter
      */
     public function has($key, $options = null)
     {
-        return false;
+        return isset($this->cache[$key]);
     }
 
     /**
@@ -28,6 +30,9 @@ class NullCacheAdapter extends AbstractCacheAdapter
      */
     public function fetch($key, $options = null)
     {
+        if ($this->has($key)) {
+            return $this->cache[$key];
+        }
         return false;
     }
 
@@ -40,6 +45,8 @@ class NullCacheAdapter extends AbstractCacheAdapter
      */
     public function store($key, $data, $lifeTime = null, $options = null)
     {
+        $this->cache[$key] = $data;
+
         return true;
     }
 
@@ -50,6 +57,7 @@ class NullCacheAdapter extends AbstractCacheAdapter
      */
     public function remove($key, $options = null)
     {
+        unset($this->cache[$key]);
         return true;
     }
 }

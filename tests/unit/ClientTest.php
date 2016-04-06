@@ -62,22 +62,32 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
             $mockBodyClass = '\GuzzleHttp\Psr7\BufferStream';
+            $mockFactory = false;
             $responseClass = '\GuzzleHttp\Psr7\Response';
         } else {
-            $mockBodyClass = '\GuzzleHttp\Stream\BufferStream';
+            $mockBodyClass = '\GuzzleHttp\Stream\Stream';
+            $mockFactory = 'factory';
             $responseClass = '\GuzzleHttp\Message\Response';
         }
 
         $responses = [];
         if (is_array($returnValue)) {
             foreach ($returnValue as $value) {
-                $mockBody = new $mockBodyClass();
-                $mockBody->write($value);
+                if ($mockFactory) {
+                    $mockBody = $mockBodyClass::$mockFactory($value);
+                } else {
+                    $mockBody = new $mockBodyClass();
+                    $mockBody->write($value);
+                }
                 $responses[] = new $responseClass($statusCode, $headers, $mockBody);
             }
         } else {
-            $mockBody = new $mockBodyClass();
-            $mockBody->write($returnValue);
+            if ($mockFactory) {
+                $mockBody = $mockBodyClass::$mockFactory($returnValue);
+            } else {
+                $mockBody = new $mockBodyClass();
+                $mockBody->write($returnValue);
+            }
             $responses[] = new $responseClass($statusCode, $headers, $mockBody);
         }
 
@@ -174,7 +184,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $client = $this->getMockClient($this->getConfig(), '', 500);
         $response = $client->execute($request);
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
         $this->assertTrue($response->isError());
     }
 
@@ -206,7 +216,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             [$endpoint, 'id']
         );
 
-        $response = $clientMock->execute($request);
+        $clientMock->execute($request);
     }
 
     public function testExceptionWithResponse()
@@ -246,7 +256,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $response = $clientMock->execute($request);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
         $this->assertTrue($response->isError());
     }
 
@@ -355,6 +365,92 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testLoggingBody()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+        $errorBody = '
+        {
+            "statusCode": 400,
+            "message": "Some error",
+            "errors": [
+                {
+                    "code": "InvalidOperation",
+                    "message": "Some error"
+                }
+            ]
+        }';
+        $client = $this->getMockClient(
+            $this->getConfig(),
+            $errorBody,
+            400,
+            $logger
+        );
+
+        $endpoint = new JsonEndpoint('test');
+        /**
+         * @var ClientRequestInterface $request
+         */
+        $request = $this->getMockForAbstractClass(
+            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            [$endpoint, 'id']
+        );
+        $client->execute($request);
+
+        $logEntry = $handler->getRecords()[1];
+        $this->assertSame(Logger::ERROR, $logEntry['level']);
+        $this->assertSame(
+            'Client error response [url] test/id [status code] 400 [reason phrase] Bad Request',
+            (string)$logEntry['message']
+        );
+        $this->assertJsonStringEqualsJsonString($errorBody, $logEntry['context']['responseBody']);
+    }
+
+    public function testLoggingBatchBody()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+        $errorBody = '
+        {
+            "statusCode": 400,
+            "message": "Some error",
+            "errors": [
+                {
+                    "code": "InvalidOperation",
+                    "message": "Some error"
+                }
+            ]
+        }';
+        $client = $this->getMockClient(
+            $this->getConfig(),
+            $errorBody,
+            400,
+            $logger
+        );
+
+        $endpoint = new JsonEndpoint('test');
+        /**
+         * @var ClientRequestInterface $request
+         */
+        $request = $this->getMockForAbstractClass(
+            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            [$endpoint, 'id']
+        );
+        $client->addBatchRequest($request);
+        $client->executeBatch();
+
+        $logEntry = $handler->getRecords()[1];
+        $this->assertSame(Logger::ERROR, $logEntry['level']);
+        $this->assertSame(
+            'Client error response [url] test/id [status code] 400 [reason phrase] Bad Request',
+            (string)$logEntry['message']
+        );
+        $this->assertJsonStringEqualsJsonString($errorBody, $logEntry['context']['responseBody']);
+    }
     /**
      * @expectedException \Commercetools\Core\Error\ApiException
      */
@@ -440,9 +536,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $results = $clientMock->executeBatch();
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $results[$request1->getIdentifier()]);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $results[$request1->getIdentifier()]);
         $this->assertTrue($results[$request1->getIdentifier()]->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $results[$request2->getIdentifier()]);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $results[$request2->getIdentifier()]);
         $this->assertTrue($results[$request2->getIdentifier()]->isError());
     }
 

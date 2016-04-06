@@ -18,7 +18,7 @@ class CustomerPasswordResetRequestTest extends RequestTestCase
 
     public function testHttpRequestMethod()
     {
-        $request = CustomerPasswordResetRequest::ofIdVersionTokenAndPassword('customerId', 1, 'resetToken', 'newPW');
+        $request = CustomerPasswordResetRequest::ofTokenAndPassword('resetToken', 'newPW');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
@@ -26,7 +26,7 @@ class CustomerPasswordResetRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = CustomerPasswordResetRequest::ofIdVersionTokenAndPassword('customerId', 1, 'resetToken', 'newPW');
+        $request = CustomerPasswordResetRequest::ofTokenAndPassword('resetToken', 'newPW');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('customers/password/reset', (string)$httpRequest->getUri());
@@ -34,12 +34,12 @@ class CustomerPasswordResetRequestTest extends RequestTestCase
 
     public function testHttpRequestObject()
     {
-        $request = CustomerPasswordResetRequest::ofIdVersionTokenAndPassword('customerId', 1, 'resetToken', 'newPW');
+        $request = CustomerPasswordResetRequest::ofTokenAndPassword('resetToken', 'newPW');
         $httpRequest = $request->httpRequest();
 
         $this->assertJsonStringEqualsJsonString(
             json_encode(
-                ['id' => 'customerId', 'version' => 1, 'tokenValue' => 'resetToken', 'newPassword' => 'newPW']
+                ['tokenValue' => 'resetToken', 'newPassword' => 'newPW']
             ),
             (string)$httpRequest->getBody()
         );

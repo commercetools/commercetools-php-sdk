@@ -7,7 +7,7 @@
 namespace Commercetools\Core\Product;
 
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\Category\Category;
+use Commercetools\Core\Error\DuplicateFieldError;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
@@ -16,10 +16,7 @@ use Commercetools\Core\Model\Product\LocalizedSearchKeywords;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\SearchKeyword;
 use Commercetools\Core\Model\Product\SearchKeywords;
-use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\State\State;
-use Commercetools\Core\Model\TaxCategory\TaxCategory;
-use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Request\Products\Command\ProductAddPriceAction;
 use Commercetools\Core\Request\Products\Command\ProductAddToCategoryAction;
 use Commercetools\Core\Request\Products\Command\ProductAddVariantAction;
@@ -42,69 +39,24 @@ use Commercetools\Core\Request\Products\Command\ProductSetPriceCustomFieldAction
 use Commercetools\Core\Request\Products\Command\ProductSetPriceCustomTypeAction;
 use Commercetools\Core\Request\Products\Command\ProductSetPricesAction;
 use Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction;
-use Commercetools\Core\Request\Products\Command\ProductSetSKUAction;
+use Commercetools\Core\Request\Products\Command\ProductSetSkuNotStageableAction;
+use Commercetools\Core\Request\Products\Command\ProductSetSkuAction;
 use Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction;
 use Commercetools\Core\Request\Products\Command\ProductTransitionStateAction;
 use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
-use Commercetools\Core\Request\States\StateDeleteRequest;
 
 class ProductUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @var ProductType
-     */
-    private $productType;
-
-    /**
-     * @var ProductDeleteRequest
-     */
-    private $productDeleteRequest;
-
-    /**
-     * @var Category
-     */
-    private $category;
-
-    /**
-     * @var TaxCategory
-     */
-    private $taxCategory;
-
-    /**
-     * @var string
-     */
-    private $region;
-
-    /**
-     * @var State
-     */
-    private $state1;
-
-    /**
-     * @var State
-     */
-    private $state2;
-
-    /**
-     * @var StateDeleteRequest[]
-     */
-    private $stateCleanupRequests;
-
-    /**
-     * @var Type
-     */
-    private $type;
-
     public function testChangeName()
     {
         $draft = $this->getDraft('change-name');
-        $channel = $this->createProduct($draft);
+        $product = $this->createProduct($draft);
 
         $name = $this->getTestRun() . '-new name';
-        $request = ProductUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(
                 ProductChangeNameAction::ofName(
                     LocalizedString::ofLangAndText('en', $name)
@@ -113,21 +65,21 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertNotSame($name, $result->getMasterData()->getCurrent()->getName()->en);
         $this->assertSame($name, $result->getMasterData()->getStaged()->getName()->en);
-        $this->assertNotSame($channel->getVersion(), $result->getVersion());
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testSetDescription()
     {
         $draft = $this->getDraft('set-description');
-        $channel = $this->createProduct($draft);
+        $product = $this->createProduct($draft);
 
         $description = $this->getTestRun() . '-new description';
-        $request = ProductUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(
                 ProductSetDescriptionAction::ofDescription(
                     LocalizedString::ofLangAndText('en', $description)
@@ -136,20 +88,20 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertSame($description, $result->getMasterData()->getStaged()->getDescription()->en);
-        $this->assertNotSame($channel->getVersion(), $result->getVersion());
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testChangeSlug()
     {
         $draft = $this->getDraft('change-slug');
-        $channel = $this->createProduct($draft);
+        $product = $this->createProduct($draft);
 
         $slug = $this->getTestRun() . '-new-slug';
-        $request = ProductUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(
                 ProductChangeSlugAction::ofSlug(
                     LocalizedString::ofLangAndText('en', $slug)
@@ -158,12 +110,12 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertNotSame($slug, $result->getMasterData()->getCurrent()->getSlug()->en);
         $this->assertSame($slug, $result->getMasterData()->getStaged()->getSlug()->en);
-        $this->assertNotSame($channel->getVersion(), $result->getVersion());
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testVariants()
@@ -179,7 +131,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
@@ -196,7 +148,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
@@ -220,7 +172,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
@@ -243,7 +195,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
@@ -267,7 +219,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
@@ -288,7 +240,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
@@ -312,7 +264,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
         $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
@@ -335,7 +287,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
         $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
@@ -360,7 +312,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertEmpty($product->getMasterData()->getCurrent()->getCategories());
@@ -377,7 +329,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertEmpty($product->getMasterData()->getCurrent()->getCategoryOrderHints());
@@ -394,7 +346,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getCategories());
@@ -413,7 +365,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertSame(
@@ -425,29 +377,147 @@ class ProductUpdateRequestTest extends ApiTestCase
 
     public function testSku()
     {
+
         $draft = $this->getDraft('sku');
         $product = $this->createProduct($draft);
-
         $sku = $this->getTestRun() . 'sku';
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(
-                ProductSetSKUAction::ofVariantId(
+                ProductSetSkuNotStageableAction::ofVariantId(
                     $product->getMasterData()->getCurrent()->getMasterVariant()->getId()
                 )->setSku($sku)
             )
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertSame(
             $sku,
             $result->getMasterData()->getStaged()->getMasterVariant()->getSku()
         );
-        $this->markTestSkipped('SKU not yet stageable');
-        $this->assertNull($result->getMasterData()->getCurrent()->getMasterVariant()->getSku());
+        $this->assertSame(
+            $sku,
+            $result->getMasterData()->getCurrent()->getMasterVariant()->getSku()
+        );
         $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
+    public function testSkuStaged()
+    {
+        $draft = $this->getDraft('sku-staged');
+        $product = $this->createProduct($draft);
+        $sku = $this->getTestRun() . 'sku';
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetSkuAction::ofVariantId(
+                    $product->getMasterData()->getCurrent()->getMasterVariant()->getId()
+                )->setSku($sku)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertSame(
+            $sku,
+            $result->getMasterData()->getStaged()->getMasterVariant()->getSku()
+        );
+        $this->assertNull(
+            $result->getMasterData()->getCurrent()->getMasterVariant()->getSku()
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductPublishAction::of()
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertSame(
+            $sku,
+            $result->getMasterData()->getStaged()->getMasterVariant()->getSku()
+        );
+        $this->assertSame(
+            $sku,
+            $result->getMasterData()->getCurrent()->getMasterVariant()->getSku()
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductUnpublishAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+    }
+
+    public function testSkuAlreadyExistsStaged()
+    {
+        $draft = $this->getDraft('sku-already-exists');
+        $product = $this->createProduct($draft);
+
+        $product2 = $this->getProduct();
+
+        $sku = $this->getTestRun() . 'sku';
+        $request = ProductUpdateRequest::ofIdAndVersion($product2->getId(), $product2->getVersion())
+            ->addAction(
+                ProductSetSkuAction::ofVariantId(
+                    $product2->getMasterData()->getCurrent()->getMasterVariant()->getId()
+                )->setSku($sku)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $product2 = $request->mapResponse($response);
+        $this->product = $product2;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetSkuAction::ofVariantId(
+                    $product->getMasterData()->getCurrent()->getMasterVariant()->getId()
+                )->setSku($sku)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $this->assertTrue($response->isError());
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertSame(400, $response->getStatusCode());
+        $this->assertSame(DuplicateFieldError::CODE, $response->getErrors()->current()->getCode());
+        $this->assertSame($sku, $response->getErrors()->current()->getDuplicateValue());
+        $this->assertSame('sku', $response->getErrors()->current()->getField());
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product2->getId(), $product2->getVersion())
+            ->addAction(
+                ProductPublishAction::of()
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $product2 = $request->mapResponse($response);
+        $this->product = $product2;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetSkuAction::ofVariantId(
+                    $product->getMasterData()->getCurrent()->getMasterVariant()->getId()
+                )->setSku($sku)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+
+        $this->assertTrue($response->isError());
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertSame(400, $response->getStatusCode());
+        $this->assertSame(DuplicateFieldError::CODE, $response->getErrors()->current()->getCode());
+        $this->assertSame($sku, $response->getErrors()->current()->getDuplicateValue());
+        $this->assertSame('sku', $response->getErrors()->current()->getField());
     }
 
     public function testSearchKeyword()
@@ -468,7 +538,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getSearchKeywords());
@@ -494,7 +564,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertNull($result->getMasterData()->getCurrent()->getMetaTitle());
@@ -520,7 +590,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
@@ -546,7 +616,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
@@ -572,7 +642,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
@@ -588,7 +658,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
@@ -613,7 +683,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertSame(
@@ -632,7 +702,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertFalse($result->getMasterData()->getPublished());
@@ -656,7 +726,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertSame(
@@ -673,7 +743,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertSame(
@@ -698,7 +768,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $product = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($product->getVersion());
+        $this->deleteRequest->setVersion($product->getVersion());
 
 
         $type = $this->getType('mytype', 'product-price');
@@ -711,7 +781,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
@@ -738,7 +808,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $product = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($product->getVersion());
+        $this->deleteRequest->setVersion($product->getVersion());
 
         $type = $this->getType('mytype', 'product-price');
         $price = $product->getMasterData()->getStaged()->getMasterVariant()->getPrices()->current();
@@ -750,7 +820,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $product = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($product->getVersion());
+        $this->deleteRequest->setVersion($product->getVersion());
 
         $price = $product->getMasterData()->getStaged()->getMasterVariant()->getPrices()->current();
         $fieldValue = $this->getTestRun() . '-value';
@@ -763,7 +833,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->productDeleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
@@ -796,7 +866,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $product = $request->mapResponse($response);
 
-        $this->cleanupRequests[] = $this->productDeleteRequest = ProductDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = ProductDeleteRequest::ofIdAndVersion(
             $product->getId(),
             $product->getVersion()
         );

@@ -57,6 +57,7 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method Cart setCustom(CustomFieldObject $custom = null)
  * @method PaymentInfo getPaymentInfo()
  * @method Cart setPaymentInfo(PaymentInfo $paymentInfo = null)
+ * @method CartReference getReference()
  */
 class Cart extends Resource
 {

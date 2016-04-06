@@ -31,7 +31,9 @@ use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
+use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
 use Commercetools\Core\Request\Zones\ZoneCreateRequest;
+use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
 
 class ShippingMethodUpdateRequestTest extends ApiTestCase
 {
@@ -64,7 +66,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $shippingMethod = $request->mapResponse($response);
 
-        $this->cleanupRequests[] = ShippingMethodDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = ShippingMethodDeleteRequest::ofIdAndVersion(
             $shippingMethod->getId(),
             $shippingMethod->getVersion()
         );
@@ -87,16 +89,11 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
         $this->assertSame($name, $result->getName());
         $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
     }
 
     public function testSetDescription()
@@ -114,16 +111,11 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
         $this->assertSame($description, $result->getDescription());
         $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
     }
 
     public function testChangeTaxCategory()
@@ -145,6 +137,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $newTaxCategory = $request->mapResponse($response);
 
+        $oldTaxCategory = $shippingMethod->getTaxCategory();
         $request = ShippingMethodUpdateRequest::ofIdAndVersion(
             $shippingMethod->getId(),
             $shippingMethod->getVersion()
@@ -153,15 +146,28 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
         $this->assertSame($newTaxCategory->getId(), $result->getTaxCategory()->getId());
         $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+        $shippingMethod = $result;
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
+        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
+            $shippingMethod->getId(),
+            $shippingMethod->getVersion()
+        )
+            ->addAction(ShippingMethodChangeTaxCategoryAction::ofTaxCategory($oldTaxCategory))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $deleteRequest = TaxCategoryDeleteRequest::ofIdAndVersion(
+            $newTaxCategory->getId(),
+            $newTaxCategory->getVersion()
+        );
+        $this->getClient()->execute($deleteRequest);
     }
 
     public function testChangeIsDefault()
@@ -179,17 +185,12 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
 
         $this->assertSame($isDefault, $result->getIsDefault());
         $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
     }
 
     public function testAddRemoveShippingRate()
@@ -210,6 +211,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
 
@@ -229,15 +231,10 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertCount(1, $result->getZoneRates()->current()->getShippingRates());
         $this->assertNotSame($actualVersion, $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
     }
 
     public function testAddRemoveZone()
@@ -264,6 +261,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
         $this->assertGreaterThan($shippingMethod->getZoneRates()->count(), $result->getZoneRates()->count());
@@ -278,15 +276,16 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
         $this->assertSame($shippingMethod->getZoneRates()->count(), $result->getZoneRates()->count());
         $this->assertNotSame($actualVersion, $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
+        $deleteRequest = ZoneDeleteRequest::ofIdAndVersion(
+            $zone->getId(),
+            $zone->getVersion()
+        );
+        $this->getClient()->execute($deleteRequest)->toObject();
     }
 }

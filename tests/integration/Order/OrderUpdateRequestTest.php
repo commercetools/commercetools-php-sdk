@@ -21,6 +21,7 @@ use Commercetools\Core\Model\Order\ReturnPaymentState;
 use Commercetools\Core\Model\Order\ReturnShipmentState;
 use Commercetools\Core\Model\Order\ShipmentState;
 use Commercetools\Core\Model\Order\TrackingData;
+use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction;
@@ -78,7 +79,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $request = CartCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
         $cart = $request->mapResponse($response);
-        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $cartDeleteRequest = CartDeleteRequest::ofIdAndVersion(
             $cart->getId(),
             $cart->getVersion()
         );
@@ -90,6 +91,11 @@ class OrderUpdateRequestTest extends ApiTestCase
             $order->getId(),
             $order->getVersion()
         );
+
+        $request = CartByIdGetRequest::ofId($cart->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $cartDeleteRequest->setVersion($cart->getVersion());
 
         return $order;
     }

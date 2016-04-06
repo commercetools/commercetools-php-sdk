@@ -27,9 +27,9 @@ class Manager extends AbstractHttpClient
     const ACCESS_TOKEN = 'access_token';
     const EXPIRES_IN = 'expires_in';
     const ERROR = 'error';
+    const SCOPE = 'scope';
     const ERROR_DESCRIPTION = 'error_description';
 
-    const DEFAULT_SCOPE = 'manage_project';
     /**
      * @var array
      */
@@ -87,10 +87,13 @@ class Manager extends AbstractHttpClient
      * @return Token
      * @throws InvalidClientCredentialsException
      */
-    public function getToken($scope = self::DEFAULT_SCOPE)
+    public function getToken($scope = null)
     {
+        if (is_null($scope)) {
+            $scope = $this->getConfig()->getScope();
+        }
         if ($token = $this->getCacheToken($scope)) {
-            return new Token($token);
+            return new Token($token, null, $scope);
         }
 
         return $this->refreshToken($scope);
@@ -101,8 +104,11 @@ class Manager extends AbstractHttpClient
      * @return Token
      * @throws InvalidClientCredentialsException
      */
-    public function refreshToken($scope = self::DEFAULT_SCOPE)
+    public function refreshToken($scope = null)
     {
+        if (is_null($scope)) {
+            $scope = $this->getConfig()->getScope();
+        }
         $token = $this->getBearerToken($scope);
         // ensure token to be invalidated in cache before TTL
         $ttl = max(1, floor($token->getTtl()/2));
@@ -124,7 +130,7 @@ class Manager extends AbstractHttpClient
     {
         if (!isset($this->cacheKeys[$scope])) {
             $this->cacheKeys[$scope] = static::TOKEN_CACHE_KEY . '-' .
-                sha1($scope . '-' . $this->getConfig()->getProject());
+                sha1($scope);
         }
 
         return $this->cacheKeys[$scope];
@@ -133,13 +139,16 @@ class Manager extends AbstractHttpClient
     /**
      * @param string $scope
      * @return Token
-     * @throws InvalidClientCredentialsException
+     * @throws ApiException
+     * @throws \Commercetools\Core\Error\BadGatewayException
+     * @throws \Commercetools\Core\Error\GatewayTimeoutException
+     * @throws \Commercetools\Core\Error\ServiceUnavailableException
      */
     protected function getBearerToken($scope)
     {
         $data = [
             'grant_type' => 'client_credentials',
-            'scope' => $scope . ':' . $this->getConfig()->getProject()
+            'scope' => $scope
         ];
 
         try {
@@ -150,7 +159,7 @@ class Manager extends AbstractHttpClient
 
         $result = json_decode($response->getBody(), true);
 
-        $token = new Token($result[static::ACCESS_TOKEN], $result[static::EXPIRES_IN]);
+        $token = new Token($result[static::ACCESS_TOKEN], $result[static::EXPIRES_IN], $result[static::SCOPE]);
         $token->setValidTo(new \DateTime('now +' . $result[static::EXPIRES_IN] . ' seconds'));
 
         return $token;

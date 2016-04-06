@@ -334,7 +334,6 @@ class CategoryQueryRequestTest extends ApiTestCase
             );
         }
 
-        $this->markTestSkipped('Enable when API validates slug');
         $this->assertTrue($response->isError());
     }
 
@@ -351,7 +350,6 @@ class CategoryQueryRequestTest extends ApiTestCase
             );
         }
 
-        $this->markTestSkipped('Enable when API validates slug');
         $this->assertTrue($response->isError());
     }
 }

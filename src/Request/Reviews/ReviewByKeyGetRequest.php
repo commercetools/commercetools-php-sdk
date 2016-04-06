@@ -9,10 +9,11 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Request\AbstractByKeyGetRequest;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Review\Review;
 
 /**
- * @package Commercetools\Core\Request\Types
- * @method Type mapResponse(ApiResponseInterface $response)
+ * @package Commercetools\Core\Request\Reviews
+ * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewByKeyGetRequest extends AbstractByKeyGetRequest
 {

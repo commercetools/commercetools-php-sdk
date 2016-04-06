@@ -93,19 +93,22 @@ use Commercetools\Core\Request\Types\TypeCreateRequest;
 use Commercetools\Core\Request\Types\TypeDeleteRequest;
 use Commercetools\Core\Request\Zones\ZoneCreateRequest;
 use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Psr\Log\LogLevel;
 use Symfony\Component\Yaml\Yaml;
 
 class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
     private static $testRun;
-    protected $client;
+    protected $client = [];
 
     protected $cleanupRequests = [];
 
     /**
      * @var ProductType
      */
-    private $productType;
+    protected $productType;
 
     /**
      * @var AbstractDeleteRequest
@@ -115,7 +118,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @var Category
      */
-    private $category;
+    protected $category;
 
     /**
      * @var TaxCategory
@@ -208,15 +211,30 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string $scope
      * @return \Commercetools\Core\Client
      */
-    public function getClient()
+    public function getClient($scope = 'manage_project')
     {
-        if (is_null($this->client)) {
+        if (!isset($this->client[$scope])) {
             $context = Context::of()->setGraceful(false)->setLanguages(['en'])->setLocale('en_US');
             if (file_exists(__DIR__ . '/../../docroot/myapp.yml')) {
                 $appConfig = Yaml::parse(file_get_contents(__DIR__ . '/../../docroot/myapp.yml'));
-                $config = Config::fromArray($appConfig['parameters']);
+                $parameters = [];
+                foreach ($appConfig['parameters'] as $key => $parameter) {
+                    $parts = explode('-', $key);
+                    if (count($parts) == 1) {
+                        $parameters[$key] = $parameter;
+                    }
+                }
+                $config = Config::fromArray($parameters);
+                if (isset($appConfig['parameters'][$scope . '-client_id'])
+                    && isset($appConfig['parameters'][$scope . '-client_secret'])
+                ) {
+                    $config->setClientId($appConfig['parameters'][$scope . '-client_id']);
+                    $config->setClientSecret($appConfig['parameters'][$scope . '-client_secret']);
+                    $config->setScope($scope);
+                }
             } else {
                 $config = Config::fromArray([
                     'client_id' => $_SERVER['COMMERCETOOLS_CLIENT_ID'],
@@ -230,12 +248,14 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
             if ($verifySSL === 'false') {
                 $verify = false;
             }
-            $this->client = Client::ofConfig($config);
-            $this->client->getOauthManager()->getHttpClient(['verify' => $verify]);
-            $this->client->getHttpClient(['verify' => $verify]);
+            $logger = new Logger('test');
+            $logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
+            $this->client[$scope] = Client::ofConfigAndLogger($config, $logger);
+            $this->client[$scope]->getOauthManager()->getHttpClient(['verify' => $verify]);
+            $this->client[$scope]->getHttpClient(['verify' => $verify]);
         }
 
-        return $this->client;
+        return $this->client[$scope];
     }
 
     protected function cleanup()
@@ -254,8 +274,8 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         $this->deleteCustomerGroup();
         $this->deleteCategory();
         $this->deleteShippingMethod();
-        $this->deleteZone();
         $this->deleteTaxCategory();
+        $this->deleteZone();
         $this->deletePayment();
         $this->deleteDiscountCode();
         $this->deleteCartDiscount();
@@ -520,7 +540,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
 
     }
 
-    private function deleteProduct()
+    protected function deleteProduct()
     {
         if (!is_null($this->product)) {
             $request = ProductUpdateRequest::ofIdAndVersion($this->product->getId(), $this->product->getVersion())

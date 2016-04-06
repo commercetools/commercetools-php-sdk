@@ -72,6 +72,28 @@ class ClassAnnotator
         }
     }
 
+    protected function reflectReference()
+    {
+        $reflectionClass = new \ReflectionClass($this->class->getClassName());
+        if (!$reflectionClass->isSubclassOf('Commercetools\Core\Model\Common\Resource')) {
+            return;
+        }
+
+        $referenceClass = $this->class->getClassName() . 'Reference';
+        $referenceShortName = $this->class->getShortClassName() . 'Reference';
+        if (class_exists($referenceClass)) {
+            $this->class->addMagicMethod(
+                'getReference',
+                [],
+                $referenceShortName,
+                null,
+                null,
+                false,
+                true
+            );
+        }
+    }
+
     protected function reflectElementType()
     {
         $reflectionClass = new \ReflectionClass($this->class->getClassName());
@@ -163,6 +185,7 @@ class ClassAnnotator
         }
 
         $this->reflectFields();
+        $this->reflectReference();
         $this->annotate();
     }
 
