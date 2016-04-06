@@ -20,6 +20,7 @@ use Commercetools\Core\Request\ClientRequestInterface;
  */
 abstract class AbstractApiResponse implements ApiResponseInterface, ContextAwareInterface
 {
+    const X_CORRELATION_ID = 'X-Correlation-ID';
     use ContextTrait;
 
     /**
@@ -118,6 +119,11 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
             $this->errors = ErrorContainer::fromArray($this->getResponseField('errors', []), $this->getContext());
         }
         return $this->errors;
+    }
+
+    public function getCorrelationId()
+    {
+        return current($this->getHeader(self::X_CORRELATION_ID));
     }
 
     public function getStatusCode()

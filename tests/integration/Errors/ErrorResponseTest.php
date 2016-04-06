@@ -46,6 +46,15 @@ use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
 
 class ErrorResponseTest extends ApiTestCase
 {
+    public function testCorrelationId()
+    {
+        $t = '00000000-0000-0000-0000-000000000000';
+        $request = ProductUpdateRequest::ofIdAndVersion($t, 1);
+        $response = $request->executeWithClient($this->getClient());
+        $this->assertInternalType('string', $response->getCorrelationId());
+        $this->assertNotEmpty($response->getCorrelationId());
+    }
+
     public function testNarrowedScope()
     {
         $client = $this->getClient('view_products');
