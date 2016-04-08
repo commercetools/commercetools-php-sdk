@@ -632,6 +632,14 @@ class ProductUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('revert');
         $product = $this->createProduct($draft);
 
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductPublishAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+        $product = $result;
+
         $metaKeywords = $this->getTestRun() . '-meta-keywords';
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(
@@ -664,6 +672,14 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
         $this->assertNull($result->getMasterData()->getStaged()->getMetaDescription());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductUnpublishAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testPublish()
