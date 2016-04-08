@@ -26,7 +26,7 @@ class CustomerLoginRequestTest extends ApiTestCase
     protected function getDraft($name)
     {
         $draft = CustomerDraft::ofEmailNameAndPassword(
-            'test-' . $this->getTestRun() . '-email',
+            'Test-' . $this->getTestRun() . '-em.ail+sphere@example.org',
             'test-' . $this->getTestRun() . '-' . $name,
             'test-' . $this->getTestRun() . '-lastName',
             'test-' . $this->getTestRun() . '-password'
@@ -60,12 +60,39 @@ class CustomerLoginRequestTest extends ApiTestCase
         $this->assertSame($customer->getId(), $result->getCustomer()->getId());
     }
 
+    public function testLoginSuccessLowerCased()
+    {
+        $draft = $this->getDraft('email');
+        $customer = $this->createCustomer($draft);
+        $email = strtolower($customer->getEmail());
+        $this->assertNotSame($customer->getEmail(), $email);
+
+        $request = CustomerLoginRequest::ofEmailAndPassword($email, $draft->getPassword());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+    }
+
     public function testLoginFailure()
     {
         $draft = $this->getDraft('email');
         $customer = $this->createCustomer($draft);
 
         $request = CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $this->getTestRun());
+        $response = $request->executeWithClient($this->getClient());
+
+        $this->assertTrue($response->isError());
+    }
+
+    public function testLoginFailureLowercased()
+    {
+        $draft = $this->getDraft('email');
+        $customer = $this->createCustomer($draft);
+        $email = strtolower($customer->getEmail());
+        $this->assertNotSame($customer->getEmail(), $email);
+
+        $request = CustomerLoginRequest::ofEmailAndPassword($email, $this->getTestRun());
         $response = $request->executeWithClient($this->getClient());
 
         $this->assertTrue($response->isError());
@@ -146,6 +173,50 @@ class CustomerLoginRequestTest extends ApiTestCase
         $this->assertTrue($response->isError());
     }
 
+    public function testPasswordResetLowerCased()
+    {
+        $draft = $this->getDraft('email');
+        $customer = $this->createCustomer($draft);
+        $email = strtolower($customer->getEmail());
+        $this->assertNotSame($customer->getEmail(), $email);
+
+        $request = CustomerPasswordTokenRequest::ofEmail(
+            $email
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $token = $result->getValue();
+        $this->assertNotEmpty($token);
+
+        $request = CustomerByTokenGetRequest::ofToken(
+            $token
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->assertSame($customer->getId(), $result->getId());
+
+        $request = CustomerPasswordResetRequest::ofTokenAndPassword(
+            $token,
+            $this->getTestRun()
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertSame($customer->getId(), $result->getId());
+
+        $request = CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $this->getTestRun());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+
+        $request = CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $draft->getPassword());
+        $response = $request->executeWithClient($this->getClient());
+        $this->assertTrue($response->isError());
+    }
+
     public function testVerifyEmail()
     {
         $draft = $this->getDraft('email');
@@ -172,5 +243,18 @@ class CustomerLoginRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertTrue($result->getIsEmailVerified());
+    }
+
+    public function testDuplicateLowerCased()
+    {
+        $draft = $this->getDraft('email');
+        $this->createCustomer($draft);
+
+        $request = CustomerCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+
+        $this->assertTrue($response->isError());
+        $this->assertSame(400, $response->getStatusCode());
+        $this->assertInstanceOf('\Commercetools\Core\Error\DuplicateFieldError', $response->getErrors()->current());
     }
 }
