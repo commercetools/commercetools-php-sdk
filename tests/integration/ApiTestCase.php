@@ -101,7 +101,7 @@ use Symfony\Component\Yaml\Yaml;
 class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
     private static $testRun;
-    protected $client = [];
+    private static $client = [];
 
     protected $cleanupRequests = [];
 
@@ -216,10 +216,10 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
      */
     public function getClient($scope = 'manage_project')
     {
-        if (!isset($this->client[$scope])) {
+        if (!isset(self::$client[$scope])) {
             $context = Context::of()->setGraceful(false)->setLanguages(['en'])->setLocale('en_US');
-            if (file_exists(__DIR__ . '/../../docroot/myapp.yml')) {
-                $appConfig = Yaml::parse(file_get_contents(__DIR__ . '/../../docroot/myapp.yml'));
+            if (file_exists(__DIR__ . '/../myapp.yml')) {
+                $appConfig = Yaml::parse(file_get_contents(__DIR__ . '/../myapp.yml'));
                 $parameters = [];
                 foreach ($appConfig['parameters'] as $key => $parameter) {
                     $parts = explode('-', $key);
@@ -233,16 +233,16 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
                 ) {
                     $config->setClientId($appConfig['parameters'][$scope . '-client_id']);
                     $config->setClientSecret($appConfig['parameters'][$scope . '-client_secret']);
-                    $config->setScope($scope);
                 }
             } else {
                 $config = Config::fromArray([
                     'client_id' => $_SERVER['COMMERCETOOLS_CLIENT_ID'],
                     'client_secret' => $_SERVER['COMMERCETOOLS_CLIENT_SECRET'],
-                    'project' => $_SERVER['COMMERCETOOLS_PROJECT'],
-                    'context' => $context
+                    'project' => $_SERVER['COMMERCETOOLS_PROJECT']
                 ]);
             }
+            $config->setContext($context);
+            $config->setScope($scope);
             $verifySSL = getenv('PHP_SDK_IT_SSL_VERIFY');
             $verify = true;
             if ($verifySSL === 'false') {
@@ -250,12 +250,13 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
             }
             $logger = new Logger('test');
             $logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
-            $this->client[$scope] = Client::ofConfigAndLogger($config, $logger);
-            $this->client[$scope]->getOauthManager()->getHttpClient(['verify' => $verify]);
-            $this->client[$scope]->getHttpClient(['verify' => $verify]);
+
+            self::$client[$scope] = Client::ofConfigAndLogger($config, $logger);
+            self::$client[$scope]->getOauthManager()->getHttpClient(['verify' => $verify]);
+            self::$client[$scope]->getHttpClient(['verify' => $verify]);
         }
 
-        return $this->client[$scope];
+        return self::$client[$scope];
     }
 
     protected function cleanup()

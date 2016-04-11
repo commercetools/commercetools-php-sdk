@@ -63,8 +63,14 @@
         "env-map": {
           "client_id": "COMMERCETOOLS_CLIENT_ID",
           "client_secret": "COMMERCETOOLS_CLIENT_SECRET",
-          "view_products-client_id": "COMMERCETOOLS_CLIENT_ID_VIEW",
-          "view_products-client_secret": "COMMERCETOOLS_CLIENT_SECRET_VIEW",
+          "project": "COMMERCETOOLS_PROJECT"
+        }
+      },
+      {
+        "file": "tests/myapp.yml",
+        "env-map": {
+          "client_id": "COMMERCETOOLS_CLIENT_ID",
+          "client_secret": "COMMERCETOOLS_CLIENT_SECRET",
           "project": "COMMERCETOOLS_PROJECT",
           "oauth_url": "COMMERCETOOLS_OAUTH_URL",
           "api_url": "COMMERCETOOLS_API_URL"

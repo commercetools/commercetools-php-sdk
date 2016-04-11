@@ -26,7 +26,7 @@ class CustomerLoginRequestTest extends ApiTestCase
     protected function getDraft($name)
     {
         $draft = CustomerDraft::ofEmailNameAndPassword(
-            'Test-' . $this->getTestRun() . '-em.ail+sphere@example.org',
+            'TEST-' . $this->getTestRun() . '-em.ail+sphere@example.org',
             'test-' . $this->getTestRun() . '-' . $name,
             'test-' . $this->getTestRun() . '-lastName',
             'test-' . $this->getTestRun() . '-password'
@@ -71,6 +71,7 @@ class CustomerLoginRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
+        $this->assertFalse($response->isError());
         $this->assertSame($customer->getId(), $result->getCustomer()->getId());
     }
 
@@ -186,6 +187,7 @@ class CustomerLoginRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
+        $this->assertFalse($response->isError());
         $token = $result->getValue();
         $this->assertNotEmpty($token);
 
@@ -204,15 +206,17 @@ class CustomerLoginRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
+        $this->assertFalse($response->isError());
         $this->assertSame($customer->getId(), $result->getId());
 
-        $request = CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $this->getTestRun());
+        $request = CustomerLoginRequest::ofEmailAndPassword($email, $this->getTestRun());
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
+        $this->assertFalse($response->isError());
         $this->assertSame($customer->getId(), $result->getCustomer()->getId());
 
-        $request = CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $draft->getPassword());
+        $request = CustomerLoginRequest::ofEmailAndPassword($email, $draft->getPassword());
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
     }
