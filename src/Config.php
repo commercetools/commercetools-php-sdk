@@ -62,6 +62,14 @@ class Config implements ContextAwareInterface
     const SCOPE = 'scope';
     const PROJECT = 'project';
     const API_URL = 'api_url';
+    const USER_NAME = 'username';
+    const PASSWORD = 'password';
+    const REFRESH_TOKEN = 'refresh_token';
+    const GRANT_TYPE = 'grant_type';
+
+    const GRANT_TYPE_CLIENT = 'client_credentials';
+    const GRANT_TYPE_PASSWORD = 'password';
+    const GRANT_TYPE_REFRESH = 'refresh_token';
 
     /**
      * @var string
@@ -86,7 +94,7 @@ class Config implements ContextAwareInterface
     /**
      * @var string
      */
-    protected $oauthUrl = 'https://auth.sphere.io/oauth/token';
+    protected $oauthUrl = 'https://auth.sphere.io';
 
     /**
      * @var string
@@ -106,6 +114,23 @@ class Config implements ContextAwareInterface
     protected $throwExceptions = false;
 
     protected $acceptEncoding = 'gzip';
+
+    protected $grantType = 'client_credentials';
+
+    /**
+     * @var string
+     */
+    protected $username;
+
+    /**
+     * @var string
+     */
+    protected $password;
+
+    /**
+     * @var string
+     */
+    protected $refreshToken;
 
     /**
      * @param array $configValues
@@ -244,7 +269,13 @@ class Config implements ContextAwareInterface
      */
     public function getOauthUrl()
     {
-        return $this->oauthUrl;
+        switch ($this->getGrantType()) {
+            case static::GRANT_TYPE_PASSWORD:
+            case static::GRANT_TYPE_REFRESH:
+                return $this->oauthUrl . '/oauth/' . $this->getProject() . '/customers/token';
+            default:
+                return $this->oauthUrl . '/oauth/token';
+        }
     }
 
     /**
@@ -379,5 +410,81 @@ class Config implements ContextAwareInterface
     public static function of()
     {
         return new static();
+    }
+
+    /**
+     * @return string
+     */
+    public function getGrantType()
+    {
+        return $this->grantType;
+    }
+
+    /**
+     * @param string $grantType
+     * @return $this
+     */
+    public function setGrantType($grantType)
+    {
+        $this->grantType = $grantType;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string $username
+     * @return $this
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     * @return $this
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRefreshToken()
+    {
+        return $this->refreshToken;
+    }
+
+    /**
+     * @param string $refreshToken
+     * @return $this
+     */
+    public function setRefreshToken($refreshToken)
+    {
+        $this->refreshToken = $refreshToken;
+
+        return $this;
     }
 }

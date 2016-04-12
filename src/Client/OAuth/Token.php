@@ -31,6 +31,11 @@ class Token
      */
     protected $scope;
 
+    /**
+     * @var string
+     */
+    protected $refreshToken;
+
     public function __construct($token = null, $ttl = null, $scope = null)
     {
         $this->setToken($token)->setTtl($ttl)->setScope($scope);
@@ -110,6 +115,24 @@ class Token
         $this->scope = $scope;
 
         return $this;
+    }
 
+    /**
+     * @return string
+     */
+    public function getRefreshToken()
+    {
+        return $this->refreshToken;
+    }
+
+    /**
+     * @param string $refreshToken
+     * @return $this
+     */
+    public function setRefreshToken($refreshToken)
+    {
+        $this->refreshToken = $refreshToken;
+
+        return $this;
     }
 }

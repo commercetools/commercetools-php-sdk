@@ -7,6 +7,9 @@
 namespace Commercetools\Core\Customer;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Client;
+use Commercetools\Core\Config;
+use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Request\Customers\CustomerByTokenGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
@@ -17,6 +20,9 @@ use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordChangeRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordResetRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Psr\Log\LogLevel;
 
 class CustomerLoginRequestTest extends ApiTestCase
 {
@@ -260,5 +266,39 @@ class CustomerLoginRequestTest extends ApiTestCase
         $this->assertTrue($response->isError());
         $this->assertSame(400, $response->getStatusCode());
         $this->assertInstanceOf('\Commercetools\Core\Error\DuplicateFieldError', $response->getErrors()->current());
+    }
+
+    public function testAuthLogin()
+    {
+        $draft = $this->getDraft('email');
+        $this->createCustomer($draft);
+        
+        $email = $draft->getEmail();
+        $password = $draft->getPassword();
+        
+        $config = $this->getClientConfig('view_products');
+        $config->setGrantType(Config::GRANT_TYPE_PASSWORD)->setUsername($email)->setPassword($password);
+
+        $logger = new Logger('test');
+        $logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
+
+        $client = Client::ofConfigAndLogger($config, $logger);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+
+        $token = $client->getOauthManager()->getToken();
+
+        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $token);
+        $this->assertSame(Config::GRANT_TYPE_REFRESH, $config->getGrantType());
+        $this->assertNotEmpty($config->getRefreshToken());
+
+        $refreshToken = $token->getRefreshToken();
+        $this->assertNotEmpty($refreshToken);
+
+        $cacheToken = $client->getOauthManager()->getToken();
+        $this->assertSame($cacheToken->getToken(), $token->getToken());
+
+        $forceRefreshToken = $client->getOauthManager()->refreshToken();
+        $this->assertNotSame($token->getToken(), $forceRefreshToken->getToken());
     }
 }
