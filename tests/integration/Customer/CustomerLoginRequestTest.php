@@ -286,7 +286,7 @@ class CustomerLoginRequestTest extends ApiTestCase
         $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
 
-        $token = $client->getOauthManager()->getToken();
+        $token = $client->getOauthManager()->refreshToken();
 
         $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $token);
         $this->assertSame(Config::GRANT_TYPE_REFRESH, $config->getGrantType());
