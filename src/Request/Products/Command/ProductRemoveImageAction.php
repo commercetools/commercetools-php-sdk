@@ -15,6 +15,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductRemoveImageAction setAction(string $action = null)
  * @method int getVariantId()
  * @method ProductRemoveImageAction setVariantId(int $variantId = null)
+ * @method string getSku()
+ * @method ProductRemoveImageAction setSku(string $sku = null)
  * @method string getImageUrl()
  * @method ProductRemoveImageAction setImageUrl(string $imageUrl = null)
  * @method bool getStaged()
@@ -27,6 +29,7 @@ class ProductRemoveImageAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
+            'sku' => [static::TYPE => 'string'],
             'imageUrl' => [static::TYPE => 'string'],
             'staged' => [static::TYPE => 'bool'],
         ];
@@ -51,5 +54,16 @@ class ProductRemoveImageAction extends AbstractAction
     public static function ofVariantIdAndImageUrl($variantId, $imageUrl, $context = null)
     {
         return static::of($context)->setVariantId($variantId)->setImageUrl($imageUrl);
+    }
+
+    /**
+     * @param int $variantId
+     * @param string $imageUrl
+     * @param Context|callable $context
+     * @return ProductRemoveImageAction
+     */
+    public static function ofSkuAndImageUrl($sku, $imageUrl, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setImageUrl($imageUrl);
     }
 }

@@ -16,6 +16,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductAddPriceAction setAction(string $action = null)
  * @method int getVariantId()
  * @method ProductAddPriceAction setVariantId(int $variantId = null)
+ * @method string getSku()
+ * @method ProductAddPriceAction setSku(string $sku = null)
  * @method PriceDraft getPrice()
  * @method ProductAddPriceAction setPrice(PriceDraft $price = null)
  * @method bool getStaged()
@@ -28,6 +30,7 @@ class ProductAddPriceAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
+            'sku' => [static::TYPE => 'string'],
             'price' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceDraft'],
             'staged' => [static::TYPE => 'bool'],
         ];
@@ -52,5 +55,16 @@ class ProductAddPriceAction extends AbstractAction
     public static function ofVariantIdAndPrice($variantId, PriceDraft $price, $context = null)
     {
         return static::of($context)->setVariantId($variantId)->setPrice($price);
+    }
+
+    /**
+     * @param string $sku
+     * @param PriceDraft $price
+     * @param Context|callable $context
+     * @return ProductAddPriceAction
+     */
+    public static function ofSkuAndPrice($sku, PriceDraft $price, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setPrice($price);
     }
 }

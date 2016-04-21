@@ -15,6 +15,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductRemoveVariantAction setAction(string $action = null)
  * @method int getId()
  * @method ProductRemoveVariantAction setId(int $id = null)
+ * @method string getSku()
+ * @method ProductRemoveVariantAction setSku(string $sku = null)
  * @method bool getStaged()
  * @method ProductRemoveVariantAction setStaged(bool $staged = null)
  */
@@ -25,6 +27,7 @@ class ProductRemoveVariantAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'id' => [static::TYPE => 'int'],
+            'sku' => [static::TYPE => 'string'],
             'staged' => [static::TYPE => 'bool'],
         ];
     }
@@ -47,5 +50,15 @@ class ProductRemoveVariantAction extends AbstractAction
     public static function ofVariantId($variantId, $context = null)
     {
         return static::of($context)->setId($variantId);
+    }
+
+    /**
+     * @param string $sku
+     * @param Context|callable $context
+     * @return ProductRemovePriceAction
+     */
+    public static function ofSku($sku, $context = null)
+    {
+        return static::of($context)->setSku($sku);
     }
 }

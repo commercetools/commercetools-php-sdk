@@ -87,11 +87,11 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductAddExternalImageAction',
-                ['action', 'variantId', 'image', 'staged']
+                ['action', 'variantId', 'sku', 'image', 'staged']
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductAddPriceAction',
-                ['action', 'variantId', 'price', 'staged']
+                ['action', 'variantId', 'sku', 'price', 'staged']
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductAddToCategoryAction',
@@ -123,7 +123,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductRemoveImageAction',
-                ['action', 'variantId', 'imageUrl', 'staged']
+                ['action', 'variantId', 'sku', 'imageUrl', 'staged']
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductRemovePriceAction',
@@ -131,7 +131,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductRemoveVariantAction',
-                ['action', 'id', 'staged']
+                ['action', 'id', 'sku', 'staged']
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductRevertStagedChangesAction',
@@ -139,7 +139,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductSetAttributeAction',
-                ['action', 'variantId', 'name', 'value', 'staged']
+                ['action', 'variantId', 'sku', 'name', 'value', 'staged']
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction',
@@ -179,7 +179,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductSetPricesAction',
-                ['action', 'variantId', 'prices', 'staged'],
+                ['action', 'variantId', 'sku', 'prices', 'staged'],
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
