@@ -57,7 +57,7 @@ class ProductRemoveImageAction extends AbstractAction
     }
 
     /**
-     * @param int $variantId
+     * @param string $sku
      * @param string $imageUrl
      * @param Context|callable $context
      * @return ProductRemoveImageAction
