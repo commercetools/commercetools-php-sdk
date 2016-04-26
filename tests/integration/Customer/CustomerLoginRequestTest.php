@@ -280,7 +280,7 @@ class CustomerLoginRequestTest extends ApiTestCase
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)->setUsername($email)->setPassword($password);
 
         $logger = new Logger('test');
-        $logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
+        $logger->pushHandler(new StreamHandler(dirname(__DIR__) .'/requests.log', LogLevel::NOTICE));
 
         $client = Client::ofConfigAndLogger($config, $logger);
         $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);

@@ -791,10 +791,12 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         return $draft;
     }
 
-    protected function getCustomer()
+    protected function getCustomer($draft = null)
     {
         if (is_null($this->customer)) {
-            $draft = $this->getCustomerDraft();
+            if (is_null($draft)) {
+                $draft = $this->getCustomerDraft();
+            }
             $request = CustomerCreateRequest::ofDraft($draft);
             $response = $request->executeWithClient($this->getClient());
             $result = $request->mapResponse($response);
