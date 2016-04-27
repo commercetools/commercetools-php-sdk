@@ -20,8 +20,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method CustomLineItemDraft setName(LocalizedString $name = null)
  * @method Money getMoney()
  * @method CustomLineItemDraft setMoney(Money $money = null)
- * @method LocalizedString getSlug()
- * @method CustomLineItemDraft setSlug(LocalizedString $slug = null)
+ * @method string getSlug()
+ * @method CustomLineItemDraft setSlug(string $slug = null)
  * @method int getQuantity()
  * @method CustomLineItemDraft setQuantity(int $quantity = null)
  * @method TaxCategoryReference getTaxCategory()
@@ -36,7 +36,7 @@ class CustomLineItemDraft extends JsonObject
         return [
             'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'money' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'slug' => [static::TYPE => 'string'],
             'quantity' => [static::TYPE => 'int'],
             'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],

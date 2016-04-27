@@ -22,8 +22,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method CustomLineItem setName(LocalizedString $name = null)
  * @method Money getMoney()
  * @method CustomLineItem setMoney(Money $money = null)
- * @method LocalizedString getSlug()
- * @method CustomLineItem setSlug(LocalizedString $slug = null)
+ * @method string getSlug()
+ * @method CustomLineItem setSlug(string $slug = null)
  * @method int getQuantity()
  * @method CustomLineItem setQuantity(int $quantity = null)
  * @method ItemState getState()
@@ -46,7 +46,7 @@ class CustomLineItem extends JsonObject
             'id' => [static::TYPE => 'string'],
             'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'money' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'slug' => [static::TYPE => 'string'],
             'quantity' => [static::TYPE => 'int'],
             'state' => [static::TYPE => '\Commercetools\Core\Model\Order\ItemState'],
             'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
