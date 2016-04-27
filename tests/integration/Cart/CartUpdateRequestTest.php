@@ -187,9 +187,6 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertCount(0, $cart->getLineItems());
     }
 
-    /**
-     * @group wip
-     */
     public function testCustomLineItemMerge()
     {
         $name = LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun());
