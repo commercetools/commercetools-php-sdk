@@ -117,6 +117,7 @@ class ErrorResponseTest extends ApiTestCase
         $this->assertTrue($response->isError());
         $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
         $error = $response->getErrors()->current();
+        var_dump((string)$response->getBody());
         $this->assertInstanceOf(
             '\Commercetools\Core\Error\ConcurrentModificationError',
             $error
