@@ -13,6 +13,7 @@ use Commercetools\Core\Error\DuplicateAttributeValuesError;
 use Commercetools\Core\Error\DuplicateFieldError;
 use Commercetools\Core\Error\DuplicatePriceScopeError;
 use Commercetools\Core\Error\DuplicateVariantValuesError;
+use Commercetools\Core\Error\InsufficientScopeError;
 use Commercetools\Core\Error\InvalidCredentialsError;
 use Commercetools\Core\Error\InvalidCurrentPasswordError;
 use Commercetools\Core\Error\InvalidFieldError;
@@ -593,6 +594,12 @@ class ErrorResponseTest extends ApiTestCase
         $this->assertTrue($response->isError());
         $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
         $this->assertSame(403, $response->getStatusCode());
-        $this->assertSame('Insufficient scope', $response->getBody());
+
+        $error = $response->getErrors()->current();
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Error\InsufficientScopeError',
+            $error
+        );
+        $this->assertSame(InsufficientScopeError::CODE, $error->getCode());
     }
 }

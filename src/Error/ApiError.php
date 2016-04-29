@@ -34,11 +34,27 @@ class ApiError extends JsonObject
     public static function fromArray(array $data, $context = null)
     {
         if (isset($data['code'])) {
-            $className = '\Commercetools\Core\Error\\' . ucfirst($data['code']) . 'Error';
+            $className = sprintf('\Commercetools\Core\Error\%sError', self::camelize($data['code']));
             if (class_exists($className)) {
                 return new $className($data, $context);
             }
         }
         return new static($data, $context);
+    }
+
+    protected static function camelize($name)
+    {
+        return lcfirst(
+            implode(
+                '',
+                array_map(
+                    'ucfirst',
+                    array_map(
+                        'strtolower',
+                        explode('_', $name)
+                    )
+                )
+            )
+        );
     }
 }
