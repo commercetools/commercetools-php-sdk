@@ -7,6 +7,9 @@
 namespace Commercetools\Core\Errors;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Client\OAuth\Manager;
+use Commercetools\Core\Error\AccessDeniedError;
+use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\ConcurrentModificationError;
 use Commercetools\Core\Error\DuplicateAttributeValueError;
 use Commercetools\Core\Error\DuplicateAttributeValuesError;
@@ -18,6 +21,7 @@ use Commercetools\Core\Error\InvalidCredentialsError;
 use Commercetools\Core\Error\InvalidCurrentPasswordError;
 use Commercetools\Core\Error\InvalidFieldError;
 use Commercetools\Core\Error\InvalidOperationError;
+use Commercetools\Core\Error\InvalidTokenError;
 use Commercetools\Core\Error\RequiredFieldError;
 use Commercetools\Core\Error\ResourceNotFoundError;
 use Commercetools\Core\Model\Common\Attribute;
@@ -44,6 +48,7 @@ use Commercetools\Core\Request\Products\ProductQueryRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction;
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
+use Commercetools\Core\Response\ErrorResponse;
 
 class ErrorResponseTest extends ApiTestCase
 {
@@ -117,7 +122,6 @@ class ErrorResponseTest extends ApiTestCase
         $this->assertTrue($response->isError());
         $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
         $error = $response->getErrors()->current();
-        var_dump((string)$response->getBody());
         $this->assertInstanceOf(
             '\Commercetools\Core\Error\ConcurrentModificationError',
             $error
@@ -585,7 +589,7 @@ class ErrorResponseTest extends ApiTestCase
         $this->assertSame(['test'], $error->getAllowedValues());
     }
 
-    public function testInvalidClientScope()
+    public function testInsufficientScope()
     {
         $draft = $this->getProductDraft();
 
@@ -602,5 +606,54 @@ class ErrorResponseTest extends ApiTestCase
             $error
         );
         $this->assertSame(InsufficientScopeError::CODE, $error->getCode());
+    }
+
+    public function testInvalidToken()
+    {
+        $client = $this->getClient('manage_project');
+        $cacheScope = $client->getConfig()->getScope() . '-' . $client->getConfig()->getGrantType();
+        $cacheKey = Manager::TOKEN_CACHE_KEY . '-' . sha1($cacheScope);
+        $client->getOauthManager()->getCacheAdapter()->store($cacheKey, '1234');
+
+        $request = ProductQueryRequest::of();
+        $client->addBatchRequest($request);
+
+        $responses = $client->executeBatch();
+        $response = current($responses);
+        $this->assertTrue($response->isError());
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertSame(401, $response->getStatusCode());
+
+        $error = $response->getErrors()->current();
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Error\InvalidTokenError',
+            $error
+        );
+        $this->assertSame(InvalidTokenError::CODE, $error->getCode());
+    }
+
+    public function testAccessDenied()
+    {
+        $request = ProductQueryRequest::of();
+        $httpRequest = $request->httpRequest();
+
+        $client = $this->getClient('manage_project');
+        $httpClient = $client->getHttpClient();
+        try {
+            $httpResponse = $httpClient->execute($httpRequest);
+        } catch (ApiException $exception) {
+            $httpResponse = $exception->getResponse();
+            $response = new ErrorResponse($exception, $request, $httpResponse);
+        }
+        $this->assertTrue($response->isError());
+        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertSame(401, $response->getStatusCode());
+
+        $error = $response->getErrors()->current();
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Error\AccessDeniedError',
+            $error
+        );
+        $this->assertSame(AccessDeniedError::CODE, $error->getCode());
     }
 }
