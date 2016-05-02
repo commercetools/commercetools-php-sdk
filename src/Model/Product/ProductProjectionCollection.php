@@ -16,7 +16,6 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ProductProjectionCollection extends Collection
 {
-    const ID = 'id';
     protected $type = '\Commercetools\Core\Model\Product\ProductProjection';
 
     protected function indexRow($offset, $row)
@@ -27,14 +26,5 @@ class ProductProjectionCollection extends Collection
             $id = $row[static::ID];
         }
         $this->addToIndex(static::ID, $offset, $id);
-    }
-
-    /**
-     * @param $id
-     * @return ProductProjection
-     */
-    public function getById($id)
-    {
-        return $this->getBy(static::ID, $id);
     }
 }

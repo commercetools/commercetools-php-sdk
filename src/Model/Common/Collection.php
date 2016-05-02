@@ -12,6 +12,7 @@ use Commercetools\Core\Error\Message;
  */
 class Collection extends AbstractJsonDeserializeObject implements \Iterator, \JsonSerializable, \Countable, \ArrayAccess
 {
+    const ID = 'id';
     use ContextTrait;
 
     /**
@@ -77,21 +78,35 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
     }
 
     /**
-     * @param $offset
-     * @param $row
-     */
-    protected function indexRow($offset, $row)
-    {
-    }
-
-    /**
      * @param string $indexName
      * @param int $offset
      * @param $key
      */
     protected function addToIndex($indexName, $offset, $key)
     {
-        $this->index[$indexName][$key] = $offset;
+        if (!is_null($key)) {
+            $this->index[$indexName][$key] = $offset;
+        }
+    }
+
+    protected function indexRow($offset, $row)
+    {
+        $id = null;
+        if ($row instanceof Resource) {
+            $id = $row->getId();
+        } elseif (is_array($row)) {
+            $id = isset($row[static::ID]) ? $row[static::ID] : null;
+        }
+        $this->addToIndex(static::ID, $offset, $id);
+    }
+
+    /**
+     * @param $id
+     * @return static
+     */
+    public function getById($id)
+    {
+        return $this->getBy(static::ID, $id);
     }
 
     /**

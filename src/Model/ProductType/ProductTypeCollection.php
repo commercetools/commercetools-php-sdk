@@ -34,15 +34,6 @@ class ProductTypeCollection extends Collection
     }
 
     /**
-     * @param $id
-     * @return ProductType
-     */
-    public function getById($id)
-    {
-        return $this->getBy(static::ID, $id);
-    }
-
-    /**
      * @param $name
      * @return ProductType
      */

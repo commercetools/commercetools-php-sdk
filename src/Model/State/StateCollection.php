@@ -23,10 +23,13 @@ class StateCollection extends Collection
     protected function indexRow($offset, $row)
     {
         if ($row instanceof State) {
+            $id = $row->getId();
             $key = $row->getKey();
         } else {
-            $key = $row[static::KEY];
+            $id = isset($row[static::ID]) ? $row[static::ID] : null;
+            $key = isset($row[static::KEY]) ? $row[static::KEY] : null;
         }
+        $this->addToIndex(static::ID, $offset, $id);
         $this->addToIndex(static::KEY, $offset, $key);
     }
 

@@ -33,6 +33,7 @@ lineItem:
     - productSlug
     - variant
     - price
+    - taxedPrice
     - quantity
     - state
     - taxRate
@@ -49,6 +50,7 @@ customLineItem:
     - id
     - name
     - money
+    - taxedPrice
     - slug
     - quantity
     - state
@@ -79,6 +81,8 @@ shippingInfo:
   fields:
     - shippingMethodName
     - price
+    - taxedPrice
+    - discountedPrice
     - shippingRate
     - taxRate
     - taxCategory

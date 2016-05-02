@@ -14,6 +14,7 @@ use Commercetools\Core\Model\Order\ItemStateCollection;
 use Commercetools\Core\Model\Product\ProductVariant;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\Common\TaxedItemPrice;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -45,6 +46,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method Money getTotalPrice()
  * @method LineItem setTotalPrice(Money $totalPrice = null)
  * @method DiscountedPricePerQuantityCollection getDiscountedPricePerQuantity()
+ * @method TaxedItemPrice getTaxedPrice()
+ * @method LineItem setTaxedPrice(TaxedItemPrice $taxedPrice = null)
  */
 class LineItem extends JsonObject
 {
@@ -57,6 +60,7 @@ class LineItem extends JsonObject
             'productSlug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'variant' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariant'],
             'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Price'],
+            'taxedPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\TaxedItemPrice'],
             'quantity' => [static::TYPE => 'int'],
             'state' => [static::TYPE => '\Commercetools\Core\Model\Order\ItemStateCollection'],
             'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],

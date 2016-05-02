@@ -23,15 +23,7 @@ use Commercetools\Core\Model\Common\Reference;
 class CategoryReference extends Reference
 {
     const TYPE_CATEGORY = 'category';
-
-    public function fieldDefinitions()
-    {
-        return [
-            static::TYPE_ID => [self::TYPE => 'string'],
-            static::ID => [self::TYPE => 'string'],
-            static::OBJ => [static::TYPE => '\Commercetools\Core\Model\Category\Category']
-        ];
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\Category\Category';
 
     /**
      * @param $id
