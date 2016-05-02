@@ -4,11 +4,8 @@
 
 ### Bug Fixes
 
-* **Cart:** fix type of custom line item slug ([34367d5](https://github.com/sphereio/commercetools-php-sdk/commit/34367d5))
-* **CustomLineItem:** fix type of slug in custom line item ([d8d7d2a](https://github.com/sphereio/commercetools-php-sdk/commit/d8d7d2a))
-* **Error:** add insufficient_scope error ([f9d81f2](https://github.com/sphereio/commercetools-php-sdk/commit/f9d81f2))
-* **Error:** add insufficient_scope error ([76ffc7e](https://github.com/sphereio/commercetools-php-sdk/commit/76ffc7e))
-* **Product:** typo ([e2f270d](https://github.com/sphereio/commercetools-php-sdk/commit/e2f270d))
+* **Cart:** fix type of custom line-item slug ([34367d5](https://github.com/sphereio/commercetools-php-sdk/commit/34367d5))
+* **CustomLineItem:** fix type of slug in custom line-item ([d8d7d2a](https://github.com/sphereio/commercetools-php-sdk/commit/d8d7d2a))
 
 ### Features
 
