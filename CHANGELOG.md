@@ -15,6 +15,9 @@
 * **Product:** add support to use sku to identify a product variant in update action ([7f1979b](https://github.com/sphereio/commercetools-php-sdk/commit/7f1979b)), closes [#192](https://github.com/sphereio/commercetools-php-sdk/issues/192)
 * **Reference:** add constructor ofKey constructor to references ([e6fafc3](https://github.com/sphereio/commercetools-php-sdk/commit/e6fafc3))
 
+### BREAKING CHANGES
+
+* removed Facet, Filter, FilterRange and FilterRangeCollection in namespace Commercetools\Core\Model\Product.  Please use the classes found in namespace Commercetools\Core\Model\Product\Search instead.
 
 
 <a name="1.0.0-RC11"></a>
