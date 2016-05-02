@@ -26,6 +26,12 @@ use Commercetools\Core\Model\State\StateReference;
  * @method ProductStateTransitionMessage setType(string $type = null)
  * @method StateReference getState()
  * @method ProductStateTransitionMessage setState(StateReference $state = null)
+ * @method int getVersion()
+ * @method ProductStateTransitionMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method ProductStateTransitionMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method bool getForce()
+ * @method ProductStateTransitionMessage setForce(bool $force = null)
  */
 class ProductStateTransitionMessage extends StateTransitionMessage
 {

@@ -16,6 +16,8 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method ProductCatalogData setCurrent(ProductData $current = null)
  * @method ProductData getStaged()
  * @method ProductCatalogData setStaged(ProductData $staged = null)
+ * @method bool getHasStagedChanges()
+ * @method ProductCatalogData setHasStagedChanges(bool $hasStagedChanges = null)
  */
 class ProductCatalogData extends JsonObject
 {
@@ -24,7 +26,8 @@ class ProductCatalogData extends JsonObject
         return [
             'published' => [static::TYPE => 'bool'],
             'current' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductData'],
-            'staged' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductData']
+            'staged' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductData'],
+            'hasStagedChanges' => [static::TYPE => 'bool'],
         ];
     }
 }

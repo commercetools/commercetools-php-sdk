@@ -25,14 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class CustomerReference extends Reference
 {
     const TYPE_CUSTOMER = 'customer';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Customer\Customer'];
-
-        return $fields;
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\Customer\Customer';
 
     /**
      * @param $id

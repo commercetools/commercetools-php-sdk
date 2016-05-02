@@ -29,6 +29,10 @@ use Commercetools\Core\Model\Order\Parcel;
  * @method ParcelAddedToDeliveryMessage setDelivery(Delivery $delivery = null)
  * @method Parcel getParcel()
  * @method ParcelAddedToDeliveryMessage setParcel(Parcel $parcel = null)
+ * @method int getVersion()
+ * @method ParcelAddedToDeliveryMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method ParcelAddedToDeliveryMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
 class ParcelAddedToDeliveryMessage extends Message
 {

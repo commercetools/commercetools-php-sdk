@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\Resource;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -25,8 +26,12 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Message setResourceVersion(int $resourceVersion = null)
  * @method string getType()
  * @method Message setType(string $type = null)
+ * @method int getVersion()
+ * @method Message setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method Message setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
-class Message extends JsonObject
+class Message extends Resource
 {
     const MESSAGE_TYPE = '';
 
@@ -47,7 +52,12 @@ class Message extends JsonObject
     {
         return [
             'id' => [static::TYPE => 'string'],
+            'version' => [static::TYPE => 'int'],
             'createdAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
                 static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],

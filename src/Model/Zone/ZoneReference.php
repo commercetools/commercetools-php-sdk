@@ -24,14 +24,7 @@ use Commercetools\Core\Model\Common\Reference;
 class ZoneReference extends Reference
 {
     const TYPE_ZONE = 'zone';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Zone\Zone'];
-
-        return $fields;
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\Zone\Zone';
 
     /**
      * @param $id

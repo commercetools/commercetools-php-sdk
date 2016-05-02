@@ -34,8 +34,7 @@ class TypeReference extends Reference
      */
     public static function ofId($id, $context = null)
     {
-        $test = static::ofTypeAndId(static::TYPE_TYPE, $id, $context);
-        return $test;
+        return static::ofTypeAndId(static::TYPE_TYPE, $id, $context);
     }
 
     /**

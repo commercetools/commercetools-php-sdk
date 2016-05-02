@@ -26,6 +26,10 @@ use Commercetools\Core\Model\Product\ProductProjection;
  * @method ProductPublishedMessage setType(string $type = null)
  * @method ProductProjection getProductProjection()
  * @method ProductPublishedMessage setProductProjection(ProductProjection $productProjection = null)
+ * @method int getVersion()
+ * @method ProductPublishedMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method ProductPublishedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
 class ProductPublishedMessage extends Message
 {

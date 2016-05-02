@@ -27,6 +27,10 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method ProductSlugChangedMessage setType(string $type = null)
  * @method LocalizedString getSlug()
  * @method ProductSlugChangedMessage setSlug(LocalizedString $slug = null)
+ * @method int getVersion()
+ * @method ProductSlugChangedMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method ProductSlugChangedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
 class ProductSlugChangedMessage extends Message
 {

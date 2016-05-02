@@ -26,6 +26,12 @@ use Commercetools\Core\Model\State\StateReference;
  * @method PaymentStatusStateTransitionMessage setType(string $type = null)
  * @method StateReference getState()
  * @method PaymentStatusStateTransitionMessage setState(StateReference $state = null)
+ * @method int getVersion()
+ * @method PaymentStatusStateTransitionMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method PaymentStatusStateTransitionMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method bool getForce()
+ * @method PaymentStatusStateTransitionMessage setForce(bool $force = null)
  */
 class PaymentStatusStateTransitionMessage extends StateTransitionMessage
 {

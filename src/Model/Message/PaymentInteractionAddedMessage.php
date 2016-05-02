@@ -26,6 +26,10 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method PaymentInteractionAddedMessage setType(string $type = null)
  * @method CustomFieldObject getInteraction()
  * @method PaymentInteractionAddedMessage setInteraction(CustomFieldObject $interaction = null)
+ * @method int getVersion()
+ * @method PaymentInteractionAddedMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method PaymentInteractionAddedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
 class PaymentInteractionAddedMessage extends Message
 {

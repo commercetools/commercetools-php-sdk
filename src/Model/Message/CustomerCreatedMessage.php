@@ -26,6 +26,10 @@ use Commercetools\Core\Model\Customer\Customer;
  * @method CustomerCreatedMessage setType(string $type = null)
  * @method Customer getCustomer()
  * @method CustomerCreatedMessage setCustomer(Customer $customer = null)
+ * @method int getVersion()
+ * @method CustomerCreatedMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method CustomerCreatedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
 class CustomerCreatedMessage extends Message
 {

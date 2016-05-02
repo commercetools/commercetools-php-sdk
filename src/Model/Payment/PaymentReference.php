@@ -24,14 +24,7 @@ use Commercetools\Core\Model\Common\Reference;
 class PaymentReference extends Reference
 {
     const TYPE_PAYMENT = 'payment';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Payment\Payment'];
-
-        return $fields;
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\Payment\Payment';
 
     /**
      * @param $id

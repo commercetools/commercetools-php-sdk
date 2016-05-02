@@ -19,6 +19,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method CategoryReference setId(string $id = null)
  * @method Category getObj()
  * @method CategoryReference setObj(Category $obj = null)
+ * @method string getKey()
+ * @method CategoryReference setKey(string $key = null)
  */
 class CategoryReference extends Reference
 {

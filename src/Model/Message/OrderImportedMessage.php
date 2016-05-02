@@ -26,6 +26,10 @@ use Commercetools\Core\Model\Order\Order;
  * @method OrderImportedMessage setType(string $type = null)
  * @method Order getOrder()
  * @method OrderImportedMessage setOrder(Order $order = null)
+ * @method int getVersion()
+ * @method OrderImportedMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method OrderImportedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
 class OrderImportedMessage extends Message
 {

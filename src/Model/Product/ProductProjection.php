@@ -9,6 +9,8 @@ namespace Commercetools\Core\Model\Product;
 use Commercetools\Core\Model\Category\CategoryReferenceCollection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Common\ReferenceObjectInterface;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
@@ -58,10 +60,10 @@ use Commercetools\Core\Model\State\StateReference;
  * @method ProductProjection setReviewRatingStatistics(ReviewRatingStatistics $reviewRatingStatistics = null)
  * @method StateReference getState()
  * @method ProductProjection setState(StateReference $state = null)
- * @method string getCategoryOrderHints()
- * @method ProductProjection setCategoryOrderHints(string $categoryOrderHints = null)
+ * @method array getCategoryOrderHints()
+ * @method ProductProjection setCategoryOrderHints(array $categoryOrderHints = null)
  */
-class ProductProjection extends JsonObject
+class ProductProjection extends JsonObject implements ReferenceObjectInterface
 {
     public function fieldDefinitions()
     {
@@ -81,7 +83,7 @@ class ProductProjection extends JsonObject
             'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'categories' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
-            'categoryOrderHints' => [static::TYPE => 'string'],
+            'categoryOrderHints' => [static::TYPE => 'array'],
             'metaTitle' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'metaDescription' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
@@ -127,5 +129,19 @@ class ProductProjection extends JsonObject
         $variants = $this->getRaw('variants', []);
         array_unshift($variants, $this->getRaw('masterVariant'));
         return ProductVariantCollection::fromArray($variants, $this->getContextCallback());
+    }
+
+    public function getReferenceIdentifier()
+    {
+        return $this->getId();
+    }
+
+    /**
+     * @return ProductReference
+     */
+    public function getReference()
+    {
+        $reference = ProductReference::ofId($this->getReferenceIdentifier(), $this->getContextCallback());
+        return $reference;
     }
 }

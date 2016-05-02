@@ -23,7 +23,7 @@ class ProductProjectionCollection extends Collection
         if ($row instanceof ProductProjection) {
             $id = $row->getId();
         } else {
-            $id = $row[static::ID];
+            $id = isset($row[static::ID]) ? $row[static::ID]: null;
         }
         $this->addToIndex(static::ID, $offset, $id);
     }

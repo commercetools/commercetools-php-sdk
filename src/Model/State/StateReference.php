@@ -25,15 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class StateReference extends Reference
 {
     const TYPE_STATE = 'state';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\State\State'];
-
-        return $fields;
-    }
-
+    const TYPE_CLASS = '\Commercetools\Core\Model\State\State';
 
     /**
      * @param $id

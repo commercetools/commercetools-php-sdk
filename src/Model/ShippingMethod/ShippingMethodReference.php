@@ -24,14 +24,7 @@ use Commercetools\Core\Model\Common\Reference;
 class ShippingMethodReference extends Reference
 {
     const TYPE_SHIPPING_METHOD = 'shipping-method';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingMethod'];
-
-        return $fields;
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\ShippingMethod\ShippingMethod';
 
     /**
      * @param $id

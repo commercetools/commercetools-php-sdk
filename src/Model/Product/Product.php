@@ -12,6 +12,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Review\ReviewRatingStatistics;
 use Commercetools\Core\Model\State\StateReference;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
  * @package Commercetools\Core\Model\Product
@@ -26,8 +27,8 @@ use Commercetools\Core\Model\State\StateReference;
  * @method Product setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method ProductTypeReference getProductType()
  * @method Product setProductType(ProductTypeReference $productType = null)
- * @method TaxCategory getTaxCategory()
- * @method Product setTaxCategory(TaxCategory $taxCategory = null)
+ * @method TaxCategoryReference getTaxCategory()
+ * @method Product setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method ProductCatalogData getMasterData()
  * @method Product setMasterData(ProductCatalogData $masterData = null)
  * @method ReviewRatingStatistics getReviewRatingStatistics()
@@ -52,7 +53,7 @@ class Product extends Resource
                 static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
             'productType' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference'],
-            'taxCategory' => [self::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategory'],
+            'taxCategory' => [self::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
             'masterData' => [self::TYPE => '\Commercetools\Core\Model\Product\ProductCatalogData'],
             'reviewRatingStatistics' => [static::TYPE => '\Commercetools\Core\Model\Review\ReviewRatingStatistics'],
             'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],

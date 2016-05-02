@@ -21,7 +21,7 @@ use Commercetools\Core\Model\Common\Resource;
  * @method Type setKey(string $key = null)
  * @method DateTimeDecorator getCreatedAt()
  * @method Type setCreatedAt(\DateTime $createdAt = null)
- * @method \DateTime getLastModifiedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  * @method Type setLastModifiedAt(\DateTime $lastModifiedAt = null)
  * @method LocalizedString getName()
  * @method Type setName(LocalizedString $name = null)
@@ -45,7 +45,10 @@ class Type extends Resource
                 static::TYPE => '\DateTime',
                 static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
-            'lastModifiedAt' => [static::TYPE => '\DateTime'],
+            'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
             'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'resourceTypeIds' => [static::TYPE => 'array'],

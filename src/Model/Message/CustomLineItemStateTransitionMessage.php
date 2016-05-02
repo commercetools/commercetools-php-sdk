@@ -34,6 +34,10 @@ use Commercetools\Core\Model\State\StateReference;
  * @method CustomLineItemStateTransitionMessage setFromState(StateReference $fromState = null)
  * @method StateReference getToState()
  * @method CustomLineItemStateTransitionMessage setToState(StateReference $toState = null)
+ * @method int getVersion()
+ * @method CustomLineItemStateTransitionMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method CustomLineItemStateTransitionMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
 class CustomLineItemStateTransitionMessage extends Message
 {

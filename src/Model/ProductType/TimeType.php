@@ -17,6 +17,6 @@ class TimeType extends AttributeType
 
     public function fieldTypeDefinition()
     {
-        return [static::TYPE => '\DateTime', static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'];
+        return [static::TYPE => '\DateTime', static::DECORATOR => '\Commercetools\Core\Model\Common\TimeDecorator'];
     }
 }

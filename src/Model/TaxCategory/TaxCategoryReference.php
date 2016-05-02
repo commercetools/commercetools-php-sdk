@@ -25,14 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class TaxCategoryReference extends Reference
 {
     const TYPE_TAX_CATEGORY = 'tax-category';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategory'];
-
-        return $fields;
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\TaxCategory\TaxCategory';
 
     /**
      * @param $id

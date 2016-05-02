@@ -79,6 +79,8 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method Order setState(StateReference $state = null)
  * @method PaymentInfo getPaymentInfo()
  * @method Order setPaymentInfo(PaymentInfo $paymentInfo = null)
+ * @method DateTimeDecorator getCompletedAt()
+ * @method Order setCompletedAt(\DateTime $completedAt = null)
  * @method OrderReference getReference()
  */
 class Order extends Resource
@@ -93,6 +95,10 @@ class Order extends Resource
                 static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
             'lastModifiedAt' => [
+                static::TYPE => '\DateTime',
+                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            'completedAt' => [
                 static::TYPE => '\DateTime',
                 static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
