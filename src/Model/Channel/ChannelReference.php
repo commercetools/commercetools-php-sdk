@@ -43,4 +43,14 @@ class ChannelReference extends Reference
     {
         return static::ofTypeAndId(static::TYPE_CHANNEL, $id, $context);
     }
+
+    /**
+     * @param $key
+     * @param Context|callable $context
+     * @return ChannelReference
+     */
+    public static function ofKey($key, $context = null)
+    {
+        return static::ofTypeAndKey(static::TYPE_CHANNEL, $key, $context);
+    }
 }

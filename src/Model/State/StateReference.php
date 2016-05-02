@@ -44,4 +44,14 @@ class StateReference extends Reference
     {
         return static::ofTypeAndId(static::TYPE_STATE, $id, $context);
     }
+
+    /**
+     * @param $key
+     * @param Context|callable $context
+     * @return StateReference
+     */
+    public static function ofKey($key, $context = null)
+    {
+        return static::ofTypeAndKey(static::TYPE_STATE, $key, $context);
+    }
 }
