@@ -1,3 +1,9 @@
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC12...v1.0.0) (2016-05-02)
+
+There had been no changes
+
+
 <a name="1.0.0-RC12"></a>
 # [1.0.0-RC12](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC11...v1.0.0-RC12) (2016-05-02)
 
