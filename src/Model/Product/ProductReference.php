@@ -25,14 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class ProductReference extends Reference
 {
     const TYPE_PRODUCT = 'product';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Product\Product'];
-
-        return $fields;
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\Product\Product';
 
     /**
      * @param $id

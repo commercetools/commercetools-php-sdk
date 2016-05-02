@@ -26,6 +26,10 @@ use Commercetools\Core\Model\Category\Category;
  * @method CategoryCreatedMessage setType(string $type = null)
  * @method Category getCategory()
  * @method CategoryCreatedMessage setCategory(Category $category = null)
+ * @method int getVersion()
+ * @method CategoryCreatedMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method CategoryCreatedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
 class CategoryCreatedMessage extends Message
 {

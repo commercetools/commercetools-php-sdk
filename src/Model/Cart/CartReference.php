@@ -25,14 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class CartReference extends Reference
 {
     const TYPE_CART = 'cart';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Cart\Cart'];
-
-        return $fields;
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\Cart\Cart';
 
     /**
      * @param $id

@@ -24,14 +24,7 @@ use Commercetools\Core\Model\Common\Reference;
 class DiscountCodeReference extends Reference
 {
     const TYPE_DISCOUNT_CODE = 'discount-code';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\DiscountCode\DiscountCode'];
-
-        return $fields;
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\DiscountCode\DiscountCode';
 
     /**
      * @param $id

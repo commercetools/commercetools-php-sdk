@@ -16,26 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class PaymentCollection extends Collection
 {
-    const ID = 'id';
     protected $type = '\Commercetools\Core\Model\Payment\Payment';
-
-
-    protected function indexRow($offset, $row)
-    {
-        if ($row instanceof Payment) {
-            $id = $row->getId();
-        } else {
-            $id = isset($row[static::ID]) ? $row[static::ID] : null;
-        }
-        $this->addToIndex(static::ID, $offset, $id);
-    }
-
-    /**
-     * @param $id
-     * @return Payment
-     */
-    public function getById($id)
-    {
-        return $this->getBy(static::ID, $id);
-    }
 }

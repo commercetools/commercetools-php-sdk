@@ -17,4 +17,15 @@ use Commercetools\Core\Model\Common\Collection;
 class ReturnItemCollection extends Collection
 {
     protected $type = '\Commercetools\Core\Model\Order\ReturnItem';
+
+    protected function indexRow($offset, $row)
+    {
+        $id = null;
+        if ($row instanceof ReturnItem) {
+            $id = $row->getId();
+        } elseif (is_array($row)) {
+            $id = isset($row[static::ID]) ? $row[static::ID] : null;
+        }
+        $this->addToIndex(static::ID, $offset, $id);
+    }
 }

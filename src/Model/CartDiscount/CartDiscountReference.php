@@ -24,14 +24,7 @@ use Commercetools\Core\Model\Common\Reference;
 class CartDiscountReference extends Reference
 {
     const TYPE_CART_DISCOUNT = 'cart-discount';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscount'];
-
-        return $fields;
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\CartDiscount\CartDiscount';
 
     /**
      * @param $id

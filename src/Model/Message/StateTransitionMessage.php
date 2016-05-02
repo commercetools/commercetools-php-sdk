@@ -11,6 +11,7 @@ abstract class StateTransitionMessage extends Message
     {
         $definitions = parent::fieldDefinitions();
         $definitions['state'] = [static::TYPE => '\Commercetools\Core\Model\State\StateReference'];
+        $definitions['force'] = [static::TYPE => 'bool'];
 
         return $definitions;
     }

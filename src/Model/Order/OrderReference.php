@@ -25,14 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class OrderReference extends Reference
 {
     const TYPE_ORDER = 'order';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Order\Order'];
-
-        return $fields;
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\Order\Order';
 
     /**
      * @param $id

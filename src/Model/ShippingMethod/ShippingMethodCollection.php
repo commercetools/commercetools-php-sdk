@@ -17,7 +17,6 @@ use Commercetools\Core\Model\Common\Collection;
 class ShippingMethodCollection extends Collection
 {
     const NAME = 'name';
-    const ID = 'id';
 
     protected $type = '\Commercetools\Core\Model\ShippingMethod\ShippingMethod';
 
@@ -36,15 +35,6 @@ class ShippingMethodCollection extends Collection
         if (!empty($id)) {
             $this->addToIndex(static::ID, $offset, $id);
         }
-    }
-
-    /**
-     * @param $id
-     * @return ShippingMethod
-     */
-    public function getById($id)
-    {
-        return $this->getBy(static::ID, $id);
     }
 
     /**

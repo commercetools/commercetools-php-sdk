@@ -101,7 +101,7 @@ use Symfony\Component\Yaml\Yaml;
 class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
     private static $testRun;
-    protected $client = [];
+    private static $client = [];
 
     protected $cleanupRequests = [];
 
@@ -211,51 +211,65 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param $scope
+     * @return Config
+     */
+    public function getClientConfig($scope)
+    {
+        $context = Context::of()->setGraceful(false)->setLanguages(['en'])->setLocale('en_US');
+        if (file_exists(__DIR__ . '/../myapp.yml')) {
+            $appConfig = Yaml::parse(file_get_contents(__DIR__ . '/../myapp.yml'));
+            $parameters = [];
+            foreach ($appConfig['parameters'] as $key => $parameter) {
+                $parts = explode('-', $key);
+                if (count($parts) == 1) {
+                    $parameters[$key] = $parameter;
+                }
+            }
+            $config = Config::fromArray($parameters);
+            if (isset($appConfig['parameters'][$scope . '-client_id'])
+                && isset($appConfig['parameters'][$scope . '-client_secret'])
+            ) {
+                $config->setClientId($appConfig['parameters'][$scope . '-client_id']);
+                $config->setClientSecret($appConfig['parameters'][$scope . '-client_secret']);
+            }
+        } else {
+            $config = Config::fromArray([
+                'client_id' => $_SERVER['COMMERCETOOLS_CLIENT_ID'],
+                'client_secret' => $_SERVER['COMMERCETOOLS_CLIENT_SECRET'],
+                'project' => $_SERVER['COMMERCETOOLS_PROJECT']
+            ]);
+        }
+        $config->setContext($context);
+        $config->setScope($scope);
+
+        return $config;
+    }
+
+    /**
      * @param string $scope
+     * @param Config $config
      * @return \Commercetools\Core\Client
      */
     public function getClient($scope = 'manage_project')
     {
-        if (!isset($this->client[$scope])) {
-            $context = Context::of()->setGraceful(false)->setLanguages(['en'])->setLocale('en_US');
-            if (file_exists(__DIR__ . '/../../docroot/myapp.yml')) {
-                $appConfig = Yaml::parse(file_get_contents(__DIR__ . '/../../docroot/myapp.yml'));
-                $parameters = [];
-                foreach ($appConfig['parameters'] as $key => $parameter) {
-                    $parts = explode('-', $key);
-                    if (count($parts) == 1) {
-                        $parameters[$key] = $parameter;
-                    }
-                }
-                $config = Config::fromArray($parameters);
-                if (isset($appConfig['parameters'][$scope . '-client_id'])
-                    && isset($appConfig['parameters'][$scope . '-client_secret'])
-                ) {
-                    $config->setClientId($appConfig['parameters'][$scope . '-client_id']);
-                    $config->setClientSecret($appConfig['parameters'][$scope . '-client_secret']);
-                    $config->setScope($scope);
-                }
-            } else {
-                $config = Config::fromArray([
-                    'client_id' => $_SERVER['COMMERCETOOLS_CLIENT_ID'],
-                    'client_secret' => $_SERVER['COMMERCETOOLS_CLIENT_SECRET'],
-                    'project' => $_SERVER['COMMERCETOOLS_PROJECT'],
-                    'context' => $context
-                ]);
-            }
-            $verifySSL = getenv('PHP_SDK_IT_SSL_VERIFY');
-            $verify = true;
-            if ($verifySSL === 'false') {
-                $verify = false;
-            }
+        if (!isset(self::$client[$scope])) {
             $logger = new Logger('test');
             $logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
-            $this->client[$scope] = Client::ofConfigAndLogger($config, $logger);
-            $this->client[$scope]->getOauthManager()->getHttpClient(['verify' => $verify]);
-            $this->client[$scope]->getHttpClient(['verify' => $verify]);
+
+            $config = $this->getClientConfig($scope);
+            self::$client[$scope] = Client::ofConfigAndLogger($config, $logger);
+            self::$client[$scope]->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
+            self::$client[$scope]->getHttpClient(['verify' => $this->getVerifySSL()]);
         }
 
-        return $this->client[$scope];
+        return self::$client[$scope];
+    }
+
+    protected function getVerifySSL()
+    {
+        $verifySSL = getenv('PHP_SDK_IT_SSL_VERIFY');
+        return ($verifySSL !== 'false');
     }
 
     protected function cleanup()
@@ -777,10 +791,12 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         return $draft;
     }
 
-    protected function getCustomer()
+    protected function getCustomer($draft = null)
     {
         if (is_null($this->customer)) {
-            $draft = $this->getCustomerDraft();
+            if (is_null($draft)) {
+                $draft = $this->getCustomerDraft();
+            }
             $request = CustomerCreateRequest::ofDraft($draft);
             $response = $request->executeWithClient($this->getClient());
             $result = $request->mapResponse($response);

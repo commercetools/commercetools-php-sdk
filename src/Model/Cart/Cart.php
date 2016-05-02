@@ -92,4 +92,15 @@ class Cart extends Resource
             'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentInfo'],
         ];
     }
+
+    public function getLineItemCount()
+    {
+        $count = 0;
+        if ($this->getLineItems() instanceof LineItemCollection) {
+            foreach ($this->getLineItems() as $lineItem) {
+                $count+= $lineItem->getQuantity();
+            }
+        }
+        return $count;
+    }
 }

@@ -19,26 +19,26 @@ class GraphQLQueryTest extends ApiTestCase
 
         $query = <<<GRAPHQL
 query Sphere {
-  products(limit: 1) {
-    ...StagedProduct,
-    ...CurrentProduct
-  }
+    products(limit: 1) {
+        ...StagedProduct,
+        ...CurrentProduct
+    }
 }
 
 fragment Product on ProductData {
-  skus, name(locale: "en")
+    skus, name(locale: "en")
 }
 
 fragment StagedProduct on ProductQueryResult {
-  results {
-    id, masterData { staged { ...Product } }
-  }
+    results {
+        id, masterData { staged { ...Product } }
+    }
 }
 
 fragment CurrentProduct on ProductQueryResult {
-  results {
-    id, masterData { current { ...Product } }
-  }
+    results {
+        id, masterData { current { ...Product } }
+    }
 }
 GRAPHQL;
 

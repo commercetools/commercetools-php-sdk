@@ -14,6 +14,7 @@ use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\Product\LocalizedSearchKeywords;
 use Commercetools\Core\Model\Product\ProductDraft;
+use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\Product\SearchKeyword;
 use Commercetools\Core\Model\Product\SearchKeywords;
 use Commercetools\Core\Model\State\State;
@@ -156,6 +157,44 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
+    public function testVariantsWithSku()
+    {
+        $draft = $this->getDraft('add-variant');
+        $product = $this->createProduct($draft);
+
+        $sku = $this->getTestRun() . '-sku';
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductAddVariantAction::of()->setSku($sku)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
+        $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductRemoveVariantAction::ofSku(
+                    $result->getMasterData()->getStaged()->getVariants()->current()->getSku()
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
+        $this->assertEmpty($result->getMasterData()->getStaged()->getVariants());
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
     public function testPrices()
     {
         $draft = $this->getDraft('add-price');
@@ -248,6 +287,99 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
+    public function testPricesWithSku()
+    {
+        $draft = $this->getDraft('add-price');
+        $draft->setMasterVariant(ProductVariantDraft::of()->setSku($this->getTestRun()));
+        $product = $this->createProduct($draft);
+
+        $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100));
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductAddPriceAction::ofSkuAndPrice(
+                    $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+                    $price
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+        $this->assertSame(
+            $price->getValue()->getCentAmount(),
+            $variant->getPrices()->current()->getValue()->getCentAmount()
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 200));
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductChangePriceAction::ofPriceIdAndPrice(
+                    $variant->getPrices()->current()->getId(),
+                    $price
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+        $this->assertSame(
+            $price->getValue()->getCentAmount(),
+            $variant->getPrices()->current()->getValue()->getCentAmount()
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 300));
+        $prices = PriceDraftCollection::of()->add($price);
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetPricesAction::ofSkuAndPrices(
+                    $variant->getSku(),
+                    $prices
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+        $this->assertSame(
+            $price->getValue()->getCentAmount(),
+            $variant->getPrices()->current()->getValue()->getCentAmount()
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductRemovePriceAction::ofPriceId(
+                    $variant->getPrices()->current()->getId()
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+        $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrices());
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
     public function testAttribute()
     {
         $draft = $this->getDraft('attribute');
@@ -258,6 +390,60 @@ class ProductUpdateRequestTest extends ApiTestCase
             ->addAction(
                 ProductSetAttributeAction::ofVariantIdAndName(
                     $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
+                    'testField'
+                )->setValue($attributeValue)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+        $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+        $this->assertSame(
+            $attributeValue,
+            $variant->getAttributes()->getByName('testField')->getValue()
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $attributeValue = $this->getTestRun() . '-new all value';
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetAttributeInAllVariantsAction::ofName(
+                    'testField'
+                )->setValue($attributeValue)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+        $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+        $this->assertSame(
+            $attributeValue,
+            $variant->getAttributes()->getByName('testField')->getValue()
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
+    public function testAttributeWithSKu()
+    {
+        $draft = $this->getDraft('attribute');
+        $draft->setMasterVariant(ProductVariantDraft::of()->setSku($this->getTestRun()));
+        $product = $this->createProduct($draft);
+
+        $attributeValue = $this->getTestRun() . '-new value';
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetAttributeAction::ofSkuAndName(
+                    $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
                     'testField'
                 )->setValue($attributeValue)
             )
@@ -632,6 +818,14 @@ class ProductUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('revert');
         $product = $this->createProduct($draft);
 
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductPublishAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+        $product = $result;
+
         $metaKeywords = $this->getTestRun() . '-meta-keywords';
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(
@@ -664,6 +858,14 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
         $this->assertNull($result->getMasterData()->getStaged()->getMetaDescription());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductUnpublishAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testPublish()

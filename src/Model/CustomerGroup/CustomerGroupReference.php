@@ -25,14 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class CustomerGroupReference extends Reference
 {
     const TYPE_CUSTOMER_GROUP = 'customer-group';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroup'];
-
-        return $fields;
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\CustomerGroup\CustomerGroup';
 
     /**
      * @param $id

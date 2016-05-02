@@ -15,8 +15,8 @@ use Commercetools\Core\Model\Common\Price;
 /**
  * @package Commercetools\Core\Model\Product
  * @link https://dev.commercetools.com/http-api-projects-products.html#product-variant
- * @method string getId()
- * @method ProductVariant setId(string $id = null)
+ * @method int getId()
+ * @method ProductVariant setId(int $id = null)
  * @method int getSku()
  * @method ProductVariant setSku(int $sku = null)
  * @method PriceCollection getPrices()
@@ -37,7 +37,7 @@ class ProductVariant extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'id' => [static::TYPE => 'string'],
+            'id' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'int'],
             'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceCollection'],
             'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Price'],

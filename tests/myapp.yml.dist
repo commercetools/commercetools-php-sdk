@@ -1,0 +1,6 @@
+parameters:
+  client_id: Your Commercetools client ID
+  client_secret: Your Commercetools client secret
+  project: Your Commercetools project key
+  oauth_url: https://auth.sphere.io
+  api_url: https://api.sphere.io

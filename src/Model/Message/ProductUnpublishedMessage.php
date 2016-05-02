@@ -23,6 +23,10 @@ use Commercetools\Core\Model\Common\Reference;
  * @method ProductUnpublishedMessage setResourceVersion(int $resourceVersion = null)
  * @method string getType()
  * @method ProductUnpublishedMessage setType(string $type = null)
+ * @method int getVersion()
+ * @method ProductUnpublishedMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method ProductUnpublishedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
 class ProductUnpublishedMessage extends Message
 {

@@ -7,6 +7,10 @@ namespace Commercetools\Core\Cart;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Model\Cart\CustomLineItem;
+use Commercetools\Core\Model\Cart\CustomLineItemCollection;
+use Commercetools\Core\Model\Cart\CustomLineItemDraft;
+use Commercetools\Core\Model\Cart\CustomLineItemDraftCollection;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
@@ -39,6 +43,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
+use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Request\Products\Command\ProductChangePriceAction;
@@ -180,6 +185,53 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($cart->getVersion());
 
         $this->assertCount(0, $cart->getLineItems());
+    }
+
+    public function testCustomLineItemMerge()
+    {
+        $name = LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun());
+        $anonName = LocalizedString::ofLangAndText('en', 'anon-' . $this->getTestRun());
+        $customerDraft = $this->getCustomerDraft();
+        $customer = $this->getCustomer($customerDraft);
+
+        $draft = $this->getDraft();
+        $draft->setCustomerId($customer->getId());
+        $customerCart = $this->createCart($draft);
+
+        $anonCartDraft = $this->getDraft();
+        $anonCartDraft->setCustomLineItems(
+            CustomLineItemDraftCollection::of()
+                ->add(
+                    CustomLineItemDraft::of()
+                        ->setName($anonName)
+                        ->setQuantity(1)
+                        ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                        ->setSlug($anonName->en)
+                        ->setTaxCategory($this->getTaxCategory()->getReference())
+                )
+        );
+        $request = CartCreateRequest::ofDraft($anonCartDraft);
+        $response = $request->executeWithClient($this->getClient());
+        $anonCart = $request->mapResponse($response);
+
+        $this->assertNotSame($customerCart->getId(), $anonCart->getId());
+        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($anonCart->getId(), $anonCart->getVersion());
+
+        $loginRequest = CustomerLoginRequest::ofEmailAndPassword(
+            $customerDraft->getEmail(),
+            $customerDraft->getPassword(),
+            $anonCart->getId()
+        );
+        $response = $loginRequest->executeWithClient($this->getClient());
+        $result = $loginRequest->mapResponse($response);
+        $loginCart = $result->getCart();
+
+        if ($loginCart->getCustomLineItems()->count() == 0) {
+            $this->markTestSkipped(
+                'Merging custom line items from anon carts to customer cart not yet supported by API.'
+            );
+        }
+        $this->assertCount(2, $loginCart->getCustomLineItems());
     }
 
     public function testCustomerEmail()

@@ -26,6 +26,10 @@ use Commercetools\Core\Model\Order\Order;
  * @method OrderCreatedMessage setType(string $type = null)
  * @method Order getOrder()
  * @method OrderCreatedMessage setOrder(Order $order = null)
+ * @method int getVersion()
+ * @method OrderCreatedMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method OrderCreatedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
 class OrderCreatedMessage extends Message
 {

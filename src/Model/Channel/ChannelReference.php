@@ -25,14 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class ChannelReference extends Reference
 {
     const TYPE_CHANNEL = 'channel';
-
-    public function fieldDefinitions()
-    {
-        $fields = parent::fieldDefinitions();
-        $fields[static::OBJ] = [static::TYPE => '\Commercetools\Core\Model\Channel\Channel'];
-
-        return $fields;
-    }
+    const TYPE_CLASS = '\Commercetools\Core\Model\Channel\Channel';
 
     /**
      * @param $id
@@ -42,5 +35,15 @@ class ChannelReference extends Reference
     public static function ofId($id, $context = null)
     {
         return static::ofTypeAndId(static::TYPE_CHANNEL, $id, $context);
+    }
+
+    /**
+     * @param $key
+     * @param Context|callable $context
+     * @return ChannelReference
+     */
+    public static function ofKey($key, $context = null)
+    {
+        return static::ofTypeAndKey(static::TYPE_CHANNEL, $key, $context);
     }
 }

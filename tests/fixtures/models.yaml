@@ -33,6 +33,7 @@ lineItem:
     - productSlug
     - variant
     - price
+    - taxedPrice
     - quantity
     - state
     - taxRate
@@ -49,6 +50,7 @@ customLineItem:
     - id
     - name
     - money
+    - taxedPrice
     - slug
     - quantity
     - state
@@ -79,6 +81,8 @@ shippingInfo:
   fields:
     - shippingMethodName
     - price
+    - taxedPrice
+    - discountedPrice
     - shippingRate
     - taxRate
     - taxCategory
@@ -324,6 +328,7 @@ order:
     - version
     - createdAt
     - lastModifiedAt
+    - completedAt
     - orderNumber
     - customerId
     - customerEmail
@@ -467,6 +472,7 @@ productCatalogData:
     - published
     - current
     - staged
+    - hasStagedChanges
 
 productData:
   domain: product
@@ -885,8 +891,10 @@ message:
   model: message
   fields:
     - id
+    - version
     - sequenceNumber
     - resource
     - resourceVersion
     - type
     - createdAt
+    - lastModifiedAt

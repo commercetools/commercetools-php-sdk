@@ -18,7 +18,6 @@ class CategoryCollection extends Collection
 {
     const SLUG = 'slug';
     const PARENT = 'parent';
-    const ID = 'id';
     const ROOTS = 'roots';
 
     protected $type = '\Commercetools\Core\Model\Category\Category';

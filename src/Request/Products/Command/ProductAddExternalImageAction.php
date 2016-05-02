@@ -16,6 +16,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductAddExternalImageAction setAction(string $action = null)
  * @method int getVariantId()
  * @method ProductAddExternalImageAction setVariantId(int $variantId = null)
+ * @method string getSku()
+ * @method ProductAddExternalImageAction setSku(string $sku = null)
  * @method Image getImage()
  * @method ProductAddExternalImageAction setImage(Image $image = null)
  * @method bool getStaged()
@@ -28,6 +30,7 @@ class ProductAddExternalImageAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
+            'sku' => [static::TYPE => 'string'],
             'image' => [static::TYPE => '\Commercetools\Core\Model\Common\Image'],
             'staged' => [static::TYPE => 'bool'],
         ];
@@ -52,5 +55,16 @@ class ProductAddExternalImageAction extends AbstractAction
     public static function ofVariantIdAndImage($variantId, Image $image, $context = null)
     {
         return static::of($context)->setVariantId($variantId)->setImage($image);
+    }
+
+    /**
+     * @param string $sku
+     * @param Image $image
+     * @param Context|callable $context
+     * @return ProductAddExternalImageAction
+     */
+    public static function ofSkuAndImage($sku, Image $image, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setImage($image);
     }
 }

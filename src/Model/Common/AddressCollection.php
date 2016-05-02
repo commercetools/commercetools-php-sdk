@@ -14,8 +14,6 @@ namespace Commercetools\Core\Model\Common;
  */
 class AddressCollection extends Collection
 {
-    const ID = 'id';
-
     protected $type = '\Commercetools\Core\Model\Common\Address';
 
     protected function indexRow($offset, $row)
@@ -26,14 +24,5 @@ class AddressCollection extends Collection
             $name = $row[static::ID];
         }
         $this->addToIndex(static::ID, $offset, $name);
-    }
-
-    /**
-     * @param $id
-     * @return Address|null
-     */
-    public function getById($id = null)
-    {
-        return $this->getBy(static::ID, $id);
     }
 }

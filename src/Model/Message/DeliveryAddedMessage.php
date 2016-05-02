@@ -26,6 +26,10 @@ use Commercetools\Core\Model\Order\Delivery;
  * @method DeliveryAddedMessage setType(string $type = null)
  * @method Delivery getDelivery()
  * @method DeliveryAddedMessage setDelivery(Delivery $delivery = null)
+ * @method int getVersion()
+ * @method DeliveryAddedMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method DeliveryAddedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
 class DeliveryAddedMessage extends Message
 {

@@ -25,6 +25,10 @@ use Commercetools\Core\Model\Common\Reference;
  * @method OrderStateChangedMessage setType(string $type = null)
  * @method string getOrderState()
  * @method OrderStateChangedMessage setOrderState(string $orderState = null)
+ * @method int getVersion()
+ * @method OrderStateChangedMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method OrderStateChangedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
 class OrderStateChangedMessage extends Message
 {

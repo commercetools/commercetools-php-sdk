@@ -26,6 +26,10 @@ use Commercetools\Core\Model\Payment\Payment;
  * @method PaymentCreatedMessage setType(string $type = null)
  * @method Payment getPayment()
  * @method PaymentCreatedMessage setPayment(Payment $payment = null)
+ * @method int getVersion()
+ * @method PaymentCreatedMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method PaymentCreatedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
  */
 class PaymentCreatedMessage extends Message
 {

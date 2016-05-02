@@ -6,15 +6,13 @@
 
 namespace Commercetools\Core\Client\OAuth;
 
+use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
-use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\AbstractHttpClient;
 use Commercetools\Core\Cache\CacheAdapterFactory;
 use Commercetools\Core\Cache\CacheAdapterInterface;
-use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Error\InvalidClientCredentialsException;
-use Commercetools\Core\Error\Message;
 
 /**
  * @package Commercetools\Core\OAuth
@@ -24,6 +22,7 @@ class Manager extends AbstractHttpClient
 {
     const TOKEN_CACHE_KEY = 'commercetools-io-access-token';
 
+    const REFRESH_TOKEN = 'refresh_token';
     const ACCESS_TOKEN = 'access_token';
     const EXPIRES_IN = 'expires_in';
     const ERROR = 'error';
@@ -87,70 +86,90 @@ class Manager extends AbstractHttpClient
      * @return Token
      * @throws InvalidClientCredentialsException
      */
-    public function getToken($scope = null)
+    public function getToken()
     {
-        if (is_null($scope)) {
-            $scope = $this->getConfig()->getScope();
-        }
-        if ($token = $this->getCacheToken($scope)) {
+        $scope = $this->getConfig()->getScope();
+        if ($token = $this->getCacheToken()) {
             return new Token($token, null, $scope);
         }
 
-        return $this->refreshToken($scope);
+        return $this->refreshToken();
     }
 
     /**
-     * @param string $scope
      * @return Token
      * @throws InvalidClientCredentialsException
      */
-    public function refreshToken($scope = null)
+    public function refreshToken()
     {
-        if (is_null($scope)) {
-            $scope = $this->getConfig()->getScope();
+        $scope = $this->getConfig()->getScope();
+        $grantType = $this->getConfig()->getGrantType();
+        $data = [Config::SCOPE => $scope, Config::GRANT_TYPE => $grantType];
+
+        if ($grantType === Config::GRANT_TYPE_PASSWORD) {
+            $user = $this->getConfig()->getUsername();
+            $password = $this->getConfig()->getPassword();
+            $data[Config::USER_NAME] = $user;
+            $data[Config::PASSWORD] = $password;
+        } elseif ($grantType === Config::GRANT_TYPE_REFRESH) {
+            $refreshToken = $this->getConfig()->getRefreshToken();
+            $data[Config::REFRESH_TOKEN] = $refreshToken;
         }
-        $token = $this->getBearerToken($scope);
+        
+        $token = $this->getBearerToken($data);
+
+        if ($grantType === Config::GRANT_TYPE_PASSWORD) {
+            $this->getConfig()->setGrantType(Config::GRANT_TYPE_REFRESH);
+            $this->getConfig()->setRefreshToken($token->getRefreshToken());
+        }
+
         // ensure token to be invalidated in cache before TTL
         $ttl = max(1, floor($token->getTtl()/2));
-        $this->getCacheAdapter()->store($this->getCacheKey($scope), $token->getToken(), $ttl);
+        $this->getCacheAdapter()->store($this->getCacheKey(), $token->getToken(), $ttl);
 
         return $token;
     }
 
-    protected function getCacheToken($scope)
+    protected function getCacheToken()
     {
-        return $this->getCacheAdapter()->fetch($this->getCacheKey($scope));
+        return $this->getCacheAdapter()->fetch($this->getCacheKey());
     }
 
     /**
-     * @param $scope
      * @return string
      */
-    protected function getCacheKey($scope)
+    protected function getCacheKey()
     {
-        if (!isset($this->cacheKeys[$scope])) {
-            $this->cacheKeys[$scope] = static::TOKEN_CACHE_KEY . '-' .
-                sha1($scope);
+        $scope = $this->getConfig()->getScope();
+        $grantType = $this->getConfig()->getGrantType();
+        $cacheScope = $scope . '-' . $grantType;
+
+        if ($grantType === Config::GRANT_TYPE_PASSWORD) {
+            $user = $this->getConfig()->getUsername();
+            $cacheScope .= '-' . $user;
+        } elseif ($grantType === Config::GRANT_TYPE_REFRESH) {
+            $token = $this->getConfig()->getRefreshToken();
+            $cacheScope .= '-' . $token;
         }
 
-        return $this->cacheKeys[$scope];
+        if (!isset($this->cacheKeys[$cacheScope])) {
+            $this->cacheKeys[$cacheScope] = static::TOKEN_CACHE_KEY . '-' .
+                sha1($cacheScope);
+        }
+
+        return $this->cacheKeys[$cacheScope];
     }
 
     /**
-     * @param string $scope
+     * @param array $data
      * @return Token
      * @throws ApiException
      * @throws \Commercetools\Core\Error\BadGatewayException
      * @throws \Commercetools\Core\Error\GatewayTimeoutException
      * @throws \Commercetools\Core\Error\ServiceUnavailableException
      */
-    protected function getBearerToken($scope)
+    protected function getBearerToken(array $data)
     {
-        $data = [
-            'grant_type' => 'client_credentials',
-            'scope' => $scope
-        ];
-
         try {
             $response = $this->execute($data);
         } catch (ApiException $exception) {
@@ -161,6 +180,9 @@ class Manager extends AbstractHttpClient
 
         $token = new Token($result[static::ACCESS_TOKEN], $result[static::EXPIRES_IN], $result[static::SCOPE]);
         $token->setValidTo(new \DateTime('now +' . $result[static::EXPIRES_IN] . ' seconds'));
+        if (isset($result[static::REFRESH_TOKEN])) {
+            $token->setRefreshToken($result[static::REFRESH_TOKEN]);
+        }
 
         return $token;
     }
