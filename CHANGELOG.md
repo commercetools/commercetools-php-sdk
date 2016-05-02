@@ -1,3 +1,25 @@
+<a name="1.0.0-RC12"></a>
+# [1.0.0-RC12](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC11...v1.0.0-RC12) (2016-05-02)
+
+
+### Bug Fixes
+
+* **Cart:** fix type of custom line item slug ([34367d5](https://github.com/sphereio/commercetools-php-sdk/commit/34367d5))
+* **CustomLineItem:** fix type of slug in custom line item ([d8d7d2a](https://github.com/sphereio/commercetools-php-sdk/commit/d8d7d2a))
+* **Error:** add insufficient_scope error ([f9d81f2](https://github.com/sphereio/commercetools-php-sdk/commit/f9d81f2))
+* **Error:** add insufficient_scope error ([76ffc7e](https://github.com/sphereio/commercetools-php-sdk/commit/76ffc7e))
+* **Product:** typo ([e2f270d](https://github.com/sphereio/commercetools-php-sdk/commit/e2f270d))
+
+### Features
+
+* **Cart:** add helper to calculate line item count ([291bd05](https://github.com/sphereio/commercetools-php-sdk/commit/291bd05))
+* **Client:** add support for oauth password and refresh token flow ([fe23c8b](https://github.com/sphereio/commercetools-php-sdk/commit/fe23c8b)), closes [#191](https://github.com/sphereio/commercetools-php-sdk/issues/191)
+* **Error:** add oauth error classes ([92eec57](https://github.com/sphereio/commercetools-php-sdk/commit/92eec57))
+* **Product:** add support to use sku to identify a product variant in update action ([7f1979b](https://github.com/sphereio/commercetools-php-sdk/commit/7f1979b)), closes [#192](https://github.com/sphereio/commercetools-php-sdk/issues/192)
+* **Reference:** add constructor ofKey constructor to references ([e6fafc3](https://github.com/sphereio/commercetools-php-sdk/commit/e6fafc3))
+
+
+
 <a name="1.0.0-RC11"></a>
 # [1.0.0-RC11](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC10...v1.0.0-RC11) (2016-04-06)
 

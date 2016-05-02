@@ -1,10 +1,5 @@
 # <img src="build/theme/resources/CT_cube_200px.png" width="40" align="center"></img> commercetools PHP SDK
 
->  STATUS: Release Candidate 11.  We ask you to really use this API thoroughly now, especially the API design and object structure. Thank you very much!
->
-> See the [Milestone Plan](https://github.com/sphereio/commercetools-php-sdk/milestones?direction=desc&sort=completeness&state=open) for details of what's planned in detail. We love feedback and [Issue reports](https://github.com/sphereio/commercetools-php-sdk/issues?q=is%3Aopen+is%3Aissue+sort%3Acreated-asc)!
-> Up-to-Date planning status can be found on this [Waffle Board](https://waffle.io/sphereio/commercetools-php-sdk)
-
 [![Build Status](https://img.shields.io/travis/sphereio/commercetools-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/sphereio/commercetools-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/commercetools-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/commercetools-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk)
 
 The PHP SDK allows developers to build applications on the commercetools platform (technically speaking against the SPHERE.IO REST API) using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API.
