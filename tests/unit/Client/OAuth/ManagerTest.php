@@ -160,6 +160,15 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($manager->getToken()->getTtl()); // ttl should be empty as token comes from cache
     }
 
+    public function testCacheAdapter()
+    {
+        $cache1 = new NullCacheAdapter();
+        $manager = new Manager($this->getConfig(), $cache1);
+
+        $cache2 = new NullCacheAdapter();
+        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Manager', $manager->setCacheAdapter($cache2));
+        $this->assertSame($cache2, $manager->getCacheAdapter());
+    }
     /**
      * @expectedException \Commercetools\Core\Error\InvalidClientCredentialsException
      */

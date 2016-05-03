@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Error\UpdateActionLimitException;
 use GuzzleHttp\Message\Response;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
@@ -99,9 +100,15 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
 
         $request = $this->getUpdateRequest();
         $request->setContext(Context::of()->setLogger($logger));
-        for ($i = 0; $i <= (AbstractUpdateRequest::ACTION_WARNING_TRESHOLD); $i++) {
+        for ($i = 0; $i < (AbstractUpdateRequest::ACTION_WARNING_TRESHOLD); $i++) {
             $request->addActionAsArray(['key' => 'value']);
         }
+        $this->assertEmpty($handler->getRecords());
+
+        $request->addActionAsArray(['key' => 'value']);
+        $request->addActionAsArray(['key' => 'value']);
+
+        $this->assertCount(1, $handler->getRecords());
 
         $logEntry = $handler->getRecords()[0];
         $this->assertSame(Logger::WARNING, $logEntry['level']);
@@ -117,14 +124,20 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(AbstractUpdateRequest::ACTION_MAX_LIMIT, $request->getActions());
     }
 
-    /**
-     * @expectedException \Commercetools\Core\Error\UpdateActionLimitException
-     */
     public function testLogLimitException()
     {
         $request = $this->getUpdateRequest();
-        for ($i = 0; $i <= (AbstractUpdateRequest::ACTION_MAX_LIMIT); $i++) {
+        for ($i = 0; $i < (AbstractUpdateRequest::ACTION_MAX_LIMIT); $i++) {
             $request->addActionAsArray(['key' => 'value']);
         }
+
+        $exceptionThrown = false;
+        try {
+            $request->addActionAsArray(['key' => 'value']);
+        } catch (\Exception $e) {
+            $exceptionThrown = true;
+            $this->assertInstanceOf('\Commercetools\Core\Error\UpdateActionLimitException', $e);
+        }
+        $this->assertTrue($exceptionThrown);
     }
 }

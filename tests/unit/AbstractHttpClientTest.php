@@ -40,6 +40,13 @@ class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Commercetools\Core\Config', $this->getClient()->getConfig());
     }
 
+    public function testSetConfig()
+    {
+        $config = $this->getConfig();
+        $this->assertInstanceOf('\Commercetools\Core\AbstractHttpClient', $this->getClient()->setConfig($config));
+        $this->assertInstanceOf('\Commercetools\Core\Config', $this->getClient()->getConfig());
+    }
+
     public function testGetHttpClient()
     {
         $client = $this->getMockForAbstractClass('\Commercetools\Core\AbstractHttpClient', [], '', false);

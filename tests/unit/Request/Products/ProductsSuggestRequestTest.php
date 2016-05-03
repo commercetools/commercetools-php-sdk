@@ -21,14 +21,21 @@ class ProductsSuggestRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapQueryResult(ProductsSuggestRequest::ofKeywords($this->getKeywords()));
+        $result = $this->mapQueryResult(
+            ProductsSuggestRequest::ofKeywords($this->getKeywords()),
+            [],
+            ["searchKeywords.en" => ["text" => "Swiss Army Knife"]]
+        );
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\SuggestionCollection', $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Suggestion', $result->current());
+        $this->assertSame(["text" => "Swiss Army Knife"], $result->current()->toArray());
     }
 
     public function testMapEmptyResult()
     {
         $result = $this->mapEmptyResult(ProductsSuggestRequest::ofKeywords($this->getKeywords()));
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\SuggestionCollection', $result);
+        $this->assertEmpty($result->toArray());
     }
 
     public function testAddKeyword()

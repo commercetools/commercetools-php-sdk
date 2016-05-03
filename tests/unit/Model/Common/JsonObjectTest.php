@@ -101,6 +101,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage field
      */
     public function testGetUnknownField()
     {
@@ -109,6 +110,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage field
      */
     public function testSetUnknownField()
     {
@@ -129,6 +131,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage method
      */
     public function testUnknownAction()
     {

@@ -100,9 +100,20 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(['key' => 'value'], $response->toArray());
     }
 
-    public function testSuccess()
+    public function successStatusCodes()
     {
-        $response = $this->getResponse();
+        return [
+            [200],
+            [201]
+        ];
+    }
+    /**
+     * @param $statusCode
+     * @dataProvider successStatusCodes
+     */
+    public function testSuccess($statusCode)
+    {
+        $response = $this->getResponse('{"key": "value"}', $statusCode);
 
         $this->assertFalse($response->isError());
     }
