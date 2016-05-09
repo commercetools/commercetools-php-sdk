@@ -9,6 +9,7 @@ namespace Commercetools\Core\Cache;
 use Doctrine\Common\Cache\Cache;
 use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\InvalidArgumentException;
+use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * @package Commercetools\Core\Cache
@@ -23,6 +24,14 @@ class CacheAdapterFactory
     public function __construct()
     {
         $this->registerCallback(
+            function ($cache) {
+                if ($cache instanceof CacheItemPoolInterface) {
+                    return new PsrCacheAdapter($cache);
+                }
+                return null;
+            }
+        )
+        ->registerCallback(
             function ($cache) {
                 if ($cache instanceof Cache) {
                     return new DoctrineCacheAdapter($cache);

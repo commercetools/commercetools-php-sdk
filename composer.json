@@ -29,6 +29,7 @@
     "guzzlehttp/guzzle": "^5.0 || ^6.0",
     "guzzlehttp/psr7": "^1.1",
     "pimple/pimple": "^3.0",
+    "psr/cache": "^1.0",
     "ext-intl": "*",
     "ext-mbstring": "*"
   },
