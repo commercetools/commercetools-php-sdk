@@ -1,11 +1,11 @@
 <?php
 /**
  * @author @jayS-de <jens.schulze@commercetools.de>
- * @created: 21.01.15, 14:28
  */
 
 namespace Commercetools\Core\Cache;
 
+use Cache\Adapter\PHPArray\ArrayCachePool;
 use Doctrine\Common\Cache\ArrayCache;
 
 class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
@@ -64,6 +64,19 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
         $adapter = $factory->get(new \Redis());
 
         $this->assertInstanceOf('\Commercetools\Core\Cache\PhpRedisCacheAdapter', $adapter);
+    }
+
+    public function testPsrCacheCallback()
+    {
+        if (version_compare(phpversion(), '5.5.0', '<')) {
+            $this->markTestSkipped(
+                'PHP >= 5.5 needed to run this test'
+            );
+        }
+        $factory = $this->getFactory();
+        $adapter = $factory->get(new ArrayCachePool());
+
+        $this->assertInstanceOf('\Commercetools\Core\Cache\PsrCacheAdapter', $adapter);
     }
 
     /**

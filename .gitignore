@@ -14,3 +14,4 @@ myapp.ini
 /tools/node_modules
 requests.log
 env.list
+humbug.*
