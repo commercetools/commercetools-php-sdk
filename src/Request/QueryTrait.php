@@ -6,7 +6,7 @@
 
 namespace Commercetools\Core\Request;
 
-use Commercetools\Core\Request\Query\Parameter;
+use Commercetools\Core\Request\Query\MultiParameter;
 use Commercetools\Core\Request\Query\ParameterInterface;
 
 /**
@@ -22,7 +22,7 @@ trait QueryTrait
     public function where($where)
     {
         if (!is_null($where)) {
-            $this->addParamObject(new Parameter('where', $where));
+            $this->addParamObject(new MultiParameter('where', $where));
         }
 
         return $this;
