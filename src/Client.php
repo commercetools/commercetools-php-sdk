@@ -86,11 +86,11 @@ use Commercetools\Core\Client\OAuth\Manager;
  *
  * ### Using a cache adapter ###
  *
- * The client will automatically request an OAuth token and store the token in the APCu cache, which should be the
- * fastest option as there is no network or socket interface used.
+ * The client will automatically request an OAuth token and store the token in the provided cache.
  *
  * It's also possible to use a different cache adapter. The SDK provides a Doctrine, a Redis and an APCu cache adapter.
- * By default the SDK tries to instantiate the APCu cache adapter if there is no cache given. E.g. Redis:
+ * By default the SDK tries to instantiate the APCu or a PSR-6 filesystem cache adapter if there is no cache given.
+ * E.g. Redis:
  *
  * ```php
  * $redis = new \Redis();

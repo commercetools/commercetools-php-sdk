@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Client\OAuth;
 
+use Cache\Adapter\PHPArray\ArrayCachePool;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -169,6 +170,22 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Manager', $manager->setCacheAdapter($cache2));
         $this->assertSame($cache2, $manager->getCacheAdapter());
     }
+
+    public function testPsrCacheAdapter()
+    {
+        if (version_compare(phpversion(), '5.5.0', '<')) {
+            $this->markTestSkipped(
+                'PHP >= 5.5 needed to run this test'
+            );
+        }
+        $cache1 = new NullCacheAdapter();
+        $manager = new Manager($this->getConfig(), $cache1);
+
+        $cache2 = new ArrayCachePool();
+        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Manager', $manager->setCacheAdapter($cache2));
+        $this->assertSame($cache2, $manager->getCacheAdapter());
+    }
+
     /**
      * @expectedException \Commercetools\Core\Error\InvalidClientCredentialsException
      */

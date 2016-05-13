@@ -17,8 +17,12 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
     {
         if (extension_loaded('apcu')) {
             $this->assertInstanceOf('\Commercetools\Core\Cache\ApcuCacheAdapter', $this->getFactory()->get());
-        } else {
+        } elseif (extension_loaded('apc')) {
             $this->assertInstanceOf('\Commercetools\Core\Cache\ApcCacheAdapter', $this->getFactory()->get());
+        } elseif (class_exists('\Cache\Adapter\Filesystem\FilesystemCachePool')) {
+            $this->assertInstanceOf('\Cache\Adapter\Filesystem\FilesystemCachePool', $this->getFactory()->get());
+        } else {
+            $this->assertNull($this->getFactory()->get());
         }
     }
 
@@ -66,7 +70,7 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Commercetools\Core\Cache\PhpRedisCacheAdapter', $adapter);
     }
 
-    public function testPsrCacheCallback()
+    public function testPsrCache()
     {
         if (version_compare(phpversion(), '5.5.0', '<')) {
             $this->markTestSkipped(
@@ -76,7 +80,7 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = $this->getFactory();
         $adapter = $factory->get(new ArrayCachePool());
 
-        $this->assertInstanceOf('\Commercetools\Core\Cache\PsrCacheAdapter', $adapter);
+        $this->assertInstanceOf('\Cache\Adapter\PHPArray\ArrayCachePool', $adapter);
     }
 
     /**

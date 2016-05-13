@@ -5,6 +5,9 @@
  */
 namespace Commercetools\Core;
 
+use Cache\Adapter\Filesystem\FilesystemCachePool;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Commercetools\Core\Model\Common\Context;
@@ -34,7 +37,11 @@ $request = ProductProjectionSearchRequest::of($config->getContext())
 $log = new Logger('name');
 $log->pushHandler(new StreamHandler('./requests.log'));
 
-$client = Client::ofConfigAndLogger($config, $log);
+$filesystemAdapter = new Local(__DIR__.'/');
+$filesystem        = new Filesystem($filesystemAdapter);
+$cache = new FilesystemCachePool($filesystem);
+
+$client = Client::ofConfigCacheAndLogger($config, $cache, $log);
 
 $products = $client->execute($request)->toObject();
 

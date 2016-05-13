@@ -15,7 +15,8 @@ The [PHP API documentation](http://sphereio.github.io/commercetools-php-sdk/docs
 
 ### Install & Integrate the SDK into your Project
 
-The SDK requires a PHP version of 5.4 or higher with the apc(u) PHP extension for its default cache. If you provide an own Cache interface, apc(u) is not necessary.
+The SDK requires a PHP version of 5.4 or higher with the apc(u) PHP extension for its default cache. If you provide an own cache interface, apc(u) is not necessary. See also client [documentation](http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Client.html).
+
 The curl extension is recommended but not strictly necessary because the SDK is using the [Guzzle library](https://github.com/guzzle/guzzle) library, which falls back to PHP stream wrappers if curl is not available.
 The intl extension is required to directly output Money objects as a String.
 
@@ -117,23 +118,21 @@ brew tap homebrew/versions
 brew tap homebrew/homebrew-php
 brew install php55
 brew install php55-intl
-brew install php55-apcu
 brew install php55-xdebug
 brew install ant
 # you probably also need to fix a (=any) timezone in your php.ini:
-echo "date.timezone='Europe/Berlin'" >> /usr/local/etc/php/5.5/conf.d/60-user.ini
+echo "date.timezone='Europe/Berlin'" >> /usr/local/etc/php/5.6/conf.d/60-user.ini
 # initialize the dependencies:
 php composer.phar update
 ```
 
 ### Linux preparations :
- * install php 5.4+, apc(u), xdebug and ant according to their distro's package system.
- * make sure the curl, intl, mbstring, apcu and openssl extensions are activated in php.ini
+ * install php 5.5+, xdebug and ant according to their distro's package system.
+ * make sure the curl, intl, mbstring and openssl extensions are activated in php.ini
 
 ### Windows preparations:
- * [install php](http://windows.php.net/download/) 5.4+, i.e. extract ZIP and make add php.exe location to your PATH. Use WAMP etc. if you like, but plain PHP commandline is all you really need (you can test example code in the built-in webserver).
+ * [install php](http://windows.php.net/download/) 5.5+, i.e. extract ZIP and make add php.exe location to your PATH. Use WAMP etc. if you like, but plain PHP commandline is all you really need (you can test example code in the built-in webserver).
  * enable the curl, intl, mbstring and openssl extenstions in php.ini
- * [install apcu](http://robert-rusu.blogspot.de/2014/06/install-apcu-on-windows.html) OR a redis extension and server
  * make a working ant available in the PATH
  * and [install composer](https://getcomposer.org/doc/00-intro.md#installation-windows).
 

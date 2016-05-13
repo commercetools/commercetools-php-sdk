@@ -49,6 +49,7 @@
     "fabpot/php-cs-fixer": "@stable",
     "symfony/yaml": "*",
     "cache/array-adapter": "^0.4.0",
+    "cache/filesystem-adapter": "^0.3.0",
     "incenteev/composer-parameter-handler": "^2.0"
   },
   "scripts": {
