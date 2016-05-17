@@ -21,6 +21,8 @@ use Commercetools\Core\Error\UpdateActionLimitException;
  */
 abstract class AbstractUpdateRequest extends AbstractApiRequest
 {
+    use ExpandTrait;
+
     const ACTION = 'action';
     const ACTIONS = 'actions';
     const VERSION = 'version';

@@ -21,6 +21,8 @@ use Commercetools\Core\Response\ResourceResponse;
  */
 abstract class AbstractDeleteRequest extends AbstractApiRequest
 {
+    use ExpandTrait;
+
     /**
      * @var string
      */
