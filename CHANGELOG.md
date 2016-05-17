@@ -1,3 +1,13 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0...v1.0.1) (2016-05-17)
+
+
+### Bug Fixes
+
+* **Product:** fix mapping for product variant availability ([c0c461f](https://github.com/sphereio/commercetools-php-sdk/commit/c0c461f))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0-RC12...v1.0.0) (2016-05-02)
 
