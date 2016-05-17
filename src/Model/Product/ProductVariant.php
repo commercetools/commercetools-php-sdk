@@ -25,8 +25,8 @@ use Commercetools\Core\Model\Common\Price;
  * @method ProductVariant setAttributes(AttributeCollection $attributes = null)
  * @method ImageCollection getImages()
  * @method ProductVariant setImages(ImageCollection $images = null)
- * @method LocalizedString getAvailability()
- * @method ProductVariant setAvailability(LocalizedString $availability = null)
+ * @method ProductVariantAvailability getAvailability()
+ * @method ProductVariant setAvailability(ProductVariantAvailability $availability = null)
  * @method Price getPrice()
  * @method ProductVariant setPrice(Price $price = null)
  * @method bool getIsMatchingVariant()
@@ -43,7 +43,7 @@ class ProductVariant extends JsonObject
             'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Price'],
             'attributes' => [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
             'images' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageCollection'],
-            'availability' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'availability' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariantAvailability'],
             'isMatchingVariant' => [static::TYPE => 'bool']
         ];
     }
