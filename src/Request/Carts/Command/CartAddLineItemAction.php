@@ -45,7 +45,7 @@ class CartAddLineItemAction extends AbstractAction
 
     /**
      * @param string $productId
-     * @param string $variantId
+     * @param int $variantId
      * @param Context|callable $context
      * @param int $quantity
      * @return CartAddLineItemAction
