@@ -180,7 +180,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/' . $this->getId();
+        return (string)$this->getEndpoint() . '/' . $this->getId()  . $this->getParamString();
     }
 
     /**

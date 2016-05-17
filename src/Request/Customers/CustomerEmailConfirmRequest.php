@@ -57,7 +57,7 @@ class CustomerEmailConfirmRequest extends AbstractApiRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/email/confirm';
+        return (string)$this->getEndpoint() . '/email/confirm' .  $this->getParamString();
     }
 
     /**
