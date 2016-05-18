@@ -76,7 +76,7 @@ class CustomerPasswordChangeRequest extends AbstractUpdateRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/password';
+        return (string)$this->getEndpoint() . '/password' . $this->getParamString();
     }
 
     /**

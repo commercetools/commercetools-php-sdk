@@ -57,7 +57,7 @@ abstract class AbstractCustomObjectRequest extends AbstractApiRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/' . $this->container . '/' . $this->key;
+        return (string)$this->getEndpoint() . '/' . $this->container . '/' . $this->key . $this->getParamString();
     }
 
     /**

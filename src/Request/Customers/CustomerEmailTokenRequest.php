@@ -62,7 +62,7 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/email-token';
+        return (string)$this->getEndpoint() . '/email-token' . $this->getParamString();
     }
 
     /**

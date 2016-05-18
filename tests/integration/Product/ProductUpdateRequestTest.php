@@ -1048,6 +1048,48 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
+    public function testReferenceExpansion()
+    {
+        $draft = $this->getDraft('update-reference-expansion');
+
+        $request = ProductCreateRequest::ofDraft($draft);
+        $request->expand('productType.id');
+        $response = $request->executeWithClient($this->getClient());
+        $product = $request->mapResponse($response);
+
+        $this->cleanupRequests[] = $this->deleteRequest = ProductDeleteRequest::ofIdAndVersion(
+            $product->getId(),
+            $product->getVersion()
+        );
+
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Model\ProductType\ProductType',
+            $product->getProductType()->getObj()
+        );
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion());
+        $request->expand('productType.id');
+        $response = $request->executeWithClient($this->getClient());
+        $product = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($product->getVersion());
+
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Model\ProductType\ProductType',
+            $product->getProductType()->getObj()
+        );
+
+        $request = ProductDeleteRequest::ofIdAndVersion($product->getId(), $product->getVersion());
+        $request->expand('productType.id');
+        $response = $request->executeWithClient($this->getClient());
+        $product = $request->mapResponse($response);
+
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Model\ProductType\ProductType',
+            $product->getProductType()->getObj()
+        );
+        array_pop($this->cleanupRequests);
+    }
+
     /**
      * @return ProductDraft
      */

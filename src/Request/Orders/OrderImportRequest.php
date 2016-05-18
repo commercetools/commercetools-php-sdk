@@ -45,6 +45,6 @@ class OrderImportRequest extends AbstractCreateRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/import';
+        return (string)$this->getEndpoint() . '/import' . $this->getParamString();
     }
 }
