@@ -925,6 +925,35 @@ Feature: I want to send a Product Update Request
   Scenario:
     Given a "product" is identified by "id" and version 1
     And i want to update a "product"
+    And add the "moveImageToPosition" action to "product" with values
+    """
+        {
+          "action": "moveImageToPosition",
+          "variantId": 1,
+          "imageUrl": "http://example.org/image.jpg",
+          "position": 3
+        }
+    """
+    Then the path should be "products/id"
+    And the method should be "POST"
+    And the request should be
+    """
+    {
+      "version": 1,
+      "actions": [
+        {
+          "action": "moveImageToPosition",
+          "variantId": 1,
+          "imageUrl": "http://example.org/image.jpg",
+          "position": 3
+        }
+      ]
+    }
+    """
+
+  Scenario:
+    Given a "product" is identified by "id" and version 1
+    And i want to update a "product"
     And add the "removeImage" action to "product" with values
     """
         {
