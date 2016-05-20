@@ -15,7 +15,7 @@ The [PHP API documentation](http://sphereio.github.io/commercetools-php-sdk/docs
 
 ### Install & Integrate the SDK into your Project
 
-The SDK requires a PHP version of 5.4 or higher with the apc(u) PHP extension for its default cache. If you provide an own cache interface, apc(u) is not necessary. See also client [documentation](http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Client.html).
+The SDK requires a PHP version of 5.4 or higher. The SDK tries to use the APC(u) as it's default cache. If you provide an own cache interface or a [PSR-6](https://packagist.org/providers/psr/cache-implementation) compliant cache adapter, APC(u) is not necessary. The [cache/filesystem-adapter](https://packagist.org/packages/cache/filesystem-adapter) is tried to be used if no APC(u) is installed. See also client [documentation](http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Client.html).
 
 The curl extension is recommended but not strictly necessary because the SDK is using the [Guzzle library](https://github.com/guzzle/guzzle) library, which falls back to PHP stream wrappers if curl is not available.
 The intl extension is required to directly output Money objects as a String.
@@ -116,9 +116,9 @@ xcode-select --install
 brew tap homebrew/dupes
 brew tap homebrew/versions
 brew tap homebrew/homebrew-php
-brew install php55
-brew install php55-intl
-brew install php55-xdebug
+brew install php56
+brew install php56-intl
+brew install php56-xdebug
 brew install ant
 # you probably also need to fix a (=any) timezone in your php.ini:
 echo "date.timezone='Europe/Berlin'" >> /usr/local/etc/php/5.6/conf.d/60-user.ini
