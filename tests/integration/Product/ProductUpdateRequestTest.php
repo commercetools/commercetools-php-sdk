@@ -51,6 +51,22 @@ use Commercetools\Core\Request\Products\ProductUpdateRequest;
 
 class ProductUpdateRequestTest extends ApiTestCase
 {
+    public function testCreatePublish()
+    {
+        $draft = $this->getDraft('create-publish');
+        $draft->setPublish(true);
+        $product = $this->createProduct($draft);
+
+        $this->assertTrue($product->getMasterData()->getPublished());
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductUnpublishAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+    }
+
     public function testChangeName()
     {
         $draft = $this->getDraft('change-name');

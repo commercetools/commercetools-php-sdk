@@ -464,6 +464,7 @@ productDraft:
     - taxCategory
     - searchKeywords
     - state
+    - publish
 
 productCatalogData:
   domain: product

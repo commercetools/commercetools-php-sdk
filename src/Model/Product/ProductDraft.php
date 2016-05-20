@@ -43,6 +43,8 @@ use Commercetools\Core\Model\State\StateReference;
  * @method ProductDraft setSearchKeywords(LocalizedSearchKeywords $searchKeywords = null)
  * @method StateReference getState()
  * @method ProductDraft setState(StateReference $state = null)
+ * @method true getPublish()
+ * @method ProductDraft setPublish(true $publish = null)
  */
 class ProductDraft extends JsonObject
 {
@@ -62,6 +64,7 @@ class ProductDraft extends JsonObject
             'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
             'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords'],
             'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'publish' => [static::TYPE => 'bool'],
         ];
     }
 
