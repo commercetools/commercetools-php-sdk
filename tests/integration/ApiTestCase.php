@@ -6,6 +6,8 @@
 namespace Commercetools\Core;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
@@ -65,6 +67,8 @@ use Commercetools\Core\Model\Zone\ZoneDraft;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteRequest;
+use Commercetools\Core\Request\Carts\CartCreateRequest;
+use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Categories\CategoryCreateRequest;
 use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
 use Commercetools\Core\Request\Channels\ChannelCreateRequest;
@@ -198,6 +202,10 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
      */
     private $channel;
 
+    /**
+     * @var Cart
+     */
+    private $cart;
 
     public function getTestRun()
     {
@@ -291,6 +299,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
             $this->cleanupRequests = [];
         }
 
+        $this->deleteCart();
         $this->deleteProduct();
         $this->deleteCustomer();
         $this->deleteCustomerGroup();
@@ -902,6 +911,42 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
             );
             $request->executeWithClient($this->getClient());
             $this->channel = null;
+        }
+    }
+
+    /**
+     * @return CartDraft
+     */
+    protected function getCartDraft()
+    {
+        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
+
+        return $draft;
+    }
+
+    protected function getCart(CartDraft $draft = null)
+    {
+        if (is_null($this->cart)) {
+            if (is_null($draft)) {
+                $draft = $this->getCartDraft();
+            }
+            $request = CartCreateRequest::ofDraft($draft);
+            $response = $request->executeWithClient($this->getClient());
+            $this->cart = $request->mapResponse($response);
+        }
+
+        return $this->cart;
+    }
+
+    protected function deleteCart()
+    {
+        if (!is_null($this->cart)) {
+            $request = CartDeleteRequest::ofIdAndVersion(
+                $this->cart->getId(),
+                $this->cart->getVersion()
+            );
+            $request->executeWithClient($this->getClient());
+            $this->cart = null;
         }
     }
 }

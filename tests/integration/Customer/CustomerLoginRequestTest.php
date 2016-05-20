@@ -10,7 +10,11 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Client;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
+use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Customer\CustomerDraft;
+use Commercetools\Core\Request\Carts\CartByIdGetRequest;
+use Commercetools\Core\Request\Carts\CartCreateRequest;
+use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Customers\CustomerByTokenGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
 use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
@@ -300,5 +304,80 @@ class CustomerLoginRequestTest extends ApiTestCase
 
         $forceRefreshToken = $client->getOauthManager()->refreshToken();
         $this->assertNotSame($token->getToken(), $forceRefreshToken->getToken());
+    }
+
+    public function testCartNewOnLogin()
+    {
+        $client = $this->getClient();
+
+        $customerDraft = $this->getCustomerDraft();
+        $customer = $this->createCustomer($customerDraft);
+
+        $customerCartDraft = $this->getCartDraft();
+        $customerCartDraft->setCustomerId($customer->getId());
+        $customerCart = $this->getCart($customerCartDraft);
+
+        $anonCartDraft = $this->getCartDraft();
+        $request = CartCreateRequest::ofDraft($anonCartDraft);
+        $response = $request->executeWithClient($client);
+        $anonCart = $request->mapResponse($response);
+
+        $request = CustomerLoginRequest::ofEmailAndPassword(
+            $customer->getEmail(),
+            $customerDraft->getPassword(),
+            $anonCart->getId()
+        )->setAnonymousCartSignInMode(CustomerLoginRequest::SIGN_IN_MODE_NEW);
+        $response = $request->executeWithClient($client);
+        $result = $request->mapResponse($response);
+
+        $loggedInCart = $result->getCart();
+
+        $request = CartDeleteRequest::ofIdAndVersion($loggedInCart->getId(), $loggedInCart->getVersion());
+        $request->executeWithClient($client);
+
+        $this->assertNotSame($customerCart->getId(), $loggedInCart->getId());
+        $this->assertSame($anonCart->getId(), $loggedInCart->getId());
+        $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
+        $this->assertSame(CartState::ACTIVE, $loggedInCart->getCartState());
+    }
+
+    public function testCartMergeOnLogin()
+    {
+        $client = $this->getClient();
+
+        $customerDraft = $this->getCustomerDraft();
+        $customer = $this->createCustomer($customerDraft);
+
+        $customerCartDraft = $this->getCartDraft();
+        $customerCartDraft->setCustomerId($customer->getId());
+        $customerCart = $this->getCart($customerCartDraft);
+
+        $anonCartDraft = $this->getCartDraft();
+        $request = CartCreateRequest::ofDraft($anonCartDraft);
+        $response = $request->executeWithClient($client);
+        $anonCart = $request->mapResponse($response);
+
+        $request = CustomerLoginRequest::ofEmailAndPassword(
+            $customer->getEmail(),
+            $customerDraft->getPassword(),
+            $anonCart->getId()
+        )->setAnonymousCartSignInMode(CustomerLoginRequest::SIGN_IN_MODE_MERGE);
+        $response = $request->executeWithClient($client);
+        $result = $request->mapResponse($response);
+
+        $loggedInCart = $result->getCart();
+
+        $request = CartByIdGetRequest::ofId($anonCart->getId());
+        $response = $request->executeWithClient($client);
+        $anonCart = $request->mapResponse($response);
+
+        $request = CartDeleteRequest::ofIdAndVersion($anonCart->getId(), $anonCart->getVersion());
+        $response = $request->executeWithClient($client);
+        $anonCart = $request->mapResponse($response);
+
+        $this->assertNotSame($anonCart->getId(), $loggedInCart->getId());
+        $this->assertSame($customerCart->getId(), $loggedInCart->getId());
+        $this->assertSame(CartState::MERGED, $anonCart->getCartState());
+        $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
     }
 }

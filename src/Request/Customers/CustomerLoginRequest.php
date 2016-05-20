@@ -25,6 +25,9 @@ class CustomerLoginRequest extends AbstractApiRequest
     const EMAIL = 'email';
     const PASSWORD = 'password';
     const ANONYMOUS_CART_ID = 'anonymousCartId';
+    const ANONYMOUS_CART_SIGN_IN_MODE = 'anonymousCartSignInMode';
+    const SIGN_IN_MODE_MERGE = 'MergeWithExistingCustomerCart';
+    const SIGN_IN_MODE_NEW = 'UseAsNewActiveCustomerCart';
 
     /**
      * @var string
@@ -41,6 +44,8 @@ class CustomerLoginRequest extends AbstractApiRequest
      */
     protected $anonymousCartId;
 
+    protected $anonymousCartSignInMode;
+
     protected $resultClass = '\Commercetools\Core\Model\Customer\CustomerSigninResult';
 
     /**
@@ -55,6 +60,82 @@ class CustomerLoginRequest extends AbstractApiRequest
         $this->email = $email;
         $this->password = $password;
         $this->anonymousCartId = $anonymousCartId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return $this
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     * @return $this
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAnonymousCartId()
+    {
+        return $this->anonymousCartId;
+    }
+
+    /**
+     * @param string $anonymousCartId
+     * @return $this
+     */
+    public function setAnonymousCartId($anonymousCartId)
+    {
+        $this->anonymousCartId = $anonymousCartId;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAnonymousCartSignInMode()
+    {
+        return $this->anonymousCartSignInMode;
+    }
+
+    /**
+     * @param mixed $anonymousCartSignInMode
+     * @return $this
+     */
+    public function setAnonymousCartSignInMode($anonymousCartSignInMode)
+    {
+        $this->anonymousCartSignInMode = $anonymousCartSignInMode;
+
+        return $this;
     }
 
     /**
@@ -81,6 +162,9 @@ class CustomerLoginRequest extends AbstractApiRequest
         ];
         if (!is_null($this->anonymousCartId)) {
             $payload[static::ANONYMOUS_CART_ID] = $this->anonymousCartId;
+        }
+        if (!is_null($this->anonymousCartSignInMode)) {
+            $payload[static::ANONYMOUS_CART_SIGN_IN_MODE] = $this->anonymousCartSignInMode;
         }
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }
