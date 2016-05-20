@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Request\Products;
 
+use Commercetools\Core\Request\Query\Parameter;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client;
 use Commercetools\Core\Model\Common\Collection;
@@ -71,6 +72,19 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
     protected function getProjectionAction()
     {
         return 'suggest';
+    }
+
+    /**
+     * @param bool $fuzzy
+     * @return $this
+     */
+    public function fuzzy($fuzzy)
+    {
+        if (!is_null($fuzzy)) {
+            $this->addParamObject(new Parameter('fuzzy', (bool)$fuzzy));
+        }
+
+        return $this;
     }
 
     /**
