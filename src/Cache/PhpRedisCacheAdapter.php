@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Cache;
 
 /**
+ * @deprecated use a PSR-6 cache adapter instead. Will be removed with v2.0
  * @package Commercetools\Core\Cache
  */
 class PhpRedisCacheAdapter extends AbstractCacheAdapter

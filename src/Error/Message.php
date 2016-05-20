@@ -16,7 +16,7 @@ class Message
     const NO_CLIENT_SECRET = 'No client secret set';
     const NO_PROJECT_ID = 'No project id set';
 
-    const INVALID_CACHE_ADAPTER = 'No valid CacheAdapterInterface found';
+    const INVALID_CACHE_ADAPTER = 'No valid CacheAdapter found';
 
     const NO_KEY_GIVEN = 'No key given';
 

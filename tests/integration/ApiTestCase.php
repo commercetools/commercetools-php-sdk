@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core;
 
+use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
@@ -93,6 +94,8 @@ use Commercetools\Core\Request\Types\TypeCreateRequest;
 use Commercetools\Core\Request\Types\TypeDeleteRequest;
 use Commercetools\Core\Request\Zones\ZoneCreateRequest;
 use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Psr\Log\LogLevel;
@@ -258,7 +261,12 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
             $logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
 
             $config = $this->getClientConfig($scope);
-            self::$client[$scope] = Client::ofConfigAndLogger($config, $logger);
+
+            $filesystemAdapter = new Local(realpath(__DIR__ . '/../..'));
+            $filesystem        = new Filesystem($filesystemAdapter);
+            $cache = new FilesystemCachePool($filesystem);
+
+            self::$client[$scope] = Client::ofConfigCacheAndLogger($config, $cache, $logger);
             self::$client[$scope]->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
             self::$client[$scope]->getHttpClient(['verify' => $this->getVerifySSL()]);
         }

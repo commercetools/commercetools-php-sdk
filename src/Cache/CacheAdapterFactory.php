@@ -6,9 +6,12 @@
 
 namespace Commercetools\Core\Cache;
 
+use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Doctrine\Common\Cache\Cache;
 use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\InvalidArgumentException;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
@@ -17,21 +20,19 @@ use Psr\Cache\CacheItemPoolInterface;
 class CacheAdapterFactory
 {
     /**
+     * @var string
+     */
+    private $cacheDir;
+
+    /**
      * @var array
      */
     protected $callbacks = [];
 
-    public function __construct()
+    public function __construct($cacheDir = null)
     {
+        $this->cacheDir = !is_null($cacheDir) ? $cacheDir : realpath(__DIR__ . '/../..');
         $this->registerCallback(
-            function ($cache) {
-                if ($cache instanceof CacheItemPoolInterface) {
-                    return new PsrCacheAdapter($cache);
-                }
-                return null;
-            }
-        )
-        ->registerCallback(
             function ($cache) {
                 if ($cache instanceof Cache) {
                     return new DoctrineCacheAdapter($cache);
@@ -66,7 +67,7 @@ class CacheAdapterFactory
      * returns the cache adapter interface for the application cache
      *
      * @param $cache
-     * @return CacheAdapterInterface
+     * @return CacheAdapterInterface|CacheItemPoolInterface
      * @throws \InvalidArgumentException
      */
     public function get($cache = null)
@@ -79,9 +80,13 @@ class CacheAdapterFactory
             return $cache;
         }
 
+        if ($cache instanceof CacheItemPoolInterface) {
+            return $cache;
+        }
+
         foreach ($this->callbacks as $callBack) {
             $result = call_user_func($callBack, $cache);
-            if ($result instanceof CacheAdapterInterface) {
+            if ($result instanceof CacheAdapterInterface || $result instanceof CacheItemPoolInterface) {
                 return $result;
             }
         }
@@ -102,6 +107,12 @@ class CacheAdapterFactory
 
         if (extension_loaded('apc')) {
             return new ApcCacheAdapter();
+        }
+
+        if (class_exists('\Cache\Adapter\Filesystem\FilesystemCachePool')) {
+            $filesystemAdapter = new Local($this->cacheDir);
+            $filesystem        = new Filesystem($filesystemAdapter);
+            return new FilesystemCachePool($filesystem);
         }
 
         return null;

@@ -8,6 +8,7 @@ namespace Commercetools\Core\Cache;
 
 /**
  * Interface CacheAdapterInterface
+ * @deprecated use a PSR-6 cache adapter instead. Will be removed with v2.0
  * @package Commercetools\Core\Cache
  */
 interface CacheAdapterInterface

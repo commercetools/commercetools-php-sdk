@@ -133,6 +133,11 @@ class Config implements ContextAwareInterface
     protected $refreshToken;
 
     /**
+     * @var string
+     */
+    protected $cacheDir;
+
+    /**
      * @param array $configValues
      * @return static
      */
@@ -484,6 +489,25 @@ class Config implements ContextAwareInterface
     public function setRefreshToken($refreshToken)
     {
         $this->refreshToken = $refreshToken;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCacheDir()
+    {
+        return $this->cacheDir;
+    }
+
+    /**
+     * @param string $cacheDir
+     * @return $this
+     */
+    public function setCacheDir($cacheDir)
+    {
+        $this->cacheDir = $cacheDir;
 
         return $this;
     }
