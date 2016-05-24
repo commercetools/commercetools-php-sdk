@@ -68,6 +68,14 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     }
 
     /**
+     * @return bool
+     */
+    public function hasActions()
+    {
+        return (0 !== count($this->actions));
+    }
+
+    /**
      * @param array $actions
      * @return $this
      */
