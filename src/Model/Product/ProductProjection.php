@@ -124,6 +124,9 @@ class ProductProjection extends JsonObject implements ReferenceObjectInterface
         return $this->getVariants()->getBySku($sku);
     }
 
+    /**
+     * @return ProductVariantCollection
+     */
     public function getAllVariants()
     {
         $variants = $this->getRaw('variants', []);
