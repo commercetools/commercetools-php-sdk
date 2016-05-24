@@ -8,9 +8,9 @@ namespace Commercetools\Core\Model\Product;
 use Commercetools\Core\Model\Common\AttributeCollection;
 use Commercetools\Core\Model\Common\ImageCollection;
 use Commercetools\Core\Model\Common\JsonObject;
-use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\PriceCollection;
 use Commercetools\Core\Model\Common\Price;
+use Commercetools\Core\Model\Common\ScopedPrice;
 
 /**
  * @package Commercetools\Core\Model\Product
@@ -31,6 +31,10 @@ use Commercetools\Core\Model\Common\Price;
  * @method ProductVariant setPrice(Price $price = null)
  * @method bool getIsMatchingVariant()
  * @method ProductVariant setIsMatchingVariant(bool $isMatchingVariant = null)
+ * @method ScopedPrice getScopedPrice()
+ * @method ProductVariant setScopedPrice(ScopedPrice $scopedPrice = null)
+ * @method bool getScopedPriceDiscounted()
+ * @method ProductVariant setScopedPriceDiscounted(bool $scopedPriceDiscounted = null)
  */
 class ProductVariant extends JsonObject
 {
@@ -44,7 +48,9 @@ class ProductVariant extends JsonObject
             'attributes' => [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
             'images' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageCollection'],
             'availability' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariantAvailability'],
-            'isMatchingVariant' => [static::TYPE => 'bool']
+            'isMatchingVariant' => [static::TYPE => 'bool'],
+            'scopedPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\ScopedPrice'],
+            'scopedPriceDiscounted' => [static::TYPE => 'bool'],
         ];
     }
 }

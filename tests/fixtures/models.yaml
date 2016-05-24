@@ -529,6 +529,8 @@ productVariant:
     - images
     - availability
     - isMatchingVariant
+    - scopedPrice
+    - scopedPriceDiscounted
 
 productVariantAvailability:
   domain: product
