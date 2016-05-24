@@ -34,16 +34,39 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method Money getCurrentValue()
  * @method ScopedPrice setCurrentValue(Money $currentValue = null)
  */
-class ScopedPrice extends Price
+class ScopedPrice extends JsonObject
 {
+    const ID = 'id';
+    const VALUE = 'value';
     const CURRENT_VALUE = 'currentValue';
+    const COUNTRY = 'country';
+    const CUSTOMER_GROUP = 'customerGroup';
+    const CHANNEL = 'channel';
+    const VALID_FROM = 'validFrom';
+    const VALID_UNTIL = 'validUntil';
+    const DISCOUNTED = 'discounted';
+    const CUSTOM = 'custom';
 
     public function fieldDefinitions()
     {
-        $definitions = parent::fieldDefinitions();
-        $definitions[static::CURRENT_VALUE] = [static::TYPE => '\Commercetools\Core\Model\Common\Money'];
-
-        return $definitions;
+        return [
+            static::ID => [static::TYPE => 'string'],
+            static::VALUE => [self::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            static::CURRENT_VALUE => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            static::COUNTRY => [self::TYPE => 'string'],
+            static::CUSTOMER_GROUP => [self::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
+            static::CHANNEL => [self::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            static::VALID_FROM => [
+                self::TYPE => '\DateTime',
+                self::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            static::VALID_UNTIL => [
+                self::TYPE => '\DateTime',
+                self::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+            ],
+            static::DISCOUNTED => [self::TYPE => '\Commercetools\Core\Model\Common\DiscountedPrice'],
+            static::CUSTOM => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+        ];
     }
 
     /**
