@@ -81,4 +81,14 @@ class ProductData extends JsonObject
 
         return $this->getVariants()->getBySku($sku);
     }
+
+    /**
+     * @return ProductVariantCollection
+     */
+    public function getAllVariants()
+    {
+        $variants = $this->getRaw('variants', []);
+        array_unshift($variants, $this->getRaw('masterVariant'));
+        return ProductVariantCollection::fromArray($variants, $this->getContextCallback());
+    }
 }
