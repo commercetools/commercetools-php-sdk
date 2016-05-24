@@ -538,7 +538,8 @@ productVariantAvailability:
   fields:
     - isOnStock
     - restockableInDays
-
+    - availableQuantity
+    - channels
 searchKeyword:
   domain: product
   model: SearchKeyword

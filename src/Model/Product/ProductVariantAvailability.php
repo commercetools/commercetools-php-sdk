@@ -14,6 +14,10 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method ProductVariantAvailability setIsOnStock(bool $isOnStock = null)
  * @method int getRestockableInDays()
  * @method ProductVariantAvailability setRestockableInDays(int $restockableInDays = null)
+ * @method int getAvailableQuantity()
+ * @method ProductVariantAvailability setAvailableQuantity(int $availableQuantity = null)
+ * @method ProductVariantAvailabilityCollection getChannels()
+ * @method ProductVariantAvailability setChannels(ProductVariantAvailabilityCollection $channels = null)
  */
 class ProductVariantAvailability extends JsonObject
 {
@@ -22,6 +26,8 @@ class ProductVariantAvailability extends JsonObject
         return [
             'isOnStock' => [static::TYPE => 'bool'],
             'restockableInDays' => [static::TYPE => 'int'],
+            'availableQuantity' => [static::TYPE => 'int'],
+            'channels' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariantAvailabilityCollection'],
         ];
     }
 }
