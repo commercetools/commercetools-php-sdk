@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#publish
+ * @link http://dev.commercetools.com/http-api-projects-products.html#move-image-to-position
  * @method string getAction()
  * @method ProductMoveImageToPositionAction setAction(string $action = null)
  * @method int getVariantId()
@@ -48,12 +48,24 @@ class ProductMoveImageToPositionAction extends AbstractAction
         $this->setAction('moveImageToPosition');
     }
 
-    public function ofVariantIdImageAndPosition($variantId, $image, $position)
+    /**
+     * @param $variantId
+     * @param $image
+     * @param $position
+     * @return ProductMoveImageToPositionAction
+     */
+    public static function ofVariantIdImageAndPosition($variantId, $image, $position)
     {
         return static::of()->setVariantId($variantId)->setImageUrl($image)->setPosition($position);
     }
 
-    public function ofSkuImageAndPosition($sku, $image, $position)
+    /**
+     * @param $sku
+     * @param $image
+     * @param $position
+     * @return ProductMoveImageToPositionAction
+     */
+    public static function ofSkuImageAndPosition($sku, $image, $position)
     {
         return static::of()->setSku($sku)->setImageUrl($image)->setPosition($position);
     }

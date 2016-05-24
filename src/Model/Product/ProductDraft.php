@@ -43,8 +43,8 @@ use Commercetools\Core\Model\State\StateReference;
  * @method ProductDraft setSearchKeywords(LocalizedSearchKeywords $searchKeywords = null)
  * @method StateReference getState()
  * @method ProductDraft setState(StateReference $state = null)
- * @method true getPublish()
- * @method ProductDraft setPublish(true $publish = null)
+ * @method bool getPublish()
+ * @method ProductDraft setPublish(bool $publish = null)
  */
 class ProductDraft extends JsonObject
 {
