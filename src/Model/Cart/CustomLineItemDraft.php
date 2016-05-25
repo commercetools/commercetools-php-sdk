@@ -12,6 +12,7 @@ use Commercetools\Core\Model\Order\ItemState;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -28,6 +29,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method CustomLineItemDraft setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method CustomFieldObject getCustom()
  * @method CustomLineItemDraft setCustom(CustomFieldObject $custom = null)
+ * @method ExternalTaxRateDraft getExternalTaxRate()
+ * @method CustomLineItemDraft setExternalTaxRate(ExternalTaxRateDraft $externalTaxRate = null)
  */
 class CustomLineItemDraft extends JsonObject
 {
@@ -39,6 +42,7 @@ class CustomLineItemDraft extends JsonObject
             'slug' => [static::TYPE => 'string'],
             'quantity' => [static::TYPE => 'int'],
             'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
+            'externalTaxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }

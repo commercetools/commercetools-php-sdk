@@ -363,7 +363,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction',
-                ['action', 'name', 'quantity', 'money', 'slug', 'taxCategory', 'custom']
+                ['action', 'name', 'quantity', 'money', 'slug', 'taxCategory', 'custom', 'externalTaxRate']
             ],
             [
                 '\Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction',
@@ -371,7 +371,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Carts\Command\CartAddLineItemAction',
-                ['action', 'productId', 'variantId', 'quantity', 'supplyChannel', 'distributionChannel', 'custom']
+                ['action', 'productId', 'variantId', 'quantity', 'supplyChannel', 'distributionChannel', 'custom', 'externalTaxRate']
             ],
             [
                 '\Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',
@@ -419,7 +419,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction',
-                ['action', 'shippingMethodName', 'shippingRate', 'taxCategory']
+                ['action', 'shippingMethodName', 'shippingRate', 'taxCategory', 'externalTaxRate']
             ],
             [
                 '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeCartPredicateAction',

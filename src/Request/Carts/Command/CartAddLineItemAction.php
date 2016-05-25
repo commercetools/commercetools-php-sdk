@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
@@ -27,6 +28,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method CartAddLineItemAction setDistributionChannel(ChannelReference $distributionChannel = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method CartAddLineItemAction setCustom(CustomFieldObjectDraft $custom = null)
+ * @method ExternalTaxRateDraft getExternalTaxRate()
+ * @method CartAddLineItemAction setExternalTaxRate(ExternalTaxRateDraft $externalTaxRate = null)
  */
 class CartAddLineItemAction extends AbstractAction
 {
@@ -40,6 +43,7 @@ class CartAddLineItemAction extends AbstractAction
             'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
             'distributionChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'externalTaxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft'],
         ];
     }
 

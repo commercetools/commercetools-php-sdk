@@ -22,6 +22,8 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method TaxRate setCountry(string $country = null)
  * @method string getState()
  * @method TaxRate setState(string $state = null)
+ * @method SubRateCollection getSubRates()
+ * @method TaxRate setSubRates(SubRateCollection $subRates = null)
  */
 class TaxRate extends JsonObject
 {
@@ -33,7 +35,8 @@ class TaxRate extends JsonObject
             'amount' => [self::TYPE => 'float'],
             'includedInPrice' => [self::TYPE => 'bool'],
             'country' => [self::TYPE => 'string'],
-            'state' => [self::TYPE => 'string']
+            'state' => [self::TYPE => 'string'],
+            'subRates' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\SubRateCollection']
         ];
     }
 }
