@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Carts\Command;
 
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
@@ -13,8 +14,6 @@ use Commercetools\Core\Request\AbstractAction;
  * @link http://dev.commercetools.com/http-api-projects-carts.html#set-customlineitem-taxrate
  * @method string getAction()
  * @method CartSetCustomLineItemTaxRateAction setAction(string $action = null)
- * @method string getLineItemId()
- * @method CartRemoveLineItemAction setLineItemId(string $lineItemId = null)
  * @method string getCustomLineItemId()
  * @method CartSetCustomLineItemTaxRateAction setCustomLineItemId(string $customLineItemId = null)
  * @method ExternalTaxRateDraft getExternalTaxRate()
@@ -27,7 +26,7 @@ class CartSetCustomLineItemTaxRateAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'customLineItemId' => [static::TYPE => 'string'],
-            'externalTaxRate' => [static::TYPE => 'ExternalTaxRateDraft'],
+            'externalTaxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft'],
         ];
     }
 
@@ -44,10 +43,10 @@ class CartSetCustomLineItemTaxRateAction extends AbstractAction
     /**
      * @param $lineItemId
      * @param Context|callable $context
-     * @return CartRemoveLineItemAction
+     * @return CartSetCustomLineItemTaxRateAction
      */
-    public static function ofLineItemId($lineItemId, $context = null)
+    public static function ofCustomLineItemId($lineItemId, $context = null)
     {
-        return static::of($context)->setLineItemId($lineItemId);
+        return static::of($context)->setCustomLineItemId($lineItemId);
     }
 }

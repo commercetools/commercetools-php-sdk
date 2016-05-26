@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Carts\Command;
 
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
@@ -25,7 +26,7 @@ class CartSetLineItemTaxRateAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'lineItemId' => [static::TYPE => 'string'],
-            'externalTaxRate' => [static::TYPE => 'ExternalTaxRateDraft'],
+            'externalTaxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft'],
         ];
     }
 
@@ -42,7 +43,7 @@ class CartSetLineItemTaxRateAction extends AbstractAction
     /**
      * @param $lineItemId
      * @param Context|callable $context
-     * @return CartRemoveLineItemAction
+     * @return CartSetLineItemTaxRateAction
      */
     public static function ofLineItemId($lineItemId, $context = null)
     {

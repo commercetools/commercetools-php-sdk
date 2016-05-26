@@ -14,6 +14,9 @@ use Commercetools\Core\Model\Cart\CustomLineItem;
 use Commercetools\Core\Model\Cart\CustomLineItemCollection;
 use Commercetools\Core\Model\Cart\CustomLineItemDraft;
 use Commercetools\Core\Model\Cart\CustomLineItemDraftCollection;
+use Commercetools\Core\Model\Cart\LineItemCollection;
+use Commercetools\Core\Model\Cart\LineItemDraft;
+use Commercetools\Core\Model\Cart\LineItemDraftCollection;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
@@ -33,6 +36,7 @@ use Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartAddPaymentAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction;
+use Commercetools\Core\Request\Carts\Command\CartChangeTaxModeAction;
 use Commercetools\Core\Request\Carts\Command\CartRecalculateAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveDiscountCodeAction;
@@ -44,11 +48,14 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemTaxRateAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxRateAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxRateAction;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
@@ -354,6 +361,168 @@ class CartTaxModeTest extends ApiTestCase
         }
         $this->assertContains($subRate1, $subRates);
         $this->assertContains($subRate2, $subRates);
+    }
+
+    public function testSetCustomLineItemExternalTaxRate()
+    {
+        $draft = $this->getDraft();
+        $draft->setCustomLineItems(
+            CustomLineItemDraftCollection::of()->add(
+                CustomLineItemDraft::of()
+                    ->setName(LocalizedString::ofLangAndText('en', 'Test'))
+                    ->setQuantity(1)
+                    ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                    ->setSlug('test')
+            )
+        );
+        $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL);
+        $cart = $this->createCart($draft);
+
+        $taxRateName = 'test';
+        $taxRateCountry = 'DE';
+        $taxRate = 0.1;
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartSetCustomLineItemTaxRateAction::ofCustomLineItemId($cart->getCustomLineItems()->current()->getId())
+                    ->setExternalTaxRate(
+                        ExternalTaxRateDraft::ofNameCountryAndAmount(
+                            $taxRateName,
+                            $taxRateCountry,
+                            $taxRate
+                        )
+                    )
+            )
+        ;
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($taxRateName, $cart->getCustomLineItems()->current()->getTaxRate()->getName());
+        $this->assertSame($taxRateCountry, $cart->getCustomLineItems()->current()->getTaxRate()->getCountry());
+        $this->assertSame($taxRate, $cart->getCustomLineItems()->current()->getTaxRate()->getAmount());
+    }
+
+    public function testSetLineItemExternalTaxRate()
+    {
+        $product = $this->getProduct();
+        
+        $draft = $this->getDraft();
+        $draft->setLineItems(
+            LineItemDraftCollection::of()->add(
+                LineItemDraft::of()
+                    ->setProductId($product->getId())
+                    ->setQuantity(1)
+                    ->setVariantId($product->getMasterData()->getCurrent()->getMasterVariant()->getId())
+            )
+        );
+        $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL);
+        $cart = $this->createCart($draft);
+
+        $taxRateName = 'test';
+        $taxRateCountry = 'DE';
+        $taxRate = 0.1;
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartSetLineItemTaxRateAction::ofLineItemId($cart->getLineItems()->current()->getId())
+                    ->setExternalTaxRate(
+                        ExternalTaxRateDraft::ofNameCountryAndAmount(
+                            $taxRateName,
+                            $taxRateCountry,
+                            $taxRate
+                        )
+                    )
+            )
+        ;
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($taxRateName, $cart->getLineItems()->current()->getTaxRate()->getName());
+        $this->assertSame($taxRateCountry, $cart->getLineItems()->current()->getTaxRate()->getCountry());
+        $this->assertSame($taxRate, $cart->getLineItems()->current()->getTaxRate()->getAmount());
+    }
+
+    public function testSetShippingMethodExternalTaxRate()
+    {
+        $shippingMethod = $this->getShippingMethod();
+
+        $draft = $this->getDraft();
+        $draft->setShippingAddress(Address::of()->setCountry('DE')->setState($this->getRegion()));
+        $draft->setShippingMethod(
+            $shippingMethod->getReference()
+        );
+        $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL);
+        $cart = $this->createCart($draft);
+
+        $taxRateName = 'test';
+        $taxRateCountry = 'DE';
+        $taxRate = 0.1;
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartSetShippingMethodTaxRateAction::of()
+                    ->setExternalTaxRate(
+                        ExternalTaxRateDraft::ofNameCountryAndAmount(
+                            $taxRateName,
+                            $taxRateCountry,
+                            $taxRate
+                        )
+                    )
+            )
+        ;
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($taxRateName, $cart->getShippingInfo()->getTaxRate()->getName());
+        $this->assertSame($taxRateCountry, $cart->getShippingInfo()->getTaxRate()->getCountry());
+        $this->assertSame($taxRate, $cart->getShippingInfo()->getTaxRate()->getAmount());
+    }
+
+    public function testChangeTaxMode()
+    {
+        $product = $this->getProduct();
+        $draft = $this->getDraft();
+
+        $taxRateName = 'test';
+        $taxRateCountry = 'DE';
+        $taxRate = 0.1;
+
+        $draft->setLineItems(
+            LineItemDraftCollection::of()->add(
+                LineItemDraft::of()
+                    ->setProductId($product->getId())
+                    ->setQuantity(1)
+                    ->setVariantId($product->getMasterData()->getCurrent()->getMasterVariant()->getId())
+                    ->setExternalTaxRate(
+                        ExternalTaxRateDraft::ofNameCountryAndAmount(
+                            $taxRateName,
+                            $taxRateCountry,
+                            $taxRate
+                        )
+                    )
+            )
+        );
+        $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL);
+        $cart = $this->createCart($draft);
+
+        $this->assertSame($taxRateName, $cart->getLineItems()->current()->getTaxRate()->getName());
+        $this->assertSame($taxRateCountry, $cart->getLineItems()->current()->getTaxRate()->getCountry());
+        $this->assertSame($taxRate, $cart->getLineItems()->current()->getTaxRate()->getAmount());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartChangeTaxModeAction::of()->setTaxMode(Cart::TAX_MODE_PLATFORM)
+            )
+        ;
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertNull($cart->getLineItems()->current()->getTaxRate());
     }
 
     /**
