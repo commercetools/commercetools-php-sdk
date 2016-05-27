@@ -109,6 +109,23 @@ class TypeUpdateRequestTest extends ApiTestCase
         $this->assertSame($key, $result->getKey());
     }
 
+    public function testChangeKeyLength()
+    {
+        $draft = $this->getDraft('change-key');
+        $type = $this->createType($draft);
+
+        $key = str_pad('new-' . $this->getTestRun(), 256, '0');
+        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
+            ->addAction(TypeChangeKeyAction::ofKey($key))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result);
+        $this->assertSame($key, $result->getKey());
+    }
+
     public function testChangeName()
     {
         $draft = $this->getDraft('change-name');
