@@ -567,11 +567,11 @@ logging provide a PSR-3 compliant logger (e.g. Monolog).</p>
 
 <h3>Using a cache adapter</h3>
 
-<p>The client will automatically request an OAuth token and store the token in the APCu cache, which should be the
-fastest option as there is no network or socket interface used.</p>
+<p>The client will automatically request an OAuth token and store the token in the provided cache.</p>
 
 <p>It's also possible to use a different cache adapter. The SDK provides a Doctrine, a Redis and an APCu cache adapter.
-By default the SDK tries to instantiate the APCu cache adapter if there is no cache given. E.g. Redis:</p>
+By default the SDK tries to instantiate the APCu or a PSR-6 filesystem cache adapter if there is no cache given.
+E.g. Redis:</p>
 
 <pre><span class="php-var">$redis</span> = <span class="php-keyword1">new</span> \Redis();
 <span class="php-var">$redis</span>-&gt;connect(<span class="php-quote">'localhost'</span>);
@@ -1175,7 +1175,7 @@ By default the SDK tries to instantiate the APCu cache adapter if there is no ca
                 <td class="value">
                     <div>
                         <a href="#VERSION" class="anchor">#</a>
-                        <code><span class="php-quote">'1.0.1'</span></code>
+                        <code><span class="php-quote">'1.1'</span></code>
                     </div>
                 </td>
 			</tr>

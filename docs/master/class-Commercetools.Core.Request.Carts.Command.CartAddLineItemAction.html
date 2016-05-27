@@ -462,6 +462,7 @@
 				<li class="active"><a href="class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html">CartAddLineItemAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartAddPaymentAction.html">CartAddPaymentAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartChangeLineItemQuantityAction.html">CartChangeLineItemQuantityAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartChangeTaxModeAction.html">CartChangeTaxModeAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartRecalculateAction.html">CartRecalculateAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartRemoveCustomLineItemAction.html">CartRemoveCustomLineItemAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartRemoveDiscountCodeAction.html">CartRemoveDiscountCodeAction</a></li>
@@ -473,11 +474,14 @@
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetCustomerIdAction.html">CartSetCustomerIdAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetCustomLineItemCustomFieldAction.html">CartSetCustomLineItemCustomFieldAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetCustomLineItemCustomTypeAction.html">CartSetCustomLineItemCustomTypeAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetCustomLineItemTaxRateAction.html">CartSetCustomLineItemTaxRateAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetCustomShippingMethodAction.html">CartSetCustomShippingMethodAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetLineItemCustomFieldAction.html">CartSetLineItemCustomFieldAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetLineItemCustomTypeAction.html">CartSetLineItemCustomTypeAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetLineItemTaxRateAction.html">CartSetLineItemTaxRateAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetShippingAddressAction.html">CartSetShippingAddressAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetShippingMethodAction.html">CartSetShippingMethodAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetShippingMethodTaxRateAction.html">CartSetShippingMethodTaxRateAction</a></li>
 			</ul>
 
 
@@ -550,7 +554,7 @@
             <tr><th>Namespace</th><td><a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Request.html">Request</a>\<a href="namespace-Commercetools.Core.Request.Carts.html">Carts</a>\<a href="namespace-Commercetools.Core.Request.Carts.Command.html">Command</a></td></tr>
             <tr><th>Package</th><td>Commercetools\Core\Request\Carts\Command</td></tr>
 
-                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#13-67" title="Go to source code">Request/Carts/Command/CartAddLineItemAction.php</a></td></tr>
+                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#14-71" title="Go to source code">Request/Carts/Command/CartAddLineItemAction.php</a></td></tr>
 
                     <tr><th>API documentation</th><td>
                     <b><a href="https://dev.commercetools.com/http-api-projects-carts.html#add-line-item" target="api-doc">https://dev.commercetools.com/http-api-projects-carts.html#add-line-item</a></b></span></td></tr>
@@ -573,7 +577,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofProductIdVariantIdAndQuantity">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#46-56" title="Go to source code">ofProductIdVariantIdAndQuantity</a>( <span>string <var>$productId</var></span>, <span>integer <var>$variantId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$quantity</var></span>, <span>integer <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#50-60" title="Go to source code">ofProductIdVariantIdAndQuantity</a>( <span>string <var>$productId</var></span>, <span>integer <var>$variantId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$quantity</var></span>, <span>integer <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -617,7 +621,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#58-66" title="Go to source code">__construct</a>( <span>array <var>$data</var> = []</span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#62-70" title="Go to source code">__construct</a>( <span>array <var>$data</var> = []</span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -657,7 +661,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getAction">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#16" title="Go to source code">getAction</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#17" title="Go to source code">getAction</a>( )</code>
 
 			<div class="description short">
 				
@@ -692,7 +696,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setAction">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#17" title="Go to source code">setAction</a>( <span>string <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#18" title="Go to source code">setAction</a>( <span>string <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -730,7 +734,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getProductId">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#18" title="Go to source code">getProductId</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#19" title="Go to source code">getProductId</a>( )</code>
 
 			<div class="description short">
 				
@@ -763,7 +767,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setProductId">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#19" title="Go to source code">setProductId</a>( <span>string <var>$productId</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#20" title="Go to source code">setProductId</a>( <span>string <var>$productId</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -801,7 +805,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getVariantId">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#20" title="Go to source code">getVariantId</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#21" title="Go to source code">getVariantId</a>( )</code>
 
 			<div class="description short">
 				
@@ -834,7 +838,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setVariantId">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#21" title="Go to source code">setVariantId</a>( <span>integer <var>$variantId</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#22" title="Go to source code">setVariantId</a>( <span>integer <var>$variantId</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -872,7 +876,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getQuantity">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#22" title="Go to source code">getQuantity</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#23" title="Go to source code">getQuantity</a>( )</code>
 
 			<div class="description short">
 				
@@ -905,7 +909,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setQuantity">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#23" title="Go to source code">setQuantity</a>( <span>integer <var>$quantity</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#24" title="Go to source code">setQuantity</a>( <span>integer <var>$quantity</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -943,7 +947,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getSupplyChannel">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#24" title="Go to source code">getSupplyChannel</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#25" title="Go to source code">getSupplyChannel</a>( )</code>
 
 			<div class="description short">
 				
@@ -976,7 +980,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setSupplyChannel">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#25" title="Go to source code">setSupplyChannel</a>( <span><code><a href="class-Commercetools.Core.Model.Channel.ChannelReference.html">Commercetools\Core\Model\Channel\ChannelReference</a></code> <var>$supplyChannel</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#26" title="Go to source code">setSupplyChannel</a>( <span><code><a href="class-Commercetools.Core.Model.Channel.ChannelReference.html">Commercetools\Core\Model\Channel\ChannelReference</a></code> <var>$supplyChannel</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1014,7 +1018,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getDistributionChannel">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#26" title="Go to source code">getDistributionChannel</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#27" title="Go to source code">getDistributionChannel</a>( )</code>
 
 			<div class="description short">
 				
@@ -1047,7 +1051,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setDistributionChannel">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#27" title="Go to source code">setDistributionChannel</a>( <span><code><a href="class-Commercetools.Core.Model.Channel.ChannelReference.html">Commercetools\Core\Model\Channel\ChannelReference</a></code> <var>$distributionChannel</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#28" title="Go to source code">setDistributionChannel</a>( <span><code><a href="class-Commercetools.Core.Model.Channel.ChannelReference.html">Commercetools\Core\Model\Channel\ChannelReference</a></code> <var>$distributionChannel</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1085,7 +1089,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getCustom">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#28" title="Go to source code">getCustom</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#29" title="Go to source code">getCustom</a>( )</code>
 
 			<div class="description short">
 				
@@ -1118,7 +1122,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setCustom">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#29" title="Go to source code">setCustom</a>( <span><code><a href="class-Commercetools.Core.Model.CustomField.CustomFieldObjectDraft.html">Commercetools\Core\Model\CustomField\CustomFieldObjectDraft</a></code> <var>$custom</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#30" title="Go to source code">setCustom</a>( <span><code><a href="class-Commercetools.Core.Model.CustomField.CustomFieldObjectDraft.html">Commercetools\Core\Model\CustomField\CustomFieldObjectDraft</a></code> <var>$custom</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1131,6 +1135,77 @@
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$custom</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html">Commercetools\Core\Request\Carts\Command\CartAddLineItemAction</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getExternalTaxRate" id="m_getExternalTaxRate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.TaxCategory.ExternalTaxRateDraft.html">Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getExternalTaxRate">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#31" title="Go to source code">getExternalTaxRate</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.TaxCategory.ExternalTaxRateDraft.html">Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setExternalTaxRate" id="m_setExternalTaxRate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html">Commercetools\Core\Request\Carts\Command\CartAddLineItemAction</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setExternalTaxRate">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html#32" title="Go to source code">setExternalTaxRate</a>( <span><code><a href="class-Commercetools.Core.Model.TaxCategory.ExternalTaxRateDraft.html">Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft</a></code> <var>$externalTaxRate</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$externalTaxRate</var></dt>
 						<dd></dd>
 					</dl></div>
 
@@ -1176,6 +1251,44 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="hasField" id="_hasField">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_hasField">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Common.JsonObject.html#83-90" title="Go to source code">hasField</a>( <span> <var>$field</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$field</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="isOptional" id="_isOptional">
 
 			<td class="attributes"><code>
@@ -1187,7 +1300,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_isOptional">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Common.JsonObject.html#174-177" title="Go to source code">isOptional</a>( <span> <var>$field</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Common.JsonObject.html#183-186" title="Go to source code">isOptional</a>( <span> <var>$field</var></span> )</code>
 
 			<div class="description short">
 				
