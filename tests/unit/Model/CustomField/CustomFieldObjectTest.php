@@ -159,4 +159,14 @@ class CustomFieldObjectTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertJsonStringEqualsJsonString(json_encode($value), json_encode($field));
     }
+
+
+    public function testHasField()
+    {
+        $container = FieldContainer::of();
+        $this->assertFalse($container->hasField('test'));
+
+        $container->set('test', 1234);
+        $this->assertTrue($container->hasField('test'));
+    }
 }

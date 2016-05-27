@@ -57,7 +57,7 @@ class FieldContainer extends JsonObject
         return parent::set($field, $value);
     }
 
-    public function hasField($field)
+    protected function isValidField($field)
     {
         return true;
     }

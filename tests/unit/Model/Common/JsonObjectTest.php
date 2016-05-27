@@ -251,4 +251,18 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($obj->isOptional('optional'));
         $this->assertFalse($obj->isOptional('required'));
     }
+
+    public function testHasField()
+    {
+        $obj = JsonObject::fromArray(['test' => 1234]);
+
+        $this->assertTrue($obj->hasField('test'));
+    }
+
+    public function testNotHasField()
+    {
+        $obj = JsonObject::fromArray([]);
+
+        $this->assertFalse($obj->hasField('test'));
+    }
 }
