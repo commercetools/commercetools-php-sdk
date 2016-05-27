@@ -36,6 +36,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method CartDraft setShippingMethod(ShippingMethodReference $shippingMethod = null)
  * @method CustomLineItemDraftCollection getCustomLineItems()
  * @method CartDraft setCustomLineItems(CustomLineItemDraftCollection $customLineItems = null)
+ * @method string getTaxMode()
+ * @method CartDraft setTaxMode(string $taxMode = null)
  */
 class CartDraft extends JsonObject
 {
@@ -53,6 +55,7 @@ class CartDraft extends JsonObject
             'billingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
             'shippingMethod' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingMethodReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'taxMode' => [static::TYPE => 'string'],
         ];
     }
 

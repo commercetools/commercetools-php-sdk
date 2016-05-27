@@ -22,7 +22,7 @@ cart:
     - discountCodes
     - custom
     - paymentInfo
-
+    - taxMode
 lineItem:
   domain: cart
   model: LineItem
@@ -74,6 +74,7 @@ taxPortion:
   fields:
     - rate
     - amount
+    - name
 
 shippingInfo:
   domain: cart
@@ -648,6 +649,7 @@ taxRate:
     - includedInPrice
     - country
     - state
+    - subRates
 
 channel:
   domain: channel

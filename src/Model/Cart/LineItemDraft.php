@@ -15,6 +15,7 @@ use Commercetools\Core\Model\Order\ItemStateCollection;
 use Commercetools\Core\Model\Product\ProductVariant;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -31,6 +32,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method LineItemDraft setDistributionChannel(ChannelReference $distributionChannel = null)
  * @method CustomFieldObject getCustom()
  * @method LineItemDraft setCustom(CustomFieldObject $custom = null)
+ * @method ExternalTaxRateDraft getExternalTaxRate()
+ * @method LineItemDraft setExternalTaxRate(ExternalTaxRateDraft $externalTaxRate = null)
  */
 class LineItemDraft extends JsonObject
 {
@@ -42,6 +45,7 @@ class LineItemDraft extends JsonObject
             'quantity' => [static::TYPE => 'int'],
             'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
             'distributionChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            'externalTaxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }

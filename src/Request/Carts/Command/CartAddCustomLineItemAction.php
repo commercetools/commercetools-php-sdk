@@ -12,6 +12,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
@@ -30,6 +31,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method CartAddCustomLineItemAction setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method CartAddCustomLineItemAction setCustom(CustomFieldObjectDraft $custom = null)
+ * @method ExternalTaxRateDraft getExternalTaxRate()
+ * @method CartAddCustomLineItemAction setExternalTaxRate(ExternalTaxRateDraft $externalTaxRate = null)
  */
 class CartAddCustomLineItemAction extends AbstractAction
 {
@@ -43,6 +46,7 @@ class CartAddCustomLineItemAction extends AbstractAction
             'slug' => [static::TYPE => 'string'],
             'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'externalTaxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft'],
         ];
     }
 
@@ -79,5 +83,21 @@ class CartAddCustomLineItemAction extends AbstractAction
             ->setMoney($money)
             ->setSlug($slug)
             ->setTaxCategory($taxCategory);
+    }
+
+    public static function ofNameQuantityMoneySlugAndExternalTaxRate(
+        LocalizedString $name,
+        $quantity,
+        Money $money,
+        $slug,
+        ExternalTaxRateDraft $externalTaxRate,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setName($name)
+            ->setQuantity($quantity)
+            ->setMoney($money)
+            ->setSlug($slug)
+            ->setExternalTaxRate($externalTaxRate);
     }
 }

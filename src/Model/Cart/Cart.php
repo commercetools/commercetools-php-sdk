@@ -57,10 +57,16 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method Cart setCustom(CustomFieldObject $custom = null)
  * @method PaymentInfo getPaymentInfo()
  * @method Cart setPaymentInfo(PaymentInfo $paymentInfo = null)
+ * @method string getTaxMode()
+ * @method Cart setTaxMode(string $taxMode = null)
  * @method CartReference getReference()
  */
 class Cart extends Resource
 {
+    const TAX_MODE_PLATFORM = 'Platform';
+    const TAX_MODE_EXTERNAL = 'External';
+    const TAX_MODE_DISABLED = 'Disabled';
+
     public function fieldDefinitions()
     {
         return [
@@ -90,6 +96,7 @@ class Cart extends Resource
             'discountCodes' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountCodeInfoCollection'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
             'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentInfo'],
+            'taxMode' => [static::TYPE => 'string'],
         ];
     }
 
