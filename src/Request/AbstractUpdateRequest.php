@@ -21,6 +21,8 @@ use Commercetools\Core\Error\UpdateActionLimitException;
  */
 abstract class AbstractUpdateRequest extends AbstractApiRequest
 {
+    use ExpandTrait;
+
     const ACTION = 'action';
     const ACTIONS = 'actions';
     const VERSION = 'version';
@@ -63,6 +65,14 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     public function getActions()
     {
         return $this->actions;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasActions()
+    {
+        return (0 !== count($this->actions));
     }
 
     /**
@@ -178,7 +188,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/' . $this->getId();
+        return (string)$this->getEndpoint() . '/' . $this->getId()  . $this->getParamString();
     }
 
     /**

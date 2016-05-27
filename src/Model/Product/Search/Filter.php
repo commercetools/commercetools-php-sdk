@@ -57,7 +57,10 @@ class Filter implements FilterInterface
      */
     protected function valueToString($value)
     {
-        if (is_int($value) || is_float($value)) {
+        if (is_int($value)) {
+            return $value;
+        }
+        if (is_float($value)) {
             return $value;
         }
         if (is_bool($value)) {

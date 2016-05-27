@@ -344,4 +344,20 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $this->assertSame($value, $result->getCustom()->getFields()->getTestField());
         $this->assertNotSame($review->getVersion(), $result->getVersion());
     }
+
+    public function testReferenceExpansion()
+    {
+        $customer = $this->getCustomer();
+        $draft = $this->getDraft('update-reference-expansion');
+        $draft->setCustomer($customer->getReference());
+        $review = $this->createReview($draft);
+
+        $request = ReviewUpdateByKeyRequest::ofKeyAndVersion($review->getKey(), $review->getVersion());
+        $request->expand('customer.id');
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Customer\Customer', $result->getCustomer()->getObj());
+    }
 }

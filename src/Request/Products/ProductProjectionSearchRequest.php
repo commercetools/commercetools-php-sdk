@@ -140,7 +140,7 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     }
 
     /**
-     * @param $fuzzy
+     * @param bool $fuzzy
      * @return $this
      */
     public function fuzzy($fuzzy)

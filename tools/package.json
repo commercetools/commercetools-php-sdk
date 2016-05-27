@@ -1,6 +1,6 @@
 {
   "name": "commercetools-php-sdk-changelog",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "commercetools PHP SDK changelog generator package description",
   "homepage": "https://github.com/sphereio/commercetools-php-sdk",
   "bugs": "https://github.com/sphereio/commercetools-php-sdk/issues",

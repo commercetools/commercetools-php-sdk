@@ -21,6 +21,7 @@ use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Request\Products\Command\ProductAddPriceAction;
 use Commercetools\Core\Request\Products\Command\ProductAddToCategoryAction;
 use Commercetools\Core\Request\Products\Command\ProductAddVariantAction;
+use Commercetools\Core\Request\Products\Command\ProductChangeMasterVariantAction;
 use Commercetools\Core\Request\Products\Command\ProductChangeNameAction;
 use Commercetools\Core\Request\Products\Command\ProductChangePriceAction;
 use Commercetools\Core\Request\Products\Command\ProductChangeSlugAction;
@@ -51,6 +52,22 @@ use Commercetools\Core\Request\Products\ProductUpdateRequest;
 
 class ProductUpdateRequestTest extends ApiTestCase
 {
+    public function testCreatePublish()
+    {
+        $draft = $this->getDraft('create-publish');
+        $draft->setPublish(true);
+        $product = $this->createProduct($draft);
+
+        $this->assertTrue($product->getMasterData()->getPublished());
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductUnpublishAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+    }
+
     public function testChangeName()
     {
         $draft = $this->getDraft('change-name');
@@ -154,6 +171,67 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
         $this->assertEmpty($result->getMasterData()->getStaged()->getVariants());
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
+    public function testChangeMasterVariant()
+    {
+        $draft = $this->getDraft('change-master-variant');
+        $draft->setMasterVariant(ProductVariantDraft::of()->setSku($this->getTestRun() . '-master-sku'));
+        $product = $this->createProduct($draft);
+
+        $sku = $this->getTestRun() . '-sku';
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductAddVariantAction::of()->setSku($sku)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
+        $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $masterVariantSku =  $result->getMasterData()->getStaged()->getMasterVariant()->getSku();
+        $variantSku =  $result->getMasterData()->getStaged()->getVariants()->current()->getSku();
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductChangeMasterVariantAction::ofVariantId(
+                    $result->getMasterData()->getStaged()->getVariants()->current()->getId()
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
+        $this->assertSame($masterVariantSku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
+        $this->assertSame($variantSku, $result->getMasterData()->getStaged()->getMasterVariant()->getSku());
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductChangeMasterVariantAction::ofSku(
+                    $result->getMasterData()->getStaged()->getVariants()->current()->getSku()
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
+        $this->assertSame($variantSku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
+        $this->assertSame($masterVariantSku, $result->getMasterData()->getStaged()->getMasterVariant()->getSku());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
@@ -1046,6 +1124,48 @@ class ProductUpdateRequestTest extends ApiTestCase
             $variant->getPrices()->current()->getCustom()->getFields()->getTestField()
         );
         $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
+    public function testReferenceExpansion()
+    {
+        $draft = $this->getDraft('update-reference-expansion');
+
+        $request = ProductCreateRequest::ofDraft($draft);
+        $request->expand('productType.id');
+        $response = $request->executeWithClient($this->getClient());
+        $product = $request->mapResponse($response);
+
+        $this->cleanupRequests[] = $this->deleteRequest = ProductDeleteRequest::ofIdAndVersion(
+            $product->getId(),
+            $product->getVersion()
+        );
+
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Model\ProductType\ProductType',
+            $product->getProductType()->getObj()
+        );
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion());
+        $request->expand('productType.id');
+        $response = $request->executeWithClient($this->getClient());
+        $product = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($product->getVersion());
+
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Model\ProductType\ProductType',
+            $product->getProductType()->getObj()
+        );
+
+        $request = ProductDeleteRequest::ofIdAndVersion($product->getId(), $product->getVersion());
+        $request->expand('productType.id');
+        $response = $request->executeWithClient($this->getClient());
+        $product = $request->mapResponse($response);
+
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Model\ProductType\ProductType',
+            $product->getProductType()->getObj()
+        );
+        array_pop($this->cleanupRequests);
     }
 
     /**

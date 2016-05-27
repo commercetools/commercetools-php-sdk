@@ -20,6 +20,8 @@ use Commercetools\Core\Response\ResourceResponse;
  */
 abstract class AbstractCreateRequest extends AbstractApiRequest
 {
+    use ExpandTrait;
+
     /**
      * @var mixed
      */

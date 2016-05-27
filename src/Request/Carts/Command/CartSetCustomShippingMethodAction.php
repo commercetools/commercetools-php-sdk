@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
+use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
@@ -21,6 +22,8 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  * @method CartSetCustomShippingMethodAction setShippingRate(ShippingRate $shippingRate = null)
  * @method TaxCategoryReference getTaxCategory()
  * @method CartSetCustomShippingMethodAction setTaxCategory(TaxCategoryReference $taxCategory = null)
+ * @method ExternalTaxRateDraft getExternalTaxRate()
+ * @method CartSetCustomShippingMethodAction setExternalTaxRate(ExternalTaxRateDraft $externalTaxRate = null)
  */
 class CartSetCustomShippingMethodAction extends AbstractAction
 {
@@ -31,6 +34,7 @@ class CartSetCustomShippingMethodAction extends AbstractAction
             'shippingMethodName' => [static::TYPE => 'string'],
             'shippingRate' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingRate'],
             'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
+            'externalTaxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft'],
         ];
     }
 

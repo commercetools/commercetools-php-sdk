@@ -44,6 +44,6 @@ abstract class AbstractUpdateByKeyRequest extends AbstractUpdateRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/key=' . $this->getId();
+        return (string)$this->getEndpoint() . '/key=' . $this->getId() . $this->getParamString();
     }
 }

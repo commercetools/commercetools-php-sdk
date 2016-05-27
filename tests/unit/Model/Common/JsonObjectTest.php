@@ -101,6 +101,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage field
      */
     public function testGetUnknownField()
     {
@@ -109,6 +110,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage field
      */
     public function testSetUnknownField()
     {
@@ -129,6 +131,7 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage method
      */
     public function testUnknownAction()
     {
@@ -247,5 +250,19 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($obj->isOptional('implicit'));
         $this->assertTrue($obj->isOptional('optional'));
         $this->assertFalse($obj->isOptional('required'));
+    }
+
+    public function testHasField()
+    {
+        $obj = JsonObject::fromArray(['test' => 1234]);
+
+        $this->assertTrue($obj->hasField('test'));
+    }
+
+    public function testNotHasField()
+    {
+        $obj = JsonObject::fromArray([]);
+
+        $this->assertFalse($obj->hasField('test'));
     }
 }

@@ -42,7 +42,10 @@ class FilterRange
         if (is_null($value)) {
             return '*';
         }
-        if (is_int($value) || is_float($value)) {
+        if (is_int($value)) {
+            return $value;
+        }
+        if (is_float($value)) {
             return $value;
         }
         if (is_string($value)) {

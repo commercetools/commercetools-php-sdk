@@ -23,6 +23,7 @@ class LocalizedSearchKeywordsTest extends \PHPUnit_Framework_TestCase
         $context = Context::of();
         $context->setGraceful(true);
         $collection = new LocalizedSearchKeywords([], $context);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\SearchKeywords', $collection->en);
         $this->assertSame('', (string)$collection->en);
     }
 

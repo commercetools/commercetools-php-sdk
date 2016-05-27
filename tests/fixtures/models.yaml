@@ -22,7 +22,7 @@ cart:
     - discountCodes
     - custom
     - paymentInfo
-
+    - taxMode
 lineItem:
   domain: cart
   model: LineItem
@@ -74,6 +74,7 @@ taxPortion:
   fields:
     - rate
     - amount
+    - name
 
 shippingInfo:
   domain: cart
@@ -464,6 +465,7 @@ productDraft:
     - taxCategory
     - searchKeywords
     - state
+    - publish
 
 productCatalogData:
   domain: product
@@ -528,6 +530,8 @@ productVariant:
     - images
     - availability
     - isMatchingVariant
+    - scopedPrice
+    - scopedPriceDiscounted
 
 productVariantAvailability:
   domain: product
@@ -535,7 +539,8 @@ productVariantAvailability:
   fields:
     - isOnStock
     - restockableInDays
-
+    - availableQuantity
+    - channels
 searchKeyword:
   domain: product
   model: SearchKeyword
@@ -644,6 +649,7 @@ taxRate:
     - includedInPrice
     - country
     - state
+    - subRates
 
 channel:
   domain: channel

@@ -40,9 +40,15 @@ class GraphQLQueryRequest extends AbstractApiRequest
         return new HttpRequest(HttpMethod::GET, $this->getPath());
     }
 
+    /**
+     * @param $query
+     * @return $this
+     */
     public function query($query)
     {
         $this->addParam('query', $query);
+
+        return $this;
     }
 
     public static function of(Context $context = null)

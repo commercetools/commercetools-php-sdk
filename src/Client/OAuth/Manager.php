@@ -6,8 +6,10 @@
 
 namespace Commercetools\Core\Client\OAuth;
 
+use Cache\Adapter\Common\CacheItem;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
+use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\AbstractHttpClient;
 use Commercetools\Core\Cache\CacheAdapterFactory;
@@ -20,7 +22,7 @@ use Commercetools\Core\Error\InvalidClientCredentialsException;
  */
 class Manager extends AbstractHttpClient
 {
-    const TOKEN_CACHE_KEY = 'commercetools-io-access-token';
+    const TOKEN_CACHE_KEY = 'commercetools_io_access_token';
 
     const REFRESH_TOKEN = 'refresh_token';
     const ACCESS_TOKEN = 'access_token';
@@ -35,7 +37,7 @@ class Manager extends AbstractHttpClient
     protected $cacheKeys;
 
     /**
-     * @var CacheAdapterInterface
+     * @var CacheAdapterInterface|CacheItemPoolInterface
      */
     protected $cacheAdapter;
 
@@ -57,7 +59,7 @@ class Manager extends AbstractHttpClient
     public function getCacheAdapterFactory()
     {
         if (is_null($this->cacheAdapterFactory)) {
-            $this->cacheAdapterFactory = new CacheAdapterFactory();
+            $this->cacheAdapterFactory = new CacheAdapterFactory($this->getConfig()->getCacheDir());
         }
         return $this->cacheAdapterFactory;
     }
@@ -74,7 +76,8 @@ class Manager extends AbstractHttpClient
     }
 
     /**
-     * @return CacheAdapterInterface
+     * @internal will become protected in version 2.0
+     * @return CacheAdapterInterface|CacheItemPoolInterface
      */
     public function getCacheAdapter()
     {
@@ -82,7 +85,6 @@ class Manager extends AbstractHttpClient
     }
 
     /**
-     * @param string $scope
      * @return Token
      * @throws InvalidClientCredentialsException
      */
@@ -125,14 +127,38 @@ class Manager extends AbstractHttpClient
 
         // ensure token to be invalidated in cache before TTL
         $ttl = max(1, floor($token->getTtl()/2));
-        $this->getCacheAdapter()->store($this->getCacheKey(), $token->getToken(), $ttl);
+        $this->cache($token, $ttl);
 
         return $token;
     }
 
+    protected function cache(Token $token, $ttl)
+    {
+        $cache = $this->getCacheAdapter();
+        if ($cache instanceof CacheAdapterInterface) {
+            $cache->store($this->getCacheKey(), $token->getToken(), (int)$ttl);
+        }
+        if ($cache instanceof CacheItemPoolInterface) {
+            $item = new CacheItem($this->getCacheKey(), true, $token->getToken());
+            $item->expiresAfter((int)$ttl);
+            $cache->save($item);
+        }
+    }
+
     protected function getCacheToken()
     {
-        return $this->getCacheAdapter()->fetch($this->getCacheKey());
+        $cache = $this->getCacheAdapter();
+        if ($cache instanceof CacheAdapterInterface) {
+            return $cache->fetch($this->getCacheKey());
+        }
+        if ($cache instanceof CacheItemPoolInterface) {
+            $item = $cache->getItem($this->getCacheKey());
+            if ($item->isHit()) {
+                return $item->get();
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -153,7 +179,7 @@ class Manager extends AbstractHttpClient
         }
 
         if (!isset($this->cacheKeys[$cacheScope])) {
-            $this->cacheKeys[$cacheScope] = static::TOKEN_CACHE_KEY . '-' .
+            $this->cacheKeys[$cacheScope] = static::TOKEN_CACHE_KEY . '_' .
                 sha1($cacheScope);
         }
 

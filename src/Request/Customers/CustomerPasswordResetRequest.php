@@ -71,7 +71,7 @@ class CustomerPasswordResetRequest extends AbstractApiRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/password/reset';
+        return (string)$this->getEndpoint() . '/password/reset' . $this->getParamString();
     }
 
     /**

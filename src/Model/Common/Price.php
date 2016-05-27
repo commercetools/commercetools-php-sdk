@@ -80,4 +80,16 @@ class Price extends JsonObject
     {
         return $this->getValue()->__toString();
     }
+
+    /**
+     * @return Money
+     */
+    public function getCurrentValue()
+    {
+        if ($this->getDiscounted() instanceof DiscountedPrice) {
+            return $this->getDiscounted()->getValue();
+        }
+
+        return $this->getValue();
+    }
 }

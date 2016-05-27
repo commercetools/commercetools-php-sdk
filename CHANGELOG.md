@@ -1,3 +1,31 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.1...v1.1.0) (2016-05-27)
+
+
+### Bug Fixes
+
+* **JsonObject:** fix JsonObject::hasField method to return if the field has a value set ([c2eaed5](https://github.com/sphereio/commercetools-php-sdk/commit/c2eaed5)), closes [#173](https://github.com/sphereio/commercetools-php-sdk/issues/173)
+
+### Features
+
+* **Cache:** add support for PSR-6 cache adapter ([e6cbd27](https://github.com/sphereio/commercetools-php-sdk/commit/e6cbd27)), closes [#194](https://github.com/sphereio/commercetools-php-sdk/issues/194)
+* **Cart:** support new cart tax modes ([f6bfeeb](https://github.com/sphereio/commercetools-php-sdk/commit/f6bfeeb)), closes [#207](https://github.com/sphereio/commercetools-php-sdk/issues/207)
+* **Customer:** support anonymous cart sign in mode for customer login ([e94ac48](https://github.com/sphereio/commercetools-php-sdk/commit/e94ac48)), closes [#212](https://github.com/sphereio/commercetools-php-sdk/issues/212)
+* **Error:** add DiscountCodeNonApplicable error ([a42e90d](https://github.com/sphereio/commercetools-php-sdk/commit/a42e90d)), closes [#198](https://github.com/sphereio/commercetools-php-sdk/issues/198)
+* **Product:** add changeMasterVariant update action ([48d1a42](https://github.com/sphereio/commercetools-php-sdk/commit/48d1a42)), closes [#204](https://github.com/sphereio/commercetools-php-sdk/issues/204)
+* **Product:** add getAllVariants helper method to product data ([006e984](https://github.com/sphereio/commercetools-php-sdk/commit/006e984)), closes [#213](https://github.com/sphereio/commercetools-php-sdk/issues/213)
+* **Product:** add image move to position update action ([c24839b](https://github.com/sphereio/commercetools-php-sdk/commit/c24839b)), closes [#206](https://github.com/sphereio/commercetools-php-sdk/issues/206)
+* **Product:** add scopedPrice and scopePriceDiscounted to ProductVariant model ([f7d25d8](https://github.com/sphereio/commercetools-php-sdk/commit/f7d25d8)), closes [#201](https://github.com/sphereio/commercetools-php-sdk/issues/201)
+* **Product:** add support to publish product on creation ([ee71818](https://github.com/sphereio/commercetools-php-sdk/commit/ee71818)), closes [#203](https://github.com/sphereio/commercetools-php-sdk/issues/203)
+* **Product:** support availableQuantity for product variant availability ([dbc4c48](https://github.com/sphereio/commercetools-php-sdk/commit/dbc4c48)), closes [#202](https://github.com/sphereio/commercetools-php-sdk/issues/202)
+* **Product:** support fuzzy query for product suggest ([1d59870](https://github.com/sphereio/commercetools-php-sdk/commit/1d59870)), closes [#205](https://github.com/sphereio/commercetools-php-sdk/issues/205)
+* **Query:** add support for multiple where query parameters ([591c926](https://github.com/sphereio/commercetools-php-sdk/commit/591c926)), closes [#196](https://github.com/sphereio/commercetools-php-sdk/issues/196)
+* **Request:** support reference expansion for CRUD requests ([0f29ea7](https://github.com/sphereio/commercetools-php-sdk/commit/0f29ea7)), closes [#199](https://github.com/sphereio/commercetools-php-sdk/issues/199)
+* **Review:** add review messages ([f20c858](https://github.com/sphereio/commercetools-php-sdk/commit/f20c858))
+* **UpdateRequest:** add hasActions method to update requests ([cb98ffd](https://github.com/sphereio/commercetools-php-sdk/commit/cb98ffd))
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.0...v1.0.1) (2016-05-17)
 

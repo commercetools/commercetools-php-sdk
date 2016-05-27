@@ -59,7 +59,7 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/password-token';
+        return (string)$this->getEndpoint() . '/password-token' . $this->getParamString();
     }
 
     /**
