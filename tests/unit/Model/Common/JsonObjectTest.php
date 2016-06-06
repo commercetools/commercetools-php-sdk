@@ -23,12 +23,12 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
     protected function getObject()
     {
         date_default_timezone_set('UTC');
-        $obj = $this->getMock(
-            '\Commercetools\Core\Model\Common\JsonObject',
-            ['fieldDefinitions', 'getId'],
-            [['key' => 'value', 'true' => true, 'false' => false, 'mixed' => '1']],
-            'MockJsonObject'
-        );
+        $mockBuilder = $this->getMockBuilder('\Commercetools\Core\Model\Common\JsonObject');
+        $mockBuilder->setMethods(['fieldDefinitions', 'getId'])
+            ->setConstructorArgs([['key' => 'value', 'true' => true, 'false' => false, 'mixed' => '1']])
+            ->setMockClassName('MockJsonObject');
+        $obj = $mockBuilder->getMock();
+
         $obj->expects($this->any())
             ->method('fieldDefinitions')
             ->will(
@@ -186,7 +186,9 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testGetReturnRaw()
     {
-        $obj = $this->getMock('\Commercetools\Core\Model\Common\JsonObject', ['initialize'], [['key' => 'value']]);
+        $obj = $this->getMockBuilder('\Commercetools\Core\Model\Common\JsonObject')
+            ->setMethods(['initialize'])->setConstructorArgs( [['key' => 'value']])
+            ->getMock();
         $this->assertSame('value', $obj->get('key'));
     }
 
@@ -224,12 +226,11 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testOptional()
     {
-        $obj = $this->getMock(
-            '\Commercetools\Core\Model\Common\JsonObject',
-            ['fieldDefinitions', 'getId'],
-            [],
-            'MockJsonObject'
-        );
+        $mockBuilder = $this->getMockBuilder('\Commercetools\Core\Model\Common\JsonObject');
+        $mockBuilder->setMethods(['fieldDefinitions', 'getId'])
+            ->setMockClassName('MockJsonObject');
+        $obj = $mockBuilder->getMock();
+
         $obj->expects($this->any())
             ->method('fieldDefinitions')
             ->will(

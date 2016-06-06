@@ -43,11 +43,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockClient($config, $returnValue, $statusCode = 200, $logger = null, $headers = [])
     {
-        $oauthMock = $this->getMock(
-            '\Commercetools\Core\Client\OAuth\Manager',
-            ['getToken', 'refreshToken'],
-            [$config]
-        );
+        $oauthMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client\OAuth\Manager');
+        $oauthMockBuilder->setMethods(['getToken', 'refreshToken'])->setConstructorArgs([$config]);
+        $oauthMock = $oauthMockBuilder->getMock();
+
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
@@ -55,7 +54,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->method('refreshToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMock = $this->getMock('\Commercetools\Core\Client', ['getOauthManager'], [$config, null, $logger]);
+        $clientMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client');
+        $clientMockBuilder->setMethods(['getOauthManager'])->setConstructorArgs([$config, null, $logger]);
+        $clientMock = $clientMockBuilder->getMock();
+        
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
@@ -193,16 +195,17 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnexpectedException()
     {
-        $oauthMock = $this->getMock('\Commercetools\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
+        $oauthMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client\OAuth\Manager');
+        $oauthMockBuilder->setMethods(['getToken'])->setConstructorArgs([$this->getConfig()]);
+        $oauthMock = $oauthMockBuilder->getMock();
+
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMock = $this->getMock(
-            '\Commercetools\Core\Client',
-            ['getOauthManager'],
-            [$this->getConfig()]
-        );
+        $clientMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client');
+        $clientMockBuilder->setMethods(['getOauthManager'])->setConstructorArgs([$this->getConfig()]);
+        $clientMock = $clientMockBuilder->getMock();
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
@@ -223,16 +226,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $config = $this->getConfig();
 
-        $oauthMock = $this->getMock('\Commercetools\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
+        $oauthMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client\OAuth\Manager');
+        $oauthMockBuilder->setMethods(['getToken'])->setConstructorArgs([$this->getConfig()]);
+        $oauthMock = $oauthMockBuilder->getMock();
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMock = $this->getMock(
-            '\Commercetools\Core\Client',
-            ['getOauthManager'],
-            [$config]
-        );
+        $clientMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client');
+        $clientMockBuilder->setMethods(['getOauthManager'])->setConstructorArgs([$this->getConfig()]);
+        $clientMock = $clientMockBuilder->getMock();
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
@@ -456,16 +459,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testBatchException()
     {
-        $oauthMock = $this->getMock('\Commercetools\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
+        $oauthMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client\OAuth\Manager');
+        $oauthMockBuilder->setMethods(['getToken'])->setConstructorArgs([$this->getConfig()]);
+        $oauthMock = $oauthMockBuilder->getMock();
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMock = $this->getMock(
-            '\Commercetools\Core\Client',
-            ['getOauthManager'],
-            [$this->getConfig()]
-        );
+        $clientMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client');
+        $clientMockBuilder->setMethods(['getOauthManager'])->setConstructorArgs([$this->getConfig()]);
+        $clientMock = $clientMockBuilder->getMock();
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
@@ -492,16 +495,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testBatchExceptionWithResponse()
     {
-        $oauthMock = $this->getMock('\Commercetools\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
+        $oauthMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client\OAuth\Manager');
+        $oauthMockBuilder->setMethods(['getToken'])->setConstructorArgs([$this->getConfig()]);
+        $oauthMock = $oauthMockBuilder->getMock();
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMock = $this->getMock(
-            '\Commercetools\Core\Client',
-            ['getOauthManager'],
-            [$this->getConfig()]
-        );
+        $clientMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client');
+        $clientMockBuilder->setMethods(['getOauthManager'])->setConstructorArgs([$this->getConfig()]);
+        $clientMock = $clientMockBuilder->getMock();
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
@@ -628,16 +631,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $config = $this->getConfig();
 
-        $oauthMock = $this->getMock('\Commercetools\Core\Client\OAuth\Manager', ['getToken'], [$this->getConfig()]);
+        $oauthMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client\OAuth\Manager');
+        $oauthMockBuilder->setMethods(['getToken'])->setConstructorArgs([$this->getConfig()]);
+        $oauthMock = $oauthMockBuilder->getMock();
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMock = $this->getMock(
-            '\Commercetools\Core\Client',
-            ['getOauthManager'],
-            [$config]
-        );
+        $clientMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client');
+        $clientMockBuilder->setMethods(['getOauthManager'])->setConstructorArgs([$this->getConfig()]);
+        $clientMock = $clientMockBuilder->getMock();
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));

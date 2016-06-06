@@ -127,7 +127,7 @@ class CartTaxModeTest extends ApiTestCase
             [0.1, [0.07, 0.02, 0.01]],
             [0.1, [0.08, 0.02]],
             [0.3, [0.2, 0.1]],
-            [0.1, [0.9, 0.1]],
+            [0.1, [0.09, 0.01]],
             [0.07, [0.06, 0.01]],
         ];
     }
@@ -166,12 +166,6 @@ class CartTaxModeTest extends ApiTestCase
             )
         ;
         $response = $request->executeWithClient($this->getClient());
-        if (
-            $response->isError() &&
-            $response->getErrors()->getByCode(InvalidOperationError::CODE) instanceof InvalidOperationError
-        ) {
-            $this->markTestSkipped('rounding issue CTP-336');
-        }
         $cart = $request->mapResponse($response);
 
         $this->deleteRequest->setVersion($cart->getVersion());
@@ -296,12 +290,6 @@ class CartTaxModeTest extends ApiTestCase
         ;
 
         $response = $request->executeWithClient($this->getClient());
-        if (
-            $response->isError() &&
-            $response->getErrors()->getByCode(InvalidOperationError::CODE) instanceof InvalidOperationError
-        ) {
-            $this->markTestSkipped('rounding issue CTP-336');
-        }
 
         $cart = $request->mapResponse($response);
         $this->deleteRequest->setVersion($cart->getVersion());

@@ -230,7 +230,10 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         /**
          * @var Response $guzzleResponse
          */
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
+        $mockBuilder = $this->getMockBuilder('\GuzzleHttp\Psr7\Response');
+        $mockBuilder->disableOriginalConstructor();
+        $guzzleResponse = $mockBuilder->getMock();
+
         $request = ProductProjectionSearchRequest::of();
         $response = $request->buildResponse($guzzleResponse);
 

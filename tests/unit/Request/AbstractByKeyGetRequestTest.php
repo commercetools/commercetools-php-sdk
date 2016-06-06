@@ -53,7 +53,10 @@ class AbstractByKeyGetRequestTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
+        $mockBuilder = $this->getMockBuilder('\GuzzleHttp\Psr7\Response');
+        $mockBuilder->disableOriginalConstructor();
+        $guzzleResponse = $mockBuilder->getMock();
+        
         $request = $this->getRequest(static::ABSTRACT_GET_REQUEST, ['key']);
         $response = $request->buildResponse($guzzleResponse);
 

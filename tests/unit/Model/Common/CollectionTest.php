@@ -14,11 +14,11 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     {
         $collection = Collection::of();
 
-        $obj = $this->getMock(
-            '\Commercetools\Core\Model\Common\JsonObject',
-            ['fieldDefinitions'],
-            [['key' => 'value', 'true' => true, 'false' => false]]
-        );
+        $mockBuilder = $this->getMockBuilder('\Commercetools\Core\Model\Common\JsonObject');
+        $mockBuilder->setMethods(['fieldDefinitions'])
+            ->setConstructorArgs([['key' => 'value', 'true' => true, 'false' => false]]);
+        $obj = $mockBuilder->getMock();
+
         $obj->expects($this->any())
             ->method('fieldDefinitions')
             ->will(
@@ -207,11 +207,10 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetReturnRaw()
     {
-        $collection = $this->getMock(
-            '\Commercetools\Core\Model\Common\Collection',
-            ['initialize'],
-            [[new \DateTime('2015-01-01')]]
-        );
+        $mockBuilder = $this->getMockBuilder('\Commercetools\Core\Model\Common\Collection');
+        $mockBuilder->setMethods(['initialize'])->setConstructorArgs([[new \DateTime('2015-01-01')]]);
+        $collection = $mockBuilder->getMock();
+
         $collection->setType('\DateTime');
         $this->assertSame('2015-01-01', $collection->current()->format('Y-m-d'));
     }
