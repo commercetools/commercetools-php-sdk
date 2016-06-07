@@ -23,7 +23,7 @@ class DoctrineCacheAdapterTest extends \PHPUnit_Framework_TestCase
                 'The APCu extension is not loaded.'
             );
         }
-        if (class_exists('\Doctrine\Common\Cache\ApcuCache')) {
+        if (extension_loaded('apcu') && class_exists('\Doctrine\Common\Cache\ApcuCache')) {
             $cache = new ApcuCache();
         } else {
             $cache = new ApcCache();
