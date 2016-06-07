@@ -1,3 +1,13 @@
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/sphereio/commercetools-php-sdk/compare/v1.1.0...v1.1.1) (2016-06-07)
+
+
+### Bug Fixes
+
+* **LocalizedEnumCollection:** use correct type for LocalizedEnumCollection elements ([9492a8c](https://github.com/sphereio/commercetools-php-sdk/commit/9492a8c)), closes [#218](https://github.com/sphereio/commercetools-php-sdk/issues/218)
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/sphereio/commercetools-php-sdk/compare/v1.0.1...v1.1.0) (2016-05-27)
 

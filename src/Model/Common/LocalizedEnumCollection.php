@@ -21,7 +21,7 @@ class LocalizedEnumCollection extends Collection
 
     protected function indexRow($offset, $row)
     {
-        if ($row instanceof Enum) {
+        if ($row instanceof LocalizedEnum) {
             $key = $row->getKey();
         } else {
             $key = $row[static::KEY];
