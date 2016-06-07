@@ -30,7 +30,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method DiscountCode setCode(string $code = null)
  * @method CartDiscountReferenceCollection getCartDiscounts()
  * @method DiscountCode setCartDiscounts(CartDiscountReferenceCollection $cartDiscounts = null)
- * @method getCartPredicate()
+ * @method mixed getCartPredicate()
  * @method DiscountCode setCartPredicate($cartPredicate = null)
  * @method bool getIsActive()
  * @method DiscountCode setIsActive(bool $isActive = null)

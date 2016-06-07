@@ -23,7 +23,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method CustomObject setContainer(string $container = null)
  * @method string getKey()
  * @method CustomObject setKey(string $key = null)
- * @method getValue()
+ * @method mixed getValue()
  * @method CustomObject setValue($value = null)
  */
 class CustomObject extends Resource

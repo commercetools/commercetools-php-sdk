@@ -17,7 +17,7 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
  * @method CartSetLineItemCustomFieldAction setName(string $name = null)
  * @method string getLineItemId()
  * @method CartSetLineItemCustomFieldAction setLineItemId(string $lineItemId = null)
- * @method getValue()
+ * @method mixed getValue()
  * @method CartSetLineItemCustomFieldAction setValue($value = null)
  */
 class CartSetLineItemCustomFieldAction extends SetCustomFieldAction

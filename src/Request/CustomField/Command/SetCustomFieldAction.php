@@ -15,7 +15,7 @@ use Commercetools\Core\Request\AbstractAction;
  * @method SetCustomFieldAction setAction(string $action = null)
  * @method string getName()
  * @method SetCustomFieldAction setName(string $name = null)
- * @method getValue()
+ * @method mixed getValue()
  * @method SetCustomFieldAction setValue($value = null)
  */
 class SetCustomFieldAction extends AbstractAction

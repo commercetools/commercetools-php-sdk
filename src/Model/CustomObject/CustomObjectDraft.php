@@ -17,7 +17,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method CustomObjectDraft setContainer(string $container = null)
  * @method string getKey()
  * @method CustomObjectDraft setKey(string $key = null)
- * @method getValue()
+ * @method mixed getValue()
  * @method CustomObjectDraft setValue($value = null)
  */
 class CustomObjectDraft extends JsonObject

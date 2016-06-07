@@ -27,7 +27,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method ProductDiscount setDescription(LocalizedString $description = null)
  * @method ProductDiscountValue getValue()
  * @method ProductDiscount setValue(ProductDiscountValue $value = null)
- * @method getPredicate()
+ * @method mixed getPredicate()
  * @method ProductDiscount setPredicate($predicate = null)
  * @method string getSortOrder()
  * @method ProductDiscount setSortOrder(string $sortOrder = null)

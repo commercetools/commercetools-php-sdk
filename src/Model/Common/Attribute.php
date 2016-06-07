@@ -12,8 +12,9 @@ use Commercetools\Core\Model\ProductType\AttributeType;
 /**
  * @package Commercetools\Core\Model\Common
  * @link https://dev.commercetools.com/http-api-projects-products.html#product-variant-attribute
- * @method getValue()
+ * @method string getName()
  * @method Attribute setName(string $name = null)
+ * @method mixed getValue()
  * @method Attribute setValue($value = null)
  */
 class Attribute extends JsonObject
@@ -52,14 +53,6 @@ class Attribute extends JsonObject
             static::PROP_NAME => [static::TYPE => 'string'],
             static::PROP_VALUE => [],
         ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->get(static::PROP_NAME);
     }
 
     public function fieldDefinition($field)

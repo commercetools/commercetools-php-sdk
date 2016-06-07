@@ -19,7 +19,7 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
  * @method ProductSetPriceCustomFieldAction setStaged(bool $staged = null)
  * @method string getName()
  * @method ProductSetPriceCustomFieldAction setName(string $name = null)
- * @method getValue()
+ * @method mixed getValue()
  * @method ProductSetPriceCustomFieldAction setValue($value = null)
  */
 class ProductSetPriceCustomFieldAction extends SetCustomFieldAction

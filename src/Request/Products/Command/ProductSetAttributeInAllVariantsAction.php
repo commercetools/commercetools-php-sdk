@@ -15,7 +15,7 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductSetAttributeInAllVariantsAction setAction(string $action = null)
  * @method string getName()
  * @method ProductSetAttributeInAllVariantsAction setName(string $name = null)
- * @method getValue()
+ * @method mixed getValue()
  * @method ProductSetAttributeInAllVariantsAction setValue($value = null)
  * @method bool getStaged()
  * @method ProductSetAttributeInAllVariantsAction setStaged(bool $staged = null)

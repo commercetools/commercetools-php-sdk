@@ -14,7 +14,7 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
  * @method PaymentSetCustomFieldAction setAction(string $action = null)
  * @method string getName()
  * @method PaymentSetCustomFieldAction setName(string $name = null)
- * @method getValue()
+ * @method mixed getValue()
  * @method PaymentSetCustomFieldAction setValue($value = null)
  */
 class PaymentSetCustomFieldAction extends SetCustomFieldAction
