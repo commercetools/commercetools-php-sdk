@@ -46,6 +46,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
+use Commercetools\Core\Request\Products\Command\ProductChangeNameAction;
 use Commercetools\Core\Request\Products\Command\ProductChangePriceAction;
 use Commercetools\Core\Request\Products\Command\ProductPublishAction;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
@@ -409,6 +410,59 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($cart->getVersion());
 
         $this->assertSame(200, $cart->getTotalPrice()->getCentAmount());
+    }
+
+    public function testRecalculateChangedProduct()
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $newName = 'new-name-' . $this->getTestRun();
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductChangeNameAction::ofName(
+                    LocalizedString::ofLangAndText('en', $newName)
+                )
+            )
+            ->addAction(ProductPublishAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $this->product = $request->mapResponse($response);
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartRecalculateAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
+        $this->assertSame(
+            (string)$product->getMasterData()->getCurrent()->getName(),
+            (string)$cart->getLineItems()->current()->getName()
+        );
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartRecalculateAction::of()->setUpdateProductData(true))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
+        $this->assertSame($newName, (string)$cart->getLineItems()->current()->getName());
     }
 
     public function testCustomType()
