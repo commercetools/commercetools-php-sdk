@@ -21,6 +21,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingRate;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
+use Commercetools\Core\Request\Carts\CartQueryRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction;
@@ -429,6 +430,12 @@ class CartUpdateRequestTest extends ApiTestCase
         $cart = $request->mapResponse($response);
         $this->deleteRequest->setVersion($cart->getVersion());
 
+        $request = CartQueryRequest::of()->where('id = "' . $cart->getId() . '"')->limit(1);
+        $response = $request->executeWithClient($this->getClient());
+
+        $cart2 = $request->mapResponse($response)->current();
+        $this->assertNotEmpty((string)$cart2->getLineItems()->current()->getProductSlug());
+
         $newName = 'new-name-' . $this->getTestRun();
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(
@@ -454,6 +461,8 @@ class CartUpdateRequestTest extends ApiTestCase
             (string)$cart->getLineItems()->current()->getName()
         );
 
+        $this->assertNotEmpty((string)$cart->getLineItems()->current()->getProductSlug());
+
         $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
             ->addAction(CartRecalculateAction::of()->setUpdateProductData(true))
         ;
@@ -463,6 +472,7 @@ class CartUpdateRequestTest extends ApiTestCase
 
         $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
         $this->assertSame($newName, (string)$cart->getLineItems()->current()->getName());
+        $this->assertNotEmpty((string)$cart->getLineItems()->current()->getProductSlug());
     }
 
     public function testCustomType()
