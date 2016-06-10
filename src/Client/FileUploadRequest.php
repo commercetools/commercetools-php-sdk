@@ -6,7 +6,7 @@
 
 namespace Commercetools\Core\Client;
 
-use GuzzleHttp\Psr7\UploadedFile;
+use Psr\Http\Message\UploadedFileInterface;
 
 /**
  * @package Commercetools\Core\Http
@@ -14,7 +14,7 @@ use GuzzleHttp\Psr7\UploadedFile;
  */
 class FileUploadRequest extends HttpRequest
 {
-    public function __construct($path, UploadedFile $file)
+    public function __construct($path, UploadedFileInterface $file)
     {
         parent::__construct('POST', $path, $file->getStream(), $file->getClientMediaType());
     }

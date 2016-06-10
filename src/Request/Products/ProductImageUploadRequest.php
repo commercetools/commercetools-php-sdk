@@ -5,18 +5,16 @@
 
 namespace Commercetools\Core\Request\Products;
 
-use Commercetools\Core\Client\FileRequest;
 use Commercetools\Core\Client\FileUploadRequest;
-use Commercetools\Core\Client\HttpRequest;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Request\Query\Parameter;
 use Commercetools\Core\Request\StagedTrait;
 use Commercetools\Core\Response\ResourceResponse;
-use GuzzleHttp\Psr7\UploadedFile;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Psr\Http\Message\UploadedFileInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
@@ -30,7 +28,7 @@ class ProductImageUploadRequest extends AbstractApiRequest
     protected $resultClass = '\Commercetools\Core\Model\Product\Product';
 
     /**
-     * @var UploadedFile
+     * @var UploadedFileInterface
      */
     protected $file;
 
@@ -52,10 +50,10 @@ class ProductImageUploadRequest extends AbstractApiRequest
     /**
      * ProductImageUploadRequest constructor.
      * @param string $id
-     * @param UploadedFile $file
+     * @param UploadedFileInterface $file
      * @param Context|null $context
      */
-    public function __construct($id, UploadedFile $file, Context $context = null)
+    public function __construct($id, UploadedFileInterface $file, Context $context = null)
     {
         $this->id = $id;
         $this->file = $file;
@@ -145,11 +143,11 @@ class ProductImageUploadRequest extends AbstractApiRequest
     /**
      * @param string $id
      * @param int $variantId
-     * @param UploadedFile $file
+     * @param UploadedFileInterface $file
      * @param Context $context
      * @return ProductImageUploadRequest
      */
-    public static function ofIdVariantIdAndFile($id, $variantId, UploadedFile $file, Context $context = null)
+    public static function ofIdVariantIdAndFile($id, $variantId, UploadedFileInterface $file, Context $context = null)
     {
         $request = new static($id, $file, $context);
         $request->setVariantId($variantId);
@@ -159,11 +157,11 @@ class ProductImageUploadRequest extends AbstractApiRequest
     /**
      * @param string $id
      * @param string $sku
-     * @param UploadedFile $file
+     * @param UploadedFileInterface $file
      * @param Context $context
      * @return ProductImageUploadRequest
      */
-    public static function ofIdSkuAndFile($id, $sku, UploadedFile $file, Context $context = null)
+    public static function ofIdSkuAndFile($id, $sku, UploadedFileInterface $file, Context $context = null)
     {
         $request = new static($id, $file, $context);
         $request->setSku($sku);
