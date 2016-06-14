@@ -108,6 +108,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
     public function testSetKeyLength()
     {
         $draft = $this->getDraft('set-key');
+        $draft->setKey(str_pad($draft->getKey(), 256, '0'));
         $productType = $this->createProductType($draft);
 
         $key = str_pad('new-' . $this->getTestRun(), 256, '0');
