@@ -65,11 +65,13 @@ class Config implements ContextAwareInterface
     const USER_NAME = 'username';
     const PASSWORD = 'password';
     const REFRESH_TOKEN = 'refresh_token';
+    const ANONYMOUS_ID = 'anonymous_id';
     const GRANT_TYPE = 'grant_type';
 
     const GRANT_TYPE_CLIENT = 'client_credentials';
     const GRANT_TYPE_PASSWORD = 'password';
     const GRANT_TYPE_REFRESH = 'refresh_token';
+    const GRANT_TYPE_ANONYMOUS = 'anonymous_token';
 
     /**
      * @var string
@@ -131,6 +133,11 @@ class Config implements ContextAwareInterface
      * @var string
      */
     protected $refreshToken;
+
+    /**
+     * @var string
+     */
+    protected $anonymousId;
 
     /**
      * @var string
@@ -275,6 +282,8 @@ class Config implements ContextAwareInterface
     public function getOauthUrl()
     {
         switch ($this->getGrantType()) {
+            case static::GRANT_TYPE_ANONYMOUS:
+                return $this->oauthUrl . '/oauth/' . $this->getProject() . '/anonymous/token';
             case static::GRANT_TYPE_PASSWORD:
             case static::GRANT_TYPE_REFRESH:
                 return $this->oauthUrl . '/oauth/' . $this->getProject() . '/customers/token';
@@ -489,6 +498,25 @@ class Config implements ContextAwareInterface
     public function setRefreshToken($refreshToken)
     {
         $this->refreshToken = $refreshToken;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAnonymousId()
+    {
+        return $this->anonymousId;
+    }
+
+    /**
+     * @param string $anonymousId
+     * @return string
+     */
+    public function setAnonymousId($anonymousId)
+    {
+        $this->anonymousId = $anonymousId;
 
         return $this;
     }

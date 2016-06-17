@@ -23,6 +23,7 @@ cart:
     - custom
     - paymentInfo
     - taxMode
+    - anonymousId
 lineItem:
   domain: cart
   model: LineItem

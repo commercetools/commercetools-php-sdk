@@ -38,6 +38,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method CartDraft setCustomLineItems(CustomLineItemDraftCollection $customLineItems = null)
  * @method string getTaxMode()
  * @method CartDraft setTaxMode(string $taxMode = null)
+ * @method string getAnonymousId()
+ * @method CartDraft setAnonymousId(string $anonymousId = null)
  */
 class CartDraft extends JsonObject
 {
@@ -56,6 +58,7 @@ class CartDraft extends JsonObject
             'shippingMethod' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingMethodReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
             'taxMode' => [static::TYPE => 'string'],
+            'anonymousId' => [static::TYPE => 'string'],
         ];
     }
 
