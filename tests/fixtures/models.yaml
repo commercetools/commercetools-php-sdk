@@ -355,6 +355,7 @@ order:
     - custom
     - state
     - paymentInfo
+    - anonymousId
 
 syncInfo:
   domain: order
