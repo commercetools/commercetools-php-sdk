@@ -30,7 +30,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     const ACTION_WARNING_TRESHOLD = 400;
 
     /**
-     * @var
+     * @var string
      */
     protected $id;
 

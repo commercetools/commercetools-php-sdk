@@ -112,6 +112,7 @@ class TypeUpdateRequestTest extends ApiTestCase
     public function testChangeKeyLength()
     {
         $draft = $this->getDraft('change-key');
+        $draft->setKey(str_pad($draft->getKey(), 256, '0'));
         $type = $this->createType($draft);
 
         $key = str_pad('new-' . $this->getTestRun(), 256, '0');

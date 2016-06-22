@@ -136,22 +136,24 @@ class Manager extends AbstractHttpClient
         $this->cache($token, $ttl);
 
         if ($grantType === Config::GRANT_TYPE_PASSWORD || $grantType == Config::GRANT_TYPE_ANONYMOUS) {
-            $this->getConfig()->setGrantType(Config::GRANT_TYPE_REFRESH);
             $this->getConfig()->setRefreshToken($token->getRefreshToken());
-            $this->cache($token, $ttl);
+            $this->cache($token, $ttl, $this->getCacheKey(Config::GRANT_TYPE_REFRESH));
         }
 
         return $token;
     }
 
-    protected function cache(Token $token, $ttl)
+    protected function cache(Token $token, $ttl, $cacheKey = null)
     {
+        if (is_null($cacheKey)) {
+            $cacheKey = $this->getCacheKey();
+        }
         $cache = $this->getCacheAdapter();
         if ($cache instanceof CacheAdapterInterface) {
-            $cache->store($this->getCacheKey(), $token->getToken(), (int)$ttl);
+            $cache->store($cacheKey, $token->getToken(), (int)$ttl);
         }
         if ($cache instanceof CacheItemPoolInterface) {
-            $item = new CacheItem($this->getCacheKey(), true, $token->getToken());
+            $item = new CacheItem($cacheKey, true, $token->getToken());
             $item->expiresAfter((int)$ttl);
             $cache->save($item);
         }
@@ -176,10 +178,12 @@ class Manager extends AbstractHttpClient
     /**
      * @return string
      */
-    protected function getCacheKey()
+    protected function getCacheKey($grantType = null)
     {
         $scope = $this->getConfig()->getScope();
-        $grantType = $this->getConfig()->getGrantType();
+        if (is_null($grantType)) {
+            $grantType = $this->getConfig()->getGrantType();
+        }
         $cacheScope = $scope . '-' . $grantType;
 
         switch ($grantType) {

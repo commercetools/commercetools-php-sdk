@@ -175,7 +175,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @var Customer
      */
-    private $customer;
+    protected $customer;
 
     /**
      * @var Payment
@@ -808,7 +808,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     protected function getCustomerDraft()
     {
         $draft = CustomerDraft::ofEmailNameAndPassword(
-            'test-' . $this->getTestRun() . '-email',
+            'TEST-' . $this->getTestRun() . '-em.ail+sphere@example.org',
             'test-' . $this->getTestRun() . '-firstName',
             'test-' . $this->getTestRun() . '-lastName',
             'test-' . $this->getTestRun() . '-password'
