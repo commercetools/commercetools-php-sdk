@@ -262,6 +262,7 @@ class MeOrderRequestTest extends ApiTestCase
 
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $cartDraft = $this->getMyCartDraft();
         $order = $this->createMyOrder($client, $cartDraft);
@@ -285,6 +286,7 @@ class MeOrderRequestTest extends ApiTestCase
 
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $cartDraft = $this->getMyCartDraft();
         $order = $this->createMyOrder($client, $cartDraft);
@@ -306,6 +308,7 @@ class MeOrderRequestTest extends ApiTestCase
 
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $cartDraft = $this->getMyCartDraft();
         $order = $this->createMyOrder($client, $cartDraft);

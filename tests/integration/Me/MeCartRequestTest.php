@@ -206,6 +206,7 @@ class MeCartRequestTest extends ApiTestCase
 
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $cartDraft = $this->getMyCartDraft();
         $request = MeCartCreateRequest::ofDraft($cartDraft);
@@ -236,6 +237,7 @@ class MeCartRequestTest extends ApiTestCase
 
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $cartDraft = $this->getMyCartDraft();
         $request = MeCartCreateRequest::ofDraft($cartDraft);
@@ -286,6 +288,7 @@ class MeCartRequestTest extends ApiTestCase
 
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $cartDraft = $this->getMyCartDraft();
         $request = MeCartCreateRequest::ofDraft($cartDraft);
@@ -318,6 +321,7 @@ class MeCartRequestTest extends ApiTestCase
 
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $cartDraft = $this->getMyCartDraft();
         $request = MeCartCreateRequest::ofDraft($cartDraft);
@@ -360,6 +364,7 @@ class MeCartRequestTest extends ApiTestCase
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()])->setLogger($logger);
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $request = MeCartByIdRequest::ofId($cart->getId());
         $response = $request->executeWithClient($client);
@@ -392,6 +397,7 @@ class MeCartRequestTest extends ApiTestCase
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $request = MeCartByIdRequest::ofId($cart->getId());
         $response = $request->executeWithClient($client);
@@ -439,6 +445,7 @@ class MeCartRequestTest extends ApiTestCase
 
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $cartDraft = $this->getMyCartDraft();
         $request = MeCartCreateRequest::ofDraft($cartDraft);
@@ -532,6 +539,7 @@ class MeCartRequestTest extends ApiTestCase
 
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $request = MeActiveCartRequest::of();
         $response = $request->executeWithClient($client);
