@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\TaxCategory
- * @link http://dev.commercetools.com/http-api-projects-taxCategories.html#subrate-beta
+ * @link http://dev.commercetools.com/http-api-projects-taxCategories.html#subrate
  * @method SubRateCollection add(SubRate $element)
  * @method SubRate current()
  * @method SubRate getAt($offset)

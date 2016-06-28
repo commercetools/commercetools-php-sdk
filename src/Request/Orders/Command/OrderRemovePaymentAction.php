@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Payment\PaymentReference;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @link https://dev.commercetools.com/http-api-projects-orders.html#remove-payment-beta
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#remove-payment
  * @method string getAction()
  * @method OrderRemovePaymentAction setAction(string $action = null)
  * @method PaymentReference getPayment()
