@@ -9,6 +9,7 @@ namespace Commercetools\Core\Request\Products;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Request\AbstractByIdGetRequest;
+use Commercetools\Core\Request\PriceSelectTrait;
 use Commercetools\Core\Request\StagedTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 
@@ -19,6 +20,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
  */
 class ProductProjectionByIdGetRequest extends AbstractByIdGetRequest
 {
+    use PriceSelectTrait;
     use StagedTrait;
 
     protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjection';

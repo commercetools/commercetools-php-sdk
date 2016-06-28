@@ -9,6 +9,7 @@ namespace Commercetools\Core\Request\Products;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\Product\ProductCollection;
+use Commercetools\Core\Request\PriceSelectTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
@@ -18,6 +19,8 @@ use Commercetools\Core\Response\ApiResponseInterface;
  */
 class ProductQueryRequest extends AbstractQueryRequest
 {
+    use PriceSelectTrait;
+
     protected $resultClass = '\Commercetools\Core\Model\Product\ProductCollection';
 
     /**
