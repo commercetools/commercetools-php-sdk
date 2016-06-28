@@ -11,8 +11,8 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-meta-attributes
- * @deprecated will be removed in RC1
+ * @link https://dev.commercetools.com/http-api-projects-products.html#set-meta-title
+ * @deprecated will be removed in v2.0
  * @method string getAction()
  * @method ProductSetMetaAttributesAction setAction(string $action = null)
  * @method LocalizedString getMetaTitle()

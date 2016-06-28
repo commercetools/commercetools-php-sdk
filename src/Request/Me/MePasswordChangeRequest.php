@@ -16,6 +16,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Me
+ * @link https://dev.commercetools.com/http-api-projects-me-profile.html#change-customers-password
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class MePasswordChangeRequest extends AbstractApiRequest

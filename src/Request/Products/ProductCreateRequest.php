@@ -14,7 +14,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link https://dev.commercetools.com/http-api-projects-products.html#create-product
+ * @link https://dev.commercetools.com/http-api-projects-products.html#create-a-product
  * @method Product mapResponse(ApiResponseInterface $response)
  */
 class ProductCreateRequest extends AbstractCreateRequest

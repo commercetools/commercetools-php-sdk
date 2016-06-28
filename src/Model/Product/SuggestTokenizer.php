@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link https://dev.commercetools.com/http-api-projects-products.html#search-keyword-tokenizer
+ * @link https://dev.commercetools.com/http-api-projects-products.html#product-search-keywords-suggest-examples
  * @method string getType()
  * @method SuggestTokenizer setType(string $type = null)
  * @method array getInputs()

@@ -9,7 +9,7 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#set-custom-field
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#set-customfield
  * @method string getAction()
  * @method PaymentSetCustomFieldAction setAction(string $action = null)
  * @method string getName()

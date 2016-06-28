@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Payments
- * @link https://dev.commercetools.com/http-api-projects-payments.html#create-payment
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#create-a-payment
  * @method Payment mapResponse(ApiResponseInterface $response)
  */
 class PaymentCreateRequest extends AbstractCreateRequest

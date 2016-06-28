@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link https://dev.commercetools.com/http-api-projects-products.html#product-variant-availability
+ * @link https://dev.commercetools.com/http-api-projects-products.html#productvariantavailability
  * @method bool getIsOnStock()
  * @method ProductVariantAvailability setIsOnStock(bool $isOnStock = null)
  * @method int getRestockableInDays()

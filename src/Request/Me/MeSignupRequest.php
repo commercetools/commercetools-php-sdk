@@ -15,6 +15,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Me
+ * @link https://dev.commercetools.com/http-api-projects-me-profile.html#create-customer-sign-up
  * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
  */
 class MeSignupRequest extends AbstractCreateRequest

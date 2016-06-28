@@ -16,7 +16,7 @@ use Commercetools\Core\Model\Common\TaxedItemPrice;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#custom-line-item
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#customlineitem
  * @method string getId()
  * @method CustomLineItem setId(string $id = null)
  * @method LocalizedString getName()

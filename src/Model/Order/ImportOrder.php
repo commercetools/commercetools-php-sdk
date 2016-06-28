@@ -17,7 +17,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders-import.html#import-order
+ * @link https://dev.commercetools.com/http-api-projects-orders-import.html#orderimportdraft
  * @method string getOrderNumber()
  * @method ImportOrder setOrderNumber(string $orderNumber = null)
  * @method string getCustomerId()

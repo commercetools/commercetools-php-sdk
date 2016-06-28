@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Types
- * @link https://dev.commercetools.com/http-api-projects-types.html#type-by-id
+ * @link https://dev.commercetools.com/http-api-projects-types.html#get-type-by-id
  * @method Type mapResponse(ApiResponseInterface $response)
  */
 class TypeByIdGetRequest extends AbstractByIdGetRequest

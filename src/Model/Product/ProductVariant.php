@@ -14,7 +14,7 @@ use Commercetools\Core\Model\Common\ScopedPrice;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link https://dev.commercetools.com/http-api-projects-products.html#product-variant
+ * @link https://dev.commercetools.com/http-api-projects-products.html#productvariant
  * @method int getId()
  * @method ProductVariant setId(int $id = null)
  * @method int getSku()

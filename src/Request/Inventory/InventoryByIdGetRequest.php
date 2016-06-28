@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Inventory
- * @link https://dev.commercetools.com/http-api-projects-inventory.html#inventory-by-id
+ * @link https://dev.commercetools.com/http-api-projects-inventory.html#get-inventoryentry-by-id
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
 class InventoryByIdGetRequest extends AbstractByIdGetRequest

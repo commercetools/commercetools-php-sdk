@@ -13,7 +13,7 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link https://dev.commercetools.com/http-api-projects-carts.html#add-line-item
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#add-lineitem
  * @method string getAction()
  * @method CartAddLineItemAction setAction(string $action = null)
  * @method string getProductId()

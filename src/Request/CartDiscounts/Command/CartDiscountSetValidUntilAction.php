@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
- * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#set-validFrom
+ * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#set-valid-until
  * @method string getAction()
  * @method CartDiscountSetValidUntilAction setAction(string $action = null)
  * @method DateTimeDecorator getValidUntil()

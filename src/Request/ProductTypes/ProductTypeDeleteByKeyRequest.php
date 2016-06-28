@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#delete-product-type-by-key
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#delete-producttype-by-key
  * @method ProductType mapResponse(ApiResponseInterface $response)
  */
 class ProductTypeDeleteByKeyRequest extends AbstractDeleteByKeyRequest

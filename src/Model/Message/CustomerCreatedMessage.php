@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Customer\Customer;
 
 /**
  * @package Commercetools\Core\Model\Message
- * @link https://dev.commercetools.com/http-api-projects-messages.html#customer-created-message
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#customercreated-message
  * @method string getId()
  * @method CustomerCreatedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Reviews
- * @link https://dev.commercetools.com/http-api-projects-reviews.html#reviews-by-query
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#query-reviews
  * @method ReviewCollection mapResponse(ApiResponseInterface $response)
  */
 class ReviewQueryRequest extends AbstractQueryRequest

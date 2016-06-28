@@ -18,7 +18,7 @@ use Psr\Http\Message\UploadedFileInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- *
+ * @link https://dev.commercetools.com/http-api-projects-products.html#upload-a-product-image
  * @method Product mapResponse(ApiResponseInterface $response)
  */
 class ProductImageUploadRequest extends AbstractApiRequest

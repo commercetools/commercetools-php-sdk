@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Type;
 
 /**
  * @package Commercetools\Core\Model\Type
- * @link https://dev.commercetools.com/http-api-projects-types.html#time-type
+ * @link https://dev.commercetools.com/http-api-projects-types.html#timetype
  * @method string getName()
  * @method TimeType setName(string $name = null)
  */

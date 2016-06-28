@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomerGroups
- * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#create-customer-group
+ * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#create-a-customergroup
  * @method CustomerGroup mapResponse(ApiResponseInterface $response)
  */
 class CustomerGroupCreateRequest extends AbstractCreateRequest

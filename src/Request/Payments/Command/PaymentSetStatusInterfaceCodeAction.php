@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Customer\CustomerReference;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#set-statusInterface-code
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#set-statusinterfacecode
  * @method string getAction()
  * @method PaymentSetStatusInterfaceCodeAction setAction(string $action = null)
  * @method string getInterfaceCode()

@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Model\DiscountCode
- * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#create-discount-code
+ * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#discountcodedraft
  * @method LocalizedString getName()
  * @method DiscountCodeDraft setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()

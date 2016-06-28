@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Payment;
 /**
  * Class TransactionState
  * @package Commercetools\Core\Model\Payment
- * @link https://dev.commercetools.com/http-api-projects-payments.html#transaction-state
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#transactionstate
  */
 class TransactionState
 {

@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#line-item-draft
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#lineitemdraft
  * @method LineItemDraft current()
  * @method LineItemDraftCollection add(LineItemDraft $element)
  * @method LineItemDraft getAt($offset)

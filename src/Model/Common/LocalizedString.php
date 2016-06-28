@@ -11,7 +11,7 @@ use Commercetools\Core\Error\InvalidArgumentException;
 
 /**
  * @package Commercetools\Core\Model\Type
- * @link https://dev.commercetools.com/http-api-types.html#localized-string
+ * @link https://dev.commercetools.com/http-api-types.html#localizedstring
  * @example
  * ```php
  * LocalizedString::fromArray(['en' => 'Hello World', 'de' => 'Hallo Welt'])->add('fr', 'Bonjour le monde');

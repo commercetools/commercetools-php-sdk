@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-products.html#new-product-price
+ * @link https://dev.commercetools.com/http-api-projects-products.html#pricedraft
  * @method PriceDraftCollection add(PriceDraft $element)
  * @method PriceDraft current()
  * @method PriceDraft getAt($offset)

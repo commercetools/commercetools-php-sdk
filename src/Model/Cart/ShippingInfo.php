@@ -16,7 +16,7 @@ use Commercetools\Core\Model\Common\TaxedItemPrice;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#shipping-info
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#shippinginfo
  * @method string getShippingMethodName()
  * @method ShippingInfo setShippingMethodName(string $shippingMethodName = null)
  * @method Money getPrice()

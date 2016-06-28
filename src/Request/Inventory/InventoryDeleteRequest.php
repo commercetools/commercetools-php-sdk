@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Inventory
- * @link https://dev.commercetools.com/http-api-projects-inventory.html#delete-inventory
+ * @link https://dev.commercetools.com/http-api-projects-inventory.html#delete-an-inventoryentry
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  */
 class InventoryDeleteRequest extends AbstractDeleteRequest

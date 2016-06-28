@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Types\Command
- * @link https://dev.commercetools.com/http-api-projects-types.html#change-order-enum-values-field-definition
+ * @link https://dev.commercetools.com/http-api-projects-types.html#change-the-order-of-enumvalues
  * @method string getAction()
  * @method TypeChangeEnumValueOrderAction setAction(string $action = null)
  * @method string getFieldName()

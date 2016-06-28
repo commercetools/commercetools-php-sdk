@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Payment\PaymentReference;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @link https://dev.commercetools.com/http-api-projects-orders.html#add-payment
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#add-payment-beta
  * @method string getAction()
  * @method OrderAddPaymentAction setAction(string $action = null)
  * @method PaymentReference getPayment()

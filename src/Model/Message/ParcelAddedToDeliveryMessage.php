@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Order\Parcel;
 
 /**
  * @package Commercetools\Core\Model\Message
- * @link https://dev.commercetools.com/http-api-projects-messages.html#parcel-added-to-delivery-message
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#parceladdedtodelivery-message
  * @method string getId()
  * @method ParcelAddedToDeliveryMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

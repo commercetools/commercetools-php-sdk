@@ -7,8 +7,8 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-products.html#product-variant-attribute
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#plain-enum-value
+ * @link https://dev.commercetools.com/http-api-projects-products.html#attribute
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#plainenumvalue
  * @method string getLabel()
  * @method Enum setLabel(string $label = null)
  * @method string getKey()

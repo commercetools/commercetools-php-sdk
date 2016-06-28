@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-tax-category
+ * @link https://dev.commercetools.com/http-api-projects-products.html#set-taxcategory
  * @method string getAction()
  * @method ProductSetTaxCategoryAction setAction(string $action = null)
  * @method TaxCategoryReference getTaxCategory()

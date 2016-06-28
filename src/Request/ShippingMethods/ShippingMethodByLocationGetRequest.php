@@ -16,7 +16,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods
- * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#shipping-methods-for-location
+ * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-a-location
  * @method ShippingMethodCollection mapResponse(ApiResponseInterface $response)
  */
 class ShippingMethodByLocationGetRequest extends AbstractApiRequest

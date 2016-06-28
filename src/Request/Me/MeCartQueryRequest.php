@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Me
- *
+ * @link https://dev.commercetools.com/http-api-projects-me-carts.html#query-carts
  * @method CartCollection mapResponse(ApiResponseInterface $response)
  */
 class MeCartQueryRequest extends AbstractQueryRequest

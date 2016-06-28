@@ -20,6 +20,7 @@ use Commercetools\Core\Model\Customer\CustomerSigninResult;
 
 /**
  * @package Commercetools\Core\Request\Me
+ * @link https://dev.commercetools.com/http-api-projects-me-profile.html#authenticate-customer-sign-in
  * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
  */
 class MeLoginRequest extends AbstractApiRequest

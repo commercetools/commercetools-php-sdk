@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\Money;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#discounted-line-item-portion
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#discountedlineitemportion
  * @method CartDiscountReference getDiscount()
  * @method DiscountedLineItemPortion setDiscount(CartDiscountReference $discount = null)
  * @method Money getDiscountedAmount()

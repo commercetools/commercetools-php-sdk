@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Inventory
- * @link https://dev.commercetools.com/http-api-projects-inventory.html#inventory-entry
+ * @link https://dev.commercetools.com/http-api-projects-inventory.html#inventoryentry
  * @method string getId()
  * @method InventoryEntry setId(string $id = null)
  * @method int getVersion()

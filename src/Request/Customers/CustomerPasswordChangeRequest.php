@@ -18,7 +18,7 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @link https://dev.commercetools.com/http-api-projects-customers.html#change-password
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#change-customers-password
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerPasswordChangeRequest extends AbstractApiRequest

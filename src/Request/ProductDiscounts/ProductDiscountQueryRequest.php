@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductDiscounts
- * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#product-discounts-by-query
+ * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#query-productdiscounts
  * @method ProductDiscountCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductDiscountQueryRequest extends AbstractQueryRequest

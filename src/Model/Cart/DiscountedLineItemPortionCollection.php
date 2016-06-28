@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#discounted-line-item-portion
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#discountedlineitemportion
  * @method DiscountedLineItemPortion current()
  * @method DiscountedLineItemPortionCollection add(DiscountedLineItemPortion $element)
  * @method DiscountedLineItemPortion getAt($offset)

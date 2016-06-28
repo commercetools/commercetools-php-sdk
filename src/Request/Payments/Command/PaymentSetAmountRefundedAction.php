@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\Money;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#set-amount-refunded
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#set-amountrefunded
  * @method string getAction()
  * @method PaymentSetAmountRefundedAction setAction(string $action = null)
  * @method Money getAmount()

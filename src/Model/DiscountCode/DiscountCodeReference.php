@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\Reference;
 /**
  * @package Commercetools\Core\Model\DiscountCode
  * @link https://dev.commercetools.com/http-api-types.html#reference-types
- * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#discount-code
+ * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#discountcode
  * @method string getTypeId()
  * @method DiscountCodeReference setTypeId(string $typeId = null)
  * @method string getId()

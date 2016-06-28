@@ -13,7 +13,7 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link https://dev.commercetools.com/http-api-projects-carts.html#set-custom-shipping-method
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#set-custom-shippingmethod
  * @method string getAction()
  * @method CartSetCustomShippingMethodAction setAction(string $action = null)
  * @method string getShippingMethodName()

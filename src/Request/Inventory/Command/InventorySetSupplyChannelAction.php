@@ -13,7 +13,7 @@ use Commercetools\Core\Model\Channel\ChannelReference;
 
 /**
  * @package Commercetools\Core\Request\Inventory\Command
- * @link https://dev.commercetools.com/http-api-projects-inventory.html#set-supply-channel
+ * @link https://dev.commercetools.com/http-api-projects-inventory.html#set-supplychannel
  * @method string getAction()
  * @method InventorySetSupplyChannelAction setAction(string $action = null)
  * @method ChannelReference getSupplyChannel()

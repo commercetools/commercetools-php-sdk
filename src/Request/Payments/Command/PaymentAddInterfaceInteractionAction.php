@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Type\TypeReference;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#add-interface-interaction
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#add-interfaceinteraction
  * @method string getAction()
  * @method PaymentAddInterfaceInteractionAction setAction(string $action = null)
  * @method string getTypeId()

@@ -15,7 +15,7 @@ use Commercetools\Core\Model\Customer\CustomerSigninResult;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @link https://dev.commercetools.com/http-api-projects-customers.html#create-customer
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#create-customer-sign-up
  * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
  */
 class CustomerCreateRequest extends AbstractCreateRequest

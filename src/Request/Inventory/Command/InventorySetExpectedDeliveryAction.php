@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Request\Inventory\Command
- * @link https://dev.commercetools.com/http-api-projects-inventory.html#set-expected-delivery
+ * @link https://dev.commercetools.com/http-api-projects-inventory.html#set-expecteddelivery
  * @method string getAction()
  * @method InventorySetExpectedDeliveryAction setAction(string $action = null)
  * @method DateTimeDecorator getExpectedDelivery()

@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\ImageCollection;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders-import.html#import-product-variant
+ * @link https://dev.commercetools.com/http-api-projects-orders-import.html#productvariantimportdraft
  * @method int getId()
  * @method ProductVariantImportDraft setId(int $id = null)
  * @method string getSku()

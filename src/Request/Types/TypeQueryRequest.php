@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Types
- * @link https://dev.commercetools.com/http-api-projects-types.html#types-by-query
+ * @link https://dev.commercetools.com/http-api-projects-types.html#query-types
  * @method TypeCollection mapResponse(ApiResponseInterface $response)
  */
 class TypeQueryRequest extends AbstractQueryRequest

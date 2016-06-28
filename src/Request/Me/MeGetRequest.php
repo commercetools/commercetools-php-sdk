@@ -16,6 +16,7 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Me
+ * @link https://dev.commercetools.com/http-api-projects-me-profile.html#get-customer
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class MeGetRequest extends AbstractApiRequest

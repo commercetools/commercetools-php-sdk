@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\States\Command
- * @link https://dev.commercetools.com/http-api-projects-states.html#change-key
+ * @link https://dev.commercetools.com/http-api-projects-states.html#change-state-key
  * @method string getAction()
  * @method StateChangeKeyAction setAction(string $action = null)
  * @method string getKey()

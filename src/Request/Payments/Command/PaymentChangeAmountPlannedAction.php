@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\Money;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link http://dev.commercetools.com/http-api-projects-payments.html#change-amount-planned
+ * @link http://dev.commercetools.com/http-api-projects-payments.html#change-amountplanned
  * @method string getAction()
  * @method PaymentChangeAmountPlannedAction setAction(string $action = null)
  * @method Money getAmount()

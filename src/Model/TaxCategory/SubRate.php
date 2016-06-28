@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\TaxCategory
- *
+ * @link http://dev.commercetools.com/http-api-projects-taxCategories.html#subrate-beta
  * @method string getName()
  * @method SubRate setName(string $name = null)
  * @method float getAmount()

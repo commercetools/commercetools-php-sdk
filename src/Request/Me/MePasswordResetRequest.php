@@ -16,6 +16,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Me
+ * @link https://dev.commercetools.com/http-api-projects-me-profile.html#reset-customers-password
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class MePasswordResetRequest extends AbstractApiRequest

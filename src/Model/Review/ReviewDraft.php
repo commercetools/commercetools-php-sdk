@@ -14,7 +14,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Review
- * @link https://dev.commercetools.com/http-api-projects-reviews.html#review-draft
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#reviewdraft
  * @method string getKey()
  * @method ReviewDraft setKey(string $key = null)
  * @method string getUniquenessValue()

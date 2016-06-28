@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\MoneyCollection;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
- * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#cart-discount-value
+ * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscountvalue
  * @method string getType()
  * @method CartDiscountValue setType(string $type = null)
  * @method int getPermyriad()

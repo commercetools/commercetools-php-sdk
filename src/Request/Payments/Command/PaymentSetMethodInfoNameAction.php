@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#set-methodinfo-name
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#set-methodinfoname
  * @method string getAction()
  * @method PaymentSetMethodInfoNameAction setAction(string $action = null)
  * @method LocalizedString getName()

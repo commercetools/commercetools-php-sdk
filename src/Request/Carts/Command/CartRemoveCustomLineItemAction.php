@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link https://dev.commercetools.com/http-api-projects-carts.html#remove-custom-line-item
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#remove-customlineitem
  * @method string getAction()
  * @method CartRemoveCustomLineItemAction setAction(string $action = null)
  * @method string getCustomLineItemId()

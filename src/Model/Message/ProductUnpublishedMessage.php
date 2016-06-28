@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\Message
- * @link https://dev.commercetools.com/http-api-projects-messages.html#product-unpublished-message
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#productunpublished-message
  * @method string getId()
  * @method ProductUnpublishedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\State;
 
 /**
  * @package Commercetools\Core\Model\State
- * @link https://dev.commercetools.com/http-api-projects-states.html#state-role
+ * @link https://dev.commercetools.com/http-api-projects-states.html#staterole
  */
 class StateRole
 {

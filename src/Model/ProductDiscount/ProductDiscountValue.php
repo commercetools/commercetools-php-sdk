@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\MoneyCollection;
 
 /**
  * @package Commercetools\Core\Model\ProductDiscount
- * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#product-discount-value
+ * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#productdiscountvalue
  * @method string getType()
  * @method ProductDiscountValue setType(string $type = null)
  * @method int getPermyriad()

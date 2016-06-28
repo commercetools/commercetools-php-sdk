@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\ProductDiscount
- * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#product-discount
+ * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#productdiscount
  * @method string getId()
  * @method ProductDiscount setId(string $id = null)
  * @method int getVersion()

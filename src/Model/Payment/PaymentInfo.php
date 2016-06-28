@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Payment
- * @link https://dev.commercetools.com/http-api-projects-orders.html#payment-info
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#paymentinfo
  * @method PaymentReferenceCollection getPayments()
  * @method PaymentInfo setPayments(PaymentReferenceCollection $payments = null)
  */

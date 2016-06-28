@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#add-attribute-definition
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#add-attributedefinition
  * @method string getAction()
  * @method ProductTypeAddAttributeDefinitionAction setAction(string $action = null)
  * @method AttributeDefinition getAttribute()

@@ -12,7 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
  * @codingStandardsIgnoreStart
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#change-order-localized-enum-values-attribute-definition
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#change-the-order-of-localizedenumvalues
  * @codingStandardsIgnoreEnd
  * @method string getAction()
  * @method ProductTypeChangeLocalizedEnumValueOrderAction setAction(string $action = null)

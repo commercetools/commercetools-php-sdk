@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Model\ProductType
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#attribute-definition
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#attributedefinition
  * @method AttributeType getType()
  * @method AttributeDefinition setType(AttributeType $type = null)
  * @method string getName()

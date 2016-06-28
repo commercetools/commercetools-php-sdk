@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @link https://dev.commercetools.com/http-api-projects-orders.html#add-return-info
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#addreturninfo
  * @method string getAction()
  * @method OrderAddReturnInfoAction setAction(string $action = null)
  * @method DateTimeDecorator getReturnDate()

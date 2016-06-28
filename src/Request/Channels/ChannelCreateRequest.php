@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Channels
- * @link https://dev.commercetools.com/http-api-projects-channels.html#create-channel
+ * @link https://dev.commercetools.com/http-api-projects-channels.html#create-a-channel
  * @method Channel mapResponse(ApiResponseInterface $response)
  */
 class ChannelCreateRequest extends AbstractCreateRequest

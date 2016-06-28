@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\PriceDraftCollection;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#change-price
+ * @link https://dev.commercetools.com/http-api-projects-products.html#set-prices
  * @method string getAction()
  * @method ProductSetPricesAction setAction(string $action = null)
  * @method PriceDraftCollection getPrices()

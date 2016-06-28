@@ -11,7 +11,7 @@ use Commercetools\Core\Model\ProductType\AttributeType;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-products.html#product-variant-attribute
+ * @link https://dev.commercetools.com/http-api-projects-products.html#attribute
  * @method string getName()
  * @method Attribute setName(string $name = null)
  * @method mixed getValue()

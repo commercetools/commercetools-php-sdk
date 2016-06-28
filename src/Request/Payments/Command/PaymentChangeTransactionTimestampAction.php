@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#change-transaction-timestamp
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#change-transactiontimestamp
  * @method string getAction()
  * @method PaymentChangeTransactionTimestampAction setAction(string $action = null)
  * @method string getTransactionId()

@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Model\State
- * @link https://dev.commercetools.com/http-api-projects-states.html#create-state
+ * @link https://dev.commercetools.com/http-api-projects-states.html#statedraft
  * @method string getKey()
  * @method StateDraft setKey(string $key = null)
  * @method string getType()

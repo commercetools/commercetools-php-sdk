@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Reviews
- * @link https://dev.commercetools.com/http-api-projects-reviews.html#update-review
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#update-review-by-id
  * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewUpdateRequest extends AbstractUpdateRequest
