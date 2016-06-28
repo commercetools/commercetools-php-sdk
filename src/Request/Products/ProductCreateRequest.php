@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\Product\Product;
+use Commercetools\Core\Request\PriceSelectTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
@@ -19,6 +20,8 @@ use Commercetools\Core\Response\ApiResponseInterface;
  */
 class ProductCreateRequest extends AbstractCreateRequest
 {
+    use PriceSelectTrait;
+
     protected $resultClass = '\Commercetools\Core\Model\Product\Product';
     /**
      * @param ProductDraft $product
