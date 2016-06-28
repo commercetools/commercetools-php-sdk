@@ -10,11 +10,13 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Client;
 use Commercetools\Core\Config;
 use Commercetools\Core\Client\OAuth\Manager;
+use Commercetools\Core\Error\ResourceNotFoundError;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\MyCartDraft;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
+use Commercetools\Core\Request\Me\MeActiveCartRequest;
 use Commercetools\Core\Request\Me\MeCartByIdRequest;
 use Commercetools\Core\Request\Me\MeCartCreateRequest;
 use Commercetools\Core\Request\Me\MeCartQueryRequest;
@@ -428,5 +430,147 @@ class MeCartRequestTest extends ApiTestCase
         $this->assertNull($carts->getById($cart1->getId()));
         $this->assertSame($cart2->getId(), $carts->getById($cart2->getId())->getId());
         $this->assertSame($cart3->getId(), $carts->getById($cart3->getId())->getId());
+    }
+
+    public function testAnonActiveCart()
+    {
+        $config = $this->getClientConfig(['manage_my_orders', 'create_anonymous_token']);
+        $config->setGrantType(Config::GRANT_TYPE_ANONYMOUS);
+
+        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
+        $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+
+        $cartDraft = $this->getMyCartDraft();
+        $request = MeCartCreateRequest::ofDraft($cartDraft);
+        $response = $request->executeWithClient($client);
+        $cart1 = $request->mapResponse($response);
+        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
+            $cart1->getId(),
+            $cart1->getVersion()
+        );
+
+        $this->assertNotEmpty($cart1->getAnonymousId());
+
+        $request = MeActiveCartRequest::of();
+        $response = $request->executeWithClient($client);
+        $result = $request->mapResponse($response);
+
+        $this->assertSame($cart1->getId(), $result->getId());
+        $this->assertSame($cart1->getAnonymousId(), $result->getAnonymousId());
+
+        $cartDraft = $this->getMyCartDraft();
+        $request = MeCartCreateRequest::ofDraft($cartDraft);
+        $response = $request->executeWithClient($client);
+        $cart2 = $request->mapResponse($response);
+        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
+            $cart2->getId(),
+            $cart2->getVersion()
+        );
+
+        $request = MeActiveCartRequest::of();
+        $response = $request->executeWithClient($client);
+        $result = $request->mapResponse($response);
+
+        $this->assertSame($cart2->getId(), $result->getId());
+        $this->assertSame($cart2->getAnonymousId(), $result->getAnonymousId());
+    }
+
+    public function testCustomActiveCart()
+    {
+        $customerDraft = $this->getCustomerDraft();
+        $customer = $this->getCustomer($customerDraft);
+
+        $config = $this->getClientConfig('manage_my_orders');
+        $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
+            ->setUsername($customer->getEmail())
+            ->setPassword($customerDraft->getPassword())
+        ;
+
+        $handler = new TestHandler();
+        $logger = new Logger('testOauth');
+        $logger->pushHandler($handler);
+
+        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()])->setLogger($logger);
+        $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+
+        $cartDraft = $this->getMyCartDraft();
+        $request = MeCartCreateRequest::ofDraft($cartDraft);
+        $response = $request->executeWithClient($client);
+        $cart1 = $request->mapResponse($response);
+        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
+            $cart1->getId(),
+            $cart1->getVersion()
+        );
+
+        $request = MeActiveCartRequest::of();
+        $response = $request->executeWithClient($client);
+        $result = $request->mapResponse($response);
+
+        $this->assertContains('customers/token', current($handler->getRecords())['message']);
+        $this->assertSame($cart1->getId(), $result->getId());
+
+        $cartDraft = $this->getMyCartDraft();
+        $request = MeCartCreateRequest::ofDraft($cartDraft);
+        $response = $request->executeWithClient($client);
+        $cart2 = $request->mapResponse($response);
+        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
+            $cart2->getId(),
+            $cart2->getVersion()
+        );
+
+        $request = MeActiveCartRequest::of();
+        $response = $request->executeWithClient($client);
+        $result = $request->mapResponse($response);
+        $this->assertSame($cart2->getId(), $result->getId());
+    }
+
+    public function testAnonNoCart()
+    {
+        $config = $this->getClientConfig(['manage_my_orders', 'create_anonymous_token']);
+        $config->setGrantType(Config::GRANT_TYPE_ANONYMOUS);
+
+        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
+        $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+
+        $request = MeActiveCartRequest::of();
+        $response = $request->executeWithClient($client);
+
+        $this->assertTrue($response->isError());
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Error\ResourceNotFoundError',
+            $response->getErrors()->getByCode(ResourceNotFoundError::CODE)
+        );
+    }
+
+    public function testCustomerNoCart()
+    {
+        $customerDraft = $this->getCustomerDraft();
+        $customer = $this->getCustomer($customerDraft);
+
+        $config = $this->getClientConfig('manage_my_orders');
+        $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
+            ->setUsername($customer->getEmail())
+            ->setPassword($customerDraft->getPassword())
+        ;
+
+        $handler = new TestHandler();
+        $logger = new Logger('testOauth');
+        $logger->pushHandler($handler);
+
+        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()])->setLogger($logger);
+        $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+
+        $request = MeActiveCartRequest::of();
+        $response = $request->executeWithClient($client);
+
+        $this->assertContains('customers/token', current($handler->getRecords())['message']);
+
+        $this->assertTrue($response->isError());
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Error\ResourceNotFoundError',
+            $response->getErrors()->getByCode(ResourceNotFoundError::CODE)
+        );
     }
 }
