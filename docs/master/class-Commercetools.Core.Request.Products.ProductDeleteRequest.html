@@ -460,6 +460,7 @@
 				<li><a href="class-Commercetools.Core.Request.Products.ProductByIdGetRequest.html">ProductByIdGetRequest</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.ProductCreateRequest.html">ProductCreateRequest</a></li>
 				<li class="active"><a href="class-Commercetools.Core.Request.Products.ProductDeleteRequest.html">ProductDeleteRequest</a></li>
+				<li><a href="class-Commercetools.Core.Request.Products.ProductImageUploadRequest.html">ProductImageUploadRequest</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.ProductProjectionByIdGetRequest.html">ProductProjectionByIdGetRequest</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.ProductProjectionBySkuGetRequest.html">ProductProjectionBySkuGetRequest</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.ProductProjectionBySlugGetRequest.html">ProductProjectionBySlugGetRequest</a></li>
@@ -515,6 +516,8 @@
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>Commercetools\Core\Request\Products\ProductDeleteRequest</span></b>			
 			
+			 uses 
+					<a href="class-Commercetools.Core.Request.PriceSelectTrait.html"><span>Commercetools\Core\Request\PriceSelectTrait</span></a>
 			
 		</dd>
 	</dl>
@@ -533,7 +536,7 @@
             <tr><th>Namespace</th><td><a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Request.html">Request</a>\<a href="namespace-Commercetools.Core.Request.Products.html">Products</a></td></tr>
             <tr><th>Package</th><td>Commercetools\Core\Request\Products</td></tr>
 
-                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Request.Products.ProductDeleteRequest.html#13-42" title="Go to source code">Request/Products/ProductDeleteRequest.php</a></td></tr>
+                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Request.Products.ProductDeleteRequest.html#14-45" title="Go to source code">Request/Products/ProductDeleteRequest.php</a></td></tr>
 
                     <tr><th>API documentation</th><td>
                     <b><a href="https://dev.commercetools.com/http-api-projects-products.html#delete-product" target="api-doc">https://dev.commercetools.com/http-api-projects-products.html#delete-product</a></b></span></td></tr>
@@ -556,7 +559,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.ProductDeleteRequest.html#22-30" title="Go to source code">__construct</a>( <span>string <var>$id</var></span>, <span>integer <var>$version</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.ProductDeleteRequest.html#25-33" title="Go to source code">__construct</a>( <span>string <var>$id</var></span>, <span>integer <var>$version</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -596,7 +599,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofIdAndVersion">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.ProductDeleteRequest.html#32-41" title="Go to source code">ofIdAndVersion</a>( <span>string <var>$id</var></span>, <span>integer <var>$version</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.ProductDeleteRequest.html#35-44" title="Go to source code">ofIdAndVersion</a>( <span>string <var>$id</var></span>, <span>integer <var>$version</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -640,7 +643,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_mapResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.ProductDeleteRequest.html#16" title="Go to source code">mapResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.ProductDeleteRequest.html#17" title="Go to source code">mapResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1237,6 +1240,13 @@
 		</div>
 
             <div class="panel panel-default methods used-methods">
+                <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Request.PriceSelectTrait.html#methods">Commercetools\Core\Request\PriceSelectTrait</a></h3></div>
+                <p class="elementList">
+                    <code><a href="class-Commercetools.Core.Request.PriceSelectTrait.html#_channel">channel()</a></code>, 
+                    <code><a href="class-Commercetools.Core.Request.PriceSelectTrait.html#_country">country()</a></code>, 
+                    <code><a href="class-Commercetools.Core.Request.PriceSelectTrait.html#_currency">currency()</a></code>, 
+                    <code><a href="class-Commercetools.Core.Request.PriceSelectTrait.html#_customerGroup">customerGroup()</a></code>
+                </p>
                 <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Request.ExpandTrait.html#methods">Commercetools\Core\Request\ExpandTrait</a></h3></div>
                 <p class="elementList">
                     <code><a href="class-Commercetools.Core.Request.ExpandTrait.html#_expand">expand()</a></code>

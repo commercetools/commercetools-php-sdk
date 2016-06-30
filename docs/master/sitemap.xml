@@ -465,6 +465,15 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Cart.LineItemDraftCollection.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Cart.MyCartDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Cart.MyLineItemDraft.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Cart.MyLineItemDraftCollection.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Cart.ShippingInfo.html</loc>
 </url>
 <url>
@@ -649,6 +658,9 @@
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Customer.CustomerToken.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Customer.MyCustomerDraft.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.CustomerGroup.CustomerGroup.html</loc>
@@ -1716,13 +1728,61 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Inventory.InventoryUpdateRequest.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeActiveCartRequest.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeCartByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeCartCreateRequest.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeCartQueryRequest.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeCartsEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeCartUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeDeleteRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeEmailConfirmRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeGetRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeLoginRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeOrderByIdRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeOrderQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeOrdersEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MePasswordChangeRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MePasswordResetRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeSignupRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Me.MeUpdateRequest.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Messages.MessageByIdGetRequest.html</loc>
@@ -2023,6 +2083,9 @@
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Products.ProductDeleteRequest.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Products.ProductImageUploadRequest.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Products.ProductProjectionByIdGetRequest.html</loc>
