@@ -35,14 +35,14 @@
   },
   "require-dev": {
     "guzzlehttp/guzzle": "^6.0",
-    "phpunit/phpunit": "^5.0 || ^4.0",
+    "phpunit/phpunit": "^5.0 || ^4.8",
     "phpmd/phpmd": "@stable",
-    "squizlabs/php_codesniffer": "@stable",
+    "squizlabs/php_codesniffer": "^2.6",
     "sebastian/phpcpd": "@stable",
     "pdepend/pdepend": "@stable",
     "phploc/phploc": "^2.0",
     "mayflower/php-codebrowser": "^1.0",
-    "doctrine/cache": "^1.5",
+    "doctrine/cache": "^1.6",
     "monolog/monolog": "^1.12",
     "behat/behat": "^3.0",
     "phpunit/phpcov": "*",
@@ -50,7 +50,7 @@
     "symfony/yaml": "*",
     "cache/array-adapter": "^0.4.0",
     "cache/filesystem-adapter": "^0.3.0",
-    "incenteev/composer-parameter-handler": "^2.0"
+    "incenteev/composer-parameter-handler": "^2.1"
   },
   "scripts": {
     "updateConfig": [
