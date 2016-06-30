@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomObjects
- * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#delete-custom-object-by-id
+ * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#delete-customobject-by-id
  * @method CustomObject mapResponse(ApiResponseInterface $response)
  */
 class CustomObjectDeleteRequest extends AbstractDeleteRequest

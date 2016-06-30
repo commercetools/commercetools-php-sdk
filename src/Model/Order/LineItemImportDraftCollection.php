@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders-import.html#import-line-item
+ * @link https://dev.commercetools.com/http-api-projects-orders-import.html#lineitemimportdraft
  * @method LineItemImportDraft current()
  * @method LineItemImportDraftCollection add(LineItemImportDraft $element)
  * @method LineItemImportDraft getAt($offset)

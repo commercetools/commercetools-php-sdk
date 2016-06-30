@@ -105,6 +105,27 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
     }
 
+    public function testSetKeyLength()
+    {
+        $draft = $this->getDraft('set-key');
+        $draft->setKey(str_pad($draft->getKey(), 256, '0'));
+        $productType = $this->createProductType($draft);
+
+        $key = str_pad('new-' . $this->getTestRun(), 256, '0');
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeSetKeyAction::ofKey($key)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->productTypeDeleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertSame($key, $result->getKey());
+        $this->assertNotSame($productType->getVersion(), $result->getVersion());
+    }
+
     public function testChangeName()
     {
         $draft = $this->getDraft('change-name');

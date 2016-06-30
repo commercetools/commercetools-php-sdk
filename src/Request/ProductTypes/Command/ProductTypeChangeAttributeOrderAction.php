@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#change-order-attribute-definition
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#change-the-order-of-attributedefinitions
  * @method string getAction()
  * @method ProductTypeChangeAttributeOrderAction setAction(string $action = null)
  * @method AttributeDefinitionCollection getAttributes()

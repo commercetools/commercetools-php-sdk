@@ -14,7 +14,7 @@ use Commercetools\Core\Client\Adapter\AdapterInterface;
  */
 abstract class AbstractHttpClient
 {
-    const VERSION = '1.1.1';
+    const VERSION = '1.2.0';
 
     /**
      * @var AdapterInterface
@@ -112,11 +112,10 @@ abstract class AbstractHttpClient
     protected function getUserAgent()
     {
         if (is_null($this->userAgent)) {
-            $agent = 'commercetools-php-sdk ' . static::VERSION;
-            if (extension_loaded('curl')) {
-                $agent .= ' curl/' . curl_version()['version'];
+            $agent = 'commercetools-php-sdk/' . static::VERSION . ' PHP/' . PHP_VERSION;
+            if (extension_loaded('curl') && function_exists('curl_version')) {
+                $agent .= ' curl/' . \curl_version()['version'];
             }
-            $agent .= ' PHP/' . PHP_VERSION;
             $this->userAgent = $agent;
         }
 

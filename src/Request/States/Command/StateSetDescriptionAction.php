@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\States\Command
- * @link https://dev.commercetools.com/http-api-projects-states.html#set-description
+ * @link https://dev.commercetools.com/http-api-projects-states.html#set-state-description
  * @method string getAction()
  * @method StateSetDescriptionAction setAction(string $action = null)
  * @method LocalizedString getDescription()

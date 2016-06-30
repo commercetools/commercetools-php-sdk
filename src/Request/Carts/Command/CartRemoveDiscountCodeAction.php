@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link https://dev.commercetools.com/http-api-projects-carts.html#remove-discount-code
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#remove-discountcode
  * @method string getAction()
  * @method CartRemoveDiscountCodeAction setAction(string $action = null)
  * @method DiscountCodeReference getDiscountCode()

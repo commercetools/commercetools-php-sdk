@@ -7,8 +7,8 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-products.html#product-variant-attribute
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#localized-enum-value
+ * @link https://dev.commercetools.com/http-api-projects-products.html#attribute
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#localizedenumvalue
  * @method LocalizedString getLabel()
  * @method LocalizedEnum setLabel(LocalizedString $label = null)
  * @method string getKey()

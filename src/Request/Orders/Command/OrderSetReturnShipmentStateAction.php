@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @link https://dev.commercetools.com/http-api-projects-orders.html#set-return-shipment-state
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#set-returnshipmentstate
  * @method string getAction()
  * @method OrderSetReturnShipmentStateAction setAction(string $action = null)
  * @method string getReturnItemId()

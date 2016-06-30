@@ -32,7 +32,10 @@ class OrderImportRequestTest extends RequestTestCase
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
+        $mockBuilder = $this->getMockBuilder('\GuzzleHttp\Psr7\Response');
+        $mockBuilder->disableOriginalConstructor();
+        $guzzleResponse = $mockBuilder->getMock();
+
         $request = OrderImportRequest::ofImportOrder(ImportOrder::of());
         $response = $request->buildResponse($guzzleResponse);
 

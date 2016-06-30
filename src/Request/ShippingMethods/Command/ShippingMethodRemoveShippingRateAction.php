@@ -12,7 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods\Command
- * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#remove-shipping-rate
+ * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#remove-shippingrate
  * @method string getAction()
  * @method ShippingMethodRemoveShippingRateAction setAction(string $action = null)
  * @method ZoneReference getZone()

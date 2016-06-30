@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\Reference;
 /**
  * @package Commercetools\Core\Model\CustomerGroup
  * @link https://dev.commercetools.com/http-api-types.html#reference-types
- * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#customer-group
+ * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#customergroup
  * @method string getTypeId()
  * @method CustomerGroupReference setTypeId(string $typeId = null)
  * @method string getId()

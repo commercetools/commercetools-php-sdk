@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\ProductType
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#product-type
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#producttype
  * @method ProductType current()
  * @method ProductTypeCollection add(ProductType $element)
  * @method ProductType getAt($offset)

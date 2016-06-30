@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories
- * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#delete-tax-category
+ * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#delete-taxcategory
  * @method TaxCategory mapResponse(ApiResponseInterface $response)
  */
 class TaxCategoryDeleteRequest extends AbstractDeleteRequest

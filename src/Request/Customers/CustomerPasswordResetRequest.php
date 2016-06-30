@@ -17,7 +17,7 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @link https://dev.commercetools.com/http-api-projects-customers.html#reset-customers-password
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#customers-password-reset
  * @method Customer mapResponse(ApiResponseInterface $response)
  */
 class CustomerPasswordResetRequest extends AbstractApiRequest

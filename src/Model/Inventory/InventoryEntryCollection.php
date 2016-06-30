@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Inventory
- * @link https://dev.commercetools.com/http-api-projects-inventory.html#inventory-entry
+ * @link https://dev.commercetools.com/http-api-projects-inventory.html#inventoryentry
  * @method InventoryEntry current()
  * @method InventoryEntryCollection add(InventoryEntry $element)
  * @method InventoryEntry getAt($offset)

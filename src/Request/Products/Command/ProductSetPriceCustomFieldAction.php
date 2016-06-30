@@ -10,7 +10,7 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-price-custom-field
+ * @link https://dev.commercetools.com/http-api-projects-products.html#set-price-customfield
  * @method string getAction()
  * @method ProductSetPriceCustomFieldAction setAction(string $action = null)
  * @method string getPriceId()
@@ -19,7 +19,7 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
  * @method ProductSetPriceCustomFieldAction setStaged(bool $staged = null)
  * @method string getName()
  * @method ProductSetPriceCustomFieldAction setName(string $name = null)
- * @method getValue()
+ * @method mixed getValue()
  * @method ProductSetPriceCustomFieldAction setValue($value = null)
  */
 class ProductSetPriceCustomFieldAction extends SetCustomFieldAction

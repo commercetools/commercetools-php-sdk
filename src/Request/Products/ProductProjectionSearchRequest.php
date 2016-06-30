@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Product\Search\FilterInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link https://dev.commercetools.com/http-api-projects-products-search.html#product-projections-by-search
+ * @link https://dev.commercetools.com/http-api-projects-products-search.html#search-productprojections
  * @method PagedSearchResponse executeWithClient(Client $client)
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
  */
@@ -143,10 +143,13 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
      * @param bool $fuzzy
      * @return $this
      */
-    public function fuzzy($fuzzy)
+    public function fuzzy($level)
     {
-        if (!is_null($fuzzy)) {
-            $this->addParamObject(new Parameter('fuzzy', (bool)$fuzzy));
+        if (is_bool($level)) {
+            $this->addParamObject(new Parameter('fuzzy', (bool)$level));
+        } else {
+            $level = min(2, max(0, (int)$level));
+            $this->addParamObject(new Parameter('fuzzy', $level));
         }
 
         return $this;

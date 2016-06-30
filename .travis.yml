@@ -9,7 +9,6 @@ php:
 matrix:
   allow_failures:
     - php: hhvm
-    - php: 7.0
 
 services:
   - redis-server
@@ -19,12 +18,13 @@ cache:
   - vendor
 
 before_script:
+  - PHP=$TRAVIS_PHP_VERSION
   - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
-  - sh -c "if [ $TRAVIS_PHP_VERSION != 'hhvm' ] && [ `php-config --vernum` -lt 70000 ] ; then echo 'extension = redis.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; fi"
-  - sh -c "if [ $TRAVIS_PHP_VERSION != 'hhvm' ] && [ `php-config --vernum` -ge 50400 ] && [ `php-config --vernum` -lt 70000 ]; then printf "yes\n" | pecl install -f apcu-4.0.10 ; fi"
-  - sh -c "if [ $TRAVIS_PHP_VERSION != 'hhvm' ] && [ `php-config --vernum` -ge 70000 ] ; then printf "yes\n" | pecl install -f apcu-5.1.3 ; fi"
-  - sh -c "if [ $TRAVIS_PHP_VERSION != 'hhvm' ] ; then phpenv config-add ./tests/apc.ini; fi"
-  - if [ $TRAVIS_PHP_VERSION == '5.4' ] ; then ./set_guzzle5.sh; fi
+  - sh -c "if [ $PHP != 'hhvm' ] && [ `php-config --vernum` -lt 70000 ] ; then echo 'extension = redis.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; fi"
+  - sh -c "if [ $PHP != 'hhvm' ] && [ `php-config --vernum` -ge 50400 ] && [ `php-config --vernum` -lt 70000 ]; then printf "yes\n" | pecl install -f apcu-4.0.10 ; fi"
+  - sh -c "if [ $PHP != 'hhvm' ] && [ `php-config --vernum` -ge 70000 ] ; then printf "yes\n" | pecl install -f apcu-5.1.3 ; fi"
+  - sh -c "if [ $PHP != 'hhvm' ] ; then phpenv config-add ./tests/apc.ini; fi"
+  - if [ $PHP == '5.4' ] ; then ./set_guzzle5.sh; fi
   - composer global require hirak/prestissimo
   - composer self-update
   - composer install -o --prefer-dist
@@ -32,7 +32,7 @@ before_script:
 script:
   - ant phpcs-ci
   - phpunit --testsuite=unit
-  - if [ $TRAVIS_PHP_VERSION == '5.6' ] ; then phpunit --testsuite=integration; fi
+  - if [ $PHP == '7.0' ] ; then phpunit --testsuite=integration; fi
   - ant behat
 
 after_success:

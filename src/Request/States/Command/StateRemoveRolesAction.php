@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\States\Command
- * @link https://dev.commercetools.com/http-api-projects-states.html#remove-roles
+ * @link https://dev.commercetools.com/http-api-projects-states.html#remove-state-roles
  * @method string getAction()
  * @method StateRemoveRolesAction setAction(string $action = null)
  * @method array getRoles()

@@ -16,7 +16,7 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#custom-line-item-draft
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#customlineitemdraft
  * @method LocalizedString getName()
  * @method CustomLineItemDraft setName(LocalizedString $name = null)
  * @method Money getMoney()

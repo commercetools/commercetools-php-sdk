@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-products.html#product-images
+ * @link https://dev.commercetools.com/http-api-projects-products.html#images
  * @method string getUrl()
  * @method Image setUrl(string $url = null)
  * @method ImageDimension getDimensions()

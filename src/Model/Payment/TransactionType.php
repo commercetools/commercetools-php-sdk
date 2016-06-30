@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Payment;
 /**
  * Class TransactionType
  * @package Commercetools\Core\Model\Payment
- * @link https://dev.commercetools.com/http-api-projects-payments.html#transaction-type
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#transactiontype
  */
 class TransactionType
 {

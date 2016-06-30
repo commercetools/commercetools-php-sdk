@@ -81,6 +81,8 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method Order setPaymentInfo(PaymentInfo $paymentInfo = null)
  * @method DateTimeDecorator getCompletedAt()
  * @method Order setCompletedAt(\DateTime $completedAt = null)
+ * @method string getAnonymousId()
+ * @method Order setAnonymousId(string $anonymousId = null)
  * @method OrderReference getReference()
  */
 class Order extends Resource
@@ -126,6 +128,7 @@ class Order extends Resource
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
             'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
             'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentInfo'],
+            'anonymousId' => [static::TYPE => 'string'],
         ];
     }
 }

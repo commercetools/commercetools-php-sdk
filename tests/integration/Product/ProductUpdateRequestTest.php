@@ -287,6 +287,7 @@ class ProductUpdateRequestTest extends ApiTestCase
                 )
             )
         ;
+        $request->currency('EUR');
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
@@ -298,6 +299,13 @@ class ProductUpdateRequestTest extends ApiTestCase
             $price->getValue()->getCentAmount(),
             $variant->getPrices()->current()->getValue()->getCentAmount()
         );
+
+        $this->assertEmpty($variant->getPrice()->getCountry());
+        $this->assertEmpty($variant->getPrice()->getChannel());
+        $this->assertEmpty($variant->getPrice()->getCustomerGroup());
+        $this->assertSame('EUR', $variant->getPrice()->getValue()->getCurrencyCode());
+        $this->assertSame(100, $variant->getPrice()->getValue()->getCentAmount());
+
         $this->assertNotSame($product->getVersion(), $result->getVersion());
         $product = $result;
 
@@ -1165,6 +1173,63 @@ class ProductUpdateRequestTest extends ApiTestCase
             '\Commercetools\Core\Model\ProductType\ProductType',
             $product->getProductType()->getObj()
         );
+        array_pop($this->cleanupRequests);
+    }
+
+    public function testPriceSelectCreateUpdateDelete()
+    {
+        $draft = $this->getDraft('update-reference-expansion');
+        $draft->setMasterVariant(
+            ProductVariantDraft::of()->setSku('sku' . uniqid())
+                ->setPrices(
+                    PriceDraftCollection::of()->add(
+                        PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                    )
+                )
+        );
+
+        $request = ProductCreateRequest::ofDraft($draft);
+        $request->currency('EUR');
+        $response = $request->executeWithClient($this->getClient());
+        $product = $request->mapResponse($response);
+
+        $this->cleanupRequests[] = $this->deleteRequest = ProductDeleteRequest::ofIdAndVersion(
+            $product->getId(),
+            $product->getVersion()
+        );
+
+        $variant = $product->getMasterData()->getStaged()->getMasterVariant();
+        $this->assertEmpty($variant->getPrice()->getCountry());
+        $this->assertEmpty($variant->getPrice()->getChannel());
+        $this->assertEmpty($variant->getPrice()->getCustomerGroup());
+        $this->assertSame('EUR', $variant->getPrice()->getValue()->getCurrencyCode());
+        $this->assertSame(100, $variant->getPrice()->getValue()->getCentAmount());
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion());
+        $request->currency('EUR');
+        $response = $request->executeWithClient($this->getClient());
+        $product = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($product->getVersion());
+
+        $variant = $product->getMasterData()->getStaged()->getMasterVariant();
+        $this->assertEmpty($variant->getPrice()->getCountry());
+        $this->assertEmpty($variant->getPrice()->getChannel());
+        $this->assertEmpty($variant->getPrice()->getCustomerGroup());
+        $this->assertSame('EUR', $variant->getPrice()->getValue()->getCurrencyCode());
+        $this->assertSame(100, $variant->getPrice()->getValue()->getCentAmount());
+
+        $request = ProductDeleteRequest::ofIdAndVersion($product->getId(), $product->getVersion());
+        $request->currency('EUR');
+        $response = $request->executeWithClient($this->getClient());
+        $product = $request->mapResponse($response);
+
+        $variant = $product->getMasterData()->getStaged()->getMasterVariant();
+        $this->assertEmpty($variant->getPrice()->getCountry());
+        $this->assertEmpty($variant->getPrice()->getChannel());
+        $this->assertEmpty($variant->getPrice()->getCustomerGroup());
+        $this->assertSame('EUR', $variant->getPrice()->getValue()->getCurrencyCode());
+        $this->assertSame(100, $variant->getPrice()->getValue()->getCentAmount());
+
         array_pop($this->cleanupRequests);
     }
 

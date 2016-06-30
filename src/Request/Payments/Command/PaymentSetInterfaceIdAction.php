@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Customer\CustomerReference;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#set-interface-id
+ * @link https://dev.commercetools.com/http-api-projects-payments.html#set-interfaceid
  * @method string getAction()
  * @method PaymentSetInterfaceIdAction setAction(string $action = null)
  * @method string getInterfaceId()

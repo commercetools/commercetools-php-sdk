@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Type;
 
 /**
  * @package Commercetools\Core\Model\Type
- * @link https://dev.commercetools.com/http-api-projects-types.html#set-type
+ * @link https://dev.commercetools.com/http-api-projects-types.html#settype
  * @method string getName()
  * @method SetType setName(string $name = null)
  * @method FieldType getElementType()

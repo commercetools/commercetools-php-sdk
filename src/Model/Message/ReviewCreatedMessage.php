@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Review\Review;
 
 /**
  * @package Commercetools\Core\Model\Message
- *
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#reviewcreated-message
  * @method string getId()
  * @method ReviewCreatedMessage setId(string $id = null)
  * @method int getVersion()

@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductDiscounts
- * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#update-product-discount
+ * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#update-productdiscount
  * @method ProductDiscount mapResponse(ApiResponseInterface $response)
  */
 class ProductDiscountUpdateRequest extends AbstractUpdateRequest

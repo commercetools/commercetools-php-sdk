@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Customer
- * @link https://dev.commercetools.com/http-api-projects-customers.html#customer-sign-in-result
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#customersigninresult
  * @method Customer getCustomer()
  * @method CustomerSigninResult setCustomer(Customer $customer = null)
  * @method Cart getCart()

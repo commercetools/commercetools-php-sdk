@@ -15,7 +15,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Customer
- * @link https://dev.commercetools.com/http-api-projects-customers.html#create-customer
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#customerdraft
  * @method string getCustomerNumber()
  * @method string getEmail()
  * @method string getTitle()

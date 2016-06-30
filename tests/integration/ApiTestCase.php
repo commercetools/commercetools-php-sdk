@@ -175,7 +175,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @var Customer
      */
-    private $customer;
+    protected $customer;
 
     /**
      * @var Payment
@@ -206,6 +206,10 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
      * @var Cart
      */
     private $cart;
+
+    private $logger;
+
+    private $cache;
 
     public function getTestRun()
     {
@@ -238,7 +242,8 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
                 }
             }
             $config = Config::fromArray($parameters);
-            if (isset($appConfig['parameters'][$scope . '-client_id'])
+            if (is_string($scope)
+                && isset($appConfig['parameters'][$scope . '-client_id'])
                 && isset($appConfig['parameters'][$scope . '-client_secret'])
             ) {
                 $config->setClientId($appConfig['parameters'][$scope . '-client_id']);
@@ -257,6 +262,28 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         return $config;
     }
 
+    protected function getLogger()
+    {
+        if (is_null($this->logger)) {
+            $this->logger = new Logger('test');
+            $this->logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
+
+        }
+
+        return $this->logger;
+    }
+
+    protected function getCache()
+    {
+        if (is_null($this->cache)) {
+            $filesystemAdapter = new Local(realpath(__DIR__ . '/../..'));
+            $filesystem        = new Filesystem($filesystemAdapter);
+            $this->cache = new FilesystemCachePool($filesystem);
+        }
+
+        return $this->cache;
+    }
+
     /**
      * @param string $scope
      * @param Config $config
@@ -265,16 +292,9 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     public function getClient($scope = 'manage_project')
     {
         if (!isset(self::$client[$scope])) {
-            $logger = new Logger('test');
-            $logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
-
             $config = $this->getClientConfig($scope);
 
-            $filesystemAdapter = new Local(realpath(__DIR__ . '/../..'));
-            $filesystem        = new Filesystem($filesystemAdapter);
-            $cache = new FilesystemCachePool($filesystem);
-
-            self::$client[$scope] = Client::ofConfigCacheAndLogger($config, $cache, $logger);
+            self::$client[$scope] = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
             self::$client[$scope]->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
             self::$client[$scope]->getHttpClient(['verify' => $this->getVerifySSL()]);
         }
@@ -788,7 +808,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     protected function getCustomerDraft()
     {
         $draft = CustomerDraft::ofEmailNameAndPassword(
-            'test-' . $this->getTestRun() . '-email',
+            'TEST-' . $this->getTestRun() . '-em.ail+sphere@example.org',
             'test-' . $this->getTestRun() . '-firstName',
             'test-' . $this->getTestRun() . '-lastName',
             'test-' . $this->getTestRun() . '-password'

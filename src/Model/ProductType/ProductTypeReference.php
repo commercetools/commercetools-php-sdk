@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\Reference;
 /**
  * @package Commercetools\Core\Model\ProductType
  * @link https://dev.commercetools.com/http-api-types.html#reference-types
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#product-type
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#producttype
  * @method string getTypeId()
  * @method ProductTypeReference setTypeId(string $typeId = null)
  * @method string getId()

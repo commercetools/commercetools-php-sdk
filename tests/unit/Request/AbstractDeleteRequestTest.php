@@ -62,7 +62,10 @@ class AbstractDeleteRequestTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
+        $mockBuilder = $this->getMockBuilder('\GuzzleHttp\Psr7\Response');
+        $mockBuilder->disableOriginalConstructor();
+        $guzzleResponse = $mockBuilder->getMock();
+
         $request = $this->getRequest(static::ABSTRACT_DELETE_REQUEST, ['id', 'version']);
         $response = $request->buildResponse($guzzleResponse);
 

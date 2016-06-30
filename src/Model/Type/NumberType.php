@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Type;
 
 /**
  * @package Commercetools\Core\Model\Type
- * @link https://dev.commercetools.com/http-api-projects-types.html#number-type
+ * @link https://dev.commercetools.com/http-api-projects-types.html#numbertype
  * @method string getName()
  * @method NumberType setName(string $name = null)
  */

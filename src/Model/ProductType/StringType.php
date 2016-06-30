@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\ProductType;
 
 /**
  * @package Commercetools\Core\Model\ProductType
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#text-type
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#texttype
  * @method string getName()
  * @method StringType setName(string $name = null)
  */

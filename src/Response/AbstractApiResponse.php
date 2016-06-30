@@ -111,7 +111,7 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
     }
 
     /**
-     * @return array
+     * @return ErrorContainer
      */
     public function getErrors()
     {

@@ -9,15 +9,18 @@ namespace Commercetools\Core\Request\Products;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractByIdGetRequest;
 use Commercetools\Core\Model\Product\Product;
+use Commercetools\Core\Request\PriceSelectTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link https://dev.commercetools.com/http-api-projects-products.html#product-by-id
+ * @link https://dev.commercetools.com/http-api-projects-products.html#get-product-by-id
  * @method Product mapResponse(ApiResponseInterface $response)
  */
 class ProductByIdGetRequest extends AbstractByIdGetRequest
 {
+    use PriceSelectTrait;
+    
     protected $resultClass = '\Commercetools\Core\Model\Product\Product';
 
     /**

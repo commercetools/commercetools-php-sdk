@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Inventory\Command
- * @link https://dev.commercetools.com/http-api-projects-inventory.html#set-restockable-in-days
+ * @link https://dev.commercetools.com/http-api-projects-inventory.html#set-restockableindays
  * @method string getAction()
  * @method InventorySetRestockableInDaysAction setAction(string $action = null)
  * @method int getRestockableInDays()

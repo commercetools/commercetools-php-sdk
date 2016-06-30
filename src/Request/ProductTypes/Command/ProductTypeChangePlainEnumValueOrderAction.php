@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#change-order-enum-values-attribute-definition
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#change-the-order-of-enumvalues
  * @method string getAction()
  * @method ProductTypeChangePlainEnumValueOrderAction setAction(string $action = null)
  * @method string getAttributeName()

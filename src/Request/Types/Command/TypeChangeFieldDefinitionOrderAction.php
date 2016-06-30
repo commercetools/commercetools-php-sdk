@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Types\Command
- * @link https://dev.commercetools.com/http-api-projects-types.html#change-order-field-definition
+ * @link https://dev.commercetools.com/http-api-projects-types.html#change-the-order-of-fielddefinitions
  * @method string getAction()
  * @method TypeChangeFieldDefinitionOrderAction setAction(string $action = null)
  * @method array getFieldNames()

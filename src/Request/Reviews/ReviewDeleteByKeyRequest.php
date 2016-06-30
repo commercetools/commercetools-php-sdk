@@ -13,7 +13,7 @@ use Commercetools\Core\Model\Review\Review;
 
 /**
  * @package Commercetools\Core\Request\Reviews
- * @link http://dev.commercetools.com/http-api-projects-reviews.html#delete-review-by-key
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#delete-review-by-key
  * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewDeleteByKeyRequest extends AbstractDeleteByKeyRequest

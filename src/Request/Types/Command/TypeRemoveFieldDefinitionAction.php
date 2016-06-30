@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Request\Types\Command
- * @link https://dev.commercetools.com/http-api-projects-types.html#remove-field-definition
+ * @link https://dev.commercetools.com/http-api-projects-types.html#remove-fielddefinition
  * @method string getAction()
  * @method TypeRemoveFieldDefinitionAction setAction(string $action = null)
  * @method string getFieldName()

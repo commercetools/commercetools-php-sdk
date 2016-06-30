@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Category\Category;
 
 /**
  * @package Commercetools\Core\Model\Message
- * @link https://dev.commercetools.com/http-api-projects-messages.html#category-created-message
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#categorycreated-message
  * @method string getId()
  * @method CategoryCreatedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

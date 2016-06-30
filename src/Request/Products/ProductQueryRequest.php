@@ -9,15 +9,18 @@ namespace Commercetools\Core\Request\Products;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\Product\ProductCollection;
+use Commercetools\Core\Request\PriceSelectTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link https://dev.commercetools.com/http-api-projects-products.html#products-by-query
+ * @link https://dev.commercetools.com/http-api-projects-products.html#query-products
  * @method ProductCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductQueryRequest extends AbstractQueryRequest
 {
+    use PriceSelectTrait;
+
     protected $resultClass = '\Commercetools\Core\Model\Product\ProductCollection';
 
     /**

@@ -19,7 +19,7 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductSetAttributeAction setSku(string $sku = null)
  * @method string getName()
  * @method ProductSetAttributeAction setName(string $name = null)
- * @method getValue()
+ * @method mixed getValue()
  * @method ProductSetAttributeAction setValue($value = null)
  * @method bool getStaged()
  * @method ProductSetAttributeAction setStaged(bool $staged = null)

@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Order;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders.html#shipment-state
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#shipmentstate
  */
 class ShipmentState
 {

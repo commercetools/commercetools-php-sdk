@@ -14,7 +14,7 @@ namespace Commercetools\Core\Error;
  * @method InvalidFieldError setMessage(string $message = null)
  * @method string getField()
  * @method InvalidFieldError setField(string $field = null)
- * @method getInvalidValue()
+ * @method mixed getInvalidValue()
  * @method InvalidFieldError setInvalidValue($invalidValue = null)
  * @method array getAllowedValues()
  * @method InvalidFieldError setAllowedValues(array $allowedValues = null)

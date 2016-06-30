@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\CustomerGroup
- * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#customer-group
+ * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#customergroup
  * @method string getId()
  * @method CustomerGroup setId(string $id = null)
  * @method int getVersion()

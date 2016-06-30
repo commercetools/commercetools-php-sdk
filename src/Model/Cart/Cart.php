@@ -59,6 +59,8 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method Cart setPaymentInfo(PaymentInfo $paymentInfo = null)
  * @method string getTaxMode()
  * @method Cart setTaxMode(string $taxMode = null)
+ * @method string getAnonymousId()
+ * @method Cart setAnonymousId(string $anonymousId = null)
  * @method CartReference getReference()
  */
 class Cart extends Resource
@@ -97,6 +99,7 @@ class Cart extends Resource
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
             'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentInfo'],
             'taxMode' => [static::TYPE => 'string'],
+            'anonymousId' => [static::TYPE => 'string']
         ];
     }
 

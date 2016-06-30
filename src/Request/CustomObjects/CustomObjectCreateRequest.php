@@ -13,7 +13,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomObjects
- * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#create-custom-object
+ * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#create-a-customobject
  * @method CustomObject mapResponse(ApiResponseInterface $response)
  */
 class CustomObjectCreateRequest extends AbstractCreateRequest

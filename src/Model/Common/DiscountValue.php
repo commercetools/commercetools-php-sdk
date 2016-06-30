@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#product-discount-value
+ * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#productdiscountvalue
  * @method string getType()
  * @method DiscountValue setType(string $type = null)
  * @method int getPermyriad()

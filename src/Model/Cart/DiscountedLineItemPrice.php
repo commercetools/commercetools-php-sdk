@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\Money;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#discounted-line-item-price
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#discountedlineitemprice
  * @method Money getValue()
  * @method DiscountedLineItemPrice setValue(Money $value = null)
  * @method DiscountedLineItemPortionCollection getIncludedDiscounts()

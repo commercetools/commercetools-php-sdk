@@ -9,7 +9,7 @@ namespace Commercetools\Core\Model\Common;
 use Commercetools\Core\Error\Message;
 
 /**
- * @package Commercetools\Core\Model\Type
+ * @package Commercetools\Core\Model\Common
  */
 class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializable
 {

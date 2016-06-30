@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Review\Review;
 
 /**
  * @package Commercetools\Core\Request\Reviews
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#get-review-by-key
  * @method Review mapResponse(ApiResponseInterface $response)
  */
 class ReviewByKeyGetRequest extends AbstractByKeyGetRequest

@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Messages
- * @link https://dev.commercetools.com/http-api-projects-messages.html#message-by-id
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#get-message-by-id
  * @method Message mapResponse(ApiResponseInterface $response)
  */
 class MessageByIdGetRequest extends AbstractByIdGetRequest

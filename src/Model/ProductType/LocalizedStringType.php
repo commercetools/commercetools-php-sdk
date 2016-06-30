@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\ProductType;
 
 /**
  * @package Commercetools\Core\Model\ProductType
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#localizable-text-type
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#localizabletexttype
  * @method string getName()
  * @method LocalizedStringType setName(string $name = null)
  */

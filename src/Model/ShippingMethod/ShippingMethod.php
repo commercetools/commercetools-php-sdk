@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\ShippingMethod
- * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#shipping-method
+ * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#shippingmethod
  * @method string getId()
  * @method ShippingMethod setId(string $id = null)
  * @method int getVersion()

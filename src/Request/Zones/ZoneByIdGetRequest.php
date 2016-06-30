@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Zones
- * @link https://dev.commercetools.com/http-api-projects-zones.html#zone-by-id
+ * @link https://dev.commercetools.com/http-api-projects-zones.html#get-zone-by-id
  * @method Zone mapResponse(ApiResponseInterface $response)
  */
 class ZoneByIdGetRequest extends AbstractByIdGetRequest

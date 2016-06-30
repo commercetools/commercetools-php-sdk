@@ -24,6 +24,7 @@ class Manager extends AbstractHttpClient
 {
     const TOKEN_CACHE_KEY = 'commercetools_io_access_token';
 
+    const ANONYMOUS_ID = 'anonymous_id';
     const REFRESH_TOKEN = 'refresh_token';
     const ACCESS_TOKEN = 'access_token';
     const EXPIRES_IN = 'expires_in';
@@ -108,38 +109,51 @@ class Manager extends AbstractHttpClient
         $grantType = $this->getConfig()->getGrantType();
         $data = [Config::SCOPE => $scope, Config::GRANT_TYPE => $grantType];
 
-        if ($grantType === Config::GRANT_TYPE_PASSWORD) {
-            $user = $this->getConfig()->getUsername();
-            $password = $this->getConfig()->getPassword();
-            $data[Config::USER_NAME] = $user;
-            $data[Config::PASSWORD] = $password;
-        } elseif ($grantType === Config::GRANT_TYPE_REFRESH) {
-            $refreshToken = $this->getConfig()->getRefreshToken();
-            $data[Config::REFRESH_TOKEN] = $refreshToken;
+        switch ($grantType) {
+            case Config::GRANT_TYPE_PASSWORD:
+                $user = $this->getConfig()->getUsername();
+                $password = $this->getConfig()->getPassword();
+                $data[Config::USER_NAME] = $user;
+                $data[Config::PASSWORD] = $password;
+                break;
+            case Config::GRANT_TYPE_REFRESH:
+                $refreshToken = $this->getConfig()->getRefreshToken();
+                $data[Config::REFRESH_TOKEN] = $refreshToken;
+                break;
+            case Config::GRANT_TYPE_ANONYMOUS:
+                $data[Config::GRANT_TYPE] = Config::GRANT_TYPE_CLIENT;
+                $anonymousId = $this->getConfig()->getAnonymousId();
+                if (!empty($anonymousId)) {
+                    $data[Config::ANONYMOUS_ID] = $anonymousId;
+                }
         }
-        
-        $token = $this->getBearerToken($data);
 
-        if ($grantType === Config::GRANT_TYPE_PASSWORD) {
-            $this->getConfig()->setGrantType(Config::GRANT_TYPE_REFRESH);
-            $this->getConfig()->setRefreshToken($token->getRefreshToken());
-        }
+        $token = $this->getBearerToken($data);
 
         // ensure token to be invalidated in cache before TTL
         $ttl = max(1, floor($token->getTtl()/2));
+
         $this->cache($token, $ttl);
+
+        if ($grantType === Config::GRANT_TYPE_PASSWORD || $grantType == Config::GRANT_TYPE_ANONYMOUS) {
+            $this->getConfig()->setRefreshToken($token->getRefreshToken());
+            $this->cache($token, $ttl, $this->getCacheKey(Config::GRANT_TYPE_REFRESH));
+        }
 
         return $token;
     }
 
-    protected function cache(Token $token, $ttl)
+    protected function cache(Token $token, $ttl, $cacheKey = null)
     {
+        if (is_null($cacheKey)) {
+            $cacheKey = $this->getCacheKey();
+        }
         $cache = $this->getCacheAdapter();
         if ($cache instanceof CacheAdapterInterface) {
-            $cache->store($this->getCacheKey(), $token->getToken(), (int)$ttl);
+            $cache->store($cacheKey, $token->getToken(), (int)$ttl);
         }
         if ($cache instanceof CacheItemPoolInterface) {
-            $item = new CacheItem($this->getCacheKey(), true, $token->getToken());
+            $item = new CacheItem($cacheKey, true, $token->getToken());
             $item->expiresAfter((int)$ttl);
             $cache->save($item);
         }
@@ -164,18 +178,29 @@ class Manager extends AbstractHttpClient
     /**
      * @return string
      */
-    protected function getCacheKey()
+    protected function getCacheKey($grantType = null)
     {
         $scope = $this->getConfig()->getScope();
-        $grantType = $this->getConfig()->getGrantType();
+        if (is_null($grantType)) {
+            $grantType = $this->getConfig()->getGrantType();
+        }
         $cacheScope = $scope . '-' . $grantType;
 
-        if ($grantType === Config::GRANT_TYPE_PASSWORD) {
-            $user = $this->getConfig()->getUsername();
-            $cacheScope .= '-' . $user;
-        } elseif ($grantType === Config::GRANT_TYPE_REFRESH) {
-            $token = $this->getConfig()->getRefreshToken();
-            $cacheScope .= '-' . $token;
+        switch ($grantType) {
+            case Config::GRANT_TYPE_PASSWORD:
+                $user = base64_encode($this->getConfig()->getUsername());
+                $cacheScope .= '-' . $user;
+                break;
+            case Config::GRANT_TYPE_REFRESH:
+                $token = $this->getConfig()->getRefreshToken();
+                $cacheScope .= '-' . $token;
+                break;
+            case Config::GRANT_TYPE_ANONYMOUS:
+                $anonymousId = $this->getConfig()->getAnonymousId();
+                if (!empty($anonymousId)) {
+                    $cacheScope .= '-' . $anonymousId;
+                }
+                break;
         }
 
         if (!isset($this->cacheKeys[$cacheScope])) {

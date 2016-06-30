@@ -45,7 +45,11 @@ class ClassAnnotator
                 $getReturnType = $field[JsonObject::DECORATOR];
                 $this->class->addUse($field[JsonObject::DECORATOR]);
             } else {
-                $getReturnType = $fieldType;
+                if (empty($fieldType)) {
+                    $getReturnType = 'mixed';
+                } else {
+                    $getReturnType = $fieldType;
+                }
             }
             $getReturnTypeParts = explode('\\', trim($getReturnType, '\\'));
             if (!$this->isPrimitive($fieldType) && count($getReturnTypeParts) > 1) {

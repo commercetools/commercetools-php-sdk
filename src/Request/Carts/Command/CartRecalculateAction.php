@@ -13,6 +13,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @link https://dev.commercetools.com/http-api-projects-carts.html#recalculate
  * @method string getAction()
  * @method CartRecalculateAction setAction(string $action = null)
+ * @method bool getUpdateProductData()
+ * @method CartRecalculateAction setUpdateProductData(bool $updateProductData = null)
  */
 class CartRecalculateAction extends AbstractAction
 {
@@ -24,5 +26,13 @@ class CartRecalculateAction extends AbstractAction
     {
         parent::__construct($data, $context);
         $this->setAction('recalculate');
+    }
+
+    public function fieldDefinitions()
+    {
+        $definitions = parent::fieldDefinitions();
+        $definitions['updateProductData'] = [static::TYPE => 'bool'];
+
+        return $definitions;
     }
 }

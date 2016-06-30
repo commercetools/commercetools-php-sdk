@@ -12,12 +12,12 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\CustomObject
- * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#create-custom-object
+ * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#create-a-customobject
  * @method string getContainer()
  * @method CustomObjectDraft setContainer(string $container = null)
  * @method string getKey()
  * @method CustomObjectDraft setKey(string $key = null)
- * @method getValue()
+ * @method mixed getValue()
  * @method CustomObjectDraft setValue($value = null)
  */
 class CustomObjectDraft extends JsonObject

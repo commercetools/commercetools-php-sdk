@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\ShippingMethod
- * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#shipping-method
+ * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#shippingmethod
  * @method ShippingMethod current()
  * @method ShippingMethodCollection add(ShippingMethod $element)
  * @method ShippingMethod getAt($offset)

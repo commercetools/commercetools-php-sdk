@@ -11,7 +11,7 @@ use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Message
- * @link https://dev.commercetools.com/http-api-projects-messages.html#payment-status-state-transition-message
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#paymentstatusstatetransition-message
  * @method string getId()
  * @method PaymentStatusStateTransitionMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

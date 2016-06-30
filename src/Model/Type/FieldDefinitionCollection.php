@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Type
- * @link https://dev.commercetools.com/http-api-projects-types.html#field-definition
+ * @link https://dev.commercetools.com/http-api-projects-types.html#fielddefinition
  * @method FieldDefinition current()
  * @method FieldDefinitionCollection add(FieldDefinition $element)
  * @method FieldDefinition getAt($offset)

@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders.html#item-state
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#itemstate
  * @method ItemState current()
  * @method ItemStateCollection add(ItemState $element)
  * @method ItemState getAt($offset)

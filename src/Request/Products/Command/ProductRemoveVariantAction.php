@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#remove-variant
+ * @link https://dev.commercetools.com/http-api-projects-products.html#remove-productvariant
  * @method string getAction()
  * @method ProductRemoveVariantAction setAction(string $action = null)
  * @method int getId()

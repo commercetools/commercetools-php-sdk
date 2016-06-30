@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 
 /**
  * @package Commercetools\Core\Model\ProductType
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#localizable-enum-type
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#localizableenumtype
  * @method string getName()
  * @method LocalizedEnumType setName(string $name = null)
  * @method LocalizedEnumCollection getValues()

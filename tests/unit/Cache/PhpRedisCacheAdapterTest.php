@@ -21,7 +21,13 @@ class PhpRedisCacheAdapterTest extends \PHPUnit_Framework_TestCase
             );
         }
         $cache = new \Redis();
-        $cache->connect('localhost');
+        try {
+            if (!$cache->connect('localhost')) {
+                throw new \RuntimeException('cannot connect to local redis server');
+            }
+        } catch (\Exception $e) {
+            $this->markTestSkipped('cannot connect to local redis server');
+        }
         $this->adapter = new PhpRedisCacheAdapter($cache);
         $this->adapter->store('test', ['key' => 'value']);
     }

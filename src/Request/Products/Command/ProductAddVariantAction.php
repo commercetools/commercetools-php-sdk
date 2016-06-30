@@ -12,7 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#add-variant
+ * @link https://dev.commercetools.com/http-api-projects-products.html#add-productvariant
  * @method string getAction()
  * @method ProductAddVariantAction setAction(string $action = null)
  * @method string getSku()

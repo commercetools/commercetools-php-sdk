@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\Products;
 
+use Commercetools\Core\Request\PriceSelectTrait;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\HttpRequest;
@@ -16,7 +17,6 @@ use Commercetools\Core\Request\QueryTrait;
 use Commercetools\Core\Request\StagedTrait;
 use Commercetools\Core\Response\ResourceResponse;
 use Commercetools\Core\Model\Product\ProductProjection;
-use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
@@ -31,6 +31,7 @@ class ProductProjectionBySkuGetRequest extends AbstractApiRequest
     use StagedTrait;
     use PageTrait;
     use ExpandTrait;
+    use PriceSelectTrait;
 
     /**
      * @param string $sku

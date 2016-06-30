@@ -13,7 +13,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\DiscountCode
- * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#discount-code
+ * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#discountcode
  * @method string getId()
  * @method DiscountCode setId(string $id = null)
  * @method int getVersion()
@@ -30,7 +30,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method DiscountCode setCode(string $code = null)
  * @method CartDiscountReferenceCollection getCartDiscounts()
  * @method DiscountCode setCartDiscounts(CartDiscountReferenceCollection $cartDiscounts = null)
- * @method getCartPredicate()
+ * @method mixed getCartPredicate()
  * @method DiscountCode setCartPredicate($cartPredicate = null)
  * @method bool getIsActive()
  * @method DiscountCode setIsActive(bool $isActive = null)

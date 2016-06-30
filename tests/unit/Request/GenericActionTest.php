@@ -379,7 +379,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Carts\Command\CartRecalculateAction',
-                ['action']
+                ['action', 'updateProductData']
             ],
             [
                 '\Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction',

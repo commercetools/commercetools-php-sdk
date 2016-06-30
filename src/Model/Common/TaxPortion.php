@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-carts.html#tax-portion
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#taxportion
  * @method float getRate()
  * @method TaxPortion setRate(float $rate = null)
  * @method Money getAmount()

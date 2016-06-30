@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-carts.html#taxed-price
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#taxedprice
  * @method Money getTotalNet()
  * @method TaxedPrice setTotalNet(Money $totalNet = null)
  * @method Money getTotalGross()

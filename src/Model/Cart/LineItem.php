@@ -18,7 +18,7 @@ use Commercetools\Core\Model\Common\TaxedItemPrice;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#line-item
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#lineitem
  * @method string getId()
  * @method LineItem setId(string $id = null)
  * @method string getProductId()

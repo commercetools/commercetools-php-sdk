@@ -14,7 +14,7 @@ namespace Commercetools\Core\Error;
  * @method DuplicateFieldError setMessage(string $message = null)
  * @method string getField()
  * @method DuplicateFieldError setField(string $field = null)
- * @method getDuplicateValue()
+ * @method mixed getDuplicateValue()
  * @method DuplicateFieldError setDuplicateValue($duplicateValue = null)
  */
 class DuplicateFieldError extends ApiError

@@ -9,17 +9,19 @@ namespace Commercetools\Core\Request\Products;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Product\ProductProjectionCollection;
 use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Request\PriceSelectTrait;
 use Commercetools\Core\Request\StagedTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link https://dev.commercetools.com/http-api-projects-products.html#product-projections-by-query
+ * @link https://dev.commercetools.com/http-api-projects-products.html#query-productprojections
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
  */
 class ProductProjectionQueryRequest extends AbstractQueryRequest
 {
     use StagedTrait;
+    use PriceSelectTrait;
 
     protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjectionCollection';
 

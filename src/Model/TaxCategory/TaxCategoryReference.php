@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\Reference;
 /**
  * @package Commercetools\Core\Model\TaxCategory
  * @link https://dev.commercetools.com/http-api-types.html#reference-types
- * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#tax-category
+ * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#taxcategory
  * @method string getTypeId()
  * @method TaxCategoryReference setTypeId(string $typeId = null)
  * @method string getId()

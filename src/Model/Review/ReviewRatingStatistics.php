@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Review
- * @link https://dev.commercetools.com/http-api-projects-reviews.html#review-rating-statistics
+ * @link https://dev.commercetools.com/http-api-projects-reviews.html#reviewratingstatistics
  * @method float getAverageRating()
  * @method ReviewRatingStatistics setAverageRating(float $averageRating = null)
  * @method float getHighestRating()

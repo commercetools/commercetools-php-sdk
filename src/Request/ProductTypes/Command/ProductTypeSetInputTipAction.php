@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- * @link http://dev.commercetools.com/http-api-projects-productTypes.html#set-attribute-definition-inputtip
+ * @link http://dev.commercetools.com/http-api-projects-productTypes.html#set-attributedefinition-inputtip
  * @method string getAction()
  * @method ProductTypeSetInputTipAction setAction(string $action = null)
  * @method string getAttributeName()

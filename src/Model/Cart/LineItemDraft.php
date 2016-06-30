@@ -19,7 +19,7 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#line-item-draft
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#lineitemdraft
  * @method string getProductId()
  * @method LineItemDraft setProductId(string $productId = null)
  * @method int getVariantId()

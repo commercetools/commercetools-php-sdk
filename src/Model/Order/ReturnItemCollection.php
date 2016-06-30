@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders.html#return-item
+ * @link https://dev.commercetools.com/http-api-projects-orders.html#returnitem
  * @method ReturnItem current()
  * @method ReturnItemCollection add(ReturnItem $element)
  * @method ReturnItem getAt($offset)

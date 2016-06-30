@@ -11,7 +11,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Message
- * @link https://dev.commercetools.com/http-api-projects-messages.html#payment-interaction-added-message
+ * @link https://dev.commercetools.com/http-api-projects-messages.html#paymentinteractionadded-message
  * @method string getId()
  * @method PaymentInteractionAddedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

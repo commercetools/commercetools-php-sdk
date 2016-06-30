@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Channel\ChannelReference;
 
 /**
  * @package Commercetools\Core\Model\Inventory
- * @link https://dev.commercetools.com/http-api-projects-inventory.html#create-inventory
+ * @link https://dev.commercetools.com/http-api-projects-inventory.html#inventoryentrydraft
  * @method string getSku()
  * @method InventoryDraft setSku(string $sku = null)
  * @method int getQuantityOnStock()

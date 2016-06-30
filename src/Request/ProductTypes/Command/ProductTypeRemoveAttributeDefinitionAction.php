@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#remove-attribute-definition
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#remove-attributedefinition
  * @method string getAction()
  * @method ProductTypeRemoveAttributeDefinitionAction setAction(string $action = null)
  * @method string getName()

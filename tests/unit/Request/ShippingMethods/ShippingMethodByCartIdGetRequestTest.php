@@ -51,7 +51,10 @@ class ShippingMethodByCartIdGetRequestTest extends RequestTestCase
 
     public function testBuildResponse()
     {
-        $guzzleResponse = $this->getMock('\GuzzleHttp\Psr7\Response', [], [], '', false);
+        $mockBuilder = $this->getMockBuilder('\GuzzleHttp\Psr7\Response');
+        $mockBuilder->disableOriginalConstructor();
+        $guzzleResponse = $mockBuilder->getMock();
+
         $request = ShippingMethodByCartIdGetRequest::ofCartId('id');
         $response = $request->buildResponse($guzzleResponse);
 

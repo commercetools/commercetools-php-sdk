@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#change-attribute-definition-label
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#change-attributedefinition-label
  * @method string getAction()
  * @method ProductTypeChangeLabelAction setAction(string $action = null)
  * @method string getAttributeName()

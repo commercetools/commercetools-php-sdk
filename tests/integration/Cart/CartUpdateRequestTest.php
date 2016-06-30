@@ -21,6 +21,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingRate;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
+use Commercetools\Core\Request\Carts\CartQueryRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction;
@@ -46,6 +47,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
+use Commercetools\Core\Request\Products\Command\ProductChangeNameAction;
 use Commercetools\Core\Request\Products\Command\ProductChangePriceAction;
 use Commercetools\Core\Request\Products\Command\ProductPublishAction;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
@@ -409,6 +411,68 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($cart->getVersion());
 
         $this->assertSame(200, $cart->getTotalPrice()->getCentAmount());
+    }
+
+    public function testRecalculateChangedProduct()
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $request = CartQueryRequest::of()->where('id = "' . $cart->getId() . '"')->limit(1);
+        $response = $request->executeWithClient($this->getClient());
+
+        $cart2 = $request->mapResponse($response)->current();
+        $this->assertNotEmpty((string)$cart2->getLineItems()->current()->getProductSlug());
+
+        $newName = 'new-name-' . $this->getTestRun();
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductChangeNameAction::ofName(
+                    LocalizedString::ofLangAndText('en', $newName)
+                )
+            )
+            ->addAction(ProductPublishAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $this->product = $request->mapResponse($response);
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartRecalculateAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
+        $this->assertSame(
+            (string)$product->getMasterData()->getCurrent()->getName(),
+            (string)$cart->getLineItems()->current()->getName()
+        );
+
+        $this->assertNotEmpty((string)$cart->getLineItems()->current()->getProductSlug());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartRecalculateAction::of()->setUpdateProductData(true))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
+        $this->assertSame($newName, (string)$cart->getLineItems()->current()->getName());
+        $this->assertNotEmpty((string)$cart->getLineItems()->current()->getProductSlug());
     }
 
     public function testCustomType()

@@ -11,7 +11,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
  * @package Commercetools\Core\Model\ShippingMethod
- * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#create-shipping-method
+ * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#shippingmethoddraft
  * @method string getName()
  * @method ShippingMethodDraft setName(string $name = null)
  * @method string getDescription()

@@ -12,7 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes\Command
- * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#change-cartDiscounts
+ * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#change-cartdiscounts
  * @method string getAction()
  * @method DiscountCodeChangeCartDiscountsAction setAction(string $action = null)
  * @method CartDiscountReferenceCollection getCartDiscounts()

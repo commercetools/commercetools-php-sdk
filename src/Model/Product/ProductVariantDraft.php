@@ -13,7 +13,7 @@ use Commercetools\Core\Model\Common\ImageCollection;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link https://dev.commercetools.com/http-api-projects-products.html#new-product-variant
+ * @link https://dev.commercetools.com/http-api-projects-products.html#productvariantdraft
  * @method string getSku()
  * @method ProductVariantDraft setSku(string $sku = null)
  * @method ProductVariantDraft setPrices(PriceDraftCollection $prices = null)

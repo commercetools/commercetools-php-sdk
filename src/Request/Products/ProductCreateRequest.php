@@ -10,15 +10,18 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\Product\Product;
+use Commercetools\Core\Request\PriceSelectTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link https://dev.commercetools.com/http-api-projects-products.html#create-product
+ * @link https://dev.commercetools.com/http-api-projects-products.html#create-a-product
  * @method Product mapResponse(ApiResponseInterface $response)
  */
 class ProductCreateRequest extends AbstractCreateRequest
 {
+    use PriceSelectTrait;
+
     protected $resultClass = '\Commercetools\Core\Model\Product\Product';
     /**
      * @param ProductDraft $product

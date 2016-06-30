@@ -9,6 +9,7 @@ namespace Commercetools\Core\Client;
 /**
  * @package Commercetools\Core\Http
  * @internal
+ * @deprecated replaced by FileUploadRequest. will be removed with v2.0
  */
 class FileRequest extends HttpRequest
 {
