@@ -42,7 +42,7 @@
     "pdepend/pdepend": "@stable",
     "phploc/phploc": "^2.0",
     "mayflower/php-codebrowser": "^1.0",
-    "doctrine/cache": "^1.6",
+    "doctrine/cache": "^1.5",
     "monolog/monolog": "^1.12",
     "behat/behat": "^3.0",
     "phpunit/phpcov": "*",
