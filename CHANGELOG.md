@@ -1,3 +1,25 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/sphereio/commercetools-php-sdk/compare/v1.1.1...v1.2.0) (2016-06-30)
+
+
+### Bug Fixes
+
+* **Client:** fix format of UserAgent header ([bc37b2f](https://github.com/sphereio/commercetools-php-sdk/commit/bc37b2f))
+
+
+### Features
+
+* **Cart:** add updateProductData flag to cart recalculate action ([827a392](https://github.com/sphereio/commercetools-php-sdk/commit/827a392)), closes [#220](https://github.com/sphereio/commercetools-php-sdk/issues/220)
+* **Cart:** support anonymous checkout for me endpoint ([a89f38c](https://github.com/sphereio/commercetools-php-sdk/commit/a89f38c)), closes [#221](https://github.com/sphereio/commercetools-php-sdk/issues/221)
+* **MeEndpoint:** add get active cart request ([e61d29d](https://github.com/sphereio/commercetools-php-sdk/commit/e61d29d)), closes [#224](https://github.com/sphereio/commercetools-php-sdk/issues/224)
+* **MyProfile:** support customer profile on me endpoint ([3cc0f73](https://github.com/sphereio/commercetools-php-sdk/commit/3cc0f73)), closes [#223](https://github.com/sphereio/commercetools-php-sdk/issues/223)
+* **Orders:** add support for orders at me endpoint ([e776230](https://github.com/sphereio/commercetools-php-sdk/commit/e776230)), closes [#222](https://github.com/sphereio/commercetools-php-sdk/issues/222)
+* **Product:** add image upload request ([e8985bd](https://github.com/sphereio/commercetools-php-sdk/commit/e8985bd)), closes [#146](https://github.com/sphereio/commercetools-php-sdk/issues/146)
+* **Product:** support product price selection ([02026a7](https://github.com/sphereio/commercetools-php-sdk/commit/02026a7)),([ebac224](https://github.com/sphereio/commercetools-php-sdk/commit/ebac224)), closes [#225](https://github.com/sphereio/commercetools-php-sdk/issues/225)
+* **ProductSearch:** add fuzzy level support ([617a4ea](https://github.com/sphereio/commercetools-php-sdk/commit/617a4ea)), closes [#217](https://github.com/sphereio/commercetools-php-sdk/issues/217)
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/sphereio/commercetools-php-sdk/compare/v1.1.0...v1.1.1) (2016-06-07)
 
