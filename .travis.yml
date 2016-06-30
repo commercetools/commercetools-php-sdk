@@ -27,7 +27,8 @@ before_script:
   - if [ $PHP == '5.4' ] ; then ./set_guzzle5.sh; fi
   - composer global require hirak/prestissimo
   - composer self-update
-  - composer install -o --prefer-dist
+  - if [ $PHP == '5.4' ] ; then composer install -o --prefer-dist --prefer-lowest; fi
+  - if [ $PHP != '5.4' ] ; then composer install -o --prefer-dist; fi
 
 script:
   - ant phpcs-ci
