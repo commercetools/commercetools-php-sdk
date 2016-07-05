@@ -1,3 +1,10 @@
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/sphereio/commercetools-php-sdk/compare/v1.2.0...v1.2.1) (2016-07-05)
+
+* **OAuth:** remove dependency for CacheItem implementation ([59265b3](https://github.com/sphereio/commercetools-php-sdk/commit/59265b3))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/sphereio/commercetools-php-sdk/compare/v1.1.1...v1.2.0) (2016-06-30)
 
