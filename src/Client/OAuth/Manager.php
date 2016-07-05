@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Client\OAuth;
 
-use Cache\Adapter\Common\CacheItem;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Psr\Cache\CacheItemPoolInterface;
@@ -153,8 +152,7 @@ class Manager extends AbstractHttpClient
             $cache->store($cacheKey, $token->getToken(), (int)$ttl);
         }
         if ($cache instanceof CacheItemPoolInterface) {
-            $item = new CacheItem($cacheKey, true, $token->getToken());
-            $item->expiresAfter((int)$ttl);
+            $item = $cache->getItem($cacheKey)->set($token->getToken())->expiresAfter((int)$ttl);
             $cache->save($item);
         }
     }
