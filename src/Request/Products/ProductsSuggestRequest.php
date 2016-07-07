@@ -17,12 +17,13 @@ use Commercetools\Core\Request\PageTrait;
 use Commercetools\Core\Response\ResourceResponse;
 use Commercetools\Core\Model\Product\SuggestionCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\Product\SuggestionResult;
 
 /**
  * @package Commercetools\Core\Request\Products
  * @link https://dev.commercetools.com/http-api-projects-products-suggestions.html#suggest-query
  * @method ResourceResponse executeWithClient(Client $client)
- * @method SuggestionCollection mapResponse(ApiResponseInterface $response)
+ * @method SuggestionResult mapResponse(ApiResponseInterface $response)
  */
 class ProductsSuggestRequest extends AbstractProjectionRequest
 {
@@ -33,7 +34,7 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
      */
     protected $searchKeywords;
 
-    protected $resultClass = '\Commercetools\Core\Model\Product\SuggestionCollection';
+    protected $resultClass = '\Commercetools\Core\Model\Product\SuggestionResult';
 
     /**
      * @param LocalizedString $keywords
