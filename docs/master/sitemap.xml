@@ -945,6 +945,9 @@
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Product.LocalizedSearchKeywords.html</loc>
 </url>
 <url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Product.LocalizedSuggestionCollection.html</loc>
+</url>
+<url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Product.Product.html</loc>
 </url>
 <url>
@@ -1009,6 +1012,9 @@
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Product.SuggestionCollection.html</loc>
+</url>
+<url>
+	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Product.SuggestionResult.html</loc>
 </url>
 <url>
 	<loc>http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Product.SuggestTokenizer.html</loc>
