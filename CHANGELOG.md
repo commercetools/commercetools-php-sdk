@@ -1,3 +1,13 @@
+<a name="1.2.2"></a>
+## [1.2.2](https://github.com/sphereio/commercetools-php-sdk/compare/v1.2.1...v1.2.2) (2016-07-07)
+
+
+### Bug Fixes
+
+* **Suggestion:** correct type mapping for suggestion result ([d46008c](https://github.com/sphereio/commercetools-php-sdk/commit/d46008c)), closes [#228](https://github.com/sphereio/commercetools-php-sdk/issues/228)
+
+
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/sphereio/commercetools-php-sdk/compare/v1.2.0...v1.2.1) (2016-07-05)
 
