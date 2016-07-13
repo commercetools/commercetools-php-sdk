@@ -22,10 +22,10 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         if (isset($_SERVER['BEHAT_COVERAGE']) && $_SERVER['BEHAT_COVERAGE'] == true) {
             $filter = new \PHP_CodeCoverage_Filter();
-            $filter->addDirectoryToBlacklist(__DIR__ . "/../vendor");
-            $filter->addDirectoryToBlacklist(__DIR__ . "/../tests");
-            $filter->addDirectoryToBlacklist(__DIR__ . "/../features");
-            $filter->addDirectoryToWhitelist(__DIR__ . "/../src");
+            $filter->addDirectoryToBlacklist(__DIR__ . '/../vendor');
+            $filter->addDirectoryToBlacklist(__DIR__ . '/../tests');
+            $filter->addDirectoryToBlacklist(__DIR__ . '/../features');
+            $filter->addDirectoryToWhitelist(__DIR__ . '/../src');
 
             static::$coverage = new \PHP_CodeCoverage(null, $filter);
             static::$coverage->start('Behat Test');
@@ -44,7 +44,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
             echo 'Generating code coverage report in Clover XML format ... ';
             $writer = new \PHP_CodeCoverage_Report_Clover();
-            $writer->process(static::$coverage, __DIR__ . "/../../build/logs/behat-clover.cov");
+            $writer->process(static::$coverage, __DIR__ . '/../../build/logs/behat-clover.cov');
             echo 'done' . PHP_EOL;
 
 //            echo 'Generating code coverage report in HTML format ... ';
