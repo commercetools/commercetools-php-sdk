@@ -87,9 +87,7 @@ abstract class AbstractHttpClient
                 ],
                 $options
             );
-            $class = $this->getAdapterFactory()->getClass($this->getConfig()->getAdapter());
-
-            $this->httpClient = new $class($options);
+            $this->httpClient = $this->getAdapterFactory()->getAdapter($this->getConfig()->getAdapter(), $options);
         }
 
         return $this->httpClient;

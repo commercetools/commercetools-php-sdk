@@ -27,30 +27,35 @@ class Guzzle5Adapter implements AdapterInterface
      * @var LoggerInterface
      */
     protected $logger;
+
     /**
      * @param array $options
      */
     public function __construct(array $options = [])
     {
-        if (isset($options['base_uri'])) {
-            $options['base_url'] = $options['base_uri'];
-            unset($options['base_uri']);
+        if (isset($options['client']) && $options['client'] instanceof Client) {
+            $this->client = $options['client'];
+        } else {
+            if (isset($options['base_uri'])) {
+                $options['base_url'] = $options['base_uri'];
+                unset($options['base_uri']);
+            }
+            if (isset($options['headers'])) {
+                $options['defaults']['headers'] = $options['headers'];
+                unset($options['headers']);
+            }
+            $options = array_merge(
+                [
+                    'allow_redirects' => false,
+                    'verify' => true,
+                    'timeout' => 60,
+                    'connect_timeout' => 10,
+                    'pool_size' => 25
+                ],
+                $options
+            );
+            $this->client = new Client($options);
         }
-        if (isset($options['headers'])) {
-            $options['defaults']['headers'] = $options['headers'];
-            unset($options['headers']);
-        }
-        $options = array_merge(
-            [
-                'allow_redirects' => false,
-                'verify' => true,
-                'timeout' => 60,
-                'connect_timeout' => 10,
-                'pool_size' => 25
-            ],
-            $options
-        );
-        $this->client = new Client($options);
     }
 
     public function setLogger(LoggerInterface $logger)
