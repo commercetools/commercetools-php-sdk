@@ -14,6 +14,8 @@ interface AdapterInterface extends LoggerAwareInterface
 {
     public function setLogger(LoggerInterface $logger);
 
+    public function addHandler($handler);
+
     /**
      * @param RequestInterface $request
      * @return ResponseInterface

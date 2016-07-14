@@ -66,6 +66,10 @@ class Guzzle5Adapter implements AdapterInterface
         }
     }
 
+    public function addHandler($handler)
+    {
+        $this->getEmitter()->attach($handler);
+    }
 
     /**
      * @internal
