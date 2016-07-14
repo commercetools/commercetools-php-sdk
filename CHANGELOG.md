@@ -1,3 +1,13 @@
+<a name="1.2.3"></a>
+## [1.2.3](https://github.com/sphereio/commercetools-php-sdk/compare/v1.2.2...v1.2.3) (2016-07-14)
+
+
+### Bug Fixes
+
+* **ProductType:** fix NestedType field definitions ([982d51d](https://github.com/sphereio/commercetools-php-sdk/commit/982d51d)), closes [#231](https://github.com/sphereio/commercetools-php-sdk/issues/231)
+
+
+
 <a name="1.2.2"></a>
 ## [1.2.2](https://github.com/sphereio/commercetools-php-sdk/compare/v1.2.1...v1.2.2) (2016-07-07)
 
