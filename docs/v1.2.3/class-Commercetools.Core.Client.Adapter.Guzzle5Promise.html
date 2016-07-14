@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>CTP SDK v1.2.3: Commercetools\Core\Client\Adapter\Guzzle5Promise (Class)</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
+	<link rel="stylesheet" href="resources/style.css?6c7e011bc92edb55834afff24c1fc85b1794ef5e">
+    <link rel="shortcut icon" type="image/png" href="resources/favicon.png?9c2a6ec825b4dbff6085830fb749cd4d0299fcea">
+</head>
+
+<body>
+	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand"><img src="resources/ct-logo.svg?065fe633e263f47f5912ed2699add0e26a15e230" id="navbar-logo" alt="commercetools platform PHP SDK">PHP SDK v1.2.3</a>
+			</div>
+			<div class="collapse navbar-collapse">
+
+                <form id="search" class="navbar-form navbar-left" role="search">
+                    <input type="hidden" name="cx" value="">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <div class="form-group">
+                        <input type="text" name="q" class="search-query form-control" placeholder="Search">
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="namespace-Commercetools.Core.Client.Adapter.html" title="Summary of Commercetools\Core\Client\Adapter"><span>Namespace</span></a>
+					</li>
+					<li class="active">
+<span>Class</span>					</li>
+
+					<li class="divider-vertical"></li>
+
+					<li>
+						<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+					</li>
+
+						<li>
+							<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+								<span>Deprecated</span>
+							</a>
+						</li>
+
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div id="left">
+	<div id="menu">
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active">
+						<a href="namespace-Commercetools.html">
+							Commercetools<span></span>
+						</a>
+							<ul>
+					<li class="active">
+						<a href="namespace-Commercetools.Core.html">
+							Core<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Cache.html">
+							Cache						</a>
+							</li>
+					<li class="active">
+						<a href="namespace-Commercetools.Core.Client.html">
+							Client<span></span>
+						</a>
+							<ul>
+					<li class="active">
+						<a href="namespace-Commercetools.Core.Client.Adapter.html">
+							Adapter						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Client.OAuth.html">
+							OAuth						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Error.html">
+							Error						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.html">
+							Helper<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.Annotate.html">
+							Annotate						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.State.html">
+							State<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.State.Renderer.html">
+							Renderer						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.html">
+							Model<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Cart.html">
+							Cart						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CartDiscount.html">
+							CartDiscount						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Category.html">
+							Category						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Channel.html">
+							Channel						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Common.html">
+							Common						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Customer.html">
+							Customer						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomerGroup.html">
+							CustomerGroup						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomField.html">
+							CustomField						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomObject.html">
+							CustomObject						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.DiscountCode.html">
+							DiscountCode						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Inventory.html">
+							Inventory						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Message.html">
+							Message						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Order.html">
+							Order						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Payment.html">
+							Payment						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Product.html">
+							Product<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Product.Search.html">
+							Search						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ProductDiscount.html">
+							ProductDiscount						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ProductType.html">
+							ProductType						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Project.html">
+							Project						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Review.html">
+							Review						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ShippingMethod.html">
+							ShippingMethod						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.State.html">
+							State						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.TaxCategory.html">
+							TaxCategory						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Type.html">
+							Type						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Zone.html">
+							Zone						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.html">
+							Request<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CartDiscounts.html">
+							CartDiscounts<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CartDiscounts.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Carts.html">
+							Carts<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Carts.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Categories.html">
+							Categories<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Categories.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Channels.html">
+							Channels<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Channels.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomerGroups.html">
+							CustomerGroups<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomerGroups.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Customers.html">
+							Customers<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Customers.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.html">
+							CustomField<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomObjects.html">
+							CustomObjects						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.DiscountCodes.html">
+							DiscountCodes<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.DiscountCodes.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
+							GraphQL						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Inventory.html">
+							Inventory<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Inventory.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Me.html">
+							Me						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Messages.html">
+							Messages						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Orders.html">
+							Orders<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Orders.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Payments.html">
+							Payments<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Payments.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductDiscounts.html">
+							ProductDiscounts<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductDiscounts.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Products.html">
+							Products<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Products.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductTypes.html">
+							ProductTypes<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductTypes.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Project.html">
+							Project						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Query.html">
+							Query						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Reviews.html">
+							Reviews<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Reviews.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShippingMethods.html">
+							ShippingMethods<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShippingMethods.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.States.html">
+							States<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.States.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.TaxCategories.html">
+							TaxCategories<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.TaxCategories.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.html">
+							Types<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Zones.html">
+							Zones<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Zones.Command.html">
+							Command						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Response.html">
+							Response						</a>
+							</li>
+								</ul></li></ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Commercetools.Core.Client.Adapter.AdapterFactory.html">AdapterFactory</a></li>
+				<li><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Adapter.html">Guzzle5Adapter</a></li>
+				<li class="active"><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html">Guzzle5Promise</a></li>
+				<li><a href="class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html">Guzzle6Adapter</a></li>
+				<li><a href="class-Commercetools.Core.Client.Adapter.Guzzle6Promise.html">Guzzle6Promise</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Commercetools.Core.Client.Adapter.AdapterInterface.html">AdapterInterface</a></li>
+				<li><a href="class-Commercetools.Core.Client.Adapter.AdapterPromiseInterface.html">AdapterPromiseInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Guzzle5Promise</h1>
+
+
+
+	<dl class="tree well inheritance-tree">
+		<dd style="padding-left:0px">
+<b><span>Commercetools\Core\Client\Adapter\Guzzle5Promise</span></b>			
+			 implements 
+				<a href="class-Commercetools.Core.Client.Adapter.AdapterPromiseInterface.html"><span>Commercetools\Core\Client\Adapter\AdapterPromiseInterface</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+	    <table class="class-annotations">
+            
+            
+            <tr><th>Namespace</th><td><a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Client.html">Client</a>\<a href="namespace-Commercetools.Core.Client.Adapter.html">Adapter</a></td></tr>
+            
+
+                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#14-313" title="Go to source code">Client/Adapter/Guzzle5Promise.php</a></td></tr>
+
+		</table>
+	</div>
+
+
+
+		<div class="panel panel-default methods">
+			<div class="panel-heading"><h2>Methods</h2></div>
+			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#26-30" title="Go to source code">__construct</a>( <span>GuzzleHttp\Message\FutureResponse <var>$promise</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="then" id="_then">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Client.Adapter.AdapterPromiseInterface.html">Commercetools\Core\Client\Adapter\AdapterPromiseInterface</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_then">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#32-37" title="Go to source code">then</a>( <span>callable <var>$onFulfilled</var> = <span class="php-keyword1">null</span></span>, <span>callable <var>$onRejected</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$onFulfilled</var></dt>
+						<dd></dd>
+						<dt><var>$onRejected</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Client.Adapter.AdapterPromiseInterface.html">Commercetools\Core\Client\Adapter\AdapterPromiseInterface</a></code>
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Commercetools.Core.Client.Adapter.AdapterPromiseInterface.html#_then">Commercetools\Core\Client\Adapter\AdapterPromiseInterface::then()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="wait" id="_wait">
+
+			<td class="attributes"><code>
+				 public 
+				Psr\Http\Message\ResponseInterface
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_wait">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#39-54" title="Go to source code">wait</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						Psr\Http\Message\ResponseInterface
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Commercetools.Core.Client.Adapter.AdapterPromiseInterface.html#_wait">Commercetools\Core\Client\Adapter\AdapterPromiseInterface::wait()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getProtocolVersion" id="_getProtocolVersion">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getProtocolVersion">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#56-66" title="Go to source code">getProtocolVersion</a>( )</code>
+
+			<div class="description short">
+				<p>Retrieves the HTTP protocol version as a string.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Retrieves the HTTP protocol version as a string.</p>
+
+<p>The string MUST contain only the HTTP version number (e.g., "1.1", "1.0").</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>HTTP protocol version.
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="withProtocolVersion" id="_withProtocolVersion">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html">Commercetools\Core\Client\Adapter\Guzzle5Promise</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_withProtocolVersion">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#68-84" title="Go to source code">withProtocolVersion</a>( <span>string <var>$version</var></span> )</code>
+
+			<div class="description short">
+				<p>Return an instance with the specified HTTP protocol version.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Return an instance with the specified HTTP protocol version.</p>
+
+<p>The version string MUST contain only the HTTP version number (e.g.,
+"1.1", "1.0").</p>
+
+<p>This method MUST be implemented in such a way as to retain the
+immutability of the message, and MUST return an instance that has the
+new protocol version.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$version</var></dt>
+						<dd>HTTP protocol version</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html">Commercetools\Core\Client\Adapter\Guzzle5Promise</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getHeaders" id="_getHeaders">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getHeaders">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#86-114" title="Go to source code">getHeaders</a>( )</code>
+
+			<div class="description short">
+				<p>Retrieves all message header values.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Retrieves all message header values.</p>
+
+<p>The keys represent the header name as it will be sent over the wire, and
+each value is an array of strings associated with the header.
+ // Represent the headers as a string foreach ($message->getHeaders() as $name => $values) { echo $name . ": " . implode(", ", $values); }
+ // Emit headers iteratively: foreach ($message->getHeaders() as $name => $values) { foreach ($values as $value) { header(sprintf('%s: %s', $name, $value), false); } }</p>
+
+<p>While header names are not case-sensitive, getHeaders() will preserve the
+exact case in which headers were originally specified.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br><p>Returns an associative array of the message's headers. Each
+    key MUST be a header name, and each value MUST be an array of strings
+    for that header.</p>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="hasHeader" id="_hasHeader">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_hasHeader">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#116-127" title="Go to source code">hasHeader</a>( <span>string <var>$name</var></span> )</code>
+
+			<div class="description short">
+				<p>Checks if a header exists by the given case-insensitive name.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Checks if a header exists by the given case-insensitive name.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd>Case-insensitive header field name.</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean<br><p>Returns true if any header names match the given header
+    name using a case-insensitive string comparison. Returns false if
+    no matching header name is found in the message.</p>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getHeader" id="_getHeader">
+
+			<td class="attributes"><code>
+				 public 
+				string[]
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getHeader">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#129-146" title="Go to source code">getHeader</a>( <span>string <var>$name</var></span> )</code>
+
+			<div class="description short">
+				<p>Retrieves a message header value by the given case-insensitive name.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Retrieves a message header value by the given case-insensitive name.</p>
+
+<p>This method returns an array of all the header values of the given
+case-insensitive header name.</p>
+
+<p>If the header does not appear in the message, this method MUST return an
+empty array.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd>Case-insensitive header field name.</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string[]<br><p>An array of string values as provided for the given
+   header. If the header does not appear in the message, this method MUST
+   return an empty array.</p>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getHeaderLine" id="_getHeaderLine">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getHeaderLine">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#148-170" title="Go to source code">getHeaderLine</a>( <span>string <var>$name</var></span> )</code>
+
+			<div class="description short">
+				<p>Retrieves a comma-separated string of the values for a single header.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Retrieves a comma-separated string of the values for a single header.</p>
+
+<p>This method returns all of the header values of the given
+case-insensitive header name as a string concatenated together using
+a comma.</p>
+
+<p>NOTE: Not all header values may be appropriately represented using
+comma concatenation. For such headers, use getHeader() instead
+and supply your own delimiter when concatenating.</p>
+
+<p>If the header does not appear in the message, this method MUST return
+an empty string.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd>Case-insensitive header field name.</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br><p>A string of values as provided for the given header
+   concatenated together using a comma. If the header does not appear in
+   the message, this method MUST return an empty string.</p>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="withHeader" id="_withHeader">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html">Commercetools\Core\Client\Adapter\Guzzle5Promise</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_withHeader">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#172-190" title="Go to source code">withHeader</a>( <span>string <var>$name</var></span>, <span>string|string[] <var>$value</var></span> )</code>
+
+			<div class="description short">
+				<p>Return an instance with the provided value replacing the specified header.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Return an instance with the provided value replacing the specified header.</p>
+
+<p>While header names are case-insensitive, the casing of the header will
+be preserved by this function, and returned from getHeaders().</p>
+
+<p>This method MUST be implemented in such a way as to retain the
+immutability of the message, and MUST return an instance that has the
+new and/or updated header and value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd>Case-insensitive header field name.</dd>
+						<dt><var>$value</var></dt>
+						<dd>Header value(s).</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html">Commercetools\Core\Client\Adapter\Guzzle5Promise</a></code>
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						InvalidArgumentException<br>for invalid header names or values.
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="withAddedHeader" id="_withAddedHeader">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html">Commercetools\Core\Client\Adapter\Guzzle5Promise</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_withAddedHeader">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#192-211" title="Go to source code">withAddedHeader</a>( <span>string <var>$name</var></span>, <span>string|string[] <var>$value</var></span> )</code>
+
+			<div class="description short">
+				<p>Return an instance with the specified header appended with the given value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Return an instance with the specified header appended with the given value.</p>
+
+<p>Existing values for the specified header will be maintained. The new
+value(s) will be appended to the existing list. If the header did not
+exist previously, it will be added.</p>
+
+<p>This method MUST be implemented in such a way as to retain the
+immutability of the message, and MUST return an instance that has the
+new header and/or value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd>Case-insensitive header field name to add.</dd>
+						<dt><var>$value</var></dt>
+						<dd>Header value(s).</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html">Commercetools\Core\Client\Adapter\Guzzle5Promise</a></code>
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						InvalidArgumentException<br>for invalid header names or values.
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="withoutHeader" id="_withoutHeader">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html">Commercetools\Core\Client\Adapter\Guzzle5Promise</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_withoutHeader">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#213-228" title="Go to source code">withoutHeader</a>( <span>string <var>$name</var></span> )</code>
+
+			<div class="description short">
+				<p>Return an instance without the specified header.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Return an instance without the specified header.</p>
+
+<p>Header resolution MUST be done without case-sensitivity.</p>
+
+<p>This method MUST be implemented in such a way as to retain the
+immutability of the message, and MUST return an instance that removes
+the named header.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd>Case-insensitive header field name to remove.</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html">Commercetools\Core\Client\Adapter\Guzzle5Promise</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getBody" id="_getBody">
+
+			<td class="attributes"><code>
+				 public 
+				Psr\Http\Message\StreamInterface
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getBody">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#230-238" title="Go to source code">getBody</a>( )</code>
+
+			<div class="description short">
+				<p>Gets the body of the message.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Gets the body of the message.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						Psr\Http\Message\StreamInterface<br>Returns the body as a stream.
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="withBody" id="_withBody">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html">Commercetools\Core\Client\Adapter\Guzzle5Promise</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_withBody">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#240-256" title="Go to source code">withBody</a>( <span>Psr\Http\Message\StreamInterface <var>$body</var></span> )</code>
+
+			<div class="description short">
+				<p>Return an instance with the specified message body.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Return an instance with the specified message body.</p>
+
+<p>The body MUST be a StreamInterface object.</p>
+
+<p>This method MUST be implemented in such a way as to retain the
+immutability of the message, and MUST return a new instance that has the
+new body stream.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$body</var></dt>
+						<dd>Body.</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html">Commercetools\Core\Client\Adapter\Guzzle5Promise</a></code>
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						InvalidArgumentException<br>When the body is not valid.
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getStatusCode" id="_getStatusCode">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getStatusCode">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#258-269" title="Go to source code">getStatusCode</a>( )</code>
+
+			<div class="description short">
+				<p>Gets the response status code.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Gets the response status code.</p>
+
+<p>The status code is a 3-digit integer result code of the server's attempt
+to understand and satisfy the request.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						integer<br>Status code.
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="withStatus" id="_withStatus">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html">Commercetools\Core\Client\Adapter\Guzzle5Promise</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_withStatus">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#271-294" title="Go to source code">withStatus</a>( <span>integer <var>$code</var></span>, <span>string <var>$reasonPhrase</var> = <span class="php-quote">''</span></span> )</code>
+
+			<div class="description short">
+				<p>Return an instance with the specified status code and, optionally, reason phrase.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Return an instance with the specified status code and, optionally, reason phrase.</p>
+
+<p>If no reason phrase is specified, implementations MAY choose to default
+to the RFC 7231 or IANA recommended reason phrase for the response's
+status code.</p>
+
+<p>This method MUST be implemented in such a way as to retain the
+immutability of the message, and MUST return an instance that has the
+updated status and reason phrase.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$code</var></dt>
+						<dd>The 3-digit integer result code to set.</dd>
+						<dt><var>$reasonPhrase</var></dt>
+						<dd><p>The reason phrase to use with the
+    provided status code; if none is provided, implementations MAY
+    use the defaults as suggested in the HTTP specification.</p></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html">Commercetools\Core\Client\Adapter\Guzzle5Promise</a></code>
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						InvalidArgumentException<br>For invalid status code arguments.
+					</div>
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="http://tools.ietf.org/html/rfc7231#section-6">http://tools.ietf.org/html/rfc7231#section-6</a><br>
+							<a href="http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml">http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getReasonPhrase" id="_getReasonPhrase">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getReasonPhrase">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#296-312" title="Go to source code">getReasonPhrase</a>( )</code>
+
+			<div class="description short">
+				<p>Gets the response reason phrase associated with the status code.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Gets the response reason phrase associated with the status code.</p>
+
+<p>Because a reason phrase is not a required element in a response
+status line, the reason phrase value MAY be null. Implementations MAY
+choose to return the default RFC 7231 recommended reason phrase (or those
+listed in the IANA HTTP Status Code Registry) for the response's
+status code.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>Reason phrase; must return an empty string if none present.
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="http://tools.ietf.org/html/rfc7231#section-6">http://tools.ietf.org/html/rfc7231#section-6</a><br>
+							<a href="http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml">http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+
+
+
+
+			</table>
+		</div>
+
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
