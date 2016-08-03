@@ -7,17 +7,24 @@ namespace Commercetools\Core\Cart;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Cart\CartDraft;
-use Commercetools\Core\Model\Cart\CustomLineItem;
-use Commercetools\Core\Model\Cart\CustomLineItemCollection;
 use Commercetools\Core\Model\Cart\CustomLineItemDraft;
 use Commercetools\Core\Model\Cart\CustomLineItemDraftCollection;
+use Commercetools\Core\Model\Cart\LineItemCollection;
+use Commercetools\Core\Model\Cart\LineItemDraft;
+use Commercetools\Core\Model\Cart\LineItemDraftCollection;
+use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
+use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
+use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Common\MoneyCollection;
 use Commercetools\Core\Model\Common\PriceDraft;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
+use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
@@ -745,6 +752,109 @@ class CartUpdateRequestTest extends ApiTestCase
         $cart = $request->mapResponse($response);
         $this->deleteRequest->setVersion($cart->getVersion());
         $this->assertEmpty($cart->getDiscountCodes());
+    }
+
+    public function testDiscountCodeCustomPredicate()
+    {
+        $type = $this->getType('key-' . $this->getTestRun(), 'order');
+        $draft = $this->getDraft();
+        $draft->setCustom(
+            CustomFieldObjectDraft::ofType($type->getReference())
+                ->setFields(FieldContainer::of()->set('testField', $this->getTestRun()))
+        );
+        $draft->setLineItems(
+            LineItemDraftCollection::of()
+                ->add(LineItemDraft::of()->setProductId($this->getProduct()->getId())->setVariantId(1)->setQuantity(1))
+        );
+
+        $cart = $this->createCart($draft);
+
+        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
+            CartDiscountValue::of()->setType('absolute')->setMoney(
+                MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
+            ),
+            'custom(testField = "' . $this->getTestRun() . '")',
+            CartDiscountTarget::of()->setType('lineItems')->setPredicate('1=1'),
+            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            true,
+            true
+        );
+        $request = CartDiscountCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $this->cartDiscount = $request->mapResponse($response);
+
+        $discountCode = $this->getDiscountCode();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+
+        $this->assertSame(
+            $this->cartDiscount->getId(),
+            $cart->getLineItems()->current()
+                ->getDiscountedPricePerQuantity()->current()
+                ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                ->getDiscount()->getId()
+        );
+    }
+
+    public function testDiscountCodeCustomLineItemPredicate()
+    {
+        $type = $this->getType('key-' . $this->getTestRun(), 'line-item');
+        $draft = $this->getDraft();
+        $draft->setLineItems(
+            LineItemDraftCollection::of()
+                ->add(
+                    LineItemDraft::of()->setProductId($this->getProduct()->getId())->setVariantId(1)->setQuantity(1)
+                        ->setCustom(
+                            CustomFieldObject::of()
+                                ->setType($type->getReference())
+                                ->setFields(FieldContainer::of()->set('testField', $this->getTestRun()))
+                        )
+                )
+        );
+
+        $cart = $this->createCart($draft);
+
+        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
+            CartDiscountValue::of()->setType('absolute')->setMoney(
+                MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
+            ),
+            '1=1',
+            CartDiscountTarget::of()->setType('lineItems')->setPredicate('custom.testField = "' . $this->getTestRun() . '"'),
+            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            true,
+            true
+        );
+        $request = CartDiscountCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $this->cartDiscount = $request->mapResponse($response);
+
+        $discountCode = $this->getDiscountCode();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+
+        $this->assertSame(
+            $this->cartDiscount->getId(),
+            $cart->getLineItems()->current()
+                ->getDiscountedPricePerQuantity()->current()
+                ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                ->getDiscount()->getId()
+        );
     }
 
     /**
