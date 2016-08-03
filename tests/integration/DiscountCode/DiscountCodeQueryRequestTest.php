@@ -25,11 +25,6 @@ use Commercetools\Core\Request\DiscountCodes\DiscountCodeQueryRequest;
 
 class DiscountCodeQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @var CartDiscount
-     */
-    private $cartDiscount;
-
     protected function cleanup()
     {
         parent::cleanup();

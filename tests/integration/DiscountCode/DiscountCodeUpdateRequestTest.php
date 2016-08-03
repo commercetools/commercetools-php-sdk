@@ -30,11 +30,6 @@ use Commercetools\Core\Request\DiscountCodes\DiscountCodeUpdateRequest;
 
 class DiscountCodeUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @var CartDiscount
-     */
-    private $cartDiscount;
-
     private $discountDeleteRequests = [];
 
     protected function cleanup()
