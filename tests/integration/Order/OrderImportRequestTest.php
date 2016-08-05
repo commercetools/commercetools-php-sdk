@@ -17,7 +17,6 @@ use Commercetools\Core\Model\Inventory\InventoryDraft;
 use Commercetools\Core\Model\Order\ImportOrder;
 use Commercetools\Core\Model\Order\LineItemImportDraft;
 use Commercetools\Core\Model\Order\LineItemImportDraftCollection;
-use Commercetools\Core\Model\Order\OrderState;
 use Commercetools\Core\Model\Order\ProductVariantImportDraft;
 use Commercetools\Core\Request\Inventory\InventoryByIdGetRequest;
 use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
@@ -93,7 +92,7 @@ class OrderImportRequestTest extends ApiTestCase
         $request = InventoryCreateRequest::ofDraft($inventoryDraft);
         $response = $request->executeWithClient($this->getClient());
         $inventory = $request->mapResponse($response);
-        $this->cleanupRequests[] = $this->deleteRequest = InventoryDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $invDeleteRequest = InventoryDeleteRequest::ofIdAndVersion(
             $inventory->getId(),
             $inventory->getVersion()
         );
@@ -110,7 +109,7 @@ class OrderImportRequestTest extends ApiTestCase
         $request = InventoryByIdGetRequest::ofId($inventory->getId());
         $response = $request->executeWithClient($this->getClient());
         $inventory = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($inventory->getVersion());
+        $invDeleteRequest->setVersion($inventory->getVersion());
 
         $this->assertSame(0, $inventory->getQuantityOnStock());
     }
@@ -124,7 +123,7 @@ class OrderImportRequestTest extends ApiTestCase
         $request = InventoryCreateRequest::ofDraft($inventoryDraft);
         $response = $request->executeWithClient($this->getClient());
         $inventory = $request->mapResponse($response);
-        $this->cleanupRequests[] = $this->deleteRequest = InventoryDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $invDeleteRequest = InventoryDeleteRequest::ofIdAndVersion(
             $inventory->getId(),
             $inventory->getVersion()
         );
