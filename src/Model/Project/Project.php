@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Project;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Message\MessagesConfiguration;
 
 /**
  * @package Commercetools\Core\Model\Project
@@ -26,6 +27,8 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Project setCreatedAt(\DateTime $createdAt = null)
  * @method DateTimeDecorator getTrialUntil()
  * @method Project setTrialUntil(\DateTime $trialUntil = null)
+ * @method MessagesConfiguration getMessages()
+ * @method Project setMessages(MessagesConfiguration $messages = null)
  */
 class Project extends JsonObject
 {
@@ -45,6 +48,7 @@ class Project extends JsonObject
                 static::TYPE => '\DateTime',
                 static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
+            'messages' => [static::TYPE => '\Commercetools\Core\Model\Message\MessagesConfiguration']
         ];
     }
 }
