@@ -668,7 +668,7 @@ channel:
     - description
     - custom
     - reviewRatingStatistics
-
+    - address
 customerGroup:
   domain: customerGroup
   model: CustomerGroup
