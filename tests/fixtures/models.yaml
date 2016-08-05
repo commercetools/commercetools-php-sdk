@@ -24,6 +24,7 @@ cart:
     - paymentInfo
     - taxMode
     - anonymousId
+    - locale
 lineItem:
   domain: cart
   model: LineItem
@@ -291,7 +292,7 @@ customer:
     - externalId
     - customerGroup
     - custom
-
+    - locale
 customerSigninResult:
   domain: customer
   model: CustomerSigninResult
@@ -356,7 +357,7 @@ order:
     - state
     - paymentInfo
     - anonymousId
-
+    - locale
 syncInfo:
   domain: order
   model: SyncInfo

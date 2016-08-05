@@ -32,6 +32,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method MyCartDraft setShippingMethod(ShippingMethodReference $shippingMethod = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method MyCartDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method string getLocale()
  */
 class MyCartDraft extends JsonObject
 {
@@ -47,6 +48,7 @@ class MyCartDraft extends JsonObject
             'billingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
             'shippingMethod' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingMethodReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'locale' => [static::TYPE => 'string'],
         ];
     }
 
@@ -59,5 +61,24 @@ class MyCartDraft extends JsonObject
     {
         $draft = static::of($context);
         return $draft->setCurrency($currency);
+    }
+
+    public function setLocale($locale)
+    {
+        $locale = \Locale::canonicalize($locale);
+        parent::setLocale($locale);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toJson()
+    {
+        $data = parent::toArray();
+        $data['locale'] = str_replace('_', '-', $data['locale']);
+
+        return $data;
     }
 }

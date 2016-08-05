@@ -32,6 +32,7 @@ use Commercetools\Core\Request\Orders\Command\OrderChangeOrderStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderChangePaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderChangeShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderRemovePaymentAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetLocaleAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
@@ -344,5 +345,63 @@ class OrderUpdateRequestTest extends ApiTestCase
         $order = $request->mapResponse($response);
         $this->deleteRequest->setVersion($order->getVersion());
         $this->assertNull($order->getPaymentInfo());
+    }
+
+    public function localeProvider()
+    {
+        return [
+            ['en', 'en'],
+            ['de', 'de'],
+            ['de-de', 'de-DE'],
+            ['de-DE', 'de-DE'],
+            ['de_de', 'de-DE'],
+            ['de_DE', 'de-DE'],
+        ];
+    }
+
+    /**
+     * @dataProvider localeProvider
+     */
+    public function testLocale($locale, $expectedLocale)
+    {
+        $draft = $this->getCartDraft();
+        $order = $this->createOrder($draft);
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(OrderSetLocaleAction::ofLocale($locale))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($expectedLocale, $cart->getLocale());
+    }
+
+    public function invalidLocaleProvider()
+    {
+        return [
+            ['en-en'],
+            ['en_en'],
+            ['en_EN'],
+            ['en-EN'],
+            ['fr'],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidLocaleProvider
+     */
+    public function testInvalidLocale($locale)
+    {
+        $draft = $this->getCartDraft();
+        $order = $this->createOrder($draft);
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(OrderSetLocaleAction::ofLocale($locale))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+
+        $this->assertTrue($response->isError());
     }
 }

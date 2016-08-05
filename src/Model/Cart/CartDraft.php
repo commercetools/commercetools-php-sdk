@@ -40,6 +40,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method CartDraft setTaxMode(string $taxMode = null)
  * @method string getAnonymousId()
  * @method CartDraft setAnonymousId(string $anonymousId = null)
+ * @method string getLocale()
  */
 class CartDraft extends JsonObject
 {
@@ -59,6 +60,7 @@ class CartDraft extends JsonObject
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
             'taxMode' => [static::TYPE => 'string'],
             'anonymousId' => [static::TYPE => 'string'],
+            'locale' => [static::TYPE => 'string'],
         ];
     }
 
@@ -71,5 +73,24 @@ class CartDraft extends JsonObject
     {
         $draft = static::of($context);
         return $draft->setCurrency($currency);
+    }
+
+    public function setLocale($locale)
+    {
+        $locale = \Locale::canonicalize($locale);
+        parent::setLocale($locale);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toJson()
+    {
+        $data = parent::toArray();
+        $data['locale'] = str_replace('_', '-', $data['locale']);
+
+        return $data;
     }
 }

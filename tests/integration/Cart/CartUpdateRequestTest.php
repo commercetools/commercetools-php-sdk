@@ -49,6 +49,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeActi
 use Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetLocaleAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
@@ -855,6 +856,64 @@ class CartUpdateRequestTest extends ApiTestCase
                 ->getDiscountedPrice()->getIncludedDiscounts()->current()
                 ->getDiscount()->getId()
         );
+    }
+
+    public function localeProvider()
+    {
+        return [
+            ['en', 'en'],
+            ['de', 'de'],
+            ['de-de', 'de-DE'],
+            ['de-DE', 'de-DE'],
+            ['de_de', 'de-DE'],
+            ['de_DE', 'de-DE'],
+        ];
+    }
+
+    /**
+     * @dataProvider localeProvider
+     */
+    public function testLocale($locale, $expectedLocale)
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartSetLocaleAction::ofLocale($locale))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($expectedLocale, $cart->getLocale());
+    }
+
+    public function invalidLocaleProvider()
+    {
+        return [
+            ['en-en'],
+            ['en_en'],
+            ['en_EN'],
+            ['en-EN'],
+            ['fr'],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidLocaleProvider
+     */
+    public function testInvalidLocale($locale)
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartSetLocaleAction::ofLocale($locale))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+
+        $this->assertTrue($response->isError());
     }
 
     /**

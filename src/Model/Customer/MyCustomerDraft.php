@@ -43,6 +43,7 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method MyCustomerDraft setDefaultBillingAddress(int $defaultBillingAddress = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method MyCustomerDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method string getLocale()
  */
 class MyCustomerDraft extends JsonObject
 {
@@ -65,6 +66,7 @@ class MyCustomerDraft extends JsonObject
             'defaultShippingAddress' => [static::TYPE => 'int'],
             'defaultBillingAddress' => [static::TYPE => 'int'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'locale' => [static::TYPE => 'string'],
         ];
     }
 
@@ -83,5 +85,24 @@ class MyCustomerDraft extends JsonObject
             ->setFirstName($firstName)
             ->setLastName($lastName)
             ->setPassword($password);
+    }
+
+    public function setLocale($locale)
+    {
+        $locale = \Locale::canonicalize($locale);
+        parent::setLocale($locale);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toJson()
+    {
+        $data = parent::toArray();
+        $data['locale'] = str_replace('_', '-', $data['locale']);
+
+        return $data;
     }
 }

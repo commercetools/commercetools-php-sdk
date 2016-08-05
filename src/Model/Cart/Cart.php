@@ -61,6 +61,7 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method Cart setTaxMode(string $taxMode = null)
  * @method string getAnonymousId()
  * @method Cart setAnonymousId(string $anonymousId = null)
+ * @method string getLocale()
  * @method CartReference getReference()
  */
 class Cart extends Resource
@@ -99,7 +100,8 @@ class Cart extends Resource
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
             'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentInfo'],
             'taxMode' => [static::TYPE => 'string'],
-            'anonymousId' => [static::TYPE => 'string']
+            'anonymousId' => [static::TYPE => 'string'],
+            'locale' => [static::TYPE => 'string'],
         ];
     }
 
@@ -112,5 +114,24 @@ class Cart extends Resource
             }
         }
         return $count;
+    }
+
+    public function setLocale($locale)
+    {
+        $locale = \Locale::canonicalize($locale);
+        parent::setLocale($locale);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toJson()
+    {
+        $data = parent::toArray();
+        $data['locale'] = str_replace('_', '-', $data['locale']);
+
+        return $data;
     }
 }

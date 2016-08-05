@@ -83,6 +83,7 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method Order setCompletedAt(\DateTime $completedAt = null)
  * @method string getAnonymousId()
  * @method Order setAnonymousId(string $anonymousId = null)
+ * @method string getLocale()
  * @method OrderReference getReference()
  */
 class Order extends Resource
@@ -129,6 +130,26 @@ class Order extends Resource
             'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
             'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentInfo'],
             'anonymousId' => [static::TYPE => 'string'],
+            'locale' => [static::TYPE => 'string'],
         ];
+    }
+
+    public function setLocale($locale)
+    {
+        $locale = \Locale::canonicalize($locale);
+        parent::setLocale($locale);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toJson()
+    {
+        $data = parent::toArray();
+        $data['locale'] = str_replace('_', '-', $data['locale']);
+
+        return $data;
     }
 }

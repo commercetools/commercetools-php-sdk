@@ -52,6 +52,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method CustomerDraft setDefaultBillingAddress(int $defaultBillingAddress = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method CustomerDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method string getLocale()
  */
 class CustomerDraft extends JsonObject
 {
@@ -79,6 +80,7 @@ class CustomerDraft extends JsonObject
             'defaultShippingAddress' => [static::TYPE => 'int'],
             'defaultBillingAddress' => [static::TYPE => 'int'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'locale' => [static::TYPE => 'string'],
         ];
     }
 
@@ -97,5 +99,24 @@ class CustomerDraft extends JsonObject
             ->setFirstName($firstName)
             ->setLastName($lastName)
             ->setPassword($password);
+    }
+
+    public function setLocale($locale)
+    {
+        $locale = \Locale::canonicalize($locale);
+        parent::setLocale($locale);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toJson()
+    {
+        $data = parent::toArray();
+        $data['locale'] = str_replace('_', '-', $data['locale']);
+
+        return $data;
     }
 }

@@ -57,6 +57,7 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method Customer setCustomerGroup(CustomerGroupReference $customerGroup = null)
  * @method CustomFieldObject getCustom()
  * @method Customer setCustom(CustomFieldObject $custom = null)
+ * @method string getLocale()
  * @method CustomerReference getReference()
  */
 class Customer extends Resource
@@ -94,6 +95,7 @@ class Customer extends Resource
             'externalId' => [static::TYPE => 'string'],
             'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'locale' => [static::TYPE => 'string'],
         ];
     }
 
@@ -111,5 +113,24 @@ class Customer extends Resource
             return $this->getAddresses()->getById($this->getDefaultBillingAddressId());
         }
         return null;
+    }
+
+    public function setLocale($locale)
+    {
+        $locale = \Locale::canonicalize($locale);
+        parent::setLocale($locale);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toJson()
+    {
+        $data = parent::toArray();
+        $data['locale'] = str_replace('_', '-', $data['locale']);
+
+        return $data;
     }
 }
