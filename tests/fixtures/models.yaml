@@ -833,6 +833,7 @@ importOrder:
     - shippingInfo
     - completedAt
     - custom
+    - inventoryMode
 
 lineItemImportDraft:
   domain: order

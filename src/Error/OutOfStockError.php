@@ -14,6 +14,8 @@ namespace Commercetools\Core\Error;
  * @method OutOfStockError setMessage(string $message = null)
  * @method array getLineItems()
  * @method OutOfStockError setLineItems(array $lineItems = null)
+ * @method array getSkus()
+ * @method OutOfStockError setSkus(array $skus = null)
  */
 class OutOfStockError extends ApiError
 {
@@ -23,6 +25,7 @@ class OutOfStockError extends ApiError
     {
         $definitions = parent::fieldDefinitions();
         $definitions['lineItems'] = [static::TYPE => 'array'];
+        $definitions['skus'] = [static::TYPE => 'array'];
 
         return $definitions;
     }
