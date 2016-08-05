@@ -209,7 +209,7 @@ address:
     - mobile
     - email
     - additionalAddressInfo
-
+    - fax
 discountedPrice:
   domain: common
   model: discountedPrice
