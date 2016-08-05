@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model\Cart;
 
 use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\TaxedPrice;
@@ -66,6 +67,8 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  */
 class Cart extends Resource
 {
+    use LocaleTrait;
+
     const TAX_MODE_PLATFORM = 'Platform';
     const TAX_MODE_EXTERNAL = 'External';
     const TAX_MODE_DISABLED = 'Disabled';
@@ -114,24 +117,5 @@ class Cart extends Resource
             }
         }
         return $count;
-    }
-
-    public function setLocale($locale)
-    {
-        $locale = \Locale::canonicalize($locale);
-        parent::setLocale($locale);
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function toJson()
-    {
-        $data = parent::toArray();
-        $data['locale'] = str_replace('_', '-', $data['locale']);
-
-        return $data;
     }
 }

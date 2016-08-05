@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model\Customer;
 
 use Commercetools\Core\Model\Common\AddressCollection;
+use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
@@ -62,6 +63,8 @@ use Commercetools\Core\Model\Common\DateDecorator;
  */
 class Customer extends Resource
 {
+    use LocaleTrait;
+    
     public function fieldDefinitions()
     {
         return [
@@ -113,24 +116,5 @@ class Customer extends Resource
             return $this->getAddresses()->getById($this->getDefaultBillingAddressId());
         }
         return null;
-    }
-
-    public function setLocale($locale)
-    {
-        $locale = \Locale::canonicalize($locale);
-        parent::setLocale($locale);
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function toJson()
-    {
-        $data = parent::toArray();
-        $data['locale'] = str_replace('_', '-', $data['locale']);
-
-        return $data;
     }
 }

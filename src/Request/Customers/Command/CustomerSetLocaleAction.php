@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Customers\Command;
 
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
@@ -17,6 +18,8 @@ use Commercetools\Core\Request\AbstractAction;
  */
 class CustomerSetLocaleAction extends AbstractAction
 {
+    use LocaleTrait;
+
     public function fieldDefinitions()
     {
         return [
@@ -43,24 +46,5 @@ class CustomerSetLocaleAction extends AbstractAction
     {
         parent::__construct($data, $context);
         $this->setAction('setLocale');
-    }
-
-    public function setLocale($locale)
-    {
-        $locale = \Locale::canonicalize($locale);
-        parent::setLocale($locale);
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function toJson()
-    {
-        $data = parent::toArray();
-        $data['locale'] = str_replace('_', '-', $data['locale']);
-
-        return $data;
     }
 }

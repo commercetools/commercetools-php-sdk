@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Cart\CustomLineItemCollection;
 use Commercetools\Core\Model\Cart\LineItemCollection;
 use Commercetools\Core\Model\Cart\ShippingInfo;
 use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\TaxedPrice;
@@ -88,6 +89,8 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  */
 class Order extends Resource
 {
+    use LocaleTrait;
+
     public function fieldDefinitions()
     {
         return [
@@ -132,24 +135,5 @@ class Order extends Resource
             'anonymousId' => [static::TYPE => 'string'],
             'locale' => [static::TYPE => 'string'],
         ];
-    }
-
-    public function setLocale($locale)
-    {
-        $locale = \Locale::canonicalize($locale);
-        parent::setLocale($locale);
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function toJson()
-    {
-        $data = parent::toArray();
-        $data['locale'] = str_replace('_', '-', $data['locale']);
-
-        return $data;
     }
 }

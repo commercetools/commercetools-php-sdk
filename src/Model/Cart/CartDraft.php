@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Cart;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
@@ -44,6 +45,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  */
 class CartDraft extends JsonObject
 {
+    use LocaleTrait;
+
     public function fieldDefinitions()
     {
         return [
@@ -73,24 +76,5 @@ class CartDraft extends JsonObject
     {
         $draft = static::of($context);
         return $draft->setCurrency($currency);
-    }
-
-    public function setLocale($locale)
-    {
-        $locale = \Locale::canonicalize($locale);
-        parent::setLocale($locale);
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function toJson()
-    {
-        $data = parent::toArray();
-        $data['locale'] = str_replace('_', '-', $data['locale']);
-
-        return $data;
     }
 }

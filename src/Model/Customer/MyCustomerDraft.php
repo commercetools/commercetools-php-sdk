@@ -9,6 +9,7 @@ namespace Commercetools\Core\Model\Customer;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
@@ -47,6 +48,8 @@ use Commercetools\Core\Model\Common\DateDecorator;
  */
 class MyCustomerDraft extends JsonObject
 {
+    use LocaleTrait;
+
     public function fieldDefinitions()
     {
         return [
@@ -85,24 +88,5 @@ class MyCustomerDraft extends JsonObject
             ->setFirstName($firstName)
             ->setLastName($lastName)
             ->setPassword($password);
-    }
-
-    public function setLocale($locale)
-    {
-        $locale = \Locale::canonicalize($locale);
-        parent::setLocale($locale);
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function toJson()
-    {
-        $data = parent::toArray();
-        $data['locale'] = str_replace('_', '-', $data['locale']);
-
-        return $data;
     }
 }
