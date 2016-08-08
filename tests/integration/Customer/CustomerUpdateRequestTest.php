@@ -80,6 +80,22 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $this->assertSame($email, $customer->getEmail());
     }
 
+    public function testNoopCustomerEmail()
+    {
+        $draft = $this->getDraft('email');
+        $customer = $this->createCustomer($draft);
+        $version = $customer->getVersion();
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(CustomerChangeEmailAction::ofEmail($draft->getEmail()))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $customer = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($customer->getVersion());
+
+        $this->assertSame($version, $customer->getVersion());
+        $this->assertSame($draft->getEmail(), $customer->getEmail());
+    }
+
     public function testFirstName()
     {
         $draft = $this->getDraft('firstName');
@@ -88,6 +104,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $firstName = 'new-' . $this->getTestRun() . '-firstName';
 
         $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(CustomerSetFirstNameAction::of()->setFirstName($firstName))
             ->addAction(CustomerSetFirstNameAction::of()->setFirstName($firstName))
         ;
         $response = $request->executeWithClient($this->getClient());
@@ -324,6 +341,16 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($companyName, $customer->getCompanyName());
+
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(CustomerSetCompanyNameAction::of()->setCompanyName($companyName))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertSame($customer->getVersion(), $result->getVersion());
+        $this->assertSame($customer->getCompanyName(), $result->getCompanyName());
+
     }
 
     public function testDateOfBirth()
