@@ -17,6 +17,7 @@ use Commercetools\Core\Request\Products\ProductByIdGetRequest;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
 use Commercetools\Core\Request\Products\ProductProjectionByIdGetRequest;
+use Commercetools\Core\Request\Products\ProductProjectionBySlugGetRequest;
 use Commercetools\Core\Request\Products\ProductProjectionQueryRequest;
 use Commercetools\Core\Request\Products\ProductQueryRequest;
 
@@ -178,6 +179,35 @@ class ProductQueryRequestTest extends ApiTestCase
 
         $request = ProductProjectionByIdGetRequest::ofId($product->getId())
             ->currency('EUR')
+            ->staged(true)
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
+        $this->assertEmpty($result->getMasterVariant()->getPrice()->getCountry());
+        $this->assertEmpty($result->getMasterVariant()->getPrice()->getChannel());
+        $this->assertEmpty($result->getMasterVariant()->getPrice()->getCustomerGroup());
+        $this->assertSame('EUR', $result->getMasterVariant()->getPrice()->getValue()->getCurrencyCode());
+        $this->assertSame(100, $result->getMasterVariant()->getPrice()->getValue()->getCentAmount());
+    }
+
+    public function testPriceSelectProductProjectionBySlug()
+    {
+        $draft = $this->getDraft();
+        $draft->setMasterVariant(
+            ProductVariantDraft::of()->setSku('sku' . uniqid())
+                ->setPrices(
+                    PriceDraftCollection::of()->add(
+                        PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                    )
+                )
+        );
+        $product = $this->createProduct($draft);
+
+        $request = ProductProjectionBySlugGetRequest::ofSlugAndContext($draft->getSlug()->en, $this->getClient()->getConfig()->getContext())
+            ->currency('EUR')
+            ->country('DE')
             ->staged(true)
         ;
         $response = $request->executeWithClient($this->getClient());

@@ -24,6 +24,7 @@ cart:
     - paymentInfo
     - taxMode
     - anonymousId
+    - locale
 lineItem:
   domain: cart
   model: LineItem
@@ -208,7 +209,7 @@ address:
     - mobile
     - email
     - additionalAddressInfo
-
+    - fax
 discountedPrice:
   domain: common
   model: discountedPrice
@@ -291,7 +292,7 @@ customer:
     - externalId
     - customerGroup
     - custom
-
+    - locale
 customerSigninResult:
   domain: customer
   model: CustomerSigninResult
@@ -356,7 +357,7 @@ order:
     - state
     - paymentInfo
     - anonymousId
-
+    - locale
 syncInfo:
   domain: order
   model: SyncInfo
@@ -667,7 +668,7 @@ channel:
     - description
     - custom
     - reviewRatingStatistics
-
+    - address
 customerGroup:
   domain: customerGroup
   model: CustomerGroup
@@ -833,6 +834,7 @@ importOrder:
     - shippingInfo
     - completedAt
     - custom
+    - inventoryMode
 
 lineItemImportDraft:
   domain: order

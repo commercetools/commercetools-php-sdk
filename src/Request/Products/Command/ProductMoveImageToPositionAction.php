@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link http://dev.commercetools.com/http-api-projects-products.html#move-image-to-position
+ * @link https://dev.commercetools.com/http-api-projects-products.html#move-image-to-position
  * @method string getAction()
  * @method ProductMoveImageToPositionAction setAction(string $action = null)
  * @method int getVariantId()

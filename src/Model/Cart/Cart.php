@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model\Cart;
 
 use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\TaxedPrice;
@@ -61,10 +62,13 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method Cart setTaxMode(string $taxMode = null)
  * @method string getAnonymousId()
  * @method Cart setAnonymousId(string $anonymousId = null)
+ * @method string getLocale()
  * @method CartReference getReference()
  */
 class Cart extends Resource
 {
+    use LocaleTrait;
+
     const TAX_MODE_PLATFORM = 'Platform';
     const TAX_MODE_EXTERNAL = 'External';
     const TAX_MODE_DISABLED = 'Disabled';
@@ -99,7 +103,8 @@ class Cart extends Resource
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
             'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentInfo'],
             'taxMode' => [static::TYPE => 'string'],
-            'anonymousId' => [static::TYPE => 'string']
+            'anonymousId' => [static::TYPE => 'string'],
+            'locale' => [static::TYPE => 'string'],
         ];
     }
 

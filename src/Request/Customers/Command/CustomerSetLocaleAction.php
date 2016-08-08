@@ -6,24 +6,36 @@
 namespace Commercetools\Core\Request\Customers\Command;
 
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @link https://dev.commercetools.com/http-api-projects-customers.html#set-first-name
+ *
  * @method string getAction()
- * @method CustomerSetFirstNameAction setAction(string $action = null)
- * @method string getFirstName()
- * @method CustomerSetFirstNameAction setFirstName(string $firstName = null)
+ * @method CustomerSetLocaleAction setAction(string $action = null)
+ * @method string getLocale()
  */
-class CustomerSetFirstNameAction extends AbstractAction
+class CustomerSetLocaleAction extends AbstractAction
 {
+    use LocaleTrait;
+
     public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'firstName' => [static::TYPE => 'string'],
+            'locale' => [static::TYPE => 'string'],
         ];
+    }
+
+    /**
+     * @param string $locale
+     * @param Context|callable $context
+     * @return CustomerSetLocaleAction
+     */
+    public static function ofLocale($locale, $context = null)
+    {
+        return static::of($context)->setLocale($locale);
     }
 
     /**
@@ -33,6 +45,6 @@ class CustomerSetFirstNameAction extends AbstractAction
     public function __construct(array $data = [], $context = null)
     {
         parent::__construct($data, $context);
-        $this->setAction('setFirstName');
+        $this->setAction('setLocale');
     }
 }

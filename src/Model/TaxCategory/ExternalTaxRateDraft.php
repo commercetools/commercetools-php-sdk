@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\TaxCategory
- * @link http://dev.commercetools.com/http-api-projects-carts.html#externaltaxratedraft
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#externaltaxratedraft
  * @method string getName()
  * @method ExternalTaxRateDraft setName(string $name = null)
  * @method float getAmount()

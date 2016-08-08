@@ -9,6 +9,7 @@ namespace Commercetools\Core\Model\Customer;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
@@ -43,9 +44,12 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method MyCustomerDraft setDefaultBillingAddress(int $defaultBillingAddress = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method MyCustomerDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method string getLocale()
  */
 class MyCustomerDraft extends JsonObject
 {
+    use LocaleTrait;
+
     public function fieldDefinitions()
     {
         return [
@@ -65,6 +69,7 @@ class MyCustomerDraft extends JsonObject
             'defaultShippingAddress' => [static::TYPE => 'int'],
             'defaultBillingAddress' => [static::TYPE => 'int'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'locale' => [static::TYPE => 'string'],
         ];
     }
 

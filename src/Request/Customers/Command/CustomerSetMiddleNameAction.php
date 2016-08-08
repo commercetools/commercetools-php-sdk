@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @link http://dev.commercetools.com/http-api-projects-customers.html#set-middle-name
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#set-middle-name
  * @method string getAction()
  * @method CustomerSetMiddleNameAction setAction(string $action = null)
  * @method string getMiddleName()

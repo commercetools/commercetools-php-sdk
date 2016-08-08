@@ -6,24 +6,36 @@
 namespace Commercetools\Core\Request\Carts\Command;
 
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link https://dev.commercetools.com/http-api-projects-carts.html#change-taxmode
+ *
  * @method string getAction()
- * @method CartChangeTaxModeAction setAction(string $action = null)
- * @method string getTaxMode()
- * @method CartChangeTaxModeAction setTaxMode(string $taxMode = null)
+ * @method CartSetLocaleAction setAction(string $action = null)
+ * @method string getLocale()
  */
-class CartChangeTaxModeAction extends AbstractAction
+class CartSetLocaleAction extends AbstractAction
 {
+    use LocaleTrait;
+
     public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'taxMode' => [static::TYPE => 'string'],
+            'locale' => [static::TYPE => 'string'],
         ];
+    }
+
+    /**
+     * @param string $locale
+     * @param Context|callable $context
+     * @return CartSetLocaleAction
+     */
+    public static function ofLocale($locale, $context = null)
+    {
+        return static::of($context)->setLocale($locale);
     }
 
     /**
@@ -33,6 +45,6 @@ class CartChangeTaxModeAction extends AbstractAction
     public function __construct(array $data = [], $context = null)
     {
         parent::__construct($data, $context);
-        $this->setAction('changeTaxMode');
+        $this->setAction('setLocale');
     }
 }

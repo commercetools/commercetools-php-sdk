@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @link http://dev.commercetools.com/http-api-projects-customers.html#set-title
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#set-title
  * @method string getAction()
  * @method CustomerSetTitleAction setAction(string $action = null)
  * @method string getTitle()

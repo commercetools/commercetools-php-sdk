@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model\Customer;
 
 use Commercetools\Core\Model\Common\AddressCollection;
+use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
@@ -57,10 +58,13 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method Customer setCustomerGroup(CustomerGroupReference $customerGroup = null)
  * @method CustomFieldObject getCustom()
  * @method Customer setCustom(CustomFieldObject $custom = null)
+ * @method string getLocale()
  * @method CustomerReference getReference()
  */
 class Customer extends Resource
 {
+    use LocaleTrait;
+    
     public function fieldDefinitions()
     {
         return [
@@ -94,6 +98,7 @@ class Customer extends Resource
             'externalId' => [static::TYPE => 'string'],
             'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'locale' => [static::TYPE => 'string'],
         ];
     }
 

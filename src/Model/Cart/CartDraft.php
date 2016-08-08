@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Cart;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
@@ -40,9 +41,12 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method CartDraft setTaxMode(string $taxMode = null)
  * @method string getAnonymousId()
  * @method CartDraft setAnonymousId(string $anonymousId = null)
+ * @method string getLocale()
  */
 class CartDraft extends JsonObject
 {
+    use LocaleTrait;
+
     public function fieldDefinitions()
     {
         return [
@@ -59,6 +63,7 @@ class CartDraft extends JsonObject
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
             'taxMode' => [static::TYPE => 'string'],
             'anonymousId' => [static::TYPE => 'string'],
+            'locale' => [static::TYPE => 'string'],
         ];
     }
 

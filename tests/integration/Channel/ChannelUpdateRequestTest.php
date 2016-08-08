@@ -8,6 +8,7 @@ namespace Commercetools\Core\Channel;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Channel\ChannelRole;
+use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\Channels\ChannelCreateRequest;
 use Commercetools\Core\Request\Channels\ChannelDeleteRequest;
@@ -17,6 +18,7 @@ use Commercetools\Core\Request\Channels\Command\ChannelChangeDescriptionAction;
 use Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction;
 use Commercetools\Core\Request\Channels\Command\ChannelChangeNameAction;
 use Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction;
+use Commercetools\Core\Request\Channels\Command\ChannelSetAddressAction;
 use Commercetools\Core\Request\Channels\Command\ChannelSetRolesAction;
 
 class ChannelUpdateRequestTest extends ApiTestCase
@@ -118,6 +120,32 @@ class ChannelUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
         $this->assertSame($key, $result->getKey());
+        $this->assertNotSame($channel->getVersion(), $result->getVersion());
+
+        $deleteRequest = array_pop($this->cleanupRequests);
+        $deleteRequest->setVersion($result->getVersion());
+        $result = $this->getClient()->execute($deleteRequest)->toObject();
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+    }
+
+    public function testSetAddress()
+    {
+        $draft = $this->getDraft('set-address');
+        $draft->setAddress(Address::of()->setCountry('US'));
+        $channel = $this->createChannel($draft);
+
+        $this->assertSame('US', $channel->getAddress()->getCountry());
+
+        $address = Address::of()->setCountry('DE');
+        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
+            ->addAction(ChannelSetAddressAction::of()->setAddress($address))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->assertSame('DE', $result->getAddress()->getCountry());
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
         $deleteRequest = array_pop($this->cleanupRequests);
