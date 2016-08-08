@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\Address;
 
 /**
  * @package Commercetools\Core\Request\Channels\Command
- * @link http://dev.commercetools.com/http-api-projects-channels.html#set-address
+ * @link https://dev.commercetools.com/http-api-projects-channels.html#set-address
  * @method string getAction()
  * @method ChannelSetAddressAction setAction(string $action = null)
  * @method Address getAddress()

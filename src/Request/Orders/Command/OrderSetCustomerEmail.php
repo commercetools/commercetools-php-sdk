@@ -3,26 +3,26 @@
  * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Request\Customers\Command;
+namespace Commercetools\Core\Request\Orders\Command;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
- * @package Commercetools\Core\Request\Customers\Command
- * @link https://dev.commercetools.com/http-api-projects-customers.html#set-first-name
+ * @package Commercetools\Core\Request\Orders\Command
+ *
  * @method string getAction()
- * @method CustomerSetFirstNameAction setAction(string $action = null)
- * @method string getFirstName()
- * @method CustomerSetFirstNameAction setFirstName(string $firstName = null)
+ * @method OrderSetCustomerEmail setAction(string $action = null)
+ * @method string getEmail()
+ * @method OrderSetCustomerEmail setEmail(string $email = null)
  */
-class CustomerSetFirstNameAction extends AbstractAction
+class OrderSetCustomerEmail extends AbstractAction
 {
     public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'firstName' => [static::TYPE => 'string'],
+            'email' => [static::TYPE => 'string'],
         ];
     }
 
@@ -33,6 +33,6 @@ class CustomerSetFirstNameAction extends AbstractAction
     public function __construct(array $data = [], $context = null)
     {
         parent::__construct($data, $context);
-        $this->setAction('setFirstName');
+        $this->setAction('setCustomerEmail');
     }
 }

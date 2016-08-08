@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link http://dev.commercetools.com/http-api-projects-carts.html#change-taxmode
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#change-taxmode
  * @method string getAction()
  * @method CartChangeTaxModeAction setAction(string $action = null)
  * @method string getTaxMode()

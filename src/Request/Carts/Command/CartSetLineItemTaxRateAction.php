@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link http://dev.commercetools.com/http-api-projects-carts.html#set-lineitem-taxrate
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#set-lineitem-taxrate
  * @method string getAction()
  * @method CartSetLineItemTaxRateAction setAction(string $action = null)
  * @method string getLineItemId()

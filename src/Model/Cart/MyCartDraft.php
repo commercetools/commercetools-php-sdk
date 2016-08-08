@@ -14,7 +14,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link http://dev.commercetools.com/http-api-projects-me-carts.html#mycartdraft
+ * @link https://dev.commercetools.com/http-api-projects-me-carts.html#mycartdraft
  * @method string getCurrency()
  * @method MyCartDraft setCurrency(string $currency = null)
  * @method string getCustomerEmail()

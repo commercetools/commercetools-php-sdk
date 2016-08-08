@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @link http://dev.commercetools.com/http-api-projects-customers.html#set-last-name
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#set-last-name
  * @method string getAction()
  * @method CustomerSetLastNameAction setAction(string $action = null)
  * @method string getLastName()

@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- * @link http://dev.commercetools.com/http-api-projects-productTypes.html#change-attributedefinition-issearchable
+ * @link https://dev.commercetools.com/http-api-projects-productTypes.html#change-attributedefinition-issearchable
  * @method string getAction()
  * @method ProductTypeChangeIsSearchableAction setAction(string $action = null)
  * @method string getAttributeName()
