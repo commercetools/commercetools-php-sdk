@@ -7,11 +7,14 @@ namespace Commercetools\Core\Client\Adapter;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 
-interface AdapterInterface
+interface AdapterInterface extends LoggerAwareInterface
 {
     public function setLogger(LoggerInterface $logger);
+
+    public function addHandler($handler);
 
     /**
      * @param RequestInterface $request

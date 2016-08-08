@@ -9,6 +9,7 @@ namespace Commercetools\Core;
 use Commercetools\Core\Response\ErrorResponse;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Commercetools\Core\Client\Adapter\AdapterInterface;
 use Commercetools\Core\Error\InvalidTokenException;
@@ -124,7 +125,7 @@ use Commercetools\Core\Client\OAuth\Manager;
  *
  * @package Commercetools\Core
  */
-class Client extends AbstractHttpClient
+class Client extends AbstractHttpClient implements LoggerAwareInterface
 {
     const DEPRECATION_HEADER = 'X-DEPRECATION-NOTICE';
 
@@ -182,7 +183,7 @@ class Client extends AbstractHttpClient
      * @param LoggerInterface $logger
      * @return $this
      */
-    protected function setLogger(LoggerInterface $logger = null)
+    public function setLogger(LoggerInterface $logger = null)
     {
         if ($logger instanceof LoggerInterface) {
             $this->logger = $logger;

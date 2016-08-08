@@ -31,6 +31,7 @@ class AdapterFactory
     }
 
     /**
+     * @internal
      * @param string $name
      * @return string
      */
@@ -48,5 +49,18 @@ class AdapterFactory
         }
 
         throw new InvalidArgumentException();
+    }
+
+    /**
+     * @param $name
+     * @param $options
+     * @return AdapterInterface
+     */
+    public function getAdapter($name, $options)
+    {
+        $adapterClass = $this->getClass($name);
+        $adapter = new $adapterClass($options);
+
+        return $adapter;
     }
 }
