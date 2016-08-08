@@ -531,6 +531,7 @@ productVariant:
     - price
     - attributes
     - images
+    - assets
     - availability
     - isMatchingVariant
     - scopedPrice
@@ -571,6 +572,7 @@ productVariantDraft:
     - sku
     - prices
     - images
+    - assets
     - attributes
 
 facetTerm:
