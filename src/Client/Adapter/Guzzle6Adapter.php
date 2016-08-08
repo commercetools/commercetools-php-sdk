@@ -28,21 +28,17 @@ class Guzzle6Adapter implements AdapterInterface
 
     public function __construct(array $options = [])
     {
-        if (isset($options['client']) && $options['client'] instanceof Client) {
-            $this->client = $options['client'];
-        } else {
-            $options = array_merge(
-                [
-                    'allow_redirects' => false,
-                    'verify' => true,
-                    'timeout' => 60,
-                    'connect_timeout' => 10,
-                    'pool_size' => 25
-                ],
-                $options
-            );
-            $this->client = new Client($options);
-        }
+        $options = array_merge(
+            [
+                'allow_redirects' => false,
+                'verify' => true,
+                'timeout' => 60,
+                'connect_timeout' => 10,
+                'pool_size' => 25
+            ],
+            $options
+        );
+        $this->client = new Client($options);
     }
 
     public function setLogger(LoggerInterface $logger)
