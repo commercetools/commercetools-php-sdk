@@ -15,4 +15,15 @@ namespace Commercetools\Core\Model\Common;
 class AssetCollection extends Collection
 {
     protected $type = '\Commercetools\Core\Model\Common\Asset';
+
+    protected function indexRow($offset, $row)
+    {
+        $id = null;
+        if ($row instanceof Asset) {
+            $id = $row->getId();
+        } elseif (is_array($row)) {
+            $id = isset($row[static::ID]) ? $row[static::ID] : null;
+        }
+        $this->addToIndex(static::ID, $offset, $id);
+    }
 }
