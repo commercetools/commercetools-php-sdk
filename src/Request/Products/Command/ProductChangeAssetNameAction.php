@@ -54,7 +54,7 @@ class ProductChangeAssetNameAction extends AbstractAction
      * @param string $assetId
      * @param LocalizedString $name
      * @param Context|callable $context
-     * @return ProductRemoveAssetAction
+     * @return ProductChangeAssetNameAction
      */
     public static function ofVariantIdAssetIdAndName($variantId, $assetId, LocalizedString $name, $context = null)
     {
@@ -66,7 +66,7 @@ class ProductChangeAssetNameAction extends AbstractAction
      * @param string $assetId
      * @param LocalizedString $name
      * @param Context|callable $context
-     * @return ProductRemoveAssetAction
+     * @return ProductChangeAssetNameAction
      */
     public static function ofSkuAssetIdAndName($sku, $assetId, LocalizedString $name, $context = null)
     {

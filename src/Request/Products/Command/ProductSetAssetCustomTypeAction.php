@@ -58,7 +58,7 @@ class ProductSetAssetCustomTypeAction extends SetCustomTypeAction
      * @param int $variantId
      * @param string $assetId
      * @param Context|callable $context
-     * @return ProductRemoveAssetAction
+     * @return ProductSetAssetCustomTypeAction
      */
     public static function ofTypeVariantIdAssetIdAndName(TypeReference $type, $variantId, $assetId, $context = null)
     {
@@ -70,7 +70,7 @@ class ProductSetAssetCustomTypeAction extends SetCustomTypeAction
      * @param string $sku
      * @param string $assetId
      * @param Context|callable $context
-     * @return ProductRemoveAssetAction
+     * @return ProductSetAssetCustomTypeAction
      */
     public static function ofTypeSkuAssetIdAndName(TypeReference $type, $sku, $assetId, $context = null)
     {

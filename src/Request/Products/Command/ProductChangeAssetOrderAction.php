@@ -51,7 +51,7 @@ class ProductChangeAssetOrderAction extends AbstractAction
     /**
      * @param int $variantId
      * @param Context|callable $context
-     * @return ProductAddExternalImageAction
+     * @return ProductChangeAssetOrderAction
      */
     public static function ofVariantId($variantId, $context = null)
     {
@@ -61,7 +61,7 @@ class ProductChangeAssetOrderAction extends AbstractAction
     /**
      * @param string $sku
      * @param Context|callable $context
-     * @return ProductAddExternalImageAction
+     * @return ProductChangeAssetOrderAction
      */
     public static function ofSku($sku, $context = null)
     {

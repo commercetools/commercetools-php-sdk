@@ -49,22 +49,22 @@ class ProductAddAssetAction extends AbstractAction
 
     /**
      * @param int $variantId
-     * @param Asset $asset
+     * @param AssetDraft $asset
      * @param Context|callable $context
      * @return ProductAddExternalImageAction
      */
-    public static function ofVariantIdAndAsset($variantId, Asset $asset, $context = null)
+    public static function ofVariantIdAndAsset($variantId, AssetDraft $asset, $context = null)
     {
         return static::of($context)->setVariantId($variantId)->setAsset($asset);
     }
 
     /**
      * @param string $sku
-     * @param Asset $asset
+     * @param AssetDraft $asset
      * @param Context|callable $context
      * @return ProductAddExternalImageAction
      */
-    public static function ofSkuAndAsset($sku, Asset $asset, $context = null)
+    public static function ofSkuAndAsset($sku, AssetDraft $asset, $context = null)
     {
         return static::of($context)->setSku($sku)->setAsset($asset);
     }

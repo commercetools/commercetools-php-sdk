@@ -23,7 +23,7 @@ class AssetSourceCollection extends Collection
         if ($row instanceof AssetSource) {
             $key = $row->getKey();
         } else {
-            $key = $row[static::KEY];
+            $key = isset($row[static::KEY]) ? $row[static::KEY]: null;
         }
         $this->addToIndex(static::KEY, $offset, $key);
     }

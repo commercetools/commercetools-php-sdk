@@ -57,7 +57,7 @@ class ProductSetAssetCustomFieldAction extends SetCustomFieldAction
      * @param string $assetId
      * @param string $name
      * @param Context|callable $context
-     * @return ProductRemoveAssetAction
+     * @return ProductSetAssetCustomFieldAction
      */
     public static function ofVariantIdAssetIdAndName($variantId, $assetId, $name, $context = null)
     {
@@ -69,7 +69,7 @@ class ProductSetAssetCustomFieldAction extends SetCustomFieldAction
      * @param string $assetId
      * @param string $name
      * @param Context|callable $context
-     * @return ProductRemoveAssetAction
+     * @return ProductSetAssetCustomFieldAction
      */
     public static function ofSkuAssetIdAndName($sku, $assetId, $name, $context = null)
     {

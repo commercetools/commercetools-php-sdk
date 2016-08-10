@@ -54,7 +54,7 @@ class ProductSetAssetSourcesAction extends AbstractAction
      * @param int $variantId
      * @param string $assetId
      * @param Context|callable $context
-     * @return ProductRemoveAssetAction
+     * @return ProductSetAssetSourcesAction
      */
     public static function ofVariantIdAndAssetId($variantId, $assetId, $context = null)
     {
@@ -65,7 +65,7 @@ class ProductSetAssetSourcesAction extends AbstractAction
      * @param string $sku
      * @param string $assetId
      * @param Context|callable $context
-     * @return ProductRemoveAssetAction
+     * @return ProductSetAssetSourcesAction
      */
     public static function ofSkuAndAssetId($sku, $assetId, $context = null)
     {
