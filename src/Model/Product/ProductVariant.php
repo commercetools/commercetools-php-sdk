@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\PriceCollection;
 use Commercetools\Core\Model\Common\Price;
 use Commercetools\Core\Model\Common\ScopedPrice;
+use Commercetools\Core\Model\Common\AssetCollection;
 
 /**
  * @package Commercetools\Core\Model\Product
@@ -35,6 +36,8 @@ use Commercetools\Core\Model\Common\ScopedPrice;
  * @method ProductVariant setScopedPrice(ScopedPrice $scopedPrice = null)
  * @method bool getScopedPriceDiscounted()
  * @method ProductVariant setScopedPriceDiscounted(bool $scopedPriceDiscounted = null)
+ * @method AssetCollection getAssets()
+ * @method ProductVariant setAssets(AssetCollection $assets = null)
  */
 class ProductVariant extends JsonObject
 {
@@ -51,6 +54,7 @@ class ProductVariant extends JsonObject
             'isMatchingVariant' => [static::TYPE => 'bool'],
             'scopedPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\ScopedPrice'],
             'scopedPriceDiscounted' => [static::TYPE => 'bool'],
+            'assets' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetCollection']
         ];
     }
 }

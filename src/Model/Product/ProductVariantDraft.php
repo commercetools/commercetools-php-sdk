@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\AttributeCollection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\Common\ImageCollection;
+use Commercetools\Core\Model\Common\AssetDraftCollection;
 
 /**
  * @package Commercetools\Core\Model\Product
@@ -22,6 +23,8 @@ use Commercetools\Core\Model\Common\ImageCollection;
  * @method AttributeCollection getAttributes()
  * @method ImageCollection getImages()
  * @method ProductVariantDraft setImages(ImageCollection $images = null)
+ * @method AssetDraftCollection getAssets()
+ * @method ProductVariantDraft setAssets(AssetDraftCollection $assets = null)
  */
 class ProductVariantDraft extends JsonObject
 {
@@ -32,6 +35,7 @@ class ProductVariantDraft extends JsonObject
             'prices' => [self::TYPE => '\Commercetools\Core\Model\Common\PriceDraftCollection'],
             'images' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageCollection'],
             'attributes' => [self::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
+            'assets' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetDraftCollection']
         ];
     }
 }

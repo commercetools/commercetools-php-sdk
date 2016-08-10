@@ -8,6 +8,9 @@ namespace Commercetools\Core\Product;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Error\DuplicateFieldError;
+use Commercetools\Core\Model\Common\AssetDraft;
+use Commercetools\Core\Model\Common\AssetSource;
+use Commercetools\Core\Model\Common\AssetSourceCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
@@ -18,9 +21,11 @@ use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\Product\SearchKeyword;
 use Commercetools\Core\Model\Product\SearchKeywords;
 use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Request\Products\Command\ProductAddAssetAction;
 use Commercetools\Core\Request\Products\Command\ProductAddPriceAction;
 use Commercetools\Core\Request\Products\Command\ProductAddToCategoryAction;
 use Commercetools\Core\Request\Products\Command\ProductAddVariantAction;
+use Commercetools\Core\Request\Products\Command\ProductChangeAssetNameAction;
 use Commercetools\Core\Request\Products\Command\ProductChangeMasterVariantAction;
 use Commercetools\Core\Request\Products\Command\ProductChangeNameAction;
 use Commercetools\Core\Request\Products\Command\ProductChangePriceAction;
@@ -30,6 +35,9 @@ use Commercetools\Core\Request\Products\Command\ProductRemoveFromCategoryAction;
 use Commercetools\Core\Request\Products\Command\ProductRemovePriceAction;
 use Commercetools\Core\Request\Products\Command\ProductRemoveVariantAction;
 use Commercetools\Core\Request\Products\Command\ProductRevertStagedChangesAction;
+use Commercetools\Core\Request\Products\Command\ProductSetAssetDescriptionAction;
+use Commercetools\Core\Request\Products\Command\ProductSetAssetSourcesAction;
+use Commercetools\Core\Request\Products\Command\ProductSetAssetTagsAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAttributeAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction;
 use Commercetools\Core\Request\Products\Command\ProductSetCategoryOrderHintAction;
@@ -1231,6 +1239,78 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertSame(100, $variant->getPrice()->getValue()->getCentAmount());
 
         array_pop($this->cleanupRequests);
+    }
+
+    public function testAssetsWithSKU()
+    {
+        $draft = $this->getDraft('assets');
+        $draft->setMasterVariant(
+            ProductVariantDraft::of()->setSku('sku' . uniqid())
+        );
+        $product = $this->createProduct($draft);
+
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        $assetDraft = AssetDraft::of()->setSources(AssetSourceCollection::of()->add(
+            AssetSource::of()->setUri('test' . $this->getTestRun())
+        ))->setName(LocalizedString::ofLangAndText('en', 'test'));
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductAddAssetAction::ofSkuAndAsset($variant->getSku(), $assetDraft))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $asset = $result->getMasterData()->getStaged()->getMasterVariant()->getAssets()->current();
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Asset', $asset);
+        $this->assertSame('test' . $this->getTestRun(), $asset->getSources()->current()->getUri());
+
+        $product = $result;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductChangeAssetNameAction::ofSkuAssetIdAndName(
+                    $variant->getSku(),
+                    $asset->getId(),
+                    LocalizedString::ofLangAndText('en', 'new-test')
+                )
+            )
+            ->addAction(
+                ProductSetAssetDescriptionAction::ofSkuAndAssetId(
+                    $variant->getSku(),
+                    $asset->getId()
+                )->setDescription(LocalizedString::ofLangAndText('en', 'new-description'))
+            )
+            ->addAction(
+                ProductSetAssetTagsAction::ofSkuAndAssetId(
+                    $variant->getSku(),
+                    $asset->getId()
+                )->setTags(['123', 'abc'])
+            )
+            ->addAction(
+                ProductSetAssetSourcesAction::ofSkuAndAssetId(
+                    $variant->getSku(),
+                    $asset->getId()
+                )->setSources(
+                    AssetSourceCollection::of()
+                        ->add(AssetSource::of()->setUri('new-test' . $this->getTestRun()))
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+        $asset = $result->getMasterData()->getStaged()->getMasterVariant()->getAssets()->current();
+        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Asset', $asset);
+        $this->assertSame('new-test', $asset->getName()->en);
+        $this->assertSame('new-description', $asset->getDescription()->en);
+        $this->assertSame(['123', 'abc'], $asset->getTags());
+        $this->assertSame('new-test' . $this->getTestRun(), $asset->getSources()->current()->getUri());
     }
 
     /**
