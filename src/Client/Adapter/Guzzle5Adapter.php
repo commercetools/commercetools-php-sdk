@@ -27,6 +27,7 @@ class Guzzle5Adapter implements AdapterInterface
      * @var LoggerInterface
      */
     protected $logger;
+
     /**
      * @param array $options
      */
@@ -61,6 +62,10 @@ class Guzzle5Adapter implements AdapterInterface
         }
     }
 
+    public function addHandler($handler)
+    {
+        $this->getEmitter()->attach($handler);
+    }
 
     /**
      * @internal

@@ -23,6 +23,7 @@ use Commercetools\Core\Request\Customers\Command\CustomerSetDefaultShippingAddre
 use Commercetools\Core\Request\Customers\Command\CustomerSetExternalIdAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetFirstNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetLastNameAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetLocaleAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetMiddleNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction;
@@ -79,6 +80,22 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $this->assertSame($email, $customer->getEmail());
     }
 
+    public function testNoopCustomerEmail()
+    {
+        $draft = $this->getDraft('email');
+        $customer = $this->createCustomer($draft);
+        $version = $customer->getVersion();
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(CustomerChangeEmailAction::ofEmail($draft->getEmail()))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $customer = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($customer->getVersion());
+
+        $this->assertSame($version, $customer->getVersion());
+        $this->assertSame($draft->getEmail(), $customer->getEmail());
+    }
+
     public function testFirstName()
     {
         $draft = $this->getDraft('firstName');
@@ -87,6 +104,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $firstName = 'new-' . $this->getTestRun() . '-firstName';
 
         $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(CustomerSetFirstNameAction::of()->setFirstName($firstName))
             ->addAction(CustomerSetFirstNameAction::of()->setFirstName($firstName))
         ;
         $response = $request->executeWithClient($this->getClient());
@@ -323,6 +341,16 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($companyName, $customer->getCompanyName());
+
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(CustomerSetCompanyNameAction::of()->setCompanyName($companyName))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertSame($customer->getVersion(), $result->getVersion());
+        $this->assertSame($customer->getCompanyName(), $result->getCompanyName());
+
     }
 
     public function testDateOfBirth()
@@ -400,5 +428,63 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($this->getTestRun(), $customer->getCustom()->getFields()->getTestField());
+    }
+
+    public function localeProvider()
+    {
+        return [
+            ['en', 'en'],
+            ['de', 'de'],
+            ['de-de', 'de-DE'],
+            ['de-DE', 'de-DE'],
+            ['de_de', 'de-DE'],
+            ['de_DE', 'de-DE'],
+        ];
+    }
+
+    /**
+     * @dataProvider localeProvider
+     */
+    public function testLocale($locale, $expectedLocale)
+    {
+        $draft = $this->getCustomerDraft();
+        $customer = $this->createCustomer($draft);
+
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(CustomerSetLocaleAction::ofLocale($locale))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $customer = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($customer->getVersion());
+
+        $this->assertSame($expectedLocale, $customer->getLocale());
+    }
+
+    public function invalidLocaleProvider()
+    {
+        return [
+            ['en-en'],
+            ['en_en'],
+            ['en_EN'],
+            ['en-EN'],
+            ['fr'],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidLocaleProvider
+     */
+    public function testInvalidLocale($locale)
+    {
+        $draft = $this->getCustomerDraft();
+        $customer = $this->createCustomer($draft);
+
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(CustomerSetLocaleAction::ofLocale($locale))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+
+        $this->assertTrue($response->isError());
     }
 }

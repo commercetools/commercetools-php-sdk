@@ -14,7 +14,7 @@ use Commercetools\Core\Client\Adapter\AdapterInterface;
  */
 abstract class AbstractHttpClient
 {
-    const VERSION = '1.2.3';
+    const VERSION = '1.3.0';
 
     /**
      * @var AdapterInterface
@@ -87,9 +87,7 @@ abstract class AbstractHttpClient
                 ],
                 $options
             );
-            $class = $this->getAdapterFactory()->getClass($this->getConfig()->getAdapter());
-
-            $this->httpClient = new $class($options);
+            $this->httpClient = $this->getAdapterFactory()->getAdapter($this->getConfig()->getAdapter(), $options);
         }
 
         return $this->httpClient;

@@ -9,6 +9,7 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
+use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Order\DeliveryItem;
 use Commercetools\Core\Model\Order\DeliveryItemCollection;
@@ -32,9 +33,13 @@ use Commercetools\Core\Request\Orders\Command\OrderChangeOrderStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderChangePaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderChangeShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderRemovePaymentAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddress;
+use Commercetools\Core\Request\Orders\Command\OrderSetCustomerEmail;
+use Commercetools\Core\Request\Orders\Command\OrderSetLocaleAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
 use Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
@@ -344,5 +349,115 @@ class OrderUpdateRequestTest extends ApiTestCase
         $order = $request->mapResponse($response);
         $this->deleteRequest->setVersion($order->getVersion());
         $this->assertNull($order->getPaymentInfo());
+    }
+
+    public function localeProvider()
+    {
+        return [
+            ['en', 'en'],
+            ['de', 'de'],
+            ['de-de', 'de-DE'],
+            ['de-DE', 'de-DE'],
+            ['de_de', 'de-DE'],
+            ['de_DE', 'de-DE'],
+        ];
+    }
+
+    /**
+     * @dataProvider localeProvider
+     */
+    public function testLocale($locale, $expectedLocale)
+    {
+        $draft = $this->getCartDraft();
+        $order = $this->createOrder($draft);
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(OrderSetLocaleAction::ofLocale($locale))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($expectedLocale, $cart->getLocale());
+    }
+
+    public function invalidLocaleProvider()
+    {
+        return [
+            ['en-en'],
+            ['en_en'],
+            ['en_EN'],
+            ['en-EN'],
+            ['fr'],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidLocaleProvider
+     */
+    public function testInvalidLocale($locale)
+    {
+        $draft = $this->getCartDraft();
+        $order = $this->createOrder($draft);
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(OrderSetLocaleAction::ofLocale($locale))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+
+        $this->assertTrue($response->isError());
+    }
+
+    public function testSetCustomerEmail()
+    {
+        $draft = $this->getCartDraft();
+        $order = $this->createOrder($draft);
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(OrderSetCustomerEmail::of()->setEmail($this->getTestRun() . '-new@example.com'))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $order = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($order->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $order);
+        $this->assertNotSame($draft->getCustomerEmail(), $order->getCustomerEmail());
+    }
+
+    public function testSetShippingAddress()
+    {
+        $draft = $this->getCartDraft();
+        $order = $this->createOrder($draft);
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(OrderSetShippingAddress::of()->setAddress(
+                Address::of()->setCountry('DE')->setFirstName($this->getTestRun() . '-new')
+            ))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $order = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($order->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $order);
+        $this->assertNotSame($draft->getShippingAddress()->getFirstName(), $order->getShippingAddress()->getFirstName());
+    }
+
+    public function testSetBillingAddress()
+    {
+        $draft = $this->getCartDraft();
+        $order = $this->createOrder($draft);
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(OrderSetBillingAddress::of()->setAddress(
+                Address::of()->setCountry('DE')->setFirstName($this->getTestRun() . '-new')
+            ))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $order = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($order->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $order);
+        $this->assertNotSame($draft->getBillingAddress()->getFirstName(), $order->getBillingAddress()->getFirstName());
     }
 }

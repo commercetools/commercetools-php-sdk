@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\Common\Address;
 
 /**
  * @package Commercetools\Core\Model\Channel
@@ -23,6 +24,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method ChannelDraft setDescription(LocalizedString $description = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method ChannelDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method Address getAddress()
+ * @method ChannelDraft setAddress(Address $address = null)
  */
 class ChannelDraft extends JsonObject
 {
@@ -34,6 +37,7 @@ class ChannelDraft extends JsonObject
             'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'address' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
         ];
     }
 

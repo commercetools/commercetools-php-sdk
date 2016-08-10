@@ -53,6 +53,8 @@ namespace Commercetools\Core\Model\Common;
  * @method Address setMobile(string $mobile = null)
  * @method Address setEmail(string $email = null)
  * @method Address setAdditionalAddressInfo(string $additionalAddressInfo = null)
+ * @method string getFax()
+ * @method Address setFax(string $fax = null)
  */
 class Address extends JsonObject
 {
@@ -81,6 +83,7 @@ class Address extends JsonObject
             'mobile' => [self::TYPE => 'string'],
             'email' => [self::TYPE => 'string'],
             'additionalAddressInfo' => [self::TYPE => 'string'],
+            'fax' => [static::TYPE => 'string'],
         ];
     }
 }

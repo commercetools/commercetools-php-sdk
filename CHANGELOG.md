@@ -1,3 +1,19 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/sphereio/commercetools-php-sdk/compare/v1.2.3...v1.3.0) (2016-08-10)
+
+### Features
+
+* **Address:** add fax field to address ([cb1dda2](https://github.com/sphereio/commercetools-php-sdk/commit/cb1dda2)), closes [#236](https://github.com/sphereio/commercetools-php-sdk/issues/236)
+* **Channel:** add Address field to Channel ([66a40a9](https://github.com/sphereio/commercetools-php-sdk/commit/66a40a9)), closes [#237](https://github.com/sphereio/commercetools-php-sdk/issues/237)
+* **Localization:** add setLocale action to cart, order and customer ([17c5672](https://github.com/sphereio/commercetools-php-sdk/commit/17c5672)), closes [#235](https://github.com/sphereio/commercetools-php-sdk/issues/235)
+* **Order:** add actions to update customer email, shipping and billing address for orders ([23e0193](https://github.com/sphereio/commercetools-php-sdk/commit/23e0193)), closes [#238](https://github.com/sphereio/commercetools-php-sdk/issues/238)
+* **Order:** import order with stock update ([a824dae](https://github.com/sphereio/commercetools-php-sdk/commit/a824dae)), closes [#234](https://github.com/sphereio/commercetools-php-sdk/issues/234)
+* **Product:** support assets ([43f8dd6](https://github.com/sphereio/commercetools-php-sdk/commit/43f8dd6)), closes [#241](https://github.com/sphereio/commercetools-php-sdk/issues/241)
+* **Project:** add messages field to project ([4deb11f](https://github.com/sphereio/commercetools-php-sdk/commit/4deb11f)), closes [#239](https://github.com/sphereio/commercetools-php-sdk/issues/239)
+* **Search:** add subtree filter model ([9fa6527](https://github.com/sphereio/commercetools-php-sdk/commit/9fa6527)), closes [#244](https://github.com/sphereio/commercetools-php-sdk/issues/244)
+
+
+
 <a name="1.2.3"></a>
 ## [1.2.3](https://github.com/sphereio/commercetools-php-sdk/compare/v1.2.2...v1.2.3) (2016-07-14)
 

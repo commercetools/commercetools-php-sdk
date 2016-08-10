@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link http://dev.commercetools.com/http-api-projects-products.html#set-category-order-hint
+ * @link https://dev.commercetools.com/http-api-projects-products.html#set-category-order-hint
  * @method string getAction()
  * @method ProductSetCategoryOrderHintAction setAction(string $action = null)
  * @method string getCategoryId()

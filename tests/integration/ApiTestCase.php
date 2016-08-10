@@ -185,7 +185,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @var CartDiscount
      */
-    private $cartDiscount;
+    protected $cartDiscount;
 
     /**
      * @var DiscountCode

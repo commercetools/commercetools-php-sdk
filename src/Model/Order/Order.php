@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Cart\CustomLineItemCollection;
 use Commercetools\Core\Model\Cart\LineItemCollection;
 use Commercetools\Core\Model\Cart\ShippingInfo;
 use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\TaxedPrice;
@@ -83,10 +84,13 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method Order setCompletedAt(\DateTime $completedAt = null)
  * @method string getAnonymousId()
  * @method Order setAnonymousId(string $anonymousId = null)
+ * @method string getLocale()
  * @method OrderReference getReference()
  */
 class Order extends Resource
 {
+    use LocaleTrait;
+
     public function fieldDefinitions()
     {
         return [
@@ -129,6 +133,7 @@ class Order extends Resource
             'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
             'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentInfo'],
             'anonymousId' => [static::TYPE => 'string'],
+            'locale' => [static::TYPE => 'string'],
         ];
     }
 }

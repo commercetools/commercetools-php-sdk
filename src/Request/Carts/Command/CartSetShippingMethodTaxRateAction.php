@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link http://dev.commercetools.com/http-api-projects-carts.html#set-shippingmethod-taxrate
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#set-shippingmethod-taxrate
  * @method string getAction()
  * @method CartSetShippingMethodTaxRateAction setAction(string $action = null)
  * @method ExternalTaxRateDraft getExternalTaxRate()

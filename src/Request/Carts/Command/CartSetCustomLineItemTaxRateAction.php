@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link http://dev.commercetools.com/http-api-projects-carts.html#set-customlineitem-taxrate
+ * @link https://dev.commercetools.com/http-api-projects-carts.html#set-customlineitem-taxrate
  * @method string getAction()
  * @method CartSetCustomLineItemTaxRateAction setAction(string $action = null)
  * @method string getCustomLineItemId()

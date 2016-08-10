@@ -52,6 +52,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method ImportOrder setCompletedAt(\DateTime $completedAt = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method ImportOrder setCustom(CustomFieldObjectDraft $custom = null)
+ * @method string getInventoryMode()
+ * @method ImportOrder setInventoryMode(string $inventoryMode = null)
  */
 class ImportOrder extends JsonObject
 {
@@ -77,7 +79,8 @@ class ImportOrder extends JsonObject
                 static::TYPE => '\DateTime',
                 static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft']
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'inventoryMode' => [static::TYPE => 'string'],
         ];
     }
 }

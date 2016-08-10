@@ -7,7 +7,7 @@ namespace Commercetools\Core;
 
 use Commercetools\Core\Helper\Annotate\AnnotationGenerator;
 
-require '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 $path = __DIR__ . '/../src/';
 
