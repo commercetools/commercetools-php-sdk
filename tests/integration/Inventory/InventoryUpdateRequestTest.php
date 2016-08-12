@@ -180,6 +180,9 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
     }
 
+    /**
+     * @medium
+     */
     public function testInventoryDeleteMessage()
     {
         $channel = $this->getChannel();
@@ -194,6 +197,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
         array_pop($this->cleanupRequests);
 
+        sleep(1);
         $request = MessageQueryRequest::of()
             ->where('type = "InventoryEntryDeleted"')
             ->where('resource(id = "' . $inventory->getId() . '")');
@@ -247,7 +251,6 @@ class InventoryUpdateRequestTest extends ApiTestCase
             )
         ;
         $response = $request->executeWithClient($this->getClient());
-        var_dump((string)$response->getBody());
         $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
