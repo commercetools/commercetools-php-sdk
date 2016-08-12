@@ -7,6 +7,7 @@ namespace Commercetools\Core\Inventory;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
+use Commercetools\Core\Model\Message\InventoryEntryDeletedMessage;
 use Commercetools\Core\Request\Inventory\Command\InventoryAddQuantityAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryChangeQuantityAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction;
@@ -16,6 +17,7 @@ use Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction
 use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
 use Commercetools\Core\Request\Inventory\InventoryDeleteRequest;
 use Commercetools\Core\Request\Inventory\InventoryUpdateRequest;
+use Commercetools\Core\Request\Messages\MessageQueryRequest;
 
 class InventoryUpdateRequestTest extends ApiTestCase
 {
@@ -196,5 +198,34 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+    }
+
+    public function testInventoryDeleteMessage()
+    {
+        $channel = $this->getChannel();
+        $draft = $this->getDraft('delete-message');
+        $draft->setSupplyChannel($channel->getReference());
+        $inventory = $this->createInventory($draft);
+
+        $request = InventoryDeleteRequest::ofIdAndVersion($inventory->getId(), $inventory->getVersion());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        array_pop($this->cleanupRequests);
+
+        $request = MessageQueryRequest::of()
+            ->where('type = "InventoryEntryDeleted"')
+            ->where('resource(id = "' . $inventory->getId() . '")');
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        /**
+         * @var InventoryEntryDeletedMessage $message
+         */
+        $message = $result->current();
+        $this->assertInstanceOf('\Commercetools\Core\Model\Message\InventoryEntryDeletedMessage', $message);
+        $this->assertSame($inventory->getId(), $message->getResource()->getId());
+        $this->assertSame($inventory->getSku(), $message->getSku());
     }
 }
