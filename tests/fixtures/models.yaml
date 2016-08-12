@@ -876,6 +876,7 @@ inventoryEntry:
     - availableQuantity
     - restockableInDays
     - expectedDelivery
+    - custom
 
 review:
   domain: review

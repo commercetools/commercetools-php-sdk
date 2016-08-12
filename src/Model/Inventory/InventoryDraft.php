@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Channel\ChannelReference;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 
 /**
  * @package Commercetools\Core\Model\Inventory
@@ -23,6 +24,8 @@ use Commercetools\Core\Model\Channel\ChannelReference;
  * @method InventoryDraft setExpectedDelivery(\DateTime $expectedDelivery = null)
  * @method ChannelReference getSupplyChannel()
  * @method InventoryDraft setSupplyChannel(ChannelReference $supplyChannel = null)
+ * @method CustomFieldObject getCustom()
+ * @method InventoryDraft setCustom(CustomFieldObject $custom = null)
  */
 class InventoryDraft extends JsonObject
 {
@@ -37,6 +40,7 @@ class InventoryDraft extends JsonObject
                 static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
             ],
             'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];
     }
 
