@@ -11,6 +11,8 @@ use Commercetools\Core\Error\DuplicateFieldError;
 use Commercetools\Core\Model\Common\AssetDraft;
 use Commercetools\Core\Model\Common\AssetSource;
 use Commercetools\Core\Model\Common\AssetSourceCollection;
+use Commercetools\Core\Model\Common\Image;
+use Commercetools\Core\Model\Common\ImageDimension;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
@@ -22,6 +24,7 @@ use Commercetools\Core\Model\Product\SearchKeyword;
 use Commercetools\Core\Model\Product\SearchKeywords;
 use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Request\Products\Command\ProductAddAssetAction;
+use Commercetools\Core\Request\Products\Command\ProductAddExternalImageAction;
 use Commercetools\Core\Request\Products\Command\ProductAddPriceAction;
 use Commercetools\Core\Request\Products\Command\ProductAddToCategoryAction;
 use Commercetools\Core\Request\Products\Command\ProductAddVariantAction;
@@ -96,6 +99,37 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertNotSame($name, $result->getMasterData()->getCurrent()->getName()->en);
         $this->assertSame($name, $result->getMasterData()->getStaged()->getName()->en);
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
+    public function testExternalImage()
+    {
+        $draft = $this->getDraft('external-image');
+        $product = $this->createProduct($draft);
+
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductAddExternalImageAction::ofVariantIdAndImage(
+                    $variant->getId(),
+                    Image::of()
+                        ->setLabel('testLabel')
+                        ->setUrl('testUri')
+                        ->setDimensions(ImageDimension::of()->setW(60)->setH(60))
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertCount(0, $result->getMasterData()->getCurrent()->getMasterVariant()->getImages());
+        $this->assertCount(1, $result->getMasterData()->getStaged()->getMasterVariant()->getImages());
+        $this->assertSame(
+            'testUri',
+            $result->getMasterData()->getStaged()->getMasterVariant()->getImages()->current()->getUrl()
+        );
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
