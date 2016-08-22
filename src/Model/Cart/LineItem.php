@@ -48,9 +48,14 @@ use Commercetools\Core\Model\Common\TaxedItemPrice;
  * @method DiscountedPricePerQuantityCollection getDiscountedPricePerQuantity()
  * @method TaxedItemPrice getTaxedPrice()
  * @method LineItem setTaxedPrice(TaxedItemPrice $taxedPrice = null)
+ * @method string getPriceMode()
+ * @method LineItem setPriceMode(string $priceMode = null)
  */
 class LineItem extends JsonObject
 {
+    const PRICE_MODE_PLATFORM = 'Platform';
+    const PRICE_MODE_EXTERNAL_TOTAL = 'ExternalTotal';
+
     public function fieldDefinitions()
     {
         return [
@@ -71,6 +76,7 @@ class LineItem extends JsonObject
             'discountedPricePerQuantity' => [
                 static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedPricePerQuantityCollection'
             ],
+            'priceMode' => [static::TYPE => 'string']
         ];
     }
 
