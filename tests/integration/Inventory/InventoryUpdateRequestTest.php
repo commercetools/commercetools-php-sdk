@@ -181,7 +181,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
     }
 
     /**
-     * @medium
+     * @large
      */
     public function testInventoryDeleteMessage()
     {
@@ -197,12 +197,16 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
         array_pop($this->cleanupRequests);
 
-        sleep(1);
-        $request = MessageQueryRequest::of()
-            ->where('type = "InventoryEntryDeleted"')
-            ->where('resource(id = "' . $inventory->getId() . '")');
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        $retries = 0;
+        do {
+            $retries++;
+            sleep(1);
+            $request = MessageQueryRequest::of()
+                ->where('type = "InventoryEntryDeleted"')
+                ->where('resource(id = "' . $inventory->getId() . '")');
+            $response = $request->executeWithClient($this->getClient());
+            $result = $request->mapResponse($response);
+        } while (is_null($result) && $retries <= 3);
 
         /**
          * @var InventoryEntryDeletedMessage $message
