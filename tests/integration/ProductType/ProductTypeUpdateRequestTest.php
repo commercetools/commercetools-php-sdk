@@ -7,16 +7,32 @@
 namespace Commercetools\Core\ProductType;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Common\Attribute;
+use Commercetools\Core\Model\Common\AttributeCollection;
 use Commercetools\Core\Model\Common\Enum;
 use Commercetools\Core\Model\Common\EnumCollection;
 use Commercetools\Core\Model\Common\LocalizedEnum;
 use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Reference;
+use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
+use Commercetools\Core\Model\CustomObject\CustomObjectReference;
+use Commercetools\Core\Model\Product\ProductDraft;
+use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\EnumType;
 use Commercetools\Core\Model\ProductType\LocalizedEnumType;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
+use Commercetools\Core\Model\ProductType\ReferenceType;
 use Commercetools\Core\Model\ProductType\StringType;
+use Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest;
+use Commercetools\Core\Request\CustomObjects\CustomObjectDeleteByKeyRequest;
+use Commercetools\Core\Request\CustomObjects\CustomObjectDeleteRequest;
+use Commercetools\Core\Request\Products\Command\ProductPublishAction;
+use Commercetools\Core\Request\Products\ProductCreateRequest;
+use Commercetools\Core\Request\Products\ProductDeleteRequest;
+use Commercetools\Core\Request\Products\ProductProjectionByIdGetRequest;
+use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumValueAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction;
@@ -281,6 +297,86 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $type = $result->getAttributes()->current()->getType();
         $this->assertSame($enum->getKey(), $type->getValues()->current()->getKey());
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
+    }
+
+    public function testReferenceAttributeDefinition()
+    {
+        $draft = $this->getDraft('reference-attribute-definition');
+        $productType = $this->createProductType($draft);
+
+        $definition = AttributeDefinition::of()
+            ->setName('testCustomObject')
+            ->setLabel(LocalizedString::ofLangAndText('en', 'testCustomObject'))
+            ->setIsRequired(false)
+            ->setType(ReferenceType::of()->setReferenceTypeId(CustomObjectReference::TYPE_CUSTOM_OBJECT));
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeAddAttributeDefinitionAction::ofAttribute($definition)
+            );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->productTypeDeleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertNotSame($productType->getVersion(), $result->getVersion());
+
+        $customObjectDraft = CustomObjectDraft::ofContainerKeyAndValue('test', 'key', uniqid());
+        $request = CustomObjectCreateRequest::ofObject($customObjectDraft);
+        $response = $request->executeWithClient($this->getClient());
+        $customObject = $request->mapResponse($response);
+
+        $productDraft = ProductDraft::ofTypeNameAndSlug(
+            $result->getReference(),
+            LocalizedString::ofLangAndText('en', 'test'),
+            LocalizedString::ofLangAndText('en', uniqid())
+        );
+        $productDraft->setMasterVariant(
+            ProductVariantDraft::of()->setAttributes(
+                AttributeCollection::of()
+                    ->add(
+                        Attribute::of()
+                            ->setName('testCustomObject')
+                            ->setValue(
+                                $customObject->getReference()
+                            )
+                    )
+            )
+        );
+
+        $request = ProductCreateRequest::ofDraft($productDraft);
+        $response = $request->executeWithClient($this->getClient());
+        $product = $request->mapResponse($response);
+
+        $request = ProductProjectionByIdGetRequest::ofId($product->getId())
+            ->expand('masterVariant.attributes[*].value')
+            ->staged(true)
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $product = $request->mapResponse($response);
+
+        $variant = $product->getMasterVariant();
+        $this->assertSame(
+            $customObject->getId(),
+            $variant->getAttributes()->getByName('testCustomObject')->getValue()->getId()
+        );
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Model\CustomObject\CustomObject',
+            $variant->getAttributes()->getByName('testCustomObject')->getValue()->getObj()
+        );
+        $this->assertSame(
+            $customObjectDraft->getValue(),
+            $variant->getAttributes()->getByName('testCustomObject')->getValue()->getObj()->getValue()
+        );
+
+        $request = ProductDeleteRequest::ofIdAndVersion($product->getId(), $product->getVersion());
+        $response = $request->executeWithClient($this->getClient());
+
+        $this->assertFalse($response->isError());
+
+        $request = CustomObjectDeleteRequest::ofIdAndVersion($customObject->getId(), $customObject->getVersion());
+        $response = $request->executeWithClient($this->getClient());
+
+        $this->assertFalse($response->isError());
     }
 
     public function testLocalizedEnumAttributeDefinition()
