@@ -114,7 +114,16 @@ class ProductUpdateRequestTest extends ApiTestCase
                     $variant->getId(),
                     Image::of()
                         ->setLabel('testLabel')
-                        ->setUrl('testUri')
+                        ->setUrl('testUri#test1')
+                        ->setDimensions(ImageDimension::of()->setW(60)->setH(60))
+                )
+            )
+            ->addAction(
+                ProductAddExternalImageAction::ofVariantIdAndImage(
+                    $variant->getId(),
+                    Image::of()
+                        ->setLabel('testLabel')
+                        ->setUrl('testUri#test2')
                         ->setDimensions(ImageDimension::of()->setW(60)->setH(60))
                 )
             )
@@ -125,10 +134,14 @@ class ProductUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertCount(0, $result->getMasterData()->getCurrent()->getMasterVariant()->getImages());
-        $this->assertCount(1, $result->getMasterData()->getStaged()->getMasterVariant()->getImages());
+        $this->assertCount(2, $result->getMasterData()->getStaged()->getMasterVariant()->getImages());
         $this->assertSame(
-            'testUri',
-            $result->getMasterData()->getStaged()->getMasterVariant()->getImages()->current()->getUrl()
+            'testUri#test1',
+            $result->getMasterData()->getStaged()->getMasterVariant()->getImages()->getAt(0)->getUrl()
+        );
+        $this->assertSame(
+            'testUri#test2',
+            $result->getMasterData()->getStaged()->getMasterVariant()->getImages()->getAt(1)->getUrl()
         );
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
