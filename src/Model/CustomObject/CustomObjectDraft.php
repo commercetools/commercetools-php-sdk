@@ -7,8 +7,6 @@ namespace Commercetools\Core\Model\CustomObject;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
-use Commercetools\Core\Model\Common\Resource;
-use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\CustomObject
@@ -34,7 +32,7 @@ class CustomObjectDraft extends JsonObject
     /**
      * @param $value
      * @param Context|callable $context
-     * @return mixed
+     * @return CustomObjectDraft
      */
     public static function ofContainerKeyAndValue($container, $key, $value, $context = null)
     {

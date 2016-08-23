@@ -206,7 +206,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
                 ->where('resource(id = "' . $inventory->getId() . '")');
             $response = $request->executeWithClient($this->getClient());
             $result = $request->mapResponse($response);
-        } while (is_null($result) && $retries <= 3);
+        } while (is_null($result) && $retries <= 9);
 
         /**
          * @var InventoryEntryDeletedMessage $message

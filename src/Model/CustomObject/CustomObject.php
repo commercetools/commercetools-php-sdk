@@ -25,6 +25,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method CustomObject setKey(string $key = null)
  * @method mixed getValue()
  * @method CustomObject setValue($value = null)
+ * @method CustomObjectReference getReference()
  */
 class CustomObject extends Resource
 {
