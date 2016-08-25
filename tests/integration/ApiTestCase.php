@@ -211,6 +211,11 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
 
     private $cache;
 
+    public function setUp()
+    {
+        self::$testRun = md5(microtime());
+    }
+
     public function getTestRun()
     {
         if (is_null(self::$testRun)) {

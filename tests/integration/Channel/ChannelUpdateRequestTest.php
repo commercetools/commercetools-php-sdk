@@ -10,6 +10,9 @@ use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Channel\ChannelRole;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Request\Channels\ChannelCreateRequest;
 use Commercetools\Core\Request\Channels\ChannelDeleteRequest;
 use Commercetools\Core\Request\Channels\ChannelUpdateRequest;
@@ -20,6 +23,8 @@ use Commercetools\Core\Request\Channels\Command\ChannelChangeNameAction;
 use Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction;
 use Commercetools\Core\Request\Channels\Command\ChannelSetAddressAction;
 use Commercetools\Core\Request\Channels\Command\ChannelSetRolesAction;
+use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
+use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 
 class ChannelUpdateRequestTest extends ApiTestCase
 {
@@ -42,7 +47,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $channel = $request->mapResponse($response);
 
-        $this->cleanupRequests[] = ChannelDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = ChannelDeleteRequest::ofIdAndVersion(
             $channel->getId(),
             $channel->getVersion()
         );
@@ -69,12 +74,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
         $this->assertSame($name, $result->getName()->en);
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testChangeDescription()
@@ -98,11 +98,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $this->assertSame($description, $result->getDescription()->en);
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testChangeKey()
@@ -122,11 +118,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $this->assertSame($key, $result->getKey());
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testSetAddress()
@@ -148,11 +140,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $this->assertSame('DE', $result->getAddress()->getCountry());
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testAddRoles()
@@ -171,11 +159,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $this->assertSame([ChannelRole::INVENTORY_SUPPLY, ChannelRole::PRIMARY], $result->getRoles());
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testRemoveRoles()
@@ -195,11 +179,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $this->assertSame([ChannelRole::PRIMARY], $result->getRoles());
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testSetRoles()
@@ -219,10 +199,50 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $this->assertSame($roles, $result->getRoles());
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
+        $this->deleteRequest->setVersion($result->getVersion());
+    }
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+    public function testChannelCustom()
+    {
+        $customType = $this->getType('channel_custom', 'channel');
+
+        $draft = $this->getDraft('channel-custom');
+        $draft->setCustom(
+            CustomFieldObjectDraft::ofTypeKey('channel_custom')
+                ->setFields(
+                    FieldContainer::of()
+                        ->setTestField('value')
+                )
+        );
+        $channel = $this->createChannel($draft);
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $channel);
+        $this->assertSame('value', $channel->getCustom()->getFields()->getTestField());
+
+        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
+            ->addAction(
+                SetCustomTypeAction::ofTypeKey('channel_custom')
+                    ->setFields(
+                        FieldContainer::of()
+                            ->set('testField', 'new value')
+                    )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $channel = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($channel->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $channel);
+        $this->assertSame('new value', $channel->getCustom()->getFields()->getTestField());
+
+        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
+            ->addAction(SetCustomFieldAction::ofName('testField')->setValue('new value 2'))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $channel = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($channel->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $channel);
+        $this->assertSame('new value 2', $channel->getCustom()->getFields()->getTestField());
     }
 }
