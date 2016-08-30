@@ -7,6 +7,8 @@
 namespace Commercetools\Core\CustomObject;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Error\ConcurrentModificationError;
+use Commercetools\Core\Model\CustomObject\CustomObject;
 use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
 use Commercetools\Core\Request\CustomObjects\CustomObjectByKeyGetRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest;
@@ -36,12 +38,90 @@ class CustomObjectQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $customObject = $request->mapResponse($response);
 
-        $this->cleanupRequests[] = CustomObjectDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = CustomObjectDeleteRequest::ofIdAndVersion(
             $customObject->getId(),
             $customObject->getVersion()
         );
 
         return $customObject;
+    }
+
+    public function testCustomObjectWithVersion()
+    {
+        $draft = $this->getDraft();
+        $customObject = $this->createCustomObject($draft);
+
+        $request = CustomObjectCreateRequest::ofObject($customObject);
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertNotSame($customObject->getVersion(), $result->getVersion());
+    }
+
+    public function testCustomObjectWithVersionConflict()
+    {
+        $draft = $this->getDraft();
+        $customObject = $this->createCustomObject($draft);
+
+        $request = CustomObjectCreateRequest::ofObject($customObject);
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertNotSame($customObject->getVersion(), $result->getVersion());
+
+        $request = CustomObjectCreateRequest::ofObject($customObject);
+        $response = $request->executeWithClient($this->getClient());
+
+        $this->assertTrue($response->isError());
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Error\ConcurrentModificationError',
+            $response->getErrors()->getByCode(ConcurrentModificationError::CODE)
+        );
+    }
+
+    public function testCustomObjectDraftWithVersionConflict()
+    {
+        $draft = $this->getDraft();
+        $customObject = $this->createCustomObject($draft);
+
+        $request = CustomObjectCreateRequest::ofObject($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertNotSame($customObject->getVersion(), $result->getVersion());
+
+        $draft->setVersion($customObject->getVersion());
+        $request = CustomObjectCreateRequest::ofObject($draft);
+        $response = $request->executeWithClient($this->getClient());
+
+        $this->assertTrue($response->isError());
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Error\ConcurrentModificationError',
+            $response->getErrors()->getByCode(ConcurrentModificationError::CODE)
+        );
+    }
+
+    public function testValidTypes()
+    {
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest',
+            CustomObjectCreateRequest::ofObject(CustomObject::of())
+        );
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest',
+            CustomObjectCreateRequest::ofObject(CustomObjectDraft::of())
+        );
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidType()
+    {
+        CustomObjectCreateRequest::ofObject(new \stdClass());
     }
 
     public function testQuery()
