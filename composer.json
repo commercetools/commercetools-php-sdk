@@ -46,7 +46,7 @@
     "monolog/monolog": "^1.12",
     "behat/behat": "^3.0",
     "phpunit/phpcov": "*",
-    "fabpot/php-cs-fixer": "@stable",
+    "friendsofphp/php-cs-fixer": "@stable",
     "symfony/yaml": "*",
     "cache/array-adapter": "^0.4.0",
     "cache/filesystem-adapter": "^0.3.0",
