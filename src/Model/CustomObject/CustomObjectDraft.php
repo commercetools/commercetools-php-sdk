@@ -17,12 +17,15 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method CustomObjectDraft setKey(string $key = null)
  * @method mixed getValue()
  * @method CustomObjectDraft setValue($value = null)
+ * @method int getVersion()
+ * @method CustomObjectDraft setVersion(int $version = null)
  */
 class CustomObjectDraft extends JsonObject
 {
     public function fieldDefinitions()
     {
         return [
+            'version' => [static::TYPE => 'int'],
             'container' => [static::TYPE => 'string'],
             'key' => [static::TYPE => 'string'],
             'value' => [],
