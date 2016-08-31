@@ -80,6 +80,68 @@ class ProductProjectionBySlugGetRequestTest extends RequestTestCase
         );
     }
 
+    public function testHttpRequestPathContextLanguages()
+    {
+        $context = $this->getContext();
+        $context->setLanguages(['en', 'de']);
+        $request = ProductProjectionBySlugGetRequest::ofSlugAndContext('slug', $context);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame(
+            'product-projections?limit=1&where=slug%28en%3D%22slug%22%29+or+slug%28de%3D%22slug%22%29',
+            (string)$httpRequest->getUri()
+        );
+    }
+
+    public function testHttpRequestPathSingleLanguage()
+    {
+        $request = ProductProjectionBySlugGetRequest::ofSlugAndLanguage('slug', 'en');
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame(
+            'product-projections?limit=1&where=slug%28en%3D%22slug%22%29',
+            (string)$httpRequest->getUri()
+        );
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testHttpRequestPathSingleLanguageTypeContext()
+    {
+        $request = ProductProjectionBySlugGetRequest::ofSlugAndLanguage('slug', $this->getContext());
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testHttpRequestPathSingleLanguageTypeArray()
+    {
+        $request = ProductProjectionBySlugGetRequest::ofSlugAndLanguage('slug', ['de']);
+    }
+
+    public function testHttpRequestPathSingleLanguages()
+    {
+        $request = ProductProjectionBySlugGetRequest::ofSlugAndLanguages('slug', ['en']);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame(
+            'product-projections?limit=1&where=slug%28en%3D%22slug%22%29',
+            (string)$httpRequest->getUri()
+        );
+    }
+
+    public function testHttpRequestPathMultipleLanguages()
+    {
+        $request = ProductProjectionBySlugGetRequest::ofSlugAndLanguages('slug', ['en', 'de']);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame(
+            'product-projections?limit=1&where=slug%28en%3D%22slug%22%29+or+slug%28de%3D%22slug%22%29',
+            (string)$httpRequest->getUri()
+        );
+    }
+
     public function testHttpRequestPathWithId()
     {
         $request = ProductProjectionBySlugGetRequest::ofSlugAndContext(

@@ -40,18 +40,22 @@ class ProductProjectionBySlugGetRequest extends AbstractApiRequest
     /**
      * @param string $slug
      * @param Context $context
+     * @param array $languages
      */
-    public function __construct($slug, Context $context)
+    public function __construct($slug, Context $context = null, array $languages = [])
     {
         parent::__construct(ProductProjectionEndpoint::endpoint(), $context);
-        if (count($context->getLanguages()) == 0) {
+        if (count($languages) == 0 && !is_null($context)) {
+            $languages = $context->getLanguages();
+        }
+        if (count($languages) == 0) {
             throw new InvalidArgumentException(Message::NO_LANGUAGES_PROVIDED);
         }
         $parts = array_map(
             function ($value) {
                 return sprintf('slug(%s="%s")', $value, '%1$s');
             },
-            $context->getLanguages()
+            $languages
         );
         if (preg_match(static::UUID_FORMAT, $slug)) {
             $parts[] = 'id="%1$s"';
@@ -69,7 +73,34 @@ class ProductProjectionBySlugGetRequest extends AbstractApiRequest
      */
     public static function ofSlugAndContext($slug, Context $context)
     {
-        return new static($slug, $context);
+        return new static($slug, $context, $context->getLanguages());
+    }
+
+    /**
+     * @param $slug
+     * @param array $languages
+     * @param Context $context
+     * @return static
+     */
+    public static function ofSlugAndLanguages($slug, array $languages, Context $context = null)
+    {
+        return new static($slug, $context, $languages);
+    }
+
+    /**
+     * @param $slug
+     * @param string $language
+     * @param Context $context
+     * @return static
+     */
+    public static function ofSlugAndLanguage($slug, $language, Context $context = null)
+    {
+        if (!is_string($language)) {
+            throw new InvalidArgumentException(
+                sprintf(Message::WRONG_ARGUMENT_TYPE, 'language', 'string')
+            );
+        }
+        return new static($slug, $context, [$language]);
     }
 
     /**
