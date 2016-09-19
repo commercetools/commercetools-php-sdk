@@ -40,7 +40,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     protected $version;
 
     /**
-     * @var array
+     * @var AbstractAction[]
      */
     protected $actions = [];
 
@@ -60,7 +60,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     }
 
     /**
-     * @return array
+     * @return AbstractAction[]
      */
     public function getActions()
     {
@@ -76,7 +76,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
     }
 
     /**
-     * @param array $actions
+     * @param AbstractAction[] $actions
      * @return $this
      */
     public function setActions(array $actions)
