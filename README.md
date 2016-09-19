@@ -144,7 +144,7 @@ Clone the develop branch of the repository (we're using the [gitflow](http://nvi
 git clone git@github.com:sphereio/commercetools-php-sdk.git
 ```
 
-Please follow the [PSR-2](http://www.php-fig.org/psr/psr-2/) coding style, ideally via your IDE settings (see below for phpStorm instructions).
+Please follow the [PSR-2](http://www.php-fig.org/psr/psr-2/) coding style, ideally via your IDE settings (see below for PhpStorm instructions).
 
 Please make sure that exiting Unit and Integration tests don't fail and fully cover your new code with Unit Tests. You can run all tests locally:
 
@@ -172,9 +172,9 @@ php -S localhost:8000 -t docroot
 
 Now navigate to [http://localhost:8000](http://localhost:8000) in your browser.
 
-### phpStorm configuration
+### PhpStorm configuration
 
-To enable code style checks directly in phpStorm you have to configure the path to the phpcs at Preferences > Languages & Frameworks > PHP > Code Sniffer.
+To enable code style checks directly in PhpStorm you have to configure the path to the phpcs at Preferences > Languages & Frameworks > PHP > Code Sniffer.
 Now you can enable at Preferences > Editor > Inspections > PHP the "PHP code sniffer validation" with PSR-2 standard. Change the severity if needed.
 
 
