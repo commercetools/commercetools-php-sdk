@@ -36,6 +36,8 @@ use Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartAddPaymentAction;
+use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemMoneyAction;
+use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemQuantityAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction;
 use Commercetools\Core\Request\Carts\Command\CartRecalculateAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction;
@@ -306,6 +308,86 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($cart->getVersion());
 
         $this->assertCount(0, $cart->getLineItems());
+    }
+
+    public function testCustomLineItemChangeQuantity()
+    {
+        $name = LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun());
+
+        $draft = $this->getDraft();
+        $draft->setCustomLineItems(
+            CustomLineItemDraftCollection::of()
+                ->add(
+                    CustomLineItemDraft::of()
+                        ->setName($name)
+                        ->setSlug($name->en)
+                        ->setQuantity(1)
+                        ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                        ->setTaxCategory($this->getTaxCategory()->getReference())
+                )
+        );
+        $cart = $this->createCart($draft);
+
+        $this->assertSame(100, $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount());
+        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartChangeCustomLineItemQuantityAction::ofCustomLineItemIdAndQuantity(
+                    $cart->getCustomLineItems()->current()->getId(),
+                    2
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(2, $cart->getCustomLineItems()->current()->getQuantity());
+        $this->assertSame(200, $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount());
+        $this->assertSame(200, $cart->getTotalPrice()->getCentAmount());
+    }
+
+    public function testCustomLineItemChangeMoney()
+    {
+        $name = LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun());
+
+        $draft = $this->getDraft();
+        $draft->setCustomLineItems(
+            CustomLineItemDraftCollection::of()
+                ->add(
+                    CustomLineItemDraft::of()
+                        ->setName($name)
+                        ->setSlug($name->en)
+                        ->setQuantity(2)
+                        ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                        ->setTaxCategory($this->getTaxCategory()->getReference())
+                )
+        );
+        $cart = $this->createCart($draft);
+
+        $this->assertSame(100, $cart->getCustomLineItems()->current()->getMoney()->getCentAmount());
+        $this->assertSame(200, $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount());
+        $this->assertSame(200, $cart->getTotalPrice()->getCentAmount());
+
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartChangeCustomLineItemMoneyAction::ofCustomLineItemIdAndMoney(
+                    $cart->getCustomLineItems()->current()->getId(),
+                    Money::ofCurrencyAndAmount('EUR', 200)
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(2, $cart->getCustomLineItems()->current()->getQuantity());
+        $this->assertSame(200, $cart->getCustomLineItems()->current()->getMoney()->getCentAmount());
+        $this->assertSame(400, $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount());
+        $this->assertSame(400, $cart->getTotalPrice()->getCentAmount());
     }
 
     public function testCustomLineItemMerge()
