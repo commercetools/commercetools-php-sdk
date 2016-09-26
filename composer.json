@@ -60,6 +60,9 @@
     "post-install-cmd": "@updateConfig"
   },
   "extra": {
+    "branch-alias": {
+      "dev-develop": "1.4-dev"
+    },
     "incenteev-parameters": [
       {
         "file": "docroot/myapp.yml",
