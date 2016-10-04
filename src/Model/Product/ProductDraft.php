@@ -45,6 +45,8 @@ use Commercetools\Core\Model\State\StateReference;
  * @method ProductDraft setState(StateReference $state = null)
  * @method bool getPublish()
  * @method ProductDraft setPublish(bool $publish = null)
+ * @method string getKey()
+ * @method ProductDraft setKey(string $key = null)
  */
 class ProductDraft extends JsonObject
 {
@@ -65,6 +67,7 @@ class ProductDraft extends JsonObject
             'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords'],
             'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
             'publish' => [static::TYPE => 'bool'],
+            'key' => [static::TYPE => 'string'],
         ];
     }
 

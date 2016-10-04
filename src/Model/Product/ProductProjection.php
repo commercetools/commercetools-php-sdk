@@ -62,6 +62,8 @@ use Commercetools\Core\Model\State\StateReference;
  * @method ProductProjection setState(StateReference $state = null)
  * @method array getCategoryOrderHints()
  * @method ProductProjection setCategoryOrderHints(array $categoryOrderHints = null)
+ * @method string getKey()
+ * @method ProductProjection setKey(string $key = null)
  */
 class ProductProjection extends JsonObject implements ReferenceObjectInterface
 {
@@ -95,6 +97,7 @@ class ProductProjection extends JsonObject implements ReferenceObjectInterface
             'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords'],
             'reviewRatingStatistics' => [static::TYPE => '\Commercetools\Core\Model\Review\ReviewRatingStatistics'],
             'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'key' => [static::TYPE => 'string'],
         ];
     }
 

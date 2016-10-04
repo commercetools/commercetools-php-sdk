@@ -15,10 +15,10 @@ use Commercetools\Core\Response\ApiResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link https://dev.commercetools.com/http-api-projects-productProjections.html#get-productprojection-by-id
+ * @link https://dev.commercetools.com/http-api-projects-productProjections.html#get-productprojection-by-key
  * @method ProductProjection mapResponse(ApiResponseInterface $response)
  */
-class ProductProjectionByIdGetRequest extends AbstractByIdGetRequest
+class ProductProjectionByKeyGetRequest extends AbstractByIdGetRequest
 {
     use PriceSelectTrait;
     use StagedTrait;
@@ -26,12 +26,29 @@ class ProductProjectionByIdGetRequest extends AbstractByIdGetRequest
     protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjection';
 
     /**
-     * @param string $id
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->getId();
+    }
+
+    /**
+     * @param $key
+     * @return $this
+     */
+    public function setKey($key)
+    {
+        return $this->setId($key);
+    }
+
+    /**
+     * @param string $key
      * @param Context $context
      */
-    public function __construct($id, Context $context = null)
+    public function __construct($key, Context $context = null)
     {
-        parent::__construct(ProductProjectionEndpoint::endpoint(), $id, $context);
+        parent::__construct(ProductProjectionEndpoint::endpoint(), $key, $context);
     }
 
     /**
@@ -40,16 +57,16 @@ class ProductProjectionByIdGetRequest extends AbstractByIdGetRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/' . $this->getId() . $this->getParamString();
+        return (string)$this->getEndpoint() . '/key=' . $this->getId() . $this->getParamString();
     }
 
     /**
-     * @param string $id
+     * @param string $key
      * @param Context $context
      * @return static
      */
-    public static function ofId($id, Context $context = null)
+    public static function ofKey($key, Context $context = null)
     {
-        return new static($id, $context);
+        return new static($key, $context);
     }
 }
