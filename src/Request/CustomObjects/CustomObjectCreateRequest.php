@@ -42,4 +42,14 @@ class CustomObjectCreateRequest extends AbstractCreateRequest
     {
         return new static($customObject, $context);
     }
+
+    /**
+     * @param CustomObjectDraft $customObject
+     * @param Context|null $context
+     * @return static
+     */
+    public static function ofDraft(CustomObjectDraft $customObject, Context $context = null)
+    {
+        return new static($customObject, $context);
+    }
 }
