@@ -1,3 +1,22 @@
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/sphereio/commercetools-php-sdk/compare/v1.3.1...v1.4.0) (2016-10-05)
+
+### Features
+
+* **Cart:** support change of custom line item quantity and price ([63d78e5](https://github.com/sphereio/commercetools-php-sdk/commit/63d78e5)), closes [#256](https://github.com/sphereio/commercetools-php-sdk/issues/256)
+* **Cart:** support external line item total price ([417e78c](https://github.com/sphereio/commercetools-php-sdk/commit/417e78c)), closes [#247](https://github.com/sphereio/commercetools-php-sdk/issues/247)
+* **CustomObject:** add constructor using custom object draft ([7482d1b](https://github.com/sphereio/commercetools-php-sdk/commit/7482d1b)), closes [#258](https://github.com/sphereio/commercetools-php-sdk/issues/258)
+* **CustomObject:** add reference model for custom objects ([566cf22](https://github.com/sphereio/commercetools-php-sdk/commit/566cf22)), closes [#248](https://github.com/sphereio/commercetools-php-sdk/issues/248)
+* **Filter:** add method to create a subtree filter with an array of IDs ([ac487a3](https://github.com/sphereio/commercetools-php-sdk/commit/ac487a3)), closes [#257](https://github.com/sphereio/commercetools-php-sdk/issues/257)
+* **Inventory:** add inventory deleted message ([699a8c7](https://github.com/sphereio/commercetools-php-sdk/commit/699a8c7)), closes [#245](https://github.com/sphereio/commercetools-php-sdk/issues/245)
+* **Inventory:** support customizable inventory entries ([31f16db](https://github.com/sphereio/commercetools-php-sdk/commit/31f16db)), closes [#246](https://github.com/sphereio/commercetools-php-sdk/issues/246)
+* **Logger:** add correlation id to logger as context object ([512536b](https://github.com/sphereio/commercetools-php-sdk/commit/512536b))
+* **Product:** query product by slug with single language ([88cd9e2](https://github.com/sphereio/commercetools-php-sdk/commit/88cd9e2)), closes [#250](https://github.com/sphereio/commercetools-php-sdk/issues/250)
+* **Product:** support key for product and product variant ([39f356a](https://github.com/sphereio/commercetools-php-sdk/commit/39f356a)), closes [#259](https://github.com/sphereio/commercetools-php-sdk/issues/259)
+* **Reference:** resolve correct reference model by typeId ([8f76ec4](https://github.com/sphereio/commercetools-php-sdk/commit/8f76ec4))
+
+
+
 <a name="1.3.1"></a>
 ## [1.3.1](https://github.com/sphereio/commercetools-php-sdk/compare/v1.3.0...v1.3.1) (2016-08-30)
 
