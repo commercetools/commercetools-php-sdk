@@ -99,7 +99,7 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductAddVariantAction',
-                ['action', 'prices', 'sku', 'attributes', 'staged']
+                ['action', 'prices', 'sku', 'attributes', 'staged', 'key', 'images']
             ],
             [
                 '\Commercetools\Core\Request\Products\Command\ProductChangeNameAction',

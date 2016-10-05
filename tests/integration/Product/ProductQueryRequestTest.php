@@ -14,9 +14,11 @@ use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Request\Products\ProductByIdGetRequest;
+use Commercetools\Core\Request\Products\ProductByKeyGetRequest;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
 use Commercetools\Core\Request\Products\ProductProjectionByIdGetRequest;
+use Commercetools\Core\Request\Products\ProductProjectionByKeyGetRequest;
 use Commercetools\Core\Request\Products\ProductProjectionBySlugGetRequest;
 use Commercetools\Core\Request\Products\ProductProjectionQueryRequest;
 use Commercetools\Core\Request\Products\ProductQueryRequest;
@@ -74,7 +76,36 @@ class ProductQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $product);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertSame($product->getId(), $result->getId());
+    }
+
+    public function testGetByKey()
+    {
+        $draft = $this->getDraft();
+        $draft->setKey($this->getTestRun());
+        $product = $this->createProduct($draft);
+
+        $request = ProductByKeyGetRequest::ofKey($product->getKey());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertSame($product->getKey(), $result->getKey());
+    }
+
+    public function testGetProjectionByKey()
+    {
+        $draft = $this->getDraft();
+        $draft->setKey($this->getTestRun());
+        $product = $this->createProduct($draft);
+
+        $request = ProductProjectionByKeyGetRequest::ofKey($product->getKey())->staged(true);
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
+        $this->assertSame($product->getKey(), $result->getKey());
         $this->assertSame($product->getId(), $result->getId());
     }
 

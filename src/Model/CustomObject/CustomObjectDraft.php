@@ -35,7 +35,7 @@ class CustomObjectDraft extends JsonObject
     /**
      * @param $value
      * @param Context|callable $context
-     * @return mixed
+     * @return CustomObjectDraft
      */
     public static function ofContainerKeyAndValue($container, $key, $value, $context = null)
     {

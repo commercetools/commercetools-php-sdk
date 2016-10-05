@@ -23,6 +23,12 @@ class FilterSubtreeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('subtree("12345"),subtree("abcde")', (string)$subtrees);
     }
 
+    public function testCollectionIds()
+    {
+        $subtrees = FilterSubtreeCollection::ofIds(['12345', 'abcde']);
+        $this->assertSame('subtree("12345"),subtree("abcde")', (string)$subtrees);
+    }
+
     public function testIntValue()
     {
         $subtree = FilterSubtree::ofId(12345);

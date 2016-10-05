@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\AttributeCollection;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\ImageCollection;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
@@ -23,6 +24,10 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductAddVariantAction setAttributes(AttributeCollection $attributes = null)
  * @method bool getStaged()
  * @method ProductAddVariantAction setStaged(bool $staged = null)
+ * @method string getKey()
+ * @method ProductAddVariantAction setKey(string $key = null)
+ * @method ImageCollection getImages()
+ * @method ProductAddVariantAction setImages(ImageCollection $images = null)
  */
 class ProductAddVariantAction extends AbstractAction
 {
@@ -34,6 +39,8 @@ class ProductAddVariantAction extends AbstractAction
             'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceDraftCollection'],
             'attributes' => [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
             'staged' => [static::TYPE => 'bool'],
+            'key' => [static::TYPE => 'string'],
+            'images' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageCollection']
         ];
     }
 

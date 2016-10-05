@@ -11,6 +11,8 @@ use Commercetools\Core\Error\DuplicateFieldError;
 use Commercetools\Core\Model\Common\AssetDraft;
 use Commercetools\Core\Model\Common\AssetSource;
 use Commercetools\Core\Model\Common\AssetSourceCollection;
+use Commercetools\Core\Model\Common\Image;
+use Commercetools\Core\Model\Common\ImageDimension;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
@@ -22,6 +24,7 @@ use Commercetools\Core\Model\Product\SearchKeyword;
 use Commercetools\Core\Model\Product\SearchKeywords;
 use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Request\Products\Command\ProductAddAssetAction;
+use Commercetools\Core\Request\Products\Command\ProductAddExternalImageAction;
 use Commercetools\Core\Request\Products\Command\ProductAddPriceAction;
 use Commercetools\Core\Request\Products\Command\ProductAddToCategoryAction;
 use Commercetools\Core\Request\Products\Command\ProductAddVariantAction;
@@ -42,12 +45,14 @@ use Commercetools\Core\Request\Products\Command\ProductSetAttributeAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction;
 use Commercetools\Core\Request\Products\Command\ProductSetCategoryOrderHintAction;
 use Commercetools\Core\Request\Products\Command\ProductSetDescriptionAction;
+use Commercetools\Core\Request\Products\Command\ProductSetKeyAction;
 use Commercetools\Core\Request\Products\Command\ProductSetMetaDescriptionAction;
 use Commercetools\Core\Request\Products\Command\ProductSetMetaKeywordsAction;
 use Commercetools\Core\Request\Products\Command\ProductSetMetaTitleAction;
 use Commercetools\Core\Request\Products\Command\ProductSetPriceCustomFieldAction;
 use Commercetools\Core\Request\Products\Command\ProductSetPriceCustomTypeAction;
 use Commercetools\Core\Request\Products\Command\ProductSetPricesAction;
+use Commercetools\Core\Request\Products\Command\ProductSetProductVariantKeyAction;
 use Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction;
 use Commercetools\Core\Request\Products\Command\ProductSetSkuNotStageableAction;
 use Commercetools\Core\Request\Products\Command\ProductSetSkuAction;
@@ -56,6 +61,7 @@ use Commercetools\Core\Request\Products\Command\ProductTransitionStateAction;
 use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
+use Commercetools\Core\Request\Products\ProductUpdateByKeyRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
 
 class ProductUpdateRequestTest extends ApiTestCase
@@ -96,6 +102,50 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertNotSame($name, $result->getMasterData()->getCurrent()->getName()->en);
         $this->assertSame($name, $result->getMasterData()->getStaged()->getName()->en);
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
+    public function testExternalImage()
+    {
+        $draft = $this->getDraft('external-image');
+        $product = $this->createProduct($draft);
+
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductAddExternalImageAction::ofVariantIdAndImage(
+                    $variant->getId(),
+                    Image::of()
+                        ->setLabel('testLabel')
+                        ->setUrl('testUri#test1')
+                        ->setDimensions(ImageDimension::of()->setW(60)->setH(60))
+                )
+            )
+            ->addAction(
+                ProductAddExternalImageAction::ofVariantIdAndImage(
+                    $variant->getId(),
+                    Image::of()
+                        ->setLabel('testLabel')
+                        ->setUrl('testUri#test2')
+                        ->setDimensions(ImageDimension::of()->setW(60)->setH(60))
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertCount(0, $result->getMasterData()->getCurrent()->getMasterVariant()->getImages());
+        $this->assertCount(2, $result->getMasterData()->getStaged()->getMasterVariant()->getImages());
+        $this->assertSame(
+            'testUri#test1',
+            $result->getMasterData()->getStaged()->getMasterVariant()->getImages()->getAt(0)->getUrl()
+        );
+        $this->assertSame(
+            'testUri#test2',
+            $result->getMasterData()->getStaged()->getMasterVariant()->getImages()->getAt(1)->getUrl()
+        );
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
@@ -152,7 +202,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $sku = $this->getTestRun() . '-sku';
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(
-                ProductAddVariantAction::of()->setSku($sku)
+                ProductAddVariantAction::of()->setSku($sku)->setKey($sku)
             )
         ;
         $response = $request->executeWithClient($this->getClient());
@@ -162,6 +212,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
         $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
+        $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getKey());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
         $product = $result;
 
@@ -657,7 +708,6 @@ class ProductUpdateRequestTest extends ApiTestCase
 
     public function testSku()
     {
-
         $draft = $this->getDraft('sku');
         $product = $this->createProduct($draft);
         $sku = $this->getTestRun() . 'sku';
@@ -1311,6 +1361,93 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertSame('new-description', $asset->getDescription()->en);
         $this->assertSame(['123', 'abc'], $asset->getTags());
         $this->assertSame('new-test' . $this->getTestRun(), $asset->getSources()->current()->getUri());
+    }
+
+    public function testSetKey()
+    {
+        $draft = $this->getDraft('set-key');
+        $product = $this->createProduct($draft);
+
+        $key = $this->getTestRun() . '-new key';
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetKeyAction::ofKey($key)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertNotSame($key, $draft->getKey());
+        $this->assertSame($key, $result->getKey());
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
+    public function testSetSameKey()
+    {
+        $key = $this->getTestRun() . '-new key';
+        $draft = $this->getDraft('set-key');
+        $draft->setKey($key);
+        $product = $this->createProduct($draft);
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetKeyAction::ofKey($key)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+
+        $this->assertTrue($response->isError());
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Error\DuplicateFieldError',
+            $response->getErrors()->getByCode(DuplicateFieldError::CODE)
+        );
+    }
+
+    public function testUpdateByKey()
+    {
+        $draft = $this->getDraft('set-key');
+        $draft->setKey($this->getTestRun());
+        $product = $this->createProduct($draft);
+
+        $key = $this->getTestRun() . '-new key';
+
+        $request = ProductUpdateByKeyRequest::ofKeyAndVersion($product->getKey(), $product->getVersion())
+            ->addAction(
+                ProductSetKeyAction::ofKey($key)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertNotSame($key, $draft->getKey());
+        $this->assertSame($key, $result->getKey());
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
+    public function testVariantSetKey()
+    {
+        $draft = $this->getDraft('set-variant-key');
+        $product = $this->createProduct($draft);
+
+        $variantId = $product->getMasterData()->getStaged()->getMasterVariant()->getId();
+        $key = $this->getTestRun() . '-new key';
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetProductVariantKeyAction::ofVariantIdAndKey($variantId, $key)
+            );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getKey());
+        $this->assertSame($key, $result->getMasterData()->getStaged()->getMasterVariant()->getKey());
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     /**

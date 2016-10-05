@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
+use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\MessageFormatter;
@@ -16,6 +17,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\ApiException;
+use Psr\Log\LogLevel;
 
 class Guzzle6Adapter implements AdapterInterface
 {
@@ -44,7 +46,48 @@ class Guzzle6Adapter implements AdapterInterface
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
-        $this->addHandler(Middleware::log($logger, new MessageFormatter()));
+        $this->addHandler(self::log($logger, new MessageFormatter()));
+    }
+
+    /**
+     * Middleware that logs requests, responses, and errors using a message
+     * formatter.
+     *
+     * @param LoggerInterface  $logger Logs messages.
+     * @param MessageFormatter $formatter Formatter used to create message strings.
+     * @param string           $logLevel Level at which to log requests.
+     *
+     * @return callable Returns a function that accepts the next handler.
+     */
+    private static function log(LoggerInterface $logger, MessageFormatter $formatter, $logLevel = LogLevel::INFO)
+    {
+        return function (callable $handler) use ($logger, $formatter, $logLevel) {
+            return function ($request, array $options) use ($handler, $logger, $formatter, $logLevel) {
+                return $handler($request, $options)->then(
+                    function ($response) use ($logger, $request, $formatter, $logLevel) {
+                        $message = $formatter->format($request, $response);
+                        $context[AbstractApiResponse::X_CORRELATION_ID] = $response->getHeader(
+                            AbstractApiResponse::X_CORRELATION_ID
+                        );
+                        $logger->log($logLevel, $message, $context);
+                        return $response;
+                    },
+                    function ($reason) use ($logger, $request, $formatter) {
+                        $response = null;
+                        $context = [];
+                        if ($reason instanceof RequestException) {
+                            $response = $reason->getResponse();
+                            $context[AbstractApiResponse::X_CORRELATION_ID] = $response->getHeader(
+                                AbstractApiResponse::X_CORRELATION_ID
+                            );
+                        }
+                        $message = $formatter->format($request, $response, $reason);
+                        $logger->notice($message, $context);
+                        return \GuzzleHttp\Promise\rejection_for($reason);
+                    }
+                );
+            };
+        };
     }
 
     public function addHandler($handler)

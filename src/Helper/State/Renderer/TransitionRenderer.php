@@ -20,17 +20,19 @@ class TransitionRenderer
         $graph = '';
         $color = static::COMMAND_COLOR;
 
-        foreach ($state->getTransitions() as $transition) {
-            /**
-             * @var State $targetState
-             */
-            $targetState = $transition->getObj();
-            if ($targetState->getKey() === $state->getKey()) {
-                $graph .= '  edge[dir="back",style="solid",color="' . $color . '"] state_'
-                    . $state->getKey() . ' -> state_' . $state->getKey()  . ';' . PHP_EOL;
-            } else {
-                $graph .= '  edge[dir="forward",style="solid",color="' . $color . '"] state_'
-                    . $state->getKey() . ' -> state_' . $targetState->getKey() . ' ;' . PHP_EOL;
+        if ($state->getTransitions()) {
+            foreach ($state->getTransitions() as $transition) {
+                /**
+                 * @var State $targetState
+                 */
+                $targetState = $transition->getObj();
+                if ($targetState->getKey() === $state->getKey()) {
+                    $graph .= '  edge[dir="back",style="solid",color="' . $color . '"] state_'
+                        . $state->getKey() . ' -> state_' . $state->getKey()  . ';' . PHP_EOL;
+                } else {
+                    $graph .= '  edge[dir="forward",style="solid",color="' . $color . '"] state_'
+                        . $state->getKey() . ' -> state_' . $targetState->getKey() . ' ;' . PHP_EOL;
+                }
             }
         }
 

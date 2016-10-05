@@ -10,6 +10,7 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Request\Customers\Command\CustomerAddAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerChangeAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerChangeEmailAction;
@@ -411,12 +412,37 @@ class CustomerUpdateRequestTest extends ApiTestCase
 
     public function testCustomField()
     {
-        $type = $this->getType('key-' . $this->getTestRun(), 'customer');
+        $typeKey = 'key-' . $this->getTestRun();
+
+        // create custom type for customer resource
+        $type = $this->getType($typeKey, 'customer');
+
         $draft = $this->getDraft('custom-field');
-        $draft->setCustom(CustomFieldObjectDraft::ofType($type->getReference()));
+        // add custom type field at customer creation
+        $draft->setCustom(
+            CustomFieldObjectDraft::ofTypeKey($typeKey)->setFields(FieldContainer::of()->setTestField('value'))
+        );
         $customer = $this->createCustomer($draft);
 
+        $this->assertSame('value', $customer->getCustom()->getFields()->getTestField());
 
+        // set custom type and field at customer update
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(
+                SetCustomTypeAction::ofTypeKey($typeKey)
+                    ->setFields(
+                        FieldContainer::of()
+                            ->setTestField('new value')
+                    )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $customer = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($customer->getVersion());
+
+        $this->assertSame('new value', $customer->getCustom()->getFields()->getTestField());
+
+        // set custom field only if custom type is already set
         $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
             ->addAction(
                 SetCustomFieldAction::ofName('testField')

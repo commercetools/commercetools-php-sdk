@@ -6,7 +6,12 @@
 namespace Commercetools\Core\Inventory;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
+use Commercetools\Core\Model\Message\InventoryEntryDeletedMessage;
+use Commercetools\Core\Model\Type\TypeReference;
+use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
+use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryAddQuantityAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryChangeQuantityAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction;
@@ -16,6 +21,7 @@ use Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction
 use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
 use Commercetools\Core\Request\Inventory\InventoryDeleteRequest;
 use Commercetools\Core\Request\Inventory\InventoryUpdateRequest;
+use Commercetools\Core\Request\Messages\MessageQueryRequest;
 
 class InventoryUpdateRequestTest extends ApiTestCase
 {
@@ -40,7 +46,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $inventory = $request->mapResponse($response);
 
-        $this->cleanupRequests[] = InventoryDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = InventoryDeleteRequest::ofIdAndVersion(
             $inventory->getId(),
             $inventory->getVersion()
         );
@@ -66,11 +72,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $this->assertSame($quantity, $result->getQuantityOnStock());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testChangeQuantity()
@@ -91,11 +93,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $this->assertSame($quantity, $result->getQuantityOnStock());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testRemoveQuantity()
@@ -116,11 +114,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $this->assertSame(1000 - $quantity, $result->getQuantityOnStock());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testSetExpectedDelivery()
@@ -141,11 +135,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $this->assertEquals($expectedDelivery, $result->getExpectedDelivery()->getDateTime());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testSetRestockableInDays()
@@ -166,11 +156,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $this->assertSame($restockableInDays, $result->getRestockableInDays());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testSetSupplyChannel()
@@ -191,10 +177,91 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $this->assertSame($channel->getId(), $result->getSupplyChannel()->getId());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
+        $this->deleteRequest->setVersion($result->getVersion());
+    }
+
+    /**
+     * @large
+     */
+    public function testInventoryDeleteMessage()
+    {
+        $channel = $this->getChannel();
+        $draft = $this->getDraft('delete-message');
+        $draft->setSupplyChannel($channel->getReference());
+        $inventory = $this->createInventory($draft);
+
+        $request = InventoryDeleteRequest::ofIdAndVersion($inventory->getId(), $inventory->getVersion());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        array_pop($this->cleanupRequests);
+
+        $retries = 0;
+        do {
+            $retries++;
+            sleep(1);
+            $request = MessageQueryRequest::of()
+                ->where('type = "InventoryEntryDeleted"')
+                ->where('resource(id = "' . $inventory->getId() . '")');
+            $response = $request->executeWithClient($this->getClient());
+            $result = $request->mapResponse($response);
+        } while (is_null($result) && $retries <= 9);
+
+        /**
+         * @var InventoryEntryDeletedMessage $message
+         */
+        $message = $result->current();
+        $this->assertInstanceOf('\Commercetools\Core\Model\Message\InventoryEntryDeletedMessage', $message);
+        $this->assertSame($inventory->getId(), $message->getResource()->getId());
+        $this->assertSame($inventory->getSku(), $message->getSku());
+    }
+
+    public function testSetCustomType()
+    {
+        $draft = $this->getDraft('set-custom-type');
+        $inventory = $this->createInventory($draft);
+
+        $typeKey = 'type-' . $this->getTestRun();
+        $type = $this->getType($typeKey, 'inventory-entry');
+
+        $request = InventoryUpdateRequest::ofIdAndVersion($inventory->getId(), $inventory->getVersion())
+            ->addAction(
+                SetCustomTypeAction::ofTypeKey($typeKey)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
+        $this->assertNotSame($inventory->getVersion(), $result->getVersion());
+
+        $this->deleteRequest->setVersion($result->getVersion());
+    }
+
+    public function testSetCustomField()
+    {
+        $typeKey = 'type-' . $this->getTestRun();
+        $type = $this->getType($typeKey, 'inventory-entry');
+
+        $draft = $this->getDraft('set-custom-type');
+        $draft->setCustom(CustomFieldObject::of()->setType(TypeReference::ofKey($typeKey)));
+        $inventory = $this->createInventory($draft);
+
+        $request = InventoryUpdateRequest::ofIdAndVersion($inventory->getId(), $inventory->getVersion())
+            ->addAction(
+                SetCustomFieldAction::ofName('testField')->setValue((string)$this->getTestRun())
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
+        $this->assertSame((string)$this->getTestRun(), $result->getCustom()->getFields()->getTestField());
+        $this->assertNotSame($inventory->getVersion(), $result->getVersion());
+
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 }

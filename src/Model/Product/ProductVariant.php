@@ -38,6 +38,8 @@ use Commercetools\Core\Model\Common\AssetCollection;
  * @method ProductVariant setScopedPriceDiscounted(bool $scopedPriceDiscounted = null)
  * @method AssetCollection getAssets()
  * @method ProductVariant setAssets(AssetCollection $assets = null)
+ * @method string getKey()
+ * @method ProductVariant setKey(string $key = null)
  */
 class ProductVariant extends JsonObject
 {
@@ -54,7 +56,8 @@ class ProductVariant extends JsonObject
             'isMatchingVariant' => [static::TYPE => 'bool'],
             'scopedPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\ScopedPrice'],
             'scopedPriceDiscounted' => [static::TYPE => 'bool'],
-            'assets' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetCollection']
+            'assets' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetCollection'],
+            'key' => [static::TYPE => 'string'],
         ];
     }
 }

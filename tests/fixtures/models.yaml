@@ -44,6 +44,7 @@ lineItem:
     - custom
     - discountedPricePerQuantity
     - totalPrice
+    - priceMode
 
 customLineItem:
   domain: cart
@@ -443,6 +444,7 @@ product:
   model: Product
   fields:
     - id
+    - key
     - version
     - createdAt
     - lastModifiedAt
@@ -455,6 +457,7 @@ productDraft:
   domain: product
   model: ProductDraft
   fields:
+    - key
     - name
     - slug
     - description
@@ -500,6 +503,7 @@ productProjection:
   model: ProductProjection
   fields:
     - id
+    - key
     - version
     - createdAt
     - lastModifiedAt
@@ -526,6 +530,7 @@ productVariant:
   model: ProductVariant
   fields:
     - id
+    - key
     - sku
     - prices
     - price
@@ -876,6 +881,7 @@ inventoryEntry:
     - availableQuantity
     - restockableInDays
     - expectedDelivery
+    - custom
 
 review:
   domain: review

@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model\Product\Search;
 
 use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Context;
 
 /**
  * @package Commercetools\Core\Model\Product\Search
@@ -25,5 +26,21 @@ class FilterSubtreeCollection extends Collection
             $values[] = (string)$value;
         }
         return implode(',', $values);
+    }
+
+    /**
+     * @param array $ids
+     * @param Context|null $context
+     * @return FilterSubtreeCollection
+     */
+    public static function ofIds(array $ids, Context $context = null)
+    {
+        $collection = static::of($context);
+
+        foreach ($ids as $id) {
+            $collection->add(FilterSubtree::ofId($id));
+        }
+
+        return $collection;
     }
 }

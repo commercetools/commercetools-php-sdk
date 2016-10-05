@@ -35,6 +35,8 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  * @method Product setReviewRatingStatistics(ReviewRatingStatistics $reviewRatingStatistics = null)
  * @method StateReference getState()
  * @method Product setState(StateReference $state = null)
+ * @method string getKey()
+ * @method Product setKey(string $key = null)
  * @method ProductReference getReference()
  */
 class Product extends Resource
@@ -57,6 +59,7 @@ class Product extends Resource
             'masterData' => [self::TYPE => '\Commercetools\Core\Model\Product\ProductCatalogData'],
             'reviewRatingStatistics' => [static::TYPE => '\Commercetools\Core\Model\Review\ReviewRatingStatistics'],
             'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'key' => [static::TYPE => 'string'],
         ];
     }
 }
