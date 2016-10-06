@@ -236,4 +236,9 @@ class Guzzle5Adapter implements AdapterInterface
 
         return $promise;
     }
+
+    public static function getAdapterInfo()
+    {
+        return 'GuzzleHttp/' . Client::VERSION;
+    }
 }

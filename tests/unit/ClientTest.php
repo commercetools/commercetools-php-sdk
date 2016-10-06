@@ -681,11 +681,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 $userAgent = current($userAgent);
             }
             $userAgent = explode(' ', $userAgent);
-            $this->assertSame('commercetools-php-sdk/' . AbstractHttpClient::VERSION, $userAgent[0]);
-            $this->assertSame('PHP/' . PHP_VERSION, $userAgent[1]);
+            
+            $n = 0;
+            $this->assertSame('commercetools-php-sdk/' . AbstractHttpClient::VERSION, $userAgent[$n++]);
+            $this->assertSame('GuzzleHttp/' . HttpClient::VERSION, trim($userAgent[$n++], '();'));
             if (extension_loaded('curl') && function_exists('curl_version')) {
-                $this->assertSame('curl/' . \curl_version()['version'], $userAgent[2]);
+                $this->assertSame('curl/' . \curl_version()['version'],trim($userAgent[$n++], '();'));
             }
+            $this->assertSame('PHP/' . PHP_VERSION, $userAgent[$n++]);
+
+
         }
     }
 }

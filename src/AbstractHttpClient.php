@@ -110,10 +110,14 @@ abstract class AbstractHttpClient
     protected function getUserAgent()
     {
         if (is_null($this->userAgent)) {
-            $agent = 'commercetools-php-sdk/' . static::VERSION . ' PHP/' . PHP_VERSION;
+            $agent = 'commercetools-php-sdk/' . static::VERSION;
+
+            $adapterClass = $this->getAdapterFactory()->getClass($this->getConfig()->getAdapter());
+            $agent .= ' (' . $adapterClass::getAdapterInfo();
             if (extension_loaded('curl') && function_exists('curl_version')) {
-                $agent .= ' curl/' . \curl_version()['version'];
+                $agent .= '; curl/' . \curl_version()['version'];
             }
+            $agent .= ') PHP/' . PHP_VERSION;
             $this->userAgent = $agent;
         }
 

@@ -168,4 +168,9 @@ class Guzzle6Adapter implements AdapterInterface
 
         return new Guzzle6Promise($guzzlePromise);
     }
+
+    public static function getAdapterInfo()
+    {
+        return 'GuzzleHttp/' . Client::VERSION;
+    }
 }
