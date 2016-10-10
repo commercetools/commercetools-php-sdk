@@ -14,6 +14,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method CartDiscountReference current()
  * @method CartDiscountReferenceCollection add(CartDiscountReference $element)
  * @method CartDiscountReference getAt($offset)
+ * @method CartDiscountReference getById($offset)
  */
 class CartDiscountReferenceCollection extends Collection
 {

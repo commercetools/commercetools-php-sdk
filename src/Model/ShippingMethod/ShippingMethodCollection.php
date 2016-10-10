@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method ShippingMethod current()
  * @method ShippingMethodCollection add(ShippingMethod $element)
  * @method ShippingMethod getAt($offset)
+ * @method ShippingMethod getById($offset)
  */
 class ShippingMethodCollection extends Collection
 {

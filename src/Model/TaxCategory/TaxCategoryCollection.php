@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method TaxCategory current()
  * @method TaxCategoryCollection add(TaxCategory $element)
  * @method TaxCategory getAt($offset)
+ * @method TaxCategory getById($offset)
  */
 class TaxCategoryCollection extends Collection
 {

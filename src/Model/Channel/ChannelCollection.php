@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method Channel current()
  * @method ChannelCollection add(Channel $element)
  * @method Channel getAt($offset)
+ * @method Channel getById($offset)
  */
 class ChannelCollection extends Collection
 {

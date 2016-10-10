@@ -14,6 +14,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method StateReference current()
  * @method StateReferenceCollection add(StateReference $element)
  * @method StateReference getAt($offset)
+ * @method StateReference getById($offset)
  */
 class StateReferenceCollection extends Collection
 {

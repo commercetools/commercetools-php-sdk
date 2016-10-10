@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method InventoryEntry current()
  * @method InventoryEntryCollection add(InventoryEntry $element)
  * @method InventoryEntry getAt($offset)
+ * @method InventoryEntry getById($offset)
  */
 class InventoryEntryCollection extends Collection
 {

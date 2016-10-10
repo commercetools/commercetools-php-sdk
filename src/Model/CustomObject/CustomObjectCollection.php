@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method CustomObject current()
  * @method CustomObjectCollection add(CustomObject $element)
  * @method CustomObject getAt($offset)
+ * @method CustomObject getById($offset)
  */
 class CustomObjectCollection extends Collection
 {

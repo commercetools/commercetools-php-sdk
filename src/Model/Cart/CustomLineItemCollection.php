@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method CustomLineItem current()
  * @method CustomLineItemCollection add(CustomLineItem $element)
  * @method CustomLineItem getAt($offset)
+ * @method CustomLineItem getById($offset)
  */
 class CustomLineItemCollection extends Collection
 {

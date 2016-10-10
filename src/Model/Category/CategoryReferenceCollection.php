@@ -14,6 +14,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method CategoryReference current()
  * @method CategoryReferenceCollection add(CategoryReference $element)
  * @method CategoryReference getAt($offset)
+ * @method CategoryReference getById($offset)
  */
 class CategoryReferenceCollection extends Collection
 {

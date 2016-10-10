@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Customer;
 
+use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\Common\Resource;
@@ -102,6 +103,9 @@ class Customer extends Resource
         ];
     }
 
+    /**
+     * @return Address|null
+     */
     public function getDefaultShippingAddress()
     {
         if (!is_null($this->getAddresses())) {
@@ -110,6 +114,9 @@ class Customer extends Resource
         return null;
     }
 
+    /**
+     * @return Address|null
+     */
     public function getDefaultBillingAddress()
     {
         if (!is_null($this->getAddresses())) {

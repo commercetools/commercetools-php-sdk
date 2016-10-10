@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method Customer current()
  * @method CustomerCollection add(Customer $element)
  * @method Customer getAt($offset)
+ * @method Customer getById($offset)
  */
 class CustomerCollection extends Collection
 {

@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method Review current()
  * @method ReviewCollection add(Review $element)
  * @method Review getAt($offset)
+ * @method Review getById($offset)
  */
 class ReviewCollection extends Collection
 {

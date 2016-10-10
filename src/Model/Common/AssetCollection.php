@@ -11,6 +11,7 @@ namespace Commercetools\Core\Model\Common;
  * @method AssetCollection add(Asset $element)
  * @method Asset current()
  * @method Asset getAt($offset)
+ * @method Asset getById($offset)
  */
 class AssetCollection extends Collection
 {
