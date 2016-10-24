@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories
  * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#query-taxcategories
  * @method TaxCategoryCollection mapResponse(ApiResponseInterface $response)
+ * @method TaxCategoryCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class TaxCategoryQueryRequest extends AbstractQueryRequest
 {

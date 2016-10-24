@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\CustomObject\CustomObjectCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomObjects
  * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#query-customobjects
  * @method CustomObjectCollection mapResponse(ApiResponseInterface $response)
+ * @method CustomObjectCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CustomObjectQueryRequest extends AbstractQueryRequest
 {

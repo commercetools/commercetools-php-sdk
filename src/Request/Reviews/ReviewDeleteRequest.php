@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Reviews
  * @link https://dev.commercetools.com/http-api-projects-reviews.html#delete-review-by-id
  * @method Review mapResponse(ApiResponseInterface $response)
+ * @method Review mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ReviewDeleteRequest extends AbstractDeleteRequest
 {

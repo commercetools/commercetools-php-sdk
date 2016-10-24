@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractByIdGetRequest;
 use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Channels
  * @link https://dev.commercetools.com/http-api-projects-channels.html#get-channel-by-id
  * @method Channel mapResponse(ApiResponseInterface $response)
+ * @method Channel mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ChannelByIdGetRequest extends AbstractByIdGetRequest
 {

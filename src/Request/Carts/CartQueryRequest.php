@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Cart\CartCollection;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Carts
  * @link https://dev.commercetools.com/http-api-projects-carts.html#query-carts
  * @method CartCollection mapResponse(ApiResponseInterface $response)
+ * @method CartCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CartQueryRequest extends AbstractQueryRequest
 {

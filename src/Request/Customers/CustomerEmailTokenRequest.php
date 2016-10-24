@@ -12,11 +12,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractUpdateRequest;
 use Commercetools\Core\Model\Customer\CustomerToken;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
  * @link https://dev.commercetools.com/http-api-projects-customers.html#create-a-token-for-verifying-the-customers-email
  * @method CustomerToken mapResponse(ApiResponseInterface $response)
+ * @method CustomerToken mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CustomerEmailTokenRequest extends AbstractUpdateRequest
 {

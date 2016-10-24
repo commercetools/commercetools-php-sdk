@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Model\CustomObject\CustomObject;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomObjects
  * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#delete-customobject-by-id
  * @method CustomObject mapResponse(ApiResponseInterface $response)
+ * @method CustomObject mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CustomObjectDeleteRequest extends AbstractDeleteRequest
 {

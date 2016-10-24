@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractUpdateByKeyRequest;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
  *
  * @method Product mapResponse(ApiResponseInterface $response)
+ * @method Product mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductUpdateByKeyRequest extends AbstractUpdateByKeyRequest
 {

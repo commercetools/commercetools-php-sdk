@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\Payment\PaymentCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Payments
  * @link https://dev.commercetools.com/http-api-projects-payments.html#query-payments
  * @method PaymentCollection mapResponse(ApiResponseInterface $response)
+ * @method PaymentCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class PaymentQueryRequest extends AbstractQueryRequest
 {

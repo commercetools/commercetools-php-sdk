@@ -14,11 +14,13 @@ use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Response\ResourceResponse;
 use Commercetools\Core\Model\Customer\CustomerSigninResult;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
  * @link https://dev.commercetools.com/http-api-projects-customers.html#authenticate-customer-sign-in
  * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
+ * @method CustomerSigninResult mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CustomerLoginRequest extends AbstractApiRequest
 {

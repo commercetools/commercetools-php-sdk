@@ -9,11 +9,13 @@ use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\HttpRequest;
 use Commercetools\Core\Model\CustomObject\CustomObject;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomObjects
  * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#get-customobject-by-container-and-key
  * @method CustomObject mapResponse(ApiResponseInterface $response)
+ * @method CustomObject mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CustomObjectByKeyGetRequest extends AbstractCustomObjectRequest
 {

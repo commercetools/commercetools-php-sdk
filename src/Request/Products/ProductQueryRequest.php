@@ -11,11 +11,13 @@ use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\Product\ProductCollection;
 use Commercetools\Core\Request\PriceSelectTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
  * @link https://dev.commercetools.com/http-api-projects-products.html#query-products
  * @method ProductCollection mapResponse(ApiResponseInterface $response)
+ * @method ProductCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductQueryRequest extends AbstractQueryRequest
 {

@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\Review\ReviewCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Reviews
  * @link https://dev.commercetools.com/http-api-projects-reviews.html#query-reviews
  * @method ReviewCollection mapResponse(ApiResponseInterface $response)
+ * @method ReviewCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ReviewQueryRequest extends AbstractQueryRequest
 {

@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractUpdateRequest;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts
  * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#update-cartdiscount
  * @method CartDiscount mapResponse(ApiResponseInterface $response)
+ * @method CartDiscount mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CartDiscountUpdateRequest extends AbstractUpdateRequest
 {

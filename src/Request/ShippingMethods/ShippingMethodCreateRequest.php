@@ -10,11 +10,13 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods
  * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#create-shippingmethod
  * @method ShippingMethod mapResponse(ApiResponseInterface $response)
+ * @method ShippingMethod mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ShippingMethodCreateRequest extends AbstractCreateRequest
 {

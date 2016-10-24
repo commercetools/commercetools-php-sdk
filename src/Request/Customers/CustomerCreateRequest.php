@@ -12,11 +12,13 @@ use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\Customer\CustomerSigninResult;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
  * @link https://dev.commercetools.com/http-api-projects-customers.html#create-customer-sign-up
  * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
+ * @method CustomerSigninResult mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CustomerCreateRequest extends AbstractCreateRequest
 {

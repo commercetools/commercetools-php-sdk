@@ -10,11 +10,13 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories
  * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#create-taxcategory
  * @method TaxCategory mapResponse(ApiResponseInterface $response)
+ * @method TaxCategory mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class TaxCategoryCreateRequest extends AbstractCreateRequest
 {

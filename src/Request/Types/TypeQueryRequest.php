@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\Type\TypeCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Types
  * @link https://dev.commercetools.com/http-api-projects-types.html#query-types
  * @method TypeCollection mapResponse(ApiResponseInterface $response)
+ * @method TypeCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class TypeQueryRequest extends AbstractQueryRequest
 {

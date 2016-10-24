@@ -6,6 +6,9 @@
 
 namespace Commercetools\Core\Request\Products;
 
+use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\JsonObjectMapper;
+use Commercetools\Core\Model\MapperInterface;
 use Commercetools\Core\Request\ExpandTrait;
 use Commercetools\Core\Request\PriceSelectTrait;
 use Commercetools\Core\Request\Query\Parameter;
@@ -28,6 +31,7 @@ use Commercetools\Core\Model\Product\Search\FilterInterface;
  * @link https://dev.commercetools.com/http-api-projects-products-search.html#search-productprojections
  * @method PagedSearchResponse executeWithClient(Client $client)
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
+ * @method ProductProjectionCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductProjectionSearchRequest extends AbstractProjectionRequest implements SortRequestInterface
 {
@@ -81,15 +85,19 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     /**
      * @param array $result
      * @param Context $context
-     * @return ProductProjectionCollection
+     * @param MapperInterface $mapper
+     * @return Collection
      */
-    public function mapResult(array $result, Context $context = null)
+    public function map(array $result, Context $context = null, MapperInterface $mapper = null)
     {
         $data = [];
         if (!empty($result['results'])) {
             $data = $result['results'];
         }
-        return ProductProjectionCollection::fromArray($data, $context);
+        if (is_null($mapper)) {
+            $mapper = JsonObjectMapper::of($this->resultClass, $context);
+        }
+        return $mapper->map($data);
     }
 
     /**

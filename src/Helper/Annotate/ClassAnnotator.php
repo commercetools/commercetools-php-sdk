@@ -191,6 +191,16 @@ class ClassAnnotator
                 false,
                 true
             );
+            $this->class->addUse('\Commercetools\Core\Model\MapperInterface');
+            $this->class->addMagicMethod(
+                'mapFromResponse',
+                ['ApiResponseInterface $response', 'MapperInterface $mapper = null'],
+                $resultClassReflection->getShortName(),
+                null,
+                null,
+                false,
+                true
+            );
         }
     }
 

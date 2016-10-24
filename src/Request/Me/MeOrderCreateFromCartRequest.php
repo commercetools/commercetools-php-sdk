@@ -15,11 +15,13 @@ use Commercetools\Core\Response\AbstractApiResponse;
 use Commercetools\Core\Response\ResourceResponse;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Me
  * @link https://dev.commercetools.com/http-api-projects-me-orders.html#create-order-from-a-cart
  * @method Order mapResponse(ApiResponseInterface $response)
+ * @method Order mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class MeOrderCreateFromCartRequest extends AbstractApiRequest
 {

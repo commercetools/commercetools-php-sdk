@@ -10,11 +10,13 @@ use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes
  * @link https://dev.commercetools.com/http-api-projects-productTypes.html#create-a-producttype
  * @method ProductType mapResponse(ApiResponseInterface $response)
+ * @method ProductType mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductTypeCreateRequest extends AbstractCreateRequest
 {

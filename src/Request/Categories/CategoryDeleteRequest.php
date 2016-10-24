@@ -10,11 +10,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Categories
  * @link https://dev.commercetools.com/http-api-projects-categories.html#delete-category
  * @method Category mapResponse(ApiResponseInterface $response)
+ * @method Category mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CategoryDeleteRequest extends AbstractDeleteRequest
 {

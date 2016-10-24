@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractByIdGetRequest;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Me
  * @link https://dev.commercetools.com/http-api-projects-me-carts.html#get-cart-by-id
  * @method Cart mapResponse(ApiResponseInterface $response)
+ * @method Cart mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class MeCartByIdRequest extends AbstractByIdGetRequest
 {

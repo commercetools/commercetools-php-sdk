@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractByIdGetRequest;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes
  * @link https://dev.commercetools.com/http-api-projects-productTypes.html#get-a-producttype-by-id
  * @method ProductType mapResponse(ApiResponseInterface $response)
+ * @method ProductType mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductTypeByIdGetRequest extends AbstractByIdGetRequest
 {

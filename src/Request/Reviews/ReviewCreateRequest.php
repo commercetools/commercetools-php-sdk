@@ -10,11 +10,13 @@ use Commercetools\Core\Model\Review\ReviewDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Reviews
  * @link https://dev.commercetools.com/http-api-projects-reviews.html#create-a-review
  * @method Review mapResponse(ApiResponseInterface $response)
+ * @method Review mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ReviewCreateRequest extends AbstractCreateRequest
 {

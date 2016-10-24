@@ -10,11 +10,13 @@ use Commercetools\Core\Model\State\StateDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\States
  * @link https://dev.commercetools.com/http-api-projects-states.html#create-state
  * @method State mapResponse(ApiResponseInterface $response)
+ * @method State mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class StateCreateRequest extends AbstractCreateRequest
 {

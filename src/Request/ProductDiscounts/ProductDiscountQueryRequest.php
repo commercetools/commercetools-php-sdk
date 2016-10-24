@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductDiscounts
  * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#query-productdiscounts
  * @method ProductDiscountCollection mapResponse(ApiResponseInterface $response)
+ * @method ProductDiscountCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductDiscountQueryRequest extends AbstractQueryRequest
 {

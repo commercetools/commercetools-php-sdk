@@ -14,11 +14,13 @@ use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Response\ResourceResponse;
 use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Project
  * @link https://dev.commercetools.com/http-api-projects-project.html#get-project
  * @method Project mapResponse(ApiResponseInterface $response)
+ * @method Project mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProjectGetRequest extends AbstractApiRequest
 {

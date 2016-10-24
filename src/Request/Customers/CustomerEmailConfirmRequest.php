@@ -14,11 +14,13 @@ use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Response\ResourceResponse;
 use Psr\Http\Message\ResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
  * @link https://dev.commercetools.com/http-api-projects-customers.html#verify-customers-email
  * @method Customer mapResponse(ApiResponseInterface $response)
+ * @method Customer mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CustomerEmailConfirmRequest extends AbstractApiRequest
 {

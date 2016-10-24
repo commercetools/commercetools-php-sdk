@@ -6,6 +6,8 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Model\JsonObjectMapper;
+use Commercetools\Core\Model\MapperInterface;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client;
 use Commercetools\Core\Client\HttpRequest;
@@ -50,15 +52,18 @@ abstract class AbstractQueryRequest extends AbstractApiRequest implements QueryA
     /**
      * @param array $result
      * @param Context $context
+     * @param MapperInterface $mapper
      * @return Collection
      */
-    public function mapResult(array $result, Context $context = null)
+    public function map(array $result, Context $context = null, MapperInterface $mapper = null)
     {
         $data = [];
         if (!empty($result['results'])) {
             $data = $result['results'];
         }
-        $object = forward_static_call_array([$this->resultClass, 'fromArray'], [$data, $context]);
-        return $object;
+        if (is_null($mapper)) {
+            $mapper = JsonObjectMapper::of($this->resultClass, $context);
+        }
+        return $mapper->map($data);
     }
 }
