@@ -1,6 +1,6 @@
 # <img src="build/theme/resources/CT_cube_200px.png" width="40" align="center"></img> commercetools PHP SDK
 
-[![Build Status](https://img.shields.io/travis/sphereio/commercetools-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/sphereio/commercetools-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/sphereio/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/commercetools-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/sphereio/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sphereio/commercetools-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk)
+[![Build Status](https://img.shields.io/travis/commercetools/commercetools-php-sdk/master.svg?style=flat-square)](https://travis-ci.org/commercetools/commercetools-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/commercetools/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/commercetools/commercetools-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/commercetools/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/commercetools/commercetools-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk)
 
 The PHP SDK allows developers to build applications on the commercetools platform (technically speaking against the SPHERE.IO REST API) using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API.
 
@@ -11,11 +11,11 @@ The SDK is licensed under the permissive [MIT License](LICENSE). Don't hesitate 
 
 ## Using the SDK
 
-The [PHP API documentation](http://sphereio.github.io/commercetools-php-sdk/docs/master) provides all the details you need in a searchable form (link points to latest stable release).
+The [PHP API documentation](http://commercetools.github.io/commercetools-php-sdk/docs/master) provides all the details you need in a searchable form (link points to latest stable release).
 
 ### Install & Integrate the SDK into your Project
 
-The SDK requires a PHP version of 5.4 or higher. The SDK tries to use the APC(u) as it's default cache. If you provide an own cache interface or a [PSR-6](https://packagist.org/providers/psr/cache-implementation) compliant cache adapter, APC(u) is not necessary. The [cache/filesystem-adapter](https://packagist.org/packages/cache/filesystem-adapter) is tried to be used if no APC(u) is installed. See also client [documentation](http://sphereio.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Client.html).
+The SDK requires a PHP version of 5.4 or higher. The SDK tries to use the APC(u) as it's default cache. If you provide an own cache interface or a [PSR-6](https://packagist.org/providers/psr/cache-implementation) compliant cache adapter, APC(u) is not necessary. The [cache/filesystem-adapter](https://packagist.org/packages/cache/filesystem-adapter) is tried to be used if no APC(u) is installed. See also client [documentation](http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Client.html).
 
 The curl extension is recommended but not strictly necessary because the SDK is using the [Guzzle library](https://github.com/guzzle/guzzle) library, which falls back to PHP stream wrappers if curl is not available.
 The intl extension is required to directly output Money objects as a String.
@@ -52,7 +52,7 @@ After installing, you need to require Composer's autoloader if that's not yet th
 require 'vendor/autoload.php';
 ```
 
-If you don't use Composer, just [download a zip archive](https://github.com/sphereio/commercetools-php-sdk/archive/master.zip) of the latest release, manually integrate it and configure your own autoloader.
+If you don't use Composer, just [download a zip archive](https://github.com/commercetools/commercetools-php-sdk/archive/master.zip) of the latest release, manually integrate it and configure your own autoloader.
 
 Until the 1.0.0 release M0, M1 etc. milestone releases can contain incompatible changes.  From 1.0.0 on, the project will follow the [semantic versioning](http://semver.org) guidelines, i.e. everything but major version changes are backwards-compatible. This matches composer's default behavior.
 
@@ -141,7 +141,7 @@ php composer.phar update
 Clone the develop branch of the repository (we're using the [gitflow](http://nvie.com/posts/a-successful-git-branching-model/) branching model, so master is for releases only):
 
 ```
-git clone git@github.com:sphereio/commercetools-php-sdk.git
+git clone git@github.com:commercetools/commercetools-php-sdk.git
 ```
 
 Please follow the [PSR-2](http://www.php-fig.org/psr/psr-2/) coding style, ideally via your IDE settings (see below for PhpStorm instructions).
