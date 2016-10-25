@@ -211,6 +211,7 @@ address:
     - email
     - additionalAddressInfo
     - fax
+    - externalId
 discountedPrice:
   domain: common
   model: discountedPrice

@@ -212,6 +212,28 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $this->assertCount(0, $customer->getAddresses());
     }
 
+    public function testAddressExternalId()
+    {
+        $draft = $this->getDraft('external-address-id');
+        $customer = $this->createCustomer($draft);
+
+        $externalId = uniqid();
+        $address = Address::of()
+            ->setCountry('DE')
+            ->setFirstName($this->getTestRun() . '-firstName')
+            ->setExternalId($externalId);
+
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(CustomerAddAddressAction::ofAddress($address))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $customer = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($customer->getVersion());
+
+        $this->assertCount(1, $customer->getAddresses());
+        $this->assertSame($externalId, $customer->getAddresses()->current()->getExternalId());
+    }
+
     public function testDefaultShippingAddress()
     {
         $draft = $this->getDraft('title');
