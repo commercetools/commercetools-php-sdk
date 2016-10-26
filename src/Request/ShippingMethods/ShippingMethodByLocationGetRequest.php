@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\ShippingMethods;
 
+use Commercetools\Core\Response\ResourceResponse;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\HttpRequest;
@@ -102,6 +103,6 @@ class ShippingMethodByLocationGetRequest extends AbstractApiRequest
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new PagedQueryResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 }

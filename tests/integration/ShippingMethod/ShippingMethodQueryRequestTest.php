@@ -14,6 +14,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingRateCollection;
 use Commercetools\Core\Model\ShippingMethod\ZoneRate;
 use Commercetools\Core\Model\ShippingMethod\ZoneRateCollection;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByIdGetRequest;
+use Commercetools\Core\Request\ShippingMethods\ShippingMethodByLocationGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest;
@@ -81,6 +82,18 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $shippingMethod);
         $this->assertSame($shippingMethod->getId(), $result->getId());
+    }
 
+    public function testByLocation()
+    {
+        $draft = $this->getDraft();
+        $shippingMethod = $this->createShippingMethod($draft);
+
+        $request = ShippingMethodByLocationGetRequest::ofCountry('DE')->withState($this->getRegion());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection', $result);
+        $this->assertSame($shippingMethod->getId(), $result->current()->getId());
     }
 }

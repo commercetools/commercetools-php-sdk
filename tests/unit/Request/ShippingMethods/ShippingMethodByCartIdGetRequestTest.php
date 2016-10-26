@@ -58,6 +58,6 @@ class ShippingMethodByCartIdGetRequestTest extends RequestTestCase
         $request = ShippingMethodByCartIdGetRequest::ofCartId('id');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\PagedQueryResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 }
