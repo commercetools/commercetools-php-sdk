@@ -217,9 +217,9 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
     {
         if (!empty($data)) {
             if (is_null($mapper)) {
-                $mapper = JsonObjectMapper::of($this->resultClass, $context);
+                $mapper = JsonObjectMapper::of($context);
             }
-            return $mapper->map($data);
+            return $mapper->map($data, $this->resultClass);
         }
 
         return null;

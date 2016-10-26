@@ -11,26 +11,25 @@ use Commercetools\Core\Model\Common\JsonDeserializeInterface;
 class JsonObjectMapper implements MapperInterface
 {
     private $context;
-    private $class;
 
     /**
      * JsonObjectMapper constructor.
      * @param $class
      * @param Context $context
      */
-    public function __construct($class, Context $context = null)
+    public function __construct(Context $context = null)
     {
-        $this->class = $class;
         $this->context = $context;
     }
 
     /**
-     * @inheritdoc
+     * @param array $data
+     * @param string $class class to map the data to
      * @return JsonDeserializeInterface|null
      */
-    public function map(array $data)
+    public function map(array $data, $class)
     {
-        $object = forward_static_call_array([$this->class, 'fromArray'], [$data, $this->context]);
+        $object = forward_static_call_array([$class, 'fromArray'], [$data, $this->context]);
         return $object;
     }
 
@@ -39,8 +38,8 @@ class JsonObjectMapper implements MapperInterface
      * @param Context $context
      * @return static
      */
-    public static function of($class, Context $context = null)
+    public static function of(Context $context = null)
     {
-        return new static($class, $context);
+        return new static($context);
     }
 }

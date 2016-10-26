@@ -175,8 +175,8 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
             $data = $result;
         }
         if (is_null($mapper)) {
-            $mapper = JsonObjectMapper::of($this->resultClass, $context);
+            $mapper = JsonObjectMapper::of($context);
         }
-        return $mapper->map($data);
+        return $mapper->map($data, $this->resultClass);
     }
 }
