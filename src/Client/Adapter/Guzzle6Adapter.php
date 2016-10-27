@@ -77,9 +77,11 @@ class Guzzle6Adapter implements AdapterInterface
                         $context = [];
                         if ($reason instanceof RequestException) {
                             $response = $reason->getResponse();
-                            $context[AbstractApiResponse::X_CORRELATION_ID] = $response->getHeader(
-                                AbstractApiResponse::X_CORRELATION_ID
-                            );
+                            if (!is_null($response)) {
+                                $context[AbstractApiResponse::X_CORRELATION_ID] = $response->getHeader(
+                                    AbstractApiResponse::X_CORRELATION_ID
+                                );
+                            }
                         }
                         $message = $formatter->format($request, $response, $reason);
                         $logger->notice($message, $context);
