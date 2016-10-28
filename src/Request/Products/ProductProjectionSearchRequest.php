@@ -148,16 +148,19 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     }
 
     /**
-     * @param bool $fuzzy
+     * @param bool|int $level
      * @return $this
      */
     public function fuzzy($level)
     {
-        if (is_bool($level)) {
-            $this->addParamObject(new Parameter('fuzzy', (bool)$level));
-        } else {
+        if (!is_bool($level)) {
             $level = min(2, max(0, (int)$level));
-            $this->addParamObject(new Parameter('fuzzy', $level));
+        }
+        $fuzzy = (bool)$level;
+        $this->addParamObject(new Parameter('fuzzy', $fuzzy));
+
+        if (!is_bool($level) && $fuzzy) {
+            $this->addParamObject(new Parameter('fuzzyLevel', $level));
         }
 
         return $this;

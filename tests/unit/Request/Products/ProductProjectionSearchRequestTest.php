@@ -31,20 +31,20 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
     public function fuzzyProvider()
     {
         return [
-            [true, 'true'],
-            [false, 'false'],
-            [-1, 0],
-            [ 0, 0],
-            [ 1, 1],
-            [ 2, 2],
-            [ 3, 2],
-            ['1', 1],
+            [true, 'fuzzy=true'],
+            [false, 'fuzzy=false'],
+            [-1, 'fuzzy=false'],
+            [ 0, 'fuzzy=false'],
+            [ 1, 'fuzzy=true&fuzzyLevel=1'],
+            [ 2, 'fuzzy=true&fuzzyLevel=2'],
+            [ 3, 'fuzzy=true&fuzzyLevel=2'],
+            ['1', 'fuzzy=true&fuzzyLevel=1'],
         ];
     }
     /**
      * @dataProvider  fuzzyProvider
      */
-    public function testFuzzyLevel($level, $expectedLevel)
+    public function testFuzzyLevel($level, $expected)
     {
         /**
          * @var ProductProjectionSearchRequest $request
@@ -54,7 +54,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertSame('fuzzy=' . $expectedLevel, (string)$httpRequest->getBody());
+        $this->assertSame($expected, (string)$httpRequest->getBody());
     }
 
     public function testMapResult()
