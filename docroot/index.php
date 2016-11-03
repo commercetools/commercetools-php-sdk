@@ -16,7 +16,7 @@ use Commercetools\Core\Model\Product\ProductProjectionCollection;
 use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
 use Symfony\Component\Yaml\Yaml;
 
-require __DIR__ . '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 $appConfig = Yaml::parse(file_get_contents('myapp.yml'));
 $context = Context::of()->setLanguages(['en'])->setGraceful(true);
