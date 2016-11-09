@@ -8,9 +8,12 @@ namespace Commercetools\Core\Product;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Error\DuplicateFieldError;
+use Commercetools\Core\Model\Cart\LineItemDraft;
+use Commercetools\Core\Model\Cart\LineItemDraftCollection;
 use Commercetools\Core\Model\Common\AssetDraft;
 use Commercetools\Core\Model\Common\AssetSource;
 use Commercetools\Core\Model\Common\AssetSourceCollection;
+use Commercetools\Core\Model\Common\DiscountedPrice;
 use Commercetools\Core\Model\Common\Image;
 use Commercetools\Core\Model\Common\ImageDimension;
 use Commercetools\Core\Model\Common\LocalizedString;
@@ -22,6 +25,7 @@ use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\Product\SearchKeyword;
 use Commercetools\Core\Model\Product\SearchKeywords;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscountValue;
 use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Request\Products\Command\ProductAddAssetAction;
 use Commercetools\Core\Request\Products\Command\ProductAddExternalImageAction;
@@ -45,6 +49,7 @@ use Commercetools\Core\Request\Products\Command\ProductSetAttributeAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction;
 use Commercetools\Core\Request\Products\Command\ProductSetCategoryOrderHintAction;
 use Commercetools\Core\Request\Products\Command\ProductSetDescriptionAction;
+use Commercetools\Core\Request\Products\Command\ProductSetDiscountedPriceAction;
 use Commercetools\Core\Request\Products\Command\ProductSetKeyAction;
 use Commercetools\Core\Request\Products\Command\ProductSetMetaDescriptionAction;
 use Commercetools\Core\Request\Products\Command\ProductSetMetaKeywordsAction;
@@ -1448,6 +1453,93 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getKey());
         $this->assertSame($key, $result->getMasterData()->getStaged()->getMasterVariant()->getKey());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
+    public function testSetDiscountedPrice()
+    {
+        $discount = $this->getProductDiscount(ProductDiscountValue::of()->setType('external'));
+        $draft = $this->getDraft('set-discounted-price');
+        $draft->setTaxCategory($this->getTaxCategory()->getReference());
+        $draft->setMasterVariant(
+            ProductVariantDraft::of()->setPrices(
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 1000))
+                )
+            )
+        );
+        $product = $this->createProduct($draft);
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $discountPrice = DiscountedPrice::ofMoneyAndDiscount(
+            Money::ofCurrencyAndAmount('EUR', 900),
+            $discount->getReference()
+        );
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetDiscountedPriceAction::ofPriceId(
+                    $variant->getPrices()->current()->getId()
+                )->setDiscounted($discountPrice)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+        $resultVariant = $result->getMasterData()->getStaged()->getMasterVariant();
+        $this->assertSame(900, $resultVariant->getPrices()->current()->getCurrentValue()->getCentAmount());
+    }
+    
+    public function testSetDiscountedPriceWithCart()
+    {
+        $discount = $this->getProductDiscount(ProductDiscountValue::of()->setType('external'));
+        $draft = $this->getDraft('set-discounted-price');
+        $draft->setTaxCategory($this->getTaxCategory()->getReference());
+        $draft->setMasterVariant(
+            ProductVariantDraft::of()->setPrices(
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 1000))
+                )
+            )
+        );
+        $product = $this->createProduct($draft);
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $discountPrice = DiscountedPrice::ofMoneyAndDiscount(
+            Money::ofCurrencyAndAmount('EUR', 900),
+            $discount->getReference()
+        );
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetDiscountedPriceAction::ofPriceId(
+                    $variant->getPrices()->current()->getId()
+                )->setDiscounted($discountPrice)
+            )->addAction(
+                ProductPublishAction::of()
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+        $resultVariant = $result->getMasterData()->getStaged()->getMasterVariant();
+        $this->assertSame(900, $resultVariant->getPrices()->current()->getCurrentValue()->getCentAmount());
+
+        $cartDraft = $this->getCartDraft()->setLineItems(
+            LineItemDraftCollection::of()->add(
+                LineItemDraft::of()
+                    ->setProductId($result->getId())
+                    ->setVariantId($resultVariant->getId())
+                    ->setQuantity(1)
+            )
+        );
+        $cart = $this->getCart($cartDraft);
+        $this->assertSame(900, $cart->getTotalPrice()->getCentAmount());
     }
 
     /**
