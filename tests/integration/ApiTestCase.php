@@ -344,9 +344,9 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         $this->deleteZone();
         $this->deletePayment();
         $this->deleteDiscountCode();
-        $this->deleteProductDiscount();
         $this->deleteCartDiscount();
         $this->deleteProductType();
+        $this->deleteProductDiscount();
         $this->deleteType();
         $this->deleteChannel();
         $this->deleteStates();

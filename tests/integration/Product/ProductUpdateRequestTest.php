@@ -1491,7 +1491,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $resultVariant = $result->getMasterData()->getStaged()->getMasterVariant();
         $this->assertSame(900, $resultVariant->getPrices()->current()->getCurrentValue()->getCentAmount());
     }
-    
+
     public function testSetDiscountedPriceWithCart()
     {
         $discount = $this->getProductDiscount(ProductDiscountValue::of()->setType('external'));
@@ -1540,6 +1540,13 @@ class ProductUpdateRequestTest extends ApiTestCase
         );
         $cart = $this->getCart($cartDraft);
         $this->assertSame(900, $cart->getTotalPrice()->getCentAmount());
+
+        $request = ProductUpdateRequest::ofIdAndVersion($result->getId(), $result->getVersion())
+            ->addAction(ProductUnpublishAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     /**
