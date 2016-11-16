@@ -3,7 +3,6 @@
  * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\Subscription;
 
 use Commercetools\Core\ApiTestCase;
@@ -11,13 +10,11 @@ use Commercetools\Core\Model\Subscription\IronMQDestination;
 use Commercetools\Core\Model\Subscription\MessageSubscription;
 use Commercetools\Core\Model\Subscription\MessageSubscriptionCollection;
 use Commercetools\Core\Model\Subscription\SubscriptionDraft;
-use Commercetools\Core\Request\Subscriptions\SubscriptionByIdGetRequest;
-use Commercetools\Core\Request\Subscriptions\SubscriptionByKeyGetRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionCreateRequest;
+use Commercetools\Core\Request\Subscriptions\SubscriptionDeleteByKeyRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionDeleteRequest;
-use Commercetools\Core\Request\Subscriptions\SubscriptionQueryRequest;
 
-class SubscriptionQueryRequestTest extends ApiTestCase
+class SubscriptionDeleteRequestTest extends ApiTestCase
 {
     public function setUp()
     {
@@ -54,43 +51,29 @@ class SubscriptionQueryRequestTest extends ApiTestCase
         return $subscription;
     }
 
-    public function testQuery()
+    public function testDeleteById()
     {
         $draft = $this->getDraft();
         $subscription = $this->createSubscription($draft);
 
-        $request = SubscriptionQueryRequest::of()->where('key="' . $draft->getKey() . '"');
+        $request = SubscriptionDeleteRequest::ofIdAndVersion(
+            $subscription->getId(),
+            $subscription->getVersion()
+        );
         $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Subscription\Subscription', $result->getAt(0));
-        $this->assertSame($subscription->getId(), $result->getAt(0)->getId());
+        $this->assertFalse($response->isError());
     }
 
-    public function testGetById()
+    public function testDeleteByKey()
     {
         $draft = $this->getDraft();
         $subscription = $this->createSubscription($draft);
 
-        $request = SubscriptionByIdGetRequest::ofId($subscription->getId());
+        $request = SubscriptionDeleteByKeyRequest::ofKeyAndVersion(
+            $subscription->getKey(),
+            $subscription->getVersion()
+        );
         $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Subscription\Subscription', $subscription);
-        $this->assertSame($subscription->getId(), $result->getId());
-    }
-
-    public function testGetByKey()
-    {
-        $draft = $this->getDraft();
-        $subscription = $this->createSubscription($draft);
-
-        $request = SubscriptionByKeyGetRequest::ofKey($subscription->getKey());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertInstanceOf('\Commercetools\Core\Model\Subscription\Subscription', $subscription);
-        $this->assertSame($subscription->getId(), $result->getId());
+        $this->assertFalse($response->isError());
     }
 }
