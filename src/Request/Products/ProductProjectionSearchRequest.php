@@ -167,6 +167,17 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     }
 
     /**
+     * @param $mark
+     * @return $this
+     */
+    public function markMatchingVariants($mark)
+    {
+        $this->addParamObject(new Parameter('markMatchingVariants', $mark));
+        
+        return $this;
+    }
+
+    /**
      * @return string
      * @internal
      */

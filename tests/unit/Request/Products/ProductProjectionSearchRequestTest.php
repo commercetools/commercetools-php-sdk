@@ -28,6 +28,32 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $this->assertSame('fuzzy=true', (string)$httpRequest->getBody());
     }
 
+    public function testMarkMatchingVariant()
+    {
+        /**
+         * @var ProductProjectionSearchRequest $request
+         */
+        $request = $this->getRequest(static::PRODUCT_PROJECTION_SEARCH_REQUEST);
+        $request->markMatchingVariants(true);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertSame('markMatchingVariants=true', (string)$httpRequest->getBody());
+    }
+
+    public function testDontMarkMatchingVariant()
+    {
+        /**
+         * @var ProductProjectionSearchRequest $request
+         */
+        $request = $this->getRequest(static::PRODUCT_PROJECTION_SEARCH_REQUEST);
+        $request->markMatchingVariants(false);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertSame('markMatchingVariants=false', (string)$httpRequest->getBody());
+    }
+
     public function fuzzyProvider()
     {
         return [
