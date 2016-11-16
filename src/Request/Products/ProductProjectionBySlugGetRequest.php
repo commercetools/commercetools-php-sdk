@@ -30,8 +30,6 @@ use Commercetools\Core\Response\ApiResponseInterface;
  */
 class ProductProjectionBySlugGetRequest extends AbstractApiRequest
 {
-    const UUID_FORMAT = '/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i';
-
     protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjection';
 
     use QueryTrait;
@@ -60,9 +58,7 @@ class ProductProjectionBySlugGetRequest extends AbstractApiRequest
             },
             $languages
         );
-        if (preg_match(static::UUID_FORMAT, $slug)) {
-            $parts[] = 'id="%1$s"';
-        }
+
         if (!empty($parts)) {
             $this->where(sprintf(implode(' or ', $parts), $slug));
         }
