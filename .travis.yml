@@ -5,10 +5,12 @@ php:
   - 5.4
   - 7.0
   - hhvm
+  - nightly
 
 matrix:
   allow_failures:
     - php: hhvm
+    - php: nightly
 
 services:
   - redis-server
