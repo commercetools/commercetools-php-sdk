@@ -1,3 +1,40 @@
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/commercetools/commercetools-php-sdk/compare/v1.3.1...v1.5.0) (2016-11-17)
+
+
+### Bug Fixes
+
+* **Example:** fix typo in autoloader ([a686dc4](https://github.com/commercetools/commercetools-php-sdk/commit/a686dc4))
+* **HttpClient:** fix invalid http client access ([8c0577a](https://github.com/commercetools/commercetools-php-sdk/commit/8c0577a)), closes [#264](https://github.com/commercetools/commercetools-php-sdk/issues/264)
+* **Product:** remove uuid query in ProductProjectionBySlugGetRequest ([583f656](https://github.com/commercetools/commercetools-php-sdk/commit/583f656)), closes [#251](https://github.com/commercetools/commercetools-php-sdk/issues/251)
+* **Search:** fix fuzzy level parameter usage ([42a93a7](https://github.com/commercetools/commercetools-php-sdk/commit/42a93a7))
+* **ShippingMethod:** fix response object class of shipping method request by cart or location ([76b18bc](https://github.com/commercetools/commercetools-php-sdk/commit/76b18bc))
+* **StateRenderer:** fix for no transition available ([2d1c557](https://github.com/commercetools/commercetools-php-sdk/commit/2d1c557))
+
+### Features
+
+* **Cart:** support change of custom line item quantity and price ([63d78e5](https://github.com/commercetools/commercetools-php-sdk/commit/63d78e5)), closes [#256](https://github.com/commercetools/commercetools-php-sdk/issues/256)
+* **Cart:** support external line item total price ([417e78c](https://github.com/commercetools/commercetools-php-sdk/commit/417e78c)), closes [#247](https://github.com/commercetools/commercetools-php-sdk/issues/247)
+* **Common:** add externalId to address object ([76dc332](https://github.com/commercetools/commercetools-php-sdk/commit/76dc332))
+* **CustomObject:** add constructor using custom object draft ([7482d1b](https://github.com/commercetools/commercetools-php-sdk/commit/7482d1b)), closes [#258](https://github.com/commercetools/commercetools-php-sdk/issues/258)
+* **CustomObject:** add reference model for custom objects ([566cf22](https://github.com/commercetools/commercetools-php-sdk/commit/566cf22)), closes [#248](https://github.com/commercetools/commercetools-php-sdk/issues/248)
+* **Filter:** add method to create a subtree filter with an array of IDs ([ac487a3](https://github.com/commercetools/commercetools-php-sdk/commit/ac487a3)), closes [#257](https://github.com/commercetools/commercetools-php-sdk/issues/257)
+* **Inventory:** add inventory deleted message ([699a8c7](https://github.com/commercetools/commercetools-php-sdk/commit/699a8c7)), closes [#245](https://github.com/commercetools/commercetools-php-sdk/issues/245)
+* **Inventory:** support customizable inventory entries ([31f16db](https://github.com/commercetools/commercetools-php-sdk/commit/31f16db)), closes [#246](https://github.com/commercetools/commercetools-php-sdk/issues/246)
+* **Logger:** add correlation id to log as context object ([512536b](https://github.com/commercetools/commercetools-php-sdk/commit/512536b))
+* **Product:** query product by slug with single language ([88cd9e2](https://github.com/commercetools/commercetools-php-sdk/commit/88cd9e2)), closes [#250](https://github.com/commercetools/commercetools-php-sdk/issues/250)
+* **Product:** set discounted price for product variant ([bdfd8c7](https://github.com/commercetools/commercetools-php-sdk/commit/bdfd8c7)), closes [#267](https://github.com/commercetools/commercetools-php-sdk/issues/267)
+* **Product:** support key for product and product variant ([39f356a](https://github.com/commercetools/commercetools-php-sdk/commit/39f356a)), closes [#259](https://github.com/commercetools/commercetools-php-sdk/issues/259)
+* **ProductType:** add change label actions for enum values ([d812fec](https://github.com/commercetools/commercetools-php-sdk/commit/d812fec))
+* **Reference:** resolve correct reference model by typeId ([8f76ec4](https://github.com/commercetools/commercetools-php-sdk/commit/8f76ec4))
+* **Request:** add generic PSR-7-Request ([5b374eb](https://github.com/commercetools/commercetools-php-sdk/commit/5b374eb))
+* **Search:** add markMatchingVariants flag to search ([f4ac2c8](https://github.com/commercetools/commercetools-php-sdk/commit/f4ac2c8)), closes [#270](https://github.com/commercetools/commercetools-php-sdk/issues/270)
+* **Subscriptions:** add subscription requests and models ([b184870](https://github.com/commercetools/commercetools-php-sdk/commit/b184870))
+* **Subscription:** add delivery objects ([8fae7f8](https://github.com/commercetools/commercetools-php-sdk/commit/8fae7f8))
+* **Subscription:** add subscription update actions ([1d3de36](https://github.com/commercetools/commercetools-php-sdk/commit/1d3de36))
+
+
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/commercetools/commercetools-php-sdk/compare/v1.3.1...v1.4.0) (2016-10-05)
 
