@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method Delivery current()
  * @method DeliveryCollection add(Delivery $element)
  * @method Delivery getAt($offset)
+ * @method Delivery getById($offset)
  */
 class DeliveryCollection extends Collection
 {

@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\ProductType\ProductTypeCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes
  * @link https://dev.commercetools.com/http-api-projects-productTypes.html#query-producttypes
  * @method ProductTypeCollection mapResponse(ApiResponseInterface $response)
+ * @method ProductTypeCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductTypeQueryRequest extends AbstractQueryRequest
 {

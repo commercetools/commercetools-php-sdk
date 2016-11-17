@@ -7,6 +7,7 @@
 namespace Commercetools\Core\ProductType;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Error\InvalidOperationError;
 use Commercetools\Core\Model\Common\Attribute;
 use Commercetools\Core\Model\Common\AttributeCollection;
 use Commercetools\Core\Model\Common\Enum;
@@ -20,6 +21,7 @@ use Commercetools\Core\Model\CustomObject\CustomObjectReference;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
+use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
 use Commercetools\Core\Model\ProductType\EnumType;
 use Commercetools\Core\Model\ProductType\LocalizedEnumType;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
@@ -39,7 +41,9 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValue
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeDescriptionAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeIsSearchableAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLocalizedEnumLabelAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeNameAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangePlainEnumLabelAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveAttributeDefinitionAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction;
@@ -418,6 +422,138 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $type = $result->getAttributes()->current()->getType();
         $this->assertSame($enum->getLabel()->en, $type->getValues()->current()->getLabel()->en);
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
+    }
+
+    public function testLocalizedEnumChangeLabel()
+    {
+        $definition = AttributeDefinition::of()
+            ->setName('testLocalizedEnumField')
+            ->setLabel(LocalizedString::ofLangAndText('en', 'testLocalizedEnumField'))
+            ->setIsRequired(false)
+            ->setType(LocalizedEnumType::of()
+                ->setValues(
+                    LocalizedEnumCollection::of()->add(
+                        LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'))
+                    )
+                )
+            );
+        $draft = $this->getDraft('enum-change-label');
+        $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+        $productType = $this->createProductType($draft);
+
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeChangeLocalizedEnumLabelAction::ofAttributeNameAndEnumValue(
+                    'testLocalizedEnumField',
+                    LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'new-test'))
+                )
+            );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->productTypeDeleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertNotSame($productType->getVersion(), $result->getVersion());
+
+        $this->assertSame('new-test', $result->getAttributes()->current()->getType()->getValues()->current()->getLabel()->en);
+    }
+
+    public function testLocalizedEnumDontChangeLabel()
+    {
+        $definition = AttributeDefinition::of()
+            ->setName('testLocalizedEnumField')
+            ->setLabel(LocalizedString::ofLangAndText('en', 'testLocalizedEnumField'))
+            ->setIsRequired(false)
+            ->setType(LocalizedEnumType::of()
+                ->setValues(
+                    LocalizedEnumCollection::of()->add(
+                        LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'))
+                    )
+                )
+            );
+        $draft = $this->getDraft('enum-change-label');
+        $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+        $productType = $this->createProductType($draft);
+
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeChangeLocalizedEnumLabelAction::ofAttributeNameAndEnumValue(
+                    'testLocalizedEnumField',
+                    LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'))
+                )
+            );
+        $response = $request->executeWithClient($this->getClient());
+        $this->assertTrue($response->isError());
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Error\InvalidOperationError',
+            $response->getErrors()->getByCode(InvalidOperationError::CODE)
+        );
+    }
+
+    public function testPlainEnumChangeLabel()
+    {
+        $definition = AttributeDefinition::of()
+            ->setName('testPlainEnumField')
+            ->setLabel(LocalizedString::ofLangAndText('en', 'testPlainEnumField'))
+            ->setIsRequired(false)
+            ->setType(EnumType::of()
+                ->setValues(
+                    EnumCollection::of()->add(
+                        Enum::of()->setKey('test')->setLabel('test')
+                    )
+                )
+            );
+        $draft = $this->getDraft('enum-change-label');
+        $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+        $productType = $this->createProductType($draft);
+
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeChangePlainEnumLabelAction::ofAttributeNameAndEnumValue(
+                    'testPlainEnumField',
+                    Enum::of()->setKey('test')->setLabel('new-test')
+                )
+            );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->productTypeDeleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertNotSame($productType->getVersion(), $result->getVersion());
+
+        $this->assertSame('new-test', $result->getAttributes()->current()->getType()->getValues()->current()->getLabel());
+    }
+
+    public function testPlainEnumDontChangeLabel()
+    {
+        $definition = AttributeDefinition::of()
+            ->setName('testPlainEnumField')
+            ->setLabel(LocalizedString::ofLangAndText('en', 'testPlainEnumField'))
+            ->setIsRequired(false)
+            ->setType(EnumType::of()
+                ->setValues(
+                    EnumCollection::of()->add(
+                        Enum::of()->setKey('test')->setLabel('test')
+                    )
+                )
+            );
+        $draft = $this->getDraft('enum-change-label');
+        $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+        $productType = $this->createProductType($draft);
+
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeChangePlainEnumLabelAction::ofAttributeNameAndEnumValue(
+                    'testPlainEnumField',
+                    Enum::of()->setKey('test')->setLabel('test')
+                )
+            );
+        $response = $request->executeWithClient($this->getClient());
+        $this->assertTrue($response->isError());
+        $this->assertInstanceOf(
+            '\Commercetools\Core\Error\InvalidOperationError',
+            $response->getErrors()->getByCode(InvalidOperationError::CODE)
+        );
     }
 
     public function testChangeSearchable()

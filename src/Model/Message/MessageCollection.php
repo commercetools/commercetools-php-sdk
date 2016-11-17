@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method Message current()
  * @method MessageCollection add(Message $element)
  * @method Message getAt($offset)
+ * @method Message getById($offset)
  */
 class MessageCollection extends Collection
 {

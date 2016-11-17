@@ -10,11 +10,13 @@ use Commercetools\Core\Model\Inventory\InventoryDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\Inventory\InventoryEntry;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Inventory
  * @link https://dev.commercetools.com/http-api-projects-inventory.html#create-an-inventoryentry
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)
+ * @method InventoryEntry mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class InventoryCreateRequest extends AbstractCreateRequest
 {

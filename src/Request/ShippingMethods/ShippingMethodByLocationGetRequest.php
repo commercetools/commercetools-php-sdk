@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\ShippingMethods;
 
+use Commercetools\Core\Response\ResourceResponse;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\HttpRequest;
@@ -13,11 +14,13 @@ use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Response\PagedQueryResponse;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods
  * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-a-location
  * @method ShippingMethodCollection mapResponse(ApiResponseInterface $response)
+ * @method ShippingMethodCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ShippingMethodByLocationGetRequest extends AbstractApiRequest
 {
@@ -100,6 +103,6 @@ class ShippingMethodByLocationGetRequest extends AbstractApiRequest
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new PagedQueryResponse($response, $this, $this->getContext());
+        return new ResourceResponse($response, $this, $this->getContext());
     }
 }

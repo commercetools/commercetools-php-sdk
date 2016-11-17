@@ -37,6 +37,9 @@ use Commercetools\Core\Model\Payment\PaymentMethodInfo;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscountDraft;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscountValue;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
 use Commercetools\Core\Model\ProductType\ProductType;
@@ -81,6 +84,8 @@ use Commercetools\Core\Request\DiscountCodes\DiscountCodeCreateRequest;
 use Commercetools\Core\Request\DiscountCodes\DiscountCodeDeleteRequest;
 use Commercetools\Core\Request\Payments\PaymentCreateRequest;
 use Commercetools\Core\Request\Payments\PaymentDeleteRequest;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountCreateRequest;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest;
 use Commercetools\Core\Request\Products\Command\ProductPublishAction;
 use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
@@ -206,6 +211,11 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
      * @var Cart
      */
     private $cart;
+
+    /**
+     * @var ProductDiscount
+     */
+    private $productDiscount;
 
     private $logger;
 
@@ -336,6 +346,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         $this->deleteDiscountCode();
         $this->deleteCartDiscount();
         $this->deleteProductType();
+        $this->deleteProductDiscount();
         $this->deleteType();
         $this->deleteChannel();
         $this->deleteStates();
@@ -689,6 +700,36 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
             $request->executeWithClient($this->getClient());
         }
         $this->cartDiscount = null;
+    }
+
+    protected function getProductDiscount(ProductDiscountValue $discountValue)
+    {
+        if (is_null($this->productDiscount)) {
+            $draft = ProductDiscountDraft::ofNameDiscountPredicateOrderAndActive(
+                LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
+                $discountValue,
+                '1=1',
+                '0.9' . trim((string)mt_rand(1, 1000), '0'),
+                true
+            );
+            $request = ProductDiscountCreateRequest::ofDraft($draft);
+            $response = $request->executeWithClient($this->getClient());
+            $this->productDiscount = $request->mapResponse($response);
+        }
+
+        return $this->productDiscount;
+    }
+
+    private function deleteProductDiscount()
+    {
+        if (!is_null($this->productDiscount)) {
+            $request = ProductDiscountDeleteRequest::ofIdAndVersion(
+                $this->productDiscount->getId(),
+                $this->productDiscount->getVersion()
+            );
+            $request->executeWithClient($this->getClient());
+        }
+        $this->productDiscount = null;
     }
 
     /**

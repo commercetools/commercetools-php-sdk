@@ -14,6 +14,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method DiscountCodeReference current()
  * @method DiscountCodeReferenceCollection add(DiscountCodeReference $element)
  * @method DiscountCodeReference getAt($offset)
+ * @method DiscountCodeReference getById($offset)
  */
 class DiscountCodeReferenceCollection extends Collection
 {

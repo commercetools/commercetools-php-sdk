@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductDiscounts
  * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#delete-productdiscount
  * @method ProductDiscount mapResponse(ApiResponseInterface $response)
+ * @method ProductDiscount mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductDiscountDeleteRequest extends AbstractDeleteRequest
 {

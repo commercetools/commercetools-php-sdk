@@ -6,6 +6,8 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Model\JsonObjectMapper;
+use Commercetools\Core\Model\MapperInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client;
@@ -186,11 +188,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
      */
     public function mapResult(array $result, Context $context = null)
     {
-        if (!empty($result)) {
-            $object = forward_static_call_array([$this->resultClass, 'fromArray'], [$result, $context]);
-            return $object;
-        }
-        return null;
+        return $this->map($result, $context);
     }
 
     /**
@@ -199,15 +197,32 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
      */
     public function mapResponse(ApiResponseInterface $response)
     {
+        return $this->mapFromResponse($response);
+    }
+
+    public function mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+    {
         if ($response->isError()) {
             return null;
         }
         $result = $response->toArray();
         if ($response instanceof ContextAwareInterface) {
-            return $this->mapResult($result, $response->getContext());
+            return $this->map($result, $response->getContext(), $mapper);
         }
 
-        return $this->mapResult($result, $this->getContext());
+        return $this->map($result, $this->getContext(), $mapper);
+    }
+
+    public function map(array $data, Context $context = null, MapperInterface $mapper = null)
+    {
+        if (!empty($data)) {
+            if (is_null($mapper)) {
+                $mapper = JsonObjectMapper::of($context);
+            }
+            return $mapper->map($data, $this->resultClass);
+        }
+
+        return null;
     }
 
     /**

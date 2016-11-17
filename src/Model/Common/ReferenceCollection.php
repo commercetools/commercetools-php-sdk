@@ -11,6 +11,7 @@ namespace Commercetools\Core\Model\Common;
  * @method Reference current()
  * @method ReferenceCollection add(Reference $element)
  * @method Reference getAt($offset)
+ * @method Reference getById($offset)
  */
 class ReferenceCollection extends Collection
 {

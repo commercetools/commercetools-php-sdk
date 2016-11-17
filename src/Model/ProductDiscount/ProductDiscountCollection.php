@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method ProductDiscount current()
  * @method ProductDiscountCollection add(ProductDiscount $element)
  * @method ProductDiscount getAt($offset)
+ * @method ProductDiscount getById($offset)
  */
 class ProductDiscountCollection extends Collection
 {

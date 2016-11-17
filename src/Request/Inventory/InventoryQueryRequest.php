@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\Inventory\InventoryEntryCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Inventory
  * @link https://dev.commercetools.com/http-api-projects-inventory.html#query-inventory
  * @method InventoryEntryCollection mapResponse(ApiResponseInterface $response)
+ * @method InventoryEntryCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class InventoryQueryRequest extends AbstractQueryRequest
 {

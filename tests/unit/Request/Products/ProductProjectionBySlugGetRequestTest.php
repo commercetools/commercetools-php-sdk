@@ -142,19 +142,6 @@ class ProductProjectionBySlugGetRequestTest extends RequestTestCase
         );
     }
 
-    public function testHttpRequestPathWithId()
-    {
-        $request = ProductProjectionBySlugGetRequest::ofSlugAndContext(
-            '12345678-1234-1234-1234-123456789012',
-            $this->getContext()
-        );
-        $httpRequest = $request->httpRequest();
-
-        $queryUri = 'product-projections?limit=1&where=slug%28en%3D%2212345678-1234-1234-1234-123456789012%22%29+or' .
-            '+id%3D%2212345678-1234-1234-1234-123456789012%22';
-        $this->assertSame($queryUri, (string)$httpRequest->getUri());
-    }
-
     public function testHttpRequestObject()
     {
         $request = ProductProjectionBySlugGetRequest::ofSlugAndContext('slug', $this->getContext());

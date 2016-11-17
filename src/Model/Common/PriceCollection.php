@@ -11,6 +11,7 @@ namespace Commercetools\Core\Model\Common;
  * @method Price current()
  * @method PriceCollection add(Price $element)
  * @method Price getAt($offset)
+ * @method Price getById($offset)
  */
 class PriceCollection extends Collection
 {

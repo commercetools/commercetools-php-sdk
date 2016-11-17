@@ -14,6 +14,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method PaymentReferenceCollection add(PaymentReference $element)
  * @method PaymentReference current()
  * @method PaymentReference getAt($offset)
+ * @method PaymentReference getById($offset)
  */
 class PaymentReferenceCollection extends Collection
 {

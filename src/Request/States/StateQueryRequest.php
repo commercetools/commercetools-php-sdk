@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\State\StateCollection;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\States
  * @link https://dev.commercetools.com/http-api-projects-states.html#query-states
  * @method StateCollection mapResponse(ApiResponseInterface $response)
+ * @method StateCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class StateQueryRequest extends AbstractQueryRequest
 {

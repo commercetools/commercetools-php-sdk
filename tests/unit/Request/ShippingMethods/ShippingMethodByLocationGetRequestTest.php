@@ -82,6 +82,6 @@ class ShippingMethodByLocationGetRequestTest extends RequestTestCase
         $request = ShippingMethodByLocationGetRequest::ofCountry('DE');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\PagedQueryResponse', $response);
+        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
     }
 }

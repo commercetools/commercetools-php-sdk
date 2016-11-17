@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method Type current()
  * @method TypeCollection add(Type $element)
  * @method Type getAt($offset)
+ * @method Type getById($offset)
  */
 class TypeCollection extends Collection
 {

@@ -10,11 +10,13 @@ use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Request\AbstractByKeyGetRequest;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\Review\Review;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Reviews
  * @link https://dev.commercetools.com/http-api-projects-reviews.html#get-review-by-key
  * @method Review mapResponse(ApiResponseInterface $response)
+ * @method Review mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ReviewByKeyGetRequest extends AbstractByKeyGetRequest
 {

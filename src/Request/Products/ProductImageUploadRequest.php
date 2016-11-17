@@ -15,11 +15,13 @@ use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Psr\Http\Message\UploadedFileInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
  * @link https://dev.commercetools.com/http-api-projects-products.html#upload-a-product-image
  * @method Product mapResponse(ApiResponseInterface $response)
+ * @method Product mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductImageUploadRequest extends AbstractApiRequest
 {

@@ -6,6 +6,9 @@
 
 namespace Commercetools\Core\Request\Products;
 
+use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\JsonObjectMapper;
+use Commercetools\Core\Model\MapperInterface;
 use Commercetools\Core\Request\ExpandTrait;
 use Commercetools\Core\Request\PriceSelectTrait;
 use Commercetools\Core\Request\Query\Parameter;
@@ -28,6 +31,7 @@ use Commercetools\Core\Model\Product\Search\FilterInterface;
  * @link https://dev.commercetools.com/http-api-projects-products-search.html#search-productprojections
  * @method PagedSearchResponse executeWithClient(Client $client)
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
+ * @method ProductProjectionCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductProjectionSearchRequest extends AbstractProjectionRequest implements SortRequestInterface
 {
@@ -81,15 +85,19 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     /**
      * @param array $result
      * @param Context $context
-     * @return ProductProjectionCollection
+     * @param MapperInterface $mapper
+     * @return Collection
      */
-    public function mapResult(array $result, Context $context = null)
+    public function map(array $result, Context $context = null, MapperInterface $mapper = null)
     {
         $data = [];
         if (!empty($result['results'])) {
             $data = $result['results'];
         }
-        return ProductProjectionCollection::fromArray($data, $context);
+        if (is_null($mapper)) {
+            $mapper = JsonObjectMapper::of($context);
+        }
+        return $mapper->map($data, $this->resultClass);
     }
 
     /**
@@ -140,18 +148,32 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     }
 
     /**
-     * @param bool $fuzzy
+     * @param bool|int $level
      * @return $this
      */
     public function fuzzy($level)
     {
-        if (is_bool($level)) {
-            $this->addParamObject(new Parameter('fuzzy', (bool)$level));
-        } else {
+        if (!is_bool($level)) {
             $level = min(2, max(0, (int)$level));
-            $this->addParamObject(new Parameter('fuzzy', $level));
+        }
+        $fuzzy = (bool)$level;
+        $this->addParamObject(new Parameter('fuzzy', $fuzzy));
+
+        if (!is_bool($level) && $fuzzy) {
+            $this->addParamObject(new Parameter('fuzzyLevel', $level));
         }
 
+        return $this;
+    }
+
+    /**
+     * @param $mark
+     * @return $this
+     */
+    public function markMatchingVariants($mark)
+    {
+        $this->addParamObject(new Parameter('markMatchingVariants', $mark));
+        
         return $this;
     }
 

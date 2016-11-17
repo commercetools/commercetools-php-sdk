@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method PaymentCollection add(Payment $element)
  * @method Payment current()
  * @method Payment getAt($offset)
+ * @method Payment getById($offset)
  */
 class PaymentCollection extends Collection
 {

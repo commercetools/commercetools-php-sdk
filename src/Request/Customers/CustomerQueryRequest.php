@@ -10,11 +10,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\Customer\CustomerCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
  * @link https://dev.commercetools.com/http-api-projects-customers.html#get-customer-by-id
  * @method CustomerCollection mapResponse(ApiResponseInterface $response)
+ * @method CustomerCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CustomerQueryRequest extends AbstractQueryRequest
 {

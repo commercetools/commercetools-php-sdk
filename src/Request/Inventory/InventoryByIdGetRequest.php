@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractByIdGetRequest;
 use Commercetools\Core\Model\Inventory\InventoryEntry;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Inventory
  * @link https://dev.commercetools.com/http-api-projects-inventory.html#get-inventoryentry-by-id
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)
+ * @method InventoryEntry mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class InventoryByIdGetRequest extends AbstractByIdGetRequest
 {

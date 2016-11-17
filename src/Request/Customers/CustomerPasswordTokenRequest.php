@@ -14,6 +14,7 @@ use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Response\ResourceResponse;
 use Commercetools\Core\Model\Customer\CustomerToken;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
@@ -21,6 +22,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
  * @link https://dev.commercetools.com/http-api-projects-customers.html#create-a-token-for-resetting-the-customers-password
  * @codingStandardsIgnoreEnd
  * @method CustomerToken mapResponse(ApiResponseInterface $response)
+ * @method CustomerToken mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CustomerPasswordTokenRequest extends AbstractApiRequest
 {

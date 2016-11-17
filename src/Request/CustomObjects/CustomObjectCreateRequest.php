@@ -11,11 +11,13 @@ use Commercetools\Core\Model\CustomObject\CustomObject;
 use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomObjects
  * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#create-a-customobject
  * @method CustomObject mapResponse(ApiResponseInterface $response)
+ * @method CustomObject mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CustomObjectCreateRequest extends AbstractCreateRequest
 {

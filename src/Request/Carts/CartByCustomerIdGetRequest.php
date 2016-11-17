@@ -14,11 +14,13 @@ use Commercetools\Core\Request\CustomerIdTrait;
 use Commercetools\Core\Response\ResourceResponse;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Carts
  * @link https://dev.commercetools.com/http-api-projects-carts.html#get-cart-by-customer-id
  * @method Cart mapResponse(ApiResponseInterface $response)
+ * @method Cart mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CartByCustomerIdGetRequest extends AbstractApiRequest
 {

@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method TaxRate current()
  * @method TaxRateCollection add(TaxRate $element)
  * @method TaxRate getAt($offset)
+ * @method TaxRate getById($offset)
  */
 class TaxRateCollection extends Collection
 {

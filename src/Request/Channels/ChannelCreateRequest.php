@@ -10,11 +10,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Channels
  * @link https://dev.commercetools.com/http-api-projects-channels.html#create-a-channel
  * @method Channel mapResponse(ApiResponseInterface $response)
+ * @method Channel mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ChannelCreateRequest extends AbstractCreateRequest
 {

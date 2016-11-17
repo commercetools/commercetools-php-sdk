@@ -6,6 +6,8 @@
 
 namespace Commercetools\Core\Request\Products;
 
+use Commercetools\Core\Model\JsonObjectMapper;
+use Commercetools\Core\Model\MapperInterface;
 use Commercetools\Core\Request\Query\Parameter;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client;
@@ -24,6 +26,7 @@ use Commercetools\Core\Model\Product\SuggestionResult;
  * @link https://dev.commercetools.com/http-api-projects-products-suggestions.html#suggest-query
  * @method ResourceResponse executeWithClient(Client $client)
  * @method SuggestionResult mapResponse(ApiResponseInterface $response)
+ * @method SuggestionResult mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductsSuggestRequest extends AbstractProjectionRequest
 {
@@ -162,15 +165,18 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
     /**
      * @param array $result
      * @param Context $context
+     * @param MapperInterface $mapper
      * @return Collection
      */
-    public function mapResult(array $result, Context $context = null)
+    public function map(array $result, Context $context = null, MapperInterface $mapper = null)
     {
         $data = [];
         if (!empty($result)) {
             $data = $result;
         }
-        $object = forward_static_call_array([$this->resultClass, 'fromArray'], [$data, $context]);
-        return $object;
+        if (is_null($mapper)) {
+            $mapper = JsonObjectMapper::of($context);
+        }
+        return $mapper->map($data, $this->resultClass);
     }
 }

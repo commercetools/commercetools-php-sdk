@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\Order\OrderCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Orders
  * @link https://dev.commercetools.com/http-api-projects-orders.html#query-orders
  * @method OrderCollection mapResponse(ApiResponseInterface $response)
+ * @method OrderCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class OrderQueryRequest extends AbstractQueryRequest
 {

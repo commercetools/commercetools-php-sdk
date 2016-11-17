@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractUpdateRequest;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Payments
  * @link https://dev.commercetools.com/http-api-projects-payments.html#update-payment
  * @method Payment mapResponse(ApiResponseInterface $response)
+ * @method Payment mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class PaymentUpdateRequest extends AbstractUpdateRequest
 {

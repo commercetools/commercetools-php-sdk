@@ -42,4 +42,10 @@ interface AdapterInterface extends LoggerAwareInterface
      * @return AdapterPromiseInterface
      */
     public function executeAsync(RequestInterface $request);
+
+    /**
+     * returns used HTTP Client and version
+     * @return string
+     */
+    public static function getAdapterInfo();
 }

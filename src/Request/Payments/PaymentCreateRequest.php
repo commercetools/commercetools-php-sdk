@@ -10,11 +10,13 @@ use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Payments
  * @link https://dev.commercetools.com/http-api-projects-payments.html#create-a-payment
  * @method Payment mapResponse(ApiResponseInterface $response)
+ * @method Payment mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class PaymentCreateRequest extends AbstractCreateRequest
 {

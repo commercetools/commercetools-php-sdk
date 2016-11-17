@@ -10,11 +10,13 @@ use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Types
  * @link https://dev.commercetools.com/http-api-projects-types.html#create-type
  * @method Type mapResponse(ApiResponseInterface $response)
+ * @method Type mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class TypeCreateRequest extends AbstractCreateRequest
 {

@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method Parcel current()
  * @method ParcelCollection add(Parcel $element)
  * @method Parcel getAt($offset)
+ * @method Parcel getById($offset)
  */
 class ParcelCollection extends Collection
 {

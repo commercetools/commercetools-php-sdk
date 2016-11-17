@@ -10,11 +10,13 @@ use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes
  * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#create-a-discountcode
  * @method DiscountCode mapResponse(ApiResponseInterface $response)
+ * @method DiscountCode mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class DiscountCodeCreateRequest extends AbstractCreateRequest
 {

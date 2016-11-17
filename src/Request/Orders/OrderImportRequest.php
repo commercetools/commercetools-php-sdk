@@ -10,11 +10,13 @@ use Commercetools\Core\Model\Order\ImportOrder;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Orders
  * @link https://dev.commercetools.com/http-api-projects-orders-import.html#create-an-order-by-import
  * @method Order mapResponse(ApiResponseInterface $response)
+ * @method Order mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class OrderImportRequest extends AbstractCreateRequest
 {

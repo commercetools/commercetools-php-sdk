@@ -124,6 +124,21 @@ class ClassAnnotator
                     true
                 );
             }
+            $getByIdMethod = $reflectionClass->getMethod('getById');
+            if ($getByIdMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
+                $elementTypeObject = $elementTypeClass->newInstanceWithoutConstructor();
+                if ($elementTypeObject instanceof JsonObject && isset($elementTypeObject->fieldDefinitions()['id'])) {
+                    $this->class->addMagicMethod(
+                        'getById',
+                        ['$offset'],
+                        $elementTypeClass->getShortName(),
+                        null,
+                        null,
+                        false,
+                        true
+                    );
+                }
+            }
             $addMethod = $reflectionClass->getMethod('add');
             if ($addMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
                 $this->class->addMagicMethod(
@@ -170,6 +185,16 @@ class ClassAnnotator
             $this->class->addMagicMethod(
                 'mapResponse',
                 ['ApiResponseInterface $response'],
+                $resultClassReflection->getShortName(),
+                null,
+                null,
+                false,
+                true
+            );
+            $this->class->addUse('\Commercetools\Core\Model\MapperInterface');
+            $this->class->addMagicMethod(
+                'mapFromResponse',
+                ['ApiResponseInterface $response', 'MapperInterface $mapper = null'],
                 $resultClassReflection->getShortName(),
                 null,
                 null,

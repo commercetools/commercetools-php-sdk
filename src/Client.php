@@ -50,7 +50,7 @@ use Commercetools\Core\Client\OAuth\Manager;
  * ```php
  * $request = ProductProjectionSearchRequest::of();
  * $response = $request->executeWithClient($client);
- * $products = $request->mapResponse($response);
+ * $products = $request->mapFromResponse($response);
  * ```
  *
  * By using the request centric approach the IDE is capable of resolving the correct classes and give

@@ -10,11 +10,13 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupDraft;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomerGroups
  * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#create-a-customergroup
  * @method CustomerGroup mapResponse(ApiResponseInterface $response)
+ * @method CustomerGroup mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CustomerGroupCreateRequest extends AbstractCreateRequest
 {

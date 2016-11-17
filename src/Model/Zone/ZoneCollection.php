@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method Zone current()
  * @method ZoneCollection add(Zone $element)
  * @method Zone getAt($offset)
+ * @method Zone getById($offset)
  */
 class ZoneCollection extends Collection
 {

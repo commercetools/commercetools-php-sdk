@@ -10,11 +10,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\Category\CategoryCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Categories
  * @link https://dev.commercetools.com/http-api-projects-categories.html#query-categories
  * @method CategoryCollection mapResponse(ApiResponseInterface $response)
+ * @method CategoryCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CategoryQueryRequest extends AbstractQueryRequest
 {

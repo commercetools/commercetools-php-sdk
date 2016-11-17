@@ -12,11 +12,13 @@ use Commercetools\Core\Request\AbstractByIdGetRequest;
 use Commercetools\Core\Request\PriceSelectTrait;
 use Commercetools\Core\Request\StagedTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
  * @link https://dev.commercetools.com/http-api-projects-productProjections.html#get-productprojection-by-key
  * @method ProductProjection mapResponse(ApiResponseInterface $response)
+ * @method ProductProjection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductProjectionByKeyGetRequest extends AbstractByIdGetRequest
 {

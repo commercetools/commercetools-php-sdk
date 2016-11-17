@@ -10,24 +10,26 @@ use Commercetools\Core\Request\AbstractDeleteByKeyRequest;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Types
  * @link https://dev.commercetools.com/http-api-projects-types.html#delete-type-by-key
  * @method Type mapResponse(ApiResponseInterface $response)
+ * @method Type mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class TypeDeleteByKeyRequest extends AbstractDeleteByKeyRequest
 {
     protected $resultClass = '\Commercetools\Core\Model\Type\Type';
 
     /**
-     * @param string $id
+     * @param string $key
      * @param int $version
      * @param Context $context
      */
-    public function __construct($id, $version, Context $context = null)
+    public function __construct($key, $version, Context $context = null)
     {
-        parent::__construct(TypesEndpoint::endpoint(), $id, $version, $context);
+        parent::__construct(TypesEndpoint::endpoint(), $key, $version, $context);
     }
 
     /**

@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method State current()
  * @method StateCollection add(State $element)
  * @method State getAt($offset)
+ * @method State getById($offset)
  */
 class StateCollection extends Collection
 {

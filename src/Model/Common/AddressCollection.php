@@ -11,6 +11,7 @@ namespace Commercetools\Core\Model\Common;
  * @method Address current()
  * @method AddressCollection add(Address $element)
  * @method Address getAt($offset)
+ * @method Address getById($offset)
  */
 class AddressCollection extends Collection
 {

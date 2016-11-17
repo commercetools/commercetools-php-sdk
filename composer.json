@@ -3,12 +3,12 @@
   "license": "MIT",
   "type": "project",
   "description": "The commercetools PHP SDK \n The official PHP Interface to the commercetools eCommerce API",
-  "homepage": "https://github.com/sphereio/commercetools-php-sdk",
+  "homepage": "https://github.com/commercetools/commercetools-php-sdk",
   "support": {
     "email": "support@sphere.io",
     "forum": "http://support.sphere.io",
-    "issues": "https://github.com/sphereio/commercetools-php-sdk/issues",
-    "docs": "http://sphereio.github.io/commercetools-php-sdk/docs/master/"
+    "issues": "https://github.com/commercetools/commercetools-php-sdk/issues",
+    "docs": "http://commercetools.github.io/commercetools-php-sdk/docs/master/"
   },
   "autoload": {
     "psr-4": {
@@ -61,7 +61,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-develop": "1.4-dev"
+      "dev-develop": "1.5-dev"
     },
     "incenteev-parameters": [
       {

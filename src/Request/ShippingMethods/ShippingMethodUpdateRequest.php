@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractUpdateRequest;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods
  * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#update-shippingmethod
  * @method ShippingMethod mapResponse(ApiResponseInterface $response)
+ * @method ShippingMethod mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ShippingMethodUpdateRequest extends AbstractUpdateRequest
 {

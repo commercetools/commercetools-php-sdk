@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method TransactionCollection add(Transaction $element)
  * @method Transaction current()
  * @method Transaction getAt($offset)
+ * @method Transaction getById($offset)
  */
 class TransactionCollection extends Collection
 {

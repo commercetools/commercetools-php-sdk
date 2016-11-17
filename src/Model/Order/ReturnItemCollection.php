@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method ReturnItem current()
  * @method ReturnItemCollection add(ReturnItem $element)
  * @method ReturnItem getAt($offset)
+ * @method ReturnItem getById($offset)
  */
 class ReturnItemCollection extends Collection
 {

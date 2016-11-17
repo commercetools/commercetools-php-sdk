@@ -10,11 +10,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Carts
  * @link https://dev.commercetools.com/http-api-projects-carts.html#delete-cart
  * @method Cart mapResponse(ApiResponseInterface $response)
+ * @method Cart mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CartDeleteRequest extends AbstractDeleteRequest
 {

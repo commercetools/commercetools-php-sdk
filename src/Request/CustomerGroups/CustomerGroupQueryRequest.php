@@ -9,11 +9,13 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomerGroups
  * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#query-customergroups
  * @method CustomerGroupCollection mapResponse(ApiResponseInterface $response)
+ * @method CustomerGroupCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class CustomerGroupQueryRequest extends AbstractQueryRequest
 {
