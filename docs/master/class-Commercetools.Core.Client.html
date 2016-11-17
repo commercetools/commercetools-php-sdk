@@ -204,6 +204,10 @@
 							State						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Subscription.html">
+							Subscription						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.TaxCategory.html">
 							TaxCategory						</a>
 							</li>
@@ -416,6 +420,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.Subscriptions.html">
+							Subscriptions<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Subscriptions.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.TaxCategories.html">
 							TaxCategories<span></span>
 						</a>
@@ -537,7 +551,7 @@
 
 <pre><span class="php-var">$request</span> = ProductProjectionSearchRequest::of();
 <span class="php-var">$response</span> = <span class="php-var">$request</span>-&gt;executeWithClient(<span class="php-var">$client</span>);
-<span class="php-var">$products</span> = <span class="php-var">$request</span>-&gt;mapResponse(<span class="php-var">$response</span>);</pre>
+<span class="php-var">$products</span> = <span class="php-var">$request</span>-&gt;mapFromResponse(<span class="php-var">$response</span>);</pre>
 
 <p>By using the request centric approach the IDE is capable of resolving the correct classes and give
 a maximum of support with available methods.</p>
@@ -1215,7 +1229,7 @@ E.g. Redis:</p>
                 <td class="value">
                     <div>
                         <a href="#VERSION" class="anchor">#</a>
-                        <code><span class="php-quote">'1.4.0'</span></code>
+                        <code><span class="php-quote">'1.5.0'</span></code>
                     </div>
                 </td>
 			</tr>
