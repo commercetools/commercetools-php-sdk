@@ -10,13 +10,12 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 
 /**
  * @package Commercetools\Core\Model\Subscription
- *
  * @method string getProjectKey()
  * @method MessageDelivery setProjectKey(string $projectKey = null)
  * @method string getNotificationType()
  * @method MessageDelivery setNotificationType(string $notificationType = null)
- * @method Reference getReference()
- * @method MessageDelivery setReference(Reference $reference = null)
+ * @method Reference getResource()
+ * @method MessageDelivery setResource(Reference $resource = null)
  * @method string getId()
  * @method MessageDelivery setId(string $id = null)
  * @method int getVersion()
