@@ -9,13 +9,12 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\Subscription
- *
  * @method string getProjectKey()
  * @method ResourceUpdatedDelivery setProjectKey(string $projectKey = null)
  * @method string getNotificationType()
  * @method ResourceUpdatedDelivery setNotificationType(string $notificationType = null)
- * @method Reference getReference()
- * @method ResourceUpdatedDelivery setReference(Reference $reference = null)
+ * @method Reference getResource()
+ * @method ResourceUpdatedDelivery setResource(Reference $resource = null)
  * @method int getVersion()
  * @method ResourceUpdatedDelivery setVersion(int $version = null)
  * @method int getOldVersion()

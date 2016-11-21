@@ -15,8 +15,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method Delivery setProjectKey(string $projectKey = null)
  * @method string getNotificationType()
  * @method Delivery setNotificationType(string $notificationType = null)
- * @method Reference getReference()
- * @method Delivery setReference(Reference $reference = null)
+ * @method Reference getResource()
+ * @method Delivery setResource(Reference $resource = null)
  */
 class Delivery extends JsonObject
 {
@@ -31,7 +31,7 @@ class Delivery extends JsonObject
         return [
             'projectKey' => [static::TYPE => 'string'],
             static::NOTIFICATION_TYPE => [static::TYPE => 'string'],
-            'reference' => [static::TYPE => '\Commercetools\Core\Model\Common\Reference'],
+            'resource' => [static::TYPE => '\Commercetools\Core\Model\Common\Reference'],
         ];
     }
 
