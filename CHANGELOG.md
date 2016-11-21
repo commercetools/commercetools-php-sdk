@@ -1,3 +1,13 @@
+<a name="1.5.1"></a>
+## [1.5.1](https://github.com/commercetools/commercetools-php-sdk/compare/v1.5.0...v1.5.1) (2016-11-21)
+
+
+### Bug Fixes
+
+* **Subscription:** fix typo in subscription delivery model ([5e1761b](https://github.com/commercetools/commercetools-php-sdk/commit/5e1761b))
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/commercetools/commercetools-php-sdk/compare/v1.3.1...v1.5.0) (2016-11-17)
 
