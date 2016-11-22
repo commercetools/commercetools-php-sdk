@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: http://commercetools.github.io/commercetools-php-sdk/docs/master/sitemap.xml
