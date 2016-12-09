@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\GeoLocation;
 
 /**
  * @package Commercetools\Core\Model\Channel
@@ -26,6 +27,8 @@ use Commercetools\Core\Model\Common\Address;
  * @method ChannelDraft setCustom(CustomFieldObjectDraft $custom = null)
  * @method Address getAddress()
  * @method ChannelDraft setAddress(Address $address = null)
+ * @method GeoLocation getGeoLocation()
+ * @method ChannelDraft setGeoLocation(GeoLocation $geoLocation = null)
  */
 class ChannelDraft extends JsonObject
 {
@@ -38,6 +41,7 @@ class ChannelDraft extends JsonObject
             'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
             'address' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
+            'geoLocation' => [static::TYPE => '\Commercetools\Core\Model\Common\GeoLocation'],
         ];
     }
 

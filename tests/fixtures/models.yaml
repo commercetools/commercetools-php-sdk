@@ -677,6 +677,7 @@ channel:
     - custom
     - reviewRatingStatistics
     - address
+    - geoLocation
 customerGroup:
   domain: customerGroup
   model: CustomerGroup

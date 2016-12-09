@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Review\ReviewRatingStatistics;
 use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\GeoLocation;
 
 /**
  * @package Commercetools\Core\Model\Channel
@@ -37,6 +38,8 @@ use Commercetools\Core\Model\Common\Address;
  * @method Channel setReviewRatingStatistics(ReviewRatingStatistics $reviewRatingStatistics = null)
  * @method Address getAddress()
  * @method Channel setAddress(Address $address = null)
+ * @method GeoLocation getGeoLocation()
+ * @method Channel setGeoLocation(GeoLocation $geoLocation = null)
  * @method ChannelReference getReference()
  */
 class Channel extends Resource
@@ -61,6 +64,7 @@ class Channel extends Resource
             'reviewRatingStatistics' => [static::TYPE => '\Commercetools\Core\Model\Review\ReviewRatingStatistics'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
             'address' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
+            'geoLocation' => [static::TYPE => '\Commercetools\Core\Model\Common\GeoLocation'],
         ];
     }
 }
