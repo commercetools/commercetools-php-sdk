@@ -9,6 +9,8 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Channel\ChannelRole;
 use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\GeoLocation;
+use Commercetools\Core\Model\Common\GeoPoint;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
@@ -22,6 +24,7 @@ use Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction;
 use Commercetools\Core\Request\Channels\Command\ChannelChangeNameAction;
 use Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction;
 use Commercetools\Core\Request\Channels\Command\ChannelSetAddressAction;
+use Commercetools\Core\Request\Channels\Command\ChannelSetGeoLocation;
 use Commercetools\Core\Request\Channels\Command\ChannelSetRolesAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
@@ -244,5 +247,31 @@ class ChannelUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $channel);
         $this->assertSame('new value 2', $channel->getCustom()->getFields()->getTestField());
+    }
+
+    public function testSetGeoLocation()
+    {
+        $brandenburgerTor = [13.37770, 52.51627];
+        $friedrichstadtPalast = [13.38881, 52.52394];
+
+        $draft = $this->getDraft('set-geolocation');
+        $draft->setGeoLocation(GeoPoint::of()->setCoordinates($brandenburgerTor));
+        $channel = $this->createChannel($draft);
+
+        $this->assertSame($brandenburgerTor, $channel->getGeoLocation()->getCoordinates());
+
+        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
+            ->addAction(
+                ChannelSetGeoLocation::of()->setGeoLocation(GeoPoint::of()->setCoordinates($friedrichstadtPalast))
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->assertSame($friedrichstadtPalast, $result->getGeoLocation()->getCoordinates());
+        $this->assertNotSame($channel->getVersion(), $result->getVersion());
+
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 }
