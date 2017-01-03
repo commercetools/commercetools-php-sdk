@@ -2,11 +2,12 @@ language: php
 php:
 - 7.0
 - 5.6
-- 5.5
-- 5.4
 - 7.1
 - hhvm
 - nightly
+env:
+  - GUZZLE=5
+  - GUZZLE=6
 matrix:
   allow_failures:
   - php: 7.1
@@ -28,18 +29,18 @@ before_script:
 - sh -c "if [ $PHP != 'hhvm' ] && [ `php-config --vernum` -ge 70000 ] ; then printf
   "yes\n" | pecl install -f apcu-5.1.7 ; fi"
 - sh -c "if [ $PHP != 'hhvm' ] ; then phpenv config-add ./tests/apc.ini; fi"
-- if [ $PHP == '5.4' ] ; then ./set_guzzle5.sh; fi
+- if [ $GUZZLE == '5' ] ; then ./set_guzzle5.sh; fi
 - if [ $PHP != 'nightly' ] && [ $PHP != '7.1' ]; then composer global require hirak/prestissimo;
   fi
-- if [ $PHP == '5.4' ] ; then composer update -o --prefer-dist --prefer-lowest; fi
-- if [ $PHP != '5.4' ] ; then composer install -o --prefer-dist; fi
+- if [ $GUZZLE == '5' ] ; then composer update -o --prefer-dist --prefer-lowest; fi
+- if [ $GUZZLE != '5' ] ; then composer install -o --prefer-dist; fi
 script:
 - ant phpcs-ci
 - phpunit --testsuite=unit
-- if [ $PHP == '7.0' ] ; then phpunit --testsuite=integration; fi
+- if [ $PHP == '7.0' ] && [ $GUZZLE == '6' ] ; then phpunit --testsuite=integration; fi
 - ant behat
 after_success:
-- ./push-docs-to-gh-pages.sh
+- if [ $PHP == '5.6' ] && [ $GUZZLE == '6' ] ; then ./push-docs-to-gh-pages.sh; fi
 notifications:
   hipchat:
     rooms:
