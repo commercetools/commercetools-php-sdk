@@ -10,7 +10,6 @@ env:
   - GUZZLE=6
 matrix:
   allow_failures:
-  - php: 7.1
   - php: hhvm
   - php: nightly
 services:
