@@ -24,7 +24,7 @@ class DuplicateAttributeValueError extends ApiError
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['attribute'] = [static::TYPE => '\Commercetools\Core\Model\Common\Attribute'];
+        $definitions['attribute'] = [static::TYPE => Attribute::class];
 
         return $definitions;
     }

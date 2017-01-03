@@ -6,7 +6,10 @@
 namespace Commercetools\Core\Helper\Annotate;
 
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\MapperInterface;
 use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Response\ApiResponseInterface;
 
 class ClassAnnotator
 {
@@ -79,7 +82,7 @@ class ClassAnnotator
     protected function reflectReference()
     {
         $reflectionClass = new \ReflectionClass($this->class->getClassName());
-        if (!$reflectionClass->isSubclassOf('Commercetools\Core\Model\Common\Resource')) {
+        if (!$reflectionClass->isSubclassOf(Resource::class)) {
             return;
         }
 
@@ -181,7 +184,7 @@ class ClassAnnotator
         $this->class->addUse($resultClass);
         $mapResponseMethod = $reflectionClass->getMethod('mapResponse');
         if ($mapResponseMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
-            $this->class->addUse('\Commercetools\Core\Response\ApiResponseInterface');
+            $this->class->addUse(ApiResponseInterface::class);
             $this->class->addMagicMethod(
                 'mapResponse',
                 ['ApiResponseInterface $response'],
@@ -191,7 +194,7 @@ class ClassAnnotator
                 false,
                 true
             );
-            $this->class->addUse('\Commercetools\Core\Model\MapperInterface');
+            $this->class->addUse(MapperInterface::class);
             $this->class->addMagicMethod(
                 'mapFromResponse',
                 ['ApiResponseInterface $response', 'MapperInterface $mapper = null'],

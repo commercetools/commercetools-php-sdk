@@ -18,7 +18,7 @@ class ErrorContainer extends Collection
 {
     const CODE = 'code';
 
-    protected $type = '\Commercetools\Core\Error\ApiError';
+    protected $type = ApiError::class;
 
     protected function indexRow($offset, $row)
     {
