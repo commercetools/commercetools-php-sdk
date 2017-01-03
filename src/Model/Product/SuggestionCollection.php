@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class SuggestionCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Product\Suggestion';
+    protected $type = Suggestion::class;
 }

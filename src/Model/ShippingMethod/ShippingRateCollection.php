@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ShippingRateCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\ShippingMethod\ShippingRate';
+    protected $type = ShippingRate::class;
 }

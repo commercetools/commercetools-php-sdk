@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class PaymentCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Payment\Payment';
+    protected $type = Payment::class;
 }

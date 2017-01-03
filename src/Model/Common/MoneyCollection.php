@@ -14,5 +14,5 @@ namespace Commercetools\Core\Model\Common;
  */
 class MoneyCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Common\Money';
+    protected $type = Money::class;
 }

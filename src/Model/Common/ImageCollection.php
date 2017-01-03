@@ -14,5 +14,5 @@ namespace Commercetools\Core\Model\Common;
  */
 class ImageCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Common\Image';
+    protected $type = Image::class;
 }

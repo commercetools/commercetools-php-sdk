@@ -16,7 +16,7 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class FieldDefinitionCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Type\FieldDefinition';
+    protected $type = FieldDefinition::class;
 
     const NAME = 'name';
 

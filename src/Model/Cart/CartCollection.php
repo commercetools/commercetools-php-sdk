@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class CartCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Cart\Cart';
+    protected $type = Cart::class;
 }

@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class CustomFieldObjectDraftCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft';
+    protected $type = CustomFieldObjectDraft::class;
 }

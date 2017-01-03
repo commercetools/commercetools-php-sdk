@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class DiscountedPricePerQuantityCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Cart\DiscountedPricePerQuantity';
+    protected $type = DiscountedPricePerQuantity::class;
 }

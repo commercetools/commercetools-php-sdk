@@ -18,7 +18,7 @@ use Commercetools\Core\Model\Common\Collection;
 class TransactionCollection extends Collection
 {
     const INTERACTION_ID = 'interactionId';
-    protected $type = '\Commercetools\Core\Model\Payment\Transaction';
+    protected $type = Transaction::class;
 
 
     protected function indexRow($offset, $row)

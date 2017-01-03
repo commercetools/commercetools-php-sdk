@@ -19,7 +19,7 @@ class ShippingMethodCollection extends Collection
 {
     const NAME = 'name';
 
-    protected $type = '\Commercetools\Core\Model\ShippingMethod\ShippingMethod';
+    protected $type = ShippingMethod::class;
 
     protected function indexRow($offset, $row)
     {

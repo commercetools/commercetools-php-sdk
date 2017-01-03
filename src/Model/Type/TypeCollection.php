@@ -18,7 +18,7 @@ use Commercetools\Core\Model\Common\Collection;
 class TypeCollection extends Collection
 {
     const KEY = 'key';
-    protected $type = '\Commercetools\Core\Model\Type\Type';
+    protected $type = Type::class;
 
     protected function indexRow($offset, $row)
     {
