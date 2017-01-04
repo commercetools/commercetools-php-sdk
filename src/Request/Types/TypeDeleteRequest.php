@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class TypeDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Type\Type';
+    protected $resultClass = Type::class;
 
     /**
      * @param string $id

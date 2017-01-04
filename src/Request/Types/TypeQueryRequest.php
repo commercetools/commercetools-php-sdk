@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class TypeQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Type\TypeCollection';
+    protected $resultClass = TypeCollection::class;
 
     /**
      * @param Context $context

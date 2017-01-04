@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class SubscriptionDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Subscription\Subscription';
+    protected $resultClass = Subscription::class;
 
     /**
      * @param string $id

@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class SubscriptionByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Subscription\Subscription';
+    protected $resultClass = Subscription::class;
 
     /**
      * @param string $id

@@ -30,7 +30,7 @@ class CustomerPasswordChangeRequest extends AbstractApiRequest
     const CURRENT_PASSWORD = 'currentPassword';
     const NEW_PASSWORD = 'newPassword';
 
-    protected $resultClass = '\Commercetools\Core\Model\Customer\Customer';
+    protected $resultClass = Customer::class;
 
     /**
      * @var string

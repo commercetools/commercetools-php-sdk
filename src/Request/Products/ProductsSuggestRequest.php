@@ -37,7 +37,7 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
      */
     protected $searchKeywords;
 
-    protected $resultClass = '\Commercetools\Core\Model\Product\SuggestionResult';
+    protected $resultClass = SuggestionResult::class;
 
     /**
      * @param LocalizedString $keywords

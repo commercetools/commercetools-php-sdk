@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class MessageByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Message\Message';
+    protected $resultClass = Message::class;
 
     /**
      * @param string $id

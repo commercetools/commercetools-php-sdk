@@ -18,7 +18,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class SubscriptionByKeyGetRequest extends AbstractByKeyGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Subscription\Subscription';
+    protected $resultClass = Subscription::class;
 
     /**
      * @param string $key

@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ShippingMethodCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ShippingMethod\ShippingMethod';
+    protected $resultClass = ShippingMethod::class;
 
     /**
      * @param ShippingMethodDraft $shippingMethod

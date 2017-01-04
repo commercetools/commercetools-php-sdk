@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CustomerGroupCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\CustomerGroup\CustomerGroup';
+    protected $resultClass = CustomerGroup::class;
 
     /**
      * @param CustomerGroupDraft $customerGroup

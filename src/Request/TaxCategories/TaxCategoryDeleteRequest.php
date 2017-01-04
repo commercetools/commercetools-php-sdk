@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class TaxCategoryDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\TaxCategory\TaxCategory';
+    protected $resultClass = TaxCategory::class;
 
     /**
      * @param string $id

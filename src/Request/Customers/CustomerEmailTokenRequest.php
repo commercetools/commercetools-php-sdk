@@ -25,7 +25,7 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
     const ID = 'id';
     const TTL_MINUTES = 'ttlMinutes';
 
-    protected $resultClass = '\Commercetools\Core\Model\Customer\CustomerToken';
+    protected $resultClass = CustomerToken::class;
 
     /**
      * @var int

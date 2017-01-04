@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CustomObjectDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\CustomObject\CustomObject';
+    protected $resultClass = CustomObject::class;
 
     /**
      * @param string $id

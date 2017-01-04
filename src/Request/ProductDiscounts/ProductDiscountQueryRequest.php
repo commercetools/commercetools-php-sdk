@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ProductDiscountQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ProductDiscount\ProductDiscountCollection';
+    protected $resultClass = ProductDiscountCollection::class;
 
     /**
      * @param Context $context

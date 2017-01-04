@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ReviewDeleteByKeyRequest extends AbstractDeleteByKeyRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Review\Review';
+    protected $resultClass = Review::class;
 
     /**
      * @param string $id

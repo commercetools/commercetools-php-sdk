@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CartDiscountCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\CartDiscount\CartDiscount';
+    protected $resultClass = CartDiscount::class;
 
     /**
      * @param CartDiscountDraft $cartDiscountDraft

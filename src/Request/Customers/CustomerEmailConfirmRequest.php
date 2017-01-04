@@ -24,7 +24,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CustomerEmailConfirmRequest extends AbstractApiRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Customer\Customer';
+    protected $resultClass = Customer::class;
 
     const TOKEN_VALUE = 'tokenValue';
 

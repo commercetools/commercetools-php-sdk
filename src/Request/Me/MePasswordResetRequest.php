@@ -26,7 +26,7 @@ class MePasswordResetRequest extends AbstractApiRequest
     const TOKEN_VALUE = 'tokenValue';
     const NEW_PASSWORD = 'newPassword';
 
-    protected $resultClass = '\Commercetools\Core\Model\Customer\Customer';
+    protected $resultClass = Customer::class;
 
     /**
      * @var string

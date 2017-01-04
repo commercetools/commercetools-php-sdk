@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CustomerGroupDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\CustomerGroup\CustomerGroup';
+    protected $resultClass = CustomerGroup::class;
 
     /**
      * @param string $id

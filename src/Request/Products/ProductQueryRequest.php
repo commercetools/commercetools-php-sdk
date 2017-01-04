@@ -23,7 +23,7 @@ class ProductQueryRequest extends AbstractQueryRequest
 {
     use PriceSelectTrait;
 
-    protected $resultClass = '\Commercetools\Core\Model\Product\ProductCollection';
+    protected $resultClass = ProductCollection::class;
 
     /**
      * @param Context $context

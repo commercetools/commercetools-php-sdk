@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class SubscriptionUpdateByKeyRequest extends AbstractUpdateByKeyRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Subscription\Subscription';
+    protected $resultClass = Subscription::class;
 
     /**
      * @param string $key

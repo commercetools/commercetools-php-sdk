@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class InventoryQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Inventory\InventoryEntryCollection';
+    protected $resultClass = InventoryEntryCollection::class;
 
     /**
      * @param Context $context

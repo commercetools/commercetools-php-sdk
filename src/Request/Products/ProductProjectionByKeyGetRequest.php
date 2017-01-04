@@ -25,7 +25,7 @@ class ProductProjectionByKeyGetRequest extends AbstractByIdGetRequest
     use PriceSelectTrait;
     use StagedTrait;
 
-    protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjection';
+    protected $resultClass = ProductProjection::class;
 
     /**
      * @return string

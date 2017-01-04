@@ -28,7 +28,7 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
 {
     const EMAIL = 'email';
 
-    protected $resultClass = '\Commercetools\Core\Model\Customer\CustomerToken';
+    protected $resultClass = CustomerToken::class;
 
     /**
      * @var string

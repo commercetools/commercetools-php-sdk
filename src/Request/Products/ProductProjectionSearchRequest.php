@@ -45,7 +45,7 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     use SortTrait;
     use PriceSelectTrait;
 
-    protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjectionCollection';
+    protected $resultClass = ProductProjectionCollection::class;
 
     /**
      * @param Context $context

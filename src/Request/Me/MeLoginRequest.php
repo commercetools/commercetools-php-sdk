@@ -51,7 +51,7 @@ class MeLoginRequest extends AbstractApiRequest
 
     protected $anonymousCartSignInMode;
 
-    protected $resultClass = '\Commercetools\Core\Model\Customer\CustomerSigninResult';
+    protected $resultClass = CustomerSigninResult::class;
 
     /**
      * @param string $email

@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class PaymentUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Payment\Payment';
+    protected $resultClass = Payment::class;
 
     /**
      * @param string $id

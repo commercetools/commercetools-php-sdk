@@ -21,7 +21,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CategoryCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Category\Category';
+    protected $resultClass = Category::class;
 
     /**
      * @param CategoryDraft $category

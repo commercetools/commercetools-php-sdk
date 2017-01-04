@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class InventoryUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Inventory\InventoryEntry';
+    protected $resultClass = InventoryEntry::class;
 
     /**
      * @param string $id

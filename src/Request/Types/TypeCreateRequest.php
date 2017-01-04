@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class TypeCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Type\Type';
+    protected $resultClass = Type::class;
 
     /**
      * @param TypeDraft $type
