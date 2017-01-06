@@ -104,6 +104,7 @@ class LineItem extends JsonObject
         foreach ($this->getDiscountedPricePerQuantity() as $discountedPricePerQuantity) {
             $centAmount += $discountedPricePerQuantity->getDiscountedTotal()->getCentAmount();
         }
+        $this->getDiscountedPricePerQuantity()->rewind();
         return Money::ofCurrencyAndAmount($currencyCode, $centAmount);
     }
 }

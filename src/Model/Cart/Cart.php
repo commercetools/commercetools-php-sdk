@@ -115,6 +115,7 @@ class Cart extends Resource
             foreach ($this->getLineItems() as $lineItem) {
                 $count+= $lineItem->getQuantity();
             }
+            $this->getLineItems()->rewind();
         }
         return $count;
     }
