@@ -588,6 +588,7 @@ facetTerm:
   fields:
     - term
     - count
+    - productCount
 
 facetRange:
   domain: product
