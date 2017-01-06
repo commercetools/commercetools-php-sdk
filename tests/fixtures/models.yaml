@@ -45,6 +45,7 @@ lineItem:
     - discountedPricePerQuantity
     - totalPrice
     - priceMode
+    - productType
 
 customLineItem:
   domain: cart
