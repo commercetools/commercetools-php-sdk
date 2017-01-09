@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\MapperInterface;
 use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Response\ApiResponseInterface;
+use DateTime;
 
 class ClassAnnotator
 {
@@ -67,7 +68,9 @@ class ClassAnnotator
             }
 
             $fieldTypeParts = explode('\\', trim($fieldType, '\\'));
-            if (!$this->isPrimitive($fieldType) && (count($fieldTypeParts) > 1 || $fieldType == \DateTime::class)) {
+            if (!$this->isPrimitive($fieldType) &&
+                (count($fieldTypeParts) > 1 || trim($fieldType, '\\') == DateTime::class)
+            ) {
                 $this->class->addUse($fieldType);
                 $fieldType = array_pop($fieldTypeParts);
             }

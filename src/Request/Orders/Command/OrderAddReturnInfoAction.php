@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Order\ReturnItemCollection;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
@@ -16,7 +17,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method string getAction()
  * @method OrderAddReturnInfoAction setAction(string $action = null)
  * @method DateTimeDecorator getReturnDate()
- * @method OrderAddReturnInfoAction setReturnDate(\DateTime $returnDate = null)
+ * @method OrderAddReturnInfoAction setReturnDate(DateTime $returnDate = null)
  * @method string getReturnTrackingId()
  * @method OrderAddReturnInfoAction setReturnTrackingId(string $returnTrackingId = null)
  * @method ReturnItemCollection getItems()
@@ -29,7 +30,7 @@ class OrderAddReturnInfoAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'returnDate' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'returnTrackingId' => [static::TYPE => 'string'],

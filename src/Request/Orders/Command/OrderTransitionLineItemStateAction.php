@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
@@ -26,7 +27,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method StateReference getToState()
  * @method OrderTransitionLineItemStateAction setToState(StateReference $toState = null)
  * @method DateTimeDecorator getActualTransitionDate()
- * @method OrderTransitionLineItemStateAction setActualTransitionDate(\DateTime $actualTransitionDate = null)
+ * @method OrderTransitionLineItemStateAction setActualTransitionDate(DateTime $actualTransitionDate = null)
  */
 class OrderTransitionLineItemStateAction extends AbstractAction
 {
@@ -49,7 +50,7 @@ class OrderTransitionLineItemStateAction extends AbstractAction
             'fromState' => [static::TYPE => StateReference::class],
             'toState' => [static::TYPE => StateReference::class],
             'actualTransitionDate' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
         ];

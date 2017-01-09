@@ -9,6 +9,7 @@ namespace Commercetools\Core\Request\Payments\Command;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
@@ -18,7 +19,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method string getTransactionId()
  * @method PaymentChangeTransactionTimestampAction setTransactionId(string $transactionId = null)
  * @method DateTimeDecorator getTimestamp()
- * @method PaymentChangeTransactionTimestampAction setTimestamp(\DateTime $timestamp = null)
+ * @method PaymentChangeTransactionTimestampAction setTimestamp(DateTime $timestamp = null)
  */
 class PaymentChangeTransactionTimestampAction extends AbstractAction
 {
@@ -28,7 +29,7 @@ class PaymentChangeTransactionTimestampAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'transactionId' => [static::TYPE => 'string'],
             'timestamp' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
         ];

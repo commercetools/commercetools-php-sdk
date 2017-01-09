@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
@@ -18,7 +19,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Money getAmount()
  * @method PaymentSetAuthorizationAction setAmount(Money $amount = null)
  * @method DateTimeDecorator getUntil()
- * @method PaymentSetAuthorizationAction setUntil(\DateTime $until = null)
+ * @method PaymentSetAuthorizationAction setUntil(DateTime $until = null)
  */
 class PaymentSetAuthorizationAction extends AbstractAction
 {
@@ -28,7 +29,7 @@ class PaymentSetAuthorizationAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'amount' => [static::TYPE => Money::class],
             'until' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
         ];

@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\CartDiscounts\Command;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method string getAction()
  * @method CartDiscountSetValidFromAction setAction(string $action = null)
  * @method DateTimeDecorator getValidFrom()
- * @method CartDiscountSetValidFromAction setValidFrom(\DateTime $validFrom = null)
+ * @method CartDiscountSetValidFromAction setValidFrom(DateTime $validFrom = null)
  */
 class CartDiscountSetValidFromAction extends AbstractAction
 {
@@ -24,7 +25,7 @@ class CartDiscountSetValidFromAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'validFrom' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
         ];
