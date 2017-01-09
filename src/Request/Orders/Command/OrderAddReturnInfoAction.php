@@ -30,10 +30,10 @@ class OrderAddReturnInfoAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'returnDate' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'returnTrackingId' => [static::TYPE => 'string'],
-            'items' => [static::TYPE => '\Commercetools\Core\Model\Order\ReturnItemCollection']
+            'items' => [static::TYPE => ReturnItemCollection::class]
         ];
     }
 

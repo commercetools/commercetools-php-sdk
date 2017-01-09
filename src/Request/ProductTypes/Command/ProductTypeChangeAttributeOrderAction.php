@@ -23,7 +23,7 @@ class ProductTypeChangeAttributeOrderAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'attributes' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeDefinitionCollection'],
+            'attributes' => [static::TYPE => AttributeDefinitionCollection::class],
         ];
     }
 

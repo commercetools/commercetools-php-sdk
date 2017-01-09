@@ -23,7 +23,7 @@ class ChannelChangeNameAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
         ];
     }
 

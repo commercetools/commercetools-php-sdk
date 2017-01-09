@@ -25,7 +25,7 @@ class CartDiscountSetValidUntilAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'validUntil' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
         ];
     }

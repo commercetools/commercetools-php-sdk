@@ -35,7 +35,7 @@ class ProductSetAssetSourcesAction extends AbstractAction
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
-            'sources' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetSourceCollection'],
+            'sources' => [static::TYPE => AssetSourceCollection::class],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

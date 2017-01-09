@@ -23,7 +23,7 @@ class CartDiscountChangeTargetAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'target' => [static::TYPE => 'Commercetools\Core\Model\CartDiscount\CartDiscountTarget'],
+            'target' => [static::TYPE => CartDiscountTarget::class],
         ];
     }
 

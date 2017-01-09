@@ -25,7 +25,7 @@ class CartDiscountSetValidFromAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'validFrom' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
         ];
     }

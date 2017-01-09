@@ -30,9 +30,9 @@ class ProductSetMetaAttributesAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'metaTitle' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'metaDescription' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'metaKeywords' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'metaTitle' => [static::TYPE => LocalizedString::class],
+            'metaDescription' => [static::TYPE => LocalizedString::class],
+            'metaKeywords' => [static::TYPE => LocalizedString::class],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

@@ -25,7 +25,7 @@ class ProductAddToCategoryAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'category' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReference'],
+            'category' => [static::TYPE => CategoryReference::class],
             'staged' => [static::TYPE => 'bool']
         ];
     }

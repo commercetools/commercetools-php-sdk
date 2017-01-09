@@ -40,13 +40,13 @@ class CartAddCustomLineItemAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
             'quantity' => [static::TYPE => 'int'],
-            'money' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'money' => [static::TYPE => Money::class],
             'slug' => [static::TYPE => 'string'],
-            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
-            'externalTaxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft'],
+            'taxCategory' => [static::TYPE => TaxCategoryReference::class],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class],
         ];
     }
 

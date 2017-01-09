@@ -23,7 +23,7 @@ class ShippingMethodChangeTaxCategoryAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
+            'taxCategory' => [static::TYPE => TaxCategoryReference::class],
         ];
     }
 

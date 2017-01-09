@@ -38,11 +38,11 @@ class OrderUpdateSyncInfoAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'channel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            'channel' => [static::TYPE => ChannelReference::class],
             'externalId' => [static::TYPE => 'string'],
             'syncedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ]
         ];
     }

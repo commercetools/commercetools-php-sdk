@@ -26,10 +26,10 @@ class PaymentSetAuthorizationAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'amount' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'amount' => [static::TYPE => Money::class],
             'until' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
         ];
     }

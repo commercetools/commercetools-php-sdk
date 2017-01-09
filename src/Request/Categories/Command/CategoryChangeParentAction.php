@@ -23,7 +23,7 @@ class CategoryChangeParentAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'parent' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReference']
+            'parent' => [static::TYPE => CategoryReference::class]
         ];
     }
 

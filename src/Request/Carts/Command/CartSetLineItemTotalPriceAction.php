@@ -27,7 +27,7 @@ class CartSetLineItemTotalPriceAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'lineItemId' => [static::TYPE => 'string'],
-            'externalTotalPrice' => [static::TYPE => '\Commercetools\Core\Model\Cart\ExternalLineItemTotalPrice'],
+            'externalTotalPrice' => [static::TYPE => ExternalLineItemTotalPrice::class],
         ];
     }
 

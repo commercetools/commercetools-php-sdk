@@ -24,7 +24,7 @@ class ReviewSetTargetAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'target' => [static::TYPE => '\Commercetools\Core\Model\Common\ResourceIdentifier'],
+            'target' => [static::TYPE => ResourceIdentifier::class],
         ];
     }
 

@@ -30,10 +30,10 @@ class ProductSetPriceCustomTypeAction extends SetCustomTypeAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'type' => [static::TYPE => '\Commercetools\Core\Model\Type\TypeReference'],
+            'type' => [static::TYPE => TypeReference::class],
             'priceId' => [static::TYPE => 'string'],
             'staged' => [static::TYPE => 'bool'],
-            'fields' => [static::TYPE => '\Commercetools\Core\Model\CustomField\FieldContainer'],
+            'fields' => [static::TYPE => FieldContainer::class],
         ];
     }
 

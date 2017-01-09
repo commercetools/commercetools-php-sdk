@@ -23,7 +23,7 @@ class SubscriptionSetMessagesAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'messages' => [static::TYPE => '\Commercetools\Core\Model\Subscription\MessageSubscriptionCollection'],
+            'messages' => [static::TYPE => MessageSubscriptionCollection::class],
         ];
     }
 

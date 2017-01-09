@@ -32,7 +32,7 @@ class ProductAddAssetAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
-            'asset' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetDraft'],
+            'asset' => [static::TYPE => AssetDraft::class],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

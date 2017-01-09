@@ -25,7 +25,7 @@ class CustomerSetDateOfBirthAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'dateOfBirth' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateDecorator'
+                static::DECORATOR => DateDecorator::class
             ],
         ];
     }

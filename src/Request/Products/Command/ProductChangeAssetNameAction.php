@@ -34,7 +34,7 @@ class ProductChangeAssetNameAction extends AbstractAction
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

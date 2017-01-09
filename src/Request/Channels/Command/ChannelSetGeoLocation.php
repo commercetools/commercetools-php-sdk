@@ -23,7 +23,7 @@ class ChannelSetGeoLocation extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'geoLocation' => [static::TYPE => '\Commercetools\Core\Model\Common\GeoLocation'],
+            'geoLocation' => [static::TYPE => GeoLocation::class],
         ];
     }
 

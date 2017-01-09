@@ -26,7 +26,7 @@ class CartChangeCustomLineItemMoneyAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'customLineItemId' => [static::TYPE => 'string'],
-            'money' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'money' => [static::TYPE => Money::class],
         ];
     }
 

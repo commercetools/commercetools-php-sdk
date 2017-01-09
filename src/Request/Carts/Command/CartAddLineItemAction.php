@@ -40,10 +40,10 @@ class CartAddLineItemAction extends AbstractAction
             'productId' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'quantity' => [static::TYPE => 'int'],
-            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
-            'distributionChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
-            'externalTaxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft'],
+            'supplyChannel' => [static::TYPE => ChannelReference::class],
+            'distributionChannel' => [static::TYPE => ChannelReference::class],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class],
         ];
     }
 

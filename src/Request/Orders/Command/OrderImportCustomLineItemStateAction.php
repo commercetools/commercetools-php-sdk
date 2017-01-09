@@ -36,7 +36,7 @@ class OrderImportCustomLineItemStateAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'customLineItemId' => [static::TYPE => 'string'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\Order\ItemStateCollection']
+            'state' => [static::TYPE => ItemStateCollection::class]
         ];
     }
 

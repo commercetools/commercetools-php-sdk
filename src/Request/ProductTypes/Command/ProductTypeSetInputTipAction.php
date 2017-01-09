@@ -26,7 +26,7 @@ class ProductTypeSetInputTipAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'attributeName' => [static::TYPE => 'string'],
-            'inputTip' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString']
+            'inputTip' => [static::TYPE => LocalizedString::class]
         ];
     }
 

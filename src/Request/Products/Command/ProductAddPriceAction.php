@@ -31,7 +31,7 @@ class ProductAddPriceAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
-            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceDraft'],
+            'price' => [static::TYPE => PriceDraft::class],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

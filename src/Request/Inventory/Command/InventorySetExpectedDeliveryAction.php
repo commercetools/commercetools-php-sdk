@@ -25,7 +25,7 @@ class InventorySetExpectedDeliveryAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'expectedDelivery' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
         ];
     }

@@ -32,9 +32,9 @@ class CartSetCustomShippingMethodAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'shippingMethodName' => [static::TYPE => 'string'],
-            'shippingRate' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingRate'],
-            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
-            'externalTaxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft'],
+            'shippingRate' => [static::TYPE => ShippingRate::class],
+            'taxCategory' => [static::TYPE => TaxCategoryReference::class],
+            'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class],
         ];
     }
 

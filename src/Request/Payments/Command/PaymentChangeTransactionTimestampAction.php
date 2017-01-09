@@ -29,7 +29,7 @@ class PaymentChangeTransactionTimestampAction extends AbstractAction
             'transactionId' => [static::TYPE => 'string'],
             'timestamp' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
         ];
     }

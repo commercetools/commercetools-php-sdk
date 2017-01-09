@@ -29,8 +29,8 @@ class OrderAddParcelToDeliveryAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'deliveryId' => [static::TYPE => 'string'],
-            'measurements' => [static::TYPE => '\Commercetools\Core\Model\Order\ParcelMeasurements'],
-            'trackingData' => [static::TYPE => '\Commercetools\Core\Model\Order\TrackingData']
+            'measurements' => [static::TYPE => ParcelMeasurements::class],
+            'trackingData' => [static::TYPE => TrackingData::class]
         ];
     }
 

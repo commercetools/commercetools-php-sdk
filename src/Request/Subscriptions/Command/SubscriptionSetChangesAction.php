@@ -23,7 +23,7 @@ class SubscriptionSetChangesAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'changes' => [static::TYPE => '\Commercetools\Core\Model\Subscription\ChangeSubscriptionCollection'],
+            'changes' => [static::TYPE => ChangeSubscriptionCollection::class],
         ];
     }
 
