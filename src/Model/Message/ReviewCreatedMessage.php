@@ -38,7 +38,7 @@ class ReviewCreatedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['review'] = [static::TYPE => '\Commercetools\Core\Model\Review\Review'];
+        $definitions['review'] = [static::TYPE => Review::class];
 
         return $definitions;
     }

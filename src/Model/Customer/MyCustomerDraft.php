@@ -61,14 +61,14 @@ class MyCustomerDraft extends JsonObject
             'title' => [static::TYPE => 'string'],
             'dateOfBirth' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateDecorator'
+                static::DECORATOR => DateDecorator::class
             ],
             'companyName' => [static::TYPE => 'string'],
             'vatId' => [static::TYPE => 'string'],
-            'addresses' => [static::TYPE => '\Commercetools\Core\Model\Common\AddressCollection'],
+            'addresses' => [static::TYPE => AddressCollection::class],
             'defaultShippingAddress' => [static::TYPE => 'int'],
             'defaultBillingAddress' => [static::TYPE => 'int'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'locale' => [static::TYPE => 'string'],
         ];
     }

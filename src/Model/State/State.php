@@ -47,20 +47,20 @@ class State extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'key' => [static::TYPE => 'string'],
             'type' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
             'initial' => [static::TYPE => 'bool'],
             'builtIn' => [static::TYPE => 'bool'],
             'roles' => [static::TYPE => 'array'],
-            'transitions' => [static::TYPE => '\Commercetools\Core\Model\State\StateReferenceCollection']
+            'transitions' => [static::TYPE => StateReferenceCollection::class]
         ];
     }
 }

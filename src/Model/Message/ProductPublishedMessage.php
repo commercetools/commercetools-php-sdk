@@ -38,7 +38,7 @@ class ProductPublishedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['productProjection'] = [static::TYPE => '\Commercetools\Core\Model\Product\ProductProjection'];
+        $definitions['productProjection'] = [static::TYPE => ProductProjection::class];
 
         return $definitions;
     }

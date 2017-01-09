@@ -30,9 +30,9 @@ class ProductDiscountDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'value' => [static::TYPE => '\Commercetools\Core\Model\ProductDiscount\ProductDiscountValue'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
+            'value' => [static::TYPE => ProductDiscountValue::class],
             'predicate' => [static::TYPE => 'string'],
             'sortOrder' => [static::TYPE => 'string'],
             'isActive' => [static::TYPE => 'bool'],

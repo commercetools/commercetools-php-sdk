@@ -48,11 +48,11 @@ class ReviewStateTransitionMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['oldState'] = [static::TYPE => '\Commercetools\Core\Model\State\StateReference'];
-        $definitions['newState'] = [static::TYPE => '\Commercetools\Core\Model\State\StateReference'];
+        $definitions['oldState'] = [static::TYPE => StateReference::class];
+        $definitions['newState'] = [static::TYPE => StateReference::class];
         $definitions['oldIncludedInStatistics'] = [static::TYPE => 'bool'];
         $definitions['newIncludedInStatistics'] = [static::TYPE => 'bool'];
-        $definitions['target'] = [static::TYPE => '\Commercetools\Core\Model\Common\Reference'];
+        $definitions['target'] = [static::TYPE => Reference::class];
         $definitions['force'] = [static::TYPE => 'bool'];
 
         return $definitions;

@@ -18,7 +18,7 @@ class SuggestionResult extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSuggestionCollection']
+            'searchKeywords' => [static::TYPE => LocalizedSuggestionCollection::class]
         ];
     }
 

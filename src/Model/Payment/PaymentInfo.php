@@ -18,7 +18,7 @@ class PaymentInfo extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'payments' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentReferenceCollection'],
+            'payments' => [static::TYPE => PaymentReferenceCollection::class],
         ];
     }
 }

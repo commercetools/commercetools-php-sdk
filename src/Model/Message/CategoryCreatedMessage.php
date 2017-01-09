@@ -38,7 +38,7 @@ class CategoryCreatedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['category'] = [static::TYPE => '\Commercetools\Core\Model\Category\Category'];
+        $definitions['category'] = [static::TYPE => Category::class];
 
         return $definitions;
     }

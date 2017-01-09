@@ -21,8 +21,8 @@ class DiscountedPrice extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'value' => [self::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'discount' => [self::TYPE => '\Commercetools\Core\Model\ProductDiscount\ProductDiscountReference'],
+            'value' => [self::TYPE => Money::class],
+            'discount' => [self::TYPE => ProductDiscountReference::class],
         ];
     }
 

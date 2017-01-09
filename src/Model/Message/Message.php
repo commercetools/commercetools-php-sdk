@@ -55,14 +55,14 @@ class Message extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'sequenceNumber' => [static::TYPE => 'int'],
-            'resource' => [static::TYPE => '\Commercetools\Core\Model\Common\Reference'],
+            'resource' => [static::TYPE => Reference::class],
             'resourceVersion' => [static::TYPE => 'int'],
             'type' => [static::TYPE => 'string'],
         ];

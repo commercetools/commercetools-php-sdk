@@ -77,16 +77,16 @@ class CustomerDraft extends JsonObject
             'externalId' => [static::TYPE => 'string'],
             'dateOfBirth' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'companyName' => [static::TYPE => 'string'],
             'vatId' => [static::TYPE => 'string'],
             'isEmailVerified' => [static::TYPE => 'bool'],
-            'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
-            'addresses' => [static::TYPE => '\Commercetools\Core\Model\Common\AddressCollection'],
+            'customerGroup' => [static::TYPE => CustomerGroupReference::class],
+            'addresses' => [static::TYPE => AddressCollection::class],
             'defaultShippingAddress' => [static::TYPE => 'int'],
             'defaultBillingAddress' => [static::TYPE => 'int'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'locale' => [static::TYPE => 'string'],
             'billingAddresses' => [static::TYPE => 'array'],
             'shippingAddresses' => [static::TYPE => 'array'],

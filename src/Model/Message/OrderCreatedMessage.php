@@ -38,7 +38,7 @@ class OrderCreatedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['order'] = [static::TYPE => '\Commercetools\Core\Model\Order\Order'];
+        $definitions['order'] = [static::TYPE => Order::class];
 
         return $definitions;
     }

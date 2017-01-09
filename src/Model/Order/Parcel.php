@@ -28,10 +28,10 @@ class Parcel extends JsonObject
             'id' => [static::TYPE => 'string'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'measurements' => [static::TYPE => '\Commercetools\Core\Model\Order\ParcelMeasurements'],
-            'trackingData' => [static::TYPE => '\Commercetools\Core\Model\Order\TrackingData'],
+            'measurements' => [static::TYPE => ParcelMeasurements::class],
+            'trackingData' => [static::TYPE => TrackingData::class],
         ];
     }
 }

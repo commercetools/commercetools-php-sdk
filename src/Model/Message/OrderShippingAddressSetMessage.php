@@ -39,7 +39,7 @@ class OrderShippingAddressSetMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['address'] = [static::TYPE => '\Commercetools\Core\Model\Common\Address'];
+        $definitions['address'] = [static::TYPE => Address::class];
 
         return $definitions;
     }

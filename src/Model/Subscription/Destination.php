@@ -28,8 +28,8 @@ class Destination extends JsonObject
     protected static function destinationType($typeId)
     {
         $types = [
-            static::DESTINATION_SQS => '\Commercetools\Core\Model\Subscription\SQSDestination',
-            static::DESTINATION_IRON_MQ => '\Commercetools\Core\Model\Subscription\IronMQDestination',
+            static::DESTINATION_SQS => SQSDestination::class,
+            static::DESTINATION_IRON_MQ => IronMQDestination::class,
         ];
         return isset($types[$typeId]) ? $types[$typeId] : '\Commercetools\Core\Model\Subscription\Destination';
     }

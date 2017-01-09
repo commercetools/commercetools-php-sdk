@@ -41,8 +41,8 @@ class ParcelAddedToDeliveryMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['delivery'] = [static::TYPE => '\Commercetools\Core\Model\Order\Delivery'];
-        $definitions['parcel'] = [static::TYPE => '\Commercetools\Core\Model\Order\Parcel'];
+        $definitions['delivery'] = [static::TYPE => Delivery::class];
+        $definitions['parcel'] = [static::TYPE => Parcel::class];
 
         return $definitions;
     }

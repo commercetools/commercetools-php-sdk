@@ -32,11 +32,11 @@ class CustomerGroup extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => 'string']
         ];

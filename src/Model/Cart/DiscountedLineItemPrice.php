@@ -21,9 +21,9 @@ class DiscountedLineItemPrice extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'value' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'value' => [static::TYPE => Money::class],
             'includedDiscounts' => [
-                static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedLineItemPortionCollection'
+                static::TYPE => DiscountedLineItemPortionCollection::class
             ]
         ];
     }

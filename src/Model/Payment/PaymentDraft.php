@@ -49,23 +49,23 @@ class PaymentDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'customer' => [static::TYPE => '\Commercetools\Core\Model\Customer\CustomerReference'],
+            'customer' => [static::TYPE => CustomerReference::class],
             'externalId' => [static::TYPE => 'string'],
             'interfaceId' => [static::TYPE => 'string'],
-            'amountPlanned' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'amountAuthorized' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'amountPlanned' => [static::TYPE => Money::class],
+            'amountAuthorized' => [static::TYPE => Money::class],
             'authorizedUntil' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'amountPaid' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'amountRefunded' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'paymentMethodInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentMethodInfo'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
-            'paymentStatus' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentStatus'],
-            'transactions' => [static::TYPE => '\Commercetools\Core\Model\Payment\TransactionCollection'],
+            'amountPaid' => [static::TYPE => Money::class],
+            'amountRefunded' => [static::TYPE => Money::class],
+            'paymentMethodInfo' => [static::TYPE => PaymentMethodInfo::class],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'paymentStatus' => [static::TYPE => PaymentStatus::class],
+            'transactions' => [static::TYPE => TransactionCollection::class],
             'interfaceInteractions' => [
-                static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraftCollection'
+                static::TYPE => CustomFieldObjectDraftCollection::class
             ],
         ];
     }

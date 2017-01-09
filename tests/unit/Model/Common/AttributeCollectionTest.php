@@ -94,6 +94,6 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
 
         $t = $collection->getByName('test-definition-enum');
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Enum', $t->getValue());
+        $this->assertInstanceOf(Enum::class, $t->getValue());
     }
 }

@@ -41,19 +41,19 @@ class PriceDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            static::VALUE => [self::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            static::VALUE => [self::TYPE => Money::class],
             static::COUNTRY => [self::TYPE => 'string'],
-            static::CUSTOMER_GROUP => [self::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
-            static::CHANNEL => [self::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            static::CUSTOMER_GROUP => [self::TYPE => CustomerGroupReference::class],
+            static::CHANNEL => [self::TYPE => ChannelReference::class],
             static::VALID_FROM => [
                 self::TYPE => '\DateTime',
-                self::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                self::DECORATOR => DateTimeDecorator::class
             ],
             static::VALID_UNTIL => [
                 self::TYPE => '\DateTime',
-                self::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                self::DECORATOR => DateTimeDecorator::class
             ],
-            static::CUSTOM => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            static::CUSTOM => [static::TYPE => CustomFieldObject::class],
         ];
     }
 

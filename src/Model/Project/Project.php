@@ -37,18 +37,18 @@ class Project extends JsonObject
         return [
             'key' => [static::TYPE => 'string'],
             'name' => [static::TYPE => 'string'],
-            'countries' => [static::TYPE => '\Commercetools\Core\Model\Common\Collection'],
-            'currencies' => [static::TYPE => '\Commercetools\Core\Model\Common\Collection'],
-            'languages' => [static::TYPE => '\Commercetools\Core\Model\Common\Collection'],
+            'countries' => [static::TYPE => Collection::class],
+            'currencies' => [static::TYPE => Collection::class],
+            'languages' => [static::TYPE => Collection::class],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'trialUntil' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'messages' => [static::TYPE => '\Commercetools\Core\Model\Message\MessagesConfiguration']
+            'messages' => [static::TYPE => MessagesConfiguration::class]
         ];
     }
 }

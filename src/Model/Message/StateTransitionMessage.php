@@ -10,7 +10,7 @@ abstract class StateTransitionMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['state'] = [static::TYPE => '\Commercetools\Core\Model\State\StateReference'];
+        $definitions['state'] = [static::TYPE => StateReference::class];
         $definitions['force'] = [static::TYPE => 'bool'];
 
         return $definitions;

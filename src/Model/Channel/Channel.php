@@ -51,20 +51,20 @@ class Channel extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'key' => [static::TYPE => 'string'],
             'roles' => [static::TYPE => 'array'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'reviewRatingStatistics' => [static::TYPE => '\Commercetools\Core\Model\Review\ReviewRatingStatistics'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
-            'address' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
-            'geoLocation' => [static::TYPE => '\Commercetools\Core\Model\Common\GeoLocation'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
+            'reviewRatingStatistics' => [static::TYPE => ReviewRatingStatistics::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
+            'address' => [static::TYPE => Address::class],
+            'geoLocation' => [static::TYPE => GeoLocation::class],
         ];
     }
 }

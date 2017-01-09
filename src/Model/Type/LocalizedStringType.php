@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\Type;
 
+use Commercetools\Core\Model\Common\LocalizedString;
+
 /**
  * @package Commercetools\Core\Model\Type
  * @link https://dev.commercetools.com/http-api-projects-types.html#localizedstringtype
@@ -17,6 +19,6 @@ class LocalizedStringType extends FieldType
 
     public function fieldTypeDefinition()
     {
-        return [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'];
+        return [static::TYPE => LocalizedString::class];
     }
 }

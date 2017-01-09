@@ -38,7 +38,7 @@ class PaymentTransactionAddedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['transaction'] = [static::TYPE => '\Commercetools\Core\Model\Payment\Transaction'];
+        $definitions['transaction'] = [static::TYPE => Transaction::class];
 
         return $definitions;
     }

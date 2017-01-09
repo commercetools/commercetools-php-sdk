@@ -21,7 +21,7 @@ class SearchKeyword extends JsonObject
     {
         return [
             'text' => [static::TYPE => 'string'],
-            'suggestTokenizer' => [static::TYPE => '\Commercetools\Core\Model\Product\SuggestTokenizer'],
+            'suggestTokenizer' => [static::TYPE => SuggestTokenizer::class],
         ];
     }
 

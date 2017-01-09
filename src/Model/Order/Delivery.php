@@ -28,10 +28,10 @@ class Delivery extends JsonObject
             'id' => [static::TYPE => 'string'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'items' => [static::TYPE => '\Commercetools\Core\Model\Order\DeliveryItemCollection'],
-            'parcels' => [static::TYPE => '\Commercetools\Core\Model\Order\ParcelCollection'],
+            'items' => [static::TYPE => DeliveryItemCollection::class],
+            'parcels' => [static::TYPE => ParcelCollection::class],
         ];
     }
 }

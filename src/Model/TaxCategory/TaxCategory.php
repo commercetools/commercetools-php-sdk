@@ -37,15 +37,15 @@ class TaxCategory extends Resource
             'version' => [self::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [self::TYPE => 'string'],
             'description' => [self::TYPE => 'string'],
-            'rates' => [self::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRateCollection']
+            'rates' => [self::TYPE => TaxRateCollection::class]
         ];
     }
 }

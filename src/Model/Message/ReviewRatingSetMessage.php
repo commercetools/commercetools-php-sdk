@@ -46,7 +46,7 @@ class ReviewRatingSetMessage extends Message
         $definitions['oldRating'] = [static::TYPE => 'float'];
         $definitions['newRating'] = [static::TYPE => 'float'];
         $definitions['includedInStatistics'] = [static::TYPE => 'bool'];
-        $definitions['target'] = [static::TYPE => '\Commercetools\Core\Model\Common\Reference'];
+        $definitions['target'] = [static::TYPE => Reference::class];
 
         return $definitions;
     }

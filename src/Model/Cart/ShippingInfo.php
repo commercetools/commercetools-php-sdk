@@ -42,14 +42,14 @@ class ShippingInfo extends JsonObject
     {
         return [
             'shippingMethodName' => [static::TYPE => 'string'],
-            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'shippingRate' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingRate'],
-            'taxedPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\TaxedItemPrice'],
-            'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
-            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategory'],
-            'shippingMethod' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingMethodReference'],
-            'deliveries' => [static::TYPE => '\Commercetools\Core\Model\Order\DeliveryCollection'],
-            'discountedPrice' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedLineItemPrice'],
+            'price' => [static::TYPE => Money::class],
+            'shippingRate' => [static::TYPE => ShippingRate::class],
+            'taxedPrice' => [static::TYPE => TaxedItemPrice::class],
+            'taxRate' => [static::TYPE => TaxRate::class],
+            'taxCategory' => [static::TYPE => TaxCategory::class],
+            'shippingMethod' => [static::TYPE => ShippingMethodReference::class],
+            'deliveries' => [static::TYPE => DeliveryCollection::class],
+            'discountedPrice' => [static::TYPE => DiscountedLineItemPrice::class],
         ];
     }
 }

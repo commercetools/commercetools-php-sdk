@@ -46,11 +46,11 @@ class MyCartDraft extends JsonObject
             'customerEmail' => [static::TYPE => 'string'],
             'country' => [static::TYPE => 'string'],
             'inventoryMode' => [static::TYPE => 'string'],
-            'lineItems' => [static::TYPE => '\Commercetools\Core\Model\Cart\MyLineItemDraftCollection'],
-            'shippingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
-            'billingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
-            'shippingMethod' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingMethodReference'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'lineItems' => [static::TYPE => MyLineItemDraftCollection::class],
+            'shippingAddress' => [static::TYPE => Address::class],
+            'billingAddress' => [static::TYPE => Address::class],
+            'shippingMethod' => [static::TYPE => ShippingMethodReference::class],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'locale' => [static::TYPE => 'string'],
         ];
     }

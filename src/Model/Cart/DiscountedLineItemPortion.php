@@ -22,8 +22,8 @@ class DiscountedLineItemPortion extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'discount' => [static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountReference'],
-            'discountedAmount' => [static::TYPE => '\Commercetools\Core\Model\Common\Money']
+            'discount' => [static::TYPE => CartDiscountReference::class],
+            'discountedAmount' => [static::TYPE => Money::class]
         ];
     }
 }

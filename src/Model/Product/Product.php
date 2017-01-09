@@ -48,17 +48,17 @@ class Product extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'productType' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference'],
-            'taxCategory' => [self::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
-            'masterData' => [self::TYPE => '\Commercetools\Core\Model\Product\ProductCatalogData'],
-            'reviewRatingStatistics' => [static::TYPE => '\Commercetools\Core\Model\Review\ReviewRatingStatistics'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'productType' => [static::TYPE => ProductTypeReference::class],
+            'taxCategory' => [self::TYPE => TaxCategoryReference::class],
+            'masterData' => [self::TYPE => ProductCatalogData::class],
+            'reviewRatingStatistics' => [static::TYPE => ReviewRatingStatistics::class],
+            'state' => [static::TYPE => StateReference::class],
             'key' => [static::TYPE => 'string'],
         ];
     }

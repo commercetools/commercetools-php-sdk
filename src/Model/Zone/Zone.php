@@ -36,15 +36,15 @@ class Zone extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'locations' => [static::TYPE => '\Commercetools\Core\Model\Zone\LocationCollection'],
+            'locations' => [static::TYPE => LocationCollection::class],
         ];
     }
 }

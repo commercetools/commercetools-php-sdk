@@ -42,17 +42,17 @@ class ProductData extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'categories' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
+            'slug' => [static::TYPE => LocalizedString::class],
+            'categories' => [static::TYPE => CategoryReferenceCollection::class],
             'categoryOrderHints' => [static::TYPE => 'array'],
-            'metaTitle' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'metaDescription' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'metaKeywords' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'masterVariant' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariant'],
-            'variants' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariantCollection'],
-            'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords'],
+            'metaTitle' => [static::TYPE => LocalizedString::class],
+            'metaDescription' => [static::TYPE => LocalizedString::class],
+            'metaKeywords' => [static::TYPE => LocalizedString::class],
+            'masterVariant' => [static::TYPE => ProductVariant::class],
+            'variants' => [static::TYPE => ProductVariantCollection::class],
+            'searchKeywords' => [static::TYPE => LocalizedSearchKeywords::class],
         ];
     }
 

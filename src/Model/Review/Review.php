@@ -63,11 +63,11 @@ class Review extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'key' => [static::TYPE => 'string'],
             'uniquenessValue' => [static::TYPE => 'string'],
@@ -75,12 +75,12 @@ class Review extends Resource
             'authorName' => [static::TYPE => 'string'],
             'title' => [static::TYPE => 'string'],
             'text' => [static::TYPE => 'string'],
-            'target' => [static::TYPE => '\Commercetools\Core\Model\Common\ResourceIdentifier'],
+            'target' => [static::TYPE => ResourceIdentifier::class],
             'rating' => [static::TYPE => 'int'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'state' => [static::TYPE => StateReference::class],
             'includedInStatistics' => [static::TYPE => 'bool'],
-            'customer' => [static::TYPE => '\Commercetools\Core\Model\Customer\CustomerReference'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'customer' => [static::TYPE => CustomerReference::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 

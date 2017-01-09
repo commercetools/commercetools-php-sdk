@@ -54,23 +54,23 @@ class Category extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
             'slug' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
             'description' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'ancestors' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
-            'parent' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReference'],
+            'ancestors' => [static::TYPE => CategoryReferenceCollection::class],
+            'parent' => [static::TYPE => CategoryReference::class],
             'orderHint' => [static::TYPE => 'string'],
             'externalId' => [static::TYPE => 'string'],
             'metaDescription' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
             'metaTitle' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }

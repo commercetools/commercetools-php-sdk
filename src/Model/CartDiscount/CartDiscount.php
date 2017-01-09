@@ -54,29 +54,29 @@ class CartDiscount extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'value' => [static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountValue'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
+            'value' => [static::TYPE => CartDiscountValue::class],
             'cartPredicate' => [static::TYPE => 'string'],
-            'target' => [static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountTarget'],
+            'target' => [static::TYPE => CartDiscountTarget::class],
             'sortOrder' => [static::TYPE => 'string'],
             'isActive' => [static::TYPE => 'bool'],
             'validFrom' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'validUntil' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'requiresDiscountCode' => [static::TYPE => 'bool'],
-            'references' => [static::TYPE => '\Commercetools\Core\Model\Common\ReferenceCollection']
+            'references' => [static::TYPE => ReferenceCollection::class]
         ];
     }
 }

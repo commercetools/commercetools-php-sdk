@@ -50,20 +50,20 @@ class CartDiscountDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            static::NAME => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            static::DESCRIPTION => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            static::VALUE => [static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountValue'],
+            static::NAME => [static::TYPE => LocalizedString::class],
+            static::DESCRIPTION => [static::TYPE => LocalizedString::class],
+            static::VALUE => [static::TYPE => CartDiscountValue::class],
             static::CART_PREDICATE => [static::TYPE => 'string'],
-            static::TARGET => [static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountTarget'],
+            static::TARGET => [static::TYPE => CartDiscountTarget::class],
             static::SORT_ORDER => [static::TYPE => 'string'],
             static::IS_ACTIVE => [static::TYPE => 'bool'],
             static::VALID_FROM => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             static::VALID_UNTIL  => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             static::REQUIRES_DISCOUNT_CODE => [static::TYPE => 'bool'],
         ];

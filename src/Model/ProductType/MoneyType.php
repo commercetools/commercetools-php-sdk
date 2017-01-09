@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\ProductType;
 
+use Commercetools\Core\Model\Common\Money;
+
 /**
  * @package Commercetools\Core\Model\ProductType
  * @link https://dev.commercetools.com/http-api-projects-productTypes.html#moneytype
@@ -17,6 +19,6 @@ class MoneyType extends AttributeType
 
     public function fieldTypeDefinition()
     {
-        return [static::TYPE => '\Commercetools\Core\Model\Common\Money'];
+        return [static::TYPE => Money::class];
     }
 }

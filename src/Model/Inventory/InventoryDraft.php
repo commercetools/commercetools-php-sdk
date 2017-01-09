@@ -37,10 +37,10 @@ class InventoryDraft extends JsonObject
             'restockableInDays' => [static::TYPE => 'int'],
             'expectedDelivery' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'supplyChannel' => [static::TYPE => ChannelReference::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 

@@ -41,16 +41,16 @@ class ShippingMethod extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
-            'zoneRates' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ZoneRateCollection'],
+            'taxCategory' => [static::TYPE => TaxCategoryReference::class],
+            'zoneRates' => [static::TYPE => ZoneRateCollection::class],
             'isDefault' => [static::TYPE => 'bool']
         ];
     }

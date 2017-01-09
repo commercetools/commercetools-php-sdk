@@ -22,7 +22,7 @@ class LocalizedEnum extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'label' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'label' => [static::TYPE => LocalizedString::class],
             'key' => [static::TYPE => 'string']
         ];
     }

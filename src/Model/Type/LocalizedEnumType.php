@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Type;
 
+use Commercetools\Core\Model\Common\LocalizedEnum;
 use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 
 /**
@@ -22,13 +23,13 @@ class LocalizedEnumType extends FieldType
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['values'] = [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedEnumCollection'];
+        $definitions['values'] = [static::TYPE => LocalizedEnumCollection::class];
 
         return $definitions;
     }
 
     public function fieldTypeDefinition()
     {
-        return [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedEnum'];
+        return [static::TYPE => LocalizedEnum::class];
     }
 }

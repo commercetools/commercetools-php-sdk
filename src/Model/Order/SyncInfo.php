@@ -24,11 +24,11 @@ class SyncInfo extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'channel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            'channel' => [static::TYPE => ChannelReference::class],
             'externalId' => [static::TYPE => 'string'],
             'syncedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ]
         ];
     }

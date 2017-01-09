@@ -45,22 +45,22 @@ class InventoryEntry extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'sku' => [static::TYPE => 'string'],
-            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            'supplyChannel' => [static::TYPE => ChannelReference::class],
             'quantityOnStock' => [static::TYPE => 'int'],
             'availableQuantity' => [static::TYPE => 'int'],
             'restockableInDays' => [static::TYPE => 'int'],
             'expectedDelivery' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }

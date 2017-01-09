@@ -78,11 +78,11 @@ class Customer extends Resource
             'customerNumber' => [static::TYPE => 'string'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'email' => [static::TYPE => 'string'],
             'firstName' => [static::TYPE => 'string'],
@@ -92,17 +92,17 @@ class Customer extends Resource
             'title' => [static::TYPE => 'string'],
             'dateOfBirth' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateDecorator'
+                static::DECORATOR => DateDecorator::class
             ],
             'companyName' => [static::TYPE => 'string'],
             'vatId' => [static::TYPE => 'string'],
-            'addresses' => [static::TYPE => '\Commercetools\Core\Model\Common\AddressCollection'],
+            'addresses' => [static::TYPE => AddressCollection::class],
             'defaultShippingAddressId' => [static::TYPE => 'string'],
             'defaultBillingAddressId' => [static::TYPE => 'string'],
             'isEmailVerified' => [static::TYPE => 'bool'],
             'externalId' => [static::TYPE => 'string'],
-            'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'customerGroup' => [static::TYPE => CustomerGroupReference::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
             'locale' => [static::TYPE => 'string'],
             'shippingAddressIds' => [static::TYPE => 'array'],
             'billingAddressIds' => [static::TYPE => 'array'],

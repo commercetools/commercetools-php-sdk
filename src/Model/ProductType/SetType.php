@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\ProductType;
 
+use Commercetools\Core\Model\Common\Set;
+
 /**
  * @package Commercetools\Core\Model\ProductType
  * @link https://dev.commercetools.com/http-api-projects-productTypes.html#settype
@@ -20,7 +22,7 @@ class SetType extends AttributeType
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['elementType'] = [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeType'];
+        $definitions['elementType'] = [static::TYPE => AttributeType::class];
 
         return $definitions;
     }
@@ -35,7 +37,7 @@ class SetType extends AttributeType
             }
         }
         return [
-            static::TYPE => '\Commercetools\Core\Model\Common\Set',
+            static::TYPE => Set::class,
             static::ELEMENT_TYPE => $elementType
         ];
     }

@@ -27,9 +27,9 @@ class FieldDefinition extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'type' => [static::TYPE => '\Commercetools\Core\Model\Type\FieldType'],
+            'type' => [static::TYPE => FieldType::class],
             'name' => [static::TYPE => 'string'],
-            'label' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'label' => [static::TYPE => LocalizedString::class],
             'required' => [static::TYPE => 'bool'],
             'inputHint' => [static::TYPE => 'string'],
         ];

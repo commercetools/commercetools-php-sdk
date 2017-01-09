@@ -21,8 +21,8 @@ class ZoneRate extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'zone' => [static::TYPE => '\Commercetools\Core\Model\Zone\ZoneReference'],
-            'shippingRates' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingRateCollection']
+            'zone' => [static::TYPE => ZoneReference::class],
+            'shippingRates' => [static::TYPE => ShippingRateCollection::class]
         ];
     }
 }

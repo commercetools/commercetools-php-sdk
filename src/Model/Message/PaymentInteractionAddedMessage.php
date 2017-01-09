@@ -38,7 +38,7 @@ class PaymentInteractionAddedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['interaction'] = [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'];
+        $definitions['interaction'] = [static::TYPE => CustomFieldObject::class];
 
         return $definitions;
     }

@@ -74,29 +74,29 @@ class ProductProjection extends JsonObject implements ReferenceObjectInterface
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'productType' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'categories' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
+            'productType' => [static::TYPE => ProductTypeReference::class],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
+            'slug' => [static::TYPE => LocalizedString::class],
+            'categories' => [static::TYPE => CategoryReferenceCollection::class],
             'categoryOrderHints' => [static::TYPE => 'array'],
-            'metaTitle' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'metaDescription' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'metaKeywords' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'metaTitle' => [static::TYPE => LocalizedString::class],
+            'metaDescription' => [static::TYPE => LocalizedString::class],
+            'metaKeywords' => [static::TYPE => LocalizedString::class],
             'hasStagedChanges' => [static::TYPE => 'bool'],
             'published' => [static::TYPE => 'bool'],
-            'masterVariant' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariant'],
-            'variants' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariantCollection'],
-            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
-            'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords'],
-            'reviewRatingStatistics' => [static::TYPE => '\Commercetools\Core\Model\Review\ReviewRatingStatistics'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'masterVariant' => [static::TYPE => ProductVariant::class],
+            'variants' => [static::TYPE => ProductVariantCollection::class],
+            'taxCategory' => [static::TYPE => TaxCategoryReference::class],
+            'searchKeywords' => [static::TYPE => LocalizedSearchKeywords::class],
+            'reviewRatingStatistics' => [static::TYPE => ReviewRatingStatistics::class],
+            'state' => [static::TYPE => StateReference::class],
             'key' => [static::TYPE => 'string'],
         ];
     }

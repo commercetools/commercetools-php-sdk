@@ -42,16 +42,16 @@ class Subscription extends Resource
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'key' => [static::TYPE => 'string'],
-            'destination' => [static::TYPE => '\Commercetools\Core\Model\Subscription\Destination'],
-            'messages' => [static::TYPE => '\Commercetools\Core\Model\Subscription\MessageSubscriptionCollection'],
-            'changes' => [static::TYPE => '\Commercetools\Core\Model\Subscription\ChangeSubscriptionCollection'],
+            'destination' => [static::TYPE => Destination::class],
+            'messages' => [static::TYPE => MessageSubscriptionCollection::class],
+            'changes' => [static::TYPE => ChangeSubscriptionCollection::class],
         ];
     }
 }

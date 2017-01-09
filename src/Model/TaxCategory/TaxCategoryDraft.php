@@ -25,7 +25,7 @@ class TaxCategoryDraft extends JsonObject
         return [
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'rates' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRateCollection'],
+            'rates' => [static::TYPE => TaxRateCollection::class],
         ];
     }
 

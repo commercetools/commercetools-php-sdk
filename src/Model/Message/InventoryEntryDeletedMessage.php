@@ -42,7 +42,7 @@ class InventoryEntryDeletedMessage extends Message
     {
         $definitions = parent::fieldDefinitions();
         $definitions['sku'] = [static::TYPE => 'string'];
-        $definitions['supplyChannel'] = [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'];
+        $definitions['supplyChannel'] = [static::TYPE => ChannelReference::class];
 
         return $definitions;
     }

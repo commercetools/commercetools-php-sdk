@@ -21,7 +21,7 @@ class DiscountCodeInfo extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'discountCode' => [static::TYPE => '\Commercetools\Core\Model\DiscountCode\DiscountCodeReference'],
+            'discountCode' => [static::TYPE => DiscountCodeReference::class],
             'state' => [static::TYPE => 'string']
         ];
     }

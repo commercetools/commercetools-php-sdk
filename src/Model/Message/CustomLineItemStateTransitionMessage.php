@@ -51,11 +51,11 @@ class CustomLineItemStateTransitionMessage extends Message
                 'customLineItemId' => [static::TYPE => 'string'],
                 'transitionDate' => [
                     static::TYPE => '\DateTime',
-                    static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                    static::DECORATOR => DateTimeDecorator::class
                 ],
                 'quantity' => [static::TYPE => 'int'],
-                'fromState' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
-                'toState' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+                'fromState' => [static::TYPE => StateReference::class],
+                'toState' => [static::TYPE => StateReference::class],
             ]
         );
 

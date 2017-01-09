@@ -37,13 +37,13 @@ class CustomLineItemDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'money' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'money' => [static::TYPE => Money::class],
             'slug' => [static::TYPE => 'string'],
             'quantity' => [static::TYPE => 'int'],
-            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
-            'externalTaxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'taxCategory' => [static::TYPE => TaxCategoryReference::class],
+            'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }

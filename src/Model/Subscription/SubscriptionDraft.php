@@ -29,9 +29,9 @@ class SubscriptionDraft extends JsonObject
     {
         return [
             'key' => [static::TYPE => 'string'],
-            'destination' => [static::TYPE => '\Commercetools\Core\Model\Subscription\Destination'],
-            'messages' => [static::TYPE => '\Commercetools\Core\Model\Subscription\MessageSubscriptionCollection'],
-            'changes' => [static::TYPE => '\Commercetools\Core\Model\Subscription\ChangeSubscriptionCollection'],
+            'destination' => [static::TYPE => Destination::class],
+            'messages' => [static::TYPE => MessageSubscriptionCollection::class],
+            'changes' => [static::TYPE => ChangeSubscriptionCollection::class],
         ];
     }
 

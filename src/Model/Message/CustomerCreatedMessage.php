@@ -38,7 +38,7 @@ class CustomerCreatedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['customer'] = [static::TYPE => '\Commercetools\Core\Model\Customer\Customer'];
+        $definitions['customer'] = [static::TYPE => Customer::class];
 
         return $definitions;
     }

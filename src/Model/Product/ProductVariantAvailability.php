@@ -27,7 +27,7 @@ class ProductVariantAvailability extends JsonObject
             'isOnStock' => [static::TYPE => 'bool'],
             'restockableInDays' => [static::TYPE => 'int'],
             'availableQuantity' => [static::TYPE => 'int'],
-            'channels' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariantAvailabilityCollection'],
+            'channels' => [static::TYPE => ProductVariantAvailabilityCollection::class],
         ];
     }
 }

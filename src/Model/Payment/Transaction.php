@@ -41,10 +41,10 @@ class Transaction extends JsonObject
             'state' => [static::TYPE => 'string'],
             'timestamp' => [
                 static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'type' => [static::TYPE => 'string'],
-            'amount' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'amount' => [static::TYPE => Money::class],
             'interactionId' => [static::TYPE => 'string'],
         ];
     }

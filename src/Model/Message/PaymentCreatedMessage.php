@@ -38,7 +38,7 @@ class PaymentCreatedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['payment'] = [static::TYPE => '\Commercetools\Core\Model\Payment\Payment'];
+        $definitions['payment'] = [static::TYPE => Payment::class];
 
         return $definitions;
     }

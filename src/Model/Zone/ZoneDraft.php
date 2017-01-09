@@ -25,7 +25,7 @@ class ZoneDraft extends JsonObject
         return [
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'locations' => [static::TYPE => '\Commercetools\Core\Model\Zone\LocationCollection'],
+            'locations' => [static::TYPE => LocationCollection::class],
         ];
     }
 

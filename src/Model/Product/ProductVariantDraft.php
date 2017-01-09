@@ -32,10 +32,10 @@ class ProductVariantDraft extends JsonObject
     {
         return [
             'sku' => [self::TYPE => 'string'],
-            'prices' => [self::TYPE => '\Commercetools\Core\Model\Common\PriceDraftCollection'],
-            'images' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageCollection'],
-            'attributes' => [self::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
-            'assets' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetDraftCollection']
+            'prices' => [self::TYPE => PriceDraftCollection::class],
+            'images' => [static::TYPE => ImageCollection::class],
+            'attributes' => [self::TYPE => AttributeCollection::class],
+            'assets' => [static::TYPE => AssetDraftCollection::class]
         ];
     }
 }

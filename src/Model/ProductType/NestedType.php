@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\ProductType;
 
+use Commercetools\Core\Model\Common\AttributeCollection;
+
 /**
  * @package Commercetools\Core\Model\ProductType
  * @link https://dev.commercetools.com/http-api-projects-productTypes.html#nestedtype
@@ -20,13 +22,13 @@ class NestedType extends AttributeType
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['typeReference'] = [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference'];
+        $definitions['typeReference'] = [static::TYPE => ProductTypeReference::class];
 
         return $definitions;
     }
 
     public function fieldTypeDefinition()
     {
-        return [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'];
+        return [static::TYPE => AttributeCollection::class];
     }
 }

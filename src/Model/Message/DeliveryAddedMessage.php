@@ -38,7 +38,7 @@ class DeliveryAddedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['delivery'] = [static::TYPE => '\Commercetools\Core\Model\Order\Delivery'];
+        $definitions['delivery'] = [static::TYPE => Delivery::class];
 
         return $definitions;
     }

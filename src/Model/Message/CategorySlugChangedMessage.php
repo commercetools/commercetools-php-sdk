@@ -39,7 +39,7 @@ class CategorySlugChangedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['slug'] = [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'];
+        $definitions['slug'] = [static::TYPE => LocalizedString::class];
 
         return $definitions;
     }
