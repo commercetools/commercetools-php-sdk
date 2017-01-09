@@ -600,6 +600,12 @@
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Common.EnumCollection.html</loc>
 </url>
 <url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Common.GeoLocation.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Common.GeoPoint.html</loc>
+</url>
+<url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Common.Image.html</loc>
 </url>
 <url>
@@ -1245,6 +1251,9 @@
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Subscription.ResourceUpdatedDelivery.html</loc>
 </url>
 <url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Subscription.SNSDestination.html</loc>
+</url>
+<url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.Subscription.SQSDestination.html</loc>
 </url>
 <url>
@@ -1632,6 +1641,9 @@
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Channels.Command.ChannelSetAddressAction.html</loc>
 </url>
 <url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Channels.Command.ChannelSetGeoLocation.html</loc>
+</url>
+<url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Channels.Command.ChannelSetRolesAction.html</loc>
 </url>
 <url>
@@ -1659,6 +1671,12 @@
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerAddAddressAction.html</loc>
 </url>
 <url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerAddBillingAddressAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerAddShippingAddressAction.html</loc>
+</url>
+<url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerChangeAddressAction.html</loc>
 </url>
 <url>
@@ -1669,6 +1687,12 @@
 </url>
 <url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerRemoveAddressAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerRemoveBillingAddressAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerRemoveShippingAddressAction.html</loc>
 </url>
 <url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Customers.Command.CustomerSetCompanyNameAction.html</loc>
