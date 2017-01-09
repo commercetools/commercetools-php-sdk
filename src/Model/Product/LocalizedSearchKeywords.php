@@ -18,7 +18,7 @@ use Commercetools\Core\Model\Common\Context;
  */
 class LocalizedSearchKeywords extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Product\SearchKeywords';
+    protected $type = SearchKeywords::class;
 
     /**
      * @param $locale

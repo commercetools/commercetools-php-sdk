@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class OrderReference extends Reference
 {
     const TYPE_ORDER = 'order';
-    const TYPE_CLASS = '\Commercetools\Core\Model\Order\Order';
+    const TYPE_CLASS = Order::class;
 
     /**
      * @param $id

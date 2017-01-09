@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ProductVariantAvailabilityCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Product\ProductVariantAvailability';
+    protected $type = ProductVariantAvailability::class;
 }

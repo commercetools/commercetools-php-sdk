@@ -41,6 +41,6 @@ abstract class AbstractModelTest extends \PHPUnit_Framework_TestCase
 
     protected function getClassName($domain, $model)
     {
-        return '\Commercetools\Core\Model\\' . ucfirst($domain) . '\\' . ucfirst($model);
+        return 'Commercetools\\Core\\Model\\' . ucfirst($domain) . '\\' . ucfirst($model);
     }
 }

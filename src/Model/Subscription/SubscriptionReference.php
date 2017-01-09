@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class SubscriptionReference extends Reference
 {
     const TYPE_SUBSCRIPTION = 'subscription';
-    const TYPE_CLASS = '\Commercetools\Core\Model\Subscription\Subscription';
+    const TYPE_CLASS = Subscription::class;
 
     /**
      * @param $id

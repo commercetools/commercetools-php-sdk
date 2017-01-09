@@ -40,15 +40,15 @@ class CategoryDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'name' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'slug' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'slug' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
             'parent' => [static::TYPE => CategoryReference::class],
             'orderHint' => [static::TYPE => 'string'],
             'externalId' => [static::TYPE => 'string'],
-            'metaDescription' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'metaTitle' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'metaKeywords' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
+            'metaDescription' => [static::TYPE => LocalizedString::class],
+            'metaTitle' => [static::TYPE => LocalizedString::class],
+            'metaKeywords' => [static::TYPE => LocalizedString::class],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
         ];
     }

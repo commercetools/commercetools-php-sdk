@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class TaxCategoryReference extends Reference
 {
     const TYPE_TAX_CATEGORY = 'tax-category';
-    const TYPE_CLASS = '\Commercetools\Core\Model\TaxCategory\TaxCategory';
+    const TYPE_CLASS = TaxCategory::class;
 
     /**
      * @param $id

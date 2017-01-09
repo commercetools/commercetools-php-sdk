@@ -43,12 +43,12 @@ class Delivery extends JsonObject
             static::TYPE_RESOURCE_UPDATED => ResourceUpdatedDelivery::class,
             static::TYPE_RESOURCE_DELETED => ResourceDeletedDelivery::class,
         ];
-        return isset($types[$typeId]) ? $types[$typeId] : '\Commercetools\Core\Model\Subscription\Delivery';
+        return isset($types[$typeId]) ? $types[$typeId] : Delivery::class;
     }
 
     public static function fromArray(array $data, $context = null)
     {
-        if (get_called_class() == 'Commercetools\Core\Model\Subscription\Delivery' &&
+        if (get_called_class() == Delivery::class &&
             isset($data[static::NOTIFICATION_TYPE])
         ) {
             $className = static::destinationType($data[static::NOTIFICATION_TYPE]);
