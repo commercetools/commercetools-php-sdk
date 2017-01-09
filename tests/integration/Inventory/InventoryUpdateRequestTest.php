@@ -202,15 +202,24 @@ class InventoryUpdateRequestTest extends ApiTestCase
                 ->limit(1);
             $response = $request->executeWithClient($this->getClient());
             $result = $request->mapResponse($response);
-        } while ($result->count() > 0 && $retries <= 9);
+        } while ($result->count() == 0 && $retries <= 20);
 
-        $request = ProductProjectionSearchRequest::of()
-            ->addFilterQuery(
-                Filter::ofName('variants.availability.isOnStockInChannels')->setValue([$channel->getId()])
-            )
-            ->limit(1);
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        if ($result->count() == 0) {
+            $this->markTestSkipped('Product availability not updated in time');
+        }
+
+        $retries = 0;
+        do {
+            $retries++;
+            sleep(1);
+            $request = ProductProjectionSearchRequest::of()
+                ->addFilterQuery(
+                    Filter::ofName('variants.availability.isOnStockInChannels')->setValue([$channel->getId()])
+                )
+                ->limit(1);
+            $response = $request->executeWithClient($this->getClient());
+            $result = $request->mapResponse($response);
+        } while ($result->count() == 0 && $retries <= 9);
 
         $this->assertSame(
             $product->getId(),
