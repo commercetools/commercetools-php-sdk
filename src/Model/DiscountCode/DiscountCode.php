@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\ReferenceCollection;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\DiscountCode
@@ -19,9 +20,9 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method int getVersion()
  * @method DiscountCode setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method DiscountCode setCreatedAt(\DateTime $createdAt = null)
+ * @method DiscountCode setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method DiscountCode setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method DiscountCode setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method LocalizedString getName()
  * @method DiscountCode setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
@@ -50,11 +51,11 @@ class DiscountCode extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => LocalizedString::class],

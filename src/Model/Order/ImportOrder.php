@@ -14,6 +14,7 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Cart\ShippingInfo;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Order
@@ -49,7 +50,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method ShippingInfo getShippingInfo()
  * @method ImportOrder setShippingInfo(ShippingInfo $shippingInfo = null)
  * @method DateTimeDecorator getCompletedAt()
- * @method ImportOrder setCompletedAt(\DateTime $completedAt = null)
+ * @method ImportOrder setCompletedAt(DateTime $completedAt = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method ImportOrder setCustom(CustomFieldObjectDraft $custom = null)
  * @method string getInventoryMode()
@@ -76,7 +77,7 @@ class ImportOrder extends JsonObject
             'paymentState' => [static::TYPE => 'string'],
             'shippingInfo' => [static::TYPE => ShippingInfo::class],
             'completedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],

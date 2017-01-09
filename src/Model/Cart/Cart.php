@@ -14,6 +14,7 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Payment\PaymentInfo;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -23,9 +24,9 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method int getVersion()
  * @method Cart setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Cart setCreatedAt(\DateTime $createdAt = null)
+ * @method Cart setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Cart setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Cart setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getCustomerId()
  * @method Cart setCustomerId(string $customerId = null)
  * @method string getCustomerEmail()
@@ -79,11 +80,11 @@ class Cart extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'customerId' => [static::TYPE => 'string'],

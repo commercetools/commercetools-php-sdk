@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
@@ -28,9 +29,9 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method bool getIsActive()
  * @method CartDiscountDraft setIsActive(bool $isActive = null)
  * @method DateTimeDecorator getValidFrom()
- * @method CartDiscountDraft setValidFrom(\DateTime $validFrom = null)
+ * @method CartDiscountDraft setValidFrom(DateTime $validFrom = null)
  * @method DateTimeDecorator getValidUntil()
- * @method CartDiscountDraft setValidUntil(\DateTime $validUntil = null)
+ * @method CartDiscountDraft setValidUntil(DateTime $validUntil = null)
  * @method bool getRequiresDiscountCode()
  * @method CartDiscountDraft setRequiresDiscountCode(bool $requiresDiscountCode = null)
  */
@@ -58,11 +59,11 @@ class CartDiscountDraft extends JsonObject
             static::SORT_ORDER => [static::TYPE => 'string'],
             static::IS_ACTIVE => [static::TYPE => 'bool'],
             static::VALID_FROM => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             static::VALID_UNTIL  => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             static::REQUIRES_DISCOUNT_CODE => [static::TYPE => 'bool'],

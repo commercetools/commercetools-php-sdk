@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Resource;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Type
@@ -20,9 +21,9 @@ use Commercetools\Core\Model\Common\Resource;
  * @method string getKey()
  * @method Type setKey(string $key = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Type setCreatedAt(\DateTime $createdAt = null)
+ * @method Type setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Type setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Type setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method LocalizedString getName()
  * @method Type setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
@@ -42,11 +43,11 @@ class Type extends Resource
             'version' => [static::TYPE => 'int'],
             'key' => [static::TYPE => 'string'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => LocalizedString::class],

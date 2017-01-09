@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\CustomerGroup;
 
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\CustomerGroup
@@ -16,9 +17,9 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method int getVersion()
  * @method CustomerGroup setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method CustomerGroup setCreatedAt(\DateTime $createdAt = null)
+ * @method CustomerGroup setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method CustomerGroup setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method CustomerGroup setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getName()
  * @method CustomerGroup setName(string $name = null)
  * @method CustomerGroupReference getReference()
@@ -31,11 +32,11 @@ class CustomerGroup extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => 'string']

@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Customer;
 
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Customer
@@ -16,11 +17,11 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method string getCustomerId()
  * @method CustomerToken setCustomerId(string $customerId = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method CustomerToken setCreatedAt(\DateTime $createdAt = null)
+ * @method CustomerToken setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method CustomerToken setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method CustomerToken setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method DateTimeDecorator getExpiresAt()
- * @method CustomerToken setExpiresAt(\DateTime $expiresAt = null)
+ * @method CustomerToken setExpiresAt(DateTime $expiresAt = null)
  * @method string getValue()
  * @method CustomerToken setValue(string $value = null)
  */
@@ -32,15 +33,15 @@ class CustomerToken extends JsonObject
             'id' => [static::TYPE => 'string'],
             'customerId' => [static::TYPE => 'string'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'expiresAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'value' => [static::TYPE => 'string'],

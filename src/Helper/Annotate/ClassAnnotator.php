@@ -67,7 +67,7 @@ class ClassAnnotator
             }
 
             $fieldTypeParts = explode('\\', trim($fieldType, '\\'));
-            if (!$this->isPrimitive($fieldType) && count($fieldTypeParts) > 1) {
+            if (!$this->isPrimitive($fieldType) && (count($fieldTypeParts) > 1 || $fieldType == \DateTime::class)) {
                 $this->class->addUse($fieldType);
                 $fieldType = array_pop($fieldTypeParts);
             }

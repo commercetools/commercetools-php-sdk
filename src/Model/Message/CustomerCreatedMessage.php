@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Customer\Customer;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\Customer\Customer;
  * @method string getId()
  * @method CustomerCreatedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method CustomerCreatedMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method CustomerCreatedMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method CustomerCreatedMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -29,7 +30,7 @@ use Commercetools\Core\Model\Customer\Customer;
  * @method int getVersion()
  * @method CustomerCreatedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method CustomerCreatedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method CustomerCreatedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class CustomerCreatedMessage extends Message
 {

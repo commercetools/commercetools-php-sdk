@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Message\MessagesConfiguration;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Project
@@ -24,9 +25,9 @@ use Commercetools\Core\Model\Message\MessagesConfiguration;
  * @method Collection getLanguages()
  * @method Project setLanguages(Collection $languages = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Project setCreatedAt(\DateTime $createdAt = null)
+ * @method Project setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getTrialUntil()
- * @method Project setTrialUntil(\DateTime $trialUntil = null)
+ * @method Project setTrialUntil(DateTime $trialUntil = null)
  * @method MessagesConfiguration getMessages()
  * @method Project setMessages(MessagesConfiguration $messages = null)
  */
@@ -41,11 +42,11 @@ class Project extends JsonObject
             'currencies' => [static::TYPE => Collection::class],
             'languages' => [static::TYPE => Collection::class],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'trialUntil' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'messages' => [static::TYPE => MessagesConfiguration::class]

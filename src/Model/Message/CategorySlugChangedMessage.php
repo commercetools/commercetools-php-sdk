@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Model\Common\LocalizedString;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -16,7 +17,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method string getId()
  * @method CategorySlugChangedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method CategorySlugChangedMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method CategorySlugChangedMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method CategorySlugChangedMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -30,7 +31,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method int getVersion()
  * @method CategorySlugChangedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method CategorySlugChangedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method CategorySlugChangedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class CategorySlugChangedMessage extends Message
 {

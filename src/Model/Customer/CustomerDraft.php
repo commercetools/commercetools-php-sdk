@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Customer
@@ -36,7 +37,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method CustomerDraft setAnonymousCartId(string $anonymousCartId = null)
  * @method CustomerDraft setExternalId(string $externalId = null)
  * @method DateTimeDecorator getDateOfBirth()
- * @method CustomerDraft setDateOfBirth(\DateTime $dateOfBirth = null)
+ * @method CustomerDraft setDateOfBirth(DateTime $dateOfBirth = null)
  * @method string getCompanyName()
  * @method CustomerDraft setCompanyName(string $companyName = null)
  * @method string getVatId()
@@ -76,7 +77,7 @@ class CustomerDraft extends JsonObject
             'anonymousCartId' => [static::TYPE => 'string'],
             'externalId' => [static::TYPE => 'string'],
             'dateOfBirth' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'companyName' => [static::TYPE => 'string'],

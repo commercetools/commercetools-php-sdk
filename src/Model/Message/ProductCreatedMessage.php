@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Product\ProductProjection;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\Product\ProductProjection;
  * @method string getId()
  * @method ProductCreatedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method ProductCreatedMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method ProductCreatedMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method ProductCreatedMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -29,7 +30,7 @@ use Commercetools\Core\Model\Product\ProductProjection;
  * @method int getVersion()
  * @method ProductCreatedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method ProductCreatedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ProductCreatedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class ProductCreatedMessage extends Message
 {

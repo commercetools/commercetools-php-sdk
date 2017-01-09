@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\ReferenceCollection;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\ProductDiscount
@@ -18,9 +19,9 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method int getVersion()
  * @method ProductDiscount setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method ProductDiscount setCreatedAt(\DateTime $createdAt = null)
+ * @method ProductDiscount setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method ProductDiscount setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ProductDiscount setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method LocalizedString getName()
  * @method ProductDiscount setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
@@ -45,11 +46,11 @@ class ProductDiscount extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => LocalizedString::class],

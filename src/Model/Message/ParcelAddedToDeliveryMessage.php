@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Order\Delivery;
 use Commercetools\Core\Model\Order\Parcel;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -16,7 +17,7 @@ use Commercetools\Core\Model\Order\Parcel;
  * @method string getId()
  * @method ParcelAddedToDeliveryMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method ParcelAddedToDeliveryMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method ParcelAddedToDeliveryMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method ParcelAddedToDeliveryMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -32,7 +33,7 @@ use Commercetools\Core\Model\Order\Parcel;
  * @method int getVersion()
  * @method ParcelAddedToDeliveryMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method ParcelAddedToDeliveryMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ParcelAddedToDeliveryMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class ParcelAddedToDeliveryMessage extends Message
 {

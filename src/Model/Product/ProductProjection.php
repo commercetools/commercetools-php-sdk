@@ -16,6 +16,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Review\ReviewRatingStatistics;
 use Commercetools\Core\Model\State\StateReference;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Product
@@ -25,9 +26,9 @@ use Commercetools\Core\Model\State\StateReference;
  * @method int getVersion()
  * @method ProductProjection setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method ProductProjection setCreatedAt(\DateTime $createdAt = null)
+ * @method ProductProjection setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method ProductProjection setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ProductProjection setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method ProductTypeReference getProductType()
  * @method ProductProjection setProductType(ProductTypeReference $productType = null)
  * @method LocalizedString getName()
@@ -73,11 +74,11 @@ class ProductProjection extends JsonObject implements ReferenceObjectInterface
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'productType' => [static::TYPE => ProductTypeReference::class],

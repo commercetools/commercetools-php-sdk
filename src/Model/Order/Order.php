@@ -20,6 +20,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Model\Payment\PaymentInfo;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Order
@@ -29,9 +30,9 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method int getVersion()
  * @method Order setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Order setCreatedAt(\DateTime $createdAt = null)
+ * @method Order setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Order setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Order setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getOrderNumber()
  * @method Order setOrderNumber(string $orderNumber = null)
  * @method string getCustomerId()
@@ -81,7 +82,7 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method PaymentInfo getPaymentInfo()
  * @method Order setPaymentInfo(PaymentInfo $paymentInfo = null)
  * @method DateTimeDecorator getCompletedAt()
- * @method Order setCompletedAt(\DateTime $completedAt = null)
+ * @method Order setCompletedAt(DateTime $completedAt = null)
  * @method string getAnonymousId()
  * @method Order setAnonymousId(string $anonymousId = null)
  * @method string getLocale()
@@ -97,15 +98,15 @@ class Order extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'completedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'orderNumber' => [static::TYPE => 'string'],

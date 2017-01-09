@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\State\StateReference;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -17,9 +18,9 @@ use Commercetools\Core\Model\State\StateReference;
  * @method int getVersion()
  * @method ReviewStateTransitionMessage setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method ReviewStateTransitionMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method ReviewStateTransitionMessage setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method ReviewStateTransitionMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ReviewStateTransitionMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method int getSequenceNumber()
  * @method ReviewStateTransitionMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()

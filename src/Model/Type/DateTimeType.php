@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model\Type;
 
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Type
@@ -19,6 +20,6 @@ class DateTimeType extends FieldType
 
     public function fieldTypeDefinition()
     {
-        return [static::TYPE => '\DateTime', static::DECORATOR => DateTimeDecorator::class];
+        return [static::TYPE => DateTime::class, static::DECORATOR => DateTimeDecorator::class];
     }
 }

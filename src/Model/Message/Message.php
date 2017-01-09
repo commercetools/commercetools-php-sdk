@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Resource;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -17,7 +18,7 @@ use Commercetools\Core\Model\Common\Resource;
  * @method string getId()
  * @method Message setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Message setCreatedAt(\DateTime $createdAt = null)
+ * @method Message setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method Message setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -29,7 +30,7 @@ use Commercetools\Core\Model\Common\Resource;
  * @method int getVersion()
  * @method Message setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Message setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Message setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class Message extends Resource
 {
@@ -54,11 +55,11 @@ class Message extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'sequenceNumber' => [static::TYPE => 'int'],

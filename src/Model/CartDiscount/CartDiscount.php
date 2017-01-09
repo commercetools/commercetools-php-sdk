@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\ReferenceCollection;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
@@ -18,9 +19,9 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method int getVersion()
  * @method CartDiscount setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method CartDiscount setCreatedAt(\DateTime $createdAt = null)
+ * @method CartDiscount setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method CartDiscount setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method CartDiscount setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method LocalizedString getName()
  * @method CartDiscount setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
@@ -36,9 +37,9 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method bool getIsActive()
  * @method CartDiscount setIsActive(bool $isActive = null)
  * @method DateTimeDecorator getValidFrom()
- * @method CartDiscount setValidFrom(\DateTime $validFrom = null)
+ * @method CartDiscount setValidFrom(DateTime $validFrom = null)
  * @method DateTimeDecorator getValidUntil()
- * @method CartDiscount setValidUntil(\DateTime $validUntil = null)
+ * @method CartDiscount setValidUntil(DateTime $validUntil = null)
  * @method bool getRequiresDiscountCode()
  * @method CartDiscount setRequiresDiscountCode(bool $requiresDiscountCode = null)
  * @method ReferenceCollection getReferences()
@@ -53,11 +54,11 @@ class CartDiscount extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => LocalizedString::class],
@@ -68,11 +69,11 @@ class CartDiscount extends Resource
             'sortOrder' => [static::TYPE => 'string'],
             'isActive' => [static::TYPE => 'bool'],
             'validFrom' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'validUntil' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'requiresDiscountCode' => [static::TYPE => 'bool'],

@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectCollection;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Payment
@@ -20,9 +21,9 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectCollection;
  * @method int getVersion()
  * @method Payment setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Payment setCreatedAt(\DateTime $createdAt = null)
+ * @method Payment setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Payment setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Payment setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method CustomerReference getCustomer()
  * @method Payment setCustomer(CustomerReference $customer = null)
  * @method string getExternalId()
@@ -34,7 +35,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectCollection;
  * @method Money getAmountAuthorized()
  * @method Payment setAmountAuthorized(Money $amountAuthorized = null)
  * @method DateTimeDecorator getAuthorizedUntil()
- * @method Payment setAuthorizedUntil(\DateTime $authorizedUntil = null)
+ * @method Payment setAuthorizedUntil(DateTime $authorizedUntil = null)
  * @method Money getAmountPaid()
  * @method Payment setAmountPaid(Money $amountPaid = null)
  * @method Money getAmountRefunded()
@@ -59,11 +60,11 @@ class Payment extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'customer' => [static::TYPE => CustomerReference::class],
@@ -72,7 +73,7 @@ class Payment extends Resource
             'amountPlanned' => [static::TYPE => Money::class],
             'amountAuthorized' => [static::TYPE => Money::class],
             'authorizedUntil' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'amountPaid' => [static::TYPE => Money::class],

@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Order;
 
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Order
@@ -14,7 +15,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method string getId()
  * @method Delivery setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Delivery setCreatedAt(\DateTime $createdAt = null)
+ * @method Delivery setCreatedAt(DateTime $createdAt = null)
  * @method DeliveryItemCollection getItems()
  * @method Delivery setItems(DeliveryItemCollection $items = null)
  * @method ParcelCollection getParcels()
@@ -27,7 +28,7 @@ class Delivery extends JsonObject
         return [
             'id' => [static::TYPE => 'string'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'items' => [static::TYPE => DeliveryItemCollection::class],

@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Inventory
@@ -18,9 +19,9 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method int getVersion()
  * @method InventoryEntry setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method InventoryEntry setCreatedAt(\DateTime $createdAt = null)
+ * @method InventoryEntry setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method InventoryEntry setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method InventoryEntry setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getSku()
  * @method InventoryEntry setSku(string $sku = null)
  * @method ChannelReference getSupplyChannel()
@@ -32,7 +33,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method int getRestockableInDays()
  * @method InventoryEntry setRestockableInDays(int $restockableInDays = null)
  * @method DateTimeDecorator getExpectedDelivery()
- * @method InventoryEntry setExpectedDelivery(\DateTime $expectedDelivery = null)
+ * @method InventoryEntry setExpectedDelivery(DateTime $expectedDelivery = null)
  * @method CustomFieldObject getCustom()
  * @method InventoryEntry setCustom(CustomFieldObject $custom = null)
  */
@@ -44,11 +45,11 @@ class InventoryEntry extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'sku' => [static::TYPE => 'string'],
@@ -57,7 +58,7 @@ class InventoryEntry extends Resource
             'availableQuantity' => [static::TYPE => 'int'],
             'restockableInDays' => [static::TYPE => 'int'],
             'expectedDelivery' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'custom' => [static::TYPE => CustomFieldObject::class],

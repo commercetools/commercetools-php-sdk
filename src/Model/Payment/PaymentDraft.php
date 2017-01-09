@@ -13,6 +13,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectCollection;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraftCollection;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Payment
@@ -28,7 +29,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraftCollection;
  * @method Money getAmountAuthorized()
  * @method PaymentDraft setAmountAuthorized(Money $amountAuthorized = null)
  * @method DateTimeDecorator getAuthorizedUntil()
- * @method PaymentDraft setAuthorizedUntil(\DateTime $authorizedUntil = null)
+ * @method PaymentDraft setAuthorizedUntil(DateTime $authorizedUntil = null)
  * @method Money getAmountPaid()
  * @method PaymentDraft setAmountPaid(Money $amountPaid = null)
  * @method Money getAmountRefunded()
@@ -55,7 +56,7 @@ class PaymentDraft extends JsonObject
             'amountPlanned' => [static::TYPE => Money::class],
             'amountAuthorized' => [static::TYPE => Money::class],
             'authorizedUntil' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'amountPaid' => [static::TYPE => Money::class],

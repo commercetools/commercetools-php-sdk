@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\State;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\State
@@ -29,9 +30,9 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method StateReferenceCollection getTransitions()
  * @method State setTransitions(StateReferenceCollection $transitions = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method State setCreatedAt(\DateTime $createdAt = null)
+ * @method State setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method State setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method State setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method bool getBuiltIn()
  * @method State setBuiltIn(bool $builtIn = null)
  * @method array getRoles()
@@ -46,11 +47,11 @@ class State extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'key' => [static::TYPE => 'string'],

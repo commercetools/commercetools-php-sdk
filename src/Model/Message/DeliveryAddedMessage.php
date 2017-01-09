@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Order\Delivery;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\Order\Delivery;
  * @method string getId()
  * @method DeliveryAddedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method DeliveryAddedMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method DeliveryAddedMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method DeliveryAddedMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -29,7 +30,7 @@ use Commercetools\Core\Model\Order\Delivery;
  * @method int getVersion()
  * @method DeliveryAddedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method DeliveryAddedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method DeliveryAddedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class DeliveryAddedMessage extends Message
 {

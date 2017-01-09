@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\State\StateReference;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\State\StateReference;
  * @method string getId()
  * @method LineItemStateTransitionMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method LineItemStateTransitionMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method LineItemStateTransitionMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method LineItemStateTransitionMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -27,7 +28,7 @@ use Commercetools\Core\Model\State\StateReference;
  * @method string getLineItemId()
  * @method LineItemStateTransitionMessage setLineItemId(string $lineItemId = null)
  * @method DateTimeDecorator getTransitionDate()
- * @method LineItemStateTransitionMessage setTransitionDate(\DateTime $transitionDate = null)
+ * @method LineItemStateTransitionMessage setTransitionDate(DateTime $transitionDate = null)
  * @method int getQuantity()
  * @method LineItemStateTransitionMessage setQuantity(int $quantity = null)
  * @method StateReference getFromState()
@@ -37,7 +38,7 @@ use Commercetools\Core\Model\State\StateReference;
  * @method int getVersion()
  * @method LineItemStateTransitionMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method LineItemStateTransitionMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method LineItemStateTransitionMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class LineItemStateTransitionMessage extends Message
 {
@@ -50,7 +51,7 @@ class LineItemStateTransitionMessage extends Message
             [
                 'lineItemId' => [static::TYPE => 'string'],
                 'transitionDate' => [
-                    static::TYPE => '\DateTime',
+                    static::TYPE => DateTime::class,
                     static::DECORATOR => DateTimeDecorator::class
                 ],
                 'quantity' => [static::TYPE => 'int'],

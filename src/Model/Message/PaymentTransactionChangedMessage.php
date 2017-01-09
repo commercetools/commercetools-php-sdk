@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Payment\Transaction;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\Payment\Transaction;
  * @method string getId()
  * @method PaymentTransactionChangedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method PaymentTransactionChangedMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method PaymentTransactionChangedMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method PaymentTransactionChangedMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -29,7 +30,7 @@ use Commercetools\Core\Model\Payment\Transaction;
  * @method int getVersion()
  * @method PaymentTransactionChangedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method PaymentTransactionChangedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method PaymentTransactionChangedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class PaymentTransactionChangedMessage extends Message
 {

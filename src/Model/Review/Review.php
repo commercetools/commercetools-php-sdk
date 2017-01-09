@@ -11,6 +11,7 @@ use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Model\Common\ResourceIdentifier;
 use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Review
@@ -20,9 +21,9 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method int getVersion()
  * @method Review setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Review setCreatedAt(\DateTime $createdAt = null)
+ * @method Review setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Review setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Review setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getProductId()
  * @method Review setProductId(string $productId = null)
  * @method string getCustomerId()
@@ -62,11 +63,11 @@ class Review extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'key' => [static::TYPE => 'string'],

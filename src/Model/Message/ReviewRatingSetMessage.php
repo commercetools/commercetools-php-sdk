@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Message;
 
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -16,9 +17,9 @@ use Commercetools\Core\Model\Common\Reference;
  * @method int getVersion()
  * @method ReviewRatingSetMessage setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method ReviewRatingSetMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method ReviewRatingSetMessage setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method ReviewRatingSetMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ReviewRatingSetMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method int getSequenceNumber()
  * @method ReviewRatingSetMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()

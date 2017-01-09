@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Review\ReviewRatingStatistics;
 use Commercetools\Core\Model\Common\Address;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Subscription
@@ -20,9 +21,9 @@ use Commercetools\Core\Model\Common\Address;
  * @method int getVersion()
  * @method Subscription setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Subscription setCreatedAt(\DateTime $createdAt = null)
+ * @method Subscription setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Subscription setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Subscription setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getKey()
  * @method Subscription setKey(string $key = null)
  * @method Destination getDestination()
@@ -41,11 +42,11 @@ class Subscription extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'key' => [static::TYPE => 'string'],

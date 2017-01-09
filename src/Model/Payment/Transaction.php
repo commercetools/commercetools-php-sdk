@@ -9,12 +9,13 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\State\StateReference;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Payment
  * @link https://dev.commercetools.com/http-api-projects-payments.html#transaction
  * @method DateTimeDecorator getTimestamp()
- * @method Transaction setTimestamp(\DateTime $timestamp = null)
+ * @method Transaction setTimestamp(DateTime $timestamp = null)
  * @method string getType()
  * @method Transaction setType(string $type = null)
  * @method Money getAmount()
@@ -40,7 +41,7 @@ class Transaction extends JsonObject
             'id' => [static::TYPE => 'string'],
             'state' => [static::TYPE => 'string'],
             'timestamp' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'type' => [static::TYPE => 'string'],

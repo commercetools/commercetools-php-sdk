@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Category
@@ -18,9 +19,9 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method int getVersion()
  * @method Category setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Category setCreatedAt(\DateTime $createdAt = null)
+ * @method Category setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Category setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Category setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method LocalizedString getName()
  * @method Category setName(LocalizedString $name = null)
  * @method LocalizedString getSlug()
@@ -53,11 +54,11 @@ class Category extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
+                static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],

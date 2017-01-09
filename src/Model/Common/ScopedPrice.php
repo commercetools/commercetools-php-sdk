@@ -9,6 +9,7 @@ namespace Commercetools\Core\Model\Common;
 use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Common
@@ -26,9 +27,9 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method string getId()
  * @method ScopedPrice setId(string $id = null)
  * @method DateTimeDecorator getValidFrom()
- * @method ScopedPrice setValidFrom(\DateTime $validFrom = null)
+ * @method ScopedPrice setValidFrom(DateTime $validFrom = null)
  * @method DateTimeDecorator getValidUntil()
- * @method ScopedPrice setValidUntil(\DateTime $validUntil = null)
+ * @method ScopedPrice setValidUntil(DateTime $validUntil = null)
  * @method CustomFieldObject getCustom()
  * @method ScopedPrice setCustom(CustomFieldObject $custom = null)
  * @method Money getCurrentValue()
@@ -57,11 +58,11 @@ class ScopedPrice extends JsonObject
             static::CUSTOMER_GROUP => [self::TYPE => CustomerGroupReference::class],
             static::CHANNEL => [self::TYPE => ChannelReference::class],
             static::VALID_FROM => [
-                self::TYPE => '\DateTime',
+                self::TYPE => DateTime::class,
                 self::DECORATOR => DateTimeDecorator::class
             ],
             static::VALID_UNTIL => [
-                self::TYPE => '\DateTime',
+                self::TYPE => DateTime::class,
                 self::DECORATOR => DateTimeDecorator::class
             ],
             static::DISCOUNTED => [self::TYPE => DiscountedPrice::class],

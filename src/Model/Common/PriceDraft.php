@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Common;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Common
@@ -21,9 +22,9 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method ChannelReference getChannel()
  * @method PriceDraft setChannel(ChannelReference $channel = null)
  * @method DateTimeDecorator getValidFrom()
- * @method PriceDraft setValidFrom(\DateTime $validFrom = null)
+ * @method PriceDraft setValidFrom(DateTime $validFrom = null)
  * @method DateTimeDecorator getValidUntil()
- * @method PriceDraft setValidUntil(\DateTime $validUntil = null)
+ * @method PriceDraft setValidUntil(DateTime $validUntil = null)
  * @method CustomFieldObject getCustom()
  * @method PriceDraft setCustom(CustomFieldObject $custom = null)
  */
@@ -46,11 +47,11 @@ class PriceDraft extends JsonObject
             static::CUSTOMER_GROUP => [self::TYPE => CustomerGroupReference::class],
             static::CHANNEL => [self::TYPE => ChannelReference::class],
             static::VALID_FROM => [
-                self::TYPE => '\DateTime',
+                self::TYPE => DateTime::class,
                 self::DECORATOR => DateTimeDecorator::class
             ],
             static::VALID_UNTIL => [
-                self::TYPE => '\DateTime',
+                self::TYPE => DateTime::class,
                 self::DECORATOR => DateTimeDecorator::class
             ],
             static::CUSTOM => [static::TYPE => CustomFieldObject::class],

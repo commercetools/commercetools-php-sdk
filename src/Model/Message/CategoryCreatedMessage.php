@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Category\Category;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\Category\Category;
  * @method string getId()
  * @method CategoryCreatedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method CategoryCreatedMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method CategoryCreatedMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method CategoryCreatedMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -29,7 +30,7 @@ use Commercetools\Core\Model\Category\Category;
  * @method int getVersion()
  * @method CategoryCreatedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method CategoryCreatedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method CategoryCreatedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class CategoryCreatedMessage extends Message
 {
