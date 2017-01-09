@@ -283,7 +283,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
      */
     protected function createHttpRequest(ClientRequestInterface $request)
     {
-        $token = $this->getOAuthManager()->getToken();
+        $token = $this->getOauthManager()->getToken();
 
         $httpRequest = $request->httpRequest();
         $httpRequest = $httpRequest

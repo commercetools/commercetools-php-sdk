@@ -142,7 +142,10 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($cart->getVersion());
 
         $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
-
+        $this->assertSame(
+            $product->getProductType()->getId(),
+            $cart->getLineItems()->current()->getProductType()->getId()
+        );
         $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
             ->addAction(
                 CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity($cart->getLineItems()->current()->getId(), 2)

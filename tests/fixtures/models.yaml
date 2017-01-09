@@ -45,6 +45,7 @@ lineItem:
     - discountedPricePerQuantity
     - totalPrice
     - priceMode
+    - productType
 
 customLineItem:
   domain: cart
@@ -295,6 +296,8 @@ customer:
     - customerGroup
     - custom
     - locale
+    - shippingAddressIds
+    - billingAddressIds
 customerSigninResult:
   domain: customer
   model: CustomerSigninResult
@@ -587,6 +590,7 @@ facetTerm:
   fields:
     - term
     - count
+    - productCount
 
 facetRange:
   domain: product

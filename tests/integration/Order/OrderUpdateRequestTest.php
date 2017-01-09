@@ -110,6 +110,11 @@ class OrderUpdateRequestTest extends ApiTestCase
         $cartDraft = $this->getCartDraft();
         $order = $this->createOrder($cartDraft);
 
+        $this->assertSame(
+            $this->getProduct()->getProductType()->getId(),
+            $order->getLineItems()->current()->getProductType()->getId()
+        );
+
         $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
             ->addAction(OrderChangeOrderStateAction::ofOrderState(OrderState::COMPLETE))
         ;

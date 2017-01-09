@@ -1,3 +1,24 @@
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/commercetools/commercetools-php-sdk/compare/v1.5.1...v1.6.0) (2017-01-09)
+
+
+### Bug Fixes
+
+* **Cart:** rewind line items in helper method ([cbd2426](https://github.com/commercetools/commercetools-php-sdk/commit/cbd2426)), closes [#281](https://github.com/commercetools/commercetools-php-sdk/issues/281)
+* **Client:** typo in call to getOauthManager ([e9cc4a7](https://github.com/commercetools/commercetools-php-sdk/commit/e9cc4a7)), closes [#277](https://github.com/commercetools/commercetools-php-sdk/issues/277)
+
+### Features
+
+* **Cart:** add product type reference to line item ([e795540](https://github.com/commercetools/commercetools-php-sdk/commit/e795540)), closes [#280](https://github.com/commercetools/commercetools-php-sdk/issues/280)
+* **Channel:** add geo location information to channels ([b4d6024](https://github.com/commercetools/commercetools-php-sdk/commit/b4d6024)), closes [#272](https://github.com/commercetools/commercetools-php-sdk/issues/272)
+* **Channel:** add setGeolocation update action ([db4b46e](https://github.com/commercetools/commercetools-php-sdk/commit/db4b46e))
+* **Customer:** add shipping and billing address ids ([6e48320](https://github.com/commercetools/commercetools-php-sdk/commit/6e48320)), closes [#278](https://github.com/commercetools/commercetools-php-sdk/issues/278)
+* **GraphQL:** support GraphQL variables ([61eca3e](https://github.com/commercetools/commercetools-php-sdk/commit/61eca3e)), closes [#271](https://github.com/commercetools/commercetools-php-sdk/issues/271)
+* **ProductSearch:** add productCount to FacetResult ([8e0c946](https://github.com/commercetools/commercetools-php-sdk/commit/8e0c946)), closes [#279](https://github.com/commercetools/commercetools-php-sdk/issues/279)
+* **Subscriptions:** Support AwsSNS for subscriptions ([f4e2c0e](https://github.com/commercetools/commercetools-php-sdk/commit/f4e2c0e)), closes [#282](https://github.com/commercetools/commercetools-php-sdk/issues/282)
+
+
+
 <a name="1.5.1"></a>
 ## [1.5.1](https://github.com/commercetools/commercetools-php-sdk/compare/v1.5.0...v1.5.1) (2016-11-21)
 
