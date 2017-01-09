@@ -15,6 +15,7 @@ use Commercetools\Core\Model\Product\ProductVariant;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\TaxedItemPrice;
+use Commercetools\Core\Model\ProductType\ProductTypeReference;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -50,6 +51,8 @@ use Commercetools\Core\Model\Common\TaxedItemPrice;
  * @method LineItem setTaxedPrice(TaxedItemPrice $taxedPrice = null)
  * @method string getPriceMode()
  * @method LineItem setPriceMode(string $priceMode = null)
+ * @method ProductTypeReference getProductType()
+ * @method LineItem setProductType(ProductTypeReference $productType = null)
  */
 class LineItem extends JsonObject
 {
@@ -76,7 +79,8 @@ class LineItem extends JsonObject
             'discountedPricePerQuantity' => [
                 static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedPricePerQuantityCollection'
             ],
-            'priceMode' => [static::TYPE => 'string']
+            'priceMode' => [static::TYPE => 'string'],
+            'productType' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference']
         ];
     }
 
@@ -100,6 +104,7 @@ class LineItem extends JsonObject
         foreach ($this->getDiscountedPricePerQuantity() as $discountedPricePerQuantity) {
             $centAmount += $discountedPricePerQuantity->getDiscountedTotal()->getCentAmount();
         }
+        $this->getDiscountedPricePerQuantity()->rewind();
         return Money::ofCurrencyAndAmount($currencyCode, $centAmount);
     }
 }

@@ -18,8 +18,8 @@ class GraphQLQueryTest extends ApiTestCase
         $request = GraphQLQueryRequest::of();
 
         $query = <<<GRAPHQL
-query Sphere {
-    products(limit: 1) {
+query Sphere(\$productQuery: String!) {
+    products(limit: 1, where: \$productQuery) {
         ...StagedProduct,
         ...CurrentProduct
     }
@@ -43,6 +43,7 @@ fragment CurrentProduct on ProductQueryResult {
 GRAPHQL;
 
         $request->query($query);
+        $request->addVariable('productQuery', sprintf('id = "%s"', $product->getId()));
 
         $response = $request->executeWithClient($this->getClient());
 

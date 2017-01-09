@@ -60,6 +60,10 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method CustomFieldObject getCustom()
  * @method Customer setCustom(CustomFieldObject $custom = null)
  * @method string getLocale()
+ * @method array getShippingAddressIds()
+ * @method Customer setShippingAddressIds(array $shippingAddressIds = null)
+ * @method array getBillingAddressIds()
+ * @method Customer setBillingAddressIds(array $billingAddressIds = null)
  * @method CustomerReference getReference()
  */
 class Customer extends Resource
@@ -100,6 +104,8 @@ class Customer extends Resource
             'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
             'locale' => [static::TYPE => 'string'],
+            'shippingAddressIds' => [static::TYPE => 'array'],
+            'billingAddressIds' => [static::TYPE => 'array'],
         ];
     }
 

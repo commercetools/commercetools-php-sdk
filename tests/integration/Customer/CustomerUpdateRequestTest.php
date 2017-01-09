@@ -8,13 +8,18 @@ namespace Commercetools\Core\Customer;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Request\Customers\Command\CustomerAddAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerAddBillingAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerAddShippingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerChangeAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerChangeEmailAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerRemoveBillingAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerRemoveShippingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCompanyNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerGroupAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerNumberAction;
@@ -264,6 +269,113 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($address->getFirstName(), $customer->getDefaultShippingAddress()->getFirstName());
+    }
+
+    public function testShippingBillingAddressCreate()
+    {
+        $draft = $this->getDraft('title');
+        $draft->setAddresses(AddressCollection::of()->add(Address::of()->setCountry('DE')));
+        $draft->setShippingAddresses([0]);
+        $draft->setBillingAddresses([0]);
+        $customer = $this->createCustomer($draft);
+
+        $this->assertArrayHasKey(0, $customer->getShippingAddressIds());
+        $this->assertArrayHasKey(0, $customer->getBillingAddressIds());
+    }
+
+    public function testAddShippingAddress()
+    {
+        $draft = $this->getDraft('title');
+        $customer = $this->createCustomer($draft);
+
+        $address = Address::of()
+            ->setCountry('DE')
+            ->setFirstName('new-' . $this->getTestRun() . '-firstName');
+
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(CustomerAddAddressAction::ofAddress($address))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $customer = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($customer->getVersion());
+
+        $this->assertCount(1, $customer->getAddresses());
+
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(
+                CustomerAddShippingAddressAction::of()->setAddressId(
+                    $customer->getAddresses()->current()->getId()
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $customer = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($customer->getVersion());
+        $this->assertSame(
+            $address->getFirstName(),
+            $customer->getAddresses()->getById(current($customer->getShippingAddressIds()))->getFirstName()
+        );
+
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(
+                CustomerRemoveShippingAddressAction::of()->setAddressId(
+                    $customer->getAddresses()->current()->getId()
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $customer = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($customer->getVersion());
+
+        $this->assertEmpty($customer->getShippingAddressIds());
+    }
+
+    public function testAddBillingAddress()
+    {
+        $draft = $this->getDraft('title');
+        $customer = $this->createCustomer($draft);
+
+        $address = Address::of()
+            ->setCountry('DE')
+            ->setFirstName('new-' . $this->getTestRun() . '-firstName');
+
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(CustomerAddAddressAction::ofAddress($address))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $customer = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($customer->getVersion());
+
+        $this->assertCount(1, $customer->getAddresses());
+
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(
+                CustomerAddBillingAddressAction::of()->setAddressId(
+                    $customer->getAddresses()->current()->getId()
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $customer = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($customer->getVersion());
+
+        $this->assertSame(
+            $address->getFirstName(),
+            $customer->getAddresses()->getById(current($customer->getBillingAddressIds()))->getFirstName()
+        );
+
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(
+                CustomerRemoveBillingAddressAction::of()->setAddressId(
+                    $customer->getAddresses()->current()->getId()
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $customer = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($customer->getVersion());
+
+        $this->assertEmpty($customer->getBillingAddressIds());
     }
 
     public function testDefaultBillingAddress()

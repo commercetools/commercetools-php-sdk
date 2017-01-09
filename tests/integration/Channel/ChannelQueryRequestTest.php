@@ -8,6 +8,8 @@ namespace Commercetools\Core\Channel;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Channel\ChannelDraft;
+use Commercetools\Core\Model\Common\GeoLocation;
+use Commercetools\Core\Model\Common\GeoPoint;
 use Commercetools\Core\Request\Channels\ChannelByIdGetRequest;
 use Commercetools\Core\Request\Channels\ChannelCreateRequest;
 use Commercetools\Core\Request\Channels\ChannelDeleteRequest;
@@ -67,5 +69,42 @@ class ChannelQueryRequestTest extends ApiTestCase
         $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $channel);
         $this->assertSame($channel->getId(), $result->getId());
 
+    }
+
+    public function testQueryByLocation()
+    {
+        $friedrichstadtPalast = [13.38881, 52.52394];
+        $brandenburgerTor = [13.37770, 52.51627];
+
+        $draft = $this->getDraft();
+        $draft->setGeoLocation(GeoPoint::of()->setCoordinates($friedrichstadtPalast));
+        $channel = $this->createChannel($draft);
+
+        $request = ChannelQueryRequest::of()->where(
+            sprintf('geoLocation within circle(%s, %s, 1150)', $brandenburgerTor[0], $brandenburgerTor[1] )
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result->current());
+        $this->assertSame($channel->getId(), $result->current()->getId());
+    }
+
+    public function testQueryByLocationNotWithin()
+    {
+        $friedrichstadtPalast = [13.38881, 52.52394];
+        $brandenburgerTor = [13.37770, 52.51627];
+
+        $draft = $this->getDraft();
+        $draft->setGeoLocation(GeoPoint::of()->setCoordinates($friedrichstadtPalast));
+        $channel = $this->createChannel($draft);
+
+        $request = ChannelQueryRequest::of()->where(
+            sprintf('geoLocation within circle(%s, %s, 1000)', $brandenburgerTor[0], $brandenburgerTor[1] )
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertCount(0, $result);
     }
 }

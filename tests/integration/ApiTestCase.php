@@ -105,6 +105,7 @@ use Commercetools\Core\Request\Zones\ZoneCreateRequest;
 use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Psr\Log\LogLevel;
@@ -280,8 +281,14 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     protected function getLogger()
     {
         if (is_null($this->logger)) {
+            $loggerOut = getenv('LOGGER_OUT');
+
             $this->logger = new Logger('test');
-            $this->logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
+            if ($loggerOut == 'CLI') {
+                $this->logger->pushHandler(new ErrorLogHandler());
+            } else {
+                $this->logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
+            }
 
         }
 

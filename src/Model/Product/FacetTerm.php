@@ -13,6 +13,8 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method FacetTerm setTerm(string $term = null)
  * @method int getCount()
  * @method FacetTerm setCount(int $count = null)
+ * @method int getProductCount()
+ * @method FacetTerm setProductCount(int $productCount = null)
  */
 class FacetTerm extends JsonObject
 {
@@ -20,7 +22,8 @@ class FacetTerm extends JsonObject
     {
         return [
             'term' => [static::TYPE => 'string'],
-            'count' => [static::TYPE => 'int']
+            'count' => [static::TYPE => 'int'],
+            'productCount' => [static::TYPE => 'int'],
         ];
     }
 }
