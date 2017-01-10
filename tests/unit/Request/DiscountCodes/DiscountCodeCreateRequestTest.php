@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\DiscountCodes;
 
+use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
 use Commercetools\Core\RequestTestCase;
 
@@ -41,7 +42,7 @@ class DiscountCodeCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(DiscountCodeCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
     }
 
     public function testMapEmptyResult()

@@ -7,6 +7,8 @@
 namespace Commercetools\Core\Review;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\Review\ReviewDraft;
 use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
@@ -69,7 +71,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($text, $result->getText());
     }
 
@@ -88,7 +90,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($key, $result->getKey());
         $this->assertNotSame($review->getVersion(), $result->getVersion());
     }
@@ -108,7 +110,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($author, $result->getAuthorName());
         $this->assertNotSame($review->getVersion(), $result->getVersion());
     }
@@ -128,7 +130,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($customer->getId(), $result->getCustomer()->getId());
         $this->assertNotSame($review->getVersion(), $result->getVersion());
     }
@@ -148,7 +150,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($rating, $result->getRating());
         $this->assertNotSame($review->getVersion(), $result->getVersion());
     }
@@ -168,7 +170,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($target->getId(), $result->getTarget()->getId());
         $this->assertNotSame($review->getVersion(), $result->getVersion());
     }
@@ -188,7 +190,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($target->getId(), $result->getTarget()->getId());
         $this->assertNotSame($review->getVersion(), $result->getVersion());
     }
@@ -208,7 +210,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($text, $result->getText());
         $this->assertNotSame($review->getVersion(), $result->getVersion());
     }
@@ -228,7 +230,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($title, $result->getTitle());
         $this->assertNotSame($review->getVersion(), $result->getVersion());
     }
@@ -248,7 +250,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($locale, \Locale::canonicalize($result->getLocale()));
         $this->assertNotSame($review->getVersion(), $result->getVersion());
     }
@@ -272,7 +274,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($state1->getId(), $result->getState()->getId());
         $this->assertNotSame($review->getVersion(), $result->getVersion());
         $review = $result;
@@ -286,7 +288,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($state2->getId(), $result->getState()->getId());
         $this->assertNotSame($review->getVersion(), $result->getVersion());
     }
@@ -307,7 +309,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
         $this->assertNotSame($review->getVersion(), $result->getVersion());
     }
@@ -340,7 +342,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
         $this->assertSame($value, $result->getCustom()->getFields()->getTestField());
         $this->assertNotSame($review->getVersion(), $result->getVersion());
     }
@@ -358,6 +360,6 @@ class ReviewUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Customer\Customer', $result->getCustomer()->getObj());
+        $this->assertInstanceOf(Customer::class, $result->getCustomer()->getObj());
     }
 }

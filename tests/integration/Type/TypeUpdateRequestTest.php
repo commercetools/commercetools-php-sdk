@@ -88,7 +88,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result);
+        $this->assertInstanceOf(Type::class, $result);
         $this->assertSame($name, $result->getName()->en);
     }
 
@@ -105,7 +105,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result);
+        $this->assertInstanceOf(Type::class, $result);
         $this->assertSame($key, $result->getKey());
     }
 
@@ -123,7 +123,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result);
+        $this->assertInstanceOf(Type::class, $result);
         $this->assertSame($key, $result->getKey());
     }
 
@@ -140,7 +140,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result);
+        $this->assertInstanceOf(Type::class, $result);
         $this->assertSame($name, $result->getName()->en);
     }
 
@@ -159,7 +159,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result);
+        $this->assertInstanceOf(Type::class, $result);
         $this->assertSame($description, $result->getDescription()->en);
     }
 
@@ -183,10 +183,10 @@ class TypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result);
+        $this->assertInstanceOf(Type::class, $result);
         $this->assertCount(2, $result->getFieldDefinitions());
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Type\FieldDefinition',
+            FieldDefinition::class,
             $result->getFieldDefinitions()->getByName('newField')
         );
         $type = $result;
@@ -201,7 +201,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result);
+        $this->assertInstanceOf(Type::class, $result);
         $this->assertSame($label, $result->getFieldDefinitions()->getByName('newField')->getLabel()->en);
         $type = $result;
 
@@ -214,7 +214,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result);
+        $this->assertInstanceOf(Type::class, $result);
         $this->assertCount(1, $result->getFieldDefinitions());
         $this->assertNull($result->getFieldDefinitions()->getByName('newField'));
     }
@@ -253,7 +253,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result);
+        $this->assertInstanceOf(Type::class, $result);
         /**
          * @var EnumType $fieldType
          */
@@ -295,7 +295,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result);
+        $this->assertInstanceOf(Type::class, $result);
         /**
          * @var LocalizedEnumType $fieldType
          */

@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Customers;
 
 use Commercetools\Core\Model\Customer\CustomerDraft;
+use Commercetools\Core\Model\Customer\CustomerSigninResult;
 use Commercetools\Core\RequestTestCase;
 
 class CustomerCreateRequestTest extends RequestTestCase
@@ -24,7 +25,7 @@ class CustomerCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomerCreateRequest::ofDraft($this->getCustomer()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Customer\CustomerSigninResult', $result);
+        $this->assertInstanceOf(CustomerSigninResult::class, $result);
     }
 
     public function testMapEmptyResult()

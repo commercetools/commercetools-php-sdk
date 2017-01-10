@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Inventory;
 
 use Commercetools\Core\Model\Inventory\InventoryDraft;
+use Commercetools\Core\Model\Inventory\InventoryEntry;
 use Commercetools\Core\RequestTestCase;
 
 class InventoryCreateRequestTest extends RequestTestCase
@@ -31,7 +32,7 @@ class InventoryCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(InventoryCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->assertInstanceOf(InventoryEntry::class, $result);
     }
 
     public function testMapEmptyResult()

@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\Products;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\RequestTestCase;
 
 class ProductProjectionBySlugGetRequestTest extends RequestTestCase
@@ -50,7 +51,7 @@ class ProductProjectionBySlugGetRequestTest extends RequestTestCase
             [],
             $data
         );
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
+        $this->assertInstanceOf(ProductProjection::class, $result);
     }
 
     public function testMapEmptyResult()

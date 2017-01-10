@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\Products;
 
+use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\RequestTestCase;
 
 /**
@@ -18,7 +19,7 @@ class ProductProjectionByIdGetRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ProductProjectionByIdGetRequest::ofId('id'));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
+        $this->assertInstanceOf(ProductProjection::class, $result);
     }
 
     public function testMapEmptyResult()

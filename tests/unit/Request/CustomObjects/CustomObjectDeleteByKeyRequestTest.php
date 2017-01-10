@@ -25,7 +25,7 @@ class CustomObjectDeleteByKeyRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomObjectDeleteByKeyRequest::ofContainerAndKey('my-namespace', 'my-key'));
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $result);
+        $this->assertInstanceOf(CustomObject::class, $result);
     }
 
     public function testMapEmptyResult()

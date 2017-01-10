@@ -8,6 +8,8 @@ namespace Commercetools\Core\ShippingMethod;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
 use Commercetools\Core\Model\ShippingMethod\ShippingRateCollection;
@@ -67,7 +69,7 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result->getAt(0));
+        $this->assertInstanceOf(ShippingMethod::class, $result->getAt(0));
         $this->assertSame($shippingMethod->getId(), $result->getAt(0)->getId());
     }
 
@@ -80,7 +82,7 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $shippingMethod);
+        $this->assertInstanceOf(ShippingMethod::class, $shippingMethod);
         $this->assertSame($shippingMethod->getId(), $result->getId());
     }
 
@@ -93,7 +95,7 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection', $result);
+        $this->assertInstanceOf(ShippingMethodCollection::class, $result);
         $this->assertSame($shippingMethod->getId(), $result->current()->getId());
     }
 }

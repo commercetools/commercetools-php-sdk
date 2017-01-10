@@ -11,7 +11,9 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
+use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
+use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Request\Products\ProductByIdGetRequest;
 use Commercetools\Core\Request\Products\ProductByKeyGetRequest;
@@ -63,7 +65,7 @@ class ProductQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result->getAt(0));
+        $this->assertInstanceOf(Product::class, $result->getAt(0));
         $this->assertSame($product->getId(), $result->getAt(0)->getId());
     }
 
@@ -76,7 +78,7 @@ class ProductQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertSame($product->getId(), $result->getId());
     }
 
@@ -90,7 +92,7 @@ class ProductQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertSame($product->getKey(), $result->getKey());
     }
 
@@ -104,7 +106,7 @@ class ProductQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
+        $this->assertInstanceOf(ProductProjection::class, $result);
         $this->assertSame($product->getKey(), $result->getKey());
         $this->assertSame($product->getId(), $result->getId());
     }
@@ -130,7 +132,7 @@ class ProductQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result->getAt(0));
+        $this->assertInstanceOf(Product::class, $result->getAt(0));
         $this->assertEmpty($result->current()->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getCountry());
         $this->assertEmpty($result->current()->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getChannel());
         $this->assertEmpty($result->current()->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getCustomerGroup());
@@ -157,7 +159,7 @@ class ProductQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getCountry());
         $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getChannel());
         $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getCustomerGroup());
@@ -187,7 +189,7 @@ class ProductQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result->getAt(0));
+        $this->assertInstanceOf(ProductProjection::class, $result->getAt(0));
         $this->assertEmpty($result->current()->getMasterVariant()->getPrice()->getCountry());
         $this->assertEmpty($result->current()->getMasterVariant()->getPrice()->getChannel());
         $this->assertEmpty($result->current()->getMasterVariant()->getPrice()->getCustomerGroup());
@@ -215,7 +217,7 @@ class ProductQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
+        $this->assertInstanceOf(ProductProjection::class, $result);
         $this->assertEmpty($result->getMasterVariant()->getPrice()->getCountry());
         $this->assertEmpty($result->getMasterVariant()->getPrice()->getChannel());
         $this->assertEmpty($result->getMasterVariant()->getPrice()->getCustomerGroup());
@@ -244,7 +246,7 @@ class ProductQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
+        $this->assertInstanceOf(ProductProjection::class, $result);
         $this->assertEmpty($result->getMasterVariant()->getPrice()->getCountry());
         $this->assertEmpty($result->getMasterVariant()->getPrice()->getChannel());
         $this->assertEmpty($result->getMasterVariant()->getPrice()->getCustomerGroup());

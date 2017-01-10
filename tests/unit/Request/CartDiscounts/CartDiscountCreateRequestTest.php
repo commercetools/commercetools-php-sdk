@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\CartDiscounts;
 
+use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\RequestTestCase;
 
@@ -49,7 +50,7 @@ class CartDiscountCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CartDiscountCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
     }
 
     public function testMapEmptyResult()

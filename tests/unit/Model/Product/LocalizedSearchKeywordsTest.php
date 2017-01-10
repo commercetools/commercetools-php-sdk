@@ -15,7 +15,7 @@ class LocalizedSearchKeywordsTest extends \PHPUnit_Framework_TestCase
         $collection = LocalizedSearchKeywords::of();
         $collection->setAt('en', new SearchKeywords());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\SearchKeywords', $collection->en);
+        $this->assertInstanceOf(SearchKeywords::class, $collection->en);
     }
 
     public function testMagicGetNotSet()
@@ -23,7 +23,7 @@ class LocalizedSearchKeywordsTest extends \PHPUnit_Framework_TestCase
         $context = Context::of();
         $context->setGraceful(true);
         $collection = new LocalizedSearchKeywords([], $context);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\SearchKeywords', $collection->en);
+        $this->assertInstanceOf(SearchKeywords::class, $collection->en);
         $this->assertSame('', (string)$collection->en);
     }
 
@@ -41,7 +41,7 @@ class LocalizedSearchKeywordsTest extends \PHPUnit_Framework_TestCase
         $collection = LocalizedSearchKeywords::of();
         $collection->add(new SearchKeywords());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\SearchKeywords', $collection->getAt(0));
+        $this->assertInstanceOf(SearchKeywords::class, $collection->getAt(0));
     }
 
     public function testToString()

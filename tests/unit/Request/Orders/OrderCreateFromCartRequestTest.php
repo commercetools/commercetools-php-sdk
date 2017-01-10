@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Orders;
 
 use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\RequestTestCase;
 
 /**
@@ -19,7 +20,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf(Order::class, $result);
     }
 
     public function testMapEmptyResult()

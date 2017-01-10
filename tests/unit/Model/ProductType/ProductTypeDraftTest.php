@@ -10,7 +10,7 @@ class ProductTypeDraftTest extends \PHPUnit_Framework_TestCase
     public function testFromArray()
     {
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\ProductType\ProductTypeDraft',
+            ProductTypeDraft::class,
             ProductTypeDraft::fromArray(
                 [
                     'name' => 'test',

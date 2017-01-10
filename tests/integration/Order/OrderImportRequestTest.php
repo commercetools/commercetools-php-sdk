@@ -17,6 +17,7 @@ use Commercetools\Core\Model\Inventory\InventoryDraft;
 use Commercetools\Core\Model\Order\ImportOrder;
 use Commercetools\Core\Model\Order\LineItemImportDraft;
 use Commercetools\Core\Model\Order\LineItemImportDraftCollection;
+use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Order\ProductVariantImportDraft;
 use Commercetools\Core\Request\Inventory\InventoryByIdGetRequest;
 use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
@@ -80,7 +81,7 @@ class OrderImportRequestTest extends ApiTestCase
 
         $this->assertNotNull($order->getId());
         $this->assertNotNull($order->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $order);
+        $this->assertInstanceOf(Order::class, $order);
     }
 
     public function testWithStock()
@@ -104,7 +105,7 @@ class OrderImportRequestTest extends ApiTestCase
 
         $this->assertNotNull($order->getId());
         $this->assertNotNull($order->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $order);
+        $this->assertInstanceOf(Order::class, $order);
 
         $request = InventoryByIdGetRequest::ofId($inventory->getId());
         $response = $request->executeWithClient($this->getClient());

@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\ShippingMethods;
 
 use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
 use Commercetools\Core\RequestTestCase;
 
 class ShippingMethodByLocationGetRequestTest extends RequestTestCase
@@ -16,7 +17,7 @@ class ShippingMethodByLocationGetRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ShippingMethodByLocationGetRequest::ofCountry('DE'));
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection', $result);
+        $this->assertInstanceOf(ShippingMethodCollection::class, $result);
     }
 
     public function testMapEmptyResult()

@@ -11,7 +11,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
     {
         $set = Set::ofType('int')->setRawData([1, 2, 3, 4]);
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Common\Set',
+            Set::class,
             $set
         );
     }

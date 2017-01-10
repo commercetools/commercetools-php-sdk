@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\Products;
 
+use Commercetools\Core\Model\Product\ProductProjectionCollection;
 use Commercetools\Core\RequestTestCase;
 
 class ProductProjectionQueryRequestTest extends RequestTestCase
@@ -21,13 +22,13 @@ class ProductProjectionQueryRequestTest extends RequestTestCase
             ]
         ];
         $result = $this->mapQueryResult(ProductProjectionQueryRequest::of(), [], $data);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjectionCollection', $result);
+        $this->assertInstanceOf(ProductProjectionCollection::class, $result);
         $this->assertCount(3, $result);
     }
 
     public function testMapEmptyResult()
     {
         $result = $this->mapEmptyResult(ProductProjectionQueryRequest::of());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjectionCollection', $result);
+        $this->assertInstanceOf(ProductProjectionCollection::class, $result);
     }
 }

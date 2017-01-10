@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\ProductTypes;
 
+use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\RequestTestCase;
 
@@ -45,7 +46,7 @@ class ProductTypeCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ProductTypeCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
     }
 
     public function testMapEmptyResult()

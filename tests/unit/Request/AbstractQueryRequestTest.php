@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Model\Common\Collection;
 use GuzzleHttp\Message\Response;
 use Commercetools\Core\AccessorTrait;
 use Commercetools\Core\Client\HttpMethod;
@@ -161,7 +162,7 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
                 ]
             ]
         );
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Collection', $result);
+        $this->assertInstanceOf(Collection::class, $result);
         $this->assertSame(3, count($result));
     }
 
@@ -169,6 +170,6 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
     {
         $request = $this->getRequest(static::ABSTRACT_QUERY_REQUEST);
         $result = $request->mapResult([]);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Collection', $result);
+        $this->assertInstanceOf(Collection::class, $result);
     }
 }

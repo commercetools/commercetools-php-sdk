@@ -25,7 +25,7 @@ class CustomObjectCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomObjectCreateRequest::ofObject($this->getObject()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $result);
+        $this->assertInstanceOf(CustomObject::class, $result);
     }
 
     public function testMapEmptyResult()

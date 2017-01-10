@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Products;
 
 use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\RequestTestCase;
 
 class ProductProjectionBySkuGetRequestTest extends RequestTestCase
@@ -23,7 +24,7 @@ class ProductProjectionBySkuGetRequestTest extends RequestTestCase
             ]
         ];
         $result = $this->mapQueryResult(ProductProjectionBySkuGetRequest::ofSku('sku'), $data);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
+        $this->assertInstanceOf(ProductProjection::class, $result);
     }
 
     public function testMapEmptyResult()

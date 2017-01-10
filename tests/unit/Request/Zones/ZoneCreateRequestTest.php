@@ -7,6 +7,7 @@ namespace Commercetools\Core\Request\Zones;
 
 use Commercetools\Core\Model\Zone\Location;
 use Commercetools\Core\Model\Zone\LocationCollection;
+use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\Model\Zone\ZoneDraft;
 use Commercetools\Core\RequestTestCase;
 
@@ -32,7 +33,7 @@ class ZoneCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ZoneCreateRequest::ofDraft($this->getZoneDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result);
+        $this->assertInstanceOf(Zone::class, $result);
     }
 
     public function testMapEmptyResult()

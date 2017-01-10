@@ -10,6 +10,7 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Error\DuplicateFieldError;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
+use Commercetools\Core\Model\Common\Asset;
 use Commercetools\Core\Model\Common\AssetDraft;
 use Commercetools\Core\Model\Common\AssetSource;
 use Commercetools\Core\Model\Common\AssetSourceCollection;
@@ -21,11 +22,13 @@ use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\Product\LocalizedSearchKeywords;
+use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\Product\SearchKeyword;
 use Commercetools\Core\Model\Product\SearchKeywords;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountValue;
+use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Request\Products\Command\ProductAddAssetAction;
 use Commercetools\Core\Request\Products\Command\ProductAddExternalImageAction;
@@ -104,7 +107,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertNotSame($name, $result->getMasterData()->getCurrent()->getName()->en);
         $this->assertSame($name, $result->getMasterData()->getStaged()->getName()->en);
         $this->assertNotSame($product->getVersion(), $result->getVersion());
@@ -140,7 +143,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertCount(0, $result->getMasterData()->getCurrent()->getMasterVariant()->getImages());
         $this->assertCount(2, $result->getMasterData()->getStaged()->getMasterVariant()->getImages());
         $this->assertSame(
@@ -171,7 +174,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertSame($description, $result->getMasterData()->getStaged()->getDescription()->en);
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
@@ -193,7 +196,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertNotSame($slug, $result->getMasterData()->getCurrent()->getSlug()->en);
         $this->assertSame($slug, $result->getMasterData()->getStaged()->getSlug()->en);
         $this->assertNotSame($product->getVersion(), $result->getVersion());
@@ -214,7 +217,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
         $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
         $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getKey());
@@ -232,7 +235,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
         $this->assertEmpty($result->getMasterData()->getStaged()->getVariants());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
@@ -254,7 +257,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
         $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
@@ -274,7 +277,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
         $this->assertSame($masterVariantSku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
         $this->assertSame($variantSku, $result->getMasterData()->getStaged()->getMasterVariant()->getSku());
@@ -292,7 +295,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
         $this->assertSame($variantSku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
         $this->assertSame($masterVariantSku, $result->getMasterData()->getStaged()->getMasterVariant()->getSku());
@@ -314,7 +317,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
         $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
@@ -331,7 +334,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
         $this->assertEmpty($result->getMasterData()->getStaged()->getVariants());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
@@ -357,7 +360,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $this->assertSame(
             $price->getValue()->getCentAmount(),
@@ -387,7 +390,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $this->assertSame(
             $price->getValue()->getCentAmount(),
@@ -411,7 +414,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $this->assertSame(
             $price->getValue()->getCentAmount(),
@@ -431,7 +434,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrices());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
@@ -457,7 +460,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $this->assertSame(
             $price->getValue()->getCentAmount(),
@@ -480,7 +483,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $this->assertSame(
             $price->getValue()->getCentAmount(),
@@ -504,7 +507,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $this->assertSame(
             $price->getValue()->getCentAmount(),
@@ -524,7 +527,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrices());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
@@ -550,7 +553,7 @@ class ProductUpdateRequestTest extends ApiTestCase
 
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
         $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $this->assertSame(
             $attributeValue,
@@ -574,7 +577,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
         $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $this->assertSame(
             $attributeValue,
@@ -604,7 +607,7 @@ class ProductUpdateRequestTest extends ApiTestCase
 
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
         $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $this->assertSame(
             $attributeValue,
@@ -628,7 +631,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
         $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $this->assertSame(
             $attributeValue,
@@ -650,7 +653,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($product->getMasterData()->getCurrent()->getCategories());
         $this->assertSame(
             $category->getId(),
@@ -667,7 +670,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($product->getMasterData()->getCurrent()->getCategoryOrderHints());
         $this->assertSame(
             $orderHint,
@@ -684,7 +687,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getCategories());
         $this->assertEmpty($result->getMasterData()->getStaged()->getCategories());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
@@ -703,7 +706,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertSame(
             $taxCategory->getId(),
             $result->getTaxCategory()->getId()
@@ -727,7 +730,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertSame(
             $sku,
             $result->getMasterData()->getStaged()->getMasterVariant()->getSku()
@@ -755,7 +758,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertSame(
             $sku,
             $result->getMasterData()->getStaged()->getMasterVariant()->getSku()
@@ -775,7 +778,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertSame(
             $sku,
             $result->getMasterData()->getStaged()->getMasterVariant()->getSku()
@@ -875,7 +878,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getSearchKeywords());
         $this->assertSame(
             $keyword,
@@ -901,7 +904,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertNull($result->getMasterData()->getCurrent()->getMetaTitle());
         $this->assertSame(
             $metaTitle,
@@ -927,7 +930,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
         $this->assertSame(
             $metaDescription,
@@ -953,7 +956,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
         $this->assertSame(
             $metaKeywords,
@@ -987,7 +990,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
         $this->assertSame(
             $metaKeywords,
@@ -1003,7 +1006,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
         $this->assertNull($result->getMasterData()->getStaged()->getMetaDescription());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
@@ -1036,7 +1039,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertSame(
             $metaKeywords,
             $result->getMasterData()->getCurrent()->getMetaKeywords()->en
@@ -1055,7 +1058,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertFalse($result->getMasterData()->getPublished());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
@@ -1079,7 +1082,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertSame(
             $state1->getId(),
             $result->getState()->getId()
@@ -1096,7 +1099,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertSame(
             $state2->getId(),
             $result->getState()->getId()
@@ -1134,7 +1137,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
         $this->assertSame(
@@ -1187,7 +1190,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
         $variant = $result->getMasterData()->getStaged()->getMasterVariant();
         $this->assertSame(
@@ -1212,7 +1215,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         );
 
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\ProductType\ProductType',
+            ProductType::class,
             $product->getProductType()->getObj()
         );
 
@@ -1223,7 +1226,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($product->getVersion());
 
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\ProductType\ProductType',
+            ProductType::class,
             $product->getProductType()->getObj()
         );
 
@@ -1233,7 +1236,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $product = $request->mapResponse($response);
 
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\ProductType\ProductType',
+            ProductType::class,
             $product->getProductType()->getObj()
         );
         array_pop($this->cleanupRequests);
@@ -1315,10 +1318,10 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertNotSame($product->getVersion(), $result->getVersion());
         $asset = $result->getMasterData()->getStaged()->getMasterVariant()->getAssets()->current();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Asset', $asset);
+        $this->assertInstanceOf(Asset::class, $asset);
         $this->assertSame('test' . $this->getTestRun(), $asset->getSources()->current()->getUri());
 
         $product = $result;
@@ -1357,11 +1360,11 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertNotSame($product->getVersion(), $result->getVersion());
 
         $asset = $result->getMasterData()->getStaged()->getMasterVariant()->getAssets()->current();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Asset', $asset);
+        $this->assertInstanceOf(Asset::class, $asset);
         $this->assertSame('new-test', $asset->getName()->en);
         $this->assertSame('new-description', $asset->getDescription()->en);
         $this->assertSame(['123', 'abc'], $asset->getTags());
@@ -1383,7 +1386,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertNotSame($key, $draft->getKey());
         $this->assertSame($key, $result->getKey());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
@@ -1427,7 +1430,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertNotSame($key, $draft->getKey());
         $this->assertSame($key, $result->getKey());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
@@ -1449,7 +1452,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getKey());
         $this->assertSame($key, $result->getMasterData()->getStaged()->getMasterVariant()->getKey());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
@@ -1485,7 +1488,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertNotSame($product->getVersion(), $result->getVersion());
 
         $resultVariant = $result->getMasterData()->getStaged()->getMasterVariant();
@@ -1524,7 +1527,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertNotSame($product->getVersion(), $result->getVersion());
 
         $resultVariant = $result->getMasterData()->getStaged()->getMasterVariant();

@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request;
 
 use Commercetools\Core\AccessorTrait;
 use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * Class AbstractApiRequestTest
@@ -151,7 +152,7 @@ class AbstractApiRequestTest extends \PHPUnit_Framework_TestCase
     {
         $request = $this->getRequest(static::ABSTRACT_API_REQUEST);
         $result = $request->mapResult(['key' => 'value']);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\JsonObject', $result);
+        $this->assertInstanceOf(JsonObject::class, $result);
     }
 
     public function testMapEmptyResult()

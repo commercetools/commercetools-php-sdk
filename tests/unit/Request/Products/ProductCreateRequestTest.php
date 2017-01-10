@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Products;
 
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;
 use Commercetools\Core\RequestTestCase;
@@ -26,7 +27,7 @@ class ProductCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ProductCreateRequest::ofDraft($this->getProduct()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\Product', $result);
+        $this->assertInstanceOf(Product::class, $result);
     }
 
     public function testMapEmptyResult()

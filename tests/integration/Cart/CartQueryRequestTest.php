@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Cart;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Request\Carts\CartByCustomerIdGetRequest;
@@ -67,7 +68,7 @@ class CartQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Cart\Cart', $result);
+        $this->assertInstanceOf(Cart::class, $result);
         $this->assertSame($cart->getId(), $result->getId());
 
     }
@@ -85,7 +86,7 @@ class CartQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Cart\Cart', $result->getAt(0));
+        $this->assertInstanceOf(Cart::class, $result->getAt(0));
         $this->assertSame($cart->getId(), $result->getAt(0)->getId());
     }
 
@@ -98,7 +99,7 @@ class CartQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Cart\Cart', $result);
+        $this->assertInstanceOf(Cart::class, $result);
         $this->assertSame($cart->getId(), $result->getId());
     }
 }

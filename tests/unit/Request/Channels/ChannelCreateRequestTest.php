@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\Channels;
 
+use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\RequestTestCase;
 
@@ -32,7 +33,7 @@ class ChannelCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ChannelCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->assertInstanceOf(Channel::class, $result);
     }
 
     public function testMapEmptyResult()

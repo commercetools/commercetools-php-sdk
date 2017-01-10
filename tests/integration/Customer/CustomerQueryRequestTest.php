@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Customer;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
@@ -54,7 +55,7 @@ class CustomerQueryRequestTest extends ApiTestCase
 
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Customer\Customer', $result->getAt(0));
+        $this->assertInstanceOf(Customer::class, $result->getAt(0));
         $this->assertSame($customer->getId(), $result->getAt(0)->getId());
     }
 
@@ -67,7 +68,7 @@ class CustomerQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Customer\Customer', $customer);
+        $this->assertInstanceOf(Customer::class, $customer);
         $this->assertSame($customer->getId(), $result->getId());
 
     }

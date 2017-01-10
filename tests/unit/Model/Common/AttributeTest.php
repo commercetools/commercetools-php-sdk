@@ -17,26 +17,26 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
             ['int', ['name' => 'int', 'value' => 1]],
             ['float', ['name' => 'float', 'value' => 1.1]],
             ['bool', ['name' => 'bool', 'value' => true]],
-            ['\Commercetools\Core\Model\Common\LocalizedString', ['name' => 'ltext', 'value' => ['en' => 'Foo']]],
+            [LocalizedString::class, ['name' => 'ltext', 'value' => ['en' => 'Foo']]],
             [
-                '\Commercetools\Core\Model\Common\Enum',
+                Enum::class,
                 ['name' => 'enum', 'value' => ['key' => 'foo', 'label' => 'Foo']]
             ],
             [
-                '\Commercetools\Core\Model\Common\LocalizedEnum',
+                LocalizedEnum::class,
                 ['name' => 'lenum', 'value' => ['key' => 'foo', 'label' => ['en' => 'Foo']]]
             ],
             [
-                '\Commercetools\Core\Model\Common\Money',
+                Money::class,
                 ['name' => 'money', 'value' => ['currencyCode' => 'EUR', 'centAmount' => 100]]
             ],
-            ['\Commercetools\Core\Model\Common\Set', ['name' => 'set', 'value' => ['value1', 'value2']]],
+            [Set::class, ['name' => 'set', 'value' => ['value1', 'value2']]],
             [
-                '\Commercetools\Core\Model\Common\Reference',
+                Reference::class,
                 ['name' => 'reference', 'value' => ['typeId' => 'reference', 'id' => '123456']]
             ],
             [
-                '\Commercetools\Core\Model\Common\AttributeCollection',
+                AttributeCollection::class,
                 [
                     'name' => 'nested',
                     'value' => [
@@ -73,8 +73,8 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
         ];
         $attribute = Attribute::fromArray($data);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Set', $attribute->getValue());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Enum', $attribute->getValue()->getAt(0));
+        $this->assertInstanceOf(Set::class, $attribute->getValue());
+        $this->assertInstanceOf(Enum::class, $attribute->getValue()->getAt(0));
     }
 
     public function testSameTypeForName()
@@ -94,7 +94,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
         $attribute2 = Attribute::fromArray(['name' => 'test-set', 'value' => []]);
         $attribute2->getValue()->getAt(0);
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Common\Enum',
+            Enum::class,
             $attribute2->getValue()->getAt(0)
         );
     }

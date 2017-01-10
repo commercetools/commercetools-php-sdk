@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\Types;
 
+use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\RequestTestCase;
 
@@ -44,7 +45,7 @@ class TypeCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(TypeCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result);
+        $this->assertInstanceOf(Type::class, $result);
     }
 
     public function testMapEmptyResult()

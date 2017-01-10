@@ -25,7 +25,7 @@ class CustomObjectByKeyGetRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomObjectByKeyGetRequest::ofContainerAndKey('my-namespace', 'my-key'));
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $result);
+        $this->assertInstanceOf(CustomObject::class, $result);
     }
 
     public function testMapEmptyResult()

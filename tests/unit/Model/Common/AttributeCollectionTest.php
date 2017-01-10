@@ -19,7 +19,7 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
             ['name' => 'test']
         ]);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Attribute', $collection->getByName('test'));
+        $this->assertInstanceOf(Attribute::class, $collection->getByName('test'));
     }
 
     public function testAttributeDefinition()
@@ -31,7 +31,7 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $observer = $this->prophesize('Commercetools\Core\Model\Common\Attribute');
+        $observer = $this->prophesize(Attribute::class);
         $observer->setContext(Argument::any())->shouldBeCalled();
         $observer->parentSet($collection)->shouldBeCalled();
         $observer->rootSet($collection)->shouldBeCalled();
@@ -47,7 +47,7 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = AttributeCollection::of();
         $collection->add(Attribute::fromArray(['name' => 'test']));
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Attribute', $collection->getByName('test'));
+        $this->assertInstanceOf(Attribute::class, $collection->getByName('test'));
     }
 
     public function testMagicGet()

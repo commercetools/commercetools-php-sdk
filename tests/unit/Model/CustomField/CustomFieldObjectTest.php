@@ -6,6 +6,11 @@
 namespace Commercetools\Core\Model\CustomField;
 
 use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\Enum;
+use Commercetools\Core\Model\Common\LocalizedEnum;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Common\Set;
 
 /**
  * Class CustomFieldObjectTest
@@ -114,7 +119,7 @@ class CustomFieldObjectTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 ['name' => ['en' => 'My awesome Shirt']],
-                'Commercetools\Core\Model\Common\LocalizedString'
+                LocalizedString::class
             ],
             [
                 ['size' => 48],
@@ -122,16 +127,16 @@ class CustomFieldObjectTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 ['price' => ['centAmount' => 100, 'currency' => 'EUR']],
-                'Commercetools\Core\Model\Common\Money'
+                Money::class
             ],
             [
                 ['brand' => ['key' => 'bmw', 'label' => 'BMW']],
-                'Commercetools\Core\Model\Common\Enum'
+                Enum::class
             ],
             [
                 ['features' => [['key' => 'aircondition'], ['key' => 'navigation']]],
-                'Commercetools\Core\Model\Common\Set',
-                'Commercetools\Core\Model\Common\LocalizedEnum',
+                Set::class,
+                LocalizedEnum::class,
             ]
         ];
     }

@@ -15,7 +15,7 @@ class ProductProjectionCollectionTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $collection->getById('123456'));
+        $this->assertInstanceOf(ProductProjection::class, $collection->getById('123456'));
     }
 
     public function testAddToIndex()
@@ -23,6 +23,6 @@ class ProductProjectionCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = ProductProjectionCollection::of();
         $collection->add(new ProductProjection(['id' => '123456']));
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $collection->getById('123456'));
+        $this->assertInstanceOf(ProductProjection::class, $collection->getById('123456'));
     }
 }

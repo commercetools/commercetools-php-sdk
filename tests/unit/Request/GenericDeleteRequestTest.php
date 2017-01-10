@@ -5,6 +5,26 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\CartDiscount\CartDiscount;
+use Commercetools\Core\Model\Category\Category;
+use Commercetools\Core\Model\Channel\Channel;
+use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
+use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\Model\DiscountCode\DiscountCode;
+use Commercetools\Core\Model\Inventory\InventoryEntry;
+use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Model\Payment\Payment;
+use Commercetools\Core\Model\Product\Product;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
+use Commercetools\Core\Model\ProductType\ProductType;
+use Commercetools\Core\Model\Review\Review;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
+use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
+use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\RequestTestCase;
 
 class GenericDeleteRequestTest extends RequestTestCase
@@ -26,83 +46,83 @@ class GenericDeleteRequestTest extends RequestTestCase
         return [
             [
                 '\Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteRequest',
-                '\Commercetools\Core\Model\CartDiscount\CartDiscount',
+                CartDiscount::class,
             ],
             [
                 '\Commercetools\Core\Request\Carts\CartDeleteRequest',
-                '\Commercetools\Core\Model\Cart\Cart',
+                Cart::class,
             ],
             [
                 '\Commercetools\Core\Request\Categories\CategoryDeleteRequest',
-                '\Commercetools\Core\Model\Category\Category',
+                Category::class,
             ],
             [
                 '\Commercetools\Core\Request\Channels\ChannelDeleteRequest',
-                '\Commercetools\Core\Model\Channel\Channel',
+                Channel::class,
             ],
             [
                 '\Commercetools\Core\Request\CustomerGroups\CustomerGroupDeleteRequest',
-                '\Commercetools\Core\Model\CustomerGroup\CustomerGroup',
+                CustomerGroup::class,
             ],
             [
                 '\Commercetools\Core\Request\Customers\CustomerDeleteRequest',
-                '\Commercetools\Core\Model\Customer\Customer',
+                Customer::class,
             ],
             [
                 '\Commercetools\Core\Request\CustomObjects\CustomObjectDeleteRequest',
-                '\Commercetools\Core\Model\CustomObject\CustomObject',
+                CustomObject::class,
             ],
             [
                 '\Commercetools\Core\Request\DiscountCodes\DiscountCodeDeleteRequest',
-                '\Commercetools\Core\Model\DiscountCode\DiscountCode',
+                DiscountCode::class,
             ],
             [
                 '\Commercetools\Core\Request\Inventory\InventoryDeleteRequest',
-                '\Commercetools\Core\Model\Inventory\InventoryEntry',
+                InventoryEntry::class,
             ],
             [
                 '\Commercetools\Core\Request\Orders\OrderDeleteRequest',
-                '\Commercetools\Core\Model\Order\Order',
+                Order::class,
             ],
             [
                 '\Commercetools\Core\Request\Payments\PaymentDeleteRequest',
-                '\Commercetools\Core\Model\Payment\Payment',
+                Payment::class,
             ],
             [
                 '\Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest',
-                '\Commercetools\Core\Model\ProductDiscount\ProductDiscount',
+                ProductDiscount::class,
             ],
             [
                 '\Commercetools\Core\Request\Products\ProductDeleteRequest',
-                '\Commercetools\Core\Model\Product\Product',
+                Product::class,
             ],
             [
                 '\Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest',
-                '\Commercetools\Core\Model\ProductType\ProductType',
+                ProductType::class,
             ],
             [
                 '\Commercetools\Core\Request\Reviews\ReviewDeleteRequest',
-                '\Commercetools\Core\Model\Review\Review',
+                Review::class,
             ],
             [
                 '\Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest',
-                '\Commercetools\Core\Model\ShippingMethod\ShippingMethod',
+                ShippingMethod::class,
             ],
             [
                 '\Commercetools\Core\Request\States\StateDeleteRequest',
-                '\Commercetools\Core\Model\State\State',
+                State::class,
             ],
             [
                 '\Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest',
-                '\Commercetools\Core\Model\TaxCategory\TaxCategory',
+                TaxCategory::class,
             ],
             [
                 '\Commercetools\Core\Request\Types\TypeDeleteRequest',
-                '\Commercetools\Core\Model\Type\Type',
+                Type::class,
             ],
             [
                 '\Commercetools\Core\Request\Zones\ZoneDeleteRequest',
-                '\Commercetools\Core\Model\Zone\Zone',
+                Zone::class,
             ],
         ];
     }

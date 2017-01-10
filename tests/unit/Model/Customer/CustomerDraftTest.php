@@ -10,7 +10,7 @@ class CustomerDraftTest extends \PHPUnit_Framework_TestCase
     public function testFromArray()
     {
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Customer\CustomerDraft',
+            CustomerDraft::class,
             CustomerDraft::fromArray(
                 [
                     'email' => 'john.doe@company.com',

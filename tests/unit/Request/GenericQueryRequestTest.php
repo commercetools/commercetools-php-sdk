@@ -5,6 +5,27 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Model\Cart\CartCollection;
+use Commercetools\Core\Model\CartDiscount\CartDiscountCollection;
+use Commercetools\Core\Model\Category\CategoryCollection;
+use Commercetools\Core\Model\Channel\ChannelCollection;
+use Commercetools\Core\Model\Customer\CustomerCollection;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupCollection;
+use Commercetools\Core\Model\CustomObject\CustomObjectCollection;
+use Commercetools\Core\Model\DiscountCode\DiscountCodeCollection;
+use Commercetools\Core\Model\Inventory\InventoryEntryCollection;
+use Commercetools\Core\Model\Message\MessageCollection;
+use Commercetools\Core\Model\Order\OrderCollection;
+use Commercetools\Core\Model\Payment\PaymentCollection;
+use Commercetools\Core\Model\Product\ProductCollection;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscountCollection;
+use Commercetools\Core\Model\ProductType\ProductTypeCollection;
+use Commercetools\Core\Model\Review\ReviewCollection;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
+use Commercetools\Core\Model\State\StateCollection;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryCollection;
+use Commercetools\Core\Model\Type\TypeCollection;
+use Commercetools\Core\Model\Zone\ZoneCollection;
 use Commercetools\Core\RequestTestCase;
 
 class GenericQueryRequestTest extends RequestTestCase
@@ -26,11 +47,11 @@ class GenericQueryRequestTest extends RequestTestCase
         return [
             [
                 '\Commercetools\Core\Request\CartDiscounts\CartDiscountQueryRequest',
-                '\Commercetools\Core\Model\CartDiscount\CartDiscountCollection',
+                CartDiscountCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\Carts\CartQueryRequest',
-                '\Commercetools\Core\Model\Cart\CartCollection',
+                CartCollection::class,
                 [
                     'results' => [
                         ['id' => 'value'],
@@ -41,23 +62,23 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Commercetools\Core\Request\Categories\CategoryQueryRequest',
-                '\Commercetools\Core\Model\Category\CategoryCollection',
+                CategoryCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\Channels\ChannelQueryRequest',
-                '\Commercetools\Core\Model\Channel\ChannelCollection',
+                ChannelCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\CustomerGroups\CustomerGroupQueryRequest',
-                '\Commercetools\Core\Model\CustomerGroup\CustomerGroupCollection',
+                CustomerGroupCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\Customers\CustomerQueryRequest',
-                '\Commercetools\Core\Model\Customer\CustomerCollection',
+                CustomerCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\CustomObjects\CustomObjectQueryRequest',
-                '\Commercetools\Core\Model\CustomObject\CustomObjectCollection',
+                CustomObjectCollection::class,
                 [
                     'results' => [
                         ['container' => 'myNamespace', 'key' => 'key1', 'value' => 'value1'],
@@ -68,59 +89,59 @@ class GenericQueryRequestTest extends RequestTestCase
             ],
             [
                 '\Commercetools\Core\Request\DiscountCodes\DiscountCodeQueryRequest',
-                '\Commercetools\Core\Model\DiscountCode\DiscountCodeCollection',
+                DiscountCodeCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\Inventory\InventoryQueryRequest',
-                '\Commercetools\Core\Model\Inventory\InventoryEntryCollection',
+                InventoryEntryCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\Messages\MessageQueryRequest',
-                '\Commercetools\Core\Model\Message\MessageCollection',
+                MessageCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\Orders\OrderQueryRequest',
-                '\Commercetools\Core\Model\Order\OrderCollection',
+                OrderCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\Payments\PaymentQueryRequest',
-                '\Commercetools\Core\Model\Payment\PaymentCollection',
+                PaymentCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest',
-                '\Commercetools\Core\Model\ProductDiscount\ProductDiscountCollection',
+                ProductDiscountCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\Products\ProductQueryRequest',
-                '\Commercetools\Core\Model\Product\ProductCollection',
+                ProductCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\ProductTypes\ProductTypeQueryRequest',
-                '\Commercetools\Core\Model\ProductType\ProductTypeCollection',
+                ProductTypeCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\Reviews\ReviewQueryRequest',
-                '\Commercetools\Core\Model\Review\ReviewCollection',
+                ReviewCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest',
-                '\Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection',
+                ShippingMethodCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\States\StateQueryRequest',
-                '\Commercetools\Core\Model\State\StateCollection',
+                StateCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\TaxCategories\TaxCategoryQueryRequest',
-                '\Commercetools\Core\Model\TaxCategory\TaxCategoryCollection',
+                TaxCategoryCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\Types\TypeQueryRequest',
-                '\Commercetools\Core\Model\Type\TypeCollection',
+                TypeCollection::class,
             ],
             [
                 '\Commercetools\Core\Request\Zones\ZoneQueryRequest',
-                '\Commercetools\Core\Model\Zone\ZoneCollection',
+                ZoneCollection::class,
             ],
         ];
     }

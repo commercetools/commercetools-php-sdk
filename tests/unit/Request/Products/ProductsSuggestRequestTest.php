@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\Products;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Product\LocalizedSearchKeywords;
+use Commercetools\Core\Model\Product\LocalizedSuggestionCollection;
 use Commercetools\Core\Model\Product\SuggestionResult;
 use Commercetools\Core\RequestTestCase;
 
@@ -31,8 +32,8 @@ class ProductsSuggestRequestTest extends RequestTestCase
             [],
             ["searchKeywords.en" => [["text" => "Swiss Army Knife"]]]
         );
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\SuggestionResult', $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\LocalizedSuggestionCollection', $result->getSearchKeywords());
+        $this->assertInstanceOf(SuggestionResult::class, $result);
+        $this->assertInstanceOf(LocalizedSuggestionCollection::class, $result->getSearchKeywords());
         $this->assertSame(["text" => "Swiss Army Knife"], $result->getSearchKeywords()->en->current()->toArray());
         $this->assertSame($data, $result->toArray());
     }
@@ -40,7 +41,7 @@ class ProductsSuggestRequestTest extends RequestTestCase
     public function testMapEmptyResult()
     {
         $result = $this->mapEmptyResult(ProductsSuggestRequest::ofKeywords($this->getKeywords()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\SuggestionResult', $result);
+        $this->assertInstanceOf(SuggestionResult::class, $result);
         $this->assertEmpty($result->toArray());
     }
 

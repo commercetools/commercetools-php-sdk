@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Customers;
 
 use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Customer\CustomerSigninResult;
 use Commercetools\Core\RequestTestCase;
 
 class CustomerLoginRequestTest extends RequestTestCase
@@ -15,7 +16,7 @@ class CustomerLoginRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomerLoginRequest::ofEmailAndPassword('email', 'password'));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Customer\CustomerSigninResult', $result);
+        $this->assertInstanceOf(CustomerSigninResult::class, $result);
     }
 
     public function testMapEmptyResult()

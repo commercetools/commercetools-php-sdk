@@ -12,7 +12,7 @@ class DiscountedPriceTest extends \PHPUnit_Framework_TestCase
     public function testFromArray()
     {
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Common\DiscountedPrice',
+            DiscountedPrice::class,
             DiscountedPrice::fromArray([
                 'value' => [
                     'currencyCode' => 'EUR',

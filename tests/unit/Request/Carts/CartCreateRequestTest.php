@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\Carts;
 
+use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\RequestTestCase;
 
@@ -15,7 +16,7 @@ class CartCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CartCreateRequest::ofDraft(CartDraft::ofCurrency('EUR')));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Cart\Cart', $result);
+        $this->assertInstanceOf(Cart::class, $result);
     }
 
     public function testMapEmptyResult()

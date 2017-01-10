@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Products;
 
 use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Product\ProductProjectionCollection;
 use Commercetools\Core\Model\Product\Search\Facet;
 use Commercetools\Core\Model\Product\Search\Filter;
 use Commercetools\Core\RequestTestCase;
@@ -93,13 +94,13 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
             ]
         ];
         $result = $this->mapQueryResult(ProductProjectionSearchRequest::of(), [], $data);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjectionCollection', $result);
+        $this->assertInstanceOf(ProductProjectionCollection::class, $result);
     }
 
     public function testMapEmptyResult()
     {
         $result = $this->mapEmptyResult(ProductProjectionSearchRequest::of());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjectionCollection', $result);
+        $this->assertInstanceOf(ProductProjectionCollection::class, $result);
     }
 
     public function testAddFilterString()

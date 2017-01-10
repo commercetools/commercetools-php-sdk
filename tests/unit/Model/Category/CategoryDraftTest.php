@@ -6,29 +6,30 @@
 namespace Commercetools\Core\Model\Category;
 
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Reference;
 
 class CategoryDraftTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetName()
     {
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\LocalizedString', $this->getDraft()->getName());
+        $this->assertInstanceOf(LocalizedString::class, $this->getDraft()->getName());
     }
 
     public function testGetSlug()
     {
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\LocalizedString', $this->getDraft()->getSlug());
+        $this->assertInstanceOf(LocalizedString::class, $this->getDraft()->getSlug());
     }
 
     public function testGetDescription()
     {
         $draft = $this->getDraft()->setDescription(LocalizedString::fromArray(['en'=>'description']));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\LocalizedString', $draft->getDescription());
+        $this->assertInstanceOf(LocalizedString::class, $draft->getDescription());
     }
 
     public function testGetParent()
     {
         $draft = $this->getDraft()->setParent(CategoryReference::ofId('id'));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Reference', $draft->getParent());
+        $this->assertInstanceOf(Reference::class, $draft->getParent());
     }
 
     public function testGetParentType()
@@ -60,7 +61,7 @@ class CategoryDraftTest extends \PHPUnit_Framework_TestCase
     public function testFromArray()
     {
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Category\CategoryDraft',
+            CategoryDraft::class,
             CategoryDraft::fromArray(
                 [
                     'name' => ['en' => 'test'],

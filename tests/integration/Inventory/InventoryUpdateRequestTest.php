@@ -8,6 +8,7 @@ namespace Commercetools\Core\Inventory;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
+use Commercetools\Core\Model\Inventory\InventoryEntry;
 use Commercetools\Core\Model\Message\InventoryEntryDeletedMessage;
 use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Model\Product\Search\Filter;
@@ -71,7 +72,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->assertInstanceOf(InventoryEntry::class, $result);
         $this->assertSame($quantity, $result->getQuantityOnStock());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
@@ -92,7 +93,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->assertInstanceOf(InventoryEntry::class, $result);
         $this->assertSame($quantity, $result->getQuantityOnStock());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
@@ -113,7 +114,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->assertInstanceOf(InventoryEntry::class, $result);
         $this->assertSame(1000 - $quantity, $result->getQuantityOnStock());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
@@ -134,7 +135,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->assertInstanceOf(InventoryEntry::class, $result);
         $this->assertEquals($expectedDelivery, $result->getExpectedDelivery()->getDateTime());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
@@ -155,7 +156,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->assertInstanceOf(InventoryEntry::class, $result);
         $this->assertSame($restockableInDays, $result->getRestockableInDays());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
@@ -176,7 +177,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->assertInstanceOf(InventoryEntry::class, $result);
         $this->assertSame($channel->getId(), $result->getSupplyChannel()->getId());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
@@ -245,7 +246,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->assertInstanceOf(InventoryEntry::class, $result);
         array_pop($this->cleanupRequests);
 
         $retries = 0;
@@ -263,7 +264,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
          * @var InventoryEntryDeletedMessage $message
          */
         $message = $result->current();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Message\InventoryEntryDeletedMessage', $message);
+        $this->assertInstanceOf(InventoryEntryDeletedMessage::class, $message);
         $this->assertSame($inventory->getId(), $message->getResource()->getId());
         $this->assertSame($inventory->getSku(), $message->getSku());
     }
@@ -284,7 +285,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->assertInstanceOf(InventoryEntry::class, $result);
         $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
@@ -308,7 +309,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result);
+        $this->assertInstanceOf(InventoryEntry::class, $result);
         $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
         $this->assertSame((string)$this->getTestRun(), $result->getCustom()->getFields()->getTestField());
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());

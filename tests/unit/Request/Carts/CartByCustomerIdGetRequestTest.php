@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Carts;
 
 use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\RequestTestCase;
 
 class CartByCustomerIdGetRequestTest extends RequestTestCase
@@ -15,7 +16,7 @@ class CartByCustomerIdGetRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CartByCustomerIdGetRequest::ofCustomerId('id'));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Cart\Cart', $result);
+        $this->assertInstanceOf(Cart::class, $result);
     }
 
     public function testMapEmptyResult()

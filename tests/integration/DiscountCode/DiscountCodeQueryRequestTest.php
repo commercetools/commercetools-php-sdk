@@ -15,6 +15,7 @@ use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
+use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteRequest;
@@ -105,7 +106,7 @@ class DiscountCodeQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result->getAt(0));
+        $this->assertInstanceOf(DiscountCode::class, $result->getAt(0));
         $this->assertSame($discountCode->getId(), $result->getAt(0)->getId());
     }
 
@@ -118,7 +119,7 @@ class DiscountCodeQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $discountCode);
+        $this->assertInstanceOf(DiscountCode::class, $discountCode);
         $this->assertSame($discountCode->getId(), $result->getId());
     }
 }

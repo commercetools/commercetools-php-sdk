@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\Orders;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Order\ImportOrder;
+use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\RequestTestCase;
 
 /**
@@ -21,7 +22,7 @@ class OrderImportRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(OrderImportRequest::ofImportOrder(ImportOrder::of()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf(Order::class, $result);
     }
 
     public function testMapEmptyResult()

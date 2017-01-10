@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Response;
 
+use Commercetools\Core\Model\Common\JsonObject;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -143,7 +144,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     public function testToObject()
     {
         $response = $this->getResponse();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\JsonObject', $response->toObject());
+        $this->assertInstanceOf(JsonObject::class, $response->toObject());
     }
 
     public function testErrorToObject()

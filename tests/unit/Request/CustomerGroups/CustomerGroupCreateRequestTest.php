@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\CustomerGroups;
 
+use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupDraft;
 use Commercetools\Core\RequestTestCase;
 
@@ -24,7 +25,7 @@ class CustomerGroupCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomerGroupCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomerGroup\CustomerGroup', $result);
+        $this->assertInstanceOf(CustomerGroup::class, $result);
     }
 
     public function testMapEmptyResult()
