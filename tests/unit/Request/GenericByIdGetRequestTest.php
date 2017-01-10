@@ -25,6 +25,26 @@ use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Zone\Zone;
+use Commercetools\Core\Request\CartDiscounts\CartDiscountByIdGetRequest;
+use Commercetools\Core\Request\Carts\CartByIdGetRequest;
+use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
+use Commercetools\Core\Request\Channels\ChannelByIdGetRequest;
+use Commercetools\Core\Request\CustomerGroups\CustomerGroupByIdGetRequest;
+use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
+use Commercetools\Core\Request\DiscountCodes\DiscountCodeByIdGetRequest;
+use Commercetools\Core\Request\Inventory\InventoryByIdGetRequest;
+use Commercetools\Core\Request\Messages\MessageByIdGetRequest;
+use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
+use Commercetools\Core\Request\Payments\PaymentByIdGetRequest;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountByIdGetRequest;
+use Commercetools\Core\Request\Products\ProductByIdGetRequest;
+use Commercetools\Core\Request\ProductTypes\ProductTypeByIdGetRequest;
+use Commercetools\Core\Request\Reviews\ReviewByIdGetRequest;
+use Commercetools\Core\Request\ShippingMethods\ShippingMethodByIdGetRequest;
+use Commercetools\Core\Request\States\StateByIdGetRequest;
+use Commercetools\Core\Request\TaxCategories\TaxCategoryByIdGetRequest;
+use Commercetools\Core\Request\Types\TypeByIdGetRequest;
+use Commercetools\Core\Request\Zones\ZoneByIdGetRequest;
 use Commercetools\Core\RequestTestCase;
 
 class GenericByIdGetRequestTest extends RequestTestCase
@@ -45,87 +65,87 @@ class GenericByIdGetRequestTest extends RequestTestCase
     {
         return [
             [
-                '\Commercetools\Core\Request\CartDiscounts\CartDiscountByIdGetRequest',
+                CartDiscountByIdGetRequest::class,
                 CartDiscount::class,
             ],
             [
-                '\Commercetools\Core\Request\Carts\CartByIdGetRequest',
+                CartByIdGetRequest::class,
                 Cart::class,
             ],
             [
-                '\Commercetools\Core\Request\Categories\CategoryByIdGetRequest',
+                CategoryByIdGetRequest::class,
                 Category::class,
             ],
             [
-                '\Commercetools\Core\Request\Channels\ChannelByIdGetRequest',
+                ChannelByIdGetRequest::class,
                 Channel::class,
             ],
             [
-                '\Commercetools\Core\Request\CustomerGroups\CustomerGroupByIdGetRequest',
+                CustomerGroupByIdGetRequest::class,
                 CustomerGroup::class,
             ],
             [
-                '\Commercetools\Core\Request\Customers\CustomerByIdGetRequest',
+                CustomerByIdGetRequest::class,
                 Customer::class,
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\DiscountCodeByIdGetRequest',
+                DiscountCodeByIdGetRequest::class,
                 DiscountCode::class,
             ],
             [
-                '\Commercetools\Core\Request\Inventory\InventoryByIdGetRequest',
+                InventoryByIdGetRequest::class,
                 InventoryEntry::class,
             ],
             [
-                '\Commercetools\Core\Request\Messages\MessageByIdGetRequest',
+                MessageByIdGetRequest::class,
                 Message::class,
             ],
             [
-                '\Commercetools\Core\Request\Orders\OrderByIdGetRequest',
+                OrderByIdGetRequest::class,
                 Order::class,
             ],
             [
-                '\Commercetools\Core\Request\Payments\PaymentByIdGetRequest',
+                PaymentByIdGetRequest::class,
                 Payment::class,
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\ProductDiscountByIdGetRequest',
+                ProductDiscountByIdGetRequest::class,
                 ProductDiscount::class,
             ],
             [
-                '\Commercetools\Core\Request\Products\ProductByIdGetRequest',
+                ProductByIdGetRequest::class,
                 Product::class,
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\ProductTypeByIdGetRequest',
+                ProductTypeByIdGetRequest::class,
                 ProductType::class,
             ],
             [
-                '\Commercetools\Core\Request\Reviews\ReviewByIdGetRequest',
+                ReviewByIdGetRequest::class,
                 Review::class,
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\ShippingMethodByIdGetRequest',
+                ShippingMethodByIdGetRequest::class,
                 ShippingMethod::class,
             ],
             [
-                '\Commercetools\Core\Request\States\StateByIdGetRequest',
+                StateByIdGetRequest::class,
                 State::class,
             ],
             [
-                '\Commercetools\Core\Request\TaxCategories\TaxCategoryByIdGetRequest',
+                TaxCategoryByIdGetRequest::class,
                 TaxCategory::class,
             ],
             [
-                '\Commercetools\Core\Request\Types\TypeByIdGetRequest',
+                TypeByIdGetRequest::class,
                 Type::class,
             ],
             [
-                '\Commercetools\Core\Request\Zones\ZoneByIdGetRequest',
+                ZoneByIdGetRequest::class,
                 Zone::class,
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\ShippingMethodByIdGetRequest',
+                ShippingMethodByIdGetRequest::class,
                 ShippingMethod::class,
             ],
         ];

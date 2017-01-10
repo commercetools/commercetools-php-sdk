@@ -11,7 +11,7 @@ use Commercetools\Core\RequestTestCase;
 
 class TaxCategoryCreateRequestTest extends RequestTestCase
 {
-    const TAX_CATEGORY_CREATE_REQUEST = '\Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest';
+    const TAX_CATEGORY_CREATE_REQUEST = TaxCategoryCreateRequest::class;
 
     protected function getTaxCategory()
     {

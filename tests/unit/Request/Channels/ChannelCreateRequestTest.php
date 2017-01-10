@@ -11,7 +11,7 @@ use Commercetools\Core\RequestTestCase;
 
 class ChannelCreateRequestTest extends RequestTestCase
 {
-    const CHANNEL_CREATE_REQUEST = '\Commercetools\Core\Request\Channels\ChannelCreateRequest';
+    const CHANNEL_CREATE_REQUEST = ChannelCreateRequest::class;
 
     protected function getDraft()
     {

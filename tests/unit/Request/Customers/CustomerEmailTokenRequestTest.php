@@ -14,7 +14,7 @@ use Commercetools\Core\RequestTestCase;
  */
 class CustomerEmailTokenRequestTest extends RequestTestCase
 {
-    const CUSTOMER_EMAIL_TOKEN_REQUEST = '\Commercetools\Core\Request\Customers\CustomerEmailTokenRequest';
+    const CUSTOMER_EMAIL_TOKEN_REQUEST = CustomerEmailTokenRequest::class;
 
     public function testHttpRequestMethod()
     {

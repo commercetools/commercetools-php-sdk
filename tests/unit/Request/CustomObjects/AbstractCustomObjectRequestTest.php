@@ -15,7 +15,7 @@ class AbstractCustomObjectRequestTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_CUSTOM_OBJECT_REQUEST = '\Commercetools\Core\Request\CustomObjects\AbstractCustomObjectRequest';
+    const ABSTRACT_CUSTOM_OBJECT_REQUEST = AbstractCustomObjectRequest::class;
 
     protected function getRequest($class, array $args = [])
     {

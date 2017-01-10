@@ -10,7 +10,7 @@ use Commercetools\Core\RequestTestCase;
 
 class CustomerPasswordTokenRequestTest extends RequestTestCase
 {
-    const CUSTOMER_PASSWORD_REQUEST = '\Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest';
+    const CUSTOMER_PASSWORD_REQUEST = CustomerPasswordTokenRequest::class;
 
     public function testHttpRequestMethod()
     {

@@ -11,7 +11,7 @@ use Commercetools\Core\RequestTestCase;
 
 class CustomerGroupCreateRequestTest extends RequestTestCase
 {
-    const CUSTOMER_GROUP_CREATE_REQUEST = '\Commercetools\Core\Request\CustomerGroups\CustomerGroupCreateRequest';
+    const CUSTOMER_GROUP_CREATE_REQUEST = CustomerGroupCreateRequest::class;
 
     protected function getDraft()
     {

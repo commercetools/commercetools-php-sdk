@@ -17,7 +17,7 @@ use Commercetools\Core\RequestTestCase;
  */
 class ZoneCreateRequestTest extends RequestTestCase
 {
-    const ZONE_CREATE_REQUEST = '\Commercetools\Core\Request\Zones\ZoneCreateRequest';
+    const ZONE_CREATE_REQUEST = ZoneCreateRequest::class;
 
     protected function getZoneDraft()
     {

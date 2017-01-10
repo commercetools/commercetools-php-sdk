@@ -12,7 +12,7 @@ use Commercetools\Core\RequestTestCase;
 
 class CategoryCreateRequestTest extends RequestTestCase
 {
-    const CATEGORY_CREATE_REQUEST = '\Commercetools\Core\Request\Categories\CategoryCreateRequest';
+    const CATEGORY_CREATE_REQUEST = CategoryCreateRequest::class;
 
     protected function getDraft()
     {

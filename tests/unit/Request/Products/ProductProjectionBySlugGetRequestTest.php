@@ -14,7 +14,7 @@ use Commercetools\Core\RequestTestCase;
 class ProductProjectionBySlugGetRequestTest extends RequestTestCase
 {
     const PRODUCT_PROJECTION_BY_SLUG_GET_REQUEST =
-        '\Commercetools\Core\Request\Products\ProductProjectionBySlugGetRequest';
+        ProductProjectionBySlugGetRequest::class;
 
     protected function getContext()
     {

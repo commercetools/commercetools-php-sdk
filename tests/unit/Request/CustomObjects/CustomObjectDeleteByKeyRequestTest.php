@@ -15,7 +15,7 @@ use Commercetools\Core\RequestTestCase;
  */
 class CustomObjectDeleteByKeyRequestTest extends RequestTestCase
 {
-    const CUSTOM_OBJECT_DELETE_REQUEST = '\Commercetools\Core\Request\CustomObjects\CustomObjectDeleteByKeyRequest';
+    const CUSTOM_OBJECT_DELETE_REQUEST = CustomObjectDeleteByKeyRequest::class;
 
     public function getObject()
     {

@@ -14,7 +14,7 @@ use Commercetools\Core\RequestTestCase;
 
 class ProductsSuggestRequestTest extends RequestTestCase
 {
-    const PRODUCT_SUGGEST_REQUEST = '\Commercetools\Core\Request\Products\ProductsSuggestRequest';
+    const PRODUCT_SUGGEST_REQUEST = ProductsSuggestRequest::class;
 
     protected function getKeywords()
     {

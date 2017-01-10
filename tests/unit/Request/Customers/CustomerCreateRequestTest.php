@@ -11,7 +11,7 @@ use Commercetools\Core\RequestTestCase;
 
 class CustomerCreateRequestTest extends RequestTestCase
 {
-    const CUSTOMER_CREATE_REQUEST = '\Commercetools\Core\Request\Customers\CustomerCreateRequest';
+    const CUSTOMER_CREATE_REQUEST = CustomerCreateRequest::class;
 
     public function getCustomer()
     {

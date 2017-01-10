@@ -15,7 +15,7 @@ use Commercetools\Core\RequestTestCase;
  */
 class OrderCreateFromCartRequestTest extends RequestTestCase
 {
-    const ORDER_CREATE_REQUEST = '\Commercetools\Core\Request\Orders\OrderCreateFromCartRequest';
+    const ORDER_CREATE_REQUEST = OrderCreateFromCartRequest::class;
 
     public function testMapResult()
     {

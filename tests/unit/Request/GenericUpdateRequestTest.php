@@ -24,6 +24,25 @@ use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Zone\Zone;
+use Commercetools\Core\Request\CartDiscounts\CartDiscountUpdateRequest;
+use Commercetools\Core\Request\Carts\CartUpdateRequest;
+use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
+use Commercetools\Core\Request\Channels\ChannelUpdateRequest;
+use Commercetools\Core\Request\CustomerGroups\CustomerGroupUpdateRequest;
+use Commercetools\Core\Request\Customers\CustomerUpdateRequest;
+use Commercetools\Core\Request\DiscountCodes\DiscountCodeUpdateRequest;
+use Commercetools\Core\Request\Inventory\InventoryUpdateRequest;
+use Commercetools\Core\Request\Orders\OrderUpdateRequest;
+use Commercetools\Core\Request\Payments\PaymentUpdateRequest;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest;
+use Commercetools\Core\Request\Products\ProductUpdateRequest;
+use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
+use Commercetools\Core\Request\Reviews\ReviewUpdateRequest;
+use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest;
+use Commercetools\Core\Request\States\StateUpdateRequest;
+use Commercetools\Core\Request\TaxCategories\TaxCategoryUpdateRequest;
+use Commercetools\Core\Request\Types\TypeUpdateRequest;
+use Commercetools\Core\Request\Zones\ZoneUpdateRequest;
 use Commercetools\Core\RequestTestCase;
 
 class GenericUpdateRequestTest extends RequestTestCase
@@ -44,79 +63,79 @@ class GenericUpdateRequestTest extends RequestTestCase
     {
         return [
             [
-                '\Commercetools\Core\Request\CartDiscounts\CartDiscountUpdateRequest',
+                CartDiscountUpdateRequest::class,
                 CartDiscount::class,
             ],
             [
-                '\Commercetools\Core\Request\Carts\CartUpdateRequest',
+                CartUpdateRequest::class,
                 Cart::class,
             ],
             [
-                '\Commercetools\Core\Request\Categories\CategoryUpdateRequest',
+                CategoryUpdateRequest::class,
                 Category::class,
             ],
             [
-                '\Commercetools\Core\Request\Channels\ChannelUpdateRequest',
+                ChannelUpdateRequest::class,
                 Channel::class,
             ],
             [
-                '\Commercetools\Core\Request\CustomerGroups\CustomerGroupUpdateRequest',
+                CustomerGroupUpdateRequest::class,
                 CustomerGroup::class,
             ],
             [
-                '\Commercetools\Core\Request\Customers\CustomerUpdateRequest',
+                CustomerUpdateRequest::class,
                 Customer::class,
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\DiscountCodeUpdateRequest',
+                DiscountCodeUpdateRequest::class,
                 DiscountCode::class,
             ],
             [
-                '\Commercetools\Core\Request\Inventory\InventoryUpdateRequest',
+                InventoryUpdateRequest::class,
                 InventoryEntry::class,
             ],
             [
-                '\Commercetools\Core\Request\Orders\OrderUpdateRequest',
+                OrderUpdateRequest::class,
                 Order::class,
             ],
             [
-                '\Commercetools\Core\Request\Payments\PaymentUpdateRequest',
+                PaymentUpdateRequest::class,
                 Payment::class,
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest',
+                ProductDiscountUpdateRequest::class,
                 ProductDiscount::class,
             ],
             [
-                '\Commercetools\Core\Request\Products\ProductUpdateRequest',
+                ProductUpdateRequest::class,
                 Product::class,
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest',
+                ProductTypeUpdateRequest::class,
                 ProductType::class,
             ],
             [
-                '\Commercetools\Core\Request\Reviews\ReviewUpdateRequest',
+                ReviewUpdateRequest::class,
                 Review::class,
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest',
+                ShippingMethodUpdateRequest::class,
                 ShippingMethod::class,
             ],
             [
-                '\Commercetools\Core\Request\States\StateUpdateRequest',
+                StateUpdateRequest::class,
                 State::class,
             ],
             [
-                '\Commercetools\Core\Request\TaxCategories\TaxCategoryUpdateRequest',
+                TaxCategoryUpdateRequest::class,
                 TaxCategory::class,
             ],
             [
-                '\Commercetools\Core\Request\Types\TypeUpdateRequest',
+                TypeUpdateRequest::class,
                 Type::class,
             ],
             [
-                '\Commercetools\Core\Request\Zones\ZoneUpdateRequest',
+                ZoneUpdateRequest::class,
                 Zone::class,
             ],
         ];

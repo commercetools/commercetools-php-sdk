@@ -15,7 +15,7 @@ use Commercetools\Core\RequestTestCase;
  */
 class CustomObjectByKeyGetRequestTest extends RequestTestCase
 {
-    const CUSTOM_OBJECT_GET_REQUEST = '\Commercetools\Core\Request\CustomObjects\CustomObjectByKeyGetRequest';
+    const CUSTOM_OBJECT_GET_REQUEST = CustomObjectByKeyGetRequest::class;
 
     public function getObject()
     {

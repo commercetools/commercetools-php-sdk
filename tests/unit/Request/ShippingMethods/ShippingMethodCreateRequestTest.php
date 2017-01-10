@@ -11,7 +11,7 @@ use Commercetools\Core\RequestTestCase;
 
 class ShippingMethodCreateRequestTest extends RequestTestCase
 {
-    const SHIPPING_METHOD_CREATE_REQUEST = '\Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest';
+    const SHIPPING_METHOD_CREATE_REQUEST = ShippingMethodCreateRequest::class;
 
     protected function getDraft()
     {

@@ -14,7 +14,7 @@ use Commercetools\Core\RequestTestCase;
  */
 class CustomerEmailConfirmRequestTest extends RequestTestCase
 {
-    const CUSTOMER_EMAIL_CONFIRM_REQUEST = '\Commercetools\Core\Request\Customers\CustomerEmailConfirmRequest';
+    const CUSTOMER_EMAIL_CONFIRM_REQUEST = CustomerEmailConfirmRequest::class;
 
     public function testHttpRequestMethod()
     {

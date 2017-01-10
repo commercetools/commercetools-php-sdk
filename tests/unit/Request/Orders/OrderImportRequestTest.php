@@ -17,7 +17,7 @@ use Commercetools\Core\RequestTestCase;
  */
 class OrderImportRequestTest extends RequestTestCase
 {
-    const ORDER_IMPORT_REQUEST = '\Commercetools\Core\Request\Orders\OrderImportRequest';
+    const ORDER_IMPORT_REQUEST = OrderImportRequest::class;
 
     public function testMapResult()
     {

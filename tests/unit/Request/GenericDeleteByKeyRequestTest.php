@@ -8,6 +8,9 @@ namespace Commercetools\Core\Request;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteByKeyRequest;
+use Commercetools\Core\Request\Reviews\ReviewDeleteByKeyRequest;
+use Commercetools\Core\Request\Types\TypeDeleteByKeyRequest;
 use Commercetools\Core\RequestTestCase;
 
 class GenericDeleteByKeyRequestTest extends RequestTestCase
@@ -28,15 +31,15 @@ class GenericDeleteByKeyRequestTest extends RequestTestCase
     {
         return [
             [
-                '\Commercetools\Core\Request\ProductTypes\ProductTypeDeleteByKeyRequest',
+                ProductTypeDeleteByKeyRequest::class,
                 ProductType::class,
             ],
             [
-                '\Commercetools\Core\Request\Reviews\ReviewDeleteByKeyRequest',
+                ReviewDeleteByKeyRequest::class,
                 Review::class,
             ],
             [
-                '\Commercetools\Core\Request\Types\TypeDeleteByKeyRequest',
+                TypeDeleteByKeyRequest::class,
                 Type::class,
             ],
         ];

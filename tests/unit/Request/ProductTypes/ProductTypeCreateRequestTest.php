@@ -11,7 +11,7 @@ use Commercetools\Core\RequestTestCase;
 
 class ProductTypeCreateRequestTest extends RequestTestCase
 {
-    const PRODUCT_TYPE_CREATE_REQUEST = '\Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest';
+    const PRODUCT_TYPE_CREATE_REQUEST = ProductTypeCreateRequest::class;
 
     protected function getDraft()
     {

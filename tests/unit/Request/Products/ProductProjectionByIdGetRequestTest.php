@@ -14,7 +14,7 @@ use Commercetools\Core\RequestTestCase;
  */
 class ProductProjectionByIdGetRequestTest extends RequestTestCase
 {
-    const PRODUCT_PROJECTION_BY_ID_GET_REQUEST = '\Commercetools\Core\Request\Products\ProductProjectionByIdGetRequest';
+    const PRODUCT_PROJECTION_BY_ID_GET_REQUEST = ProductProjectionByIdGetRequest::class;
 
     public function testMapResult()
     {

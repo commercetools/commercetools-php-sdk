@@ -11,7 +11,7 @@ use Commercetools\Core\RequestTestCase;
 
 class InventoryCreateRequestTest extends RequestTestCase
 {
-    const INVENTORY_CREATE_REQUEST = '\Commercetools\Core\Request\Inventory\InventoryCreateRequest';
+    const INVENTORY_CREATE_REQUEST = InventoryCreateRequest::class;
 
     protected function getDraft()
     {

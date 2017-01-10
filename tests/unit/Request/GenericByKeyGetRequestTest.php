@@ -8,6 +8,9 @@ namespace Commercetools\Core\Request;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Request\ProductTypes\ProductTypeByKeyGetRequest;
+use Commercetools\Core\Request\Reviews\ReviewByKeyGetRequest;
+use Commercetools\Core\Request\Types\TypeByKeyGetRequest;
 use Commercetools\Core\RequestTestCase;
 
 class GenericByKeyGetRequestTest extends RequestTestCase
@@ -28,15 +31,15 @@ class GenericByKeyGetRequestTest extends RequestTestCase
     {
         return [
             [
-                '\Commercetools\Core\Request\ProductTypes\ProductTypeByKeyGetRequest',
+                ProductTypeByKeyGetRequest::class,
                 ProductType::class,
             ],
             [
-                '\Commercetools\Core\Request\Reviews\ReviewByKeyGetRequest',
+                ReviewByKeyGetRequest::class,
                 Review::class,
             ],
             [
-                '\Commercetools\Core\Request\Types\TypeByKeyGetRequest',
+                TypeByKeyGetRequest::class,
                 Type::class,
             ],
         ];

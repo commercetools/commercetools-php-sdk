@@ -12,7 +12,7 @@ use Commercetools\Core\RequestTestCase;
 class ProductProjectionBySkuGetRequestTest extends RequestTestCase
 {
     const PRODUCT_PROJECTION_BY_SKU_GET_REQUEST =
-        '\Commercetools\Core\Request\Products\ProductProjectionBySkuGetRequest';
+        ProductProjectionBySkuGetRequest::class;
 
     public function testMapResult()
     {

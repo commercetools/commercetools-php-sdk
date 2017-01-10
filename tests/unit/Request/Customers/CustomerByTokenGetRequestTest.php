@@ -10,7 +10,7 @@ use Commercetools\Core\RequestTestCase;
 
 class CustomerByTokenGetRequestTest extends RequestTestCase
 {
-    const CUSTOMER_BY_TOKEN_GET_REQUEST = '\Commercetools\Core\Request\Customers\CustomerByTokenGetRequest';
+    const CUSTOMER_BY_TOKEN_GET_REQUEST = CustomerByTokenGetRequest::class;
 
     public function testHttpRequestMethod()
     {

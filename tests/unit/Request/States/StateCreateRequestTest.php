@@ -11,7 +11,7 @@ use Commercetools\Core\RequestTestCase;
 
 class StateCreateRequestTest extends RequestTestCase
 {
-    const STATE_CREATE_REQUEST = '\Commercetools\Core\Request\States\StateCreateRequest';
+    const STATE_CREATE_REQUEST = StateCreateRequest::class;
 
     public function testMapResult()
     {

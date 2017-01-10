@@ -11,7 +11,7 @@ use Commercetools\Core\RequestTestCase;
 
 class DiscountCodeCreateRequestTest extends RequestTestCase
 {
-    const DISCOUNT_CODE_CREATE_REQUEST = '\Commercetools\Core\Request\DiscountCodes\DiscountCodeCreateRequest';
+    const DISCOUNT_CODE_CREATE_REQUEST = DiscountCodeCreateRequest::class;
 
     protected function getDraft()
     {

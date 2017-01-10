@@ -107,11 +107,11 @@ class CustomObjectQueryRequestTest extends ApiTestCase
     public function testValidTypes()
     {
         $this->assertInstanceOf(
-            '\Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest',
+            CustomObjectCreateRequest::class,
             CustomObjectCreateRequest::ofObject(CustomObject::of())
         );
         $this->assertInstanceOf(
-            '\Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest',
+            CustomObjectCreateRequest::class,
             CustomObjectCreateRequest::ofObject(CustomObjectDraft::of())
         );
     }

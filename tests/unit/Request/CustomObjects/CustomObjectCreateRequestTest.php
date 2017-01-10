@@ -15,7 +15,7 @@ use Commercetools\Core\RequestTestCase;
  */
 class CustomObjectCreateRequestTest extends RequestTestCase
 {
-    const CUSTOM_OBJECT_CREATE_REQUEST = '\Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest';
+    const CUSTOM_OBJECT_CREATE_REQUEST = CustomObjectCreateRequest::class;
 
     public function getObject()
     {

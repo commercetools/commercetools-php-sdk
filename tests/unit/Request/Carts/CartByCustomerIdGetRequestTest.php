@@ -11,7 +11,7 @@ use Commercetools\Core\RequestTestCase;
 
 class CartByCustomerIdGetRequestTest extends RequestTestCase
 {
-    const CART_BY_CUSTOMER_ID_GET_REQUEST = '\Commercetools\Core\Request\Carts\CartByCustomerIdGetRequest';
+    const CART_BY_CUSTOMER_ID_GET_REQUEST = CartByCustomerIdGetRequest::class;
 
     public function testMapResult()
     {

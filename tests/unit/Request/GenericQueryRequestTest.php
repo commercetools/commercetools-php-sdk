@@ -26,6 +26,27 @@ use Commercetools\Core\Model\State\StateCollection;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryCollection;
 use Commercetools\Core\Model\Type\TypeCollection;
 use Commercetools\Core\Model\Zone\ZoneCollection;
+use Commercetools\Core\Request\CartDiscounts\CartDiscountQueryRequest;
+use Commercetools\Core\Request\Carts\CartQueryRequest;
+use Commercetools\Core\Request\Categories\CategoryQueryRequest;
+use Commercetools\Core\Request\Channels\ChannelQueryRequest;
+use Commercetools\Core\Request\CustomerGroups\CustomerGroupQueryRequest;
+use Commercetools\Core\Request\Customers\CustomerQueryRequest;
+use Commercetools\Core\Request\CustomObjects\CustomObjectQueryRequest;
+use Commercetools\Core\Request\DiscountCodes\DiscountCodeQueryRequest;
+use Commercetools\Core\Request\Inventory\InventoryQueryRequest;
+use Commercetools\Core\Request\Messages\MessageQueryRequest;
+use Commercetools\Core\Request\Orders\OrderQueryRequest;
+use Commercetools\Core\Request\Payments\PaymentQueryRequest;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest;
+use Commercetools\Core\Request\Products\ProductQueryRequest;
+use Commercetools\Core\Request\ProductTypes\ProductTypeQueryRequest;
+use Commercetools\Core\Request\Reviews\ReviewQueryRequest;
+use Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest;
+use Commercetools\Core\Request\States\StateQueryRequest;
+use Commercetools\Core\Request\TaxCategories\TaxCategoryQueryRequest;
+use Commercetools\Core\Request\Types\TypeQueryRequest;
+use Commercetools\Core\Request\Zones\ZoneQueryRequest;
 use Commercetools\Core\RequestTestCase;
 
 class GenericQueryRequestTest extends RequestTestCase
@@ -46,11 +67,11 @@ class GenericQueryRequestTest extends RequestTestCase
     {
         return [
             [
-                '\Commercetools\Core\Request\CartDiscounts\CartDiscountQueryRequest',
+                CartDiscountQueryRequest::class,
                 CartDiscountCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\Carts\CartQueryRequest',
+                CartQueryRequest::class,
                 CartCollection::class,
                 [
                     'results' => [
@@ -61,23 +82,23 @@ class GenericQueryRequestTest extends RequestTestCase
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Categories\CategoryQueryRequest',
+                CategoryQueryRequest::class,
                 CategoryCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\Channels\ChannelQueryRequest',
+                ChannelQueryRequest::class,
                 ChannelCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\CustomerGroups\CustomerGroupQueryRequest',
+                CustomerGroupQueryRequest::class,
                 CustomerGroupCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\Customers\CustomerQueryRequest',
+                CustomerQueryRequest::class,
                 CustomerCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\CustomObjects\CustomObjectQueryRequest',
+                CustomObjectQueryRequest::class,
                 CustomObjectCollection::class,
                 [
                     'results' => [
@@ -88,59 +109,59 @@ class GenericQueryRequestTest extends RequestTestCase
                 ]
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\DiscountCodeQueryRequest',
+                DiscountCodeQueryRequest::class,
                 DiscountCodeCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\Inventory\InventoryQueryRequest',
+                InventoryQueryRequest::class,
                 InventoryEntryCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\Messages\MessageQueryRequest',
+                MessageQueryRequest::class,
                 MessageCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\Orders\OrderQueryRequest',
+                OrderQueryRequest::class,
                 OrderCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\Payments\PaymentQueryRequest',
+                PaymentQueryRequest::class,
                 PaymentCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest',
+                ProductDiscountQueryRequest::class,
                 ProductDiscountCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\Products\ProductQueryRequest',
+                ProductQueryRequest::class,
                 ProductCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\ProductTypeQueryRequest',
+                ProductTypeQueryRequest::class,
                 ProductTypeCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\Reviews\ReviewQueryRequest',
+                ReviewQueryRequest::class,
                 ReviewCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest',
+                ShippingMethodQueryRequest::class,
                 ShippingMethodCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\States\StateQueryRequest',
+                StateQueryRequest::class,
                 StateCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\TaxCategories\TaxCategoryQueryRequest',
+                TaxCategoryQueryRequest::class,
                 TaxCategoryCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\Types\TypeQueryRequest',
+                TypeQueryRequest::class,
                 TypeCollection::class,
             ],
             [
-                '\Commercetools\Core\Request\Zones\ZoneQueryRequest',
+                ZoneQueryRequest::class,
                 ZoneCollection::class,
             ],
         ];

@@ -14,7 +14,7 @@ use GuzzleHttp\Psr7\Response;
 
 class ProductProjectionSearchRequestTest extends RequestTestCase
 {
-    const PRODUCT_PROJECTION_SEARCH_REQUEST = '\Commercetools\Core\Request\Products\ProductProjectionSearchRequest';
+    const PRODUCT_PROJECTION_SEARCH_REQUEST = ProductProjectionSearchRequest::class;
 
     public function testFuzzy()
     {

@@ -12,7 +12,7 @@ use Commercetools\Core\RequestTestCase;
 class ShippingMethodByCartIdGetRequestTest extends RequestTestCase
 {
     const SHIPPING_METHOD_BY_CART_ID_GET_REQUEST =
-        '\Commercetools\Core\Request\Carts\ShippingMethodByCartIdGetRequest';
+        ShippingMethodByCartIdGetRequest::class;
 
     public function testMapResult()
     {

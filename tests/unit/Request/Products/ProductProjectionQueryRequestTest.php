@@ -10,7 +10,7 @@ use Commercetools\Core\RequestTestCase;
 
 class ProductProjectionQueryRequestTest extends RequestTestCase
 {
-    const PRODUCT_PROJECTIONS_QUERY_REQUEST = '\Commercetools\Core\Request\Products\ProductProjectionQueryRequest';
+    const PRODUCT_PROJECTIONS_QUERY_REQUEST = ProductProjectionQueryRequest::class;
 
     public function testMapResult()
     {

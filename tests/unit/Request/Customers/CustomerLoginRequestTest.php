@@ -11,7 +11,7 @@ use Commercetools\Core\RequestTestCase;
 
 class CustomerLoginRequestTest extends RequestTestCase
 {
-    const CUSTOMER_LOGIN_REQUEST = '\Commercetools\Core\Request\Customers\CustomerLoginRequest';
+    const CUSTOMER_LOGIN_REQUEST = CustomerLoginRequest::class;
 
     public function testMapResult()
     {

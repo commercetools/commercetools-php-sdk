@@ -12,7 +12,7 @@ use Commercetools\Core\RequestTestCase;
 
 class ReviewCreateRequestTest extends RequestTestCase
 {
-    const REVIEW_CREATE_REQUEST = '\Commercetools\Core\Request\Reviews\ReviewCreateRequest';
+    const REVIEW_CREATE_REQUEST = ReviewCreateRequest::class;
 
     protected function getDraft()
     {

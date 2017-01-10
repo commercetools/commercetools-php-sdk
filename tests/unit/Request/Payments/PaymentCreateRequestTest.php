@@ -11,7 +11,7 @@ use Commercetools\Core\RequestTestCase;
 
 class PaymentCreateRequestTest extends RequestTestCase
 {
-    const PAYMENT_CREATE_REQUEST = '\Commercetools\Core\Request\Payments\PaymentCreateRequest';
+    const PAYMENT_CREATE_REQUEST = PaymentCreateRequest::class;
 
     protected function getDraft()
     {

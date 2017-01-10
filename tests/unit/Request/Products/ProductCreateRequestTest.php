@@ -13,7 +13,7 @@ use Commercetools\Core\RequestTestCase;
 
 class ProductCreateRequestTest extends RequestTestCase
 {
-    const PRODUCT_CREATE_REQUEST = '\Commercetools\Core\Request\Products\ProductCreateRequest';
+    const PRODUCT_CREATE_REQUEST = ProductCreateRequest::class;
 
     public function getProduct()
     {
