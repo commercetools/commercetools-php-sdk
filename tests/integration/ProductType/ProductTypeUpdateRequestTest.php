@@ -487,7 +487,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\InvalidOperationError',
+            InvalidOperationError::class,
             $response->getErrors()->getByCode(InvalidOperationError::CODE)
         );
     }
@@ -553,7 +553,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\InvalidOperationError',
+            InvalidOperationError::class,
             $response->getErrors()->getByCode(InvalidOperationError::CODE)
         );
     }

@@ -92,7 +92,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             200,
             true
         );
-        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $manager->getToken());
+        $this->assertInstanceOf(Token::class, $manager->getToken());
         $this->assertSame($manager->getConfig()->getScope(), $manager->getToken()->getScope());
     }
 
@@ -117,7 +117,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             200,
             true
         );
-        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $manager->getToken());
+        $this->assertInstanceOf(Token::class, $manager->getToken());
         $this->assertSame($manager->getConfig()->getScope(), $manager->getToken()->getScope());
     }
 
@@ -142,7 +142,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             200,
             true
         );
-        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $manager->getToken());
+        $this->assertInstanceOf(Token::class, $manager->getToken());
         $this->assertSame($manager->getConfig()->getScope(), $manager->getToken()->getScope());
     }
 
@@ -167,7 +167,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new Manager($this->getConfig(), $cache1);
 
         $cache2 = new NullCacheAdapter();
-        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Manager', $manager->setCacheAdapter($cache2));
+        $this->assertInstanceOf(Manager::class, $manager->setCacheAdapter($cache2));
         $this->assertSame($cache2, $manager->getCacheAdapter());
     }
 
@@ -182,7 +182,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new Manager($this->getConfig(), $cache1);
 
         $cache2 = new ArrayCachePool();
-        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Manager', $manager->setCacheAdapter($cache2));
+        $this->assertInstanceOf(Manager::class, $manager->setCacheAdapter($cache2));
         $this->assertSame($cache2, $manager->getCacheAdapter());
     }
 

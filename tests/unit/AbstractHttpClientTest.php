@@ -6,6 +6,8 @@
 
 namespace Commercetools\Core;
 
+use Commercetools\Core\Client\Adapter\AdapterInterface;
+
 class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -13,7 +15,7 @@ class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function getClient()
     {
-        return $this->getMockForAbstractClass('\Commercetools\Core\AbstractHttpClient', [], '', false);
+        return $this->getMockForAbstractClass(AbstractHttpClient::class, [], '', false);
     }
 
     protected function getConfig()
@@ -32,24 +34,24 @@ class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
         $client = $this->getClient();
 
         $client->setConfig($this->getConfig());
-        $this->assertInstanceOf('\Commercetools\Core\Config', $client->getConfig());
+        $this->assertInstanceOf(Config::class, $client->getConfig());
     }
 
     public function testGetConfig()
     {
-        $this->assertInstanceOf('\Commercetools\Core\Config', $this->getClient()->getConfig());
+        $this->assertInstanceOf(Config::class, $this->getClient()->getConfig());
     }
 
     public function testSetConfig()
     {
         $config = $this->getConfig();
-        $this->assertInstanceOf('\Commercetools\Core\AbstractHttpClient', $this->getClient()->setConfig($config));
-        $this->assertInstanceOf('\Commercetools\Core\Config', $this->getClient()->getConfig());
+        $this->assertInstanceOf(AbstractHttpClient::class, $this->getClient()->setConfig($config));
+        $this->assertInstanceOf(Config::class, $this->getClient()->getConfig());
     }
 
     public function testGetHttpClient()
     {
-        $client = $this->getMockForAbstractClass('\Commercetools\Core\AbstractHttpClient', [], '', false);
+        $client = $this->getMockForAbstractClass(AbstractHttpClient::class, [], '', false);
         $client->expects($this->once())
             ->method('getBaseUrl')
             ->will($this->returnValue('test'));
@@ -57,7 +59,7 @@ class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
          * @var AbstractHttpClient $client
          */
         $httpClient = $client->getHttpClient();
-        $this->assertInstanceOf('\Commercetools\Core\Client\Adapter\AdapterInterface', $httpClient);
+        $this->assertInstanceOf(AdapterInterface::class, $httpClient);
         //$this->assertSame('/test', (string)$httpClient->getConfig('base_uri'));
     }
 }

@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\CustomObjects;
 
 use Commercetools\Core\AccessorTrait;
+use Commercetools\Core\Response\ResourceResponse;
 
 /**
  * Class AbstractCustomObjectRequestTest
@@ -45,6 +46,6 @@ class AbstractCustomObjectRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_CUSTOM_OBJECT_REQUEST, ['my-namespace', 'my-key']);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

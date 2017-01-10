@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\Products;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 class ProductProjectionBySkuGetRequestTest extends RequestTestCase
 {
@@ -69,6 +70,6 @@ class ProductProjectionBySkuGetRequestTest extends RequestTestCase
         $request = $this->getRequest(static::PRODUCT_PROJECTION_BY_SKU_GET_REQUEST, ['sku']);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

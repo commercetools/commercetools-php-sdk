@@ -26,7 +26,7 @@ class PagedQueryResponseTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_API_REQUEST = '\Commercetools\Core\Request\AbstractApiRequest';
+    const ABSTRACT_API_REQUEST = AbstractApiRequest::class;
 
     const RESPONSE = '
     {

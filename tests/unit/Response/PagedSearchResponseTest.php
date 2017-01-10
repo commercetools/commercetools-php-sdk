@@ -8,6 +8,7 @@ namespace Commercetools\Core\Response;
 use Commercetools\Core\Model\Product\FacetResult;
 use Commercetools\Core\Model\Product\FacetResultCollection;
 use Commercetools\Core\Model\Product\FacetTermCollection;
+use Commercetools\Core\Request\AbstractApiRequest;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
@@ -27,7 +28,7 @@ class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_API_REQUEST = '\Commercetools\Core\Request\AbstractApiRequest';
+    const ABSTRACT_API_REQUEST = AbstractApiRequest::class;
 
     const RESPONSE = '
     {

@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\ShippingMethods;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 class ShippingMethodByCartIdGetRequestTest extends RequestTestCase
 {
@@ -59,6 +60,6 @@ class ShippingMethodByCartIdGetRequestTest extends RequestTestCase
         $request = ShippingMethodByCartIdGetRequest::ofCartId('id');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

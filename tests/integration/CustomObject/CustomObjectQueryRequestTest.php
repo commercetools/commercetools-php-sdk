@@ -76,7 +76,7 @@ class CustomObjectQueryRequestTest extends ApiTestCase
 
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\ConcurrentModificationError',
+            ConcurrentModificationError::class,
             $response->getErrors()->getByCode(ConcurrentModificationError::CODE)
         );
     }
@@ -99,7 +99,7 @@ class CustomObjectQueryRequestTest extends ApiTestCase
 
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\ConcurrentModificationError',
+            ConcurrentModificationError::class,
             $response->getErrors()->getByCode(ConcurrentModificationError::CODE)
         );
     }

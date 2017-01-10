@@ -19,7 +19,7 @@ class AbstractProjectionRequestTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_PROJECTION_REQUEST = '\Commercetools\Core\Request\AbstractProjectionRequest';
+    const ABSTRACT_PROJECTION_REQUEST = AbstractProjectionRequest::class;
 
     /**
      * @return AbstractProjectionRequest

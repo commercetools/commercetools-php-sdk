@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\Orders;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 /**
  * Class OrderCreateFromCartRequestTest
@@ -38,7 +39,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
         $request = OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 
     public function testHttpRequestMethod()

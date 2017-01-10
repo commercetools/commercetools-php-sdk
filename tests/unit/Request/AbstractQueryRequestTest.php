@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Request;
 
 use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Response\PagedQueryResponse;
 use GuzzleHttp\Message\Response;
 use Commercetools\Core\AccessorTrait;
 use Commercetools\Core\Client\HttpMethod;
@@ -20,7 +21,7 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_QUERY_REQUEST = '\Commercetools\Core\Request\AbstractQueryRequest';
+    const ABSTRACT_QUERY_REQUEST = AbstractQueryRequest::class;
 
     /**
      * @return AbstractQueryRequest
@@ -147,7 +148,7 @@ class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_QUERY_REQUEST);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\PagedQueryResponse', $response);
+        $this->assertInstanceOf(PagedQueryResponse::class, $response);
     }
 
     public function testMapResult()

@@ -7,6 +7,7 @@ namespace Commercetools\Core\Request\Customers;
 
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 class CustomerByTokenGetRequestTest extends RequestTestCase
 {
@@ -45,6 +46,6 @@ class CustomerByTokenGetRequestTest extends RequestTestCase
         $request = CustomerByTokenGetRequest::ofToken('myToken');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

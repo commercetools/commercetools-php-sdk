@@ -10,6 +10,7 @@ use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 class ProductProjectionBySlugGetRequestTest extends RequestTestCase
 {
@@ -160,6 +161,6 @@ class ProductProjectionBySlugGetRequestTest extends RequestTestCase
         $request = ProductProjectionBySlugGetRequest::ofSlugAndContext('slug', $this->getContext());
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

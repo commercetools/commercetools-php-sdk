@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Response\ResourceResponse;
 use GuzzleHttp\Message\Response;
 use Commercetools\Core\AccessorTrait;
 use Commercetools\Core\Client\HttpMethod;
@@ -19,7 +20,7 @@ class AbstractDeleteRequestTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_DELETE_REQUEST = '\Commercetools\Core\Request\AbstractDeleteRequest';
+    const ABSTRACT_DELETE_REQUEST = AbstractDeleteRequest::class;
 
     public function testGetId()
     {
@@ -69,6 +70,6 @@ class AbstractDeleteRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_DELETE_REQUEST, ['id', 'version']);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

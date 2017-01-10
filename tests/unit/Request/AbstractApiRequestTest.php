@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Request;
 
 use Commercetools\Core\AccessorTrait;
+use Commercetools\Core\Client\JsonEndpoint;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Model\Common\JsonObject;
 
@@ -19,12 +20,12 @@ class AbstractApiRequestTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_API_REQUEST = '\Commercetools\Core\Request\AbstractApiRequest';
+    const ABSTRACT_API_REQUEST = AbstractApiRequest::class;
 
     public function testEndpoint()
     {
         $request = $this->getRequest(static::ABSTRACT_API_REQUEST);
-        $this->assertInstanceOf('\Commercetools\Core\Client\JsonEndpoint', $request->getEndpoint());
+        $this->assertInstanceOf(JsonEndpoint::class, $request->getEndpoint());
         $this->assertSame('test', $request->getEndpoint()->endpoint());
     }
 

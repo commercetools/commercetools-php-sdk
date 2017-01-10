@@ -25,7 +25,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         unset($testConfig[Config::OAUTH_URL]);
         unset($testConfig[Config::API_URL]);
         $config = Config::fromArray($testConfig);
-        $this->assertInstanceOf('\Commercetools\Core\Config', $config);
+        $this->assertInstanceOf(Config::class, $config);
 
         $this->assertEquals($testConfig[Config::CLIENT_ID], $config->getClientId());
         $this->assertEquals($testConfig[Config::CLIENT_SECRET], $config->getClientSecret());
@@ -38,7 +38,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $testConfig = $this->getConfig();
         $config = Config::fromArray($testConfig);
-        $this->assertInstanceOf('\Commercetools\Core\Config', $config);
+        $this->assertInstanceOf(Config::class, $config);
 
         $this->assertEquals($testConfig[Config::CLIENT_ID], $config->getClientId());
         $this->assertEquals($testConfig[Config::CLIENT_SECRET], $config->getClientSecret());

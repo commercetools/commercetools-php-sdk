@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\Carts;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 class CartByCustomerIdGetRequestTest extends RequestTestCase
 {
@@ -58,6 +59,6 @@ class CartByCustomerIdGetRequestTest extends RequestTestCase
         $request = CartByCustomerIdGetRequest::ofCustomerId('id');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

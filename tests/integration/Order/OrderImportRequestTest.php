@@ -8,6 +8,7 @@ namespace Commercetools\Core\Order;
 
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Error\OutOfStockError;
 use Commercetools\Core\Model\Cart\InventoryMode;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
@@ -24,6 +25,7 @@ use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
 use Commercetools\Core\Request\Inventory\InventoryDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderImportRequest;
+use Commercetools\Core\Response\ErrorResponse;
 
 class OrderImportRequestTest extends ApiTestCase
 {
@@ -136,8 +138,8 @@ class OrderImportRequestTest extends ApiTestCase
         $orderRequest = OrderImportRequest::ofImportOrder($importOrder);
         $response = $orderRequest->executeWithClient($this->getClient());
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
-        $this->assertInstanceOf('\Commercetools\Core\Error\OutOfStockError', $response->getErrors()->getByCode('OutOfStock'));
+        $this->assertInstanceOf(ErrorResponse::class, $response);
+        $this->assertInstanceOf(OutOfStockError::class, $response->getErrors()->getByCode('OutOfStock'));
         $this->assertSame(
             [$importOrder->getLineItems()->current()->getVariant()->getSku()],
             $response->getErrors()->getByCode('OutOfStock')->getSkus()

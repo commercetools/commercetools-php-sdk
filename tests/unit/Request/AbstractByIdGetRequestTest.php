@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Response\ResourceResponse;
 use GuzzleHttp\Message\Response;
 use Commercetools\Core\AccessorTrait;
 use Commercetools\Core\Client\HttpMethod;
@@ -19,7 +20,7 @@ class AbstractByIdGetRequestTest extends \PHPUnit_Framework_TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_GET_REQUEST = '\Commercetools\Core\Request\AbstractByIdGetRequest';
+    const ABSTRACT_GET_REQUEST = AbstractByIdGetRequest::class;
 
     public function testGetId()
     {
@@ -60,6 +61,6 @@ class AbstractByIdGetRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_GET_REQUEST, ['id']);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

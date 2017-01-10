@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Product\ProductProjectionCollection;
 use Commercetools\Core\Model\Product\Search\Facet;
 use Commercetools\Core\Model\Product\Search\Filter;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\PagedQueryResponse;
 use GuzzleHttp\Psr7\Response;
 
 class ProductProjectionSearchRequestTest extends RequestTestCase
@@ -293,6 +294,6 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $request = ProductProjectionSearchRequest::of();
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\PagedQueryResponse', $response);
+        $this->assertInstanceOf(PagedQueryResponse::class, $response);
     }
 }

@@ -71,6 +71,7 @@ use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
 use Commercetools\Core\Request\Products\ProductUpdateByKeyRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
+use Commercetools\Core\Response\ErrorResponse;
 
 class ProductUpdateRequestTest extends ApiTestCase
 {
@@ -826,7 +827,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $this->assertSame(DuplicateFieldError::CODE, $response->getErrors()->current()->getCode());
         $this->assertSame($sku, $response->getErrors()->current()->getDuplicateValue());
@@ -851,7 +852,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
 
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $this->assertSame(DuplicateFieldError::CODE, $response->getErrors()->current()->getCode());
         $this->assertSame($sku, $response->getErrors()->current()->getDuplicateValue());
@@ -1408,7 +1409,7 @@ class ProductUpdateRequestTest extends ApiTestCase
 
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\DuplicateFieldError',
+            DuplicateFieldError::class,
             $response->getErrors()->getByCode(DuplicateFieldError::CODE)
         );
     }

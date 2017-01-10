@@ -10,6 +10,7 @@ namespace Commercetools\Core\Me;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Client;
 use Commercetools\Core\Config;
+use Commercetools\Core\Error\ResourceNotFoundError;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
@@ -215,7 +216,7 @@ class MeOrderRequestTest extends ApiTestCase
 
         $this->assertContains('customers/token', current($handler->getRecords())['message']);
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Error\ResourceNotFoundError', $response->getErrors()->current());
+        $this->assertInstanceOf(ResourceNotFoundError::class, $response->getErrors()->current());
     }
 
     public function testCustomerQuery()

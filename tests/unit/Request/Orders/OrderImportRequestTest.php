@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Order\ImportOrder;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 /**
  * Class OrderCreateFromCartRequestTest
@@ -40,7 +41,7 @@ class OrderImportRequestTest extends RequestTestCase
         $request = OrderImportRequest::ofImportOrder(ImportOrder::of());
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 
     public function testHttpRequestMethod()

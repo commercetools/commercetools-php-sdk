@@ -6,6 +6,21 @@
 
 namespace Commercetools\Core;
 
+use Commercetools\Core\Client\OAuth\Manager;
+use Commercetools\Core\Error\BadGatewayException;
+use Commercetools\Core\Error\ConcurrentModificationException;
+use Commercetools\Core\Error\ErrorResponseException;
+use Commercetools\Core\Error\GatewayTimeoutException;
+use Commercetools\Core\Error\InternalServerErrorException;
+use Commercetools\Core\Error\InvalidClientCredentialsException;
+use Commercetools\Core\Error\InvalidTokenException;
+use Commercetools\Core\Error\NotFoundException;
+use Commercetools\Core\Error\ServiceUnavailableException;
+use Commercetools\Core\Request\AbstractByIdGetRequest;
+use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Response\ErrorResponse;
+use Commercetools\Core\Response\PagedQueryResponse;
+use Commercetools\Core\Response\ResourceResponse;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -43,7 +58,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockClient($config, $returnValue, $statusCode = 200, $logger = null, $headers = [])
     {
-        $oauthMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client\OAuth\Manager');
+        $oauthMockBuilder = $this->getMockBuilder(Manager::class);
         $oauthMockBuilder->setMethods(['getToken', 'refreshToken'])->setConstructorArgs([$config]);
         $oauthMock = $oauthMockBuilder->getMock();
 
@@ -54,7 +69,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->method('refreshToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client');
+        $clientMockBuilder = $this->getMockBuilder(Client::class);
         $clientMockBuilder->setMethods(['getOauthManager'])->setConstructorArgs([$config, null, $logger]);
         $clientMock = $clientMockBuilder->getMock();
         
@@ -136,11 +151,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testExecuteQuery()
     {
         $endpoint = new JsonEndpoint('test');
-        $request = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractQueryRequest', [$endpoint]);
+        $request = $this->getMockForAbstractClass(AbstractQueryRequest::class, [$endpoint]);
 
         $client = $this->getMockClient($this->getConfig(), $this->getQueryResult());
         $response = $client->execute($request);
-        $this->assertInstanceOf('\Commercetools\Core\Response\PagedQueryResponse', $response);
+        $this->assertInstanceOf(PagedQueryResponse::class, $response);
         $this->assertJsonStringEqualsJsonString($this->getQueryResult(), json_encode($response->toArray()));
     }
 
@@ -148,13 +163,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $endpoint = new JsonEndpoint('test');
         $request = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint, 'id']
         );
 
         $client = $this->getMockClient($this->getConfig(), $this->getSingleOpResult());
         $response = $client->execute($request);
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 
     public function testApiUrl()
@@ -173,20 +188,20 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testOAuthManager()
     {
         $client = new Client($this->getConfig());
-        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Manager', $client->getOauthManager());
+        $this->assertInstanceOf(Manager::class, $client->getOauthManager());
     }
 
     public function testException()
     {
         $endpoint = new JsonEndpoint('test');
         $request = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint, 'id']
         );
 
         $client = $this->getMockClient($this->getConfig(), '', 500);
         $response = $client->execute($request);
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertTrue($response->isError());
     }
 
@@ -195,7 +210,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnexpectedException()
     {
-        $oauthMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client\OAuth\Manager');
+        $oauthMockBuilder = $this->getMockBuilder(Manager::class);
         $oauthMockBuilder->setMethods(['getToken'])->setConstructorArgs([$this->getConfig()]);
         $oauthMock = $oauthMockBuilder->getMock();
 
@@ -203,7 +218,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client');
+        $clientMockBuilder = $this->getMockBuilder(Client::class);
         $clientMockBuilder->setMethods(['getOauthManager'])->setConstructorArgs([$this->getConfig()]);
         $clientMock = $clientMockBuilder->getMock();
         $clientMock->expects($this->any())
@@ -215,7 +230,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          */
         $endpoint = new JsonEndpoint('test');
         $request = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint, 'id']
         );
 
@@ -226,14 +241,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $config = $this->getConfig();
 
-        $oauthMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client\OAuth\Manager');
+        $oauthMockBuilder = $this->getMockBuilder(Manager::class);
         $oauthMockBuilder->setMethods(['getToken'])->setConstructorArgs([$this->getConfig()]);
         $oauthMock = $oauthMockBuilder->getMock();
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client');
+        $clientMockBuilder = $this->getMockBuilder(Client::class);
         $clientMockBuilder->setMethods(['getOauthManager'])->setConstructorArgs([$this->getConfig()]);
         $clientMock = $clientMockBuilder->getMock();
         $clientMock->expects($this->any())
@@ -253,13 +268,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $endpoint = new JsonEndpoint('test');
         $request = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint, 'id']
         );
 
         $response = $clientMock->execute($request);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertTrue($response->isError());
     }
 
@@ -273,7 +288,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $endpoint = new JsonEndpoint('test');
         $request = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint, 'id']
         );
         $client->execute($request);
@@ -295,7 +310,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $endpoint = new JsonEndpoint('test');
         $request = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint, 'id']
         );
         $response = $client->executeAsync($request);
@@ -311,10 +326,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testBatch()
     {
         $endpoint1 = new JsonEndpoint('test1');
-        $request1 = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractQueryRequest', [$endpoint1]);
+        $request1 = $this->getMockForAbstractClass(AbstractQueryRequest::class, [$endpoint1]);
         $endpoint2 = new JsonEndpoint('test2');
         $request2 = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint2, 'id']
         );
 
@@ -326,11 +341,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $results = $client->executeBatch();
 
         $this->assertInstanceOf(
-            '\Commercetools\Core\Response\PagedQueryResponse',
+            PagedQueryResponse::class,
             $results[$request1->getIdentifier()]
         );
         $this->assertFalse($results[$request1->getIdentifier()]->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $results[$request2->getIdentifier()]);
+        $this->assertInstanceOf(ResourceResponse::class, $results[$request2->getIdentifier()]);
         $this->assertFalse($results[$request2->getIdentifier()]->isError());
     }
 
@@ -355,7 +370,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          * @var ClientRequestInterface $request
          */
         $request = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint, 'id']
         );
         $client->execute($request);
@@ -397,7 +412,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          * @var ClientRequestInterface $request
          */
         $request = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint, 'id']
         );
         $client->execute($request);
@@ -440,7 +455,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          * @var ClientRequestInterface $request
          */
         $request = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint, 'id']
         );
         $client->addBatchRequest($request);
@@ -459,14 +474,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testBatchException()
     {
-        $oauthMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client\OAuth\Manager');
+        $oauthMockBuilder = $this->getMockBuilder(Manager::class);
         $oauthMockBuilder->setMethods(['getToken'])->setConstructorArgs([$this->getConfig()]);
         $oauthMock = $oauthMockBuilder->getMock();
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client');
+        $clientMockBuilder = $this->getMockBuilder(Client::class);
         $clientMockBuilder->setMethods(['getOauthManager'])->setConstructorArgs([$this->getConfig()]);
         $clientMock = $clientMockBuilder->getMock();
         $clientMock->expects($this->any())
@@ -478,12 +493,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          */
         $endpoint1 = new JsonEndpoint('test1');
         $request1 = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractQueryRequest',
+            AbstractQueryRequest::class,
             [$endpoint1]
         );
         $endpoint2 = new JsonEndpoint('test2');
         $request2 = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint2, 'id']
         );
 
@@ -495,14 +510,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testBatchExceptionWithResponse()
     {
-        $oauthMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client\OAuth\Manager');
+        $oauthMockBuilder = $this->getMockBuilder(Manager::class);
         $oauthMockBuilder->setMethods(['getToken'])->setConstructorArgs([$this->getConfig()]);
         $oauthMock = $oauthMockBuilder->getMock();
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client');
+        $clientMockBuilder = $this->getMockBuilder(Client::class);
         $clientMockBuilder->setMethods(['getOauthManager'])->setConstructorArgs([$this->getConfig()]);
         $clientMock = $clientMockBuilder->getMock();
         $clientMock->expects($this->any())
@@ -525,12 +540,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          */
         $endpoint1 = new JsonEndpoint('test1');
         $request1 = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint1, 'id']
         );
         $endpoint2 = new JsonEndpoint('test2');
         $request2 = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint2, 'id']
         );
 
@@ -539,9 +554,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $results = $clientMock->executeBatch();
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $results[$request1->getIdentifier()]);
+        $this->assertInstanceOf(ErrorResponse::class, $results[$request1->getIdentifier()]);
         $this->assertTrue($results[$request1->getIdentifier()]->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $results[$request2->getIdentifier()]);
+        $this->assertInstanceOf(ErrorResponse::class, $results[$request2->getIdentifier()]);
         $this->assertTrue($results[$request2->getIdentifier()]->isError());
     }
 
@@ -566,7 +581,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          * @var ClientRequestInterface $request
          */
         $request = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint, 'id']
         );
         $response = $client->executeAsync($request);
@@ -584,15 +599,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function exceptionsData()
     {
         return [
-            [400, '\Commercetools\Core\Error\ErrorResponseException', ''],
-            [401, '\Commercetools\Core\Error\InvalidTokenException', ['invalid_token','invalid_token']],
-            [401, '\Commercetools\Core\Error\InvalidClientCredentialsException', ''],
-            [404, '\Commercetools\Core\Error\NotFoundException', ''],
-            [409, '\Commercetools\Core\Error\ConcurrentModificationException', ''],
-            [500, '\Commercetools\Core\Error\InternalServerErrorException', ''],
-            [502, '\Commercetools\Core\Error\BadGatewayException', ''],
-            [503, '\Commercetools\Core\Error\ServiceUnavailableException', ''],
-            [504, '\Commercetools\Core\Error\GatewayTimeoutException', ''],
+            [400, ErrorResponseException::class, ''],
+            [401, InvalidTokenException::class, ['invalid_token','invalid_token']],
+            [401, InvalidClientCredentialsException::class, ''],
+            [404, NotFoundException::class, ''],
+            [409, ConcurrentModificationException::class, ''],
+            [500, InternalServerErrorException::class, ''],
+            [502, BadGatewayException::class, ''],
+            [503, ServiceUnavailableException::class, ''],
+            [504, GatewayTimeoutException::class, ''],
         ];
     }
 
@@ -616,7 +631,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         /**
          * @var ClientRequestInterface $request
          */
-        $request = $this->getMockForAbstractClass('\Commercetools\Core\Request\AbstractQueryRequest', [$endpoint]);
+        $request = $this->getMockForAbstractClass(AbstractQueryRequest::class, [$endpoint]);
 
         try {
             $client->execute($request);
@@ -631,14 +646,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $config = $this->getConfig();
 
-        $oauthMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client\OAuth\Manager');
+        $oauthMockBuilder = $this->getMockBuilder(Manager::class);
         $oauthMockBuilder->setMethods(['getToken'])->setConstructorArgs([$this->getConfig()]);
         $oauthMock = $oauthMockBuilder->getMock();
         $oauthMock->expects($this->any())
             ->method('getToken')
             ->will($this->returnValue(new Token('token')));
 
-        $clientMockBuilder = $this->getMockBuilder('\Commercetools\Core\Client');
+        $clientMockBuilder = $this->getMockBuilder(Client::class);
         $clientMockBuilder->setMethods(['getOauthManager'])->setConstructorArgs([$this->getConfig()]);
         $clientMock = $clientMockBuilder->getMock();
         $clientMock->expects($this->any())
@@ -664,13 +679,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $endpoint = new JsonEndpoint('test');
         $request = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Request\AbstractByIdGetRequest',
+            AbstractByIdGetRequest::class,
             [$endpoint, 'id']
         );
 
         $response = $clientMock->execute($request);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
         /**
          * @var Request $request
          */

@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Product\LocalizedSearchKeywords;
 use Commercetools\Core\Model\Product\LocalizedSuggestionCollection;
 use Commercetools\Core\Model\Product\SuggestionResult;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 class ProductsSuggestRequestTest extends RequestTestCase
 {
@@ -105,6 +106,6 @@ class ProductsSuggestRequestTest extends RequestTestCase
         $request = ProductsSuggestRequest::ofKeywords($this->getKeywords());
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }
