@@ -35,7 +35,7 @@ before_script:
 - if [ $GUZZLE != '5' ] ; then composer install -o --prefer-dist; fi
 script:
 - ant phpcs-ci
-- phpunit --testsuite=unit
+- vendor/bin/phpunit --testsuite=unit
 - if [ $PHP == '7.0' ] && [ $GUZZLE == '6' ] ; then phpunit --testsuite=integration; fi
 - ant behat
 after_success:

@@ -28,14 +28,6 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test if default adapter returns correct interface
-     */
-    public function testAdapterInterface()
-    {
-        $this->assertInstanceOf(CacheAdapterInterface::class, $this->getFactory()->get());
-    }
-
-    /**
      * test correct callback behaviour
      */
     public function testCallback()
