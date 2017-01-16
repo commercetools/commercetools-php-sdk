@@ -393,10 +393,6 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ['action', 'description', 'staged']
             ],
             [
-                ProductSetMetaAttributesAction::class,
-                ['action', 'metaTitle', 'metaDescription', 'metaKeywords', 'staged']
-            ],
-            [
                 ProductSetMetaTitleAction::class,
                 ['action', 'metaTitle']
             ],
@@ -423,10 +419,6 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 ProductSetSearchKeywordsAction::class,
                 ['action', 'searchKeywords', 'staged']
-            ],
-            [
-                ProductSetSkuNotStageableAction::class,
-                ['action', 'variantId', 'sku']
             ],
             [
                 ProductSetTaxCategoryAction::class,
@@ -507,10 +499,6 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
             [
                 CustomerChangeEmailAction::class,
                 ['action', 'email']
-            ],
-            [
-                CustomerChangeNameAction::class,
-                ['action', 'firstName', 'lastName', 'middleName', 'title']
             ],
             [
                 CustomerRemoveAddressAction::class,
@@ -1245,10 +1233,6 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
             [
-                ProductSetMetaAttributesAction::class,
-                'of',
-            ],
-            [
                 ProductSetMetaTitleAction::class,
                 'of',
             ],
@@ -1282,11 +1266,6 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 [
                     $this->getInstance(LocalizedSearchKeywords::class)
                 ]
-            ],
-            [
-                ProductSetSkuNotStageableAction::class,
-                'ofVariantId',
-                [10]
             ],
             [
                 ProductSetTaxCategoryAction::class,
@@ -1408,11 +1387,6 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
                 CustomerChangeEmailAction::class,
                 'ofEmail',
                 ['john.doe@company.com']
-            ],
-            [
-                CustomerChangeNameAction::class,
-                'ofFirstNameAndLastName',
-                ['John', 'Doe']
             ],
             [
                 CustomerRemoveAddressAction::class,

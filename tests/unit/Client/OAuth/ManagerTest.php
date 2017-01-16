@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Client\OAuth;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
+use Cache\Adapter\Void\VoidCachePool;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -45,7 +46,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     protected function getManager($config, $returnValue, $statusCode = 200, $noCache = false)
     {
         if ($noCache) {
-            $manager = new Manager($config, new NullCacheAdapter());
+            $manager = new Manager($config, new ArrayCachePool());
         } else {
             $manager = new Manager($config);
         }
@@ -163,10 +164,10 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCacheAdapter()
     {
-        $cache1 = new NullCacheAdapter();
+        $cache1 = new VoidCachePool();
         $manager = new Manager($this->getConfig(), $cache1);
 
-        $cache2 = new NullCacheAdapter();
+        $cache2 = new VoidCachePool();
         $this->assertInstanceOf(Manager::class, $manager->setCacheAdapter($cache2));
         $this->assertSame($cache2, $manager->getCacheAdapter());
     }
@@ -178,7 +179,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
                 'PHP >= 5.5 needed to run this test'
             );
         }
-        $cache1 = new NullCacheAdapter();
+        $cache1 = new VoidCachePool();
         $manager = new Manager($this->getConfig(), $cache1);
 
         $cache2 = new ArrayCachePool();

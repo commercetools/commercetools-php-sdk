@@ -6,7 +6,10 @@
 
 namespace Commercetools\Core\Cache;
 
+use Cache\Adapter\Apcu\ApcuCachePool;
+use Cache\Adapter\Doctrine\DoctrineCachePool;
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Cache\Adapter\Redis\RedisCachePool;
 use Doctrine\Common\Cache\Cache;
 use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\InvalidArgumentException;
@@ -35,7 +38,7 @@ class CacheAdapterFactory
         $this->registerCallback(
             function ($cache) {
                 if ($cache instanceof Cache) {
-                    return new DoctrineCacheAdapter($cache);
+                    return new DoctrineCachePool($cache);
                 }
                 return null;
             }
@@ -43,7 +46,7 @@ class CacheAdapterFactory
         ->registerCallback(
             function ($cache) {
                 if ($cache instanceof \Redis) {
-                    return new PhpRedisCacheAdapter($cache);
+                    return new RedisCachePool($cache);
                 }
                 return null;
             }
@@ -67,7 +70,7 @@ class CacheAdapterFactory
      * returns the cache adapter interface for the application cache
      *
      * @param $cache
-     * @return CacheAdapterInterface|CacheItemPoolInterface
+     * @return CacheItemPoolInterface
      * @throws \InvalidArgumentException
      */
     public function get($cache = null)
@@ -76,17 +79,13 @@ class CacheAdapterFactory
             $cache = $this->getDefaultCache();
         }
 
-        if ($cache instanceof CacheAdapterInterface) {
-            return $cache;
-        }
-
         if ($cache instanceof CacheItemPoolInterface) {
             return $cache;
         }
 
         foreach ($this->callbacks as $callBack) {
             $result = call_user_func($callBack, $cache);
-            if ($result instanceof CacheAdapterInterface || $result instanceof CacheItemPoolInterface) {
+            if ($result instanceof CacheItemPoolInterface) {
                 return $result;
             }
         }
@@ -97,16 +96,12 @@ class CacheAdapterFactory
     /**
      * creates a default cache adapter if no cache has been provided
      *
-     * @return CacheAdapterInterface|null
+     * @return CacheItemPoolInterface|null
      */
     protected function getDefaultCache()
     {
         if (extension_loaded('apcu')) {
-            return new ApcuCacheAdapter();
-        }
-
-        if (extension_loaded('apc')) {
-            return new ApcCacheAdapter();
+            return new ApcuCachePool();
         }
 
         if (class_exists('\Cache\Adapter\Filesystem\FilesystemCachePool')) {

@@ -30,6 +30,7 @@
     "guzzlehttp/psr7": "^1.1",
     "pimple/pimple": "^3.0",
     "psr/cache": "^1.0",
+    "cache/apcu-adapter": "^0.2",
     "ext-intl": "*",
     "ext-mbstring": "*"
   },
@@ -49,7 +50,10 @@
     "friendsofphp/php-cs-fixer": "@stable",
     "symfony/yaml": "*",
     "cache/array-adapter": "^0.4.0",
+    "cache/doctrine-adapter": "^0.5.0",
+    "cache/redis-adapter": "^0.4.0",
     "cache/filesystem-adapter": "^0.3.0",
+    "cache/void-adapter": "^0.3",
     "incenteev/composer-parameter-handler": "^2.1"
   },
   "scripts": {
