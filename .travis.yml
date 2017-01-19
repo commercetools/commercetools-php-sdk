@@ -22,8 +22,9 @@ cache:
 before_install:
 - PHP=$TRAVIS_PHP_VERSION
 - if [ $PHP != 'hhvm' ] ; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; fi
-- if [ $PHP != 'hhvm' ] ; then printf "yes\n" | pecl install -f apcu ; fi
-- if [ $PHP != 'hhvm' ] ; then echo "extension = apcu.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; fi
+- if [ $PHP != 'hhvm' ] && [ `php-config --vernum` -lt 70000 ]; then printf "yes\n" | pecl install -f apcu-4.0.10 ; fi
+- if [ $PHP != 'hhvm' ] && [ `php-config --vernum` -ge 70000 ] ; then printf "yes\n" | pecl install -f apcu ; fi
+- if [ $PHP != 'hhvm' ] ; then phpenv config-add ./tests/apc.ini; fi
 before_script:
 - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
 - if [ $GUZZLE == '5' ] ; then ./set_guzzle5.sh; fi
