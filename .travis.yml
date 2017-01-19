@@ -20,10 +20,10 @@ cache:
   directories:
   - vendor
 before_install:
+- PHP=$TRAVIS_PHP_VERSION
 - if [ $PHP != 'hhvm' ] ; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; fi
 - if [ $PHP != 'hhvm' ] ; then echo "extension = apc.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; fi
 before_script:
-- PHP=$TRAVIS_PHP_VERSION
 - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
 - if [ $GUZZLE == '5' ] ; then ./set_guzzle5.sh; fi
 - if [ $PHP != 'nightly' ] && [ $PHP != '7.1' ]; then composer global require hirak/prestissimo; fi
