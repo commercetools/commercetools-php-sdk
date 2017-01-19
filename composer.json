@@ -56,6 +56,10 @@
     "cache/void-adapter": "^0.3",
     "incenteev/composer-parameter-handler": "^2.1"
   },
+  "suggest": {
+    "cache/redis-adapter": "For usage of a redis server to store the client access token",
+    "cache/doctrine-adapter": "For usage of a doctrine cache instance to store the client access token"
+  },
   "scripts": {
     "updateConfig": [
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
