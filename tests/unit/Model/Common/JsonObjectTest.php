@@ -221,9 +221,8 @@ class JsonObjectTest extends \PHPUnit_Framework_TestCase
         $obj->setAttributes(AttributeDefinitionCollection::of()->add(AttributeDefinition::of()->setName('test')));
         $context = $obj->getContext();
         $contextChild = $obj->getAttributes()->getAt(0)->getContext();
-        $contextChild['test']= 'test';
 
-        $this->assertSame('test', $context['test']);
+        $this->assertSame($contextChild, $context);
     }
 
     public function testOptional()

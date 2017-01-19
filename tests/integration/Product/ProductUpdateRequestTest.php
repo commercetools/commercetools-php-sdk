@@ -715,34 +715,6 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
-    public function testSku()
-    {
-        $draft = $this->getDraft('sku');
-        $product = $this->createProduct($draft);
-        $sku = $this->getTestRun() . 'sku';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetSkuNotStageableAction::ofVariantId(
-                    $product->getMasterData()->getCurrent()->getMasterVariant()->getId()
-                )->setSku($sku)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertSame(
-            $sku,
-            $result->getMasterData()->getStaged()->getMasterVariant()->getSku()
-        );
-        $this->assertSame(
-            $sku,
-            $result->getMasterData()->getCurrent()->getMasterVariant()->getSku()
-        );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-    }
-
     public function testSkuStaged()
     {
         $draft = $this->getDraft('sku-staged');
