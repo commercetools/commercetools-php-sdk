@@ -59,7 +59,7 @@ use Commercetools\Core\Helper\CurrencyFormatter;
  *
  * @package Commercetools\Core\Model\Common
  */
-class Context
+class Context implements \ArrayAccess
 {
     /**
      * @var bool
@@ -197,5 +197,50 @@ class Context
     public static function of()
     {
         return new static();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->$offset);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetGet($offset)
+    {
+        if ($this->offsetExists($offset)) {
+            $method = 'get'.ucfirst($offset);
+
+            return $this->$method();
+        }
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetSet($offset, $value)
+    {
+        if ($this->offsetExists($offset)) {
+            $method = 'set'.ucfirst($offset);
+
+            $this->$method($value);
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetUnset($offset)
+    {
+        if ($this->offsetExists($offset)) {
+            $method = 'set'.ucfirst($offset);
+
+            $this->$method(null);
+        }
     }
 }
