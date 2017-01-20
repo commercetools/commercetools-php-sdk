@@ -68,7 +68,8 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-develop": "1.7-dev"
+      "dev-develop": "1.7-dev",
+      "version2": "2.0-dev"
     },
     "incenteev-parameters": [
       {
