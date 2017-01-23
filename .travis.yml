@@ -35,8 +35,8 @@ before_script:
 - if [ $PHP != '5.4' ] ; then composer install -o --prefer-dist; fi
 script:
 - ant phpcs-ci
-- phpunit --testsuite=unit
-- if [ $PHP == '7.0' ] ; then phpunit --testsuite=integration; fi
+- vendor/bin/phpunit --testsuite=unit
+- if [ $PHP == '7.0' ] ; then vendor/bin/phpunit --testsuite=integration; fi
 - ant behat
 after_success:
 - ./push-docs-to-gh-pages.sh
