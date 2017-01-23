@@ -169,6 +169,7 @@ category:
     - metaDescription
     - metaKeywords
     - metaTitle
+    - assets
 
 categoryDraft:
   domain: category
@@ -184,6 +185,7 @@ categoryDraft:
     - metaKeywords
     - metaTitle
     - custom
+    - assets
 
 address:
   domain: common

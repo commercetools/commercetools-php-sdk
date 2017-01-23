@@ -51,7 +51,7 @@ class ProductAddAssetAction extends AbstractAction
      * @param int $variantId
      * @param AssetDraft $asset
      * @param Context|callable $context
-     * @return ProductAddExternalImageAction
+     * @return ProductAddAssetAction
      */
     public static function ofVariantIdAndAsset($variantId, AssetDraft $asset, $context = null)
     {
@@ -62,7 +62,7 @@ class ProductAddAssetAction extends AbstractAction
      * @param string $sku
      * @param AssetDraft $asset
      * @param Context|callable $context
-     * @return ProductAddExternalImageAction
+     * @return ProductAddAssetAction
      */
     public static function ofSkuAndAsset($sku, AssetDraft $asset, $context = null)
     {
