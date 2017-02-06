@@ -54,6 +54,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method ImportOrder setCustom(CustomFieldObjectDraft $custom = null)
  * @method string getInventoryMode()
  * @method ImportOrder setInventoryMode(string $inventoryMode = null)
+ * @method string getTaxRoundingMode()
+ * @method ImportOrder setTaxRoundingMode(string $taxRoundingMode = null)
  */
 class ImportOrder extends JsonObject
 {
@@ -81,6 +83,7 @@ class ImportOrder extends JsonObject
             ],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
             'inventoryMode' => [static::TYPE => 'string'],
+            'taxRoundingMode' => [static::TYPE => 'string'],
         ];
     }
 }

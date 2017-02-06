@@ -25,6 +25,7 @@ cart:
     - taxMode
     - anonymousId
     - locale
+    - taxRoundingMode
 lineItem:
   domain: cart
   model: LineItem
@@ -365,6 +366,7 @@ order:
     - paymentInfo
     - anonymousId
     - locale
+    - taxRoundingMode
 syncInfo:
   domain: order
   model: SyncInfo
@@ -850,7 +852,7 @@ importOrder:
     - completedAt
     - custom
     - inventoryMode
-
+    - taxRoundingMode
 lineItemImportDraft:
   domain: order
   model: lineItemImportDraft

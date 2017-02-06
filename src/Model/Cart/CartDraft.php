@@ -42,6 +42,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method string getAnonymousId()
  * @method CartDraft setAnonymousId(string $anonymousId = null)
  * @method string getLocale()
+ * @method string getTaxRoundingMode()
+ * @method CartDraft setTaxRoundingMode(string $taxRoundingMode = null)
  */
 class CartDraft extends JsonObject
 {
@@ -64,6 +66,7 @@ class CartDraft extends JsonObject
             'taxMode' => [static::TYPE => 'string'],
             'anonymousId' => [static::TYPE => 'string'],
             'locale' => [static::TYPE => 'string'],
+            'taxRoundingMode' => [static::TYPE => 'string'],
         ];
     }
 
