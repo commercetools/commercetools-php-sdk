@@ -25,6 +25,7 @@ cart:
     - taxMode
     - anonymousId
     - locale
+    - taxRoundingMode
 lineItem:
   domain: cart
   model: LineItem
@@ -169,6 +170,7 @@ category:
     - metaDescription
     - metaKeywords
     - metaTitle
+    - assets
 
 categoryDraft:
   domain: category
@@ -184,6 +186,7 @@ categoryDraft:
     - metaKeywords
     - metaTitle
     - custom
+    - assets
 
 address:
   domain: common
@@ -363,6 +366,7 @@ order:
     - paymentInfo
     - anonymousId
     - locale
+    - taxRoundingMode
 syncInfo:
   domain: order
   model: SyncInfo
@@ -848,7 +852,7 @@ importOrder:
     - completedAt
     - custom
     - inventoryMode
-
+    - taxRoundingMode
 lineItemImportDraft:
   domain: order
   model: lineItemImportDraft

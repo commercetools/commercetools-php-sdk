@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Cart;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CustomLineItemDraft;
 use Commercetools\Core\Model\Cart\CustomLineItemDraftCollection;
@@ -39,6 +40,7 @@ use Commercetools\Core\Request\Carts\Command\CartAddPaymentAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemMoneyAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemQuantityAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction;
+use Commercetools\Core\Request\Carts\Command\CartChangeTaxRoundingModeAction;
 use Commercetools\Core\Request\Carts\Command\CartRecalculateAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveDiscountCodeAction;
@@ -276,7 +278,7 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertSame(100, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
         $this->assertSame(200, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
     }
-    
+
     public function testCustomLineItem()
     {
         $draft = $this->getDraft();
@@ -1110,6 +1112,33 @@ class CartUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
 
         $this->assertTrue($response->isError());
+    }
+
+    public function testTaxRoundingMode()
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $this->assertSame(Cart::TAX_ROUNDING_MODE_HALF_EVEN, $cart->getTaxRoundingMode());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartChangeTaxRoundingModeAction::ofTaxRoundingMode(Cart::TAX_ROUNDING_MODE_HALF_DOWN))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(Cart::TAX_ROUNDING_MODE_HALF_DOWN, $cart->getTaxRoundingMode());
+    }
+
+    public function testCreateWithTaxRoundingMode()
+    {
+        $draft = $this->getDraft();
+        $draft->setTaxRoundingMode(Cart::TAX_ROUNDING_MODE_HALF_DOWN);
+        $cart = $this->createCart($draft);
+
+        $this->assertSame(Cart::TAX_ROUNDING_MODE_HALF_DOWN, $cart->getTaxRoundingMode());
     }
 
     /**

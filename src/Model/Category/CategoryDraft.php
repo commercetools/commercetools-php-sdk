@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\Common\AssetDraftCollection;
 
 /**
  * @package Commercetools\Core\Model\Category
@@ -34,6 +35,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method CategoryDraft setMetaTitle(LocalizedString $metaTitle = null)
  * @method LocalizedString getMetaKeywords()
  * @method CategoryDraft setMetaKeywords(LocalizedString $metaKeywords = null)
+ * @method AssetDraftCollection getAssets()
+ * @method CategoryDraft setAssets(AssetDraftCollection $assets = null)
  */
 class CategoryDraft extends JsonObject
 {
@@ -50,6 +53,7 @@ class CategoryDraft extends JsonObject
             'metaTitle' => [static::TYPE => LocalizedString::class],
             'metaKeywords' => [static::TYPE => LocalizedString::class],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'assets' => [static::TYPE => AssetDraftCollection::class]
         ];
     }
 
