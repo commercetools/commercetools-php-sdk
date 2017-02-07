@@ -16,6 +16,7 @@ class ManagerTest extends ApiTestCase
         $config = $this->getClientConfig('manage_project');
         $config->setScope('');
         $manager = new Manager($config);
+        $manager->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $token = $manager->refreshToken();
         $this->assertEmpty($config->getScope());
