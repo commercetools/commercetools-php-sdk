@@ -268,6 +268,9 @@ class Config implements ContextAwareInterface
      */
     public function setScope($scope)
     {
+        if (empty($scope)) {
+            $scope = [];
+        }
         if (!is_array($scope)) {
             $scope = explode(' ', $scope);
         }
