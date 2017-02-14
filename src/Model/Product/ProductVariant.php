@@ -47,7 +47,7 @@ class ProductVariant extends JsonObject
     {
         return [
             'id' => [static::TYPE => 'int'],
-            'sku' => [static::TYPE => 'int'],
+            'sku' => [static::TYPE => 'string'],
             'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceCollection'],
             'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Price'],
             'attributes' => [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
