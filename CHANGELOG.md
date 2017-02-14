@@ -1,3 +1,13 @@
+<a name="1.6.1"></a>
+## [1.6.1](https://github.com/commercetools/commercetools-php-sdk/compare/v1.6.0...v1.6.1) (2017-02-14)
+
+
+### Bug Fixes
+
+* **Product:** correct type of sku in product variant ([526c4c3](https://github.com/commercetools/commercetools-php-sdk/commit/526c4c3)), closes [#292](https://github.com/commercetools/commercetools-php-sdk/issues/292)
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/commercetools/commercetools-php-sdk/compare/v1.5.1...v1.6.0) (2017-01-09)
 
