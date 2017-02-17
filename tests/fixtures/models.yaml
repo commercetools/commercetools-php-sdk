@@ -26,6 +26,7 @@ cart:
     - anonymousId
     - locale
     - taxRoundingMode
+    - deleteDaysAfterLastModification
 lineItem:
   domain: cart
   model: LineItem
