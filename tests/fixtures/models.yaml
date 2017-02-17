@@ -810,6 +810,7 @@ stateDraft:
     - description
     - initial
     - transitions
+    - roles
 
 location:
   domain: zone
