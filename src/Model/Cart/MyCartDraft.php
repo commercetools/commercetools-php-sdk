@@ -34,6 +34,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method CustomFieldObjectDraft getCustom()
  * @method MyCartDraft setCustom(CustomFieldObjectDraft $custom = null)
  * @method string getLocale()
+ * @method int getDeleteDaysAfterLastModification()
+ * @method MyCartDraft setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
  */
 class MyCartDraft extends JsonObject
 {
