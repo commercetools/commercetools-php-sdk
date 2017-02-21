@@ -32,8 +32,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method ShoppingList setDescription(LocalizedString $description = null)
  * @method CustomerReference getCustomer()
  * @method ShoppingList setCustomer(CustomerReference $customer = null)
- * @method LineItem getLineItems()
- * @method ShoppingList setLineItems(LineItem $lineItems = null)
+ * @method LineItemCollection getLineItems()
+ * @method ShoppingList setLineItems(LineItemCollection $lineItems = null)
  * @method TextLineItemCollection getTextLineItems()
  * @method ShoppingList setTextLineItems(TextLineItemCollection $textLineItems = null)
  * @method CustomFieldObject getCustom()
@@ -59,7 +59,7 @@ class ShoppingList extends JsonObject
             'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
             'customer' => [static::TYPE => '\Commercetools\Core\Model\Customer\CustomerReference'],
-            'lineItems' => [static::TYPE => '\Commercetools\Core\Model\ShoppingList\LineItem'],
+            'lineItems' => [static::TYPE => '\Commercetools\Core\Model\ShoppingList\LineItemCollection'],
             'textLineItems' => [static::TYPE => '\Commercetools\Core\Model\ShoppingList\TextLineItemCollection'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
         ];

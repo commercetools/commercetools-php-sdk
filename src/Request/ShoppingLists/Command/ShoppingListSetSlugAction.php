@@ -7,22 +7,23 @@ namespace Commercetools\Core\Request\ShoppingLists\Command;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Request\ShoppingLists\Command
- * @link https://dev.commercetools.com/http-api-projects-shoppingLists.html#set-key
+ * @link https://dev.commercetools.com/http-api-projects-shoppingLists.html#set-slug
  * @method string getAction()
- * @method ShoppingListSetKeyAction setAction(string $action = null)
- * @method string getKey()
- * @method ShoppingListSetKeyAction setKey(string $key = null)
+ * @method ShoppingListSetSlugAction setAction(string $action = null)
+ * @method LocalizedString getSlug()
+ * @method ShoppingListSetSlugAction setSlug(LocalizedString $slug = null)
  */
-class ShoppingListSetKeyAction extends AbstractAction
+class ShoppingListSetSlugAction extends AbstractAction
 {
     public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'key' => [static::TYPE => 'string'],
+            'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
         ];
     }
 
@@ -33,16 +34,16 @@ class ShoppingListSetKeyAction extends AbstractAction
     public function __construct(array $data = [], $context = null)
     {
         parent::__construct($data, $context);
-        $this->setAction('setKey');
+        $this->setAction('setSlug');
     }
 
     /**
-     * @param string $key
+     * @param string $slug
      * @param Context|callable $context
-     * @return ShoppingListSetKeyAction
+     * @return ShoppingListSetSlugAction
      */
-    public static function ofKey($key, $context = null)
+    public static function ofSlug($slug, $context = null)
     {
-        return static::of($context)->setKey($key);
+        return static::of($context)->setSlug($slug);
     }
 }
