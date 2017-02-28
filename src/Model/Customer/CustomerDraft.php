@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\Common\DateDecorator;
 
 /**
  * @package Commercetools\Core\Model\Customer
@@ -35,7 +36,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method CustomerDraft setPassword(string $password = null)
  * @method CustomerDraft setAnonymousCartId(string $anonymousCartId = null)
  * @method CustomerDraft setExternalId(string $externalId = null)
- * @method DateTimeDecorator getDateOfBirth()
+ * @method DateDecorator getDateOfBirth()
  * @method CustomerDraft setDateOfBirth(\DateTime $dateOfBirth = null)
  * @method string getCompanyName()
  * @method CustomerDraft setCompanyName(string $companyName = null)

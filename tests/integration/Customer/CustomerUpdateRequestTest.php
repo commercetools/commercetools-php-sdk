@@ -491,6 +491,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
     public function testDateOfBirth()
     {
         $draft = $this->getDraft('date-of-birth');
+        $draft->setDateOfBirth(new \DateTime('yesterday'));
         $customer = $this->createCustomer($draft);
 
         $timezone = date_default_timezone_get();
