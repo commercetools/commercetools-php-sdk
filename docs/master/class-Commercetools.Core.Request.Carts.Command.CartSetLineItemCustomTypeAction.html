@@ -200,6 +200,10 @@
 							ShippingMethod						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.ShoppingList.html">
+							ShoppingList						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.State.html">
 							State						</a>
 							</li>
@@ -410,6 +414,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.ShoppingLists.html">
+							ShoppingLists<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShoppingLists.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.States.html">
 							States<span></span>
 						</a>
@@ -475,10 +489,12 @@
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartAddDiscountCodeAction.html">CartAddDiscountCodeAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartAddLineItemAction.html">CartAddLineItemAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartAddPaymentAction.html">CartAddPaymentAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartAddShoppingListAction.html">CartAddShoppingListAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartChangeCustomLineItemMoneyAction.html">CartChangeCustomLineItemMoneyAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartChangeCustomLineItemQuantityAction.html">CartChangeCustomLineItemQuantityAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartChangeLineItemQuantityAction.html">CartChangeLineItemQuantityAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartChangeTaxModeAction.html">CartChangeTaxModeAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartChangeTaxRoundingModeAction.html">CartChangeTaxRoundingModeAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartRecalculateAction.html">CartRecalculateAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartRemoveCustomLineItemAction.html">CartRemoveCustomLineItemAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartRemoveDiscountCodeAction.html">CartRemoveDiscountCodeAction</a></li>
@@ -492,6 +508,7 @@
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetCustomLineItemCustomTypeAction.html">CartSetCustomLineItemCustomTypeAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetCustomLineItemTaxRateAction.html">CartSetCustomLineItemTaxRateAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetCustomShippingMethodAction.html">CartSetCustomShippingMethodAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetDeleteDaysAfterLastModificationAction.html">CartSetDeleteDaysAfterLastModificationAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetLineItemCustomFieldAction.html">CartSetLineItemCustomFieldAction</a></li>
 				<li class="active"><a href="class-Commercetools.Core.Request.Carts.Command.CartSetLineItemCustomTypeAction.html">CartSetLineItemCustomTypeAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Carts.Command.CartSetLineItemTaxRateAction.html">CartSetLineItemTaxRateAction</a></li>
@@ -579,7 +596,7 @@
             <tr><th>Namespace</th><td><a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Request.html">Request</a>\<a href="namespace-Commercetools.Core.Request.Carts.html">Carts</a>\<a href="namespace-Commercetools.Core.Request.Carts.Command.html">Command</a></td></tr>
             <tr><th>Package</th><td>Commercetools\Core\Request\Carts\Command</td></tr>
 
-                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Request.Carts.Command.CartSetLineItemCustomTypeAction.html#13-46" title="Go to source code">Request/Carts/Command/CartSetLineItemCustomTypeAction.php</a></td></tr>
+                <tr><th>Located at</td><td><a href="source-class-Commercetools.Core.Request.Carts.Command.CartSetLineItemCustomTypeAction.html#13-79" title="Go to source code">Request/Carts/Command/CartSetLineItemCustomTypeAction.php</a></td></tr>
 
                     <tr><th>API documentation</th><td>
                     <b><a href="https://dev.commercetools.com/http-api-projects-carts.html#set-customlineitem-custom-type" target="api-doc">https://dev.commercetools.com/http-api-projects-carts.html#set-customlineitem-custom-type</a></b></span></td></tr>
@@ -625,6 +642,132 @@
 
 					<h4>Overrides</h4>
 					<div class="list"><code><a href="class-Commercetools.Core.Request.CustomField.Command.SetCustomTypeAction.html#___construct">Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction::__construct</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="ofTypeKeyAndLineItemId" id="_ofTypeKeyAndLineItemId">
+
+			<td class="attributes"><code>
+				 public static
+				static
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_ofTypeKeyAndLineItemId">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartSetLineItemCustomTypeAction.html#47-56" title="Go to source code">ofTypeKeyAndLineItemId</a>( <span>string <var>$typeKey</var></span>, <span>string <var>$lineItemId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$typeKey</var></dt>
+						<dd></dd>
+						<dt><var>$lineItemId</var></dt>
+						<dd></dd>
+						<dt><var>$context</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						static
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="ofTypeIdAndLineItemId" id="_ofTypeIdAndLineItemId">
+
+			<td class="attributes"><code>
+				 public static
+				static
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_ofTypeIdAndLineItemId">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartSetLineItemCustomTypeAction.html#58-67" title="Go to source code">ofTypeIdAndLineItemId</a>( <span>string <var>$typeId</var></span>, <span>string <var>$lineItemId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$typeId</var></dt>
+						<dd></dd>
+						<dt><var>$lineItemId</var></dt>
+						<dd></dd>
+						<dt><var>$context</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						static
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="ofTypeAndLineItemId" id="_ofTypeAndLineItemId">
+
+			<td class="attributes"><code>
+				 public static
+				static
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_ofTypeAndLineItemId">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Carts.Command.CartSetLineItemCustomTypeAction.html#69-78" title="Go to source code">ofTypeAndLineItemId</a>( <span><code><a href="class-Commercetools.Core.Model.Type.TypeReference.html">Commercetools\Core\Model\Type\TypeReference</a></code> <var>$type</var></span>, <span>string <var>$lineItemId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$type</var></dt>
+						<dd></dd>
+						<dt><var>$lineItemId</var></dt>
+						<dd></dd>
+						<dt><var>$context</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						static
+					</div>
+
+
+
 
 			</div>
 			</div></td>

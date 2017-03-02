@@ -103,6 +103,9 @@
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/namespace-Commercetools.Core.Model.ShippingMethod.html</loc>
 </url>
 <url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/namespace-Commercetools.Core.Model.ShoppingList.html</loc>
+</url>
+<url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/namespace-Commercetools.Core.Model.State.html</loc>
 </url>
 <url>
@@ -233,6 +236,12 @@
 </url>
 <url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/namespace-Commercetools.Core.Request.ShippingMethods.Command.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/namespace-Commercetools.Core.Request.ShoppingLists.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/namespace-Commercetools.Core.Request.ShoppingLists.Command.html</loc>
 </url>
 <url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/namespace-Commercetools.Core.Request.States.html</loc>
@@ -1200,6 +1209,42 @@
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShippingMethod.ZoneRateCollection.html</loc>
 </url>
 <url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShoppingList.LineItem.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShoppingList.LineItemCollection.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShoppingList.LineItemDraft.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShoppingList.LineItemDraftCollection.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShoppingList.ShoppingList.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShoppingList.ShoppingListCollection.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShoppingList.ShoppingListDraft.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShoppingList.ShoppingListReference.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShoppingList.TextLineItem.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShoppingList.TextLineItemCollection.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShoppingList.TextLineItemDraft.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.ShoppingList.TextLineItemDraftCollection.html</loc>
+</url>
+<url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Model.State.State.html</loc>
 </url>
 <url>
@@ -1485,6 +1530,9 @@
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartAddPaymentAction.html</loc>
 </url>
 <url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartAddShoppingListAction.html</loc>
+</url>
+<url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartChangeCustomLineItemMoneyAction.html</loc>
 </url>
 <url>
@@ -1495,6 +1543,9 @@
 </url>
 <url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartChangeTaxModeAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartChangeTaxRoundingModeAction.html</loc>
 </url>
 <url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartRecalculateAction.html</loc>
@@ -1534,6 +1585,9 @@
 </url>
 <url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartSetCustomShippingMethodAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartSetDeleteDaysAfterLastModificationAction.html</loc>
 </url>
 <url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Carts.Command.CartSetLineItemCustomFieldAction.html</loc>
@@ -1578,6 +1632,15 @@
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Categories.CategoryUpdateRequest.html</loc>
 </url>
 <url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Categories.Command.CategoryAddAssetAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Categories.Command.CategoryChangeAssetNameAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Categories.Command.CategoryChangeAssetOrderAction.html</loc>
+</url>
+<url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Categories.Command.CategoryChangeNameAction.html</loc>
 </url>
 <url>
@@ -1588,6 +1651,24 @@
 </url>
 <url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Categories.Command.CategoryChangeSlugAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Categories.Command.CategoryRemoveAssetAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Categories.Command.CategorySetAssetCustomFieldAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Categories.Command.CategorySetAssetCustomTypeAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Categories.Command.CategorySetAssetDescriptionAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Categories.Command.CategorySetAssetSourcesAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Categories.Command.CategorySetAssetTagsAction.html</loc>
 </url>
 <url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.Categories.Command.CategorySetDescriptionAction.html</loc>
@@ -2518,6 +2599,96 @@
 </url>
 <url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShippingMethods.ShippingMethodUpdateRequest.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListAddLineItemAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListAddTextLineItemAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListChangeLineItemQuantityAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListChangeLineItemsOrderAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListChangeNameAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListChangeTextLineItemNameAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListChangeTextLineItemQuantityAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListChangeTextLineItemsOrderAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListRemoveLineItemAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListRemoveTextLineItemAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListSetCustomerAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListSetCustomFieldAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListSetCustomTypeAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListSetDescriptionAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListSetKeyAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListSetLineItemCustomFieldAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListSetLineItemCustomTypeAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListSetSlugAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListSetTextLineItemCustomFieldAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListSetTextLineItemCustomTypeAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.Command.ShoppingListSetTextLineItemDescriptionAction.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.ShoppingListByIdGetRequest.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.ShoppingListByKeyGetRequest.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.ShoppingListCreateRequest.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.ShoppingListDeleteByKeyRequest.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.ShoppingListDeleteRequest.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.ShoppingListQueryRequest.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.ShoppingListsEndpoint.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.ShoppingListUpdateByKeyRequest.html</loc>
+</url>
+<url>
+	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.ShoppingLists.ShoppingListUpdateRequest.html</loc>
 </url>
 <url>
 	<loc>http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Request.States.Command.StateAddRolesAction.html</loc>
