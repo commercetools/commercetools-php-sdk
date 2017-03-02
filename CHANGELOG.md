@@ -1,3 +1,22 @@
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/commercetools/commercetools-php-sdk/compare/v1.6.1...v1.7.0) (2017-03-02)
+
+
+### Bug Fixes
+
+* **CustomerDraft:** correct type mapping for customer draft dateOfBirth ([1233835](https://github.com/commercetools/commercetools-php-sdk/commit/1233835))
+* **State:** add roles to state draft model ([33bb512](https://github.com/commercetools/commercetools-php-sdk/commit/33bb512))
+
+### Features
+
+* **Cart:** support automatic deletion of old carts ([47c89b3](https://github.com/commercetools/commercetools-php-sdk/commit/47c89b3)), closes [#294](https://github.com/commercetools/commercetools-php-sdk/issues/294)
+* **Cart:** support tax rounding mode ([1c22189](https://github.com/commercetools/commercetools-php-sdk/commit/1c22189)), closes [#290](https://github.com/commercetools/commercetools-php-sdk/issues/290)
+* **Category:** add assets to categories ([5a7716d](https://github.com/commercetools/commercetools-php-sdk/commit/5a7716d)), closes [#285](https://github.com/commercetools/commercetools-php-sdk/issues/285)
+* **OAuth:** Client scope can be left empty ([7f1ddec](https://github.com/commercetools/commercetools-php-sdk/commit/7f1ddec)), closes [#291](https://github.com/commercetools/commercetools-php-sdk/issues/291)
+* **ShoppingList:** support shopping list ([d8fdf4d](https://github.com/commercetools/commercetools-php-sdk/commit/d8fdf4d)), closes [#287](https://github.com/commercetools/commercetools-php-sdk/issues/287)
+
+
+
 <a name="1.6.1"></a>
 ## [1.6.1](https://github.com/commercetools/commercetools-php-sdk/compare/v1.6.0...v1.6.1) (2017-02-14)
 
