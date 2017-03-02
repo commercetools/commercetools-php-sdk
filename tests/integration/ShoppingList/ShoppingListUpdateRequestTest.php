@@ -21,16 +21,21 @@ use Commercetools\Core\Model\ShoppingList\LocalizedEnumShoppingList;
 use Commercetools\Core\Model\ShoppingList\StringShoppingList;
 use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\ShoppingList\ShoppingListDraft;
+use Commercetools\Core\Model\ShoppingList\TextLineItemDraft;
+use Commercetools\Core\Model\ShoppingList\TextLineItemDraftCollection;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListAddEnumValueAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListAddFieldDefinitionAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListAddLineItemAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListAddLocalizedEnumValueAction;
+use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListAddTextLineItemAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListChangeKeyAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListChangeLabelAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListChangeLineItemQuantityAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListChangeNameAction;
+use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListChangeTextLineItemQuantityAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListRemoveFieldDefinitionAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListRemoveLineItemAction;
+use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListRemoveTextLineItemAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetCustomerAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetCustomFieldAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetCustomTypeAction;
@@ -39,6 +44,8 @@ use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetKeyAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetSlugAction;
+use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetTextLineItemCustomFieldAction;
+use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetTextLineItemCustomTypeAction;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListCreateRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListUpdateByKeyRequest;
@@ -359,5 +366,124 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
         $this->assertSame($fieldValue, $result->getLineItems()->current()->getCustom()->getFields()->getTestField());
+    }
+
+    public function testAddTextLineItem()
+    {
+        $draft = $this->getDraft('add-text-line-item');
+        $shoppingList = $this->createShoppingList($draft);
+
+        $name = $this->getTestRun() . '-text line item name';
+        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
+            ->addAction(ShoppingListAddTextLineItemAction::ofName(
+                LocalizedString::ofLangAndText('en', $name)
+            ))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertSame($name, $result->getTextLineItems()->current()->getName()->en);
+    }
+
+    public function testRemoveTextLineItem()
+    {
+        $name = $this->getTestRun() . '-text line item name';
+        $draft = $this->getDraft('remove-text-line-item');
+        $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
+            TextLineItemDraft::of()->setName(LocalizedString::ofLangAndText('en', $name))
+        ));
+        $shoppingList = $this->createShoppingList($draft);
+
+        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
+            ->addAction(ShoppingListRemoveTextLineItemAction::ofTextLineItemId(
+                $shoppingList->getTextLineItems()->current()->getId()
+            ))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertCount(0, $result->getTextLineItems());
+    }
+
+    public function testChangeQuantityTextLineItem()
+    {
+        $name = $this->getTestRun() . '-text line item name';
+        $draft = $this->getDraft('change-text-line-item');
+        $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
+            TextLineItemDraft::of()->setName(LocalizedString::ofLangAndText('en', $name))
+        ));
+        $shoppingList = $this->createShoppingList($draft);
+
+        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
+            ->addAction(ShoppingListChangeTextLineItemQuantityAction::ofTextLineItemIdAndQuantity(
+                $shoppingList->getTextLineItems()->current()->getId(),
+                2
+            ))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertSame($name, $result->getTextLineItems()->current()->getName()->en);
+        $this->assertSame(2, $result->getTextLineItems()->current()->getQuantity());
+    }
+
+    public function testSetTextLineItemCustomType()
+    {
+        $type = $this->getType('shopping-list-textLineItem-set-field', 'shopping-list-text-line-item');
+        $draft = $this->getDraft('set-line-item-custom-type');
+        $name = $this->getTestRun() . '-text line item name';
+        $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
+            TextLineItemDraft::of()->setName(LocalizedString::ofLangAndText('en', $name))
+        ));
+        $shoppingList = $this->createShoppingList($draft);
+
+        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
+            ->addAction(
+                ShoppingListSetTextLineItemCustomTypeAction::ofTypeKeyAndTextLineItemId(
+                    'shopping-list-textLineItem-set-field',
+                    $shoppingList->getTextLineItems()->current()->getId()
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertSame($type->getId(), $result->getTextLineItems()->current()->getCustom()->getType()->getId());
+    }
+
+    public function testSetTextLineItemCustomField()
+    {
+        $type = $this->getType('shopping-list-textLineItem-set-field', 'shopping-list-text-line-item');
+        $draft = $this->getDraft('set-line-item-custom-type');
+        $name = $this->getTestRun() . '-text line item name';
+        $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
+            TextLineItemDraft::of()->setName(LocalizedString::ofLangAndText('en', $name))
+                ->setCustom(CustomFieldObjectDraft::ofTypeKey('shopping-list-textLineItem-set-field'))
+        ));
+        $shoppingList = $this->createShoppingList($draft);
+
+        $fieldValue = $this->getTestRun() . '-new value';
+        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
+            ->addAction(
+                ShoppingListSetTextLineItemCustomFieldAction::ofTextLineItemIdAndName(
+                    $shoppingList->getTextLineItems()->current()->getId(),
+                    'testField'
+                )->setValue($fieldValue)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertSame($fieldValue, $result->getTextLineItems()->current()->getCustom()->getFields()->getTestField());
     }
 }
