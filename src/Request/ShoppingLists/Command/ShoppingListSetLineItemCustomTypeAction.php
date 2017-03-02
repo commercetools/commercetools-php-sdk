@@ -3,7 +3,7 @@
  * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Request\Carts\Command;
+namespace Commercetools\Core\Request\ShoppingLists\Command;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
@@ -11,18 +11,18 @@ use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Model\Type\TypeReference;
 
 /**
- * @package Commercetools\Core\Request\Carts\Command
- * @link https://dev.commercetools.com/http-api-projects-carts.html#set-customlineitem-custom-type
+ * @package Commercetools\Core\Request\ShoppingLists\Command
+ * @link https://dev.commercetools.com/http-api-projects-shoppingLists.html#set-lineitem-custom-type
  * @method string getAction()
- * @method CartSetLineItemCustomTypeAction setAction(string $action = null)
+ * @method ShoppingListSetLineItemCustomTypeAction setAction(string $action = null)
  * @method string getLineItemId()
- * @method CartSetLineItemCustomTypeAction setLineItemId(string $lineItemId = null)
+ * @method ShoppingListSetLineItemCustomTypeAction setLineItemId(string $lineItemId = null)
  * @method FieldContainer getFields()
- * @method CartSetLineItemCustomTypeAction setFields(FieldContainer $fields = null)
+ * @method ShoppingListSetLineItemCustomTypeAction setFields(FieldContainer $fields = null)
  * @method TypeReference getType()
- * @method CartSetLineItemCustomTypeAction setType(TypeReference $type = null)
+ * @method ShoppingListSetLineItemCustomTypeAction setType(TypeReference $type = null)
  */
-class CartSetLineItemCustomTypeAction extends SetCustomTypeAction
+class ShoppingListSetLineItemCustomTypeAction extends SetCustomTypeAction
 {
     public function fieldDefinitions()
     {

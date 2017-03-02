@@ -274,6 +274,7 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
         }
         $config->setContext($context);
         $config->setScope($scope);
+        $config = $this->getAcceptEncoding($config);
 
         return $config;
     }
@@ -328,6 +329,15 @@ class ApiTestCase extends \PHPUnit_Framework_TestCase
     {
         $verifySSL = getenv('PHP_SDK_IT_SSL_VERIFY');
         return ($verifySSL !== 'false');
+    }
+
+    protected function getAcceptEncoding(Config $config)
+    {
+        $disableGZIP = getenv('PHP_SDK_DISABLE_GZIP');
+        if ($disableGZIP === 'true') {
+            $config->setAcceptEncoding(null);
+        }
+        return $config;
     }
 
     protected function cleanup()

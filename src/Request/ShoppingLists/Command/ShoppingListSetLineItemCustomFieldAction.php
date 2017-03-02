@@ -3,24 +3,24 @@
  * @author @jayS-de <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Request\Carts\Command;
+namespace Commercetools\Core\Request\ShoppingLists\Command;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 
 /**
- * @package Commercetools\Core\Request\Carts\Command
- * @link https://dev.commercetools.com/http-api-projects-carts.html#set-lineitem-customfield
+ * @package Commercetools\Core\Request\ShoppingLists\Command
+ * @link https://dev.commercetools.com/http-api-projects-shoppingLists.html#set-lineitem-customfield
  * @method string getAction()
- * @method CartSetLineItemCustomFieldAction setAction(string $action = null)
+ * @method ShoppingListSetLineItemCustomFieldAction setAction(string $action = null)
  * @method string getName()
- * @method CartSetLineItemCustomFieldAction setName(string $name = null)
+ * @method ShoppingListSetLineItemCustomFieldAction setName(string $name = null)
  * @method string getLineItemId()
- * @method CartSetLineItemCustomFieldAction setLineItemId(string $lineItemId = null)
+ * @method ShoppingListSetLineItemCustomFieldAction setLineItemId(string $lineItemId = null)
  * @method mixed getValue()
- * @method CartSetLineItemCustomFieldAction setValue($value = null)
+ * @method ShoppingListSetLineItemCustomFieldAction setValue($value = null)
  */
-class CartSetLineItemCustomFieldAction extends SetCustomFieldAction
+class ShoppingListSetLineItemCustomFieldAction extends SetCustomFieldAction
 {
     public function fieldDefinitions()
     {
