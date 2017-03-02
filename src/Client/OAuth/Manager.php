@@ -106,7 +106,10 @@ class Manager extends AbstractHttpClient
     {
         $scope = $this->getConfig()->getScope();
         $grantType = $this->getConfig()->getGrantType();
-        $data = [Config::SCOPE => $scope, Config::GRANT_TYPE => $grantType];
+        $data = [Config::GRANT_TYPE => $grantType];
+        if (!empty($scope)) {
+            $data[Config::SCOPE] = $scope;
+        }
 
         switch ($grantType) {
             case Config::GRANT_TYPE_PASSWORD:

@@ -34,6 +34,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method CustomFieldObjectDraft getCustom()
  * @method MyCartDraft setCustom(CustomFieldObjectDraft $custom = null)
  * @method string getLocale()
+ * @method int getDeleteDaysAfterLastModification()
+ * @method MyCartDraft setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
  */
 class MyCartDraft extends JsonObject
 {
@@ -52,13 +54,14 @@ class MyCartDraft extends JsonObject
             'shippingMethod' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingMethodReference'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
             'locale' => [static::TYPE => 'string'],
+            'deleteDaysAfterLastModification' => [static::TYPE => 'int']
         ];
     }
 
     /**
      * @param string $currency
      * @param Context|callable $context
-     * @return CartDraft
+     * @return MyCartDraft
      */
     public static function ofCurrency($currency, $context = null)
     {

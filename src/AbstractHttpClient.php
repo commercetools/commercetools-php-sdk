@@ -14,7 +14,7 @@ use Commercetools\Core\Client\Adapter\AdapterInterface;
  */
 abstract class AbstractHttpClient
 {
-    const VERSION = '1.6.1';
+    const VERSION = '1.7.0';
 
     /**
      * @var AdapterInterface

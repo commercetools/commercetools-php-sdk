@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\AssetCollection;
 
 /**
  * @package Commercetools\Core\Model\Category
@@ -43,6 +44,8 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method Category setMetaTitle(LocalizedString $metaTitle = null)
  * @method LocalizedString getMetaKeywords()
  * @method Category setMetaKeywords(LocalizedString $metaKeywords = null)
+ * @method AssetCollection getAssets()
+ * @method Category setAssets(AssetCollection $assets = null)
  * @method CategoryReference getReference()
  */
 class Category extends Resource
@@ -71,6 +74,7 @@ class Category extends Resource
             'metaTitle' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
             'metaKeywords' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
             'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'assets' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetCollection']
         ];
     }
 }

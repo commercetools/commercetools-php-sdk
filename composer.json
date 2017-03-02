@@ -12,7 +12,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Commercetools\\Core\\": "src/"
+      "Commercetools\\Core\\": "src/",
+      "Commercetools\\Commons\\": "commons/"
     }
   },
   "autoload-dev": {
@@ -51,6 +52,9 @@
     "cache/array-adapter": "^0.4.0",
     "cache/filesystem-adapter": "^0.3.0",
     "incenteev/composer-parameter-handler": "^2.1"
+  },
+  "replaces": {
+    "commercetools/commons": "*"
   },
   "scripts": {
     "updateConfig": [

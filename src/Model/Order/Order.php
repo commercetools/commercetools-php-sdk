@@ -85,10 +85,19 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method string getAnonymousId()
  * @method Order setAnonymousId(string $anonymousId = null)
  * @method string getLocale()
+ * @method string getTaxRoundingMode()
+ * @method Order setTaxRoundingMode(string $taxRoundingMode = null)
  * @method OrderReference getReference()
  */
 class Order extends Resource
 {
+    const TAX_MODE_PLATFORM = 'Platform';
+    const TAX_MODE_EXTERNAL = 'External';
+    const TAX_MODE_DISABLED = 'Disabled';
+    const TAX_ROUNDING_MODE_HALF_EVEN = 'HalfEven';
+    const TAX_ROUNDING_MODE_HALF_UP = 'HalfUp';
+    const TAX_ROUNDING_MODE_HALF_DOWN = 'HalfDown';
+
     use LocaleTrait;
 
     public function fieldDefinitions()
@@ -134,6 +143,7 @@ class Order extends Resource
             'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentInfo'],
             'anonymousId' => [static::TYPE => 'string'],
             'locale' => [static::TYPE => 'string'],
+            'taxRoundingMode' => [static::TYPE => 'string'],
         ];
     }
 }
