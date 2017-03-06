@@ -11,6 +11,7 @@ use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Cache\Adapter\Redis\RedisCachePool;
 use Doctrine\Common\Cache\ArrayCache;
+use Psr\SimpleCache\CacheInterface;
 
 class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -70,6 +71,15 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
         $adapter = $factory->get(new ArrayCachePool());
 
         $this->assertInstanceOf(ArrayCachePool::class, $adapter);
+    }
+
+    public function testSimpleCache()
+    {
+        $cache = $this->prophesize(CacheInterface::class);
+        $factory = $this->getFactory();
+        $adapter = $factory->get($cache->reveal());
+
+        $this->assertInstanceOf(CacheInterface::class, $adapter);
     }
 
     /**

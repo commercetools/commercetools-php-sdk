@@ -12,8 +12,8 @@ use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\AbstractHttpClient;
 use Commercetools\Core\Cache\CacheAdapterFactory;
-use Commercetools\Core\Cache\CacheAdapterInterface;
 use Commercetools\Core\Error\InvalidClientCredentialsException;
+use Psr\SimpleCache\CacheInterface;
 
 /**
  * @package Commercetools\Core\OAuth
@@ -37,7 +37,7 @@ class Manager extends AbstractHttpClient
     protected $cacheKeys;
 
     /**
-     * @var CacheAdapterInterface|CacheItemPoolInterface
+     * @var CacheItemPoolInterface|CacheInterface
      */
     protected $cacheAdapter;
 
@@ -77,9 +77,9 @@ class Manager extends AbstractHttpClient
 
     /**
      * @internal will become protected in version 2.0
-     * @return CacheAdapterInterface|CacheItemPoolInterface
+     * @return CacheItemPoolInterface|CacheInterface
      */
-    public function getCacheAdapter()
+    protected function getCacheAdapter()
     {
         return $this->cacheAdapter;
     }
@@ -151,26 +151,26 @@ class Manager extends AbstractHttpClient
             $cacheKey = $this->getCacheKey();
         }
         $cache = $this->getCacheAdapter();
-        if ($cache instanceof CacheAdapterInterface) {
-            $cache->store($cacheKey, $token->getToken(), (int)$ttl);
-        }
         if ($cache instanceof CacheItemPoolInterface) {
             $item = $cache->getItem($cacheKey)->set($token->getToken())->expiresAfter((int)$ttl);
             $cache->save($item);
+        }
+        if ($cache instanceof CacheInterface) {
+            $cache->set($cacheKey, $token->getToken(), (int)$ttl);
         }
     }
 
     protected function getCacheToken()
     {
         $cache = $this->getCacheAdapter();
-        if ($cache instanceof CacheAdapterInterface) {
-            return $cache->fetch($this->getCacheKey());
-        }
         if ($cache instanceof CacheItemPoolInterface) {
             $item = $cache->getItem($this->getCacheKey());
             if ($item->isHit()) {
                 return $item->get();
             }
+        }
+        if ($cache instanceof CacheInterface) {
+            return $cache->get($this->getCacheKey(), false);
         }
 
         return false;

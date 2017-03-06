@@ -8,6 +8,7 @@ namespace Commercetools\Core\Client\OAuth;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Cache\Adapter\Void\VoidCachePool;
+use Commercetools\Core\Cache\CacheAdapterFactory;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -16,6 +17,8 @@ use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Subscriber\Mock;
 use Commercetools\Core\Cache\NullCacheAdapter;
 use Commercetools\Core\Config;
+use Prophecy\Argument;
+use Psr\SimpleCache\CacheInterface;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -191,30 +194,43 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($manager->getToken()->getTtl()); // ttl should be empty as token comes from cache
     }
 
-    public function testCacheAdapter()
-    {
-        $cache1 = new VoidCachePool();
-        $manager = new Manager($this->getConfig(), $cache1);
-
-        $cache2 = new VoidCachePool();
-        $this->assertInstanceOf(Manager::class, $manager->setCacheAdapter($cache2));
-        $this->assertSame($cache2, $manager->getCacheAdapter());
-    }
-
     public function testPsrCacheAdapter()
     {
-        if (version_compare(phpversion(), '5.5.0', '<')) {
-            $this->markTestSkipped(
-                'PHP >= 5.5 needed to run this test'
-            );
-        }
         $cache1 = new VoidCachePool();
         $manager = new Manager($this->getConfig(), $cache1);
 
         $cache2 = new ArrayCachePool();
         $this->assertInstanceOf(Manager::class, $manager->setCacheAdapter($cache2));
-        $this->assertSame($cache2, $manager->getCacheAdapter());
     }
+
+    public function testPsrSimpleCacheAdapter()
+    {
+        $cache = $this->prophesize(CacheInterface::class);
+        $cache->get(Argument::type('string'), false)->willReturn('test')->shouldBeCalled();
+        $manager = new Manager($this->getConfig(), $cache->reveal());
+
+        $this->assertSame('test', $manager->getToken()->getToken());
+    }
+
+    public function testSetPsrSimpleCacheAdapter()
+    {
+        $cache = $this->prophesize(CacheInterface::class);
+        $cache->get(Argument::type('string'), false)->willReturn(false)->shouldBeCalled();
+        $cache->set(Argument::type('string'), 'myToken', 500)->shouldBeCalled();
+
+        $manager = $this->getManager(
+            $this->getConfig(),
+            [
+                "access_token" => "myToken",
+                "token_type" => "Bearer",
+                "expires_in" => 1000,
+                "scope" => "manage_project:testCache"
+            ]
+        );
+        $manager->setCacheAdapter($cache->reveal());
+        $this->assertSame('myToken', $manager->getToken()->getToken());
+    }
+
 
     /**
      * @expectedException \Commercetools\Core\Error\InvalidClientCredentialsException

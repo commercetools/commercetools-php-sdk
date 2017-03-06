@@ -16,6 +16,7 @@ use Commercetools\Core\Error\InvalidArgumentException;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Psr\Cache\CacheItemPoolInterface;
+use Psr\SimpleCache\CacheInterface;
 
 /**
  * @package Commercetools\Core\Cache
@@ -70,7 +71,7 @@ class CacheAdapterFactory
      * returns the cache adapter interface for the application cache
      *
      * @param $cache
-     * @return CacheItemPoolInterface
+     * @return CacheItemPoolInterface|CacheInterface
      * @throws \InvalidArgumentException
      */
     public function get($cache = null)
@@ -82,10 +83,16 @@ class CacheAdapterFactory
         if ($cache instanceof CacheItemPoolInterface) {
             return $cache;
         }
+        if ($cache instanceof CacheInterface) {
+            return $cache;
+        }
 
         foreach ($this->callbacks as $callBack) {
             $result = call_user_func($callBack, $cache);
             if ($result instanceof CacheItemPoolInterface) {
+                return $result;
+            }
+            if ($result instanceof CacheInterface) {
                 return $result;
             }
         }
