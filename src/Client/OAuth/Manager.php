@@ -76,7 +76,6 @@ class Manager extends AbstractHttpClient
     }
 
     /**
-     * @internal will become protected in version 2.0
      * @return CacheItemPoolInterface|CacheInterface
      */
     protected function getCacheAdapter()
