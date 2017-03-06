@@ -53,6 +53,7 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     public function __construct(Context $context = null)
     {
         parent::__construct(ProductProjectionEndpoint::endpoint(), $context);
+        $this->markMatchingVariants(false);
     }
 
     /**
@@ -173,7 +174,7 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
     public function markMatchingVariants($mark)
     {
         $this->addParamObject(new Parameter('markMatchingVariants', $mark));
-        
+
         return $this;
     }
 
