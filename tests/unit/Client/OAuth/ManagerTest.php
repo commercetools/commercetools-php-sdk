@@ -104,7 +104,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             Config::CLIENT_SECRET => 'secret',
             Config::SCOPE => 'test_scope',
             Config::OAUTH_URL => 'oauthUrl',
-            Config::PROJECT => 'project',
+            Config::PROJECT => 'testScope',
             Config::API_URL => 'apiUrl'
         ]);
         $manager = $this->getManager(
@@ -113,13 +113,42 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
                 "access_token" => "myToken",
                 "token_type" => "Bearer",
                 "expires_in" => 1000,
-                "scope" => "test_scope:project"
+                "scope" => "test_scope:testScope"
             ],
             200,
             true
         );
-        $this->assertInstanceOf(Token::class, $manager->getToken());
-        $this->assertSame($manager->getConfig()->getScope(), $manager->getToken()->getScope());
+        $token = $manager->getToken();
+        $this->assertInstanceOf(Token::class, $token);
+        $this->assertSame($manager->getConfig()->getScope(), $token->getScope());
+    }
+
+    public function testEmptyScope()
+    {
+        $config = Config::fromArray([
+            Config::CLIENT_ID => 'id',
+            Config::CLIENT_SECRET => 'secret',
+            Config::SCOPE => '',
+            Config::OAUTH_URL => 'oauthUrl',
+            Config::PROJECT => 'testEmptyScope',
+            Config::API_URL => 'apiUrl'
+        ]);
+        $manager = $this->getManager(
+            $config,
+            [
+                "access_token" => "myToken",
+                "token_type" => "Bearer",
+                "expires_in" => 1000,
+                "scope" => "test_scope:testEmptyScope"
+            ],
+            200,
+            true
+        );
+        $token = $manager->getToken();
+        $this->assertEmpty($config->getScope());
+        $this->assertInstanceOf(Token::class, $token);
+        $this->assertSame("test_scope:testEmptyScope", $token->getScope());
+        $this->assertNotSame($manager->getConfig()->getScope(), $token->getScope());
     }
 
     public function testScopes()
@@ -129,7 +158,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             Config::CLIENT_SECRET => 'secret',
             Config::SCOPE => ['scope1', 'scope2'],
             Config::OAUTH_URL => 'oauthUrl',
-            Config::PROJECT => 'project',
+            Config::PROJECT => 'testScopes',
             Config::API_URL => 'apiUrl'
         ]);
         $manager = $this->getManager(
@@ -138,7 +167,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
                 "access_token" => "myToken",
                 "token_type" => "Bearer",
                 "expires_in" => 1000,
-                "scope" => "scope1:project scope2:project"
+                "scope" => "scope1:testScopes scope2:testScopes"
             ],
             200,
             true
@@ -155,7 +184,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
                 "access_token" => "myToken",
                 "token_type" => "Bearer",
                 "expires_in" => 1000,
-                "scope" => "manage_project:project"
+                "scope" => "manage_project:testCache"
             ]
         );
         $manager->getToken(); // first call ensures caching of token

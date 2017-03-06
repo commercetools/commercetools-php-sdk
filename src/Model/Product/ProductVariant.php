@@ -18,8 +18,8 @@ use Commercetools\Core\Model\Common\AssetCollection;
  * @link https://dev.commercetools.com/http-api-projects-products.html#productvariant
  * @method int getId()
  * @method ProductVariant setId(int $id = null)
- * @method int getSku()
- * @method ProductVariant setSku(int $sku = null)
+ * @method string getSku()
+ * @method ProductVariant setSku(string $sku = null)
  * @method PriceCollection getPrices()
  * @method ProductVariant setPrices(PriceCollection $prices = null)
  * @method AttributeCollection getAttributes()
@@ -47,7 +47,7 @@ class ProductVariant extends JsonObject
     {
         return [
             'id' => [static::TYPE => 'int'],
-            'sku' => [static::TYPE => 'int'],
+            'sku' => [static::TYPE => 'string'],
             'prices' => [static::TYPE => PriceCollection::class],
             'price' => [static::TYPE => Price::class],
             'attributes' => [static::TYPE => AttributeCollection::class],

@@ -24,6 +24,8 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method StateDraft setInitial(bool $initial = null)
  * @method StateReferenceCollection getTransitions()
  * @method StateDraft setTransitions(StateReferenceCollection $transitions = null)
+ * @method array getRoles()
+ * @method StateDraft setRoles(array $roles = null)
  */
 class StateDraft extends JsonObject
 {
@@ -37,7 +39,8 @@ class StateDraft extends JsonObject
             'name' => [static::TYPE => LocalizedString::class],
             'description' => [static::TYPE => LocalizedString::class],
             'initial' => [static::TYPE => 'bool'],
-            'transitions' => [static::TYPE => StateReferenceCollection::class]
+            'transitions' => [static::TYPE => StateReferenceCollection::class],
+            'roles' => [static::TYPE => 'array'],
         ];
     }
 

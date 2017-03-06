@@ -44,6 +44,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method string getLocale()
  * @method string getTaxRoundingMode()
  * @method CartDraft setTaxRoundingMode(string $taxRoundingMode = null)
+ * @method int getDeleteDaysAfterLastModification()
+ * @method CartDraft setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
  */
 class CartDraft extends JsonObject
 {
@@ -67,6 +69,7 @@ class CartDraft extends JsonObject
             'anonymousId' => [static::TYPE => 'string'],
             'locale' => [static::TYPE => 'string'],
             'taxRoundingMode' => [static::TYPE => 'string'],
+            'deleteDaysAfterLastModification' => [static::TYPE => 'int']
         ];
     }
 

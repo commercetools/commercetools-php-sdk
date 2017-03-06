@@ -41,4 +41,15 @@ class CartSetCustomLineItemCustomFieldAction extends SetCustomFieldAction
         parent::__construct($data, $context);
         $this->setAction('setCustomLineItemCustomField');
     }
+
+    /**
+     * @param string $customLineItemId
+     * @param string $name
+     * @param Context|callable $context
+     * @return static
+     */
+    public static function ofCustomLineItemIdAndName($customLineItemId, $name, $context = null)
+    {
+        return static::of($context)->setCustomLineItemId($customLineItemId)->setName($name);
+    }
 }

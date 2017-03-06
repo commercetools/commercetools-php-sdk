@@ -123,6 +123,29 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('manage_project:project', $config->getScope());
     }
 
+    public function testEmptyStringScope()
+    {
+        $config = Config::fromArray($this->getConfig());
+        $config->setScope('');
+        $this->assertSame('', $config->getScope());
+    }
+
+    public function testEmptyStringScopeFromArray()
+    {
+        $config = $this->getConfig();
+        $config[Config::SCOPE] = '';
+        $config = Config::fromArray($config);
+        $this->assertSame('', $config->getScope());
+    }
+
+    public function testEmptyArrayScope()
+    {
+        $config = Config::fromArray($this->getConfig());
+        $config->setScope([]);
+        $this->assertSame('', $config->getScope());
+    }
+
+
     /**
      * @dataProvider getScopes
      */

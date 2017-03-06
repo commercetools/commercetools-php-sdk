@@ -43,4 +43,37 @@ class CartSetCustomLineItemCustomTypeAction extends SetCustomTypeAction
         parent::__construct($data, $context);
         $this->setAction('setCustomLineItemCustomType');
     }
+
+    /**
+     * @param string $typeKey
+     * @param string $customLineItemId
+     * @param Context|callable $context
+     * @return static
+     */
+    public static function ofTypeKeyAndCustomLineItemId($typeKey, $customLineItemId, $context = null)
+    {
+        return static::ofTypeKey($typeKey, $context)->setCustomLineItemId($customLineItemId);
+    }
+
+    /**
+     * @param string $typeId
+     * @param string $customLineItemId
+     * @param Context|callable $context
+     * @return static
+     */
+    public static function ofTypeIdAndCustomLineItemId($typeId, $customLineItemId, $context = null)
+    {
+        return static::ofTypeId($typeId, $context)->setCustomLineItemId($customLineItemId);
+    }
+
+    /**
+     * @param TypeReference $type
+     * @param string $customLineItemId
+     * @param Context|callable $context
+     * @return static
+     */
+    public static function ofTypeAndCustomLineItemId(TypeReference $type, $customLineItemId, $context = null)
+    {
+        return static::ofType($type, $context)->setCustomLineItemId($customLineItemId);
+    }
 }

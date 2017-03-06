@@ -21,4 +21,12 @@ class CustomerDraftTest extends \PHPUnit_Framework_TestCase
             )
         );
     }
+
+    public function testDateOfBirth()
+    {
+        $draft = CustomerDraft::of();
+        $draft->setDateOfBirth(new \DateTime('2015-10-15 10:00'));
+        $this->assertJsonStringEqualsJsonString('{"dateOfBirth": "2015-10-15"}', json_encode($draft));
+
+    }
 }

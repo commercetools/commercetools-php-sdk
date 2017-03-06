@@ -53,6 +53,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction;
+use Commercetools\Core\Request\Carts\Command\CartSetDeleteDaysAfterLastModificationAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTotalPriceAction;
@@ -1139,6 +1140,25 @@ class CartUpdateRequestTest extends ApiTestCase
         $cart = $this->createCart($draft);
 
         $this->assertSame(Cart::TAX_ROUNDING_MODE_HALF_DOWN, $cart->getTaxRoundingMode());
+    }
+
+    public function testAutomaticDelete()
+    {
+        $draft = $this->getDraft();
+        $draft->setDeleteDaysAfterLastModification(1);
+        $cart = $this->createCart($draft);
+
+        $this->assertSame(1, $cart->getDeleteDaysAfterLastModification());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartSetDeleteDaysAfterLastModificationAction::ofDays(2))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(2, $cart->getDeleteDaysAfterLastModification());
     }
 
     /**

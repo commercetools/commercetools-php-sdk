@@ -254,6 +254,16 @@ class StateUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf(State::class, $result);
     }
 
+    public function testCreateWithRoles()
+    {
+        $draft = $this->getDraft('set-roles');
+        $draft->setRoles(['ReviewIncludedInStatistics']);
+        $state = $this->createState($draft);
+
+        $this->assertInstanceOf(State::class, $state);
+        $this->assertSame(['ReviewIncludedInStatistics'], $state->getRoles());
+    }
+
     public function testAddRemoveRoles()
     {
         $draft = $this->getDraft('add-roles');
