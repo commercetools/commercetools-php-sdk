@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Product\Search;
 
 use Commercetools\Core\Model\Product\RangeTestObject;
 
-class FilterRangeTest extends \PHPUnit_Framework_TestCase
+class FilterRangeTest extends \PHPUnit\Framework\TestCase
 {
     public function testMapValue()
     {

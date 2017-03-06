@@ -7,7 +7,7 @@
 namespace Commercetools\Core\Model\Product\Search;
 
 
-class FacetTest extends \PHPUnit_Framework_TestCase
+class FacetTest extends \PHPUnit\Framework\TestCase
 {
     public function testNumeric()
     {

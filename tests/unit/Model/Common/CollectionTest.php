@@ -9,7 +9,7 @@ use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Model\Product\ProductProjectionCollection;
 
-class CollectionTest extends \PHPUnit_Framework_TestCase
+class CollectionTest extends \PHPUnit\Framework\TestCase
 {
     protected function getCollection()
     {

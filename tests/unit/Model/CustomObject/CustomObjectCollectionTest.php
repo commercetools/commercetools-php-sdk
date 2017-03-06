@@ -5,7 +5,7 @@
 
 namespace Commercetools\Core\Model\CustomObject;
 
-class CustomObjectCollectionTest extends \PHPUnit_Framework_TestCase
+class CustomObjectCollectionTest extends \PHPUnit\Framework\TestCase
 {
     public function testIndex()
     {

@@ -22,7 +22,7 @@ use Commercetools\Core\Request\AbstractApiRequest;
  * @package Commercetools\Core\Response
  * @method AbstractApiRequest getRequest($class)
  */
-class PagedQueryResponseTest extends \PHPUnit_Framework_TestCase
+class PagedQueryResponseTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 

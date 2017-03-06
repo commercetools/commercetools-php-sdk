@@ -16,7 +16,7 @@ use Commercetools\Core\Client\HttpMethod;
  * @package Commercetools\Core\Request
  * @method AbstractDeleteRequest getRequest($class, array $args = [])
  */
-class AbstractDeleteRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractDeleteRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 

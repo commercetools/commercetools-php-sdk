@@ -15,7 +15,7 @@ use Commercetools\Core\Client\HttpMethod;
  * @package Commercetools\Core\Request
  * @method AbstractProjectionRequest getRequest($class, array $args = [])
  */
-class AbstractProjectionRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractProjectionRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 

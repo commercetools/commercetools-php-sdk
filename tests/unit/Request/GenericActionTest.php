@@ -248,7 +248,7 @@ use Commercetools\Core\Request\Zones\Command\ZoneChangeNameAction;
 use Commercetools\Core\Request\Zones\Command\ZoneRemoveLocationAction;
 use Commercetools\Core\Request\Zones\Command\ZoneSetDescriptionAction;
 
-class GenericActionTest extends \PHPUnit_Framework_TestCase
+class GenericActionTest extends \PHPUnit\Framework\TestCase
 {
     protected function getInstance($className)
     {

@@ -11,7 +11,7 @@ use Symfony\Component\Yaml\Yaml;
  * Class AbstractModelTest
  * @package Commercetools\Core\Model
  */
-abstract class AbstractModelTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractModelTest extends \PHPUnit\Framework\TestCase
 {
     protected $fixture = 'models.yaml';
 

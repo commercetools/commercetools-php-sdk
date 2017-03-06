@@ -9,7 +9,7 @@ namespace Commercetools\Core\Model\CustomObject;
 
 use Commercetools\Core\Model\Common\LocalizedString;
 
-class CustomObjectDraftTest extends \PHPUnit_Framework_TestCase
+class CustomObjectDraftTest extends \PHPUnit\Framework\TestCase
 {
     public function testFromArray()
     {

@@ -5,7 +5,7 @@
 
 namespace Commercetools\Core\Model\Product;
 
-class ProductProjectionCollectionTest extends \PHPUnit_Framework_TestCase
+class ProductProjectionCollectionTest extends \PHPUnit\Framework\TestCase
 {
     public function testIndex()
     {

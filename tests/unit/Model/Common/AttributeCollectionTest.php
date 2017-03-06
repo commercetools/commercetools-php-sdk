@@ -11,7 +11,7 @@ use Commercetools\Core\Model\ProductType\AttributeType;
 use Commercetools\Core\Model\ProductType\StringType;
 use Prophecy\Argument;
 
-class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
+class AttributeCollectionTest extends \PHPUnit\Framework\TestCase
 {
     public function testIndex()
     {

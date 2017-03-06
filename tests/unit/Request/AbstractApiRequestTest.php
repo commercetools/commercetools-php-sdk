@@ -16,7 +16,7 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @package Commercetools\Core\Request
  * @method AbstractCreateRequest getRequest($class)
  */
-class AbstractApiRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractApiRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 

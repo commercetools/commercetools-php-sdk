@@ -5,7 +5,7 @@
 
 namespace Commercetools\Core\Model\Product\Search;
 
-class FilterSubtreeTest extends \PHPUnit_Framework_TestCase
+class FilterSubtreeTest extends \PHPUnit\Framework\TestCase
 {
     public function testMapValue()
     {

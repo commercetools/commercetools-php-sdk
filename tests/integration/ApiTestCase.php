@@ -111,7 +111,7 @@ use Monolog\Logger;
 use Psr\Log\LogLevel;
 use Symfony\Component\Yaml\Yaml;
 
-class ApiTestCase extends \PHPUnit_Framework_TestCase
+class ApiTestCase extends \PHPUnit\Framework\TestCase
 {
     private static $testRun;
     private static $client = [];

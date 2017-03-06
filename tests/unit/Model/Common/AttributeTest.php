@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Common;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\AttributeType;
 
-class AttributeTest extends \PHPUnit_Framework_TestCase
+class AttributeTest extends \PHPUnit\Framework\TestCase
 {
     public function apiTypeProvider()
     {

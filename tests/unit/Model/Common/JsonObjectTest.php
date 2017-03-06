@@ -17,7 +17,7 @@ use Commercetools\Core\Model\ProductType\ProductTypeDraft;
  * Class JsonObjectTest
  * @package Commercetools\Core\Model\Type
  */
-class JsonObjectTest extends \PHPUnit_Framework_TestCase
+class JsonObjectTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @return JsonObject

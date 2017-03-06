@@ -20,7 +20,7 @@ use Commercetools\Core\Config;
 use Prophecy\Argument;
 use Psr\SimpleCache\CacheInterface;
 
-class ManagerTest extends \PHPUnit_Framework_TestCase
+class ManagerTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {

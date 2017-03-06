@@ -34,7 +34,7 @@ use Commercetools\Core\Client\JsonEndpoint;
 use Commercetools\Core\Client\OAuth\Token;
 use Commercetools\Core\Request\ClientRequestInterface;
 
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends \PHPUnit\Framework\TestCase
 {
     protected function getConfig()
     {
@@ -72,7 +72,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $clientMockBuilder = $this->getMockBuilder(Client::class);
         $clientMockBuilder->setMethods(['getOauthManager'])->setConstructorArgs([$config, null, $logger]);
         $clientMock = $clientMockBuilder->getMock();
-        
+
         $clientMock->expects($this->any())
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
@@ -696,7 +696,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 $userAgent = current($userAgent);
             }
             $userAgent = explode(' ', $userAgent);
-            
+
             $n = 0;
             $this->assertSame('commercetools-php-sdk/' . AbstractHttpClient::VERSION, $userAgent[$n++]);
             $this->assertSame('GuzzleHttp/' . HttpClient::VERSION, trim($userAgent[$n++], '();'));

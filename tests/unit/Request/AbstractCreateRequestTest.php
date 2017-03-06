@@ -16,7 +16,7 @@ use Commercetools\Core\Client\HttpMethod;
  * @package Commercetools\Core\Request
  * @method AbstractCreateRequest getRequest($class, array $args = [])
  */
-class AbstractCreateRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractCreateRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 
@@ -51,7 +51,7 @@ class AbstractCreateRequestTest extends \PHPUnit_Framework_TestCase
         $mockBuilder = $this->getMockBuilder('\GuzzleHttp\Psr7\Response');
         $mockBuilder->disableOriginalConstructor();
         $guzzleResponse = $mockBuilder->getMock();
-        
+
         $request = $this->getRequest(static::ABSTRACT_CREATE_REQUEST, [['key' => 'value']]);
         $response = $request->buildResponse($guzzleResponse);
 

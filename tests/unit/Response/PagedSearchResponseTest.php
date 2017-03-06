@@ -24,7 +24,7 @@ use Commercetools\Core\Model\Product\FacetTerm;
  * Class PagedSearchResponseTest
  * @package Commercetools\Core\Response
  */
-class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
+class PagedSearchResponseTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 

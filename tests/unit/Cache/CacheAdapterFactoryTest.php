@@ -13,7 +13,7 @@ use Cache\Adapter\Redis\RedisCachePool;
 use Doctrine\Common\Cache\ArrayCache;
 use Psr\SimpleCache\CacheInterface;
 
-class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
+class CacheAdapterFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * test if apc is default cache adapter and APC module is available

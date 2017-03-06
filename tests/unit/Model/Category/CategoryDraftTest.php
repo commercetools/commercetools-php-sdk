@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Category;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Reference;
 
-class CategoryDraftTest extends \PHPUnit_Framework_TestCase
+class CategoryDraftTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetName()
     {

@@ -8,7 +8,7 @@ namespace Commercetools\Core;
 
 use Commercetools\Core\Client\Adapter\AdapterInterface;
 
-class AbstractHttpClientTest extends \PHPUnit_Framework_TestCase
+class AbstractHttpClientTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @return AbstractHttpClient

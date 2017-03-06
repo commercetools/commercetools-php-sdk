@@ -20,7 +20,7 @@ use Commercetools\Core\Model\Common\Context;
  * @package Commercetools\Core\Request
  * @method AbstractUpdateRequest getRequest($class, array $args = [])
  */
-class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractUpdateRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 

@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\EnumCollection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 
-class AttributeTypeTest extends \PHPUnit_Framework_TestCase
+class AttributeTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testTypeEnum()
     {

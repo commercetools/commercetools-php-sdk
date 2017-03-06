@@ -5,7 +5,7 @@
 
 namespace Commercetools\Core\Model\Common;
 
-class SetTest extends \PHPUnit_Framework_TestCase
+class SetTest extends \PHPUnit\Framework\TestCase
 {
     public function testFromArray()
     {

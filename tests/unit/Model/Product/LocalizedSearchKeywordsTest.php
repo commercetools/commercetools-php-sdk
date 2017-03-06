@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Product;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Model\Common\Context;
 
-class LocalizedSearchKeywordsTest extends \PHPUnit_Framework_TestCase
+class LocalizedSearchKeywordsTest extends \PHPUnit\Framework\TestCase
 {
     public function testMagicGet()
     {

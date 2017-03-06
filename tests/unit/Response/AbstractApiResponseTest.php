@@ -25,7 +25,7 @@ use Commercetools\Core\Request\AbstractApiRequest;
  * @package Commercetools\Core\Response
  * @method AbstractApiRequest getRequest($class)
  */
-class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
+class AbstractApiResponseTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 

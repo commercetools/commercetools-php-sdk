@@ -17,7 +17,7 @@ use Commercetools\Core\Client\HttpMethod;
  * @package Commercetools\Core\Request
  * @method AbstractQueryRequest getRequest($class, array $args = [])
  */
-class AbstractQueryRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractQueryRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 

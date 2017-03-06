@@ -18,7 +18,7 @@ use Commercetools\Core\Model\Common\Context;
  * @package Commercetools\Core\Request
  * @method AbstractUpdateByKeyRequest getRequest($class, array $args = [])
  */
-class AbstractUpdateByKeyRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractUpdateByKeyRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 

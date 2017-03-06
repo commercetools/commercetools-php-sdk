@@ -16,7 +16,7 @@ use Commercetools\Core\Model\Common\Set;
  * Class CustomFieldObjectTest
  * @package Commercetools\Core\Model\CustomField
  */
-class CustomFieldObjectTest extends \PHPUnit_Framework_TestCase
+class CustomFieldObjectTest extends \PHPUnit\Framework\TestCase
 {
     protected function getContainer()
     {

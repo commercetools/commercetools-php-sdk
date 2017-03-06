@@ -12,7 +12,7 @@ use Commercetools\Core\Response\ResourceResponse;
  * Class AbstractCustomObjectRequestTest
  * @package Commercetools\Core\Request\CustomObjects
  */
-class AbstractCustomObjectRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractCustomObjectRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 

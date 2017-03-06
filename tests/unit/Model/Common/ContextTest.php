@@ -15,7 +15,7 @@ function extension_loaded($value)
     return \extension_loaded($value);
 }
 
-class ContextTest extends \PHPUnit_Framework_TestCase
+class ContextTest extends \PHPUnit\Framework\TestCase
 {
     protected static $disableIntl = false;
 

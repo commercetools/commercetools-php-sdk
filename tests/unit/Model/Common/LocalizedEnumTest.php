@@ -5,7 +5,7 @@
 
 namespace Commercetools\Core\Model\Common;
 
-class LocalizedEnumTest extends \PHPUnit_Framework_TestCase
+class LocalizedEnumTest extends \PHPUnit\Framework\TestCase
 {
     public function testToString()
     {

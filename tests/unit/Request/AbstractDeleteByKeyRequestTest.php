@@ -15,7 +15,7 @@ use Commercetools\Core\Response\ResourceResponse;
  * @package Commercetools\Core\Request
  * @method AbstractDeleteByKeyRequest getRequest($class, array $args = [])
  */
-class AbstractDeleteByKeyRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractDeleteByKeyRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 

@@ -15,7 +15,7 @@ use Commercetools\Core\Response\ResourceResponse;
  * @package Commercetools\Core\Request
  * @method AbstractByKeyGetRequest getRequest($class, array $args = [])
  */
-class AbstractByKeyGetRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractByKeyGetRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 
@@ -57,7 +57,7 @@ class AbstractByKeyGetRequestTest extends \PHPUnit_Framework_TestCase
         $mockBuilder = $this->getMockBuilder('\GuzzleHttp\Psr7\Response');
         $mockBuilder->disableOriginalConstructor();
         $guzzleResponse = $mockBuilder->getMock();
-        
+
         $request = $this->getRequest(static::ABSTRACT_GET_REQUEST, ['key']);
         $response = $request->buildResponse($guzzleResponse);
 
