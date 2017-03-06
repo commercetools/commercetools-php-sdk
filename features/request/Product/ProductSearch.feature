@@ -8,7 +8,7 @@ Feature: I want to search products
     And the method should be "POST"
     And the body should be
     """
-    filter=name%3A%22Peter%22&limit=1
+    filter=name%3A%22Peter%22&limit=1&markMatchingVariants=false
     """
 
   Scenario: Search products with limit
@@ -18,7 +18,7 @@ Feature: I want to search products
     And the method should be "POST"
     And the body should be
     """
-    limit=10
+    limit=10&markMatchingVariants=false
     """
 
   Scenario: Search products with offset
@@ -28,7 +28,7 @@ Feature: I want to search products
     And the method should be "POST"
     And the body should be
     """
-    offset=10
+    markMatchingVariants=false&offset=10
     """
 
   Scenario: Search products sorted
@@ -38,7 +38,7 @@ Feature: I want to search products
     And the method should be "POST"
     And the body should be
     """
-    sort=name
+    markMatchingVariants=false&sort=name
     """
 
   Scenario: Search parameters should be sorted
@@ -49,5 +49,5 @@ Feature: I want to search products
     And the method should be "POST"
     And the body should be
     """
-    offset=10&sort=name
+    markMatchingVariants=false&offset=10&sort=name
     """
