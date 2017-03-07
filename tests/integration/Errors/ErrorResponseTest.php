@@ -7,9 +7,11 @@
 namespace Commercetools\Core\Errors;
 
 use Cache\Adapter\Common\CacheItem;
+use Cache\Adapter\PHPArray\ArrayCachePool;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Cache\CacheAdapterFactory;
 use Commercetools\Core\Cache\CacheAdapterInterface;
+use Commercetools\Core\Client;
 use Commercetools\Core\Client\OAuth\Manager;
 use Commercetools\Core\Error\AccessDeniedError;
 use Commercetools\Core\Error\ApiException;
@@ -614,12 +616,20 @@ class ErrorResponseTest extends ApiTestCase
 
     public function testInvalidToken()
     {
-        $factory = new CacheAdapterFactory();
-        $cacheAdapter = $factory->get();
-        $client = $this->getClient('manage_project');
+        $cacheAdapter = new ArrayCachePool();
+
+        $config = $this->getClientConfig('manage_project');
+
+        $client = Client::ofConfigCacheAndLogger($config, $cacheAdapter, $this->getLogger());
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+
         $cacheScope = $client->getConfig()->getScope() . '-' . $client->getConfig()->getGrantType();
         $cacheKey = Manager::TOKEN_CACHE_KEY . '_' . sha1($cacheScope);
-        $cacheAdapter->save(new CacheItem($cacheKey, true, '1234'));
+
+        $cacheItem = $cacheAdapter->getItem($cacheKey);
+        $cacheItem->set('1234');
+        $cacheAdapter->save($cacheItem);
 
         $request = ProductQueryRequest::of();
         $client->addBatchRequest($request);
