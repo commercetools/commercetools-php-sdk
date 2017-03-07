@@ -30,15 +30,15 @@ class GenericUpdateByKeyRequestTest extends RequestTestCase
     public function mapResultProvider()
     {
         return [
-            [
+            ProductTypeUpdateByKeyRequest::class => [
                 ProductTypeUpdateByKeyRequest::class,
                 ProductType::class,
             ],
-            [
+            ReviewUpdateByKeyRequest::class => [
                 ReviewUpdateByKeyRequest::class,
                 Review::class,
             ],
-            [
+            TypeUpdateByKeyRequest::class => [
                 TypeUpdateByKeyRequest::class,
                 Type::class,
             ],

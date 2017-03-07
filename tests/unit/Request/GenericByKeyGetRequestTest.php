@@ -30,15 +30,15 @@ class GenericByKeyGetRequestTest extends RequestTestCase
     public function mapResultProvider()
     {
         return [
-            [
+            ProductTypeByKeyGetRequest::class => [
                 ProductTypeByKeyGetRequest::class,
                 ProductType::class,
             ],
-            [
+            ReviewByKeyGetRequest::class => [
                 ReviewByKeyGetRequest::class,
                 Review::class,
             ],
-            [
+            TypeByKeyGetRequest::class => [
                 TypeByKeyGetRequest::class,
                 Type::class,
             ],

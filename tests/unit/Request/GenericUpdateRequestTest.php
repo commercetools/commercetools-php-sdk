@@ -62,79 +62,79 @@ class GenericUpdateRequestTest extends RequestTestCase
     public function mapResultProvider()
     {
         return [
-            [
+            CartDiscountUpdateRequest::class => [
                 CartDiscountUpdateRequest::class,
                 CartDiscount::class,
             ],
-            [
+            CartUpdateRequest::class => [
                 CartUpdateRequest::class,
                 Cart::class,
             ],
-            [
+            CategoryUpdateRequest::class => [
                 CategoryUpdateRequest::class,
                 Category::class,
             ],
-            [
+            ChannelUpdateRequest::class => [
                 ChannelUpdateRequest::class,
                 Channel::class,
             ],
-            [
+            CustomerGroupUpdateRequest::class => [
                 CustomerGroupUpdateRequest::class,
                 CustomerGroup::class,
             ],
-            [
+            CustomerUpdateRequest::class => [
                 CustomerUpdateRequest::class,
                 Customer::class,
             ],
-            [
+            DiscountCodeUpdateRequest::class => [
                 DiscountCodeUpdateRequest::class,
                 DiscountCode::class,
             ],
-            [
+            InventoryUpdateRequest::class => [
                 InventoryUpdateRequest::class,
                 InventoryEntry::class,
             ],
-            [
+            OrderUpdateRequest::class => [
                 OrderUpdateRequest::class,
                 Order::class,
             ],
-            [
+            PaymentUpdateRequest::class => [
                 PaymentUpdateRequest::class,
                 Payment::class,
             ],
-            [
+            ProductDiscountUpdateRequest::class => [
                 ProductDiscountUpdateRequest::class,
                 ProductDiscount::class,
             ],
-            [
+            ProductUpdateRequest::class => [
                 ProductUpdateRequest::class,
                 Product::class,
             ],
-            [
+            ProductTypeUpdateRequest::class => [
                 ProductTypeUpdateRequest::class,
                 ProductType::class,
             ],
-            [
+            ReviewUpdateRequest::class => [
                 ReviewUpdateRequest::class,
                 Review::class,
             ],
-            [
+            ShippingMethodUpdateRequest::class => [
                 ShippingMethodUpdateRequest::class,
                 ShippingMethod::class,
             ],
-            [
+            StateUpdateRequest::class => [
                 StateUpdateRequest::class,
                 State::class,
             ],
-            [
+            TaxCategoryUpdateRequest::class => [
                 TaxCategoryUpdateRequest::class,
                 TaxCategory::class,
             ],
-            [
+            TypeUpdateRequest::class => [
                 TypeUpdateRequest::class,
                 Type::class,
             ],
-            [
+            ZoneUpdateRequest::class => [
                 ZoneUpdateRequest::class,
                 Zone::class,
             ],

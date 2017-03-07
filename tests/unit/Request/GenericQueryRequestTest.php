@@ -66,11 +66,11 @@ class GenericQueryRequestTest extends RequestTestCase
     public function mapResultProvider()
     {
         return [
-            [
+            CartDiscountQueryRequest::class => [
                 CartDiscountQueryRequest::class,
                 CartDiscountCollection::class,
             ],
-            [
+            CartQueryRequest::class => [
                 CartQueryRequest::class,
                 CartCollection::class,
                 [
@@ -81,23 +81,23 @@ class GenericQueryRequestTest extends RequestTestCase
                     ]
                 ]
             ],
-            [
+            CategoryQueryRequest::class => [
                 CategoryQueryRequest::class,
                 CategoryCollection::class,
             ],
-            [
+            ChannelQueryRequest::class => [
                 ChannelQueryRequest::class,
                 ChannelCollection::class,
             ],
-            [
+            CustomerGroupQueryRequest::class => [
                 CustomerGroupQueryRequest::class,
                 CustomerGroupCollection::class,
             ],
-            [
+            CustomerQueryRequest::class => [
                 CustomerQueryRequest::class,
                 CustomerCollection::class,
             ],
-            [
+            CustomObjectQueryRequest::class => [
                 CustomObjectQueryRequest::class,
                 CustomObjectCollection::class,
                 [
@@ -108,59 +108,59 @@ class GenericQueryRequestTest extends RequestTestCase
                     ]
                 ]
             ],
-            [
+            DiscountCodeQueryRequest::class => [
                 DiscountCodeQueryRequest::class,
                 DiscountCodeCollection::class,
             ],
-            [
+            InventoryQueryRequest::class => [
                 InventoryQueryRequest::class,
                 InventoryEntryCollection::class,
             ],
-            [
+            MessageQueryRequest::class => [
                 MessageQueryRequest::class,
                 MessageCollection::class,
             ],
-            [
+            OrderQueryRequest::class => [
                 OrderQueryRequest::class,
                 OrderCollection::class,
             ],
-            [
+            PaymentQueryRequest::class => [
                 PaymentQueryRequest::class,
                 PaymentCollection::class,
             ],
-            [
+            ProductDiscountQueryRequest::class => [
                 ProductDiscountQueryRequest::class,
                 ProductDiscountCollection::class,
             ],
-            [
+            ProductQueryRequest::class => [
                 ProductQueryRequest::class,
                 ProductCollection::class,
             ],
-            [
+            ProductTypeQueryRequest::class => [
                 ProductTypeQueryRequest::class,
                 ProductTypeCollection::class,
             ],
-            [
+            ReviewQueryRequest::class => [
                 ReviewQueryRequest::class,
                 ReviewCollection::class,
             ],
-            [
+            ShippingMethodQueryRequest::class => [
                 ShippingMethodQueryRequest::class,
                 ShippingMethodCollection::class,
             ],
-            [
+            StateQueryRequest::class => [
                 StateQueryRequest::class,
                 StateCollection::class,
             ],
-            [
+            TaxCategoryQueryRequest::class => [
                 TaxCategoryQueryRequest::class,
                 TaxCategoryCollection::class,
             ],
-            [
+            TypeQueryRequest::class => [
                 TypeQueryRequest::class,
                 TypeCollection::class,
             ],
-            [
+            ZoneQueryRequest::class => [
                 ZoneQueryRequest::class,
                 ZoneCollection::class,
             ],

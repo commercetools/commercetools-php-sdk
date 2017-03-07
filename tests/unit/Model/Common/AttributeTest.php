@@ -13,29 +13,29 @@ class AttributeTest extends \PHPUnit\Framework\TestCase
     public function apiTypeProvider()
     {
         return [
-            ['string', ['name' => 'string', 'value' => 'bar']],
-            ['int', ['name' => 'int', 'value' => 1]],
-            ['float', ['name' => 'float', 'value' => 1.1]],
-            ['bool', ['name' => 'bool', 'value' => true]],
-            [LocalizedString::class, ['name' => 'ltext', 'value' => ['en' => 'Foo']]],
-            [
+            'string' => ['string', ['name' => 'string', 'value' => 'bar']],
+            'int' => ['int', ['name' => 'int', 'value' => 1]],
+            'float' => ['float', ['name' => 'float', 'value' => 1.1]],
+            'bool' => ['bool', ['name' => 'bool', 'value' => true]],
+            'ltext' => [LocalizedString::class, ['name' => 'ltext', 'value' => ['en' => 'Foo']]],
+            'enum' => [
                 Enum::class,
                 ['name' => 'enum', 'value' => ['key' => 'foo', 'label' => 'Foo']]
             ],
-            [
+            'lenum' => [
                 LocalizedEnum::class,
                 ['name' => 'lenum', 'value' => ['key' => 'foo', 'label' => ['en' => 'Foo']]]
             ],
-            [
+            'money' => [
                 Money::class,
                 ['name' => 'money', 'value' => ['currencyCode' => 'EUR', 'centAmount' => 100]]
             ],
-            [Set::class, ['name' => 'set', 'value' => ['value1', 'value2']]],
-            [
+            'set' => [Set::class, ['name' => 'set', 'value' => ['value1', 'value2']]],
+            'reference' => [
                 Reference::class,
                 ['name' => 'reference', 'value' => ['typeId' => 'reference', 'id' => '123456']]
             ],
-            [
+            'nested' => [
                 AttributeCollection::class,
                 [
                     'name' => 'nested',

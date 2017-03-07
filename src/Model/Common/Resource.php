@@ -5,12 +5,30 @@
 
 namespace Commercetools\Core\Model\Common;
 
+use DateTime;
+
 /**
  * @package Commercetools\Core\Model\Common
  * @method getId()
  */
 abstract class Resource extends JsonObject implements ReferenceObjectInterface
 {
+    public function fieldDefinitions()
+    {
+        return [
+            'id' => [static::TYPE => 'string'],
+            'version' => [static::TYPE => 'int'],
+            'createdAt' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
+            'lastModifiedAt' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
+        ];
+    }
+
     public function getReferenceIdentifier()
     {
         return $this->getId();

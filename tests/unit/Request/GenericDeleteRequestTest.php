@@ -64,83 +64,83 @@ class GenericDeleteRequestTest extends RequestTestCase
     public function mapResultProvider()
     {
         return [
-            [
+            CartDiscountDeleteRequest::class => [
                 CartDiscountDeleteRequest::class,
                 CartDiscount::class,
             ],
-            [
+            CartDeleteRequest::class => [
                 CartDeleteRequest::class,
                 Cart::class,
             ],
-            [
+            CategoryDeleteRequest::class => [
                 CategoryDeleteRequest::class,
                 Category::class,
             ],
-            [
+            ChannelDeleteRequest::class => [
                 ChannelDeleteRequest::class,
                 Channel::class,
             ],
-            [
+            CustomerGroupDeleteRequest::class => [
                 CustomerGroupDeleteRequest::class,
                 CustomerGroup::class,
             ],
-            [
+            CustomerDeleteRequest::class => [
                 CustomerDeleteRequest::class,
                 Customer::class,
             ],
-            [
+            CustomObjectDeleteRequest::class => [
                 CustomObjectDeleteRequest::class,
                 CustomObject::class,
             ],
-            [
+            DiscountCodeDeleteRequest::class => [
                 DiscountCodeDeleteRequest::class,
                 DiscountCode::class,
             ],
-            [
+            InventoryDeleteRequest::class => [
                 InventoryDeleteRequest::class,
                 InventoryEntry::class,
             ],
-            [
+            OrderDeleteRequest::class => [
                 OrderDeleteRequest::class,
                 Order::class,
             ],
-            [
+            PaymentDeleteRequest::class => [
                 PaymentDeleteRequest::class,
                 Payment::class,
             ],
-            [
+            ProductDiscountDeleteRequest::class => [
                 ProductDiscountDeleteRequest::class,
                 ProductDiscount::class,
             ],
-            [
+            ProductDeleteRequest::class => [
                 ProductDeleteRequest::class,
                 Product::class,
             ],
-            [
+            ProductTypeDeleteRequest::class => [
                 ProductTypeDeleteRequest::class,
                 ProductType::class,
             ],
-            [
+            ReviewDeleteRequest::class => [
                 ReviewDeleteRequest::class,
                 Review::class,
             ],
-            [
+            ShippingMethodDeleteRequest::class => [
                 ShippingMethodDeleteRequest::class,
                 ShippingMethod::class,
             ],
-            [
+            StateDeleteRequest::class => [
                 StateDeleteRequest::class,
                 State::class,
             ],
-            [
+            TaxCategoryDeleteRequest::class => [
                 TaxCategoryDeleteRequest::class,
                 TaxCategory::class,
             ],
-            [
+            TypeDeleteRequest::class => [
                 TypeDeleteRequest::class,
                 Type::class,
             ],
-            [
+            ZoneDeleteRequest::class => [
                 ZoneDeleteRequest::class,
                 Zone::class,
             ],

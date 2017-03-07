@@ -64,87 +64,87 @@ class GenericByIdGetRequestTest extends RequestTestCase
     public function mapResultProvider()
     {
         return [
-            [
+            CartDiscountByIdGetRequest::class => [
                 CartDiscountByIdGetRequest::class,
                 CartDiscount::class,
             ],
-            [
+            CartByIdGetRequest::class => [
                 CartByIdGetRequest::class,
                 Cart::class,
             ],
-            [
+            CategoryByIdGetRequest::class => [
                 CategoryByIdGetRequest::class,
                 Category::class,
             ],
-            [
+            ChannelByIdGetRequest::class => [
                 ChannelByIdGetRequest::class,
                 Channel::class,
             ],
-            [
+            CustomerGroupByIdGetRequest::class => [
                 CustomerGroupByIdGetRequest::class,
                 CustomerGroup::class,
             ],
-            [
+            CustomerByIdGetRequest::class => [
                 CustomerByIdGetRequest::class,
                 Customer::class,
             ],
-            [
+            DiscountCodeByIdGetRequest::class => [
                 DiscountCodeByIdGetRequest::class,
                 DiscountCode::class,
             ],
-            [
+            InventoryByIdGetRequest::class => [
                 InventoryByIdGetRequest::class,
                 InventoryEntry::class,
             ],
-            [
+            MessageByIdGetRequest::class => [
                 MessageByIdGetRequest::class,
                 Message::class,
             ],
-            [
+            OrderByIdGetRequest::class => [
                 OrderByIdGetRequest::class,
                 Order::class,
             ],
-            [
+            PaymentByIdGetRequest::class => [
                 PaymentByIdGetRequest::class,
                 Payment::class,
             ],
-            [
+            ProductDiscountByIdGetRequest::class => [
                 ProductDiscountByIdGetRequest::class,
                 ProductDiscount::class,
             ],
-            [
+            ProductByIdGetRequest::class => [
                 ProductByIdGetRequest::class,
                 Product::class,
             ],
-            [
+            ProductTypeByIdGetRequest::class => [
                 ProductTypeByIdGetRequest::class,
                 ProductType::class,
             ],
-            [
+            ReviewByIdGetRequest::class => [
                 ReviewByIdGetRequest::class,
                 Review::class,
             ],
-            [
+            ShippingMethodByIdGetRequest::class => [
                 ShippingMethodByIdGetRequest::class,
                 ShippingMethod::class,
             ],
-            [
+            StateByIdGetRequest::class => [
                 StateByIdGetRequest::class,
                 State::class,
             ],
-            [
+            TaxCategoryByIdGetRequest::class => [
                 TaxCategoryByIdGetRequest::class,
                 TaxCategory::class,
             ],
-            [
+            TypeByIdGetRequest::class => [
                 TypeByIdGetRequest::class,
                 Type::class,
             ],
-            [
+            ZoneByIdGetRequest::class => [
                 ZoneByIdGetRequest::class,
                 Zone::class,
             ],
-            [
+            ShippingMethodByIdGetRequest::class => [
                 ShippingMethodByIdGetRequest::class,
                 ShippingMethod::class,
             ],

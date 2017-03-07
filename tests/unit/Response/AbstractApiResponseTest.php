@@ -105,8 +105,8 @@ class AbstractApiResponseTest extends \PHPUnit\Framework\TestCase
     public function successStatusCodes()
     {
         return [
-            [200],
-            [201]
+            200 => [200],
+            201 => [201]
         ];
     }
     /**

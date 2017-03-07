@@ -30,15 +30,15 @@ class GenericDeleteByKeyRequestTest extends RequestTestCase
     public function mapResultProvider()
     {
         return [
-            [
+            ProductTypeDeleteByKeyRequest::class => [
                 ProductTypeDeleteByKeyRequest::class,
                 ProductType::class,
             ],
-            [
+            ReviewDeleteByKeyRequest::class => [
                 ReviewDeleteByKeyRequest::class,
                 Review::class,
             ],
-            [
+            TypeDeleteByKeyRequest::class => [
                 TypeDeleteByKeyRequest::class,
                 Type::class,
             ],

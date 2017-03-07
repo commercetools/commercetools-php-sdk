@@ -11,6 +11,8 @@ use Commercetools\Core\Model\Common\LocalizedEnum;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\Set;
+use Commercetools\Core\Model\Type\BooleanType;
+use Commercetools\Core\Model\Type\StringType;
 
 /**
  * Class CustomFieldObjectTest
@@ -109,31 +111,31 @@ class CustomFieldObjectTest extends \PHPUnit\Framework\TestCase
     public function getCustomFields()
     {
         return [
-            [
+            'active' => [
                 ['active' => false],
                 'boolean'
             ],
-            [
+            'description' => [
                 ['description' => 'my description'],
                 'string'
             ],
-            [
+            'name' => [
                 ['name' => ['en' => 'My awesome Shirt']],
                 LocalizedString::class
             ],
-            [
+            'size' => [
                 ['size' => 48],
                 'integer'
             ],
-            [
+            'price' => [
                 ['price' => ['centAmount' => 100, 'currency' => 'EUR']],
                 Money::class
             ],
-            [
+            'brand' => [
                 ['brand' => ['key' => 'bmw', 'label' => 'BMW']],
                 Enum::class
             ],
-            [
+            'features' => [
                 ['features' => [['key' => 'aircondition'], ['key' => 'navigation']]],
                 Set::class,
                 LocalizedEnum::class,

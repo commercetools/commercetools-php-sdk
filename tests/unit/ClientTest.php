@@ -599,15 +599,15 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     public function exceptionsData()
     {
         return [
-            [400, ErrorResponseException::class, ''],
-            [401, InvalidTokenException::class, ['invalid_token','invalid_token']],
-            [401, InvalidClientCredentialsException::class, ''],
-            [404, NotFoundException::class, ''],
-            [409, ConcurrentModificationException::class, ''],
-            [500, InternalServerErrorException::class, ''],
-            [502, BadGatewayException::class, ''],
-            [503, ServiceUnavailableException::class, ''],
-            [504, GatewayTimeoutException::class, ''],
+            ErrorResponseException::class => [400, ErrorResponseException::class, ''],
+            InvalidTokenException::class => [401, InvalidTokenException::class, ['invalid_token','invalid_token']],
+            InvalidClientCredentialsException::class => [401, InvalidClientCredentialsException::class, ''],
+            NotFoundException::class => [404, NotFoundException::class, ''],
+            ConcurrentModificationException::class => [409, ConcurrentModificationException::class, ''],
+            InternalServerErrorException::class => [500, InternalServerErrorException::class, ''],
+            BadGatewayException::class => [502, BadGatewayException::class, ''],
+            ServiceUnavailableException::class => [503, ServiceUnavailableException::class, ''],
+            GatewayTimeoutException::class => [504, GatewayTimeoutException::class, ''],
         ];
     }
 
