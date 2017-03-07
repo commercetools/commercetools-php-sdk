@@ -34,7 +34,7 @@ before_script:
 script:
 - ant phpcs-ci
 - vendor/bin/phpunit --testsuite=unit
-- if [ $PHP == '7.0' ] && [ $GUZZLE == '6' ] ; then phpunit --testsuite=integration; fi
+- if [ $PHP == '7.0' ] && [ $GUZZLE == '6' ] ; then vendor/bin/phpunit --testsuite=integration; fi
 - ant behat
 after_success:
 - if [ $PHP == '5.6' ] && [ $GUZZLE == '6' ] ; then ./push-docs-to-gh-pages.sh; fi
