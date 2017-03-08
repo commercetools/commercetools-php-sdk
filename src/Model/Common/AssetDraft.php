@@ -19,8 +19,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method AssetDraft setDescription(LocalizedString $description = null)
  * @method array getTags()
  * @method AssetDraft setTags(array $tags = null)
- * @method CustomFieldObject getCustom()
- * @method AssetDraft setCustom(CustomFieldObject $custom = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method AssetDraft setCustom(CustomFieldObjectDraft $custom = null)
  */
 class AssetDraft extends JsonObject
 {
