@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model\Common;
 
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Common
@@ -30,7 +31,7 @@ class AssetDraft extends JsonObject
             'name' => [static::TYPE => LocalizedString::class],
             'description' => [static::TYPE => LocalizedString::class],
             'tags' => [static::TYPE => 'array'],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
         ];
     }
 }
