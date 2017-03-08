@@ -18,7 +18,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ShoppingListByKeyGetRequest extends AbstractByKeyGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ShoppingList\ShoppingList';
+    protected $resultClass = ShoppingList::class;
 
     /**
      * @param string $key

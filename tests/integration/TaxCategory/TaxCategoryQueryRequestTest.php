@@ -7,6 +7,7 @@
 namespace Commercetools\Core\TaxCategory;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\TaxCategory\TaxRateCollection;
@@ -60,7 +61,7 @@ class TaxCategoryQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result->getAt(0));
+        $this->assertInstanceOf(TaxCategory::class, $result->getAt(0));
         $this->assertSame($taxCategory->getId(), $result->getAt(0)->getId());
     }
 
@@ -73,7 +74,7 @@ class TaxCategoryQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $taxCategory);
+        $this->assertInstanceOf(TaxCategory::class, $taxCategory);
         $this->assertSame($taxCategory->getId(), $result->getId());
 
     }

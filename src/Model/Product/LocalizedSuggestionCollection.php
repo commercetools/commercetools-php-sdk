@@ -19,7 +19,7 @@ use Commercetools\Core\Model\Common\Context;
  */
 class LocalizedSuggestionCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Product\SuggestionCollection';
+    protected $type = SuggestionCollection::class;
 
     /**
      * @param $locale

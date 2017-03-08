@@ -23,7 +23,7 @@ class ProductByIdGetRequest extends AbstractByIdGetRequest
 {
     use PriceSelectTrait;
     
-    protected $resultClass = '\Commercetools\Core\Model\Product\Product';
+    protected $resultClass = Product::class;
 
     /**
      * @param string $id

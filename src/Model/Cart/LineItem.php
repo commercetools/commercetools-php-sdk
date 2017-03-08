@@ -64,23 +64,23 @@ class LineItem extends JsonObject
         return [
             'id' => [static::TYPE => 'string'],
             'productId' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'productSlug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'variant' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariant'],
-            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Price'],
-            'taxedPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\TaxedItemPrice'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'productSlug' => [static::TYPE => LocalizedString::class],
+            'variant' => [static::TYPE => ProductVariant::class],
+            'price' => [static::TYPE => Price::class],
+            'taxedPrice' => [static::TYPE => TaxedItemPrice::class],
             'quantity' => [static::TYPE => 'int'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\Order\ItemStateCollection'],
-            'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
-            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
-            'distributionChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
-            'totalPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'state' => [static::TYPE => ItemStateCollection::class],
+            'taxRate' => [static::TYPE => TaxRate::class],
+            'supplyChannel' => [static::TYPE => ChannelReference::class],
+            'distributionChannel' => [static::TYPE => ChannelReference::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
+            'totalPrice' => [static::TYPE => Money::class],
             'discountedPricePerQuantity' => [
-                static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedPricePerQuantityCollection'
+                static::TYPE => DiscountedPricePerQuantityCollection::class
             ],
             'priceMode' => [static::TYPE => 'string'],
-            'productType' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference']
+            'productType' => [static::TYPE => ProductTypeReference::class]
         ];
     }
 

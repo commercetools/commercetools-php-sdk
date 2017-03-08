@@ -35,11 +35,11 @@ class DiscountCodeDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
             'code' => [static::TYPE => 'string'],
             'cartDiscounts' => [
-                static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection'
+                static::TYPE => CartDiscountReferenceCollection::class
             ],
             'cartPredicate' => [static::TYPE => 'string'],
             'isActive' => [static::TYPE => 'bool'],

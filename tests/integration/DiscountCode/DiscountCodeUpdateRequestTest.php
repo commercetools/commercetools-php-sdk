@@ -13,6 +13,7 @@ use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
+use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
@@ -132,7 +133,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
         $this->assertSame($cartDiscount->getId(), $result->getCartDiscounts()->current()->getId());
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
@@ -140,7 +141,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
     }
 
     public function testChangeCartDiscountsAction()
@@ -162,7 +163,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
         $this->assertCount(2, $result->getCartDiscounts());
         $ids = [];
         foreach ($result->getCartDiscounts() as $discount) {
@@ -175,7 +176,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
     }
 
     public function testSetDescription()
@@ -195,7 +196,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
         $this->assertSame($description, $result->getDescription()->en);
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
@@ -203,7 +204,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
     }
 
     public function testChangeIsActive()
@@ -221,7 +222,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
         $this->assertSame($isActive, $result->getIsActive());
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
@@ -229,7 +230,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
     }
 
     public function testSetCartPredicate()
@@ -247,7 +248,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
         $this->assertSame($cartPredicate, $result->getCartPredicate());
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
@@ -255,7 +256,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
     }
 
     public function testSetMaxApplications()
@@ -273,7 +274,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
         $this->assertSame($maxApplications, $result->getMaxApplications());
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
@@ -281,7 +282,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
     }
 
     public function testSetMaxApplicationsPerCustomer()
@@ -300,7 +301,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
         $this->assertSame($maxApplicationsPerCustomer, $result->getMaxApplicationsPerCustomer());
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
@@ -308,7 +309,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
     }
 
     public function testSetName()
@@ -327,7 +328,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
         $this->assertSame($name->en, $result->getName()->en);
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
@@ -335,6 +336,6 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\DiscountCode\DiscountCode', $result);
+        $this->assertInstanceOf(DiscountCode::class, $result);
     }
 }

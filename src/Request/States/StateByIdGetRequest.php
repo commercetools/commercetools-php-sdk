@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class StateByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\State\State';
+    protected $resultClass = State::class;
 
     /**
      * @param string $id

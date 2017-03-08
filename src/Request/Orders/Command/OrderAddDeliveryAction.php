@@ -32,10 +32,10 @@ class OrderAddDeliveryAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'items' => [static::TYPE => '\Commercetools\Core\Model\Order\DeliveryItemCollection'],
-            'parcels' => [static::TYPE => '\Commercetools\Core\Model\Order\ParcelCollection'],
-            'measurements' => [static::TYPE => '\Commercetools\Core\Model\Order\ParcelMeasurements'],
-            'trackingData' => [static::TYPE => '\Commercetools\Core\Model\Order\TrackingData'],
+            'items' => [static::TYPE => DeliveryItemCollection::class],
+            'parcels' => [static::TYPE => ParcelCollection::class],
+            'measurements' => [static::TYPE => ParcelMeasurements::class],
+            'trackingData' => [static::TYPE => TrackingData::class],
         ];
     }
 

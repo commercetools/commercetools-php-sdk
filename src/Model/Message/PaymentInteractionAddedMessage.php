@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method string getId()
  * @method PaymentInteractionAddedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method PaymentInteractionAddedMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method PaymentInteractionAddedMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method PaymentInteractionAddedMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -29,7 +30,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method int getVersion()
  * @method PaymentInteractionAddedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method PaymentInteractionAddedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method PaymentInteractionAddedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class PaymentInteractionAddedMessage extends Message
 {
@@ -38,7 +39,7 @@ class PaymentInteractionAddedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['interaction'] = [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'];
+        $definitions['interaction'] = [static::TYPE => CustomFieldObject::class];
 
         return $definitions;
     }

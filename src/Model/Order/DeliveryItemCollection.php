@@ -17,7 +17,7 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class DeliveryItemCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Order\DeliveryItem';
+    protected $type = DeliveryItem::class;
 
     protected function indexRow($offset, $row)
     {

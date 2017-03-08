@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class SubRateCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\TaxCategory\SubRate';
+    protected $type = SubRate::class;
 }

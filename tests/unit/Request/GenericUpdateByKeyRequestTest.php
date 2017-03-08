@@ -5,6 +5,12 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Model\ProductType\ProductType;
+use Commercetools\Core\Model\Review\Review;
+use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateByKeyRequest;
+use Commercetools\Core\Request\Reviews\ReviewUpdateByKeyRequest;
+use Commercetools\Core\Request\Types\TypeUpdateByKeyRequest;
 use Commercetools\Core\RequestTestCase;
 
 class GenericUpdateByKeyRequestTest extends RequestTestCase
@@ -24,17 +30,17 @@ class GenericUpdateByKeyRequestTest extends RequestTestCase
     public function mapResultProvider()
     {
         return [
-            [
-                '\Commercetools\Core\Request\ProductTypes\ProductTypeUpdateByKeyRequest',
-                '\Commercetools\Core\Model\ProductType\ProductType',
+            ProductTypeUpdateByKeyRequest::class => [
+                ProductTypeUpdateByKeyRequest::class,
+                ProductType::class,
             ],
-            [
-                '\Commercetools\Core\Request\Reviews\ReviewUpdateByKeyRequest',
-                '\Commercetools\Core\Model\Review\Review',
+            ReviewUpdateByKeyRequest::class => [
+                ReviewUpdateByKeyRequest::class,
+                Review::class,
             ],
-            [
-                '\Commercetools\Core\Request\Types\TypeUpdateByKeyRequest',
-                '\Commercetools\Core\Model\Type\Type',
+            TypeUpdateByKeyRequest::class => [
+                TypeUpdateByKeyRequest::class,
+                Type::class,
             ],
         ];
     }

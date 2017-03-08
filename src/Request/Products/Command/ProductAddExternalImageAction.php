@@ -31,7 +31,7 @@ class ProductAddExternalImageAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
-            'image' => [static::TYPE => '\Commercetools\Core\Model\Common\Image'],
+            'image' => [static::TYPE => Image::class],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

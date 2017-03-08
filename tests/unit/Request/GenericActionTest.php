@@ -5,11 +5,250 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Model\CartDiscount\CartDiscountReference;
+use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
+use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
+use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
+use Commercetools\Core\Model\Category\CategoryReference;
+use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Channel\ChannelRole;
+use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\Enum;
+use Commercetools\Core\Model\Common\EnumCollection;
+use Commercetools\Core\Model\Common\Image;
+use Commercetools\Core\Model\Common\LocalizedEnum;
+use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Common\PriceDraft;
+use Commercetools\Core\Model\Common\PriceDraftCollection;
+use Commercetools\Core\Model\DiscountCode\DiscountCodeReference;
+use Commercetools\Core\Model\Order\DeliveryItemCollection;
+use Commercetools\Core\Model\Order\ItemStateCollection;
+use Commercetools\Core\Model\Payment\Transaction;
+use Commercetools\Core\Model\Product\LocalizedSearchKeywords;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscountValue;
+use Commercetools\Core\Model\ProductType\AttributeDefinition;
+use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
+use Commercetools\Core\Model\ShippingMethod\ShippingRate;
+use Commercetools\Core\Model\State\StateReference;
+use Commercetools\Core\Model\State\StateReferenceCollection;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
+use Commercetools\Core\Model\TaxCategory\TaxRate;
+use Commercetools\Core\Model\Type\FieldDefinition;
 use Commercetools\Core\Model\Type\TypeReference;
+use Commercetools\Core\Model\Zone\Location;
+use Commercetools\Core\Model\Zone\ZoneReference;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeCartPredicateAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeIsActiveAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeNameAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeRequiresDiscountCodeAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeSortOrderAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeTargetAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeValueAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetDescriptionAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidUntilAction;
+use Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction;
+use Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction;
+use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
+use Commercetools\Core\Request\Carts\Command\CartAddPaymentAction;
+use Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction;
+use Commercetools\Core\Request\Carts\Command\CartRecalculateAction;
+use Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction;
+use Commercetools\Core\Request\Carts\Command\CartRemoveDiscountCodeAction;
+use Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction;
+use Commercetools\Core\Request\Carts\Command\CartRemovePaymentAction;
+use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCountryAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomFieldAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction;
+use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
+use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
+use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
+use Commercetools\Core\Request\Categories\Command\CategoryChangeOrderHintAction;
+use Commercetools\Core\Request\Categories\Command\CategoryChangeParentAction;
+use Commercetools\Core\Request\Categories\Command\CategoryChangeSlugAction;
+use Commercetools\Core\Request\Categories\Command\CategorySetDescriptionAction;
+use Commercetools\Core\Request\Categories\Command\CategorySetExternalIdAction;
+use Commercetools\Core\Request\Categories\Command\CategorySetMetaDescriptionAction;
+use Commercetools\Core\Request\Categories\Command\CategorySetMetaKeywordsAction;
+use Commercetools\Core\Request\Categories\Command\CategorySetMetaTitleAction;
+use Commercetools\Core\Request\Channels\Command\ChannelAddRolesAction;
+use Commercetools\Core\Request\Channels\Command\ChannelChangeDescriptionAction;
+use Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction;
+use Commercetools\Core\Request\Channels\Command\ChannelChangeNameAction;
+use Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction;
+use Commercetools\Core\Request\Channels\Command\ChannelSetRolesAction;
+use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupChangeNameAction;
+use Commercetools\Core\Request\Customers\Command\CustomerAddAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerChangeAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerChangeEmailAction;
+use Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction;
+use Commercetools\Core\Request\Customers\Command\CustomerRemoveAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetCompanyNameAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerGroupAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerNumberAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetDateOfBirthAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetDefaultBillingAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetExternalIdAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetFirstNameAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetLastNameAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetMiddleNameAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction;
+use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
+use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeIsActiveAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetCartPredicateAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetDescriptionAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsPerCustomerAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetNameAction;
+use Commercetools\Core\Request\Inventory\Command\InventoryAddQuantityAction;
+use Commercetools\Core\Request\Inventory\Command\InventoryChangeQuantityAction;
+use Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction;
+use Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAction;
+use Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction;
+use Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction;
+use Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction;
+use Commercetools\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction;
+use Commercetools\Core\Request\Orders\Command\OrderAddReturnInfoAction;
+use Commercetools\Core\Request\Orders\Command\OrderChangeOrderStateAction;
+use Commercetools\Core\Request\Orders\Command\OrderChangePaymentStateAction;
+use Commercetools\Core\Request\Orders\Command\OrderChangeShipmentStateAction;
+use Commercetools\Core\Request\Orders\Command\OrderImportCustomLineItemStateAction;
+use Commercetools\Core\Request\Orders\Command\OrderImportLineItemStateAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
+use Commercetools\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction;
+use Commercetools\Core\Request\Orders\Command\OrderTransitionLineItemStateAction;
+use Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction;
+use Commercetools\Core\Request\Payments\Command\PaymentAddInterfaceInteractionAction;
+use Commercetools\Core\Request\Payments\Command\PaymentAddTransactionAction;
+use Commercetools\Core\Request\Payments\Command\PaymentChangeAmountPlannedAction;
+use Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionInteractionIdAction;
+use Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionStateAction;
+use Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionTimestampAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetAmountPaidAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetAmountRefundedAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetAuthorizationAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetCustomerAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetCustomFieldAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetCustomTypeAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetExternalIdAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetInterfaceIdAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoInterfaceAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoMethodAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoNameAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceCodeAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceTextAction;
+use Commercetools\Core\Request\Payments\Command\PaymentTransitionStateAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeIsActiveAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeNameAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangePredicateAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeSortOrderAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeValueAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetDescriptionAction;
+use Commercetools\Core\Request\Products\Command\ProductAddExternalImageAction;
+use Commercetools\Core\Request\Products\Command\ProductAddPriceAction;
+use Commercetools\Core\Request\Products\Command\ProductAddToCategoryAction;
+use Commercetools\Core\Request\Products\Command\ProductAddVariantAction;
+use Commercetools\Core\Request\Products\Command\ProductChangeNameAction;
+use Commercetools\Core\Request\Products\Command\ProductChangePriceAction;
+use Commercetools\Core\Request\Products\Command\ProductChangeSlugAction;
+use Commercetools\Core\Request\Products\Command\ProductPublishAction;
+use Commercetools\Core\Request\Products\Command\ProductRemoveFromCategoryAction;
+use Commercetools\Core\Request\Products\Command\ProductRemoveImageAction;
+use Commercetools\Core\Request\Products\Command\ProductRemovePriceAction;
+use Commercetools\Core\Request\Products\Command\ProductRemoveVariantAction;
+use Commercetools\Core\Request\Products\Command\ProductRevertStagedChangesAction;
+use Commercetools\Core\Request\Products\Command\ProductSetAttributeAction;
+use Commercetools\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction;
+use Commercetools\Core\Request\Products\Command\ProductSetCategoryOrderHintAction;
+use Commercetools\Core\Request\Products\Command\ProductSetDescriptionAction;
+use Commercetools\Core\Request\Products\Command\ProductSetMetaAttributesAction;
+use Commercetools\Core\Request\Products\Command\ProductSetMetaDescriptionAction;
+use Commercetools\Core\Request\Products\Command\ProductSetMetaKeywordsAction;
+use Commercetools\Core\Request\Products\Command\ProductSetMetaTitleAction;
+use Commercetools\Core\Request\Products\Command\ProductSetPriceCustomFieldAction;
+use Commercetools\Core\Request\Products\Command\ProductSetPriceCustomTypeAction;
+use Commercetools\Core\Request\Products\Command\ProductSetPricesAction;
+use Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction;
+use Commercetools\Core\Request\Products\Command\ProductSetSkuNotStageableAction;
+use Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction;
+use Commercetools\Core\Request\Products\Command\ProductTransitionStateAction;
+use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumValueAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeOrderAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeDescriptionAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeIsSearchableAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLocalizedEnumValueOrderAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeNameAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangePlainEnumValueOrderAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveAttributeDefinitionAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetAuthorNameAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetCustomerAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetKeyAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetLocaleAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetRatingAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetTargetAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetTextAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetTitleAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewTransitionStateAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddShippingRateAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddZoneAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeIsDefaultAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeNameAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeTaxCategoryAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveShippingRateAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction;
+use Commercetools\Core\Request\States\Command\StateAddRolesAction;
+use Commercetools\Core\Request\States\Command\StateChangeInitialAction;
+use Commercetools\Core\Request\States\Command\StateChangeKeyAction;
+use Commercetools\Core\Request\States\Command\StateChangeTypeAction;
+use Commercetools\Core\Request\States\Command\StateRemoveRolesAction;
+use Commercetools\Core\Request\States\Command\StateSetDescriptionAction;
+use Commercetools\Core\Request\States\Command\StateSetNameAction;
+use Commercetools\Core\Request\States\Command\StateSetRolesAction;
+use Commercetools\Core\Request\States\Command\StateSetTransitionsAction;
+use Commercetools\Core\Request\States\Command\TransitionStateAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryAddTaxRateAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryChangeNameAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryRemoveTaxRateAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryReplaceTaxRateAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetDescriptionAction;
+use Commercetools\Core\Request\Types\Command\TypeAddEnumValueAction;
+use Commercetools\Core\Request\Types\Command\TypeAddFieldDefinitionAction;
+use Commercetools\Core\Request\Types\Command\TypeAddLocalizedEnumValueAction;
+use Commercetools\Core\Request\Types\Command\TypeChangeEnumValueOrderAction;
+use Commercetools\Core\Request\Types\Command\TypeChangeFieldDefinitionOrderAction;
+use Commercetools\Core\Request\Types\Command\TypeChangeKeyAction;
+use Commercetools\Core\Request\Types\Command\TypeChangeLabelAction;
+use Commercetools\Core\Request\Types\Command\TypeChangeLocalizedEnumValueOrderAction;
+use Commercetools\Core\Request\Types\Command\TypeChangeNameAction;
+use Commercetools\Core\Request\Types\Command\TypeRemoveFieldDefinitionAction;
+use Commercetools\Core\Request\Types\Command\TypeSetDescriptionAction;
+use Commercetools\Core\Request\Zones\Command\ZoneAddLocationAction;
+use Commercetools\Core\Request\Zones\Command\ZoneChangeNameAction;
+use Commercetools\Core\Request\Zones\Command\ZoneRemoveLocationAction;
+use Commercetools\Core\Request\Zones\Command\ZoneSetDescriptionAction;
 
-class GenericActionTest extends \PHPUnit_Framework_TestCase
+class GenericActionTest extends \PHPUnit\Framework\TestCase
 {
     protected function getInstance($className)
     {
@@ -82,815 +321,803 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                '\Commercetools\Core\Request\AbstractAction',
+                AbstractAction::class,
                 ['action']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductAddExternalImageAction',
+                ProductAddExternalImageAction::class,
                 ['action', 'variantId', 'sku', 'image', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductAddPriceAction',
+                ProductAddPriceAction::class,
                 ['action', 'variantId', 'sku', 'price', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductAddToCategoryAction',
+                ProductAddToCategoryAction::class,
                 ['action', 'category', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductAddVariantAction',
+                ProductAddVariantAction::class,
                 ['action', 'prices', 'sku', 'attributes', 'staged', 'key', 'images']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductChangeNameAction',
+                ProductChangeNameAction::class,
                 ['action', 'name', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductChangePriceAction',
+                ProductChangePriceAction::class,
                 ['action', 'priceId', 'price', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductChangeSlugAction',
+                ProductChangeSlugAction::class,
                 ['action', 'slug', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductPublishAction',
+                ProductPublishAction::class,
                 ['action']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductRemoveFromCategoryAction',
+                ProductRemoveFromCategoryAction::class,
                 ['action', 'category', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductRemoveImageAction',
+                ProductRemoveImageAction::class,
                 ['action', 'variantId', 'sku', 'imageUrl', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductRemovePriceAction',
+                ProductRemovePriceAction::class,
                 ['action', 'priceId', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductRemoveVariantAction',
+                ProductRemoveVariantAction::class,
                 ['action', 'id', 'sku', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductRevertStagedChangesAction',
+                ProductRevertStagedChangesAction::class,
                 ['action']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetAttributeAction',
+                ProductSetAttributeAction::class,
                 ['action', 'variantId', 'sku', 'name', 'value', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction',
+                ProductSetAttributeInAllVariantsAction::class,
                 ['action', 'name', 'value', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetCategoryOrderHintAction',
+                ProductSetCategoryOrderHintAction::class,
                 ['action', 'categoryId', 'orderHint', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetDescriptionAction',
+                ProductSetDescriptionAction::class,
                 ['action', 'description', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetMetaAttributesAction',
-                ['action', 'metaTitle', 'metaDescription', 'metaKeywords', 'staged']
-            ],
-            [
-                '\Commercetools\Core\Request\Products\Command\ProductSetMetaTitleAction',
+                ProductSetMetaTitleAction::class,
                 ['action', 'metaTitle']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetMetaDescriptionAction',
+                ProductSetMetaDescriptionAction::class,
                 ['action', 'metaDescription']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetMetaKeywordsAction',
+                ProductSetMetaKeywordsAction::class,
                 ['action', 'metaKeywords']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetPriceCustomFieldAction',
+                ProductSetPriceCustomFieldAction::class,
                 ['action', 'priceId', 'staged', 'name', 'value'],
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetPriceCustomTypeAction',
+                ProductSetPriceCustomTypeAction::class,
                 ['action', 'type', 'priceId', 'staged', 'fields'],
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetPricesAction',
+                ProductSetPricesAction::class,
                 ['action', 'variantId', 'sku', 'prices', 'staged'],
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
+                ProductSetSearchKeywordsAction::class,
                 ['action', 'searchKeywords', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetSkuNotStageableAction',
-                ['action', 'variantId', 'sku']
-            ],
-            [
-                '\Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction',
+                ProductSetTaxCategoryAction::class,
                 ['action', 'taxCategory', 'staged']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductTransitionStateAction',
+                ProductTransitionStateAction::class,
                 ['action', 'state', 'force']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductUnpublishAction',
+                ProductUnpublishAction::class,
                 ['action']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction',
+                OrderAddDeliveryAction::class,
                 ['action', 'items', 'parcels', 'measurements', 'trackingData']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction',
+                OrderAddParcelToDeliveryAction::class,
                 ['action', 'deliveryId', 'measurements', 'trackingData']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderAddReturnInfoAction',
+                OrderAddReturnInfoAction::class,
                 ['action', 'returnDate', 'returnTrackingId', 'items']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderChangeOrderStateAction',
+                OrderChangeOrderStateAction::class,
                 ['action', 'orderState']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderChangePaymentStateAction',
+                OrderChangePaymentStateAction::class,
                 ['action', 'paymentState']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderChangeShipmentStateAction',
+                OrderChangeShipmentStateAction::class,
                 ['action', 'shipmentState']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderImportCustomLineItemStateAction',
+                OrderImportCustomLineItemStateAction::class,
                 ['action', 'customLineItemId', 'state']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderImportLineItemStateAction',
+                OrderImportLineItemStateAction::class,
                 ['action', 'lineItemId', 'state']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction',
+                OrderSetOrderNumberAction::class,
                 ['action', 'orderNumber']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction',
+                OrderSetReturnPaymentStateAction::class,
                 ['action', 'returnItemId', 'paymentState']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction',
+                OrderSetReturnShipmentStateAction::class,
                 ['action', 'returnItemId', 'shipmentState']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction',
+                OrderTransitionCustomLineItemStateAction::class,
                 ['action', 'customLineItemId', 'quantity', 'fromState', 'toState', 'actualTransitionDate']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderTransitionLineItemStateAction',
+                OrderTransitionLineItemStateAction::class,
                 ['action', 'lineItemId', 'quantity', 'fromState', 'toState', 'actualTransitionDate']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction',
+                OrderUpdateSyncInfoAction::class,
                 ['action', 'channel', 'externalId', 'syncedAt']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerAddAddressAction',
+                CustomerAddAddressAction::class,
                 ['action', 'address']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerChangeAddressAction',
+                CustomerChangeAddressAction::class,
                 ['action', 'addressId', 'address']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerChangeEmailAction',
+                CustomerChangeEmailAction::class,
                 ['action', 'email']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction',
-                ['action', 'firstName', 'lastName', 'middleName', 'title']
-            ],
-            [
-                '\Commercetools\Core\Request\Customers\Command\CustomerRemoveAddressAction',
+                CustomerRemoveAddressAction::class,
                 ['action', 'addressId']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetCompanyNameAction',
+                CustomerSetCompanyNameAction::class,
                 ['action', 'companyName']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetCustomerGroupAction',
+                CustomerSetCustomerGroupAction::class,
                 ['action', 'customerGroup']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetCustomerNumberAction',
+                CustomerSetCustomerNumberAction::class,
                 ['action', 'customerNumber']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetDateOfBirthAction',
+                CustomerSetDateOfBirthAction::class,
                 ['action', 'dateOfBirth']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetDefaultBillingAddressAction',
+                CustomerSetDefaultBillingAddressAction::class,
                 ['action', 'addressId']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction',
+                CustomerSetDefaultShippingAddressAction::class,
                 ['action', 'addressId']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetExternalIdAction',
+                CustomerSetExternalIdAction::class,
                 ['action', 'externalId']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetFirstNameAction',
+                CustomerSetFirstNameAction::class,
                 ['action', 'firstName']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetLastNameAction',
+                CustomerSetLastNameAction::class,
                 ['action', 'lastName']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetMiddleNameAction',
+                CustomerSetMiddleNameAction::class,
                 ['action', 'middleName']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction',
+                CustomerSetTitleAction::class,
                 ['action', 'title']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction',
+                CustomerSetVatIdAction::class,
                 ['action', 'vatId']
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction',
+                CategoryChangeNameAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategoryChangeOrderHintAction',
+                CategoryChangeOrderHintAction::class,
                 ['action', 'orderHint']
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategoryChangeParentAction',
+                CategoryChangeParentAction::class,
                 ['action', 'parent']
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategoryChangeSlugAction',
+                CategoryChangeSlugAction::class,
                 ['action', 'slug']
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategorySetDescriptionAction',
+                CategorySetDescriptionAction::class,
                 ['action', 'description']
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategorySetExternalIdAction',
+                CategorySetExternalIdAction::class,
                 ['action', 'externalId']
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategorySetMetaTitleAction',
+                CategorySetMetaTitleAction::class,
                 ['action', 'metaTitle']
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategorySetMetaDescriptionAction',
+                CategorySetMetaDescriptionAction::class,
                 ['action', 'metaDescription']
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategorySetMetaKeywordsAction',
+                CategorySetMetaKeywordsAction::class,
                 ['action', 'metaKeywords']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction',
+                CartAddCustomLineItemAction::class,
                 ['action', 'name', 'quantity', 'money', 'slug', 'taxCategory', 'custom', 'externalTaxRate']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction',
+                CartAddDiscountCodeAction::class,
                 ['action', 'code']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartAddLineItemAction',
+                CartAddLineItemAction::class,
                 ['action', 'productId', 'variantId', 'quantity', 'supplyChannel', 'distributionChannel', 'custom', 'externalTaxRate']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',
+                CartChangeLineItemQuantityAction::class,
                 ['action', 'lineItemId', 'quantity']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartRecalculateAction',
+                CartRecalculateAction::class,
                 ['action', 'updateProductData']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction',
+                CartRemoveCustomLineItemAction::class,
                 ['action', 'customLineItemId']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartRemoveDiscountCodeAction',
+                CartRemoveDiscountCodeAction::class,
                 ['action', 'discountCode']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction',
+                CartRemoveLineItemAction::class,
                 ['action', 'lineItemId', 'quantity']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction',
+                CartSetBillingAddressAction::class,
                 ['action', 'address']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetCountryAction',
+                CartSetCountryAction::class,
                 ['action', 'country']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction',
+                CartSetCustomerEmailAction::class,
                 ['action', 'email']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction',
+                CartSetCustomerIdAction::class,
                 ['action', 'customerId']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction',
+                CartSetShippingAddressAction::class,
                 ['action', 'address']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction',
+                CartSetShippingMethodAction::class,
                 ['action', 'shippingMethod']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction',
+                CartSetCustomShippingMethodAction::class,
                 ['action', 'shippingMethodName', 'shippingRate', 'taxCategory', 'externalTaxRate']
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeCartPredicateAction',
+                CartDiscountChangeCartPredicateAction::class,
                 ['action', 'cartPredicate']
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeIsActiveAction',
+                CartDiscountChangeIsActiveAction::class,
                 ['action', 'isActive']
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeNameAction',
+                CartDiscountChangeNameAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeRequiresDiscountCodeAction',
+                CartDiscountChangeRequiresDiscountCodeAction::class,
                 ['action', 'requiresDiscountCode']
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeSortOrderAction',
+                CartDiscountChangeSortOrderAction::class,
                 ['action', 'sortOrder']
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeTargetAction',
+                CartDiscountChangeTargetAction::class,
                 ['action', 'target']
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeValueAction',
+                CartDiscountChangeValueAction::class,
                 ['action', 'value']
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetDescriptionAction',
+                CartDiscountSetDescriptionAction::class,
                 ['action', 'description']
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAction',
+                CartDiscountSetValidFromAction::class,
                 ['action', 'validFrom']
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidUntilAction',
+                CartDiscountSetValidUntilAction::class,
                 ['action', 'validUntil']
             ],
             [
-                '\Commercetools\Core\Request\Channels\Command\ChannelAddRolesAction',
+                ChannelAddRolesAction::class,
                 ['action', 'roles']
             ],
             [
-                '\Commercetools\Core\Request\Channels\Command\ChannelChangeDescriptionAction',
+                ChannelChangeDescriptionAction::class,
                 ['action', 'description']
             ],
             [
-                '\Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction',
+                ChannelChangeKeyAction::class,
                 ['action', 'key']
             ],
             [
-                '\Commercetools\Core\Request\Channels\Command\ChannelChangeNameAction',
+                ChannelChangeNameAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction',
+                ChannelRemoveRolesAction::class,
                 ['action', 'roles']
             ],
             [
-                '\Commercetools\Core\Request\Channels\Command\ChannelSetRolesAction',
+                ChannelSetRolesAction::class,
                 ['action', 'roles']
             ],
             [
-                '\Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupChangeNameAction',
+                CustomerGroupChangeNameAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction',
+                SetCustomFieldAction::class,
                 ['action', 'name', 'value']
             ],
             [
-                '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
+                SetCustomTypeAction::class,
                 ['action', 'type', 'fields']
             ],
             [
-                '\Commercetools\Core\Request\Zones\Command\ZoneAddLocationAction',
+                ZoneAddLocationAction::class,
                 ['action', 'location']
             ],
             [
-                '\Commercetools\Core\Request\Zones\Command\ZoneChangeNameAction',
+                ZoneChangeNameAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\Zones\Command\ZoneRemoveLocationAction',
+                ZoneRemoveLocationAction::class,
                 ['action', 'location']
             ],
             [
-                '\Commercetools\Core\Request\Zones\Command\ZoneSetDescriptionAction',
+                ZoneSetDescriptionAction::class,
                 ['action', 'description']
             ],
             [
-                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryAddTaxRateAction',
+                TaxCategoryAddTaxRateAction::class,
                 ['action', 'taxRate']
             ],
             [
-                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryChangeNameAction',
+                TaxCategoryChangeNameAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryRemoveTaxRateAction',
+                TaxCategoryRemoveTaxRateAction::class,
                 ['action', 'taxRateId']
             ],
             [
-                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryReplaceTaxRateAction',
+                TaxCategoryReplaceTaxRateAction::class,
                 ['action', 'taxRateId', 'taxRate']
             ],
             [
-                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetDescriptionAction',
+                TaxCategorySetDescriptionAction::class,
                 ['action', 'description']
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetAuthorNameAction',
+                ReviewSetAuthorNameAction::class,
                 ['action', 'authorName']
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetCustomerAction',
+                ReviewSetCustomerAction::class,
                 ['action', 'customer']
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetKeyAction',
+                ReviewSetKeyAction::class,
                 ['action', 'key']
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetLocaleAction',
+                ReviewSetLocaleAction::class,
                 ['action', 'locale']
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetRatingAction',
+                ReviewSetRatingAction::class,
                 ['action', 'rating']
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTargetAction',
+                ReviewSetTargetAction::class,
                 ['action', 'target']
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTextAction',
+                ReviewSetTextAction::class,
                 ['action', 'text']
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTitleAction',
+                ReviewSetTitleAction::class,
                 ['action', 'title']
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewTransitionStateAction',
+                ReviewTransitionStateAction::class,
                 ['action', 'state', 'force']
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeAddEnumValueAction',
+                TypeAddEnumValueAction::class,
                 ['action', 'fieldName', 'value']
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeAddFieldDefinitionAction',
+                TypeAddFieldDefinitionAction::class,
                 ['action', 'fieldDefinition']
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeAddLocalizedEnumValueAction',
+                TypeAddLocalizedEnumValueAction::class,
                 ['action', 'fieldName', 'value']
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeChangeEnumValueOrderAction',
+                TypeChangeEnumValueOrderAction::class,
                 ['action', 'fieldName', 'keys']
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeChangeFieldDefinitionOrderAction',
+                TypeChangeFieldDefinitionOrderAction::class,
                 ['action', 'fieldNames']
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeChangeKeyAction',
+                TypeChangeKeyAction::class,
                 ['action', 'key']
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeChangeLabelAction',
+                TypeChangeLabelAction::class,
                 ['action', 'fieldName', 'label']
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeChangeLocalizedEnumValueOrderAction',
+                TypeChangeLocalizedEnumValueOrderAction::class,
                 ['action', 'fieldName', 'keys']
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeChangeNameAction',
+                TypeChangeNameAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeRemoveFieldDefinitionAction',
+                TypeRemoveFieldDefinitionAction::class,
                 ['action', 'fieldName']
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeSetDescriptionAction',
+                TypeSetDescriptionAction::class,
                 ['action', 'description']
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateAddRolesAction',
+                StateAddRolesAction::class,
                 ['action', 'roles']
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateChangeInitialAction',
+                StateChangeInitialAction::class,
                 ['action', 'initial']
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateChangeKeyAction',
+                StateChangeKeyAction::class,
                 ['action', 'key']
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateChangeTypeAction',
+                StateChangeTypeAction::class,
                 ['action', 'type']
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateRemoveRolesAction',
+                StateRemoveRolesAction::class,
                 ['action', 'roles']
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateSetDescriptionAction',
+                StateSetDescriptionAction::class,
                 ['action', 'description']
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateSetNameAction',
+                StateSetNameAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateSetRolesAction',
+                StateSetRolesAction::class,
                 ['action', 'roles']
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateSetTransitionsAction',
+                StateSetTransitionsAction::class,
                 ['action', 'transitions']
             ],
             [
-                '\Commercetools\Core\Request\States\Command\TransitionStateAction',
+                TransitionStateAction::class,
                 ['action', 'state', 'force']
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction',
+                DiscountCodeChangeCartDiscountsAction::class,
                 ['action', 'cartDiscounts']
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeIsActiveAction',
+                DiscountCodeChangeIsActiveAction::class,
                 ['action', 'isActive']
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetCartPredicateAction',
+                DiscountCodeSetCartPredicateAction::class,
                 ['action', 'cartPredicate']
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetDescriptionAction',
+                DiscountCodeSetDescriptionAction::class,
                 ['action', 'description']
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsAction',
+                DiscountCodeSetMaxApplicationsAction::class,
                 ['action', 'maxApplications']
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsPerCustomerAction',
+                DiscountCodeSetMaxApplicationsPerCustomerAction::class,
                 ['action', 'maxApplicationsPerCustomer']
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetNameAction',
+                DiscountCodeSetNameAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\Inventory\Command\InventoryAddQuantityAction',
+                InventoryAddQuantityAction::class,
                 ['action', 'quantity']
             ],
             [
-                '\Commercetools\Core\Request\Inventory\Command\InventoryChangeQuantityAction',
+                InventoryChangeQuantityAction::class,
                 ['action', 'quantity']
             ],
             [
-                '\Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction',
+                InventoryRemoveQuantityAction::class,
                 ['action', 'quantity']
             ],
             [
-                '\Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAction',
+                InventorySetExpectedDeliveryAction::class,
                 ['action', 'expectedDelivery']
             ],
             [
-                '\Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction',
+                InventorySetRestockableInDaysAction::class,
                 ['action', 'restockableInDays']
             ],
             [
-                '\Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction',
+                InventorySetSupplyChannelAction::class,
                 ['action', 'supplyChannel']
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeIsActiveAction',
+                ProductDiscountChangeIsActiveAction::class,
                 ['action', 'isActive']
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeNameAction',
+                ProductDiscountChangeNameAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangePredicateAction',
+                ProductDiscountChangePredicateAction::class,
                 ['action', 'predicate']
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeSortOrderAction',
+                ProductDiscountChangeSortOrderAction::class,
                 ['action', 'sortOrder']
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeValueAction',
+                ProductDiscountChangeValueAction::class,
                 ['action', 'value']
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetDescriptionAction',
+                ProductDiscountSetDescriptionAction::class,
                 ['action', 'description']
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddShippingRateAction',
+                ShippingMethodAddShippingRateAction::class,
                 ['action', 'zone', 'shippingRate']
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddZoneAction',
+                ShippingMethodAddZoneAction::class,
                 ['action', 'zone']
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeIsDefaultAction',
+                ShippingMethodChangeIsDefaultAction::class,
                 ['action', 'isDefault']
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeNameAction',
+                ShippingMethodChangeNameAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeTaxCategoryAction',
+                ShippingMethodChangeTaxCategoryAction::class,
                 ['action', 'taxCategory']
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveShippingRateAction',
+                ShippingMethodRemoveShippingRateAction::class,
                 ['action', 'zone', 'shippingRate']
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction',
+                ShippingMethodRemoveZoneAction::class,
                 ['action', 'zone']
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction',
+                ShippingMethodSetDescriptionAction::class,
                 ['action', 'description']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction',
+                ProductTypeAddAttributeDefinitionAction::class,
                 ['action', 'attribute']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumValueAction',
+                ProductTypeAddLocalizedEnumValueAction::class,
                 ['action', 'attributeName', 'value']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction',
+                ProductTypeAddPlainEnumValueAction::class,
                 ['action', 'attributeName', 'value']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeOrderAction',
+                ProductTypeChangeAttributeOrderAction::class,
                 ['action', 'attributes']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeDescriptionAction',
+                ProductTypeChangeDescriptionAction::class,
                 ['action', 'description']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeIsSearchableAction',
+                ProductTypeChangeIsSearchableAction::class,
                 ['action', 'attributeName', 'isSearchable']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction',
+                ProductTypeChangeLabelAction::class,
                 ['action', 'attributeName', 'label']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLocalizedEnumValueOrderAction',
+                ProductTypeChangeLocalizedEnumValueOrderAction::class,
                 ['action', 'attributeName', 'values']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeNameAction',
+                ProductTypeChangeNameAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangePlainEnumValueOrderAction',
+                ProductTypeChangePlainEnumValueOrderAction::class,
                 ['action', 'attributeName', 'values']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveAttributeDefinitionAction',
+                ProductTypeRemoveAttributeDefinitionAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction',
+                ProductTypeSetInputTipAction::class,
                 ['action', 'attributeName', 'inputTip']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction',
+                ProductTypeSetKeyAction::class,
                 ['action', 'key']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentAddInterfaceInteractionAction',
+                PaymentAddInterfaceInteractionAction::class,
                 ['action', 'type', 'fields']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentAddTransactionAction',
+                PaymentAddTransactionAction::class,
                 ['action', 'transaction']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentChangeAmountPlannedAction',
+                PaymentChangeAmountPlannedAction::class,
                 ['action', 'amount']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionInteractionIdAction',
+                PaymentChangeTransactionInteractionIdAction::class,
                 ['action', 'transactionId', 'interactionId']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionStateAction',
+                PaymentChangeTransactionStateAction::class,
                 ['action', 'transactionId', 'state']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionTimestampAction',
+                PaymentChangeTransactionTimestampAction::class,
                 ['action', 'transactionId', 'timestamp']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetAmountPaidAction',
+                PaymentSetAmountPaidAction::class,
                 ['action', 'amount']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetAmountRefundedAction',
+                PaymentSetAmountRefundedAction::class,
                 ['action', 'amount']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetAuthorizationAction',
+                PaymentSetAuthorizationAction::class,
                 ['action', 'amount', 'until']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetCustomerAction',
+                PaymentSetCustomerAction::class,
                 ['action', 'customer']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetCustomFieldAction',
+                PaymentSetCustomFieldAction::class,
                 ['action', 'name', 'value']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetCustomTypeAction',
+                PaymentSetCustomTypeAction::class,
                 ['action', 'type', 'fields']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetExternalIdAction',
+                PaymentSetExternalIdAction::class,
                 ['action', 'externalId']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetInterfaceIdAction',
+                PaymentSetInterfaceIdAction::class,
                 ['action', 'interfaceId']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoInterfaceAction',
+                PaymentSetMethodInfoInterfaceAction::class,
                 ['action', 'interface']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoMethodAction',
+                PaymentSetMethodInfoMethodAction::class,
                 ['action', 'method']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoNameAction',
+                PaymentSetMethodInfoNameAction::class,
                 ['action', 'name']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceCodeAction',
+                PaymentSetStatusInterfaceCodeAction::class,
                 ['action', 'interfaceCode']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceTextAction',
+                PaymentSetStatusInterfaceTextAction::class,
                 ['action', 'interfaceText']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentTransitionStateAction',
+                PaymentTransitionStateAction::class,
                 ['action', 'state', 'force']
             ],
         ];
@@ -900,1060 +1127,1046 @@ class GenericActionTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                '\Commercetools\Core\Request\AbstractAction',
+                AbstractAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductAddExternalImageAction',
+                ProductAddExternalImageAction::class,
                 'ofVariantIdAndImage',
                 [
                     10,
-                    $this->getInstance('\Commercetools\Core\Model\Common\Image')
+                    $this->getInstance(Image::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductAddPriceAction',
+                ProductAddPriceAction::class,
                 'ofVariantIdAndPrice',
                 [
                     10,
-                    $this->getInstance('\Commercetools\Core\Model\Common\PriceDraft')
+                    $this->getInstance(PriceDraft::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductAddToCategoryAction',
+                ProductAddToCategoryAction::class,
                 'ofCategory',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Category\CategoryReference')
+                    $this->getInstance(CategoryReference::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductAddVariantAction',
+                ProductAddVariantAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductChangeNameAction',
+                ProductChangeNameAction::class,
                 'ofName',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')
+                    $this->getInstance(LocalizedString::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductChangePriceAction',
+                ProductChangePriceAction::class,
                 'ofPriceIdAndPrice',
                 [
                     '10',
-                    $this->getInstance('\Commercetools\Core\Model\Common\PriceDraft')
+                    $this->getInstance(PriceDraft::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductChangeSlugAction',
+                ProductChangeSlugAction::class,
                 'ofSlug',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')
+                    $this->getInstance(LocalizedString::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductPublishAction',
+                ProductPublishAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductRemoveFromCategoryAction',
+                ProductRemoveFromCategoryAction::class,
                 'ofCategory',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Category\CategoryReference')
+                    $this->getInstance(CategoryReference::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductRemoveImageAction',
+                ProductRemoveImageAction::class,
                 'ofVariantIdAndImageUrl',
                 [10, 'imageUrl']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductRemovePriceAction',
+                ProductRemovePriceAction::class,
                 'ofPriceId',
                 [
                     '10'
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductRemoveVariantAction',
+                ProductRemoveVariantAction::class,
                 'ofVariantId',
                 [10]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductRevertStagedChangesAction',
+                ProductRevertStagedChangesAction::class,
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetAttributeAction',
+                ProductSetAttributeAction::class,
                 'ofVariantIdAndName',
                 [10, 'attributeName']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction',
+                ProductSetAttributeInAllVariantsAction::class,
                 'ofName',
                 ['attributeName']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetCategoryOrderHintAction',
+                ProductSetCategoryOrderHintAction::class,
                 'ofCategoryId',
                 ['categoryId']
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetDescriptionAction',
+                ProductSetDescriptionAction::class,
                 'ofDescription',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')
+                    $this->getInstance(LocalizedString::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetMetaAttributesAction',
+                ProductSetMetaTitleAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetMetaTitleAction',
+                ProductSetMetaDescriptionAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetMetaDescriptionAction',
+                ProductSetMetaKeywordsAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetMetaKeywordsAction',
+                ProductSetPriceCustomFieldAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetPriceCustomFieldAction',
+                ProductSetPriceCustomTypeAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetPriceCustomTypeAction',
-                'of',
-            ],
-            [
-                '\Commercetools\Core\Request\Products\Command\ProductSetPricesAction',
+                ProductSetPricesAction::class,
                 'ofVariantIdAndPrices',
                 [
                     1,
-                    $this->getInstance('\Commercetools\Core\Model\Common\PriceDraftCollection')
+                    $this->getInstance(PriceDraftCollection::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction',
+                ProductSetSearchKeywordsAction::class,
                 'ofKeywords',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Product\LocalizedSearchKeywords')
+                    $this->getInstance(LocalizedSearchKeywords::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductSetSkuNotStageableAction',
-                'ofVariantId',
-                [10]
-            ],
-            [
-                '\Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction',
+                ProductSetTaxCategoryAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductTransitionStateAction',
+                ProductTransitionStateAction::class,
                 'ofState',
-                [$this->getInstance('\Commercetools\Core\Model\State\StateReference')]
+                [$this->getInstance(StateReference::class)]
             ],
             [
-                '\Commercetools\Core\Request\Products\Command\ProductUnpublishAction',
+                ProductUnpublishAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction',
+                OrderAddDeliveryAction::class,
                 'ofDeliveryItems',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Order\DeliveryItemCollection')
+                    $this->getInstance(DeliveryItemCollection::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction',
+                OrderAddParcelToDeliveryAction::class,
                 'ofDeliveryId',
                 ['1234567890']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderAddReturnInfoAction',
+                OrderAddReturnInfoAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderChangeOrderStateAction',
+                OrderChangeOrderStateAction::class,
                 'ofOrderState',
                 ['newOrderState']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderChangePaymentStateAction',
+                OrderChangePaymentStateAction::class,
                 'ofPaymentState',
                 ['newPaymentState']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderChangeShipmentStateAction',
+                OrderChangeShipmentStateAction::class,
                 'ofShipmentState',
                 ['newShipmentState']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderImportCustomLineItemStateAction',
+                OrderImportCustomLineItemStateAction::class,
                 'ofCustomLineItemIdAndState',
                 [
                     '12345',
-                    $this->getInstance('\Commercetools\Core\Model\Order\ItemStateCollection')
+                    $this->getInstance(ItemStateCollection::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderImportLineItemStateAction',
+                OrderImportLineItemStateAction::class,
                 'ofLineItemIdAndState',
                 [
                     '12345',
-                    $this->getInstance('\Commercetools\Core\Model\Order\ItemStateCollection')
+                    $this->getInstance(ItemStateCollection::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction',
+                OrderSetOrderNumberAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction',
+                OrderSetReturnPaymentStateAction::class,
                 'ofReturnItemIdAndPaymentState',
                 ['12345', 'paymentState']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction',
+                OrderSetReturnShipmentStateAction::class,
                 'ofReturnItemIdAndShipmentState',
                 ['12345', 'shipmentState']
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction',
+                OrderTransitionCustomLineItemStateAction::class,
                 'ofCustomLineItemIdQuantityAndFromToState',
                 [
                     '12345',
                     2,
-                    $this->getInstance('\Commercetools\Core\Model\State\StateReference'),
-                    $this->getInstance('\Commercetools\Core\Model\State\StateReference'),
+                    $this->getInstance(StateReference::class),
+                    $this->getInstance(StateReference::class),
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderTransitionLineItemStateAction',
+                OrderTransitionLineItemStateAction::class,
                 'ofLineItemIdQuantityAndFromToState',
                 [
                     '12345',
                     2,
-                    $this->getInstance('\Commercetools\Core\Model\State\StateReference'),
-                    $this->getInstance('\Commercetools\Core\Model\State\StateReference'),
+                    $this->getInstance(StateReference::class),
+                    $this->getInstance(StateReference::class),
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction',
+                OrderUpdateSyncInfoAction::class,
                 'ofChannel',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Channel\ChannelReference')
+                    $this->getInstance(ChannelReference::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerAddAddressAction',
+                CustomerAddAddressAction::class,
                 'ofAddress',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Common\Address')
+                    $this->getInstance(Address::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerChangeAddressAction',
+                CustomerChangeAddressAction::class,
                 'ofAddressIdAndAddress',
                 [
                     '1',
-                    $this->getInstance('\Commercetools\Core\Model\Common\Address')
+                    $this->getInstance(Address::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerChangeEmailAction',
+                CustomerChangeEmailAction::class,
                 'ofEmail',
                 ['john.doe@company.com']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction',
-                'ofFirstNameAndLastName',
-                ['John', 'Doe']
-            ],
-            [
-                '\Commercetools\Core\Request\Customers\Command\CustomerRemoveAddressAction',
+                CustomerRemoveAddressAction::class,
                 'ofAddressId',
                 ['1']
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetCompanyNameAction',
+                CustomerSetCompanyNameAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetCustomerGroupAction',
+                CustomerSetCustomerGroupAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetCustomerNumberAction',
+                CustomerSetCustomerNumberAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetDateOfBirthAction',
+                CustomerSetDateOfBirthAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetDefaultBillingAddressAction',
+                CustomerSetDefaultBillingAddressAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction',
+                CustomerSetDefaultShippingAddressAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetExternalIdAction',
+                CustomerSetExternalIdAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetFirstNameAction',
+                CustomerSetFirstNameAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetLastNameAction',
+                CustomerSetLastNameAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetMiddleNameAction',
+                CustomerSetMiddleNameAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction',
+                CustomerSetTitleAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction',
+                CustomerSetVatIdAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction',
+                CategoryChangeNameAction::class,
                 'ofName',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')
+                    $this->getInstance(LocalizedString::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategoryChangeOrderHintAction',
+                CategoryChangeOrderHintAction::class,
                 'ofOrderHint',
                 ['orderHint']
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategoryChangeParentAction',
+                CategoryChangeParentAction::class,
                 'ofParentCategory',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Category\CategoryReference')
+                    $this->getInstance(CategoryReference::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategoryChangeSlugAction',
+                CategoryChangeSlugAction::class,
                 'ofSlug',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')
+                    $this->getInstance(LocalizedString::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategorySetDescriptionAction',
+                CategorySetDescriptionAction::class,
                 'ofDescription',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')
+                    $this->getInstance(LocalizedString::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategorySetExternalIdAction',
+                CategorySetExternalIdAction::class,
                 'ofExternalId',
                 ['externalId']
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategorySetMetaTitleAction',
+                CategorySetMetaTitleAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategorySetMetaDescriptionAction',
+                CategorySetMetaDescriptionAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Categories\Command\CategorySetMetaKeywordsAction',
+                CategorySetMetaKeywordsAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction',
+                CartAddCustomLineItemAction::class,
                 'ofNameQuantityMoneySlugAndTaxCategory',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString'),
+                    $this->getInstance(LocalizedString::class),
                     10,
-                    $this->getInstance('\Commercetools\Core\Model\Common\Money'),
+                    $this->getInstance(Money::class),
                     'my-custom-line-item',
-                    $this->getInstance('\Commercetools\Core\Model\TaxCategory\TaxCategoryReference')
+                    $this->getInstance(TaxCategoryReference::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction',
+                CartAddDiscountCodeAction::class,
                 'ofCode',
                 ['code']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartAddLineItemAction',
+                CartAddLineItemAction::class,
                 'ofProductIdVariantIdAndQuantity',
                 ['productId', 1, 2]
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartAddPaymentAction',
+                CartAddPaymentAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction',
+                CartChangeLineItemQuantityAction::class,
                 'ofLineItemIdAndQuantity',
                 ['lineItemId', 3]
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartRecalculateAction',
+                CartRecalculateAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction',
+                CartRemoveCustomLineItemAction::class,
                 'ofCustomLineItemId',
                 ['customLineItemId']
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartRemoveDiscountCodeAction',
+                CartRemoveDiscountCodeAction::class,
                 'ofDiscountCode',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\DiscountCode\DiscountCodeReference')
+                    $this->getInstance(DiscountCodeReference::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction',
+                CartRemoveLineItemAction::class,
                 'ofLineItemId',
                 ['lineItemId', 1]
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartRemovePaymentAction',
+                CartRemovePaymentAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction',
+                CartSetBillingAddressAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetCountryAction',
+                CartSetCountryAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction',
+                CartSetCustomerEmailAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction',
+                CartSetCustomerIdAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomFieldAction',
+                CartSetCustomLineItemCustomFieldAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeAction',
+                CartSetCustomLineItemCustomTypeAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction',
+                CartSetLineItemCustomFieldAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction',
+                CartSetLineItemCustomTypeAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction',
+                CartSetShippingAddressAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction',
+                CartSetShippingMethodAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction',
+                CartSetCustomShippingMethodAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeCartPredicateAction',
+                CartDiscountChangeCartPredicateAction::class,
                 'ofCartPredicate',
                 ['cartPredicate']
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeIsActiveAction',
+                CartDiscountChangeIsActiveAction::class,
                 'ofIsActive',
                 [true]
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeNameAction',
+                CartDiscountChangeNameAction::class,
                 'ofName',
-                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+                [$this->getInstance(LocalizedString::class)]
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeRequiresDiscountCodeAction',
+                CartDiscountChangeRequiresDiscountCodeAction::class,
                 'ofRequiresDiscountCode',
                 [true]
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeSortOrderAction',
+                CartDiscountChangeSortOrderAction::class,
                 'ofSortOrder',
                 ['0.1']
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeTargetAction',
+                CartDiscountChangeTargetAction::class,
                 'ofTarget',
-                [$this->getInstance('\Commercetools\Core\Model\CartDiscount\CartDiscountTarget')]
+                [$this->getInstance(CartDiscountTarget::class)]
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeValueAction',
+                CartDiscountChangeValueAction::class,
                 'ofCartDiscountValue',
-                [$this->getInstance('\Commercetools\Core\Model\CartDiscount\CartDiscountValue')]
+                [$this->getInstance(CartDiscountValue::class)]
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetDescriptionAction',
+                CartDiscountSetDescriptionAction::class,
                 'of'
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAction',
+                CartDiscountSetValidFromAction::class,
                 'of'
             ],
             [
-                '\Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidUntilAction',
+                CartDiscountSetValidUntilAction::class,
                 'of'
             ],
             [
-                '\Commercetools\Core\Request\Channels\Command\ChannelAddRolesAction',
+                ChannelAddRolesAction::class,
                 'ofRoles',
                 [[ChannelRole::INVENTORY_SUPPLY]]
             ],
             [
-                '\Commercetools\Core\Request\Channels\Command\ChannelChangeDescriptionAction',
+                ChannelChangeDescriptionAction::class,
                 'ofDescription',
-                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+                [$this->getInstance(LocalizedString::class)]
             ],
             [
-                '\Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction',
+                ChannelChangeKeyAction::class,
                 'ofKey',
                 ['key']
             ],
             [
-                '\Commercetools\Core\Request\Channels\Command\ChannelChangeNameAction',
+                ChannelChangeNameAction::class,
                 'ofName',
-                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+                [$this->getInstance(LocalizedString::class)]
             ],
             [
-                '\Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction',
+                ChannelRemoveRolesAction::class,
                 'ofRoles',
                 [[ChannelRole::INVENTORY_SUPPLY]]
             ],
             [
-                '\Commercetools\Core\Request\Channels\Command\ChannelSetRolesAction',
+                ChannelSetRolesAction::class,
                 'ofRoles',
                 [[ChannelRole::INVENTORY_SUPPLY]]
             ],
             [
-                '\Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupChangeNameAction',
+                CustomerGroupChangeNameAction::class,
                 'ofName',
                 ['customerGroup']
             ],
             [
-                '\Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction',
+                SetCustomFieldAction::class,
                 'ofName',
                 ['fieldName']
             ],
             [
-                '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
+                SetCustomTypeAction::class,
                 'ofTypeId',
                 ['typeId']
             ],
             [
-                '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
+                SetCustomTypeAction::class,
                 'ofTypeKey',
                 ['typeKey']
             ],
             [
-                '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
+                SetCustomTypeAction::class,
                 'ofType',
                 [TypeReference::ofId('typeId')]
             ],
             [
-                '\Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction',
+                SetCustomTypeAction::class,
                 'ofType',
                 [TypeReference::ofKey('typeKey')]
             ],
             [
-                '\Commercetools\Core\Request\Zones\Command\ZoneAddLocationAction',
+                ZoneAddLocationAction::class,
                 'ofLocation',
-                [$this->getInstance('\Commercetools\Core\Model\Zone\Location')]
+                [$this->getInstance(Location::class)]
             ],
             [
-                '\Commercetools\Core\Request\Zones\Command\ZoneChangeNameAction',
+                ZoneChangeNameAction::class,
                 'ofName',
                 ['newName']
             ],
             [
-                '\Commercetools\Core\Request\Zones\Command\ZoneRemoveLocationAction',
+                ZoneRemoveLocationAction::class,
                 'ofLocation',
-                [$this->getInstance('\Commercetools\Core\Model\Zone\Location')]
+                [$this->getInstance(Location::class)]
             ],
             [
-                '\Commercetools\Core\Request\Zones\Command\ZoneSetDescriptionAction',
+                ZoneSetDescriptionAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryAddTaxRateAction',
+                TaxCategoryAddTaxRateAction::class,
                 'ofTaxRate',
-                [$this->getInstance('\Commercetools\Core\Model\TaxCategory\TaxRate')]
+                [$this->getInstance(TaxRate::class)]
             ],
             [
-                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryChangeNameAction',
+                TaxCategoryChangeNameAction::class,
                 'ofName',
                 ['newName']
             ],
             [
-                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryRemoveTaxRateAction',
+                TaxCategoryRemoveTaxRateAction::class,
                 'ofTaxRateId',
                 ['taxRateId']
             ],
             [
-                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategoryReplaceTaxRateAction',
+                TaxCategoryReplaceTaxRateAction::class,
                 'ofTaxRateIdAndTaxRate',
-                ['taxRateId', $this->getInstance('\Commercetools\Core\Model\TaxCategory\TaxRate')]
+                ['taxRateId', $this->getInstance(TaxRate::class)]
             ],
             [
-                '\Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetDescriptionAction',
+                TaxCategorySetDescriptionAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetAuthorNameAction',
+                ReviewSetAuthorNameAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetCustomerAction',
+                ReviewSetCustomerAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetKeyAction',
+                ReviewSetKeyAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTargetAction',
+                ReviewSetTargetAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTextAction',
+                ReviewSetTextAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewSetTitleAction',
+                ReviewSetTitleAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Reviews\Command\ReviewTransitionStateAction',
+                ReviewTransitionStateAction::class,
                 'ofState',
-                [$this->getInstance('\Commercetools\Core\Model\State\StateReference')]
+                [$this->getInstance(StateReference::class)]
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeAddEnumValueAction',
+                TypeAddEnumValueAction::class,
                 'ofNameAndEnum',
-                ['fieldName', $this->getInstance('\Commercetools\Core\Model\Common\Enum')]
+                ['fieldName', $this->getInstance(Enum::class)]
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeAddFieldDefinitionAction',
+                TypeAddFieldDefinitionAction::class,
                 'ofFieldDefinition',
-                [$this->getInstance('\Commercetools\Core\Model\Type\FieldDefinition')]
+                [$this->getInstance(FieldDefinition::class)]
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeAddLocalizedEnumValueAction',
+                TypeAddLocalizedEnumValueAction::class,
                 'ofNameAndEnum',
-                ['fieldName', $this->getInstance('\Commercetools\Core\Model\Common\LocalizedEnum')]
+                ['fieldName', $this->getInstance(LocalizedEnum::class)]
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeChangeEnumValueOrderAction',
+                TypeChangeEnumValueOrderAction::class,
                 'ofNameAndEnums',
                 ['fieldName', ['key1', 'key2']]
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeChangeFieldDefinitionOrderAction',
+                TypeChangeFieldDefinitionOrderAction::class,
                 'ofFieldDefinitions',
                 [['name1', 'name2']]
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeChangeKeyAction',
+                TypeChangeKeyAction::class,
                 'ofKey',
                 ['new-key']
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeChangeLabelAction',
+                TypeChangeLabelAction::class,
                 'ofNameAndLabel',
-                ['fieldName', $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+                ['fieldName', $this->getInstance(LocalizedString::class)]
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeChangeLocalizedEnumValueOrderAction',
+                TypeChangeLocalizedEnumValueOrderAction::class,
                 'ofNameAndEnums',
                 ['fieldName', ['key1', 'key2']]
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeChangeNameAction',
+                TypeChangeNameAction::class,
                 'ofName',
-                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+                [$this->getInstance(LocalizedString::class)]
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeRemoveFieldDefinitionAction',
+                TypeRemoveFieldDefinitionAction::class,
                 'ofFieldName',
                 ['fieldName']
             ],
             [
-                '\Commercetools\Core\Request\Types\Command\TypeSetDescriptionAction',
+                TypeSetDescriptionAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateAddRolesAction',
+                StateAddRolesAction::class,
                 'ofRoles',
                 [['role1']]
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateChangeInitialAction',
+                StateChangeInitialAction::class,
                 'ofInitial',
                 [true]
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateChangeKeyAction',
+                StateChangeKeyAction::class,
                 'ofKey',
                 ['newKey']
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateChangeTypeAction',
+                StateChangeTypeAction::class,
                 'ofType',
                 ['newType']
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateRemoveRolesAction',
+                StateRemoveRolesAction::class,
                 'ofRoles',
                 [['role1']]
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateSetDescriptionAction',
+                StateSetDescriptionAction::class,
                 'ofDescription',
-                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+                [$this->getInstance(LocalizedString::class)]
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateSetNameAction',
+                StateSetNameAction::class,
                 'ofName',
-                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+                [$this->getInstance(LocalizedString::class)]
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateSetRolesAction',
+                StateSetRolesAction::class,
                 'ofRoles',
                 [['role1']]
             ],
             [
-                '\Commercetools\Core\Request\States\Command\StateSetTransitionsAction',
+                StateSetTransitionsAction::class,
                 'ofTransitions',
-                [$this->getInstance('\Commercetools\Core\Model\State\StateReferenceCollection')]
+                [$this->getInstance(StateReferenceCollection::class)]
             ],
             [
-                '\Commercetools\Core\Request\States\Command\TransitionStateAction',
+                TransitionStateAction::class,
                 'ofState',
-                [$this->getInstance('\Commercetools\Core\Model\State\StateReference')]
+                [$this->getInstance(StateReference::class)]
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction',
+                DiscountCodeChangeCartDiscountsAction::class,
                 'ofCartDiscountReferences',
-                [$this->getInstance('\Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection')]
+                [$this->getInstance(CartDiscountReferenceCollection::class)]
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction',
+                DiscountCodeChangeCartDiscountsAction::class,
                 'ofCartDiscountReference',
-                [$this->getInstance('\Commercetools\Core\Model\CartDiscount\CartDiscountReference')]
+                [$this->getInstance(CartDiscountReference::class)]
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeIsActiveAction',
+                DiscountCodeChangeIsActiveAction::class,
                 'ofIsActive',
                 [true]
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetCartPredicateAction',
+                DiscountCodeSetCartPredicateAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetDescriptionAction',
+                DiscountCodeSetDescriptionAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsAction',
+                DiscountCodeSetMaxApplicationsAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsPerCustomerAction',
+                DiscountCodeSetMaxApplicationsPerCustomerAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetNameAction',
+                DiscountCodeSetNameAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Inventory\Command\InventoryAddQuantityAction',
+                InventoryAddQuantityAction::class,
                 'ofQuantity',
                 [1]
             ],
             [
-                '\Commercetools\Core\Request\Inventory\Command\InventoryChangeQuantityAction',
+                InventoryChangeQuantityAction::class,
                 'ofQuantity',
                 [2]
             ],
             [
-                '\Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction',
+                InventoryRemoveQuantityAction::class,
                 'ofQuantity',
                 [3]
             ],
             [
-                '\Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAction',
+                InventorySetExpectedDeliveryAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction',
+                InventorySetRestockableInDaysAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction',
+                InventorySetSupplyChannelAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeIsActiveAction',
+                ProductDiscountChangeIsActiveAction::class,
                 'ofIsActive',
                 [true]
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeNameAction',
+                ProductDiscountChangeNameAction::class,
                 'ofName',
-                [$this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+                [$this->getInstance(LocalizedString::class)]
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangePredicateAction',
+                ProductDiscountChangePredicateAction::class,
                 'ofPredicate',
                 ['predicate']
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeSortOrderAction',
+                ProductDiscountChangeSortOrderAction::class,
                 'ofSortOrder',
                 ['sortOrder']
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeValueAction',
+                ProductDiscountChangeValueAction::class,
                 'ofProductDiscountValue',
-                [$this->getInstance('\Commercetools\Core\Model\ProductDiscount\ProductDiscountValue')]
+                [$this->getInstance(ProductDiscountValue::class)]
             ],
             [
-                '\Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetDescriptionAction',
+                ProductDiscountSetDescriptionAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddShippingRateAction',
+                ShippingMethodAddShippingRateAction::class,
                 'ofZoneAndShippingRate',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Zone\ZoneReference'),
-                    $this->getInstance('\Commercetools\Core\Model\ShippingMethod\ShippingRate')
+                    $this->getInstance(ZoneReference::class),
+                    $this->getInstance(ShippingRate::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddZoneAction',
+                ShippingMethodAddZoneAction::class,
                 'ofZone',
-                [$this->getInstance('\Commercetools\Core\Model\Zone\ZoneReference')]
+                [$this->getInstance(ZoneReference::class)]
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeIsDefaultAction',
+                ShippingMethodChangeIsDefaultAction::class,
                 'ofIsDefault',
                 [true]
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeNameAction',
+                ShippingMethodChangeNameAction::class,
                 'ofName',
                 ['newName']
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeTaxCategoryAction',
+                ShippingMethodChangeTaxCategoryAction::class,
                 'ofTaxCategory',
-                [$this->getInstance('\Commercetools\Core\Model\TaxCategory\TaxCategoryReference')]
+                [$this->getInstance(TaxCategoryReference::class)]
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveShippingRateAction',
+                ShippingMethodRemoveShippingRateAction::class,
                 'ofZoneAndShippingRate',
                 [
-                    $this->getInstance('\Commercetools\Core\Model\Zone\ZoneReference'),
-                    $this->getInstance('\Commercetools\Core\Model\ShippingMethod\ShippingRate')
+                    $this->getInstance(ZoneReference::class),
+                    $this->getInstance(ShippingRate::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction',
+                ShippingMethodRemoveZoneAction::class,
                 'ofZone',
-                [$this->getInstance('\Commercetools\Core\Model\Zone\ZoneReference')]
+                [$this->getInstance(ZoneReference::class)]
             ],
             [
-                '\Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction',
+                ShippingMethodSetDescriptionAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction',
+                ProductTypeAddAttributeDefinitionAction::class,
                 'ofAttribute',
-                [$this->getInstance('\Commercetools\Core\Model\ProductType\AttributeDefinition')]
+                [$this->getInstance(AttributeDefinition::class)]
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumValueAction',
+                ProductTypeAddLocalizedEnumValueAction::class,
                 'ofAttributeNameAndValue',
                 [
                     'attributeName',
-                    $this->getInstance('\Commercetools\Core\Model\Common\LocalizedEnum')
+                    $this->getInstance(LocalizedEnum::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction',
+                ProductTypeAddPlainEnumValueAction::class,
                 'ofAttributeNameAndValue',
                 [
                     'attributeName',
-                    $this->getInstance('\Commercetools\Core\Model\Common\Enum')
+                    $this->getInstance(Enum::class)
                 ]
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeOrderAction',
+                ProductTypeChangeAttributeOrderAction::class,
                 'ofAttributes',
-                [$this->getInstance('\Commercetools\Core\Model\ProductType\AttributeDefinitionCollection')]
+                [$this->getInstance(AttributeDefinitionCollection::class)]
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeDescriptionAction',
+                ProductTypeChangeDescriptionAction::class,
                 'ofDescription',
                 ['new description']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeIsSearchableAction',
+                ProductTypeChangeIsSearchableAction::class,
                 'ofAttributeNameAndIsSearchable',
                 ['attributeName', true]
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction',
+                ProductTypeChangeLabelAction::class,
                 'ofAttributeNameAndLabel',
-                ['attributeName', $this->getInstance('\Commercetools\Core\Model\Common\LocalizedString')]
+                ['attributeName', $this->getInstance(LocalizedString::class)]
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLocalizedEnumValueOrderAction',
+                ProductTypeChangeLocalizedEnumValueOrderAction::class,
                 'ofAttributeNameAndValues',
-                ['attributeName', $this->getInstance('\Commercetools\Core\Model\Common\LocalizedEnumCollection')]
+                ['attributeName', $this->getInstance(LocalizedEnumCollection::class)]
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeNameAction',
+                ProductTypeChangeNameAction::class,
                 'ofName',
                 ['new name']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangePlainEnumValueOrderAction',
+                ProductTypeChangePlainEnumValueOrderAction::class,
                 'ofAttributeNameAndValues',
-                ['attributeName', $this->getInstance('\Commercetools\Core\Model\Common\EnumCollection')]
+                ['attributeName', $this->getInstance(EnumCollection::class)]
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveAttributeDefinitionAction',
+                ProductTypeRemoveAttributeDefinitionAction::class,
                 'ofName',
                 ['name']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction',
+                ProductTypeSetInputTipAction::class,
                 'ofAttributeName',
                 ['attributeName']
             ],
             [
-                '\Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction',
+                ProductTypeSetKeyAction::class,
                 'ofKey',
                 ['typeKey']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentAddInterfaceInteractionAction',
+                PaymentAddInterfaceInteractionAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentAddTransactionAction',
+                PaymentAddTransactionAction::class,
                 'ofTransaction',
-                [$this->getInstance('\Commercetools\Core\Model\Payment\Transaction')]
+                [$this->getInstance(Transaction::class)]
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentChangeAmountPlannedAction',
+                PaymentChangeAmountPlannedAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionInteractionIdAction',
+                PaymentChangeTransactionInteractionIdAction::class,
                 'ofTransactionIdAndInteractionId',
                 ['transactionId', 'interactionId']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionStateAction',
+                PaymentChangeTransactionStateAction::class,
                 'ofTransactionIdAndState',
                 ['transactionId', 'state']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionTimestampAction',
+                PaymentChangeTransactionTimestampAction::class,
                 'ofTransactionIdAndTimestamp',
                 ['transactionId', new \DateTime()]
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetAmountPaidAction',
+                PaymentSetAmountPaidAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetAmountRefundedAction',
+                PaymentSetAmountRefundedAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetAuthorizationAction',
+                PaymentSetAuthorizationAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetCustomerAction',
+                PaymentSetCustomerAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetCustomFieldAction',
+                PaymentSetCustomFieldAction::class,
                 'ofName',
                 ['name']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetCustomTypeAction',
+                PaymentSetCustomTypeAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetExternalIdAction',
+                PaymentSetExternalIdAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetInterfaceIdAction',
+                PaymentSetInterfaceIdAction::class,
                 'ofInterfaceId',
                 ['interfaceId']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoInterfaceAction',
+                PaymentSetMethodInfoInterfaceAction::class,
                 'ofInterface',
                 ['interface']
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoMethodAction',
+                PaymentSetMethodInfoMethodAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoNameAction',
+                PaymentSetMethodInfoNameAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceCodeAction',
+                PaymentSetStatusInterfaceCodeAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceTextAction',
+                PaymentSetStatusInterfaceTextAction::class,
                 'of',
             ],
             [
-                '\Commercetools\Core\Request\Payments\Command\PaymentTransitionStateAction',
+                PaymentTransitionStateAction::class,
                 'ofState',
-                [$this->getInstance('\Commercetools\Core\Model\State\StateReference')]
+                [$this->getInstance(StateReference::class)]
             ],
         ];
     }

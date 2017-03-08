@@ -25,7 +25,7 @@ class ProductProjectionQueryRequest extends AbstractQueryRequest
     use StagedTrait;
     use PriceSelectTrait;
 
-    protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjectionCollection';
+    protected $resultClass = ProductProjectionCollection::class;
 
     /**
      * @param Context $context

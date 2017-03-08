@@ -24,7 +24,7 @@ use Commercetools\Core\Model\Common\Reference;
 class CartDiscountReference extends Reference
 {
     const TYPE_CART_DISCOUNT = 'cart-discount';
-    const TYPE_CLASS = '\Commercetools\Core\Model\CartDiscount\CartDiscount';
+    const TYPE_CLASS = CartDiscount::class;
 
     /**
      * @param $id

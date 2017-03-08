@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CustomObjectQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\CustomObject\CustomObjectCollection';
+    protected $resultClass = CustomObjectCollection::class;
 
     /**
      * @param Context $context

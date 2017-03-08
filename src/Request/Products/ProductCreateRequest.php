@@ -24,7 +24,7 @@ class ProductCreateRequest extends AbstractCreateRequest
 {
     use PriceSelectTrait;
 
-    protected $resultClass = '\Commercetools\Core\Model\Product\Product';
+    protected $resultClass = Product::class;
     /**
      * @param ProductDraft $product
      * @param Context $context

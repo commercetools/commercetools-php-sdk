@@ -10,8 +10,6 @@ use Psr\Log\LoggerInterface;
 use Commercetools\Core\Helper\CurrencyFormatter;
 
 /**
- * The context is a container class. Giving the possibility to inject information or behaviour to the models
- *
  * @description
  * ## Usage
  *
@@ -61,8 +59,33 @@ use Commercetools\Core\Helper\CurrencyFormatter;
  *
  * @package Commercetools\Core\Model\Common
  */
-class Context extends Container
+class Context implements \ArrayAccess
 {
+    /**
+     * @var bool
+     */
+    private $graceful = false;
+
+    /**
+     * @var array
+     */
+    private $languages = [];
+
+    /**
+     * @var CurrencyFormatter
+     */
+    private $currencyFormatter;
+
+    /**
+     * @var string
+     */
+    private $locale;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
     const GRACEFUL = 'graceful';
     const LANGUAGES = 'languages';
     const CURRENCY_FORMATTER = 'currencyFormatter';
@@ -71,54 +94,31 @@ class Context extends Container
 
     public function __construct()
     {
-        parent::__construct();
 
         $context = $this;
-        $this[static::GRACEFUL] = false;
-        $this[static::LANGUAGES] = [];
-        $this[static::CURRENCY_FORMATTER] = new CurrencyFormatter($context);
-        $this[static::LOCALE] = null;
+        $this->currencyFormatter = new CurrencyFormatter($context);
+        $this->locale = null;
         if (extension_loaded('intl')) {
-            $this[static::LOCALE] = \Locale::getDefault();
+            $this->locale = \Locale::getDefault();
         }
-        $this[static::LOGGER] = null;
+        $this->logger = null;
     }
 
     /**
-     * @return string
+     * @return boolean
      */
-    public function getLocale()
+    public function isGraceful()
     {
-        return $this[static::LOCALE];
+        return $this->graceful;
     }
 
     /**
-     * @param $locale
-     * @return $this
+     * @param boolean $graceful
+     * @return Context
      */
-    public function setLocale($locale)
+    public function setGraceful($graceful)
     {
-        $this[static::LOCALE] = $locale;
-
-        return $this;
-    }
-
-    /**
-     * @return CurrencyFormatter
-     */
-    public function getCurrencyFormatter()
-    {
-        return $this[static::CURRENCY_FORMATTER];
-    }
-
-    /**
-     * @param CurrencyFormatter $currencyFormatter
-     * @return $this
-     */
-    public function setCurrencyFormatter(CurrencyFormatter $currencyFormatter)
-    {
-        $this[static::CURRENCY_FORMATTER] = $currencyFormatter;
-
+        $this->graceful = $graceful;
         return $this;
     }
 
@@ -127,36 +127,52 @@ class Context extends Container
      */
     public function getLanguages()
     {
-        return $this[static::LANGUAGES];
+        return $this->languages;
     }
 
     /**
      * @param array $languages
-     * @return $this
+     * @return Context
      */
     public function setLanguages(array $languages)
     {
-        $this[static::LANGUAGES] = $languages;
-
+        $this->languages = $languages;
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return CurrencyFormatter
      */
-    public function isGraceful()
+    public function getCurrencyFormatter()
     {
-        return $this[static::GRACEFUL];
+        return $this->currencyFormatter;
     }
 
     /**
-     * @param $graceful
-     * @return $this
+     * @param CurrencyFormatter $currencyFormatter
+     * @return Context
      */
-    public function setGraceful($graceful)
+    public function setCurrencyFormatter($currencyFormatter)
     {
-        $this[static::GRACEFUL] = $graceful;
+        $this->currencyFormatter = $currencyFormatter;
+        return $this;
+    }
 
+    /**
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @param string $locale
+     * @return Context
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
         return $this;
     }
 
@@ -165,18 +181,66 @@ class Context extends Container
      */
     public function getLogger()
     {
-        return $this[static::LOGGER];
+        return $this->logger;
     }
 
-    public function setLogger(LoggerInterface $logger)
+    /**
+     * @param LoggerInterface $logger
+     * @return Context
+     */
+    public function setLogger($logger)
     {
-        $this[static::LOGGER] = $logger;
-
+        $this->logger = $logger;
         return $this;
     }
 
     public static function of()
     {
         return new static();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->$offset);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetGet($offset)
+    {
+        if ($this->offsetExists($offset)) {
+            $method = 'get'.ucfirst($offset);
+
+            return $this->$method();
+        }
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetSet($offset, $value)
+    {
+        if ($this->offsetExists($offset)) {
+            $method = 'set'.ucfirst($offset);
+
+            $this->$method($value);
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetUnset($offset)
+    {
+        if ($this->offsetExists($offset)) {
+            $method = 'set'.ucfirst($offset);
+
+            $this->$method(null);
+        }
     }
 }

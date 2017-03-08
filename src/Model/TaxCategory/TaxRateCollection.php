@@ -17,7 +17,7 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class TaxRateCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\TaxCategory\TaxRate';
+    protected $type = TaxRate::class;
 
     protected function indexRow($offset, $row)
     {

@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class OrderUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Order\Order';
+    protected $resultClass = Order::class;
 
     /**
      * @param string $id

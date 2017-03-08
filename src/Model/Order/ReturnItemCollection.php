@@ -17,7 +17,7 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ReturnItemCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Order\ReturnItem';
+    protected $type = ReturnItem::class;
 
     protected function indexRow($offset, $row)
     {

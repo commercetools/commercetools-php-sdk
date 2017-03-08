@@ -20,7 +20,7 @@ class CustomObjectCollection extends Collection
     const KEY = 'key';
     const CONTAINER = 'container';
 
-    protected $type = '\Commercetools\Core\Model\CustomObject\CustomObject';
+    protected $type = CustomObject::class;
 
     /**
      * @param $offset

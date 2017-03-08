@@ -28,7 +28,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
  */
 class ProductProjectionBySkuGetRequest extends AbstractApiRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Product\ProductProjection';
+    protected $resultClass = ProductProjection::class;
 
     use QueryTrait;
     use StagedTrait;

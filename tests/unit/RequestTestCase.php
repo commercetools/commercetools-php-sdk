@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractApiRequest;
  * Class RequestTestCase
  * @package Commercetools\Core
  */
-abstract class RequestTestCase extends \PHPUnit_Framework_TestCase
+abstract class RequestTestCase extends \PHPUnit\Framework\TestCase
 {
     protected $requestClass;
     protected $args = [];

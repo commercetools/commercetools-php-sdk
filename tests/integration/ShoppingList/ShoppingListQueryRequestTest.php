@@ -61,7 +61,7 @@ class ShoppingListQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result->current());
+        $this->assertInstanceOf(ShoppingList::class, $result->current());
         $this->assertSame($shoppingList->getId(), $result->current()->getId());
     }
 
@@ -74,7 +74,7 @@ class ShoppingListQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $shoppingList);
+        $this->assertInstanceOf(ShoppingList::class, $shoppingList);
         $this->assertSame($shoppingList->getId(), $result->getId());
 
     }
@@ -88,7 +88,7 @@ class ShoppingListQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $shoppingList);
+        $this->assertInstanceOf(ShoppingList::class, $shoppingList);
         $this->assertSame($shoppingList->getId(), $result->getId());
     }
 }

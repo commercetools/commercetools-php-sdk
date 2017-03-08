@@ -5,12 +5,13 @@
 
 namespace Commercetools\Core\Request\TaxCategories;
 
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
 use Commercetools\Core\RequestTestCase;
 
 class TaxCategoryCreateRequestTest extends RequestTestCase
 {
-    const TAX_CATEGORY_CREATE_REQUEST = '\Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest';
+    const TAX_CATEGORY_CREATE_REQUEST = TaxCategoryCreateRequest::class;
 
     protected function getTaxCategory()
     {
@@ -32,7 +33,7 @@ class TaxCategoryCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(TaxCategoryCreateRequest::ofDraft($this->getTaxCategory()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
+        $this->assertInstanceOf(TaxCategory::class, $result);
     }
 
     public function testMapEmptyResult()

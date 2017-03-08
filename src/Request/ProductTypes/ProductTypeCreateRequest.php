@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ProductTypeCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ProductType\ProductType';
+    protected $resultClass = ProductType::class;
 
     /**
      * @param ProductTypeDraft $productType

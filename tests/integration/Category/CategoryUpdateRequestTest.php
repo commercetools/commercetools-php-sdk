@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Category;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Common\AssetDraft;
 use Commercetools\Core\Model\Common\AssetDraftCollection;
@@ -75,7 +76,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
             )
         )->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertSame($this->getTestRun() .'-new name', $result->getName()->en);
         $this->assertNotSame($category->getVersion(), $result->getVersion());
 
@@ -83,7 +84,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
     }
 
     public function testUpdateLocalizedName()
@@ -101,7 +102,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
                 )
         )->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en);
         $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en_US);
         $this->assertNotSame($category->getVersion(), $result->getVersion());
@@ -110,7 +111,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
     }
 
     public function testChangeOrderHint()
@@ -125,7 +126,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertSame($hint, $result->getOrderHint());
         $this->assertNotSame($category->getVersion(), $result->getVersion());
 
@@ -133,7 +134,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
     }
 
     public function testChangeParent()
@@ -149,7 +150,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertSame($category1->getId(), $result->getParent()->getId());
         $this->assertNotSame($category2->getVersion(), $result->getVersion());
 
@@ -157,7 +158,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
     }
 
     public function testChangeSlug()
@@ -172,7 +173,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertSame($slug->en, $result->getSlug()->en);
         $this->assertNotSame($category->getVersion(), $result->getVersion());
 
@@ -180,7 +181,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
     }
 
     public function testSetDescription()
@@ -195,7 +196,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertSame($description->en, $result->getDescription()->en);
         $this->assertNotSame($category->getVersion(), $result->getVersion());
 
@@ -203,7 +204,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
     }
 
     public function testSetExternalId()
@@ -218,7 +219,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertSame($externalId, $result->getExternalId());
         $this->assertNotSame($category->getVersion(), $result->getVersion());
 
@@ -226,7 +227,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
     }
 
     public function testSetMetaDescription()
@@ -241,7 +242,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertSame($description->en, $result->getMetaDescription()->en);
         $this->assertNotSame($category->getVersion(), $result->getVersion());
 
@@ -249,7 +250,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
     }
 
     public function testSetMetaTitle()
@@ -264,7 +265,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertSame($title->en, $result->getMetaTitle()->en);
         $this->assertNotSame($category->getVersion(), $result->getVersion());
 
@@ -272,7 +273,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
     }
 
     public function testSetMetaKeywords()
@@ -287,7 +288,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertSame($keywords->en, $result->getMetaKeywords()->en);
         $this->assertNotSame($category->getVersion(), $result->getVersion());
 
@@ -295,7 +296,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
     }
 
     public function testAddAsset()
@@ -318,7 +319,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertNotNull($result->getAssets()->current()->getId());
         $this->assertSame(
             $assetDraft->getSources()->current()->getUri(),
@@ -347,7 +348,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertCount(0, $result->getAssets());
     }
 
@@ -378,7 +379,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertSame(
             $newName,
             $result->getAssets()->current()->getName()->en
@@ -410,7 +411,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertSame(
             $newDescription,
             $result->getAssets()->current()->getDescription()->en
@@ -442,7 +443,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertContains(
             $newTag,
             $result->getAssets()->current()->getTags()
@@ -474,7 +475,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertContains(
             $newSource->getUri(),
             $result->getAssets()->current()->getSources()->current()->getUri()

@@ -36,11 +36,11 @@ class ProductAddVariantAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'sku' => [static::TYPE => 'string'],
-            'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceDraftCollection'],
-            'attributes' => [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
+            'prices' => [static::TYPE => PriceDraftCollection::class],
+            'attributes' => [static::TYPE => AttributeCollection::class],
             'staged' => [static::TYPE => 'bool'],
             'key' => [static::TYPE => 'string'],
-            'images' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageCollection']
+            'images' => [static::TYPE => ImageCollection::class]
         ];
     }
 

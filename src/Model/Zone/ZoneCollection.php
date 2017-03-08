@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ZoneCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Zone\Zone';
+    protected $type = Zone::class;
 }

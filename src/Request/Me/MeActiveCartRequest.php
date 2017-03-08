@@ -24,7 +24,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class MeActiveCartRequest extends AbstractApiRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Cart\Cart';
+    protected $resultClass = Cart::class;
 
     /**
      * @param Context $context

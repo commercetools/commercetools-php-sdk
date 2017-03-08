@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ZoneCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Zone\Zone';
+    protected $resultClass = Zone::class;
 
     /**
      * @param ZoneDraft $zone

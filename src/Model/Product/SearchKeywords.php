@@ -16,7 +16,7 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class SearchKeywords extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Product\SearchKeyword';
+    protected $type = SearchKeyword::class;
 
     /**
      * @return string

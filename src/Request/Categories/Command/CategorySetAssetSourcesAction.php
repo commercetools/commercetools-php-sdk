@@ -27,7 +27,7 @@ class CategorySetAssetSourcesAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
-            'sources' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetSourceCollection'],
+            'sources' => [static::TYPE => AssetSourceCollection::class],
         ];
     }
 

@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Product\ProductProjection;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\Product\ProductProjection;
  * @method string getId()
  * @method ProductPublishedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method ProductPublishedMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method ProductPublishedMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method ProductPublishedMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -29,7 +30,7 @@ use Commercetools\Core\Model\Product\ProductProjection;
  * @method int getVersion()
  * @method ProductPublishedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method ProductPublishedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ProductPublishedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class ProductPublishedMessage extends Message
 {
@@ -38,7 +39,7 @@ class ProductPublishedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['productProjection'] = [static::TYPE => '\Commercetools\Core\Model\Product\ProductProjection'];
+        $definitions['productProjection'] = [static::TYPE => ProductProjection::class];
 
         return $definitions;
     }

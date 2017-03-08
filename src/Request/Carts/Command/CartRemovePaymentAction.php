@@ -23,7 +23,7 @@ class CartRemovePaymentAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'payment' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentReference'],
+            'payment' => [static::TYPE => PaymentReference::class],
         ];
     }
 

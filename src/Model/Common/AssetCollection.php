@@ -15,7 +15,7 @@ namespace Commercetools\Core\Model\Common;
  */
 class AssetCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Common\Asset';
+    protected $type = Asset::class;
 
     protected function indexRow($offset, $row)
     {

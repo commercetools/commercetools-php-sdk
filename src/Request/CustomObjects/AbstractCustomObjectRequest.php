@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\CustomObjects;
 
+use Commercetools\Core\Model\CustomObject\CustomObject;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractApiRequest;
@@ -15,7 +16,7 @@ use Commercetools\Core\Response\ResourceResponse;
  */
 abstract class AbstractCustomObjectRequest extends AbstractApiRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\CustomObject\CustomObject';
+    protected $resultClass = CustomObject::class;
 
     /**
      * @var string

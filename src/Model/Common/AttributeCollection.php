@@ -17,7 +17,7 @@ class AttributeCollection extends Collection
 {
     const NAME = 'name';
 
-    protected $type = '\Commercetools\Core\Model\Common\Attribute';
+    protected $type = Attribute::class;
 
     /**
      * @var AttributeDefinitionCollection

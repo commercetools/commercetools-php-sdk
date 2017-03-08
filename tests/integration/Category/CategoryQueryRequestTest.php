@@ -52,7 +52,7 @@ class CategoryQueryRequestTest extends ApiTestCase
 
         $result = $this->getClient()->execute(CategoryByIdGetRequest::ofId($category->getId()))->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
         $this->assertSame($category->getId(), $result->getId());
 
     }
@@ -64,7 +64,7 @@ class CategoryQueryRequestTest extends ApiTestCase
         $result = $this->getClient()->execute(CategoryQueryRequest::of()->where('name(en="myCategory")'))->toObject();
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result->getAt(0));
+        $this->assertInstanceOf(Category::class, $result->getAt(0));
         $this->assertSame($category->getId(), $result->getAt(0)->getId());
     }
 
@@ -88,7 +88,7 @@ class CategoryQueryRequestTest extends ApiTestCase
         )->toObject();
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result->getAt(0));
+        $this->assertInstanceOf(Category::class, $result->getAt(0));
         $this->assertSame($category->getId(), $result->getAt(0)->getId());
     }
 

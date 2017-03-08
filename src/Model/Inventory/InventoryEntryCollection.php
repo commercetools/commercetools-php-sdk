@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class InventoryEntryCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Inventory\InventoryEntry';
+    protected $type = InventoryEntry::class;
 }

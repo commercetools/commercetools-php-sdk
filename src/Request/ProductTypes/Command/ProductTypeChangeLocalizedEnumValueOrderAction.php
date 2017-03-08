@@ -28,7 +28,7 @@ class ProductTypeChangeLocalizedEnumValueOrderAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'attributeName' => [static::TYPE => 'string'],
-            'values' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedEnumCollection']
+            'values' => [static::TYPE => LocalizedEnumCollection::class]
         ];
     }
 

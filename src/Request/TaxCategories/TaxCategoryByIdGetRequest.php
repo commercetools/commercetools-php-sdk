@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class TaxCategoryByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\TaxCategory\TaxCategory';
+    protected $resultClass = TaxCategory::class;
 
     /**
      * @param string $id

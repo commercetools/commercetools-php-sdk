@@ -11,6 +11,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Product\ProductVariant;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\ShoppingList
@@ -28,11 +29,11 @@ use Commercetools\Core\Model\Product\ProductVariant;
  * @method CustomFieldObject getCustom()
  * @method LineItem setCustom(CustomFieldObject $custom = null)
  * @method DateTimeDecorator getAddedAt()
- * @method LineItem setAddedAt(\DateTime $addedAt = null)
+ * @method LineItem setAddedAt(DateTime $addedAt = null)
  * @method LocalizedString getName()
  * @method LineItem setName(LocalizedString $name = null)
  * @method DateTimeDecorator getDeactivatedAt()
- * @method LineItem setDeactivatedAt(\DateTime $deactivatedAt = null)
+ * @method LineItem setDeactivatedAt(DateTime $deactivatedAt = null)
  * @method LocalizedString getProductSlug()
  * @method LineItem setProductSlug(LocalizedString $productSlug = null)
  * @method ProductVariant getVariant()
@@ -46,20 +47,20 @@ class LineItem extends JsonObject
             'id' => [static::TYPE => 'string'],
             'productId' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
-            'productType' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference'],
+            'productType' => [static::TYPE => ProductTypeReference::class],
             'quantity' => [static::TYPE => 'int'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'custom' => [static::TYPE => CustomFieldObject::class],
             'addedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
             'deactivatedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'productSlug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'variant' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariant'],
+            'productSlug' => [static::TYPE => LocalizedString::class],
+            'variant' => [static::TYPE => ProductVariant::class],
         ];
     }
 }

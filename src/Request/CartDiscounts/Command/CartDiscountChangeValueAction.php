@@ -23,7 +23,7 @@ class CartDiscountChangeValueAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'value' => [static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountValue'],
+            'value' => [static::TYPE => CartDiscountValue::class],
         ];
     }
 

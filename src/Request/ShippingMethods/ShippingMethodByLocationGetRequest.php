@@ -24,7 +24,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ShippingMethodByLocationGetRequest extends AbstractApiRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection';
+    protected $resultClass = ShippingMethodCollection::class;
 
     /**
      * @var string

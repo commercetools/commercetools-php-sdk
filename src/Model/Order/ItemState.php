@@ -22,7 +22,7 @@ class ItemState extends JsonObject
     {
         return [
             'quantity' => [static::TYPE => 'int'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'state' => [static::TYPE => StateReference::class],
         ];
     }
 }

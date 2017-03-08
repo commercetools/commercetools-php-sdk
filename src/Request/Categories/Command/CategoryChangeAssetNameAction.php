@@ -26,7 +26,7 @@ class CategoryChangeAssetNameAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
         ];
     }
 

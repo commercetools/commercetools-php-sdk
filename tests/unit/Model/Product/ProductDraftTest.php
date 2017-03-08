@@ -5,12 +5,12 @@
 
 namespace Commercetools\Core\Model\Product;
 
-class ProductDraftTest extends \PHPUnit_Framework_TestCase
+class ProductDraftTest extends \PHPUnit\Framework\TestCase
 {
     public function testFromArray()
     {
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Product\ProductDraft',
+            ProductDraft::class,
             ProductDraft::fromArray(
                 [
                     'productType' => ['typeId' => 'product-type', 'id' => '123456'],

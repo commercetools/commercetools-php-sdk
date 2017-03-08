@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class CartReference extends Reference
 {
     const TYPE_CART = 'cart';
-    const TYPE_CLASS = '\Commercetools\Core\Model\Cart\Cart';
+    const TYPE_CLASS = Cart::class;
 
     /**
      * @param $id

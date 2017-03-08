@@ -18,5 +18,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class DiscountCodeReferenceCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\DiscountCode\DiscountCodeReference';
+    protected $type = DiscountCodeReference::class;
 }

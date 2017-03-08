@@ -15,5 +15,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class FacetRangeCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Product\FacetRange';
+    protected $type = FacetRange::class;
 }

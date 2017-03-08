@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
@@ -20,7 +21,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method string getExternalId()
  * @method OrderUpdateSyncInfoAction setExternalId(string $externalId = null)
  * @method DateTimeDecorator getSyncedAt()
- * @method OrderUpdateSyncInfoAction setSyncedAt(\DateTime $syncedAt = null)
+ * @method OrderUpdateSyncInfoAction setSyncedAt(DateTime $syncedAt = null)
  */
 class OrderUpdateSyncInfoAction extends AbstractAction
 {
@@ -38,11 +39,11 @@ class OrderUpdateSyncInfoAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'channel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            'channel' => [static::TYPE => ChannelReference::class],
             'externalId' => [static::TYPE => 'string'],
             'syncedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ]
         ];
     }

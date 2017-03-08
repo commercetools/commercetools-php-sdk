@@ -15,5 +15,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class FacetTermCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Product\FacetTerm';
+    protected $type = FacetTerm::class;
 }

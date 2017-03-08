@@ -17,7 +17,7 @@ class LocalizedEnumCollection extends Collection
 {
     const KEY = 'key';
 
-    protected $type = '\Commercetools\Core\Model\Common\LocalizedEnum';
+    protected $type = LocalizedEnum::class;
 
     protected function indexRow($offset, $row)
     {

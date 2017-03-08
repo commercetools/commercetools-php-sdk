@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Request\ShoppingLists\Command
@@ -24,7 +25,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method CustomFieldObjectDraft getCustom()
  * @method ShoppingListAddLineItemAction setCustom(CustomFieldObjectDraft $custom = null)
  * @method DateTimeDecorator getAddedAt()
- * @method ShoppingListAddLineItemAction setAddedAt(\DateTime $addedAt = null)
+ * @method ShoppingListAddLineItemAction setAddedAt(DateTime $addedAt = null)
  */
 class ShoppingListAddLineItemAction extends AbstractAction
 {
@@ -36,10 +37,10 @@ class ShoppingListAddLineItemAction extends AbstractAction
             'variantId' => [static::TYPE => 'int'],
             'quantity' => [static::TYPE => 'int'],
             'addedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
         ];
     }
 

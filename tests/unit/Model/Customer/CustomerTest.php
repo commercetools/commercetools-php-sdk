@@ -5,10 +5,11 @@
 
 namespace Commercetools\Core\Model\Customer;
 
+use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 
-class CustomerTest extends \PHPUnit_Framework_TestCase
+class CustomerTest extends \PHPUnit\Framework\TestCase
 {
     public function testSerialize()
     {
@@ -45,14 +46,14 @@ class CustomerTest extends \PHPUnit_Framework_TestCase
     public function testGetDefaultShippingAddress()
     {
         $t = $this->getCustomer();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Address', $t->getDefaultShippingAddress());
+        $this->assertInstanceOf(Address::class, $t->getDefaultShippingAddress());
         $this->assertSame('defaultShippingAddress', $t->getDefaultShippingAddress()->getId());
     }
 
     public function testGetDefaultBillingAddress()
     {
         $t = $this->getCustomer();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Address', $t->getDefaultBillingAddress());
+        $this->assertInstanceOf(Address::class, $t->getDefaultBillingAddress());
         $this->assertSame('defaultBillingAddress', $t->getDefaultBillingAddress()->getId());
     }
 

@@ -23,7 +23,7 @@ class PaymentSetCustomerAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'customer' => [static::TYPE => '\Commercetools\Core\Model\Customer\CustomerReference'],
+            'customer' => [static::TYPE => CustomerReference::class],
         ];
     }
 

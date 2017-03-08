@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ChannelQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Channel\ChannelCollection';
+    protected $resultClass = ChannelCollection::class;
 
     /**
      * @param Context $context

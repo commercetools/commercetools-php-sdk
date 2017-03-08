@@ -22,7 +22,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class MeUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Customer\Customer';
+    protected $resultClass = Customer::class;
 
     /**
      * @param int $version

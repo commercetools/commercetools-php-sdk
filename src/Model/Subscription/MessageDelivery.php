@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Subscription;
 
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Subscription
@@ -25,9 +26,9 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method int getResourceVersion()
  * @method MessageDelivery setResourceVersion(int $resourceVersion = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method MessageDelivery setCreatedAt(\DateTime $createdAt = null)
+ * @method MessageDelivery setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method MessageDelivery setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method MessageDelivery setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class MessageDelivery extends Delivery
 {
@@ -42,12 +43,12 @@ class MessageDelivery extends Delivery
                 'sequenceNumber' => [static::TYPE => 'int'],
                 'resourceVersion' => [static::TYPE => 'int'],
                 'createdAt' => [
-                    static::TYPE => '\DateTime',
-                    static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                    static::TYPE => DateTime::class,
+                    static::DECORATOR => DateTimeDecorator::class
                 ],
                 'lastModifiedAt' => [
-                    static::TYPE => '\DateTime',
-                    static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                    static::TYPE => DateTime::class,
+                    static::DECORATOR => DateTimeDecorator::class
                 ],
             ]
         );

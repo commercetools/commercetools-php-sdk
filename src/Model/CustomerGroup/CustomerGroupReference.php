@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class CustomerGroupReference extends Reference
 {
     const TYPE_CUSTOMER_GROUP = 'customer-group';
-    const TYPE_CLASS = '\Commercetools\Core\Model\CustomerGroup\CustomerGroup';
+    const TYPE_CLASS = CustomerGroup::class;
 
     /**
      * @param $id

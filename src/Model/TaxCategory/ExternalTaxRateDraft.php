@@ -30,7 +30,7 @@ class ExternalTaxRateDraft extends JsonObject
             'amount' => [self::TYPE => 'float'],
             'country' => [self::TYPE => 'string'],
             'state' => [self::TYPE => 'string'],
-            'subRates' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\SubRateCollection']
+            'subRates' => [static::TYPE => SubRateCollection::class]
         ];
     }
 

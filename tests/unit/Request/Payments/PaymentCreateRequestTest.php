@@ -5,12 +5,13 @@
 
 namespace Commercetools\Core\Request\Payments;
 
+use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\RequestTestCase;
 
 class PaymentCreateRequestTest extends RequestTestCase
 {
-    const PAYMENT_CREATE_REQUEST = '\Commercetools\Core\Request\Payments\PaymentCreateRequest';
+    const PAYMENT_CREATE_REQUEST = PaymentCreateRequest::class;
 
     protected function getDraft()
     {
@@ -86,7 +87,7 @@ class PaymentCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(PaymentCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
     }
 
     public function testMapEmptyResult()

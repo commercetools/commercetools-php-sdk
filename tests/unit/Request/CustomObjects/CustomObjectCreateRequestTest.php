@@ -15,7 +15,7 @@ use Commercetools\Core\RequestTestCase;
  */
 class CustomObjectCreateRequestTest extends RequestTestCase
 {
-    const CUSTOM_OBJECT_CREATE_REQUEST = '\Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest';
+    const CUSTOM_OBJECT_CREATE_REQUEST = CustomObjectCreateRequest::class;
 
     public function getObject()
     {
@@ -25,7 +25,7 @@ class CustomObjectCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomObjectCreateRequest::ofObject($this->getObject()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $result);
+        $this->assertInstanceOf(CustomObject::class, $result);
     }
 
     public function testMapEmptyResult()

@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CustomerByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Customer\Customer';
+    protected $resultClass = Customer::class;
 
     /**
      * @param string $id

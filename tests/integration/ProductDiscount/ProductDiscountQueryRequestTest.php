@@ -10,6 +10,7 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountDraft;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountValue;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountByIdGetRequest;
@@ -62,7 +63,7 @@ class ProductDiscountQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result->getAt(0));
+        $this->assertInstanceOf(ProductDiscount::class, $result->getAt(0));
         $this->assertSame($productDiscount->getId(), $result->getAt(0)->getId());
     }
 
@@ -75,7 +76,7 @@ class ProductDiscountQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $productDiscount);
+        $this->assertInstanceOf(ProductDiscount::class, $productDiscount);
         $this->assertSame($productDiscount->getId(), $result->getId());
 
     }

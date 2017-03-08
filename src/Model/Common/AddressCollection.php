@@ -15,7 +15,7 @@ namespace Commercetools\Core\Model\Common;
  */
 class AddressCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Common\Address';
+    protected $type = Address::class;
 
     protected function indexRow($offset, $row)
     {

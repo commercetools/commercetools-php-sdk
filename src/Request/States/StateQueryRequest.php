@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class StateQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\State\StateCollection';
+    protected $resultClass = StateCollection::class;
 
     /**
      * @param Context $context

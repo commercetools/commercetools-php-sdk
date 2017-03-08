@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ItemStateCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Order\ItemState';
+    protected $type = ItemState::class;
 }

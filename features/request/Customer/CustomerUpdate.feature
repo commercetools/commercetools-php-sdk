@@ -3,12 +3,11 @@ Feature: I want to send a Customer Update Request
   Scenario: Change user name and email
     Given a "customer" is identified by "id" and version "1"
     And i want to update a "customer"
-    And add the "changeName" action to "customer" with values
+    And add the "setFirstName" action to "customer" with values
     """
         {
-          "action": "changeName",
-          "firstName": "John",
-          "lastName": "Doe"
+          "action": "setFirstName",
+          "firstName": "John"
         }
     """
     And add the "changeEmail" action to "customer" with values
@@ -26,40 +25,12 @@ Feature: I want to send a Customer Update Request
       "version": 1,
       "actions": [
         {
-          "action": "changeName",
-          "firstName": "John",
-          "lastName": "Doe"
+          "action": "setFirstName",
+          "firstName": "John"
         },
         {
           "action": "changeEmail",
           "email": "john.doe@example.org"
-        }
-      ]
-    }
-    """
-
-  Scenario: Change user name
-    Given a "customer" is identified by "id" and version "1"
-    And i want to update a "customer"
-    And add the "changeName" action to "customer" with values
-    """
-        {
-          "action": "changeName",
-          "firstName": "John",
-          "lastName": "Doe"
-        }
-    """
-    Then the path should be "customers/id"
-    And the method should be "POST"
-    And the request should be
-    """
-    {
-      "version": 1,
-      "actions": [
-        {
-          "action": "changeName",
-          "firstName": "John",
-          "lastName": "Doe"
         }
       ]
     }

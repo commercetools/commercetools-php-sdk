@@ -23,7 +23,7 @@ class ShippingMethodRemoveZoneAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'zone' => [static::TYPE => '\Commercetools\Core\Model\Zone\ZoneReference'],
+            'zone' => [static::TYPE => ZoneReference::class],
         ];
     }
 

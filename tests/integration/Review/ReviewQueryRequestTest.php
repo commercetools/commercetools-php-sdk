@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Review;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\Review\ReviewDraft;
 use Commercetools\Core\Request\Reviews\ReviewByIdGetRequest;
 use Commercetools\Core\Request\Reviews\ReviewCreateRequest;
@@ -51,7 +52,7 @@ class ReviewQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result->getAt(0));
+        $this->assertInstanceOf(Review::class, $result->getAt(0));
         $this->assertSame($review->getId(), $result->getAt(0)->getId());
     }
 
@@ -64,7 +65,7 @@ class ReviewQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $review);
+        $this->assertInstanceOf(Review::class, $review);
         $this->assertSame($review->getId(), $result->getId());
 
     }

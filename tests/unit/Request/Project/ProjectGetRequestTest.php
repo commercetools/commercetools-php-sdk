@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\Project;
 
+use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\RequestTestCase;
 
 class ProjectGetRequestTest extends RequestTestCase
@@ -12,6 +13,6 @@ class ProjectGetRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ProjectGetRequest::of());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Project\Project', $result);
+        $this->assertInstanceOf(Project::class, $result);
     }
 }

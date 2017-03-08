@@ -8,6 +8,7 @@ namespace Commercetools\Core\Payment;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\Model\Payment\PaymentMethodInfo;
 use Commercetools\Core\Request\Payments\PaymentByIdGetRequest;
@@ -58,7 +59,7 @@ class PaymentQueryRequestTest extends ApiTestCase
         )->toObject();
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result->getAt(0));
+        $this->assertInstanceOf(Payment::class, $result->getAt(0));
         $this->assertSame($payment->getId(), $result->getAt(0)->getId());
     }
 
@@ -71,7 +72,7 @@ class PaymentQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $payment);
+        $this->assertInstanceOf(Payment::class, $payment);
         $this->assertSame($payment->getId(), $result->getId());
 
     }

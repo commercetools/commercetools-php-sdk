@@ -22,8 +22,8 @@ class ExternalLineItemTotalPrice extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'totalPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\Money']
+            'price' => [static::TYPE => Money::class],
+            'totalPrice' => [static::TYPE => Money::class]
         ];
     }
 }

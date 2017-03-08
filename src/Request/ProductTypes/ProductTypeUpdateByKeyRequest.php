@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ProductTypeUpdateByKeyRequest extends AbstractUpdateByKeyRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ProductType\ProductType';
+    protected $resultClass = ProductType::class;
 
     /**
      * @param string $key

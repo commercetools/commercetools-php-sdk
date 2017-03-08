@@ -24,7 +24,7 @@ use Commercetools\Core\Model\Common\Reference;
 class PaymentReference extends Reference
 {
     const TYPE_PAYMENT = 'payment';
-    const TYPE_CLASS = '\Commercetools\Core\Model\Payment\Payment';
+    const TYPE_CLASS = Payment::class;
 
     /**
      * @param $id

@@ -6,12 +6,14 @@
 namespace Commercetools\Core\Request\Products;
 
 use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 class ProductProjectionBySkuGetRequestTest extends RequestTestCase
 {
     const PRODUCT_PROJECTION_BY_SKU_GET_REQUEST =
-        '\Commercetools\Core\Request\Products\ProductProjectionBySkuGetRequest';
+        ProductProjectionBySkuGetRequest::class;
 
     public function testMapResult()
     {
@@ -23,7 +25,7 @@ class ProductProjectionBySkuGetRequestTest extends RequestTestCase
             ]
         ];
         $result = $this->mapQueryResult(ProductProjectionBySkuGetRequest::ofSku('sku'), $data);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
+        $this->assertInstanceOf(ProductProjection::class, $result);
     }
 
     public function testMapEmptyResult()
@@ -68,6 +70,6 @@ class ProductProjectionBySkuGetRequestTest extends RequestTestCase
         $request = $this->getRequest(static::PRODUCT_PROJECTION_BY_SKU_GET_REQUEST, ['sku']);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

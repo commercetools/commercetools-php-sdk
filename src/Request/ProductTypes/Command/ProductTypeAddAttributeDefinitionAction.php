@@ -23,7 +23,7 @@ class ProductTypeAddAttributeDefinitionAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'attribute' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeDefinition']
+            'attribute' => [static::TYPE => AttributeDefinition::class]
         ];
     }
 

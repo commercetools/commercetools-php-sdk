@@ -25,7 +25,7 @@ class TransitionStateAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'state' => [static::TYPE => StateReference::class],
             'force' =>  [static::TYPE => 'bool']
         ];
     }

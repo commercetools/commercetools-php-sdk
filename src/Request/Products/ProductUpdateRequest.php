@@ -23,7 +23,7 @@ class ProductUpdateRequest extends AbstractUpdateRequest
 {
     use PriceSelectTrait;
 
-    protected $resultClass = '\Commercetools\Core\Model\Product\Product';
+    protected $resultClass = Product::class;
 
     /**
      * @param string $id

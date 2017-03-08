@@ -23,8 +23,8 @@ class CustomFieldObjectDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'type' => [static::TYPE => '\Commercetools\Core\Model\Type\TypeReference'],
-            'fields' => [static::TYPE => '\Commercetools\Core\Model\CustomField\FieldContainer']
+            'type' => [static::TYPE => TypeReference::class],
+            'fields' => [static::TYPE => FieldContainer::class]
         ];
     }
 

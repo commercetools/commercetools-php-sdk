@@ -5,13 +5,14 @@
 
 namespace Commercetools\Core\Request\Categories;
 
+use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\RequestTestCase;
 
 class CategoryCreateRequestTest extends RequestTestCase
 {
-    const CATEGORY_CREATE_REQUEST = '\Commercetools\Core\Request\Categories\CategoryCreateRequest';
+    const CATEGORY_CREATE_REQUEST = CategoryCreateRequest::class;
 
     protected function getDraft()
     {
@@ -23,7 +24,7 @@ class CategoryCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CategoryCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Category\Category', $result);
+        $this->assertInstanceOf(Category::class, $result);
     }
 
     public function testMapEmptyResult()

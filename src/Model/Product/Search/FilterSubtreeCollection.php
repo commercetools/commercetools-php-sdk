@@ -17,7 +17,7 @@ use Commercetools\Core\Model\Common\Context;
  */
 class FilterSubtreeCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Product\Search\FilterSubtree';
+    protected $type = FilterSubtree::class;
 
     public function __toString()
     {

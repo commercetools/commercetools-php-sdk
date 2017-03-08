@@ -18,5 +18,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class StateReferenceCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\State\StateReference';
+    protected $type = StateReference::class;
 }

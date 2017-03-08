@@ -43,10 +43,10 @@ class LineItemDraft extends JsonObject
             'productId' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'quantity' => [static::TYPE => 'int'],
-            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
-            'distributionChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
-            'externalTaxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'supplyChannel' => [static::TYPE => ChannelReference::class],
+            'distributionChannel' => [static::TYPE => ChannelReference::class],
+            'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }

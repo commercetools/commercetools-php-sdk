@@ -14,6 +14,7 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Common\DateDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Customer
@@ -31,7 +32,7 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method string getTitle()
  * @method MyCustomerDraft setTitle(string $title = null)
  * @method DateDecorator getDateOfBirth()
- * @method MyCustomerDraft setDateOfBirth(\DateTime $dateOfBirth = null)
+ * @method MyCustomerDraft setDateOfBirth(DateTime $dateOfBirth = null)
  * @method string getCompanyName()
  * @method MyCustomerDraft setCompanyName(string $companyName = null)
  * @method string getVatId()
@@ -60,15 +61,15 @@ class MyCustomerDraft extends JsonObject
             'lastName' => [static::TYPE => 'string'],
             'title' => [static::TYPE => 'string'],
             'dateOfBirth' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateDecorator::class
             ],
             'companyName' => [static::TYPE => 'string'],
             'vatId' => [static::TYPE => 'string'],
-            'addresses' => [static::TYPE => '\Commercetools\Core\Model\Common\AddressCollection'],
+            'addresses' => [static::TYPE => AddressCollection::class],
             'defaultShippingAddress' => [static::TYPE => 'int'],
             'defaultBillingAddress' => [static::TYPE => 'int'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'locale' => [static::TYPE => 'string'],
         ];
     }

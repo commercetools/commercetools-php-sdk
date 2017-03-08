@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class OrderImportRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Order\Order';
+    protected $resultClass = Order::class;
 
     /**
      * @param ImportOrder $importOrder

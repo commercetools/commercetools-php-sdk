@@ -19,7 +19,7 @@ class ProductTypeCollection extends Collection
 {
     const ID = 'id';
     const NAME = 'name';
-    protected $type = '\Commercetools\Core\Model\ProductType\ProductType';
+    protected $type = ProductType::class;
 
     protected function indexRow($offset, $row)
     {

@@ -25,7 +25,7 @@ class PaymentAddTransactionAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'transaction' => [static::TYPE => '\Commercetools\Core\Model\Payment\Transaction'],
+            'transaction' => [static::TYPE => Transaction::class],
         ];
     }
 

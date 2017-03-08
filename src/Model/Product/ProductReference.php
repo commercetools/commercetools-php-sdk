@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class ProductReference extends Reference
 {
     const TYPE_PRODUCT = 'product';
-    const TYPE_CLASS = '\Commercetools\Core\Model\Product\Product';
+    const TYPE_CLASS = Product::class;
 
     /**
      * @param $id

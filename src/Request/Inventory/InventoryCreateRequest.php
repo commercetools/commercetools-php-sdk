@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class InventoryCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Inventory\InventoryEntry';
+    protected $resultClass = InventoryEntry::class;
 
     /**
      * @param InventoryDraft $inventory

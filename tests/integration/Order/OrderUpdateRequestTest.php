@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Order\DeliveryItem;
 use Commercetools\Core\Model\Order\DeliveryItemCollection;
+use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Order\OrderState;
 use Commercetools\Core\Model\Order\ParcelMeasurements;
 use Commercetools\Core\Model\Order\PaymentState;
@@ -123,7 +124,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf(Order::class, $result);
         $this->assertSame(OrderState::COMPLETE, $result->getOrderState());
     }
 
@@ -140,7 +141,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf(Order::class, $result);
         $this->assertSame(ShipmentState::SHIPPED, $result->getShipmentState());
     }
 
@@ -157,7 +158,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf(Order::class, $result);
         $this->assertSame(PaymentState::PAID, $result->getPaymentState());
     }
 
@@ -176,7 +177,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf(Order::class, $result);
         $this->assertSame($channel->getId(), $result->getSyncInfo()->current()->getChannel()->getId());
         $this->assertEquals($syncedAt, $result->getSyncInfo()->current()->getSyncedAt()->getDateTime());
     }
@@ -204,7 +205,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf(Order::class, $result);
         $this->assertSame(
             ReturnShipmentState::RETURNED,
             $result->getReturnInfo()->current()->getItems()->current()->getShipmentState()
@@ -230,7 +231,7 @@ class OrderUpdateRequestTest extends ApiTestCase
 
         $returnItem = $result->getReturnInfo()->current()->getItems()->current();
         $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf(Order::class, $result);
         $this->assertSame(
             ReturnShipmentState::BACK_IN_STOCK,
             $returnItem->getShipmentState()
@@ -251,7 +252,7 @@ class OrderUpdateRequestTest extends ApiTestCase
 
         $returnItem = $result->getReturnInfo()->current()->getItems()->current();
         $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf(Order::class, $result);
         $this->assertSame(
             ReturnPaymentState::REFUNDED,
             $returnItem->getPaymentState()
@@ -278,7 +279,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf(Order::class, $result);
         $delivery = $result->getShippingInfo()->getDeliveries()->current();
         $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
         $order = $result;
@@ -308,7 +309,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf(Order::class, $result);
         $delivery = $result->getShippingInfo()->getDeliveries()->current();
         $this->assertSame(100, $delivery->getParcels()->current()->getMeasurements()->getHeightInMillimeter());
         $this->assertSame('DHL', $delivery->getParcels()->current()->getTrackingData()->getCarrier());
@@ -328,7 +329,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf(Order::class, $result);
         $this->assertSame($orderNumber, $result->getOrderNumber());
     }
 
@@ -426,7 +427,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $order = $request->mapResponse($response);
         $this->deleteRequest->setVersion($order->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $order);
+        $this->assertInstanceOf(Order::class, $order);
         $this->assertNotSame($draft->getCustomerEmail(), $order->getCustomerEmail());
     }
 
@@ -444,7 +445,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $order = $request->mapResponse($response);
         $this->deleteRequest->setVersion($order->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $order);
+        $this->assertInstanceOf(Order::class, $order);
         $this->assertNotSame($draft->getShippingAddress()->getFirstName(), $order->getShippingAddress()->getFirstName());
     }
 
@@ -462,7 +463,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $order = $request->mapResponse($response);
         $this->deleteRequest->setVersion($order->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $order);
+        $this->assertInstanceOf(Order::class, $order);
         $this->assertNotSame($draft->getBillingAddress()->getFirstName(), $order->getBillingAddress()->getFirstName());
     }
 }

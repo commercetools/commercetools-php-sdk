@@ -7,7 +7,7 @@ namespace Commercetools\Core\Helper;
 
 use Commercetools\Core\Model\Common\Context;
 
-class CurrencyFormatterTest extends \PHPUnit_Framework_TestCase
+class CurrencyFormatterTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefaultFormatter()
     {

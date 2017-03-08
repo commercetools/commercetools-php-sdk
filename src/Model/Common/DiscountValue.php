@@ -22,7 +22,7 @@ class DiscountValue extends JsonObject
         return [
             'type' => [static::TYPE => 'string'],
             'permyriad' => [static::TYPE => 'int'],
-            'money' => [static::TYPE => '\Commercetools\Core\Model\Common\MoneyCollection']
+            'money' => [static::TYPE => MoneyCollection::class]
         ];
     }
 }

@@ -23,7 +23,7 @@ class CustomerSetCustomerGroupAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
+            'customerGroup' => [static::TYPE => CustomerGroupReference::class],
         ];
     }
 

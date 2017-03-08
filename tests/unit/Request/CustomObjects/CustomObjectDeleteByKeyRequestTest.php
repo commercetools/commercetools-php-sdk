@@ -15,7 +15,7 @@ use Commercetools\Core\RequestTestCase;
  */
 class CustomObjectDeleteByKeyRequestTest extends RequestTestCase
 {
-    const CUSTOM_OBJECT_DELETE_REQUEST = '\Commercetools\Core\Request\CustomObjects\CustomObjectDeleteByKeyRequest';
+    const CUSTOM_OBJECT_DELETE_REQUEST = CustomObjectDeleteByKeyRequest::class;
 
     public function getObject()
     {
@@ -25,7 +25,7 @@ class CustomObjectDeleteByKeyRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomObjectDeleteByKeyRequest::ofContainerAndKey('my-namespace', 'my-key'));
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $result);
+        $this->assertInstanceOf(CustomObject::class, $result);
     }
 
     public function testMapEmptyResult()

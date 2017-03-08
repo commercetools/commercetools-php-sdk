@@ -8,12 +8,14 @@ namespace Commercetools\Core\Request\Products;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 class ProductProjectionBySlugGetRequestTest extends RequestTestCase
 {
     const PRODUCT_PROJECTION_BY_SLUG_GET_REQUEST =
-        '\Commercetools\Core\Request\Products\ProductProjectionBySlugGetRequest';
+        ProductProjectionBySlugGetRequest::class;
 
     protected function getContext()
     {
@@ -50,7 +52,7 @@ class ProductProjectionBySlugGetRequestTest extends RequestTestCase
             [],
             $data
         );
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
+        $this->assertInstanceOf(ProductProjection::class, $result);
     }
 
     public function testMapEmptyResult()
@@ -159,6 +161,6 @@ class ProductProjectionBySlugGetRequestTest extends RequestTestCase
         $request = ProductProjectionBySlugGetRequest::ofSlugAndContext('slug', $this->getContext());
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

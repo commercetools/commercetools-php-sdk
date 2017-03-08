@@ -21,7 +21,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CustomObjectCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\CustomObject\CustomObject';
+    protected $resultClass = CustomObject::class;
 
     /**
      * @param CustomObjectDraft|CustomObject $customObject

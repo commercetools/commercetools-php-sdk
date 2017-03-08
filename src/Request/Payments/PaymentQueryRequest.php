@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class PaymentQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Payment\PaymentCollection';
+    protected $resultClass = PaymentCollection::class;
 
     /**
      * @param Context $context

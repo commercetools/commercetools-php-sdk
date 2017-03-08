@@ -6,8 +6,9 @@
 namespace Commercetools\Core\Model\Common;
 
 use Commercetools\Core\Model\ProductType\ProductType;
+use Commercetools\Core\Model\ProductType\ProductTypeReference;
 
-class ResourceTest extends \PHPUnit_Framework_TestCase
+class ResourceTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @return JsonObject
@@ -16,7 +17,7 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
     {
         date_default_timezone_set('UTC');
         $obj = $this->getMockForAbstractClass(
-            '\Commercetools\Core\Model\Common\Resource',
+            Resource::class,
             [['id' => '12345']],
             'MockResource',
             true,
@@ -42,7 +43,7 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
         $obj = ProductType::of()->setId('123456');
 
         $reference = $obj->getReference();
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductTypeReference', $reference);
+        $this->assertInstanceOf(ProductTypeReference::class, $reference);
         $this->assertJsonStringEqualsJsonString(
             '{"typeId": "product-type", "id": "123456"}',
             json_encode($reference)
@@ -54,7 +55,7 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
         $obj = $this->getObject();
 
         $reference = $obj->getReference();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Reference', $reference);
+        $this->assertInstanceOf(Reference::class, $reference);
         $this->assertJsonStringEqualsJsonString(
             '{"typeId": "mock-resource", "id": "12345"}',
             json_encode($reference)

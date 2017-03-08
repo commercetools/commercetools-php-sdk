@@ -25,7 +25,7 @@ class PaymentStatus extends JsonObject
         return [
             'interfaceCode' => [static::TYPE => 'string'],
             'interfaceText' => [static::TYPE => 'string'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'state' => [static::TYPE => StateReference::class],
         ];
     }
 }

@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class CustomerGroupCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\CustomerGroup\CustomerGroup';
+    protected $type = CustomerGroup::class;
 }

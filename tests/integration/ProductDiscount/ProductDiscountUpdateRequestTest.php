@@ -8,6 +8,7 @@ namespace Commercetools\Core\ProductDiscount;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountDraft;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountValue;
@@ -74,7 +75,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf(ProductDiscount::class, $result);
         $this->assertSame($isActive, $result->getIsActive());
         $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
 
@@ -82,7 +83,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf(ProductDiscount::class, $result);
     }
 
     public function testChangePredicate()
@@ -103,7 +104,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf(ProductDiscount::class, $result);
         $this->assertSame($predicate, $result->getPredicate());
         $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
 
@@ -111,7 +112,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf(ProductDiscount::class, $result);
     }
 
 
@@ -132,7 +133,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf(ProductDiscount::class, $result);
         $this->assertSame($name->en, $result->getName()->en);
         $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
 
@@ -140,7 +141,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf(ProductDiscount::class, $result);
     }
 
     public function testSetDescription()
@@ -159,7 +160,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf(ProductDiscount::class, $result);
         $this->assertSame($description->en, $result->getDescription()->en);
         $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
 
@@ -167,7 +168,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf(ProductDiscount::class, $result);
     }
 
     public function testChangeSortOrder()
@@ -186,7 +187,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf(ProductDiscount::class, $result);
         $this->assertSame($sortOrder, $result->getSortOrder());
         $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
 
@@ -194,7 +195,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf(ProductDiscount::class, $result);
     }
 
     public function testChangeValue()
@@ -218,7 +219,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf(ProductDiscount::class, $result);
         $this->assertSame(
             $value->getMoney()->current()->getCentAmount(),
             $result->getValue()->getMoney()->current()->getCentAmount()
@@ -229,6 +230,6 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf(ProductDiscount::class, $result);
     }
 }

@@ -23,7 +23,7 @@ class CartSetShippingMethodAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'shippingMethod' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingMethodReference'],
+            'shippingMethod' => [static::TYPE => ShippingMethodReference::class],
         ];
     }
 

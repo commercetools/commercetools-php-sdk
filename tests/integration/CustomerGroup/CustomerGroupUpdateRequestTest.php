@@ -6,6 +6,7 @@
 namespace Commercetools\Core\CustomerGroup;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupDraft;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupCreateRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupDeleteRequest;
@@ -53,7 +54,7 @@ class CustomerGroupUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomerGroup\CustomerGroup', $result);
+        $this->assertInstanceOf(CustomerGroup::class, $result);
         $this->assertSame($name, $result->getName());
         $this->assertNotSame($customerGroup->getVersion(), $result->getVersion());
 
@@ -61,6 +62,6 @@ class CustomerGroupUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomerGroup\CustomerGroup', $result);
+        $this->assertInstanceOf(CustomerGroup::class, $result);
     }
 }

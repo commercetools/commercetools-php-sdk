@@ -11,6 +11,7 @@ use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Model\Common\ResourceIdentifier;
 use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Review
@@ -20,9 +21,9 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method int getVersion()
  * @method Review setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Review setCreatedAt(\DateTime $createdAt = null)
+ * @method Review setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Review setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Review setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getProductId()
  * @method Review setProductId(string $productId = null)
  * @method string getCustomerId()
@@ -62,12 +63,12 @@ class Review extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'key' => [static::TYPE => 'string'],
             'uniquenessValue' => [static::TYPE => 'string'],
@@ -75,12 +76,12 @@ class Review extends Resource
             'authorName' => [static::TYPE => 'string'],
             'title' => [static::TYPE => 'string'],
             'text' => [static::TYPE => 'string'],
-            'target' => [static::TYPE => '\Commercetools\Core\Model\Common\ResourceIdentifier'],
+            'target' => [static::TYPE => ResourceIdentifier::class],
             'rating' => [static::TYPE => 'int'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'state' => [static::TYPE => StateReference::class],
             'includedInStatistics' => [static::TYPE => 'bool'],
-            'customer' => [static::TYPE => '\Commercetools\Core\Model\Customer\CustomerReference'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'customer' => [static::TYPE => CustomerReference::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 

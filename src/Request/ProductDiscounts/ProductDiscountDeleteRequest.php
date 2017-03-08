@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ProductDiscountDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ProductDiscount\ProductDiscount';
+    protected $resultClass = ProductDiscount::class;
 
     /**
      * @param string $id

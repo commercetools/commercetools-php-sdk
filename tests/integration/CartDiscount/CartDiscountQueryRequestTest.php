@@ -7,6 +7,7 @@
 namespace Commercetools\Core\CartDiscount;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
@@ -64,7 +65,7 @@ class CartDiscountQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result->getAt(0));
+        $this->assertInstanceOf(CartDiscount::class, $result->getAt(0));
         $this->assertSame($cartDiscount->getId(), $result->getAt(0)->getId());
     }
 
@@ -77,7 +78,7 @@ class CartDiscountQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $cartDiscount);
+        $this->assertInstanceOf(CartDiscount::class, $cartDiscount);
         $this->assertSame($cartDiscount->getId(), $result->getId());
 
     }

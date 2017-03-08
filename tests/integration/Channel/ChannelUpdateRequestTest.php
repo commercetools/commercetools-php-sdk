@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Channel;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Channel\ChannelRole;
 use Commercetools\Core\Model\Common\Address;
@@ -74,7 +75,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->assertInstanceOf(Channel::class, $result);
         $this->assertSame($name, $result->getName()->en);
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
         $this->deleteRequest->setVersion($result->getVersion());
@@ -97,7 +98,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->assertInstanceOf(Channel::class, $result);
         $this->assertSame($description, $result->getDescription()->en);
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
@@ -117,7 +118,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->assertInstanceOf(Channel::class, $result);
         $this->assertSame($key, $result->getKey());
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
@@ -139,7 +140,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->assertInstanceOf(Channel::class, $result);
         $this->assertSame('DE', $result->getAddress()->getCountry());
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
@@ -158,7 +159,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->assertInstanceOf(Channel::class, $result);
         $this->assertSame([ChannelRole::INVENTORY_SUPPLY, ChannelRole::PRIMARY], $result->getRoles());
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
@@ -178,7 +179,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->assertInstanceOf(Channel::class, $result);
         $this->assertSame([ChannelRole::PRIMARY], $result->getRoles());
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
@@ -198,7 +199,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->assertInstanceOf(Channel::class, $result);
         $this->assertSame($roles, $result->getRoles());
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
@@ -219,7 +220,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         );
         $channel = $this->createChannel($draft);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $channel);
+        $this->assertInstanceOf(Channel::class, $channel);
         $this->assertSame('value', $channel->getCustom()->getFields()->getTestField());
 
         $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
@@ -235,7 +236,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $channel = $request->mapResponse($response);
         $this->deleteRequest->setVersion($channel->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $channel);
+        $this->assertInstanceOf(Channel::class, $channel);
         $this->assertSame('new value', $channel->getCustom()->getFields()->getTestField());
 
         $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
@@ -245,7 +246,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $channel = $request->mapResponse($response);
         $this->deleteRequest->setVersion($channel->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $channel);
+        $this->assertInstanceOf(Channel::class, $channel);
         $this->assertSame('new value 2', $channel->getCustom()->getFields()->getTestField());
     }
 
@@ -268,7 +269,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result);
+        $this->assertInstanceOf(Channel::class, $result);
         $this->assertSame($friedrichstadtPalast, $result->getGeoLocation()->getCoordinates());
         $this->assertNotSame($channel->getVersion(), $result->getVersion());
 

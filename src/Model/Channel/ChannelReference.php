@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class ChannelReference extends Reference
 {
     const TYPE_CHANNEL = 'channel';
-    const TYPE_CLASS = '\Commercetools\Core\Model\Channel\Channel';
+    const TYPE_CLASS = Channel::class;
 
     /**
      * @param $id

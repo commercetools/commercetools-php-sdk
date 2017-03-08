@@ -26,7 +26,7 @@ class ProductTypeChangePlainEnumValueOrderAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'attributeName' => [static::TYPE => 'string'],
-            'values' => [static::TYPE => '\Commercetools\Core\Model\Common\EnumCollection']
+            'values' => [static::TYPE => EnumCollection::class]
         ];
     }
 

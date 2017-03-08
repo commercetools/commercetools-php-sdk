@@ -24,7 +24,7 @@ use Commercetools\Core\Model\Common\Reference;
 class DiscountCodeReference extends Reference
 {
     const TYPE_DISCOUNT_CODE = 'discount-code';
-    const TYPE_CLASS = '\Commercetools\Core\Model\DiscountCode\DiscountCode';
+    const TYPE_CLASS = DiscountCode::class;
 
     /**
      * @param $id

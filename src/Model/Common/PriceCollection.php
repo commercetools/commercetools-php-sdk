@@ -15,7 +15,7 @@ namespace Commercetools\Core\Model\Common;
  */
 class PriceCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Common\Price';
+    protected $type = Price::class;
 
     protected function indexRow($offset, $row)
     {

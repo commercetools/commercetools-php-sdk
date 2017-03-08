@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CategoryDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Category\Category';
+    protected $resultClass = Category::class;
 
     /**
      * @param string $id

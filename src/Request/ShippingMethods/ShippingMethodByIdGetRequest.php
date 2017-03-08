@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ShippingMethodByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ShippingMethod\ShippingMethod';
+    protected $resultClass = ShippingMethod::class;
 
     /**
      * @param string $id

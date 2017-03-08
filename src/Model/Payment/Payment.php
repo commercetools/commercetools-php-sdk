@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectCollection;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Payment
@@ -20,9 +21,9 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectCollection;
  * @method int getVersion()
  * @method Payment setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Payment setCreatedAt(\DateTime $createdAt = null)
+ * @method Payment setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Payment setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Payment setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method CustomerReference getCustomer()
  * @method Payment setCustomer(CustomerReference $customer = null)
  * @method string getExternalId()
@@ -34,7 +35,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectCollection;
  * @method Money getAmountAuthorized()
  * @method Payment setAmountAuthorized(Money $amountAuthorized = null)
  * @method DateTimeDecorator getAuthorizedUntil()
- * @method Payment setAuthorizedUntil(\DateTime $authorizedUntil = null)
+ * @method Payment setAuthorizedUntil(DateTime $authorizedUntil = null)
  * @method Money getAmountPaid()
  * @method Payment setAmountPaid(Money $amountPaid = null)
  * @method Money getAmountRefunded()
@@ -59,30 +60,30 @@ class Payment extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'customer' => [static::TYPE => '\Commercetools\Core\Model\Customer\CustomerReference'],
+            'customer' => [static::TYPE => CustomerReference::class],
             'externalId' => [static::TYPE => 'string'],
             'interfaceId' => [static::TYPE => 'string'],
-            'amountPlanned' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'amountAuthorized' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'amountPlanned' => [static::TYPE => Money::class],
+            'amountAuthorized' => [static::TYPE => Money::class],
             'authorizedUntil' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'amountPaid' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'amountRefunded' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'paymentMethodInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentMethodInfo'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
-            'paymentStatus' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentStatus'],
-            'transactions' => [static::TYPE => '\Commercetools\Core\Model\Payment\TransactionCollection'],
+            'amountPaid' => [static::TYPE => Money::class],
+            'amountRefunded' => [static::TYPE => Money::class],
+            'paymentMethodInfo' => [static::TYPE => PaymentMethodInfo::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
+            'paymentStatus' => [static::TYPE => PaymentStatus::class],
+            'transactions' => [static::TYPE => TransactionCollection::class],
             'interfaceInteractions' => [
-                static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectCollection'
+                static::TYPE => CustomFieldObjectCollection::class
             ],
         ];
     }

@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class TaxCategoryCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\TaxCategory\TaxCategory';
+    protected $type = TaxCategory::class;
 }

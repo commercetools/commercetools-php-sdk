@@ -17,7 +17,7 @@ class FacetResultCollection extends Collection
 {
     const OFFSET = 'offset';
 
-    protected $type = '\Commercetools\Core\Model\Product\FacetResult';
+    protected $type = FacetResult::class;
 
     /**
      * @param $name

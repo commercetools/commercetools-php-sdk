@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ShippingMethodQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection';
+    protected $resultClass = ShippingMethodCollection::class;
 
     /**
      * @param Context $context

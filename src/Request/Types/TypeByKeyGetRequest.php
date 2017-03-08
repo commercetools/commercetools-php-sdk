@@ -27,7 +27,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class TypeByKeyGetRequest extends AbstractByKeyGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Type\Type';
+    protected $resultClass = Type::class;
 
     /**
      * @param string $key

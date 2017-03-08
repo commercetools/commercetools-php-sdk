@@ -24,7 +24,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ShippingMethodByCartIdGetRequest extends AbstractApiRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection';
+    protected $resultClass = ShippingMethodCollection::class;
 
     /**
      * @var string

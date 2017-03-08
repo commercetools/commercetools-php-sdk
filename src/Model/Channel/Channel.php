@@ -12,6 +12,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Review\ReviewRatingStatistics;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\GeoLocation;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Channel
@@ -21,9 +22,9 @@ use Commercetools\Core\Model\Common\GeoLocation;
  * @method int getVersion()
  * @method Channel setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Channel setCreatedAt(\DateTime $createdAt = null)
+ * @method Channel setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Channel setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Channel setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getKey()
  * @method Channel setKey(string $key = null)
  * @method array getRoles()
@@ -50,21 +51,21 @@ class Channel extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'key' => [static::TYPE => 'string'],
             'roles' => [static::TYPE => 'array'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'reviewRatingStatistics' => [static::TYPE => '\Commercetools\Core\Model\Review\ReviewRatingStatistics'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
-            'address' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
-            'geoLocation' => [static::TYPE => '\Commercetools\Core\Model\Common\GeoLocation'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
+            'reviewRatingStatistics' => [static::TYPE => ReviewRatingStatistics::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
+            'address' => [static::TYPE => Address::class],
+            'geoLocation' => [static::TYPE => GeoLocation::class],
         ];
     }
 }

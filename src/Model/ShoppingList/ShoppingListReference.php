@@ -24,7 +24,7 @@ use Commercetools\Core\Model\Common\Reference;
 class ShoppingListReference extends Reference
 {
     const TYPE_SHOPPING_LIST = 'shopping-list';
-    const TYPE_CLASS = '\Commercetools\Core\Model\ShoppingList\ShoppingList';
+    const TYPE_CLASS = ShoppingList::class;
 
     /**
      * @param $id

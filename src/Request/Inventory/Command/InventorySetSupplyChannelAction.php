@@ -25,7 +25,7 @@ class InventorySetSupplyChannelAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            'supplyChannel' => [static::TYPE => ChannelReference::class],
         ];
     }
 

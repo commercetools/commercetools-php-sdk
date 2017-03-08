@@ -26,7 +26,7 @@ class TypeAddEnumValueAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'fieldName' => [static::TYPE => 'string'],
-            'value' => [static::TYPE => '\Commercetools\Core\Model\Common\Enum']
+            'value' => [static::TYPE => Enum::class]
         ];
     }
 

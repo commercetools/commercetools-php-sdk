@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ReviewQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Review\ReviewCollection';
+    protected $resultClass = ReviewCollection::class;
 
     /**
      * @param Context $context

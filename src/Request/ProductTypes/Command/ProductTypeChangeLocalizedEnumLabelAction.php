@@ -26,7 +26,7 @@ class ProductTypeChangeLocalizedEnumLabelAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'attributeName' => [static::TYPE => 'string'],
-            'newValue' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedEnum']
+            'newValue' => [static::TYPE => LocalizedEnum::class]
         ];
     }
 

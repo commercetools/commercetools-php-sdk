@@ -17,7 +17,7 @@ class EnumCollection extends Collection
 {
     const KEY = 'key';
 
-    protected $type = '\Commercetools\Core\Model\Common\Enum';
+    protected $type = Enum::class;
 
     protected function indexRow($offset, $row)
     {

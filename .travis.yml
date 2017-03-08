@@ -1,15 +1,17 @@
+dist: trusty
+sudo: false
 language: php
 php:
 - 7.0
 - 5.6
-- 5.5
-- 5.4
 - 7.1
 - hhvm
 - nightly
+env:
+  - GUZZLE=5
+  - GUZZLE=6
 matrix:
   allow_failures:
-  - php: 7.1
   - php: hhvm
   - php: nightly
 services:
@@ -17,29 +19,25 @@ services:
 cache:
   directories:
   - vendor
-before_script:
+before_install:
 - PHP=$TRAVIS_PHP_VERSION
+- if [ $PHP != 'hhvm' ] ; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; fi
+- if [ $PHP != 'hhvm' ] && [ `php-config --vernum` -lt 70000 ]; then printf "yes\n" | pecl install -f apcu-4.0.10 ; fi
+- if [ $PHP != 'hhvm' ] && [ `php-config --vernum` -ge 70000 ] ; then printf "yes\n" | pecl install -f apcu ; fi
+- if [ $PHP != 'hhvm' ] ; then phpenv config-add ./tests/apc.ini; fi
+before_script:
 - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
-- sh -c "if [ $PHP != 'hhvm' ] && [ `php-config --vernum` -lt 70000 ] ; then echo
-  'extension = redis.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  ; fi"
-- sh -c "if [ $PHP != 'hhvm' ] && [ `php-config --vernum` -ge 50400 ] && [ `php-config
-  --vernum` -lt 70000 ]; then printf "yes\n" | pecl install -f apcu-4.0.10 ; fi"
-- sh -c "if [ $PHP != 'hhvm' ] && [ `php-config --vernum` -ge 70000 ] ; then printf
-  "yes\n" | pecl install -f apcu-5.1.7 ; fi"
-- sh -c "if [ $PHP != 'hhvm' ] ; then phpenv config-add ./tests/apc.ini; fi"
-- if [ $PHP == '5.4' ] ; then ./set_guzzle5.sh; fi
-- if [ $PHP != 'nightly' ] && [ $PHP != '7.1' ]; then composer global require hirak/prestissimo;
-  fi
-- if [ $PHP == '5.4' ] ; then composer update -o --prefer-dist --prefer-lowest; fi
-- if [ $PHP != '5.4' ] ; then composer install -o --prefer-dist; fi
+- if [ $GUZZLE == '5' ] ; then ./set_guzzle5.sh; fi
+- if [ $PHP != 'nightly' ] && [ $PHP != '7.1' ]; then composer global require hirak/prestissimo; fi
+- if [ $GUZZLE == '5' ] ; then composer update -o --prefer-dist --prefer-lowest; fi
+- if [ $GUZZLE != '5' ] ; then composer install -o --prefer-dist; fi
 script:
 - ant phpcs-ci
 - vendor/bin/phpunit --testsuite=unit
-- if [ $PHP == '7.0' ] ; then vendor/bin/phpunit --testsuite=integration; fi
+- if [ $PHP == '7.0' ] && [ $GUZZLE == '6' ] ; then vendor/bin/phpunit --testsuite=integration; fi
 - ant behat
 after_success:
-- ./push-docs-to-gh-pages.sh
+- if [ $PHP == '5.6' ] && [ $GUZZLE == '6' ] ; then ./push-docs-to-gh-pages.sh; fi
 notifications:
   hipchat:
     rooms:

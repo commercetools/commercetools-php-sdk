@@ -7,6 +7,8 @@
 namespace Commercetools\Core\Client\OAuth;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
+use Cache\Adapter\Void\VoidCachePool;
+use Commercetools\Core\Cache\CacheAdapterFactory;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -15,8 +17,10 @@ use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Subscriber\Mock;
 use Commercetools\Core\Cache\NullCacheAdapter;
 use Commercetools\Core\Config;
+use Prophecy\Argument;
+use Psr\SimpleCache\CacheInterface;
 
-class ManagerTest extends \PHPUnit_Framework_TestCase
+class ManagerTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {
@@ -45,7 +49,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     protected function getManager($config, $returnValue, $statusCode = 200, $noCache = false)
     {
         if ($noCache) {
-            $manager = new Manager($config, new NullCacheAdapter());
+            $manager = new Manager($config, new ArrayCachePool());
         } else {
             $manager = new Manager($config);
         }
@@ -92,7 +96,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             200,
             true
         );
-        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $manager->getToken());
+        $this->assertInstanceOf(Token::class, $manager->getToken());
         $this->assertSame($manager->getConfig()->getScope(), $manager->getToken()->getScope());
     }
 
@@ -118,7 +122,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             true
         );
         $token = $manager->getToken();
-        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $token);
+        $this->assertInstanceOf(Token::class, $token);
         $this->assertSame($manager->getConfig()->getScope(), $token->getScope());
     }
 
@@ -145,7 +149,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         );
         $token = $manager->getToken();
         $this->assertEmpty($config->getScope());
-        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $token);
+        $this->assertInstanceOf(Token::class, $token);
         $this->assertSame("test_scope:testEmptyScope", $token->getScope());
         $this->assertNotSame($manager->getConfig()->getScope(), $token->getScope());
     }
@@ -171,7 +175,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             200,
             true
         );
-        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $manager->getToken());
+        $this->assertInstanceOf(Token::class, $manager->getToken());
         $this->assertSame($manager->getConfig()->getScope(), $manager->getToken()->getScope());
     }
 
@@ -190,30 +194,43 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($manager->getToken()->getTtl()); // ttl should be empty as token comes from cache
     }
 
-    public function testCacheAdapter()
-    {
-        $cache1 = new NullCacheAdapter();
-        $manager = new Manager($this->getConfig(), $cache1);
-
-        $cache2 = new NullCacheAdapter();
-        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Manager', $manager->setCacheAdapter($cache2));
-        $this->assertSame($cache2, $manager->getCacheAdapter());
-    }
-
     public function testPsrCacheAdapter()
     {
-        if (version_compare(phpversion(), '5.5.0', '<')) {
-            $this->markTestSkipped(
-                'PHP >= 5.5 needed to run this test'
-            );
-        }
-        $cache1 = new NullCacheAdapter();
+        $cache1 = new VoidCachePool();
         $manager = new Manager($this->getConfig(), $cache1);
 
         $cache2 = new ArrayCachePool();
-        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Manager', $manager->setCacheAdapter($cache2));
-        $this->assertSame($cache2, $manager->getCacheAdapter());
+        $this->assertInstanceOf(Manager::class, $manager->setCacheAdapter($cache2));
     }
+
+    public function testPsrSimpleCacheAdapter()
+    {
+        $cache = $this->prophesize(CacheInterface::class);
+        $cache->get(Argument::type('string'), false)->willReturn('test')->shouldBeCalled();
+        $manager = new Manager($this->getConfig(), $cache->reveal());
+
+        $this->assertSame('test', $manager->getToken()->getToken());
+    }
+
+    public function testSetPsrSimpleCacheAdapter()
+    {
+        $cache = $this->prophesize(CacheInterface::class);
+        $cache->get(Argument::type('string'), false)->willReturn(false)->shouldBeCalled();
+        $cache->set(Argument::type('string'), 'myToken', 500)->shouldBeCalled();
+
+        $manager = $this->getManager(
+            $this->getConfig(),
+            [
+                "access_token" => "myToken",
+                "token_type" => "Bearer",
+                "expires_in" => 1000,
+                "scope" => "manage_project:testCache"
+            ]
+        );
+        $manager->setCacheAdapter($cache->reveal());
+        $this->assertSame('myToken', $manager->getToken()->getToken());
+    }
+
 
     /**
      * @expectedException \Commercetools\Core\Error\InvalidClientCredentialsException

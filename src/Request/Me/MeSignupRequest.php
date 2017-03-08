@@ -22,7 +22,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class MeSignupRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Customer\CustomerSigninResult';
+    protected $resultClass = CustomerSigninResult::class;
 
     /**
      * MeGetRequest constructor.

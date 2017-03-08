@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Request\ShoppingLists\Command
@@ -23,7 +24,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method int getQuantity()
  * @method ShoppingListAddTextLineItemAction setQuantity(int $quantity = null)
  * @method DateTimeDecorator getAddedAt()
- * @method ShoppingListAddTextLineItemAction setAddedAt(\DateTime $addedAt = null)
+ * @method ShoppingListAddTextLineItemAction setAddedAt(DateTime $addedAt = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method ShoppingListAddTextLineItemAction setCustom(CustomFieldObjectDraft $custom = null)
  */
@@ -33,14 +34,14 @@ class ShoppingListAddTextLineItemAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
             'quantity' => [static::TYPE => 'int'],
             'addedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
         ];
     }
 

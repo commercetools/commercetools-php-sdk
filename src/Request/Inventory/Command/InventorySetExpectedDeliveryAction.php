@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\Inventory\Command;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Request\Inventory\Command
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method string getAction()
  * @method InventorySetExpectedDeliveryAction setAction(string $action = null)
  * @method DateTimeDecorator getExpectedDelivery()
- * @method InventorySetExpectedDeliveryAction setExpectedDelivery(\DateTime $expectedDelivery = null)
+ * @method InventorySetExpectedDeliveryAction setExpectedDelivery(DateTime $expectedDelivery = null)
  */
 class InventorySetExpectedDeliveryAction extends AbstractAction
 {
@@ -24,8 +25,8 @@ class InventorySetExpectedDeliveryAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'expectedDelivery' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
         ];
     }

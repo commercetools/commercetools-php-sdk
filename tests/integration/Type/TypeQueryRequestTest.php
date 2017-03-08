@@ -61,7 +61,7 @@ class TypeQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result->getAt(0));
+        $this->assertInstanceOf(Type::class, $result->getAt(0));
         $this->assertSame($type->getId(), $result->getAt(0)->getId());
     }
 
@@ -74,7 +74,7 @@ class TypeQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $type);
+        $this->assertInstanceOf(Type::class, $type);
         $this->assertSame($type->getId(), $result->getId());
 
     }
@@ -88,7 +88,7 @@ class TypeQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $productType);
+        $this->assertInstanceOf(Type::class, $productType);
         $this->assertSame($productType->getId(), $result->getId());
 
     }

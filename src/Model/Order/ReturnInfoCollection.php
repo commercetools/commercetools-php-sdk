@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ReturnInfoCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Order\ReturnInfo';
+    protected $type = ReturnInfo::class;
 }

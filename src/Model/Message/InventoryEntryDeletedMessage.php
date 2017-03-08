@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Channel\ChannelReference;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -18,9 +19,9 @@ use Commercetools\Core\Model\Channel\ChannelReference;
  * @method int getVersion()
  * @method InventoryEntryDeletedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method InventoryEntryDeletedMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method InventoryEntryDeletedMessage setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method InventoryEntryDeletedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method InventoryEntryDeletedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method int getSequenceNumber()
  * @method InventoryEntryDeletedMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -42,7 +43,7 @@ class InventoryEntryDeletedMessage extends Message
     {
         $definitions = parent::fieldDefinitions();
         $definitions['sku'] = [static::TYPE => 'string'];
-        $definitions['supplyChannel'] = [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'];
+        $definitions['supplyChannel'] = [static::TYPE => ChannelReference::class];
 
         return $definitions;
     }

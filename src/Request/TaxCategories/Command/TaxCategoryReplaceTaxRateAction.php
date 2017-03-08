@@ -26,7 +26,7 @@ class TaxCategoryReplaceTaxRateAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'taxRateId' => [static::TYPE => 'string'],
-            'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
+            'taxRate' => [static::TYPE => TaxRate::class],
         ];
     }
 

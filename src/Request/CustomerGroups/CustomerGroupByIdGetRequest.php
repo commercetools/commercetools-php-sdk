@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CustomerGroupByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\CustomerGroup\CustomerGroup';
+    protected $resultClass = CustomerGroup::class;
 
     /**
      * @param string $id

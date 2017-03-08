@@ -14,5 +14,5 @@ namespace Commercetools\Core\Model\Common;
  */
 class PriceDraftCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Common\PriceDraft';
+    protected $type = PriceDraft::class;
 }

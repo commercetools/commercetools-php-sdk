@@ -23,7 +23,7 @@ class CartDiscountSetDescriptionAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'description' => [static::TYPE => LocalizedString::class],
         ];
     }
 

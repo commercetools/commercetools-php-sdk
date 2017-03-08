@@ -18,5 +18,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class PaymentReferenceCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Payment\PaymentReference';
+    protected $type = PaymentReference::class;
 }

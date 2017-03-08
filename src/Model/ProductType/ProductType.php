@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\ProductType;
 
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\ProductType
@@ -16,9 +17,9 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method int getVersion()
  * @method ProductType setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method ProductType setCreatedAt(\DateTime $createdAt = null)
+ * @method ProductType setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method ProductType setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ProductType setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getName()
  * @method ProductType setName(string $name = null)
  * @method string getDescription()
@@ -40,17 +41,17 @@ class ProductType extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'key' => [static::TYPE => 'string'],
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'attributes' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeDefinitionCollection']
+            'attributes' => [static::TYPE => AttributeDefinitionCollection::class]
         ];
     }
 }

@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\ShoppingList;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\ShoppingList
@@ -21,7 +22,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method CustomFieldObjectDraft getCustom()
  * @method LineItemDraft setCustom(CustomFieldObjectDraft $custom = null)
  * @method DateTimeDecorator getAddedAt()
- * @method LineItemDraft setAddedAt(\DateTime $addedAt = null)
+ * @method LineItemDraft setAddedAt(DateTime $addedAt = null)
  */
 class LineItemDraft extends JsonObject
 {
@@ -31,10 +32,10 @@ class LineItemDraft extends JsonObject
             'productId' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'quantity' => [static::TYPE => 'int'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'addedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
         ];
     }

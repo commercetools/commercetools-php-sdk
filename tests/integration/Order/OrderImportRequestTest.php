@@ -8,6 +8,7 @@ namespace Commercetools\Core\Order;
 
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Error\OutOfStockError;
 use Commercetools\Core\Model\Cart\InventoryMode;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
@@ -17,12 +18,14 @@ use Commercetools\Core\Model\Inventory\InventoryDraft;
 use Commercetools\Core\Model\Order\ImportOrder;
 use Commercetools\Core\Model\Order\LineItemImportDraft;
 use Commercetools\Core\Model\Order\LineItemImportDraftCollection;
+use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Order\ProductVariantImportDraft;
 use Commercetools\Core\Request\Inventory\InventoryByIdGetRequest;
 use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
 use Commercetools\Core\Request\Inventory\InventoryDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderImportRequest;
+use Commercetools\Core\Response\ErrorResponse;
 
 class OrderImportRequestTest extends ApiTestCase
 {
@@ -80,7 +83,7 @@ class OrderImportRequestTest extends ApiTestCase
 
         $this->assertNotNull($order->getId());
         $this->assertNotNull($order->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $order);
+        $this->assertInstanceOf(Order::class, $order);
     }
 
     public function testWithStock()
@@ -104,7 +107,7 @@ class OrderImportRequestTest extends ApiTestCase
 
         $this->assertNotNull($order->getId());
         $this->assertNotNull($order->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $order);
+        $this->assertInstanceOf(Order::class, $order);
 
         $request = InventoryByIdGetRequest::ofId($inventory->getId());
         $response = $request->executeWithClient($this->getClient());
@@ -135,8 +138,8 @@ class OrderImportRequestTest extends ApiTestCase
         $orderRequest = OrderImportRequest::ofImportOrder($importOrder);
         $response = $orderRequest->executeWithClient($this->getClient());
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
-        $this->assertInstanceOf('\Commercetools\Core\Error\OutOfStockError', $response->getErrors()->getByCode('OutOfStock'));
+        $this->assertInstanceOf(ErrorResponse::class, $response);
+        $this->assertInstanceOf(OutOfStockError::class, $response->getErrors()->getByCode('OutOfStock'));
         $this->assertSame(
             [$importOrder->getLineItems()->current()->getVariant()->getSku()],
             $response->getErrors()->getByCode('OutOfStock')->getSkus()

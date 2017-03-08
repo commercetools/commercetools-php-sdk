@@ -17,7 +17,7 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ParcelCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Order\Parcel';
+    protected $type = Parcel::class;
 
     protected function indexRow($offset, $row)
     {

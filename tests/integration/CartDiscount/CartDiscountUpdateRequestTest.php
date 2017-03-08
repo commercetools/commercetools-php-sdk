@@ -6,6 +6,7 @@
 namespace Commercetools\Core\CartDiscount;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
@@ -49,7 +50,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
         $this->assertSame(
             $value->getMoney()->current()->getCentAmount(),
             $result->getValue()->getMoney()->current()->getCentAmount()
@@ -60,7 +61,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
     }
 
     public function testChangeCartPredicate()
@@ -81,7 +82,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
         $this->assertSame($predicate, $result->getCartPredicate());
         $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
@@ -89,7 +90,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
     }
 
     public function testChangeTarget()
@@ -110,7 +111,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
         $this->assertSame($target->getPredicate(), $result->getTarget()->getPredicate());
         $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
@@ -118,7 +119,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
     }
 
     public function testChangeIsActive()
@@ -139,7 +140,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
         $this->assertSame($isActive, $result->getIsActive());
         $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
@@ -147,7 +148,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
     }
 
     public function testChangeName()
@@ -166,7 +167,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
         $this->assertSame($name->en, $result->getName()->en);
         $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
@@ -174,7 +175,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
     }
 
     public function testSetDescription()
@@ -193,7 +194,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
         $this->assertSame($description->en, $result->getDescription()->en);
         $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
@@ -201,7 +202,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
     }
 
     public function testChangeSortOrder()
@@ -220,7 +221,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
         $this->assertSame($sortOrder, $result->getSortOrder());
         $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
@@ -228,7 +229,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
     }
 
     public function testChangeRequiresDiscountCode()
@@ -247,7 +248,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
         $this->assertEquals($requiresDiscountCode, $result->getRequiresDiscountCode());
         $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
@@ -255,7 +256,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
     }
 
     public function testSetValidFrom()
@@ -274,7 +275,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
         $this->assertEquals($validFrom, $result->getValidFrom()->getDateTime());
         $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
@@ -282,7 +283,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
     }
 
     public function testSetValidUntil()
@@ -301,7 +302,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
         $this->assertEquals($validFrom, $result->getValidUntil()->getDateTime());
         $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
@@ -309,7 +310,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CartDiscount\CartDiscount', $result);
+        $this->assertInstanceOf(CartDiscount::class, $result);
     }
     /**
      * @param $name

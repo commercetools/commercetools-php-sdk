@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ProductByKeyGetRequest extends AbstractByKeyGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Product\Product';
+    protected $resultClass = Product::class;
 
     /**
      * @param string $key

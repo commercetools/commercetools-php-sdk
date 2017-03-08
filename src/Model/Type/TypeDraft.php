@@ -28,10 +28,10 @@ class TypeDraft extends JsonObject
     {
         return [
             'key' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
             'resourceTypeIds' => [static::TYPE => 'array'],
-            'fieldDefinitions' => [static::TYPE => '\Commercetools\Core\Model\Type\FieldDefinitionCollection'],
+            'fieldDefinitions' => [static::TYPE => FieldDefinitionCollection::class],
         ];
     }
 

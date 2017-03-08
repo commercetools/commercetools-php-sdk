@@ -18,5 +18,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class CartDiscountReferenceCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\CartDiscount\CartDiscountReference';
+    protected $type = CartDiscountReference::class;
 }

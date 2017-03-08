@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ProductDiscountCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\ProductDiscount\ProductDiscount';
+    protected $type = ProductDiscount::class;
 }

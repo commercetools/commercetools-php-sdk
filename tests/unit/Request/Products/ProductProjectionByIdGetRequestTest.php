@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\Products;
 
+use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\RequestTestCase;
 
 /**
@@ -13,12 +14,12 @@ use Commercetools\Core\RequestTestCase;
  */
 class ProductProjectionByIdGetRequestTest extends RequestTestCase
 {
-    const PRODUCT_PROJECTION_BY_ID_GET_REQUEST = '\Commercetools\Core\Request\Products\ProductProjectionByIdGetRequest';
+    const PRODUCT_PROJECTION_BY_ID_GET_REQUEST = ProductProjectionByIdGetRequest::class;
 
     public function testMapResult()
     {
         $result = $this->mapResult(ProductProjectionByIdGetRequest::ofId('id'));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $result);
+        $this->assertInstanceOf(ProductProjection::class, $result);
     }
 
     public function testMapEmptyResult()

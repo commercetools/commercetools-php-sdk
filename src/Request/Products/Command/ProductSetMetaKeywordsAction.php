@@ -23,7 +23,7 @@ class ProductSetMetaKeywordsAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'metaKeywords' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'metaKeywords' => [static::TYPE => LocalizedString::class],
         ];
     }
 

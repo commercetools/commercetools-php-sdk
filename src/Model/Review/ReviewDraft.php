@@ -49,11 +49,11 @@ class ReviewDraft extends JsonObject
             'authorName' => [static::TYPE => 'string'],
             'title' => [static::TYPE => 'string'],
             'text' => [static::TYPE => 'string'],
-            'target' => [static::TYPE => '\Commercetools\Core\Model\Common\ResourceIdentifier'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'target' => [static::TYPE => ResourceIdentifier::class],
+            'state' => [static::TYPE => StateReference::class],
             'rating' => [static::TYPE => 'int'],
-            'customer' => [static::TYPE => '\Commercetools\Core\Model\Customer\CustomerReference'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'customer' => [static::TYPE => CustomerReference::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 

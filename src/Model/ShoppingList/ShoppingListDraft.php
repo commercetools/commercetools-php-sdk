@@ -37,13 +37,13 @@ class ShoppingListDraft extends Resource
     {
         return [
             'key' => [static::TYPE => 'string'],
-            'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'customer' => [static::TYPE => '\Commercetools\Core\Model\Customer\CustomerReference'],
-            'lineItems' => [static::TYPE => '\Commercetools\Core\Model\ShoppingList\LineItemDraftCollection'],
-            'textLineItems' => [static::TYPE => '\Commercetools\Core\Model\ShoppingList\TextLineItemDraftCollection'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'slug' => [static::TYPE => LocalizedString::class],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
+            'customer' => [static::TYPE => CustomerReference::class],
+            'lineItems' => [static::TYPE => LineItemDraftCollection::class],
+            'textLineItems' => [static::TYPE => TextLineItemDraftCollection::class],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
         ];
     }
 

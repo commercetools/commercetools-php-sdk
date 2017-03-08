@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ChannelCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Channel\Channel';
+    protected $resultClass = Channel::class;
 
     /**
      * @param ChannelDraft $channel

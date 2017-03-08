@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CartByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Cart\Cart';
+    protected $resultClass = Cart::class;
 
     /**
      * @param string $id

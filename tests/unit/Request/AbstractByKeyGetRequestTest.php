@@ -8,17 +8,18 @@ namespace Commercetools\Core\Request;
 
 use Commercetools\Core\AccessorTrait;
 use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Response\ResourceResponse;
 
 /**
  * Class AbstractCreateRequestTest
  * @package Commercetools\Core\Request
  * @method AbstractByKeyGetRequest getRequest($class, array $args = [])
  */
-class AbstractByKeyGetRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractByKeyGetRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_GET_REQUEST = '\Commercetools\Core\Request\AbstractByKeyGetRequest';
+    const ABSTRACT_GET_REQUEST = AbstractByKeyGetRequest::class;
 
     public function testGetKey()
     {
@@ -56,10 +57,10 @@ class AbstractByKeyGetRequestTest extends \PHPUnit_Framework_TestCase
         $mockBuilder = $this->getMockBuilder('\GuzzleHttp\Psr7\Response');
         $mockBuilder->disableOriginalConstructor();
         $guzzleResponse = $mockBuilder->getMock();
-        
+
         $request = $this->getRequest(static::ABSTRACT_GET_REQUEST, ['key']);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

@@ -6,6 +6,8 @@
 
 namespace Commercetools\Core\Response;
 
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Request\ClientRequestInterface;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -23,12 +25,12 @@ use Commercetools\Core\Request\AbstractApiRequest;
  * @package Commercetools\Core\Response
  * @method AbstractApiRequest getRequest($class)
  */
-class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
+class AbstractApiResponseTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_API_RESPONSE = '\Commercetools\Core\Response\AbstractApiResponse';
-    const ABSTRACT_API_REQUEST = '\Commercetools\Core\Request\AbstractApiRequest';
+    const ABSTRACT_API_RESPONSE = AbstractApiResponse::class;
+    const ABSTRACT_API_REQUEST = AbstractApiRequest::class;
 
     /**
      * @return Response
@@ -103,8 +105,8 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     public function successStatusCodes()
     {
         return [
-            [200],
-            [201]
+            200 => [200],
+            201 => [201]
         ];
     }
     /**
@@ -136,14 +138,14 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     {
         $response = $this->getResponse();
 
-        $this->assertInstanceOf('\Commercetools\Core\Request\ClientRequestInterface', $response->getRequest());
+        $this->assertInstanceOf(ClientRequestInterface::class, $response->getRequest());
     }
 
 
     public function testToObject()
     {
         $response = $this->getResponse();
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\JsonObject', $response->toObject());
+        $this->assertInstanceOf(JsonObject::class, $response->toObject());
     }
 
     public function testErrorToObject()
@@ -173,7 +175,7 @@ class AbstractApiResponseTest extends \PHPUnit_Framework_TestCase
     public function testThen()
     {
         $response = $this->getResponse('{"key":"value"}', 200, true);
-        $this->assertInstanceOf('\Commercetools\Core\Response\ApiResponseInterface', $response->then());
+        $this->assertInstanceOf(ApiResponseInterface::class, $response->then());
     }
 
     public function testWait()

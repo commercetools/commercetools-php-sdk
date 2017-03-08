@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ChannelByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Channel\Channel';
+    protected $resultClass = Channel::class;
 
     /**
      * @param string $id

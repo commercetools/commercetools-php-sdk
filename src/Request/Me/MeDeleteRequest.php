@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class MeDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Customer\Customer';
+    protected $resultClass = Customer::class;
 
     /**
      * @param int $version

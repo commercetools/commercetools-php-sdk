@@ -21,40 +21,51 @@
       "Commercetools\\Core\\": [
         "tests/unit/",
         "tests/integration/"
+      ],
+      "Commercetools\\Core\\Fixtures\\": [
+        "tests/fixtures/"
       ]
     }
   },
   "require": {
-    "php": ">=5.4",
+    "php": ">=5.6",
     "psr/log": "^1.0",
-    "guzzlehttp/guzzle": "^5.0 || ^6.0",
+    "guzzlehttp/guzzle": "^6.0 || ^5.0",
     "guzzlehttp/psr7": "^1.1",
-    "pimple/pimple": "^3.0",
     "psr/cache": "^1.0",
+    "psr/simple-cache": "^1.0",
+    "cache/apcu-adapter": "^0.2",
     "ext-intl": "*",
     "ext-mbstring": "*"
   },
   "require-dev": {
     "guzzlehttp/guzzle": "^6.0",
-    "phpunit/phpunit": "^5.0 || ^4.8",
+    "phpunit/phpunit": "^6.0 || ^5.7.14",
     "phpmd/phpmd": "@stable",
     "squizlabs/php_codesniffer": "^2.6",
     "sebastian/phpcpd": "@stable",
     "pdepend/pdepend": "@stable",
     "phploc/phploc": "^2.0",
     "mayflower/php-codebrowser": "^1.0",
-    "doctrine/cache": "^1.5",
+    "doctrine/cache": "^1.6",
     "monolog/monolog": "^1.12",
     "behat/behat": "^3.0",
     "phpunit/phpcov": "*",
     "friendsofphp/php-cs-fixer": "@stable",
-    "symfony/yaml": "*",
+    "symfony/yaml": "^3.0",
     "cache/array-adapter": "^0.4.0",
+    "cache/doctrine-adapter": "^0.5.0",
+    "cache/redis-adapter": "^0.4.0",
     "cache/filesystem-adapter": "^0.3.0",
+    "cache/void-adapter": "^0.3",
     "incenteev/composer-parameter-handler": "^2.1"
   },
   "replaces": {
     "commercetools/commons": "*"
+  },
+  "suggest": {
+    "cache/redis-adapter": "For usage of a redis server to store the client access token",
+    "cache/doctrine-adapter": "For usage of a doctrine cache instance to store the client access token"
   },
   "scripts": {
     "updateConfig": [
@@ -65,7 +76,8 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-develop": "1.7-dev"
+      "dev-develop": "1.7-dev",
+      "dev-version2": "2.0-dev"
     },
     "incenteev-parameters": [
       {

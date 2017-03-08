@@ -20,6 +20,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Model\Payment\PaymentInfo;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Order
@@ -29,9 +30,9 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method int getVersion()
  * @method Order setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Order setCreatedAt(\DateTime $createdAt = null)
+ * @method Order setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Order setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Order setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getOrderNumber()
  * @method Order setOrderNumber(string $orderNumber = null)
  * @method string getCustomerId()
@@ -81,7 +82,7 @@ use Commercetools\Core\Model\Payment\PaymentInfo;
  * @method PaymentInfo getPaymentInfo()
  * @method Order setPaymentInfo(PaymentInfo $paymentInfo = null)
  * @method DateTimeDecorator getCompletedAt()
- * @method Order setCompletedAt(\DateTime $completedAt = null)
+ * @method Order setCompletedAt(DateTime $completedAt = null)
  * @method string getAnonymousId()
  * @method Order setAnonymousId(string $anonymousId = null)
  * @method string getLocale()
@@ -106,41 +107,41 @@ class Order extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'completedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'orderNumber' => [static::TYPE => 'string'],
             'customerId' => [static::TYPE => 'string'],
             'customerEmail' => [static::TYPE => 'string'],
-            'lineItems' => [static::TYPE => '\Commercetools\Core\Model\Cart\LineItemCollection'],
-            'customLineItems' => [static::TYPE => '\Commercetools\Core\Model\Cart\CustomLineItemCollection'],
-            'totalPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'taxedPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\TaxedPrice'],
-            'shippingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
-            'billingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
+            'lineItems' => [static::TYPE => LineItemCollection::class],
+            'customLineItems' => [static::TYPE => CustomLineItemCollection::class],
+            'totalPrice' => [static::TYPE => Money::class],
+            'taxedPrice' => [static::TYPE => TaxedPrice::class],
+            'shippingAddress' => [static::TYPE => Address::class],
+            'billingAddress' => [static::TYPE => Address::class],
             'inventoryMode' => [static::TYPE => 'string'],
-            'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
+            'customerGroup' => [static::TYPE => CustomerGroupReference::class],
             'country' => [static::TYPE => 'string'],
             'orderState' => [static::TYPE => 'string'],
             'shipmentState' => [static::TYPE => 'string'],
             'paymentState' => [static::TYPE => 'string'],
-            'shippingInfo' => [static::TYPE => '\Commercetools\Core\Model\Cart\ShippingInfo'],
-            'syncInfo' => [static::TYPE => '\Commercetools\Core\Model\Order\SyncInfoCollection'],
-            'returnInfo' => [static::TYPE => '\Commercetools\Core\Model\Order\ReturnInfoCollection'],
-            'discountCodes' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountCodeInfoCollection'],
+            'shippingInfo' => [static::TYPE => ShippingInfo::class],
+            'syncInfo' => [static::TYPE => SyncInfoCollection::class],
+            'returnInfo' => [static::TYPE => ReturnInfoCollection::class],
+            'discountCodes' => [static::TYPE => DiscountCodeInfoCollection::class],
             'lastMessageSequenceNumber' => [static::TYPE => 'int'],
-            'cart' => [static::TYPE => '\Commercetools\Core\Model\Cart\CartReference'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
-            'paymentInfo' => [static::TYPE => '\Commercetools\Core\Model\Payment\PaymentInfo'],
+            'cart' => [static::TYPE => CartReference::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
+            'state' => [static::TYPE => StateReference::class],
+            'paymentInfo' => [static::TYPE => PaymentInfo::class],
             'anonymousId' => [static::TYPE => 'string'],
             'locale' => [static::TYPE => 'string'],
             'taxRoundingMode' => [static::TYPE => 'string'],

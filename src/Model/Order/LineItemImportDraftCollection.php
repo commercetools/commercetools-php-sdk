@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class LineItemImportDraftCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Order\LineItemImportDraft';
+    protected $type = LineItemImportDraft::class;
 }

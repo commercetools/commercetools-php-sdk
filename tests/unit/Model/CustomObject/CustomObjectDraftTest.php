@@ -9,12 +9,12 @@ namespace Commercetools\Core\Model\CustomObject;
 
 use Commercetools\Core\Model\Common\LocalizedString;
 
-class CustomObjectDraftTest extends \PHPUnit_Framework_TestCase
+class CustomObjectDraftTest extends \PHPUnit\Framework\TestCase
 {
     public function testFromArray()
     {
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\CustomObject\CustomObjectDraft',
+            CustomObjectDraft::class,
             CustomObjectDraft::fromArray(
                 [
                     'container' => 'test',
@@ -51,7 +51,7 @@ class CustomObjectDraftTest extends \PHPUnit_Framework_TestCase
     {
         $draft = CustomObjectDraft::ofContainerKeyAndValue('test', 'test-key', $value);
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\CustomObject\CustomObjectDraft',
+            CustomObjectDraft::class,
             $draft
         );
         $this->assertSame($result, json_encode($draft));

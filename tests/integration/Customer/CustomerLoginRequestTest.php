@@ -8,8 +8,10 @@ namespace Commercetools\Core\Customer;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Client;
+use Commercetools\Core\Client\OAuth\Token;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
+use Commercetools\Core\Error\DuplicateFieldError;
 use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
@@ -269,7 +271,7 @@ class CustomerLoginRequestTest extends ApiTestCase
 
         $this->assertTrue($response->isError());
         $this->assertSame(400, $response->getStatusCode());
-        $this->assertInstanceOf('\Commercetools\Core\Error\DuplicateFieldError', $response->getErrors()->current());
+        $this->assertInstanceOf(DuplicateFieldError::class, $response->getErrors()->current());
     }
 
     public function testAuthLogin()
@@ -292,7 +294,7 @@ class CustomerLoginRequestTest extends ApiTestCase
 
         $token = $client->getOauthManager()->refreshToken();
 
-        $this->assertInstanceOf('\Commercetools\Core\Client\OAuth\Token', $token);
+        $this->assertInstanceOf(Token::class, $token);
         $this->assertSame(Config::GRANT_TYPE_PASSWORD, $config->getGrantType());
         $this->assertNotEmpty($config->getRefreshToken());
 

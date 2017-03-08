@@ -29,11 +29,11 @@ class Asset extends JsonObject
     {
         return [
             'id' => [static::TYPE => 'string'],
-            'sources' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetSourceCollection'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'sources' => [static::TYPE => AssetSourceCollection::class],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
             'tags' => [static::TYPE => 'array'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }

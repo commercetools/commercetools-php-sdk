@@ -7,6 +7,7 @@
 namespace Commercetools\Core\TaxCategory;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\TaxCategory\TaxRateCollection;
@@ -72,7 +73,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
+        $this->assertInstanceOf(TaxCategory::class, $result);
         $this->assertSame($name, $result->getName());
         $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
     }
@@ -94,7 +95,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
+        $this->assertInstanceOf(TaxCategory::class, $result);
         $this->assertSame($description, $result->getDescription());
         $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
     }
@@ -120,7 +121,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
+        $this->assertInstanceOf(TaxCategory::class, $result);
         $this->assertCount(2, $result->getRates());
         $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
         $taxCategory = $result;
@@ -135,7 +136,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
+        $this->assertInstanceOf(TaxCategory::class, $result);
         $this->assertCount(1, $result->getRates());
         $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
     }
@@ -164,7 +165,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\TaxCategory\TaxCategory', $result);
+        $this->assertInstanceOf(TaxCategory::class, $result);
         $this->assertSame($taxRate->getName(), $result->getRates()->current()->getName());
         $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
     }

@@ -9,6 +9,7 @@ namespace Commercetools\Core\Payment;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\Model\Payment\PaymentMethodInfo;
 use Commercetools\Core\Model\Payment\Transaction;
@@ -86,7 +87,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($amount, $result->getAmountPlanned()->getCentAmount());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -106,7 +107,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($customer->getId(), $result->getCustomer()->getId());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -126,7 +127,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($externalId, $result->getExternalId());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -146,7 +147,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($interfaceId, $result->getInterfaceId());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -169,7 +170,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($amount->getCentAmount(), $result->getAmountAuthorized()->getCentAmount());
         $this->assertEquals($authTime, $result->getAuthorizedUntil()->getDateTime());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
@@ -191,7 +192,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($amount->getCentAmount(), $result->getAmountPaid()->getCentAmount());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -212,7 +213,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($amount->getCentAmount(), $result->getAmountRefunded()->getCentAmount());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -236,7 +237,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($interface, $result->getPaymentMethodInfo()->getPaymentInterface());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -260,7 +261,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($method, $result->getPaymentMethodInfo()->getMethod());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -284,7 +285,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($name, $result->getPaymentMethodInfo()->getName()->en);
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -305,7 +306,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($code, $result->getPaymentStatus()->getInterfaceCode());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -326,7 +327,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($text, $result->getPaymentStatus()->getInterfaceText());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -360,7 +361,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($state2->getId(), $result->getPaymentStatus()->getState()->getId());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -384,7 +385,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($transaction->getInteractionId(), $result->getTransactions()->current()->getInteractionId());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
         $payment = $result;
@@ -401,7 +402,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame(TransactionState::SUCCESS, $result->getTransactions()->current()->getState());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
         $payment = $result;
@@ -419,7 +420,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertEquals($timestamp, $result->getTransactions()->current()->getTimestamp()->getDateTime());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
         $payment = $result;
@@ -438,7 +439,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($interactionId, $result->getTransactions()->current()->getInteractionId());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -459,7 +460,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($type->getId(), $result->getInterfaceInteractions()->current()->getType()->getId());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -480,7 +481,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
@@ -513,7 +514,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Payment\Payment', $result);
+        $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($value, $result->getCustom()->getFields()->getTestField());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }

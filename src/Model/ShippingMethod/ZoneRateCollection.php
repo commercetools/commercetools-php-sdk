@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ZoneRateCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\ShippingMethod\ZoneRate';
+    protected $type = ZoneRate::class;
 }

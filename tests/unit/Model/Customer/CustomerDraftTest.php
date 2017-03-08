@@ -5,12 +5,12 @@
 
 namespace Commercetools\Core\Model\Customer;
 
-class CustomerDraftTest extends \PHPUnit_Framework_TestCase
+class CustomerDraftTest extends \PHPUnit\Framework\TestCase
 {
     public function testFromArray()
     {
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Customer\CustomerDraft',
+            CustomerDraft::class,
             CustomerDraft::fromArray(
                 [
                     'email' => 'john.doe@company.com',

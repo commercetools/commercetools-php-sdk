@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Common;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 
-class LocalizedStringTest extends \PHPUnit_Framework_TestCase
+class LocalizedStringTest extends \PHPUnit\Framework\TestCase
 {
     protected static $intlLoaded = true;
 
