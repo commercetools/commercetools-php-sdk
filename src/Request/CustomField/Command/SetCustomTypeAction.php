@@ -26,8 +26,8 @@ class SetCustomTypeAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'type' => [static::TYPE => '\Commercetools\Core\Model\Type\TypeReference'],
-            'fields' => [static::TYPE => '\Commercetools\Core\Model\CustomField\FieldContainer'],
+            'type' => [static::TYPE => TypeReference::class],
+            'fields' => [static::TYPE => FieldContainer::class],
         ];
     }
 

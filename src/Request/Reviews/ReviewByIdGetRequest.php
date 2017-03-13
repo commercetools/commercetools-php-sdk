@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ReviewByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Review\Review';
+    protected $resultClass = Review::class;
 
     /**
      * @param string $id

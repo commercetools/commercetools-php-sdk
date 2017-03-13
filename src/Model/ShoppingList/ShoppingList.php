@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\ShoppingList
@@ -21,9 +22,9 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method int getVersion()
  * @method ShoppingList setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method ShoppingList setCreatedAt(\DateTime $createdAt = null)
+ * @method ShoppingList setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method ShoppingList setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ShoppingList setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method LocalizedString getSlug()
  * @method ShoppingList setSlug(LocalizedString $slug = null)
  * @method LocalizedString getName()
@@ -48,20 +49,20 @@ class ShoppingList extends JsonObject
             'key' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'customer' => [static::TYPE => '\Commercetools\Core\Model\Customer\CustomerReference'],
-            'lineItems' => [static::TYPE => '\Commercetools\Core\Model\ShoppingList\LineItemCollection'],
-            'textLineItems' => [static::TYPE => '\Commercetools\Core\Model\ShoppingList\TextLineItemCollection'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'slug' => [static::TYPE => LocalizedString::class],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
+            'customer' => [static::TYPE => CustomerReference::class],
+            'lineItems' => [static::TYPE => LineItemCollection::class],
+            'textLineItems' => [static::TYPE => TextLineItemCollection::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }

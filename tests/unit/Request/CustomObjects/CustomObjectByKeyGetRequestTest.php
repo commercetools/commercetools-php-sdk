@@ -15,7 +15,7 @@ use Commercetools\Core\RequestTestCase;
  */
 class CustomObjectByKeyGetRequestTest extends RequestTestCase
 {
-    const CUSTOM_OBJECT_GET_REQUEST = '\Commercetools\Core\Request\CustomObjects\CustomObjectByKeyGetRequest';
+    const CUSTOM_OBJECT_GET_REQUEST = CustomObjectByKeyGetRequest::class;
 
     public function getObject()
     {
@@ -25,7 +25,7 @@ class CustomObjectByKeyGetRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(CustomObjectByKeyGetRequest::ofContainerAndKey('my-namespace', 'my-key'));
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $result);
+        $this->assertInstanceOf(CustomObject::class, $result);
     }
 
     public function testMapEmptyResult()

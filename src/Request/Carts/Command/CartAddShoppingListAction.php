@@ -28,9 +28,9 @@ class CartAddShoppingListAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'shoppingList' => [static::TYPE => '\Commercetools\Core\Model\ShoppingList\ShoppingListReference'],
-            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
-            'distributionChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
+            'shoppingList' => [static::TYPE => ShoppingListReference::class],
+            'supplyChannel' => [static::TYPE => ChannelReference::class],
+            'distributionChannel' => [static::TYPE => ChannelReference::class],
         ];
     }
 

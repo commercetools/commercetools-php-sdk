@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ShippingMethodDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ShippingMethod\ShippingMethod';
+    protected $resultClass = ShippingMethod::class;
 
     /**
      * @param string $id

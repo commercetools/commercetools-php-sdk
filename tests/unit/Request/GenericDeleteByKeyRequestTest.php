@@ -5,6 +5,12 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Model\ProductType\ProductType;
+use Commercetools\Core\Model\Review\Review;
+use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteByKeyRequest;
+use Commercetools\Core\Request\Reviews\ReviewDeleteByKeyRequest;
+use Commercetools\Core\Request\Types\TypeDeleteByKeyRequest;
 use Commercetools\Core\RequestTestCase;
 
 class GenericDeleteByKeyRequestTest extends RequestTestCase
@@ -24,17 +30,17 @@ class GenericDeleteByKeyRequestTest extends RequestTestCase
     public function mapResultProvider()
     {
         return [
-            [
-                '\Commercetools\Core\Request\ProductTypes\ProductTypeDeleteByKeyRequest',
-                '\Commercetools\Core\Model\ProductType\ProductType',
+            ProductTypeDeleteByKeyRequest::class => [
+                ProductTypeDeleteByKeyRequest::class,
+                ProductType::class,
             ],
-            [
-                '\Commercetools\Core\Request\Reviews\ReviewDeleteByKeyRequest',
-                '\Commercetools\Core\Model\Review\Review',
+            ReviewDeleteByKeyRequest::class => [
+                ReviewDeleteByKeyRequest::class,
+                Review::class,
             ],
-            [
-                '\Commercetools\Core\Request\Types\TypeDeleteByKeyRequest',
-                '\Commercetools\Core\Model\Type\Type',
+            TypeDeleteByKeyRequest::class => [
+                TypeDeleteByKeyRequest::class,
+                Type::class,
             ],
         ];
     }

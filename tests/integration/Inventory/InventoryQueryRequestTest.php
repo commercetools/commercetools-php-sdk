@@ -8,6 +8,7 @@ namespace Commercetools\Core\Inventory;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
+use Commercetools\Core\Model\Inventory\InventoryEntry;
 use Commercetools\Core\Request\Inventory\InventoryByIdGetRequest;
 use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
 use Commercetools\Core\Request\Inventory\InventoryDeleteRequest;
@@ -52,7 +53,7 @@ class InventoryQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $result->getAt(0));
+        $this->assertInstanceOf(InventoryEntry::class, $result->getAt(0));
         $this->assertSame($inventory->getId(), $result->getAt(0)->getId());
     }
 
@@ -65,7 +66,7 @@ class InventoryQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Inventory\InventoryEntry', $inventory);
+        $this->assertInstanceOf(InventoryEntry::class, $inventory);
         $this->assertSame($inventory->getId(), $result->getId());
 
     }

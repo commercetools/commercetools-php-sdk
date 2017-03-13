@@ -36,11 +36,11 @@ class StateDraft extends JsonObject
         return [
             'key' => [static::TYPE => 'string'],
             'type' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
             'initial' => [static::TYPE => 'bool'],
+            'transitions' => [static::TYPE => StateReferenceCollection::class],
             'roles' => [static::TYPE => 'array'],
-            'transitions' => [static::TYPE => '\Commercetools\Core\Model\State\StateReferenceCollection']
         ];
     }
 

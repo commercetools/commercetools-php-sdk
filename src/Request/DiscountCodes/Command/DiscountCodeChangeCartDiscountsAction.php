@@ -27,7 +27,7 @@ class DiscountCodeChangeCartDiscountsAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'cartDiscounts' => [
-                static::TYPE => '\Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection'
+                static::TYPE => CartDiscountReferenceCollection::class
             ],
         ];
     }

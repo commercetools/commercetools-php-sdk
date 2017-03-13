@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class TaxCategoryCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\TaxCategory\TaxCategory';
+    protected $resultClass = TaxCategory::class;
 
     /**
      * @param TaxCategoryDraft $taxCategory

@@ -48,15 +48,15 @@ class ProductVariant extends JsonObject
         return [
             'id' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
-            'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceCollection'],
-            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Price'],
-            'attributes' => [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
-            'images' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageCollection'],
-            'availability' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductVariantAvailability'],
+            'prices' => [static::TYPE => PriceCollection::class],
+            'price' => [static::TYPE => Price::class],
+            'attributes' => [static::TYPE => AttributeCollection::class],
+            'images' => [static::TYPE => ImageCollection::class],
+            'availability' => [static::TYPE => ProductVariantAvailability::class],
             'isMatchingVariant' => [static::TYPE => 'bool'],
-            'scopedPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\ScopedPrice'],
+            'scopedPrice' => [static::TYPE => ScopedPrice::class],
             'scopedPriceDiscounted' => [static::TYPE => 'bool'],
-            'assets' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetCollection'],
+            'assets' => [static::TYPE => AssetCollection::class],
             'key' => [static::TYPE => 'string'],
         ];
     }

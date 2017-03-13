@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class CustomFieldObjectCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\CustomField\CustomFieldObject';
+    protected $type = CustomFieldObject::class;
 }

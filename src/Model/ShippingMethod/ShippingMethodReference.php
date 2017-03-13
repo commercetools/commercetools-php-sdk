@@ -24,7 +24,7 @@ use Commercetools\Core\Model\Common\Reference;
 class ShippingMethodReference extends Reference
 {
     const TYPE_SHIPPING_METHOD = 'shipping-method';
-    const TYPE_CLASS = '\Commercetools\Core\Model\ShippingMethod\ShippingMethod';
+    const TYPE_CLASS = ShippingMethod::class;
 
     /**
      * @param $id

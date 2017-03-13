@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\Type;
 
+use Commercetools\Core\Model\Common\Reference;
+
 /**
  * @package Commercetools\Core\Model\Type
  * @link https://dev.commercetools.com/http-api-projects-types.html#referencetype
@@ -27,6 +29,6 @@ class ReferenceType extends FieldType
 
     public function fieldTypeDefinition()
     {
-        return [static::TYPE => '\Commercetools\Core\Model\Common\Reference'];
+        return [static::TYPE => Reference::class];
     }
 }

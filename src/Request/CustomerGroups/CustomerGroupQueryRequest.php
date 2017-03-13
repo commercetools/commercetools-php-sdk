@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CustomerGroupQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\CustomerGroup\CustomerGroupCollection';
+    protected $resultClass = CustomerGroupCollection::class;
 
     /**
      * @param Context $context

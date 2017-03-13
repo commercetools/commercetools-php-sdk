@@ -7,10 +7,11 @@ namespace Commercetools\Core\Request\Customers;
 
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 class CustomerPasswordTokenRequestTest extends RequestTestCase
 {
-    const CUSTOMER_PASSWORD_REQUEST = '\Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest';
+    const CUSTOMER_PASSWORD_REQUEST = CustomerPasswordTokenRequest::class;
 
     public function testHttpRequestMethod()
     {
@@ -50,6 +51,6 @@ class CustomerPasswordTokenRequestTest extends RequestTestCase
         $request = CustomerPasswordTokenRequest::ofEmail('john.doe@company.com');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

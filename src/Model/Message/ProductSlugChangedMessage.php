@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Model\Common\LocalizedString;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -16,7 +17,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method string getId()
  * @method ProductSlugChangedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method ProductSlugChangedMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method ProductSlugChangedMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method ProductSlugChangedMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -30,7 +31,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method int getVersion()
  * @method ProductSlugChangedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method ProductSlugChangedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ProductSlugChangedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class ProductSlugChangedMessage extends Message
 {
@@ -39,7 +40,7 @@ class ProductSlugChangedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['slug'] = [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'];
+        $definitions['slug'] = [static::TYPE => LocalizedString::class];
 
         return $definitions;
     }

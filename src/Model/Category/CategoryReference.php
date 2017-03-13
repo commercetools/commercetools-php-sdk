@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class CategoryReference extends Reference
 {
     const TYPE_CATEGORY = 'category';
-    const TYPE_CLASS = '\Commercetools\Core\Model\Category\Category';
+    const TYPE_CLASS = Category::class;
 
     /**
      * @param $id

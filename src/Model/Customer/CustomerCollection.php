@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class CustomerCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Customer\Customer';
+    protected $type = Customer::class;
 }

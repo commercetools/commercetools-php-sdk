@@ -5,12 +5,13 @@
 
 namespace Commercetools\Core\Request\Types;
 
+use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\RequestTestCase;
 
 class TypeCreateRequestTest extends RequestTestCase
 {
-    const TYPE_CREATE_REQUEST = '\Commercetools\Core\Request\Types\TypeCreateRequest';
+    const TYPE_CREATE_REQUEST = TypeCreateRequest::class;
 
     protected function getDraft()
     {
@@ -44,7 +45,7 @@ class TypeCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(TypeCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Type\Type', $result);
+        $this->assertInstanceOf(Type::class, $result);
     }
 
     public function testMapEmptyResult()

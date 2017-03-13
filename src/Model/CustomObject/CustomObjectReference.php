@@ -23,7 +23,7 @@ use Commercetools\Core\Model\Common\Reference;
 class CustomObjectReference extends Reference
 {
     const TYPE_CUSTOM_OBJECT = 'key-value-document';
-    const TYPE_CLASS = '\Commercetools\Core\Model\CustomObject\CustomObject';
+    const TYPE_CLASS = CustomObject::class;
 
     /**
      * @param $id

@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\AssetCollection;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Category
@@ -19,9 +20,9 @@ use Commercetools\Core\Model\Common\AssetCollection;
  * @method int getVersion()
  * @method Category setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Category setCreatedAt(\DateTime $createdAt = null)
+ * @method Category setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Category setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Category setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method LocalizedString getName()
  * @method Category setName(LocalizedString $name = null)
  * @method LocalizedString getSlug()
@@ -56,25 +57,25 @@ class Category extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'name' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'slug' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'ancestors' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReferenceCollection'],
-            'parent' => [static::TYPE => '\Commercetools\Core\Model\Category\CategoryReference'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'slug' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
+            'ancestors' => [static::TYPE => CategoryReferenceCollection::class],
+            'parent' => [static::TYPE => CategoryReference::class],
             'orderHint' => [static::TYPE => 'string'],
             'externalId' => [static::TYPE => 'string'],
-            'metaDescription' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'metaTitle' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'metaKeywords' => [static::TYPE => 'Commercetools\Core\Model\Common\LocalizedString'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
-            'assets' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetCollection']
+            'metaDescription' => [static::TYPE => LocalizedString::class],
+            'metaTitle' => [static::TYPE => LocalizedString::class],
+            'metaKeywords' => [static::TYPE => LocalizedString::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
+            'assets' => [static::TYPE => AssetCollection::class],
         ];
     }
 }

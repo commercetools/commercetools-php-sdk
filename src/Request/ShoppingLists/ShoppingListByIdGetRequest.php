@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ShoppingListByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ShoppingList\ShoppingList';
+    protected $resultClass = ShoppingList::class;
 
     /**
      * @param string $id

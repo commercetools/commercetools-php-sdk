@@ -22,11 +22,11 @@ use Commercetools\Core\Request\AbstractApiRequest;
  * @package Commercetools\Core\Response
  * @method AbstractApiRequest getRequest($class)
  */
-class PagedQueryResponseTest extends \PHPUnit_Framework_TestCase
+class PagedQueryResponseTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_API_REQUEST = '\Commercetools\Core\Request\AbstractApiRequest';
+    const ABSTRACT_API_REQUEST = AbstractApiRequest::class;
 
     const RESPONSE = '
     {

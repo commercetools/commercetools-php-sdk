@@ -6,15 +6,16 @@
 namespace Commercetools\Core\Model\Common;
 
 use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Model\Product\ProductProjectionCollection;
 
-class CollectionTest extends \PHPUnit_Framework_TestCase
+class CollectionTest extends \PHPUnit\Framework\TestCase
 {
     protected function getCollection()
     {
         $collection = Collection::of();
 
-        $mockBuilder = $this->getMockBuilder('\Commercetools\Core\Model\Common\JsonObject');
+        $mockBuilder = $this->getMockBuilder(JsonObject::class);
         $mockBuilder->setMethods(['fieldDefinitions'])
             ->setConstructorArgs([['key' => 'value', 'true' => true, 'false' => false]]);
         $obj = $mockBuilder->getMock();
@@ -28,11 +29,11 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
                         'dummy' => [JsonObject::TYPE => 'string'],
                         'true' => [JsonObject::TYPE => 'bool'],
                         'false' => [JsonObject::TYPE => 'bool'],
-                        'localString' => [JsonObject::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+                        'localString' => [JsonObject::TYPE => LocalizedString::class],
                         'mixed' => [],
                         'decorator' => [
                             JsonObject::TYPE => '\DateTime',
-                            JsonObject::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                            JsonObject::DECORATOR => DateTimeDecorator::class
                         ]
                     ]
                 )
@@ -58,7 +59,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testOf()
     {
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Collection', Collection::of());
+        $this->assertInstanceOf(Collection::class, Collection::of());
     }
 
     public function testSetType()
@@ -86,8 +87,8 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             ['currencyCode' => 'EUR', 'centAmount' => 100],
             ['currencyCode' => 'USD', 'centAmount' => 110]
         ]);
-        $obj->setType('\Commercetools\Core\Model\Common\Money');
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Money', $obj->getAt(0));
+        $obj->setType(Money::class);
+        $this->assertInstanceOf(Money::class, $obj->getAt(0));
         $this->assertSame('EUR', $obj->getAt(0)->getCurrencyCode());
         $this->assertSame(100, $obj->getAt(0)->getCentAmount());
     }
@@ -107,12 +108,12 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             ['currencyCode' => 'EUR', 'centAmount' => 100],
             ['currencyCode' => 'USD', 'centAmount' => 110]
         ]);
-        $collection->setType('\Commercetools\Core\Model\Common\Money');
+        $collection->setType(Money::class);
 
         $i = 0;
         foreach ($collection as $key => $obj) {
             $this->assertSame($key, $i);
-            $this->assertInstanceOf('\Commercetools\Core\Model\Common\Money', $obj);
+            $this->assertInstanceOf(Money::class, $obj);
             $i++;
         }
         $this->assertSame($collection->count(), $i);
@@ -124,12 +125,12 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             ['currencyCode' => 'EUR', 'centAmount' => 100],
             ['currencyCode' => 'USD', 'centAmount' => 110]
         ]);
-        $collection->setType('\Commercetools\Core\Model\Common\Money');
+        $collection->setType(Money::class);
         $collection->getAt(1);
         $i = 0;
         foreach ($collection as $key => $obj) {
             $this->assertSame($key, $i);
-            $this->assertInstanceOf('\Commercetools\Core\Model\Common\Money', $obj);
+            $this->assertInstanceOf(Money::class, $obj);
             $i++;
         }
         $this->assertSame($collection->count(), $i);
@@ -142,13 +143,13 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             'usd' => ['currencyCode' => 'USD', 'centAmount' => 110],
         ];
         $collection = Collection::fromArray($data);
-        $collection->setType('\Commercetools\Core\Model\Common\Money');
+        $collection->setType(Money::class);
 
         $i = 0;
         $keys = array_keys($data);
         foreach ($collection as $key => $obj) {
             $this->assertSame($keys[$i], $key);
-            $this->assertInstanceOf('\Commercetools\Core\Model\Common\Money', $obj);
+            $this->assertInstanceOf(Money::class, $obj);
             $i++;
         }
         $this->assertSame($collection->count(), $i);
@@ -161,14 +162,14 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             'usd' => ['currencyCode' => 'USD', 'centAmount' => 110],
         ];
         $collection = Collection::fromArray($data);
-        $collection->setType('\Commercetools\Core\Model\Common\Money');
+        $collection->setType(Money::class);
         $collection->getAt('usd');
 
         $i = 0;
         $keys = array_keys($data);
         foreach ($collection as $key => $obj) {
             $this->assertSame($keys[$i], $key);
-            $this->assertInstanceOf('\Commercetools\Core\Model\Common\Money', $obj);
+            $this->assertInstanceOf(Money::class, $obj);
             $i++;
         }
         $this->assertSame($collection->count(), $i);
@@ -196,7 +197,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     public function testIndex()
     {
         $collection = ProductProjectionCollection::fromArray([['id' => '12345']]);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\ProductProjection', $collection->getById('12345'));
+        $this->assertInstanceOf(ProductProjection::class, $collection->getById('12345'));
     }
 
     public function testNotIndexed()
@@ -207,7 +208,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetReturnRaw()
     {
-        $mockBuilder = $this->getMockBuilder('\Commercetools\Core\Model\Common\Collection');
+        $mockBuilder = $this->getMockBuilder(Collection::class);
         $mockBuilder->setMethods(['initialize'])->setConstructorArgs([[new \DateTime('2015-01-01')]]);
         $collection = $mockBuilder->getMock();
 
@@ -229,7 +230,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $collection = Collection::fromArray([
             ['currencyCode' => 'EUR', 'centAmount' => 100],
         ]);
-        $collection->setType('\Commercetools\Core\Model\Common\Money');
+        $collection->setType(Money::class);
         $collection->add(Money::ofCurrencyAndAmount('USD', 110));
 
         $this->assertCount(2, $collection);

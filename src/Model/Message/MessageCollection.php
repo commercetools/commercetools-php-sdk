@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class MessageCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Message\Message';
+    protected $type = Message::class;
 }

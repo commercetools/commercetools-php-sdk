@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ReviewUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Review\Review';
+    protected $resultClass = Review::class;
 
     /**
      * @param string $id

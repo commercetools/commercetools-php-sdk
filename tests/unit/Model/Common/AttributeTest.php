@@ -8,35 +8,35 @@ namespace Commercetools\Core\Model\Common;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\AttributeType;
 
-class AttributeTest extends \PHPUnit_Framework_TestCase
+class AttributeTest extends \PHPUnit\Framework\TestCase
 {
     public function apiTypeProvider()
     {
         return [
-            ['string', ['name' => 'string', 'value' => 'bar']],
-            ['int', ['name' => 'int', 'value' => 1]],
-            ['float', ['name' => 'float', 'value' => 1.1]],
-            ['bool', ['name' => 'bool', 'value' => true]],
-            ['\Commercetools\Core\Model\Common\LocalizedString', ['name' => 'ltext', 'value' => ['en' => 'Foo']]],
-            [
-                '\Commercetools\Core\Model\Common\Enum',
+            'string' => ['string', ['name' => 'string', 'value' => 'bar']],
+            'int' => ['int', ['name' => 'int', 'value' => 1]],
+            'float' => ['float', ['name' => 'float', 'value' => 1.1]],
+            'bool' => ['bool', ['name' => 'bool', 'value' => true]],
+            'ltext' => [LocalizedString::class, ['name' => 'ltext', 'value' => ['en' => 'Foo']]],
+            'enum' => [
+                Enum::class,
                 ['name' => 'enum', 'value' => ['key' => 'foo', 'label' => 'Foo']]
             ],
-            [
-                '\Commercetools\Core\Model\Common\LocalizedEnum',
+            'lenum' => [
+                LocalizedEnum::class,
                 ['name' => 'lenum', 'value' => ['key' => 'foo', 'label' => ['en' => 'Foo']]]
             ],
-            [
-                '\Commercetools\Core\Model\Common\Money',
+            'money' => [
+                Money::class,
                 ['name' => 'money', 'value' => ['currencyCode' => 'EUR', 'centAmount' => 100]]
             ],
-            ['\Commercetools\Core\Model\Common\Set', ['name' => 'set', 'value' => ['value1', 'value2']]],
-            [
-                '\Commercetools\Core\Model\Common\Reference',
+            'set' => [Set::class, ['name' => 'set', 'value' => ['value1', 'value2']]],
+            'reference' => [
+                Reference::class,
                 ['name' => 'reference', 'value' => ['typeId' => 'reference', 'id' => '123456']]
             ],
-            [
-                '\Commercetools\Core\Model\Common\AttributeCollection',
+            'nested' => [
+                AttributeCollection::class,
                 [
                     'name' => 'nested',
                     'value' => [
@@ -73,8 +73,8 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
         ];
         $attribute = Attribute::fromArray($data);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Set', $attribute->getValue());
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Enum', $attribute->getValue()->getAt(0));
+        $this->assertInstanceOf(Set::class, $attribute->getValue());
+        $this->assertInstanceOf(Enum::class, $attribute->getValue()->getAt(0));
     }
 
     public function testSameTypeForName()
@@ -94,7 +94,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
         $attribute2 = Attribute::fromArray(['name' => 'test-set', 'value' => []]);
         $attribute2->getValue()->getAt(0);
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Common\Enum',
+            Enum::class,
             $attribute2->getValue()->getAt(0)
         );
     }

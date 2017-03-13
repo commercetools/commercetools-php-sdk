@@ -21,8 +21,8 @@ class ShippingRate extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'freeAbove' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'price' => [static::TYPE => Money::class],
+            'freeAbove' => [static::TYPE => Money::class],
         ];
     }
 }

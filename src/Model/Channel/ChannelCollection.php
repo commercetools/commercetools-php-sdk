@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ChannelCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Channel\Channel';
+    protected $type = Channel::class;
 }

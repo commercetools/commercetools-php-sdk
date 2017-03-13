@@ -19,7 +19,7 @@ class StateCollection extends Collection
 {
     const KEY = 'key';
 
-    protected $type = '\Commercetools\Core\Model\State\State';
+    protected $type = State::class;
 
     protected function indexRow($offset, $row)
     {

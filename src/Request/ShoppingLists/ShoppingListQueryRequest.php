@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ShoppingListQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ShoppingList\ShoppingListCollection';
+    protected $resultClass = ShoppingListCollection::class;
 
     /**
      * @param Context $context

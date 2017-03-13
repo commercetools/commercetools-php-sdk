@@ -7,6 +7,7 @@
 namespace Commercetools\Core\State;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Model\State\StateDraft;
 use Commercetools\Core\Request\States\StateByIdGetRequest;
 use Commercetools\Core\Request\States\StateCreateRequest;
@@ -52,7 +53,7 @@ class StateQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result->getAt(0));
+        $this->assertInstanceOf(State::class, $result->getAt(0));
         $this->assertSame($state->getId(), $result->getAt(0)->getId());
     }
 
@@ -65,7 +66,7 @@ class StateQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $state);
+        $this->assertInstanceOf(State::class, $state);
         $this->assertSame($state->getId(), $result->getId());
 
     }

@@ -32,7 +32,7 @@ class ProductSetPricesAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
-            'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceDraftCollection'],
+            'prices' => [static::TYPE => PriceDraftCollection::class],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

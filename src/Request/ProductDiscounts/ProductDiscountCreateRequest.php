@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ProductDiscountCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ProductDiscount\ProductDiscount';
+    protected $resultClass = ProductDiscount::class;
 
     /**
      * @param ProductDiscountDraft $productDiscount

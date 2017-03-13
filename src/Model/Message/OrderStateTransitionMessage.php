@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\State\StateReference;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\State\StateReference;
  * @method string getId()
  * @method OrderStateTransitionMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method OrderStateTransitionMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method OrderStateTransitionMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method OrderStateTransitionMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -29,7 +30,7 @@ use Commercetools\Core\Model\State\StateReference;
  * @method int getVersion()
  * @method OrderStateTransitionMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method OrderStateTransitionMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method OrderStateTransitionMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method bool getForce()
  * @method OrderStateTransitionMessage setForce(bool $force = null)
  */

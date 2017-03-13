@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ProductTypeDeleteByKeyRequest extends AbstractDeleteByKeyRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ProductType\ProductType';
+    protected $resultClass = ProductType::class;
 
     /**
      * @param string $key

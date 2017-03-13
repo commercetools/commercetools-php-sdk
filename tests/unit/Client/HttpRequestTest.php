@@ -6,7 +6,7 @@
 
 namespace Commercetools\Core\Client;
 
-class HttpRequestTest extends \PHPUnit_Framework_TestCase
+class HttpRequestTest extends \PHPUnit\Framework\TestCase
 {
     public function testPath()
     {

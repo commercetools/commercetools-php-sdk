@@ -5,9 +5,11 @@
 
 namespace Commercetools\Core\Model\ProductType;
 
+use Commercetools\Core\Model\Common\EnumCollection;
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 
-class AttributeTypeTest extends \PHPUnit_Framework_TestCase
+class AttributeTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testTypeEnum()
     {
@@ -15,7 +17,7 @@ class AttributeTypeTest extends \PHPUnit_Framework_TestCase
             'name' => 'enum'
         ]);
         $this->assertSame(
-            '\Commercetools\Core\Model\Common\EnumCollection',
+            EnumCollection::class,
             $type->fieldDefinitions()['values'][JsonObject::TYPE]
         );
     }
@@ -26,7 +28,7 @@ class AttributeTypeTest extends \PHPUnit_Framework_TestCase
             'name' => 'lenum'
         ]);
         $this->assertSame(
-            '\Commercetools\Core\Model\Common\LocalizedEnumCollection',
+            LocalizedEnumCollection::class,
             $type->fieldDefinitions()['values'][JsonObject::TYPE]
         );
     }

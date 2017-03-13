@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class TaxCategoryQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\TaxCategory\TaxCategoryCollection';
+    protected $resultClass = TaxCategoryCollection::class;
 
     /**
      * @param Context $context

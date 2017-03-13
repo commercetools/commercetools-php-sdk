@@ -24,7 +24,7 @@ class TypeAddFieldDefinitionAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'fieldDefinition' => [static::TYPE => '\Commercetools\Core\Model\Type\FieldDefinition'],
+            'fieldDefinition' => [static::TYPE => FieldDefinition::class],
         ];
     }
 

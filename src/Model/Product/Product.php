@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Review\ReviewRatingStatistics;
 use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Product
@@ -22,9 +23,9 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  * @method int getVersion()
  * @method Product setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Product setCreatedAt(\DateTime $createdAt = null)
+ * @method Product setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Product setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Product setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method ProductTypeReference getProductType()
  * @method Product setProductType(ProductTypeReference $productType = null)
  * @method TaxCategoryReference getTaxCategory()
@@ -47,18 +48,18 @@ class Product extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'productType' => [static::TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference'],
-            'taxCategory' => [self::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
-            'masterData' => [self::TYPE => '\Commercetools\Core\Model\Product\ProductCatalogData'],
-            'reviewRatingStatistics' => [static::TYPE => '\Commercetools\Core\Model\Review\ReviewRatingStatistics'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+            'productType' => [static::TYPE => ProductTypeReference::class],
+            'taxCategory' => [self::TYPE => TaxCategoryReference::class],
+            'masterData' => [self::TYPE => ProductCatalogData::class],
+            'reviewRatingStatistics' => [static::TYPE => ReviewRatingStatistics::class],
+            'state' => [static::TYPE => StateReference::class],
             'key' => [static::TYPE => 'string'],
         ];
     }

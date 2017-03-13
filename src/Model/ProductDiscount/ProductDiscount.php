@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\ReferenceCollection;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\ProductDiscount
@@ -18,9 +19,9 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method int getVersion()
  * @method ProductDiscount setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method ProductDiscount setCreatedAt(\DateTime $createdAt = null)
+ * @method ProductDiscount setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method ProductDiscount setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ProductDiscount setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method LocalizedString getName()
  * @method ProductDiscount setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
@@ -45,20 +46,20 @@ class ProductDiscount extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'value' => [static::TYPE => '\Commercetools\Core\Model\ProductDiscount\ProductDiscountValue'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
+            'value' => [static::TYPE => ProductDiscountValue::class],
             'predicate' => [],
             'sortOrder' => [static::TYPE => 'string'],
             'isActive' => [static::TYPE => 'bool'],
-            'references' => [static::TYPE => '\Commercetools\Core\Model\Common\ReferenceCollection'],
+            'references' => [static::TYPE => ReferenceCollection::class],
         ];
     }
 }

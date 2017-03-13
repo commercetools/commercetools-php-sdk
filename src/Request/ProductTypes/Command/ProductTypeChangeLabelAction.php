@@ -26,7 +26,7 @@ class ProductTypeChangeLabelAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'attributeName' => [static::TYPE => 'string'],
-            'label' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString']
+            'label' => [static::TYPE => LocalizedString::class]
         ];
     }
 

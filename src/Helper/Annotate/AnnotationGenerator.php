@@ -5,6 +5,10 @@
 
 namespace Commercetools\Core\Helper\Annotate;
 
+use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Request\AbstractApiRequest;
+
 class AnnotationGenerator
 {
     /**
@@ -59,7 +63,7 @@ class AnnotationGenerator
             $class = $this->getClassName($phpFile->getRealPath());
 
             if (!empty($class)) {
-                if (in_array('Commercetools\Core\Model\Common\JsonObject', class_parents($class))) {
+                if (in_array(JsonObject::class, class_parents($class))) {
                     $jsonObjects[] = $class;
                 }
             }
@@ -75,7 +79,7 @@ class AnnotationGenerator
             $class = $this->getClassName($phpFile->getRealPath());
 
             if (!empty($class)) {
-                if (in_array('Commercetools\Core\Model\Common\Collection', class_parents($class))) {
+                if (in_array(Collection::class, class_parents($class))) {
                     $collectionObjects[] = $class;
                 }
             }
@@ -91,7 +95,7 @@ class AnnotationGenerator
             $class = $this->getClassName($phpFile->getRealPath());
 
             if (!empty($class)) {
-                if (in_array('Commercetools\Core\Request\AbstractApiRequest', class_parents($class))) {
+                if (in_array(AbstractApiRequest::class, class_parents($class))) {
                     $requestObjects[] = $class;
                 }
             }

@@ -24,7 +24,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ProjectGetRequest extends AbstractApiRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Project\Project';
+    protected $resultClass = Project::class;
 
     public function __construct(Context $context = null)
     {

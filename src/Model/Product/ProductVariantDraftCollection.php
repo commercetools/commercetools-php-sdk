@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ProductVariantDraftCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Product\ProductVariantDraft';
+    protected $type = ProductVariantDraft::class;
 }

@@ -8,6 +8,7 @@ namespace Commercetools\Core\State;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Model\State\StateDraft;
 use Commercetools\Core\Model\State\StateReferenceCollection;
 use Commercetools\Core\Request\States\Command\StateAddRolesAction;
@@ -69,7 +70,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
         $this->assertSame($description->en, $result->getDescription()->en);
         $this->assertNotSame($state->getVersion(), $result->getVersion());
 
@@ -77,7 +78,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
     }
 
     public function testChangeKey()
@@ -96,7 +97,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
         $this->assertSame($key, $result->getKey());
         $this->assertNotSame($state->getVersion(), $result->getVersion());
 
@@ -104,7 +105,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
     }
 
     public function testSetStateName()
@@ -123,7 +124,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
         $this->assertSame($name->en, $result->getName()->en);
         $this->assertNotSame($state->getVersion(), $result->getVersion());
 
@@ -131,7 +132,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
     }
 
     public function testChangeType()
@@ -150,7 +151,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
         $this->assertSame($type, $result->getType());
         $this->assertNotSame($state->getVersion(), $result->getVersion());
 
@@ -158,7 +159,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
     }
 
     public function testChangeInitial()
@@ -177,7 +178,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
         $this->assertSame($initial, $result->getInitial());
         $this->assertNotSame($state->getVersion(), $result->getVersion());
 
@@ -185,7 +186,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
     }
 
     public function testSetTransition()
@@ -209,7 +210,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
         $this->assertSame($state2->getId(), $result->getTransitions()->current()->getId());
         $this->assertNotSame($state->getVersion(), $result->getVersion());
 
@@ -223,7 +224,7 @@ class StateUpdateRequestTest extends ApiTestCase
         );
         $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
     }
 
     public function testSetRoles()
@@ -242,7 +243,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
         $this->assertSame($roles, $result->getRoles());
         $this->assertNotSame($state->getVersion(), $result->getVersion());
 
@@ -250,7 +251,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($result->getVersion());
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
     }
 
     public function testCreateWithRoles()
@@ -259,7 +260,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $draft->setRoles(['ReviewIncludedInStatistics']);
         $state = $this->createState($draft);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $state);
+        $this->assertInstanceOf(State::class, $state);
         $this->assertSame(['ReviewIncludedInStatistics'], $state->getRoles());
     }
 
@@ -279,7 +280,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
         $this->assertSame($roles, $result->getRoles());
         $this->assertNotSame($state->getVersion(), $result->getVersion());
         $actualVersion = $result->getVersion();
@@ -293,7 +294,7 @@ class StateUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
         $this->assertCount(0, $result->getRoles());
         $this->assertNotSame($actualVersion, $result->getVersion());
         $actualVersion = $result->getVersion();
@@ -302,6 +303,6 @@ class StateUpdateRequestTest extends ApiTestCase
         $deleteRequest->setVersion($actualVersion);
         $result = $this->getClient()->execute($deleteRequest)->toObject();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $result);
+        $this->assertInstanceOf(State::class, $result);
     }
 }

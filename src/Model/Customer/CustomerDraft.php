@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use DateTime;
 use Commercetools\Core\Model\Common\DateDecorator;
 
 /**
@@ -37,7 +38,7 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method CustomerDraft setAnonymousCartId(string $anonymousCartId = null)
  * @method CustomerDraft setExternalId(string $externalId = null)
  * @method DateDecorator getDateOfBirth()
- * @method CustomerDraft setDateOfBirth(\DateTime $dateOfBirth = null)
+ * @method CustomerDraft setDateOfBirth(DateTime $dateOfBirth = null)
  * @method string getCompanyName()
  * @method CustomerDraft setCompanyName(string $companyName = null)
  * @method string getVatId()
@@ -77,17 +78,17 @@ class CustomerDraft extends JsonObject
             'anonymousCartId' => [static::TYPE => 'string'],
             'externalId' => [static::TYPE => 'string'],
             'dateOfBirth' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateDecorator::class
             ],
             'companyName' => [static::TYPE => 'string'],
             'vatId' => [static::TYPE => 'string'],
             'isEmailVerified' => [static::TYPE => 'bool'],
-            'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
-            'addresses' => [static::TYPE => '\Commercetools\Core\Model\Common\AddressCollection'],
+            'customerGroup' => [static::TYPE => CustomerGroupReference::class],
+            'addresses' => [static::TYPE => AddressCollection::class],
             'defaultShippingAddress' => [static::TYPE => 'int'],
             'defaultBillingAddress' => [static::TYPE => 'int'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'locale' => [static::TYPE => 'string'],
             'billingAddresses' => [static::TYPE => 'array'],
             'shippingAddresses' => [static::TYPE => 'array'],

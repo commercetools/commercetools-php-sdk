@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\CustomObject;
 
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\CustomObject
@@ -16,9 +17,9 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method int getVersion()
  * @method CustomObject setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method CustomObject setCreatedAt(\DateTime $createdAt = null)
+ * @method CustomObject setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method CustomObject setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method CustomObject setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getContainer()
  * @method CustomObject setContainer(string $container = null)
  * @method string getKey()
@@ -35,12 +36,12 @@ class CustomObject extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'container' => [static::TYPE => 'string'],
             'key' => [static::TYPE => 'string'],

@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Request;
 
 use Commercetools\Core\Error\UpdateActionLimitException;
+use Commercetools\Core\Response\ResourceResponse;
 use GuzzleHttp\Message\Response;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
@@ -19,11 +20,11 @@ use Commercetools\Core\Model\Common\Context;
  * @package Commercetools\Core\Request
  * @method AbstractUpdateRequest getRequest($class, array $args = [])
  */
-class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractUpdateRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_UPDATE_REQUEST = '\Commercetools\Core\Request\AbstractUpdateRequest';
+    const ABSTRACT_UPDATE_REQUEST = AbstractUpdateRequest::class;
 
     /**
      * @return AbstractUpdateRequest
@@ -83,7 +84,7 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getUpdateRequest();
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 
     public function testAddAction()
@@ -139,7 +140,7 @@ class AbstractUpdateRequestTest extends \PHPUnit_Framework_TestCase
             $request->addActionAsArray(['key' => 'value']);
         } catch (\Exception $e) {
             $exceptionThrown = true;
-            $this->assertInstanceOf('\Commercetools\Core\Error\UpdateActionLimitException', $e);
+            $this->assertInstanceOf(UpdateActionLimitException::class, $e);
         }
         $this->assertTrue($exceptionThrown);
     }

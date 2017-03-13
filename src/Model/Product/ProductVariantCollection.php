@@ -19,7 +19,7 @@ class ProductVariantCollection extends Collection
     const ID = 'id';
     const SKU = 'sku';
     const MATCHING = 'isMatchingVariant';
-    protected $type = '\Commercetools\Core\Model\Product\ProductVariant';
+    protected $type = ProductVariant::class;
 
     protected function indexRow($offset, $row)
     {

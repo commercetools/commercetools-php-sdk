@@ -7,12 +7,12 @@ namespace Commercetools\Core\Model\Common;
 
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountReference;
 
-class DiscountedPriceTest extends \PHPUnit_Framework_TestCase
+class DiscountedPriceTest extends \PHPUnit\Framework\TestCase
 {
     public function testFromArray()
     {
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Common\DiscountedPrice',
+            DiscountedPrice::class,
             DiscountedPrice::fromArray([
                 'value' => [
                     'currencyCode' => 'EUR',

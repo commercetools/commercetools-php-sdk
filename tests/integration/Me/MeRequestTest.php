@@ -268,7 +268,7 @@ class MeRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\ResourceNotFoundError',
+            ResourceNotFoundError::class,
             $response->getErrors()->getByCode(ResourceNotFoundError::CODE)
         );
     }

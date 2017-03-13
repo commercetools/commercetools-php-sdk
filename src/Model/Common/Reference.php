@@ -41,7 +41,7 @@ class Reference extends ResourceIdentifier
 {
     const OBJ = 'obj';
 
-    const TYPE_CLASS = '\Commercetools\Core\Model\Common\JsonObject';
+    const TYPE_CLASS = JsonObject::class;
 
     public function fieldDefinitions()
     {
@@ -58,7 +58,7 @@ class Reference extends ResourceIdentifier
      */
     public static function fromArray(array $data, $context = null)
     {
-        if (get_called_class() == 'Commercetools\Core\Model\Common\Reference' && isset($data[static::TYPE_ID])) {
+        if (get_called_class() == Reference::class && isset($data[static::TYPE_ID])) {
             $className = static::referenceType($data[static::TYPE_ID]);
             if (class_exists($className)) {
                 return new $className($data, $context);
@@ -70,29 +70,29 @@ class Reference extends ResourceIdentifier
     protected static function referenceType($typeId)
     {
         $types = [
-            CartReference::TYPE_CART => '\Commercetools\Core\Model\Cart\CartReference',
-            CartDiscountReference::TYPE_CART_DISCOUNT => '\Commercetools\Core\Model\CartDiscount\CartDiscountReference',
-            CategoryReference::TYPE_CATEGORY => '\Commercetools\Core\Model\Category\CategoryReference',
-            ChannelReference::TYPE_CHANNEL => '\Commercetools\Core\Model\Channel\ChannelReference',
-            CustomerReference::TYPE_CUSTOMER => '\Commercetools\Core\Model\Customer\CustomerReference',
-            CustomObjectReference::TYPE_CUSTOM_OBJECT => '\Commercetools\Core\Model\CustomObject\CustomObjectReference',
+            CartReference::TYPE_CART => CartReference::class,
+            CartDiscountReference::TYPE_CART_DISCOUNT => CartDiscountReference::class,
+            CategoryReference::TYPE_CATEGORY => CategoryReference::class,
+            ChannelReference::TYPE_CHANNEL => ChannelReference::class,
+            CustomerReference::TYPE_CUSTOMER => CustomerReference::class,
+            CustomObjectReference::TYPE_CUSTOM_OBJECT => CustomObjectReference::class,
             CustomerGroupReference::TYPE_CUSTOMER_GROUP =>
-                '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference',
-            DiscountCodeReference::TYPE_DISCOUNT_CODE => '\Commercetools\Core\Model\DiscountCode\DiscountCodeReference',
-            CustomObjectReference::TYPE_CUSTOM_OBJECT => '\Commercetools\Core\Model\CustomObject\CustomObjectReference',
-            PaymentReference::TYPE_PAYMENT => '\Commercetools\Core\Model\Payment\PaymentReference',
-            ProductReference::TYPE_PRODUCT => '\Commercetools\Core\Model\Product\ProductReference',
+                CustomerGroupReference::class,
+            DiscountCodeReference::TYPE_DISCOUNT_CODE => DiscountCodeReference::class,
+            CustomObjectReference::TYPE_CUSTOM_OBJECT => CustomObjectReference::class,
+            PaymentReference::TYPE_PAYMENT => PaymentReference::class,
+            ProductReference::TYPE_PRODUCT => ProductReference::class,
             ProductDiscountReference::TYPE_PRODUCT_DISCOUNT =>
-                '\Commercetools\Core\Model\ProductDiscount\ProductDiscountReference',
-            ProductTypeReference::TYPE_PRODUCT_TYPE => '\Commercetools\Core\Model\ProductType\ProductTypeReference',
-            OrderReference::TYPE_ORDER => '\Commercetools\Core\Model\Order\OrderReference',
+                ProductDiscountReference::class,
+            ProductTypeReference::TYPE_PRODUCT_TYPE => ProductTypeReference::class,
+            OrderReference::TYPE_ORDER => OrderReference::class,
             ShippingMethodReference::TYPE_SHIPPING_METHOD =>
-                '\Commercetools\Core\Model\ShippingMethod\ShippingMethodReference',
-            StateReference::TYPE_STATE => '\Commercetools\Core\Model\State\StateReference',
-            TaxCategoryReference::TYPE_TAX_CATEGORY => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference',
-            TypeReference::TYPE_TYPE => '\Commercetools\Core\Model\Type\TypeReference',
-            ZoneReference::TYPE_ZONE => '\Commercetools\Core\Model\Zone\ZoneReference',
+                ShippingMethodReference::class,
+            StateReference::TYPE_STATE => StateReference::class,
+            TaxCategoryReference::TYPE_TAX_CATEGORY => TaxCategoryReference::class,
+            TypeReference::TYPE_TYPE => TypeReference::class,
+            ZoneReference::TYPE_ZONE => ZoneReference::class,
         ];
-        return isset($types[$typeId]) ? $types[$typeId] : '\Commercetools\Core\Model\Common\Reference';
+        return isset($types[$typeId]) ? $types[$typeId] : Reference::class;
     }
 }

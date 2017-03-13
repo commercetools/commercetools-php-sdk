@@ -16,7 +16,7 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class FilterRangeCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Product\Search\FilterRange';
+    protected $type = FilterRange::class;
 
     public function __toString()
     {

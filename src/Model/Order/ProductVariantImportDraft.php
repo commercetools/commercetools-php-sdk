@@ -31,9 +31,9 @@ class ProductVariantImportDraft extends JsonObject
         return [
             'id' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
-            'prices' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceCollection'],
-            'attributes' => [static::TYPE => '\Commercetools\Core\Model\Common\AttributeCollection'],
-            'images' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageCollection'],
+            'prices' => [static::TYPE => PriceCollection::class],
+            'attributes' => [static::TYPE => AttributeCollection::class],
+            'images' => [static::TYPE => ImageCollection::class],
         ];
     }
 }

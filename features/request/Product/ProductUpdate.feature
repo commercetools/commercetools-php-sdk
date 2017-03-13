@@ -182,47 +182,6 @@ Feature: I want to send a Product Update Request
   Scenario:
     Given a "product" is identified by "id" and version 1
     And i want to update a "product"
-    And add the "setMetaAttributes" action to "product" with values
-    """
-        {
-          "action": "setMetaAttributes",
-          "metaTitle": {
-            "en": "metaTitle"
-          },
-          "metaDescription": {
-            "en": "metaDescription"
-          },
-          "metaKeywords": {
-            "en": "metaKeywords"
-          }
-        }
-    """
-    Then the path should be "products/id"
-    And the method should be "POST"
-    And the request should be
-    """
-    {
-      "version": 1,
-      "actions": [
-        {
-          "action": "setMetaAttributes",
-          "metaTitle": {
-            "en": "metaTitle"
-          },
-          "metaDescription": {
-            "en": "metaDescription"
-          },
-          "metaKeywords": {
-            "en": "metaKeywords"
-          }
-        }
-      ]
-    }
-    """
-
-  Scenario:
-    Given a "product" is identified by "id" and version 1
-    And i want to update a "product"
     And add the "setMetaTitle" action to "product" with values
     """
         {
@@ -706,34 +665,6 @@ Feature: I want to send a Product Update Request
             "typeId": "tax-category",
             "id": "myTaxCategory"
           }
-        }
-      ]
-    }
-    """
-
-
-  Scenario:
-    Given a "product" is identified by "id" and version 1
-    And i want to update a "product"
-    And add the "setSkuNotStageable" action to "product" with values
-    """
-        {
-          "action": "setSKU",
-          "variantId": 1,
-          "sku": "mySKU"
-        }
-    """
-    Then the path should be "products/id"
-    And the method should be "POST"
-    And the request should be
-    """
-    {
-      "version": 1,
-      "actions": [
-        {
-          "action": "setSKU",
-          "variantId": 1,
-          "sku": "mySKU"
         }
       ]
     }

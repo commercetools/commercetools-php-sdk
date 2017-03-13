@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\PriceCollection;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 
-class PriceFinderTest extends \PHPUnit_Framework_TestCase
+class PriceFinderTest extends \PHPUnit\Framework\TestCase
 {
 
     protected function getPrices()

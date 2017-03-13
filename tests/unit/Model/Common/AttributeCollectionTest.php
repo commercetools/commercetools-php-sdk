@@ -11,7 +11,7 @@ use Commercetools\Core\Model\ProductType\AttributeType;
 use Commercetools\Core\Model\ProductType\StringType;
 use Prophecy\Argument;
 
-class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
+class AttributeCollectionTest extends \PHPUnit\Framework\TestCase
 {
     public function testIndex()
     {
@@ -19,7 +19,7 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
             ['name' => 'test']
         ]);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Attribute', $collection->getByName('test'));
+        $this->assertInstanceOf(Attribute::class, $collection->getByName('test'));
     }
 
     public function testAttributeDefinition()
@@ -31,7 +31,7 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $observer = $this->prophesize('Commercetools\Core\Model\Common\Attribute');
+        $observer = $this->prophesize(Attribute::class);
         $observer->setContext(Argument::any())->shouldBeCalled();
         $observer->parentSet($collection)->shouldBeCalled();
         $observer->rootSet($collection)->shouldBeCalled();
@@ -47,7 +47,7 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = AttributeCollection::of();
         $collection->add(Attribute::fromArray(['name' => 'test']));
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Attribute', $collection->getByName('test'));
+        $this->assertInstanceOf(Attribute::class, $collection->getByName('test'));
     }
 
     public function testMagicGet()
@@ -94,6 +94,6 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
 
         $t = $collection->getByName('test-definition-enum');
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Common\Enum', $t->getValue());
+        $this->assertInstanceOf(Enum::class, $t->getValue());
     }
 }

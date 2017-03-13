@@ -23,7 +23,7 @@ class ZoneRemoveLocationAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'location' => [static::TYPE => '\Commercetools\Core\Model\Zone\Location'],
+            'location' => [static::TYPE => Location::class],
         ];
     }
 

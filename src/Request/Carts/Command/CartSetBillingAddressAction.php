@@ -23,7 +23,7 @@ class CartSetBillingAddressAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'address' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
+            'address' => [static::TYPE => Address::class],
         ];
     }
 

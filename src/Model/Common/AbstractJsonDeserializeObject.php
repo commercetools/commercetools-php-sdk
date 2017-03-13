@@ -12,8 +12,8 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
 {
     use ObjectTreeTrait;
 
-    const JSON_DESERIALIZE_INTERFACE = 'Commercetools\Core\Model\Common\JsonDeserializeInterface';
-    const TYPEABLE_INTERFACE = '\Commercetools\Core\Model\Common\TypeableInterface';
+    const JSON_DESERIALIZE_INTERFACE = JsonDeserializeInterface::class;
+    const TYPEABLE_INTERFACE = TypeableInterface::class;
 
     abstract protected function initialize($field);
 

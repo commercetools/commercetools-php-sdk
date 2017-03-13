@@ -15,5 +15,5 @@ namespace Commercetools\Core\Model\Common;
  */
 class ReferenceCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Common\Reference';
+    protected $type = Reference::class;
 }

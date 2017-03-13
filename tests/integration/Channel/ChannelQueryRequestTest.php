@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Channel;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Common\GeoLocation;
 use Commercetools\Core\Model\Common\GeoPoint;
@@ -53,7 +54,7 @@ class ChannelQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result->getAt(0));
+        $this->assertInstanceOf(Channel::class, $result->getAt(0));
         $this->assertSame($channel->getId(), $result->getAt(0)->getId());
     }
 
@@ -66,7 +67,7 @@ class ChannelQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $channel);
+        $this->assertInstanceOf(Channel::class, $channel);
         $this->assertSame($channel->getId(), $result->getId());
 
     }
@@ -86,7 +87,7 @@ class ChannelQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Channel\Channel', $result->current());
+        $this->assertInstanceOf(Channel::class, $result->current());
         $this->assertSame($channel->getId(), $result->current()->getId());
     }
 

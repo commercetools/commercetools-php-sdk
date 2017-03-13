@@ -7,6 +7,7 @@
 namespace Commercetools\Core\ProductType;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\Request\ProductTypes\ProductTypeByIdGetRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeByKeyGetRequest;
@@ -53,7 +54,7 @@ class ProductTypeQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result->getAt(0));
+        $this->assertInstanceOf(ProductType::class, $result->getAt(0));
         $this->assertSame($productType->getId(), $result->getAt(0)->getId());
     }
 
@@ -66,7 +67,7 @@ class ProductTypeQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $productType);
+        $this->assertInstanceOf(ProductType::class, $productType);
         $this->assertSame($productType->getId(), $result->getId());
 
     }
@@ -80,7 +81,7 @@ class ProductTypeQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $productType);
+        $this->assertInstanceOf(ProductType::class, $productType);
         $this->assertSame($productType->getId(), $result->getId());
 
     }

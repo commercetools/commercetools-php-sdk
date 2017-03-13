@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class DiscountCodeByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\DiscountCode\DiscountCode';
+    protected $resultClass = DiscountCode::class;
 
     /**
      * @param string $id

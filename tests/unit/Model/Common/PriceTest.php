@@ -5,12 +5,12 @@
 
 namespace Commercetools\Core\Model\Common;
 
-class PriceTest extends \PHPUnit_Framework_TestCase
+class PriceTest extends \PHPUnit\Framework\TestCase
 {
     public function testFromArray()
     {
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Common\Price',
+            Price::class,
             Price::fromArray(['value' => ['currencyCode' => 'EUR', 'centAmount' => 100]])
         );
     }

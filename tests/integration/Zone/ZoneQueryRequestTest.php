@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Zone;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\Model\Zone\ZoneDraft;
 use Commercetools\Core\Model\Zone\Location;
 use Commercetools\Core\Model\Zone\LocationCollection;
@@ -56,7 +57,7 @@ class ZoneQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result->getAt(0));
+        $this->assertInstanceOf(Zone::class, $result->getAt(0));
         $this->assertSame($zone->getId(), $result->getAt(0)->getId());
     }
 
@@ -69,7 +70,7 @@ class ZoneQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $zone);
+        $this->assertInstanceOf(Zone::class, $zone);
         $this->assertSame($zone->getId(), $result->getId());
 
     }

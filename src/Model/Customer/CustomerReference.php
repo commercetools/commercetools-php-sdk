@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class CustomerReference extends Reference
 {
     const TYPE_CUSTOMER = 'customer';
-    const TYPE_CLASS = '\Commercetools\Core\Model\Customer\Customer';
+    const TYPE_CLASS = Customer::class;
 
     /**
      * @param $id

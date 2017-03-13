@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\State\StateReference;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\State\StateReference;
  * @method string getId()
  * @method CustomLineItemStateTransitionMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method CustomLineItemStateTransitionMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method CustomLineItemStateTransitionMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method CustomLineItemStateTransitionMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -27,7 +28,7 @@ use Commercetools\Core\Model\State\StateReference;
  * @method string getCustomLineItemId()
  * @method CustomLineItemStateTransitionMessage setCustomLineItemId(string $customLineItemId = null)
  * @method DateTimeDecorator getTransitionDate()
- * @method CustomLineItemStateTransitionMessage setTransitionDate(\DateTime $transitionDate = null)
+ * @method CustomLineItemStateTransitionMessage setTransitionDate(DateTime $transitionDate = null)
  * @method int getQuantity()
  * @method CustomLineItemStateTransitionMessage setQuantity(int $quantity = null)
  * @method StateReference getFromState()
@@ -37,7 +38,7 @@ use Commercetools\Core\Model\State\StateReference;
  * @method int getVersion()
  * @method CustomLineItemStateTransitionMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method CustomLineItemStateTransitionMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method CustomLineItemStateTransitionMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class CustomLineItemStateTransitionMessage extends Message
 {
@@ -50,12 +51,12 @@ class CustomLineItemStateTransitionMessage extends Message
             [
                 'customLineItemId' => [static::TYPE => 'string'],
                 'transitionDate' => [
-                    static::TYPE => '\DateTime',
-                    static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                    static::TYPE => DateTime::class,
+                    static::DECORATOR => DateTimeDecorator::class
                 ],
                 'quantity' => [static::TYPE => 'int'],
-                'fromState' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
-                'toState' => [static::TYPE => '\Commercetools\Core\Model\State\StateReference'],
+                'fromState' => [static::TYPE => StateReference::class],
+                'toState' => [static::TYPE => StateReference::class],
             ]
         );
 

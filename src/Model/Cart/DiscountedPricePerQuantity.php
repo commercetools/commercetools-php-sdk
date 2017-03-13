@@ -22,7 +22,7 @@ class DiscountedPricePerQuantity extends JsonObject
     {
         return [
             'quantity' => [static::TYPE => 'int'],
-            'discountedPrice' => [static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedLineItemPrice']
+            'discountedPrice' => [static::TYPE => DiscountedLineItemPrice::class]
         ];
     }
 

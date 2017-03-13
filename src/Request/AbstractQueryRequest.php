@@ -28,7 +28,7 @@ abstract class AbstractQueryRequest extends AbstractApiRequest implements QueryA
     use ExpandTrait;
     use WithTotalTrait;
 
-    protected $resultClass = '\Commercetools\Core\Model\Common\Collection';
+    protected $resultClass = Collection::class;
 
     /**
      * @return HttpRequest

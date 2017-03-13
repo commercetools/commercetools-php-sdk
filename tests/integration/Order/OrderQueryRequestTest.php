@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
 use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
@@ -81,7 +82,7 @@ class OrderQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result);
+        $this->assertInstanceOf(Order::class, $result);
         $this->assertSame($order->getId(), $result->getId());
 
     }
@@ -99,7 +100,7 @@ class OrderQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Order\Order', $result->getAt(0));
+        $this->assertInstanceOf(Order::class, $result->getAt(0));
         $this->assertSame($order->getId(), $result->getAt(0)->getId());
     }
 }

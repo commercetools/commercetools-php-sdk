@@ -26,8 +26,8 @@ class ShippingMethodAddShippingRateAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'zone' => [static::TYPE => '\Commercetools\Core\Model\Zone\ZoneReference'],
-            'shippingRate' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ShippingRate'],
+            'zone' => [static::TYPE => ZoneReference::class],
+            'shippingRate' => [static::TYPE => ShippingRate::class],
         ];
     }
 

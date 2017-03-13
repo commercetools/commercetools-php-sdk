@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class DiscountedLineItemPortionCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Cart\DiscountedLineItemPortion';
+    protected $type = DiscountedLineItemPortion::class;
 }

@@ -25,8 +25,8 @@ class ProductCatalogData extends JsonObject
     {
         return [
             'published' => [static::TYPE => 'bool'],
-            'current' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductData'],
-            'staged' => [static::TYPE => '\Commercetools\Core\Model\Product\ProductData'],
+            'current' => [static::TYPE => ProductData::class],
+            'staged' => [static::TYPE => ProductData::class],
             'hasStagedChanges' => [static::TYPE => 'bool'],
         ];
     }

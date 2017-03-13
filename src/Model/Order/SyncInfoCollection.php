@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class SyncInfoCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Order\SyncInfo';
+    protected $type = SyncInfo::class;
 }

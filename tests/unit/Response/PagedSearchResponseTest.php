@@ -5,6 +5,10 @@
 
 namespace Commercetools\Core\Response;
 
+use Commercetools\Core\Model\Product\FacetResult;
+use Commercetools\Core\Model\Product\FacetResultCollection;
+use Commercetools\Core\Model\Product\FacetTermCollection;
+use Commercetools\Core\Request\AbstractApiRequest;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
@@ -20,11 +24,11 @@ use Commercetools\Core\Model\Product\FacetTerm;
  * Class PagedSearchResponseTest
  * @package Commercetools\Core\Response
  */
-class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
+class PagedSearchResponseTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_API_REQUEST = '\Commercetools\Core\Request\AbstractApiRequest';
+    const ABSTRACT_API_REQUEST = AbstractApiRequest::class;
 
     const RESPONSE = '
     {
@@ -104,7 +108,7 @@ class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
         $response = $this->getResponse();
         $response->getFacets();
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Product\FacetResultCollection', $response->getFacets());
+        $this->assertInstanceOf(FacetResultCollection::class, $response->getFacets());
     }
 
     public function testGetByName()
@@ -112,7 +116,7 @@ class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
         $response = $this->getResponse();
 
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Product\FacetResult',
+            FacetResult::class,
             $response->getFacets()->getByName('variants.attributes.brand')
         );
     }
@@ -162,7 +166,7 @@ class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
         $response = $this->getResponse();
 
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Product\FacetTermCollection',
+            FacetTermCollection::class,
             $response->getFacets()->getByName('variants.attributes.brand')->getTerms()
         );
     }
@@ -173,7 +177,7 @@ class PagedSearchResponseTest extends \PHPUnit_Framework_TestCase
 
         $term = $response->getFacets()->getByName('variants.attributes.brand')->getTerms()[0];
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Product\FacetTerm',
+            FacetTerm::class,
             $term
         );
     }

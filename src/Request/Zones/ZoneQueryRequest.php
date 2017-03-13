@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ZoneQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Zone\ZoneCollection';
+    protected $resultClass = ZoneCollection::class;
 
     /**
      * @param Context $context

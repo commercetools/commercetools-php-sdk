@@ -40,14 +40,14 @@ class LineItemImportDraft extends JsonObject
     {
         return [
             'productId' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'variant' => [static::TYPE => '\Commercetools\Core\Model\Order\ProductVariantImportDraft'],
-            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\Price'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'variant' => [static::TYPE => ProductVariantImportDraft::class],
+            'price' => [static::TYPE => Price::class],
             'quantity' => [static::TYPE => 'int'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\Order\ItemStateCollection'],
-            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
-            'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft']
+            'state' => [static::TYPE => ItemStateCollection::class],
+            'supplyChannel' => [static::TYPE => ChannelReference::class],
+            'taxRate' => [static::TYPE => TaxRate::class],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class]
         ];
     }
 }

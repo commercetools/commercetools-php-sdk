@@ -30,8 +30,8 @@ class ShippingMethodDraft extends JsonObject
         return [
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
-            'zoneRates' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ZoneRateCollection'],
+            'taxCategory' => [static::TYPE => TaxCategoryReference::class],
+            'zoneRates' => [static::TYPE => ZoneRateCollection::class],
             'isDefault' => [static::TYPE => 'bool'],
         ];
     }

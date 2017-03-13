@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class StateDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\State\State';
+    protected $resultClass = State::class;
 
     /**
      * @param string $id

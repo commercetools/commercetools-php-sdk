@@ -23,7 +23,7 @@ class PaymentSetAmountRefundedAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'amount' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'amount' => [static::TYPE => Money::class],
         ];
     }
 

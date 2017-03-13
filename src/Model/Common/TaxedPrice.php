@@ -20,9 +20,9 @@ class TaxedPrice extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'totalNet' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'totalGross' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'taxPortions' => [static::TYPE => '\Commercetools\Core\Model\Common\TaxPortionCollection'],
+            'totalNet' => [static::TYPE => Money::class],
+            'totalGross' => [static::TYPE => Money::class],
+            'taxPortions' => [static::TYPE => TaxPortionCollection::class],
         ];
     }
 }

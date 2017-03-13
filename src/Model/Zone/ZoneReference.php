@@ -24,7 +24,7 @@ use Commercetools\Core\Model\Common\Reference;
 class ZoneReference extends Reference
 {
     const TYPE_ZONE = 'zone';
-    const TYPE_CLASS = '\Commercetools\Core\Model\Zone\Zone';
+    const TYPE_CLASS = Zone::class;
 
     /**
      * @param $id

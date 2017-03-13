@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Type;
 
+use Commercetools\Core\Model\Common\Enum;
 use Commercetools\Core\Model\Common\EnumCollection;
 
 /**
@@ -22,13 +23,13 @@ class EnumType extends FieldType
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['values'] = [static::TYPE => '\Commercetools\Core\Model\Common\EnumCollection'];
+        $definitions['values'] = [static::TYPE => EnumCollection::class];
 
         return $definitions;
     }
 
     public function fieldTypeDefinition()
     {
-        return [static::TYPE => '\Commercetools\Core\Model\Common\Enum'];
+        return [static::TYPE => Enum::class];
     }
 }

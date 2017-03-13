@@ -16,7 +16,7 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class AttributeDefinitionCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\ProductType\AttributeDefinition';
+    protected $type = AttributeDefinition::class;
 
     const NAME = 'name';
 

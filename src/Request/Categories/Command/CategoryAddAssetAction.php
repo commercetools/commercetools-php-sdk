@@ -23,7 +23,7 @@ class CategoryAddAssetAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'asset' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetDraft'],
+            'asset' => [static::TYPE => AssetDraft::class],
         ];
     }
 

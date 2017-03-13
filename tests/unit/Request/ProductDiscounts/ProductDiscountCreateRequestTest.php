@@ -5,12 +5,13 @@
 
 namespace Commercetools\Core\Request\ProductDiscounts;
 
+use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountDraft;
 use Commercetools\Core\RequestTestCase;
 
 class ProductDiscountCreateRequestTest extends RequestTestCase
 {
-    const PRODUCT_DISCOUNT_CREATE_REQUEST = '\Commercetools\Core\Request\ProductDiscounts\ProductDiscountCreateRequest';
+    const PRODUCT_DISCOUNT_CREATE_REQUEST = ProductDiscountCreateRequest::class;
 
     protected function getDraft()
     {
@@ -36,7 +37,7 @@ class ProductDiscountCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ProductDiscountCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductDiscount\ProductDiscount', $result);
+        $this->assertInstanceOf(ProductDiscount::class, $result);
     }
 
     public function testMapEmptyResult()

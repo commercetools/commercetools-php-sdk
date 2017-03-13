@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\ShoppingList
@@ -22,7 +23,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method int getQuantity()
  * @method TextLineItem setQuantity(int $quantity = null)
  * @method DateTimeDecorator getAddedAt()
- * @method TextLineItem setAddedAt(\DateTime $addedAt = null)
+ * @method TextLineItem setAddedAt(DateTime $addedAt = null)
  * @method CustomFieldObject getCustom()
  * @method TextLineItem setCustom(CustomFieldObject $custom = null)
  */
@@ -32,14 +33,14 @@ class TextLineItem extends JsonObject
     {
         return [
             'id' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'description' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class],
             'quantity' => [static::TYPE => 'int'],
             'addedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }

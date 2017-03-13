@@ -26,7 +26,7 @@ class ProductTypeChangePlainEnumLabelAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'attributeName' => [static::TYPE => 'string'],
-            'newValue' => [static::TYPE => '\Commercetools\Core\Model\Common\Enum']
+            'newValue' => [static::TYPE => Enum::class]
         ];
     }
 

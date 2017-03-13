@@ -25,7 +25,7 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
     const ID = 'id';
     const TTL_MINUTES = 'ttlMinutes';
 
-    protected $resultClass = '\Commercetools\Core\Model\Customer\CustomerToken';
+    protected $resultClass = CustomerToken::class;
 
     /**
      * @var int
@@ -75,8 +75,8 @@ class CustomerEmailTokenRequest extends AbstractUpdateRequest
     {
         $payload = [
             static::ID => $this->getId(),
-            static::VERSION => $this->getVersion(),
-            static::TTL_MINUTES => $this->ttlMinutes,
+            static::VERSION => (int)$this->getVersion(),
+            static::TTL_MINUTES => (int)$this->ttlMinutes,
         ];
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }

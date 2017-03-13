@@ -6,16 +6,17 @@
 namespace Commercetools\Core\Request\CustomObjects;
 
 use Commercetools\Core\AccessorTrait;
+use Commercetools\Core\Response\ResourceResponse;
 
 /**
  * Class AbstractCustomObjectRequestTest
  * @package Commercetools\Core\Request\CustomObjects
  */
-class AbstractCustomObjectRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractCustomObjectRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_CUSTOM_OBJECT_REQUEST = '\Commercetools\Core\Request\CustomObjects\AbstractCustomObjectRequest';
+    const ABSTRACT_CUSTOM_OBJECT_REQUEST = AbstractCustomObjectRequest::class;
 
     protected function getRequest($class, array $args = [])
     {
@@ -45,6 +46,6 @@ class AbstractCustomObjectRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getRequest(static::ABSTRACT_CUSTOM_OBJECT_REQUEST, ['my-namespace', 'my-key']);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

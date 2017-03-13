@@ -27,7 +27,7 @@ class Image extends JsonObject
     {
         return [
             'url' => [static::TYPE => 'string'],
-            'dimensions' => [static::TYPE => '\Commercetools\Core\Model\Common\ImageDimension'],
+            'dimensions' => [static::TYPE => ImageDimension::class],
             'label' => [static::TYPE => 'string']
         ];
     }

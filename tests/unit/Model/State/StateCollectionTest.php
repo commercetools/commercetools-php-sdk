@@ -5,7 +5,7 @@
 
 namespace Commercetools\Core\Model\State;
 
-class StateCollectionTest extends \PHPUnit_Framework_TestCase
+class StateCollectionTest extends \PHPUnit\Framework\TestCase
 {
     public function testIndex()
     {
@@ -15,7 +15,7 @@ class StateCollectionTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $collection->getByKey('initial'));
+        $this->assertInstanceOf(State::class, $collection->getByKey('initial'));
     }
 
     public function testAddToIndex()
@@ -23,6 +23,6 @@ class StateCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = StateCollection::of();
         $collection->add(new State(['key' => 'initial']));
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\State\State', $collection->getByKey('initial'));
+        $this->assertInstanceOf(State::class, $collection->getByKey('initial'));
     }
 }

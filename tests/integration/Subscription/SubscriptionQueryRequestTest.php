@@ -10,6 +10,7 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Subscription\IronMQDestination;
 use Commercetools\Core\Model\Subscription\MessageSubscription;
 use Commercetools\Core\Model\Subscription\MessageSubscriptionCollection;
+use Commercetools\Core\Model\Subscription\Subscription;
 use Commercetools\Core\Model\Subscription\SubscriptionDraft;
 use Commercetools\Core\Request\Subscriptions\SubscriptionByIdGetRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionByKeyGetRequest;
@@ -64,7 +65,7 @@ class SubscriptionQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\Subscription\Subscription', $result->getAt(0));
+        $this->assertInstanceOf(Subscription::class, $result->getAt(0));
         $this->assertSame($subscription->getId(), $result->getAt(0)->getId());
     }
 
@@ -77,7 +78,7 @@ class SubscriptionQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Subscription\Subscription', $subscription);
+        $this->assertInstanceOf(Subscription::class, $subscription);
         $this->assertSame($subscription->getId(), $result->getId());
     }
 
@@ -90,7 +91,7 @@ class SubscriptionQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Subscription\Subscription', $subscription);
+        $this->assertInstanceOf(Subscription::class, $subscription);
         $this->assertSame($subscription->getId(), $result->getId());
     }
 }

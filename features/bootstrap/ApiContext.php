@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\AbstractJsonDeserializeObject;
 use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Product\Search\Filter;
+use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
 
 trait ApiContext
 {
@@ -278,7 +279,7 @@ trait ApiContext
      */
     public function iWantToSearchProducts()
     {
-        $request = '\Commercetools\Core\Request\\Products\\ProductProjectionSearchRequest';
+        $request = ProductProjectionSearchRequest::class;
         $this->request = call_user_func($request. '::of');
     }
 

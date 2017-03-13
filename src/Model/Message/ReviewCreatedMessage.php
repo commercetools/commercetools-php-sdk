@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Review\Review;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -17,9 +18,9 @@ use Commercetools\Core\Model\Review\Review;
  * @method int getVersion()
  * @method ReviewCreatedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method ReviewCreatedMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method ReviewCreatedMessage setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method ReviewCreatedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ReviewCreatedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method int getSequenceNumber()
  * @method ReviewCreatedMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -38,7 +39,7 @@ class ReviewCreatedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['review'] = [static::TYPE => '\Commercetools\Core\Model\Review\Review'];
+        $definitions['review'] = [static::TYPE => Review::class];
 
         return $definitions;
     }

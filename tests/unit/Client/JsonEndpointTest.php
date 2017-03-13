@@ -6,7 +6,7 @@
 
 namespace Commercetools\Core\Client;
 
-class JsonEndpointTest extends \PHPUnit_Framework_TestCase
+class JsonEndpointTest extends \PHPUnit\Framework\TestCase
 {
     public function testEndpoint()
     {

@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Order\Order;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\Order\Order;
  * @method string getId()
  * @method OrderImportedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method OrderImportedMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method OrderImportedMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method OrderImportedMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -29,7 +30,7 @@ use Commercetools\Core\Model\Order\Order;
  * @method int getVersion()
  * @method OrderImportedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method OrderImportedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method OrderImportedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class OrderImportedMessage extends Message
 {
@@ -38,7 +39,7 @@ class OrderImportedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['order'] = [static::TYPE => '\Commercetools\Core\Model\Order\Order'];
+        $definitions['order'] = [static::TYPE => Order::class];
 
         return $definitions;
     }

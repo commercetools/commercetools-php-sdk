@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\JsonObjectMapper;
 use Commercetools\Core\Model\MapperInterface;
 use Psr\Http\Message\RequestInterface;
@@ -40,7 +41,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
 
     protected $identifier;
 
-    protected $resultClass = '\Commercetools\Core\Model\Common\JsonObject';
+    protected $resultClass = JsonObject::class;
 
     /**
      * @param JsonEndpoint $endpoint

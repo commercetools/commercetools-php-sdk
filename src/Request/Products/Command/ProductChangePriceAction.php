@@ -28,7 +28,7 @@ class ProductChangePriceAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'priceId' => [static::TYPE => 'string'],
-            'price' => [static::TYPE => '\Commercetools\Core\Model\Common\PriceDraft'],
+            'price' => [static::TYPE => PriceDraft::class],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

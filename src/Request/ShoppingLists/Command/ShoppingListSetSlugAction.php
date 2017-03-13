@@ -23,7 +23,7 @@ class ShoppingListSetSlugAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'slug' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'slug' => [static::TYPE => LocalizedString::class],
         ];
     }
 

@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Response\ResourceResponse;
 use GuzzleHttp\Message\Response;
 use Commercetools\Core\AccessorTrait;
 use Commercetools\Core\Client\HttpMethod;
@@ -15,11 +16,11 @@ use Commercetools\Core\Client\HttpMethod;
  * @package Commercetools\Core\Request
  * @method AbstractCreateRequest getRequest($class, array $args = [])
  */
-class AbstractCreateRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractCreateRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_CREATE_REQUEST = '\Commercetools\Core\Request\AbstractCreateRequest';
+    const ABSTRACT_CREATE_REQUEST = AbstractCreateRequest::class;
 
     public function testHttpRequestMethod()
     {
@@ -50,10 +51,10 @@ class AbstractCreateRequestTest extends \PHPUnit_Framework_TestCase
         $mockBuilder = $this->getMockBuilder('\GuzzleHttp\Psr7\Response');
         $mockBuilder->disableOriginalConstructor();
         $guzzleResponse = $mockBuilder->getMock();
-        
+
         $request = $this->getRequest(static::ABSTRACT_CREATE_REQUEST, [['key' => 'value']]);
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

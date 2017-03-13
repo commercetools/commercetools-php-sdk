@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;
 
-class ReferenceTest extends \PHPUnit_Framework_TestCase
+class ReferenceTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @return Reference

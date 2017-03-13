@@ -31,8 +31,8 @@ class FacetResult extends JsonObject
             'missing' => [static::TYPE => 'int'],
             'total' => [static::TYPE => 'int'],
             'other' => [static::TYPE => 'int'],
-            'terms' => [static::TYPE => '\Commercetools\Core\Model\Product\FacetTermCollection'],
-            'ranges' => [static::TYPE => '\Commercetools\Core\Model\Product\FacetRangeCollection']
+            'terms' => [static::TYPE => FacetTermCollection::class],
+            'ranges' => [static::TYPE => FacetRangeCollection::class]
         ];
     }
 }

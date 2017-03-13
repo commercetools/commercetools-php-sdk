@@ -29,7 +29,7 @@ class ProductSetDiscountedPriceAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'priceId' => [static::TYPE => 'string'],
             'staged' => [static::TYPE => 'bool'],
-            'discounted' => [static::TYPE => '\Commercetools\Core\Model\Common\DiscountedPrice'],
+            'discounted' => [static::TYPE => DiscountedPrice::class],
         ];
     }
 

@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class OrderQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Order\OrderCollection';
+    protected $resultClass = OrderCollection::class;
 
     /**
      * @param Context $context

@@ -26,7 +26,7 @@ class CartByCustomerIdGetRequest extends AbstractApiRequest
 {
     use CustomerIdTrait;
 
-    protected $resultClass = '\Commercetools\Core\Model\Cart\Cart';
+    protected $resultClass = Cart::class;
 
     /**
      * @param string $customerId

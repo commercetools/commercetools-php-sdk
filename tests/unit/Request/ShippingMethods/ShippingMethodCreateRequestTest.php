@@ -5,12 +5,13 @@
 
 namespace Commercetools\Core\Request\ShippingMethods;
 
+use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Commercetools\Core\RequestTestCase;
 
 class ShippingMethodCreateRequestTest extends RequestTestCase
 {
-    const SHIPPING_METHOD_CREATE_REQUEST = '\Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest';
+    const SHIPPING_METHOD_CREATE_REQUEST = ShippingMethodCreateRequest::class;
 
     protected function getDraft()
     {
@@ -50,7 +51,7 @@ class ShippingMethodCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ShippingMethodCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
+        $this->assertInstanceOf(ShippingMethod::class, $result);
     }
 
     public function testMapEmptyResult()

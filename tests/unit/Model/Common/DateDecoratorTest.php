@@ -5,7 +5,7 @@
 
 namespace Commercetools\Core\Model\Common;
 
-class DateDecoratorTest extends \PHPUnit_Framework_TestCase
+class DateDecoratorTest extends \PHPUnit\Framework\TestCase
 {
     public function testJsonSerialize()
     {

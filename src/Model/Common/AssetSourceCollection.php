@@ -16,7 +16,7 @@ class AssetSourceCollection extends Collection
 {
     const KEY = 'key';
 
-    protected $type = '\Commercetools\Core\Model\Common\AssetSource';
+    protected $type = AssetSource::class;
 
     protected function indexRow($offset, $row)
     {

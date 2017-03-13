@@ -18,7 +18,7 @@ use Commercetools\Core\Model\Common\Collection;
 class ShoppingListCollection extends Collection
 {
     const KEY = 'key';
-    protected $type = '\Commercetools\Core\Model\ShoppingList\ShoppingList';
+    protected $type = ShoppingList::class;
 
     protected function indexRow($offset, $row)
     {

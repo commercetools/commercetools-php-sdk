@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Response\ResourceResponse;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use Commercetools\Core\AccessorTrait;
@@ -17,11 +18,11 @@ use Commercetools\Core\Model\Common\Context;
  * @package Commercetools\Core\Request
  * @method AbstractUpdateByKeyRequest getRequest($class, array $args = [])
  */
-class AbstractUpdateByKeyRequestTest extends \PHPUnit_Framework_TestCase
+class AbstractUpdateByKeyRequestTest extends \PHPUnit\Framework\TestCase
 {
     use AccessorTrait;
 
-    const ABSTRACT_UPDATE_REQUEST = '\Commercetools\Core\Request\AbstractUpdateByKeyRequest';
+    const ABSTRACT_UPDATE_REQUEST = AbstractUpdateByKeyRequest::class;
 
     /**
      * @return AbstractUpdateRequest
@@ -81,7 +82,7 @@ class AbstractUpdateByKeyRequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->getUpdateRequest();
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 
     public function testAddAction()

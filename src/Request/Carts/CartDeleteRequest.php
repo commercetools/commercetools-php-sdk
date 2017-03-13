@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CartDeleteRequest extends AbstractDeleteRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Cart\Cart';
+    protected $resultClass = Cart::class;
 
     /**
      * @param string $id

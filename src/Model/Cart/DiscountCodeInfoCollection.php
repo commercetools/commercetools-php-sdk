@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class DiscountCodeInfoCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Cart\DiscountCodeInfo';
+    protected $type = DiscountCodeInfo::class;
 }

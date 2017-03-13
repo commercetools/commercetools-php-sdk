@@ -14,5 +14,5 @@ namespace Commercetools\Core\Model\Common;
  */
 class AssetDraftCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Common\AssetDraft';
+    protected $type = AssetDraft::class;
 }

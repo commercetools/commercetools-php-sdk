@@ -35,7 +35,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     protected $orderNumber;
     protected $paymentState;
 
-    protected $resultClass = '\Commercetools\Core\Model\Order\Order';
+    protected $resultClass = Order::class;
 
     /**
      * @return mixed

@@ -5,12 +5,12 @@
 
 namespace Commercetools\Core\Model\Common;
 
-class MoneyTest extends \PHPUnit_Framework_TestCase
+class MoneyTest extends \PHPUnit\Framework\TestCase
 {
     public function testFromArray()
     {
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\Common\Money',
+            Money::class,
             Money::fromArray(['currencyCode' => 'EUR', 'centAmount' => 100])
         );
     }

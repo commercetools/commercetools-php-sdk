@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Payment\Payment;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -15,7 +16,7 @@ use Commercetools\Core\Model\Payment\Payment;
  * @method string getId()
  * @method PaymentCreatedMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method PaymentCreatedMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method PaymentCreatedMessage setCreatedAt(DateTime $createdAt = null)
  * @method int getSequenceNumber()
  * @method PaymentCreatedMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -29,7 +30,7 @@ use Commercetools\Core\Model\Payment\Payment;
  * @method int getVersion()
  * @method PaymentCreatedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method PaymentCreatedMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method PaymentCreatedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class PaymentCreatedMessage extends Message
 {
@@ -38,7 +39,7 @@ class PaymentCreatedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['payment'] = [static::TYPE => '\Commercetools\Core\Model\Payment\Payment'];
+        $definitions['payment'] = [static::TYPE => Payment::class];
 
         return $definitions;
     }

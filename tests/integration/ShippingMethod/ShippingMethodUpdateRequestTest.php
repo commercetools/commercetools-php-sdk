@@ -8,6 +8,7 @@ namespace Commercetools\Core\ShippingMethod;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
 use Commercetools\Core\Model\ShippingMethod\ShippingRateCollection;
@@ -91,7 +92,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
+        $this->assertInstanceOf(ShippingMethod::class, $result);
         $this->assertSame($name, $result->getName());
         $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
     }
@@ -113,7 +114,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
+        $this->assertInstanceOf(ShippingMethod::class, $result);
         $this->assertSame($description, $result->getDescription());
         $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
     }
@@ -148,7 +149,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
+        $this->assertInstanceOf(ShippingMethod::class, $result);
         $this->assertSame($newTaxCategory->getId(), $result->getTaxCategory()->getId());
         $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
         $shippingMethod = $result;
@@ -187,7 +188,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
+        $this->assertInstanceOf(ShippingMethod::class, $result);
 
         $this->assertSame($isDefault, $result->getIsDefault());
         $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
@@ -213,7 +214,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
+        $this->assertInstanceOf(ShippingMethod::class, $result);
 
 
         $this->assertCount(2, $result->getZoneRates()->current()->getShippingRates());
@@ -263,7 +264,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
+        $this->assertInstanceOf(ShippingMethod::class, $result);
         $this->assertGreaterThan($shippingMethod->getZoneRates()->count(), $result->getZoneRates()->count());
         $this->assertNotSame($actualVersion, $result->getVersion());
 
@@ -278,7 +279,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethod', $result);
+        $this->assertInstanceOf(ShippingMethod::class, $result);
         $this->assertSame($shippingMethod->getZoneRates()->count(), $result->getZoneRates()->count());
         $this->assertNotSame($actualVersion, $result->getVersion());
 

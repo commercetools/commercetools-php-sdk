@@ -5,10 +5,15 @@
 
 namespace Commercetools\Core\Cache;
 
+use Cache\Adapter\Apcu\ApcuCachePool;
+use Cache\Adapter\Doctrine\DoctrineCachePool;
+use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Cache\Adapter\PHPArray\ArrayCachePool;
+use Cache\Adapter\Redis\RedisCachePool;
 use Doctrine\Common\Cache\ArrayCache;
+use Psr\SimpleCache\CacheInterface;
 
-class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
+class CacheAdapterFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * test if apc is default cache adapter and APC module is available
@@ -16,22 +21,12 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
     public function testApcDefault()
     {
         if (extension_loaded('apcu')) {
-            $this->assertInstanceOf('\Commercetools\Core\Cache\ApcuCacheAdapter', $this->getFactory()->get());
-        } elseif (extension_loaded('apc')) {
-            $this->assertInstanceOf('\Commercetools\Core\Cache\ApcCacheAdapter', $this->getFactory()->get());
+            $this->assertInstanceOf(ApcuCachePool::class, $this->getFactory()->get());
         } elseif (class_exists('\Cache\Adapter\Filesystem\FilesystemCachePool')) {
-            $this->assertInstanceOf('\Cache\Adapter\Filesystem\FilesystemCachePool', $this->getFactory()->get());
+            $this->assertInstanceOf(FilesystemCachePool::class, $this->getFactory()->get());
         } else {
             $this->assertNull($this->getFactory()->get());
         }
-    }
-
-    /**
-     * test if default adapter returns correct interface
-     */
-    public function testAdapterInterface()
-    {
-        $this->assertInstanceOf('\Commercetools\Core\Cache\CacheAdapterInterface', $this->getFactory()->get());
     }
 
     /**
@@ -42,11 +37,11 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = $this->getFactory();
         $factory->registerCallback(
             function () {
-                return new NullCacheAdapter();
+                return new ArrayCachePool();
             }
         );
 
-        $this->assertInstanceOf('\Commercetools\Core\Cache\NullCacheAdapter', $factory->get(new \ArrayObject()));
+        $this->assertInstanceOf(ArrayCachePool::class, $factory->get(new \ArrayObject()));
     }
 
     public function testDoctrineCacheCallback()
@@ -54,7 +49,7 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = $this->getFactory();
         $adapter = $factory->get(new ArrayCache());
 
-        $this->assertInstanceOf('\Commercetools\Core\Cache\DoctrineCacheAdapter', $adapter);
+        $this->assertInstanceOf(DoctrineCachePool::class, $adapter);
     }
 
     public function testPhpRedisCacheCallback()
@@ -67,20 +62,24 @@ class CacheAdapterFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = $this->getFactory();
         $adapter = $factory->get(new \Redis());
 
-        $this->assertInstanceOf('\Commercetools\Core\Cache\PhpRedisCacheAdapter', $adapter);
+        $this->assertInstanceOf(RedisCachePool::class, $adapter);
     }
 
     public function testPsrCache()
     {
-        if (version_compare(phpversion(), '5.5.0', '<')) {
-            $this->markTestSkipped(
-                'PHP >= 5.5 needed to run this test'
-            );
-        }
         $factory = $this->getFactory();
         $adapter = $factory->get(new ArrayCachePool());
 
-        $this->assertInstanceOf('\Cache\Adapter\PHPArray\ArrayCachePool', $adapter);
+        $this->assertInstanceOf(ArrayCachePool::class, $adapter);
+    }
+
+    public function testSimpleCache()
+    {
+        $cache = $this->prophesize(CacheInterface::class);
+        $factory = $this->getFactory();
+        $adapter = $factory->get($cache->reveal());
+
+        $this->assertInstanceOf(CacheInterface::class, $adapter);
     }
 
     /**

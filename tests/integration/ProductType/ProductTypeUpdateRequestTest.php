@@ -16,6 +16,7 @@ use Commercetools\Core\Model\Common\LocalizedEnum;
 use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Reference;
+use Commercetools\Core\Model\CustomObject\CustomObject;
 use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
 use Commercetools\Core\Model\CustomObject\CustomObjectReference;
 use Commercetools\Core\Model\Product\ProductDraft;
@@ -24,6 +25,7 @@ use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
 use Commercetools\Core\Model\ProductType\EnumType;
 use Commercetools\Core\Model\ProductType\LocalizedEnumType;
+use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\Model\ProductType\ReferenceType;
 use Commercetools\Core\Model\ProductType\StringType;
@@ -101,7 +103,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertSame($name, $result->getName());
     }
 
@@ -120,7 +122,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertSame($key, $result->getKey());
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
     }
@@ -141,7 +143,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertSame($key, $result->getKey());
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
     }
@@ -161,7 +163,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertSame($name, $result->getName());
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
     }
@@ -181,7 +183,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertSame($description, $result->getDescription());
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
     }
@@ -206,7 +208,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertSame($definition->getName(), $result->getAttributes()->current()->getName());
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
         $productType = $result;
@@ -224,7 +226,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertSame($label, $result->getAttributes()->current()->getLabel()->en);
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
         $productType = $result;
@@ -241,7 +243,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertSame($inputTip, $result->getAttributes()->current()->getInputTip()->en);
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
         $productType = $result;
@@ -257,7 +259,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertEmpty($result->getAttributes());
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
     }
@@ -294,7 +296,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         /**
          * @var EnumType $type
          */
@@ -321,7 +323,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
 
         $customObjectDraft = CustomObjectDraft::ofContainerKeyAndValue('test', 'key', uniqid());
@@ -364,7 +366,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
             $variant->getAttributes()->getByName('testCustomObject')->getValue()->getId()
         );
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\CustomObject\CustomObject',
+            CustomObject::class,
             $variant->getAttributes()->getByName('testCustomObject')->getValue()->getObj()
         );
         $this->assertSame(
@@ -415,7 +417,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         /**
          * @var LocalizedEnumType $type
          */
@@ -452,7 +454,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
 
         $this->assertSame('new-test', $result->getAttributes()->current()->getType()->getValues()->current()->getLabel()->en);
@@ -485,7 +487,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\InvalidOperationError',
+            InvalidOperationError::class,
             $response->getErrors()->getByCode(InvalidOperationError::CODE)
         );
     }
@@ -518,7 +520,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
 
         $this->assertSame('new-test', $result->getAttributes()->current()->getType()->getValues()->current()->getLabel());
@@ -551,7 +553,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\InvalidOperationError',
+            InvalidOperationError::class,
             $response->getErrors()->getByCode(InvalidOperationError::CODE)
         );
     }
@@ -577,7 +579,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertSame($definition->getName(), $result->getAttributes()->current()->getName());
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
         $productType = $result;
@@ -595,7 +597,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->productTypeDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ProductType\ProductType', $result);
+        $this->assertInstanceOf(ProductType::class, $result);
         $this->assertSame($searchable, $result->getAttributes()->current()->getIsSearchable());
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
     }

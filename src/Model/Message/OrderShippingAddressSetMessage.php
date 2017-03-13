@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Message;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Common\Address;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
@@ -18,9 +19,9 @@ use Commercetools\Core\Model\Common\Address;
  * @method int getVersion()
  * @method OrderShippingAddressSetMessage setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method OrderShippingAddressSetMessage setCreatedAt(\DateTime $createdAt = null)
+ * @method OrderShippingAddressSetMessage setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method OrderShippingAddressSetMessage setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method OrderShippingAddressSetMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method int getSequenceNumber()
  * @method OrderShippingAddressSetMessage setSequenceNumber(int $sequenceNumber = null)
  * @method Reference getResource()
@@ -39,7 +40,7 @@ class OrderShippingAddressSetMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['address'] = [static::TYPE => '\Commercetools\Core\Model\Common\Address'];
+        $definitions['address'] = [static::TYPE => Address::class];
 
         return $definitions;
     }

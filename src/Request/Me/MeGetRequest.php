@@ -23,7 +23,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class MeGetRequest extends AbstractApiRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Customer\Customer';
+    protected $resultClass = Customer::class;
 
     /**
      * @param Context $context

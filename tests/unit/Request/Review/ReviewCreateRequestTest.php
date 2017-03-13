@@ -5,13 +5,14 @@
 
 namespace Commercetools\Core\Request\Review;
 
+use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\Review\ReviewDraft;
 use Commercetools\Core\Request\Reviews\ReviewCreateRequest;
 use Commercetools\Core\RequestTestCase;
 
 class ReviewCreateRequestTest extends RequestTestCase
 {
-    const REVIEW_CREATE_REQUEST = '\Commercetools\Core\Request\Reviews\ReviewCreateRequest';
+    const REVIEW_CREATE_REQUEST = ReviewCreateRequest::class;
 
     protected function getDraft()
     {
@@ -30,7 +31,7 @@ class ReviewCreateRequestTest extends RequestTestCase
     public function testMapResult()
     {
         $result = $this->mapResult(ReviewCreateRequest::ofDraft($this->getDraft()));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Review\Review', $result);
+        $this->assertInstanceOf(Review::class, $result);
     }
 
     public function testMapEmptyResult()

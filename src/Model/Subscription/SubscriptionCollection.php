@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class SubscriptionCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Subscription\Subscription';
+    protected $type = Subscription::class;
 }

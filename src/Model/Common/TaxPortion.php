@@ -22,7 +22,7 @@ class TaxPortion extends JsonObject
         return [
             'name' => [static::TYPE => 'string'],
             'rate' => [static::TYPE => 'float'],
-            'amount' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'amount' => [static::TYPE => Money::class],
         ];
     }
 }

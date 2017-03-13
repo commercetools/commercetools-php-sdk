@@ -6,17 +6,19 @@
 namespace Commercetools\Core\Request\ShippingMethods;
 
 use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 class ShippingMethodByCartIdGetRequestTest extends RequestTestCase
 {
     const SHIPPING_METHOD_BY_CART_ID_GET_REQUEST =
-        '\Commercetools\Core\Request\Carts\ShippingMethodByCartIdGetRequest';
+        ShippingMethodByCartIdGetRequest::class;
 
     public function testMapResult()
     {
         $result = $this->mapResult(ShippingMethodByCartIdGetRequest::ofCartId('id'));
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection', $result);
+        $this->assertInstanceOf(ShippingMethodCollection::class, $result);
     }
 
     public function testMapEmptyResult()
@@ -58,6 +60,6 @@ class ShippingMethodByCartIdGetRequestTest extends RequestTestCase
         $request = ShippingMethodByCartIdGetRequest::ofCartId('id');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

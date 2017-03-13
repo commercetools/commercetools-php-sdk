@@ -21,7 +21,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class MeCartCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Cart\Cart';
+    protected $resultClass = Cart::class;
 
     /**
      * @param MyCartDraft $cartDraft

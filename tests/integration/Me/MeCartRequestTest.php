@@ -403,7 +403,7 @@ class MeCartRequestTest extends ApiTestCase
         $response = $request->executeWithClient($client);
 
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Error\ResourceNotFoundError', $response->getErrors()->current());
+        $this->assertInstanceOf(ResourceNotFoundError::class, $response->getErrors()->current());
     }
 
     public function testCustomerQuery()
@@ -546,7 +546,7 @@ class MeCartRequestTest extends ApiTestCase
 
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\ResourceNotFoundError',
+            ResourceNotFoundError::class,
             $response->getErrors()->getByCode(ResourceNotFoundError::CODE)
         );
     }
@@ -577,7 +577,7 @@ class MeCartRequestTest extends ApiTestCase
 
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\ResourceNotFoundError',
+            ResourceNotFoundError::class,
             $response->getErrors()->getByCode(ResourceNotFoundError::CODE)
         );
     }

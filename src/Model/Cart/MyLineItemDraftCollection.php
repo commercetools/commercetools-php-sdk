@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class MyLineItemDraftCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Cart\MyLineItemDraft';
+    protected $type = MyLineItemDraft::class;
 }

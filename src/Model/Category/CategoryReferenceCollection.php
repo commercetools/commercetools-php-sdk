@@ -18,5 +18,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class CategoryReferenceCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Category\CategoryReference';
+    protected $type = CategoryReference::class;
 }

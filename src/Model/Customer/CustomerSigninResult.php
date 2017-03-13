@@ -21,8 +21,8 @@ class CustomerSigninResult extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'customer' => [static::TYPE => '\Commercetools\Core\Model\Customer\Customer'],
-            'cart' => [static::TYPE => '\Commercetools\Core\Model\Cart\Cart']
+            'customer' => [static::TYPE => Customer::class],
+            'cart' => [static::TYPE => Cart::class]
         ];
     }
 }

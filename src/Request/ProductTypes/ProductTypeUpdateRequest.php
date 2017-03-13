@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ProductTypeUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ProductType\ProductType';
+    protected $resultClass = ProductType::class;
 
     /**
      * @param string $id

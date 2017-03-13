@@ -28,7 +28,7 @@ class ProductTypeDraft extends JsonObject
             'name' => [static::TYPE => 'string'],
             'key' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'attributes' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeDefinitionCollection'],
+            'attributes' => [static::TYPE => AttributeDefinitionCollection::class],
         ];
     }
 

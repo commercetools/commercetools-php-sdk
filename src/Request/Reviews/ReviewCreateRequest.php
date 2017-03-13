@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ReviewCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Review\Review';
+    protected $resultClass = Review::class;
 
     /**
      * @param ReviewDraft $review

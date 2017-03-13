@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class TextLineItemCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\ShoppingList\TextLineItem';
+    protected $type = TextLineItem::class;
 }

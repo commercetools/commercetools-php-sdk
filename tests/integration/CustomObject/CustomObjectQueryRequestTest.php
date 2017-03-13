@@ -76,7 +76,7 @@ class CustomObjectQueryRequestTest extends ApiTestCase
 
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\ConcurrentModificationError',
+            ConcurrentModificationError::class,
             $response->getErrors()->getByCode(ConcurrentModificationError::CODE)
         );
     }
@@ -99,7 +99,7 @@ class CustomObjectQueryRequestTest extends ApiTestCase
 
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\ConcurrentModificationError',
+            ConcurrentModificationError::class,
             $response->getErrors()->getByCode(ConcurrentModificationError::CODE)
         );
     }
@@ -107,11 +107,11 @@ class CustomObjectQueryRequestTest extends ApiTestCase
     public function testValidTypes()
     {
         $this->assertInstanceOf(
-            '\Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest',
+            CustomObjectCreateRequest::class,
             CustomObjectCreateRequest::ofObject(CustomObject::of())
         );
         $this->assertInstanceOf(
-            '\Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest',
+            CustomObjectCreateRequest::class,
             CustomObjectCreateRequest::ofObject(CustomObjectDraft::of())
         );
     }
@@ -136,7 +136,7 @@ class CustomObjectQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $result->getAt(0));
+        $this->assertInstanceOf(CustomObject::class, $result->getAt(0));
         $this->assertSame($customObject->getId(), $result->getAt(0)->getId());
     }
 
@@ -152,7 +152,7 @@ class CustomObjectQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $customObject);
+        $this->assertInstanceOf(CustomObject::class, $customObject);
         $this->assertSame($customObject->getId(), $result->getId());
     }
 

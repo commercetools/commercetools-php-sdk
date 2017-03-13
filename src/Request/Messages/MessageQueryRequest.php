@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class MessageQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Message\MessageCollection';
+    protected $resultClass = MessageCollection::class;
 
     /**
      * @param Context $context

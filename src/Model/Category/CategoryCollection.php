@@ -20,7 +20,7 @@ class CategoryCollection extends Collection
     const PARENT = 'parent';
     const ROOTS = 'roots';
 
-    protected $type = '\Commercetools\Core\Model\Category\Category';
+    protected $type = Category::class;
 
     protected function indexRow($offset, $row)
     {

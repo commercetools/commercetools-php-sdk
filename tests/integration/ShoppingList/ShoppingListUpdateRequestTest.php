@@ -96,7 +96,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($name, $result->getName()->en);
     }
 
@@ -113,7 +113,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($key, $result->getKey());
     }
 
@@ -131,7 +131,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($key, $result->getKey());
     }
 
@@ -148,7 +148,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($name, $result->getName()->en);
     }
 
@@ -164,7 +164,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($slug, $result->getSlug()->en);
     }
 
@@ -181,7 +181,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($description, $result->getDescription()->en);
     }
 
@@ -198,7 +198,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($customer->getId(), $result->getCustomer()->getId());
     }
 
@@ -215,7 +215,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
     }
 
@@ -234,7 +234,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
         $this->assertSame($fieldValue, $result->getCustom()->getFields()->getTestField());
     }
@@ -256,7 +256,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($product->getId(), $result->getLineItems()->current()->getProductId());
     }
 
@@ -280,7 +280,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertCount(0, $result->getLineItems());
     }
 
@@ -305,7 +305,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($product->getId(), $result->getLineItems()->current()->getProductId());
         $this->assertSame(2, $result->getLineItems()->current()->getQuantity());
     }
@@ -334,7 +334,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($type->getId(), $result->getLineItems()->current()->getCustom()->getType()->getId());
     }
 
@@ -364,7 +364,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($fieldValue, $result->getLineItems()->current()->getCustom()->getFields()->getTestField());
     }
 
@@ -383,7 +383,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($name, $result->getTextLineItems()->current()->getName()->en);
     }
 
@@ -405,7 +405,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertCount(0, $result->getTextLineItems());
     }
 
@@ -428,7 +428,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($name, $result->getTextLineItems()->current()->getName()->en);
         $this->assertSame(2, $result->getTextLineItems()->current()->getQuantity());
     }
@@ -455,7 +455,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($type->getId(), $result->getTextLineItems()->current()->getCustom()->getType()->getId());
     }
 
@@ -483,7 +483,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShoppingList\ShoppingList', $result);
+        $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($fieldValue, $result->getTextLineItems()->current()->getCustom()->getFields()->getTestField());
     }
 }

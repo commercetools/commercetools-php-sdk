@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class LineItemCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Cart\LineItem';
+    protected $type = LineItem::class;
 }

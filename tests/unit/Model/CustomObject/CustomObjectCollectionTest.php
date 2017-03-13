@@ -5,7 +5,7 @@
 
 namespace Commercetools\Core\Model\CustomObject;
 
-class CustomObjectCollectionTest extends \PHPUnit_Framework_TestCase
+class CustomObjectCollectionTest extends \PHPUnit\Framework\TestCase
 {
     public function testIndex()
     {
@@ -16,9 +16,9 @@ class CustomObjectCollectionTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $collection->getByKey('myKey'));
+        $this->assertInstanceOf(CustomObject::class, $collection->getByKey('myKey'));
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\CustomObject\CustomObject',
+            CustomObject::class,
             $collection->getByContainerKey('myNamespace', 'myKey')
         );
     }
@@ -28,9 +28,9 @@ class CustomObjectCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = CustomObjectCollection::of();
         $collection->add(new CustomObject(['container' => 'myNamespace', 'key' => 'myKey']));
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomObject\CustomObject', $collection->getByKey('myKey'));
+        $this->assertInstanceOf(CustomObject::class, $collection->getByKey('myKey'));
         $this->assertInstanceOf(
-            '\Commercetools\Core\Model\CustomObject\CustomObject',
+            CustomObject::class,
             $collection->getByContainerKey('myNamespace', 'myKey')
         );
     }

@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CategoryUpdateRequest extends AbstractUpdateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Category\Category';
+    protected $resultClass = Category::class;
 
     /**
      * @param string $id

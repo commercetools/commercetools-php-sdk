@@ -33,14 +33,14 @@ class AttributeDefinition extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'type' => [static::TYPE => '\Commercetools\Core\Model\ProductType\AttributeType'],
+            'type' => [static::TYPE => AttributeType::class],
             'name' => [static::TYPE => 'string'],
-            'label' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'label' => [static::TYPE => LocalizedString::class],
             'isRequired' => [static::TYPE => 'bool'],
             'attributeConstraint' => [static::TYPE => 'string'],
             'inputHint' => [static::TYPE => 'string'],
             'isSearchable' => [static::TYPE => 'bool'],
-            'inputTip' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'inputTip' => [static::TYPE => LocalizedString::class],
         ];
     }
 }

@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class PaymentCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Payment\Payment';
+    protected $resultClass = Payment::class;
 
     /**
      * @param PaymentDraft $payment

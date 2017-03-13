@@ -26,7 +26,7 @@ class CartSetCustomLineItemTaxRateAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'customLineItemId' => [static::TYPE => 'string'],
-            'externalTaxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft'],
+            'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class],
         ];
     }
 

@@ -14,6 +14,7 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Cart\ShippingInfo;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Order
@@ -49,7 +50,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method ShippingInfo getShippingInfo()
  * @method ImportOrder setShippingInfo(ShippingInfo $shippingInfo = null)
  * @method DateTimeDecorator getCompletedAt()
- * @method ImportOrder setCompletedAt(\DateTime $completedAt = null)
+ * @method ImportOrder setCompletedAt(DateTime $completedAt = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method ImportOrder setCustom(CustomFieldObjectDraft $custom = null)
  * @method string getInventoryMode()
@@ -65,23 +66,23 @@ class ImportOrder extends JsonObject
             'orderNumber' => [static::TYPE => 'string'],
             'customerId' => [static::TYPE => 'string'],
             'customerEmail' => [static::TYPE => 'string'],
-            'lineItems' => [static::TYPE => '\Commercetools\Core\Model\Order\LineItemImportDraftCollection'],
-            'customLineItems' => [static::TYPE => '\Commercetools\Core\Model\Cart\CustomLineItemCollection'],
-            'totalPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'taxedPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\TaxedPrice'],
-            'shippingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
-            'billingAddress' => [static::TYPE => '\Commercetools\Core\Model\Common\Address'],
-            'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
+            'lineItems' => [static::TYPE => LineItemImportDraftCollection::class],
+            'customLineItems' => [static::TYPE => CustomLineItemCollection::class],
+            'totalPrice' => [static::TYPE => Money::class],
+            'taxedPrice' => [static::TYPE => TaxedPrice::class],
+            'shippingAddress' => [static::TYPE => Address::class],
+            'billingAddress' => [static::TYPE => Address::class],
+            'customerGroup' => [static::TYPE => CustomerGroupReference::class],
             'country' => [static::TYPE => 'string'],
             'orderState' => [static::TYPE => 'string'],
             'shipmentState' => [static::TYPE => 'string'],
             'paymentState' => [static::TYPE => 'string'],
-            'shippingInfo' => [static::TYPE => '\Commercetools\Core\Model\Cart\ShippingInfo'],
+            'shippingInfo' => [static::TYPE => ShippingInfo::class],
             'completedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObjectDraft'],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'inventoryMode' => [static::TYPE => 'string'],
             'taxRoundingMode' => [static::TYPE => 'string'],
         ];

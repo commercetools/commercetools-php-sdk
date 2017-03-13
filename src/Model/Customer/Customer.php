@@ -13,6 +13,7 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\DateDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Customer
@@ -24,9 +25,9 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method string getCustomerNumber()
  * @method Customer setCustomerNumber(string $customerNumber = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method Customer setCreatedAt(\DateTime $createdAt = null)
+ * @method Customer setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method Customer setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method Customer setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getEmail()
  * @method Customer setEmail(string $email = null)
  * @method string getFirstName()
@@ -40,7 +41,7 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method string getTitle()
  * @method Customer setTitle(string $title = null)
  * @method DateDecorator getDateOfBirth()
- * @method Customer setDateOfBirth(\DateTime $dateOfBirth = null)
+ * @method Customer setDateOfBirth(DateTime $dateOfBirth = null)
  * @method string getCompanyName()
  * @method Customer setCompanyName(string $companyName = null)
  * @method string getVatId()
@@ -77,12 +78,12 @@ class Customer extends Resource
             'version' => [static::TYPE => 'int'],
             'customerNumber' => [static::TYPE => 'string'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'email' => [static::TYPE => 'string'],
             'firstName' => [static::TYPE => 'string'],
@@ -91,18 +92,18 @@ class Customer extends Resource
             'middleName' => [static::TYPE => 'string'],
             'title' => [static::TYPE => 'string'],
             'dateOfBirth' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateDecorator::class
             ],
             'companyName' => [static::TYPE => 'string'],
             'vatId' => [static::TYPE => 'string'],
-            'addresses' => [static::TYPE => '\Commercetools\Core\Model\Common\AddressCollection'],
+            'addresses' => [static::TYPE => AddressCollection::class],
             'defaultShippingAddressId' => [static::TYPE => 'string'],
             'defaultBillingAddressId' => [static::TYPE => 'string'],
             'isEmailVerified' => [static::TYPE => 'bool'],
             'externalId' => [static::TYPE => 'string'],
-            'customerGroup' => [static::TYPE => '\Commercetools\Core\Model\CustomerGroup\CustomerGroupReference'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'customerGroup' => [static::TYPE => CustomerGroupReference::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
             'locale' => [static::TYPE => 'string'],
             'shippingAddressIds' => [static::TYPE => 'array'],
             'billingAddressIds' => [static::TYPE => 'array'],

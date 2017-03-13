@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class StateCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\State\State';
+    protected $resultClass = State::class;
 
     /**
      * @param StateDraft $state

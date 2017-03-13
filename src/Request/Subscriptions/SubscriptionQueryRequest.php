@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class SubscriptionQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Subscription\SubscriptionCollection';
+    protected $resultClass = SubscriptionCollection::class;
 
     /**
      * @param Context $context

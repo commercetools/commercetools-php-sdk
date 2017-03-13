@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\Reference;
 class StateReference extends Reference
 {
     const TYPE_STATE = 'state';
-    const TYPE_CLASS = '\Commercetools\Core\Model\State\State';
+    const TYPE_CLASS = State::class;
 
     /**
      * @param $id

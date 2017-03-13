@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class TextLineItemDraftCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\ShoppingList\TextLineItemDraft';
+    protected $type = TextLineItemDraft::class;
 }

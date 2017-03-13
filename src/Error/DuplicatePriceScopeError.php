@@ -24,7 +24,7 @@ class DuplicatePriceScopeError extends ApiError
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['conflictingPrices'] = [static::TYPE => '\Commercetools\Core\Model\Common\PriceCollection'];
+        $definitions['conflictingPrices'] = [static::TYPE => PriceCollection::class];
 
         return $definitions;
     }

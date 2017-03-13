@@ -23,7 +23,7 @@ class CategorySetMetaTitleAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'metaTitle' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'metaTitle' => [static::TYPE => LocalizedString::class],
         ];
     }
 

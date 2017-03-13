@@ -27,7 +27,7 @@ class ProductImageUploadRequest extends AbstractApiRequest
 {
     use StagedTrait;
     
-    protected $resultClass = '\Commercetools\Core\Model\Product\Product';
+    protected $resultClass = Product::class;
 
     /**
      * @var UploadedFileInterface

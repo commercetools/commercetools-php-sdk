@@ -14,7 +14,7 @@ use Commercetools\Core\RequestTestCase;
  */
 class CustomerPasswordResetRequestTest extends RequestTestCase
 {
-    const CUSTOMER_PASSWORD_REQUEST = '\Commercetools\Core\Request\Customers\CustomerPasswordResetRequest';
+    const CUSTOMER_PASSWORD_REQUEST = CustomerPasswordResetRequest::class;
 
     public function testHttpRequestMethod()
     {

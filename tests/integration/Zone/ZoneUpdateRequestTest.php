@@ -9,6 +9,7 @@ namespace Commercetools\Core\Zone;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Zone\Location;
 use Commercetools\Core\Model\Zone\LocationCollection;
+use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\Model\Zone\ZoneDraft;
 use Commercetools\Core\Request\Zones\Command\ZoneAddLocationAction;
 use Commercetools\Core\Request\Zones\Command\ZoneChangeNameAction;
@@ -66,7 +67,7 @@ class ZoneUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result);
+        $this->assertInstanceOf(Zone::class, $result);
         $this->assertSame($description, $result->getDescription());
         $this->assertNotSame($zone->getVersion(), $result->getVersion());
     }
@@ -88,7 +89,7 @@ class ZoneUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result);
+        $this->assertInstanceOf(Zone::class, $result);
         $this->assertSame($name, $result->getName());
         $this->assertNotSame($zone->getVersion(), $result->getVersion());
     }
@@ -109,7 +110,7 @@ class ZoneUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result);
+        $this->assertInstanceOf(Zone::class, $result);
         $this->assertCount(2, $result->getLocations());
         $this->assertNotSame($zone->getVersion(), $result->getVersion());
         $zone = $result;
@@ -124,7 +125,7 @@ class ZoneUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Zone\Zone', $result);
+        $this->assertInstanceOf(Zone::class, $result);
         $this->assertCount(1, $result->getLocations());
         $this->assertNotSame($zone->getVersion(), $result->getVersion());
     }

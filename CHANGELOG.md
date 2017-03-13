@@ -1,3 +1,75 @@
+<a name="2.0.0-RC1"></a>
+# [2.0.0-RC1](https://github.com/commercetools/commercetools-php-sdk/compare/v1.7.0...v2.0.0-RC1) (2017-03-13)
+
+
+### Bug Fixes
+
+* **AssetDraft:** correct type for custom field object ([abc0afd](https://github.com/commercetools/commercetools-php-sdk/commit/abc0afd))
+* **Customer:** fix create email token request with TTL ([8367ef6](https://github.com/commercetools/commercetools-php-sdk/commit/8367ef6))
+
+### Code Refactoring
+
+* **OAuth:** change access scope of getCacheAdapter method ([c6b27ec](https://github.com/commercetools/commercetools-php-sdk/commit/c6b27ec))
+* **ProductSearch:** disable markMatchingVariants by default ([41711a8](https://github.com/commercetools/commercetools-php-sdk/commit/41711a8))
+
+### Features
+
+* **Cache:** support PSR-16 cache implementations ([c3ceac7](https://github.com/commercetools/commercetools-php-sdk/commit/c3ceac7)), closes [#297](https://github.com/commercetools/commercetools-php-sdk/issues/297)
+
+
+### BREAKING CHANGES
+
+* AssetDraft: AssetDraft requires CustomFieldObjectDraft instead of CustomFieldObject
+
+  Before:
+
+  ```
+  $assetDraft = AssetDraft::of()->setCustom(CustomFieldObject::of());
+  ```
+
+  After:
+
+  ```
+  $assetDraft = AssetDraft::of()->setCustom(CustomFieldObjectDraft::of());
+  ```
+* OAuth: Manager::getCacheAdapter() method scope has been changed from public to protected
+* ProductSearch: markMatchingVariants has been disabled by default
+
+  For performance reasons the markMatchingVariants flag has been disabled by default. In order to use markMatchingVariants feature please enable it explicit.
+
+  Before:
+  ```
+  $request = ProductProjectionSearchRequest::of();
+  ```
+
+  After:
+  ```
+  $request = ProductProjectionSearchRequest::of()->markMatchingVariants(true);
+  ```
+  
+* PHP minimum version is now 5.6
+* Token caching is now using [PSR-6](https://packagist.org/providers/psr/cache-implementation) or [PSR-16](https://packagist.org/providers/psr/simple-cache-implementation) cache adapters only.
+  Removed classes:
+  - AbstractCacheAdapter
+  - ApcCacheAdapter
+  - ApcuCacheAdapter
+  - CacheAdapterInterface
+  - DoctrineCacheAdapter
+  - NullCacheAdapter
+  - PhpRedisCacheAdapter
+  
+  Use an appropiate PSR-6 or PRS-16 cache adapter as a replacement. The SDK uses the [cache\apcu-adapter](https://packagist.org/packages/cache/apcu-adapter) as default or if available the [cache\filesystem-adapter](https://packagist.org/packages/cache/filesystem-adapter)
+* Deprecations have been removed
+  - FileRequest
+    - use FileUploadRequest
+  - CustomerChangeNameAction
+    - use CustomerSetFirstNameAction, CustomerSetLastNameAction, CustomerSetMiddleNameAction or CustomerSetTitleAction
+  - ProductSetSkuNotStageableAction
+    - use ProductSetSkuAction
+* Context doesn't extend Pimple\Container anymore
+* Pimple has been removed as a dependency
+
+
 <a name="1.7.0"></a>
 # [1.7.0](https://github.com/commercetools/commercetools-php-sdk/compare/v1.6.1...v1.7.0) (2017-03-02)
 

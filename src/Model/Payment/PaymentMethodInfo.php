@@ -25,7 +25,7 @@ class PaymentMethodInfo extends JsonObject
         return [
             'paymentInterface' => [static::TYPE => 'string'],
             'method' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
         ];
     }
 }

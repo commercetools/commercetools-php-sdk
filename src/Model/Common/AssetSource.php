@@ -24,7 +24,7 @@ class AssetSource extends JsonObject
         return [
             'uri' => [static::TYPE => 'string'],
             'key' => [static::TYPE => 'string'],
-            'dimensions' => [static::TYPE => '\Commercetools\Core\Model\Common\AssetDimension'],
+            'dimensions' => [static::TYPE => AssetDimension::class],
             'contentType' => [static::TYPE => 'string'],
         ];
     }

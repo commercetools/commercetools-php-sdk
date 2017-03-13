@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ZoneByIdGetRequest extends AbstractByIdGetRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\Zone\Zone';
+    protected $resultClass = Zone::class;
 
     /**
      * @param string $id

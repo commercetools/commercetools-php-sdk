@@ -17,7 +17,7 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ProductProjectionCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Product\ProductProjection';
+    protected $type = ProductProjection::class;
 
     protected function indexRow($offset, $row)
     {

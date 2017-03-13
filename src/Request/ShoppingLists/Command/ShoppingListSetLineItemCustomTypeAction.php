@@ -28,9 +28,9 @@ class ShoppingListSetLineItemCustomTypeAction extends SetCustomTypeAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'type' => [static::TYPE => '\Commercetools\Core\Model\Type\TypeReference'],
+            'type' => [static::TYPE => TypeReference::class],
             'lineItemId' => [static::TYPE => 'string'],
-            'fields' => [static::TYPE => '\Commercetools\Core\Model\CustomField\FieldContainer'],
+            'fields' => [static::TYPE => FieldContainer::class],
         ];
     }
 

@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Inventory
@@ -21,7 +22,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method int getRestockableInDays()
  * @method InventoryDraft setRestockableInDays(int $restockableInDays = null)
  * @method DateTimeDecorator getExpectedDelivery()
- * @method InventoryDraft setExpectedDelivery(\DateTime $expectedDelivery = null)
+ * @method InventoryDraft setExpectedDelivery(DateTime $expectedDelivery = null)
  * @method ChannelReference getSupplyChannel()
  * @method InventoryDraft setSupplyChannel(ChannelReference $supplyChannel = null)
  * @method CustomFieldObject getCustom()
@@ -36,11 +37,11 @@ class InventoryDraft extends JsonObject
             'quantityOnStock' => [static::TYPE => 'int'],
             'restockableInDays' => [static::TYPE => 'int'],
             'expectedDelivery' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
-            'supplyChannel' => [static::TYPE => '\Commercetools\Core\Model\Channel\ChannelReference'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
+            'supplyChannel' => [static::TYPE => ChannelReference::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 

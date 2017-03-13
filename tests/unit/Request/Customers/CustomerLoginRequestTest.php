@@ -6,16 +6,18 @@
 namespace Commercetools\Core\Request\Customers;
 
 use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\Customer\CustomerSigninResult;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 class CustomerLoginRequestTest extends RequestTestCase
 {
-    const CUSTOMER_LOGIN_REQUEST = '\Commercetools\Core\Request\Customers\CustomerLoginRequest';
+    const CUSTOMER_LOGIN_REQUEST = CustomerLoginRequest::class;
 
     public function testMapResult()
     {
         $result = $this->mapResult(CustomerLoginRequest::ofEmailAndPassword('email', 'password'));
-        $this->assertInstanceOf('\Commercetools\Core\Model\Customer\CustomerSigninResult', $result);
+        $this->assertInstanceOf(CustomerSigninResult::class, $result);
     }
 
     public function testMapEmptyResult()
@@ -72,6 +74,6 @@ class CustomerLoginRequestTest extends RequestTestCase
         $request = CustomerLoginRequest::ofEmailAndPassword('email', 'password');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

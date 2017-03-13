@@ -5,7 +5,7 @@
 
 namespace Commercetools\Core\Model\Common;
 
-class EnumTest extends \PHPUnit_Framework_TestCase
+class EnumTest extends \PHPUnit\Framework\TestCase
 {
     public function testToString()
     {

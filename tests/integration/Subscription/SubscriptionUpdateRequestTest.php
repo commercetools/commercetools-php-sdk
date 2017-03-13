@@ -12,6 +12,7 @@ use Commercetools\Core\Model\Subscription\ChangeSubscriptionCollection;
 use Commercetools\Core\Model\Subscription\IronMQDestination;
 use Commercetools\Core\Model\Subscription\MessageSubscription;
 use Commercetools\Core\Model\Subscription\MessageSubscriptionCollection;
+use Commercetools\Core\Model\Subscription\Subscription;
 use Commercetools\Core\Model\Subscription\SubscriptionDraft;
 use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetChangesAction;
 use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetKeyAction;
@@ -74,7 +75,7 @@ class SubscriptionUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Subscription\Subscription', $result);
+        $this->assertInstanceOf(Subscription::class, $result);
     }
 
     public function testUpdateById()
@@ -90,7 +91,7 @@ class SubscriptionUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Subscription\Subscription', $result);
+        $this->assertInstanceOf(Subscription::class, $result);
     }
 
     public function testUpdateKey()
@@ -111,7 +112,7 @@ class SubscriptionUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Subscription\Subscription', $result);
+        $this->assertInstanceOf(Subscription::class, $result);
         $this->assertSame($key, $result->getKey());
     }
 
@@ -136,7 +137,7 @@ class SubscriptionUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Subscription\Subscription', $result);
+        $this->assertInstanceOf(Subscription::class, $result);
         $this->assertCount(1, $result->getMessages());
         $this->assertSame('order', $result->getMessages()->current()->getResourceTypeId());
     }
@@ -162,7 +163,7 @@ class SubscriptionUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\Subscription\Subscription', $result);
+        $this->assertInstanceOf(Subscription::class, $result);
         $this->assertCount(1, $result->getMessages());
         $this->assertSame('product', $result->getChanges()->current()->getResourceTypeId());
     }

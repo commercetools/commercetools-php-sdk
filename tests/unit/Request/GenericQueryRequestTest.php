@@ -5,6 +5,48 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Model\Cart\CartCollection;
+use Commercetools\Core\Model\CartDiscount\CartDiscountCollection;
+use Commercetools\Core\Model\Category\CategoryCollection;
+use Commercetools\Core\Model\Channel\ChannelCollection;
+use Commercetools\Core\Model\Customer\CustomerCollection;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupCollection;
+use Commercetools\Core\Model\CustomObject\CustomObjectCollection;
+use Commercetools\Core\Model\DiscountCode\DiscountCodeCollection;
+use Commercetools\Core\Model\Inventory\InventoryEntryCollection;
+use Commercetools\Core\Model\Message\MessageCollection;
+use Commercetools\Core\Model\Order\OrderCollection;
+use Commercetools\Core\Model\Payment\PaymentCollection;
+use Commercetools\Core\Model\Product\ProductCollection;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscountCollection;
+use Commercetools\Core\Model\ProductType\ProductTypeCollection;
+use Commercetools\Core\Model\Review\ReviewCollection;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
+use Commercetools\Core\Model\State\StateCollection;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryCollection;
+use Commercetools\Core\Model\Type\TypeCollection;
+use Commercetools\Core\Model\Zone\ZoneCollection;
+use Commercetools\Core\Request\CartDiscounts\CartDiscountQueryRequest;
+use Commercetools\Core\Request\Carts\CartQueryRequest;
+use Commercetools\Core\Request\Categories\CategoryQueryRequest;
+use Commercetools\Core\Request\Channels\ChannelQueryRequest;
+use Commercetools\Core\Request\CustomerGroups\CustomerGroupQueryRequest;
+use Commercetools\Core\Request\Customers\CustomerQueryRequest;
+use Commercetools\Core\Request\CustomObjects\CustomObjectQueryRequest;
+use Commercetools\Core\Request\DiscountCodes\DiscountCodeQueryRequest;
+use Commercetools\Core\Request\Inventory\InventoryQueryRequest;
+use Commercetools\Core\Request\Messages\MessageQueryRequest;
+use Commercetools\Core\Request\Orders\OrderQueryRequest;
+use Commercetools\Core\Request\Payments\PaymentQueryRequest;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest;
+use Commercetools\Core\Request\Products\ProductQueryRequest;
+use Commercetools\Core\Request\ProductTypes\ProductTypeQueryRequest;
+use Commercetools\Core\Request\Reviews\ReviewQueryRequest;
+use Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest;
+use Commercetools\Core\Request\States\StateQueryRequest;
+use Commercetools\Core\Request\TaxCategories\TaxCategoryQueryRequest;
+use Commercetools\Core\Request\Types\TypeQueryRequest;
+use Commercetools\Core\Request\Zones\ZoneQueryRequest;
 use Commercetools\Core\RequestTestCase;
 
 class GenericQueryRequestTest extends RequestTestCase
@@ -24,13 +66,13 @@ class GenericQueryRequestTest extends RequestTestCase
     public function mapResultProvider()
     {
         return [
-            [
-                '\Commercetools\Core\Request\CartDiscounts\CartDiscountQueryRequest',
-                '\Commercetools\Core\Model\CartDiscount\CartDiscountCollection',
+            CartDiscountQueryRequest::class => [
+                CartDiscountQueryRequest::class,
+                CartDiscountCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\Carts\CartQueryRequest',
-                '\Commercetools\Core\Model\Cart\CartCollection',
+            CartQueryRequest::class => [
+                CartQueryRequest::class,
+                CartCollection::class,
                 [
                     'results' => [
                         ['id' => 'value'],
@@ -39,25 +81,25 @@ class GenericQueryRequestTest extends RequestTestCase
                     ]
                 ]
             ],
-            [
-                '\Commercetools\Core\Request\Categories\CategoryQueryRequest',
-                '\Commercetools\Core\Model\Category\CategoryCollection',
+            CategoryQueryRequest::class => [
+                CategoryQueryRequest::class,
+                CategoryCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\Channels\ChannelQueryRequest',
-                '\Commercetools\Core\Model\Channel\ChannelCollection',
+            ChannelQueryRequest::class => [
+                ChannelQueryRequest::class,
+                ChannelCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\CustomerGroups\CustomerGroupQueryRequest',
-                '\Commercetools\Core\Model\CustomerGroup\CustomerGroupCollection',
+            CustomerGroupQueryRequest::class => [
+                CustomerGroupQueryRequest::class,
+                CustomerGroupCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\Customers\CustomerQueryRequest',
-                '\Commercetools\Core\Model\Customer\CustomerCollection',
+            CustomerQueryRequest::class => [
+                CustomerQueryRequest::class,
+                CustomerCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\CustomObjects\CustomObjectQueryRequest',
-                '\Commercetools\Core\Model\CustomObject\CustomObjectCollection',
+            CustomObjectQueryRequest::class => [
+                CustomObjectQueryRequest::class,
+                CustomObjectCollection::class,
                 [
                     'results' => [
                         ['container' => 'myNamespace', 'key' => 'key1', 'value' => 'value1'],
@@ -66,61 +108,61 @@ class GenericQueryRequestTest extends RequestTestCase
                     ]
                 ]
             ],
-            [
-                '\Commercetools\Core\Request\DiscountCodes\DiscountCodeQueryRequest',
-                '\Commercetools\Core\Model\DiscountCode\DiscountCodeCollection',
+            DiscountCodeQueryRequest::class => [
+                DiscountCodeQueryRequest::class,
+                DiscountCodeCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\Inventory\InventoryQueryRequest',
-                '\Commercetools\Core\Model\Inventory\InventoryEntryCollection',
+            InventoryQueryRequest::class => [
+                InventoryQueryRequest::class,
+                InventoryEntryCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\Messages\MessageQueryRequest',
-                '\Commercetools\Core\Model\Message\MessageCollection',
+            MessageQueryRequest::class => [
+                MessageQueryRequest::class,
+                MessageCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\Orders\OrderQueryRequest',
-                '\Commercetools\Core\Model\Order\OrderCollection',
+            OrderQueryRequest::class => [
+                OrderQueryRequest::class,
+                OrderCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\Payments\PaymentQueryRequest',
-                '\Commercetools\Core\Model\Payment\PaymentCollection',
+            PaymentQueryRequest::class => [
+                PaymentQueryRequest::class,
+                PaymentCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest',
-                '\Commercetools\Core\Model\ProductDiscount\ProductDiscountCollection',
+            ProductDiscountQueryRequest::class => [
+                ProductDiscountQueryRequest::class,
+                ProductDiscountCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\Products\ProductQueryRequest',
-                '\Commercetools\Core\Model\Product\ProductCollection',
+            ProductQueryRequest::class => [
+                ProductQueryRequest::class,
+                ProductCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\ProductTypes\ProductTypeQueryRequest',
-                '\Commercetools\Core\Model\ProductType\ProductTypeCollection',
+            ProductTypeQueryRequest::class => [
+                ProductTypeQueryRequest::class,
+                ProductTypeCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\Reviews\ReviewQueryRequest',
-                '\Commercetools\Core\Model\Review\ReviewCollection',
+            ReviewQueryRequest::class => [
+                ReviewQueryRequest::class,
+                ReviewCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest',
-                '\Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection',
+            ShippingMethodQueryRequest::class => [
+                ShippingMethodQueryRequest::class,
+                ShippingMethodCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\States\StateQueryRequest',
-                '\Commercetools\Core\Model\State\StateCollection',
+            StateQueryRequest::class => [
+                StateQueryRequest::class,
+                StateCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\TaxCategories\TaxCategoryQueryRequest',
-                '\Commercetools\Core\Model\TaxCategory\TaxCategoryCollection',
+            TaxCategoryQueryRequest::class => [
+                TaxCategoryQueryRequest::class,
+                TaxCategoryCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\Types\TypeQueryRequest',
-                '\Commercetools\Core\Model\Type\TypeCollection',
+            TypeQueryRequest::class => [
+                TypeQueryRequest::class,
+                TypeCollection::class,
             ],
-            [
-                '\Commercetools\Core\Request\Zones\ZoneQueryRequest',
-                '\Commercetools\Core\Model\Zone\ZoneCollection',
+            ZoneQueryRequest::class => [
+                ZoneQueryRequest::class,
+                ZoneCollection::class,
             ],
         ];
     }

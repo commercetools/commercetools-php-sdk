@@ -20,7 +20,7 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ShoppingListCreateRequest extends AbstractCreateRequest
 {
-    protected $resultClass = '\Commercetools\Core\Model\ShoppingList\ShoppingList';
+    protected $resultClass = ShoppingList::class;
 
     /**
      * @param ShoppingListDraft $ShoppingList

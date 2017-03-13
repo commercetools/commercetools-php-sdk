@@ -25,7 +25,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 class TypeReference extends Reference
 {
     const TYPE_TYPE = 'type';
-    const TYPE_CLASS = '\Commercetools\Core\Model\Type\Type';
+    const TYPE_CLASS = Type::class;
 
     /**
      * @param $id

@@ -26,7 +26,7 @@ class ShoppingListChangeTextLineItemNameAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'textLineItemId' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
+            'name' => [static::TYPE => LocalizedString::class],
         ];
     }
 

@@ -6,17 +6,19 @@
 namespace Commercetools\Core\Request\ShippingMethods;
 
 use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
 use Commercetools\Core\RequestTestCase;
+use Commercetools\Core\Response\ResourceResponse;
 
 class ShippingMethodByLocationGetRequestTest extends RequestTestCase
 {
     const SHIPPING_METHOD_BY_LOCATION_GET_REQUEST =
-        '\Commercetools\Core\Request\Carts\ShippingMethodByLocationGetRequest';
+        ShippingMethodByLocationGetRequest::class;
 
     public function testMapResult()
     {
         $result = $this->mapResult(ShippingMethodByLocationGetRequest::ofCountry('DE'));
-        $this->assertInstanceOf('\Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection', $result);
+        $this->assertInstanceOf(ShippingMethodCollection::class, $result);
     }
 
     public function testMapEmptyResult()
@@ -82,6 +84,6 @@ class ShippingMethodByLocationGetRequestTest extends RequestTestCase
         $request = ShippingMethodByLocationGetRequest::ofCountry('DE');
         $response = $request->buildResponse($guzzleResponse);
 
-        $this->assertInstanceOf('\Commercetools\Core\Response\ResourceResponse', $response);
+        $this->assertInstanceOf(ResourceResponse::class, $response);
     }
 }

@@ -16,5 +16,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class LocationCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Zone\Location';
+    protected $type = Location::class;
 }

@@ -23,7 +23,7 @@ class CartRemoveDiscountCodeAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'discountCode' => [static::TYPE => '\Commercetools\Core\Model\DiscountCode\DiscountCodeReference'],
+            'discountCode' => [static::TYPE => DiscountCodeReference::class],
         ];
     }
 

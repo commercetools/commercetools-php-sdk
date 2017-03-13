@@ -23,7 +23,7 @@ class StateSetTransitionsAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'transitions' => [static::TYPE => '\Commercetools\Core\Model\State\StateReferenceCollection'],
+            'transitions' => [static::TYPE => StateReferenceCollection::class],
         ];
     }
 

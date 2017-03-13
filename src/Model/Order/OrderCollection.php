@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class OrderCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Order\Order';
+    protected $type = Order::class;
 }

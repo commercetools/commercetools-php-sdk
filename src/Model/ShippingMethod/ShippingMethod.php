@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\ShippingMethod;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\ShippingMethod
@@ -17,9 +18,9 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method int getVersion()
  * @method ShippingMethod setVersion(int $version = null)
  * @method DateTimeDecorator getCreatedAt()
- * @method ShippingMethod setCreatedAt(\DateTime $createdAt = null)
+ * @method ShippingMethod setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
- * @method ShippingMethod setLastModifiedAt(\DateTime $lastModifiedAt = null)
+ * @method ShippingMethod setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getName()
  * @method ShippingMethod setName(string $name = null)
  * @method string getDescription()
@@ -40,17 +41,17 @@ class ShippingMethod extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'lastModifiedAt' => [
-                static::TYPE => '\DateTime',
-                static::DECORATOR => '\Commercetools\Core\Model\Common\DateTimeDecorator'
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
-            'zoneRates' => [static::TYPE => '\Commercetools\Core\Model\ShippingMethod\ZoneRateCollection'],
+            'taxCategory' => [static::TYPE => TaxCategoryReference::class],
+            'zoneRates' => [static::TYPE => ZoneRateCollection::class],
             'isDefault' => [static::TYPE => 'bool']
         ];
     }

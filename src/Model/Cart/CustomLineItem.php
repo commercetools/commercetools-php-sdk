@@ -47,18 +47,18 @@ class CustomLineItem extends JsonObject
     {
         return [
             'id' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => '\Commercetools\Core\Model\Common\LocalizedString'],
-            'money' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
-            'taxedPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\TaxedItemPrice'],
+            'name' => [static::TYPE => LocalizedString::class],
+            'money' => [static::TYPE => Money::class],
+            'taxedPrice' => [static::TYPE => TaxedItemPrice::class],
             'slug' => [static::TYPE => 'string'],
             'quantity' => [static::TYPE => 'int'],
-            'state' => [static::TYPE => '\Commercetools\Core\Model\Order\ItemState'],
-            'taxCategory' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxCategoryReference'],
-            'taxRate' => [static::TYPE => '\Commercetools\Core\Model\TaxCategory\TaxRate'],
-            'custom' => [static::TYPE => '\Commercetools\Core\Model\CustomField\CustomFieldObject'],
-            'totalPrice' => [static::TYPE => '\Commercetools\Core\Model\Common\Money'],
+            'state' => [static::TYPE => ItemState::class],
+            'taxCategory' => [static::TYPE => TaxCategoryReference::class],
+            'taxRate' => [static::TYPE => TaxRate::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
+            'totalPrice' => [static::TYPE => Money::class],
             'discountedPricePerQuantity' => [
-                static::TYPE => '\Commercetools\Core\Model\Cart\DiscountedPricePerQuantityCollection'
+                static::TYPE => DiscountedPricePerQuantityCollection::class
             ],
         ];
     }

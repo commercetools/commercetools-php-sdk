@@ -7,6 +7,7 @@
 namespace Commercetools\Core\CustomerGroup;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupDraft;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupByIdGetRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupCreateRequest;
@@ -51,7 +52,7 @@ class CustomerGroupQueryRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomerGroup\CustomerGroup', $result->getAt(0));
+        $this->assertInstanceOf(CustomerGroup::class, $result->getAt(0));
         $this->assertSame($customerGroup->getId(), $result->getAt(0)->getId());
     }
 
@@ -64,7 +65,7 @@ class CustomerGroupQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf('\Commercetools\Core\Model\CustomerGroup\CustomerGroup', $customerGroup);
+        $this->assertInstanceOf(CustomerGroup::class, $customerGroup);
         $this->assertSame($customerGroup->getId(), $result->getId());
 
     }

@@ -25,7 +25,7 @@ class ProductSetSearchKeywordsAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'searchKeywords' => [static::TYPE => '\Commercetools\Core\Model\Product\LocalizedSearchKeywords'],
+            'searchKeywords' => [static::TYPE => LocalizedSearchKeywords::class],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

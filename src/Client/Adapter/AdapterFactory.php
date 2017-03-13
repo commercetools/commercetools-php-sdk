@@ -14,8 +14,8 @@ class AdapterFactory
 
     public function __construct()
     {
-        $this->register('guzzle5', '\Commercetools\Core\Client\Adapter\Guzzle5Adapter')
-            ->register('guzzle6', '\Commercetools\Core\Client\Adapter\Guzzle6Adapter');
+        $this->register('guzzle5', Guzzle5Adapter::class)
+            ->register('guzzle6', Guzzle6Adapter::class);
     }
 
     /**

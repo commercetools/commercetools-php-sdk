@@ -38,8 +38,8 @@ class ProductSetAssetCustomTypeAction extends SetCustomTypeAction
             'sku' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
             'staged' => [static::TYPE => 'bool'],
-            'type' => [static::TYPE => '\Commercetools\Core\Model\Type\TypeReference'],
-            'fields' => [static::TYPE => '\Commercetools\Core\Model\CustomField\FieldContainer'],
+            'type' => [static::TYPE => TypeReference::class],
+            'fields' => [static::TYPE => FieldContainer::class],
         ];
     }
 

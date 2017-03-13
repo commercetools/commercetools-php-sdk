@@ -5,6 +5,9 @@
 
 namespace Commercetools\Core\Model\ProductType;
 
+use Commercetools\Core\Model\Common\DateDecorator;
+use DateTime;
+
 /**
  * @package Commercetools\Core\Model\ProductType
  * @link https://dev.commercetools.com/http-api-projects-productTypes.html#datetype
@@ -17,6 +20,6 @@ class DateType extends AttributeType
 
     public function fieldTypeDefinition()
     {
-        return [static::TYPE => '\DateTime', static::DECORATOR => '\Commercetools\Core\Model\Common\DateDecorator'];
+        return [static::TYPE => DateTime::class, static::DECORATOR => DateDecorator::class];
     }
 }

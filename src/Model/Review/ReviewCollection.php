@@ -17,5 +17,5 @@ use Commercetools\Core\Model\Common\Collection;
  */
 class ReviewCollection extends Collection
 {
-    protected $type = '\Commercetools\Core\Model\Review\Review';
+    protected $type = Review::class;
 }

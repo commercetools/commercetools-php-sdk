@@ -26,7 +26,7 @@ class CustomerByTokenGetRequest extends AbstractApiRequest
 {
     const TOKEN = 'token';
 
-    protected $resultClass = '\Commercetools\Core\Model\Customer\Customer';
+    protected $resultClass = Customer::class;
 
     /**
      * @param string $token

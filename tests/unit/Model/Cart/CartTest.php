@@ -7,7 +7,7 @@
 namespace Commercetools\Core\Model\Cart;
 
 
-class CartTest extends \PHPUnit_Framework_TestCase
+class CartTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider getCarts

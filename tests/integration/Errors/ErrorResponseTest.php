@@ -7,8 +7,11 @@
 namespace Commercetools\Core\Errors;
 
 use Cache\Adapter\Common\CacheItem;
+use Cache\Adapter\PHPArray\ArrayCachePool;
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Cache\CacheAdapterFactory;
 use Commercetools\Core\Cache\CacheAdapterInterface;
+use Commercetools\Core\Client;
 use Commercetools\Core\Client\OAuth\Manager;
 use Commercetools\Core\Error\AccessDeniedError;
 use Commercetools\Core\Error\ApiException;
@@ -123,10 +126,10 @@ class ErrorResponseTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
 
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\ConcurrentModificationError',
+            ConcurrentModificationError::class,
             $error
         );
         $this->assertSame(409, $response->getStatusCode());
@@ -140,10 +143,10 @@ class ErrorResponseTest extends ApiTestCase
         $request = ProductByIdGetRequest::ofId($t);
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\ResourceNotFoundError',
+            ResourceNotFoundError::class,
             $error
         );
         $this->assertSame(ResourceNotFoundError::CODE, $error->getCode());
@@ -155,10 +158,10 @@ class ErrorResponseTest extends ApiTestCase
         $request = ProductUpdateRequest::ofIdAndVersion($t, 1);
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\ResourceNotFoundError',
+            ResourceNotFoundError::class,
             $error
         );
         $this->assertSame(ResourceNotFoundError::CODE, $error->getCode());
@@ -170,7 +173,7 @@ class ErrorResponseTest extends ApiTestCase
         $request = ProductByIdGetRequest::ofId($t);
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(404, $response->getStatusCode());
         $this->assertEmpty((string)$response->getBody());
     }
@@ -181,7 +184,7 @@ class ErrorResponseTest extends ApiTestCase
         $request = ProductUpdateRequest::ofIdAndVersion($t, 1);
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(404, $response->getStatusCode());
         $this->assertEmpty((string)$response->getBody());
     }
@@ -193,11 +196,11 @@ class ErrorResponseTest extends ApiTestCase
         $request = CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), 'invalidPassword');
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\InvalidCredentialsError',
+            InvalidCredentialsError::class,
             $error
         );
         $this->assertSame(InvalidCredentialsError::CODE, $error->getCode());
@@ -215,11 +218,11 @@ class ErrorResponseTest extends ApiTestCase
         );
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\InvalidCurrentPasswordError',
+            InvalidCurrentPasswordError::class,
             $error
         );
         $this->assertSame(InvalidCurrentPasswordError::CODE, $error->getCode());
@@ -239,11 +242,11 @@ class ErrorResponseTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\DuplicatePriceScopeError',
+            DuplicatePriceScopeError::class,
             $error
         );
         $this->assertSame(DuplicatePriceScopeError::CODE, $error->getCode());
@@ -263,11 +266,11 @@ class ErrorResponseTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\DuplicateFieldError',
+            DuplicateFieldError::class,
             $error
         );
         $this->assertSame(DuplicateFieldError::CODE, $error->getCode());
@@ -299,11 +302,11 @@ class ErrorResponseTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\DuplicateVariantValuesError',
+            DuplicateVariantValuesError::class,
             $error
         );
         $this->assertSame(DuplicateVariantValuesError::CODE, $error->getCode());
@@ -343,11 +346,11 @@ class ErrorResponseTest extends ApiTestCase
         if (!$response->isError()) {
             $this->product = $request->mapResponse($response);
         }
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\DuplicateVariantValuesError',
+            DuplicateVariantValuesError::class,
             $error
         );
         $this->assertSame(DuplicateVariantValuesError::CODE, $error->getCode());
@@ -395,11 +398,11 @@ class ErrorResponseTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\DuplicateAttributeValueError',
+            DuplicateAttributeValueError::class,
             $error
         );
         $this->assertSame(DuplicateAttributeValueError::CODE, $error->getCode());
@@ -461,11 +464,11 @@ class ErrorResponseTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\DuplicateAttributeValuesError',
+            DuplicateAttributeValuesError::class,
             $error
         );
         $this->assertSame(DuplicateAttributeValuesError::CODE, $error->getCode());
@@ -504,11 +507,11 @@ class ErrorResponseTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\RequiredFieldError',
+            RequiredFieldError::class,
             $error
         );
         $this->assertSame(RequiredFieldError::CODE, $error->getCode());
@@ -532,11 +535,11 @@ class ErrorResponseTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\InvalidOperationError',
+            InvalidOperationError::class,
             $error
         );
         $this->assertSame(InvalidOperationError::CODE, $error->getCode());
@@ -579,11 +582,11 @@ class ErrorResponseTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\InvalidFieldError',
+            InvalidFieldError::class,
             $error
         );
         $this->assertSame(InvalidFieldError::CODE, $error->getCode());
@@ -600,12 +603,12 @@ class ErrorResponseTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient('view_products'));
 
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(403, $response->getStatusCode());
 
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\InsufficientScopeError',
+            InsufficientScopeError::class,
             $error
         );
         $this->assertSame(InsufficientScopeError::CODE, $error->getCode());
@@ -613,16 +616,20 @@ class ErrorResponseTest extends ApiTestCase
 
     public function testInvalidToken()
     {
-        $client = $this->getClient('manage_project');
+        $cacheAdapter = new ArrayCachePool();
+
+        $config = $this->getClientConfig('manage_project');
+
+        $client = Client::ofConfigCacheAndLogger($config, $cacheAdapter, $this->getLogger());
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+
         $cacheScope = $client->getConfig()->getScope() . '-' . $client->getConfig()->getGrantType();
         $cacheKey = Manager::TOKEN_CACHE_KEY . '_' . sha1($cacheScope);
-        $cacheAdapter = $client->getOauthManager()->getCacheAdapter();
-        if ($cacheAdapter instanceof CacheAdapterInterface) {
-            $cacheAdapter->store($cacheKey, '1234');
-        }
-        if ($cacheAdapter instanceof CacheItemPoolInterface) {
-            $cacheAdapter->save(new CacheItem($cacheKey, true, '1234'));
-        }
+
+        $cacheItem = $cacheAdapter->getItem($cacheKey);
+        $cacheItem->set('1234');
+        $cacheAdapter->save($cacheItem);
 
         $request = ProductQueryRequest::of();
         $client->addBatchRequest($request);
@@ -630,12 +637,12 @@ class ErrorResponseTest extends ApiTestCase
         $responses = $client->executeBatch();
         $response = current($responses);
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(401, $response->getStatusCode());
 
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\InvalidTokenError',
+            InvalidTokenError::class,
             $error
         );
         $this->assertSame(InvalidTokenError::CODE, $error->getCode());
@@ -655,12 +662,12 @@ class ErrorResponseTest extends ApiTestCase
             $response = new ErrorResponse($exception, $request, $httpResponse);
         }
         $this->assertTrue($response->isError());
-        $this->assertInstanceOf('\Commercetools\Core\Response\ErrorResponse', $response);
+        $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(401, $response->getStatusCode());
 
         $error = $response->getErrors()->current();
         $this->assertInstanceOf(
-            '\Commercetools\Core\Error\AccessDeniedError',
+            AccessDeniedError::class,
             $error
         );
         $this->assertSame(AccessDeniedError::CODE, $error->getCode());
