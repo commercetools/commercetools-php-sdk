@@ -54,7 +54,7 @@ require 'vendor/autoload.php';
 
 If you don't use Composer, just [download a zip archive](https://github.com/commercetools/commercetools-php-sdk/archive/master.zip) of the latest release, manually integrate it and configure your own autoloader.
 
-Until the 1.0.0 release M0, M1 etc. milestone releases can contain incompatible changes.  From 1.0.0 on, the project will follow the [semantic versioning](http://semver.org) guidelines, i.e. everything but major version changes are backwards-compatible. This matches composer's default behavior.
+The project follows the [semantic versioning](http://semver.org) guidelines, i.e. everything but major version changes are backwards-compatible. This matches composer's default behavior.
 
 With composer just run `composer update commercetools/php-sdk` to update to compatible versions. Edit your `composer.json` file to update to incompatible versions.
 
@@ -126,11 +126,11 @@ php composer.phar update
 ```
 
 ### Linux preparations :
- * install php 5.5+, xdebug and ant according to their distro's package system.
+ * install php 5.6+, xdebug and ant according to their distro's package system.
  * make sure the curl, intl, mbstring and openssl extensions are activated in php.ini
 
 ### Windows preparations:
- * [install php](http://windows.php.net/download/) 5.5+, i.e. extract ZIP and make add php.exe location to your PATH. Use WAMP etc. if you like, but plain PHP commandline is all you really need (you can test example code in the built-in webserver).
+ * [install php](http://windows.php.net/download/) 5.6+, i.e. extract ZIP and make add php.exe location to your PATH. Use WAMP etc. if you like, but plain PHP commandline is all you really need (you can test example code in the built-in webserver).
  * enable the curl, intl, mbstring and openssl extenstions in php.ini
  * make a working ant available in the PATH
  * and [install composer](https://getcomposer.org/doc/00-intro.md#installation-windows).
@@ -157,9 +157,9 @@ You can use the `docroot` directory with the built-in PHP web server. Add to the
 
 ```yaml
 parameters:
-	client_id: my client id
-	client_secret: my client secret
-	project: my project id
+    client_id: my client id
+    client_secret: my client secret
+    project: my project id
 ```
 
 Then activate the php builtin web server
