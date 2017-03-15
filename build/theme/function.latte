@@ -15,7 +15,6 @@
 
 	<div class="alert alert-info">
 		{if $function->inNamespace()}<b>Namespace:</b> {$function->namespaceName|namespaceLinks|noescape}<br>{/if}
-		{if $function->inPackage()}<b>Package:</b> {$function->packageName|packageLinks|noescape}<br>{/if}
 		{foreach $template->annotationSort($template->annotationFilter($function->annotations, array('param', 'return', 'throws'))) as $annotation => $values}
 			{foreach $values as $value}
 				<b>{$annotation|annotationBeautify}{if $value}:{/if}</b>
@@ -30,7 +29,7 @@
 
 	{var $annotations = $function->annotations}
 
-	{if $function->numberOfParameters}
+	{if count($function->parameters)}
 	<div class="panel panel-default">
         <div class="panel-heading"><h2>Parameters summary</h2></div>
 		<table class="summary table table-bordered table-striped" id="parameters">

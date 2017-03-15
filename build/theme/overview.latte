@@ -25,8 +25,8 @@
 	</div>
 
 	{if count($namespaces)}
-    	<h2>Namespaces summary</h2>
 		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Namespaces summary</h2></div>
 			<table class="summary table table-bordered table-striped" id="namespaces">
 				{foreach $namespaces as $namespace}
 					{continueIf $config->main && 0 !== strpos($namespace, $config->main)}
