@@ -15,7 +15,7 @@ The [PHP API documentation](http://commercetools.github.io/commercetools-php-sdk
 
 ### Install & Integrate the SDK into your Project
 
-The SDK requires a PHP version of 5.4 or higher. The SDK tries to use the APC(u) as it's default cache. If you provide an own cache interface or a [PSR-6](https://packagist.org/providers/psr/cache-implementation) compliant cache adapter, APC(u) is not necessary. The [cache/filesystem-adapter](https://packagist.org/packages/cache/filesystem-adapter) is tried to be used if no APC(u) is installed.
+The SDK requires a PHP version of 5.6 or higher. The SDK tries to use the APC(u) as it's default cache. If you provide a [PSR-6](https://packagist.org/providers/psr/cache-implementation) or [PSR-16](https://packagist.org/providers/psr/simple-cache-implementation) compliant cache adapter, APC(u) is not necessary. The [cache/filesystem-adapter](https://packagist.org/packages/cache/filesystem-adapter) is tried to be used if no APC(u) is installed.
 
 The curl extension is recommended but not strictly necessary because the SDK is using the [Guzzle library](https://github.com/guzzle/guzzle) library, which falls back to PHP stream wrappers if curl is not available.
 The intl extension is required to directly output Money objects as a String.
