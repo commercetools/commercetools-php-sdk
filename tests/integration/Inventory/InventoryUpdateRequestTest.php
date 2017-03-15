@@ -206,7 +206,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         } while ($result->count() == 0 && $retries <= 20);
 
         if ($result->count() == 0) {
-            $this->markTestSkipped('Product availability not updated in time');
+            $this->markTestSkipped('Product not updated in time');
         }
 
         $retries = 0;
@@ -221,6 +221,10 @@ class InventoryUpdateRequestTest extends ApiTestCase
             $response = $request->executeWithClient($this->getClient());
             $result = $request->mapResponse($response);
         } while ($result->count() == 0 && $retries <= 9);
+
+        if ($result->count() == 0) {
+            $this->markTestSkipped('Product channel availability not updated in time');
+        }
 
         $this->assertSame(
             $product->getId(),
