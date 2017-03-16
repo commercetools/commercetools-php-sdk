@@ -63,6 +63,7 @@ class ShoppingList extends JsonObject
             'lineItems' => [static::TYPE => LineItemCollection::class],
             'textLineItems' => [static::TYPE => TextLineItemCollection::class],
             'custom' => [static::TYPE => CustomFieldObject::class],
+            'deleteDaysAfterLastModification' => [static::TYPE => 'int']
         ];
     }
 }

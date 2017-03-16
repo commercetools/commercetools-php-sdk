@@ -44,6 +44,7 @@ class ShoppingListDraft extends Resource
             'lineItems' => [static::TYPE => LineItemDraftCollection::class],
             'textLineItems' => [static::TYPE => TextLineItemDraftCollection::class],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'deleteDaysAfterLastModification' => [static::TYPE => 'int']
         ];
     }
 
