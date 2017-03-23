@@ -15,6 +15,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Commercetools\Core\Error\ApiException;
+use Psr\Log\LogLevel;
 
 class Guzzle5Adapter implements AdapterInterface
 {
@@ -54,7 +55,7 @@ class Guzzle5Adapter implements AdapterInterface
         $this->client = new Client($options);
     }
 
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger, $logLevel = LogLevel::INFO)
     {
         $this->logger = $logger;
         if ($logger instanceof LoggerInterface) {
