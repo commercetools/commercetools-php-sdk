@@ -113,15 +113,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $stream = new BufferStream();
         $stream->write($body);
-        $response = new \GuzzleHttp\Psr7\Response($statusCode, $headers, $stream, $version, $reason);
+        $response = new Response($statusCode, $headers, $stream, $version, $reason);
         return $response;
     }
 
     protected function createResponseGuzzle5($statusCode, $headers, $body, $reason = null, $version = '1.1')
     {
-        $mockBodyClass = '\GuzzleHttp\Stream\Stream';
-        $mockFactory = 'factory';
-        $mockBody = $mockBodyClass::$mockFactory($body);
+        $mockBody = \GuzzleHttp\Stream\Stream::factory($body);
         $response = new \GuzzleHttp\Message\Response($statusCode, $headers, $mockBody, ['reason_phrase' => $reason, 'protocol_version' => $version]);
         return $response;
     }
