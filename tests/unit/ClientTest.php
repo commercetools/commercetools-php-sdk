@@ -122,7 +122,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $mockBodyClass = '\GuzzleHttp\Stream\Stream';
         $mockFactory = 'factory';
         $mockBody = $mockBodyClass::$mockFactory($body);
-        $response = new \GuzzleHttp\Psr7\Response($statusCode, $headers, $mockBody, ['reason_phrase' => $reason, 'protocol_version' => $version]);
+        $response = new \GuzzleHttp\Message\Response($statusCode, $headers, $mockBody, ['reason_phrase' => $reason, 'protocol_version' => $version]);
         return $response;
     }
 
