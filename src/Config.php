@@ -10,6 +10,7 @@ use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Model\Common\ContextAwareInterface;
 use Commercetools\Core\Model\Common\ContextTrait;
+use Psr\Log\LogLevel;
 
 /**
  * Client configuration object
@@ -143,6 +144,11 @@ class Config implements ContextAwareInterface
      * @var string
      */
     protected $cacheDir;
+
+    /**
+     * @var string
+     */
+    protected $logLevel = LogLevel::INFO;
 
     /**
      * @param array $configValues
@@ -539,6 +545,25 @@ class Config implements ContextAwareInterface
     public function setCacheDir($cacheDir)
     {
         $this->cacheDir = $cacheDir;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogLevel()
+    {
+        return $this->logLevel;
+    }
+
+    /**
+     * @param string $logLevel
+     * @return $this
+     */
+    public function setLogLevel($logLevel)
+    {
+        $this->logLevel = $logLevel;
 
         return $this;
     }

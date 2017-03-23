@@ -39,11 +39,11 @@ The SDK supports Guzzle6 as well as Guzzle5 as HTTP client. For Guzzle6:
 composer require guzzlehttp/guzzle ^6.0
 ```
 
-When you want to use Guzzle5 you have to add additionally the log subscriber:
+When you want to use Guzzle5 you have to ensure react/promise at minimum version 2.2:
 
 ```bash
-composer require guzzlehttp/guzzle ^5.0
-composer require guzzlehttp/log-subscriber ^1.0
+composer require guzzlehttp/guzzle ^5.3.1
+composer require react/promise ^2.2
 ```
 
 After installing, you need to require Composer's autoloader if that's not yet the case:

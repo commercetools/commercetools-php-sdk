@@ -35,6 +35,7 @@ use Monolog\Logger;
 use Commercetools\Core\Client\JsonEndpoint;
 use Commercetools\Core\Client\OAuth\Token;
 use Commercetools\Core\Request\ClientRequestInterface;
+use Psr\Log\LogLevel;
 
 class ClientTest extends \PHPUnit\Framework\TestCase
 {
@@ -298,7 +299,30 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $this->assertTrue($handler->hasInfo($record));
         $this->assertContains('GET /project/test/id', (string)$record['message']);
-        $this->assertSame(200, $record['level']);
+        $this->assertSame(Logger::INFO, $record['level']);
+    }
+
+    public function testLogLevel()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+        $config =$this->getConfig();
+        $config = $config->setLogLevel(LogLevel::DEBUG);
+
+        $client = $this->getMockClient($config, $this->getSingleOpResult(), 200, $logger);
+
+        $endpoint = new JsonEndpoint('test');
+        $request = $this->getMockForAbstractClass(
+            AbstractByIdGetRequest::class,
+            [$endpoint, 'id']
+        );
+        $client->execute($request);
+
+        $record = current($handler->getRecords());
+        $this->assertTrue($handler->hasDebug($record));
+        $this->assertContains('GET /project/test/id', (string)$record['message']);
+        $this->assertSame(Logger::DEBUG, $record['level']);
     }
 
     public function testFutureLogger()
@@ -321,7 +345,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $record = current($handler->getRecords());
         $this->assertTrue($handler->hasInfo($record));
         $this->assertContains('GET /project/test/id', (string)$record['message']);
-        $this->assertSame(200, $record['level']);
+        $this->assertSame(Logger::INFO, $record['level']);
     }
 
     public function testBatch()
