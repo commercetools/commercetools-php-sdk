@@ -21,6 +21,7 @@ use Commercetools\Core\Error\DuplicateAttributeValuesError;
 use Commercetools\Core\Error\DuplicateFieldError;
 use Commercetools\Core\Error\DuplicatePriceScopeError;
 use Commercetools\Core\Error\DuplicateVariantValuesError;
+use Commercetools\Core\Error\ErrorContainer;
 use Commercetools\Core\Error\InsufficientScopeError;
 use Commercetools\Core\Error\InvalidCredentialsError;
 use Commercetools\Core\Error\InvalidCurrentPasswordError;
@@ -53,7 +54,9 @@ use Commercetools\Core\Request\Products\ProductQueryRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction;
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
+use Commercetools\Core\Request\PsrRequest;
 use Commercetools\Core\Response\ErrorResponse;
+use GuzzleHttp\Psr7\Request;
 use Psr\Cache\CacheItemPoolInterface;
 
 class ErrorResponseTest extends ApiTestCase
@@ -671,5 +674,23 @@ class ErrorResponseTest extends ApiTestCase
             $error
         );
         $this->assertSame(AccessDeniedError::CODE, $error->getCode());
+    }
+
+    public function testEmptyPost()
+    {
+        $psrRequest = new Request('POST', '/');
+
+        $request = PsrRequest::ofRequest($psrRequest);
+        $client = $this->getClient();
+        $response = $client->execute($request);
+
+        /**
+         * @var ErrorResponse $response
+         */
+        $this->assertInstanceOf(ErrorResponse::class, $response);
+        $this->assertSame(405, $response->getStatusCode());
+        $this->assertInstanceOf(ErrorContainer::class, $response->getErrors());
+        $this->assertEmpty($response->getErrors());
+        $this->assertSame('Method Not Allowed', $response->getMessage());
     }
 }

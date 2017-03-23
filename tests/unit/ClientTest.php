@@ -9,6 +9,7 @@ namespace Commercetools\Core;
 use Commercetools\Core\Client\OAuth\Manager;
 use Commercetools\Core\Error\BadGatewayException;
 use Commercetools\Core\Error\ConcurrentModificationException;
+use Commercetools\Core\Error\ErrorContainer;
 use Commercetools\Core\Error\ErrorResponseException;
 use Commercetools\Core\Error\GatewayTimeoutException;
 use Commercetools\Core\Error\InternalServerErrorException;
@@ -25,6 +26,7 @@ use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\BufferStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Subscriber\History;
@@ -56,7 +58,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      * @param array $headers
      * @return Client
      */
-    protected function getMockClient($config, $returnValue, $statusCode = 200, $logger = null, $headers = [])
+    protected function getMockClient($config, $returnValue, $statusCode = 200, $logger = null, $headers = [], $reason = null)
     {
         $oauthMockBuilder = $this->getMockBuilder(Manager::class);
         $oauthMockBuilder->setMethods(['getToken', 'refreshToken'])->setConstructorArgs([$config]);
@@ -78,34 +80,18 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue($oauthMock));
 
         if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
-            $mockBodyClass = '\GuzzleHttp\Psr7\BufferStream';
-            $mockFactory = false;
-            $responseClass = '\GuzzleHttp\Psr7\Response';
+            $mockFactory = 'createResponseGuzzle6';
         } else {
-            $mockBodyClass = '\GuzzleHttp\Stream\Stream';
-            $mockFactory = 'factory';
-            $responseClass = '\GuzzleHttp\Message\Response';
+            $mockFactory = 'createResponseGuzzle5';
         }
 
         $responses = [];
         if (is_array($returnValue)) {
             foreach ($returnValue as $value) {
-                if ($mockFactory) {
-                    $mockBody = $mockBodyClass::$mockFactory($value);
-                } else {
-                    $mockBody = new $mockBodyClass();
-                    $mockBody->write($value);
-                }
-                $responses[] = new $responseClass($statusCode, $headers, $mockBody);
+                $responses[] = $this->$mockFactory($statusCode, $headers, $value, $reason);
             }
         } else {
-            if ($mockFactory) {
-                $mockBody = $mockBodyClass::$mockFactory($returnValue);
-            } else {
-                $mockBody = new $mockBodyClass();
-                $mockBody->write($returnValue);
-            }
-            $responses[] = new $responseClass($statusCode, $headers, $mockBody);
+            $responses[] = $this->$mockFactory($statusCode, $headers, $returnValue, $reason);
         }
 
         if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
@@ -121,6 +107,23 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         }
 
         return $clientMock;
+    }
+
+    protected function createResponseGuzzle6($statusCode, $headers, $body, $reason = null, $version = '1.1')
+    {
+        $stream = new BufferStream();
+        $stream->write($body);
+        $response = new \GuzzleHttp\Psr7\Response($statusCode, $headers, $stream, $version, $reason);
+        return $response;
+    }
+
+    protected function createResponseGuzzle5($statusCode, $headers, $body, $reason = null, $version = '1.1')
+    {
+        $mockBodyClass = '\GuzzleHttp\Stream\Stream';
+        $mockFactory = 'factory';
+        $mockBody = $mockBodyClass::$mockFactory($body);
+        $response = new \GuzzleHttp\Psr7\Response($statusCode, $headers, $mockBody, ['reason_phrase' => $reason, 'protocol_version' => $version]);
+        return $response;
     }
 
     /**
@@ -707,5 +710,60 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
 
         }
+    }
+
+    public function testHtmlBody()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+        $errorBody = '
+        <!DOCTYPE html>
+<html lang=en>
+  <meta charset=utf-8>
+  <meta name=viewport content="initial-scale=1, minimum-scale=1, width=device-width">
+  <title>Error 411 (Length Required)!!1</title>
+  <style>
+    *{margin:0;padding:0}html,code{font:15px/22px arial,sans-serif}html{background:#fff;color:#222;padding:15px}body{margin:7% auto 0;max-width:390px;min-height:180px;padding:30px 0 15px}* > body{background:url(//www.google.com/images/errors/robot.png) 100% 5px no-repeat;padding-right:205px}p{margin:11px 0 22px;overflow:hidden}ins{color:#777;text-decoration:none}a img{border:0}@media screen and (max-width:772px){body{background:none;margin-top:0;max-width:none;padding-right:0}}#logo{background:url(//www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png) no-repeat;margin-left:-5px}@media only screen and (min-resolution:192dpi){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat 0% 0%/100% 100%;-moz-border-image:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) 0}}@media only screen and (-webkit-min-device-pixel-ratio:2){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat;-webkit-background-size:100% 100%}}#logo{display:inline-block;height:54px;width:150px}
+  </style>
+  <a href=//www.google.com/><span id=logo aria-label=Google></span></a>
+  <p><b>411.</b> <ins>That’s an error.</ins>
+  <p>POST requests require a <code>Content-length</code> header.  <ins>That’s all we know.</ins>';
+        $client = $this->getMockClient(
+            $this->getConfig(),
+            $errorBody,
+            411,
+            $logger,
+            [],
+            'Length Required'
+        );
+
+        $endpoint = new JsonEndpoint('test');
+        /**
+         * @var ClientRequestInterface $request
+         */
+        $request = $this->getMockForAbstractClass(
+            AbstractByIdGetRequest::class,
+            [$endpoint, 'id']
+        );
+        /**
+         * @var ErrorResponse $response
+         */
+        $response = $client->execute($request);
+
+        $logEntry = $handler->getRecords()[1];
+        $this->assertSame(Logger::ERROR, $logEntry['level']);
+        $this->assertSame(
+            'Client error response [url] test/id [status code] 411 [reason phrase] Length Required',
+            (string)$logEntry['message']
+        );
+
+        $this->assertInstanceOf(ErrorResponse::class, $response);
+        $this->assertSame(411, $response->getStatusCode());
+        $this->assertInstanceOf(ErrorContainer::class, $response->getErrors());
+        $this->assertEmpty($response->getErrors());
+        $this->assertSame('Length Required', $response->getMessage());
+
     }
 }
