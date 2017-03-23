@@ -9,10 +9,11 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 interface AdapterInterface extends LoggerAwareInterface
 {
-    public function setLogger(LoggerInterface $logger);
+    public function setLogger(LoggerInterface $logger, $logLevel = LogLevel::INFO);
 
     public function addHandler($handler);
 

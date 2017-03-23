@@ -43,10 +43,10 @@ class Guzzle6Adapter implements AdapterInterface
         $this->client = new Client($options);
     }
 
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger, $logLevel = LogLevel::INFO)
     {
         $this->logger = $logger;
-        $this->addHandler(self::log($logger, new MessageFormatter()));
+        $this->addHandler(self::log($logger, new MessageFormatter(), $logLevel));
     }
 
     /**
