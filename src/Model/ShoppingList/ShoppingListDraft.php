@@ -30,6 +30,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method ShoppingListDraft setTextLineItems(TextLineItemDraftCollection $textLineItems = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method ShoppingListDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method int getDeleteDaysAfterLastModification()
+ * @method ShoppingListDraft setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
  */
 class ShoppingListDraft extends Resource
 {
@@ -44,6 +46,7 @@ class ShoppingListDraft extends Resource
             'lineItems' => [static::TYPE => LineItemDraftCollection::class],
             'textLineItems' => [static::TYPE => TextLineItemDraftCollection::class],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'deleteDaysAfterLastModification' => [static::TYPE => 'int']
         ];
     }
 
