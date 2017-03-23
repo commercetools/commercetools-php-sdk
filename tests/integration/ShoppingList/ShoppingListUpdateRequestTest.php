@@ -494,13 +494,13 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
 
         $days = 5;
         $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(ShoppingListSetDeleteDaysAfterLastModificationAction::of()->set('deleteDaysAfterLastModification',$days))
+            ->addAction(ShoppingListSetDeleteDaysAfterLastModificationAction::of()->setDeleteDaysAfterLastModification($days))
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-//        $this->deleteRequest->setVersion($result->getVersion());
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($days, $result->toArray()['deleteDaysAfterLastModification']);
+        $this->assertSame($days, $result->getDeleteDaysAfterLastModification());
     }
 }

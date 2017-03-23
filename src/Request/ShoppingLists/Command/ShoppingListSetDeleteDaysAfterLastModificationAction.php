@@ -16,6 +16,10 @@ use Commercetools\Core\Request\AbstractAction;
  * @link https://dev.commercetools.com/http-api-projects-shoppingLists.html#set-deletedaysafterlastmodification
  * @method string getAction()
  * @method ShoppingListSetDeleteDaysAfterLastModificationAction setAction(string $action = null)
+ * @method int getDeleteDaysAfterLastModification()
+ * @codingStandardsIgnoreStart
+ * @method ShoppingListSetDeleteDaysAfterLastModificationAction setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
+ * @codingStandardsIgnoreEnd
  */
 class ShoppingListSetDeleteDaysAfterLastModificationAction extends AbstractAction
 {
