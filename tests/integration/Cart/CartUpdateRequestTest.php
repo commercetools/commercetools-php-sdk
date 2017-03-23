@@ -1165,27 +1165,42 @@ class CartUpdateRequestTest extends ApiTestCase
 
     public function testPriceTiersOnAddLineItem()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
-
         $productDraft = $this->getProductDraft();
         $productDraft->getMasterVariant()->getPrices()->current()->setTiers(PriceTierCollection::of()
             ->add(
-                PriceTier::of()->setValue(Money::ofCurrencyAndAmount('EUR', 1000))->setMinimumQuantity(3)
+                PriceTier::of()->setValue(Money::ofCurrencyAndAmount('EUR', 10))->setMinimumQuantity(3)
             )
             ->add(
-                PriceTier::of()->setValue(Money::ofCurrencyAndAmount('EUR', 100))->setMinimumQuantity(4)
+                PriceTier::of()->setValue(Money::ofCurrencyAndAmount('EUR', 1))->setMinimumQuantity(4)
             )
         );
         $product = $this->getProduct($productDraft);
-
         $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $draft = $this->getDraft();
+        $draft->setLineItems(
+            LineItemDraftCollection::of()
+                ->add(LineItemDraft::of()->setProductId($product->getId())->setVariantId($variant->getId())->setQuantity(1))
+        );
+        $cart = $this->createCart($draft);
+
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+        $this->assertSame(
+            $product->getProductType()->getId(),
+            $cart->getLineItems()->current()->getProductType()->getId()
+        );
+        $this->assertSame(
+            100,
+            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+        );
 
         $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
             ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 3)
-            )
-        ;
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 2)
+            );
+
         $response = $request->executeWithClient($this->getClient());
         $cart = $request->mapResponse($response);
         $this->deleteRequest->setVersion($cart->getVersion());
@@ -1196,7 +1211,7 @@ class CartUpdateRequestTest extends ApiTestCase
             $cart->getLineItems()->current()->getProductType()->getId()
         );
         $this->assertSame(
-            1000,
+            10,
             $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
         );
 
@@ -1211,7 +1226,22 @@ class CartUpdateRequestTest extends ApiTestCase
 
         $this->assertSame(4, $cart->getLineItems()->current()->getQuantity());
         $this->assertSame(
-            100,
+            1,
+            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+        );
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartRemoveLineItemAction::ofLineItemId($cart->getLineItems()->current()->getId())->setQuantity(1)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(3, $cart->getLineItems()->current()->getQuantity());
+        $this->assertSame(
+            10,
             $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
         );
 
@@ -1223,7 +1253,6 @@ class CartUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $cart = $request->mapResponse($response);
         $this->deleteRequest->setVersion($cart->getVersion());
-
         $this->assertCount(0, $cart->getLineItems());
     }
 
