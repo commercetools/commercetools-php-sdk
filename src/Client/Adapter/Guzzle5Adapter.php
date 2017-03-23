@@ -10,10 +10,10 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Commercetools\Core\Helper\Subscriber\Log\LogSubscriber;
 use Commercetools\Core\Error\ApiException;
 use Psr\Log\LogLevel;
 
@@ -59,7 +59,7 @@ class Guzzle5Adapter implements AdapterInterface
     {
         $this->logger = $logger;
         if ($logger instanceof LoggerInterface) {
-            $this->getEmitter()->attach(new LogSubscriber($logger));
+            $this->getEmitter()->attach(new LogSubscriber($logger, null, $logLevel));
         }
     }
 
