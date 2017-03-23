@@ -567,5 +567,4 @@ class Config implements ContextAwareInterface
 
         return $this;
     }
-
 }
