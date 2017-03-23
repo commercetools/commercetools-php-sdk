@@ -23,6 +23,8 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
 use Commercetools\Core\Model\Common\PriceDraft;
+use Commercetools\Core\Model\Common\PriceTier;
+use Commercetools\Core\Model\Common\PriceTierCollection;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
@@ -1159,6 +1161,70 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($cart->getVersion());
 
         $this->assertSame(2, $cart->getDeleteDaysAfterLastModification());
+    }
+
+    public function testPriceTiersOnAddLineItem()
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $productDraft = $this->getProductDraft();
+        $productDraft->getMasterVariant()->getPrices()->current()->setTiers(PriceTierCollection::of()
+            ->add(
+                PriceTier::of()->setValue(Money::ofCurrencyAndAmount('EUR', 1000))->setMinimumQuantity(3)
+            )
+            ->add(
+                PriceTier::of()->setValue(Money::ofCurrencyAndAmount('EUR', 100))->setMinimumQuantity(4)
+            )
+        );
+        $product = $this->getProduct($productDraft);
+
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 3)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+        $this->assertSame(
+            $product->getProductType()->getId(),
+            $cart->getLineItems()->current()->getProductType()->getId()
+        );
+        $this->assertSame(
+            1000,
+            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+        );
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity($cart->getLineItems()->current()->getId(), 4)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(4, $cart->getLineItems()->current()->getQuantity());
+        $this->assertSame(
+            100,
+            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+        );
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartRemoveLineItemAction::ofLineItemId($cart->getLineItems()->current()->getId())
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertCount(0, $cart->getLineItems());
     }
 
     /**

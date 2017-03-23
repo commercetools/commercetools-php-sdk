@@ -32,6 +32,8 @@ use DateTime;
  * @method Price setValidUntil(DateTime $validUntil = null)
  * @method CustomFieldObject getCustom()
  * @method Price setCustom(CustomFieldObject $custom = null)
+ * @method PriceTierCollection getTiers()
+ * @method Price setTiers(PriceTierCollection $tiers = null)
  */
 class Price extends JsonObject
 {
@@ -44,6 +46,7 @@ class Price extends JsonObject
     const VALID_UNTIL = 'validUntil';
     const DISCOUNTED = 'discounted';
     const CUSTOM = 'custom';
+    const TIERS = 'tiers';
 
     public function fieldDefinitions()
     {
@@ -63,6 +66,7 @@ class Price extends JsonObject
             ],
             static::DISCOUNTED => [self::TYPE => DiscountedPrice::class],
             static::CUSTOM => [static::TYPE => CustomFieldObject::class],
+            static::TIERS => [static::TYPE => PriceTierCollection::class]
         ];
     }
 

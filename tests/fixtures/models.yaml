@@ -273,6 +273,7 @@ price:
     - validUntil
     - discounted
     - custom
+    - tiers
 
 customer:
   domain: customer
