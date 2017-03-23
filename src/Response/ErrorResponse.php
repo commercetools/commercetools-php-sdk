@@ -47,7 +47,8 @@ class ErrorResponse extends AbstractApiResponse
     public function getMessage()
     {
         if (is_null($this->message)) {
-            $this->message = $this->getResponseField('message');
+            $message = $this->getResponseField('message', null);
+            $this->message = !is_null($message) ? $message : $this->getResponse()->getReasonPhrase();
         }
         return $this->message;
     }
