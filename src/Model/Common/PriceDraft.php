@@ -27,6 +27,8 @@ use DateTime;
  * @method PriceDraft setValidUntil(DateTime $validUntil = null)
  * @method CustomFieldObject getCustom()
  * @method PriceDraft setCustom(CustomFieldObject $custom = null)
+ * @method PriceTierCollection getTiers()
+ * @method PriceDraft setTiers(PriceTierCollection $tiers = null)
  */
 class PriceDraft extends JsonObject
 {
@@ -38,6 +40,7 @@ class PriceDraft extends JsonObject
     const VALID_UNTIL = 'validUntil';
     const DISCOUNTED = 'discounted';
     const CUSTOM = 'custom';
+    const TIERS = 'tiers';
 
     public function fieldDefinitions()
     {
@@ -55,6 +58,7 @@ class PriceDraft extends JsonObject
                 self::DECORATOR => DateTimeDecorator::class
             ],
             static::CUSTOM => [static::TYPE => CustomFieldObject::class],
+            static::TIERS => [static::TYPE => PriceTierCollection::class]
         ];
     }
 

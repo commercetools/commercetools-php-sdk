@@ -108,10 +108,11 @@ use League\Flysystem\Filesystem;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 use Symfony\Component\Yaml\Yaml;
 
-class ApiTestCase extends \PHPUnit\Framework\TestCase
+class ApiTestCase extends TestCase
 {
     private static $testRun;
     private static $client = [];
@@ -606,10 +607,13 @@ class ApiTestCase extends \PHPUnit\Framework\TestCase
         return $draft;
     }
 
-    protected function getProduct()
+    protected function getProduct(ProductDraft $draft = null)
     {
         if (is_null($this->product)) {
-            $request = ProductCreateRequest::ofDraft($this->getProductDraft());
+            if (is_null($draft)) {
+                $draft = $this->getProductDraft();
+            }
+            $request = ProductCreateRequest::ofDraft($draft);
             $response = $request->executeWithClient($this->getClient());
             $product = $request->mapResponse($response);
             $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
