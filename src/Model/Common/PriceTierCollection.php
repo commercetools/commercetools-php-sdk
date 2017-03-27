@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ibrahimselim
- * Date: 23/03/17
- * Time: 14:59
- */
 
 namespace Commercetools\Core\Model\Common;
 

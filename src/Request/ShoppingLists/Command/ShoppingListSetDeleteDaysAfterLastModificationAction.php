@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ibrahimselim
- * Date: 16/03/17
- * Time: 15:02
- */
 
 namespace Commercetools\Core\Request\ShoppingLists\Command;
 

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ibrahimselim
- * Date: 23/03/17
- * Time: 14:21
- */
 
 namespace Commercetools\Core\Model\Common;
 
@@ -29,15 +23,13 @@ class PriceTier extends JsonObject
         ];
     }
     /**
-     * @param int $minimumQuantity
+     * @param int $quantity
      * @param Money $money
      * @param Context|callable $context
      * @return PriceTier
      */
-    public static function ofMinimumQuantityAndMoney($minimumQuantity, Money $money, $context = null)
+    public static function ofQuantityAndMoney($quantity, Money $money, $context = null)
     {
-        $price = static::of($context);
-        $price = $price->setValue($money);
-        return $price->setMinimumQuantity($minimumQuantity);
+        return static::of($context)->setValue($money)->setMinimumQuantity($quantity);
     }
 }

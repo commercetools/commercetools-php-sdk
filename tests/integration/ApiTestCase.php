@@ -108,10 +108,11 @@ use League\Flysystem\Filesystem;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 use Symfony\Component\Yaml\Yaml;
 
-class ApiTestCase extends \PHPUnit\Framework\TestCase
+class ApiTestCase extends TestCase
 {
     private static $testRun;
     private static $client = [];
