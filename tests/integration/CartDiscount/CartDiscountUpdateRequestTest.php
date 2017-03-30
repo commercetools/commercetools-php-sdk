@@ -237,6 +237,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf(CartDiscount::class, $result);
+        $validFrom->setTimezone(new \DateTimeZone('UTC'));
         $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
         $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
     }
@@ -247,19 +248,20 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $cartDiscount = $this->createCartDiscount($draft);
 
 
-        $validFrom = new \DateTime();
+        $validUntil = new \DateTime();
         $request = CartDiscountUpdateRequest::ofIdAndVersion(
             $cartDiscount->getId(),
             $cartDiscount->getVersion()
         )
-            ->addAction(CartDiscountSetValidUntilAction::of()->setValidUntil($validFrom))
+            ->addAction(CartDiscountSetValidUntilAction::of()->setValidUntil($validUntil))
         ;
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf(CartDiscount::class, $result);
-        $this->assertSame($validFrom->format('c'), $result->getValidUntil()->format('c'));
+        $validUntil->setTimezone(new \DateTimeZone('UTC'));
+        $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
         $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
     }
     /**
