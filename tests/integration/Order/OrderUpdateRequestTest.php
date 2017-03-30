@@ -179,7 +179,9 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($order->getVersion(), $result->getVersion());
         $this->assertInstanceOf(Order::class, $result);
         $this->assertSame($channel->getId(), $result->getSyncInfo()->current()->getChannel()->getId());
-        $this->assertEquals($syncedAt, $result->getSyncInfo()->current()->getSyncedAt()->getDateTime());
+        $syncedAt->setTimezone(new \DateTimeZone('UTC'));
+        $this->assertSame($syncedAt->format('c'), $result->getSyncInfo()->current()->getSyncedAt()->getDateTime()->format('c'));
+
     }
 
     public function testReturnInfo()

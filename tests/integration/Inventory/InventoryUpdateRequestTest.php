@@ -136,7 +136,8 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
 
         $this->assertInstanceOf(InventoryEntry::class, $result);
-        $this->assertEquals($expectedDelivery, $result->getExpectedDelivery()->getDateTime());
+        $expectedDelivery->setTimezone(new \DateTimeZone('UTC'));
+        $this->assertEquals($expectedDelivery->format('c'), $result->getExpectedDelivery()->getDateTime()->format('c'));
         $this->assertNotSame($inventory->getVersion(), $result->getVersion());
 
         $this->deleteRequest->setVersion($result->getVersion());
@@ -301,7 +302,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
         $typeKey = 'type-' . $this->getTestRun();
         $type = $this->getType($typeKey, 'inventory-entry');
 
-        $draft = $this->getDraft('set-custom-type');
+        $draft = $this->getDraft('set-custom-field');
         $draft->setCustom(CustomFieldObject::of()->setType(TypeReference::ofKey($typeKey)));
         $inventory = $this->createInventory($draft);
 

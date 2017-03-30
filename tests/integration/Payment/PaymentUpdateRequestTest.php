@@ -172,7 +172,8 @@ class PaymentUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($amount->getCentAmount(), $result->getAmountAuthorized()->getCentAmount());
-        $this->assertEquals($authTime, $result->getAuthorizedUntil()->getDateTime());
+        $authTime->setTimezone(new \DateTimeZone('UTC'));
+        $this->assertSame($authTime->format('c'), $result->getAuthorizedUntil()->format('c'));
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
 
@@ -421,7 +422,8 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf(Payment::class, $result);
-        $this->assertEquals($timestamp, $result->getTransactions()->current()->getTimestamp()->getDateTime());
+        $timestamp->setTimezone(new \DateTimeZone('UTC'));
+        $this->assertSame($timestamp->format('c'), $result->getTransactions()->current()->getTimestamp()->getDateTime()->format('c'));
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
         $payment = $result;
         $transaction = $payment->getTransactions()->current();
