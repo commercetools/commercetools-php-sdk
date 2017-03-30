@@ -283,6 +283,9 @@ class ApiTestCase extends TestCase
     protected function getLogger()
     {
         if (is_null($this->logger)) {
+            if (file_exists(__DIR__ .'/requests.log')) {
+                file_put_contents(__DIR__ .'/requests.log', "");
+            }
             $loggerOut = getenv('LOGGER_OUT');
 
             $this->logger = new Logger('test');
