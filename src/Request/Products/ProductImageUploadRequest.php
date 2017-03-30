@@ -26,7 +26,7 @@ use Commercetools\Core\Model\MapperInterface;
 class ProductImageUploadRequest extends AbstractApiRequest
 {
     use StagedTrait;
-    
+
     protected $resultClass = Product::class;
 
     /**
@@ -63,7 +63,7 @@ class ProductImageUploadRequest extends AbstractApiRequest
 
         parent::__construct(ProductsEndpoint::endpoint(), $context);
     }
-    
+
     public function buildResponse(ResponseInterface $response)
     {
         return new ResourceResponse($response, $this, $this->getContext());
@@ -117,7 +117,7 @@ class ProductImageUploadRequest extends AbstractApiRequest
     protected function setVariantId($variantId)
     {
         $this->variantId = $variantId;
-        $this->addParamObject(new Parameter('variantId', $variantId));
+        $this->addParamObject(new Parameter('variant', $variantId));
 
         return $this;
     }
