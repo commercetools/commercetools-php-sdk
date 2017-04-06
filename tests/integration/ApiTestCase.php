@@ -6,6 +6,7 @@
 namespace Commercetools\Core;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Commercetools\Core\Fixtures\TeamCityFormatter;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
@@ -116,8 +117,6 @@ use Symfony\Component\Yaml\Yaml;
 
 class ApiTestCase extends TestCase
 {
-    const TEAMCITY_LF = "{hostname} {req_header_User-Agent} - {date_common_log} {method} {target} HTTP/{version} {code} {res_header_Content-Length}";
-
     private static $testRun;
     private static $client = [];
 
@@ -277,9 +276,9 @@ class ApiTestCase extends TestCase
                 'project' => $_SERVER['COMMERCETOOLS_PROJECT']
             ]);
         }
-        if (getenv('TEAMCITY_FORMATTER') == "true") {
-            $config->setMessageFormatter(new MessageFormatter(self::TEAMCITY_LF));
-        }
+//        if (getenv('TEAMCITY_FORMATTER') == "true") {
+//            $config->setMessageFormatter(new MessageFormatter(self::TEAMCITY_LF));
+//        }
         $config->setContext($context);
         $config->setScope($scope);
         $config = $this->getAcceptEncoding($config);
@@ -297,13 +296,13 @@ class ApiTestCase extends TestCase
 
             $this->logger = new Logger('test');
             if ($loggerOut == 'CLI') {
-                $handler = new ErrorLogHandler(ErrorLogHandler::OPERATING_SYSTEM, Logger::DEBUG, true, true);
+                $handler = new ErrorLogHandler();
                 if (getenv("TEAMCITY_FORMATTER") == "true") {
-                    $handler->setFormatter(new LineFormatter("##teamcity[Log channel='%channel%' level='%level_name%' message='%message%' context='%context%' extra='%extra%']"));
+                    $handler->setFormatter(new TeamCityFormatter());
                 }
                 $this->logger->pushHandler($handler);
             } else {
-                $this->logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
+                $this->logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::INFO));
             }
 
         }
