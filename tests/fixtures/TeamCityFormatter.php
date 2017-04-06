@@ -21,6 +21,12 @@ class TeamCityFormatter extends JsonFormatter
      */
     public function format(array $record)
     {
+        if (isset($record['context']['responseBody']) &&
+            isset($record['context']['responseHeaders']['content-type']) &&
+            $record['context']['responseHeaders']['content-type'] == ['application/json']
+        ) {
+            $record['context']['responseBody'] = json_decode((string)$record['context']['responseBody']);
+        }
         $str = str_replace(array_keys(self::$REPLACEMENTS), array_values(self::$REPLACEMENTS), parent::format($record));
 
         return sprintf(self::TC_FORMAT, $str, $record['level_name']);
