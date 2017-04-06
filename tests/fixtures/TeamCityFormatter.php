@@ -17,6 +17,30 @@ class TeamCityFormatter extends JsonFormatter
     );
 
     /**
+     * Return the JSON representation of a value
+     *
+     * @param  mixed             $data
+     * @param  bool              $ignoreErrors
+     * @throws \RuntimeException if encoding fails and errors are not ignored
+     * @return string
+     */
+    protected function toJson($data, $ignoreErrors = false)
+    {
+        $json = $this->jsonEncode($data);
+
+        if ($json == false) {
+            return parent::toJson($data, $ignoreErrors);
+        }
+
+        return $json;
+    }
+
+    private function jsonEncode($data)
+    {
+        return json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    }
+
+    /**
      * @inheritDoc
      */
     public function format(array $record)
