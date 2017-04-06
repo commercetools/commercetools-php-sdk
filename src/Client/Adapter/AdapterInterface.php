@@ -13,7 +13,7 @@ use Psr\Log\LogLevel;
 
 interface AdapterInterface extends LoggerAwareInterface
 {
-    public function setLogger(LoggerInterface $logger, $logLevel = LogLevel::INFO);
+    public function setLogger(LoggerInterface $logger, $logLevel = LogLevel::INFO, $formatter = null);
 
     public function addHandler($handler);
 

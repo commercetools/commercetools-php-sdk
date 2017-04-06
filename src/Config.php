@@ -150,6 +150,8 @@ class Config implements ContextAwareInterface
      */
     protected $logLevel = LogLevel::INFO;
 
+    protected $messageFormatter;
+
     /**
      * @param array $configValues
      * @return static
@@ -565,6 +567,24 @@ class Config implements ContextAwareInterface
     {
         $this->logLevel = $logLevel;
 
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMessageFormatter()
+    {
+        return $this->messageFormatter;
+    }
+
+    /**
+     * @param mixed $messageFormatter
+     * @return $this
+     */
+    public function setMessageFormatter($messageFormatter)
+    {
+        $this->messageFormatter = $messageFormatter;
         return $this;
     }
 }

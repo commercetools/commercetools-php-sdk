@@ -200,7 +200,11 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
         if (is_null($this->httpClient)) {
             $client = parent::getHttpClient($options);
             if ($this->logger instanceof LoggerInterface) {
-                $client->setLogger($this->logger, $this->getConfig()->getLogLevel());
+                $client->setLogger(
+                    $this->logger,
+                    $this->getConfig()->getLogLevel(),
+                    $this->getConfig()->getMessageFormatter()
+                );
             }
         }
 

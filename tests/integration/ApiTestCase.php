@@ -105,6 +105,7 @@ use Commercetools\Core\Request\Zones\ZoneCreateRequest;
 use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -290,7 +291,11 @@ class ApiTestCase extends TestCase
 
             $this->logger = new Logger('test');
             if ($loggerOut == 'CLI') {
-                $this->logger->pushHandler(new ErrorLogHandler());
+                $handler = new ErrorLogHandler(ErrorLogHandler::OPERATING_SYSTEM, Logger::DEBUG, true, true);
+                if (getenv("TEAMCITY_FORMATTER") == "true") {
+                    $handler->setFormatter(new LineFormatter("##teamcity[Log channel='%channel%' level='%level_name%' message='%message%' context='%context%' extra='%extra%']"));
+                }
+                $this->logger->pushHandler($handler);
             } else {
                 $this->logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
             }

@@ -55,11 +55,11 @@ class Guzzle5Adapter implements AdapterInterface
         $this->client = new Client($options);
     }
 
-    public function setLogger(LoggerInterface $logger, $logLevel = LogLevel::INFO)
+    public function setLogger(LoggerInterface $logger, $logLevel = LogLevel::INFO, $formatter = null)
     {
         $this->logger = $logger;
         if ($logger instanceof LoggerInterface) {
-            $this->getEmitter()->attach(new LogSubscriber($logger, null, $logLevel));
+            $this->getEmitter()->attach(new LogSubscriber($logger, $formatter, $logLevel));
         }
     }
 
