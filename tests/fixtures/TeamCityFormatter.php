@@ -1,11 +1,11 @@
 <?php
 namespace Commercetools\Core\Fixtures;
 
-use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\JsonFormatter;
 
-class TeamCityFormatter extends LineFormatter
+class TeamCityFormatter extends JsonFormatter
 {
-    const TC_FORMAT = "##teamcity[message text='%message%' status='%level_name%' channel='%channel%' context='%context%' extra='%extra%']\n";
+    const TC_FORMAT = "##teamcity[message text='%s' status='%s']\n";
 
     private static $REPLACEMENTS = array(
         "|"  => "||",
@@ -15,20 +15,14 @@ class TeamCityFormatter extends LineFormatter
         "["  => "|[",
         "]"  => "|]",
     );
-    /**
-     * @param string $format                     The format of the message
-     * @param string $dateFormat                 The format of the timestamp: one supported by DateTime::format
-     * @param bool   $allowInlineLineBreaks      Whether to allow inline line breaks in log entries
-     * @param bool   $ignoreEmptyContextAndExtra
-     */
-    public function __construct($format = null, $dateFormat = null, $allowInlineLineBreaks = false, $ignoreEmptyContextAndExtra = false)
-    {
-        $format = $format ?: static::TC_FORMAT;
-        parent::__construct($format, $dateFormat, $allowInlineLineBreaks, $ignoreEmptyContextAndExtra);
-    }
 
-    protected function convertToString($data)
+    /**
+     * @inheritDoc
+     */
+    public function format(array $record)
     {
-        return str_replace(array_keys(self::$REPLACEMENTS), array_values(self::$REPLACEMENTS), parent::convertToString($data));
+        $str = str_replace(array_keys(self::$REPLACEMENTS), array_values(self::$REPLACEMENTS), parent::format($record));
+
+        return sprintf(self::TC_FORMAT, $str, $record['level_name']);
     }
 }
