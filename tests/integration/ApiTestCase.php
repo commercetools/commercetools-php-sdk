@@ -109,6 +109,7 @@ use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\ErrorLogHandler;
+use Monolog\Handler\FingersCrossedHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
@@ -119,6 +120,7 @@ class ApiTestCase extends TestCase
 {
     private static $testRun;
     private static $client = [];
+    private static $errorHandler;
 
     protected $cleanupRequests = [];
 
@@ -243,6 +245,9 @@ class ApiTestCase extends TestCase
     public function tearDown()
     {
         $this->cleanup();
+        if (self::$errorHandler instanceof FingersCrossedHandler) {
+            self::$errorHandler->clear();
+        }
     }
 
     /**
@@ -296,18 +301,27 @@ class ApiTestCase extends TestCase
 
             $this->logger = new Logger('test');
             if ($loggerOut == 'CLI') {
-                $handler = new ErrorLogHandler();
-                if (getenv("TEAMCITY_FORMATTER") == "true") {
-                    $handler->setFormatter(new TeamCityFormatter());
-                }
-                $this->logger->pushHandler($handler);
+                $this->logger->pushHandler($this->getCliHandler());
             } else {
                 $this->logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::INFO));
             }
-
         }
 
         return $this->logger;
+    }
+
+    public function getCliHandler()
+    {
+        if (is_null(self::$errorHandler)) {
+            $handler = new ErrorLogHandler();
+            if (getenv("TEAMCITY_FORMATTER") == "true") {
+                $handler->setFormatter(new TeamCityFormatter());
+                $handler = new FingersCrossedHandler($handler);
+            }
+            self::$errorHandler = $handler;
+        }
+
+        return self::$errorHandler;
     }
 
     protected function getCache()
