@@ -103,6 +103,7 @@ use Commercetools\Core\Request\Types\TypeCreateRequest;
 use Commercetools\Core\Request\Types\TypeDeleteRequest;
 use Commercetools\Core\Request\Zones\ZoneCreateRequest;
 use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
+use GuzzleHttp\MessageFormatter;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Monolog\Formatter\LineFormatter;
@@ -115,6 +116,8 @@ use Symfony\Component\Yaml\Yaml;
 
 class ApiTestCase extends TestCase
 {
+    const TEAMCITY_LF = "{hostname} {req_header_User-Agent} - {date_common_log} {method} {target} HTTP/{version} {code} {res_header_Content-Length}";
+
     private static $testRun;
     private static $client = [];
 
@@ -273,6 +276,9 @@ class ApiTestCase extends TestCase
                 'client_secret' => $_SERVER['COMMERCETOOLS_CLIENT_SECRET'],
                 'project' => $_SERVER['COMMERCETOOLS_PROJECT']
             ]);
+        }
+        if (getenv('TEAMCITY_FORMATTER') == "true") {
+            $config->setMessageFormatter(new MessageFormatter(self::TEAMCITY_LF));
         }
         $config->setContext($context);
         $config->setScope($scope);
