@@ -5,7 +5,7 @@ use Monolog\Formatter\LineFormatter;
 
 class TeamCityFormatter extends LineFormatter
 {
-    const TC_FORMAT = "##teamcity[Log channel='%channel%' level='%level_name%' message='%message%' context='%context%' extra='%extra%']\n";
+    const TC_FORMAT = "##teamcity[message text='%message%' status='%level_name%' channel='%channel%' context='%context%' extra='%extra%']\n";
 
     private static $REPLACEMENTS = array(
         "|"  => "||",
