@@ -6,6 +6,7 @@
 namespace Commercetools\Core;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Commercetools\Core\Fixtures\ManuelActivationStrategy;
 use Commercetools\Core\Fixtures\TeamCityFormatter;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
@@ -230,6 +231,9 @@ class ApiTestCase extends TestCase
 
     public function setUp()
     {
+        if (self::$errorHandler instanceof FingersCrossedHandler) {
+            self::$errorHandler->clear();
+        }
         self::$testRun = md5(microtime());
     }
 
@@ -245,10 +249,19 @@ class ApiTestCase extends TestCase
     public function tearDown()
     {
         $this->cleanup();
-        if (self::$errorHandler instanceof FingersCrossedHandler) {
-            self::$errorHandler->clear();
-        }
     }
+
+    /**
+     * @inheritDoc
+     */
+    protected function onNotSuccessfulTest($e)
+    {
+        if (self::$errorHandler instanceof FingersCrossedHandler) {
+            self::$errorHandler->activate();
+        }
+        parent::onNotSuccessfulTest($e);
+    }
+
 
     /**
      * @param $scope
@@ -316,7 +329,7 @@ class ApiTestCase extends TestCase
             $handler = new ErrorLogHandler();
             if (getenv("TEAMCITY_FORMATTER") == "true") {
                 $handler->setFormatter(new TeamCityFormatter());
-                $handler = new FingersCrossedHandler($handler);
+                $handler = new FingersCrossedHandler($handler, new ManuelActivationStrategy());
             }
             self::$errorHandler = $handler;
         }
