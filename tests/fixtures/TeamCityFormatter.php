@@ -47,7 +47,7 @@ class TeamCityFormatter extends JsonFormatter
     {
         if (isset($record['context']['responseBody']) &&
             isset($record['context']['responseHeaders']['content-type']) &&
-            $record['context']['responseHeaders']['content-type'] == ['application/json']
+            strpos(current($record['context']['responseHeaders']['content-type']), 'application/json') !== false
         ) {
             $record['context']['responseBody'] = json_decode((string)$record['context']['responseBody']);
         }
