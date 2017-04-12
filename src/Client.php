@@ -224,17 +224,17 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
      * Executes an API request synchronously
      *
      * @param ClientRequestInterface $request
+     * @param array $headers
      * @return ApiResponseInterface
-     * @throws InvalidTokenException
      * @throws ApiException
-     * @throws \Exception
+     * @throws InvalidTokenException
      */
-    public function execute(ClientRequestInterface $request)
+    public function execute(ClientRequestInterface $request, array $headers = null)
     {
         if ($request instanceof ContextAwareInterface) {
             $request->setContextIfNull($this->getConfig()->getContext());
         }
-        $httpRequest = $this->createHttpRequest($request);
+        $httpRequest = $this->createHttpRequest($request, $headers);
 
         try {
             $httpResponse = $this->getHttpClient()->execute($httpRequest);
@@ -263,12 +263,12 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
      * @param ClientRequestInterface $request
      * @return ApiResponseInterface
      */
-    public function executeAsync(ClientRequestInterface $request)
+    public function executeAsync(ClientRequestInterface $request, array $headers = null)
     {
         if ($request instanceof ContextAwareInterface) {
             $request->setContextIfNull($this->getConfig()->getContext());
         }
-        $httpRequest = $this->createHttpRequest($request);
+        $httpRequest = $this->createHttpRequest($request, $headers);
         $response = $request->buildResponse($this->getHttpClient()->executeAsync($httpRequest));
 
         $response = $response->then(
@@ -283,27 +283,36 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
 
     /**
      * @param ClientRequestInterface $request
+     * @param array $headers
      * @return RequestInterface
      */
-    protected function createHttpRequest(ClientRequestInterface $request)
+    protected function createHttpRequest(ClientRequestInterface $request, array $headers = null)
     {
         $token = $this->getOauthManager()->getToken();
-
         $httpRequest = $request->httpRequest();
         $httpRequest = $httpRequest
             ->withHeader('Authorization', 'Bearer ' . $token->getToken())
         ;
+        if (is_array($headers)) {
+            foreach ($headers as $headerName => $headerValues) {
+                $httpRequest = $httpRequest
+                    ->withAddedHeader($headerName, $headerValues)
+                ;
+            }
+        }
+
         return $httpRequest;
     }
 
     /**
      * Executes API requests in batch
-     * @return Response\ApiResponseInterface[]
+     * @param array $headers
+     * @return ApiResponseInterface[]
      * @throws ApiException
      */
-    public function executeBatch()
+    public function executeBatch(array $headers = null)
     {
-        $requests = $this->getBatchHttpRequests();
+        $requests = $this->getBatchHttpRequests($headers);
         $httpResponses = $this->getHttpClient()->executeBatch($requests);
 
         $responses = [];
@@ -398,13 +407,14 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
     }
 
     /**
+     * @param array $headers
      * @return array
      */
-    protected function getBatchHttpRequests()
+    protected function getBatchHttpRequests(array $headers = null)
     {
         $requests = array_map(
-            function ($request) {
-                return $this->createHttpRequest($request);
+            function ($request) use ($headers) {
+                return $this->createHttpRequest($request, $headers);
             },
             $this->batchRequests
         );

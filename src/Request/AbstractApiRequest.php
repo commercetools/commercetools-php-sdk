@@ -228,10 +228,11 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
 
     /**
      * @param Client $client
+     * @param array $headers
      * @return ApiResponseInterface
      */
-    public function executeWithClient(Client $client)
+    public function executeWithClient(Client $client, array $headers = null)
     {
-        return $client->execute($this);
+        return $client->execute($this, $headers);
     }
 }

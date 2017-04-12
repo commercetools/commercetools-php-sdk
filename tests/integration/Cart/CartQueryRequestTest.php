@@ -96,7 +96,7 @@ class CartQueryRequestTest extends ApiTestCase
         $cart = $this->createCart($draft);
 
         $request = CartByCustomerIdGetRequest::ofCustomerId($cart->getCustomerId());
-        $response = $request->executeWithClient($this->getClient());
+        $response = $request->executeWithClient($this->getClient(), ['X-Vrap-Disable-Validation' => 'response']);
         $result = $request->mapResponse($response);
 
         $this->assertInstanceOf(Cart::class, $result);
