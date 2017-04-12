@@ -10,7 +10,7 @@ namespace Commercetools\Core\Model\Subscription;
 use Commercetools\Core\Model\Message\Message;
 use Commercetools\Core\Model\Message\ProductCreatedMessage;
 
-class DeliveryTest extends \PHPUnit_Framework_TestCase
+class DeliveryTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testGetGenericMessage()
