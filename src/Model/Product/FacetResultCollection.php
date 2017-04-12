@@ -16,6 +16,7 @@ use Commercetools\Core\Model\Common\Collection;
 class FacetResultCollection extends Collection
 {
     const OFFSET = 'offset';
+    const COLLECTION_TYPE = Collection::TYPE_MAP;
 
     protected $type = FacetResult::class;
 

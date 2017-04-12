@@ -18,6 +18,8 @@ use Commercetools\Core\Model\Common\Context;
  */
 class LocalizedSearchKeywords extends Collection
 {
+    const COLLECTION_TYPE = Collection::TYPE_MAP;
+
     protected $type = SearchKeywords::class;
 
     /**

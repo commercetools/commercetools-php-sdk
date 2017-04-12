@@ -14,6 +14,9 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
 {
     const ID = 'id';
     use ContextTrait;
+    const COLLECTION_TYPE = Collection::TYPE_LIST;
+    const TYPE_LIST = 'List';
+    const TYPE_MAP = 'Map';
 
     /**
      * @var string
@@ -367,5 +370,20 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
     {
         unset($this->rawData[$offset]);
         unset($this->typeData[$offset]);
+        $rawKeys = array_keys($this->rawData);
+        $typeKeys = array_keys($this->typeData);
+        $keys = array_merge($rawKeys, $typeKeys);
+        $this->keys = array_unique($keys);
+    }
+
+    protected function toJson()
+    {
+        $data = parent::toJson();
+
+        if (static::COLLECTION_TYPE == self::TYPE_LIST) {
+            return array_values($data);
+        }
+
+        return $data;
     }
 }

@@ -19,6 +19,7 @@ use Commercetools\Core\Model\Common\Context;
  */
 class LocalizedSuggestionCollection extends Collection
 {
+    const COLLECTION_TYPE = Collection::TYPE_MAP;
     protected $type = SuggestionCollection::class;
 
     /**
