@@ -21,6 +21,8 @@ class LocalizedSuggestionCollection extends Collection
 {
     protected $type = '\Commercetools\Core\Model\Product\SuggestionCollection';
 
+    const COLLECTION_TYPE = Collection::TYPE_MAP;
+
     /**
      * @param $locale
      * @return SuggestionCollection

@@ -95,4 +95,25 @@ class LocalizedSearchKeywordsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Hello World', $keywords->en->getAt(0)->getText());
         $this->assertSame('custom', $keywords->de->getAt(1)->getSuggestTokenizer()->getType());
     }
+
+    public function testUnsetIterator()
+    {
+        $keywords = LocalizedSearchKeywords::fromArray(
+            [
+                'de' => [
+                    ['text'=>'Hallo Welt'],
+                ],
+                'en' => [
+                    ['text' => 'Hello World'],
+                ],
+            ],
+            Context::of()->setLanguages(['de', 'en'])
+        );
+        unset($keywords['de']);
+
+        $this->assertCount(1, $keywords);
+        $keywords->rewind();
+        $this->assertSame('en', $keywords->key());
+        $this->assertJsonStringEqualsJsonString('{"en": [{"text": "Hello World"}]}', json_encode($keywords));
+    }
 }
