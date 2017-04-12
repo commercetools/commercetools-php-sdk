@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Subscription;
 
 use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Message\Message;
 use DateTime;
 
 /**
@@ -53,5 +54,10 @@ class MessageDelivery extends Delivery
             ]
         );
         return $definition;
+    }
+
+    public function getMessage()
+    {
+        return Message::fromArray($this->rawData);
     }
 }
