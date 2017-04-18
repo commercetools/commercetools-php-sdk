@@ -79,13 +79,19 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
     }
 
     /**
-     * @param bool $fuzzy
+     * @param bool|int $level
      * @return $this
      */
-    public function fuzzy($fuzzy)
+    public function fuzzy($level)
     {
-        if (!is_null($fuzzy)) {
-            $this->addParamObject(new Parameter('fuzzy', (bool)$fuzzy));
+        if (!is_bool($level)) {
+            $level = min(2, max(0, (int)$level));
+        }
+        $fuzzy = (bool)$level;
+        $this->addParamObject(new Parameter('fuzzy', $fuzzy));
+
+        if (!is_bool($level) && $fuzzy) {
+            $this->addParamObject(new Parameter('fuzzyLevel', $level));
         }
 
         return $this;
@@ -142,14 +148,12 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
     public function getParamString()
     {
         $params = [];
-        foreach ($this->searchKeywords->toArray() as $lang => $keyword) {
-            $params[] = 'searchKeywords.' . $lang . '=' . urlencode($keyword);
+        foreach ($this->getSearchKeywords()->toArray() as $lang => $keyword) {
+            $param = new Parameter('searchKeywords.' . $lang, $keyword);
+            $params[$param->getId()] = $param;
         }
 
-        $params = array_merge($params, array_keys($this->params));
-        sort($params);
-        $params = implode('&', $params);
-
+        $params = $this->convertToString(array_merge($this->params, $params));
         return (!empty($params) ? '?' . $params : '');
     }
 
