@@ -146,9 +146,7 @@ class ProductsSuggestRequest extends AbstractProjectionRequest
             $params[] = 'searchKeywords.' . $lang . '=' . urlencode($keyword);
         }
 
-        $params = array_merge($params, array_keys($this->params));
-        sort($params);
-        $params = implode('&', $params);
+        $params = parent::convertToString(array_merge($this->params, $params));
 
         return (!empty($params) ? '?' . $params : '');
     }
