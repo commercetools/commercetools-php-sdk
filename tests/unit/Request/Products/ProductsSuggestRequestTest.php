@@ -44,6 +44,49 @@ class ProductsSuggestRequestTest extends RequestTestCase
         $this->assertEmpty($result->toArray());
     }
 
+    public function fuzzyProvider()
+    {
+        return [
+            [true, 'fuzzy=true'],
+            [false, 'fuzzy=false'],
+            [-1, 'fuzzy=false'],
+            [ 0, 'fuzzy=false'],
+            [ 1, 'fuzzy=true&fuzzyLevel=1'],
+            [ 2, 'fuzzy=true&fuzzyLevel=2'],
+            [ 3, 'fuzzy=true&fuzzyLevel=2'],
+            ['1', 'fuzzy=true&fuzzyLevel=1'],
+        ];
+    }
+
+    /**
+     * @dataProvider  fuzzyProvider
+     */
+    public function testFuzzyLevel($level, $expected)
+    {
+        /**
+         * @var ProductsSuggestRequest $request
+         */
+        $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST);
+        $request->fuzzy($level);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertStringStartsWith('product-projections/suggest', (string)$httpRequest->getUri());
+        $this->assertContains($expected, (string)$httpRequest->getUri());
+    }
+
+    public function testFuzzyKeyword()
+    {
+        $request = $this->getRequest(static::PRODUCT_SUGGEST_REQUEST);
+        /**
+         * @var ProductsSuggestRequest $request
+         */
+        $request->fuzzy(true)->addKeyword('en', 'test');
+        $httpRequest = $request->httpRequest();
+
+        $this->assertStringStartsWith('product-projections/suggest', (string)$httpRequest->getUri());
+        $this->assertContains('fuzzy=true&searchKeywords.en=test', (string)$httpRequest->getUri());
+    }
+    
     public function testAddKeyword()
     {
         $request = ProductsSuggestRequest::of();
