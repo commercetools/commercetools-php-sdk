@@ -1,3 +1,14 @@
+<a name="1.7.1"></a>
+## [1.7.1](https://github.com/commercetools/commercetools-php-sdk/compare/v1.7.0...v1.7.1) (2017-04-23)
+
+
+### Bug Fixes
+
+* **Collection:** fix unset of entries in collections ([ad9a9d6](https://github.com/commercetools/commercetools-php-sdk/commit/ad9a9d6))
+* **ProductSuggest:** fix suggestion parameters ([6d4477b](https://github.com/commercetools/commercetools-php-sdk/commit/6d4477b)), closes [#310](https://github.com/commercetools/commercetools-php-sdk/issues/310)
+
+
+
 <a name="1.7.0"></a>
 # [1.7.0](https://github.com/commercetools/commercetools-php-sdk/compare/v1.6.1...v1.7.0) (2017-03-02)
 
