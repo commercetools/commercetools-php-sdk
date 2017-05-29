@@ -5,7 +5,6 @@
 
 namespace Commercetools\Commons\Helper;
 
-
 use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\Price;
 use Commercetools\Core\Model\Common\PriceCollection;
@@ -18,8 +17,12 @@ class PriceFinder
     private $customerGroup;
     private $channel;
 
-    public function __construct($currency, $country = null, CustomerGroupReference $customerGroup = null, ChannelReference $channel = null)
-    {
+    public function __construct(
+        $currency,
+        $country = null,
+        CustomerGroupReference $customerGroup = null,
+        ChannelReference $channel = null
+    ) {
         $this->currency = $currency;
         $this->country = $country;
         $this->customerGroup = $customerGroup;
@@ -100,7 +103,6 @@ class PriceFinder
     private function priceHasCurrency(Price $price, $currency)
     {
         return !is_null($price->getValue()) && $price->getValue()->getCurrencyCode() == $currency;
-
     }
 
     private function priceHasCountry(Price $price, $country)
@@ -130,7 +132,8 @@ class PriceFinder
         return is_null($price->getValidFrom()) && is_null($price->getValidUntil());
     }
 
-    private function priceHas(Price $price, $field) {
+    private function priceHas(Price $price, $field)
+    {
         return !is_null($price->get($field));
     }
 }

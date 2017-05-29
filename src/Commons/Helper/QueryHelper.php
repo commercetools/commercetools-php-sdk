@@ -5,7 +5,6 @@
 
 namespace Commercetools\Commons\Helper;
 
-
 use Commercetools\Core\Client;
 use Commercetools\Core\Request\QueryAllRequestInterface;
 

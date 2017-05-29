@@ -12,8 +12,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Commercetools\\Core\\": "src/",
-      "Commercetools\\Commons\\": "commons/"
+      "Commercetools\\Core\\": "src/Core/",
+      "Commercetools\\Commons\\": "src/Commons/"
     }
   },
   "autoload-dev": {
