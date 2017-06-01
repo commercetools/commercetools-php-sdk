@@ -61,6 +61,9 @@ class AnnotationGenerator
         $jsonObjects = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
+            if (strpos($class, 'Core\\Helper') > 0) {
+                continue;
+            }
 
             if (!empty($class)) {
                 if (in_array(JsonObject::class, class_parents($class))) {
@@ -77,6 +80,9 @@ class AnnotationGenerator
         $collectionObjects = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
+            if (strpos($class, 'Core\\Helper') > 0) {
+                continue;
+            }
 
             if (!empty($class)) {
                 if (in_array(Collection::class, class_parents($class))) {
@@ -93,6 +99,9 @@ class AnnotationGenerator
         $requestObjects = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
+            if (strpos($class, 'Core\\Helper') > 0) {
+                continue;
+            }
 
             if (!empty($class)) {
                 if (in_array(AbstractApiRequest::class, class_parents($class))) {
