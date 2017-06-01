@@ -76,6 +76,11 @@
 * Context doesn't extend Pimple\Container anymore
 * Pimple has been removed as a dependency
 
+### DEPRECATION NOTE
+
+The class ```Commercetools\Commons\Helper\PriceFinder``` has been deprecated. Please use the 
+[price selection](http://dev.commercetools.com/http-api-projects-products.html#price-selection) functionality of
+the platform. E.g. ```ProductProjectionSearchRequest::of()->currency('EUR')->country('DE')```
 
 
 <a name="2.0.0-RC1"></a>
