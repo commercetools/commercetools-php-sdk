@@ -39,6 +39,7 @@ use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListRemoveTextLineI
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetCustomerAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetCustomFieldAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetCustomTypeAction;
+use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetDeleteDaysAfterLastModificationAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetDescriptionAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetKeyAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetLineItemCustomFieldAction;
@@ -485,5 +486,21 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($fieldValue, $result->getTextLineItems()->current()->getCustom()->getFields()->getTestField());
+    }
+    public function testSetDeleteDaysAfterLastModification()
+    {
+        $draft = $this->getDraft('set-delete-days-after-last-modification');
+        $shoppingList = $this->createShoppingList($draft);
+
+        $days = 5;
+        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
+            ->addAction(ShoppingListSetDeleteDaysAfterLastModificationAction::of()->setDeleteDaysAfterLastModification($days))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ShoppingList::class, $result);
+        $this->assertSame($days, $result->getDeleteDaysAfterLastModification());
     }
 }

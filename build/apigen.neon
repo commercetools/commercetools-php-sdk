@@ -8,11 +8,9 @@ templateConfig: build/theme/config.neon
 accessLevels: [public]
 extensions: [php]
 
-deprecated: Yes
 internal: No
 
 download: No
 php: No
 noSourceCode: No
-todo: No
 tree: Yes

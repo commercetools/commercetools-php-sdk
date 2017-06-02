@@ -235,4 +235,17 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
 
         $this->assertCount(2, $collection);
     }
+
+    public function testUnsetIterator()
+    {
+        $collection = Collection::fromArray([1]);
+        $collection[] = 2;
+        unset($collection[0]);
+
+        $this->assertCount(1, $collection);
+        $collection->rewind();
+        $this->assertSame(1, $collection->key());
+        $this->assertSame(2, $collection->current());
+        $this->assertJsonStringEqualsJsonString('[2]', json_encode($collection));
+    }
 }

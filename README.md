@@ -15,7 +15,7 @@ The [PHP API documentation](http://commercetools.github.io/commercetools-php-sdk
 
 ### Install & Integrate the SDK into your Project
 
-The SDK requires a PHP version of 5.4 or higher. The SDK tries to use the APC(u) as it's default cache. If you provide an own cache interface or a [PSR-6](https://packagist.org/providers/psr/cache-implementation) compliant cache adapter, APC(u) is not necessary. The [cache/filesystem-adapter](https://packagist.org/packages/cache/filesystem-adapter) is tried to be used if no APC(u) is installed. See also client [documentation](http://commercetools.github.io/commercetools-php-sdk/docs/master/class-Commercetools.Core.Client.html).
+The SDK requires a PHP version of 5.6 or higher. The SDK tries to use the APC(u) as it's default cache. If you provide a [PSR-6](https://packagist.org/providers/psr/cache-implementation) or [PSR-16](https://packagist.org/providers/psr/simple-cache-implementation) compliant cache adapter, APC(u) is not necessary. The [cache/filesystem-adapter](https://packagist.org/packages/cache/filesystem-adapter) is tried to be used if no APC(u) is installed.
 
 The curl extension is recommended but not strictly necessary because the SDK is using the [Guzzle library](https://github.com/guzzle/guzzle) library, which falls back to PHP stream wrappers if curl is not available.
 The intl extension is required to directly output Money objects as a String.
@@ -39,11 +39,11 @@ The SDK supports Guzzle6 as well as Guzzle5 as HTTP client. For Guzzle6:
 composer require guzzlehttp/guzzle ^6.0
 ```
 
-When you want to use Guzzle5 you have to add additionally the log subscriber:
+When you want to use Guzzle5 you have to ensure react/promise at minimum version 2.2:
 
 ```bash
-composer require guzzlehttp/guzzle ^5.0
-composer require guzzlehttp/log-subscriber ^1.0
+composer require guzzlehttp/guzzle ^5.3.1
+composer require react/promise ^2.2
 ```
 
 After installing, you need to require Composer's autoloader if that's not yet the case:
@@ -54,7 +54,7 @@ require 'vendor/autoload.php';
 
 If you don't use Composer, just [download a zip archive](https://github.com/commercetools/commercetools-php-sdk/archive/master.zip) of the latest release, manually integrate it and configure your own autoloader.
 
-Until the 1.0.0 release M0, M1 etc. milestone releases can contain incompatible changes.  From 1.0.0 on, the project will follow the [semantic versioning](http://semver.org) guidelines, i.e. everything but major version changes are backwards-compatible. This matches composer's default behavior.
+The project follows the [semantic versioning](http://semver.org) guidelines, i.e. everything but major version changes are backwards-compatible. This matches composer's default behavior.
 
 With composer just run `composer update commercetools/php-sdk` to update to compatible versions. Edit your `composer.json` file to update to incompatible versions.
 
@@ -101,7 +101,6 @@ foreach ($products as $product) {
     echo $product->getName()->en . '<br/>';
 }
 
-?>
 ```
 
 In real world, you will not put your API credentials directly into code but use a config file or your framework's config or dependency injection system for that.
@@ -127,11 +126,11 @@ php composer.phar update
 ```
 
 ### Linux preparations :
- * install php 5.5+, xdebug and ant according to their distro's package system.
+ * install php 5.6+, xdebug and ant according to their distro's package system.
  * make sure the curl, intl, mbstring and openssl extensions are activated in php.ini
 
 ### Windows preparations:
- * [install php](http://windows.php.net/download/) 5.5+, i.e. extract ZIP and make add php.exe location to your PATH. Use WAMP etc. if you like, but plain PHP commandline is all you really need (you can test example code in the built-in webserver).
+ * [install php](http://windows.php.net/download/) 5.6+, i.e. extract ZIP and make add php.exe location to your PATH. Use WAMP etc. if you like, but plain PHP commandline is all you really need (you can test example code in the built-in webserver).
  * enable the curl, intl, mbstring and openssl extenstions in php.ini
  * make a working ant available in the PATH
  * and [install composer](https://getcomposer.org/doc/00-intro.md#installation-windows).
@@ -158,9 +157,9 @@ You can use the `docroot` directory with the built-in PHP web server. Add to the
 
 ```yaml
 parameters:
-	client_id: my client id
-	client_secret: my client secret
-	project: my project id
+    client_id: my client id
+    client_secret: my client secret
+    project: my project id
 ```
 
 Then activate the php builtin web server

@@ -75,6 +75,22 @@ use Commercetools\Core\Response\ErrorResponse;
 
 class ProductUpdateRequestTest extends ApiTestCase
 {
+    private $productId;
+
+    public function tearDown()
+    {
+        $request = ProductUpdateRequest::ofIdAndVersion($this->productId, $this->deleteRequest->getVersion())
+            ->addAction(ProductUnpublishAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        if (!$response->isError()) {
+            $result = $request->mapResponse($response);
+            $this->deleteRequest->setVersion($result->getVersion());
+        }
+
+        parent::tearDown();
+    }
+
     public function testCreatePublish()
     {
         $draft = $this->getDraft('create-publish');
@@ -1500,6 +1516,8 @@ class ProductUpdateRequestTest extends ApiTestCase
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
+        sleep(1);
+
         $this->assertInstanceOf(Product::class, $result);
         $this->assertNotSame($product->getVersion(), $result->getVersion());
 
@@ -1516,13 +1534,6 @@ class ProductUpdateRequestTest extends ApiTestCase
         );
         $cart = $this->getCart($cartDraft);
         $this->assertSame(900, $cart->getTotalPrice()->getCentAmount());
-
-        $request = ProductUpdateRequest::ofIdAndVersion($result->getId(), $result->getVersion())
-            ->addAction(ProductUnpublishAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     /**
@@ -1549,6 +1560,7 @@ class ProductUpdateRequestTest extends ApiTestCase
             $product->getId(),
             $product->getVersion()
         );
+        $this->productId = $product->getId();
 
         return $product;
     }

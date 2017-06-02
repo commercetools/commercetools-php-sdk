@@ -220,7 +220,6 @@ pre code {
 }
 
 #rightInner {
-	max-width: 1500px; /* orinally 1000px */
 	min-width: 350px;
 }
 
@@ -256,29 +255,15 @@ pre code {
 
 #content > .description {
 	margin: 1.2em 0;
-	max-width: 1000px;
 }
 
 #content .alert-info {
 	margin-top: 18px;
-	max-width: 1000px;
 }
-
-.class-annotations th{
-	font-weight: bold;
-	white-space: nowrap;
-	width: 1%;
-	padding-right: 15px;
-}
-.class-annotations td{
-	width: 99%;
-}
-
 
 dl.tree {
 	margin: 1.2em 0;
 	padding: 10px;
-	max-width: 1000px;
 }
 
 dl.tree dd {
@@ -297,7 +282,7 @@ h2.switchable {
 }
 
 .summary td:first-child {
-	/* text-align: right; */  /* left because we increased the possible width so much  */
+	text-align: right;
 }
 
 .summary td hr {
@@ -310,7 +295,6 @@ h2.switchable {
 
 .summary tr:hover td {
 	background: #f6f6f4;
-	/* cursor: help; */ /* TODO add semantically correct tag that something is expandable by clicking it */
 }
 
 .summary .description p {
@@ -359,7 +343,8 @@ td.name, td.attributes {
 }
 
 .class .methods .name > div > code span, .function .value > code {
-	/* white-space: nowrap; */
+	white-space: nowrap;
+	display: inline-block;
 }
 
 .class .methods td.name > div, .class td.value > div {

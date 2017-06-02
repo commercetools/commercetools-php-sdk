@@ -6,6 +6,8 @@
 namespace Commercetools\Core;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Commercetools\Core\Fixtures\ManuelActivationStrategy;
+use Commercetools\Core\Fixtures\TeamCityFormatter;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
@@ -103,18 +105,23 @@ use Commercetools\Core\Request\Types\TypeCreateRequest;
 use Commercetools\Core\Request\Types\TypeDeleteRequest;
 use Commercetools\Core\Request\Zones\ZoneCreateRequest;
 use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
+use GuzzleHttp\MessageFormatter;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\ErrorLogHandler;
+use Monolog\Handler\FingersCrossedHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 use Symfony\Component\Yaml\Yaml;
 
-class ApiTestCase extends \PHPUnit\Framework\TestCase
+class ApiTestCase extends TestCase
 {
     private static $testRun;
     private static $client = [];
+    private static $errorHandler;
 
     protected $cleanupRequests = [];
 
@@ -224,6 +231,9 @@ class ApiTestCase extends \PHPUnit\Framework\TestCase
 
     public function setUp()
     {
+        if (self::$errorHandler instanceof FingersCrossedHandler) {
+            self::$errorHandler->clear();
+        }
         self::$testRun = md5(microtime());
     }
 
@@ -240,6 +250,18 @@ class ApiTestCase extends \PHPUnit\Framework\TestCase
     {
         $this->cleanup();
     }
+
+    /**
+     * @inheritDoc
+     */
+    protected function onNotSuccessfulTest($e)
+    {
+        if (self::$errorHandler instanceof FingersCrossedHandler) {
+            self::$errorHandler->activate();
+        }
+        parent::onNotSuccessfulTest($e);
+    }
+
 
     /**
      * @param $scope
@@ -272,6 +294,9 @@ class ApiTestCase extends \PHPUnit\Framework\TestCase
                 'project' => $_SERVER['COMMERCETOOLS_PROJECT']
             ]);
         }
+//        if (getenv('TEAMCITY_FORMATTER') == "true") {
+//            $config->setMessageFormatter(new MessageFormatter(self::TEAMCITY_LF));
+//        }
         $config->setContext($context);
         $config->setScope($scope);
         $config = $this->getAcceptEncoding($config);
@@ -282,18 +307,34 @@ class ApiTestCase extends \PHPUnit\Framework\TestCase
     protected function getLogger()
     {
         if (is_null($this->logger)) {
+            if (file_exists(__DIR__ .'/requests.log')) {
+                file_put_contents(__DIR__ .'/requests.log', "");
+            }
             $loggerOut = getenv('LOGGER_OUT');
 
             $this->logger = new Logger('test');
             if ($loggerOut == 'CLI') {
-                $this->logger->pushHandler(new ErrorLogHandler());
+                $this->logger->pushHandler($this->getCliHandler());
             } else {
-                $this->logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::NOTICE));
+                $this->logger->pushHandler(new StreamHandler(__DIR__ .'/requests.log', LogLevel::INFO));
             }
-
         }
 
         return $this->logger;
+    }
+
+    public function getCliHandler()
+    {
+        if (is_null(self::$errorHandler)) {
+            $handler = new ErrorLogHandler();
+            if (getenv("TEAMCITY_FORMATTER") == "true") {
+                $handler->setFormatter(new TeamCityFormatter());
+                $handler = new FingersCrossedHandler($handler, new ManuelActivationStrategy());
+            }
+            self::$errorHandler = $handler;
+        }
+
+        return self::$errorHandler;
     }
 
     protected function getCache()
@@ -606,10 +647,13 @@ class ApiTestCase extends \PHPUnit\Framework\TestCase
         return $draft;
     }
 
-    protected function getProduct()
+    protected function getProduct(ProductDraft $draft = null)
     {
         if (is_null($this->product)) {
-            $request = ProductCreateRequest::ofDraft($this->getProductDraft());
+            if (is_null($draft)) {
+                $draft = $this->getProductDraft();
+            }
+            $request = ProductCreateRequest::ofDraft($draft);
             $response = $request->executeWithClient($this->getClient());
             $product = $request->mapResponse($response);
             $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())

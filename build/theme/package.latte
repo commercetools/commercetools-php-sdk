@@ -5,8 +5,6 @@
 
 {block content}
 <div id="content" class="package">
-	<h1>{if $package != 'None'}Package {$package|packageLinks:false|noescape}{else}No package{/if}</h1>
-
 	{if $subpackages}
 	<div class="panel panel-default">
         <div class="panel-heading"><h2>Packages summary</h2></div>

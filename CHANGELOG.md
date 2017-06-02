@@ -1,3 +1,88 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/commercetools/commercetools-php-sdk/compare/v1.7.0...v2.0.0) (2017-05-31)
+
+
+### Bug Fixes
+
+* **AssetDraft:** correct type for custom field object ([abc0afd](https://github.com/commercetools/commercetools-php-sdk/commit/abc0afd))
+* **Collection:** fix iterator for unset elements of collections (#307) ([5687380](https://github.com/commercetools/commercetools-php-sdk/commit/5687380)), closes [#307](https://github.com/issues/307)
+* **Customer:** fix create email token request with TTL ([8367ef6](https://github.com/commercetools/commercetools-php-sdk/commit/8367ef6))
+* **ImageUpload:** fix product image upload ([445b2f4](https://github.com/commercetools/commercetools-php-sdk/commit/445b2f4))
+* **ProductSuggest:** fix suggestion parameters ([d9652df](https://github.com/commercetools/commercetools-php-sdk/commit/d9652df)), closes [#310](https://github.com/commercetools/commercetools-php-sdk/issues/310)
+
+### Code Refactoring
+
+* **OAuth:** change scope of getCacheAdapter method ([c6b27ec](https://github.com/commercetools/commercetools-php-sdk/commit/c6b27ec))
+* **ProductSearch:** disable markMatchingVariants by default ([41711a8](https://github.com/commercetools/commercetools-php-sdk/commit/41711a8))
+
+### Features
+
+* **Cache:** support PSR-16 cache implementations ([c3ceac7](https://github.com/commercetools/commercetools-php-sdk/commit/c3ceac7)), closes [#297](https://github.com/commercetools/commercetools-php-sdk/issues/297)
+* **Client:** add logLevel configuration option ([8aa457a](https://github.com/commercetools/commercetools-php-sdk/commit/8aa457a)), closes [#300](https://github.com/commercetools/commercetools-php-sdk/issues/300)
+* **Client:** add possibility for additional headers when executing request ([74c5a15](https://github.com/commercetools/commercetools-php-sdk/commit/74c5a15))
+* **ShoppingList:** add SetDeleteDaysAfterLastModificationAction ([d31b839](https://github.com/commercetools/commercetools-php-sdk/commit/d31b839))
+* **Subscription:** add getter for message to message subscription payload ([daa2558](https://github.com/commercetools/commercetools-php-sdk/commit/daa2558)), closes [#308](https://github.com/commercetools/commercetools-php-sdk/issues/308)
+
+
+### BREAKING CHANGES
+
+* PHP minimum version is now 5.6
+* guzzle/log-subscriber has been removed as a dependency
+* AssetDraft: AssetDraft requires CustomFieldObjectDraft instead of CustomFieldObject
+
+  Before:
+
+  ```
+  $assetDraft = AssetDraft::of()->setCustom(CustomFieldObject::of());
+  ```
+
+  After:
+
+  ```
+  $assetDraft = AssetDraft::of()->setCustom(CustomFieldObjectDraft::of());
+  ```
+* OAuth: Manager::getCacheAdapter() method scope has been changed from public to protected
+* ProductSearch: markMatchingVariants has been disabled by default
+
+  For performance reasons the markMatchingVariants flag has been disabled by default. In order to use markMatchingVariants feature please enable it explicit.
+
+  Before:
+  ```
+  $request = ProductProjectionSearchRequest::of();
+  ```
+
+  After:
+  ```
+  $request = ProductProjectionSearchRequest::of()->markMatchingVariants(true);
+  ```
+* Token caching is now using [PSR-6](https://packagist.org/providers/psr/cache-implementation) or [PSR-16](https://packagist.org/providers/psr/simple-cache-implementation) cache adapters only.
+  Removed classes:
+  - AbstractCacheAdapter
+  - ApcCacheAdapter
+  - ApcuCacheAdapter
+  - CacheAdapterInterface
+  - DoctrineCacheAdapter
+  - NullCacheAdapter
+  - PhpRedisCacheAdapter
+  
+  Use an appropiate PSR-6 or PRS-16 cache adapter as a replacement. The SDK uses the [cache\apcu-adapter](https://packagist.org/packages/cache/apcu-adapter) as default or if available the [cache\filesystem-adapter](https://packagist.org/packages/cache/filesystem-adapter)
+* Deprecations have been removed
+  - FileRequest
+     - use FileUploadRequest
+  - CustomerChangeNameAction
+    - use CustomerSetFirstNameAction, CustomerSetLastNameAction, CustomerSetMiddleNameAction or CustomerSetTitleAction
+  - ProductSetSkuNotStageableAction
+    - use ProductSetSkuAction
+* Context doesn't extend Pimple\Container anymore
+* Pimple has been removed as a dependency
+
+### DEPRECATION NOTE
+
+The class ```Commercetools\Commons\Helper\PriceFinder``` has been deprecated. Please use the 
+[price selection](http://dev.commercetools.com/http-api-projects-products.html#price-selection) functionality of
+the platform. E.g. ```ProductProjectionSearchRequest::of()->currency('EUR')->country('DE')```
+
+
 <a name="2.0.0-RC1"></a>
 # [2.0.0-RC1](https://github.com/commercetools/commercetools-php-sdk/compare/v1.7.0...v2.0.0-RC1) (2017-03-13)
 

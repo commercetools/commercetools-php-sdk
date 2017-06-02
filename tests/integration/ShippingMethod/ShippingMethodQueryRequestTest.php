@@ -92,7 +92,7 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
         $shippingMethod = $this->createShippingMethod($draft);
 
         $request = ShippingMethodByLocationGetRequest::ofCountry('DE')->withState($this->getRegion());
-        $response = $request->executeWithClient($this->getClient());
+        $response = $request->executeWithClient($this->getClient(), ['X-Vrap-Disable-Validation' => 'response']);
         $result = $request->mapResponse($response);
 
         $this->assertInstanceOf(ShippingMethodCollection::class, $result);
