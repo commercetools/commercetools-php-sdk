@@ -50,6 +50,8 @@ use DateTime;
  * @method Payment setTransactions(TransactionCollection $transactions = null)
  * @method CustomFieldObjectCollection getInterfaceInteractions()
  * @method Payment setInterfaceInteractions(CustomFieldObjectCollection $interfaceInteractions = null)
+ * @method string getKey()
+ * @method Payment setKey(string $key = null)
  * @method PaymentReference getReference()
  */
 class Payment extends Resource
@@ -59,6 +61,7 @@ class Payment extends Resource
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
+            'key' => [static::TYPE => 'string'],
             'createdAt' => [
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class

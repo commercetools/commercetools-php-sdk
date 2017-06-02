@@ -44,12 +44,15 @@ use DateTime;
  * @method PaymentDraft setTransactions(TransactionCollection $transactions = null)
  * @method CustomFieldObjectDraftCollection getInterfaceInteractions()
  * @method PaymentDraft setInterfaceInteractions(CustomFieldObjectDraftCollection $interfaceInteractions = null)
+ * @method string getKey()
+ * @method PaymentDraft setKey(string $key = null)
  */
 class PaymentDraft extends JsonObject
 {
     public function fieldDefinitions()
     {
         return [
+            'key' => [static::TYPE => 'string'],
             'customer' => [static::TYPE => CustomerReference::class],
             'externalId' => [static::TYPE => 'string'],
             'interfaceId' => [static::TYPE => 'string'],
