@@ -15,6 +15,8 @@ use Commercetools\Core\Model\Common\Money;
  * @method ShippingRate setPrice(Money $price = null)
  * @method Money getFreeAbove()
  * @method ShippingRate setFreeAbove(Money $freeAbove = null)
+ * @method bool getIsMatching()
+ * @method ShippingRate setIsMatching(bool $isMatching = null)
  */
 class ShippingRate extends JsonObject
 {
@@ -23,6 +25,7 @@ class ShippingRate extends JsonObject
         return [
             'price' => [static::TYPE => Money::class],
             'freeAbove' => [static::TYPE => Money::class],
+            'isMatching' => [static::TYPE => 'bool']
         ];
     }
 }

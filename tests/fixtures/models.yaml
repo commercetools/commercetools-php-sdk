@@ -630,6 +630,7 @@ shippingRate:
   fields:
     - price
     - freeAbove
+    - isMatching
 
 state:
   domain: state
