@@ -37,7 +37,7 @@ script:
 - if [ $PHP == '7.0' ] && [ $GUZZLE == '6' ] ; then vendor/bin/phpunit --testsuite=integration; fi
 - ant behat
 after_success:
-- if [ $PHP == '5.6' ] && [ $GUZZLE == '6' ] ; then ./push-docs-to-gh-pages.sh; fi
+- if [ $PHP == '7.1' ] && [ $GUZZLE == '6' ] ; then ./push-docs-to-gh-pages.sh; fi
 notifications:
   hipchat:
     rooms:

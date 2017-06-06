@@ -9,9 +9,9 @@
 # to be called as "after_success: - ./push-docs-to-gh-pages.sh" in .travis.yml
 
 export SDK_VERSION=$TRAVIS_BRANCH;
-if [ $(phpenv version-name) = "5.6" ] ; then ant apigen; fi
+if [ $(phpenv version-name) = "7.1" ] ; then ant apigen; fi
 
-if [ "$TRAVIS_REPO_SLUG" == "commercetools/commercetools-php-sdk" ] && [ $(phpenv version-name) = "5.6" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && ( [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == `git describe --tags --always HEAD` ] ); then
+if [ "$TRAVIS_REPO_SLUG" == "commercetools/commercetools-php-sdk" ] && [ $(phpenv version-name) = "7.1" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && ( [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == `git describe --tags --always HEAD` ] ); then
   echo -e "Publishing documentation to gh-pages branch ...\n"
 
   cp -R build/docs $HOME/phpdoc-current
