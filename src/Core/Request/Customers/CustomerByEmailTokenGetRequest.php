@@ -19,13 +19,13 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @link https://dev.commercetools.com/http-api-projects-customers.html#get-customer-by-password-token
+ * @link https://dev.commercetools.com/http-api-projects-customers.html#get-customer-by-email-token
  * @method Customer mapResponse(ApiResponseInterface $response)
  * @method Customer mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
-class CustomerByTokenGetRequest extends AbstractByTokenGetRequest
+class CustomerByEmailTokenGetRequest extends AbstractByTokenGetRequest
 {
-    const TOKEN_NAME = 'password-token';
+    const TOKEN_NAME = 'email-token';
 
     protected $resultClass = Customer::class;
     /**
