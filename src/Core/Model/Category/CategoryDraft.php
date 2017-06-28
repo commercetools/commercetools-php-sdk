@@ -37,6 +37,8 @@ use Commercetools\Core\Model\Common\AssetDraftCollection;
  * @method CategoryDraft setMetaKeywords(LocalizedString $metaKeywords = null)
  * @method AssetDraftCollection getAssets()
  * @method CategoryDraft setAssets(AssetDraftCollection $assets = null)
+ * @method string getKey()
+ * @method CategoryDraft setKey(string $key = null)
  */
 class CategoryDraft extends JsonObject
 {
@@ -53,7 +55,8 @@ class CategoryDraft extends JsonObject
             'metaTitle' => [static::TYPE => LocalizedString::class],
             'metaKeywords' => [static::TYPE => LocalizedString::class],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
-            'assets' => [static::TYPE => AssetDraftCollection::class]
+            'assets' => [static::TYPE => AssetDraftCollection::class],
+            'key' => [static::TYPE => 'string'],
         ];
     }
 

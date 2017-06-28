@@ -19,6 +19,7 @@ class CategoryCollection extends Collection
     const SLUG = 'slug';
     const PARENT = 'parent';
     const ROOTS = 'roots';
+    const KEY = 'key';
 
     protected $type = Category::class;
 
@@ -28,12 +29,15 @@ class CategoryCollection extends Collection
             $slugs = $row->getSlug()->toArray();
             $parentId = !is_null($row->getParent()) ? $row->getParent()->getId() : null;
             $id = $row->getId();
+            $key = $row->getKey();
         } else {
             $slugs = isset($row[static::SLUG]) ? $row[static::SLUG] : [];
             $id = isset($row[static::ID]) ? $row[static::ID] : null;
+            $key = isset($row[static::KEY]) ? $row[static::KEY] : null;
             $parentId = isset($row[static::PARENT][static::ID]) ? $row[static::PARENT][static::ID] : null;
         }
         $this->addToIndex(static::ID, $offset, $id);
+        $this->addToIndex(static::KEY, $offset, $key);
         foreach ($slugs as $locale => $slug) {
             $locale = \Locale::canonicalize($locale);
             $this->addToIndex(static::SLUG, $offset, $locale . '-' . $slug);
@@ -52,6 +56,15 @@ class CategoryCollection extends Collection
     public function getById($id)
     {
         return $this->getBy(static::ID, $id);
+    }
+
+    /**
+     * @param $key
+     * @return Category|null
+     */
+    public function getByKey($key)
+    {
+        return $this->getBy(static::KEY, $key);
     }
 
     /**
