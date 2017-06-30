@@ -19,6 +19,10 @@ use Commercetools\Core\Request\AbstractAction;
  * @method CartRemoveLineItemAction setLineItemId(string $lineItemId = null)
  * @method int getQuantity()
  * @method CartRemoveLineItemAction setQuantity(int $quantity = null)
+ * @method Money getExternalPrice()
+ * @method CartRemoveLineItemAction setExternalPrice(Money $externalPrice = null)
+ * @method ExternalLineItemTotalPrice getExternalTotalPrice()
+ * @method CartRemoveLineItemAction setExternalTotalPrice(ExternalLineItemTotalPrice $externalTotalPrice = null)
  */
 class CartRemoveLineItemAction extends AbstractAction
 {
