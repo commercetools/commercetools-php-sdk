@@ -34,6 +34,10 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method LineItemDraft setCustom(CustomFieldObject $custom = null)
  * @method ExternalTaxRateDraft getExternalTaxRate()
  * @method LineItemDraft setExternalTaxRate(ExternalTaxRateDraft $externalTaxRate = null)
+ * @method Money getExternalPrice()
+ * @method LineItemDraft setExternalPrice(Money $externalPrice = null)
+ * @method ExternalLineItemTotalPrice getExternalTotalPrice()
+ * @method LineItemDraft setExternalTotalPrice(ExternalLineItemTotalPrice $externalTotalPrice = null)
  */
 class LineItemDraft extends JsonObject
 {
@@ -46,6 +50,8 @@ class LineItemDraft extends JsonObject
             'supplyChannel' => [static::TYPE => ChannelReference::class],
             'distributionChannel' => [static::TYPE => ChannelReference::class],
             'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class],
+            'externalPrice' => [static::TYPE => Money::class],
+            'externalTotalPrice' => [static::TYPE => ExternalLineItemTotalPrice::class],
             'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }

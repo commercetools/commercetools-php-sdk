@@ -58,6 +58,7 @@ class LineItem extends JsonObject
 {
     const PRICE_MODE_PLATFORM = 'Platform';
     const PRICE_MODE_EXTERNAL_TOTAL = 'ExternalTotal';
+    const PRICE_MODE_EXTERNAL_PRICE = 'ExternalPrice';
 
     public function fieldDefinitions()
     {
@@ -80,7 +81,7 @@ class LineItem extends JsonObject
                 static::TYPE => DiscountedPricePerQuantityCollection::class
             ],
             'priceMode' => [static::TYPE => 'string'],
-            'productType' => [static::TYPE => ProductTypeReference::class]
+            'productType' => [static::TYPE => ProductTypeReference::class],
         ];
     }
 
