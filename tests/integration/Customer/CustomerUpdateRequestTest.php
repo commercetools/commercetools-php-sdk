@@ -31,6 +31,7 @@ use Commercetools\Core\Request\Customers\Command\CustomerSetFirstNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetLastNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetLocaleAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetMiddleNameAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetSalutationAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
@@ -84,6 +85,23 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($email, $customer->getEmail());
+    }
+
+    public function testSalutation()
+    {
+        $draft = $this->getDraft('salutation');
+        $customer = $this->createCustomer($draft);
+
+        $salutation = 'new-salutation';
+
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(CustomerSetSalutationAction::of()->setSalutation($salutation))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $customer = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($customer->getVersion());
+
+        $this->assertSame($salutation, $customer->getSalutation());
     }
 
     public function testNoopCustomerEmail()

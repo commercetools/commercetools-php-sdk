@@ -305,6 +305,7 @@ customer:
     - locale
     - shippingAddressIds
     - billingAddressIds
+    - salutation
 customerSigninResult:
   domain: customer
   model: CustomerSigninResult

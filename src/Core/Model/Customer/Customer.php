@@ -65,12 +65,14 @@ use DateTime;
  * @method Customer setShippingAddressIds(array $shippingAddressIds = null)
  * @method array getBillingAddressIds()
  * @method Customer setBillingAddressIds(array $billingAddressIds = null)
+ * @method string getSalutation()
+ * @method Customer setSalutation(string $salutation = null)
  * @method CustomerReference getReference()
  */
 class Customer extends Resource
 {
     use LocaleTrait;
-    
+
     public function fieldDefinitions()
     {
         return [
@@ -107,6 +109,7 @@ class Customer extends Resource
             'locale' => [static::TYPE => 'string'],
             'shippingAddressIds' => [static::TYPE => 'array'],
             'billingAddressIds' => [static::TYPE => 'array'],
+            'salutation' => [static::TYPE => 'string'],
         ];
     }
 
