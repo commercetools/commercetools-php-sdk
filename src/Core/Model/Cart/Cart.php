@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Cart;
 
+use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\Common\Resource;
@@ -68,6 +69,8 @@ use DateTime;
  * @method Cart setTaxRoundingMode(string $taxRoundingMode = null)
  * @method int getDeleteDaysAfterLastModification()
  * @method Cart setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
+ * @method CartDiscountReferenceCollection getRefusedGifts()
+ * @method Cart setRefusedGifts(CartDiscountReferenceCollection $refusedGifts = null)
  * @method CartReference getReference()
  */
 class Cart extends Resource
@@ -114,7 +117,8 @@ class Cart extends Resource
             'anonymousId' => [static::TYPE => 'string'],
             'locale' => [static::TYPE => 'string'],
             'taxRoundingMode' => [static::TYPE => 'string'],
-            'deleteDaysAfterLastModification' => [static::TYPE => 'int']
+            'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
+            'refusedGifts' => [static::TYPE => CartDiscountReferenceCollection::class],
         ];
     }
 

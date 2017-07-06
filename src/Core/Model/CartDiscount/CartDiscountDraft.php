@@ -100,4 +100,32 @@ class CartDiscountDraft extends JsonObject
             ->setIsActive($isActive)
             ->setRequiresDiscountCode($requiresDiscountCode);
     }
+
+    /**
+     * @param LocalizedString $name
+     * @param CartDiscountValue $value
+     * @param string $cartPredicate
+     * @param string $sortOrder
+     * @param bool $isActive
+     * @param bool $requiresDiscountCode
+     * @param Context|callable $context
+     * @return CartDiscountDraft
+     */
+    public static function ofNameValuePredicateOrderActiveAndDiscountCode(
+        LocalizedString $name,
+        CartDiscountValue $value,
+        $cartPredicate,
+        $sortOrder,
+        $isActive,
+        $requiresDiscountCode,
+        $context = null
+    ) {
+        $draft = static::of($context);
+        return $draft->setName($name)
+            ->setValue($value)
+            ->setCartPredicate($cartPredicate)
+            ->setSortOrder($sortOrder)
+            ->setIsActive($isActive)
+            ->setRequiresDiscountCode($requiresDiscountCode);
+    }
 }

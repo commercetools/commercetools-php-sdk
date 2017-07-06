@@ -27,6 +27,7 @@ cart:
     - locale
     - taxRoundingMode
     - deleteDaysAfterLastModification
+    - refusedGifts
 lineItem:
   domain: cart
   model: LineItem
@@ -48,6 +49,7 @@ lineItem:
     - totalPrice
     - priceMode
     - productType
+    - lineItemMode
 
 customLineItem:
   domain: cart

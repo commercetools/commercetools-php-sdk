@@ -1390,6 +1390,48 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertCount(0, $cart->getLineItems());
     }
 
+    public function testGiftLineItem()
+    {
+        $cartDiscount = $this->getGiftLineItemCartDiscount();
+
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
+            );
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertCount(2, $cart->getLineItems());
+
+        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
+
+        $giftLineItemIncluded = false;
+        foreach ($cart->getLineItems() as $lineItem) {
+            $this->assertSame($product->getReference()->getId(), $lineItem->getProductId());
+            $this->assertSame($variant->getId(), $lineItem->getVariant()->getId());
+            if ($lineItem->getLineItemMode() == LineItem::LINE_ITEM_MODE_GIFT_LINE_ITEM) {
+                $giftLineItemIncluded = true;
+                $this->assertSame(0, $lineItem->getTotalPrice()->getCentAmount());
+                $this->assertCount(1, $lineItem->getDiscountedPricePerQuantity());
+                $this->assertSame(
+                    $cartDiscount->getId(),
+                        $lineItem->getDiscountedPricePerQuantity()->current()
+                            ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                            ->getDiscount()->getId()
+                );
+            }
+        }
+        $this->assertTrue($giftLineItemIncluded);
+    }
+
     /**
      * @return CartDraft
      */

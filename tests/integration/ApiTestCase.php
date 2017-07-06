@@ -10,11 +10,13 @@ use Commercetools\Core\Fixtures\ManuelActivationStrategy;
 use Commercetools\Core\Fixtures\TeamCityFormatter;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
+use Commercetools\Core\Model\CartDiscount\GiftLineItemCartDiscountValue;
 use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Channel\Channel;
@@ -734,7 +736,7 @@ class ApiTestCase extends TestCase
         if (is_null($this->cartDiscount)) {
             $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
                 LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-                CartDiscountValue::of()->setType('absolute')->setMoney(
+                AbsoluteCartDiscountValue::of()->setMoney(
                     MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
                 ),
                 '1=1',
@@ -745,6 +747,32 @@ class ApiTestCase extends TestCase
             );
             $request = CartDiscountCreateRequest::ofDraft($draft);
             $response = $request->executeWithClient($this->getClient());
+            $this->cartDiscount = $request->mapResponse($response);
+        }
+
+        return $this->cartDiscount;
+    }
+
+    protected function getGiftLineItemCartDiscount()
+    {
+        if (is_null($this->cartDiscount)) {
+            $product = $this->getProduct();
+            $draft = CartDiscountDraft::ofNameValuePredicateOrderActiveAndDiscountCode(
+                LocalizedString::ofLangAndText(
+                    'en',
+                    'test-' . $this->getTestRun() . '-gift-line-item-discount'
+                ),
+                GiftLineItemCartDiscountValue::of()
+                    ->setProduct($product->getReference())
+                    ->setVariantId($product->getMasterData()->getCurrent()->getMasterVariant()->getId()),
+                '1=1',
+                '0.9' . trim((string)mt_rand(1, 1000), '0'),
+                true,
+                false
+            );
+            $request = CartDiscountCreateRequest::ofDraft($draft);
+            $response = $request->executeWithClient($this->getClient());
+
             $this->cartDiscount = $request->mapResponse($response);
         }
 

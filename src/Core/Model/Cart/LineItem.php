@@ -53,12 +53,17 @@ use Commercetools\Core\Model\ProductType\ProductTypeReference;
  * @method LineItem setPriceMode(string $priceMode = null)
  * @method ProductTypeReference getProductType()
  * @method LineItem setProductType(ProductTypeReference $productType = null)
+ * @method string getLineItemMode()
+ * @method LineItem setLineItemMode(string $lineItemMode = null)
  */
 class LineItem extends JsonObject
 {
     const PRICE_MODE_PLATFORM = 'Platform';
     const PRICE_MODE_EXTERNAL_TOTAL = 'ExternalTotal';
     const PRICE_MODE_EXTERNAL_PRICE = 'ExternalPrice';
+
+    const LINE_ITEM_MODE_STANDARD = 'Standard';
+    const LINE_ITEM_MODE_GIFT_LINE_ITEM = 'GiftLineItem';
 
     public function fieldDefinitions()
     {
@@ -81,6 +86,7 @@ class LineItem extends JsonObject
                 static::TYPE => DiscountedPricePerQuantityCollection::class
             ],
             'priceMode' => [static::TYPE => 'string'],
+            'lineItemMode' => [static::TYPE => 'string'],
             'productType' => [static::TYPE => ProductTypeReference::class],
         ];
     }
