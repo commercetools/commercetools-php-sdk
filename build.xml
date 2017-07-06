@@ -208,6 +208,7 @@
         <exec executable="php" dir="${basedir}" failonerror="true">
             <arg value="${basedir}/apigen.phar"/>
             <arg value="generate"/>
+            <arg value="--debug"/>
             <arg value="--config"/>
             <arg path="${basedir}/build/apigen.neon"/>
         </exec>

@@ -58,6 +58,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetDeleteDaysAfterLastModificationAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetLineItemPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTotalPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLocaleAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
@@ -174,7 +175,7 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertCount(0, $cart->getLineItems());
     }
 
-    public function testSetExternalLineItemPrice()
+    public function testSetExternalLineItemTotalPrice()
     {
         $draft = $this->getDraft();
         $cart = $this->createCart($draft);
@@ -228,7 +229,57 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertSame(100, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
     }
 
-    public function testUnsetExternalLineItemPriceQuantityChange()
+    public function testSetExternalLineItemPrice()
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 2)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+        $this->assertSame(LineItem::PRICE_MODE_PLATFORM, $cart->getLineItems()->current()->getPriceMode());
+        $this->assertSame(100, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
+        $this->assertSame(200, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartSetLineItemPriceAction::ofLineItemId($cart->getLineItems()->current()->getId())
+                    ->setExternalPrice(Money::ofCurrencyAndAmount('EUR', 12345))
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(LineItem::PRICE_MODE_EXTERNAL_PRICE, $cart->getLineItems()->current()->getPriceMode());
+        $this->assertSame(12345, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
+        $this->assertSame(24690, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartSetLineItemPriceAction::ofLineItemId($cart->getLineItems()->current()->getId())
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(LineItem::PRICE_MODE_PLATFORM, $cart->getLineItems()->current()->getPriceMode());
+        $this->assertSame(100, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
+        $this->assertSame(200, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+    }
+
+    public function testUnsetExternalLineItemTotalPriceQuantityChange()
     {
         $draft = $this->getDraft();
         $cart = $this->createCart($draft);
@@ -280,6 +331,90 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertSame(LineItem::PRICE_MODE_PLATFORM, $cart->getLineItems()->current()->getPriceMode());
         $this->assertSame(100, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
         $this->assertSame(200, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+    }
+
+    public function testExternalLineItemTotalPriceQuantityChange()
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 2)
+                    ->setExternalTotalPrice(
+                        ExternalLineItemTotalPrice::of()
+                            ->setPrice(Money::ofCurrencyAndAmount('EUR', 12345))
+                            ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 12345678))
+                    )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+        $this->assertSame(LineItem::PRICE_MODE_EXTERNAL_TOTAL, $cart->getLineItems()->current()->getPriceMode());
+        $this->assertSame(12345, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
+        $this->assertSame(12345678, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity($cart->getLineItems()->current()->getId(), 3)
+                    ->setExternalTotalPrice(
+                        ExternalLineItemTotalPrice::of()
+                            ->setPrice(Money::ofCurrencyAndAmount('EUR', 12345))
+                            ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 12345679))
+                    )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(LineItem::PRICE_MODE_EXTERNAL_TOTAL, $cart->getLineItems()->current()->getPriceMode());
+        $this->assertSame(12345, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
+        $this->assertSame(12345679, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+    }
+
+    public function testExternalLineItemPriceQuantityChange()
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 2)
+                    ->setExternalPrice(Money::ofCurrencyAndAmount('EUR', 12345))
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+        $this->assertSame(LineItem::PRICE_MODE_EXTERNAL_PRICE, $cart->getLineItems()->current()->getPriceMode());
+        $this->assertSame(12345, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
+        $this->assertSame(24690, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity($cart->getLineItems()->current()->getId(), 3)
+                    ->setExternalPrice(Money::ofCurrencyAndAmount('EUR', 12345))
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(LineItem::PRICE_MODE_EXTERNAL_PRICE, $cart->getLineItems()->current()->getPriceMode());
+        $this->assertSame(12345, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
+        $this->assertSame(37035, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
     }
 
     public function testCustomLineItem()
@@ -1253,6 +1388,48 @@ class CartUpdateRequestTest extends ApiTestCase
         $cart = $request->mapResponse($response);
         $this->deleteRequest->setVersion($cart->getVersion());
         $this->assertCount(0, $cart->getLineItems());
+    }
+
+    public function testGiftLineItem()
+    {
+        $cartDiscount = $this->getGiftLineItemCartDiscount();
+
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
+            );
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertCount(2, $cart->getLineItems());
+
+        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
+
+        $giftLineItemIncluded = false;
+        foreach ($cart->getLineItems() as $lineItem) {
+            $this->assertSame($product->getReference()->getId(), $lineItem->getProductId());
+            $this->assertSame($variant->getId(), $lineItem->getVariant()->getId());
+            if ($lineItem->getLineItemMode() == LineItem::LINE_ITEM_MODE_GIFT_LINE_ITEM) {
+                $giftLineItemIncluded = true;
+                $this->assertSame(0, $lineItem->getTotalPrice()->getCentAmount());
+                $this->assertCount(1, $lineItem->getDiscountedPricePerQuantity());
+                $this->assertSame(
+                    $cartDiscount->getId(),
+                        $lineItem->getDiscountedPricePerQuantity()->current()
+                            ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                            ->getDiscount()->getId()
+                );
+            }
+        }
+        $this->assertTrue($giftLineItemIncluded);
     }
 
     /**

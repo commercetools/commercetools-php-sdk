@@ -27,6 +27,7 @@ cart:
     - locale
     - taxRoundingMode
     - deleteDaysAfterLastModification
+    - refusedGifts
 lineItem:
   domain: cart
   model: LineItem
@@ -48,6 +49,7 @@ lineItem:
     - totalPrice
     - priceMode
     - productType
+    - lineItemMode
 
 customLineItem:
   domain: cart
@@ -172,6 +174,7 @@ category:
     - metaKeywords
     - metaTitle
     - assets
+    - key
 
 categoryDraft:
   domain: category
@@ -188,6 +191,7 @@ categoryDraft:
     - metaTitle
     - custom
     - assets
+    - key
 
 address:
   domain: common
@@ -303,6 +307,7 @@ customer:
     - locale
     - shippingAddressIds
     - billingAddressIds
+    - salutation
 customerSigninResult:
   domain: customer
   model: CustomerSigninResult
@@ -630,6 +635,7 @@ shippingRate:
   fields:
     - price
     - freeAbove
+    - isMatching
 
 state:
   domain: state

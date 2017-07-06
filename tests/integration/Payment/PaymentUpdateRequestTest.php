@@ -29,6 +29,7 @@ use Commercetools\Core\Request\Payments\Command\PaymentSetCustomFieldAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetCustomTypeAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetExternalIdAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetInterfaceIdAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetKeyAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoInterfaceAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoMethodAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoNameAction;
@@ -109,6 +110,29 @@ class PaymentUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+        $this->assertNotSame($payment->getVersion(), $result->getVersion());
+    }
+
+    public function testSetKey()
+    {
+        $key = $this->getTestRun() . '-key';
+        $draft = $this->getDraft();
+        $draft->setKey($key);
+        $payment = $this->createPayment($draft);
+        $this->assertSame($key, $payment->getKey());
+
+        $key = $this->getTestRun() . '-new-key';
+        $request = PaymentUpdateRequest::ofIdAndVersion($payment->getId(), $payment->getVersion())
+            ->addAction(
+                PaymentSetKeyAction::of()->setKey($key)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Payment::class, $result);
+        $this->assertSame($key, $result->getKey());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
 

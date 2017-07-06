@@ -5,7 +5,9 @@
 
 namespace Commercetools\Core\Request\Carts\Command;
 
+use Commercetools\Core\Model\Cart\ExternalLineItemTotalPrice;
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
@@ -17,6 +19,12 @@ use Commercetools\Core\Request\AbstractAction;
  * @method CartChangeLineItemQuantityAction setLineItemId(string $lineItemId = null)
  * @method int getQuantity()
  * @method CartChangeLineItemQuantityAction setQuantity(int $quantity = null)
+ * @method Money getExternalPrice()
+ * @method CartChangeLineItemQuantityAction setExternalPrice(Money $externalPrice = null)
+ * @method ExternalLineItemTotalPrice getExternalTotalPrice()
+ * @codingStandardsIgnoreStart
+ * @method CartChangeLineItemQuantityAction setExternalTotalPrice(ExternalLineItemTotalPrice $externalTotalPrice = null)
+ * @codingStandardsIgnoreEnd
  */
 class CartChangeLineItemQuantityAction extends AbstractAction
 {
@@ -26,6 +34,8 @@ class CartChangeLineItemQuantityAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'lineItemId' => [static::TYPE => 'string'],
             'quantity' => [static::TYPE => 'int'],
+            'externalPrice' => [static::TYPE => Money::class],
+            'externalTotalPrice' => [static::TYPE => ExternalLineItemTotalPrice::class],
         ];
     }
 

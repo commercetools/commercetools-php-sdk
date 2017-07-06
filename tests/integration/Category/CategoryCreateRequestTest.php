@@ -9,6 +9,7 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\Categories\CategoryCreateRequest;
+use Commercetools\Core\Request\Categories\CategoryDeleteByKeyRequest;
 use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
 
 class CategoryCreateRequestTest extends ApiTestCase
@@ -51,5 +52,20 @@ class CategoryCreateRequestTest extends ApiTestCase
         $this->assertSame($draft->getSlug()->en, $category->getSlug()->en);
         $this->assertNotEmpty($category->getId());
         $this->assertSame(1, $category->getVersion());
+    }
+
+    public function testDeleteByKey()
+    {
+        $draft = $this->getDraft('myCategory', 'my-category')->setKey($this->getTestRun());
+        $category = $this->createCategory($draft);
+
+        $request = CategoryDeleteByKeyRequest::ofKeyAndVersion(
+            $category->getKey(),
+            $category->getVersion()
+        );
+        $result = $this->getClient()->execute($request);
+        $response = $request->mapFromResponse($result);
+
+        $this->assertSame($category->getId(), $response->getId());
     }
 }

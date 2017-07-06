@@ -5,7 +5,9 @@
 
 namespace Commercetools\Core\Request\Carts\Command;
 
+use Commercetools\Core\Model\Cart\ExternalLineItemTotalPrice;
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
@@ -30,6 +32,10 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method CartAddLineItemAction setCustom(CustomFieldObjectDraft $custom = null)
  * @method ExternalTaxRateDraft getExternalTaxRate()
  * @method CartAddLineItemAction setExternalTaxRate(ExternalTaxRateDraft $externalTaxRate = null)
+ * @method Money getExternalPrice()
+ * @method CartAddLineItemAction setExternalPrice(Money $externalPrice = null)
+ * @method ExternalLineItemTotalPrice getExternalTotalPrice()
+ * @method CartAddLineItemAction setExternalTotalPrice(ExternalLineItemTotalPrice $externalTotalPrice = null)
  */
 class CartAddLineItemAction extends AbstractAction
 {
@@ -44,6 +50,8 @@ class CartAddLineItemAction extends AbstractAction
             'distributionChannel' => [static::TYPE => ChannelReference::class],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class],
+            'externalPrice' => [static::TYPE => Money::class],
+            'externalTotalPrice' => [static::TYPE => ExternalLineItemTotalPrice::class],
         ];
     }
 

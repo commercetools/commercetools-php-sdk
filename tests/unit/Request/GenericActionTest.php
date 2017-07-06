@@ -319,7 +319,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
 
     public function actionFieldProvider()
     {
-        return [
+        $actions = [
             [
                 AbstractAction::class,
                 ['action']
@@ -598,11 +598,11 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 CartAddLineItemAction::class,
-                ['action', 'productId', 'variantId', 'quantity', 'supplyChannel', 'distributionChannel', 'custom', 'externalTaxRate']
+                ['action', 'productId', 'variantId', 'quantity', 'supplyChannel', 'distributionChannel', 'custom', 'externalTaxRate', 'externalPrice', 'externalTotalPrice']
             ],
             [
                 CartChangeLineItemQuantityAction::class,
-                ['action', 'lineItemId', 'quantity']
+                ['action', 'lineItemId', 'quantity', 'externalPrice', 'externalTotalPrice']
             ],
             [
                 CartRecalculateAction::class,
@@ -618,7 +618,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 CartRemoveLineItemAction::class,
-                ['action', 'lineItemId', 'quantity']
+                ['action', 'lineItemId', 'quantity', 'externalPrice', 'externalTotalPrice']
             ],
             [
                 CartSetBillingAddressAction::class,
@@ -1121,11 +1121,15 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
                 ['action', 'state', 'force']
             ],
         ];
+
+        $actionNames = array_map(function ($value) { return current($value); }, $actions);
+
+        return array_combine($actionNames, $actions);
     }
 
     public function actionArgumentProvider()
     {
-        return [
+        $actions = [
             [
                 AbstractAction::class,
                 'of',
@@ -2169,5 +2173,10 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
                 [$this->getInstance(StateReference::class)]
             ],
         ];
+
+        $actionNames = array_map(function ($value) { return $value[0] . '::' . $value[1]; }, $actions);
+
+        return array_combine($actionNames, $actions);
+
     }
 }

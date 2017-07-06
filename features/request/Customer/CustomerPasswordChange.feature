@@ -14,7 +14,7 @@ Feature: I want to change the customer's password
   Scenario: Get customer by password token
     Given a "customer" is identified by the token "tokenValue"
     Given i want to fetch a "Customer" by token
-    Then the path should be "customers?token=tokenValue"
+    Then the path should be "customers/password-token=tokenValue"
     And the method should be "GET"
 
   Scenario: Reset customers password

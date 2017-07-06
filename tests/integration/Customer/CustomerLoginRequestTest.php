@@ -17,6 +17,7 @@ use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
+use Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByTokenGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
 use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
@@ -251,6 +252,13 @@ class CustomerLoginRequestTest extends ApiTestCase
         $token = $result->getValue();
         $this->assertNotEmpty($token);
 
+        $request = CustomerByEmailTokenGetRequest::ofToken(
+            $token
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->assertSame($customer->getId(), $result->getId());
+
         $request = CustomerEmailConfirmRequest::ofToken(
             $token
         );
@@ -278,10 +286,10 @@ class CustomerLoginRequestTest extends ApiTestCase
     {
         $draft = $this->getDraft('email');
         $this->createCustomer($draft);
-        
+
         $email = $draft->getEmail();
         $password = $draft->getPassword();
-        
+
         $config = $this->getClientConfig('view_products');
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)->setUsername($email)->setPassword($password);
 

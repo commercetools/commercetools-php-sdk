@@ -15,6 +15,7 @@ use Commercetools\Core\Model\Common\AssetSourceCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\Categories\CategoryCreateRequest;
 use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
+use Commercetools\Core\Request\Categories\CategoryUpdateByKeyRequest;
 use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
 use Commercetools\Core\Request\Categories\Command\CategoryAddAssetAction;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeAssetNameAction;
@@ -61,6 +62,30 @@ class CategoryUpdateRequestTest extends ApiTestCase
         );
 
         return $category;
+    }
+
+    public function testUpdateNameByKey()
+    {
+        $draft = $this->getDraft('update name', 'update-name')->setKey($this->getTestRun());
+        $category = $this->createCategory($draft);
+
+        $result = $this->getClient()->execute(
+            CategoryUpdateByKeyRequest::ofKeyAndVersion($category->getKey(), $category->getVersion())->addAction(
+                CategoryChangeNameAction::ofName(
+                    LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name')
+                )
+            )
+        )->toObject();
+
+        $this->assertInstanceOf(Category::class, $result);
+        $this->assertSame($this->getTestRun() .'-new name', $result->getName()->en);
+        $this->assertNotSame($category->getVersion(), $result->getVersion());
+
+        $deleteRequest = array_pop($this->cleanupRequests);
+        $deleteRequest->setVersion($result->getVersion());
+        $result = $this->getClient()->execute($deleteRequest)->toObject();
+
+        $this->assertInstanceOf(Category::class, $result);
     }
 
     public function testUpdateName()

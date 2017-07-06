@@ -41,6 +41,7 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefin
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumValueAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeDescriptionAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeInputHintAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeIsSearchableAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLocalizedEnumLabelAction;
@@ -599,6 +600,51 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(ProductType::class, $result);
         $this->assertSame($searchable, $result->getAttributes()->current()->getIsSearchable());
+        $this->assertNotSame($productType->getVersion(), $result->getVersion());
+    }
+
+    public function testChangeInputHint()
+    {
+        $draft = $this->getDraft('change-inputHint');
+        $productType = $this->createProductType($draft);
+
+        $definition = AttributeDefinition::of()
+            ->setName('testField')
+            ->setLabel(LocalizedString::ofLangAndText('en', 'testField'))
+            ->setIsRequired(false)
+            ->setIsSearchable(false)
+            ->setInputHint('SingleLine')
+            ->setType(StringType::of())
+        ;
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeAddAttributeDefinitionAction::ofAttribute($definition)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->productTypeDeleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ProductType::class, $result);
+        $this->assertSame($definition->getName(), $result->getAttributes()->current()->getName());
+        $this->assertNotSame($productType->getVersion(), $result->getVersion());
+        $productType = $result;
+
+        $inputHint = 'MultiLine';
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeChangeInputHintAction::ofAttributeNameAndInputHint(
+                    'testField',
+                    $inputHint
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->productTypeDeleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ProductType::class, $result);
+        $this->assertSame($inputHint, $result->getAttributes()->current()->getInputHint());
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
     }
 }

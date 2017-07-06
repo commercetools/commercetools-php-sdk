@@ -26,7 +26,7 @@ class CustomerByTokenGetRequestTest extends RequestTestCase
         $request = CustomerByTokenGetRequest::ofToken('myToken');
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('customers?token=myToken', (string)$httpRequest->getUri());
+        $this->assertSame('customers/password-token=myToken', (string)$httpRequest->getUri());
     }
 
     public function testHttpRequestObject()

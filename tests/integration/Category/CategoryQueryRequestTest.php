@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Category\CategoryReference;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Request\Categories\CategoryByKeyGetRequest;
 use Commercetools\Core\Request\Categories\CategoryQueryRequest;
 use Commercetools\Core\Request\Categories\CategoryCreateRequest;
 use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
@@ -51,6 +52,19 @@ class CategoryQueryRequestTest extends ApiTestCase
         $category = $this->createCategory($this->getDraft('myCategory', 'my-category'));
 
         $result = $this->getClient()->execute(CategoryByIdGetRequest::ofId($category->getId()))->toObject();
+
+        $this->assertInstanceOf(Category::class, $result);
+        $this->assertSame($category->getId(), $result->getId());
+
+    }
+
+    public function testGetByKey()
+    {
+        $category = $this->createCategory(
+            $this->getDraft('myCategory', 'my-category')->setKey($this->getTestRun())
+        );
+
+        $result = $this->getClient()->execute(CategoryByKeyGetRequest::ofKey($category->getKey()))->toObject();
 
         $this->assertInstanceOf(Category::class, $result);
         $this->assertSame($category->getId(), $result->getId());

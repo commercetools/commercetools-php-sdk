@@ -47,6 +47,8 @@ use DateTime;
  * @method Category setMetaKeywords(LocalizedString $metaKeywords = null)
  * @method AssetCollection getAssets()
  * @method Category setAssets(AssetCollection $assets = null)
+ * @method string getKey()
+ * @method Category setKey(string $key = null)
  * @method CategoryReference getReference()
  */
 class Category extends Resource
@@ -76,6 +78,7 @@ class Category extends Resource
             'metaKeywords' => [static::TYPE => LocalizedString::class],
             'custom' => [static::TYPE => CustomFieldObject::class],
             'assets' => [static::TYPE => AssetCollection::class],
+            'key' => [static::TYPE => 'string'],
         ];
     }
 }
