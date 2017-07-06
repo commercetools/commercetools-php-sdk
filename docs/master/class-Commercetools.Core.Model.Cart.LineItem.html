@@ -592,7 +592,7 @@
 
 				<b>API documentation:</b>
 				<b><a href="https://dev.commercetools.com/http-api-projects-carts.html#lineitem" target="api-doc">https://dev.commercetools.com/http-api-projects-carts.html#lineitem</a></b><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Cart.LineItem.html#20-110" title="Go to source code">Core/Model/Cart/LineItem.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Cart.LineItem.html#20-117" title="Go to source code">Core/Model/Cart/LineItem.php</a>
 		<br>
 	</div>
 
@@ -612,7 +612,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setDiscountedPricePerQuantity">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Cart.LineItem.html#87-95" title="Go to source code">setDiscountedPricePerQuantity</a>( <span><code><a href="class-Commercetools.Core.Model.Cart.DiscountedPricePerQuantityCollection.html">Commercetools\Core\Model\Cart\DiscountedPricePerQuantityCollection</a></code> <var>$discountedPricePerQuantity</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Cart.LineItem.html#94-102" title="Go to source code">setDiscountedPricePerQuantity</a>( <span><code><a href="class-Commercetools.Core.Model.Cart.DiscountedPricePerQuantityCollection.html">Commercetools\Core\Model\Cart\DiscountedPricePerQuantityCollection</a></code> <var>$discountedPricePerQuantity</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -650,7 +650,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getDiscountedPrice">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Cart.LineItem.html#97-109" title="Go to source code">getDiscountedPrice</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Cart.LineItem.html#104-116" title="Go to source code">getDiscountedPrice</a>( )</code>
 
 			<div class="description short">
 				
@@ -1902,6 +1902,77 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getLineItemMode" id="m_getLineItemMode">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getLineItemMode">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Cart.LineItem.html#56" title="Go to source code">getLineItemMode</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setLineItemMode" id="m_setLineItemMode">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Cart.LineItem.html">Commercetools\Core\Model\Cart\LineItem</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setLineItemMode">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Cart.LineItem.html#57" title="Go to source code">setLineItemMode</a>( <span>string <var>$lineItemMode</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$lineItemMode</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Cart.LineItem.html">Commercetools\Core\Model\Cart\LineItem</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 			</table>
 		</div>
 
@@ -1917,7 +1988,7 @@
 				<td class="attributes"><code>string</code></td>
 				<td class="name">
 					<code>
-						<a href="source-constant-PRICE_MODE_PLATFORM.html#59" title="Go to source code"><b>PRICE_MODE_PLATFORM</b></a>
+						<a href="source-constant-PRICE_MODE_PLATFORM.html#61" title="Go to source code"><b>PRICE_MODE_PLATFORM</b></a>
 					</code>
 
 					<div class="description short">
@@ -1941,7 +2012,7 @@
 				<td class="attributes"><code>string</code></td>
 				<td class="name">
 					<code>
-						<a href="source-constant-PRICE_MODE_EXTERNAL_TOTAL.html#60" title="Go to source code"><b>PRICE_MODE_EXTERNAL_TOTAL</b></a>
+						<a href="source-constant-PRICE_MODE_EXTERNAL_TOTAL.html#62" title="Go to source code"><b>PRICE_MODE_EXTERNAL_TOTAL</b></a>
 					</code>
 
 					<div class="description short">
@@ -1957,6 +2028,78 @@
 					<div>
 						<a href="#PRICE_MODE_EXTERNAL_TOTAL" class="anchor">#</a>
 						<code><span class="php-quote">'ExternalTotal'</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PRICE_MODE_EXTERNAL_PRICE" id="PRICE_MODE_EXTERNAL_PRICE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-constant-PRICE_MODE_EXTERNAL_PRICE.html#63" title="Go to source code"><b>PRICE_MODE_EXTERNAL_PRICE</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PRICE_MODE_EXTERNAL_PRICE" class="anchor">#</a>
+						<code><span class="php-quote">'ExternalPrice'</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="LINE_ITEM_MODE_STANDARD" id="LINE_ITEM_MODE_STANDARD">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-constant-LINE_ITEM_MODE_STANDARD.html#65" title="Go to source code"><b>LINE_ITEM_MODE_STANDARD</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#LINE_ITEM_MODE_STANDARD" class="anchor">#</a>
+						<code><span class="php-quote">'Standard'</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="LINE_ITEM_MODE_GIFT_LINE_ITEM" id="LINE_ITEM_MODE_GIFT_LINE_ITEM">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-constant-LINE_ITEM_MODE_GIFT_LINE_ITEM.html#66" title="Go to source code"><b>LINE_ITEM_MODE_GIFT_LINE_ITEM</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#LINE_ITEM_MODE_GIFT_LINE_ITEM" class="anchor">#</a>
+						<code><span class="php-quote">'GiftLineItem'</span></code>
 					</div>
 				</td>
 			</tr>
@@ -1990,7 +2133,7 @@
 		PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
-<script src="resources/combined.js?69364dc889403af482b6a5abd6af28f7c0f09a8b"></script>
-<script src="elementlist.js?2ba28472e380dc6e761bc03ff376e244210962ad"></script>
+<script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
+<script src="elementlist.js?dac5e739bd689d6adefe6d19b501c23c841f5afe"></script>
 </body>
 </html>

@@ -500,6 +500,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Commercetools.Core.Request.Customers.CustomerByEmailTokenGetRequest.html">CustomerByEmailTokenGetRequest</a></li>
 				<li><a href="class-Commercetools.Core.Request.Customers.CustomerByIdGetRequest.html">CustomerByIdGetRequest</a></li>
 				<li class="active"><a href="class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html">CustomerByTokenGetRequest</a></li>
 				<li><a href="class-Commercetools.Core.Request.Customers.CustomerCreateRequest.html">CustomerCreateRequest</a></li>
@@ -548,6 +549,13 @@
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-Commercetools.Core.Request.AbstractByTokenGetRequest.html"><span>Commercetools\Core\Request\AbstractByTokenGetRequest</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by">
 <b><span>Commercetools\Core\Request\Customers\CustomerByTokenGetRequest</span></b>			
 			
 			
@@ -568,7 +576,7 @@
 
 				<b>API documentation:</b>
 				<b><a href="https://dev.commercetools.com/http-api-projects-customers.html#get-customer-by-password-token" target="api-doc">https://dev.commercetools.com/http-api-projects-customers.html#get-customer-by-password-token</a></b><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html#19-69" title="Go to source code">Core/Request/Customers/CustomerByTokenGetRequest.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html#20-49" title="Go to source code">Core/Request/Customers/CustomerByTokenGetRequest.php</a>
 		<br>
 	</div>
 
@@ -588,7 +596,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html#31-39" title="Go to source code">__construct</a>( <span>string <var>$token</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html#31-38" title="Go to source code">__construct</a>( <span>string <var>$token</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -610,7 +618,7 @@
 
 
 					<h4>Overrides</h4>
-					<div class="list"><code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#___construct">Commercetools\Core\Request\AbstractApiRequest::__construct</a></code></div>
+					<div class="list"><code><a href="class-Commercetools.Core.Request.AbstractByTokenGetRequest.html#___construct">Commercetools\Core\Request\AbstractByTokenGetRequest::__construct</a></code></div>
 
 			</div>
 			</div></td>
@@ -626,7 +634,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofToken">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html#41-49" title="Go to source code">ofToken</a>( <span>string <var>$token</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html#40-48" title="Go to source code">ofToken</a>( <span>string <var>$token</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -659,6 +667,13 @@
 		</div>
 
 		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Request.AbstractByTokenGetRequest.html#methods">Commercetools\Core\Request\AbstractByTokenGetRequest</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Request.AbstractByTokenGetRequest.html#_getToken">getToken()</a></code>, 
+				<code><a href="class-Commercetools.Core.Request.AbstractByTokenGetRequest.html#_setToken">setToken()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Request.AbstractApiRequest.html#methods">Commercetools\Core\Request\AbstractApiRequest</a></h3></div>
 			<p class="elementList">
 				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_addParam">addParam()</a></code>, 
@@ -672,18 +687,18 @@
 			</p>
 		</div>
 		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Request.ClientRequestInterface.html#methods">Commercetools\Core\Request\ClientRequestInterface</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Request.ClientRequestInterface.html#_mapResult">mapResult()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#methods">Commercetools\Core\Model\Common\ContextAwareInterface</a></h3></div>
 			<p class="elementList">
 				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_getContext">getContext()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_getContextCallback">getContextCallback()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_setContext">setContext()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_setContextIfNull">setContextIfNull()</a></code>
-			</p>
-		</div>
-		<div class="panel panel-default">
-	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Request.ClientRequestInterface.html#methods">Commercetools\Core\Request\ClientRequestInterface</a></h3></div>
-			<p class="elementList">
-				<code><a href="class-Commercetools.Core.Request.ClientRequestInterface.html#_mapResult">mapResult()</a></code>
 			</p>
 		</div>
 
@@ -711,7 +726,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_mapResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html#22" title="Go to source code">mapResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html#23" title="Go to source code">mapResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span> )</code>
 
 			<div class="description short">
 				
@@ -751,7 +766,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_mapFromResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html#23" title="Go to source code">mapFromResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span>, <span><code><a href="class-Commercetools.Core.Model.MapperInterface.html">Commercetools\Core\Model\MapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html#24" title="Go to source code">mapFromResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span>, <span><code><a href="class-Commercetools.Core.Model.MapperInterface.html">Commercetools\Core\Model\MapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -791,34 +806,15 @@
 
 		<div class="panel panel-default">
             <div class="panel-heading"><h2>Constants summary</h2></div>
-			<table class="summary table table-bordered table-striped constants" id="constants">
-			<tr data-order="TOKEN" id="TOKEN">
-
-				<td class="attributes"><code>string</code></td>
-				<td class="name">
-					<code>
-						<a href="source-constant-TOKEN.html#27" title="Go to source code"><b>TOKEN</b></a>
-					</code>
-
-					<div class="description short">
-						
-					</div>
-
-					<div class="description detailed hidden">
-						
-
-					</div>
-				</td>
-				<td class="value">
-					<div>
-						<a href="#TOKEN" class="anchor">#</a>
-						<code><span class="php-quote">'token'</span></code>
-					</div>
-				</td>
-			</tr>
-			</table>
 		</div>
 
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Constants inherited from <a href="class-Commercetools.Core.Request.AbstractByTokenGetRequest.html#constants">Commercetools\Core\Request\AbstractByTokenGetRequest</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Request.AbstractByTokenGetRequest.html#TOKEN"><b>TOKEN</b></a></code>, 
+				<code><a href="class-Commercetools.Core.Request.AbstractByTokenGetRequest.html#TOKEN_NAME"><b>TOKEN_NAME</b></a></code>
+			</p>
+		</div>
 
 
 
@@ -829,7 +825,7 @@
 		PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
-<script src="resources/combined.js?69364dc889403af482b6a5abd6af28f7c0f09a8b"></script>
-<script src="elementlist.js?2ba28472e380dc6e761bc03ff376e244210962ad"></script>
+<script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
+<script src="elementlist.js?dac5e739bd689d6adefe6d19b501c23c841f5afe"></script>
 </body>
 </html>
