@@ -1,3 +1,22 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.0.0...v2.1.0) (2017-07-06)
+
+
+### Features
+
+* **Cart:** support external price for line items ([3a9d972](https://github.com/commercetools/commercetools-php-sdk/commit/3a9d972)), closes [#322](https://github.com/commercetools/commercetools-php-sdk/issues/322)
+* **CartDiscount:** support free gift line item ([ad58116](https://github.com/commercetools/commercetools-php-sdk/commit/ad58116)), closes [#325](https://github.com/commercetools/commercetools-php-sdk/issues/325)
+* **Category:** support category key functionality ([d2b63dd](https://github.com/commercetools/commercetools-php-sdk/commit/d2b63dd)), closes [#326](https://github.com/commercetools/commercetools-php-sdk/issues/326)
+* **Customer:** add get customer by email token request ([8de3b30](https://github.com/commercetools/commercetools-php-sdk/commit/8de3b30))
+* **Customer:** add salutation to customer ([c1c65fd](https://github.com/commercetools/commercetools-php-sdk/commit/c1c65fd)), closes [#324](https://github.com/commercetools/commercetools-php-sdk/issues/324)
+* **Messages:** add OrderPaymentStateChanged message ([6afb611](https://github.com/commercetools/commercetools-php-sdk/commit/6afb611)), closes [#312](https://github.com/commercetools/commercetools-php-sdk/issues/312)
+* **Messages:** add PaymentStatusInterfaceCodeSet message ([c5e0531](https://github.com/commercetools/commercetools-php-sdk/commit/c5e0531)), closes [#313](https://github.com/commercetools/commercetools-php-sdk/issues/313)
+* **Messages:** add ProductImageAdded message ([0e14d97](https://github.com/commercetools/commercetools-php-sdk/commit/0e14d97)), closes [#314](https://github.com/commercetools/commercetools-php-sdk/issues/314)
+* **Payment:** support key for payments ([1f40cef](https://github.com/commercetools/commercetools-php-sdk/commit/1f40cef)), closes [#315](https://github.com/commercetools/commercetools-php-sdk/issues/315)
+* **ProductType:** add change inputHint update action ([af666f6](https://github.com/commercetools/commercetools-php-sdk/commit/af666f6)), closes [#323](https://github.com/commercetools/commercetools-php-sdk/issues/323)
+* **ShippingMethod:** add isMatching flag to shipping rates ([c6b4328](https://github.com/commercetools/commercetools-php-sdk/commit/c6b4328))
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/commercetools/commercetools-php-sdk/compare/v1.7.0...v2.0.0) (2017-05-31)
 
@@ -17,6 +36,7 @@
 
 ### Features
 
+* **Product:** support tiered pricing ([93802cd](https://github.com/commercetools/commercetools-php-sdk/commit/93802cd)), closes [#303](https://github.com/commercetools/commercetools-php-sdk/issues/303)
 * **Cache:** support PSR-16 cache implementations ([c3ceac7](https://github.com/commercetools/commercetools-php-sdk/commit/c3ceac7)), closes [#297](https://github.com/commercetools/commercetools-php-sdk/issues/297)
 * **Client:** add logLevel configuration option ([8aa457a](https://github.com/commercetools/commercetools-php-sdk/commit/8aa457a)), closes [#300](https://github.com/commercetools/commercetools-php-sdk/issues/300)
 * **Client:** add possibility for additional headers when executing request ([74c5a15](https://github.com/commercetools/commercetools-php-sdk/commit/74c5a15))
