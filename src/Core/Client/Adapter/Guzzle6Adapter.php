@@ -18,8 +18,9 @@ use Psr\Log\LoggerInterface;
 use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\ApiException;
 use Psr\Log\LogLevel;
+use Ramsey\Uuid\Uuid;
 
-class Guzzle6Adapter implements AdapterInterface
+class Guzzle6Adapter implements AdapterInterface, CorrelationIdAdapter
 {
     /**
      * @var Client
@@ -50,6 +51,20 @@ class Guzzle6Adapter implements AdapterInterface
         }
         $this->logger = $logger;
         $this->addHandler(self::log($logger, $formatter, $logLevel));
+    }
+
+    public function enableCorrelationId($projectKey = null)
+    {
+        if (class_exists('\Ramsey\Uuid\Uuid')) {
+            $projectKey = !is_null($projectKey) ? $projectKey : 'php';
+            $this->addHandler(Middleware::mapRequest(function (RequestInterface $request) use ($projectKey) {
+                $uuid = Uuid::uuid4()->toString();
+                return $request->withAddedHeader(
+                    AbstractApiResponse::X_CORRELATION_ID,
+                    $projectKey . '-' . $uuid
+                );
+            }));
+        };
     }
 
     /**

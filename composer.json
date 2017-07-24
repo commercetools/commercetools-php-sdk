@@ -58,14 +58,16 @@
     "cache/redis-adapter": "^0.4.0",
     "cache/filesystem-adapter": "^0.3.0",
     "cache/void-adapter": "^0.3",
-    "incenteev/composer-parameter-handler": "^2.1"
+    "incenteev/composer-parameter-handler": "^2.1",
+    "ramsey/uuid": "^3.6"
   },
   "replaces": {
     "commercetools/commons": "*"
   },
   "suggest": {
     "cache/redis-adapter": "For usage of a redis server to store the client access token",
-    "cache/doctrine-adapter": "For usage of a doctrine cache instance to store the client access token"
+    "cache/doctrine-adapter": "For usage of a doctrine cache instance to store the client access token",
+    "ramsey/uuid": "For using the correlation id feature to uniquely identify requests against CTP"
   },
   "scripts": {
     "updateConfig": [

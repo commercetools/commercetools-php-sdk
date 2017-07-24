@@ -152,6 +152,8 @@ class Config implements ContextAwareInterface
 
     protected $messageFormatter;
 
+    protected $enableCorrelationId = false;
+
     /**
      * @param array $configValues
      * @return static
@@ -405,7 +407,7 @@ class Config implements ContextAwareInterface
      */
     public function setThrowExceptions($throwExceptions)
     {
-        $this->throwExceptions = $throwExceptions;
+        $this->throwExceptions = (bool)$throwExceptions;
 
         return $this;
     }
@@ -585,6 +587,24 @@ class Config implements ContextAwareInterface
     public function setMessageFormatter($messageFormatter)
     {
         $this->messageFormatter = $messageFormatter;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getEnableCorrelationId()
+    {
+        return $this->enableCorrelationId;
+    }
+
+    /**
+     * @param bool $enableCorrelationId
+     * @return Config
+     */
+    public function setEnableCorrelationId($enableCorrelationId)
+    {
+        $this->enableCorrelationId = (bool)$enableCorrelationId;
         return $this;
     }
 }
