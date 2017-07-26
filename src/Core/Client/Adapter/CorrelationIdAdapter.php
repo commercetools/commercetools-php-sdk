@@ -5,7 +5,9 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
+use Commercetools\Core\Helper\CorrelationIdProvider;
+
 interface CorrelationIdAdapter
 {
-    public function enableCorrelationId($projectKey = null);
+    public function setCorrelationIdProvider(CorrelationIdProvider $provider);
 }

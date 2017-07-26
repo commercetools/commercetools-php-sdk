@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
+use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Helper\Subscriber\CorrelationIdSubscriber;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -69,11 +70,9 @@ class Guzzle5Adapter implements AdapterInterface, CorrelationIdAdapter
         $this->getEmitter()->attach($handler);
     }
 
-    public function enableCorrelationId($projectKey = null)
+    public function setCorrelationIdProvider(CorrelationIdProvider $provider)
     {
-        if (class_exists('\Ramsey\Uuid\Uuid')) {
-            $this->getEmitter()->attach(new CorrelationIdSubscriber($projectKey));
-        };
+        $this->getEmitter()->attach(new CorrelationIdSubscriber($provider));
     }
 
     /**

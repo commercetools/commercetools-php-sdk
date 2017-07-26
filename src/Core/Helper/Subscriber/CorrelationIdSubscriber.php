@@ -5,20 +5,22 @@
 
 namespace Commercetools\Core\Helper\Subscriber;
 
+use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\Event\BeforeEvent;
 use GuzzleHttp\Event\RequestEvents;
 use GuzzleHttp\Event\SubscriberInterface;
-use Ramsey\Uuid\Uuid;
 
 class CorrelationIdSubscriber implements SubscriberInterface
 {
-    private $projectKey;
+    /**
+     * @var CorrelationIdProvider
+     */
+    private $provider;
 
-    public function __construct($projectKey = null)
+    public function __construct(CorrelationIdProvider $provider)
     {
-        $projectKey = !is_null($projectKey) ? $projectKey : 'php';
-        $this->projectKey = $projectKey;
+        $this->provider = $provider;
     }
 
     public function getEvents()
@@ -28,11 +30,6 @@ class CorrelationIdSubscriber implements SubscriberInterface
 
     public function onBefore(BeforeEvent $event, $name)
     {
-        $event->getRequest()->addHeader(AbstractApiResponse::X_CORRELATION_ID, $this->getCorrelationId());
-    }
-
-    private function getCorrelationId()
-    {
-        return $this->projectKey . '-' . Uuid::uuid4()->toString();
+        $event->getRequest()->addHeader(AbstractApiResponse::X_CORRELATION_ID, $this->provider->getCorrelationId());
     }
 }

@@ -8,6 +8,8 @@ namespace Commercetools\Core;
 
 use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Helper\CorrelationIdProvider;
+use Commercetools\Core\Helper\DefaultCorrelationIdProvider;
 use Commercetools\Core\Model\Common\ContextAwareInterface;
 use Commercetools\Core\Model\Common\ContextTrait;
 use Psr\Log\LogLevel;
@@ -152,7 +154,15 @@ class Config implements ContextAwareInterface
 
     protected $messageFormatter;
 
+    /**
+     * @var bool
+     */
     protected $enableCorrelationId = false;
+
+    /**
+     * @var CorrelationIdProvider
+     */
+    protected $correlationIdProvider;
 
     /**
      * @param array $configValues
@@ -591,9 +601,33 @@ class Config implements ContextAwareInterface
     }
 
     /**
+     * @return CorrelationIdProvider|null
+     */
+    public function getCorrelationIdProvider()
+    {
+        if (!$this->isEnableCorrelationId()) {
+            return null;
+        }
+        if (is_null($this->correlationIdProvider)) {
+            $this->correlationIdProvider = DefaultCorrelationIdProvider::of($this->getProject());
+        }
+        return $this->correlationIdProvider;
+    }
+
+    /**
+     * @param CorrelationIdProvider $correlationIdProvider
+     * @return Config
+     */
+    public function setCorrelationIdProvider($correlationIdProvider)
+    {
+        $this->correlationIdProvider = $correlationIdProvider;
+        return $this;
+    }
+
+    /**
      * @return bool
      */
-    public function getEnableCorrelationId()
+    public function isEnableCorrelationId()
     {
         return $this->enableCorrelationId;
     }

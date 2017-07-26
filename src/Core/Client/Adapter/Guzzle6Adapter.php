@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
+use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -18,7 +19,6 @@ use Psr\Log\LoggerInterface;
 use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\ApiException;
 use Psr\Log\LogLevel;
-use Ramsey\Uuid\Uuid;
 
 class Guzzle6Adapter implements AdapterInterface, CorrelationIdAdapter
 {
@@ -53,18 +53,14 @@ class Guzzle6Adapter implements AdapterInterface, CorrelationIdAdapter
         $this->addHandler(self::log($logger, $formatter, $logLevel));
     }
 
-    public function enableCorrelationId($projectKey = null)
+    public function setCorrelationIdProvider(CorrelationIdProvider $provider)
     {
-        if (class_exists('\Ramsey\Uuid\Uuid')) {
-            $projectKey = !is_null($projectKey) ? $projectKey : 'php';
-            $this->addHandler(Middleware::mapRequest(function (RequestInterface $request) use ($projectKey) {
-                $uuid = Uuid::uuid4()->toString();
-                return $request->withAddedHeader(
-                    AbstractApiResponse::X_CORRELATION_ID,
-                    $projectKey . '-' . $uuid
-                );
-            }));
-        };
+        $this->addHandler(Middleware::mapRequest(function (RequestInterface $request) use ($provider) {
+            return $request->withAddedHeader(
+                AbstractApiResponse::X_CORRELATION_ID,
+                $provider->getCorrelationId()
+            );
+        }));
     }
 
     /**
