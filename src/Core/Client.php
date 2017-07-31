@@ -208,8 +208,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
                     $this->getConfig()->getMessageFormatter()
                 );
             }
-            if ($this->getConfig()->isEnableCorrelationId() &&
-                $this->getConfig()->getCorrelationIdProvider() instanceof CorrelationIdProvider
+            if ($this->getConfig()->getCorrelationIdProvider() instanceof CorrelationIdProvider
                 && $client instanceof CorrelationIdAdapter
             ) {
                 $client->setCorrelationIdProvider($this->getConfig()->getCorrelationIdProvider());

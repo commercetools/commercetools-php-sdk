@@ -19,7 +19,7 @@ class DefaultCorrelationIdProvider implements CorrelationIdProvider
 
     public function getCorrelationId()
     {
-        return sprintf('%s-%s', $this->projectKey, Uuid::uuid4()->toString());
+        return sprintf('%s/%s', $this->projectKey, Uuid::uuid4()->toString());
     }
 
     /**

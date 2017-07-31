@@ -618,9 +618,10 @@ class Config implements ContextAwareInterface
      * @param CorrelationIdProvider $correlationIdProvider
      * @return Config
      */
-    public function setCorrelationIdProvider($correlationIdProvider)
+    public function setCorrelationIdProvider(CorrelationIdProvider $correlationIdProvider)
     {
         $this->correlationIdProvider = $correlationIdProvider;
+        $this->setEnableCorrelationId(true);
         return $this;
     }
 
