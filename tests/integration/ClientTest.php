@@ -18,14 +18,13 @@ class ClientTest extends ApiTestCase
 {
     public function testCorrelationId()
     {
-
-        $correlationId = DefaultCorrelationIdProvider::of('test-' .$this->getTestRun())->getCorrelationId();
+        $config = $this->getClientConfig('manage_project');
+        $correlationId = DefaultCorrelationIdProvider::of($config->getProject())->getCorrelationId() . '/' . $this->getTestRun();
         $provider = $this->prophesize(CorrelationIdProvider::class);
         $provider->getCorrelationId()->willReturn($correlationId);
 
         $request = ProjectGetRequest::of();
 
-        $config = $this->getClientConfig('manage_project');
         $config->setCorrelationIdProvider($provider->reveal());
 
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
