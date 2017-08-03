@@ -6,8 +6,10 @@
 
 namespace Commercetools\Core\Client\OAuth;
 
+use Commercetools\Core\Client\Adapter\CorrelationIdAdapter;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
+use Commercetools\Core\Helper\CorrelationIdProvider;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\AbstractHttpClient;
@@ -236,6 +238,23 @@ class Manager extends AbstractHttpClient
         }
 
         return $token;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHttpClient($options = [])
+    {
+        if (is_null($this->httpClient)) {
+            $client = parent::getHttpClient($options);
+            if ($this->getConfig()->getCorrelationIdProvider() instanceof CorrelationIdProvider
+                && $client instanceof CorrelationIdAdapter
+            ) {
+                $client->setCorrelationIdProvider($this->getConfig()->getCorrelationIdProvider());
+            }
+            $this->httpClient = $client;
+        }
+        return $this->httpClient;
     }
 
     /**

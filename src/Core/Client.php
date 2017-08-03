@@ -213,6 +213,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
             ) {
                 $client->setCorrelationIdProvider($this->getConfig()->getCorrelationIdProvider());
             }
+            $this->httpClient = $client;
         }
 
         return $this->httpClient;
