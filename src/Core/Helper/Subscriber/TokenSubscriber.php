@@ -24,7 +24,7 @@ class TokenSubscriber implements SubscriberInterface
 
     public function getEvents()
     {
-        return ['before' => ['onBefore', RequestEvents::PREPARE_REQUEST - 10]];
+        return ['before' => ['onBefore', RequestEvents::PREPARE_REQUEST - 15]];
     }
 
     public function onBefore(BeforeEvent $event, $name)
