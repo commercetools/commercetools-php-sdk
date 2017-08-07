@@ -7,6 +7,7 @@
 namespace Commercetools\Core;
 
 use Commercetools\Core\Client\Adapter\CorrelationIdAware;
+use Commercetools\Core\Client\Adapter\TokenProviderAware;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Response\ErrorResponse;
 use Psr\Http\Message\RequestInterface;
@@ -201,6 +202,9 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
     {
         if (is_null($this->httpClient)) {
             $client = parent::getHttpClient($options);
+            if ($client instanceof TokenProviderAware) {
+                $client->setOAuthTokenProvider($this->oauthManager);
+            }
             if ($this->logger instanceof LoggerInterface) {
                 $client->setLogger(
                     $this->logger,
@@ -296,11 +300,13 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
      */
     protected function createHttpRequest(ClientRequestInterface $request, array $headers = null)
     {
-        $token = $this->getOauthManager()->getToken();
         $httpRequest = $request->httpRequest();
-        $httpRequest = $httpRequest
-            ->withHeader('Authorization', 'Bearer ' . $token->getToken())
-        ;
+        if (!$this->getHttpClient() instanceof TokenProviderAware) {
+            $token = $this->getOauthManager()->getToken();
+            $httpRequest = $httpRequest
+                ->withHeader('Authorization', 'Bearer ' . $token->getToken())
+            ;
+        }
         if (is_array($headers)) {
             foreach ($headers as $headerName => $headerValues) {
                 $httpRequest = $httpRequest

@@ -5,8 +5,10 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
+use Commercetools\Core\Client\OAuth\TokenProvider;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Helper\Subscriber\CorrelationIdSubscriber;
+use Commercetools\Core\Helper\Subscriber\TokenSubscriber;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;
@@ -19,7 +21,7 @@ use Commercetools\Core\Helper\Subscriber\Log\LogSubscriber;
 use Commercetools\Core\Error\ApiException;
 use Psr\Log\LogLevel;
 
-class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware
+class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware, TokenProviderAware
 {
     /**
      * @var Client
@@ -72,7 +74,12 @@ class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware
 
     public function setCorrelationIdProvider(CorrelationIdProvider $provider)
     {
-        $this->getEmitter()->attach(new CorrelationIdSubscriber($provider));
+        $this->addHandler(new CorrelationIdSubscriber($provider));
+    }
+
+    public function setOAuthTokenProvider(TokenProvider $tokenProvider)
+    {
+        $this->addHandler(new TokenSubscriber($tokenProvider));
     }
 
     /**

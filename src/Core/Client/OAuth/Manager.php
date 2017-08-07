@@ -21,7 +21,7 @@ use Psr\SimpleCache\CacheInterface;
  * @package Commercetools\Core\OAuth
  * @internal
  */
-class Manager extends AbstractHttpClient
+class Manager extends AbstractHttpClient implements TokenProvider
 {
     const TOKEN_CACHE_KEY = 'commercetools_io_access_token';
 
