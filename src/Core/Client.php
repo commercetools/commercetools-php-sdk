@@ -6,7 +6,7 @@
 
 namespace Commercetools\Core;
 
-use Commercetools\Core\Client\Adapter\CorrelationIdAdapter;
+use Commercetools\Core\Client\Adapter\CorrelationIdAware;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Response\ErrorResponse;
 use Psr\Http\Message\RequestInterface;
@@ -209,7 +209,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
                 );
             }
             if ($this->getConfig()->getCorrelationIdProvider() instanceof CorrelationIdProvider
-                && $client instanceof CorrelationIdAdapter
+                && $client instanceof CorrelationIdAware
             ) {
                 $client->setCorrelationIdProvider($this->getConfig()->getCorrelationIdProvider());
             }

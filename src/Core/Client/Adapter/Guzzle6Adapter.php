@@ -20,7 +20,7 @@ use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\ApiException;
 use Psr\Log\LogLevel;
 
-class Guzzle6Adapter implements AdapterInterface, CorrelationIdAdapter
+class Guzzle6Adapter implements AdapterInterface, CorrelationIdAware
 {
     /**
      * @var Client

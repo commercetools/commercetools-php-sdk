@@ -6,7 +6,7 @@
 
 namespace Commercetools\Core\Client\OAuth;
 
-use Commercetools\Core\Client\Adapter\CorrelationIdAdapter;
+use Commercetools\Core\Client\Adapter\CorrelationIdAware;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Helper\CorrelationIdProvider;
@@ -248,7 +248,7 @@ class Manager extends AbstractHttpClient
         if (is_null($this->httpClient)) {
             $client = parent::getHttpClient($options);
             if ($this->getConfig()->getCorrelationIdProvider() instanceof CorrelationIdProvider
-                && $client instanceof CorrelationIdAdapter
+                && $client instanceof CorrelationIdAware
             ) {
                 $client->setCorrelationIdProvider($this->getConfig()->getCorrelationIdProvider());
             }

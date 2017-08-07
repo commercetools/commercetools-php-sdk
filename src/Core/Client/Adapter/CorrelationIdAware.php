@@ -7,7 +7,7 @@ namespace Commercetools\Core\Client\Adapter;
 
 use Commercetools\Core\Helper\CorrelationIdProvider;
 
-interface CorrelationIdAdapter
+interface CorrelationIdAware
 {
     public function setCorrelationIdProvider(CorrelationIdProvider $provider);
 }
