@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
+use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -19,7 +20,7 @@ use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\ApiException;
 use Psr\Log\LogLevel;
 
-class Guzzle6Adapter implements AdapterInterface
+class Guzzle6Adapter implements AdapterInterface, CorrelationIdAware
 {
     /**
      * @var Client
@@ -50,6 +51,16 @@ class Guzzle6Adapter implements AdapterInterface
         }
         $this->logger = $logger;
         $this->addHandler(self::log($logger, $formatter, $logLevel));
+    }
+
+    public function setCorrelationIdProvider(CorrelationIdProvider $provider)
+    {
+        $this->addHandler(Middleware::mapRequest(function (RequestInterface $request) use ($provider) {
+            return $request->withAddedHeader(
+                AbstractApiResponse::X_CORRELATION_ID,
+                $provider->getCorrelationId()
+            );
+        }));
     }
 
     /**

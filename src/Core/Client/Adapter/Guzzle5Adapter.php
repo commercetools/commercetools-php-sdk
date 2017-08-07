@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
+use Commercetools\Core\Helper\CorrelationIdProvider;
+use Commercetools\Core\Helper\Subscriber\CorrelationIdSubscriber;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;
@@ -17,7 +19,7 @@ use Commercetools\Core\Helper\Subscriber\Log\LogSubscriber;
 use Commercetools\Core\Error\ApiException;
 use Psr\Log\LogLevel;
 
-class Guzzle5Adapter implements AdapterInterface
+class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware
 {
     /**
      * @var Client
@@ -66,6 +68,11 @@ class Guzzle5Adapter implements AdapterInterface
     public function addHandler($handler)
     {
         $this->getEmitter()->attach($handler);
+    }
+
+    public function setCorrelationIdProvider(CorrelationIdProvider $provider)
+    {
+        $this->getEmitter()->attach(new CorrelationIdSubscriber($provider));
     }
 
     /**

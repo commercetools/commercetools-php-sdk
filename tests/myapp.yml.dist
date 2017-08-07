@@ -4,3 +4,4 @@ parameters:
   project: Your Commercetools project key
   oauth_url: https://auth.sphere.io
   api_url: https://api.sphere.io
+  enableCorrelationId: 1
