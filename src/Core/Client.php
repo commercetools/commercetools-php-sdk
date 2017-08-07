@@ -203,7 +203,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
         if (is_null($this->httpClient)) {
             $client = parent::getHttpClient($options);
             if ($client instanceof TokenProviderAware) {
-                $client->setOAuthTokenProvider($this->oauthManager);
+                $client->setOAuthTokenProvider($this->getOauthManager());
             }
             if ($this->logger instanceof LoggerInterface) {
                 $client->setLogger(
