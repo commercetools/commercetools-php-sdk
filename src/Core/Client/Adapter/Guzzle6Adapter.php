@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
+use Commercetools\Core\Client\OAuth\TokenProvider;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\Client;
@@ -20,7 +21,7 @@ use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\ApiException;
 use Psr\Log\LogLevel;
 
-class Guzzle6Adapter implements AdapterInterface, CorrelationIdAware
+class Guzzle6Adapter implements AdapterInterface, CorrelationIdAware, TokenProviderAware
 {
     /**
      * @var Client
@@ -59,6 +60,16 @@ class Guzzle6Adapter implements AdapterInterface, CorrelationIdAware
             return $request->withAddedHeader(
                 AbstractApiResponse::X_CORRELATION_ID,
                 $provider->getCorrelationId()
+            );
+        }));
+    }
+
+    public function setOAuthTokenProvider(TokenProvider $tokenProvider)
+    {
+        $this->addHandler(Middleware::mapRequest(function (RequestInterface $request) use ($tokenProvider) {
+            return $request->withAddedHeader(
+                'Authorization',
+                'Bearer ' . $tokenProvider->getToken()->getToken()
             );
         }));
     }

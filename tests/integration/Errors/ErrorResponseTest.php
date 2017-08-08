@@ -56,6 +56,7 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefin
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
 use Commercetools\Core\Request\PsrRequest;
 use Commercetools\Core\Response\ErrorResponse;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -656,8 +657,13 @@ class ErrorResponseTest extends ApiTestCase
         $request = ProductQueryRequest::of();
         $httpRequest = $request->httpRequest();
 
-        $client = $this->getClient('manage_project');
-        $httpClient = $client->getHttpClient();
+        $config = $this->getClientConfig('manage_project');
+        $factory = new Client\Adapter\AdapterFactory();
+        $httpClient =  $factory->getAdapter(
+            $config->getAdapter(),
+            ['base_uri' => $config->getApiUrl() . '/' . $config->getProject()]
+        );
+
         try {
             $httpResponse = $httpClient->execute($httpRequest);
         } catch (ApiException $exception) {

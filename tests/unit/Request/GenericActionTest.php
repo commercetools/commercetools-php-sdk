@@ -1213,6 +1213,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 ProductRevertStagedChangesAction::class,
+                'of'
             ],
             [
                 ProductSetAttributeAction::class,
