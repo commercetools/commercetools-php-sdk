@@ -661,7 +661,7 @@ class ErrorResponseTest extends ApiTestCase
         $factory = new Client\Adapter\AdapterFactory();
         $httpClient =  $factory->getAdapter(
             $config->getAdapter(),
-            ['base_uri' => $config->getApiUrl() . '/' . $config->getProject()]
+            ['base_uri' => $config->getApiUrl() . '/' . $config->getProject(), 'verify' => $this->getVerifySSL()]
         );
 
         try {
