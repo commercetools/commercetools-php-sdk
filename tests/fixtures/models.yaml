@@ -800,6 +800,7 @@ shippingMethod:
     - taxCategory
     - zoneRates
     - isDefault
+    - key
 
 zoneRate:
   domain: shippingMethod

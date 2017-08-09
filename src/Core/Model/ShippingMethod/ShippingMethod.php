@@ -31,6 +31,8 @@ use DateTime;
  * @method ShippingMethod setZoneRates(ZoneRateCollection $zoneRates = null)
  * @method bool getIsDefault()
  * @method ShippingMethod setIsDefault(bool $isDefault = null)
+ * @method string getKey()
+ * @method ShippingMethod setKey(string $key = null)
  * @method ShippingMethodReference getReference()
  */
 class ShippingMethod extends Resource
@@ -52,7 +54,8 @@ class ShippingMethod extends Resource
             'description' => [static::TYPE => 'string'],
             'taxCategory' => [static::TYPE => TaxCategoryReference::class],
             'zoneRates' => [static::TYPE => ZoneRateCollection::class],
-            'isDefault' => [static::TYPE => 'bool']
+            'isDefault' => [static::TYPE => 'bool'],
+            'key' => [static::TYPE => 'string'],
         ];
     }
 }

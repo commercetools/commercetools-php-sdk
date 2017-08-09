@@ -30,6 +30,7 @@ use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneA
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
+use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateByKeyRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
@@ -73,6 +74,26 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         );
 
         return $shippingMethod;
+    }
+
+    public function testUpdateByKey()
+    {
+        $draft = $this->getDraft('update-by-key');
+        $draft->setKey('test-' . $this->getTestRun() . '-update-by-key');
+        $shippingMethod = $this->createShippingMethod($draft);
+
+        $text = 'test-' . $this->getTestRun() . '-new-name';
+        $request = ShippingMethodUpdateByKeyRequest::ofKeyAndVersion($shippingMethod->getKey(), $shippingMethod->getVersion())
+            ->addAction(
+                ShippingMethodChangeNameAction::ofName($text)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ShippingMethod::class, $result);
+        $this->assertSame($text, $result->getName());
     }
 
     public function testChangeName()
