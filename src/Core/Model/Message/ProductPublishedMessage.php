@@ -31,6 +31,8 @@ use DateTime;
  * @method ProductPublishedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method ProductPublishedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method array getRemovedImageUrls()
+ * @method ProductPublishedMessage setRemovedImageUrls(array $removedImageUrls = null)
  */
 class ProductPublishedMessage extends Message
 {
@@ -39,6 +41,7 @@ class ProductPublishedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
+        $definitions['removedImageUrls'] = [static::TYPE => 'array'];
         $definitions['productProjection'] = [static::TYPE => ProductProjection::class];
 
         return $definitions;
