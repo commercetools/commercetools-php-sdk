@@ -253,17 +253,12 @@ class ApiTestCase extends TestCase
         $this->cleanup();
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function onNotSuccessfulTest($e)
+    public function flushErrorLog()
     {
         if (self::$errorHandler instanceof FingersCrossedHandler) {
             self::$errorHandler->activate();
         }
-        parent::onNotSuccessfulTest($e);
     }
-
 
     /**
      * @param $scope
