@@ -151,7 +151,9 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
     protected function initialize($field)
     {
         $type = $this->fieldDefinitionType($field);
-        if ($this->isTypeableType($type)) {
+        if ($this->isPrimitive($type)) {
+            $value = $this->getRaw($field);
+        } elseif ($this->isTypeableType($type)) {
             /**
              * @var TypeableInterface $type
              */

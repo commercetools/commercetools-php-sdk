@@ -43,7 +43,7 @@ class JsonObjectTest extends \PHPUnit\Framework\TestCase
                         'localString' => [JsonObject::TYPE => LocalizedString::class],
                         'mixed' => [],
                         'decorator' => [
-                            JsonObject::TYPE => '\DateTime',
+                            JsonObject::TYPE => \DateTime::class,
                             JsonObject::DECORATOR => DateTimeDecorator::class
                         ]
                     ]
