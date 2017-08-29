@@ -703,6 +703,7 @@ customerGroup:
     - createdAt
     - lastModifiedAt
     - name
+    - key
 
 discountCode:
   domain: discountCode
