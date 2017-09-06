@@ -48,6 +48,7 @@ use Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveDiscountCodeAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemovePaymentAction;
+use Commercetools\Core\Request\Carts\Command\CartSetAnonymousIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCountryAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction;
@@ -652,6 +653,36 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($cart->getVersion());
 
         $this->assertSame($country, $cart->getCountry());
+    }
+
+    public function testSetAnonymousId()
+    {
+        $anonymousId = uniqid();
+        $draft = $this->getDraft();
+        $draft->setAnonymousId($anonymousId);
+        $cart = $this->createCart($draft);
+        $this->assertSame($anonymousId, $cart->getAnonymousId());
+
+        $newAnonymousId = uniqid();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartSetAnonymousIdAction::of()->setAnonymousId($newAnonymousId))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($newAnonymousId, $cart->getAnonymousId());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartSetAnonymousIdAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertNull($cart->getAnonymousId());
+
     }
 
     public function testSetShippingMethod()
