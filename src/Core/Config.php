@@ -10,6 +10,7 @@ use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Helper\DefaultCorrelationIdProvider;
+use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\Model\Common\ContextAwareInterface;
 use Commercetools\Core\Model\Common\ContextTrait;
 use Psr\Log\LogLevel;
@@ -165,6 +166,11 @@ class Config implements ContextAwareInterface
     protected $correlationIdProvider;
 
     protected $clientOptions = [];
+
+    public function __construct()
+    {
+        $this->enableCorrelationId = Uuid::active();
+    }
 
     /**
      * @param array $configValues

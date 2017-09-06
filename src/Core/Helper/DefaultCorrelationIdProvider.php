@@ -5,8 +5,6 @@
 
 namespace Commercetools\Core\Helper;
 
-use Ramsey\Uuid\Uuid;
-
 class DefaultCorrelationIdProvider implements CorrelationIdProvider
 {
     private $projectKey;
@@ -19,7 +17,7 @@ class DefaultCorrelationIdProvider implements CorrelationIdProvider
 
     public function getCorrelationId()
     {
-        return sprintf('%s/%s', $this->projectKey, Uuid::uuid4()->toString());
+        return sprintf('%s/%s', $this->projectKey, Uuid::uuidv4());
     }
 
     /**
@@ -29,7 +27,7 @@ class DefaultCorrelationIdProvider implements CorrelationIdProvider
      */
     public static function of($projectKey)
     {
-        if (class_exists('\Ramsey\Uuid\Uuid')) {
+        if (Uuid::active()) {
             return new DefaultCorrelationIdProvider($projectKey);
         }
         return null;

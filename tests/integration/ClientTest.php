@@ -12,7 +12,6 @@ use Commercetools\Core\Helper\DefaultCorrelationIdProvider;
 use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Response\AbstractApiResponse;
-use Ramsey\Uuid\Uuid;
 
 class ClientTest extends ApiTestCase
 {
