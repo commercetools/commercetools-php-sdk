@@ -164,6 +164,8 @@ class Config implements ContextAwareInterface
      */
     protected $correlationIdProvider;
 
+    protected $clientOptions = [];
+
     /**
      * @param array $configValues
      * @return static
@@ -366,19 +368,25 @@ class Config implements ContextAwareInterface
     }
 
     /**
+     * @deprecated use getClientOptions()['concurrency'] instead
      * @return int
      */
     public function getBatchPoolSize()
     {
-        return $this->batchPoolSize;
+        if (!isset($this->clientOptions['concurrency'])) {
+            return $this->batchPoolSize;
+        }
+        return $this->clientOptions['concurrency'];
     }
 
     /**
+     * @deprecated use setClientOptions(['concurrency' => 5]) instead
      * @param int $batchPoolSize
      * @return $this
      */
     public function setBatchPoolSize($batchPoolSize)
     {
+        $this->clientOptions['concurrency'] = $batchPoolSize;
         $this->batchPoolSize = $batchPoolSize;
 
         return $this;
@@ -640,6 +648,24 @@ class Config implements ContextAwareInterface
     public function setEnableCorrelationId($enableCorrelationId)
     {
         $this->enableCorrelationId = (bool)$enableCorrelationId;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getClientOptions()
+    {
+        return $this->clientOptions;
+    }
+
+    /**
+     * @param array $clientOptions
+     * @return Config
+     */
+    public function setClientOptions(array $clientOptions)
+    {
+        $this->clientOptions = $clientOptions;
         return $this;
     }
 }

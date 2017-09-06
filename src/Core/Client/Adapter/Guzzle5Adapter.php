@@ -21,8 +21,10 @@ use Commercetools\Core\Helper\Subscriber\Log\LogSubscriber;
 use Commercetools\Core\Error\ApiException;
 use Psr\Log\LogLevel;
 
-class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware, TokenProviderAware
+class Guzzle5Adapter implements AdapterOptionInterface, CorrelationIdAware, TokenProviderAware
 {
+    const DEFAULT_CONCURRENCY = 25;
+
     /**
      * @var Client
      */
@@ -33,6 +35,8 @@ class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware, TokenProvi
      */
     protected $logger;
 
+    private $concurrency;
+
     /**
      * @param array $options
      */
@@ -41,6 +45,10 @@ class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware, TokenProvi
         if (isset($options['base_uri'])) {
             $options['base_url'] = $options['base_uri'];
             unset($options['base_uri']);
+        }
+        if (isset($options['concurrency'])) {
+            $options['pool_size'] = $options['concurrency'];
+            unset($options['concurrency']);
         }
         if (isset($options['headers'])) {
             $options['defaults']['headers'] = $options['headers'];
@@ -52,10 +60,12 @@ class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware, TokenProvi
                 'verify' => true,
                 'timeout' => 60,
                 'connect_timeout' => 10,
-                'pool_size' => 25
+                'pool_size' => self::DEFAULT_CONCURRENCY
             ],
             $options
         );
+        $this->concurrency = $options['pool_size'];
+
         $this->client = new Client($options);
     }
 
@@ -93,6 +103,7 @@ class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware, TokenProvi
 
     /**
      * @param RequestInterface $request
+     * @param array $clientOptions
      * @return ResponseInterface
      * @throws \Commercetools\Core\Error\ApiException
      * @throws \Commercetools\Core\Error\BadGatewayException
@@ -104,12 +115,15 @@ class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware, TokenProvi
      * @throws \Commercetools\Core\Error\NotFoundException
      * @throws \Commercetools\Core\Error\ServiceUnavailableException
      */
-    public function execute(RequestInterface $request)
+    public function execute(RequestInterface $request, array $clientOptions = [])
     {
         $options = [
             'headers' => $request->getHeaders(),
             'body' => (string)$request->getBody()
         ];
+        if (count($clientOptions)) {
+            $options = array_merge($options, $clientOptions);
+        }
 
         try {
             $guzzleRequest = $this->client->createRequest($request->getMethod(), (string)$request->getUri(), $options);
@@ -137,6 +151,7 @@ class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware, TokenProvi
 
     /**
      * @param RequestInterface[] $requests
+     * @param array $clientOptions
      * @return \Psr\Http\Message\ResponseInterface[]
      * @throws \Commercetools\Core\Error\ApiException
      * @throws \Commercetools\Core\Error\BadGatewayException
@@ -148,11 +163,12 @@ class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware, TokenProvi
      * @throws \Commercetools\Core\Error\NotFoundException
      * @throws \Commercetools\Core\Error\ServiceUnavailableException
      */
-    public function executeBatch(array $requests)
+    public function executeBatch(array $requests, array $clientOptions = [])
     {
         $results = Pool::batch(
             $this->client,
-            $this->getBatchHttpRequests($requests)
+            $this->getBatchHttpRequests($requests, $clientOptions),
+            ['pool_size' => $this->concurrency]
         );
 
         $responses = [];
@@ -171,19 +187,26 @@ class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware, TokenProvi
     }
 
     /**
+     * @param array $requests
+     * @param array $clientOptions
      * @return array
      */
-    protected function getBatchHttpRequests(array $requests)
+    protected function getBatchHttpRequests(array $requests, array $clientOptions = [])
     {
         $requests = array_map(
-            function ($request) {
+            function ($request) use ($clientOptions) {
+                $options = ['headers' => $request->getHeaders()];
+                if (count($clientOptions)) {
+                    $options = array_merge($options, $clientOptions);
+                }
+
                 /**
                  * @var RequestInterface $request
                  */
                 return $this->client->createRequest(
                     $request->getMethod(),
                     (string)$request->getUri(),
-                    ['headers' => $request->getHeaders()]
+                    $options
                 );
             },
             $requests
@@ -224,15 +247,19 @@ class Guzzle5Adapter implements AdapterInterface, CorrelationIdAware, TokenProvi
 
     /**
      * @param RequestInterface $request
+     * @param array $clientOptions
      * @return AdapterPromiseInterface
      */
-    public function executeAsync(RequestInterface $request)
+    public function executeAsync(RequestInterface $request, array $clientOptions = [])
     {
         $options = [
             'future' => true,
             'exceptions' => false,
             'headers' => $request->getHeaders()
         ];
+        if (count($clientOptions)) {
+            $options = array_merge($options, $clientOptions);
+        }
         $request = $this->client->createRequest($request->getMethod(), (string)$request->getUri(), $options);
         $guzzlePromise = $this->client->send($request, $options);
 
