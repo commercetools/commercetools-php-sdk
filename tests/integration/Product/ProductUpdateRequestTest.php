@@ -1052,6 +1052,52 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
+    public function testPublishPrices()
+    {
+        $draft = $this->getDraft('publish-prices');
+        $draft
+            ->setMasterVariant(
+                ProductVariantDraft::of()->setSku('sku-' . $this->getTestRun())
+                    ->setPrices(
+                        PriceDraftCollection::of()
+                            ->add(PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100)))
+                    )
+            )->setPublish(true);
+        $product = $this->createProduct($draft);
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductSetDescriptionAction::of()->setDescription(LocalizedString::ofLangAndText('en', $this->getTestRun())))
+            ->addAction(
+                ProductSetPricesAction::of()->setSku('sku-' . $this->getTestRun())
+                    ->setPrices(PriceDraftCollection::of()
+                        ->add(PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 200)))
+                    )
+            )
+            ->addAction(ProductPublishAction::of()->setScope(ProductPublishAction::PRICES))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertTrue($result->getMasterData()->getHasStagedChanges());
+        $this->assertSame(
+            200,
+            $result->getMasterData()->getCurrent()->getMasterVariant()->getPrices()->current()->getValue()->getCentAmount()
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductPublishAction::of()->setScope(ProductPublishAction::ALL))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertFalse($result->getMasterData()->getHasStagedChanges());
+    }
+
     public function testTransitionStates()
     {
         $draft = $this->getDraft('publish');

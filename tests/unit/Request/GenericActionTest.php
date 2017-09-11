@@ -354,7 +354,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 ProductPublishAction::class,
-                ['action']
+                ['action', 'scope']
             ],
             [
                 ProductRemoveFromCategoryAction::class,
