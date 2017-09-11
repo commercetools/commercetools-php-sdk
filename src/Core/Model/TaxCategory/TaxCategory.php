@@ -27,6 +27,8 @@ use DateTime;
  * @method TaxCategory setDescription(string $description = null)
  * @method TaxRateCollection getRates()
  * @method TaxCategory setRates(TaxRateCollection $rates = null)
+ * @method string getKey()
+ * @method TaxCategory setKey(string $key = null)
  * @method TaxCategoryReference getReference()
  */
 class TaxCategory extends Resource
@@ -46,7 +48,8 @@ class TaxCategory extends Resource
             ],
             'name' => [self::TYPE => 'string'],
             'description' => [self::TYPE => 'string'],
-            'rates' => [self::TYPE => TaxRateCollection::class]
+            'rates' => [self::TYPE => TaxRateCollection::class],
+            'key' => [self::TYPE => 'string'],
         ];
     }
 }

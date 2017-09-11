@@ -12,7 +12,9 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\TaxCategory\TaxRateCollection;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryByIdGetRequest;
+use Commercetools\Core\Request\TaxCategories\TaxCategoryByKeyGetRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
+use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteByKeyRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryQueryRequest;
 
@@ -77,5 +79,34 @@ class TaxCategoryQueryRequestTest extends ApiTestCase
         $this->assertInstanceOf(TaxCategory::class, $taxCategory);
         $this->assertSame($taxCategory->getId(), $result->getId());
 
+    }
+
+    public function testGetByKey()
+    {
+        $draft = $this->getDraft()->setKey($this->getTestRun());
+        $taxCategory = $this->createTaxCategory($draft);
+
+        $request = TaxCategoryByKeyGetRequest::ofKey($taxCategory->getKey());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(TaxCategory::class, $taxCategory);
+        $this->assertSame($taxCategory->getId(), $result->getId());
+    }
+
+
+    public function testDeleteByKey()
+    {
+        $draft = $this->getDraft()->setKey($this->getTestRun());
+        $taxCategory = $this->createTaxCategory($draft);
+
+        $request = TaxCategoryDeleteByKeyRequest::ofKeyAndVersion(
+            $taxCategory->getKey(),
+            $taxCategory->getVersion()
+        );
+        $result = $this->getClient()->execute($request);
+        $response = $request->mapFromResponse($result);
+
+        $this->assertSame($taxCategory->getId(), $response->getId());
     }
 }

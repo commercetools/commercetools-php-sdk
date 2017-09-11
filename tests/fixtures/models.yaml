@@ -665,6 +665,7 @@ taxCategory:
     - name
     - description
     - rates
+    - key
 
 taxRate:
   domain: taxCategory
