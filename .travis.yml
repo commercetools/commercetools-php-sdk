@@ -33,7 +33,7 @@ before_script:
 - if [ $GUZZLE != '5' ] ; then composer install -o --prefer-dist; fi
 script:
 - ant phpcs-ci
-- if [ $GUZZLE == '5' ] || [ $PHP == '5.6' ] ; then vendor/bin/phpunit -c phpunit5.xml.dist --testsuite=unit; fi
+- if [ $GUZZLE == '5' ] || [ $PHP == '5.6' ] || [ $PHP == 'hhvm' ] ; then vendor/bin/phpunit -c phpunit5.xml.dist --testsuite=unit; fi
 - if [ $GUZZLE == '6' ] && [ $PHP != '5.6' ] ; then vendor/bin/phpunit --testsuite=unit; fi
 - if [ $PHP == '7.0' ] && [ $GUZZLE == '6' ] ; then vendor/bin/phpunit --testsuite=integration; fi
 - ant behat
