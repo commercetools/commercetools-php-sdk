@@ -185,7 +185,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $config->getProject()->willReturn('');
         $config->getCacheDir()->willReturn(getcwd());
         $config->getCorrelationIdProvider()->willReturn(null);
-        $config->getClientOptions()->shouldBeCalled();
+        $config->getClientOptions()->willReturn([])->shouldBeCalled();
         $client = Client::ofConfig($config->reveal());
         $httpClient = $client->getHttpClient();
         $this->assertInstanceOf(AdapterOptionInterface::class, $httpClient);
