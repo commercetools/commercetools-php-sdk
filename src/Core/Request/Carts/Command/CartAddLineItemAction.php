@@ -36,6 +36,8 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method CartAddLineItemAction setExternalPrice(Money $externalPrice = null)
  * @method ExternalLineItemTotalPrice getExternalTotalPrice()
  * @method CartAddLineItemAction setExternalTotalPrice(ExternalLineItemTotalPrice $externalTotalPrice = null)
+ * @method string getSku()
+ * @method CartAddLineItemAction setSku(string $sku = null)
  */
 class CartAddLineItemAction extends AbstractAction
 {
@@ -45,6 +47,7 @@ class CartAddLineItemAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'productId' => [static::TYPE => 'string'],
             'variantId' => [static::TYPE => 'int'],
+            'sku' => [static::TYPE => 'string'],
             'quantity' => [static::TYPE => 'int'],
             'supplyChannel' => [static::TYPE => ChannelReference::class],
             'distributionChannel' => [static::TYPE => ChannelReference::class],
@@ -65,6 +68,17 @@ class CartAddLineItemAction extends AbstractAction
     public static function ofProductIdVariantIdAndQuantity($productId, $variantId, $quantity, $context = null)
     {
         return static::of($context)->setProductId($productId)->setVariantId($variantId)->setQuantity($quantity);
+    }
+
+    /**
+     * @param string $sku
+     * @param Context|callable $context
+     * @param int $quantity
+     * @return CartAddLineItemAction
+     */
+    public static function ofSkuAndQuantity($sku, $quantity, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setQuantity($quantity);
     }
 
     /**

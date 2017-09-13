@@ -176,6 +176,29 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertCount(0, $cart->getLineItems());
     }
 
+    public function testLineItemBySku()
+    {
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $draft = $this->getDraft();
+        $draft->setLineItems(LineItemDraftCollection::of()->add(LineItemDraft::ofSku($variant->getSku())));
+        $cart = $this->createCart($draft);
+
+        $this->assertSame(1, $cart->getLineItems()->current()->getQuantity());
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofSkuAndQuantity($variant->getSku(), 1)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        var_dump((string)$response->getBody());
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(2, $cart->getLineItems()->current()->getQuantity());
+    }
+
     public function testSetExternalLineItemTotalPrice()
     {
         $draft = $this->getDraft();

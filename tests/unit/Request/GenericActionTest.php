@@ -598,7 +598,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 CartAddLineItemAction::class,
-                ['action', 'productId', 'variantId', 'quantity', 'supplyChannel', 'distributionChannel', 'custom', 'externalTaxRate', 'externalPrice', 'externalTotalPrice']
+                ['action', 'productId', 'variantId', 'quantity', 'supplyChannel', 'distributionChannel', 'custom', 'externalTaxRate', 'externalPrice', 'externalTotalPrice', 'sku']
             ],
             [
                 CartChangeLineItemQuantityAction::class,
