@@ -25,6 +25,8 @@ use Commercetools\Core\Model\Common\MoneyCollection;
 use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceTier;
 use Commercetools\Core\Model\Common\PriceTierCollection;
+use Commercetools\Core\Model\Common\ResourceIdentifier;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
@@ -52,6 +54,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetAnonymousIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCountryAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomerGroupAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeAction;
@@ -1280,6 +1283,26 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($cart->getVersion());
 
         $this->assertSame($expectedLocale, $cart->getLocale());
+    }
+
+    public function testCustomerGroup()
+    {
+        $customerGroup = $this->getCustomerGroup();
+        $draft = $this->getDraft();
+        $draft->setCustomerGroup($customerGroup->getReference());
+        $cart = $this->createCart($draft);
+
+        $this->assertSame($customerGroup->getId(), $cart->getCustomerGroup()->getId());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartSetCustomerGroupAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertNull($cart->getCustomerGroup());
     }
 
     public function invalidLocaleProvider()
