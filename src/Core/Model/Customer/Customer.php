@@ -67,6 +67,8 @@ use DateTime;
  * @method Customer setBillingAddressIds(array $billingAddressIds = null)
  * @method string getSalutation()
  * @method Customer setSalutation(string $salutation = null)
+ * @method string getKey()
+ * @method Customer setKey(string $key = null)
  * @method CustomerReference getReference()
  */
 class Customer extends Resource
@@ -110,6 +112,7 @@ class Customer extends Resource
             'shippingAddressIds' => [static::TYPE => 'array'],
             'billingAddressIds' => [static::TYPE => 'array'],
             'salutation' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string'],
         ];
     }
 

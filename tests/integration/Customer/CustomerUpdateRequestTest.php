@@ -9,6 +9,7 @@ namespace Commercetools\Core\Customer;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
+use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
@@ -28,6 +29,7 @@ use Commercetools\Core\Request\Customers\Command\CustomerSetDefaultBillingAddres
 use Commercetools\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetExternalIdAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetFirstNameAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetKeyAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetLastNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetLocaleAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetMiddleNameAction;
@@ -36,9 +38,11 @@ use Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
 use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
+use Commercetools\Core\Request\Customers\CustomerUpdateByKeyRequest;
 use Commercetools\Core\Request\Customers\CustomerUpdateRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
+use function GuzzleHttp\Psr7\str;
 
 class CustomerUpdateRequestTest extends ApiTestCase
 {
@@ -68,6 +72,46 @@ class CustomerUpdateRequestTest extends ApiTestCase
             $result->getCustomer()->getVersion()
         );
         return $result->getCustomer();
+    }
+
+    public function testUpdateByKey()
+    {
+        $draft = $this->getDraft('update-by-key');
+        $draft->setKey('test-'. $this->getTestRun());
+        $customer = $this->createCustomer($draft);
+
+        $firstName = 'test-' . $this->getTestRun() . '-new firstName';
+        $request = CustomerUpdateByKeyRequest::ofKeyAndVersion($customer->getKey(), $customer->getVersion())
+            ->addAction(
+                CustomerSetFirstNameAction::of()->setFirstName($firstName)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Customer::class, $result);
+        $this->assertSame($firstName, $result->getFirstName());
+    }
+
+    public function testSetKey()
+    {
+        $draft = $this->getDraft('set-key');
+        $customer = $this->createCustomer($draft);
+
+        $key = 'new-' . $this->getTestRun();
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(
+                CustomerSetKeyAction::of()->setKey($key)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Customer::class, $result);
+        $this->assertSame($key, $result->getKey());
+        $this->assertNotSame($customer->getVersion(), $result->getVersion());
     }
 
     public function testCustomerEmail()
