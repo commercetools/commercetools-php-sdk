@@ -58,6 +58,21 @@ class AttributeCollectionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('Test', $collection->test);
     }
 
+    public function testAttributeAs()
+    {
+        $data = [[
+            'name' => 'collection-enum-set',
+            'value' => [
+                ['key' => 'myKey', 'label' => 'myLabel']
+            ]
+        ]];
+        $attributes = AttributeCollection::fromArray($data);
+
+        $this->assertInstanceOf(Set::class, $attributes->getByName('collection-enum-set')->getValueAsEnumSet());
+        $this->assertInstanceOf(Enum::class, $attributes->getByName('collection-enum-set')->getValueAsEnumSet()->getAt(0));
+    }
+
+
     public function testMagicGetNotSet()
     {
         $collection = AttributeCollection::of();
