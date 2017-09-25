@@ -33,6 +33,8 @@ use DateTime;
  * @method ShippingMethod setIsDefault(bool $isDefault = null)
  * @method string getKey()
  * @method ShippingMethod setKey(string $key = null)
+ * @method string getPredicate()
+ * @method ShippingMethod setPredicate(string $predicate = null)
  * @method ShippingMethodReference getReference()
  */
 class ShippingMethod extends Resource
@@ -56,6 +58,7 @@ class ShippingMethod extends Resource
             'zoneRates' => [static::TYPE => ZoneRateCollection::class],
             'isDefault' => [static::TYPE => 'bool'],
             'key' => [static::TYPE => 'string'],
+            'predicate' => [static::TYPE => 'string'],
         ];
     }
 }

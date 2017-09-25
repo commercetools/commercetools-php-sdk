@@ -97,6 +97,7 @@ shippingInfo:
     - taxCategory
     - shippingMethod
     - deliveries
+    - shippingMethodState
 
 discountCodeReference:
   domain: cart
@@ -804,6 +805,7 @@ shippingMethod:
     - zoneRates
     - isDefault
     - key
+    - predicate
 
 zoneRate:
   domain: shippingMethod
