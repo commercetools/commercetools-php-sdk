@@ -44,7 +44,7 @@ class PaymentChangeTransactionStateAction extends AbstractAction
      * @param string $transactionId
      * @param string $state
      * @param Context|callable $context
-     * @return PaymentAddTransactionAction
+     * @return PaymentChangeTransactionStateAction
      */
     public static function ofTransactionIdAndState($transactionId, $state, $context = null)
     {

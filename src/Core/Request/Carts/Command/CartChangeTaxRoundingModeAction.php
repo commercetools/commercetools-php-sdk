@@ -39,7 +39,7 @@ class CartChangeTaxRoundingModeAction extends AbstractAction
     /**
      * @param string $roundingMode
      * @param Context|callable $context
-     * @return CartChangeLineItemQuantityAction
+     * @return CartChangeTaxRoundingModeAction
      */
     public static function ofTaxRoundingMode($roundingMode, $context = null)
     {

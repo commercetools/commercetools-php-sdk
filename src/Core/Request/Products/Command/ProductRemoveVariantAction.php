@@ -45,7 +45,7 @@ class ProductRemoveVariantAction extends AbstractAction
     /**
      * @param int $variantId
      * @param Context|callable $context
-     * @return ProductRemovePriceAction
+     * @return ProductRemoveVariantAction
      */
     public static function ofVariantId($variantId, $context = null)
     {
@@ -55,7 +55,7 @@ class ProductRemoveVariantAction extends AbstractAction
     /**
      * @param string $sku
      * @param Context|callable $context
-     * @return ProductRemovePriceAction
+     * @return ProductRemoveVariantAction
      */
     public static function ofSku($sku, $context = null)
     {

@@ -104,7 +104,7 @@ class MeOrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @return HttpRequestInterface
+     * @return JsonRequest
      * @internal
      */
     public function httpRequest()

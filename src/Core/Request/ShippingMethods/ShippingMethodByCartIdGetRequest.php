@@ -71,7 +71,7 @@ class ShippingMethodByCartIdGetRequest extends AbstractApiRequest
 
     /**
      * @param ResponseInterface $response
-     * @return PagedQueryResponse
+     * @return ResourceResponse
      */
     public function buildResponse(ResponseInterface $response)
     {

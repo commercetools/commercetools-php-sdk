@@ -44,7 +44,7 @@ class ProductTypeChangePlainEnumValueOrderAction extends AbstractAction
      * @param string $attributeName
      * @param EnumCollection $values
      * @param Context|callable $context
-     * @return ProductTypeAddPlainEnumValueAction
+     * @return ProductTypeChangePlainEnumValueOrderAction
      */
     public static function ofAttributeNameAndValues($attributeName, EnumCollection $values, $context = null)
     {

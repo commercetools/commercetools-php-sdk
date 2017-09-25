@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Common;
 
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\AttributeType;
+use Commercetools\Core\Model\ProductType\SetType;
 
 /**
  * @package Commercetools\Core\Model\Common
@@ -122,13 +123,14 @@ class Attribute extends JsonObject
     private function setApiType($attributeName, $valueType, $elementType = null)
     {
         if (!isset(static::$types[$attributeName])) {
+            $attributeType = AttributeType::fromArray(['name' => $valueType]);
+            if ($attributeType instanceof SetType && $elementType != null) {
+                $attributeType->setElementType(AttributeType::fromArray(['name' => $elementType]));
+            }
+
             $definition = AttributeDefinition::of($this->getContextCallback());
             $definition->setName($attributeName);
-            $definition->setType(AttributeType::fromArray(['name' => $valueType]));
-
-            if ($valueType == static::API_SET && $elementType != null) {
-                $definition->getType()->setElementType(AttributeType::fromArray(['name' => $elementType]));
-            }
+            $definition->setType($attributeType);
             $this->setAttributeDefinition($definition);
         }
     }

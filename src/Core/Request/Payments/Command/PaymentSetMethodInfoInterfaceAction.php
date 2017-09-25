@@ -39,7 +39,7 @@ class PaymentSetMethodInfoInterfaceAction extends AbstractAction
     /**
      * @param string $interface
      * @param Context|callable $context
-     * @return PaymentSetInterfaceIdAction
+     * @return PaymentSetMethodInfoInterfaceAction
      */
     public static function ofInterface($interface, $context = null)
     {

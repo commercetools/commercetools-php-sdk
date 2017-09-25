@@ -62,7 +62,7 @@ class OrderTransitionLineItemStateAction extends AbstractAction
      * @param StateReference $fromState
      * @param StateReference $toState
      * @param Context|callable $context
-     * @return OrderTransitionCustomLineItemStateAction
+     * @return OrderTransitionLineItemStateAction
      */
     public static function ofLineItemIdQuantityAndFromToState(
         $lineItemId,

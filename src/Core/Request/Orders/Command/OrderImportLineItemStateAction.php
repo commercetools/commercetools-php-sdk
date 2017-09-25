@@ -44,7 +44,7 @@ class OrderImportLineItemStateAction extends AbstractAction
      * @param string $lineItemId
      * @param ItemStateCollection $state
      * @param Context|callable $context
-     * @return OrderImportCustomLineItemStateAction
+     * @return OrderImportLineItemStateAction
      */
     public static function ofLineItemIdAndState($lineItemId, ItemStateCollection $state, $context = null)
     {

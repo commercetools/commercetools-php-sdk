@@ -43,10 +43,10 @@ class FilterRange
             return '*';
         }
         if (is_int($value)) {
-            return $value;
+            return (string)$value;
         }
         if (is_float($value)) {
-            return $value;
+            return (string)$value;
         }
         if (is_string($value)) {
             return '"' . $value . '"';
