@@ -8,6 +8,7 @@ namespace Commercetools\Core\Cart;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Cart\CustomLineItemDraft;
 use Commercetools\Core\Model\Cart\CustomLineItemDraftCollection;
 use Commercetools\Core\Model\Cart\ExternalLineItemTotalPrice;
@@ -580,6 +581,8 @@ class CartUpdateRequestTest extends ApiTestCase
         $draft->setCustomerId($customer->getId());
         $customerCart = $this->createCart($draft);
 
+        $this->assertCount(0, $customerCart->getCustomLineItems());
+
         $anonCartDraft = $this->getDraft();
         $anonCartDraft->setCustomLineItems(
             CustomLineItemDraftCollection::of()
@@ -595,6 +598,7 @@ class CartUpdateRequestTest extends ApiTestCase
         $request = CartCreateRequest::ofDraft($anonCartDraft);
         $response = $request->executeWithClient($this->getClient());
         $anonCart = $request->mapResponse($response);
+        $this->assertSame(CartState::ACTIVE, $anonCart->getCartState());
 
         $this->assertNotSame($customerCart->getId(), $anonCart->getId());
         $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($anonCart->getId(), $anonCart->getVersion());
@@ -607,13 +611,21 @@ class CartUpdateRequestTest extends ApiTestCase
         $response = $loginRequest->executeWithClient($this->getClient());
         $result = $loginRequest->mapResponse($response);
         $loginCart = $result->getCart();
+        $this->assertSame(CartState::ACTIVE, $loginCart->getCartState());
 
         if ($loginCart->getCustomLineItems()->count() == 0) {
             $this->markTestSkipped(
                 'Merging custom line items from anon carts to customer cart not yet supported by API.'
             );
         }
-        $this->assertCount(2, $loginCart->getCustomLineItems());
+        $this->assertCount(1, $loginCart->getCustomLineItems());
+        $this->assertSame($anonName->en, $loginCart->getCustomLineItems()->current()->getSlug());
+
+        $anonCartRequest = CartByIdGetRequest::ofId($anonCart->getId());
+        $response = $anonCartRequest->executeWithClient($this->getClient());
+        $anonCart = $request->mapResponse($response);
+
+        $this->assertSame(CartState::MERGED, $anonCart->getCartState());
     }
 
     public function testCustomerEmail()
