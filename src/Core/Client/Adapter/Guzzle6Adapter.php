@@ -93,9 +93,11 @@ class Guzzle6Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
                 return $handler($request, $options)->then(
                     function ($response) use ($logger, $request, $formatter, $logLevel) {
                         $message = $formatter->format($request, $response);
-                        $context[AbstractApiResponse::X_CORRELATION_ID] = $response->getHeader(
-                            AbstractApiResponse::X_CORRELATION_ID
-                        );
+                        $context = [
+                            AbstractApiResponse::X_CORRELATION_ID => $response->getHeader(
+                                AbstractApiResponse::X_CORRELATION_ID
+                            )
+                        ];
                         $logger->log($logLevel, $message, $context);
                         return $response;
                     },

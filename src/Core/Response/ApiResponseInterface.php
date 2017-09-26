@@ -77,7 +77,7 @@ interface ApiResponseInterface
     public function getStatusCode();
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getCorrelationId();
 }

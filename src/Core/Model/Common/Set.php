@@ -22,7 +22,7 @@ class Set extends Collection implements TypeableInterface
         parent::initialize($offset);
 
         $type = $this->getType();
-        if (!$this->isPrimitive($type) && !$this->isDeserializableType($type)) {
+        if ($this->isPrimitive($type) === false && $this->isDeserializableType($type) === false) {
             $value = new $type($this->typeData[$offset]);
             $this->typeData[$offset] = $value;
         }

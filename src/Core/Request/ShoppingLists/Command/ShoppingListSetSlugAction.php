@@ -38,7 +38,7 @@ class ShoppingListSetSlugAction extends AbstractAction
     }
 
     /**
-     * @param string $slug
+     * @param LocalizedString $slug
      * @param Context|callable $context
      * @return ShoppingListSetSlugAction
      */

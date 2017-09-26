@@ -38,7 +38,7 @@ class ShoppingListSetDescriptionAction extends AbstractAction
     }
 
     /**
-     * @param string $description
+     * @param LocalizedString $description
      * @param Context|callable $context
      * @return ShoppingListSetDescriptionAction
      */

@@ -51,7 +51,7 @@ class ShoppingListDraft extends Resource
     }
 
     /**
-     * @param string $name
+     * @param LocalizedString $name
      * @param Context|null $context
      * @return ShoppingListDraft
      */
@@ -61,7 +61,7 @@ class ShoppingListDraft extends Resource
     }
 
     /**
-     * @param string $name
+     * @param LocalizedString $name
      * @param string $key
      * @param Context|null $context
      * @return ShoppingListDraft

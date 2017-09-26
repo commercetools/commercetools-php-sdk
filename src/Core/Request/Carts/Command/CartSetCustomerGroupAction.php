@@ -28,7 +28,7 @@ class CartSetCustomerGroupAction extends AbstractAction
     }
 
     /**
-     * @param string $customerGroup
+     * @param CustomerGroupReference $customerGroup
      * @param Context|callable $context
      * @return CartSetCustomerGroupAction
      */

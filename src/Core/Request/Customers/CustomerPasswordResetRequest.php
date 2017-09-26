@@ -40,8 +40,6 @@ class CustomerPasswordResetRequest extends AbstractApiRequest
     protected $newPassword;
 
     /**
-     * @param string $id
-     * @param int $version
      * @param string $tokenValue
      * @param string $newPassword
      * @param Context $context
