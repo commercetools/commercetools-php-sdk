@@ -119,7 +119,7 @@ class ClassAnnotator
             $elementTypeClass = new \ReflectionClass($elementType);
             $this->class->addUse($elementType);
             $getAtMethod = $reflectionClass->getMethod('getAt');
-            if ($getAtMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
+            if ($getAtMethod->class != $this->class->getClassName()) {
                 $this->class->addMagicMethod(
                     'getAt',
                     ['$offset'],
@@ -131,7 +131,7 @@ class ClassAnnotator
                 );
             }
             $getByIdMethod = $reflectionClass->getMethod('getById');
-            if ($getByIdMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
+            if ($getByIdMethod->class != $this->class->getClassName()) {
                 $elementTypeObject = $elementTypeClass->newInstanceWithoutConstructor();
                 if ($elementTypeObject instanceof JsonObject && isset($elementTypeObject->fieldDefinitions()['id'])) {
                     $this->class->addMagicMethod(
@@ -146,7 +146,7 @@ class ClassAnnotator
                 }
             }
             $addMethod = $reflectionClass->getMethod('add');
-            if ($addMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
+            if ($addMethod->class != $this->class->getClassName()) {
                 $this->class->addMagicMethod(
                     'add',
                     [$elementTypeClass->getShortName() . ' $element'],
@@ -158,7 +158,7 @@ class ClassAnnotator
                 );
             }
             $current = $reflectionClass->getMethod('current');
-            if ($current->getDeclaringClass()->getName() != $this->class->getClassName()) {
+            if ($current->class != $this->class->getClassName()) {
                 $this->class->addMagicMethod(
                     'current',
                     [],
@@ -186,7 +186,7 @@ class ClassAnnotator
         $resultClassReflection = new \ReflectionClass($resultClass);
         $this->class->addUse($resultClass);
         $mapResponseMethod = $reflectionClass->getMethod('mapResponse');
-        if ($mapResponseMethod->getDeclaringClass()->getName() != $this->class->getClassName()) {
+        if ($mapResponseMethod->class != $this->class->getClassName()) {
             $this->class->addUse(ApiResponseInterface::class);
             $this->class->addMagicMethod(
                 'mapResponse',

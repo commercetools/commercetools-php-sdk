@@ -30,7 +30,7 @@ class MeUpdateRequest extends AbstractUpdateRequest
      */
     public function __construct($version, Context $context = null)
     {
-        parent::__construct(MeEndpoint::endpoint(), null, $version, $context);
+        parent::__construct(MeEndpoint::endpoint(), null, $version, [], $context);
     }
 
     /**
