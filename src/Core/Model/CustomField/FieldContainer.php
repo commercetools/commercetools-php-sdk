@@ -110,12 +110,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsLocalizedString($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof LocalizedString) {
-            return $value;
-        }
-        return LocalizedString::fromArray($value);
+        return $this->getFieldAsType($name, LocalizedString::class);
     }
 
     /**
@@ -123,12 +118,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsLocalizedEnum($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof LocalizedEnum) {
-            return $value;
-        }
-        return LocalizedEnum::fromArray($value);
+        return $this->getFieldAsType($name, LocalizedEnum::class);
     }
 
     /**
@@ -136,12 +126,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsEnum($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Enum) {
-            return $value;
-        }
-        return Enum::fromArray($value);
+        return $this->getFieldAsType($name, Enum::class);
     }
 
     /**
@@ -149,12 +134,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsMoney($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Money) {
-            return $value;
-        }
-        return Money::fromArray($value);
+        return $this->getFieldAsType($name, Money::class);
     }
 
     /**
@@ -162,12 +142,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsDate($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof DateDecorator) {
-            return $value;
-        }
-        return new DateDecorator($value);
+        return $this->getFieldAsType($name, DateDecorator::class);
     }
 
     /**
@@ -175,12 +150,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsTime($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof TimeDecorator) {
-            return $value;
-        }
-        return new TimeDecorator($value);
+        return $this->getFieldAsType($name, TimeDecorator::class);
     }
 
     /**
@@ -188,12 +158,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsDateTime($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof DateTimeDecorator) {
-            return $value;
-        }
-        return new DateTimeDecorator($value);
+        return $this->getFieldAsType($name, DateTimeDecorator::class);
     }
 
     /**
@@ -201,12 +166,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsReference($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Reference) {
-            return $value;
-        }
-        return Reference::fromArray($value);
+        return $this->getFieldAsType($name, Reference::class);
     }
 
     /**
@@ -214,12 +174,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsBoolSet($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Set && $value->getType() == 'bool') {
-            return $value;
-        }
-        return Set::ofTypeAndData('bool', $value);
+        return $this->getFieldAsSetType($name, 'bool');
     }
 
     /**
@@ -227,12 +182,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsNumberSet($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Set && $value->getType() == 'float') {
-            return $value;
-        }
-        return Set::ofTypeAndData('float', $value);
+        return $this->getFieldAsSetType($name, 'float');
     }
 
     /**
@@ -240,12 +190,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsIntegerSet($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Set && $value->getType() == 'int') {
-            return $value;
-        }
-        return Set::ofTypeAndData('int', $value);
+        return $this->getFieldAsSetType($name, 'int');
     }
 
     /**
@@ -253,12 +198,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsStringSet($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Set && $value->getType() == 'string') {
-            return $value;
-        }
-        return Set::ofTypeAndData('string', $value);
+        return $this->getFieldAsSetType($name, 'string');
     }
 
     /**
@@ -266,12 +206,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsLocalizedStringSet($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Set && $value->getType() == LocalizedString::class) {
-            return $value;
-        }
-        return Set::ofTypeAndData(LocalizedString::class, $value);
+        return $this->getFieldAsSetType($name, LocalizedString::class);
     }
 
     /**
@@ -279,12 +214,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsLocalizedEnumSet($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Set && $value->getType() == LocalizedEnum::class) {
-            return $value;
-        }
-        return Set::ofTypeAndData(LocalizedEnum::class, $value);
+        return $this->getFieldAsSetType($name, LocalizedEnum::class);
     }
 
     /**
@@ -292,12 +222,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsEnumSet($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Set && $value->getType() == Enum::class) {
-            return $value;
-        }
-        return Set::ofTypeAndData(Enum::class, $value);
+        return $this->getFieldAsSetType($name, Enum::class);
     }
 
     /**
@@ -305,12 +230,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsMoneySet($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Set && $value->getType() == Money::class) {
-            return $value;
-        }
-        return Set::ofTypeAndData(Money::class, $value);
+        return $this->getFieldAsSetType($name, Money::class);
     }
 
     /**
@@ -318,12 +238,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsDateSet($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Set && $value->getType() == DateDecorator::class) {
-            return $value;
-        }
-        return Set::ofTypeAndData(DateDecorator::class, $value);
+        return $this->getFieldAsSetType($name, DateDecorator::class);
     }
 
     /**
@@ -331,12 +246,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsTimeSet($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Set && $value->getType() == TimeDecorator::class) {
-            return $value;
-        }
-        return Set::ofTypeAndData(TimeDecorator::class, $value);
+        return $this->getFieldAsSetType($name, TimeDecorator::class);
     }
 
     /**
@@ -344,12 +254,7 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsDateTimeSet($name)
     {
-        $value = $this->get($name);
-
-        if ($value instanceof Set && $value->getType() == DateTimeDecorator::class) {
-            return $value;
-        }
-        return Set::ofTypeAndData(DateTimeDecorator::class, $value);
+        return $this->getFieldAsSetType($name, DateTimeDecorator::class);
     }
 
     /**
@@ -357,11 +262,30 @@ class FieldContainer extends JsonObject
      */
     public function getFieldAsReferenceSet($name)
     {
+        return $this->getFieldAsSetType($name, Reference::class);
+    }
+
+    private function getFieldAsSetType($name, $type)
+    {
         $value = $this->get($name);
 
-        if ($value instanceof Set && $value->getType() == Reference::class) {
+        if ($value instanceof Set && $value->getType() === $type) {
             return $value;
         }
-        return Set::ofTypeAndData(Reference::class, $value);
+        return Set::ofTypeAndData($type, $value);
+    }
+
+    private function getFieldAsType($name, $type)
+    {
+        $value = $this->get($name);
+
+        if ($value instanceof $type) {
+            return $value;
+        }
+        if ($this->isDeserializableType($type)) {
+            return $type::fromArray($value);
+        } else {
+            return new $type($value);
+        }
     }
 }
