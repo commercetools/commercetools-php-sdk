@@ -30,12 +30,15 @@ use DateTime;
  * @method Project setTrialUntil(DateTime $trialUntil = null)
  * @method MessagesConfiguration getMessages()
  * @method Project setMessages(MessagesConfiguration $messages = null)
+ * @method int getVersion()
+ * @method Project setVersion(int $version = null)
  */
 class Project extends JsonObject
 {
     public function fieldDefinitions()
     {
         return [
+            'version' => [static::TYPE => 'int'],
             'key' => [static::TYPE => 'string'],
             'name' => [static::TYPE => 'string'],
             'countries' => [static::TYPE => Collection::class],
