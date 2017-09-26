@@ -21,4 +21,10 @@ class SetTest extends \PHPUnit\Framework\TestCase
         $set = Set::ofType('int')->setRawData([1, 2, 3, 4]);
         $this->assertSame('1, 2, 3, 4', (string)$set);
     }
+
+    public function testDateTimeDecorator()
+    {
+        $set = Set::ofType(DateTimeDecorator::class)->setRawData(["2015-01-01"]);
+        $this->assertInstanceOf(DateTimeDecorator::class, $set->current());
+    }
 }

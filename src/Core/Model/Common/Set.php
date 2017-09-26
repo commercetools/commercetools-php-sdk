@@ -14,6 +14,21 @@ namespace Commercetools\Core\Model\Common;
 class Set extends Collection implements TypeableInterface
 {
     /**
+     * @param $offset
+     * @internal
+     */
+    protected function initialize($offset)
+    {
+        parent::initialize($offset);
+
+        $type = $this->getType();
+        if (!$this->isPrimitive($type) && !$this->isDeserializableType($type)) {
+            $value = new $type($this->typeData[$offset]);
+            $this->typeData[$offset] = $value;
+        }
+    }
+
+    /**
      * @param $type
      * @param Context|callable $context
      * @return $this
