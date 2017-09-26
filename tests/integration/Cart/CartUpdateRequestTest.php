@@ -206,7 +206,6 @@ class CartUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $cart = $request->mapResponse($response);
-        var_dump((string)$response->getBody());
         $this->deleteRequest->setVersion($cart->getVersion());
 
         $this->assertSame(2, $cart->getLineItems()->current()->getQuantity());
