@@ -8,9 +8,11 @@ namespace Commercetools\Core\Cart;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Cart\CustomLineItemDraft;
 use Commercetools\Core\Model\Cart\CustomLineItemDraftCollection;
 use Commercetools\Core\Model\Cart\ExternalLineItemTotalPrice;
+use Commercetools\Core\Model\Cart\ExternalTaxAmountDraft;
 use Commercetools\Core\Model\Cart\LineItem;
 use Commercetools\Core\Model\Cart\LineItemCollection;
 use Commercetools\Core\Model\Cart\LineItemDraft;
@@ -25,10 +27,13 @@ use Commercetools\Core\Model\Common\MoneyCollection;
 use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceTier;
 use Commercetools\Core\Model\Common\PriceTierCollection;
+use Commercetools\Core\Model\Common\ResourceIdentifier;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
+use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
@@ -48,21 +53,27 @@ use Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveDiscountCodeAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemovePaymentAction;
+use Commercetools\Core\Request\Carts\Command\CartSetAnonymousIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCartTotalTaxAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCountryAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomerGroupAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetDeleteDaysAfterLastModificationAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemPriceAction;
+use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTotalPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLocaleAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
@@ -103,6 +114,9 @@ class CartUpdateRequestTest extends ApiTestCase
             ->addAction(CartRecalculateAction::of())
         ;
         $response = $request->executeWithClient($this->getClient());
+        if (!$response->isError()) {
+            $this->markTestSkipped('Recalculation for removed products not erroring anymore');
+        }
         $result = $request->mapResponse($response);
         $this->assertTrue($response->isError());
 
@@ -173,6 +187,28 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($cart->getVersion());
 
         $this->assertCount(0, $cart->getLineItems());
+    }
+
+    public function testLineItemBySku()
+    {
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $draft = $this->getDraft();
+        $draft->setLineItems(LineItemDraftCollection::of()->add(LineItemDraft::ofSku($variant->getSku())));
+        $cart = $this->createCart($draft);
+
+        $this->assertSame(1, $cart->getLineItems()->current()->getQuantity());
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofSkuAndQuantity($variant->getSku(), 1)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(2, $cart->getLineItems()->current()->getQuantity());
     }
 
     public function testSetExternalLineItemTotalPrice()
@@ -544,6 +580,8 @@ class CartUpdateRequestTest extends ApiTestCase
         $draft->setCustomerId($customer->getId());
         $customerCart = $this->createCart($draft);
 
+        $this->assertCount(0, $customerCart->getCustomLineItems());
+
         $anonCartDraft = $this->getDraft();
         $anonCartDraft->setCustomLineItems(
             CustomLineItemDraftCollection::of()
@@ -559,6 +597,7 @@ class CartUpdateRequestTest extends ApiTestCase
         $request = CartCreateRequest::ofDraft($anonCartDraft);
         $response = $request->executeWithClient($this->getClient());
         $anonCart = $request->mapResponse($response);
+        $this->assertSame(CartState::ACTIVE, $anonCart->getCartState());
 
         $this->assertNotSame($customerCart->getId(), $anonCart->getId());
         $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($anonCart->getId(), $anonCart->getVersion());
@@ -571,13 +610,21 @@ class CartUpdateRequestTest extends ApiTestCase
         $response = $loginRequest->executeWithClient($this->getClient());
         $result = $loginRequest->mapResponse($response);
         $loginCart = $result->getCart();
+        $this->assertSame(CartState::ACTIVE, $loginCart->getCartState());
 
         if ($loginCart->getCustomLineItems()->count() == 0) {
             $this->markTestSkipped(
                 'Merging custom line items from anon carts to customer cart not yet supported by API.'
             );
         }
-        $this->assertCount(2, $loginCart->getCustomLineItems());
+        $this->assertCount(1, $loginCart->getCustomLineItems());
+        $this->assertSame($anonName->en, $loginCart->getCustomLineItems()->current()->getSlug());
+
+        $anonCartRequest = CartByIdGetRequest::ofId($anonCart->getId());
+        $response = $anonCartRequest->executeWithClient($this->getClient());
+        $anonCart = $request->mapResponse($response);
+
+        $this->assertSame(CartState::MERGED, $anonCart->getCartState());
     }
 
     public function testCustomerEmail()
@@ -652,6 +699,36 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($cart->getVersion());
 
         $this->assertSame($country, $cart->getCountry());
+    }
+
+    public function testSetAnonymousId()
+    {
+        $anonymousId = uniqid();
+        $draft = $this->getDraft();
+        $draft->setAnonymousId($anonymousId);
+        $cart = $this->createCart($draft);
+        $this->assertSame($anonymousId, $cart->getAnonymousId());
+
+        $newAnonymousId = uniqid();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartSetAnonymousIdAction::of()->setAnonymousId($newAnonymousId))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($newAnonymousId, $cart->getAnonymousId());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartSetAnonymousIdAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertNull($cart->getAnonymousId());
+
     }
 
     public function testSetShippingMethod()
@@ -1225,6 +1302,26 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertSame($expectedLocale, $cart->getLocale());
     }
 
+    public function testCustomerGroup()
+    {
+        $customerGroup = $this->getCustomerGroup();
+        $draft = $this->getDraft();
+        $draft->setCustomerGroup($customerGroup->getReference());
+        $cart = $this->createCart($draft);
+
+        $this->assertSame($customerGroup->getId(), $cart->getCustomerGroup()->getId());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartSetCustomerGroupAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertNull($cart->getCustomerGroup());
+    }
+
     public function invalidLocaleProvider()
     {
         return [
@@ -1430,6 +1527,119 @@ class CartUpdateRequestTest extends ApiTestCase
             }
         }
         $this->assertTrue($giftLineItemIncluded);
+    }
+
+    public function testSetLineItemTaxAmount()
+    {
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $draft = $this->getDraft();
+        $draft->setLineItems(LineItemDraftCollection::of()->add(LineItemDraft::ofSku($variant->getSku())));
+        $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT);
+        $cart = $this->createCart($draft);
+
+        $taxAmount = mt_rand(1, 100000);
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartSetLineItemTaxAmountAction::of()
+                    ->setLineItemId($cart->getLineItems()->current()->getId())
+                    ->setExternalTaxAmount(
+                        ExternalTaxAmountDraft::of()
+                            ->setTotalGross(Money::ofCurrencyAndAmount('EUR', $taxAmount))
+                            ->setTaxRate(ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0))
+                    )
+            );
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($taxAmount, $cart->getLineItems()->current()->getTaxedPrice()->getTotalGross()->getCentAmount());
+    }
+
+    public function testSetCustomLineItemTaxAmount()
+    {
+        $draft = $this->getDraft();
+        $draft->setCustomLineItems(
+            CustomLineItemDraftCollection::of()
+                ->add(
+                    CustomLineItemDraft::of()
+                        ->setName(LocalizedString::ofLangAndText('en','test'))
+                        ->setQuantity(1)
+                        ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                        ->setSlug('test-124')
+                )
+        );
+        $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT);
+        $cart = $this->createCart($draft);
+
+        $taxAmount = mt_rand(1, 100000);
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartSetCustomLineItemTaxAmountAction::of()
+                    ->setCustomLineItemId($cart->getCustomLineItems()->current()->getId())
+                    ->setExternalTaxAmount(
+                        ExternalTaxAmountDraft::of()
+                            ->setTotalGross(Money::ofCurrencyAndAmount('EUR', $taxAmount))
+                            ->setTaxRate(ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0))
+                    )
+            );
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($taxAmount, $cart->getCustomLineItems()->current()->getTaxedPrice()->getTotalGross()->getCentAmount());
+    }
+
+    public function testSetShippingMethodTaxAmount()
+    {
+        $shippingMethod = $this->getShippingMethod();
+        $draft = $this->getDraft();
+        $draft->setShippingAddress(Address::of()->setCountry('DE')->setState($this->getRegion()));
+        $draft->setShippingMethod($shippingMethod->getReference());
+        $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT);
+        $cart = $this->createCart($draft);
+
+        $taxAmount = mt_rand(1, 100000);
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartSetShippingMethodTaxAmountAction::of()
+                    ->setExternalTaxAmount(
+                        ExternalTaxAmountDraft::of()
+                            ->setTotalGross(Money::ofCurrencyAndAmount('EUR', $taxAmount))
+                            ->setTaxRate(ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0))
+                    )
+            );
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($taxAmount, $cart->getShippingInfo()->getTaxedPrice()->getTotalGross()->getCentAmount());
+    }
+
+    public function testSetTotalTaxAmount()
+    {
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $draft = $this->getDraft();
+        $draft->setLineItems(LineItemDraftCollection::of()->add(LineItemDraft::ofSku($variant->getSku())));
+        $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT);
+        $cart = $this->createCart($draft);
+
+        $taxAmount = mt_rand(1, 100000);
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartSetCartTotalTaxAction::of()
+                    ->setExternalTotalGross(
+                        Money::ofCurrencyAndAmount('EUR', $taxAmount)
+                    )
+            );
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($taxAmount, $cart->getTaxedPrice()->getTotalGross()->getCentAmount());
     }
 
     /**

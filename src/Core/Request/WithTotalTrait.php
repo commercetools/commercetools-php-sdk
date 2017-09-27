@@ -10,10 +10,15 @@ use Commercetools\Core\Request\Query\ParameterInterface;
 
 /**
  * @package Commercetools\Core\Request
- * @method $this addParamObject(ParameterInterface $param)
  */
 trait WithTotalTrait
 {
+    /**
+     * @param ParameterInterface $param
+     * @return $this
+     */
+    abstract public function addParamObject(ParameterInterface $param);
+
     /**
      * @param bool $withTotal
      * @return $this

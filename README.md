@@ -30,7 +30,7 @@ curl -sS https://getcomposer.org/installer | php
 Next, run the Composer command to install the latest version of the SDK:
 
 ```bash
-composer require commercetools/php-sdk dev-master
+composer require commercetools/php-sdk
 ```
 
 The SDK supports Guzzle6 as well as Guzzle5 as HTTP client. For Guzzle6:

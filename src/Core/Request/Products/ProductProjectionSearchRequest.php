@@ -29,7 +29,7 @@ use Commercetools\Core\Model\Product\Search\FilterInterface;
 /**
  * @package Commercetools\Core\Request\Products
  * @link https://dev.commercetools.com/http-api-projects-products-search.html#search-productprojections
- * @method PagedSearchResponse executeWithClient(Client $client)
+ * @method PagedSearchResponse executeWithClient(Client $client, array $headers = null)
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
  * @method ProductProjectionCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

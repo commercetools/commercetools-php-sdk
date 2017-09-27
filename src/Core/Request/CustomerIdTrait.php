@@ -10,10 +10,15 @@ use Commercetools\Core\Request\Query\ParameterInterface;
 
 /**
  * @package Commercetools\Core\Request
- * @method $this addParamObject(ParameterInterface $param)
  */
 trait CustomerIdTrait
 {
+    /**
+     * @param ParameterInterface $param
+     * @return $this
+     */
+    abstract public function addParamObject(ParameterInterface $param);
+
     public function byCustomerId($customerId)
     {
         if (!is_null($customerId)) {

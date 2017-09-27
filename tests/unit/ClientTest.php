@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core;
 
+use Commercetools\Core\Client\Adapter\AdapterOptionInterface;
 use Commercetools\Core\Client\OAuth\Manager;
 use Commercetools\Core\Error\BadGatewayException;
 use Commercetools\Core\Error\ConcurrentModificationException;
@@ -172,6 +173,22 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $client = $this->getMockClient($this->getConfig(), $this->getSingleOpResult());
         $response = $client->execute($request);
         $this->assertInstanceOf(ResourceResponse::class, $response);
+    }
+
+    public function testOptions()
+    {
+        $config = $this->prophesize(Config::class);
+        $config->check()->willReturn(true);
+        $config->getAdapter()->willReturn(null);
+        $config->getAcceptEncoding()->willReturn(null);
+        $config->getApiUrl()->willReturn('http://example.org');
+        $config->getProject()->willReturn('');
+        $config->getCacheDir()->willReturn(getcwd());
+        $config->getCorrelationIdProvider()->willReturn(null);
+        $config->getClientOptions()->willReturn([])->shouldBeCalled();
+        $client = Client::ofConfig($config->reveal());
+        $httpClient = $client->getHttpClient();
+        $this->assertInstanceOf(AdapterOptionInterface::class, $httpClient);
     }
 
     public function testApiUrl()

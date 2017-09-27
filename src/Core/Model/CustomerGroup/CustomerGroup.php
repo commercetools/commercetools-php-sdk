@@ -22,6 +22,8 @@ use DateTime;
  * @method CustomerGroup setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getName()
  * @method CustomerGroup setName(string $name = null)
+ * @method string getKey()
+ * @method CustomerGroup setKey(string $key = null)
  * @method CustomerGroupReference getReference()
  */
 class CustomerGroup extends Resource
@@ -39,7 +41,8 @@ class CustomerGroup extends Resource
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'name' => [static::TYPE => 'string']
+            'name' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string'],
         ];
     }
 }

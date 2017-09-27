@@ -49,7 +49,7 @@ class PaymentChangeTransactionTimestampAction extends AbstractAction
      * @param string $transactionId
      * @param \DateTime $timestamp
      * @param Context|callable $context
-     * @return PaymentAddTransactionAction
+     * @return PaymentChangeTransactionTimestampAction
      */
     public static function ofTransactionIdAndTimestamp($transactionId, \DateTime $timestamp, $context = null)
     {

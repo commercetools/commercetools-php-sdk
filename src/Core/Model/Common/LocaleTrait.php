@@ -19,9 +19,14 @@ trait LocaleTrait
     /**
      * @return array
      */
+    abstract public function toArray();
+
+    /**
+     * @return array
+     */
     public function toJson()
     {
-        $data = parent::toArray();
+        $data = $this->toArray();
         if (isset($data['locale'])) {
             $data['locale'] = str_replace('_', '-', $data['locale']);
         }

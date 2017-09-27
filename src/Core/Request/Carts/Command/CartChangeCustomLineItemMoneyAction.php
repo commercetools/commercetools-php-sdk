@@ -44,7 +44,7 @@ class CartChangeCustomLineItemMoneyAction extends AbstractAction
      * @param string $customLineItemId
      * @param Money $money
      * @param Context|callable $context
-     * @return CartSetLineItemTotalPriceAction
+     * @return CartChangeCustomLineItemMoneyAction
      */
     public static function ofCustomLineItemIdAndMoney($customLineItemId, Money $money, $context = null)
     {

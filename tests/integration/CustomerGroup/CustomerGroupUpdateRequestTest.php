@@ -8,6 +8,7 @@ namespace Commercetools\Core\CustomerGroup;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupDraft;
+use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupSetKeyAction;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupCreateRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupDeleteRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupUpdateRequest;
@@ -34,7 +35,7 @@ class CustomerGroupUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $customerGroup = $request->mapResponse($response);
 
-        $this->cleanupRequests[] = CustomerGroupDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = CustomerGroupDeleteRequest::ofIdAndVersion(
             $customerGroup->getId(),
             $customerGroup->getVersion()
         );
@@ -58,9 +59,28 @@ class CustomerGroupUpdateRequestTest extends ApiTestCase
         $this->assertSame($name, $result->getName());
         $this->assertNotSame($customerGroup->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(CustomerGroup::class, $result);
+    }
+
+    public function testSetKey()
+    {
+        $draft = $this->getDraft('set-key');
+        $customerGroup = $this->createCustomerGroup($draft);
+
+        $key = $this->getTestRun() . '-new-key';
+        $request = CustomerGroupUpdateRequest::ofIdAndVersion($customerGroup->getId(), $customerGroup->getVersion())
+            ->addAction(CustomerGroupSetKeyAction::of()->setKey($key))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(CustomerGroup::class, $result);
+        $this->assertSame($key, $result->getKey());
+        $this->assertNotSame($customerGroup->getVersion(), $result->getVersion());
+
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf(CustomerGroup::class, $result);
     }

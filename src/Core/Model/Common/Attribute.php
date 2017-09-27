@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Common;
 
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\AttributeType;
+use Commercetools\Core\Model\ProductType\SetType;
 
 /**
  * @package Commercetools\Core\Model\Common
@@ -86,15 +87,12 @@ class Attribute extends JsonObject
         }
 
         $apiType = $this->guessApiType($value);
-        $definition = AttributeDefinition::of($this->getContextCallback());
-        $definition->setName($attributeName);
-        $definition->setType(AttributeType::fromArray(['name' => $apiType]));
-
+        $elementType = null;
         if ($apiType == static::API_SET) {
             $elementType = $this->guessApiType(current($value));
-            $definition->getType()->setElementType(AttributeType::fromArray(['name' => $elementType]));
         }
-        $this->setAttributeDefinition($definition);
+        $this->setApiType($attributeName, $apiType, $elementType);
+
         return static::$types[$attributeName];
     }
 
@@ -120,6 +118,261 @@ class Attribute extends JsonObject
             $this->getApiType($name, $value);
         }
         parent::initialize($field);
+    }
+
+    private function setApiType($attributeName, $valueType, $elementType = null)
+    {
+        if (!isset(static::$types[$attributeName])) {
+            $attributeType = AttributeType::fromArray(['name' => $valueType]);
+            if ($attributeType instanceof SetType && $elementType != null) {
+                $attributeType->setElementType(AttributeType::fromArray(['name' => $elementType]));
+            }
+
+            $definition = AttributeDefinition::of($this->getContextCallback());
+            $definition->setName($attributeName);
+            $definition->setType($attributeType);
+            $this->setAttributeDefinition($definition);
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function getValueAsBool()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_BOOL);
+        return $this->getValue();
+    }
+
+    /**
+     * @return int|float
+     */
+    public function getValueAsNumber()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_NUMBER);
+        return $this->getValue();
+    }
+
+    /**
+     * @return string
+     */
+    public function getValueAsString()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_TEXT);
+        return $this->getValue();
+    }
+
+    /**
+     * @return LocalizedString
+     */
+    public function getValueAsLocalizedString()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_LTEXT);
+        return $this->getValue();
+    }
+
+    /**
+     * @return LocalizedEnum
+     */
+    public function getValueAsLocalizedEnum()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_LENUM);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Enum
+     */
+    public function getValueAsEnum()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_ENUM);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Money
+     */
+    public function getValueAsMoney()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_MONEY);
+        return $this->getValue();
+    }
+
+    /**
+     * @return DateDecorator
+     */
+    public function getValueAsDate()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_DATE);
+        return $this->getValue();
+    }
+
+    /**
+     * @return TimeDecorator
+     */
+    public function getValueAsTime()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_TIME);
+        return $this->getValue();
+    }
+
+    /**
+     * @return DateTimeDecorator
+     */
+    public function getValueAsDateTime()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_DATETIME);
+        return $this->getValue();
+    }
+
+    /**
+     * @return AttributeCollection
+     */
+    public function getValueAsNested()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_NESTED);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Reference
+     */
+    public function getValueAsReference()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_REFERENCE);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Set
+     */
+    public function getValueAsBoolSet()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_SET, static::API_BOOL);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Set
+     */
+    public function getValueAsNumberSet()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_SET, static::API_NUMBER);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Set
+     */
+    public function getValueAsStringSet()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_SET, static::API_TEXT);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Set
+     */
+    public function getValueAsLocalizedStringSet()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_SET, static::API_LTEXT);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Set
+     */
+    public function getValueAsLocalizedEnumSet()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_SET, static::API_LENUM);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Set
+     */
+    public function getValueAsEnumSet()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_SET, static::API_ENUM);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Set
+     */
+    public function getValueAsMoneySet()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_SET, static::API_MONEY);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Set
+     */
+    public function getValueAsDateSet()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_SET, static::API_DATE);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Set
+     */
+    public function getValueAsTimeSet()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_SET, static::API_TIME);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Set
+     */
+    public function getValueAsDateTimeSet()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_SET, static::API_DATETIME);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Set
+     */
+    public function getValueAsNestedSet()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_SET, static::API_NESTED);
+        return $this->getValue();
+    }
+
+    /**
+     * @return Set
+     */
+    public function getValueAsReferenceSet()
+    {
+        $attributeName = $this->getName();
+        $this->setApiType($attributeName, static::API_SET, static::API_REFERENCE);
+        return $this->getValue();
     }
 
     /**

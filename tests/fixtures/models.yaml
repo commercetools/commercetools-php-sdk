@@ -97,6 +97,7 @@ shippingInfo:
     - taxCategory
     - shippingMethod
     - deliveries
+    - shippingMethodState
 
 discountCodeReference:
   domain: cart
@@ -308,6 +309,7 @@ customer:
     - shippingAddressIds
     - billingAddressIds
     - salutation
+    - key
 customerSigninResult:
   domain: customer
   model: CustomerSigninResult
@@ -665,6 +667,7 @@ taxCategory:
     - name
     - description
     - rates
+    - key
 
 taxRate:
   domain: taxCategory
@@ -703,6 +706,7 @@ customerGroup:
     - createdAt
     - lastModifiedAt
     - name
+    - key
 
 discountCode:
   domain: discountCode
@@ -800,6 +804,8 @@ shippingMethod:
     - taxCategory
     - zoneRates
     - isDefault
+    - key
+    - predicate
 
 zoneRate:
   domain: shippingMethod

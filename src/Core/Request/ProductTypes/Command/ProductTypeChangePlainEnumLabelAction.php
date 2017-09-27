@@ -44,7 +44,7 @@ class ProductTypeChangePlainEnumLabelAction extends AbstractAction
      * @param string $attributeName
      * @param Enum $enum
      * @param Context|callable $context
-     * @return ProductTypeChangeLabelAction
+     * @return ProductTypeChangePlainEnumLabelAction
      */
     public static function ofAttributeNameAndEnumValue($attributeName, Enum $enum, $context = null)
     {

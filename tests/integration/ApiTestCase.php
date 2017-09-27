@@ -49,6 +49,7 @@ use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\Model\ProductType\StringType;
+use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
@@ -97,6 +98,12 @@ use Commercetools\Core\Request\Products\ProductDeleteRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest;
+use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
+use Commercetools\Core\Request\Project\ProjectGetRequest;
+use Commercetools\Core\Request\Project\ProjectUpdateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
 use Commercetools\Core\Request\States\StateCreateRequest;
@@ -124,8 +131,13 @@ class ApiTestCase extends TestCase
     private static $testRun;
     private static $client = [];
     private static $errorHandler;
+    /**
+     * @var Project
+     */
+    private static $project;
 
     protected $cleanupRequests = [];
+
 
     /**
      * @var ProductType
@@ -237,6 +249,7 @@ class ApiTestCase extends TestCase
             self::$errorHandler->clear();
         }
         self::$testRun = md5(microtime());
+        $this->setupProject();
     }
 
     public function getTestRun()
@@ -253,17 +266,12 @@ class ApiTestCase extends TestCase
         $this->cleanup();
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function onNotSuccessfulTest($e)
+    public function flushErrorLog()
     {
         if (self::$errorHandler instanceof FingersCrossedHandler) {
             self::$errorHandler->activate();
         }
-        parent::onNotSuccessfulTest($e);
     }
-
 
     /**
      * @param $scope
@@ -381,6 +389,40 @@ class ApiTestCase extends TestCase
             $config->setAcceptEncoding(null);
         }
         return $config;
+    }
+
+    protected function setupProject()
+    {
+        if (is_null(self::$project)) {
+            $request = ProjectGetRequest::of();
+            $response = $request->executeWithClient($this->getClient());
+            $project = $request->mapResponse($response);
+
+            $request = ProjectUpdateRequest::ofVersion($project->getVersion());
+
+            $currencies = $project->getCurrencies()->toArray();
+            if (!in_array('EUR', $currencies) || !in_array('USD', $currencies)) {
+                $request->addAction(ProjectChangeCurrenciesAction::ofCurrencies(['EUR', 'USD']));
+            }
+            $languages = $project->getLanguages()->toArray();
+            if (!in_array('en', $languages) || !in_array('de', $languages) || !in_array('de-DE', $languages)) {
+                $request->addAction(ProjectChangeLanguagesAction::ofLanguages(['en', 'de', 'de-DE']));
+            }
+            $countries = $project->getCountries()->toArray();
+            if (!in_array('FR', $countries) || !in_array('DE', $countries) || !in_array('ES', $countries) || !in_array('US', $countries)) {
+                $request->addAction(ProjectChangeCountriesAction::ofCountries(['FR', 'DE', 'ES', 'US']));
+            }
+            if ($project->getMessages()->getEnabled() === false) {
+                $request->addAction(ProjectChangeMessagesEnabledAction::ofMessagesEnabled(true));
+            }
+
+            if ($request->hasActions()) {
+                $response = $request->executeWithClient($this->getClient());
+                $this->assertFalse($response->isError());
+            }
+
+            self::$project = $project;
+        }
     }
 
     protected function cleanup()

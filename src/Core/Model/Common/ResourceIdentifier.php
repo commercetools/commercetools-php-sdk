@@ -34,7 +34,7 @@ class ResourceIdentifier extends JsonObject
      * @param $type
      * @param $id
      * @param Context|callable $context
-     * @return Reference
+     * @return ResourceIdentifier
      */
     public static function ofTypeAndId($type, $id, $context = null)
     {
@@ -46,7 +46,7 @@ class ResourceIdentifier extends JsonObject
      * @param $type
      * @param $key
      * @param Context|callable $context
-     * @return Reference
+     * @return ResourceIdentifier
      */
     public static function ofTypeAndKey($type, $key, $context = null)
     {

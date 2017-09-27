@@ -18,7 +18,10 @@
             <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
-
+    <listeners>
+        <listener class="Commercetools\Core\ErrorListener" file="tests/integration/ErrorListener.php">
+        </listener>
+    </listeners>
     <!--<logging>
         <log type="coverage-html" target="build/coverage" title="Commercetools PHP SDK"
              charset="UTF-8" yui="true" highlight="true"

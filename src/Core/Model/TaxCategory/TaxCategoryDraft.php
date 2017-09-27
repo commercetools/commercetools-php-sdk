@@ -17,6 +17,8 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method TaxCategoryDraft setDescription(string $description = null)
  * @method TaxRateCollection getRates()
  * @method TaxCategoryDraft setRates(TaxRateCollection $rates = null)
+ * @method string getKey()
+ * @method TaxCategoryDraft setKey(string $key = null)
  */
 class TaxCategoryDraft extends JsonObject
 {
@@ -26,6 +28,7 @@ class TaxCategoryDraft extends JsonObject
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
             'rates' => [static::TYPE => TaxRateCollection::class],
+            'key' => [self::TYPE => 'string'],
         ];
     }
 

@@ -10,10 +10,15 @@ use Commercetools\Core\Request\Query\ParameterInterface;
 
 /**
  * @package Commercetools\Core\Request
- * @method $this addParamObject(ParameterInterface $param)
  */
 trait ExpandTrait
 {
+    /**
+     * @param ParameterInterface $param
+     * @return $this
+     */
+    abstract public function addParamObject(ParameterInterface $param);
+
     /**
      * @param $fieldReference
      * @return $this

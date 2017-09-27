@@ -16,9 +16,12 @@ use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryChangeNameAction
 use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryRemoveTaxRateAction;
 use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryReplaceTaxRateAction;
 use Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetDescriptionAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetKeyAction;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryUpdateRequest;
+use Commercetools\Core\Request\TaxCategories\TaxCategoryUpdateByKeyRequest;
+use function GuzzleHttp\Psr7\str;
 
 class TaxCategoryUpdateRequestTest extends ApiTestCase
 {
@@ -75,6 +78,46 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(TaxCategory::class, $result);
         $this->assertSame($name, $result->getName());
+        $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
+    }
+
+    public function testUpdateNameByKey()
+    {
+        $draft = $this->getDraft('update name')->setKey('key-' . $this->getTestRun());
+        $taxCategory = $this->createTaxCategory($draft);
+
+        $name = $this->getTestRun() . '-new-name';
+        $request = TaxCategoryUpdateByKeyRequest::ofKeyAndVersion($taxCategory->getKey(), $taxCategory->getVersion())
+            ->addAction(TaxCategoryChangeNameAction::ofName($name));
+
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(TaxCategory::class, $result);
+        $this->assertSame($name, $result->getName());
+        $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
+    }
+
+    public function testSetKey()
+    {
+        $draft = $this->getDraft('set-key');
+        $taxCategory = $this->createTaxCategory($draft);
+
+        $key = $this->getTestRun() . '-new-key';
+        $request = TaxCategoryUpdateRequest::ofIdAndVersion($taxCategory->getId(), $taxCategory->getVersion())
+            ->addAction(
+                TaxCategorySetKeyAction::ofKey($key)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(TaxCategory::class, $result);
+        $this->assertNotSame($key, $draft->getKey());
+        $this->assertSame($key, $result->getKey());
         $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
     }
 

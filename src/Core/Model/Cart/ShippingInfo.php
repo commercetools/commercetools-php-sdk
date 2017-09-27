@@ -35,9 +35,14 @@ use Commercetools\Core\Model\Common\TaxedItemPrice;
  * @method ShippingInfo setTaxedPrice(TaxedItemPrice $taxedPrice = null)
  * @method DiscountedLineItemPrice getDiscountedPrice()
  * @method ShippingInfo setDiscountedPrice(DiscountedLineItemPrice $discountedPrice = null)
+ * @method string getShippingMethodState()
+ * @method ShippingInfo setShippingMethodState(string $shippingMethodState = null)
  */
 class ShippingInfo extends JsonObject
 {
+    const SHIPPING_METHOD_MATCH = 'MatchesCart';
+    const SHIPPING_METHOD_DONT_MATCH = 'DoesNotMatchCart';
+
     public function fieldDefinitions()
     {
         return [
@@ -50,6 +55,7 @@ class ShippingInfo extends JsonObject
             'shippingMethod' => [static::TYPE => ShippingMethodReference::class],
             'deliveries' => [static::TYPE => DeliveryCollection::class],
             'discountedPrice' => [static::TYPE => DiscountedLineItemPrice::class],
+            'shippingMethodState' => [static::TYPE => 'string']
         ];
     }
 }

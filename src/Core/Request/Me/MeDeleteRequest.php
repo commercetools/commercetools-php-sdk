@@ -31,7 +31,6 @@ class MeDeleteRequest extends AbstractDeleteRequest
     }
 
     /**
-     * @param string $id
      * @param int $version
      * @param Context $context
      * @return static

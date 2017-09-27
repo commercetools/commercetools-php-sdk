@@ -5,28 +5,31 @@
 
 namespace Commercetools\Core\Client\Adapter;
 
+use Commercetools\Core\Client\OAuth\TokenProvider;
+use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Pool;
-use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\ApiException;
 use Psr\Log\LogLevel;
 
-class Guzzle6Adapter implements AdapterInterface
+class Guzzle6Adapter implements AdapterOptionInterface, CorrelationIdAware, TokenProviderAware
 {
+    const DEFAULT_CONCURRENCY = 25;
     /**
      * @var Client
      */
     protected $client;
 
     protected $logger;
+
+    private $concurrency;
 
     public function __construct(array $options = [])
     {
@@ -36,10 +39,11 @@ class Guzzle6Adapter implements AdapterInterface
                 'verify' => true,
                 'timeout' => 60,
                 'connect_timeout' => 10,
-                'pool_size' => 25
+                'concurrency' => self::DEFAULT_CONCURRENCY
             ],
             $options
         );
+        $this->concurrency = $options['concurrency'];
         $this->client = new Client($options);
     }
 
@@ -50,6 +54,26 @@ class Guzzle6Adapter implements AdapterInterface
         }
         $this->logger = $logger;
         $this->addHandler(self::log($logger, $formatter, $logLevel));
+    }
+
+    public function setCorrelationIdProvider(CorrelationIdProvider $provider)
+    {
+        $this->addHandler(Middleware::mapRequest(function (RequestInterface $request) use ($provider) {
+            return $request->withAddedHeader(
+                AbstractApiResponse::X_CORRELATION_ID,
+                $provider->getCorrelationId()
+            );
+        }));
+    }
+
+    public function setOAuthTokenProvider(TokenProvider $tokenProvider)
+    {
+        $this->addHandler(Middleware::mapRequest(function (RequestInterface $request) use ($tokenProvider) {
+            return $request->withAddedHeader(
+                'Authorization',
+                'Bearer ' . $tokenProvider->getToken()->getToken()
+            );
+        }));
     }
 
     /**
@@ -69,9 +93,11 @@ class Guzzle6Adapter implements AdapterInterface
                 return $handler($request, $options)->then(
                     function ($response) use ($logger, $request, $formatter, $logLevel) {
                         $message = $formatter->format($request, $response);
-                        $context[AbstractApiResponse::X_CORRELATION_ID] = $response->getHeader(
-                            AbstractApiResponse::X_CORRELATION_ID
-                        );
+                        $context = [
+                            AbstractApiResponse::X_CORRELATION_ID => $response->getHeader(
+                                AbstractApiResponse::X_CORRELATION_ID
+                            )
+                        ];
                         $logger->log($logLevel, $message, $context);
                         return $response;
                     },
@@ -102,12 +128,23 @@ class Guzzle6Adapter implements AdapterInterface
 
     /**
      * @param RequestInterface $request
+     * @param array $clientOptions
      * @return ResponseInterface
+     * @throws ApiException
+     * @throws \Commercetools\Core\Error\ApiException
+     * @throws \Commercetools\Core\Error\BadGatewayException
+     * @throws \Commercetools\Core\Error\ConcurrentModificationException
+     * @throws \Commercetools\Core\Error\ErrorResponseException
+     * @throws \Commercetools\Core\Error\GatewayTimeoutException
+     * @throws \Commercetools\Core\Error\InternalServerErrorException
+     * @throws \Commercetools\Core\Error\InvalidTokenException
+     * @throws \Commercetools\Core\Error\NotFoundException
+     * @throws \Commercetools\Core\Error\ServiceUnavailableException
      */
-    public function execute(RequestInterface $request)
+    public function execute(RequestInterface $request, array $clientOptions = [])
     {
         try {
-            $response = $this->client->send($request);
+            $response = $this->client->send($request, $clientOptions);
         } catch (RequestException $exception) {
             $response = $exception->getResponse();
             throw ApiException::create($request, $response, $exception);
@@ -118,13 +155,18 @@ class Guzzle6Adapter implements AdapterInterface
 
     /**
      * @param RequestInterface[] $requests
+     * @param array $clientOptions
      * @return ResponseInterface[]
      */
-    public function executeBatch(array $requests)
+    public function executeBatch(array $requests, array $clientOptions = [])
     {
         $results = Pool::batch(
             $this->client,
-            $requests
+            $requests,
+            [
+                'concurrency' => $this->concurrency,
+                'options' => $clientOptions
+            ]
         );
 
         $responses = [];
@@ -165,11 +207,12 @@ class Guzzle6Adapter implements AdapterInterface
 
     /**
      * @param RequestInterface $request
+     * @param array $clientOptions
      * @return AdapterPromiseInterface
      */
-    public function executeAsync(RequestInterface $request)
+    public function executeAsync(RequestInterface $request, array $clientOptions = [])
     {
-        $guzzlePromise = $this->client->sendAsync($request);
+        $guzzlePromise = $this->client->sendAsync($request, $clientOptions);
 
         return new Guzzle6Promise($guzzlePromise);
     }

@@ -354,7 +354,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 ProductPublishAction::class,
-                ['action']
+                ['action', 'scope']
             ],
             [
                 ProductRemoveFromCategoryAction::class,
@@ -598,7 +598,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 CartAddLineItemAction::class,
-                ['action', 'productId', 'variantId', 'quantity', 'supplyChannel', 'distributionChannel', 'custom', 'externalTaxRate', 'externalPrice', 'externalTotalPrice']
+                ['action', 'productId', 'variantId', 'quantity', 'supplyChannel', 'distributionChannel', 'custom', 'externalTaxRate', 'externalPrice', 'externalTotalPrice', 'sku']
             ],
             [
                 CartChangeLineItemQuantityAction::class,
@@ -1213,6 +1213,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 ProductRevertStagedChangesAction::class,
+                'of'
             ],
             [
                 ProductSetAttributeAction::class,

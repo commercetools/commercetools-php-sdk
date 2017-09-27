@@ -73,7 +73,7 @@ class ScopedPrice extends JsonObject
     /**
      * @param Money $money
      * @param Context|callable $context
-     * @return Price
+     * @return ScopedPrice
      */
     public static function ofMoney(Money $money, $context = null)
     {

@@ -13,13 +13,19 @@ use Commercetools\Core\Request\AbstractAction;
  * @link https://dev.commercetools.com/http-api-projects-products.html#publish
  * @method string getAction()
  * @method ProductPublishAction setAction(string $action = null)
+ * @method string getScope()
+ * @method ProductPublishAction setScope(string $scope = null)
  */
 class ProductPublishAction extends AbstractAction
 {
+    const ALL = 'All';
+    const PRICES = 'Prices';
+
     public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],
+            'scope' => [static::TYPE => 'string'],
         ];
     }
 

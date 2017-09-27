@@ -24,7 +24,7 @@ use Commercetools\Core\Model\Product\SuggestionResult;
 /**
  * @package Commercetools\Core\Request\Products
  * @link https://dev.commercetools.com/http-api-projects-products-suggestions.html#suggest-query
- * @method ResourceResponse executeWithClient(Client $client)
+ * @method ResourceResponse executeWithClient(Client $client, array $headers = null)
  * @method SuggestionResult mapResponse(ApiResponseInterface $response)
  * @method SuggestionResult mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

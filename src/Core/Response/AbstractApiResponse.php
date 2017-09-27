@@ -104,6 +104,11 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
         return (!in_array($statusCode, [200, 201]));
     }
 
+    /**
+     * @param $fieldName
+     * @param mixed $default
+     * @return mixed
+     */
     protected function getResponseField($fieldName, $default = '')
     {
         $result = $this->toArray();
@@ -123,7 +128,8 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
 
     public function getCorrelationId()
     {
-        return current($this->getHeader(self::X_CORRELATION_ID));
+        $correlationId = $this->getHeader(self::X_CORRELATION_ID);
+        return count($correlationId) > 0 ? current($correlationId) : null;
     }
 
     public function getStatusCode()

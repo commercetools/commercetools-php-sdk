@@ -10,6 +10,7 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
+use Commercetools\Core\Request\Customers\CustomerByKeyGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
 use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
 use Commercetools\Core\Request\Customers\CustomerQueryRequest;
@@ -65,6 +66,21 @@ class CustomerQueryRequestTest extends ApiTestCase
         $customer = $this->createCustomer($draft);
 
         $request = CustomerByIdGetRequest::ofId($customer->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Customer::class, $customer);
+        $this->assertSame($customer->getId(), $result->getId());
+
+    }
+
+    public function testGetByKey()
+    {
+        $draft = $this->getDraft();
+        $draft->setKey('test-'. $this->getTestRun());
+        $customer = $this->createCustomer($draft);
+
+        $request = CustomerByKeyGetRequest::ofKey($customer->getKey());
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 

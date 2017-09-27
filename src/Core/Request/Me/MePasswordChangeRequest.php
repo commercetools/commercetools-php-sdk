@@ -46,7 +46,6 @@ class MePasswordChangeRequest extends AbstractApiRequest
     protected $newPassword;
 
     /**
-     * @param string $id
      * @param int $version
      * @param string $currentPassword
      * @param string $newPassword

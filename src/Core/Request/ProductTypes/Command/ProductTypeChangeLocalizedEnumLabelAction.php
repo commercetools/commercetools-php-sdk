@@ -44,7 +44,7 @@ class ProductTypeChangeLocalizedEnumLabelAction extends AbstractAction
      * @param string $attributeName
      * @param LocalizedEnum $enum
      * @param Context|callable $context
-     * @return ProductTypeChangeLabelAction
+     * @return ProductTypeChangeLocalizedEnumLabelAction
      */
     public static function ofAttributeNameAndEnumValue($attributeName, LocalizedEnum $enum, $context = null)
     {

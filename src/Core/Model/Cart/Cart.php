@@ -80,6 +80,7 @@ class Cart extends Resource
     const TAX_MODE_PLATFORM = 'Platform';
     const TAX_MODE_EXTERNAL = 'External';
     const TAX_MODE_DISABLED = 'Disabled';
+    const TAX_MODE_EXTERNAL_AMOUNT = 'ExternalAmount';
     const TAX_ROUNDING_MODE_HALF_EVEN = 'HalfEven';
     const TAX_ROUNDING_MODE_HALF_UP = 'HalfUp';
     const TAX_ROUNDING_MODE_HALF_DOWN = 'HalfDown';

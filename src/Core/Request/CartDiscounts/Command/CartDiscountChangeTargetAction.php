@@ -38,7 +38,7 @@ class CartDiscountChangeTargetAction extends AbstractAction
     }
 
     /**
-     * @param string $target
+     * @param CartDiscountTarget $target
      * @param Context|callable $context
      * @return CartDiscountChangeTargetAction
      */

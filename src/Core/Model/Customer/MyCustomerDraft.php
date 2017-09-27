@@ -80,7 +80,7 @@ class MyCustomerDraft extends JsonObject
      * @param string $lastName
      * @param string $password
      * @param Context|callable $context
-     * @return CustomerDraft
+     * @return MyCustomerDraft
      */
     public static function ofEmailNameAndPassword($email, $firstName, $lastName, $password, $context = null)
     {

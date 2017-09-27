@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Cart;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocaleTrait;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
@@ -46,6 +47,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method CartDraft setTaxRoundingMode(string $taxRoundingMode = null)
  * @method int getDeleteDaysAfterLastModification()
  * @method CartDraft setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
+ * @method CustomerGroupReference getCustomerGroup()
+ * @method CartDraft setCustomerGroup(CustomerGroupReference $customerGroup = null)
  */
 class CartDraft extends JsonObject
 {
@@ -69,7 +72,8 @@ class CartDraft extends JsonObject
             'anonymousId' => [static::TYPE => 'string'],
             'locale' => [static::TYPE => 'string'],
             'taxRoundingMode' => [static::TYPE => 'string'],
-            'deleteDaysAfterLastModification' => [static::TYPE => 'int']
+            'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
+            'customerGroup' => [static::TYPE => CustomerGroupReference::class],
         ];
     }
 

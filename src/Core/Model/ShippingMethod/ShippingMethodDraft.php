@@ -22,6 +22,10 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  * @method ShippingMethodDraft setZoneRates(ZoneRateCollection $zoneRates = null)
  * @method bool getIsDefault()
  * @method ShippingMethodDraft setIsDefault(bool $isDefault = null)
+ * @method string getKey()
+ * @method ShippingMethodDraft setKey(string $key = null)
+ * @method string getPredicate()
+ * @method ShippingMethodDraft setPredicate(string $predicate = null)
  */
 class ShippingMethodDraft extends JsonObject
 {
@@ -33,6 +37,8 @@ class ShippingMethodDraft extends JsonObject
             'taxCategory' => [static::TYPE => TaxCategoryReference::class],
             'zoneRates' => [static::TYPE => ZoneRateCollection::class],
             'isDefault' => [static::TYPE => 'bool'],
+            'key' => [static::TYPE => 'string'],
+            'predicate' => [static::TYPE => 'string'],
         ];
     }
 

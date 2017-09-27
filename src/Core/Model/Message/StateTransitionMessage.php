@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\Message;
 
+use Commercetools\Core\Model\State\StateReference;
+
 abstract class StateTransitionMessage extends Message
 {
     public function fieldDefinitions()

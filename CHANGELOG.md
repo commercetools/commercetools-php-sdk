@@ -1,3 +1,36 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.1.0...v2.2.0) (2017-09-27)
+
+
+### Bug Fixes
+
+* **Me:** fix MeUpdateRequest constructor ([e96a2d1](https://github.com/commercetools/commercetools-php-sdk/commit/e96a2d1))
+* **Message:** fix object hierarchy for PaymentTransactionStateChanged message ([b4ec4a2](https://github.com/commercetools/commercetools-php-sdk/commit/b4ec4a2))
+* **StateTransitionMessage:** fix type of state in StateTransitionMessage ([2bb1efd](https://github.com/commercetools/commercetools-php-sdk/commit/2bb1efd))
+
+
+### Features
+
+* **Cart:** support add line item by sky ([3b81973](https://github.com/commercetools/commercetools-php-sdk/commit/3b81973)), closes [#341](https://github.com/commercetools/commercetools-php-sdk/issues/341)
+* **Cart:** support external tax amount ([95e5547](https://github.com/commercetools/commercetools-php-sdk/commit/95e5547)), closes [#347](https://github.com/commercetools/commercetools-php-sdk/issues/347)
+* **Cart:** support setAnonymousId ([1a1e472](https://github.com/commercetools/commercetools-php-sdk/commit/1a1e472)), closes [#338](https://github.com/commercetools/commercetools-php-sdk/issues/338)
+* **Cart:** support setCustomerGroup update action ([80c72ec](https://github.com/commercetools/commercetools-php-sdk/commit/80c72ec)), closes [#343](https://github.com/commercetools/commercetools-php-sdk/issues/343)
+* **Client:** add configuration options for guzzle ([18dbd00](https://github.com/commercetools/commercetools-php-sdk/commit/18dbd00)), closes [#345](https://github.com/commercetools/commercetools-php-sdk/issues/345)
+* **Client:** support creation of correlation id at client side ([124c004](https://github.com/commercetools/commercetools-php-sdk/commit/124c004)), closes [#328](https://github.com/commercetools/commercetools-php-sdk/issues/328)
+* **CustomField:** add type safe getter for field in field container ([732f861](https://github.com/commercetools/commercetools-php-sdk/commit/732f861))
+* **Customer:** support setKey for customers ([211573d](https://github.com/commercetools/commercetools-php-sdk/commit/211573d)), closes [#342](https://github.com/commercetools/commercetools-php-sdk/issues/342)
+* **CustomerGroup:** support field `key` functionality ([57e803c](https://github.com/commercetools/commercetools-php-sdk/commit/57e803c)), closes [#330](https://github.com/commercetools/commercetools-php-sdk/issues/330)
+* **Message:** add ProductVariantDeleted, ProductDeleted and ProductRevertedStagedChanges message ([f7291ae](https://github.com/commercetools/commercetools-php-sdk/commit/f7291ae)), closes [#332](https://github.com/commercetools/commercetools-php-sdk/issues/332)
+* **Product:** add typed getter for product attribute value ([34afcdd](https://github.com/commercetools/commercetools-php-sdk/commit/34afcdd))
+* **Product:** support scope for product publish ([9d0b5aa](https://github.com/commercetools/commercetools-php-sdk/commit/9d0b5aa)), closes [#340](https://github.com/commercetools/commercetools-php-sdk/issues/340)
+* **Project:** support change of project settings ([347ecb6](https://github.com/commercetools/commercetools-php-sdk/commit/347ecb6)), closes [#350](https://github.com/commercetools/commercetools-php-sdk/issues/350)
+* **ShippingMethod:** add support for shipping method predicate ([19ea63e](https://github.com/commercetools/commercetools-php-sdk/commit/19ea63e)), closes [#348](https://github.com/commercetools/commercetools-php-sdk/issues/348)
+* **ShippingMethod:** support shipping method by key functionality ([3ba9596](https://github.com/commercetools/commercetools-php-sdk/commit/3ba9596)), closes [#329](https://github.com/commercetools/commercetools-php-sdk/issues/329)
+* **Subscription:** support azure service bus destination ([58ad977](https://github.com/commercetools/commercetools-php-sdk/commit/58ad977)), closes [#331](https://github.com/commercetools/commercetools-php-sdk/issues/331)
+* **TaxCategory:** support setKey for tax categories ([6c41b97](https://github.com/commercetools/commercetools-php-sdk/commit/6c41b97)), closes [#339](https://github.com/commercetools/commercetools-php-sdk/issues/339)
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.0.0...v2.1.0) (2017-07-06)
 

@@ -160,7 +160,7 @@ class ReflectedClass
 
         $methods = [];
         foreach ($reflectionClass->getMethods() as $method) {
-            $methods[$method->getName()] = $method;
+            $methods[$method->name] = $method;
         }
         $this->methods = $methods;
     }
