@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>CTP SDK v2.2.0: Class Commercetools\Core\Request\Orders\Command\OrderTransitionStateAction | PHP SDK</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
+	<link rel="stylesheet" href="resources/style.css?102290b3b885078d22775035a196a21915f80efe">
+    <link rel="shortcut icon" type="image/png" href="resources/favicon.png?9c2a6ec825b4dbff6085830fb749cd4d0299fcea">
+</head>
+
+<body>
+	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand"><img src="resources/ct-logo.svg?065fe633e263f47f5912ed2699add0e26a15e230" id="navbar-logo" alt="commercetools platform PHP SDK">PHP SDK v2.2.0</a>
+			</div>
+			<div class="collapse navbar-collapse">
+
+                <form id="search" class="navbar-form navbar-left" role="search">
+                    <input type="hidden" name="cx" value="">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <div class="form-group">
+                        <input type="text" name="q" class="search-query form-control" placeholder="Search">
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Orders.Command.html" title="Summary of Commercetools\Core\Request\Orders\Command"><span>Namespace</span></a>
+					</li>
+					<li class="active">
+<span>Class</span>					</li>
+
+					<li class="divider-vertical"></li>
+
+					<li>
+						<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+					</li>
+
+
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div id="left">
+	<div id="menu">
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active">
+						<a href="namespace-Commercetools.html">
+							Commercetools<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Commons.html">
+							Commons<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Commons.Helper.html">
+							Helper						</a>
+							</li>
+								</ul></li>
+					<li class="active">
+						<a href="namespace-Commercetools.Core.html">
+							Core<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Cache.html">
+							Cache						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Client.html">
+							Client<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Client.Adapter.html">
+							Adapter						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Client.OAuth.html">
+							OAuth						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Error.html">
+							Error						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.html">
+							Helper<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.Annotate.html">
+							Annotate						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.State.html">
+							State<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.State.Renderer.html">
+							Renderer						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.Subscriber.html">
+							Subscriber<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.Subscriber.Log.html">
+							Log						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.html">
+							Model<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Cart.html">
+							Cart						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CartDiscount.html">
+							CartDiscount						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Category.html">
+							Category						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Channel.html">
+							Channel						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Common.html">
+							Common						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Customer.html">
+							Customer						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomerGroup.html">
+							CustomerGroup						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomField.html">
+							CustomField						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomObject.html">
+							CustomObject						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.DiscountCode.html">
+							DiscountCode						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Inventory.html">
+							Inventory						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Message.html">
+							Message						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Order.html">
+							Order						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Payment.html">
+							Payment						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Product.html">
+							Product<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Product.Search.html">
+							Search						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ProductDiscount.html">
+							ProductDiscount						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ProductType.html">
+							ProductType						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Project.html">
+							Project						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Review.html">
+							Review						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ShippingMethod.html">
+							ShippingMethod						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ShoppingList.html">
+							ShoppingList						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.State.html">
+							State						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Subscription.html">
+							Subscription						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.TaxCategory.html">
+							TaxCategory						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Type.html">
+							Type						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Zone.html">
+							Zone						</a>
+							</li>
+								</ul></li>
+					<li class="active">
+						<a href="namespace-Commercetools.Core.Request.html">
+							Request<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CartDiscounts.html">
+							CartDiscounts<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CartDiscounts.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Carts.html">
+							Carts<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Carts.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Categories.html">
+							Categories<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Categories.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Channels.html">
+							Channels<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Channels.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomerGroups.html">
+							CustomerGroups<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomerGroups.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Customers.html">
+							Customers<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Customers.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.html">
+							CustomField<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomObjects.html">
+							CustomObjects						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.DiscountCodes.html">
+							DiscountCodes<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.DiscountCodes.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
+							GraphQL						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Inventory.html">
+							Inventory<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Inventory.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Me.html">
+							Me						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Messages.html">
+							Messages						</a>
+							</li>
+					<li class="active">
+						<a href="namespace-Commercetools.Core.Request.Orders.html">
+							Orders<span></span>
+						</a>
+							<ul>
+					<li class="active">
+						<a href="namespace-Commercetools.Core.Request.Orders.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Payments.html">
+							Payments<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Payments.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductDiscounts.html">
+							ProductDiscounts<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductDiscounts.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Products.html">
+							Products<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Products.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductTypes.html">
+							ProductTypes<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductTypes.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Project.html">
+							Project<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Project.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Query.html">
+							Query						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Reviews.html">
+							Reviews<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Reviews.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShippingMethods.html">
+							ShippingMethods<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShippingMethods.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShoppingLists.html">
+							ShoppingLists<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShoppingLists.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.States.html">
+							States<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.States.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Subscriptions.html">
+							Subscriptions<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Subscriptions.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.TaxCategories.html">
+							TaxCategories<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.TaxCategories.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.html">
+							Types<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Zones.html">
+							Zones<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Zones.Command.html">
+							Command						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Response.html">
+							Response						</a>
+							</li>
+								</ul></li></ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderAddDeliveryAction.html">OrderAddDeliveryAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderAddParcelToDeliveryAction.html">OrderAddParcelToDeliveryAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderAddPaymentAction.html">OrderAddPaymentAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderAddReturnInfoAction.html">OrderAddReturnInfoAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderChangeOrderStateAction.html">OrderChangeOrderStateAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderChangePaymentStateAction.html">OrderChangePaymentStateAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderChangeShipmentStateAction.html">OrderChangeShipmentStateAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderImportCustomLineItemStateAction.html">OrderImportCustomLineItemStateAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderImportLineItemStateAction.html">OrderImportLineItemStateAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderRemovePaymentAction.html">OrderRemovePaymentAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetBillingAddress.html">OrderSetBillingAddress</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetCustomerEmail.html">OrderSetCustomerEmail</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetLocaleAction.html">OrderSetLocaleAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetOrderNumberAction.html">OrderSetOrderNumberAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetReturnPaymentStateAction.html">OrderSetReturnPaymentStateAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetReturnShipmentStateAction.html">OrderSetReturnShipmentStateAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetShippingAddress.html">OrderSetShippingAddress</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderTransitionCustomLineItemStateAction.html">OrderTransitionCustomLineItemStateAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderTransitionLineItemStateAction.html">OrderTransitionLineItemStateAction</a></li>
+				<li class="active"><a href="class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html">OrderTransitionStateAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Orders.Command.OrderUpdateSyncInfoAction.html">OrderUpdateSyncInfoAction</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class OrderTransitionStateAction</h1>
+
+
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+			<a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html"><span>Commercetools\Core\Model\Common\AbstractJsonDeserializeObject</span></a>
+			
+			 implements 
+				<a href="class-Commercetools.Core.Model.Common.JsonDeserializeInterface.html"><span>Commercetools\Core\Model\Common\JsonDeserializeInterface</span></a>, 
+			
+				<a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html"><span>Commercetools\Core\Model\Common\ObjectTreeInterface</span></a>
+			
+			 uses 
+					<a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html"><span>Commercetools\Core\Model\Common\ObjectTreeTrait</span></a>
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-Commercetools.Core.Model.Common.JsonObject.html"><span>Commercetools\Core\Model\Common\JsonObject</span></a>
+			
+			 implements 
+<span>JsonSerializable</span>
+			
+			 uses 
+					<a href="class-Commercetools.Core.Model.Common.ContextTrait.html"><span>Commercetools\Core\Model\Common\ContextTrait</span></a>
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-Commercetools.Core.Request.AbstractAction.html"><span>Commercetools\Core\Request\AbstractAction</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-Commercetools.Core.Request.States.Command.TransitionStateAction.html"><span>Commercetools\Core\Request\States\Command\TransitionStateAction</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:120px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Commercetools\Core\Request\Orders\Command\OrderTransitionStateAction</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Request.html">Request</a>\<a href="namespace-Commercetools.Core.Request.Orders.html">Orders</a>\<a href="namespace-Commercetools.Core.Request.Orders.Command.html">Command</a><br>
+
+				<b>API documentation:</b>
+				<b><a href="https://dev.commercetools.com/http-api-projects-orders.html#transition-state" target="api-doc">https://dev.commercetools.com/http-api-projects-orders.html#transition-state</a></b><br>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html#11-23" title="Go to source code">Core/Request/Orders/Command/OrderTransitionStateAction.php</a>
+		<br>
+	</div>
+
+
+
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2>Methods summary</h2></div>
+		</div>
+
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Request.States.Command.TransitionStateAction.html#methods">Commercetools\Core\Request\States\Command\TransitionStateAction</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Request.States.Command.TransitionStateAction.html#___construct">__construct()</a></code>, 
+				<code><a href="class-Commercetools.Core.Request.States.Command.TransitionStateAction.html#_ofState">ofState()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Model.Common.JsonObject.html#methods">Commercetools\Core\Model\Common\JsonObject</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Model.Common.JsonObject.html#___get">__get()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.JsonObject.html#_hasField">hasField()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.JsonObject.html#_isOptional">isOptional()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#methods">Commercetools\Core\Model\Common\AbstractJsonDeserializeObject</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#___sleep">__sleep()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#_fromArray">fromArray()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#_jsonSerialize">jsonSerialize()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#_of">of()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#_toArray">toArray()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#methods">Commercetools\Core\Model\Common\ContextAwareInterface</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_getContext">getContext()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_getContextCallback">getContextCallback()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_setContext">setContext()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_setContextIfNull">setContextIfNull()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#methods">Commercetools\Core\Model\Common\ObjectTreeInterface</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_parentSet">parentSet()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_rootGet">rootGet()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_rootSet">rootSet()</a></code>
+			</p>
+		</div>
+
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Model.Common.ContextTrait.html#methods">Commercetools\Core\Model\Common\ContextTrait</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Model.Common.ContextTrait.html#_getContext">getContext()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ContextTrait.html#_getContextCallback">getContextCallback()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ContextTrait.html#_setContext">setContext()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ContextTrait.html#_setContextIfNull">setContextIfNull()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html#methods">Commercetools\Core\Model\Common\ObjectTreeTrait</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html#_parentSet">parentSet()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html#_rootGet">rootGet()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeTrait.html#_rootSet">rootSet()</a></code>
+			</p>
+		</div>
+
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Magic methods summary</h3></div>
+			<table class="summary table table-bordered table-striped methods" id="magicMethods">
+		<tr data-order="getAction" id="m_getAction">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getAction">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html#14" title="Go to source code">getAction</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setAction" id="m_setAction">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html">Commercetools\Core\Request\Orders\Command\OrderTransitionStateAction</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setAction">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html#15" title="Go to source code">setAction</a>( <span>string <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html">Commercetools\Core\Request\Orders\Command\OrderTransitionStateAction</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getState" id="m_getState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.State.StateReference.html">Commercetools\Core\Model\State\StateReference</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getState">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html#16" title="Go to source code">getState</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.State.StateReference.html">Commercetools\Core\Model\State\StateReference</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setState" id="m_setState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html">Commercetools\Core\Request\Orders\Command\OrderTransitionStateAction</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setState">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html#17" title="Go to source code">setState</a>( <span><code><a href="class-Commercetools.Core.Model.State.StateReference.html">Commercetools\Core\Model\State\StateReference</a></code> <var>$state</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$state</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html">Commercetools\Core\Request\Orders\Command\OrderTransitionStateAction</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getForce" id="m_getForce">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getForce">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html#18" title="Go to source code">getForce</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setForce" id="m_setForce">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html">Commercetools\Core\Request\Orders\Command\OrderTransitionStateAction</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setForce">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html#19" title="Go to source code">setForce</a>( <span>boolean <var>$force</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$force</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html">Commercetools\Core\Request\Orders\Command\OrderTransitionStateAction</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+			</table>
+		</div>
+
+
+
+
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Constants summary</h2></div>
+		</div>
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Constants inherited from <a href="class-Commercetools.Core.Model.Common.JsonObject.html#constants">Commercetools\Core\Model\Common\JsonObject</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Model.Common.JsonObject.html#DECORATOR"><b>DECORATOR</b></a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.JsonObject.html#ELEMENT_TYPE"><b>ELEMENT_TYPE</b></a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.JsonObject.html#INITIALIZED"><b>INITIALIZED</b></a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.JsonObject.html#OPTIONAL"><b>OPTIONAL</b></a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.JsonObject.html#TYPE"><b>TYPE</b></a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Constants inherited from <a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#constants">Commercetools\Core\Model\Common\AbstractJsonDeserializeObject</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#JSON_DESERIALIZE_INTERFACE"><b>JSON_DESERIALIZE_INTERFACE</b></a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#TYPEABLE_INTERFACE"><b>TYPEABLE_INTERFACE</b></a></code>
+			</p>
+		</div>
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
+<script src="elementlist.js?4b67af06f73852c7f116dfbeac6970b734c9320d"></script>
+</body>
+</html>
