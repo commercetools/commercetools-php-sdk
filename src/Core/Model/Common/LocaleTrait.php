@@ -19,6 +19,11 @@ trait LocaleTrait
     /**
      * @return array
      */
+    abstract public function toArray();
+
+    /**
+     * @return array
+     */
     public function toJson()
     {
         $data = $this->toArray();

@@ -11,10 +11,14 @@ use Commercetools\Core\Request\Query\Parameter;
 use Commercetools\Core\Request\Query\ParameterInterface;
 
 /**
- * @method $this addParamObject(ParameterInterface $param)
  */
 trait PriceSelectTrait
 {
+    /**
+     * @param ParameterInterface $param
+     * @return $this
+     */
+    abstract public function addParamObject(ParameterInterface $param);
 
     protected function select($key, $value)
     {

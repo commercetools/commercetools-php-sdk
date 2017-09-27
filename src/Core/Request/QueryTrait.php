@@ -11,10 +11,15 @@ use Commercetools\Core\Request\Query\ParameterInterface;
 
 /**
  * @package Commercetools\Core\Request
- * @method $this addParamObject(ParameterInterface $param)
  */
 trait QueryTrait
 {
+    /**
+     * @param ParameterInterface $param
+     * @return $this
+     */
+    abstract public function addParamObject(ParameterInterface $param);
+
     /**
      * @param string $where
      * @return $this
