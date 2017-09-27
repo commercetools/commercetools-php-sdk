@@ -402,8 +402,14 @@
 								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Project.html">
-							Project						</a>
+							Project<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Project.Command.html">
+							Command						</a>
 							</li>
+								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Query.html">
 							Query						</a>
@@ -510,7 +516,10 @@
 			<h3>Interfaces</h3>
 			<ul>
 				<li><a href="class-Commercetools.Core.Client.Adapter.AdapterInterface.html">AdapterInterface</a></li>
+				<li><a href="class-Commercetools.Core.Client.Adapter.AdapterOptionInterface.html">AdapterOptionInterface</a></li>
 				<li><a href="class-Commercetools.Core.Client.Adapter.AdapterPromiseInterface.html">AdapterPromiseInterface</a></li>
+				<li><a href="class-Commercetools.Core.Client.Adapter.CorrelationIdAware.html">CorrelationIdAware</a></li>
+				<li><a href="class-Commercetools.Core.Client.Adapter.TokenProviderAware.html">TokenProviderAware</a></li>
 			</ul>
 
 
@@ -533,7 +542,11 @@
 		<dd style="padding-left:0px">
 <b><span>Commercetools\Core\Client\Adapter\Guzzle6Adapter</span></b>			
 			 implements 
-				<a href="class-Commercetools.Core.Client.Adapter.AdapterInterface.html"><span>Commercetools\Core\Client\Adapter\AdapterInterface</span></a>
+				<a href="class-Commercetools.Core.Client.Adapter.AdapterOptionInterface.html"><span>Commercetools\Core\Client\Adapter\AdapterOptionInterface</span></a>, 
+			
+				<a href="class-Commercetools.Core.Client.Adapter.CorrelationIdAware.html"><span>Commercetools\Core\Client\Adapter\CorrelationIdAware</span></a>, 
+			
+				<a href="class-Commercetools.Core.Client.Adapter.TokenProviderAware.html"><span>Commercetools\Core\Client\Adapter\TokenProviderAware</span></a>
 			
 			
 		</dd>
@@ -551,7 +564,7 @@
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Client.html">Client</a>\<a href="namespace-Commercetools.Core.Client.Adapter.html">Adapter</a><br>
 
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#22-181" title="Go to source code">Core/Client/Adapter/Guzzle6Adapter.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#22-224" title="Go to source code">Core/Client/Adapter/Guzzle6Adapter.php</a>
 		<br>
 	</div>
 
@@ -571,7 +584,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#31-44" title="Go to source code">__construct</a>( <span>array <var>$options</var> = []</span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#34-48" title="Go to source code">__construct</a>( <span>array <var>$options</var> = []</span> )</code>
 
 			<div class="description short">
 				
@@ -600,7 +613,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setLogger">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#46-53" title="Go to source code">setLogger</a>( <span>Psr\Log\LoggerInterface <var>$logger</var></span>, <span> <var>$logLevel</var> = Commercetools\Core\Client\Adapter\LogLevel::INFO</span>, <span> <var>$formatter</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#50-57" title="Go to source code">setLogger</a>( <span>Psr\Log\LoggerInterface <var>$logger</var></span>, <span> <var>$logLevel</var> = Commercetools\Core\Client\Adapter\LogLevel::INFO</span>, <span> <var>$formatter</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -620,6 +633,68 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="setCorrelationIdProvider" id="_setCorrelationIdProvider">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setCorrelationIdProvider">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#59-67" title="Go to source code">setCorrelationIdProvider</a>( <span><code><a href="class-Commercetools.Core.Helper.CorrelationIdProvider.html">Commercetools\Core\Helper\CorrelationIdProvider</a></code> <var>$provider</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Commercetools.Core.Client.Adapter.CorrelationIdAware.html#_setCorrelationIdProvider">Commercetools\Core\Client\Adapter\CorrelationIdAware::setCorrelationIdProvider()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setOAuthTokenProvider" id="_setOAuthTokenProvider">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setOAuthTokenProvider">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#69-77" title="Go to source code">setOAuthTokenProvider</a>( <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$tokenProvider</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Commercetools.Core.Client.Adapter.TokenProviderAware.html#_setOAuthTokenProvider">Commercetools\Core\Client\Adapter\TokenProviderAware::setOAuthTokenProvider()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="addHandler" id="_addHandler">
 
 			<td class="attributes"><code>
@@ -631,7 +706,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addHandler">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#98-101" title="Go to source code">addHandler</a>( <span> <var>$handler</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#124-127" title="Go to source code">addHandler</a>( <span> <var>$handler</var></span> )</code>
 
 			<div class="description short">
 				
@@ -662,7 +737,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_execute">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#103-117" title="Go to source code">execute</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#129-154" title="Go to source code">execute</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>array <var>$clientOptions</var> = []</span> )</code>
 
 			<div class="description short">
 				
@@ -676,6 +751,8 @@
 					<div class="list"><dl>
 						<dt><var>$request</var></dt>
 						<dd></dd>
+						<dt><var>$clientOptions</var></dt>
+						<dd></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
@@ -683,11 +760,24 @@
 						Psr\Http\Message\ResponseInterface
 					</div>
 
+					<h4>Throws</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Error.ApiException.html">Commercetools\Core\Error\ApiException</a></code><br>
+						<code><a href="class-Commercetools.Core.Error.ApiException.html">Commercetools\Core\Error\ApiException</a></code><br>
+						<code><a href="class-Commercetools.Core.Error.BadGatewayException.html">Commercetools\Core\Error\BadGatewayException</a></code><br>
+						<code><a href="class-Commercetools.Core.Error.ConcurrentModificationException.html">Commercetools\Core\Error\ConcurrentModificationException</a></code><br>
+						<code><a href="class-Commercetools.Core.Error.ErrorResponseException.html">Commercetools\Core\Error\ErrorResponseException</a></code><br>
+						<code><a href="class-Commercetools.Core.Error.GatewayTimeoutException.html">Commercetools\Core\Error\GatewayTimeoutException</a></code><br>
+						<code><a href="class-Commercetools.Core.Error.InternalServerErrorException.html">Commercetools\Core\Error\InternalServerErrorException</a></code><br>
+						<code><a href="class-Commercetools.Core.Error.InvalidTokenException.html">Commercetools\Core\Error\InvalidTokenException</a></code><br>
+						<code><a href="class-Commercetools.Core.Error.NotFoundException.html">Commercetools\Core\Error\NotFoundException</a></code><br>
+						<code><a href="class-Commercetools.Core.Error.ServiceUnavailableException.html">Commercetools\Core\Error\ServiceUnavailableException</a></code>
+					</div>
 
 
 
 					<h4>Implementation of</h4>
-					<div class="list"><code><a href="class-Commercetools.Core.Client.Adapter.AdapterInterface.html#_execute">Commercetools\Core\Client\Adapter\AdapterInterface::execute()</a></code></div>
+					<div class="list"><code><a href="class-Commercetools.Core.Client.Adapter.AdapterOptionInterface.html#_execute">Commercetools\Core\Client\Adapter\AdapterOptionInterface::execute()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -702,7 +792,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_executeBatch">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#119-142" title="Go to source code">executeBatch</a>( <span>array <var>$requests</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#156-184" title="Go to source code">executeBatch</a>( <span>array <var>$requests</var></span>, <span>array <var>$clientOptions</var> = []</span> )</code>
 
 			<div class="description short">
 				
@@ -716,6 +806,8 @@
 					<div class="list"><dl>
 						<dt><var>$requests</var></dt>
 						<dd></dd>
+						<dt><var>$clientOptions</var></dt>
+						<dd></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
@@ -727,7 +819,7 @@
 
 
 					<h4>Implementation of</h4>
-					<div class="list"><code><a href="class-Commercetools.Core.Client.Adapter.AdapterInterface.html#_executeBatch">Commercetools\Core\Client\Adapter\AdapterInterface::executeBatch()</a></code></div>
+					<div class="list"><code><a href="class-Commercetools.Core.Client.Adapter.AdapterOptionInterface.html#_executeBatch">Commercetools\Core\Client\Adapter\AdapterOptionInterface::executeBatch()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -742,7 +834,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_authenticate">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#144-164" title="Go to source code">authenticate</a>( <span> <var>$oauthUri</var></span>, <span> <var>$clientId</var></span>, <span> <var>$clientSecret</var></span>, <span> <var>$formParams</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#186-206" title="Go to source code">authenticate</a>( <span> <var>$oauthUri</var></span>, <span> <var>$clientId</var></span>, <span> <var>$clientSecret</var></span>, <span> <var>$formParams</var></span> )</code>
 
 			<div class="description short">
 				
@@ -788,7 +880,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_executeAsync">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#166-175" title="Go to source code">executeAsync</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#208-218" title="Go to source code">executeAsync</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>array <var>$clientOptions</var> = []</span> )</code>
 
 			<div class="description short">
 				
@@ -802,6 +894,8 @@
 					<div class="list"><dl>
 						<dt><var>$request</var></dt>
 						<dd></dd>
+						<dt><var>$clientOptions</var></dt>
+						<dd></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
@@ -813,7 +907,7 @@
 
 
 					<h4>Implementation of</h4>
-					<div class="list"><code><a href="class-Commercetools.Core.Client.Adapter.AdapterInterface.html#_executeAsync">Commercetools\Core\Client\Adapter\AdapterInterface::executeAsync()</a></code></div>
+					<div class="list"><code><a href="class-Commercetools.Core.Client.Adapter.AdapterOptionInterface.html#_executeAsync">Commercetools\Core\Client\Adapter\AdapterOptionInterface::executeAsync()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -828,7 +922,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getAdapterInfo">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#177-180" title="Go to source code">getAdapterInfo</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle6Adapter.html#220-223" title="Go to source code">getAdapterInfo</a>( )</code>
 
 			<div class="description short">
 				<p>returns used HTTP Client and version</p>
@@ -862,6 +956,36 @@
 
 
 
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Constants summary</h2></div>
+			<table class="summary table table-bordered table-striped constants" id="constants">
+			<tr data-order="DEFAULT_CONCURRENCY" id="DEFAULT_CONCURRENCY">
+
+				<td class="attributes"><code>integer</code></td>
+				<td class="name">
+					<code>
+						<a href="source-constant-DEFAULT_CONCURRENCY.html#24" title="Go to source code"><b>DEFAULT_CONCURRENCY</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#DEFAULT_CONCURRENCY" class="anchor">#</a>
+						<code><span class="php-num">25</span></code>
+					</div>
+				</td>
+			</tr>
+			</table>
+		</div>
+
 
 
 
@@ -873,6 +997,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?dac5e739bd689d6adefe6d19b501c23c841f5afe"></script>
+<script src="elementlist.js?4b67af06f73852c7f116dfbeac6970b734c9320d"></script>
 </body>
 </html>

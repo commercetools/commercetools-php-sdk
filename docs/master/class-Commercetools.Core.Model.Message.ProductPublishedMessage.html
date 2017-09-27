@@ -402,8 +402,14 @@
 								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Project.html">
-							Project						</a>
+							Project<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Project.Command.html">
+							Command						</a>
 							</li>
+								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Query.html">
 							Query						</a>
@@ -524,13 +530,17 @@
 				<li><a href="class-Commercetools.Core.Model.Message.PaymentStatusInterfaceCodeSetMessage.html">PaymentStatusInterfaceCodeSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.PaymentStatusStateTransitionMessage.html">PaymentStatusStateTransitionMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.PaymentTransactionAddedMessage.html">PaymentTransactionAddedMessage</a></li>
-				<li><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">PaymentTransactionChangedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">PaymentTransactionChangedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.PaymentTransactionStateChangedMessage.html">PaymentTransactionStateChangedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductCreatedMessage.html">ProductCreatedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.ProductDeletedMessage.html">ProductDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductImageAddedMessage.html">ProductImageAddedMessage</a></li>
 				<li class="active"><a href="class-Commercetools.Core.Model.Message.ProductPublishedMessage.html">ProductPublishedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.ProductRevertedStagedChangesMessage.html">ProductRevertedStagedChangesMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductSlugChangedMessage.html">ProductSlugChangedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductStateTransitionMessage.html">ProductStateTransitionMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductUnpublishedMessage.html">ProductUnpublishedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.ProductVariantDeletedMessage.html">ProductVariantDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewCreatedMessage.html">ReviewCreatedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewRatingSetMessage.html">ReviewRatingSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewStateTransitionMessage.html">ReviewStateTransitionMessage</a></li>
@@ -616,7 +626,7 @@
 
 				<b>API documentation:</b>
 				<b><a href="https://dev.commercetools.com/http-api-projects-messages.html#productpublished-message" target="api-doc">https://dev.commercetools.com/http-api-projects-messages.html#productpublished-message</a></b><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Message.ProductPublishedMessage.html#13-46" title="Go to source code">Core/Model/Message/ProductPublishedMessage.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Message.ProductPublishedMessage.html#13-52" title="Go to source code">Core/Model/Message/ProductPublishedMessage.php</a>
 		<br>
 	</div>
 
@@ -1335,6 +1345,148 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getRemovedImageUrls" id="m_getRemovedImageUrls">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getRemovedImageUrls">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Message.ProductPublishedMessage.html#34" title="Go to source code">getRemovedImageUrls</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setRemovedImageUrls" id="m_setRemovedImageUrls">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Message.ProductPublishedMessage.html">Commercetools\Core\Model\Message\ProductPublishedMessage</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setRemovedImageUrls">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Message.ProductPublishedMessage.html#35" title="Go to source code">setRemovedImageUrls</a>( <span>array <var>$removedImageUrls</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$removedImageUrls</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Message.ProductPublishedMessage.html">Commercetools\Core\Model\Message\ProductPublishedMessage</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getScope" id="m_getScope">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getScope">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Message.ProductPublishedMessage.html#36" title="Go to source code">getScope</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setScope" id="m_setScope">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Message.ProductPublishedMessage.html">Commercetools\Core\Model\Message\ProductPublishedMessage</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setScope">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Message.ProductPublishedMessage.html#37" title="Go to source code">setScope</a>( <span>string <var>$scope</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$scope</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Message.ProductPublishedMessage.html">Commercetools\Core\Model\Message\ProductPublishedMessage</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 			</table>
 		</div>
 
@@ -1380,6 +1532,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?dac5e739bd689d6adefe6d19b501c23c841f5afe"></script>
+<script src="elementlist.js?4b67af06f73852c7f116dfbeac6970b734c9320d"></script>
 </body>
 </html>

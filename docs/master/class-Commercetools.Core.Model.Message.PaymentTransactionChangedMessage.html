@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>CTP SDK master: Class Commercetools\Core\Model\Message\PaymentTransactionChangedMessage | PHP SDK</title>
+	<title>CTP SDK master: Deprecated Class Commercetools\Core\Model\Message\PaymentTransactionChangedMessage | PHP SDK</title>
 
 	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
 	<link rel="stylesheet" href="resources/style.css?102290b3b885078d22775035a196a21915f80efe">
@@ -402,8 +402,14 @@
 								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Project.html">
-							Project						</a>
+							Project<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Project.Command.html">
+							Command						</a>
 							</li>
+								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Query.html">
 							Query						</a>
@@ -524,13 +530,17 @@
 				<li><a href="class-Commercetools.Core.Model.Message.PaymentStatusInterfaceCodeSetMessage.html">PaymentStatusInterfaceCodeSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.PaymentStatusStateTransitionMessage.html">PaymentStatusStateTransitionMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.PaymentTransactionAddedMessage.html">PaymentTransactionAddedMessage</a></li>
-				<li class="active"><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">PaymentTransactionChangedMessage</a></li>
+				<li class="active"><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">PaymentTransactionChangedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.PaymentTransactionStateChangedMessage.html">PaymentTransactionStateChangedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductCreatedMessage.html">ProductCreatedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.ProductDeletedMessage.html">ProductDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductImageAddedMessage.html">ProductImageAddedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductPublishedMessage.html">ProductPublishedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.ProductRevertedStagedChangesMessage.html">ProductRevertedStagedChangesMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductSlugChangedMessage.html">ProductSlugChangedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductStateTransitionMessage.html">ProductStateTransitionMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductUnpublishedMessage.html">ProductUnpublishedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.ProductVariantDeletedMessage.html">ProductVariantDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewCreatedMessage.html">ReviewCreatedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewRatingSetMessage.html">ReviewRatingSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewStateTransitionMessage.html">ReviewStateTransitionMessage</a></li>
@@ -550,7 +560,7 @@
 <div id="right">
 	<div id="rightInner">
 <div id="content" class="class">
-	<h1>Class PaymentTransactionChangedMessage</h1>
+	<h1 class="deprecated">Class PaymentTransactionChangedMessage</h1>
 
 
 
@@ -596,7 +606,14 @@
 		</dd>
 		<dd style="padding-left:120px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</span></b>			
+			<a href="class-Commercetools.Core.Model.Message.PaymentTransactionStateChangedMessage.html"><span>Commercetools\Core\Model\Message\PaymentTransactionStateChangedMessage</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:150px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</span></b>			
 			
 			
 		</dd>
@@ -614,9 +631,9 @@
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Model.html">Model</a>\<a href="namespace-Commercetools.Core.Model.Message.html">Message</a><br>
 
-				<b>API documentation:</b>
-				<b><a href="https://dev.commercetools.com/http-api-projects-messages.html#paymenttransactionstatechanged-message" target="api-doc">https://dev.commercetools.com/http-api-projects-messages.html#paymenttransactionstatechanged-message</a></b><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#13-46" title="Go to source code">Core/Model/Message/PaymentTransactionChangedMessage.php</a>
+				<b>Deprecated:</b>
+				Use PaymentTransactionStateChangedMessage instead<br>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#12-39" title="Go to source code">Core/Model/Message/PaymentTransactionChangedMessage.php</a>
 		<br>
 	</div>
 
@@ -658,20 +675,20 @@
 			</p>
 		</div>
 		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#methods">Commercetools\Core\Model\Common\ObjectTreeInterface</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_parentSet">parentSet()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_rootGet">rootGet()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_rootSet">rootSet()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#methods">Commercetools\Core\Model\Common\ContextAwareInterface</a></h3></div>
 			<p class="elementList">
 				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_getContext">getContext()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_getContextCallback">getContextCallback()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_setContext">setContext()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_setContextIfNull">setContextIfNull()</a></code>
-			</p>
-		</div>
-		<div class="panel panel-default">
-	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#methods">Commercetools\Core\Model\Common\ObjectTreeInterface</a></h3></div>
-			<p class="elementList">
-				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_parentSet">parentSet()</a></code>, 
-				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_rootGet">rootGet()</a></code>, 
-				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_rootSet">rootSet()</a></code>
 			</p>
 		</div>
 
@@ -707,7 +724,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getId">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#16" title="Go to source code">getId</a>( )</code>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#15" title="Go to source code">getId</a>( )</code>
 
 			<div class="description short">
 				
@@ -733,14 +750,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setId">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#17" title="Go to source code">setId</a>( <span>string <var>$id</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#16" title="Go to source code">setId</a>( <span>string <var>$id</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -758,433 +775,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getCreatedAt" id="m_getCreatedAt">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Model.Common.DateTimeDecorator.html">Commercetools\Core\Model\Common\DateTimeDecorator</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#m_getCreatedAt">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#18" title="Go to source code">getCreatedAt</a>( )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Model.Common.DateTimeDecorator.html">Commercetools\Core\Model\Common\DateTimeDecorator</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="setCreatedAt" id="m_setCreatedAt">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#m_setCreatedAt">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#19" title="Go to source code">setCreatedAt</a>( <span>DateTime <var>$createdAt</var> = <span class="php-keyword1">null</span></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$createdAt</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getSequenceNumber" id="m_getSequenceNumber">
-
-			<td class="attributes"><code>
-				 public 
-				integer
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#m_getSequenceNumber">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#20" title="Go to source code">getSequenceNumber</a>( )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-					<h4>Returns</h4>
-					<div class="list">
-						integer
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="setSequenceNumber" id="m_setSequenceNumber">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#m_setSequenceNumber">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#21" title="Go to source code">setSequenceNumber</a>( <span>integer <var>$sequenceNumber</var> = <span class="php-keyword1">null</span></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$sequenceNumber</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getResource" id="m_getResource">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Model.Common.Reference.html">Commercetools\Core\Model\Common\Reference</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#m_getResource">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#22" title="Go to source code">getResource</a>( )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Model.Common.Reference.html">Commercetools\Core\Model\Common\Reference</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="setResource" id="m_setResource">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#m_setResource">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#23" title="Go to source code">setResource</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Reference.html">Commercetools\Core\Model\Common\Reference</a></code> <var>$resource</var> = <span class="php-keyword1">null</span></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$resource</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getResourceVersion" id="m_getResourceVersion">
-
-			<td class="attributes"><code>
-				 public 
-				integer
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#m_getResourceVersion">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#24" title="Go to source code">getResourceVersion</a>( )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-					<h4>Returns</h4>
-					<div class="list">
-						integer
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="setResourceVersion" id="m_setResourceVersion">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#m_setResourceVersion">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#25" title="Go to source code">setResourceVersion</a>( <span>integer <var>$resourceVersion</var> = <span class="php-keyword1">null</span></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$resourceVersion</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getType" id="m_getType">
-
-			<td class="attributes"><code>
-				 public 
-				string
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#m_getType">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#26" title="Go to source code">getType</a>( )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-					<h4>Returns</h4>
-					<div class="list">
-						string
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="setType" id="m_setType">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#m_setType">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#27" title="Go to source code">setType</a>( <span>string <var>$type</var> = <span class="php-keyword1">null</span></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$type</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getState" id="m_getState">
-
-			<td class="attributes"><code>
-				 public 
-				string
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#m_getState">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#28" title="Go to source code">getState</a>( )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-					<h4>Returns</h4>
-					<div class="list">
-						string
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="setState" id="m_setState">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#m_setState">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#29" title="Go to source code">setState</a>( <span>string <var>$state</var> = <span class="php-keyword1">null</span></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$state</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
 					</div>
 
 
@@ -1204,7 +795,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getVersion">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#30" title="Go to source code">getVersion</a>( )</code>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#17" title="Go to source code">getVersion</a>( )</code>
 
 			<div class="description short">
 				
@@ -1230,14 +821,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setVersion">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#31" title="Go to source code">setVersion</a>( <span>integer <var>$version</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#18" title="Go to source code">setVersion</a>( <span>integer <var>$version</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1255,7 +846,78 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getCreatedAt" id="m_getCreatedAt">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Common.DateTimeDecorator.html">Commercetools\Core\Model\Common\DateTimeDecorator</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getCreatedAt">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#19" title="Go to source code">getCreatedAt</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Common.DateTimeDecorator.html">Commercetools\Core\Model\Common\DateTimeDecorator</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setCreatedAt" id="m_setCreatedAt">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setCreatedAt">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#20" title="Go to source code">setCreatedAt</a>( <span>DateTime <var>$createdAt</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$createdAt</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
 					</div>
 
 
@@ -1275,7 +937,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getLastModifiedAt">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#32" title="Go to source code">getLastModifiedAt</a>( )</code>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#21" title="Go to source code">getLastModifiedAt</a>( )</code>
 
 			<div class="description short">
 				
@@ -1301,14 +963,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setLastModifiedAt">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#33" title="Go to source code">setLastModifiedAt</a>( <span>DateTime <var>$lastModifiedAt</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#22" title="Go to source code">setLastModifiedAt</a>( <span>DateTime <var>$lastModifiedAt</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1326,7 +988,433 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getSequenceNumber" id="m_getSequenceNumber">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getSequenceNumber">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#23" title="Go to source code">getSequenceNumber</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						integer
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setSequenceNumber" id="m_setSequenceNumber">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setSequenceNumber">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#24" title="Go to source code">setSequenceNumber</a>( <span>integer <var>$sequenceNumber</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$sequenceNumber</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getResource" id="m_getResource">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Common.Reference.html">Commercetools\Core\Model\Common\Reference</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getResource">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#25" title="Go to source code">getResource</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Common.Reference.html">Commercetools\Core\Model\Common\Reference</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setResource" id="m_setResource">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setResource">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#26" title="Go to source code">setResource</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Reference.html">Commercetools\Core\Model\Common\Reference</a></code> <var>$resource</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$resource</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getResourceVersion" id="m_getResourceVersion">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getResourceVersion">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#27" title="Go to source code">getResourceVersion</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						integer
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setResourceVersion" id="m_setResourceVersion">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setResourceVersion">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#28" title="Go to source code">setResourceVersion</a>( <span>integer <var>$resourceVersion</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$resourceVersion</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getType" id="m_getType">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getType">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#29" title="Go to source code">getType</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setType" id="m_setType">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setType">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#30" title="Go to source code">setType</a>( <span>string <var>$type</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$type</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getTransactionId" id="m_getTransactionId">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getTransactionId">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#31" title="Go to source code">getTransactionId</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setTransactionId" id="m_setTransactionId">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setTransactionId">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#32" title="Go to source code">setTransactionId</a>( <span>string <var>$transactionId</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$transactionId</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getState" id="m_getState">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getState">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#33" title="Go to source code">getState</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setState" id="m_setState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setState">#</a>
+			<code class="deprecated"><a href="source-class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html#34" title="Go to source code">setState</a>( <span>string <var>$state</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$state</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Message.PaymentTransactionChangedMessage.html" class="deprecated">Commercetools\Core\Model\Message\PaymentTransactionChangedMessage</a></code>
 					</div>
 
 
@@ -1380,6 +1468,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?dac5e739bd689d6adefe6d19b501c23c841f5afe"></script>
+<script src="elementlist.js?4b67af06f73852c7f116dfbeac6970b734c9320d"></script>
 </body>
 </html>

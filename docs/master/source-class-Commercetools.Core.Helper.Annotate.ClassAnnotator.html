@@ -403,8 +403,14 @@
 								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Project.html">
-							Project						</a>
+							Project<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Project.Command.html">
+							Command						</a>
 							</li>
+								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Query.html">
 							Query						</a>
@@ -641,7 +647,7 @@
 </span><span id="119" class="l">            <span class="php-var">$elementTypeClass</span> = <span class="php-keyword1">new</span> \ReflectionClass(<span class="php-var">$elementType</span>);
 </span><span id="120" class="l">            <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;addUse(<span class="php-var">$elementType</span>);
 </span><span id="121" class="l">            <span class="php-var">$getAtMethod</span> = <span class="php-var">$reflectionClass</span>-&gt;getMethod(<span class="php-quote">'getAt'</span>);
-</span><span id="122" class="l">            <span class="php-keyword1">if</span> (<span class="php-var">$getAtMethod</span>-&gt;getDeclaringClass()-&gt;getName() != <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;getClassName()) {
+</span><span id="122" class="l">            <span class="php-keyword1">if</span> (<span class="php-var">$getAtMethod</span>-&gt;<span class="php-keyword1">class</span> != <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;getClassName()) {
 </span><span id="123" class="l">                <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;addMagicMethod(
 </span><span id="124" class="l">                    <span class="php-quote">'getAt'</span>,
 </span><span id="125" class="l">                    [<span class="php-quote">'$offset'</span>],
@@ -653,7 +659,7 @@
 </span><span id="131" class="l">                );
 </span><span id="132" class="l">            }
 </span><span id="133" class="l">            <span class="php-var">$getByIdMethod</span> = <span class="php-var">$reflectionClass</span>-&gt;getMethod(<span class="php-quote">'getById'</span>);
-</span><span id="134" class="l">            <span class="php-keyword1">if</span> (<span class="php-var">$getByIdMethod</span>-&gt;getDeclaringClass()-&gt;getName() != <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;getClassName()) {
+</span><span id="134" class="l">            <span class="php-keyword1">if</span> (<span class="php-var">$getByIdMethod</span>-&gt;<span class="php-keyword1">class</span> != <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;getClassName()) {
 </span><span id="135" class="l">                <span class="php-var">$elementTypeObject</span> = <span class="php-var">$elementTypeClass</span>-&gt;newInstanceWithoutConstructor();
 </span><span id="136" class="l">                <span class="php-keyword1">if</span> (<span class="php-var">$elementTypeObject</span> <span class="php-keyword1">instanceof</span> JsonObject &amp;&amp; <span class="php-keyword1">isset</span>(<span class="php-var">$elementTypeObject</span>-&gt;fieldDefinitions()[<span class="php-quote">'id'</span>])) {
 </span><span id="137" class="l">                    <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;addMagicMethod(
@@ -668,7 +674,7 @@
 </span><span id="146" class="l">                }
 </span><span id="147" class="l">            }
 </span><span id="148" class="l">            <span class="php-var">$addMethod</span> = <span class="php-var">$reflectionClass</span>-&gt;getMethod(<span class="php-quote">'add'</span>);
-</span><span id="149" class="l">            <span class="php-keyword1">if</span> (<span class="php-var">$addMethod</span>-&gt;getDeclaringClass()-&gt;getName() != <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;getClassName()) {
+</span><span id="149" class="l">            <span class="php-keyword1">if</span> (<span class="php-var">$addMethod</span>-&gt;<span class="php-keyword1">class</span> != <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;getClassName()) {
 </span><span id="150" class="l">                <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;addMagicMethod(
 </span><span id="151" class="l">                    <span class="php-quote">'add'</span>,
 </span><span id="152" class="l">                    [<span class="php-var">$elementTypeClass</span>-&gt;getShortName() . <span class="php-quote">' $element'</span>],
@@ -680,7 +686,7 @@
 </span><span id="158" class="l">                );
 </span><span id="159" class="l">            }
 </span><span id="160" class="l">            <span class="php-var">$current</span> = <span class="php-var">$reflectionClass</span>-&gt;getMethod(<span class="php-quote">'current'</span>);
-</span><span id="161" class="l">            <span class="php-keyword1">if</span> (<span class="php-var">$current</span>-&gt;getDeclaringClass()-&gt;getName() != <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;getClassName()) {
+</span><span id="161" class="l">            <span class="php-keyword1">if</span> (<span class="php-var">$current</span>-&gt;<span class="php-keyword1">class</span> != <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;getClassName()) {
 </span><span id="162" class="l">                <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;addMagicMethod(
 </span><span id="163" class="l">                    <span class="php-quote">'current'</span>,
 </span><span id="164" class="l">                    [],
@@ -708,7 +714,7 @@
 </span><span id="186" class="l">        <span class="php-var">$resultClassReflection</span> = <span class="php-keyword1">new</span> \ReflectionClass(<span class="php-var">$resultClass</span>);
 </span><span id="187" class="l">        <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;addUse(<span class="php-var">$resultClass</span>);
 </span><span id="188" class="l">        <span class="php-var">$mapResponseMethod</span> = <span class="php-var">$reflectionClass</span>-&gt;getMethod(<span class="php-quote">'mapResponse'</span>);
-</span><span id="189" class="l">        <span class="php-keyword1">if</span> (<span class="php-var">$mapResponseMethod</span>-&gt;getDeclaringClass()-&gt;getName() != <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;getClassName()) {
+</span><span id="189" class="l">        <span class="php-keyword1">if</span> (<span class="php-var">$mapResponseMethod</span>-&gt;<span class="php-keyword1">class</span> != <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;getClassName()) {
 </span><span id="190" class="l">            <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;addUse(ApiResponseInterface::<span class="php-keyword1">class</span>);
 </span><span id="191" class="l">            <span class="php-var">$this</span>-&gt;<span class="php-keyword1">class</span>-&gt;addMagicMethod(
 </span><span id="192" class="l">                <span class="php-quote">'mapResponse'</span>,
@@ -874,6 +880,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?dac5e739bd689d6adefe6d19b501c23c841f5afe"></script>
+<script src="elementlist.js?4b67af06f73852c7f116dfbeac6970b734c9320d"></script>
 </body>
 </html>

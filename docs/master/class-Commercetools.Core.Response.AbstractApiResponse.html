@@ -402,8 +402,14 @@
 								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Project.html">
-							Project						</a>
+							Project<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Project.Command.html">
+							Command						</a>
 							</li>
+								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Query.html">
 							Query						</a>
@@ -568,7 +574,7 @@
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Response.html">Response</a><br>
 
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#18-207" title="Go to source code">Core/Response/AbstractApiResponse.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#18-213" title="Go to source code">Core/Response/AbstractApiResponse.php</a>
 		<br>
 	</div>
 
@@ -766,7 +772,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getErrors">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#113-122" title="Go to source code">getErrors</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#118-127" title="Go to source code">getErrors</a>( )</code>
 
 			<div class="description short">
 				
@@ -794,14 +800,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				string
+				string|null
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCorrelationId">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#124-127" title="Go to source code">getCorrelationId</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#129-133" title="Go to source code">getCorrelationId</a>( )</code>
 
 			<div class="description short">
 				
@@ -814,7 +820,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						string
+						string|null
 					</div>
 
 
@@ -836,7 +842,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getStatusCode">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#129-132" title="Go to source code">getStatusCode</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#135-138" title="Go to source code">getStatusCode</a>( )</code>
 
 			<div class="description short">
 				
@@ -871,7 +877,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHeader">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#138-145" title="Go to source code">getHeader</a>( <span>string <var>$header</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#144-151" title="Go to source code">getHeader</a>( <span>string <var>$header</var></span> )</code>
 
 			<div class="description short">
 				
@@ -911,7 +917,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHeaders">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#147-153" title="Go to source code">getHeaders</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#153-159" title="Go to source code">getHeaders</a>( )</code>
 
 			<div class="description short">
 				
@@ -946,7 +952,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#155-161" title="Go to source code">getResponse</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#161-167" title="Go to source code">getResponse</a>( )</code>
 
 			<div class="description short">
 				
@@ -981,7 +987,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getRequest">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#163-169" title="Go to source code">getRequest</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#169-175" title="Go to source code">getRequest</a>( )</code>
 
 			<div class="description short">
 				
@@ -1016,7 +1022,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_wait">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#171-191" title="Go to source code">wait</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#177-197" title="Go to source code">wait</a>( )</code>
 
 			<div class="description short">
 				<p>Returns the result of the future either from cache or by blocking until
@@ -1060,7 +1066,7 @@ exception if the future's wait() method is called again.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_then">#</a>
-			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#193-206" title="Go to source code">then</a>( <span>callable <var>$onFulfilled</var> = <span class="php-keyword1">null</span></span>, <span>callable <var>$onRejected</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Response.AbstractApiResponse.html#199-212" title="Go to source code">then</a>( <span>callable <var>$onFulfilled</var> = <span class="php-keyword1">null</span></span>, <span>callable <var>$onRejected</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1160,6 +1166,6 @@ exception if the future's wait() method is called again.</p>
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?dac5e739bd689d6adefe6d19b501c23c841f5afe"></script>
+<script src="elementlist.js?4b67af06f73852c7f116dfbeac6970b734c9320d"></script>
 </body>
 </html>
