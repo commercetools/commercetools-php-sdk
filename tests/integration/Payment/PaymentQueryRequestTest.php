@@ -12,6 +12,7 @@ use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\Model\Payment\PaymentMethodInfo;
 use Commercetools\Core\Request\Payments\PaymentByIdGetRequest;
+use Commercetools\Core\Request\Payments\PaymentByKeyGetRequest;
 use Commercetools\Core\Request\Payments\PaymentCreateRequest;
 use Commercetools\Core\Request\Payments\PaymentDeleteRequest;
 use Commercetools\Core\Request\Payments\PaymentQueryRequest;
@@ -61,6 +62,23 @@ class PaymentQueryRequestTest extends ApiTestCase
         $this->assertCount(1, $result);
         $this->assertInstanceOf(Payment::class, $result->getAt(0));
         $this->assertSame($payment->getId(), $result->getAt(0)->getId());
+    }
+
+    public function testGetByKey()
+    {
+        $key = $this->getTestRun() . '-key';
+        $draft = $this->getDraft();
+        $draft->setKey($key);
+
+        $payment = $this->createPayment($draft);
+
+        $request = PaymentByKeyGetRequest::ofKey($key);
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Payment::class, $payment);
+        $this->assertSame($payment->getId(), $result->getId());
+
     }
 
     public function testGetById()
