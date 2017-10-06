@@ -1,3 +1,8 @@
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/commercetools/commercetools-php-sdk/compare/v2.2.0...v2.2.1) (2017-10-06)
+
+* Update cache adapter dependencies
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.1.0...v2.2.0) (2017-09-27)
 
