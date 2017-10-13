@@ -6,7 +6,6 @@
 namespace Commercetools\Core\Request\Products\Command;
 
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Common\AssetSourceCollection;
 

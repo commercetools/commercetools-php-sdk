@@ -9,8 +9,6 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
-use Commercetools\Core\Model\CustomField\CustomFieldObject;
-use Commercetools\Core\Model\CustomField\CustomFieldObjectCollection;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraftCollection;
 use DateTime;

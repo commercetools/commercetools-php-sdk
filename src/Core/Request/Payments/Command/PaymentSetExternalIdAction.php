@@ -10,8 +10,8 @@ use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Customer\CustomerReference;
 
 /**
- * @deprecated
  * @package Commercetools\Core\Request\Payments\Command
+ * @deprecated
  * @link https://dev.commercetools.com/http-api-projects-payments.html#set-externalid
  * @method string getAction()
  * @method PaymentSetExternalIdAction setAction(string $action = null)

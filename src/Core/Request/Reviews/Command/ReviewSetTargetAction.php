@@ -7,7 +7,6 @@ namespace Commercetools\Core\Request\Reviews\Command;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\Common\ResourceIdentifier;
 
 /**

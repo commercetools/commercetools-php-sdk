@@ -8,8 +8,6 @@ namespace Commercetools\Core\Request\Payments\Command;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Payment\Transaction;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Model\Customer\CustomerReference;
-use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command

@@ -8,7 +8,6 @@ namespace Commercetools\Core\Request\Types\Command;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Type\FieldDefinition;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Request\Types\Command

@@ -7,7 +7,6 @@ namespace Commercetools\Core\Model\Message;
 
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
-use Commercetools\Core\Model\Payment\Transaction;
 use DateTime;
 
 /**

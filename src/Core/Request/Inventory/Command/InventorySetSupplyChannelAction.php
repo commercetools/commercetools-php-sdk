@@ -8,7 +8,6 @@ namespace Commercetools\Core\Request\Inventory\Command;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Channel\ChannelReference;
 
 /**

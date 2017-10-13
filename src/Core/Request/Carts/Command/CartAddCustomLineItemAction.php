@@ -8,7 +8,6 @@ namespace Commercetools\Core\Request\Carts\Command;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;

@@ -6,7 +6,6 @@
 namespace Commercetools\Core\Request\Carts\Command;
 
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Cart\ExternalLineItemTotalPrice;
 
