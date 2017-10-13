@@ -29,8 +29,6 @@ use DateTime;
  * @method PaymentStatusInterfaceCodeSetMessage setResourceVersion(int $resourceVersion = null)
  * @method string getType()
  * @method PaymentStatusInterfaceCodeSetMessage setType(string $type = null)
- * @method string getPaymentId()
- * @method PaymentStatusInterfaceCodeSetMessage setPaymentId(string $paymentId = null)
  * @method string getInterfaceCode()
  * @method PaymentStatusInterfaceCodeSetMessage setInterfaceCode(string $interfaceCode = null)
  */
@@ -45,5 +43,24 @@ class PaymentStatusInterfaceCodeSetMessage extends Message
         $definitions['interfaceCode'] = [static::TYPE => 'string'];
 
         return $definitions;
+    }
+
+    /**
+     * @deprecated
+     * @return string
+     */
+    public function getPaymentId()
+    {
+        return parent::getPaymentId();
+    }
+
+    /**
+     * @deprecated
+     * @param string $paymentId
+     * @return static
+     */
+    public function setPaymentId($paymentId = null)
+    {
+        return parent::setPaymentId($paymentId);
     }
 }

@@ -12,6 +12,7 @@ namespace Commercetools\Core\Model\Payment;
  */
 class TransactionState
 {
+    const INITIAL = "Initial";
     const PENDING = 'Pending';
     const SUCCESS = 'Success';
     const FAILURE = 'Failure';

@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Payment;
 
 /**
  * Class TransactionType
+ * @deprecated use Transaction::<TYPE> instead
  * @package Commercetools\Core\Model\Payment
  * @link https://dev.commercetools.com/http-api-projects-payments.html#transactiontype
  */
