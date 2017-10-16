@@ -429,6 +429,7 @@ parcel:
     - createdAt
     - measurements
     - trackingData
+    - items
 
 parcelMeasurements:
   domain: order

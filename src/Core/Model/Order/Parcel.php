@@ -20,6 +20,8 @@ use DateTime;
  * @method Parcel setMeasurements(ParcelMeasurements $measurements = null)
  * @method TrackingData getTrackingData()
  * @method Parcel setTrackingData(TrackingData $trackingData = null)
+ * @method DeliveryItemCollection getItems()
+ * @method Parcel setItems(DeliveryItemCollection $items = null)
  */
 class Parcel extends JsonObject
 {
@@ -33,6 +35,7 @@ class Parcel extends JsonObject
             ],
             'measurements' => [static::TYPE => ParcelMeasurements::class],
             'trackingData' => [static::TYPE => TrackingData::class],
+            'items' => [static::TYPE => DeliveryItemCollection::class],
         ];
     }
 }

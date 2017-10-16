@@ -438,7 +438,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 OrderAddParcelToDeliveryAction::class,
-                ['action', 'deliveryId', 'measurements', 'trackingData']
+                ['action', 'deliveryId', 'measurements', 'trackingData', 'items']
             ],
             [
                 OrderAddReturnInfoAction::class,

@@ -7,14 +7,22 @@ namespace Commercetools\Core\Order;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Model\Cart\CustomLineItemDraft;
+use Commercetools\Core\Model\Cart\CustomLineItemDraftCollection;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
 use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Common\PriceDraft;
+use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Order\DeliveryItem;
 use Commercetools\Core\Model\Order\DeliveryItemCollection;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Order\OrderState;
+use Commercetools\Core\Model\Order\Parcel;
+use Commercetools\Core\Model\Order\ParcelCollection;
 use Commercetools\Core\Model\Order\ParcelMeasurements;
 use Commercetools\Core\Model\Order\PaymentState;
 use Commercetools\Core\Model\Order\ReturnItem;
@@ -23,6 +31,8 @@ use Commercetools\Core\Model\Order\ReturnPaymentState;
 use Commercetools\Core\Model\Order\ReturnShipmentState;
 use Commercetools\Core\Model\Order\ShipmentState;
 use Commercetools\Core\Model\Order\TrackingData;
+use Commercetools\Core\Model\Product\ProductDraft;
+use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
@@ -45,6 +55,11 @@ use Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateRequest;
+use Commercetools\Core\Request\Products\Command\ProductPublishAction;
+use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
+use Commercetools\Core\Request\Products\ProductCreateRequest;
+use Commercetools\Core\Request\Products\ProductDeleteRequest;
+use Commercetools\Core\Request\Products\ProductUpdateRequest;
 
 class OrderUpdateRequestTest extends ApiTestCase
 {
@@ -304,6 +319,11 @@ class OrderUpdateRequestTest extends ApiTestCase
                             ->setProviderTransaction('abcdef')
                             ->setIsReturn(false)
                     )
+                    ->setItems(
+                        DeliveryItemCollection::of()->add(
+                            DeliveryItem::of()->setId($lineItem->getId())->setQuantity(3)
+                        )
+                    )
             )
         ;
         $response = $request->executeWithClient($this->getClient());
@@ -467,5 +487,102 @@ class OrderUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Order::class, $order);
         $this->assertNotSame($draft->getBillingAddress()->getFirstName(), $order->getBillingAddress()->getFirstName());
+    }
+
+    public function testAddDeliveryWithParcel()
+    {
+        $taxCategory = $this->getTaxCategory();
+        $cartDraft = $this->getCartDraft();
+
+        $product2 = ProductDraft::ofTypeNameAndSlug(
+            $this->getProductType()->getReference(),
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2')
+        )
+            ->setMasterVariant(
+                ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku2')
+                    ->setPrices(
+                        PriceDraftCollection::of()->add(
+                            PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                                ->setCountry('DE')
+                        )
+                    )
+            )
+            ->setTaxCategory($this->getTaxCategory()->getReference())
+            ->setPublish(true)
+        ;
+
+        $request = ProductCreateRequest::ofDraft($product2);
+        $response = $request->executeWithClient($this->getClient());
+        $product2 = $request->mapResponse($response);
+
+        $cartDraft->getLineItems()->add(LineItemDraft::ofSku($product2->getMasterData()->getCurrent()->getMasterVariant()->getSku())->setQuantity(1));
+
+        $cartDraft->setCustomLineItems(
+            CustomLineItemDraftCollection::of()->add(
+                CustomLineItemDraft::of()
+                    ->setName(LocalizedString::ofLangAndText('en', 'test'))
+                    ->setSlug('test')
+                    ->setQuantity(1)
+                    ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                    ->setTaxCategory($taxCategory->getReference())
+            )
+        );
+        $order = $this->createOrder($cartDraft);
+
+        $lineItem = $order->getLineItems()->getAt(0);
+        $lineItem2 = $order->getLineItems()->getAt(1);
+        $customLineItem = $order->getCustomLineItems()->current();
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(
+                OrderAddDeliveryAction::ofDeliveryItems(
+                    DeliveryItemCollection::of()->add(
+                        DeliveryItem::of()
+                            ->setQuantity(2)
+                            ->setId($lineItem->getId())
+                    )
+                )
+                    ->setParcels(
+                        ParcelCollection::of()->add(
+                            Parcel::of()->setItems(
+                                DeliveryItemCollection::of()->add(
+                                    DeliveryItem::of()
+                                        ->setId($lineItem->getId())
+                                        ->setQuantity(2)
+                                )->add(
+                                    DeliveryItem::of()
+                                        ->setId($customLineItem->getId())
+                                        ->setQuantity(1)
+                                )->add(
+                                    DeliveryItem::of()
+                                        ->setId($lineItem2->getId())
+                                        ->setQuantity(10)
+                                )
+                            )
+                        )
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $order = $request->mapFromResponse($response);
+        $this->deleteRequest->setVersion($order->getVersion());
+
+        $this->assertCount(
+            3,
+            $order->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getItems()
+        );
+
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product2->getId(), $product2->getVersion())
+            ->addAction(ProductUnpublishAction::of());
+        $response = $request->executeWithClient($this->getClient());
+        $product2 = $request->mapResponse($response);
+
+        $request = ProductDeleteRequest::ofIdAndVersion(
+            $product2->getId(),
+            $product2->getVersion()
+        );
+        $request->executeWithClient($this->getClient());
+
     }
 }
