@@ -66,7 +66,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $cartDiscount = $request->mapResponse($response);
 
-        $this->discountDeleteRequests[] = $this->deleteRequest = CartDiscountDeleteRequest::ofIdAndVersion(
+        $this->discountDeleteRequests[] = CartDiscountDeleteRequest::ofIdAndVersion(
             $cartDiscount->getId(),
             $cartDiscount->getVersion()
         );
@@ -116,7 +116,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $request = DiscountCodeCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
         $discountCode = $request->mapResponse($response);
-        $this->cleanupRequests[] = DiscountCodeDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = DiscountCodeDeleteRequest::ofIdAndVersion(
             $discountCode->getId(),
             $discountCode->getVersion()
         );
@@ -130,6 +130,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('discount-type');
         $draft->setCustom(CustomFieldObjectDraft::ofTypeKey($type->getKey()));
         $discountCode = $this->createDiscountCode($draft);
+        $this->deleteRequest->setVersion($discountCode->getVersion());
 
         $this->assertSame($type->getId(), $discountCode->getCustom()->getType()->getId());
     }

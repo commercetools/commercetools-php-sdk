@@ -34,6 +34,8 @@ use DateTime;
  * @method CartDiscountDraft setValidUntil(DateTime $validUntil = null)
  * @method bool getRequiresDiscountCode()
  * @method CartDiscountDraft setRequiresDiscountCode(bool $requiresDiscountCode = null)
+ * @method string getStackingMode()
+ * @method CartDiscountDraft setStackingMode(string $stackingMode = null)
  */
 class CartDiscountDraft extends JsonObject
 {
@@ -47,6 +49,7 @@ class CartDiscountDraft extends JsonObject
     const VALID_FROM = 'validFrom';
     const VALID_UNTIL = 'validUntil';
     const REQUIRES_DISCOUNT_CODE = 'requiresDiscountCode';
+    const STACKING_MODE = 'stackingMode';
 
     public function fieldDefinitions()
     {
@@ -67,6 +70,7 @@ class CartDiscountDraft extends JsonObject
                 static::DECORATOR => DateTimeDecorator::class
             ],
             static::REQUIRES_DISCOUNT_CODE => [static::TYPE => 'bool'],
+            static::STACKING_MODE => [static::TYPE => 'string'],
         ];
     }
 

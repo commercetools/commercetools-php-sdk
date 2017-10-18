@@ -19,6 +19,7 @@ use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeNameActio
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeRequiresDiscountCodeAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeSortOrderAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeTargetAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeStackingModeAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeValueAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetDescriptionAction;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
@@ -264,6 +265,40 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
         $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
     }
+
+    public function testStackingMode()
+    {
+        $draft = $this->getDraft('stacking-mode');
+        $cartDiscount = $this->createCartDiscount($draft);
+
+        $this->assertSame(CartDiscount::MODE_STACKING, $cartDiscount->getStackingMode());
+
+        $request = CartDiscountUpdateRequest::ofIdAndVersion(
+            $cartDiscount->getId(),
+            $cartDiscount->getVersion()
+        )
+            ->addAction(CartDiscountChangeStackingModeAction::ofStackingMode(CartDiscount::MODE_STOP))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertSame(CartDiscount::MODE_STOP, $result->getStackingMode());
+        $cartDiscount = $result;
+
+        $request = CartDiscountUpdateRequest::ofIdAndVersion(
+            $cartDiscount->getId(),
+            $cartDiscount->getVersion()
+        )
+            ->addAction(CartDiscountChangeStackingModeAction::ofStackingMode(CartDiscount::MODE_STACKING))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertSame(CartDiscount::MODE_STACKING, $result->getStackingMode());
+    }
+
     /**
      * @param $name
      * @return CartDiscountDraft

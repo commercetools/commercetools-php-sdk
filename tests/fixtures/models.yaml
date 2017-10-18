@@ -139,6 +139,7 @@ cartDiscount:
     - validUntil
     - requiresDiscountCode
     - references
+    - stackingMode
 
 cartDiscountValue:
   domain: cartDiscount
