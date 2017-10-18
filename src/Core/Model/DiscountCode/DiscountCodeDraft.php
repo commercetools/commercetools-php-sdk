@@ -9,6 +9,7 @@ use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\DiscountCode
@@ -29,6 +30,8 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method DiscountCodeDraft setMaxApplications(int $maxApplications = null)
  * @method int getMaxApplicationsPerCustomer()
  * @method DiscountCodeDraft setMaxApplicationsPerCustomer(int $maxApplicationsPerCustomer = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method DiscountCodeDraft setCustom(CustomFieldObjectDraft $custom = null)
  */
 class DiscountCodeDraft extends JsonObject
 {
@@ -45,6 +48,7 @@ class DiscountCodeDraft extends JsonObject
             'isActive' => [static::TYPE => 'bool'],
             'maxApplications' => [static::TYPE => 'int'],
             'maxApplicationsPerCustomer' => [static::TYPE => 'int'],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
         ];
     }
 

@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\ReferenceCollection;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use DateTime;
 
 /**
@@ -41,6 +42,8 @@ use DateTime;
  * @method DiscountCode setMaxApplications(int $maxApplications = null)
  * @method int getMaxApplicationsPerCustomer()
  * @method DiscountCode setMaxApplicationsPerCustomer(int $maxApplicationsPerCustomer = null)
+ * @method CustomFieldObject getCustom()
+ * @method DiscountCode setCustom(CustomFieldObject $custom = null)
  * @method DiscountCodeReference getReference()
  */
 class DiscountCode extends Resource
@@ -69,6 +72,7 @@ class DiscountCode extends Resource
             'references' => [static::TYPE => ReferenceCollection::class],
             'maxApplications' => [static::TYPE => 'int'],
             'maxApplicationsPerCustomer' => [static::TYPE => 'int'],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }

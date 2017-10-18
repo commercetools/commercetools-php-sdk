@@ -18,16 +18,8 @@ use Commercetools\Core\Model\Common\ResourceIdentifier;
  * @method TypeReference getType()
  * @method CustomFieldObjectDraft setType(TypeReference $type = null)
  */
-class CustomFieldObjectDraft extends JsonObject
+class CustomFieldObjectDraft extends CustomFieldObject
 {
-    public function fieldDefinitions()
-    {
-        return [
-            'type' => [static::TYPE => TypeReference::class],
-            'fields' => [static::TYPE => FieldContainer::class]
-        ];
-    }
-
     /**
      * @param $typeKey
      * @param Context|callable $context

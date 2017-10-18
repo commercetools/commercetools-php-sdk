@@ -726,7 +726,7 @@ discountCode:
     - references
     - maxApplications
     - maxApplicationsPerCustomer
-
+    - custom
 productDiscount:
   domain: productDiscount
   model: ProductDiscount

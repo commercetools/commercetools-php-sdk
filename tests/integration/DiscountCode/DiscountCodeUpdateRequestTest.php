@@ -13,11 +13,15 @@ use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteRequest;
+use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
+use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeIsActiveAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetCartPredicateAction;
@@ -62,7 +66,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $cartDiscount = $request->mapResponse($response);
 
-        $this->discountDeleteRequests[] = CartDiscountDeleteRequest::ofIdAndVersion(
+        $this->discountDeleteRequests[] = $this->deleteRequest = CartDiscountDeleteRequest::ofIdAndVersion(
             $cartDiscount->getId(),
             $cartDiscount->getVersion()
         );
@@ -119,6 +123,51 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
 
         return $discountCode;
     }
+
+    public function testCustomTypeCreate()
+    {
+        $type = $this->getType($this->getTestRun() . '-discount-type', 'discount-code');
+        $draft = $this->getDraft('discount-type');
+        $draft->setCustom(CustomFieldObjectDraft::ofTypeKey($type->getKey()));
+        $discountCode = $this->createDiscountCode($draft);
+
+        $this->assertSame($type->getId(), $discountCode->getCustom()->getType()->getId());
+    }
+
+    public function testCustomTypeUpdate()
+    {
+        $type = $this->getType($this->getTestRun() . '-discount-type', 'discount-code');
+        $draft = $this->getDraft('discount-type');
+        $discountCode = $this->createDiscountCode($draft);
+
+        $request = DiscountCodeUpdateRequest::ofIdAndVersion($discountCode->getId(), $discountCode->getVersion())
+            ->addAction(SetCustomTypeAction::ofTypeKey($type->getKey()))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
+    }
+
+    public function testCustomFieldUpdate()
+    {
+        $type = $this->getType($this->getTestRun() . '-discount-type', 'discount-code');
+        $draft = $this->getDraft('discount-type');
+        $draft->setCustom(CustomFieldObjectDraft::ofTypeKey($type->getKey()));
+        $discountCode = $this->createDiscountCode($draft);
+
+        $newValue = $this->getTestRun() . '-value';
+        $request = DiscountCodeUpdateRequest::ofIdAndVersion($discountCode->getId(), $discountCode->getVersion())
+            ->addAction(SetCustomFieldAction::ofName('testField')->setValue($newValue))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertSame($newValue, $result->getCustom()->getFields()->getTestField());
+    }
+
 
     public function testChangeCartDiscountAction()
     {
