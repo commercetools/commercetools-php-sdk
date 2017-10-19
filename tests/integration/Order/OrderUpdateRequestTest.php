@@ -52,8 +52,11 @@ use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
 use Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction;
+use Commercetools\Core\Request\Orders\OrderByOrderNumberGetRequest;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
+use Commercetools\Core\Request\Orders\OrderDeleteByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
+use Commercetools\Core\Request\Orders\OrderUpdateByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateRequest;
 use Commercetools\Core\Request\Products\Command\ProductPublishAction;
 use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
@@ -95,7 +98,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         return $draft;
     }
 
-    protected function createOrder(CartDraft $draft)
+    protected function createOrder(CartDraft $draft, $orderNumber = null)
     {
         $request = CartCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
@@ -106,6 +109,9 @@ class OrderUpdateRequestTest extends ApiTestCase
         );
 
         $orderRequest = OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
+        if (!is_null($orderNumber)) {
+            $orderRequest->setOrderNumber($orderNumber);
+        }
         $response = $orderRequest->executeWithClient($this->getClient());
         $order = $orderRequest->mapResponse($response);
         $this->cleanupRequests[] = $this->deleteRequest = OrderDeleteRequest::ofIdAndVersion(
@@ -120,6 +126,58 @@ class OrderUpdateRequestTest extends ApiTestCase
 
         return $order;
     }
+
+    public function testOrderByOrderNumber()
+    {
+        $cartDraft = $this->getCartDraft();
+        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
+        $this->createOrder($cartDraft, $orderNumber);
+
+        $request = OrderByOrderNumberGetRequest::ofOrderNumber($orderNumber);
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Order::class, $result);
+    }
+
+    public function testUpdateOrderByOrderNumber()
+    {
+        $cartDraft = $this->getCartDraft();
+        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
+        $order = $this->createOrder($cartDraft, $orderNumber);
+
+        $this->assertSame(
+            $this->getProduct()->getProductType()->getId(),
+            $order->getLineItems()->current()->getProductType()->getId()
+        );
+
+        $request = OrderUpdateByOrderNumberRequest::ofOrderNumberAndVersion($orderNumber, $order->getVersion())
+            ->addAction(OrderChangeOrderStateAction::ofOrderState(OrderState::COMPLETE))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertNotSame($order->getVersion(), $result->getVersion());
+        $this->assertInstanceOf(Order::class, $result);
+        $this->assertSame(OrderState::COMPLETE, $result->getOrderState());
+    }
+
+    public function testDeleteOrderByOrderNumber()
+    {
+        $cartDraft = $this->getCartDraft();
+        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
+        $order = $this->createOrder($cartDraft, $orderNumber);
+
+        $request = OrderDeleteByOrderNumberRequest::ofOrderNumberAndVersion($orderNumber, $order->getVersion());
+        $response = $request->executeWithClient($this->getClient());
+
+        $result = $request->mapResponse($response);
+
+        $this->assertFalse($response->isError());
+        $this->assertInstanceOf(Order::class, $result);
+    }
+
 
     public function testChangeState()
     {
