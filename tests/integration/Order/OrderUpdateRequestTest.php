@@ -593,13 +593,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $customLineItem = $order->getCustomLineItems()->current();
         $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
             ->addAction(
-                OrderAddDeliveryAction::ofDeliveryItems(
-                    DeliveryItemCollection::of()->add(
-                        DeliveryItem::of()
-                            ->setQuantity(2)
-                            ->setId($lineItem->getId())
-                    )
-                )
+                OrderAddDeliveryAction::of()
                     ->setParcels(
                         ParcelCollection::of()->add(
                             Parcel::of()->setItems(
