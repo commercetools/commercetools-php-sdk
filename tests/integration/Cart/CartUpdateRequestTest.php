@@ -17,9 +17,13 @@ use Commercetools\Core\Model\Cart\LineItem;
 use Commercetools\Core\Model\Cart\LineItemCollection;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
+use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
+use Commercetools\Core\Model\CartDiscount\LineItemsTarget;
+use Commercetools\Core\Model\CartDiscount\MultiBuyLineItemsTarget;
+use Commercetools\Core\Model\CartDiscount\RelativeCartDiscountValue;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
@@ -1185,11 +1189,11 @@ class CartUpdateRequestTest extends ApiTestCase
 
         $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
             LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-            CartDiscountValue::of()->setType('absolute')->setMoney(
+            AbsoluteCartDiscountValue::of()->setMoney(
                 MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
             ),
             'custom(testField = "' . $this->getTestRun() . '")',
-            CartDiscountTarget::of()->setType('lineItems')->setPredicate('1=1'),
+            LineItemsTarget::of()->setPredicate('1=1'),
             '0.9' . trim((string)mt_rand(1, 1000), '0'),
             true,
             true
@@ -1215,6 +1219,58 @@ class CartUpdateRequestTest extends ApiTestCase
                 ->getDiscountedPricePerQuantity()->current()
                 ->getDiscountedPrice()->getIncludedDiscounts()->current()
                 ->getDiscount()->getId()
+        );
+    }
+
+    public function testMultiBuyDiscount()
+    {
+        $draft = $this->getDraft();
+        $draft->setLineItems(
+            LineItemDraftCollection::of()
+                ->add(LineItemDraft::of()->setProductId($this->getProduct()->getId())->setVariantId(1)->setQuantity(3))
+        );
+
+        $cart = $this->createCart($draft);
+
+        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
+            RelativeCartDiscountValue::of()->setPermyriad(10000),
+            '1=1',
+            MultiBuyLineItemsTarget::ofPredicateTriggerDiscountedAndMode(
+                '1=1',
+                3,
+                1,
+                MultiBuyLineItemsTarget::MODE_CHEAPEST
+            ),
+            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            true,
+            true
+        );
+        $request = CartDiscountCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $this->cartDiscount = $request->mapResponse($response);
+
+        $discountCode = $this->getDiscountCode();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+
+        $this->assertSame(
+            $this->cartDiscount->getId(),
+            $cart->getLineItems()->current()
+                ->getDiscountedPricePerQuantity()->current()
+                ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                ->getDiscount()->getId()
+        );
+        $this->assertSame(
+            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount() * 2,
+            $cart->getLineItems()->current()->getTotalPrice()->getCentAmount()
         );
     }
 
