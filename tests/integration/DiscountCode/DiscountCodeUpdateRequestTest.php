@@ -6,6 +6,7 @@
 namespace Commercetools\Core\DiscountCode;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
@@ -43,23 +44,6 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $this->deleteCartDiscount();
     }
 
-    protected function getCartDiscountDraft($name)
-    {
-        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name),
-            CartDiscountValue::of()->setType('absolute')->setMoney(
-                MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
-            ),
-            '1=1',
-            CartDiscountTarget::of()->setType('lineItems')->setPredicate('1=1'),
-            '0.9' . trim((string)mt_rand(1, 1000), '0'),
-            true,
-            false
-        );
-
-        return $draft;
-    }
-
     protected function createCartDiscount($draft)
     {
         $request = CartDiscountCreateRequest::ofDraft($draft);
@@ -72,16 +56,6 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         );
 
         return $cartDiscount;
-    }
-
-    protected function getCartDiscount()
-    {
-        if (is_null($this->cartDiscount)) {
-            $draft = $this->getCartDiscountDraft('discount');
-            $this->cartDiscount = $this->createCartDiscount($draft);
-        }
-
-        return $this->cartDiscount;
     }
 
     protected function deleteCartDiscount()
@@ -102,13 +76,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
      */
     protected function getDraft($code)
     {
-        $draft = DiscountCodeDraft::ofCodeDiscountsAndActive(
-            'test-' . $this->getTestRun() . '-' . $code,
-            CartDiscountReferenceCollection::of()->add($this->getCartDiscount()->getReference()),
-            false
-        );
-
-        return $draft;
+        return $this->getDiscountCodeDraft($code)->setIsActive(false);
     }
 
     protected function createDiscountCode(DiscountCodeDraft $draft)

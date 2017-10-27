@@ -773,20 +773,27 @@ class ApiTestCase extends TestCase
         $this->payment = null;
     }
 
-    protected function getCartDiscount()
+    protected function getCartDiscountDraft($name, $discountCodeRequired = true)
+    {
+        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name),
+            AbsoluteCartDiscountValue::of()->setMoney(
+                MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
+            ),
+            '1=1',
+            CartDiscountTarget::of()->setType('lineItems')->setPredicate('1=1'),
+            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            true,
+            true
+        );
+
+        return $draft;
+    }
+
+    protected function getCartDiscount($discountCodeRequired = true)
     {
         if (is_null($this->cartDiscount)) {
-            $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
-                LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-                AbsoluteCartDiscountValue::of()->setMoney(
-                    MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
-                ),
-                '1=1',
-                CartDiscountTarget::of()->setType('lineItems')->setPredicate('1=1'),
-                '0.9' . trim((string)mt_rand(1, 1000), '0'),
-                true,
-                true
-            );
+            $draft = $this->getCartDiscountDraft('discount', $discountCodeRequired);
             $request = CartDiscountCreateRequest::ofDraft($draft);
             $response = $request->executeWithClient($this->getClient());
             $this->cartDiscount = $request->mapResponse($response);
@@ -866,10 +873,13 @@ class ApiTestCase extends TestCase
     /**
      * @return DiscountCodeDraft
      */
-    protected function getDiscountCodeDraft()
+    protected function getDiscountCodeDraft($code = null)
     {
+        if (is_null($code)) {
+            $code = 'code';
+        }
         $draft = DiscountCodeDraft::ofCodeDiscountsAndActive(
-            'test-' . $this->getTestRun() . '-code',
+            'test-' . $this->getTestRun() . '-' . $code,
             CartDiscountReferenceCollection::of()->add($this->getCartDiscount()->getReference()),
             true
         );

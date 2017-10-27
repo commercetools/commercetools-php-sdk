@@ -33,28 +33,6 @@ class DiscountCodeQueryRequestTest extends ApiTestCase
     }
 
 
-    protected function getCartDiscount()
-    {
-        if (is_null($this->cartDiscount)) {
-            $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
-                LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-                CartDiscountValue::of()->setType('absolute')->setMoney(
-                    MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
-                ),
-                '1=1',
-                CartDiscountTarget::of()->setType('lineItems')->setPredicate('1=1'),
-                '0.9' . trim((string)mt_rand(1, 1000), '0'),
-                true,
-                false
-            );
-            $request = CartDiscountCreateRequest::ofDraft($draft);
-            $response = $request->executeWithClient($this->getClient());
-            $this->cartDiscount = $request->mapResponse($response);
-        }
-
-        return $this->cartDiscount;
-    }
-
     protected function deleteCartDiscount()
     {
         if (!is_null($this->cartDiscount)) {
@@ -67,19 +45,13 @@ class DiscountCodeQueryRequestTest extends ApiTestCase
         }
         $this->cartDiscount = null;
     }
-    
+
     /**
      * @return DiscountCodeDraft
      */
     protected function getDraft()
     {
-        $draft = DiscountCodeDraft::ofCodeDiscountsAndActive(
-            'test-' . $this->getTestRun() . '-code',
-            CartDiscountReferenceCollection::of()->add($this->getCartDiscount()->getReference()),
-            false
-        );
-
-        return $draft;
+        return $this->getDiscountCodeDraft()->setIsActive(false);
     }
 
     protected function createDiscountCode(DiscountCodeDraft $draft)
