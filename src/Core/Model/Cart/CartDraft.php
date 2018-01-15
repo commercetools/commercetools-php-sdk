@@ -49,6 +49,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method CartDraft setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
  * @method CustomerGroupReference getCustomerGroup()
  * @method CartDraft setCustomerGroup(CustomerGroupReference $customerGroup = null)
+ * @method ShippingRateInputDraft getShippingRateInput()
+ * @method CartDraft setShippingRateInput(ShippingRateInputDraft $shippingRateInput = null)
  */
 class CartDraft extends JsonObject
 {
@@ -74,6 +76,7 @@ class CartDraft extends JsonObject
             'taxRoundingMode' => [static::TYPE => 'string'],
             'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
             'customerGroup' => [static::TYPE => CustomerGroupReference::class],
+            'shippingRateInput' => [static::TYPE => ShippingRateInputDraft::class]
         ];
     }
 

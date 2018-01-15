@@ -10,19 +10,19 @@ use Commercetools\Core\Model\Zone\ZoneReference;
 
 /**
  * @package Commercetools\Core\Model\ShippingMethod
- * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#zonerate
+ * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#zoneratedraft
  * @method ZoneReference getZone()
- * @method ZoneRate setZone(ZoneReference $zone = null)
- * @method ShippingRateCollection getShippingRates()
- * @method ZoneRate setShippingRates(ShippingRateCollection $shippingRates = null)
+ * @method ZoneRateDraft setZone(ZoneReference $zone = null)
+ * @method ShippingRateDraftCollection getShippingRates()
+ * @method ZoneRateDraft setShippingRates(ShippingRateDraftCollection $shippingRates = null)
  */
-class ZoneRate extends ZoneRateDraft
+class ZoneRateDraft extends JsonObject
 {
     public function fieldDefinitions()
     {
         return [
             'zone' => [static::TYPE => ZoneReference::class],
-            'shippingRates' => [static::TYPE => ShippingRateCollection::class]
+            'shippingRates' => [static::TYPE => ShippingRateDraftCollection::class]
         ];
     }
 }

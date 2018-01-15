@@ -14,7 +14,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method ZoneRateCollection add(ZoneRate $element)
  * @method ZoneRate getAt($offset)
  */
-class ZoneRateCollection extends Collection
+class ZoneRateCollection extends ZoneRateDraftCollection
 {
     protected $type = ZoneRate::class;
 }

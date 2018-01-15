@@ -71,6 +71,8 @@ use DateTime;
  * @method Cart setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
  * @method CartDiscountReferenceCollection getRefusedGifts()
  * @method Cart setRefusedGifts(CartDiscountReferenceCollection $refusedGifts = null)
+ * @method ShippingRateInput getShippingRateInput()
+ * @method Cart setShippingRateInput(ShippingRateInput $shippingRateInput = null)
  * @method CartReference getReference()
  */
 class Cart extends Resource
@@ -120,6 +122,7 @@ class Cart extends Resource
             'taxRoundingMode' => [static::TYPE => 'string'],
             'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
             'refusedGifts' => [static::TYPE => CartDiscountReferenceCollection::class],
+            'shippingRateInput' => [static::TYPE => ShippingRateInput::class]
         ];
     }
 
