@@ -32,6 +32,8 @@ use DateTime;
  * @method Project setMessages(MessagesConfiguration $messages = null)
  * @method int getVersion()
  * @method Project setVersion(int $version = null)
+ * @method ShippingRateInputType getShippingRateInputType()
+ * @method Project setShippingRateInputType(ShippingRateInputType $shippingRateInputType = null)
  */
 class Project extends JsonObject
 {
@@ -52,7 +54,8 @@ class Project extends JsonObject
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'messages' => [static::TYPE => MessagesConfiguration::class]
+            'messages' => [static::TYPE => MessagesConfiguration::class],
+            'shippingRateInputType' => [static::TYPE => ShippingRateInputType::class]
         ];
     }
 }

@@ -42,5 +42,4 @@ class ClassificationShippingRateInputDraft extends ShippingRateInputDraft
             ->setKey($key)
             ->setLabel($label);
     }
-
 }

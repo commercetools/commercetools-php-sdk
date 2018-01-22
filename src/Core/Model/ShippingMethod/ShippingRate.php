@@ -16,6 +16,8 @@ use Commercetools\Core\Model\Common\Money;
  * @method ShippingRate setFreeAbove(Money $freeAbove = null)
  * @method bool getIsMatching()
  * @method ShippingRate setIsMatching(bool $isMatching = null)
+ * @method ShippingRatePriceTierCollection getTiers()
+ * @method ShippingRate setTiers(ShippingRatePriceTierCollection $tiers = null)
  */
 class ShippingRate extends ShippingRateDraft
 {

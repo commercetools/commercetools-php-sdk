@@ -6,7 +6,7 @@
 namespace Commercetools\Core\Model\ShippingMethod;
 
 /**
- * @package Commercetools\Core\Model\Project
+ * @package Commercetools\Core\Model\ShippingMethod
  * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#cartvalue
  * @method string getType()
  * @method CartValue setType(string $type = null)

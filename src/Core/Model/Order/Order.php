@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Order;
 use Commercetools\Core\Model\Cart\CustomLineItemCollection;
 use Commercetools\Core\Model\Cart\LineItemCollection;
 use Commercetools\Core\Model\Cart\ShippingInfo;
+use Commercetools\Core\Model\Cart\ShippingRateInput;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\Common\Resource;
@@ -88,6 +89,8 @@ use DateTime;
  * @method string getLocale()
  * @method string getTaxRoundingMode()
  * @method Order setTaxRoundingMode(string $taxRoundingMode = null)
+ * @method ShippingRateInput getShippingRateInput()
+ * @method Order setShippingRateInput(ShippingRateInput $shippingRateInput = null)
  * @method OrderReference getReference()
  */
 class Order extends Resource
@@ -145,6 +148,7 @@ class Order extends Resource
             'anonymousId' => [static::TYPE => 'string'],
             'locale' => [static::TYPE => 'string'],
             'taxRoundingMode' => [static::TYPE => 'string'],
+            'shippingRateInput' => [static::TYPE => ShippingRateInput::class]
         ];
     }
 }

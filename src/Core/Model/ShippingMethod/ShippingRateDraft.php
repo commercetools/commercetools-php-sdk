@@ -15,6 +15,8 @@ use Commercetools\Core\Model\Common\Money;
  * @method ShippingRateDraft setPrice(Money $price = null)
  * @method Money getFreeAbove()
  * @method ShippingRateDraft setFreeAbove(Money $freeAbove = null)
+ * @method ShippingRatePriceTierCollection getTiers()
+ * @method ShippingRateDraft setTiers(ShippingRatePriceTierCollection $tiers = null)
  */
 class ShippingRateDraft extends JsonObject
 {
@@ -23,7 +25,7 @@ class ShippingRateDraft extends JsonObject
         return [
             'price' => [static::TYPE => Money::class],
             'freeAbove' => [static::TYPE => Money::class],
-            'tiers' => [static::TYPE => ShippingRate]
+            'tiers' => [static::TYPE => ShippingRatePriceTierCollection::class]
         ];
     }
 }

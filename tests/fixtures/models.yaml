@@ -28,6 +28,7 @@ cart:
     - taxRoundingMode
     - deleteDaysAfterLastModification
     - refusedGifts
+    - shippingRateInput
 lineItem:
   domain: cart
   model: LineItem
@@ -377,6 +378,7 @@ order:
     - anonymousId
     - locale
     - taxRoundingMode
+    - shippingRateInput
 syncInfo:
   domain: order
   model: SyncInfo
@@ -640,6 +642,7 @@ shippingRate:
     - price
     - freeAbove
     - isMatching
+    - tiers
 
 state:
   domain: state
