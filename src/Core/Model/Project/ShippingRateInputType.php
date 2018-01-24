@@ -7,10 +7,6 @@ namespace Commercetools\Core\Model\Project;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
-use Commercetools\Core\Model\Common\Collection;
-use Commercetools\Core\Model\Common\DateTimeDecorator;
-use Commercetools\Core\Model\Message\MessagesConfiguration;
-use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Project
@@ -30,13 +26,25 @@ class ShippingRateInputType extends JsonObject
     }
 
     /**
+     * @inheritDoc
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        if (static::INPUT_TYPE != '' && !isset($data[static::TYPE])) {
+            $data[static::TYPE] = static::INPUT_TYPE;
+        }
+        parent::__construct($data, $context);
+    }
+
+
+    /**
      * @param array $data
      * @param Context|callable $context
      * @return static
      */
     public static function fromArray(array $data, $context = null)
     {
-        if (get_called_class() == ShippingRateInputType::class && isset($data[static::INPUT_TYPE])) {
+        if (get_called_class() == ShippingRateInputType::class && isset($data[static::TYPE])) {
             $className = static::inputType($data[static::TYPE]);
             if (class_exists($className)) {
                 return new $className($data, $context);

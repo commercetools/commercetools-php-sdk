@@ -23,6 +23,17 @@ class ShippingRatePriceTier extends JsonObject
 {
     const INPUT_TYPE = '';
 
+    /**
+     * @inheritDoc
+     */
+    public function __construct(array $data = [], $context = null)
+    {
+        if (static::INPUT_TYPE != '' && !isset($data[static::TYPE])) {
+            $data[static::TYPE] = static::INPUT_TYPE;
+        }
+        parent::__construct($data, $context);
+    }
+
     public function fieldDefinitions()
     {
         return [
@@ -37,7 +48,7 @@ class ShippingRatePriceTier extends JsonObject
      */
     public static function fromArray(array $data, $context = null)
     {
-        if (get_called_class() == ShippingRatePriceTier::class && isset($data[static::INPUT_TYPE])) {
+        if (get_called_class() == ShippingRatePriceTier::class && isset($data[static::TYPE])) {
             $className = static::inputType($data[static::TYPE]);
             if (class_exists($className)) {
                 return new $className($data, $context);
