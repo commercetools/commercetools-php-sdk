@@ -12,8 +12,8 @@ use Commercetools\Core\Model\Common\Money;
  * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#cartscore-with-fixed-price
  * @method string getType()
  * @method CartScore setType(string $type = null)
- * @method string getScore()
- * @method CartScore setScore(string $score = null)
+ * @method int getScore()
+ * @method CartScore setScore(int $score = null)
  * @method Money getPrice()
  * @method CartScore setPrice(Money $price = null)
  * @method PriceFunction getPriceFunction()
@@ -29,7 +29,7 @@ class CartScore extends ShippingRatePriceTier
     {
         return [
             'type' => [static::TYPE => 'string'],
-            'score' => [static::TYPE => 'string'],
+            'score' => [static::TYPE => 'int'],
             'price' => [static::TYPE => Money::class],
             'priceFunction' => [static::TYPE => PriceFunction::class],
             'isMatching' => [static::TYPE => 'bool']

@@ -12,10 +12,6 @@ use Commercetools\Core\Model\Zone\ZoneReference;
 /**
  * @package Commercetools\Core\Model\ShippingMethod
  * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#shippingratepricetier
- * @method ZoneReference getZone()
- * @method ZoneRateDraft setZone(ZoneReference $zone = null)
- * @method ShippingRateDraftCollection getShippingRates()
- * @method ZoneRateDraft setShippingRates(ShippingRateDraftCollection $shippingRates = null)
  * @method string getType()
  * @method ShippingRatePriceTier setType(string $type = null)
  */
