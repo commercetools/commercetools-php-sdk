@@ -69,6 +69,7 @@ class Config implements ContextAwareInterface
     const USER_NAME = 'username';
     const PASSWORD = 'password';
     const REFRESH_TOKEN = 'refresh_token';
+    const BEARER_TOKEN = 'bearer_token';
     const ANONYMOUS_ID = 'anonymous_id';
     const GRANT_TYPE = 'grant_type';
 
@@ -76,6 +77,7 @@ class Config implements ContextAwareInterface
     const GRANT_TYPE_PASSWORD = 'password';
     const GRANT_TYPE_REFRESH = 'refresh_token';
     const GRANT_TYPE_ANONYMOUS = 'anonymous_token';
+    const GRANT_TYPE_BEARER_TOKEN = 'bearer_token';
 
     /**
      * @var string
@@ -137,6 +139,11 @@ class Config implements ContextAwareInterface
      * @var string
      */
     protected $refreshToken;
+
+    /**
+     * @var string
+     */
+    protected $bearerToken;
 
     /**
      * @var string
@@ -358,11 +365,11 @@ class Config implements ContextAwareInterface
      */
     public function check()
     {
-        if (is_null($this->getClientId())) {
+        if (is_null($this->getClientId()) && $this->getGrantType() !== self::GRANT_TYPE_BEARER_TOKEN) {
             throw new InvalidArgumentException(Message::NO_CLIENT_ID);
         }
 
-        if (is_null($this->getClientSecret())) {
+        if (is_null($this->getClientSecret()) && $this->getGrantType() !== self::GRANT_TYPE_BEARER_TOKEN) {
             throw new InvalidArgumentException(Message::NO_CLIENT_SECRET);
         }
 
@@ -672,6 +679,24 @@ class Config implements ContextAwareInterface
     public function setClientOptions(array $clientOptions)
     {
         $this->clientOptions = $clientOptions;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBearerToken()
+    {
+        return $this->bearerToken;
+    }
+
+    /**
+     * @param string $bearerToken
+     * @return Config
+     */
+    public function setBearerToken($bearerToken)
+    {
+        $this->bearerToken = $bearerToken;
         return $this;
     }
 }

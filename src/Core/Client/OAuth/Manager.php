@@ -92,6 +92,9 @@ class Manager extends AbstractHttpClient implements TokenProvider
     public function getToken()
     {
         $scope = $this->getConfig()->getScope();
+        if ($this->getConfig()->getGrantType() == Config::GRANT_TYPE_BEARER_TOKEN) {
+            return new Token($this->getConfig()->getBearerToken(), null, $scope);
+        }
         if ($token = $this->getCacheToken()) {
             return new Token($token, null, $scope);
         }
@@ -113,6 +116,8 @@ class Manager extends AbstractHttpClient implements TokenProvider
         }
 
         switch ($grantType) {
+            case Config::GRANT_TYPE_BEARER_TOKEN:
+                return new Token($this->getConfig()->getBearerToken(), null, $scope);
             case Config::GRANT_TYPE_PASSWORD:
                 $user = $this->getConfig()->getUsername();
                 $password = $this->getConfig()->getPassword();
