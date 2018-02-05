@@ -559,7 +559,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
         $rate->setTiers(
             ShippingRatePriceTierCollection::of()->add(
                 CartValue::of()
-                    ->setMinimumCentAmount(10.5)
+                    ->setMinimumCentAmount(10)
                     ->setPrice(Money::ofCurrencyAndAmount('USD', 90))
             )
         );
