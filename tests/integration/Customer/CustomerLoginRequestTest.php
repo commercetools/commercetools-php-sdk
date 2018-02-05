@@ -390,4 +390,47 @@ class CustomerLoginRequestTest extends ApiTestCase
         $this->assertSame(CartState::MERGED, $anonCart->getCartState());
         $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
     }
+
+    public function testCartUpdateProductDataOnLogin()
+    {
+        $client = $this->getClient();
+
+        $customerDraft = $this->getCustomerDraft();
+        $customer = $this->createCustomer($customerDraft);
+
+        $customerCartDraft = $this->getCartDraft();
+        $customerCartDraft->setCustomerId($customer->getId());
+        $customerCart = $this->getCart($customerCartDraft);
+
+        $anonCartDraft = $this->getCartDraft();
+        $request = CartCreateRequest::ofDraft($anonCartDraft);
+        $response = $request->executeWithClient($client);
+        $anonCart = $request->mapResponse($response);
+
+        $request = CustomerLoginRequest::ofEmailPasswordAndUpdateProductData(
+            $customer->getEmail(),
+            $customerDraft->getPassword(),
+            true,
+            $anonCart->getId()
+        )->setAnonymousCartSignInMode(CustomerLoginRequest::SIGN_IN_MODE_MERGE);
+        $body = json_decode((string)$request->httpRequest()->getBody(), true);
+        $this->assertTrue($body['updateProductData']);
+        $response = $request->executeWithClient($client);
+        $result = $request->mapResponse($response);
+
+        $loggedInCart = $result->getCart();
+
+        $request = CartByIdGetRequest::ofId($anonCart->getId());
+        $response = $request->executeWithClient($client);
+        $anonCart = $request->mapResponse($response);
+
+        $request = CartDeleteRequest::ofIdAndVersion($anonCart->getId(), $anonCart->getVersion());
+        $response = $request->executeWithClient($client);
+        $anonCart = $request->mapResponse($response);
+
+        $this->assertNotSame($anonCart->getId(), $loggedInCart->getId());
+        $this->assertSame($customerCart->getId(), $loggedInCart->getId());
+        $this->assertSame(CartState::MERGED, $anonCart->getCartState());
+        $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
+    }
 }

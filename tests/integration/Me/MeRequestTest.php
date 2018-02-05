@@ -263,7 +263,7 @@ class MeRequestTest extends ApiTestCase
         $this->customer = null;
 
         $this->assertFalse($response->isError());
-        
+
         $request = CustomerByIdGetRequest::ofId($customer->getId());
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
@@ -293,6 +293,38 @@ class MeRequestTest extends ApiTestCase
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $request = MeLoginRequest::ofEmailAndPassword($customer->getEmail(), $customerDraft->getPassword());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+    }
+
+    public function testLoginSuccessUpdateProductData()
+    {
+        $customerDraft = $this->getCustomerDraft();
+        $customer = $this->getCustomer($customerDraft);
+
+        $config = $this->getClientConfig(['manage_my_profile']);
+        $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
+            ->setUsername($customer->getEmail())
+            ->setPassword($customerDraft->getPassword())
+        ;
+
+        $handler = new TestHandler();
+        $logger = new Logger('testOauth');
+        $logger->pushHandler($handler);
+
+        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()])->setLogger($logger);
+        $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+
+        $request = MeLoginRequest::ofEmailPasswordAndUpdateProductData(
+            $customer->getEmail(),
+            $customerDraft->getPassword(),
+            true
+        );
+        $body = json_decode((string)$request->httpRequest()->getBody(), true);
+        $this->assertTrue($body['updateProductData']);
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 

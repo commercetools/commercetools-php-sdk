@@ -33,6 +33,7 @@ class MeLoginRequest extends AbstractApiRequest
     const ANONYMOUS_CART_SIGN_IN_MODE = 'anonymousCartSignInMode';
     const SIGN_IN_MODE_MERGE = 'MergeWithExistingCustomerCart';
     const SIGN_IN_MODE_NEW = 'UseAsNewActiveCustomerCart';
+    const UPDATE_PRODUCT_DATA = 'updateProductData';
 
     /**
      * @var string
@@ -50,6 +51,11 @@ class MeLoginRequest extends AbstractApiRequest
     protected $anonymousCartId;
 
     protected $anonymousCartSignInMode;
+
+    /**
+     * @var bool
+     */
+    protected $updateProductData;
 
     protected $resultClass = CustomerSigninResult::class;
 
@@ -144,6 +150,24 @@ class MeLoginRequest extends AbstractApiRequest
     }
 
     /**
+     * @return bool
+     */
+    public function getUpdateProductData()
+    {
+        return $this->updateProductData;
+    }
+
+    /**
+     * @param bool $updateProductData
+     * @return $this
+     */
+    public function setUpdateProductData($updateProductData)
+    {
+        $this->updateProductData = $updateProductData;
+        return $this;
+    }
+
+    /**
      * @param string $email
      * @param string $password
      * @param string $anonymousCartId
@@ -153,6 +177,27 @@ class MeLoginRequest extends AbstractApiRequest
     public static function ofEmailAndPassword($email, $password, $anonymousCartId = null, Context $context = null)
     {
         return new static($email, $password, $anonymousCartId, $context);
+    }
+
+    /**
+     * @param string $email
+     * @param string $password
+     * @param bool $updateProductData
+     * @param string $anonymousCartId
+     * @param Context $context
+     * @return static
+     */
+    public static function ofEmailPasswordAndUpdateProductData(
+        $email,
+        $password,
+        $updateProductData,
+        $anonymousCartId = null,
+        Context $context = null
+    ) {
+        $request = new static($email, $password, $anonymousCartId, $context);
+        $request->setUpdateProductData($updateProductData);
+
+        return $request;
     }
 
     /**
@@ -179,6 +224,9 @@ class MeLoginRequest extends AbstractApiRequest
         }
         if (!is_null($this->anonymousCartSignInMode)) {
             $payload[static::ANONYMOUS_CART_SIGN_IN_MODE] = $this->anonymousCartSignInMode;
+        }
+        if (!is_null($this->updateProductData)) {
+            $payload[static::UPDATE_PRODUCT_DATA] = $this->updateProductData;
         }
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }
