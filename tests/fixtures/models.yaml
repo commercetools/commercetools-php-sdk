@@ -28,6 +28,7 @@ cart:
     - taxRoundingMode
     - deleteDaysAfterLastModification
     - refusedGifts
+    - origin
 lineItem:
   domain: cart
   model: LineItem
@@ -377,6 +378,7 @@ order:
     - anonymousId
     - locale
     - taxRoundingMode
+    - origin
 syncInfo:
   domain: order
   model: SyncInfo
@@ -870,6 +872,7 @@ importOrder:
     - custom
     - inventoryMode
     - taxRoundingMode
+    - origin
 lineItemImportDraft:
   domain: order
   model: lineItemImportDraft

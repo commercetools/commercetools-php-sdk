@@ -71,6 +71,8 @@ use DateTime;
  * @method Cart setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
  * @method CartDiscountReferenceCollection getRefusedGifts()
  * @method Cart setRefusedGifts(CartDiscountReferenceCollection $refusedGifts = null)
+ * @method string getOrigin()
+ * @method Cart setOrigin(string $origin = null)
  * @method CartReference getReference()
  */
 class Cart extends Resource
@@ -84,6 +86,9 @@ class Cart extends Resource
     const TAX_ROUNDING_MODE_HALF_EVEN = 'HalfEven';
     const TAX_ROUNDING_MODE_HALF_UP = 'HalfUp';
     const TAX_ROUNDING_MODE_HALF_DOWN = 'HalfDown';
+
+    const ORIGIN_CUSTOMER = 'Customer';
+    const ORIGIN_MERCHANT = 'Merchant';
 
     public function fieldDefinitions()
     {
@@ -120,6 +125,7 @@ class Cart extends Resource
             'taxRoundingMode' => [static::TYPE => 'string'],
             'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
             'refusedGifts' => [static::TYPE => CartDiscountReferenceCollection::class],
+            'origin' => [static::TYPE => 'string'],
         ];
     }
 
