@@ -73,6 +73,8 @@ use DateTime;
  * @method Cart setRefusedGifts(CartDiscountReferenceCollection $refusedGifts = null)
  * @method string getOrigin()
  * @method Cart setOrigin(string $origin = null)
+ * @method string getTaxCalculationMode()
+ * @method Cart setTaxCalculationMode(string $taxCalculationMode = null)
  * @method CartReference getReference()
  */
 class Cart extends Resource
@@ -89,6 +91,9 @@ class Cart extends Resource
 
     const ORIGIN_CUSTOMER = 'Customer';
     const ORIGIN_MERCHANT = 'Merchant';
+
+    const TAX_CALCULATION_MODE_LINE_ITEM_LEVEL = 'LineItemLevel';
+    const TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL = 'UnitPriceLevel';
 
     public function fieldDefinitions()
     {
@@ -126,6 +131,7 @@ class Cart extends Resource
             'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
             'refusedGifts' => [static::TYPE => CartDiscountReferenceCollection::class],
             'origin' => [static::TYPE => 'string'],
+            'taxCalculationMode' => [static::TYPE => 'string'],
         ];
     }
 

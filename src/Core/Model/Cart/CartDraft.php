@@ -51,6 +51,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method CartDraft setCustomerGroup(CustomerGroupReference $customerGroup = null)
  * @method string getOrigin()
  * @method CartDraft setOrigin(string $origin = null)
+ * @method string getTaxCalculationMode()
+ * @method CartDraft setTaxCalculationMode(string $taxCalculationMode = null)
  */
 class CartDraft extends JsonObject
 {
@@ -77,6 +79,7 @@ class CartDraft extends JsonObject
             'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
             'customerGroup' => [static::TYPE => CustomerGroupReference::class],
             'origin' => [static::TYPE => 'string'],
+            'taxCalculationMode' => [static::TYPE => 'string'],
         ];
     }
 

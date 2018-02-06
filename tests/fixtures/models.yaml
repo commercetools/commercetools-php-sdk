@@ -29,6 +29,7 @@ cart:
     - deleteDaysAfterLastModification
     - refusedGifts
     - origin
+    - taxCalculationMode
 lineItem:
   domain: cart
   model: LineItem
@@ -379,6 +380,7 @@ order:
     - locale
     - taxRoundingMode
     - origin
+    - taxCalculationMode
 syncInfo:
   domain: order
   model: SyncInfo
@@ -873,6 +875,7 @@ importOrder:
     - inventoryMode
     - taxRoundingMode
     - origin
+    - taxCalculationMode
 lineItemImportDraft:
   domain: order
   model: lineItemImportDraft

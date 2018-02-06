@@ -59,6 +59,8 @@ use DateTime;
  * @method ImportOrder setTaxRoundingMode(string $taxRoundingMode = null)
  * @method string getOrigin()
  * @method ImportOrder setOrigin(string $origin = null)
+ * @method string getTaxCalculationMode()
+ * @method ImportOrder setTaxCalculationMode(string $taxCalculationMode = null)
  */
 class ImportOrder extends JsonObject
 {
@@ -88,6 +90,7 @@ class ImportOrder extends JsonObject
             'inventoryMode' => [static::TYPE => 'string'],
             'taxRoundingMode' => [static::TYPE => 'string'],
             'origin' => [static::TYPE => 'string'],
+            'taxCalculationMode' => [static::TYPE => 'string'],
         ];
     }
 }
