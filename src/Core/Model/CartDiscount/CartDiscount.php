@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\ReferenceCollection;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use DateTime;
 
 /**
@@ -46,6 +47,8 @@ use DateTime;
  * @method CartDiscount setReferences(ReferenceCollection $references = null)
  * @method string getStackingMode()
  * @method CartDiscount setStackingMode(string $stackingMode = null)
+ * @method CustomFieldObject getCustom()
+ * @method CartDiscount setCustom(CustomFieldObject $custom = null)
  * @method CartDiscountReference getReference()
  */
 class CartDiscount extends Resource
@@ -84,6 +87,7 @@ class CartDiscount extends Resource
             'requiresDiscountCode' => [static::TYPE => 'bool'],
             'references' => [static::TYPE => ReferenceCollection::class],
             'stackingMode' => [static::TYPE => 'string'],
+            'custom' => [static::TYPE => CustomFieldObject::class]
         ];
     }
 }

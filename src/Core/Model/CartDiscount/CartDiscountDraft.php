@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use DateTime;
 
 /**
@@ -36,6 +37,8 @@ use DateTime;
  * @method CartDiscountDraft setRequiresDiscountCode(bool $requiresDiscountCode = null)
  * @method string getStackingMode()
  * @method CartDiscountDraft setStackingMode(string $stackingMode = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method CartDiscountDraft setCustom(CustomFieldObjectDraft $custom = null)
  */
 class CartDiscountDraft extends JsonObject
 {
@@ -50,6 +53,7 @@ class CartDiscountDraft extends JsonObject
     const VALID_UNTIL = 'validUntil';
     const REQUIRES_DISCOUNT_CODE = 'requiresDiscountCode';
     const STACKING_MODE = 'stackingMode';
+    const CUSTOM = 'custom';
 
     public function fieldDefinitions()
     {
@@ -71,6 +75,7 @@ class CartDiscountDraft extends JsonObject
             ],
             static::REQUIRES_DISCOUNT_CODE => [static::TYPE => 'bool'],
             static::STACKING_MODE => [static::TYPE => 'string'],
+            static::CUSTOM => [static::TYPE => CustomFieldObjectDraft::class]
         ];
     }
 

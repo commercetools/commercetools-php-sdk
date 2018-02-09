@@ -142,6 +142,7 @@ cartDiscount:
     - requiresDiscountCode
     - references
     - stackingMode
+    - custom
 
 cartDiscountValue:
   domain: cartDiscount
