@@ -733,6 +733,7 @@ discountCode:
     - maxApplications
     - maxApplicationsPerCustomer
     - custom
+    - groups
 productDiscount:
   domain: productDiscount
   model: ProductDiscount

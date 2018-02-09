@@ -24,6 +24,7 @@ use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeGroupsAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeIsActiveAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetCartPredicateAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetDescriptionAction;
@@ -50,7 +51,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $cartDiscount = $request->mapResponse($response);
 
-        $this->discountDeleteRequests[] = CartDiscountDeleteRequest::ofIdAndVersion(
+        $this->discountDeleteRequests[] = $this->deleteRequest = CartDiscountDeleteRequest::ofIdAndVersion(
             $cartDiscount->getId(),
             $cartDiscount->getVersion()
         );
@@ -155,11 +156,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $this->assertSame($cartDiscount->getId(), $result->getCartDiscounts()->current()->getId());
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(DiscountCode::class, $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testChangeCartDiscountsAction()
@@ -190,11 +187,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $this->assertSame($expectedIds, $ids);
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(DiscountCode::class, $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testSetDescription()
@@ -218,11 +211,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $this->assertSame($description, $result->getDescription()->en);
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(DiscountCode::class, $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testChangeIsActive()
@@ -244,11 +233,29 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $this->assertSame($isActive, $result->getIsActive());
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
+        $this->deleteRequest->setVersion($result->getVersion());
+    }
+
+    public function testChangeGroups()
+    {
+        $draft = $this->getDraft('change-groups');
+        $draft->setGroups(['test']);
+        $discountCode = $this->createDiscountCode($draft);
+        $this->assertSame('test', current($discountCode->getGroups()));
+
+
+        $request = DiscountCodeUpdateRequest::ofIdAndVersion($discountCode->getId(), $discountCode->getVersion())
+            ->addAction(
+                DiscountCodeChangeGroupsAction::of()->setGroups(['test2'])
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf(DiscountCode::class, $result);
+        $this->assertSame('test2', current($result->getGroups()));
+        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
     }
 
     public function testSetCartPredicate()
@@ -270,11 +277,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $this->assertSame($cartPredicate, $result->getCartPredicate());
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(DiscountCode::class, $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testSetMaxApplications()
@@ -296,11 +299,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $this->assertSame($maxApplications, $result->getMaxApplications());
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(DiscountCode::class, $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testSetMaxApplicationsPerCustomer()
@@ -323,11 +322,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $this->assertSame($maxApplicationsPerCustomer, $result->getMaxApplicationsPerCustomer());
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(DiscountCode::class, $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testSetName()
@@ -350,10 +345,6 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $this->assertSame($name->en, $result->getName()->en);
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(DiscountCode::class, $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 }

@@ -44,6 +44,8 @@ use DateTime;
  * @method DiscountCode setMaxApplicationsPerCustomer(int $maxApplicationsPerCustomer = null)
  * @method CustomFieldObject getCustom()
  * @method DiscountCode setCustom(CustomFieldObject $custom = null)
+ * @method array getGroups()
+ * @method DiscountCode setGroups(array $groups = null)
  * @method DiscountCodeReference getReference()
  */
 class DiscountCode extends Resource
@@ -73,6 +75,7 @@ class DiscountCode extends Resource
             'maxApplications' => [static::TYPE => 'int'],
             'maxApplicationsPerCustomer' => [static::TYPE => 'int'],
             'custom' => [static::TYPE => CustomFieldObject::class],
+            'groups' => [static::TYPE => 'array'],
         ];
     }
 }

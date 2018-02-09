@@ -32,6 +32,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method DiscountCodeDraft setMaxApplicationsPerCustomer(int $maxApplicationsPerCustomer = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method DiscountCodeDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method array getGroups()
+ * @method DiscountCodeDraft setGroups(array $groups = null)
  */
 class DiscountCodeDraft extends JsonObject
 {
@@ -49,6 +51,7 @@ class DiscountCodeDraft extends JsonObject
             'maxApplications' => [static::TYPE => 'int'],
             'maxApplicationsPerCustomer' => [static::TYPE => 'int'],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'groups' => [static::TYPE => 'array'],
         ];
     }
 
