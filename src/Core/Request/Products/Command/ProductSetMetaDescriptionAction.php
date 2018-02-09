@@ -16,6 +16,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductSetMetaDescriptionAction setAction(string $action = null)
  * @method LocalizedString getMetaDescription()
  * @method ProductSetMetaDescriptionAction setMetaDescription(LocalizedString $metaDescription = null)
+ * @method bool getStaged()
+ * @method ProductSetMetaDescriptionAction setStaged(bool $staged = null)
  */
 class ProductSetMetaDescriptionAction extends AbstractAction
 {
@@ -24,6 +26,7 @@ class ProductSetMetaDescriptionAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'metaDescription' => [static::TYPE => LocalizedString::class],
+            'staged' => [static::TYPE => 'bool'],
         ];
     }
 

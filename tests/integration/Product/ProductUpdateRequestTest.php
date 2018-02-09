@@ -902,6 +902,31 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
+    public function testMetaTitlePublish()
+    {
+        $draft = $this->getDraft('meta-title');
+        $product = $this->createProduct($draft);
+
+        $metaTitle = $this->getTestRun() . '-meta-title';
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetMetaTitleAction::of()->setMetaTitle(
+                    LocalizedString::ofLangAndText('en', $metaTitle)
+                )->setStaged(false)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertSame(
+            $metaTitle,
+            $result->getMasterData()->getCurrent()->getMetaTitle()->en
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
     public function testMetaDescription()
     {
         $draft = $this->getDraft('meta-description');
@@ -928,6 +953,31 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
+    public function testMetaDescriptionPublish()
+    {
+        $draft = $this->getDraft('meta-description');
+        $product = $this->createProduct($draft);
+
+        $metaDescription = $this->getTestRun() . '-meta-description';
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetMetaDescriptionAction::of()->setMetaDescription(
+                    LocalizedString::ofLangAndText('en', $metaDescription)
+                )->setStaged(false)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertSame(
+            $metaDescription,
+            $result->getMasterData()->getCurrent()->getMetaDescription()->en
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
     public function testMetaKeywords()
     {
         $draft = $this->getDraft('meta-keywords');
@@ -950,6 +1000,31 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertSame(
             $metaKeywords,
             $result->getMasterData()->getStaged()->getMetaKeywords()->en
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
+    public function testMetaKeywordsPublish()
+    {
+        $draft = $this->getDraft('meta-keywords');
+        $product = $this->createProduct($draft);
+
+        $metaKeywords = $this->getTestRun() . '-meta-keywords';
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetMetaKeywordsAction::of()->setMetaKeywords(
+                    LocalizedString::ofLangAndText('en', $metaKeywords)
+                )->setStaged(false)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertSame(
+            $metaKeywords,
+            $result->getMasterData()->getCurrent()->getMetaKeywords()->en
         );
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }

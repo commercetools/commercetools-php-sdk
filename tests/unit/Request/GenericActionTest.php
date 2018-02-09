@@ -394,15 +394,15 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 ProductSetMetaTitleAction::class,
-                ['action', 'metaTitle']
+                ['action', 'metaTitle', 'staged']
             ],
             [
                 ProductSetMetaDescriptionAction::class,
-                ['action', 'metaDescription']
+                ['action', 'metaDescription', 'staged']
             ],
             [
                 ProductSetMetaKeywordsAction::class,
-                ['action', 'metaKeywords']
+                ['action', 'metaKeywords', 'staged']
             ],
             [
                 ProductSetPriceCustomFieldAction::class,

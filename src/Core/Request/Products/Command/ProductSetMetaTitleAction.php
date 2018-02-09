@@ -16,6 +16,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductSetMetaTitleAction setAction(string $action = null)
  * @method LocalizedString getMetaTitle()
  * @method ProductSetMetaTitleAction setMetaTitle(LocalizedString $metaTitle = null)
+ * @method bool getStaged()
+ * @method ProductSetMetaTitleAction setStaged(bool $staged = null)
  */
 class ProductSetMetaTitleAction extends AbstractAction
 {
@@ -24,6 +26,7 @@ class ProductSetMetaTitleAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'metaTitle' => [static::TYPE => LocalizedString::class],
+            'staged' => [static::TYPE => 'bool'],
         ];
     }
 

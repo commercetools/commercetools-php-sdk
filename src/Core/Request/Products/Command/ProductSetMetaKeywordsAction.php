@@ -16,6 +16,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductSetMetaKeywordsAction setAction(string $action = null)
  * @method LocalizedString getMetaKeywords()
  * @method ProductSetMetaKeywordsAction setMetaKeywords(LocalizedString $metaKeywords = null)
+ * @method bool getStaged()
+ * @method ProductSetMetaKeywordsAction setStaged(bool $staged = null)
  */
 class ProductSetMetaKeywordsAction extends AbstractAction
 {
@@ -24,6 +26,7 @@ class ProductSetMetaKeywordsAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'metaKeywords' => [static::TYPE => LocalizedString::class],
+            'staged' => [static::TYPE => 'bool'],
         ];
     }
 
