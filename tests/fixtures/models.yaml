@@ -713,6 +713,7 @@ customerGroup:
     - lastModifiedAt
     - name
     - key
+    - custom
 
 discountCode:
   domain: discountCode
