@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\Orders\Command;
 
+use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Order\DeliveryItemCollection;
 use Commercetools\Core\Model\Order\ParcelCollection;
@@ -25,6 +26,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method OrderAddDeliveryAction setMeasurements(ParcelMeasurements $measurements = null)
  * @method TrackingData getTrackingData()
  * @method OrderAddDeliveryAction setTrackingData(TrackingData $trackingData = null)
+ * @method Address getAddress()
+ * @method OrderAddDeliveryAction setAddress(Address $address = null)
  */
 class OrderAddDeliveryAction extends AbstractAction
 {
@@ -36,6 +39,7 @@ class OrderAddDeliveryAction extends AbstractAction
             'parcels' => [static::TYPE => ParcelCollection::class],
             'measurements' => [static::TYPE => ParcelMeasurements::class],
             'trackingData' => [static::TYPE => TrackingData::class],
+            'address' => [static::TYPE => Address::class],
         ];
     }
 

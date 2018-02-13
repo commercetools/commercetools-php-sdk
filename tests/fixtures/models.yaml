@@ -419,6 +419,7 @@ delivery:
     - createdAt
     - items
     - parcels
+    - address
 
 deliveryItem:
   domain: order

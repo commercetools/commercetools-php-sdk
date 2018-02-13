@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Order;
 
+use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use DateTime;
@@ -20,6 +21,8 @@ use DateTime;
  * @method Delivery setItems(DeliveryItemCollection $items = null)
  * @method ParcelCollection getParcels()
  * @method Delivery setParcels(ParcelCollection $parcels = null)
+ * @method Address getAddress()
+ * @method Delivery setAddress(Address $address = null)
  */
 class Delivery extends JsonObject
 {
@@ -33,6 +36,7 @@ class Delivery extends JsonObject
             ],
             'items' => [static::TYPE => DeliveryItemCollection::class],
             'parcels' => [static::TYPE => ParcelCollection::class],
+            'address' => [static::TYPE => Address::class]
         ];
     }
 }
