@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ProductDiscounts;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductDiscounts
- * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#get-productdiscount-by-id
+ * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#get-productdiscount-by-id
  * @method ProductDiscount mapResponse(ApiResponseInterface $response)
  * @method ProductDiscount mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

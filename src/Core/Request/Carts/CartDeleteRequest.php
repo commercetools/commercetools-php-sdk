@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 26.01.15, 17:02
  */
 
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Carts
- * @link https://dev.commercetools.com/http-api-projects-carts.html#delete-cart
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#delete-cart
  * @method Cart mapResponse(ApiResponseInterface $response)
  * @method Cart mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Project;
@@ -13,7 +13,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Project
- * @link https://dev.commercetools.com/http-api-projects-project.html#project
+ * @link https://docs.commercetools.com/http-api-projects-project.html#project
  * @method string getKey()
  * @method Project setKey(string $key = null)
  * @method string getName()

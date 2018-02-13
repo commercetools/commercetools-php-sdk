@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 
@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Review
- * @link https://dev.commercetools.com/http-api-projects-reviews.html#reviewratingstatistics
+ * @link https://docs.commercetools.com/http-api-projects-reviews.html#reviewratingstatistics
  * @method float getAverageRating()
  * @method ReviewRatingStatistics setAverageRating(float $averageRating = null)
  * @method float getHighestRating()

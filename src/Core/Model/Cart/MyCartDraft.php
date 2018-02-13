@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Cart;
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-me-carts.html#mycartdraft
+ * @link https://docs.commercetools.com/http-api-projects-me-carts.html#mycartdraft
  * @method string getCurrency()
  * @method MyCartDraft setCurrency(string $currency = null)
  * @method string getCustomerEmail()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 04.02.15, 16:35
  */
 
@@ -16,7 +16,7 @@ use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link https://dev.commercetools.com/http-api-projects-products.html#productdraft
+ * @link https://docs.commercetools.com/http-api-projects-products.html#productdraft
  * @method LocalizedString getName()
  * @method ProductDraft setName(LocalizedString $name = null)
  * @method LocalizedString getSlug()

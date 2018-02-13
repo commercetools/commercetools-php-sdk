@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\TaxCategories\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories\Command
- * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#set-description
+ * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#set-description
  * @method string getAction()
  * @method TaxCategorySetDescriptionAction setAction(string $action = null)
  * @method string getDescription()

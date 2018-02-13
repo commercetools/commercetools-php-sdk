@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 11.02.15, 14:23
  */
 
@@ -18,7 +18,7 @@ use Commercetools\Core\Model\Common\DateDecorator;
 
 /**
  * @package Commercetools\Core\Model\Customer
- * @link https://dev.commercetools.com/http-api-projects-customers.html#customerdraft
+ * @link https://docs.commercetools.com/http-api-projects-customers.html#customerdraft
  * @method string getCustomerNumber()
  * @method string getEmail()
  * @method string getTitle()

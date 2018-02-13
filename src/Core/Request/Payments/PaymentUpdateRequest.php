@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Payments;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Payments
- * @link https://dev.commercetools.com/http-api-projects-payments.html#update-payment
+ * @link https://docs.commercetools.com/http-api-projects-payments.html#update-payment
  * @method Payment mapResponse(ApiResponseInterface $response)
  * @method Payment mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

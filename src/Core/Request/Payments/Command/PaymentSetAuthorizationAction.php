@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Payments\Command;
@@ -13,7 +13,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#set-authorization
+ * @link https://docs.commercetools.com/http-api-projects-payments.html#set-authorization
  * @method string getAction()
  * @method PaymentSetAuthorizationAction setAction(string $action = null)
  * @method Money getAmount()

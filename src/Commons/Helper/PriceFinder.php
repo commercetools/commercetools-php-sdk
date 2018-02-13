@@ -12,7 +12,7 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
  * @deprecated Please use the price selection functionality of the platform
- * @link http://dev.commercetools.com/http-api-projects-products.html#price-selection
+ * @link http://docs.commercetools.com/http-api-projects-products.html#price-selection
  */
 class PriceFinder
 {

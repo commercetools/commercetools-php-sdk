@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#revert-staged-variant-changes
+ * @link https://docs.commercetools.com/http-api-projects-products.html#revert-staged-variant-changes
  * @method string getAction()
  * @method ProductRevertStagedVariantChangesAction setAction(string $action = null)
  * @method int getVariantId()

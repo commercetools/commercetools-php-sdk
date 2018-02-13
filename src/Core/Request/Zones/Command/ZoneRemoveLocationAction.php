@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Zones\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Zones\Command
- * @link https://dev.commercetools.com/http-api-projects-zones.html#remove-location
+ * @link https://docs.commercetools.com/http-api-projects-zones.html#remove-location
  * @method string getAction()
  * @method ZoneRemoveLocationAction setAction(string $action = null)
  * @method Location getLocation()

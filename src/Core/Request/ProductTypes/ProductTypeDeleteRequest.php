@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ProductTypes;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#delete-producttype-by-id
+ * @link https://docs.commercetools.com/http-api-projects-productTypes.html#delete-producttype-by-id
  * @method ProductType mapResponse(ApiResponseInterface $response)
  * @method ProductType mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

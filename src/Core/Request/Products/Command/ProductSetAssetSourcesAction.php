@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\AssetSourceCollection;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-asset-tags
+ * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-tags
  * @method string getAction()
  * @method ProductSetAssetSourcesAction setAction(string $action = null)
  * @method bool getStaged()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Customers\Command;
@@ -12,7 +12,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @link https://dev.commercetools.com/http-api-projects-customers.html#set-date-of-birth
+ * @link https://docs.commercetools.com/http-api-projects-customers.html#set-date-of-birth
  * @method DateDecorator getDateOfBirth()
  * @method CustomerSetDateOfBirthAction setDateOfBirth(DateTime $dateOfBirth = null)
  * @method string getAction()

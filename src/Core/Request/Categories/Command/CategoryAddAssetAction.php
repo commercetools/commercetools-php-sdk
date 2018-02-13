@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Categories\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\AssetDraft;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#add-asset
+ * @link https://docs.commercetools.com/http-api-projects-products.html#add-asset
  * @method string getAction()
  * @method CategoryAddAssetAction setAction(string $action = null)
  * @method AssetDraft getAsset()

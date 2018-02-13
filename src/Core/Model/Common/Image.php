@@ -1,13 +1,13 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-products.html#images
+ * @link https://docs.commercetools.com/http-api-projects-products.html#images
  * @method string getUrl()
  * @method Image setUrl(string $url = null)
  * @method ImageDimension getDimensions()

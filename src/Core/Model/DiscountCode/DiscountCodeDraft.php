@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\DiscountCode;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\DiscountCode
- * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#discountcodedraft
+ * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#discountcodedraft
  * @method LocalizedString getName()
  * @method DiscountCodeDraft setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()

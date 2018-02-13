@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ShoppingLists\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Request\ShoppingLists\Command
- * @link https://dev.commercetools.com/http-api-projects-types.html#change-name
+ * @link https://docs.commercetools.com/http-api-projects-types.html#change-name
  * @method string getAction()
  * @method ShoppingListChangeNameAction setAction(string $action = null)
  * @method LocalizedString getName()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ProductTypes\Command;
@@ -12,7 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
  * @codingStandardsIgnoreStart
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#change-the-order-of-localizedenumvalues
+ * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-order-of-localizedenumvalues
  * @codingStandardsIgnoreEnd
  * @method string getAction()
  * @method ProductTypeChangeLocalizedEnumValueOrderAction setAction(string $action = null)

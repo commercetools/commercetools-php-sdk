@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Carts\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link http://dev.commercetools.com/http-api-projects-carts.html#set-lineitem-taxamount
+ * @link http://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-taxamount
  * @method string getAction()
  * @method CartSetLineItemTaxAmountAction setAction(string $action = null)
  * @method string getLineItemId()

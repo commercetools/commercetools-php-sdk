@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CustomObject;
@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\CustomObject
- * @link https://dev.commercetools.com/http-api-types.html#reference-types
+ * @link https://docs.commercetools.com/http-api-types.html#reference-types
  * @method string getTypeId()
  * @method CustomObjectReference setTypeId(string $typeId = null)
  * @method string getId()

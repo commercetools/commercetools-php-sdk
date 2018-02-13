@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Categories\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @link https://dev.commercetools.com/http-api-projects-categories.html#set-meta-description
+ * @link https://docs.commercetools.com/http-api-projects-categories.html#set-meta-description
  * @method string getAction()
  * @method CategorySetMetaDescriptionAction setAction(string $action = null)
  * @method LocalizedString getMetaDescription()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\DiscountCode;
@@ -15,7 +15,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\DiscountCode
- * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#discountcode
+ * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#discountcode
  * @method string getId()
  * @method DiscountCode setId(string $id = null)
  * @method int getVersion()

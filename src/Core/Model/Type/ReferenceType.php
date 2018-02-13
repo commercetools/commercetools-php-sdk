@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Type;
@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\Type
- * @link https://dev.commercetools.com/http-api-projects-types.html#referencetype
+ * @link https://docs.commercetools.com/http-api-projects-types.html#referencetype
  * @method string getName()
  * @method ReferenceType setName(string $name = null)
  * @method string getReferenceTypeId()

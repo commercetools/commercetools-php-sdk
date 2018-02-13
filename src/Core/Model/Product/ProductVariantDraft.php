@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 04.02.15, 16:41
  */
 
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\Common\AssetDraftCollection;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link https://dev.commercetools.com/http-api-projects-products.html#productvariantdraft
+ * @link https://docs.commercetools.com/http-api-projects-products.html#productvariantdraft
  * @method string getSku()
  * @method ProductVariantDraft setSku(string $sku = null)
  * @method ProductVariantDraft setPrices(PriceDraftCollection $prices = null)

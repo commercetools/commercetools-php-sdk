@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Channel;
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\Common\GeoLocation;
 
 /**
  * @package Commercetools\Core\Model\Channel
- * @link https://dev.commercetools.com/http-api-projects-channels.html#channeldraft
+ * @link https://docs.commercetools.com/http-api-projects-channels.html#channeldraft
  * @method string getKey()
  * @method ChannelDraft setKey(string $key = null)
  * @method array getRoles()

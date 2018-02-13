@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Cart;
@@ -19,7 +19,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#cart
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#cart
  * @method string getId()
  * @method Cart setId(string $id = null)
  * @method int getVersion()

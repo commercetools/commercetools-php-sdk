@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Carts\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Payment\PaymentReference;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link https://dev.commercetools.com/http-api-projects-carts.html#remove-payment
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#remove-payment
  * @method string getAction()
  * @method CartRemovePaymentAction setAction(string $action = null)
  * @method PaymentReference getPayment()

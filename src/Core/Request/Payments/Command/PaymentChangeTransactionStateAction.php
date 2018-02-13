@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 
@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#change-transactionstate
+ * @link https://docs.commercetools.com/http-api-projects-payments.html#change-transactionstate
  * @method string getAction()
  * @method PaymentChangeTransactionStateAction setAction(string $action = null)
  * @method string getTransactionId()

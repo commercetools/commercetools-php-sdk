@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods\Command
- * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#set-predicate
+ * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-predicate
  * @method string getAction()
  * @method ShippingMethodSetPredicateAction setAction(string $action = null)
  * @method string getPredicate()

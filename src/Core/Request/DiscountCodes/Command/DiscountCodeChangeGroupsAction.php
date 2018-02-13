@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\DiscountCodes\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes\Command
- * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#change-groups
+ * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-groups
  * @method string getAction()
  * @method DiscountCodeChangeGroupsAction setAction(string $action = null)
  * @method array getGroups()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Order;
@@ -11,7 +11,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders.html#delivery
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#delivery
  * @method string getId()
  * @method Delivery setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

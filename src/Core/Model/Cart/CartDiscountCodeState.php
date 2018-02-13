@@ -1,13 +1,13 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Cart;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#discountcodestate
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#discountcodestate
  */
 class CartDiscountCodeState
 {

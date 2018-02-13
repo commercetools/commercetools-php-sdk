@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ProductTypes\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#add-plainenumvalue-to-attributedefinition
+ * @link https://docs.commercetools.com/http-api-projects-productTypes.html#add-plainenumvalue-to-attributedefinition
  * @method string getAction()
  * @method ProductTypeAddPlainEnumValueAction setAction(string $action = null)
  * @method string getAttributeName()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Type;
@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 
 /**
  * @package Commercetools\Core\Model\Type
- * @link https://dev.commercetools.com/http-api-projects-types.html#localizedenumtype
+ * @link https://docs.commercetools.com/http-api-projects-types.html#localizedenumtype
  * @method string getName()
  * @method LocalizedEnumType setName(string $name = null)
  * @method LocalizedEnumCollection getValues()

@@ -137,7 +137,7 @@
 ### DEPRECATION NOTE
 
 The class ```Commercetools\Commons\Helper\PriceFinder``` has been deprecated. Please use the 
-[price selection](http://dev.commercetools.com/http-api-projects-products.html#price-selection) functionality of
+[price selection](http://docs.commercetools.com/http-api-projects-products.html#price-selection) functionality of
 the platform. E.g. ```ProductProjectionSearchRequest::of()->currency('EUR')->country('DE')```
 
 

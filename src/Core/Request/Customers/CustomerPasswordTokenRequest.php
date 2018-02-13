@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 11.02.15, 17:40
  */
 
@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
 /**
  * @package Commercetools\Core\Request\Customers
  * @codingStandardsIgnoreStart
- * @link https://dev.commercetools.com/http-api-projects-customers.html#create-a-token-for-resetting-the-customers-password
+ * @link https://docs.commercetools.com/http-api-projects-customers.html#create-a-token-for-resetting-the-customers-password
  * @codingStandardsIgnoreEnd
  * @method CustomerToken mapResponse(ApiResponseInterface $response)
  * @method CustomerToken mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)

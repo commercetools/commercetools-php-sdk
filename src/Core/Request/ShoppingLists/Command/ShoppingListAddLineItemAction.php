@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ShoppingLists\Command;
@@ -13,7 +13,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Request\ShoppingLists\Command
- * @link https://dev.commercetools.com/http-api-projects-shoppingLists.html#add-lineitem
+ * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#add-lineitem
  * @method string getAction()
  * @method ShoppingListAddLineItemAction setAction(string $action = null)
  * @method string getProductId()

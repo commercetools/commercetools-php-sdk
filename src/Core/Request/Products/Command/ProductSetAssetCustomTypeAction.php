@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Type\TypeReference;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-asset-custom-type
+ * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-custom-type
  * @method string getAction()
  * @method ProductSetAssetCustomTypeAction setAction(string $action = null)
  * @method int getVariantId()

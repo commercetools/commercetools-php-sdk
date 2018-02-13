@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Reviews;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Reviews
- * @link https://dev.commercetools.com/http-api-projects-reviews.html#query-reviews
+ * @link https://docs.commercetools.com/http-api-projects-reviews.html#query-reviews
  * @method ReviewCollection mapResponse(ApiResponseInterface $response)
  * @method ReviewCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

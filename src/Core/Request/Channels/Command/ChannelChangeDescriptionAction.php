@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Channels\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Channels\Command
- * @link https://dev.commercetools.com/http-api-projects-channels.html#change-description
+ * @link https://docs.commercetools.com/http-api-projects-channels.html#change-description
  * @method string getAction()
  * @method ChannelChangeDescriptionAction setAction(string $action = null)
  * @method LocalizedString getDescription()

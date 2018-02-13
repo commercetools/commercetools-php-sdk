@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-price-customfield
+ * @link https://docs.commercetools.com/http-api-projects-products.html#set-price-customfield
  * @method string getAction()
  * @method ProductSetPriceCustomFieldAction setAction(string $action = null)
  * @method string getPriceId()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Product;
@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link https://dev.commercetools.com/http-api-projects-products.html#productvariantavailability
+ * @link https://docs.commercetools.com/http-api-projects-products.html#productvariantavailability
  * @method bool getIsOnStock()
  * @method ProductVariantAvailability setIsOnStock(bool $isOnStock = null)
  * @method int getRestockableInDays()

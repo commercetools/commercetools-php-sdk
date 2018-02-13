@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 04.02.15, 17:13
  */
 
@@ -10,7 +10,7 @@ use Commercetools\Core\Model\ProductDiscount\ProductDiscountReference;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-products.html#discountedprice
+ * @link https://docs.commercetools.com/http-api-projects-products.html#discountedprice
  * @method Money getValue()
  * @method ProductDiscountReference getDiscount()
  * @method DiscountedPrice setValue(Money $value = null)

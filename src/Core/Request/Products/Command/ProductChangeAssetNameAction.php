@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#change-asset-name
+ * @link https://docs.commercetools.com/http-api-projects-products.html#change-asset-name
  * @method string getAction()
  * @method ProductChangeAssetNameAction setAction(string $action = null)
  * @method LocalizedString getName()

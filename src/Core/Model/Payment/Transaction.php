@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Payment;
@@ -13,7 +13,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Payment
- * @link https://dev.commercetools.com/http-api-projects-payments.html#transaction
+ * @link https://docs.commercetools.com/http-api-projects-payments.html#transaction
  * @method DateTimeDecorator getTimestamp()
  * @method Transaction setTimestamp(DateTime $timestamp = null)
  * @method string getType()

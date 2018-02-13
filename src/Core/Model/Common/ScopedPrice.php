@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 04.02.15, 16:43
  */
 
@@ -13,7 +13,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-products.html#scopedprice
+ * @link https://docs.commercetools.com/http-api-projects-products.html#scopedprice
  * @method Money getValue()
  * @method string getCountry()
  * @method CustomerGroupReference getCustomerGroup()

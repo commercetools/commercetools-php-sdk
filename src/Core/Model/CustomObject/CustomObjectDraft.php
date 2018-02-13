@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CustomObject;
@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\CustomObject
- * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#create-a-customobject
+ * @link https://docs.commercetools.com/http-api-projects-custom-objects.html#create-a-customobject
  * @method string getContainer()
  * @method CustomObjectDraft setContainer(string $container = null)
  * @method string getKey()

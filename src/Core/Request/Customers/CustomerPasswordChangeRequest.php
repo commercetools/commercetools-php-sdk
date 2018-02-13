@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 11.02.15, 16:42
  */
 
@@ -19,7 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @link https://dev.commercetools.com/http-api-projects-customers.html#change-customers-password
+ * @link https://docs.commercetools.com/http-api-projects-customers.html#change-customers-password
  * @method Customer mapResponse(ApiResponseInterface $response)
  * @method Customer mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

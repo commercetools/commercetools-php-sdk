@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Categories\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-asset-tags
+ * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-tags
  * @method string getAction()
  * @method CategorySetAssetTagsAction setAction(string $action = null)
  * @method string getAssetId()

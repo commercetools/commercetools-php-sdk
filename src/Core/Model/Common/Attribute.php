@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 04.02.15, 17:46
  */
 
@@ -12,7 +12,7 @@ use Commercetools\Core\Model\ProductType\SetType;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-products.html#attribute
+ * @link https://docs.commercetools.com/http-api-projects-products.html#attribute
  * @method string getName()
  * @method Attribute setName(string $name = null)
  * @method mixed getValue()

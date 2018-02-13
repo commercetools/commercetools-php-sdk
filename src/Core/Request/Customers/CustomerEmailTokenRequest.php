@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 12.02.15, 12:34
  */
 
@@ -16,7 +16,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @link https://dev.commercetools.com/http-api-projects-customers.html#create-a-token-for-verifying-the-customers-email
+ * @link https://docs.commercetools.com/http-api-projects-customers.html#create-a-token-for-verifying-the-customers-email
  * @method CustomerToken mapResponse(ApiResponseInterface $response)
  * @method CustomerToken mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

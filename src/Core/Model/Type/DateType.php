@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Type;
@@ -10,7 +10,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Type
- * @link https://dev.commercetools.com/http-api-projects-types.html#datetype
+ * @link https://docs.commercetools.com/http-api-projects-types.html#datetype
  * @method string getName()
  * @method DateType setName(string $name = null)
  */

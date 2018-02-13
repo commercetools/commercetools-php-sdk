@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CartDiscount;
@@ -14,7 +14,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
- * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscount
+ * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscount
  * @method LocalizedString getName()
  * @method CartDiscountDraft setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()

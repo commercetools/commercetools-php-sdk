@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CustomerGroup;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\CustomerGroup
- * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#create-a-customergroup
+ * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#create-a-customergroup
  * @method string getGroupName()
  * @method CustomerGroupDraft setGroupName(string $groupName = null)
  * @method string getKey()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Cart;
@@ -15,7 +15,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#cartdraft
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#cartdraft
  * @method string getCurrency()
  * @method string getCustomerId()
  * @method string getCountry()

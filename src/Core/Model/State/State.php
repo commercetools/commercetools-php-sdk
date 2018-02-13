@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\State;
@@ -12,7 +12,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\State
- * @link https://dev.commercetools.com/http-api-projects-states.html#state
+ * @link https://docs.commercetools.com/http-api-projects-states.html#state
  * @method string getId()
  * @method State setId(string $id = null)
  * @method int getVersion()

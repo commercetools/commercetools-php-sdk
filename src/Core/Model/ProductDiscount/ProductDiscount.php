@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\ProductDiscount;
@@ -13,7 +13,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\ProductDiscount
- * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#productdiscount
+ * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#productdiscount
  * @method string getId()
  * @method ProductDiscount setId(string $id = null)
  * @method int getVersion()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Customer;
@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Customer
- * @link https://dev.commercetools.com/http-api-projects-customers.html#customersigninresult
+ * @link https://docs.commercetools.com/http-api-projects-customers.html#customersigninresult
  * @method Customer getCustomer()
  * @method CustomerSigninResult setCustomer(Customer $customer = null)
  * @method Cart getCart()

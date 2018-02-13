@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 02.02.15, 11:26
  */
 
@@ -28,7 +28,7 @@ use Commercetools\Core\Model\Product\Search\FilterInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link https://dev.commercetools.com/http-api-projects-products-search.html#search-productprojections
+ * @link https://docs.commercetools.com/http-api-projects-products-search.html#search-productprojections
  * @method PagedSearchResponse executeWithClient(Client $client, array $headers = null)
  * @method ProductProjectionCollection mapResponse(ApiResponseInterface $response)
  * @method ProductProjectionCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Inventory;
@@ -14,7 +14,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Inventory
- * @link https://dev.commercetools.com/http-api-projects-inventory.html#inventoryentrydraft
+ * @link https://docs.commercetools.com/http-api-projects-inventory.html#inventoryentrydraft
  * @method string getSku()
  * @method InventoryDraft setSku(string $sku = null)
  * @method int getQuantityOnStock()

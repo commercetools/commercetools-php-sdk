@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Channels;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Channels
- * @link https://dev.commercetools.com/http-api-projects-channels.html#update-channel
+ * @link https://docs.commercetools.com/http-api-projects-channels.html#update-channel
  * @method Channel mapResponse(ApiResponseInterface $response)
  * @method Channel mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

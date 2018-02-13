@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\ShippingMethod;
@@ -12,7 +12,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\ShippingMethod
- * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#shippingmethod
+ * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#shippingmethod
  * @method string getId()
  * @method ShippingMethod setId(string $id = null)
  * @method int getVersion()
