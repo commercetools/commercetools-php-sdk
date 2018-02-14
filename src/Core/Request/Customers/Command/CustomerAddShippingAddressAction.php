@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @link http://docs.commercetools.com/http-api-projects-customers.html#add-billing-address-id
+ * @link https://docs.commercetools.com/http-api-projects-customers.html#add-billing-address-id
  * @method string getAddressId()
  * @method CustomerAddShippingAddressAction setAddressId(string $addressId = null)
  * @method string getAction()

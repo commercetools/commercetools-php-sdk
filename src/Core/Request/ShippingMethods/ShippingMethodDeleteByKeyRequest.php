@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods
- * @link http://docs.commercetools.com/http-api-projects-shippingMethods.html#delete-shippingmethod-by-key
+ * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#delete-shippingmethod-by-key
  * @method ShippingMethod mapResponse(ApiResponseInterface $response)
  * @method ShippingMethod mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

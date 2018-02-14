@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories\Command
- * @link http://docs.commercetools.com/http-api-projects-taxCategories.html#set-key
+ * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#set-key
  * @method string getKey()
  * @method TaxCategorySetKeyAction setKey(string $key = null)
  * @method string getAction()

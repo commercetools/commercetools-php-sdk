@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link http://docs.commercetools.com/http-api-projects-carts.html#set-deletedaysafterlastmodification-beta
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#set-deletedaysafterlastmodification-beta
  * @method string getAction()
  * @method CartSetDeleteDaysAfterLastModificationAction setAction(string $action = null)
  * @method int getDeleteDaysAfterLastModification()

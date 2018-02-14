@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories
- * @link http://docs.commercetools.com/http-api-projects-taxCategories.html#update-taxcategory
+ * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#update-taxcategory
  * @method TaxCategory mapResponse(ApiResponseInterface $response)
  * @method TaxCategory mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

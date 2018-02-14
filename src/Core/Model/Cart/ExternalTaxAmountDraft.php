@@ -11,7 +11,7 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link http://docs.commercetools.com/http-api-projects-carts.html#externaltaxamountdraft
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#externaltaxamountdraft
  * @method Money getTotalGross()
  * @method ExternalTaxAmountDraft setTotalGross(Money $totalGross = null)
  * @method ExternalTaxRateDraft getTaxRate()

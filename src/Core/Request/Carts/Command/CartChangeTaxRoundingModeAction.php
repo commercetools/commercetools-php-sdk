@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link http://docs.commercetools.com/http-api-projects-carts.html#change-tax-roundingmode
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#change-tax-roundingmode
  * @method string getAction()
  * @method CartChangeTaxRoundingModeAction setAction(string $action = null)
  * @method string getTaxRoundingMode()
