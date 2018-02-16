@@ -47,6 +47,7 @@ use Commercetools\Core\Request\Products\Command\ProductRemoveVariantAction;
 use Commercetools\Core\Request\Products\Command\ProductRevertStagedChangesAction;
 use Commercetools\Core\Request\Products\Command\ProductRevertStagedVariantChangesAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAssetDescriptionAction;
+use Commercetools\Core\Request\Products\Command\ProductSetAssetKeyAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAssetSourcesAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAssetTagsAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAttributeAction;
@@ -1511,7 +1512,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertSame('test' . $this->getTestRun(), $asset->getSources()->current()->getUri());
 
         $product = $result;
-
+        $assetKey = uniqid();
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(
                 ProductChangeAssetNameAction::ofSkuAssetIdAndName(
@@ -1536,6 +1537,87 @@ class ProductUpdateRequestTest extends ApiTestCase
                 ProductSetAssetSourcesAction::ofSkuAndAssetId(
                     $variant->getSku(),
                     $asset->getId()
+                )->setSources(
+                    AssetSourceCollection::of()
+                        ->add(AssetSource::of()->setUri('new-test' . $this->getTestRun()))
+                )
+            )
+            ->addAction(
+                ProductSetAssetKeyAction::ofSkuAssetIdAndAssetKey(
+                    $variant->getSku(),
+                    $asset->getId(),
+                    $assetKey
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+        $asset = $result->getMasterData()->getStaged()->getMasterVariant()->getAssets()->current();
+        $this->assertInstanceOf(Asset::class, $asset);
+        $this->assertSame($assetKey, $asset->getKey());
+        $this->assertSame('new-test', $asset->getName()->en);
+        $this->assertSame('new-description', $asset->getDescription()->en);
+        $this->assertSame(['123', 'abc'], $asset->getTags());
+        $this->assertSame('new-test' . $this->getTestRun(), $asset->getSources()->current()->getUri());
+    }
+
+    public function testAssetsWithSKUAndAssetKey()
+    {
+        $assetKey = uniqid();
+        $draft = $this->getDraft('assets');
+        $draft->setMasterVariant(
+            ProductVariantDraft::of()->setSku('sku' . uniqid())
+        );
+        $product = $this->createProduct($draft);
+
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        $assetDraft = AssetDraft::of()->setKey($assetKey)->setSources(AssetSourceCollection::of()->add(
+            AssetSource::of()->setUri('test' . $this->getTestRun())
+        ))->setName(LocalizedString::ofLangAndText('en', 'test'));
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductAddAssetAction::ofSkuAndAsset($variant->getSku(), $assetDraft))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $asset = $result->getMasterData()->getStaged()->getMasterVariant()->getAssets()->current();
+        $this->assertInstanceOf(Asset::class, $asset);
+        $this->assertSame('test' . $this->getTestRun(), $asset->getSources()->current()->getUri());
+
+        $product = $result;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductChangeAssetNameAction::ofSkuAssetKeyAndName(
+                    $variant->getSku(),
+                    $assetKey,
+                    LocalizedString::ofLangAndText('en', 'new-test')
+                )
+            )
+            ->addAction(
+                ProductSetAssetDescriptionAction::ofSkuAndAssetKey(
+                    $variant->getSku(),
+                    $assetKey
+                )->setDescription(LocalizedString::ofLangAndText('en', 'new-description'))
+            )
+            ->addAction(
+                ProductSetAssetTagsAction::ofSkuAndAssetKey(
+                    $variant->getSku(),
+                    $assetKey
+                )->setTags(['123', 'abc'])
+            )
+            ->addAction(
+                ProductSetAssetSourcesAction::ofSkuAndAssetKey(
+                    $variant->getSku(),
+                    $assetKey
                 )->setSources(
                     AssetSourceCollection::of()
                         ->add(AssetSource::of()->setUri('new-test' . $this->getTestRun()))

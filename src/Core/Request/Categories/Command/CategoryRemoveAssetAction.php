@@ -15,6 +15,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method CategoryRemoveAssetAction setAction(string $action = null)
  * @method string getAssetId()
  * @method CategoryRemoveAssetAction setAssetId(string $assetId = null)
+ * @method string getAssetKey()
+ * @method CategoryRemoveAssetAction setAssetKey(string $assetKey = null)
  */
 class CategoryRemoveAssetAction extends AbstractAction
 {
@@ -23,6 +25,7 @@ class CategoryRemoveAssetAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
+            'assetKey' => [static::TYPE => 'string'],
         ];
     }
 
@@ -44,5 +47,15 @@ class CategoryRemoveAssetAction extends AbstractAction
     public static function ofAssetId($assetId, $context = null)
     {
         return static::of($context)->setAssetId($assetId);
+    }
+
+    /**
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return CategoryRemoveAssetAction
+     */
+    public static function ofAssetKey($assetKey, $context = null)
+    {
+        return static::of($context)->setAssetKey($assetKey);
     }
 }

@@ -26,6 +26,8 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
  * @method ProductSetAssetCustomFieldAction setValue($value = null)
  * @method bool getStaged()
  * @method ProductSetAssetCustomFieldAction setStaged(bool $staged = null)
+ * @method string getAssetKey()
+ * @method ProductSetAssetCustomFieldAction setAssetKey(string $assetKey = null)
  */
 class ProductSetAssetCustomFieldAction extends SetCustomFieldAction
 {
@@ -36,6 +38,7 @@ class ProductSetAssetCustomFieldAction extends SetCustomFieldAction
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
+            'assetKey' => [static::TYPE => 'string'],
             'name' => [static::TYPE => 'string'],
             'value' => [static::TYPE => null],
             'staged' => [static::TYPE => 'bool'],
@@ -74,5 +77,29 @@ class ProductSetAssetCustomFieldAction extends SetCustomFieldAction
     public static function ofSkuAssetIdAndName($sku, $assetId, $name, $context = null)
     {
         return static::of($context)->setSku($sku)->setAssetId($assetId)->setName($name);
+    }
+
+    /**
+     * @param int $variantId
+     * @param string $assetKey
+     * @param string $name
+     * @param Context|callable $context
+     * @return ProductSetAssetCustomFieldAction
+     */
+    public static function ofVariantIdAssetKeyAndName($variantId, $assetKey, $name, $context = null)
+    {
+        return static::of($context)->setVariantId($variantId)->setAssetKey($assetKey)->setName($name);
+    }
+
+    /**
+     * @param string $sku
+     * @param string $assetKey
+     * @param string $name
+     * @param Context|callable $context
+     * @return ProductSetAssetCustomFieldAction
+     */
+    public static function ofSkuAssetKeyAndName($sku, $assetKey, $name, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setAssetKey($assetKey)->setName($name);
     }
 }

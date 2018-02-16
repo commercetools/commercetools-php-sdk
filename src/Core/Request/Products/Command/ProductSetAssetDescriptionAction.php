@@ -24,6 +24,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductSetAssetDescriptionAction setAssetId(string $assetId = null)
  * @method LocalizedString getDescription()
  * @method ProductSetAssetDescriptionAction setDescription(LocalizedString $description = null)
+ * @method string getAssetKey()
+ * @method ProductSetAssetDescriptionAction setAssetKey(string $assetKey = null)
  */
 class ProductSetAssetDescriptionAction extends AbstractAction
 {
@@ -34,6 +36,7 @@ class ProductSetAssetDescriptionAction extends AbstractAction
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
+            'assetKey' => [static::TYPE => 'string'],
             'description' => [static::TYPE => LocalizedString::class],
             'staged' => [static::TYPE => 'bool'],
         ];
@@ -69,5 +72,27 @@ class ProductSetAssetDescriptionAction extends AbstractAction
     public static function ofSkuAndAssetId($sku, $assetId, $context = null)
     {
         return static::of($context)->setSku($sku)->setAssetId($assetId);
+    }
+
+    /**
+     * @param int $variantId
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return ProductSetAssetDescriptionAction
+     */
+    public static function ofVariantIdAndAssetKey($variantId, $assetKey, $context = null)
+    {
+        return static::of($context)->setVariantId($variantId)->setAssetKey($assetKey);
+    }
+
+    /**
+     * @param string $sku
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return ProductSetAssetDescriptionAction
+     */
+    public static function ofSkuAndAssetKey($sku, $assetKey, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setAssetKey($assetKey);
     }
 }

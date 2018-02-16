@@ -22,6 +22,8 @@ use Commercetools\Core\Model\Common\AssetDraft;
  * @method ProductAddAssetAction setAsset(AssetDraft $asset = null)
  * @method bool getStaged()
  * @method ProductAddAssetAction setStaged(bool $staged = null)
+ * @method int getPosition()
+ * @method ProductAddAssetAction setPosition(int $position = null)
  */
 class ProductAddAssetAction extends AbstractAction
 {
@@ -33,6 +35,7 @@ class ProductAddAssetAction extends AbstractAction
             'sku' => [static::TYPE => 'string'],
             'asset' => [static::TYPE => AssetDraft::class],
             'staged' => [static::TYPE => 'bool'],
+            'position' => [static::TYPE => 'int'],
         ];
     }
 

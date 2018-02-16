@@ -18,6 +18,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method CategorySetAssetTagsAction setAssetId(string $assetId = null)
  * @method array getTags()
  * @method CategorySetAssetTagsAction setTags(array $tags = null)
+ * @method string getAssetKey()
+ * @method CategorySetAssetTagsAction setAssetKey(string $assetKey = null)
  */
 class CategorySetAssetTagsAction extends AbstractAction
 {
@@ -26,6 +28,7 @@ class CategorySetAssetTagsAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
+            'assetKey' => [static::TYPE => 'string'],
             'tags' => [static::TYPE => 'array'],
         ];
     }
@@ -48,5 +51,15 @@ class CategorySetAssetTagsAction extends AbstractAction
     public static function ofAssetId($assetId, $context = null)
     {
         return static::of($context)->setAssetId($assetId);
+    }
+
+    /**
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return CategorySetAssetTagsAction
+     */
+    public static function ofAssetKey($assetKey, $context = null)
+    {
+        return static::of($context)->setAssetKey($assetKey);
     }
 }

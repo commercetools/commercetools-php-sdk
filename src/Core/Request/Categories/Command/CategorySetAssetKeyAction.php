@@ -11,17 +11,17 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @link https://docs.commercetools.com/http-api-projects-products.html#change-asset-name
+ * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-key
  * @method string getAction()
- * @method CategoryChangeAssetNameAction setAction(string $action = null)
- * @method LocalizedString getName()
- * @method CategoryChangeAssetNameAction setName(LocalizedString $name = null)
+ * @method CategorySetAssetKeyAction setAction(string $action = null)
  * @method string getAssetId()
- * @method CategoryChangeAssetNameAction setAssetId(string $assetId = null)
+ * @method CategorySetAssetKeyAction setAssetId(string $assetId = null)
  * @method string getAssetKey()
- * @method CategoryChangeAssetNameAction setAssetKey(string $assetKey = null)
+ * @method CategorySetAssetKeyAction setAssetKey(string $assetKey = null)
+ * @method LocalizedString getName()
+ * @method CategorySetAssetKeyAction setName(LocalizedString $name = null)
  */
-class CategoryChangeAssetNameAction extends AbstractAction
+class CategorySetAssetKeyAction extends AbstractAction
 {
     public function fieldDefinitions()
     {
@@ -45,23 +45,22 @@ class CategoryChangeAssetNameAction extends AbstractAction
 
     /**
      * @param string $assetId
-     * @param LocalizedString $name
      * @param Context|callable $context
-     * @return CategoryChangeAssetNameAction
+     * @return CategorySetAssetKeyAction
      */
-    public static function ofAssetIdAndName($assetId, LocalizedString $name, $context = null)
+    public static function ofAssetId($assetId, $context = null)
     {
-        return static::of($context)->setAssetId($assetId)->setName($name);
+        return static::of($context)->setAssetId($assetId);
     }
 
     /**
+     * @param string $assetId
      * @param string $assetKey
-     * @param LocalizedString $name
      * @param Context|callable $context
-     * @return CategoryChangeAssetNameAction
+     * @return CategorySetAssetKeyAction
      */
-    public static function ofAssetKeyAndName($assetKey, LocalizedString $name, $context = null)
+    public static function ofAssetIdAndAssetKey($assetId, $assetKey, $context = null)
     {
-        return static::of($context)->setAssetKey($assetKey)->setName($name);
+        return static::of($context)->setAssetId($assetId)->setAssetKey($assetKey);
     }
 }

@@ -18,6 +18,8 @@ use Commercetools\Core\Model\Common\AssetSourceCollection;
  * @method CategorySetAssetSourcesAction setAssetId(string $assetId = null)
  * @method AssetSourceCollection getSources()
  * @method CategorySetAssetSourcesAction setSources(AssetSourceCollection $sources = null)
+ * @method string getAssetKey()
+ * @method CategorySetAssetSourcesAction setAssetKey(string $assetKey = null)
  */
 class CategorySetAssetSourcesAction extends AbstractAction
 {
@@ -26,6 +28,7 @@ class CategorySetAssetSourcesAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
+            'assetKey' => [static::TYPE => 'string'],
             'sources' => [static::TYPE => AssetSourceCollection::class],
         ];
     }
@@ -48,5 +51,15 @@ class CategorySetAssetSourcesAction extends AbstractAction
     public static function ofAssetId($assetId, $context = null)
     {
         return static::of($context)->setAssetId($assetId);
+    }
+
+    /**
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return CategorySetAssetSourcesAction
+     */
+    public static function ofAssetKey($assetKey, $context = null)
+    {
+        return static::of($context)->setAssetKey($assetKey);
     }
 }

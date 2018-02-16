@@ -16,6 +16,8 @@ use Commercetools\Core\Model\Common\AssetDraft;
  * @method CategoryAddAssetAction setAction(string $action = null)
  * @method AssetDraft getAsset()
  * @method CategoryAddAssetAction setAsset(AssetDraft $asset = null)
+ * @method int getPosition()
+ * @method CategoryAddAssetAction setPosition(int $position = null)
  */
 class CategoryAddAssetAction extends AbstractAction
 {
@@ -24,6 +26,7 @@ class CategoryAddAssetAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'asset' => [static::TYPE => AssetDraft::class],
+            'position' => [static::TYPE => 'int'],
         ];
     }
 

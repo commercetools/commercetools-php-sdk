@@ -24,6 +24,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductSetAssetTagsAction setAssetId(string $assetId = null)
  * @method array getTags()
  * @method ProductSetAssetTagsAction setTags(array $tags = null)
+ * @method string getAssetKey()
+ * @method ProductSetAssetTagsAction setAssetKey(string $assetKey = null)
  */
 class ProductSetAssetTagsAction extends AbstractAction
 {
@@ -34,6 +36,7 @@ class ProductSetAssetTagsAction extends AbstractAction
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
+            'assetKey' => [static::TYPE => 'string'],
             'tags' => [static::TYPE => 'array'],
             'staged' => [static::TYPE => 'bool'],
         ];
@@ -69,5 +72,27 @@ class ProductSetAssetTagsAction extends AbstractAction
     public static function ofSkuAndAssetId($sku, $assetId, $context = null)
     {
         return static::of($context)->setSku($sku)->setAssetId($assetId);
+    }
+
+    /**
+     * @param int $variantId
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return ProductSetAssetTagsAction
+     */
+    public static function ofVariantIdAndAssetKey($variantId, $assetKey, $context = null)
+    {
+        return static::of($context)->setVariantId($variantId)->setAssetKey($assetKey);
+    }
+
+    /**
+     * @param string $sku
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return ProductSetAssetTagsAction
+     */
+    public static function ofSkuAndAssetKey($sku, $assetKey, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setAssetKey($assetKey);
     }
 }

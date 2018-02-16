@@ -22,6 +22,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
  * @method Asset setTags(array $tags = null)
  * @method CustomFieldObject getCustom()
  * @method Asset setCustom(CustomFieldObject $custom = null)
+ * @method string getKey()
+ * @method Asset setKey(string $key = null)
  */
 class Asset extends JsonObject
 {
@@ -29,6 +31,7 @@ class Asset extends JsonObject
     {
         return [
             'id' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string'],
             'sources' => [static::TYPE => AssetSourceCollection::class],
             'name' => [static::TYPE => LocalizedString::class],
             'description' => [static::TYPE => LocalizedString::class],
