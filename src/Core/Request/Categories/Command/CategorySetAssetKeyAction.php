@@ -40,7 +40,7 @@ class CategorySetAssetKeyAction extends AbstractAction
     public function __construct(array $data = [], $context = null)
     {
         parent::__construct($data, $context);
-        $this->setAction('changeAssetName');
+        $this->setAction('setAssetKey');
     }
 
     /**
