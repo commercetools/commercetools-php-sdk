@@ -538,8 +538,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Category::class, $result);
         $this->assertSame(
-            $newName,
-            $result->getAssets()->current()->getName()->en
+            $assetKey,
+            $result->getAssets()->current()->getKey()
         );
     }
 
