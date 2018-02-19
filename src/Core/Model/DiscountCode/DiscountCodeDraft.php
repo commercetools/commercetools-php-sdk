@@ -7,9 +7,11 @@ namespace Commercetools\Core\Model\DiscountCode;
 
 use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\DiscountCode
@@ -34,6 +36,10 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method DiscountCodeDraft setCustom(CustomFieldObjectDraft $custom = null)
  * @method array getGroups()
  * @method DiscountCodeDraft setGroups(array $groups = null)
+ * @method DateTimeDecorator getValidFrom()
+ * @method DiscountCodeDraft setValidFrom(DateTime $validFrom = null)
+ * @method DateTimeDecorator getValidUntil()
+ * @method DiscountCodeDraft setValidUntil(DateTime $validUntil = null)
  */
 class DiscountCodeDraft extends JsonObject
 {
@@ -52,6 +58,14 @@ class DiscountCodeDraft extends JsonObject
             'maxApplicationsPerCustomer' => [static::TYPE => 'int'],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'groups' => [static::TYPE => 'array'],
+            'validFrom' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
+            'validUntil' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
         ];
     }
 

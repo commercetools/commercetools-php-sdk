@@ -46,6 +46,10 @@ use DateTime;
  * @method DiscountCode setCustom(CustomFieldObject $custom = null)
  * @method array getGroups()
  * @method DiscountCode setGroups(array $groups = null)
+ * @method DateTimeDecorator getValidFrom()
+ * @method DiscountCode setValidFrom(DateTime $validFrom = null)
+ * @method DateTimeDecorator getValidUntil()
+ * @method DiscountCode setValidUntil(DateTime $validUntil = null)
  * @method DiscountCodeReference getReference()
  */
 class DiscountCode extends Resource
@@ -76,6 +80,14 @@ class DiscountCode extends Resource
             'maxApplicationsPerCustomer' => [static::TYPE => 'int'],
             'custom' => [static::TYPE => CustomFieldObject::class],
             'groups' => [static::TYPE => 'array'],
+            'validFrom' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
+            'validUntil' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
         ];
     }
 }

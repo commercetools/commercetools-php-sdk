@@ -31,6 +31,8 @@ use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetDescriptionA
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsPerCustomerAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetNameAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidFromAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidUntilAction;
 use Commercetools\Core\Request\DiscountCodes\DiscountCodeCreateRequest;
 use Commercetools\Core\Request\DiscountCodes\DiscountCodeDeleteRequest;
 use Commercetools\Core\Request\DiscountCodes\DiscountCodeUpdateRequest;
@@ -346,5 +348,51 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
         $this->deleteRequest->setVersion($result->getVersion());
+    }
+
+    public function testSetValidFrom()
+    {
+        $draft = $this->getDraft('set-valid-from');
+        $discountCode = $this->createDiscountCode($draft);
+
+
+        $validFrom = new \DateTime();
+        $request = DiscountCodeUpdateRequest::ofIdAndVersion(
+            $discountCode->getId(),
+            $discountCode->getVersion()
+        )
+            ->addAction(DiscountCodeSetValidFromAction::of()->setValidFrom($validFrom))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(DiscountCode::class, $result);
+        $validFrom->setTimezone(new \DateTimeZone('UTC'));
+        $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
+        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
+    }
+
+    public function testValidUntilFrom()
+    {
+        $draft = $this->getDraft('set-valid-until');
+        $discountCode = $this->createDiscountCode($draft);
+
+
+        $validUntil = new \DateTime();
+        $request = DiscountCodeUpdateRequest::ofIdAndVersion(
+            $discountCode->getId(),
+            $discountCode->getVersion()
+        )
+            ->addAction(DiscountCodeSetValidUntilAction::of()->setValidUntil($validUntil))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(DiscountCode::class, $result);
+        $validUntil->setTimezone(new \DateTimeZone('UTC'));
+        $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
+        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
     }
 }
