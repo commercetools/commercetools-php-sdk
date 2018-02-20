@@ -225,7 +225,7 @@ class Context implements \ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
-        if ($this->offsetExists($offset)) {
+        if (property_exists($this, $offset)) {
             $method = 'set'.ucfirst($offset);
 
             $this->$method($value);

@@ -67,4 +67,13 @@ class ContextTest extends \PHPUnit\Framework\TestCase
         $contextStr = serialize($context);
         $this->assertInternalType('string', $contextStr);
     }
+
+    public function testSetLocaleWithoutIntl()
+    {
+        static::$disableIntl = true;
+        $context = Context::of();
+        $context['locale'] = 'en';
+        $this->assertSame('en', $context['locale']);
+        static::$disableIntl = false;
+    }
 }
