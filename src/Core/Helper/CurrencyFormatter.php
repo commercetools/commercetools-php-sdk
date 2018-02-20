@@ -23,7 +23,7 @@ use Commercetools\Core\Model\Common\Context;
  * $str = $this->format($centAmount, $currency); // '1.234,56 €'
  * @package Commercetools\Core\Helper
  */
-class CurrencyFormatter
+class CurrencyFormatter implements CurrencyFormatterInterface
 {
     protected $context;
 

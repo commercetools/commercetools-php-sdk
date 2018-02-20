@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Common;
 
+use Commercetools\Core\Helper\CurrencyFormatterInterface;
 use Pimple\Container;
 use Psr\Log\LoggerInterface;
 use Commercetools\Core\Helper\CurrencyFormatter;
@@ -72,7 +73,7 @@ class Context implements \ArrayAccess
     private $languages = [];
 
     /**
-     * @var CurrencyFormatter
+     * @var CurrencyFormatterInterface
      */
     private $currencyFormatter;
 
@@ -141,7 +142,7 @@ class Context implements \ArrayAccess
     }
 
     /**
-     * @return CurrencyFormatter
+     * @return CurrencyFormatterInterface
      */
     public function getCurrencyFormatter()
     {
@@ -149,7 +150,7 @@ class Context implements \ArrayAccess
     }
 
     /**
-     * @param CurrencyFormatter $currencyFormatter
+     * @param CurrencyFormatterInterface $currencyFormatter
      * @return Context
      */
     public function setCurrencyFormatter($currencyFormatter)
