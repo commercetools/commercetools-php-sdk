@@ -204,7 +204,7 @@ class Context implements \ArrayAccess
      */
     public function offsetExists($offset)
     {
-        return isset($this->$offset);
+        return property_exists($this, $offset);
     }
 
     /**
