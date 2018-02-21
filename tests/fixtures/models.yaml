@@ -753,6 +753,8 @@ productDiscount:
     - sortOrder
     - isActive
     - references
+    - validFrom
+    - validUntil
 
 productDiscountValue:
   domain: productDiscount

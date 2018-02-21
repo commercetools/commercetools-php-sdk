@@ -36,6 +36,10 @@ use DateTime;
  * @method ProductDiscount setIsActive(bool $isActive = null)
  * @method ReferenceCollection getReferences()
  * @method ProductDiscount setReferences(ReferenceCollection $references = null)
+ * @method DateTimeDecorator getValidFrom()
+ * @method ProductDiscount setValidFrom(DateTime $validFrom = null)
+ * @method DateTimeDecorator getValidUntil()
+ * @method ProductDiscount setValidUntil(DateTime $validUntil = null)
  * @method ProductDiscountReference getReference()
  */
 class ProductDiscount extends Resource
@@ -60,6 +64,14 @@ class ProductDiscount extends Resource
             'sortOrder' => [static::TYPE => 'string'],
             'isActive' => [static::TYPE => 'bool'],
             'references' => [static::TYPE => ReferenceCollection::class],
+            'validFrom' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
+            'validUntil' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
         ];
     }
 }
