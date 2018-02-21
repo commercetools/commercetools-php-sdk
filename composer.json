@@ -75,12 +75,6 @@
     "post-update-cmd": "@updateConfig",
     "post-install-cmd": "@updateConfig"
   },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "http://github.com/commercetools/commercetools-api-reference"
-    }
-  ],
   "extra": {
     "branch-alias": {
       "dev-develop": "2.3-dev"
