@@ -105,6 +105,30 @@ foreach ($products as $product) {
 
 In real world, you will not put your API credentials directly into code but use a config file or your framework's config or dependency injection system for that.
 
+#### Using the phar distribution
+
+Since version 1.6 the SDK is also released as a PHAR. You can find them in the [releases section](https://github.com/commercetools/commercetools-php-sdk/releases) at Github.
+
+Usage example:
+```php
+<?php
+
+require __DIR__ . '/commercetools-php-sdk.phar';
+
+$config = \Commercetools\Core\Config::fromArray([
+    'client_id' => 'myClientId',
+     'client_secret' => 'myClientSecret',
+      'project' => 'myProjectId'
+]);
+$client = \Commercetools\Core\Client::ofConfig($config);
+$request = \Commercetools\Core\Request\Project\ProjectGetRequest::of();
+
+$response = $client->execute($request);
+
+$project = $request->mapFromResponse($response);
+var_dump($project->toArray());
+```
+ 
 ## Improve & Contribute to the SDK project
 
 ### Mac OS X preparations:

@@ -6,7 +6,6 @@
 namespace Commercetools\Core\Model\Common;
 
 use Commercetools\Core\Helper\CurrencyFormatterInterface;
-use Pimple\Container;
 use Psr\Log\LoggerInterface;
 use Commercetools\Core\Helper\CurrencyFormatter;
 
