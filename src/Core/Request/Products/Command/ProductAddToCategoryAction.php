@@ -18,6 +18,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductAddToCategoryAction setCategory(CategoryReference $category = null)
  * @method bool getStaged()
  * @method ProductAddToCategoryAction setStaged(bool $staged = null)
+ * @method string getOrderHint()
+ * @method ProductAddToCategoryAction setOrderHint(string $orderHint = null)
  */
 class ProductAddToCategoryAction extends AbstractAction
 {
@@ -26,7 +28,8 @@ class ProductAddToCategoryAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'category' => [static::TYPE => CategoryReference::class],
-            'staged' => [static::TYPE => 'bool']
+            'staged' => [static::TYPE => 'bool'],
+            'orderHint' => [static::TYPE => 'string'],
         ];
     }
 

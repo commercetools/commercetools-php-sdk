@@ -58,7 +58,8 @@
     "cache/redis-adapter": "^1.0",
     "cache/filesystem-adapter": "^1.0",
     "cache/void-adapter": "^1.0",
-    "incenteev/composer-parameter-handler": "^2.1"
+    "incenteev/composer-parameter-handler": "^2.1",
+    "commercetools/commercetools-api-reference": "dev-master"
   },
   "replaces": {
     "commercetools/commons": "*"
@@ -74,6 +75,12 @@
     "post-update-cmd": "@updateConfig",
     "post-install-cmd": "@updateConfig"
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "http://github.com/commercetools/commercetools-api-reference"
+    }
+  ],
   "extra": {
     "branch-alias": {
       "dev-develop": "2.3-dev"

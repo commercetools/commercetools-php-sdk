@@ -11,15 +11,9 @@ use Symfony\Component\Yaml\Yaml;
 
 class RamlModelTest extends AbstractModelTest
 {
-    const RAML_MODEL_PATH = __DIR__ . '/../../../../commercetools-api-reference/types/';
+    const RAML_MODEL_PATH = __DIR__ . '/../../../vendor/commercetools/commercetools-api-reference/types/';
     const MODEL_PATH = __DIR__ . '/../../../src/Core/Model';
     const COMMAND_PATH = __DIR__ . '/../../../src/Core/Request';
-
-    public function setUp()
-    {
-        $this->markTestIncomplete('API reference incomplete');
-        parent::setUp();
-    }
 
     /**
      * @dataProvider modelFieldProvider
@@ -27,7 +21,7 @@ class RamlModelTest extends AbstractModelTest
      * @param string $model
      * @param array $validFields
      */
-    public function testModelValidProperties($domain, $model, array $validFields = [])
+    public function modelValidProperties($domain, $model, array $validFields = [])
     {
         $className = $this->getClassName($domain, $model);
         $object = $this->getInstance($className);
@@ -43,12 +37,13 @@ class RamlModelTest extends AbstractModelTest
     }
 
     /**
+     * @test
      * @dataProvider modelFieldProvider
      * @param string $domain
      * @param string $model
      * @param array $validFields
      */
-    public function testModelPropertiesExist($domain, $model, array $validFields = [])
+    public function modelPropertiesExist($domain, $model, array $validFields = [])
     {
         $className = $this->getClassName($domain, $model);
         $object = $this->getInstance($className);
@@ -68,7 +63,7 @@ class RamlModelTest extends AbstractModelTest
      * @param string $model
      * @param array $validFields
      */
-    public function testCommandValidProperties($domain, $model, array $validFields = [])
+    public function commandValidProperties($domain, $model, array $validFields = [])
     {
         $className = $this->getCommandClass($domain, $model);
         $object = $this->getInstance($className);
@@ -84,12 +79,13 @@ class RamlModelTest extends AbstractModelTest
     }
 
     /**
+     * @test
      * @dataProvider commandFieldProvider
      * @param string $domain
      * @param string $model
      * @param array $validFields
      */
-    public function testCommandPropertiesExist($domain, $model, array $validFields = [])
+    public function commandPropertiesExist($domain, $model, array $validFields = [])
     {
         $className = $this->getCommandClass($domain, $model);
         $object = $this->getInstance($className);

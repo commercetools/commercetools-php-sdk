@@ -382,6 +382,7 @@ order:
     - taxRoundingMode
     - origin
     - taxCalculationMode
+    - taxMode
 syncInfo:
   domain: order
   model: SyncInfo
@@ -497,7 +498,7 @@ productDraft:
     - searchKeywords
     - state
     - publish
-
+    - categoryOrderHints
 productCatalogData:
   domain: product
   model: ProductCatalogData
@@ -604,7 +605,7 @@ productVariantDraft:
     - images
     - assets
     - attributes
-
+    - key
 facetTerm:
   domain: product
   model: FacetTerm

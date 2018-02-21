@@ -64,6 +64,8 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method CustomerDraft setSalutation(string $salutation = null)
  * @method string getKey()
  * @method CustomerDraft setKey(string $key = null)
+ * @method string getAnonymousId()
+ * @method CustomerDraft setAnonymousId(string $anonymousId = null)
  */
 class CustomerDraft extends JsonObject
 {
@@ -98,6 +100,7 @@ class CustomerDraft extends JsonObject
             'shippingAddresses' => [static::TYPE => 'array'],
             'salutation' => [static::TYPE => 'string'],
             'key' => [static::TYPE => 'string'],
+            'anonymousId' => [static::TYPE => 'string'],
         ];
     }
 

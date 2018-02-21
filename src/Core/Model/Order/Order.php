@@ -92,6 +92,8 @@ use DateTime;
  * @method Order setOrigin(string $origin = null)
  * @method string getTaxCalculationMode()
  * @method Order setTaxCalculationMode(string $taxCalculationMode = null)
+ * @method string getTaxMode()
+ * @method Order setTaxMode(string $taxMode = null)
  * @method OrderReference getReference()
  */
 class Order extends Resource
@@ -151,6 +153,7 @@ class Order extends Resource
             'taxRoundingMode' => [static::TYPE => 'string'],
             'origin' => [static::TYPE => 'string'],
             'taxCalculationMode' => [static::TYPE => 'string'],
+            'taxMode' => [static::TYPE => 'string'],
         ];
     }
 }

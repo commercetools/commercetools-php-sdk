@@ -12,6 +12,7 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
+use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -53,6 +54,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method CartDraft setOrigin(string $origin = null)
  * @method string getTaxCalculationMode()
  * @method CartDraft setTaxCalculationMode(string $taxCalculationMode = null)
+ * @method ExternalTaxRateDraft getExternalTaxRateForShippingMethod()
+ * @method CartDraft setExternalTaxRateForShippingMethod(ExternalTaxRateDraft $externalTaxRateForShippingMethod = null)
  */
 class CartDraft extends JsonObject
 {
@@ -80,6 +83,7 @@ class CartDraft extends JsonObject
             'customerGroup' => [static::TYPE => CustomerGroupReference::class],
             'origin' => [static::TYPE => 'string'],
             'taxCalculationMode' => [static::TYPE => 'string'],
+            'externalTaxRateForShippingMethod' => [static::TYPE => ExternalTaxRateDraft::class]
         ];
     }
 

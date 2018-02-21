@@ -334,7 +334,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 ProductAddToCategoryAction::class,
-                ['action', 'category', 'staged']
+                ['action', 'category', 'staged', 'orderHint']
             ],
             [
                 ProductAddVariantAction::class,

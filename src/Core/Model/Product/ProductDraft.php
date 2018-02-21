@@ -47,6 +47,8 @@ use Commercetools\Core\Model\State\StateReference;
  * @method ProductDraft setPublish(bool $publish = null)
  * @method string getKey()
  * @method ProductDraft setKey(string $key = null)
+ * @method array getCategoryOrderHints()
+ * @method ProductDraft setCategoryOrderHints(array $categoryOrderHints = null)
  */
 class ProductDraft extends JsonObject
 {
@@ -68,6 +70,7 @@ class ProductDraft extends JsonObject
             'state' => [static::TYPE => StateReference::class],
             'publish' => [static::TYPE => 'bool'],
             'key' => [static::TYPE => 'string'],
+            'categoryOrderHints' => [static::TYPE => 'array']
         ];
     }
 
