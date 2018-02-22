@@ -1,34 +1,41 @@
 tools:
-    php_sim: true
-    php_pdepend: true
-    php_analyzer: true
-    php_code_sniffer: true
-    php_changetracking: true
-    php_mess_detector: true
-    sensiolabs_security_checker: true
-    php_cs_fixer:
-        config: { level: psr2 }
+  php_sim: true
+  php_pdepend: true
+  php_analyzer: true
+  php_code_sniffer: true
+  php_changetracking: true
+  php_mess_detector: true
+  sensiolabs_security_checker: true
+  php_cs_fixer:
+    config: { level: psr2 }
 before_commands:
-    - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
-    - composer global require hirak/prestissimo
-    - composer install --prefer-dist -o
+  - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
+  - composer global require hirak/prestissimo
+  - composer install --prefer-dist -o
 build:
-    environment:
+  nodes:
+    analysis:
+      project_setup:
+        override: true
+      tests:
+        override: [php-scrutinizer-run]
+    my-tests:
+      environment:
         php: '7.0'
-    dependencies:
+      dependencies:
         before:
-            #Only 5.4 uses APC
-            - if [[ "`phpenv version-name`" =~ "^5.4" ]] && [ "`phpenv version-name`" != "hhvm" ]; then echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
-            #+5.5 uses APCU
-            - if [[ ! "`phpenv version-name`" =~ "^5.4" ]] && [ "`phpenv version-name`" != "hhvm" ]; then printf "\n"| echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
-    tests:
+          #Only 5.4 uses APC
+          - if [[ "`phpenv version-name`" =~ "^5.4" ]] && [ "`phpenv version-name`" != "hhvm" ]; then echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+          #+5.5 uses APCU
+          - if [[ ! "`phpenv version-name`" =~ "^5.4" ]] && [ "`phpenv version-name`" != "hhvm" ]; then printf "\n"| echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+      tests:
         override:
-            -
-                command: vendor/bin/behat -f progress
-            -
-                command: vendor/bin/phpunit -d zend.enable_gc=0 --coverage-clover=coverage0
-                coverage:
-                    file: 'coverage0'
-                    format: 'php-clover'
+          -
+            command: vendor/bin/behat -f progress
+          -
+            command: vendor/bin/phpunit -d zend.enable_gc=0 --coverage-clover=coverage0
+            coverage:
+              file: 'coverage0'
+              format: 'php-clover'
 filter:
     excluded_paths: [build/*, tests/*, docroot/*, features/*]
