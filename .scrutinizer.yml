@@ -32,4 +32,4 @@ build:
               format: 'php-clover'
           - command: php-scrutinizer-run
 filter:
-    excluded_paths: [build/*, tests/*, docroot/*, features/* src/Core/Helper/Annotate/* src/Core/Helper/State/* src/Core/Helper/Subscriber/*]
+    excluded_paths: [build/*, tests/*, docroot/*, features/*, src/Core/Helper/Annotate/*, src/Core/Helper/State/*, src/Core/Helper/Subscriber/*]
