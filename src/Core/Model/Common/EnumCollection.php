@@ -31,7 +31,7 @@ class EnumCollection extends Collection
 
     /**
      * @param $key
-     * @return static
+     * @return Enum|null
      */
     public function getByKey($key)
     {

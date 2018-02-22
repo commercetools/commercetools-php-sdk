@@ -31,7 +31,7 @@ class LocalizedEnumCollection extends Collection
 
     /**
      * @param $key
-     * @return static
+     * @return LocalizedEnum
      */
     public function getByKey($key)
     {

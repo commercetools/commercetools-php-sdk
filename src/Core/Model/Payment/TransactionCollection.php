@@ -33,7 +33,7 @@ class TransactionCollection extends Collection
 
     /**
      * @param $id
-     * @return Payment
+     * @return Transaction
      */
     public function getByInteractionId($id)
     {

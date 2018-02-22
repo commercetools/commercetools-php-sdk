@@ -556,7 +556,7 @@ class Config implements ContextAwareInterface
 
     /**
      * @param string $anonymousId
-     * @return string
+     * @return $this
      */
     public function setAnonymousId($anonymousId)
     {
