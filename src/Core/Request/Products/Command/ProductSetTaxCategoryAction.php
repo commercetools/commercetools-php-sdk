@@ -16,8 +16,6 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductSetTaxCategoryAction setAction(string $action = null)
  * @method TaxCategoryReference getTaxCategory()
  * @method ProductSetTaxCategoryAction setTaxCategory(TaxCategoryReference $taxCategory = null)
- * @method bool getStaged()
- * @method ProductSetTaxCategoryAction setStaged(bool $staged = null)
  */
 class ProductSetTaxCategoryAction extends AbstractAction
 {
@@ -26,7 +24,6 @@ class ProductSetTaxCategoryAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'taxCategory' => [static::TYPE => TaxCategoryReference::class],
-            'staged' => [static::TYPE => 'bool']
         ];
     }
 
@@ -38,5 +35,23 @@ class ProductSetTaxCategoryAction extends AbstractAction
     {
         parent::__construct($data, $context);
         $this->setAction('setTaxCategory');
+    }
+
+    /**
+     * @deprecated not supported by platform - will be removed in 3.0
+     * @return null
+     */
+    public function getStaged()
+    {
+        return null;
+    }
+
+    /**
+     * @deprecated not supported by platform - will be removed in 3.0
+     * @return ProductSetTaxCategoryAction
+     */
+    public function setStaged($staged = null)
+    {
+        return $this;
     }
 }

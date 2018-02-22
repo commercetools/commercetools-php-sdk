@@ -623,7 +623,6 @@ facetRange:
     - to
     - toStr
     - count
-    - totalCount
     - total
     - min
     - max

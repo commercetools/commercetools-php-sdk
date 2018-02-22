@@ -54,6 +54,7 @@ class RamlModelTest extends AbstractModelTest
     }
 
     /**
+     * @test
      * @dataProvider commandFieldProvider
      * @param string $className
      * @param array $validFields

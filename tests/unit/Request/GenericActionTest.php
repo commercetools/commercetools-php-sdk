@@ -422,7 +422,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 ProductSetTaxCategoryAction::class,
-                ['action', 'taxCategory', 'staged']
+                ['action', 'taxCategory']
             ],
             [
                 ProductTransitionStateAction::class,
@@ -434,7 +434,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 OrderAddDeliveryAction::class,
-                ['action', 'items', 'parcels', 'measurements', 'trackingData', 'address']
+                ['action', 'items', 'parcels', 'address']
             ],
             [
                 OrderAddParcelToDeliveryAction::class,
