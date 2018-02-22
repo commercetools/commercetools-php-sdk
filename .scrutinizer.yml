@@ -14,7 +14,7 @@ before_commands:
   - composer install --prefer-dist -o
 build:
   nodes:
-    analysis:
+    my-tests:
       environment:
         php: '7.0'
       dependencies:
@@ -32,7 +32,10 @@ build:
             coverage:
               file: 'coverage0'
               format: 'php-clover'
-          -
-            command: php-scrutinizer-run
+    analysis:
+      project_setup:
+        override: true
+      tests:
+        override: [php-scrutinizer-run]
 filter:
     excluded_paths: [build/*, tests/*, docroot/*, features/*]
