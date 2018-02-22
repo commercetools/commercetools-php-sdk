@@ -37,11 +37,11 @@ class DiscountCodeChangeGroupsAction extends AbstractAction
     }
 
     /**
-     * @param bool $groups
+     * @param array $groups
      * @param Context|callable $context
      * @return DiscountCodeChangeGroupsAction
      */
-    public static function ofGroups($groups, $context = null)
+    public static function ofGroups(array $groups, $context = null)
     {
         return static::of($context)->setGroups($groups);
     }
