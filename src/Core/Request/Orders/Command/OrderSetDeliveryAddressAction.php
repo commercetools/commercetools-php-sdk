@@ -7,10 +7,6 @@ namespace Commercetools\Core\Request\Orders\Command;
 
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Model\Order\DeliveryItemCollection;
-use Commercetools\Core\Model\Order\ParcelCollection;
-use Commercetools\Core\Model\Order\ParcelMeasurements;
-use Commercetools\Core\Model\Order\TrackingData;
 use Commercetools\Core\Request\AbstractAction;
 
 /**

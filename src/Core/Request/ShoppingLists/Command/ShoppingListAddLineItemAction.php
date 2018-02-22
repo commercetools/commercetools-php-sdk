@@ -9,7 +9,6 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
-use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
 use DateTime;
 
 /**

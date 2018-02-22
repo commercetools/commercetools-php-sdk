@@ -105,7 +105,7 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
     }
 
     /**
-     * @param $fieldName
+     * @param string $fieldName
      * @param mixed $default
      * @return mixed
      */
