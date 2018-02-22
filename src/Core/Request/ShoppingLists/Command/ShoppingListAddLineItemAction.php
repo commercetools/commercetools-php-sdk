@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
 use DateTime;
 
 /**
@@ -26,6 +27,8 @@ use DateTime;
  * @method ShoppingListAddLineItemAction setCustom(CustomFieldObjectDraft $custom = null)
  * @method DateTimeDecorator getAddedAt()
  * @method ShoppingListAddLineItemAction setAddedAt(DateTime $addedAt = null)
+ * @method string getSku()
+ * @method ShoppingListAddLineItemAction setSku(string $sku = null)
  */
 class ShoppingListAddLineItemAction extends AbstractAction
 {
@@ -41,6 +44,7 @@ class ShoppingListAddLineItemAction extends AbstractAction
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'sku' => [static::TYPE => 'string'],
         ];
     }
 
@@ -54,6 +58,17 @@ class ShoppingListAddLineItemAction extends AbstractAction
     public static function ofProductIdVariantIdAndQuantity($productId, $variantId, $quantity, $context = null)
     {
         return static::of($context)->setProductId($productId)->setVariantId($variantId)->setQuantity($quantity);
+    }
+
+    /**
+     * @param string $sku
+     * @param Context|callable $context
+     * @param int $quantity
+     * @return ShoppingListAddLineItemAction
+     */
+    public static function ofSkuAndQuantity($sku, $quantity, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setQuantity($quantity);
     }
 
     /**
