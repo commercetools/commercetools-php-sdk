@@ -13,16 +13,14 @@ before_commands:
   - composer global require hirak/prestissimo
   - composer install --prefer-dist -o
 build:
+  environment:
+    php:
+      version: '7.2'
+      ini:
+        apc.enabled: 1
+        apc.enable_cli: 1
   nodes:
     my-tests:
-      environment:
-        php: '7.0'
-      dependencies:
-        before:
-          #Only 5.4 uses APC
-          - if [[ "`phpenv version-name`" =~ "^5.4" ]] && [ "`phpenv version-name`" != "hhvm" ]; then echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
-          #+5.5 uses APCU
-          - if [[ ! "`phpenv version-name`" =~ "^5.4" ]] && [ "`phpenv version-name`" != "hhvm" ]; then printf "\n"| echo -e "apc.enabled=1\napc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
       tests:
         override:
           -
@@ -32,10 +30,6 @@ build:
             coverage:
               file: 'coverage0'
               format: 'php-clover'
-    analysis:
-      project_setup:
-        override: true
-      tests:
-        override: [php-scrutinizer-run]
+          - command: php-scrutinizer-run
 filter:
     excluded_paths: [build/*, tests/*, docroot/*, features/*]
