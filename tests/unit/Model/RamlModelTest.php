@@ -17,13 +17,11 @@ class RamlModelTest extends AbstractModelTest
 
     /**
      * @dataProvider modelFieldProvider
-     * @param string $domain
-     * @param string $model
+     * @param string $className
      * @param array $validFields
      */
-    public function modelValidProperties($domain, $model, array $validFields = [])
+    public function modelValidProperties($className, array $validFields = [])
     {
-        $className = $this->getClassName($domain, $model);
         $object = $this->getInstance($className);
 
         $validFields = array_flip($validFields);
@@ -39,13 +37,11 @@ class RamlModelTest extends AbstractModelTest
     /**
      * @test
      * @dataProvider modelFieldProvider
-     * @param string $domain
-     * @param string $model
+     * @param string $className
      * @param array $validFields
      */
-    public function modelPropertiesExist($domain, $model, array $validFields = [])
+    public function modelPropertiesExist($className, array $validFields = [])
     {
-        $className = $this->getClassName($domain, $model);
         $object = $this->getInstance($className);
 
         foreach ($validFields as $fieldKey) {
@@ -59,13 +55,11 @@ class RamlModelTest extends AbstractModelTest
 
     /**
      * @dataProvider commandFieldProvider
-     * @param string $domain
-     * @param string $model
+     * @param string $className
      * @param array $validFields
      */
-    public function commandValidProperties($domain, $model, array $validFields = [])
+    public function commandValidProperties($className, array $validFields = [])
     {
-        $className = $this->getCommandClass($domain, $model);
         $object = $this->getInstance($className);
 
         $validFields = array_flip($validFields);
@@ -81,13 +75,11 @@ class RamlModelTest extends AbstractModelTest
     /**
      * @test
      * @dataProvider commandFieldProvider
-     * @param string $domain
-     * @param string $model
+     * @param string $className
      * @param array $validFields
      */
-    public function commandPropertiesExist($domain, $model, array $validFields = [])
+    public function commandPropertiesExist($className, array $validFields = [])
     {
-        $className = $this->getCommandClass($domain, $model);
         $object = $this->getInstance($className);
 
         foreach ($validFields as $fieldKey) {
@@ -101,7 +93,21 @@ class RamlModelTest extends AbstractModelTest
 
     protected function getCommandClass($domain, $model)
     {
-        return 'Commercetools\\Core\\Request\\' . ucfirst($domain) . 's\\Command\\' . ucfirst($model);
+        switch ($domain) {
+            case 'TaxCategory':
+                $domain = 'TaxCategories';
+                break;
+            case 'Category':
+                $domain = 'Categories';
+                break;
+            case 'Project':
+            case 'Inventory':
+                break;
+            default:
+                $domain .= 's';
+                break;
+        }
+        return 'Commercetools\\Core\\Request\\' . ucfirst($domain) . '\\Command\\' . ucfirst($model);
     }
 
     public function modelFieldProvider()
@@ -152,21 +158,52 @@ class RamlModelTest extends AbstractModelTest
         foreach ($ramlTypes as $typeName => $ramlType) {
             $ramlFile = trim(str_replace('!include', '', $types[$typeName]));
             $package = $this->pascalcase(dirname($ramlFile));
+            $domain = $this->mapRamlToDomain($package, $typeName);
+            $model = $this->mapRamlToModel($package, $typeName);
+            $className = $this->$classNameBuilder($domain, $model);
+            $fields = $this->resolveProperties($ramlTypes, $ramlType);
+            $fields = array_filter(
+                $fields,
+                function ($field) {
+                    return strpos($field, '/') === false;
+                }
+            );
             $ramlInfos[$typeName] = [
+                'class' => $className,
+                'fields' => $fields,
                 'domain' => $package,
                 'model' => $typeName,
-                'fields' => $this->resolveProperties($ramlTypes, $ramlType)
             ];
         }
 
         $fixtures = array_filter(
             $ramlInfos,
-            function ($fixture) use ($modelClasses, $classNameBuilder) {
-                $className = $this->$classNameBuilder($fixture['domain'], $fixture['model']);
+            function ($fixture) use ($modelClasses) {
+                $className = $fixture['class'];
                 return class_exists($className) && isset($modelClasses[$className]);
             }
         );
-        return $fixtures;
+
+        return array_filter(
+            $fixtures,
+            function ($fixture) use ($modelClasses) {
+                return count($fixture['fields']) > 0;
+            }
+        );
+    }
+
+    private function getUncoveredClassed($modelClasses, $fixtures) {
+        $fixtureClasses = array_flip(array_map(function ($fixture) { return $fixture['class']; }, $fixtures));
+        $filteredClasses = array_filter(
+            $modelClasses,
+            function ($class) use ($fixtureClasses) {
+                $t = new \ReflectionClass($class);
+                return !isset($fixtureClasses[$class])
+                    && strpos($t->getDocComment(), '@deprecated') === false
+                    && !$t->isAbstract();
+            }
+        );
+        return $filteredClasses;
     }
 
     private function resolveProperties($ramlTypes, $ramlType)
@@ -229,5 +266,102 @@ class RamlModelTest extends AbstractModelTest
                 )
             )
         );
+    }
+
+    private function ramlToModelMap()
+    {
+        return [
+            'Common\GeoJsonPoint' => 'Common\GeoPoint',
+            'Common\AssetDimensions' => 'Common\AssetDimension',
+            'Cart\TaxPortion' => 'Common\TaxPortion',
+            'Common\GeoJson' => 'Common\GeoLocation',
+            'Product\Attribute' => 'Common\Attribute',
+            'ProductType\AttributeLocalizedEnumValue' => 'Common\LocalizedEnum',
+            'Common\ImageDimensions' => 'Common\ImageDimension',
+            'Cart\TaxedPrice' => 'Common\TaxedPrice',
+            'ProductType\AttributePlainEnumValue' => 'Common\Enum',
+            'Cart\TaxedItemPrice' => 'Common\TaxedItemPrice',
+            'Subscription\SubscriptionDelivery' => 'Subscription\Delivery',
+            'Subscription\SnsDestination' => 'Subscription\SNSDestination',
+            'Subscription\IronMqDestination' => 'Subscription\IronMQDestination',
+            'Subscription\SqsDestination' => 'Subscription\SQSDestination',
+            'ShoppingList\ShoppingListLineItemDraft' => 'ShoppingList\LineItemDraft',
+            'ShoppingList\ShoppingListLineItem' => 'ShoppingList\LineItem',
+            'Inventory\InventoryEntryDraft' => 'Inventory\InventoryDraft',
+            'Cart\DiscountedLineItemPriceForQuantity' => 'Cart\DiscountedPricePerQuantity',
+            'CartDiscount\CartDiscountValueAbsolute' => 'CartDiscount\AbsoluteCartDiscountValue',
+            'CartDiscount\CartDiscountValueRelative' => 'CartDiscount\RelativeCartDiscountValue',
+            'CartDiscount\CartDiscountValueGiftLineItem' => 'CartDiscount\GiftLineItemCartDiscountValue',
+            'CartDiscount\CartDiscountShippingCostTarget' => 'CartDiscount\ShippingCostTarget',
+            'CartDiscount\CartDiscountLineItemsTarget' => 'CartDiscount\LineItemsTarget',
+            'CartDiscount\CartDiscountCustomLineItemsTarget' => 'CartDiscount\CustomLineItemsTarget',
+            'Customer\CustomerSignInResult' => 'Customer\CustomerSigninResult',
+            'Me\MyLineItemDraft' => 'Cart\MyLineItemDraft',
+            'Me\MyCartDraft' => 'Cart\MyCartDraft',
+            'Me\MyCustomerDraft' => 'Customer\MyCustomerDraft',
+            'ProductType\AttributeDateType' => 'ProductType\DateType',
+            'ProductType\AttributeSetType' => 'ProductType\SetType',
+            'ProductType\AttributeEnumType' => 'ProductType\EnumType',
+            'ProductType\AttributeNumberType' => 'ProductType\NumberType',
+            'ProductType\AttributeLocalizedEnumType' => 'ProductType\LocalizedEnumType',
+            'ProductType\AttributeTimeType' => 'ProductType\TimeType',
+            'ProductType\AttributeDateTimeType' => 'ProductType\DateTimeType',
+            'ProductType\AttributeBooleanType' => 'ProductType\BooleanType',
+            'ProductType\AttributeLocalizableTextType' => 'ProductType\LocalizedStringType',
+            'ProductType\AttributeReferenceType' => 'ProductType\ReferenceType',
+            'ProductType\AttributeMoneyType' => 'ProductType\MoneyType',
+            'ProductType\AttributeNestedType' => 'ProductType\NestedType',
+            'ProductType\AttributeTextType' => 'ProductType\StringType',
+            'Type\CustomFieldDateType' => 'Type\DateType',
+            'Type\CustomFieldSetType' => 'Type\SetType',
+            'Type\CustomFieldEnumType' => 'Type\EnumType',
+            'Type\CustomFieldNumberType' => 'Type\NumberType',
+            'Type\CustomFieldLocalizedEnumType' => 'Type\LocalizedEnumType',
+            'Type\CustomFieldTimeType' => 'Type\TimeType',
+            'Type\CustomFieldDateTimeType' => 'Type\DateTimeType',
+            'Type\CustomFieldBooleanType' => 'Type\BooleanType',
+            'Type\CustomFieldLocalizedStringType' => 'Type\LocalizedStringType',
+            'Type\CustomFieldReferenceType' => 'Type\ReferenceType',
+            'Type\CustomFieldMoneyType' => 'Type\MoneyType',
+            'Type\CustomFieldStringType' => 'Type\StringType',
+            'Product\FacetResultRange' => 'Product\FacetRange',
+            'Product\FacetResultTerm' => 'Product\FacetTerm',
+            'Message\MessageConfiguration' => 'Message\MessagesConfiguration',
+            'Order\PaymentInfo' => 'Payment\PaymentInfo',
+            'Cart\ExternalTaxRateDraft' => 'TaxCategory\ExternalTaxRateDraft',
+            'Type\CustomFields' => 'CustomField\CustomFieldObject',
+            'Type\FieldContainer' => 'CustomField\FieldContainer',
+            'Type\CustomFieldsDraft' => 'CustomField\CustomFieldObjectDraft',
+            'Customer\CustomerRemoveBillingAddressIdAction' => 'Customer\CustomerRemoveBillingAddressAction',
+            'Customer\CustomerAddBillingAddressIdAction' => 'Customer\CustomerAddBillingAddressAction',
+            'Customer\CustomerRemoveShippingAddressIdAction' => 'Customer\CustomerRemoveShippingAddressAction',
+            'Customer\CustomerAddShippingAddressIdAction' => 'Customer\CustomerAddShippingAddressAction',
+            'ProductType\ProductTypeChangeLocalizedEnumValueLabelAction' => 'ProductType\ProductTypeChangeLocalizedEnumLabelAction',
+            'ProductType\ProductTypeChangePlainEnumValueLabelAction' => 'ProductType\ProductTypeChangePlainEnumLabelAction',
+            'Product\ProductSetProductPriceCustomFieldAction' => 'Product\ProductSetPriceCustomFieldAction',
+            'Product\ProductSetProductPriceCustomTypeAction' => 'Product\ProductSetPriceCustomTypeAction',
+            'Order\OrderSetCustomerEmailAction' => 'Order\OrderSetCustomerEmail',
+            'Order\OrderSetShippingAddressAction' => 'Order\OrderSetShippingAddress',
+            'Order\OrderSetBillingAddressAction' => 'Order\OrderSetBillingAddress',
+            'Channel\ChannelSetGeolocationAction' => 'Channel\ChannelSetGeoLocation',
+        ];
+    }
+
+    private function mapRamlToModel($domain, $model)
+    {
+        $map = $this->ramlToModelMap();
+        if (isset($map[$domain . '\\' . $model])) {
+            list($domain, $model) = explode('\\', $map[$domain . '\\' . $model], 2);
+        }
+        return $model;
+    }
+
+    private function mapRamlToDomain($domain, $model)
+    {
+        $map = $this->ramlToModelMap();
+        if (isset($map[$domain . '\\' . $model])) {
+            list($domain, $model) = explode('\\', $map[$domain . '\\' . $model], 2);
+        }
+        return $domain;
     }
 }

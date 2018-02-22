@@ -29,6 +29,8 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method FacetRange setMax(int $max = null)
  * @method int getMean()
  * @method FacetRange setMean(int $mean = null)
+ * @method int getProductCount()
+ * @method FacetRange setProductCount(int $productCount = null)
  */
 class FacetRange extends JsonObject
 {
@@ -45,6 +47,7 @@ class FacetRange extends JsonObject
             "min" => [static::TYPE => 'int'],
             "max" => [static::TYPE => 'int'],
             "mean" => [static::TYPE => 'int'],
+            'productCount' => [static::TYPE => 'int'],
         ];
     }
 }

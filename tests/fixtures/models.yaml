@@ -628,6 +628,7 @@ facetRange:
     - min
     - max
     - mean
+    - productCount
 
 facetResult:
   domain: product

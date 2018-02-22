@@ -36,6 +36,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method string getLocale()
  * @method int getDeleteDaysAfterLastModification()
  * @method MyCartDraft setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
+ * @method string getTaxMode()
+ * @method MyCartDraft setTaxMode(string $taxMode = null)
  */
 class MyCartDraft extends JsonObject
 {
@@ -54,7 +56,8 @@ class MyCartDraft extends JsonObject
             'shippingMethod' => [static::TYPE => ShippingMethodReference::class],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'locale' => [static::TYPE => 'string'],
-            'deleteDaysAfterLastModification' => [static::TYPE => 'int']
+            'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
+            'taxMode' => [static::TYPE => 'string'],
         ];
     }
 
