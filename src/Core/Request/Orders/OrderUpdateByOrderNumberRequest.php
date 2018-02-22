@@ -23,7 +23,7 @@ class OrderUpdateByOrderNumberRequest extends AbstractUpdateRequest
 
     /**
      * @param string $orderNumber
-     * @param string $version
+     * @param int $version
      * @param array $actions
      * @param Context $context
      */

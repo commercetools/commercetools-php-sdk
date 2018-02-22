@@ -50,7 +50,7 @@ class ProductSetTaxCategoryAction extends AbstractAction
      * @deprecated not supported by platform - will be removed in 3.0
      * @return ProductSetTaxCategoryAction
      */
-    public function setStaged($staged = null)
+    public function setStaged()
     {
         return $this;
     }

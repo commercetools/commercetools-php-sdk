@@ -68,10 +68,9 @@ class OrderAddDeliveryAction extends AbstractAction
 
     /**
      * @deprecated not supported by platform - will be removed in 3.0
-     * @param ParcelMeasurements $measurements
      * @return OrderAddDeliveryAction
      */
-    public function setMeasurements(ParcelMeasurements $measurements = null)
+    public function setMeasurements()
     {
         return $this;
     }
@@ -87,10 +86,9 @@ class OrderAddDeliveryAction extends AbstractAction
 
     /**
      * @deprecated not supported by platform - will be removed in 3.0
-     * @param TrackingData $trackingData
      * @return OrderAddDeliveryAction
      */
-    public function setTrackingData(TrackingData $trackingData = null)
+    public function setTrackingData()
     {
         return $this;
     }

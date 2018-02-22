@@ -26,7 +26,7 @@ class KeyResourceIdentifier extends ResourceIdentifier
 
     /**
      * @internal
-     * @param null $id
+     * @param $id
      * @return $this
      */
     public function setId($id = null)
