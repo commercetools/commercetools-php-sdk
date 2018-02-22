@@ -10,6 +10,7 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Error\ConcurrentModificationError;
 use Commercetools\Core\Model\CustomObject\CustomObject;
 use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
+use Commercetools\Core\Request\CustomObjects\CustomObjectByIdGetRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectByKeyGetRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectDeleteByKeyRequest;
@@ -140,7 +141,7 @@ class CustomObjectQueryRequestTest extends ApiTestCase
         $this->assertSame($customObject->getId(), $result->getAt(0)->getId());
     }
 
-    public function testGetById()
+    public function testGetByContainerAndKey()
     {
         $draft = $this->getDraft();
         $customObject = $this->createCustomObject($draft);
@@ -148,6 +149,21 @@ class CustomObjectQueryRequestTest extends ApiTestCase
         $request = CustomObjectByKeyGetRequest::ofContainerAndKey(
             $customObject->getContainer(),
             $customObject->getKey()
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(CustomObject::class, $customObject);
+        $this->assertSame($customObject->getId(), $result->getId());
+    }
+
+    public function testGetById()
+    {
+        $draft = $this->getDraft();
+        $customObject = $this->createCustomObject($draft);
+
+        $request = CustomObjectByIdGetRequest::ofId(
+            $customObject->getId()
         );
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);

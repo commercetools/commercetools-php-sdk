@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
+use Commercetools\Core\Model\CustomObject\CustomObject;
 use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\Inventory\InventoryEntry;
 use Commercetools\Core\Model\Message\Message;
@@ -31,6 +32,7 @@ use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
 use Commercetools\Core\Request\Channels\ChannelByIdGetRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupByIdGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
+use Commercetools\Core\Request\CustomObjects\CustomObjectByIdGetRequest;
 use Commercetools\Core\Request\DiscountCodes\DiscountCodeByIdGetRequest;
 use Commercetools\Core\Request\Inventory\InventoryByIdGetRequest;
 use Commercetools\Core\Request\Messages\MessageByIdGetRequest;
@@ -87,6 +89,10 @@ class GenericByIdGetRequestTest extends RequestTestCase
             CustomerByIdGetRequest::class => [
                 CustomerByIdGetRequest::class,
                 Customer::class,
+            ],
+            CustomObjectByIdGetRequest::class => [
+                CustomObjectByIdGetRequest::class,
+                CustomObject::class
             ],
             DiscountCodeByIdGetRequest::class => [
                 DiscountCodeByIdGetRequest::class,
