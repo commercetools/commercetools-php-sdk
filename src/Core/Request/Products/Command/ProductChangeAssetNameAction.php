@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#change-asset-name
+ * @link https://docs.commercetools.com/http-api-projects-products.html#change-asset-name
  * @method string getAction()
  * @method ProductChangeAssetNameAction setAction(string $action = null)
  * @method LocalizedString getName()
@@ -24,6 +24,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductChangeAssetNameAction setSku(string $sku = null)
  * @method string getAssetId()
  * @method ProductChangeAssetNameAction setAssetId(string $assetId = null)
+ * @method string getAssetKey()
+ * @method ProductChangeAssetNameAction setAssetKey(string $assetKey = null)
  */
 class ProductChangeAssetNameAction extends AbstractAction
 {
@@ -34,6 +36,7 @@ class ProductChangeAssetNameAction extends AbstractAction
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
+            'assetKey' => [static::TYPE => 'string'],
             'name' => [static::TYPE => LocalizedString::class],
             'staged' => [static::TYPE => 'bool'],
         ];
@@ -71,5 +74,29 @@ class ProductChangeAssetNameAction extends AbstractAction
     public static function ofSkuAssetIdAndName($sku, $assetId, LocalizedString $name, $context = null)
     {
         return static::of($context)->setSku($sku)->setAssetId($assetId)->setName($name);
+    }
+
+    /**
+     * @param int $variantId
+     * @param string $assetKey
+     * @param LocalizedString $name
+     * @param Context|callable $context
+     * @return ProductChangeAssetNameAction
+     */
+    public static function ofVariantIdAssetKeyAndName($variantId, $assetKey, LocalizedString $name, $context = null)
+    {
+        return static::of($context)->setVariantId($variantId)->setAssetKey($assetKey)->setName($name);
+    }
+
+    /**
+     * @param string $sku
+     * @param string $assetKey
+     * @param LocalizedString $name
+     * @param Context|callable $context
+     * @return ProductChangeAssetNameAction
+     */
+    public static function ofSkuAssetKeyAndName($sku, $assetKey, LocalizedString $name, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setAssetKey($assetKey)->setName($name);
     }
 }

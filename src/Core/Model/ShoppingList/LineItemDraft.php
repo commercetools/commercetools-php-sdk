@@ -1,10 +1,11 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\ShoppingList;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
@@ -23,6 +24,8 @@ use DateTime;
  * @method LineItemDraft setCustom(CustomFieldObjectDraft $custom = null)
  * @method DateTimeDecorator getAddedAt()
  * @method LineItemDraft setAddedAt(DateTime $addedAt = null)
+ * @method string getSku()
+ * @method LineItemDraft setSku(string $sku = null)
  */
 class LineItemDraft extends JsonObject
 {
@@ -37,6 +40,29 @@ class LineItemDraft extends JsonObject
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
+            'sku' => [static::TYPE => 'string'],
         ];
+    }
+
+    /**
+     * @param string $productId
+     * @param Context|callable $context
+     * @return LineItemDraft
+     */
+    public static function ofProductId($productId, $context = null)
+    {
+        $draft = static::of($context);
+        return $draft->setProductId($productId);
+    }
+
+    /**
+     * @param string $sku
+     * @param Context|callable $context
+     * @return LineItemDraft
+     */
+    public static function ofSku($sku, $context = null)
+    {
+        $draft = static::of($context);
+        return $draft->setSku($sku);
     }
 }

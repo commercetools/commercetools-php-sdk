@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 11.02.15, 14:20
  */
 
@@ -16,7 +16,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @link https://dev.commercetools.com/http-api-projects-customers.html#create-customer-sign-up
+ * @link https://docs.commercetools.com/http-api-projects-customers.html#create-customer-sign-up
  * @method CustomerSigninResult mapResponse(ApiResponseInterface $response)
  * @method CustomerSigninResult mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

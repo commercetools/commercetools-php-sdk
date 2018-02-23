@@ -12,15 +12,37 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 
 /**
  * @deprecated Please use the price selection functionality of the platform
- * @link http://dev.commercetools.com/http-api-projects-products.html#price-selection
+ * @link http://docs.commercetools.com/http-api-projects-products.html#price-selection
  */
 class PriceFinder
 {
+    /**
+     * @var string
+     */
     private $currency;
+
+    /**
+     * @var string
+     */
     private $country;
+
+    /**
+     * @var CustomerGroupReference
+     */
     private $customerGroup;
+
+    /**
+     * @var ChannelReference
+     */
     private $channel;
 
+    /**
+     * PriceFinder constructor.
+     * @param string $currency
+     * @param string $country
+     * @param CustomerGroupReference $customerGroup
+     * @param ChannelReference $channel
+     */
     public function __construct(
         $currency,
         $country = null,
@@ -86,7 +108,7 @@ class PriceFinder
 
     /**
      * @param $prices
-     * @param $currency
+     * @param string $currency
      * @param string $country
      * @param CustomerGroupReference $customerGroup
      * @param ChannelReference $channel
@@ -104,26 +126,51 @@ class PriceFinder
         return $priceFinder->findPrice($prices);
     }
 
+    /**
+     * @param Price $price
+     * @param string $currency
+     * @return bool
+     */
     private function priceHasCurrency(Price $price, $currency)
     {
         return !is_null($price->getValue()) && $price->getValue()->getCurrencyCode() == $currency;
     }
 
+    /**
+     * @param Price $price
+     * @param string $country
+     * @return bool
+     */
     private function priceHasCountry(Price $price, $country)
     {
         return !is_null($price->getCountry()) && $price->getCountry() == $country;
     }
 
+    /**
+     * @param Price $price
+     * @param CustomerGroupReference $customerGroup
+     * @return bool
+     */
     private function priceHasCustomerGroup(Price $price, CustomerGroupReference $customerGroup)
     {
         return !is_null($price->getCustomerGroup()) && $price->getCustomerGroup()->getId() == $customerGroup->getId();
     }
 
+    /**
+     * @param Price $price
+     * @param ChannelReference $channel
+     * @return bool
+     */
     private function priceHasChannel(Price $price, ChannelReference $channel)
     {
         return !is_null($price->getChannel()) && $price->getChannel()->getId() == $channel->getId();
     }
 
+    /**
+     * @param Price $price
+     * @param \DateTime $date
+     * @return bool
+     */
     private function priceHasValidDate(Price $price, \DateTime $date)
     {
         $tooEarly = !is_null($price->getValidFrom()) && $price->getValidFrom()->getDateTime() > $date;
@@ -131,11 +178,20 @@ class PriceFinder
         return !$tooEarly && !$tooLate;
     }
 
+    /**
+     * @param Price $price
+     * @return bool
+     */
     private function priceHasNoDate(Price $price)
     {
         return is_null($price->getValidFrom()) && is_null($price->getValidUntil());
     }
 
+    /**
+     * @param Price $price
+     * @param string $field
+     * @return bool
+     */
     private function priceHas(Price $price, $field)
     {
         return !is_null($price->get($field));

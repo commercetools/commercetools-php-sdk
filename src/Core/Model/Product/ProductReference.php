@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 27.01.15, 18:22
  */
 
@@ -11,8 +11,8 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link https://dev.commercetools.com/http-api-types.html#reference-types
- * @link https://dev.commercetools.com/http-api-projects-products.html#product
+ * @link https://docs.commercetools.com/http-api-types.html#reference-types
+ * @link https://docs.commercetools.com/http-api-projects-products.html#product
  * @method string getTypeId()
  * @method ProductReference setTypeId(string $typeId = null)
  * @method string getId()

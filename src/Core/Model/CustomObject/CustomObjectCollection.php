@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CustomObject;
@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\CustomObject
- * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#customobject
+ * @link https://docs.commercetools.com/http-api-projects-custom-objects.html#customobject
  * @method CustomObject current()
  * @method CustomObjectCollection add(CustomObject $element)
  * @method CustomObject getAt($offset)

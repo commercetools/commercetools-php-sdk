@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Product;
@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link https://dev.commercetools.com/http-api-projects-products.html#productcatalogdata
+ * @link https://docs.commercetools.com/http-api-projects-products.html#productcatalogdata
  * @method bool getPublished()
  * @method ProductCatalogData setPublished(bool $published = null)
  * @method ProductData getCurrent()

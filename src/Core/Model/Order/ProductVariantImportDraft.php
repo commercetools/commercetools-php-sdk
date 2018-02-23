@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Order;
@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\ImageCollection;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders-import.html#productvariantimportdraft
+ * @link https://docs.commercetools.com/http-api-projects-orders-import.html#productvariantimportdraft
  * @method int getId()
  * @method ProductVariantImportDraft setId(int $id = null)
  * @method string getSku()

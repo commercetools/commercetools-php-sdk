@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CartDiscount;
@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
- * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscounttarget
+ * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscounttarget
  * @method string getType()
  * @method CartDiscountTarget setType(string $type = null)
  * @method string getPredicate()

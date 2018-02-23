@@ -36,8 +36,7 @@
     "psr/simple-cache": "^1.0",
     "cache/apcu-adapter": "^1.0 || ^0.3 || ^0.2",
     "paragonie/random_compat": "^2.0 || ^1.0",
-    "ext-intl": "*",
-    "ext-mbstring": "*"
+    "ext-intl": "*"
   },
   "require-dev": {
     "guzzlehttp/guzzle": "^6.0",
@@ -53,14 +52,16 @@
     "behat/behat": "^3.0",
     "phpunit/phpcov": "^4.0 || ^3.0",
     "friendsofphp/php-cs-fixer": "^2.1",
-    "symfony/yaml": "^3.0",
+    "symfony/yaml": "^3.2",
+    "cache/adapter-common": "^1.0",
     "cache/apcu-adapter": "^1.0",
     "cache/array-adapter": "^1.0",
     "cache/doctrine-adapter": "^1.0",
     "cache/redis-adapter": "^1.0",
     "cache/filesystem-adapter": "^1.0",
     "cache/void-adapter": "^1.0",
-    "incenteev/composer-parameter-handler": "^2.1"
+    "incenteev/composer-parameter-handler": "^2.1",
+    "commercetools/commercetools-api-reference": "dev-master"
   },
   "replaces": {
     "commercetools/commons": "*"

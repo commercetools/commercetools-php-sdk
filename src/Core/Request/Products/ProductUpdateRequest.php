@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 05.02.15, 17:26
  */
 
@@ -15,7 +15,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link https://dev.commercetools.com/http-api-projects-products.html#update-product
+ * @link https://docs.commercetools.com/http-api-projects-products.html#update-product
  * @method Product mapResponse(ApiResponseInterface $response)
  * @method Product mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

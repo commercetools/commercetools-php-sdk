@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Inventory;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Inventory
- * @link https://dev.commercetools.com/http-api-projects-inventory.html#query-inventory
+ * @link https://docs.commercetools.com/http-api-projects-inventory.html#query-inventory
  * @method InventoryEntryCollection mapResponse(ApiResponseInterface $response)
  * @method InventoryEntryCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

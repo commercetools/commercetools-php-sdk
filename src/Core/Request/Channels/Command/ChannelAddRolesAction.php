@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Channels\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Channels\Command
- * @link https://dev.commercetools.com/http-api-projects-channels.html#add-roles
+ * @link https://docs.commercetools.com/http-api-projects-channels.html#add-roles
  * @method string getAction()
  * @method ChannelAddRolesAction setAction(string $action = null)
  * @method array getRoles()

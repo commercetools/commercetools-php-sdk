@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Categories\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-asset-customfield
+ * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-customfield
  *
  * @method string getAction()
  * @method CategorySetAssetCustomFieldAction setAction(string $action = null)
@@ -20,6 +20,8 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
  * @method CategorySetAssetCustomFieldAction setName(string $name = null)
  * @method mixed getValue()
  * @method CategorySetAssetCustomFieldAction setValue($value = null)
+ * @method string getAssetKey()
+ * @method CategorySetAssetCustomFieldAction setAssetKey(string $assetKey = null)
  */
 class CategorySetAssetCustomFieldAction extends SetCustomFieldAction
 {
@@ -28,6 +30,7 @@ class CategorySetAssetCustomFieldAction extends SetCustomFieldAction
         return [
             'action' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
+            'assetKey' => [static::TYPE => 'string'],
             'name' => [static::TYPE => 'string'],
             'value' => [static::TYPE => null],
         ];
@@ -52,5 +55,16 @@ class CategorySetAssetCustomFieldAction extends SetCustomFieldAction
     public static function ofAssetIdAndName($assetId, $name, $context = null)
     {
         return static::of($context)->setAssetId($assetId)->setName($name);
+    }
+
+    /**
+     * @param string $assetKey
+     * @param string $name
+     * @param Context|callable $context
+     * @return CategorySetAssetCustomFieldAction
+     */
+    public static function ofAssetKeyAndName($assetKey, $name, $context = null)
+    {
+        return static::of($context)->setAssetKey($assetKey)->setName($name);
     }
 }

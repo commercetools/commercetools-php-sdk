@@ -1,13 +1,13 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-carts.html#taxportion
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#taxportion
  * @method float getRate()
  * @method TaxPortion setRate(float $rate = null)
  * @method Money getAmount()

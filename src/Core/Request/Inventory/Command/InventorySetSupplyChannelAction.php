@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 
@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Channel\ChannelReference;
 
 /**
  * @package Commercetools\Core\Request\Inventory\Command
- * @link https://dev.commercetools.com/http-api-projects-inventory.html#set-supplychannel
+ * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-supplychannel
  * @method string getAction()
  * @method InventorySetSupplyChannelAction setAction(string $action = null)
  * @method ChannelReference getSupplyChannel()

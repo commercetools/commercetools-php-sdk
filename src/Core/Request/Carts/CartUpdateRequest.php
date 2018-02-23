@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Carts;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Carts
- * @link https://dev.commercetools.com/http-api-projects-carts.html#update-cart
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#update-cart
  * @method Cart mapResponse(ApiResponseInterface $response)
  * @method Cart mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
@@ -23,7 +23,7 @@ class CartUpdateRequest extends AbstractUpdateRequest
 
     /**
      * @param string $id
-     * @param string $version
+     * @param int $version
      * @param array $actions
      * @param Context $context
      */

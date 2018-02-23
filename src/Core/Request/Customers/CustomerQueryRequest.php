@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 11.02.15, 14:19
  */
 
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @link https://dev.commercetools.com/http-api-projects-customers.html#get-customer-by-id
+ * @link https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-id
  * @method CustomerCollection mapResponse(ApiResponseInterface $response)
  * @method CustomerCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

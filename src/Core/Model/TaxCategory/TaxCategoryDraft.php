@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\TaxCategory;
@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\TaxCategory
- * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#taxcategorydraft
+ * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#taxcategorydraft
  * @method string getName()
  * @method TaxCategoryDraft setName(string $name = null)
  * @method string getDescription()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\DiscountCode;
@@ -15,7 +15,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\DiscountCode
- * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#discountcode
+ * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#discountcode
  * @method string getId()
  * @method DiscountCode setId(string $id = null)
  * @method int getVersion()
@@ -44,6 +44,12 @@ use DateTime;
  * @method DiscountCode setMaxApplicationsPerCustomer(int $maxApplicationsPerCustomer = null)
  * @method CustomFieldObject getCustom()
  * @method DiscountCode setCustom(CustomFieldObject $custom = null)
+ * @method array getGroups()
+ * @method DiscountCode setGroups(array $groups = null)
+ * @method DateTimeDecorator getValidFrom()
+ * @method DiscountCode setValidFrom(DateTime $validFrom = null)
+ * @method DateTimeDecorator getValidUntil()
+ * @method DiscountCode setValidUntil(DateTime $validUntil = null)
  * @method DiscountCodeReference getReference()
  */
 class DiscountCode extends Resource
@@ -73,6 +79,15 @@ class DiscountCode extends Resource
             'maxApplications' => [static::TYPE => 'int'],
             'maxApplicationsPerCustomer' => [static::TYPE => 'int'],
             'custom' => [static::TYPE => CustomFieldObject::class],
+            'groups' => [static::TYPE => 'array'],
+            'validFrom' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
+            'validUntil' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 
@@ -45,6 +45,7 @@ use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveShipp
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetKeyAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetPredicateAction;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateByKeyRequest;
@@ -145,6 +146,27 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(ShippingMethod::class, $result);
         $this->assertSame($key, $result->getKey());
+        $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+    }
+
+    public function testSetPredicate()
+    {
+        $draft = $this->getDraft('set-predicate');
+        $draft->setKey('test-' . $this->getTestRun() . '-update-by-key');
+        $shippingMethod = $this->createShippingMethod($draft);
+
+        $predicate = '1 = 1';
+        $request = ShippingMethodUpdateByKeyRequest::ofKeyAndVersion($shippingMethod->getKey(), $shippingMethod->getVersion())
+            ->addAction(
+                ShippingMethodSetPredicateAction::of()->setPredicate($predicate)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ShippingMethod::class, $result);
+        $this->assertSame($predicate, $result->getPredicate());
         $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
     }
 

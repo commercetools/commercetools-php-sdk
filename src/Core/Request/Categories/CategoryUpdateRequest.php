@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 26.01.15, 18:14
  */
 
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Categories
- * @link https://dev.commercetools.com/http-api-projects-categories.html#update-category
+ * @link https://docs.commercetools.com/http-api-projects-categories.html#update-category
  * @method Category mapResponse(ApiResponseInterface $response)
  * @method Category mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -11,11 +11,13 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-meta-keywords
+ * @link https://docs.commercetools.com/http-api-projects-products.html#set-meta-keywords
  * @method string getAction()
  * @method ProductSetMetaKeywordsAction setAction(string $action = null)
  * @method LocalizedString getMetaKeywords()
  * @method ProductSetMetaKeywordsAction setMetaKeywords(LocalizedString $metaKeywords = null)
+ * @method bool getStaged()
+ * @method ProductSetMetaKeywordsAction setStaged(bool $staged = null)
  */
 class ProductSetMetaKeywordsAction extends AbstractAction
 {
@@ -24,6 +26,7 @@ class ProductSetMetaKeywordsAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'metaKeywords' => [static::TYPE => LocalizedString::class],
+            'staged' => [static::TYPE => 'bool'],
         ];
     }
 

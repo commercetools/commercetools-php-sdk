@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CartDiscount;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\MoneyCollection;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
- * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscountvalue
+ * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscountvalue
  * @deprecated use RelativeCartDiscountValue, AbsoluteCartDiscountValue or GiftLineItemCartDiscountValue instead.
  * @method string getType()
  * @method CartDiscountValue setType(string $type = null)

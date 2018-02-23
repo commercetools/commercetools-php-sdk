@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#remove-asset
+ * @link https://docs.commercetools.com/http-api-projects-products.html#remove-asset
  * @method string getAction()
  * @method ProductRemoveAssetAction setAction(string $action = null)
  * @method int getVariantId()
@@ -21,6 +21,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ProductRemoveAssetAction setAssetId(string $assetId = null)
  * @method bool getStaged()
  * @method ProductRemoveAssetAction setStaged(bool $staged = null)
+ * @method string getAssetKey()
+ * @method ProductRemoveAssetAction setAssetKey(string $assetKey = null)
  */
 class ProductRemoveAssetAction extends AbstractAction
 {
@@ -31,6 +33,7 @@ class ProductRemoveAssetAction extends AbstractAction
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
+            'assetKey' => [static::TYPE => 'string'],
             'staged' => [static::TYPE => 'bool'],
         ];
     }
@@ -65,5 +68,27 @@ class ProductRemoveAssetAction extends AbstractAction
     public static function ofSkuAndAssetId($sku, $assetId, $context = null)
     {
         return static::of($context)->setSku($sku)->setAssetId($assetId);
+    }
+
+    /**
+     * @param int $variantId
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return ProductRemoveAssetAction
+     */
+    public static function ofVariantIdAndAssetKey($variantId, $assetKey, $context = null)
+    {
+        return static::of($context)->setVariantId($variantId)->setAssetKey($assetKey);
+    }
+
+    /**
+     * @param string $sku
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return ProductRemoveAssetAction
+     */
+    public static function ofSkuAndAssetKey($sku, $assetKey, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setAssetKey($assetKey);
     }
 }

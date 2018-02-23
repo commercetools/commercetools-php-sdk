@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ShoppingLists\Command;
@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Type\TypeReference;
 
 /**
  * @package Commercetools\Core\Request\ShoppingLists\Command
- * @link https://dev.commercetools.com/http-api-projects-shoppingLists.html#set-lineitem-custom-type
+ * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-lineitem-custom-type
  * @method string getAction()
  * @method ShoppingListSetLineItemCustomTypeAction setAction(string $action = null)
  * @method string getLineItemId()

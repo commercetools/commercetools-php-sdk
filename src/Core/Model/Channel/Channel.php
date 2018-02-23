@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Channel;
@@ -16,7 +16,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Channel
- * @link https://dev.commercetools.com/http-api-projects-channels.html#channel
+ * @link https://docs.commercetools.com/http-api-projects-channels.html#channel
  * @method string getId()
  * @method Channel setId(string $id = null)
  * @method int getVersion()

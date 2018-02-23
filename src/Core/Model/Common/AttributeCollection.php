@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Common;
@@ -9,7 +9,7 @@ use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-products.html#attribute
+ * @link https://docs.commercetools.com/http-api-projects-products.html#attribute
  * @method Attribute current()
  * @method AttributeCollection add(Attribute $element)
  */

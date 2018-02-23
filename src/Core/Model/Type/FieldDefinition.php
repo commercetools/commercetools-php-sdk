@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Type;
@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Model\Type
- * @link https://dev.commercetools.com/http-api-projects-types.html#fielddefinition
+ * @link https://docs.commercetools.com/http-api-projects-types.html#fielddefinition
  * @method FieldType getType()
  * @method FieldDefinition setType(FieldType $type = null)
  * @method string getName()

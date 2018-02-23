@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Category;
@@ -14,7 +14,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Category
- * @link https://dev.commercetools.com/http-api-projects-categories.html#category
+ * @link https://docs.commercetools.com/http-api-projects-categories.html#category
  * @method string getId()
  * @method Category setId(string $id = null)
  * @method int getVersion()

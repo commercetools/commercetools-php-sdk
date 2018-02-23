@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\ShippingMethod;
@@ -10,8 +10,8 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\ShippingMethod
- * @link https://dev.commercetools.com/http-api-types.html#reference-types
- * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#shippingmethod
+ * @link https://docs.commercetools.com/http-api-types.html#reference-types
+ * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#shippingmethod
  * @method string getTypeId()
  * @method ShippingMethodReference setTypeId(string $typeId = null)
  * @method string getId()

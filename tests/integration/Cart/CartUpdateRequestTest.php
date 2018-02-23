@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Cart;
@@ -51,6 +51,7 @@ use Commercetools\Core\Request\Carts\Command\CartAddPaymentAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemMoneyAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemQuantityAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction;
+use Commercetools\Core\Request\Carts\Command\CartChangeTaxCalculationModeAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeTaxRoundingModeAction;
 use Commercetools\Core\Request\Carts\Command\CartRecalculateAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction;
@@ -1431,6 +1432,34 @@ class CartUpdateRequestTest extends ApiTestCase
 
         $this->assertSame(Cart::TAX_ROUNDING_MODE_HALF_DOWN, $cart->getTaxRoundingMode());
     }
+
+    public function testTaxCalculationModeUnitPrice()
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $this->assertSame(Cart::TAX_CALCULATION_MODE_LINE_ITEM_LEVEL, $cart->getTaxCalculationMode());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartChangeTaxCalculationModeAction::ofTaxCalculationMode(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL, $cart->getTaxCalculationMode());
+    }
+
+    public function testCreateWithTaxCalculationMode()
+    {
+        $draft = $this->getDraft();
+        $draft->setTaxCalculationMode(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL);
+        $cart = $this->createCart($draft);
+
+        $this->assertSame(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL, $cart->getTaxCalculationMode());
+    }
+
 
     public function testAutomaticDelete()
     {

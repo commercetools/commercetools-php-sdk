@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\ShoppingList;
@@ -502,5 +502,30 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($days, $result->getDeleteDaysAfterLastModification());
+    }
+
+    public function testAddLineItemBySku()
+    {
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        $draft = $this->getDraft('add-line-item-by-sku');
+        $draft->setLineItems(LineItemDraftCollection::of()->add(LineItemDraft::ofSku($variant->getSku())));
+        $shoppingList = $this->createShoppingList($draft);
+
+        $this->assertSame(1, $shoppingList->getLineItems()->current()->getQuantity());
+
+        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
+            ->addAction(ShoppingListAddLineItemAction::ofSkuAndQuantity(
+                $variant->getSku(),
+                1
+            ))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ShoppingList::class, $result);
+        $this->assertSame(2, $result->getLineItems()->current()->getQuantity());
+        $this->assertSame($product->getId(), $result->getLineItems()->current()->getProductId());
     }
 }

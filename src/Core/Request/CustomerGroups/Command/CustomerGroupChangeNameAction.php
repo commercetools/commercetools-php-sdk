@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\CustomerGroups\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\CustomerGroups\Command
- * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#change-name
+ * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#change-name
  * @method string getAction()
  * @method CustomerGroupChangeNameAction setAction(string $action = null)
  * @method string getName()

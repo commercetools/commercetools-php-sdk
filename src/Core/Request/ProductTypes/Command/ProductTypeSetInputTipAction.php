@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ProductTypes\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#set-attributedefinition-inputtip
+ * @link https://docs.commercetools.com/http-api-projects-productTypes.html#set-attributedefinition-inputtip
  * @method string getAction()
  * @method ProductTypeSetInputTipAction setAction(string $action = null)
  * @method string getAttributeName()

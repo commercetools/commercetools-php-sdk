@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Carts;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Carts
- * @link https://dev.commercetools.com/http-api-projects-carts.html#query-carts
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#query-carts
  * @method CartCollection mapResponse(ApiResponseInterface $response)
  * @method CartCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

@@ -28,6 +28,8 @@ cart:
     - taxRoundingMode
     - deleteDaysAfterLastModification
     - refusedGifts
+    - origin
+    - taxCalculationMode
     - shippingRateInput
 lineItem:
   domain: cart
@@ -141,6 +143,7 @@ cartDiscount:
     - requiresDiscountCode
     - references
     - stackingMode
+    - custom
 
 cartDiscountValue:
   domain: cartDiscount
@@ -378,6 +381,9 @@ order:
     - anonymousId
     - locale
     - taxRoundingMode
+    - origin
+    - taxCalculationMode
+    - taxMode
     - shippingRateInput
 syncInfo:
   domain: order
@@ -416,6 +422,7 @@ delivery:
     - createdAt
     - items
     - parcels
+    - address
 
 deliveryItem:
   domain: order
@@ -493,7 +500,7 @@ productDraft:
     - searchKeywords
     - state
     - publish
-
+    - categoryOrderHints
 productCatalogData:
   domain: product
   model: ProductCatalogData
@@ -600,7 +607,7 @@ productVariantDraft:
     - images
     - assets
     - attributes
-
+    - key
 facetTerm:
   domain: product
   model: FacetTerm
@@ -618,11 +625,11 @@ facetRange:
     - to
     - toStr
     - count
-    - totalCount
     - total
     - min
     - max
     - mean
+    - productCount
 
 facetResult:
   domain: product
@@ -712,6 +719,7 @@ customerGroup:
     - lastModifiedAt
     - name
     - key
+    - custom
 
 discountCode:
   domain: discountCode
@@ -731,6 +739,9 @@ discountCode:
     - maxApplications
     - maxApplicationsPerCustomer
     - custom
+    - groups
+    - validFrom
+    - validUntil
 productDiscount:
   domain: productDiscount
   model: ProductDiscount
@@ -746,6 +757,8 @@ productDiscount:
     - sortOrder
     - isActive
     - references
+    - validFrom
+    - validUntil
 
 productDiscountValue:
   domain: productDiscount
@@ -873,6 +886,8 @@ importOrder:
     - custom
     - inventoryMode
     - taxRoundingMode
+    - origin
+    - taxCalculationMode
 lineItemImportDraft:
   domain: order
   model: lineItemImportDraft

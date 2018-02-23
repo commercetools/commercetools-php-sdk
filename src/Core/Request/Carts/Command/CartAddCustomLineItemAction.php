@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Carts\Command;
@@ -15,7 +15,7 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- * @link https://dev.commercetools.com/http-api-projects-carts.html#add-customlineitem
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#add-customlineitem
  * @method string getAction()
  * @method CartAddCustomLineItemAction setAction(string $action = null)
  * @method LocalizedString getName()

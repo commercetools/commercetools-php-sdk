@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Common;
@@ -21,12 +21,15 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method AssetDraft setTags(array $tags = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method AssetDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method string getKey()
+ * @method AssetDraft setKey(string $key = null)
  */
 class AssetDraft extends JsonObject
 {
     public function fieldDefinitions()
     {
         return [
+            'key' => [static::TYPE => 'string'],
             'sources' => [static::TYPE => AssetSourceCollection::class],
             'name' => [static::TYPE => LocalizedString::class],
             'description' => [static::TYPE => LocalizedString::class],

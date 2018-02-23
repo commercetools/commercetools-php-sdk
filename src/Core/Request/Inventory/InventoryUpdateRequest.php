@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Inventory;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Inventory
- * @link https://dev.commercetools.com/http-api-projects-inventory.html#update-an-inventoryentry
+ * @link https://docs.commercetools.com/http-api-projects-inventory.html#update-an-inventoryentry
  * @method InventoryEntry mapResponse(ApiResponseInterface $response)
  * @method InventoryEntry mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
@@ -23,7 +23,7 @@ class InventoryUpdateRequest extends AbstractUpdateRequest
 
     /**
      * @param string $id
-     * @param string $version
+     * @param int $version
      * @param array $actions
      * @param Context $context
      */

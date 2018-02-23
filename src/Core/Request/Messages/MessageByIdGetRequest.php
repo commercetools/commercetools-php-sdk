@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Messages;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Messages
- * @link https://dev.commercetools.com/http-api-projects-messages.html#get-message-by-id
+ * @link https://docs.commercetools.com/http-api-projects-messages.html#get-message-by-id
  * @method Message mapResponse(ApiResponseInterface $response)
  * @method Message mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

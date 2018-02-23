@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\ShoppingList;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\ShoppingList
- * @link https://dev.commercetools.com/http-api-projects-shoppingLists.html#shoppingListDraft
+ * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#shoppingListDraft
  * @method string getKey()
  * @method ShoppingListDraft setKey(string $key = null)
  * @method LocalizedString getSlug()

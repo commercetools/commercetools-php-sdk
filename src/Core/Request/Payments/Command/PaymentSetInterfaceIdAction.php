@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Payments\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Customer\CustomerReference;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#set-interfaceid
+ * @link https://docs.commercetools.com/http-api-projects-payments.html#set-interfaceid
  * @method string getAction()
  * @method PaymentSetInterfaceIdAction setAction(string $action = null)
  * @method string getInterfaceId()

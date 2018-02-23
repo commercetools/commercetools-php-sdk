@@ -1,11 +1,11 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Common;
 
-use Pimple\Container;
+use Commercetools\Core\Helper\CurrencyFormatterInterface;
 use Psr\Log\LoggerInterface;
 use Commercetools\Core\Helper\CurrencyFormatter;
 
@@ -72,7 +72,7 @@ class Context implements \ArrayAccess
     private $languages = [];
 
     /**
-     * @var CurrencyFormatter
+     * @var CurrencyFormatterInterface
      */
     private $currencyFormatter;
 
@@ -141,7 +141,7 @@ class Context implements \ArrayAccess
     }
 
     /**
-     * @return CurrencyFormatter
+     * @return CurrencyFormatterInterface
      */
     public function getCurrencyFormatter()
     {
@@ -149,7 +149,7 @@ class Context implements \ArrayAccess
     }
 
     /**
-     * @param CurrencyFormatter $currencyFormatter
+     * @param CurrencyFormatterInterface $currencyFormatter
      * @return Context
      */
     public function setCurrencyFormatter($currencyFormatter)
@@ -225,7 +225,7 @@ class Context implements \ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
-        if ($this->offsetExists($offset)) {
+        if (property_exists($this, $offset)) {
             $method = 'set'.ucfirst($offset);
 
             $this->$method($value);

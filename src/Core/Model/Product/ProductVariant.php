@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Product;
@@ -15,7 +15,7 @@ use Commercetools\Core\Model\Common\AssetCollection;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link https://dev.commercetools.com/http-api-projects-products.html#productvariant
+ * @link https://docs.commercetools.com/http-api-projects-products.html#productvariant
  * @method int getId()
  * @method ProductVariant setId(int $id = null)
  * @method string getSku()

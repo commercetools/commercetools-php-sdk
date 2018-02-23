@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 11.02.15, 14:23
  */
 
@@ -18,7 +18,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Customer
- * @link https://dev.commercetools.com/http-api-projects-me-profile.html#mycustomerdraft
+ * @link https://docs.commercetools.com/http-api-projects-me-profile.html#mycustomerdraft
  * @method string getEmail()
  * @method MyCustomerDraft setEmail(string $email = null)
  * @method string getPassword()

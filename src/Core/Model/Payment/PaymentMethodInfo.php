@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Payment;
@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Model\Payment
- * @link https://dev.commercetools.com/http-api-projects-payments.html#paymentmethodinfo
+ * @link https://docs.commercetools.com/http-api-projects-payments.html#paymentmethodinfo
  * @method string getPaymentInterface()
  * @method PaymentMethodInfo setPaymentInterface(string $paymentInterface = null)
  * @method string getMethod()

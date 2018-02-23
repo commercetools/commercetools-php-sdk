@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Cart;
@@ -16,7 +16,7 @@ use Commercetools\Core\Model\Common\TaxedItemPrice;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#customlineitem
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#customlineitem
  * @method string getId()
  * @method CustomLineItem setId(string $id = null)
  * @method LocalizedString getName()

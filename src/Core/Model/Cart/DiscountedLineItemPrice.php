@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Cart;
@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\Money;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#discountedlineitemprice
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#discountedlineitemprice
  * @method Money getValue()
  * @method DiscountedLineItemPrice setValue(Money $value = null)
  * @method DiscountedLineItemPortionCollection getIncludedDiscounts()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Cart;
@@ -19,7 +19,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-carts.html#cart
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#cart
  * @method string getId()
  * @method Cart setId(string $id = null)
  * @method int getVersion()
@@ -71,6 +71,10 @@ use DateTime;
  * @method Cart setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
  * @method CartDiscountReferenceCollection getRefusedGifts()
  * @method Cart setRefusedGifts(CartDiscountReferenceCollection $refusedGifts = null)
+ * @method string getOrigin()
+ * @method Cart setOrigin(string $origin = null)
+ * @method string getTaxCalculationMode()
+ * @method Cart setTaxCalculationMode(string $taxCalculationMode = null)
  * @method ShippingRateInput getShippingRateInput()
  * @method Cart setShippingRateInput(ShippingRateInput $shippingRateInput = null)
  * @method CartReference getReference()
@@ -86,6 +90,12 @@ class Cart extends Resource
     const TAX_ROUNDING_MODE_HALF_EVEN = 'HalfEven';
     const TAX_ROUNDING_MODE_HALF_UP = 'HalfUp';
     const TAX_ROUNDING_MODE_HALF_DOWN = 'HalfDown';
+
+    const ORIGIN_CUSTOMER = 'Customer';
+    const ORIGIN_MERCHANT = 'Merchant';
+
+    const TAX_CALCULATION_MODE_LINE_ITEM_LEVEL = 'LineItemLevel';
+    const TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL = 'UnitPriceLevel';
 
     public function fieldDefinitions()
     {
@@ -122,6 +132,8 @@ class Cart extends Resource
             'taxRoundingMode' => [static::TYPE => 'string'],
             'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
             'refusedGifts' => [static::TYPE => CartDiscountReferenceCollection::class],
+            'origin' => [static::TYPE => 'string'],
+            'taxCalculationMode' => [static::TYPE => 'string'],
             'shippingRateInput' => [static::TYPE => ShippingRateInput::class]
         ];
     }

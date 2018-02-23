@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ShoppingLists\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ShoppingLists\Command
- * @link https://dev.commercetools.com/http-api-projects-shoppingLists.html#remove-lineitem
+ * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#remove-lineitem
  * @method string getAction()
  * @method ShoppingListRemoveLineItemAction setAction(string $action = null)
  * @method string getLineItemId()

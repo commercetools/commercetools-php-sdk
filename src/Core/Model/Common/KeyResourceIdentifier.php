@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Common;
@@ -26,7 +26,7 @@ class KeyResourceIdentifier extends ResourceIdentifier
 
     /**
      * @internal
-     * @param null $id
+     * @param $id
      * @return $this
      */
     public function setId($id = null)

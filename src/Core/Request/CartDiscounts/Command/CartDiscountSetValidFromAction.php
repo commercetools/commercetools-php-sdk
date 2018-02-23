@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\CartDiscounts\Command;
@@ -12,7 +12,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
- * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#set-valid-from
+ * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#set-valid-from
  * @method string getAction()
  * @method CartDiscountSetValidFromAction setAction(string $action = null)
  * @method DateTimeDecorator getValidFrom()

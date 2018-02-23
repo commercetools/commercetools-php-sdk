@@ -1,17 +1,18 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CustomerGroup;
 
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use DateTime;
 
 /**
  * @package Commercetools\Core\Model\CustomerGroup
- * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#customergroup
+ * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#customergroup
  * @method string getId()
  * @method CustomerGroup setId(string $id = null)
  * @method int getVersion()
@@ -24,6 +25,8 @@ use DateTime;
  * @method CustomerGroup setName(string $name = null)
  * @method string getKey()
  * @method CustomerGroup setKey(string $key = null)
+ * @method CustomFieldObject getCustom()
+ * @method CustomerGroup setCustom(CustomFieldObject $custom = null)
  * @method CustomerGroupReference getReference()
  */
 class CustomerGroup extends Resource
@@ -43,6 +46,7 @@ class CustomerGroup extends Resource
             ],
             'name' => [static::TYPE => 'string'],
             'key' => [static::TYPE => 'string'],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }

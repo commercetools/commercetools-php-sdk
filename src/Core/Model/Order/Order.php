@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Order;
@@ -25,7 +25,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders.html#order
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#order
  * @method string getId()
  * @method Order setId(string $id = null)
  * @method int getVersion()
@@ -89,6 +89,12 @@ use DateTime;
  * @method string getLocale()
  * @method string getTaxRoundingMode()
  * @method Order setTaxRoundingMode(string $taxRoundingMode = null)
+ * @method string getOrigin()
+ * @method Order setOrigin(string $origin = null)
+ * @method string getTaxCalculationMode()
+ * @method Order setTaxCalculationMode(string $taxCalculationMode = null)
+ * @method string getTaxMode()
+ * @method Order setTaxMode(string $taxMode = null)
  * @method ShippingRateInput getShippingRateInput()
  * @method Order setShippingRateInput(ShippingRateInput $shippingRateInput = null)
  * @method OrderReference getReference()
@@ -148,7 +154,10 @@ class Order extends Resource
             'anonymousId' => [static::TYPE => 'string'],
             'locale' => [static::TYPE => 'string'],
             'taxRoundingMode' => [static::TYPE => 'string'],
-            'shippingRateInput' => [static::TYPE => ShippingRateInput::class]
+            'origin' => [static::TYPE => 'string'],
+            'taxCalculationMode' => [static::TYPE => 'string'],
+            'taxMode' => [static::TYPE => 'string'],
+            'shippingRateInput' => [static::TYPE => ShippingRateInput::class],
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Reviews\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Customer\CustomerReference;
 
 /**
  * @package Commercetools\Core\Request\Reviews\Command
- * @link https://dev.commercetools.com/http-api-projects-reviews.html#set-customer
+ * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-customer
  * @method string getAction()
  * @method ReviewSetCustomerAction setAction(string $action = null)
  * @method CustomerReference getCustomer()

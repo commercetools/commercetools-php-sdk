@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Payments\Command;
@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Type\TypeReference;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#set-custom-type
+ * @link https://docs.commercetools.com/http-api-projects-payments.html#set-custom-type
  * @method string getAction()
  * @method PaymentSetCustomTypeAction setAction(string $action = null)
  * @method string getTypeId()

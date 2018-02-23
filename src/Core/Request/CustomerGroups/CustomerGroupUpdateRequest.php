@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\CustomerGroups;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomerGroups
- * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#update-customergroup
+ * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#update-customergroup
  * @method CustomerGroup mapResponse(ApiResponseInterface $response)
  * @method CustomerGroup mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
@@ -23,7 +23,7 @@ class CustomerGroupUpdateRequest extends AbstractUpdateRequest
 
     /**
      * @param string $id
-     * @param string $version
+     * @param int $version
      * @param array $actions
      * @param Context $context
      */

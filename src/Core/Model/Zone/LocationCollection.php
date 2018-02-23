@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Zone;
@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 
 /**
  * @package Commercetools\Core\Model\Zone
- * @link https://dev.commercetools.com/http-api-projects-zones.html#location
+ * @link https://docs.commercetools.com/http-api-projects-zones.html#location
  * @method Location current()
  * @method LocationCollection add(Location $element)
  * @method Location getAt($offset)

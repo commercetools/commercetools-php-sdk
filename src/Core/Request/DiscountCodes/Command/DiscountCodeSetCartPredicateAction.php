@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\DiscountCodes\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes\Command
- * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#set-cart-predicate
+ * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-cart-predicate
  * @method string getAction()
  * @method DiscountCodeSetCartPredicateAction setAction(string $action = null)
  * @method string getCartPredicate()

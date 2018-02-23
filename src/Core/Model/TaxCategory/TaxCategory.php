@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\TaxCategory;
@@ -12,7 +12,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\TaxCategory
- * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#taxcategory
+ * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#taxcategory
  * @method string getId()
  * @method TaxCategory setId(string $id = null)
  * @method int getVersion()

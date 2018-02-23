@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ShoppingLists\Command;
@@ -13,7 +13,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Request\ShoppingLists\Command
- * @link https://dev.commercetools.com/http-api-projects-shoppingLists.html#add-lineitem
+ * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#add-lineitem
  * @method string getAction()
  * @method ShoppingListAddLineItemAction setAction(string $action = null)
  * @method string getProductId()
@@ -26,6 +26,8 @@ use DateTime;
  * @method ShoppingListAddLineItemAction setCustom(CustomFieldObjectDraft $custom = null)
  * @method DateTimeDecorator getAddedAt()
  * @method ShoppingListAddLineItemAction setAddedAt(DateTime $addedAt = null)
+ * @method string getSku()
+ * @method ShoppingListAddLineItemAction setSku(string $sku = null)
  */
 class ShoppingListAddLineItemAction extends AbstractAction
 {
@@ -41,6 +43,7 @@ class ShoppingListAddLineItemAction extends AbstractAction
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'sku' => [static::TYPE => 'string'],
         ];
     }
 
@@ -54,6 +57,17 @@ class ShoppingListAddLineItemAction extends AbstractAction
     public static function ofProductIdVariantIdAndQuantity($productId, $variantId, $quantity, $context = null)
     {
         return static::of($context)->setProductId($productId)->setVariantId($variantId)->setQuantity($quantity);
+    }
+
+    /**
+     * @param string $sku
+     * @param Context|callable $context
+     * @param int $quantity
+     * @return ShoppingListAddLineItemAction
+     */
+    public static function ofSkuAndQuantity($sku, $quantity, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setQuantity($quantity);
     }
 
     /**

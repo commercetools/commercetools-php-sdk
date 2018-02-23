@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Subscription;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\Common\Address;
 
 /**
  * @package Commercetools\Core\Model\Subscription
- * @link https://dev.commercetools.com/http-api-projects-subscriptions.html#subscriptiondraft
+ * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#subscriptiondraft
  * @method string getKey()
  * @method SubscriptionDraft setKey(string $key = null)
  * @method Destination getDestination()

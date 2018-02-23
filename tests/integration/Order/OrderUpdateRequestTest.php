@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Order;
@@ -46,6 +46,7 @@ use Commercetools\Core\Request\Orders\Command\OrderChangeShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderRemovePaymentAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddress;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomerEmail;
+use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLocaleAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
@@ -346,7 +347,7 @@ class OrderUpdateRequestTest extends ApiTestCase
                     DeliveryItemCollection::of()->add(
                         DeliveryItem::of()->setId($lineItem->getId())->setQuantity(1)
                     )
-                )
+                )->setAddress(Address::of()->setCountry('DE'))
             )
         ;
         $response = $request->executeWithClient($this->getClient());
@@ -391,8 +392,51 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($order->getVersion(), $result->getVersion());
         $this->assertInstanceOf(Order::class, $result);
         $delivery = $result->getShippingInfo()->getDeliveries()->current();
+        $this->assertSame('DE', $delivery->getAddress()->getCountry());
         $this->assertSame(100, $delivery->getParcels()->current()->getMeasurements()->getHeightInMillimeter());
         $this->assertSame('DHL', $delivery->getParcels()->current()->getTrackingData()->getCarrier());
+    }
+
+    public function testDeliverySetAddress()
+    {
+        $cartDraft = $this->getCartDraft();
+        $order = $this->createOrder($cartDraft);
+
+        $lineItem = $order->getLineItems()->current();
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(
+                OrderAddDeliveryAction::ofDeliveryItems(
+                    DeliveryItemCollection::of()->add(
+                        DeliveryItem::of()->setId($lineItem->getId())->setQuantity(1)
+                    )
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertNotSame($order->getVersion(), $result->getVersion());
+        $this->assertInstanceOf(Order::class, $result);
+        $delivery = $result->getShippingInfo()->getDeliveries()->current();
+        $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
+        $order = $result;
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(
+                OrderSetDeliveryAddressAction::ofDeliveryId($delivery->getId())->setAddress(
+                    Address::of()->setCountry('DE')
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertNotSame($order->getVersion(), $result->getVersion());
+        $this->assertInstanceOf(Order::class, $result);
+        $delivery = $result->getShippingInfo()->getDeliveries()->current();
+        $this->assertSame('DE', $delivery->getAddress()->getCountry());
     }
 
     public function testSetOrderNumber()

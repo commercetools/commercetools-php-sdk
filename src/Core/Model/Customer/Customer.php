@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Customer;
@@ -17,7 +17,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Customer
- * @link https://dev.commercetools.com/http-api-projects-customers.html#customer
+ * @link https://docs.commercetools.com/http-api-projects-customers.html#customer
  * @method string getId()
  * @method Customer setId(string $id = null)
  * @method int getVersion()

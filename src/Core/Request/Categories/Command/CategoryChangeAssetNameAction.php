@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Categories\Command;
@@ -11,13 +11,15 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#change-asset-name
+ * @link https://docs.commercetools.com/http-api-projects-products.html#change-asset-name
  * @method string getAction()
  * @method CategoryChangeAssetNameAction setAction(string $action = null)
  * @method LocalizedString getName()
  * @method CategoryChangeAssetNameAction setName(LocalizedString $name = null)
  * @method string getAssetId()
  * @method CategoryChangeAssetNameAction setAssetId(string $assetId = null)
+ * @method string getAssetKey()
+ * @method CategoryChangeAssetNameAction setAssetKey(string $assetKey = null)
  */
 class CategoryChangeAssetNameAction extends AbstractAction
 {
@@ -26,6 +28,7 @@ class CategoryChangeAssetNameAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
+            'assetKey' => [static::TYPE => 'string'],
             'name' => [static::TYPE => LocalizedString::class],
         ];
     }
@@ -49,5 +52,16 @@ class CategoryChangeAssetNameAction extends AbstractAction
     public static function ofAssetIdAndName($assetId, LocalizedString $name, $context = null)
     {
         return static::of($context)->setAssetId($assetId)->setName($name);
+    }
+
+    /**
+     * @param string $assetKey
+     * @param LocalizedString $name
+     * @param Context|callable $context
+     * @return CategoryChangeAssetNameAction
+     */
+    public static function ofAssetKeyAndName($assetKey, LocalizedString $name, $context = null)
+    {
+        return static::of($context)->setAssetKey($assetKey)->setName($name);
     }
 }

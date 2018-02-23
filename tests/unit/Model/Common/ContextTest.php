@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Common;
@@ -66,5 +66,14 @@ class ContextTest extends \PHPUnit\Framework\TestCase
         $context = Context::of();
         $contextStr = serialize($context);
         $this->assertInternalType('string', $contextStr);
+    }
+
+    public function testSetLocaleWithoutIntl()
+    {
+        static::$disableIntl = true;
+        $context = Context::of();
+        $context['locale'] = 'en';
+        $this->assertSame('en', $context['locale']);
+        static::$disableIntl = false;
     }
 }

@@ -1,13 +1,13 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Channel;
 
 /**
  * @package Commercetools\Core\Model\Channel
- * @link https://dev.commercetools.com/http-api-projects-channels.html#channelroleenum
+ * @link https://docs.commercetools.com/http-api-projects-channels.html#channelroleenum
  */
 class ChannelRole
 {

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -11,13 +11,11 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-taxcategory
+ * @link https://docs.commercetools.com/http-api-projects-products.html#set-taxcategory
  * @method string getAction()
  * @method ProductSetTaxCategoryAction setAction(string $action = null)
  * @method TaxCategoryReference getTaxCategory()
  * @method ProductSetTaxCategoryAction setTaxCategory(TaxCategoryReference $taxCategory = null)
- * @method bool getStaged()
- * @method ProductSetTaxCategoryAction setStaged(bool $staged = null)
  */
 class ProductSetTaxCategoryAction extends AbstractAction
 {
@@ -26,7 +24,6 @@ class ProductSetTaxCategoryAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'taxCategory' => [static::TYPE => TaxCategoryReference::class],
-            'staged' => [static::TYPE => 'bool']
         ];
     }
 
@@ -38,5 +35,23 @@ class ProductSetTaxCategoryAction extends AbstractAction
     {
         parent::__construct($data, $context);
         $this->setAction('setTaxCategory');
+    }
+
+    /**
+     * @deprecated not supported by platform - will be removed in 3.0
+     * @return null
+     */
+    public function getStaged()
+    {
+        return null;
+    }
+
+    /**
+     * @deprecated not supported by platform - will be removed in 3.0
+     * @return ProductSetTaxCategoryAction
+     */
+    public function setStaged()
+    {
+        return $this;
     }
 }

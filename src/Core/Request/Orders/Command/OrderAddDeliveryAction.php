@@ -1,10 +1,11 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Orders\Command;
 
+use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Order\DeliveryItemCollection;
 use Commercetools\Core\Model\Order\ParcelCollection;
@@ -14,17 +15,15 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @link https://dev.commercetools.com/http-api-projects-orders.html#add-delivery
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#add-delivery
  * @method string getAction()
  * @method OrderAddDeliveryAction setAction(string $action = null)
  * @method DeliveryItemCollection getItems()
  * @method OrderAddDeliveryAction setItems(DeliveryItemCollection $items = null)
  * @method ParcelCollection getParcels()
  * @method OrderAddDeliveryAction setParcels(ParcelCollection $parcels = null)
- * @method ParcelMeasurements getMeasurements()
- * @method OrderAddDeliveryAction setMeasurements(ParcelMeasurements $measurements = null)
- * @method TrackingData getTrackingData()
- * @method OrderAddDeliveryAction setTrackingData(TrackingData $trackingData = null)
+ * @method Address getAddress()
+ * @method OrderAddDeliveryAction setAddress(Address $address = null)
  */
 class OrderAddDeliveryAction extends AbstractAction
 {
@@ -34,8 +33,7 @@ class OrderAddDeliveryAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'items' => [static::TYPE => DeliveryItemCollection::class],
             'parcels' => [static::TYPE => ParcelCollection::class],
-            'measurements' => [static::TYPE => ParcelMeasurements::class],
-            'trackingData' => [static::TYPE => TrackingData::class],
+            'address' => [static::TYPE => Address::class],
         ];
     }
 
@@ -57,5 +55,41 @@ class OrderAddDeliveryAction extends AbstractAction
     public static function ofDeliveryItems(DeliveryItemCollection $items, $context = null)
     {
         return static::of($context)->setItems($items);
+    }
+
+    /**
+     * @deprecated not supported by platform - will be removed in 3.0
+     * @return null
+     */
+    public function getMeasurements()
+    {
+        return null;
+    }
+
+    /**
+     * @deprecated not supported by platform - will be removed in 3.0
+     * @return OrderAddDeliveryAction
+     */
+    public function setMeasurements()
+    {
+        return $this;
+    }
+
+    /**
+     * @deprecated not supported by platform - will be removed in 3.0
+     * @return null
+     */
+    public function getTrackingData()
+    {
+        return null;
+    }
+
+    /**
+     * @deprecated not supported by platform - will be removed in 3.0
+     * @return OrderAddDeliveryAction
+     */
+    public function setTrackingData()
+    {
+        return $this;
     }
 }

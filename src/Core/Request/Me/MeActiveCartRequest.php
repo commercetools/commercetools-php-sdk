@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Me;
@@ -18,7 +18,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Me
- * @link https://dev.commercetools.com/http-api-projects-me-carts.html#get-active-cart
+ * @link https://docs.commercetools.com/http-api-projects-me-carts.html#get-active-cart
  * @method Cart mapResponse(ApiResponseInterface $response)
  * @method Cart mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

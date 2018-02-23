@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\CustomObjects;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomObjects
- * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#delete-customobject-by-container-and-key
+ * @link https://docs.commercetools.com/http-api-projects-custom-objects.html#delete-customobject-by-container-and-key
  * @method CustomObject mapResponse(ApiResponseInterface $response)
  * @method CustomObject mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

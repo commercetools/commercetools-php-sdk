@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Zone;
@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Zone
- * @link https://dev.commercetools.com/http-api-projects-zones.html#zonedraft
+ * @link https://docs.commercetools.com/http-api-projects-zones.html#zonedraft
  * @method string getName()
  * @method ZoneDraft setName(string $name = null)
  * @method string getDescription()

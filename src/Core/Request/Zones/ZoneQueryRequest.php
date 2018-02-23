@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Zones;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Zones
- * @link https://dev.commercetools.com/http-api-projects-zones.html#query-zones
+ * @link https://docs.commercetools.com/http-api-projects-zones.html#query-zones
  * @method ZoneCollection mapResponse(ApiResponseInterface $response)
  * @method ZoneCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

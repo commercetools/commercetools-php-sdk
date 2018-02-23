@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Cart;
@@ -19,7 +19,7 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
 /**
  * @package Commercetools\Core\Model\Cart
- * @link https://dev.commercetools.com/http-api-projects-me-carts.html#mylineitemdraft
+ * @link https://docs.commercetools.com/http-api-projects-me-carts.html#mylineitemdraft
  * @method string getProductId()
  * @method MyLineItemDraft setProductId(string $productId = null)
  * @method int getVariantId()

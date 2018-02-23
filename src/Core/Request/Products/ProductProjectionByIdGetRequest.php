@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 02.02.15, 17:36
  */
 
@@ -16,7 +16,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link https://dev.commercetools.com/http-api-projects-productProjections.html#get-productprojection-by-id
+ * @link https://docs.commercetools.com/http-api-projects-productProjections.html#get-productprojection-by-id
  * @method ProductProjection mapResponse(ApiResponseInterface $response)
  * @method ProductProjection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

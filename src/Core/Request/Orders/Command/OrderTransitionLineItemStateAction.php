@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Orders\Command;
@@ -14,7 +14,7 @@ use DateTime;
 /**
  * @package Commercetools\Core\Request\Orders\Command
  * @codingStandardsIgnoreStart
- * @link https://dev.commercetools.com/http-api-projects-orders.html#change-the-state-of-lineitem-according-to-allowed-transitions
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#change-the-state-of-lineitem-according-to-allowed-transitions
  * @codingStandardsIgnoreEnd
  * @method string getAction()
  * @method OrderTransitionLineItemStateAction setAction(string $action = null)

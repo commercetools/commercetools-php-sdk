@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Types\Command;
@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Request\Types\Command
- * @link https://dev.commercetools.com/http-api-projects-types.html#remove-fielddefinition
+ * @link https://docs.commercetools.com/http-api-projects-types.html#remove-fielddefinition
  * @method string getAction()
  * @method TypeRemoveFieldDefinitionAction setAction(string $action = null)
  * @method string getFieldName()

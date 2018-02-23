@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\ProductDiscount;
@@ -18,6 +18,8 @@ use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangePre
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeSortOrderAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeValueAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetDescriptionAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidFromAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidUntilAction;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountCreateRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest;
@@ -49,7 +51,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $request = ProductDiscountCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
         $productDiscount = $request->mapResponse($response);
-        $this->cleanupRequests[] = ProductDiscountDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = ProductDiscountDeleteRequest::ofIdAndVersion(
             $productDiscount->getId(),
             $productDiscount->getVersion()
         );
@@ -78,12 +80,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf(ProductDiscount::class, $result);
         $this->assertSame($isActive, $result->getIsActive());
         $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(ProductDiscount::class, $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testChangePredicate()
@@ -108,11 +105,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $this->assertSame($predicate, $result->getPredicate());
         $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(ProductDiscount::class, $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
 
@@ -137,11 +130,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $this->assertSame($name->en, $result->getName()->en);
         $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(ProductDiscount::class, $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testSetDescription()
@@ -164,11 +153,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $this->assertSame($description->en, $result->getDescription()->en);
         $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(ProductDiscount::class, $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testChangeSortOrder()
@@ -191,11 +176,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $this->assertSame($sortOrder, $result->getSortOrder());
         $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(ProductDiscount::class, $result);
+        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testChangeValue()
@@ -226,10 +207,52 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         );
         $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
+        $this->deleteRequest->setVersion($result->getVersion());
+    }
+
+    public function testSetValidFrom()
+    {
+        $draft = $this->getDraft('set-valid-from');
+        $productDiscount = $this->createProductDiscount($draft);
+
+
+        $validFrom = new \DateTime();
+        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
+            $productDiscount->getId(),
+            $productDiscount->getVersion()
+        )
+            ->addAction(ProductDiscountSetValidFromAction::of()->setValidFrom($validFrom))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf(ProductDiscount::class, $result);
+        $validFrom->setTimezone(new \DateTimeZone('UTC'));
+        $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
+        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+    }
+
+    public function testSetValidUntil()
+    {
+        $draft = $this->getDraft('set-valid-from');
+        $productDiscount = $this->createProductDiscount($draft);
+
+
+        $validUntil = new \DateTime();
+        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
+            $productDiscount->getId(),
+            $productDiscount->getVersion()
+        )
+            ->addAction(ProductDiscountSetValidUntilAction::of()->setValidUntil($validUntil))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ProductDiscount::class, $result);
+        $validUntil->setTimezone(new \DateTimeZone('UTC'));
+        $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
+        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request;
@@ -334,7 +334,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 ProductAddToCategoryAction::class,
-                ['action', 'category', 'staged']
+                ['action', 'category', 'staged', 'orderHint']
             ],
             [
                 ProductAddVariantAction::class,
@@ -394,15 +394,15 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 ProductSetMetaTitleAction::class,
-                ['action', 'metaTitle']
+                ['action', 'metaTitle', 'staged']
             ],
             [
                 ProductSetMetaDescriptionAction::class,
-                ['action', 'metaDescription']
+                ['action', 'metaDescription', 'staged']
             ],
             [
                 ProductSetMetaKeywordsAction::class,
-                ['action', 'metaKeywords']
+                ['action', 'metaKeywords', 'staged']
             ],
             [
                 ProductSetPriceCustomFieldAction::class,
@@ -422,7 +422,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 ProductSetTaxCategoryAction::class,
-                ['action', 'taxCategory', 'staged']
+                ['action', 'taxCategory']
             ],
             [
                 ProductTransitionStateAction::class,
@@ -434,7 +434,7 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 OrderAddDeliveryAction::class,
-                ['action', 'items', 'parcels', 'measurements', 'trackingData']
+                ['action', 'items', 'parcels', 'address']
             ],
             [
                 OrderAddParcelToDeliveryAction::class,

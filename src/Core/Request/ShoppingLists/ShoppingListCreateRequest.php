@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ShoppingLists;
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ShoppingLists
- * @link https://dev.commercetools.com/http-api-projects-shoppingLists.html#create-ShoppingList
+ * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#create-ShoppingList
  * @method ShoppingList mapResponse(ApiResponseInterface $response)
  * @method ShoppingList mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

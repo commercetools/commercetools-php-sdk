@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\ProductType;
@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Set;
 
 /**
  * @package Commercetools\Core\Model\ProductType
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#settype
+ * @link https://docs.commercetools.com/http-api-projects-productTypes.html#settype
  * @method string getName()
  * @method SetType setName(string $name = null)
  * @method AttributeType getElementType()

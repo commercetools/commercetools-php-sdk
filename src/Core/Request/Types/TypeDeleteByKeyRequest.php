@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Types;
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Types
- * @link https://dev.commercetools.com/http-api-projects-types.html#delete-type-by-key
+ * @link https://docs.commercetools.com/http-api-projects-types.html#delete-type-by-key
  * @method Type mapResponse(ApiResponseInterface $response)
  * @method Type mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

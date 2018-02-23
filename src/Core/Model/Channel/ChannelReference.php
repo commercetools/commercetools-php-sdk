@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 27.01.15, 18:22
  */
 
@@ -11,8 +11,8 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\Channel
- * @link https://dev.commercetools.com/http-api-types.html#reference-types
- * @link https://dev.commercetools.com/http-api-projects-channels.html#channel
+ * @link https://docs.commercetools.com/http-api-types.html#reference-types
+ * @link https://docs.commercetools.com/http-api-projects-channels.html#channel
  * @method string getTypeId()
  * @method ChannelReference setTypeId(string $typeId = null)
  * @method string getId()

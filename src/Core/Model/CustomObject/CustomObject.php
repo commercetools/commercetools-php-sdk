@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CustomObject;
@@ -11,7 +11,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\CustomObject
- * @link https://dev.commercetools.com/http-api-projects-custom-objects.html#customobject
+ * @link https://docs.commercetools.com/http-api-projects-custom-objects.html#customobject
  * @method string getId()
  * @method CustomObject setId(string $id = null)
  * @method int getVersion()

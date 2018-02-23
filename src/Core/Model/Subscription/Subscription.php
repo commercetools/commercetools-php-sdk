@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Subscription;
@@ -15,7 +15,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Subscription
- * @link https://dev.commercetools.com/http-api-projects-subscriptions.html#subscription
+ * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#subscription
  * @method string getId()
  * @method Subscription setId(string $id = null)
  * @method int getVersion()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Categories\Command;
@@ -11,11 +11,13 @@ use Commercetools\Core\Model\Common\AssetDraft;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#add-asset
+ * @link https://docs.commercetools.com/http-api-projects-products.html#add-asset
  * @method string getAction()
  * @method CategoryAddAssetAction setAction(string $action = null)
  * @method AssetDraft getAsset()
  * @method CategoryAddAssetAction setAsset(AssetDraft $asset = null)
+ * @method int getPosition()
+ * @method CategoryAddAssetAction setPosition(int $position = null)
  */
 class CategoryAddAssetAction extends AbstractAction
 {
@@ -24,6 +26,7 @@ class CategoryAddAssetAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'asset' => [static::TYPE => AssetDraft::class],
+            'position' => [static::TYPE => 'int'],
         ];
     }
 

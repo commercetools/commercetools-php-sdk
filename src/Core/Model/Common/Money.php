@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 04.02.15, 16:44
  */
 
@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-types.html#money
+ * @link https://docs.commercetools.com/http-api-types.html#money
  * @method string getCurrencyCode()
  * @method int getCentAmount()
  * @method Money setCurrencyCode(string $currencyCode = null)

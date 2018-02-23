@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\ProductType;
@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\ProductType
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#producttypedraft
+ * @link https://docs.commercetools.com/http-api-projects-productTypes.html#producttypedraft
  * @method string getName()
  * @method ProductTypeDraft setName(string $name = null)
  * @method string getDescription()

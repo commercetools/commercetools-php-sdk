@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 09.02.15, 10:48
  */
 
@@ -20,7 +20,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link https://dev.commercetools.com/http-api-projects-productProjections.html#productprojection
+ * @link https://docs.commercetools.com/http-api-projects-productProjections.html#productprojection
  * @method string getId()
  * @method ProductProjection setId(string $id = null)
  * @method int getVersion()
