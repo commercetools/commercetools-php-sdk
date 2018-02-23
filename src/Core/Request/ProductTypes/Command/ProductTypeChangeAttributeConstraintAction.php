@@ -10,7 +10,9 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
+ * @codingStandardsIgnoreStart
  * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-attributedefinition-attributeconstraint
+ * @codingStandardsIgnoreEnd
  * @method string getAction()
  * @method ProductTypeChangeAttributeConstraintAction setAction(string $action = null)
  * @method string getAttributeName()
