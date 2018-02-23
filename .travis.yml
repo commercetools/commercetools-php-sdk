@@ -20,6 +20,11 @@ cache:
   directories:
   - vendor
 before_install:
+- openssl aes-256-cbc -K $encrypted_17acaeff100f_key -iv $encrypted_17acaeff100f_iv -in github_deploy_key.enc -out github_deploy_key -d
+- chmod 600 github_deploy_key
+- eval $(ssh-agent -s)
+- ssh-add github_deploy_key
+- ssh -T git@github.com
 - PHP=$TRAVIS_PHP_VERSION
 - if [ $PHP != 'hhvm' ] ; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; fi
 before_script:
