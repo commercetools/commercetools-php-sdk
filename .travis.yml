@@ -24,7 +24,6 @@ before_install:
 - chmod 600 github_deploy_key
 - eval $(ssh-agent -s)
 - ssh-add github_deploy_key
-- ssh -T git@github.com
 - PHP=$TRAVIS_PHP_VERSION
 - if [ $PHP != 'hhvm' ] ; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; fi
 before_script:
