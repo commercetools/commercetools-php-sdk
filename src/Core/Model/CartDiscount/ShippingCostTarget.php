@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\CartDiscount;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
- *
+ * @ramlTestIgnoreFields('predicate')
  * @method string getType()
  * @method ShippingCostTarget setType(string $type = null)
  * @method string getPredicate()

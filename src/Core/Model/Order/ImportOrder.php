@@ -18,6 +18,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Order
+ * @ramlTestIgnoreClass
  * @link https://docs.commercetools.com/http-api-projects-orders-import.html#orderimportdraft
  * @method string getOrderNumber()
  * @method ImportOrder setOrderNumber(string $orderNumber = null)

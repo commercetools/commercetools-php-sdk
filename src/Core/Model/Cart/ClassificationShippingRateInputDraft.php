@@ -26,7 +26,6 @@ class ClassificationShippingRateInputDraft extends ShippingRateInputDraft
         return [
             'type' => [static::TYPE => 'string'],
             'key' => [static::TYPE => 'string'],
-            'label' => [static::TYPE => LocalizedString::class]
         ];
     }
 

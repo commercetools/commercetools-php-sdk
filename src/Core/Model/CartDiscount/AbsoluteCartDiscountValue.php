@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\MoneyCollection;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
- *
+ * @ramlTestIgnoreFields('permyriad')
  * @method string getType()
  * @method AbsoluteCartDiscountValue setType(string $type = null)
  * @method MoneyCollection getMoney()
