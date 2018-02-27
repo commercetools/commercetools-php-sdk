@@ -6,7 +6,6 @@
 namespace Commercetools\Core\Request\Categories\Command;
 
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
@@ -18,8 +17,6 @@ use Commercetools\Core\Request\AbstractAction;
  * @method CategorySetAssetKeyAction setAssetId(string $assetId = null)
  * @method string getAssetKey()
  * @method CategorySetAssetKeyAction setAssetKey(string $assetKey = null)
- * @method LocalizedString getName()
- * @method CategorySetAssetKeyAction setName(LocalizedString $name = null)
  */
 class CategorySetAssetKeyAction extends AbstractAction
 {
@@ -29,7 +26,6 @@ class CategorySetAssetKeyAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
             'assetKey' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => LocalizedString::class],
         ];
     }
 

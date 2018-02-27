@@ -12,7 +12,7 @@ use Commercetools\Core\Model\CustomField\FieldContainer;
 
 /**
  * @package Commercetools\Core\Request\CustomField\Command
- *
+ * @ramlTestIgnoreClass
  * @method string getAction()
  * @method SetCustomTypeAction setAction(string $action = null)
  * @method FieldContainer getFields()

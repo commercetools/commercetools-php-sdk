@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\CustomField\Command
- *
+ * @ramlTestIgnoreClass
  * @method string getAction()
  * @method SetCustomFieldAction setAction(string $action = null)
  * @method string getName()
