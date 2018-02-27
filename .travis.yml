@@ -36,7 +36,7 @@ script:
 - ant phpcs-ci
 - if [ $GUZZLE == '5' ] || [ $PHP == '5.6' ] || [ $PHP == 'hhvm' ] ; then vendor/bin/phpunit -c phpunit5.xml.dist --testsuite=unit; fi
 - if [ $GUZZLE == '6' ] && [ $PHP != '5.6' ] ; then vendor/bin/phpunit --testsuite=unit; fi
-- if [ $PHP == '7.0' ] && [ $GUZZLE == '6' ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then vendor/bin/phpunit --testsuite=integration; fi
+- if [ $PHP == '7.0' ] && [ $GUZZLE == '6' ] && [ $TRAVIS_PULL_REQUEST == 'false' ]; then vendor/bin/phpunit --testsuite=integration; fi
 - ant behat
 after_success:
 - if [ $PHP == '7.1' ] && [ $GUZZLE == '6' ] ; then ./push-docs-to-gh-pages.sh; fi
