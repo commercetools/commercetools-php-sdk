@@ -25,16 +25,24 @@ class RamlModelTest extends AbstractModelTest
      */
     public function modelValidProperties($className, array $validFields = [])
     {
-
         $validFields = array_flip($validFields);
         $t = new \ReflectionClass($className);
+        $missingFields = [];
         foreach ($this->fieldDefinitions($className) as $fieldKey => $field) {
-            $this->assertArrayHasKey(
-                $fieldKey,
-                $validFields,
-                sprintf('Failed asserting that \'%s\' is a valid field at \'%s\' (%s:0)', $fieldKey, $className, $t->getFileName())
-            );
+            if (!isset($validFields[$fieldKey])) {
+                $missingFields[] = $fieldKey;
+            }
         }
+        $this->assertEmpty(
+            $missingFields,
+            sprintf(
+                'Failed asserting that \'%s\' %s at \'%s\' (%s:0)',
+                implode('\', \'', $missingFields),
+                count($missingFields) > 1 ? 'are valid fields': 'is a valid field',
+                $className,
+                $t->getFileName()
+            )
+        );
     }
 
     /**
@@ -47,13 +55,22 @@ class RamlModelTest extends AbstractModelTest
     {
         $validFields = array_flip($validFields);
         $t = new \ReflectionClass($className);
+        $missingFields = [];
         foreach ($this->fieldDefinitions($className) as $fieldKey => $field) {
-            $this->assertArrayHasKey(
-                $fieldKey,
-                $validFields,
-                sprintf('Failed asserting that \'%s\' is a valid field at \'%s\' (%s:0)', $fieldKey, $className, $t->getFileName())
-            );
+            if (!isset($validFields[$fieldKey])) {
+                $missingFields[] = $fieldKey;
+            }
         }
+        $this->assertEmpty(
+            $missingFields,
+            sprintf(
+                'Failed asserting that \'%s\' %s at \'%s\' (%s:0)',
+                implode('\', \'', $missingFields),
+                count($missingFields) > 1 ? 'are valid fields': 'is a valid field',
+                $className,
+                $t->getFileName()
+            )
+        );
     }
 
     /**
@@ -77,7 +94,6 @@ class RamlModelTest extends AbstractModelTest
     }
 
     /**
-     * @test
      * @dataProvider modelFieldProvider
      * @param string $className
      * @param array $validFields
@@ -97,7 +113,6 @@ class RamlModelTest extends AbstractModelTest
     }
 
     /**
-     * @test
      * @dataProvider commandFieldProvider
      * @param string $className
      * @param array $validFields
