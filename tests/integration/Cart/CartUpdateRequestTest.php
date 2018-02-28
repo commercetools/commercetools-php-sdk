@@ -17,6 +17,7 @@ use Commercetools\Core\Model\Cart\LineItem;
 use Commercetools\Core\Model\Cart\LineItemCollection;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
+use Commercetools\Core\Model\Cart\ScoreShippingRateInput;
 use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
@@ -36,6 +37,8 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
+use Commercetools\Core\Model\Project\CartScoreType;
+use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
@@ -79,6 +82,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetLocaleAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxAmountAction;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingRateInputAction;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
@@ -86,6 +90,9 @@ use Commercetools\Core\Request\Products\Command\ProductChangeNameAction;
 use Commercetools\Core\Request\Products\Command\ProductChangePriceAction;
 use Commercetools\Core\Request\Products\Command\ProductPublishAction;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
+use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
+use Commercetools\Core\Request\Project\ProjectGetRequest;
+use Commercetools\Core\Request\Project\ProjectUpdateRequest;
 
 class CartUpdateRequestTest extends ApiTestCase
 {
@@ -1727,6 +1734,37 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertSame($taxAmount, $cart->getTaxedPrice()->getTotalGross()->getCentAmount());
     }
 
+    public function testSetShippingRateInput()
+    {
+        $request = ProjectGetRequest::of();
+        $response = $request->executeWithClient($this->getClient());
+        $project = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Project::class, $project);
+
+        $request = ProjectUpdateRequest::ofVersion($project->getVersion());
+        $request->addAction(
+            ProjectSetShippingRateInputTypeAction::of()
+                ->setShippingRateInputType(CartScoreType::of())
+        );
+        $request->executeWithClient($this->getClient());
+
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartSetShippingRateInputAction::of()
+                    ->setShippingRateInput(ScoreShippingRateInput::ofScore(1))
+            );
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertInstanceOf(ScoreShippingRateInput::class, $cart->getShippingRateInput());
+        $this->assertSame(1, $cart->getShippingRateInput()->getScore());
+
+    }
     /**
      * @return CartDraft
      */

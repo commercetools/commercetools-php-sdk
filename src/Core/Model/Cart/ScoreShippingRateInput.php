@@ -13,8 +13,8 @@ use Commercetools\Core\Model\Common\Context;
  * @link http://dev.commercetools.com/http-api-projects-carts.html#scoreshippingrateinput
  * @method string getType()
  * @method ScoreShippingRateInput setType(string $type = null)
- * @method float getScore()
- * @method ScoreShippingRateInput setScore(float $score = null)
+ * @method int getScore()
+ * @method ScoreShippingRateInput setScore(int $score = null)
  */
 class ScoreShippingRateInput extends ShippingRateInput
 {
@@ -24,12 +24,12 @@ class ScoreShippingRateInput extends ShippingRateInput
     {
         return [
             'type' => [static::TYPE => 'string'],
-            'score' => [static::TYPE => 'float'],
+            'score' => [static::TYPE => 'int'],
         ];
     }
 
     /**
-     * @param $score
+     * @param int $score
      * @param Context|callable $context
      * @return ScoreShippingRateInput
      */
