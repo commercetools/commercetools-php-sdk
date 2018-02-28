@@ -56,6 +56,8 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method CartDraft setTaxCalculationMode(string $taxCalculationMode = null)
  * @method ExternalTaxRateDraft getExternalTaxRateForShippingMethod()
  * @method CartDraft setExternalTaxRateForShippingMethod(ExternalTaxRateDraft $externalTaxRateForShippingMethod = null)
+ * @method ShippingRateInputDraft getShippingRateInput()
+ * @method CartDraft setShippingRateInput(ShippingRateInputDraft $shippingRateInput = null)
  */
 class CartDraft extends JsonObject
 {
@@ -83,7 +85,8 @@ class CartDraft extends JsonObject
             'customerGroup' => [static::TYPE => CustomerGroupReference::class],
             'origin' => [static::TYPE => 'string'],
             'taxCalculationMode' => [static::TYPE => 'string'],
-            'externalTaxRateForShippingMethod' => [static::TYPE => ExternalTaxRateDraft::class]
+            'externalTaxRateForShippingMethod' => [static::TYPE => ExternalTaxRateDraft::class],
+            'shippingRateInput' => [static::TYPE => ShippingRateInputDraft::class],
         ];
     }
 

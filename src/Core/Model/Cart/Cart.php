@@ -75,6 +75,8 @@ use DateTime;
  * @method Cart setOrigin(string $origin = null)
  * @method string getTaxCalculationMode()
  * @method Cart setTaxCalculationMode(string $taxCalculationMode = null)
+ * @method ShippingRateInput getShippingRateInput()
+ * @method Cart setShippingRateInput(ShippingRateInput $shippingRateInput = null)
  * @method CartReference getReference()
  */
 class Cart extends Resource
@@ -132,6 +134,7 @@ class Cart extends Resource
             'refusedGifts' => [static::TYPE => CartDiscountReferenceCollection::class],
             'origin' => [static::TYPE => 'string'],
             'taxCalculationMode' => [static::TYPE => 'string'],
+            'shippingRateInput' => [static::TYPE => ShippingRateInput::class]
         ];
     }
 

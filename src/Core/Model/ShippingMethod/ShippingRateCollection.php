@@ -5,8 +5,6 @@
 
 namespace Commercetools\Core\Model\ShippingMethod;
 
-use Commercetools\Core\Model\Common\Collection;
-
 /**
  * @package Commercetools\Core\Model\ShippingMethod
  * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#shippingrate
@@ -14,7 +12,7 @@ use Commercetools\Core\Model\Common\Collection;
  * @method ShippingRateCollection add(ShippingRate $element)
  * @method ShippingRate getAt($offset)
  */
-class ShippingRateCollection extends Collection
+class ShippingRateCollection extends ShippingRateDraftCollection
 {
     protected $type = ShippingRate::class;
 }

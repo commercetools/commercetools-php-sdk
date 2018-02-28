@@ -15,24 +15,7 @@ class RamlModelTest extends AbstractModelTest
     const MODEL_PATH = __DIR__ . '/../../../src/Core/Model';
     const COMMAND_PATH = __DIR__ . '/../../../src/Core/Request';
 
-    /**
-     * @dataProvider modelFieldProvider
-     * @param string $className
-     * @param array $validFields
-     */
-    public function modelValidProperties($className, array $validFields = [])
-    {
-        $object = $this->getInstance($className);
-
-        $validFields = array_flip($validFields);
-        foreach ($object->fieldDefinitions() as $fieldKey => $field) {
-            $this->assertArrayHasKey(
-                $fieldKey,
-                $validFields,
-                sprintf('Failed asserting that \'%s\' is a valid field at \'%s\'', $fieldKey, $className)
-            );
-        }
-    }
+    private $ramlTypes = [];
 
     /**
      * @test
@@ -40,17 +23,26 @@ class RamlModelTest extends AbstractModelTest
      * @param string $className
      * @param array $validFields
      */
-    public function modelPropertiesExist($className, array $validFields = [])
+    public function modelValidProperties($className, array $validFields = [])
     {
-        $object = $this->getInstance($className);
-
-        foreach ($validFields as $fieldKey) {
-            $this->assertArrayHasKey(
-                $fieldKey,
-                $object->fieldDefinitions(),
-                sprintf('Failed asserting that \'%s\' has a field \'%s\'', $className, $fieldKey)
-            );
+        $validFields = array_flip($validFields);
+        $t = new \ReflectionClass($className);
+        $missingFields = [];
+        foreach ($this->fieldDefinitions($className) as $fieldKey => $field) {
+            if (!isset($validFields[$fieldKey])) {
+                $missingFields[] = $fieldKey;
+            }
         }
+        $this->assertEmpty(
+            $missingFields,
+            sprintf(
+                'Failed asserting that \'%s\' %s at \'%s\' (%s:0)',
+                implode('\', \'', $missingFields),
+                count($missingFields) > 1 ? 'are valid fields': 'is a valid field',
+                $className,
+                $t->getFileName()
+            )
+        );
     }
 
     /**
@@ -61,20 +53,66 @@ class RamlModelTest extends AbstractModelTest
      */
     public function commandValidProperties($className, array $validFields = [])
     {
+        $validFields = array_flip($validFields);
+        $t = new \ReflectionClass($className);
+        $missingFields = [];
+        foreach ($this->fieldDefinitions($className) as $fieldKey => $field) {
+            if (!isset($validFields[$fieldKey])) {
+                $missingFields[] = $fieldKey;
+            }
+        }
+        $this->assertEmpty(
+            $missingFields,
+            sprintf(
+                'Failed asserting that \'%s\' %s at \'%s\' (%s:0)',
+                implode('\', \'', $missingFields),
+                count($missingFields) > 1 ? 'are valid fields': 'is a valid field',
+                $className,
+                $t->getFileName()
+            )
+        );
+    }
+
+    /**
+     * @test
+     * @dataProvider modelClassProvider
+     */
+    public function uncoveredModelClass($className, $hasFixture)
+    {
+        $t = new \ReflectionClass($className);
+        $this->assertTrue($hasFixture, sprintf("No fixture for %s found (%s:0)", $className, $t->getFileName()));
+    }
+
+    /**
+     * @test
+     * @dataProvider commandClassProvider
+     */
+    public function uncoveredCommandClass($className, $hasFixture)
+    {
+        $t = new \ReflectionClass($className);
+        $this->assertTrue($hasFixture, sprintf("No fixture for %s found (%s:0)", $className, $t->getFileName()));
+    }
+
+    /**
+     * @dataProvider modelFieldProvider
+     * @param string $className
+     * @param array $validFields
+     */
+    public function modelPropertiesExist($className, array $validFields = [])
+    {
         $object = $this->getInstance($className);
 
-        $validFields = array_flip($validFields);
-        foreach ($object->fieldDefinitions() as $fieldKey => $field) {
+        $t = new \ReflectionClass($className);
+        foreach ($validFields as $fieldKey) {
             $this->assertArrayHasKey(
                 $fieldKey,
-                $validFields,
-                sprintf('Failed asserting that \'%s\' is a valid field at \'%s\'', $fieldKey, $className)
+                $object->fieldDefinitions(),
+                sprintf('Failed asserting that \'%s\' has a field \'%s\' (%s:0)', $className, $fieldKey, $t->getFileName())
             );
         }
     }
 
     /**
-     * @test
      * @dataProvider commandFieldProvider
      * @param string $className
      * @param array $validFields
@@ -83,13 +121,38 @@ class RamlModelTest extends AbstractModelTest
     {
         $object = $this->getInstance($className);
 
+        $t = new \ReflectionClass($className);
         foreach ($validFields as $fieldKey) {
             $this->assertArrayHasKey(
                 $fieldKey,
                 $object->fieldDefinitions(),
-                sprintf('Failed asserting that \'%s\' has a field \'%s\'', $className, $fieldKey)
+                sprintf('Failed asserting that \'%s\' has a field \'%s\' (%s:0)', $className, $fieldKey, $t->getFileName())
             );
         }
+    }
+
+    private function fieldDefinitions($className)
+    {
+        /**
+         * @var JsonObject $object
+         */
+        $object = $this->getInstance($className);
+        $definitions = $object->fieldDefinitions();
+
+        $t = new \ReflectionClass($className);
+        $comment = $t->getDocComment();
+        $fields = [];
+        if (strpos($comment, '@ramlTestIgnoreFields') > 0) {
+            preg_match('/@ramlTestIgnoreFields\(([\s"\',a-zA-Z0-9]+)\)/', $comment, $matches);
+            $fields = preg_split('/[\s,"\']+/', $matches[1]);
+        }
+        return array_filter(
+            $definitions,
+            function ($key) use ($fields) {
+                return !in_array($key, $fields);
+            },
+            ARRAY_FILTER_USE_KEY
+        );
     }
 
     protected function getCommandClass($domain, $model)
@@ -111,21 +174,125 @@ class RamlModelTest extends AbstractModelTest
         return 'Commercetools\\Core\\Request\\' . ucfirst($domain) . '\\Command\\' . ucfirst($model);
     }
 
+    private function classProvider($modelClasses, $classNameField)
+    {
+        $ramlInfos = $this->getRamlTypes();
+        $fixtures = $this->getFixtures($modelClasses, $ramlInfos, $classNameField);
+        $fixtureClasses = $this->getFixtureClasses($fixtures, $classNameField);
+
+        $filteredClasses = array_filter(
+            $modelClasses,
+            function ($class) {
+                $t = new \ReflectionClass($class);
+                return strpos($t->getDocComment(), '@deprecated') === false
+                    && strpos($t->getDocComment(), '@ramlTestIgnoreClass') === false
+                    && !$t->isAbstract();
+            }
+        );
+
+        $data = array_map(
+            function($modelClass) use ($fixtureClasses){
+                return [
+                    'class' => $modelClass,
+                    'hasFixture' => isset($fixtureClasses[$modelClass])
+                ];
+            },
+            $filteredClasses
+        );
+        return $data;
+    }
+
+    public function modelClassProvider()
+    {
+        $modelClasses = $this->getModelClasses(static::MODEL_PATH);
+        return $this->classProvider($modelClasses, 'modelClass');
+    }
+
+    public function commandClassProvider()
+    {
+        $modelClasses = $this->getModelClasses(static::COMMAND_PATH);
+        return $this->classProvider($modelClasses, 'commandClass');
+    }
+
     public function modelFieldProvider()
     {
-        return $this->objectFieldProvider(static::MODEL_PATH);
+        $modelClasses = $this->getModelClasses(static::MODEL_PATH);
+        return $this->objectFieldProvider($modelClasses);
     }
 
     public function commandFieldProvider()
     {
-        return $this->objectFieldProvider(static::COMMAND_PATH, 'getCommandClass');
+        $commandClasses = $this->getModelClasses(static::COMMAND_PATH);
+        return $this->objectFieldProvider($commandClasses, 'commandClass');
     }
 
-    public function objectFieldProvider($searchPath, $classNameBuilder = 'getClassName') {
-        $ramlTypesFile = static::RAML_MODEL_PATH . 'types.raml';
-        if (!file_exists($ramlTypesFile)) {
-            return [];
+
+    public function objectFieldProvider(array $modelClasses, $classNameField = 'modelClass') {
+        $ramlInfos = $this->getRamlTypes();
+
+        $fixtures = $this->getFixtures($modelClasses, $ramlInfos, $classNameField);
+
+        return array_map(
+            function ($fixture) use ($classNameField){
+                return [$fixture[$classNameField], $fixture['fields']];
+            },
+            array_filter(
+            $fixtures,
+            function ($fixture) use ($modelClasses) {
+                return count($fixture['fields']) > 0;
+            }
+        ));
+    }
+
+    private function getRamlTypes() {
+        if (empty($this->ramlTypes)) {
+            $ramlTypesFile = static::RAML_MODEL_PATH . 'types.raml';
+            if (!file_exists($ramlTypesFile)) {
+                return [];
+            }
+
+            $types = Yaml::parse(file_get_contents($ramlTypesFile));
+
+            $ramlTypes = [];
+            foreach ($types as $typeName => $typeFile) {
+                $ramlFile = trim(str_replace('!include', '', $typeFile));
+                $ramlType = Yaml::parse(file_get_contents(static::RAML_MODEL_PATH . $ramlFile));
+
+                if (isset($ramlType['properties']) || isset($ramlType['type'])) {
+                    $ramlTypes[$typeName] = $ramlType;
+                }
+            }
+
+            $ramlInfos = [];
+            foreach ($ramlTypes as $typeName => $ramlType) {
+                $ramlFile = trim(str_replace('!include', '', $types[$typeName]));
+                $package = $this->pascalcase(dirname($ramlFile));
+                $domain = $this->mapRamlToDomain($package, $typeName);
+                $model = $this->mapRamlToModel($package, $typeName);
+                $modelClassName = $this->getClassName($domain, $model);
+                $commandClassName = $this->getCommandClass($domain, $model);
+                $fields = $this->resolveProperties($ramlTypes, $ramlType);
+                $fields = array_filter(
+                    $fields,
+                    function ($field) {
+                        return strpos($field, '/') === false;
+                    }
+                );
+                $ramlInfos[$typeName] = [
+                    'fields' => $fields,
+                    'domain' => $package,
+                    'model' => $typeName,
+                    'modelClass' => $modelClassName,
+                    'commandClass' => $commandClassName
+                ];
+            }
+            $this->ramlTypes = $ramlInfos;
         }
+
+        return $this->ramlTypes;
+    }
+
+    public function getModelClasses($searchPath) {
         $allFiles = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($searchPath));
         $phpFiles = new \RegexIterator($allFiles, '/\.php$/');
 
@@ -143,68 +310,21 @@ class RamlModelTest extends AbstractModelTest
             }
         }
 
-        $types = Yaml::parse(file_get_contents($ramlTypesFile));
+        return $modelClasses;
+    }
 
-        $ramlTypes = [];
-        foreach ($types as $typeName => $typeFile) {
-            $ramlFile = trim(str_replace('!include', '', $typeFile));
-            $ramlType = Yaml::parse(file_get_contents(static::RAML_MODEL_PATH . $ramlFile));
-
-            if (isset($ramlType['properties']) || isset($ramlType['type'])) {
-                $ramlTypes[$typeName] = $ramlType;
-            }
-        }
-
-        $ramlInfos = [];
-        foreach ($ramlTypes as $typeName => $ramlType) {
-            $ramlFile = trim(str_replace('!include', '', $types[$typeName]));
-            $package = $this->pascalcase(dirname($ramlFile));
-            $domain = $this->mapRamlToDomain($package, $typeName);
-            $model = $this->mapRamlToModel($package, $typeName);
-            $className = $this->$classNameBuilder($domain, $model);
-            $fields = $this->resolveProperties($ramlTypes, $ramlType);
-            $fields = array_filter(
-                $fields,
-                function ($field) {
-                    return strpos($field, '/') === false;
-                }
-            );
-            $ramlInfos[$typeName] = [
-                'class' => $className,
-                'fields' => $fields,
-                'domain' => $package,
-                'model' => $typeName,
-            ];
-        }
-
-        $fixtures = array_filter(
-            $ramlInfos,
-            function ($fixture) use ($modelClasses) {
-                $className = $fixture['class'];
-                return class_exists($className) && isset($modelClasses[$className]);
-            }
-        );
-
+    private function getFixtures($modelClasses, $ramlInfos, $classNameField) {
         return array_filter(
-            $fixtures,
-            function ($fixture) use ($modelClasses) {
-                return count($fixture['fields']) > 0;
+            $ramlInfos,
+            function ($fixture) use ($modelClasses, $classNameField) {
+                $className = $fixture[$classNameField];
+                return class_exists($className) && isset($modelClasses[$className]);
             }
         );
     }
 
-    private function getUncoveredClassed($modelClasses, $fixtures) {
-        $fixtureClasses = array_flip(array_map(function ($fixture) { return $fixture['class']; }, $fixtures));
-        $filteredClasses = array_filter(
-            $modelClasses,
-            function ($class) use ($fixtureClasses) {
-                $t = new \ReflectionClass($class);
-                return !isset($fixtureClasses[$class])
-                    && strpos($t->getDocComment(), '@deprecated') === false
-                    && !$t->isAbstract();
-            }
-        );
-        return $filteredClasses;
+    private function getFixtureClasses($fixtures, $classNameField) {
+        return array_flip(array_map(function ($fixture) use ($classNameField) { return $fixture[$classNameField]; }, $fixtures));
     }
 
     private function resolveProperties($ramlTypes, $ramlType)
@@ -345,6 +465,9 @@ class RamlModelTest extends AbstractModelTest
             'Order\OrderSetShippingAddressAction' => 'Order\OrderSetShippingAddress',
             'Order\OrderSetBillingAddressAction' => 'Order\OrderSetBillingAddress',
             'Channel\ChannelSetGeolocationAction' => 'Channel\ChannelSetGeoLocation',
+            'ShippingMethod\CartScoreTier' => 'ShippingMethod\CartScore',
+            'ShippingMethod\CartClassificationTier' => 'ShippingMethod\CartClassification',
+            'ShippingMethod\CartValueTier' => 'ShippingMethod\CartValue',
         ];
     }
 

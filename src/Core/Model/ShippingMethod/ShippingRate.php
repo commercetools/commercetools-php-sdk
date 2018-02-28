@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Model\ShippingMethod;
 
-use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\Money;
 
 /**
@@ -17,15 +16,15 @@ use Commercetools\Core\Model\Common\Money;
  * @method ShippingRate setFreeAbove(Money $freeAbove = null)
  * @method bool getIsMatching()
  * @method ShippingRate setIsMatching(bool $isMatching = null)
+ * @method ShippingRatePriceTierCollection getTiers()
+ * @method ShippingRate setTiers(ShippingRatePriceTierCollection $tiers = null)
  */
-class ShippingRate extends JsonObject
+class ShippingRate extends ShippingRateDraft
 {
     public function fieldDefinitions()
     {
-        return [
-            'price' => [static::TYPE => Money::class],
-            'freeAbove' => [static::TYPE => Money::class],
-            'isMatching' => [static::TYPE => 'bool']
-        ];
+        $fields = parent::fieldDefinitions();
+        $fields['isMatching'] = [static::TYPE => 'bool'];
+        return $fields;
     }
 }

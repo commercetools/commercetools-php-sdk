@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
+ * @ramlTestIgnoreFields('predicate')
  * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscounttarget
  * @method string getType()
  * @method CartDiscountTarget setType(string $type = null)

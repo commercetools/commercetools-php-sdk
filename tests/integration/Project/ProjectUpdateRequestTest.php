@@ -6,12 +6,19 @@
 namespace Commercetools\Core\Project;
 
 use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Model\Common\LocalizedEnum;
+use Commercetools\Core\Model\Common\LocalizedEnumCollection;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Project\CartClassificationType;
+use Commercetools\Core\Model\Project\CartScoreType;
+use Commercetools\Core\Model\Project\CartValueType;
 use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
+use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
 
@@ -139,6 +146,102 @@ class ProjectUpdateRequestTest extends ApiTestCase
         $request->addAction(ProjectChangeMessagesEnabledAction::ofMessagesEnabled($messagesEnabled));
         $response = $request->executeWithClient($this->getClient());
 
+        $this->assertFalse($response->isError());
+    }
+
+    public function testSetShippingRateInputTypeCartValue()
+    {
+        $request = ProjectGetRequest::of();
+        $response = $request->executeWithClient($this->getClient());
+        $project = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Project::class, $project);
+
+        $request = ProjectUpdateRequest::ofVersion($project->getVersion());
+        $request->addAction(
+            ProjectSetShippingRateInputTypeAction::of()
+                ->setShippingRateInputType(CartValueType::of())
+        );
+        $response = $request->executeWithClient($this->getClient());
+
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Project::class, $result);
+        $this->assertInstanceOf(CartValueType::class, $result->getShippingRateInputType());
+        $this->assertSame(CartValueType::INPUT_TYPE, $result->getShippingRateInputType()->getType());
+
+        $request = ProjectUpdateRequest::ofVersion($result->getVersion());
+        $request->addAction(ProjectSetShippingRateInputTypeAction::of());
+        $response = $request->executeWithClient($this->getClient());
+        $this->assertFalse($response->isError());
+    }
+
+    public function testSetShippingRateInputTypeCartScore()
+    {
+        $request = ProjectGetRequest::of();
+        $response = $request->executeWithClient($this->getClient());
+        $project = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Project::class, $project);
+
+        $request = ProjectUpdateRequest::ofVersion($project->getVersion());
+        $request->addAction(
+            ProjectSetShippingRateInputTypeAction::of()
+                ->setShippingRateInputType(CartScoreType::of())
+        );
+        $response = $request->executeWithClient($this->getClient());
+
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Project::class, $result);
+        $this->assertInstanceOf(CartScoreType::class, $result->getShippingRateInputType());
+        $this->assertSame(CartScoreType::INPUT_TYPE, $result->getShippingRateInputType()->getType());
+
+        $request = ProjectUpdateRequest::ofVersion($result->getVersion());
+        $request->addAction(ProjectSetShippingRateInputTypeAction::of());
+        $response = $request->executeWithClient($this->getClient());
+        $this->assertFalse($response->isError());
+    }
+
+    public function testSetShippingRateInputTypeCartClassification()
+    {
+        $request = ProjectGetRequest::of();
+        $response = $request->executeWithClient($this->getClient());
+        $project = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Project::class, $project);
+
+        $request = ProjectUpdateRequest::ofVersion($project->getVersion());
+        $request->addAction(
+            ProjectSetShippingRateInputTypeAction::of()
+                ->setShippingRateInputType(
+                    CartClassificationType::of()->setValues(
+                        LocalizedEnumCollection::of()->add(
+                            LocalizedEnum::of()->setKey('small')
+                                ->setLabel(LocalizedString::ofLangAndText('en', 'small'))
+                        )->add(
+                            LocalizedEnum::of()->setKey('medium')
+                                ->setLabel(LocalizedString::ofLangAndText('en', 'medium'))
+                        )->add(
+                            LocalizedEnum::of()->setKey('large')
+                                ->setLabel(LocalizedString::ofLangAndText('en', 'large'))
+                        )
+                    )
+                )
+        );
+        $response = $request->executeWithClient($this->getClient());
+
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Project::class, $result);
+        $this->assertInstanceOf(CartClassificationType::class, $result->getShippingRateInputType());
+        $this->assertSame(CartClassificationType::INPUT_TYPE, $result->getShippingRateInputType()->getType());
+        $this->assertInstanceOf(CartClassificationType::class, $result->getShippingRateInputType());
+        $this->assertCount(3, $result->getShippingRateInputType()->getValues());
+
+        $request = ProjectUpdateRequest::ofVersion($result->getVersion());
+        $request->addAction(ProjectSetShippingRateInputTypeAction::of());
+        $response = $request->executeWithClient($this->getClient());
         $this->assertFalse($response->isError());
     }
 }

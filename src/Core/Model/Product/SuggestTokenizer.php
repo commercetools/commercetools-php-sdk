@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Product
+ * @ramlTestIgnoreFields('inputs')
  * @link https://docs.commercetools.com/http-api-projects-products.html#product-search-keywords-suggest-examples
  * @method string getType()
  * @method SuggestTokenizer setType(string $type = null)

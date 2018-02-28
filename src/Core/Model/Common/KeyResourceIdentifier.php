@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- *
+ * @ramlTestIgnoreClass
  * @method string getTypeId()
  * @method KeyResourceIdentifier setTypeId(string $typeId = null)
  * @method string getKey()

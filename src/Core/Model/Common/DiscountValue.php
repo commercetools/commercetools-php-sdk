@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
+ * @ramlTestIgnoreClass
  * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#productdiscountvalue
  * @method string getType()
  * @method DiscountValue setType(string $type = null)

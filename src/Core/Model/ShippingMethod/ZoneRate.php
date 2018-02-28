@@ -16,7 +16,7 @@ use Commercetools\Core\Model\Zone\ZoneReference;
  * @method ShippingRateCollection getShippingRates()
  * @method ZoneRate setShippingRates(ShippingRateCollection $shippingRates = null)
  */
-class ZoneRate extends JsonObject
+class ZoneRate extends ZoneRateDraft
 {
     public function fieldDefinitions()
     {

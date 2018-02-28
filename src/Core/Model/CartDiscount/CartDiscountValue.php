@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\MoneyCollection;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
+ * @ramlTestIgnoreFields('permyriad', 'money')
  * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscountvalue
  * @deprecated use RelativeCartDiscountValue, AbsoluteCartDiscountValue or GiftLineItemCartDiscountValue instead.
  * @method string getType()

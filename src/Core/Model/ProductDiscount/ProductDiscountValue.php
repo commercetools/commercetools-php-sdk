@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\MoneyCollection;
 
 /**
  * @package Commercetools\Core\Model\ProductDiscount
+ * @ramlTestIgnoreFields('permyriad', 'money')
  * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#productdiscountvalue
  * @method string getType()
  * @method ProductDiscountValue setType(string $type = null)

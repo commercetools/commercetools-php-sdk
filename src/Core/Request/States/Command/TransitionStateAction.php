@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\States\Command
- *
+ * @ramlTestIgnoreClass
  * @method string getAction()
  * @method TransitionStateAction setAction(string $action = null)
  * @method StateReference getState()
