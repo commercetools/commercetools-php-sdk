@@ -432,7 +432,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
                 $rate
             ))
         ;
-        $response = $request->executeWithClient($this->getClient());
+        $response = $request->executeWithClient($this->getClient(), ['X-Vrap-Disable-Validation' => 'response']);
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
