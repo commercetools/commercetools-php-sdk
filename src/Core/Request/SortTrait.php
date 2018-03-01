@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Request;
 
 use Commercetools\Core\Request\Query\MultiParameter;
+use Commercetools\Core\Request\Query\OrderedMultiParameter;
 use Commercetools\Core\Request\Query\ParameterInterface;
 
 /**
@@ -20,6 +21,7 @@ trait SortTrait
      */
     abstract public function addParamObject(ParameterInterface $param);
 
+    abstract public function getParamCount();
     /**
      * @param string $sort
      * @return $this
@@ -27,7 +29,7 @@ trait SortTrait
     public function sort($sort)
     {
         if (!is_null($sort)) {
-            $this->addParamObject(new MultiParameter('sort', $sort));
+            $this->addParamObject(new OrderedMultiParameter('sort', $sort, $this->getParamCount()));
         }
 
         return $this;

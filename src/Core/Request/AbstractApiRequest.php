@@ -54,6 +54,14 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
     }
 
     /**
+     * @return int
+     */
+    public function getParamCount()
+    {
+        return count($this->params);
+    }
+
+    /**
      * @return string
      * @internal
      */
@@ -142,7 +150,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
             },
             $params
         );
-        sort($params);
+        ksort($params);
         $params = implode('&', $params);
 
         return $params;

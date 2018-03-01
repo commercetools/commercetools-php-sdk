@@ -84,6 +84,15 @@ class AbstractQueryRequestTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('test?sort=test', (string)$httpRequest->getUri());
     }
 
+    public function testMultiSort()
+    {
+        $request = $this->getQueryRequest();
+        $request->sort('def')->sort('abc')->expand('test');
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('test?expand=test&sort=def&sort=abc', (string)$httpRequest->getUri());
+    }
+
     public function testLimit()
     {
         $request = $this->getQueryRequest();
