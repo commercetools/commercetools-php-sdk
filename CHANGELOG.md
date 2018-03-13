@@ -1,3 +1,45 @@
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.2.1...v2.3.0) (2018-03-13)
+
+
+### Bug Fixes
+
+* **Context:** fix setting of uninitialized properties in context object ([adbb71f](https://github.com/commercetools/commercetools-php-sdk/commit/adbb71f)), closes [#379](https://github.com/commercetools/commercetools-php-sdk/issues/379)
+* **Query:** fix undesired sort of query parameter sort ([f22bd65](https://github.com/commercetools/commercetools-php-sdk/commit/f22bd65)), closes [#386](https://github.com/commercetools/commercetools-php-sdk/issues/386)
+
+
+### Features
+
+* **CartDiscount:** support cart discount stacking mode ([64f18b8](https://github.com/commercetools/commercetools-php-sdk/commit/64f18b8)), closes [#354](https://github.com/commercetools/commercetools-php-sdk/issues/354)
+* **CartDiscount:** support multi buy discounts ([5207c2b](https://github.com/commercetools/commercetools-php-sdk/commit/5207c2b)), closes [#353](https://github.com/commercetools/commercetools-php-sdk/issues/353)
+* **Context:** add interface for CurrencyFormatter ([b35abff](https://github.com/commercetools/commercetools-php-sdk/commit/b35abff))
+* **CustomObject:** add CustomObjectByIdGetRequest ([2194d3e](https://github.com/commercetools/commercetools-php-sdk/commit/2194d3e))
+* **DiscountCode:** support custom fields for discount codes ([80aa86f](https://github.com/commercetools/commercetools-php-sdk/commit/80aa86f)), closes [#352](https://github.com/commercetools/commercetools-php-sdk/issues/352)
+* **DiscountCode:** support validFrom and validUntil for discount codes ([523929a](https://github.com/commercetools/commercetools-php-sdk/commit/523929a)), closes [#367](https://github.com/commercetools/commercetools-php-sdk/issues/367)
+* **DiscountCode:** support groups for discount codes ([53a8f05](https://github.com/commercetools/commercetools-php-sdk/commit/53a8f05)), closes [#362](https://github.com/commercetools/commercetools-php-sdk/issues/362)
+* **Order:** support delivery update actions ([d033399](https://github.com/commercetools/commercetools-php-sdk/commit/d033399)), closes [#369](https://github.com/commercetools/commercetools-php-sdk/issues/369)
+* **Order:** support get/update/delete order by orderNumber ([dc1a101](https://github.com/commercetools/commercetools-php-sdk/commit/dc1a101)), closes [#356](https://github.com/commercetools/commercetools-php-sdk/issues/356)
+* **Order:** support parcel delivery items ([6f35c31](https://github.com/commercetools/commercetools-php-sdk/commit/6f35c31)), closes [#357](https://github.com/commercetools/commercetools-php-sdk/issues/357)
+* **Cart:** support tax calculation mode ([2ef543b](https://github.com/commercetools/commercetools-php-sdk/commit/2ef543b)), closes [#376](https://github.com/commercetools/commercetools-php-sdk/issues/376)
+* **Payment:** support get/update/delete payment by key ([da32ce6](https://github.com/commercetools/commercetools-php-sdk/commit/da32ce6)), closes [#349](https://github.com/commercetools/commercetools-php-sdk/issues/349)
+* **State:** add constant for state role return ([b713135](https://github.com/commercetools/commercetools-php-sdk/commit/b713135)), closes [#363](https://github.com/commercetools/commercetools-php-sdk/issues/363)
+* **Order:** support address for order deliveries ([8ef8dea](https://github.com/commercetools/commercetools-php-sdk/commit/8ef8dea)), closes [#366](https://github.com/commercetools/commercetools-php-sdk/issues/366)
+* **Client:** support client instantiation with preconfigured bearer token ([d93a455](https://github.com/commercetools/commercetools-php-sdk/commit/d93a455)), closes [#359](https://github.com/commercetools/commercetools-php-sdk/issues/359)
+* **CartDiscount:** support custom field for cart discounts ([a8325c1](https://github.com/commercetools/commercetools-php-sdk/commit/a8325c1)), closes [#373](https://github.com/commercetools/commercetools-php-sdk/issues/373)
+* **CustomerGroup:** support custom field for customer groups ([23d1737](https://github.com/commercetools/commercetools-php-sdk/commit/23d1737)), closes [#360](https://github.com/commercetools/commercetools-php-sdk/issues/360)
+* **Assets:** support key for assets ([a3c9ea0](https://github.com/commercetools/commercetools-php-sdk/commit/a3c9ea0)), closes [#371](https://github.com/commercetools/commercetools-php-sdk/issues/371)
+* **Cart:** support origin for carts and orders ([37db8de](https://github.com/commercetools/commercetools-php-sdk/commit/37db8de)), closes [#361](https://github.com/commercetools/commercetools-php-sdk/issues/361)
+* **Product:** support revertStagedVariantChanges ([18d0be2](https://github.com/commercetools/commercetools-php-sdk/commit/18d0be2)), closes [#372](https://github.com/commercetools/commercetools-php-sdk/issues/372)
+* **ProductDiscount:** support validFrom and validUntil for product discounts ([c75e53c](https://github.com/commercetools/commercetools-php-sdk/commit/c75e53c)), closes [#368](https://github.com/commercetools/commercetools-php-sdk/issues/368)
+* **ProductType:** support changeAttributeConstraint update action ([52932d8](https://github.com/commercetools/commercetools-php-sdk/commit/52932d8)), closes [#370](https://github.com/commercetools/commercetools-php-sdk/issues/370)
+* **ShippingMethod:** support setPredicate on shipping methods ([ec2fce5](https://github.com/commercetools/commercetools-php-sdk/commit/ec2fce5)), closes [#375](https://github.com/commercetools/commercetools-php-sdk/issues/375)
+* **Product:** support staged flag for product meta update actions ([b60aab0](https://github.com/commercetools/commercetools-php-sdk/commit/b60aab0)), closes [#358](https://github.com/commercetools/commercetools-php-sdk/issues/358)
+* **ShippingMethod:** support shipping rate tiers ([#384](https://github.com/commercetools/commercetools-php-sdk/issues/384)) ([7611315](https://github.com/commercetools/commercetools-php-sdk/commit/7611315)), closes [#355](https://github.com/commercetools/commercetools-php-sdk/issues/355)
+* **ShoppingList:** support add line item by SKU ([7172e1c](https://github.com/commercetools/commercetools-php-sdk/commit/7172e1c)), closes [#374](https://github.com/commercetools/commercetools-php-sdk/issues/374)
+* **Customer:** support updateProductData of cart on customer login ([555ccb3](https://github.com/commercetools/commercetools-php-sdk/commit/555ccb3)), closes [#377](https://github.com/commercetools/commercetools-php-sdk/issues/377)
+
+
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/commercetools/commercetools-php-sdk/compare/v2.2.0...v2.2.1) (2017-10-06)
 
