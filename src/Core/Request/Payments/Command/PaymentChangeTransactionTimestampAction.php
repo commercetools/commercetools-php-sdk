@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 
@@ -13,7 +13,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#change-transactiontimestamp
+ * @link https://docs.commercetools.com/http-api-projects-payments.html#change-transactiontimestamp
  * @method string getAction()
  * @method PaymentChangeTransactionTimestampAction setAction(string $action = null)
  * @method string getTransactionId()

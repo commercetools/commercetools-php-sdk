@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Reviews\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Reviews\Command
- * @link https://dev.commercetools.com/http-api-projects-reviews.html#set-locale
+ * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-locale
  * @method string getAction()
  * @method ReviewSetLocaleAction setAction(string $action = null)
  * @method string getLocale()

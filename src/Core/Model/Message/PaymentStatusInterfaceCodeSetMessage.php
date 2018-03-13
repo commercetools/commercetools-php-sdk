@@ -1,18 +1,17 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Message;
 
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
-use Commercetools\Core\Model\Payment\Transaction;
 use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
- * @link https://dev.commercetools.com/http-api-projects-messages.html#paymentstatusinterfacecodeset-message
+ * @link https://docs.commercetools.com/http-api-projects-messages.html#paymentstatusinterfacecodeset-message
  * @method string getId()
  * @method PaymentStatusInterfaceCodeSetMessage setId(string $id = null)
  * @method int getVersion()
@@ -29,8 +28,6 @@ use DateTime;
  * @method PaymentStatusInterfaceCodeSetMessage setResourceVersion(int $resourceVersion = null)
  * @method string getType()
  * @method PaymentStatusInterfaceCodeSetMessage setType(string $type = null)
- * @method string getPaymentId()
- * @method PaymentStatusInterfaceCodeSetMessage setPaymentId(string $paymentId = null)
  * @method string getInterfaceCode()
  * @method PaymentStatusInterfaceCodeSetMessage setInterfaceCode(string $interfaceCode = null)
  */
@@ -45,5 +42,24 @@ class PaymentStatusInterfaceCodeSetMessage extends Message
         $definitions['interfaceCode'] = [static::TYPE => 'string'];
 
         return $definitions;
+    }
+
+    /**
+     * @deprecated
+     * @return string
+     */
+    public function getPaymentId()
+    {
+        return parent::getPaymentId();
+    }
+
+    /**
+     * @deprecated
+     * @param string $paymentId
+     * @return static
+     */
+    public function setPaymentId($paymentId = null)
+    {
+        return parent::setPaymentId($paymentId);
     }
 }

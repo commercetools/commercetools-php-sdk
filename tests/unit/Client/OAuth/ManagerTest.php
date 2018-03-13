@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 29.01.15, 14:16
  */
 
@@ -98,6 +98,24 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
         );
         $this->assertInstanceOf(Token::class, $manager->getToken());
         $this->assertSame($manager->getConfig()->getScope(), $manager->getToken()->getScope());
+    }
+
+    public function testGrantTypeBearerToken()
+    {
+        $config = Config::fromArray([
+            Config::BEARER_TOKEN => 'abdef',
+            Config::PROJECT => 'project',
+            Config::GRANT_TYPE => Config::GRANT_TYPE_BEARER_TOKEN
+        ]);
+
+        $manager = new Manager($config);
+        $this->assertInstanceOf(Token::class, $manager->getToken());
+        $this->assertSame($manager->getConfig()->getScope(), $manager->getToken()->getScope());
+        $this->assertSame('abdef', $manager->getToken()->getToken());
+
+        $this->assertInstanceOf(Token::class, $manager->refreshToken());
+        $this->assertSame($manager->getConfig()->getScope(), $manager->refreshToken()->getScope());
+        $this->assertSame('abdef', $manager->refreshToken()->getToken());
     }
 
     public function testScope()

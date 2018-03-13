@@ -1,18 +1,17 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
 
-use Commercetools\Core\Model\Common\Asset;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Common\AssetDraft;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#add-asset
+ * @link https://docs.commercetools.com/http-api-projects-products.html#add-asset
  * @method string getAction()
  * @method ProductAddAssetAction setAction(string $action = null)
  * @method int getVariantId()
@@ -23,6 +22,8 @@ use Commercetools\Core\Model\Common\AssetDraft;
  * @method ProductAddAssetAction setAsset(AssetDraft $asset = null)
  * @method bool getStaged()
  * @method ProductAddAssetAction setStaged(bool $staged = null)
+ * @method int getPosition()
+ * @method ProductAddAssetAction setPosition(int $position = null)
  */
 class ProductAddAssetAction extends AbstractAction
 {
@@ -34,6 +35,7 @@ class ProductAddAssetAction extends AbstractAction
             'sku' => [static::TYPE => 'string'],
             'asset' => [static::TYPE => AssetDraft::class],
             'staged' => [static::TYPE => 'bool'],
+            'position' => [static::TYPE => 'int'],
         ];
     }
 

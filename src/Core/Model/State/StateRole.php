@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 
@@ -8,9 +8,10 @@ namespace Commercetools\Core\Model\State;
 
 /**
  * @package Commercetools\Core\Model\State
- * @link https://dev.commercetools.com/http-api-projects-states.html#staterole
+ * @link https://docs.commercetools.com/http-api-projects-states.html#staterole
  */
 class StateRole
 {
     const REVIEW_INCLUDED_IN_STATISTICS = 'ReviewIncludedInStatistics';
+    const ROLE_RETURN = 'Return';
 }

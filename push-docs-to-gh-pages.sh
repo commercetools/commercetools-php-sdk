@@ -20,7 +20,7 @@ if [ "$TRAVIS_REPO_SLUG" == "commercetools/commercetools-php-sdk" ] && [ $(phpen
   cd $HOME
   git config --global user.email "automation@commercetools.de"
   git config --global user.name "travis CI"
-  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/commercetools/commercetools-php-sdk gh-pages > /dev/null 2>&1
+  git clone --quiet --branch=gh-pages git@github.com/commercetools/commercetools-php-sdk gh-pages > /dev/null 2>&1
 
   cd gh-pages
   git rm -rf ./docs/$TRAVIS_BRANCH

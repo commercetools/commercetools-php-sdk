@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CartDiscount;
@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\MoneyCollection;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
- *
+ * @ramlTestIgnoreFields('permyriad')
  * @method string getType()
  * @method AbsoluteCartDiscountValue setType(string $type = null)
  * @method MoneyCollection getMoney()

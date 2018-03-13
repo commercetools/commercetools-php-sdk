@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CartDiscount;
@@ -9,11 +9,12 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\ReferenceCollection;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use DateTime;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
- * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscount
+ * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscount
  * @method string getId()
  * @method CartDiscount setId(string $id = null)
  * @method int getVersion()
@@ -44,10 +45,17 @@ use DateTime;
  * @method CartDiscount setRequiresDiscountCode(bool $requiresDiscountCode = null)
  * @method ReferenceCollection getReferences()
  * @method CartDiscount setReferences(ReferenceCollection $references = null)
+ * @method string getStackingMode()
+ * @method CartDiscount setStackingMode(string $stackingMode = null)
+ * @method CustomFieldObject getCustom()
+ * @method CartDiscount setCustom(CustomFieldObject $custom = null)
  * @method CartDiscountReference getReference()
  */
 class CartDiscount extends Resource
 {
+    const MODE_STACKING = 'Stacking';
+    const MODE_STOP = 'StopAfterThisDiscount';
+
     public function fieldDefinitions()
     {
         return [
@@ -77,7 +85,9 @@ class CartDiscount extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'requiresDiscountCode' => [static::TYPE => 'bool'],
-            'references' => [static::TYPE => ReferenceCollection::class]
+            'references' => [static::TYPE => ReferenceCollection::class],
+            'stackingMode' => [static::TYPE => 'string'],
+            'custom' => [static::TYPE => CustomFieldObject::class]
         ];
     }
 }

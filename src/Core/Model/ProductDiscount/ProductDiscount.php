@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\ProductDiscount;
@@ -13,7 +13,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\ProductDiscount
- * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#productdiscount
+ * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#productdiscount
  * @method string getId()
  * @method ProductDiscount setId(string $id = null)
  * @method int getVersion()
@@ -36,6 +36,10 @@ use DateTime;
  * @method ProductDiscount setIsActive(bool $isActive = null)
  * @method ReferenceCollection getReferences()
  * @method ProductDiscount setReferences(ReferenceCollection $references = null)
+ * @method DateTimeDecorator getValidFrom()
+ * @method ProductDiscount setValidFrom(DateTime $validFrom = null)
+ * @method DateTimeDecorator getValidUntil()
+ * @method ProductDiscount setValidUntil(DateTime $validUntil = null)
  * @method ProductDiscountReference getReference()
  */
 class ProductDiscount extends Resource
@@ -60,6 +64,14 @@ class ProductDiscount extends Resource
             'sortOrder' => [static::TYPE => 'string'],
             'isActive' => [static::TYPE => 'bool'],
             'references' => [static::TYPE => ReferenceCollection::class],
+            'validFrom' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
+            'validUntil' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
         ];
     }
 }

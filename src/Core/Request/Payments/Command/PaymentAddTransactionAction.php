@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Payments\Command;
@@ -8,12 +8,10 @@ namespace Commercetools\Core\Request\Payments\Command;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Payment\Transaction;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Model\Customer\CustomerReference;
-use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#add-transaction
+ * @link https://docs.commercetools.com/http-api-projects-payments.html#add-transaction
  * @method string getAction()
  * @method PaymentAddTransactionAction setAction(string $action = null)
  * @method Transaction getTransaction()

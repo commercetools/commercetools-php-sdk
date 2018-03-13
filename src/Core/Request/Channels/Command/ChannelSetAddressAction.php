@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Channels\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\Address;
 
 /**
  * @package Commercetools\Core\Request\Channels\Command
- * @link https://dev.commercetools.com/http-api-projects-channels.html#set-address
+ * @link https://docs.commercetools.com/http-api-projects-channels.html#set-address
  * @method string getAction()
  * @method ChannelSetAddressAction setAction(string $action = null)
  * @method Address getAddress()

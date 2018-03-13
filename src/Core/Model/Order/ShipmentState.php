@@ -1,13 +1,13 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Order;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders.html#shipmentstate
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#shipmentstate
  */
 class ShipmentState
 {

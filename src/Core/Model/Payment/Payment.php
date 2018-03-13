@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Payment;
@@ -15,7 +15,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Payment
- * @link https://dev.commercetools.com/http-api-projects-payments.html#payment
+ * @link https://docs.commercetools.com/http-api-projects-payments.html#payment
  * @method string getId()
  * @method Payment setId(string $id = null)
  * @method int getVersion()
@@ -26,20 +26,10 @@ use DateTime;
  * @method Payment setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method CustomerReference getCustomer()
  * @method Payment setCustomer(CustomerReference $customer = null)
- * @method string getExternalId()
- * @method Payment setExternalId(string $externalId = null)
  * @method string getInterfaceId()
  * @method Payment setInterfaceId(string $interfaceId = null)
  * @method Money getAmountPlanned()
  * @method Payment setAmountPlanned(Money $amountPlanned = null)
- * @method Money getAmountAuthorized()
- * @method Payment setAmountAuthorized(Money $amountAuthorized = null)
- * @method DateTimeDecorator getAuthorizedUntil()
- * @method Payment setAuthorizedUntil(DateTime $authorizedUntil = null)
- * @method Money getAmountPaid()
- * @method Payment setAmountPaid(Money $amountPaid = null)
- * @method Money getAmountRefunded()
- * @method Payment setAmountRefunded(Money $amountRefunded = null)
  * @method PaymentMethodInfo getPaymentMethodInfo()
  * @method Payment setPaymentMethodInfo(PaymentMethodInfo $paymentMethodInfo = null)
  * @method CustomFieldObject getCustom()
@@ -89,5 +79,100 @@ class Payment extends Resource
                 static::TYPE => CustomFieldObjectCollection::class
             ],
         ];
+    }
+
+    /**
+     * @deprecated
+     * @return string
+     */
+    public function getExternalId()
+    {
+        return parent::getExternalId();
+    }
+
+    /**
+     * @deprecated
+     * @param string $externalId
+     * @return static
+     */
+    public function setExternalId($externalId = null)
+    {
+        return parent::setExternalId($externalId);
+    }
+
+    /**
+     * @deprecated
+     * @return Money
+     */
+    public function getAmountAuthorized()
+    {
+        return parent::getAmountAuthorized();
+    }
+
+    /**
+     * @deprecated
+     * @param Money $amountAuthorized
+     * @return static
+     */
+    public function setAmountAuthorized(Money $amountAuthorized = null)
+    {
+        return parent::setAmountAuthorized($amountAuthorized);
+    }
+
+    /**
+     * @deprecated
+     * @return Money
+     */
+    public function getAmountPaid()
+    {
+        return parent::getAmountPaid();
+    }
+
+    /**
+     * @deprecated
+     * @param Money $amountPaid
+     * @return static
+     */
+    public function setAmountPaid(Money $amountPaid = null)
+    {
+        return parent::setAmountPaid($amountPaid);
+    }
+
+    /**
+     * @deprecated
+     * @return Money
+     */
+    public function getAmountRefunded()
+    {
+        return parent::getAmountRefunded();
+    }
+
+    /**
+     * @deprecated
+     * @param Money $amountRefunded
+     * @return static
+     */
+    public function setAmountRefunded(Money $amountRefunded = null)
+    {
+        return parent::setAmountRefunded($amountRefunded);
+    }
+
+    /**
+     * @deprecated
+     * @return Money
+     */
+    public function getAuthorizedUntil()
+    {
+        return parent::getAuthorizedUntil();
+    }
+
+    /**
+     * @deprecated
+     * @param Money $amountUntil
+     * @return static
+     */
+    public function setAuthorizedUntil(Money $amountUntil = null)
+    {
+        return parent::setAuthorizedUntil($amountUntil);
     }
 }

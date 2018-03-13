@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\States\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\States\Command
- * @link https://dev.commercetools.com/http-api-projects-states.html#set-state-name
+ * @link https://docs.commercetools.com/http-api-projects-states.html#set-state-name
  * @method string getAction()
  * @method StateSetNameAction setAction(string $action = null)
  * @method LocalizedString getName()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\DiscountCodes;
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes
- * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#create-a-discountcode
+ * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#create-a-discountcode
  * @method DiscountCode mapResponse(ApiResponseInterface $response)
  * @method DiscountCode mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

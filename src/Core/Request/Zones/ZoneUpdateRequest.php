@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Zones;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Zones
- * @link https://dev.commercetools.com/http-api-projects-zones.html#update-zone
+ * @link https://docs.commercetools.com/http-api-projects-zones.html#update-zone
  * @method Zone mapResponse(ApiResponseInterface $response)
  * @method Zone mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
@@ -23,7 +23,7 @@ class ZoneUpdateRequest extends AbstractUpdateRequest
 
     /**
      * @param string $id
-     * @param string $version
+     * @param int $version
      * @param array $actions
      * @param Context $context
      */

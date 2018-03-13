@@ -1,18 +1,21 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\DiscountCode;
 
 use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\DiscountCode
- * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#discountcodedraft
+ * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#discountcodedraft
  * @method LocalizedString getName()
  * @method DiscountCodeDraft setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
@@ -29,6 +32,14 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method DiscountCodeDraft setMaxApplications(int $maxApplications = null)
  * @method int getMaxApplicationsPerCustomer()
  * @method DiscountCodeDraft setMaxApplicationsPerCustomer(int $maxApplicationsPerCustomer = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method DiscountCodeDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method array getGroups()
+ * @method DiscountCodeDraft setGroups(array $groups = null)
+ * @method DateTimeDecorator getValidFrom()
+ * @method DiscountCodeDraft setValidFrom(DateTime $validFrom = null)
+ * @method DateTimeDecorator getValidUntil()
+ * @method DiscountCodeDraft setValidUntil(DateTime $validUntil = null)
  */
 class DiscountCodeDraft extends JsonObject
 {
@@ -45,6 +56,16 @@ class DiscountCodeDraft extends JsonObject
             'isActive' => [static::TYPE => 'bool'],
             'maxApplications' => [static::TYPE => 'int'],
             'maxApplicationsPerCustomer' => [static::TYPE => 'int'],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'groups' => [static::TYPE => 'array'],
+            'validFrom' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
+            'validUntil' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
         ];
     }
 

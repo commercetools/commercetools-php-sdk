@@ -1,18 +1,19 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Orders\Command;
 
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Order\DeliveryItemCollection;
 use Commercetools\Core\Model\Order\ParcelMeasurements;
 use Commercetools\Core\Model\Order\TrackingData;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @link https://dev.commercetools.com/http-api-projects-orders.html#add-parcel
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#add-parcel
  * @method string getAction()
  * @method OrderAddParcelToDeliveryAction setAction(string $action = null)
  * @method string getDeliveryId()
@@ -21,6 +22,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method OrderAddParcelToDeliveryAction setMeasurements(ParcelMeasurements $measurements = null)
  * @method TrackingData getTrackingData()
  * @method OrderAddParcelToDeliveryAction setTrackingData(TrackingData $trackingData = null)
+ * @method DeliveryItemCollection getItems()
+ * @method OrderAddParcelToDeliveryAction setItems(DeliveryItemCollection $items = null)
  */
 class OrderAddParcelToDeliveryAction extends AbstractAction
 {
@@ -30,7 +33,8 @@ class OrderAddParcelToDeliveryAction extends AbstractAction
             'action' => [static::TYPE => 'string'],
             'deliveryId' => [static::TYPE => 'string'],
             'measurements' => [static::TYPE => ParcelMeasurements::class],
-            'trackingData' => [static::TYPE => TrackingData::class]
+            'trackingData' => [static::TYPE => TrackingData::class],
+            'items' => [static::TYPE => DeliveryItemCollection::class],
         ];
     }
 

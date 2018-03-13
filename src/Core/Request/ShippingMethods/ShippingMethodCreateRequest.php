@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ShippingMethods;
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods
- * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#create-shippingmethod
+ * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#create-shippingmethod
  * @method ShippingMethod mapResponse(ApiResponseInterface $response)
  * @method ShippingMethod mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

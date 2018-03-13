@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\DiscountCodes\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Request\DiscountCodes\Command
- * @link https://dev.commercetools.com/http-api-projects-discountCodes.html#set-description
+ * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-description
  * @method string getAction()
  * @method DiscountCodeSetDescriptionAction setAction(string $action = null)
  * @method LocalizedString getDescription()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Project;
@@ -13,7 +13,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Project
- * @link https://dev.commercetools.com/http-api-projects-project.html#project
+ * @link https://docs.commercetools.com/http-api-projects-project.html#project
  * @method string getKey()
  * @method Project setKey(string $key = null)
  * @method string getName()
@@ -32,6 +32,8 @@ use DateTime;
  * @method Project setMessages(MessagesConfiguration $messages = null)
  * @method int getVersion()
  * @method Project setVersion(int $version = null)
+ * @method ShippingRateInputType getShippingRateInputType()
+ * @method Project setShippingRateInputType(ShippingRateInputType $shippingRateInputType = null)
  */
 class Project extends JsonObject
 {
@@ -52,7 +54,8 @@ class Project extends JsonObject
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'messages' => [static::TYPE => MessagesConfiguration::class]
+            'messages' => [static::TYPE => MessagesConfiguration::class],
+            'shippingRateInputType' => [static::TYPE => ShippingRateInputType::class]
         ];
     }
 }

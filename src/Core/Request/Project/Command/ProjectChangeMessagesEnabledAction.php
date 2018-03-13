@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Project\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Project\Command
- * @link https://dev.commercetools.com/http-api-projects-project.html#change-messages-enabled
+ * @link https://docs.commercetools.com/http-api-projects-project.html#change-messages-enabled
  * @method string getAction()
  * @method ProjectChangeMessagesEnabledAction setAction(string $action = null)
  * @method bool getMessagesEnabled()

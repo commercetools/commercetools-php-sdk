@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Inventory\Command;
@@ -12,7 +12,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Request\Inventory\Command
- * @link https://dev.commercetools.com/http-api-projects-inventory.html#set-expecteddelivery
+ * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-expecteddelivery
  * @method string getAction()
  * @method InventorySetExpectedDeliveryAction setAction(string $action = null)
  * @method DateTimeDecorator getExpectedDelivery()

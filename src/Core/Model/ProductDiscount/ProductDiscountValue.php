@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\ProductDiscount;
@@ -10,7 +10,8 @@ use Commercetools\Core\Model\Common\MoneyCollection;
 
 /**
  * @package Commercetools\Core\Model\ProductDiscount
- * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#productdiscountvalue
+ * @ramlTestIgnoreFields('permyriad', 'money')
+ * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#productdiscountvalue
  * @method string getType()
  * @method ProductDiscountValue setType(string $type = null)
  * @method int getPermyriad()

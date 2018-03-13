@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 
@@ -9,6 +9,7 @@ namespace Commercetools\Core\Order;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Error\OutOfStockError;
+use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\InventoryMode;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
@@ -63,15 +64,58 @@ class OrderImportRequestTest extends ApiTestCase
         return $draft;
     }
 
+    public function getOriginTypes()
+    {
+        return [
+            Cart::ORIGIN_CUSTOMER => [Cart::ORIGIN_CUSTOMER, true],
+            Cart::ORIGIN_MERCHANT => [Cart::ORIGIN_MERCHANT, true],
+            'invalidOrigin' => ['invalidOrigin', false],
+        ];
+    }
+    /**
+     * @return ImportOrder
+     */
+    protected function getOrderImportDraftOrigin()
+    {
+        $draft = ImportOrder::of();
+        /**
+         * @var Customer $customer
+         */
+        $customer = $this->getCustomer();
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        $draft->setCustomerId($customer->getId())
+            ->setShippingAddress($customer->getDefaultShippingAddress())
+            ->setBillingAddress($customer->getDefaultBillingAddress())
+            ->setCustomerEmail($customer->getEmail())
+            ->setCountry('DE')
+            ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 100))
+            ->setLineItems(
+                LineItemImportDraftCollection::of()
+                    ->add(
+                        LineItemImportDraft::of()
+                            ->setName(LocalizedString::ofLangAndText('en', 'test'))
+                            ->setPrice(Price::ofMoney(Money::ofCurrencyAndAmount('EUR', 100)))
+                            ->setVariant(ProductVariantImportDraft::of()->setSku($variant->getSku()))
+                            ->setQuantity(1)
+                    )
+            )
+        ;
+
+        return $draft;
+    }
+
     protected function importOrder(ImportOrder $importOrder)
     {
         $orderRequest = OrderImportRequest::ofImportOrder($importOrder);
         $response = $orderRequest->executeWithClient($this->getClient());
         $order = $orderRequest->mapResponse($response);
-        $this->cleanupRequests[] = $this->deleteRequest = OrderDeleteRequest::ofIdAndVersion(
-            $order->getId(),
-            $order->getVersion()
-        );
+        if ($order != null) {
+            $this->cleanupRequests[] = $this->deleteRequest = OrderDeleteRequest::ofIdAndVersion(
+                $order->getId(),
+                $order->getVersion()
+            );
+        }
 
         return $order;
     }
@@ -84,6 +128,27 @@ class OrderImportRequestTest extends ApiTestCase
         $this->assertNotNull($order->getId());
         $this->assertNotNull($order->getVersion());
         $this->assertInstanceOf(Order::class, $order);
+    }
+
+    /**
+     * @dataProvider getOriginTypes()
+     * @param $origin
+     * @param $successful
+     */
+    public function testImportOrderOrigin($origin, $successful)
+    {
+        $importOrder = $this->getOrderImportDraft();
+        $importOrder->setOrigin($origin);
+        $order = $this->importOrder($importOrder);
+
+        if ($successful) {
+            $this->assertNotNull($order->getId());
+            $this->assertNotNull($order->getVersion());
+            $this->assertInstanceOf(Order::class, $order);
+            $this->assertSame($origin, $order->getOrigin());
+        } else {
+            $this->assertNull($order);
+        }
     }
 
     public function testWithStock()
@@ -145,4 +210,5 @@ class OrderImportRequestTest extends ApiTestCase
             $response->getErrors()->getByCode('OutOfStock')->getSkus()
         );
     }
+
 }

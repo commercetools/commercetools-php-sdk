@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Orders;
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Orders
- * @link https://dev.commercetools.com/http-api-projects-orders-import.html#create-an-order-by-import
+ * @link https://docs.commercetools.com/http-api-projects-orders-import.html#create-an-order-by-import
  * @method Order mapResponse(ApiResponseInterface $response)
  * @method Order mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

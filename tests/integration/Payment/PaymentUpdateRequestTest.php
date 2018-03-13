@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 
@@ -38,6 +38,7 @@ use Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceTextAct
 use Commercetools\Core\Request\Payments\Command\PaymentTransitionStateAction;
 use Commercetools\Core\Request\Payments\PaymentCreateRequest;
 use Commercetools\Core\Request\Payments\PaymentDeleteRequest;
+use Commercetools\Core\Request\Payments\PaymentUpdateByKeyRequest;
 use Commercetools\Core\Request\Payments\PaymentUpdateRequest;
 
 class PaymentUpdateRequestTest extends ApiTestCase
@@ -90,6 +91,28 @@ class PaymentUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($amount, $result->getAmountPlanned()->getCentAmount());
+        $this->assertNotSame($payment->getVersion(), $result->getVersion());
+    }
+
+    public function testUpdateByKey()
+    {
+        $key = $this->getTestRun() . '-key';
+        $draft = $this->getDraft();
+        $draft->setKey($this->getTestRun() . '-key');
+        $payment = $this->createPayment($draft);
+
+        $customer = $this->getCustomer();
+        $request = PaymentUpdateByKeyRequest::ofKeyAndVersion($key, $payment->getVersion())
+            ->addAction(
+                PaymentSetCustomerAction::of()->setCustomer($customer->getReference())
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Payment::class, $result);
+        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
 

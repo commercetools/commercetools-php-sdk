@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 
@@ -40,6 +40,7 @@ use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumValueAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeConstraintAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeDescriptionAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeInputHintAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeIsSearchableAction;
@@ -645,6 +646,52 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(ProductType::class, $result);
         $this->assertSame($inputHint, $result->getAttributes()->current()->getInputHint());
+        $this->assertNotSame($productType->getVersion(), $result->getVersion());
+    }
+
+    public function testChangeConstraint()
+    {
+        $draft = $this->getDraft('change-constraint');
+        $productType = $this->createProductType($draft);
+
+        $definition = AttributeDefinition::of()
+            ->setName('testConstraintField')
+            ->setLabel(LocalizedString::ofLangAndText('en', 'testConstraintField'))
+            ->setIsRequired(false)
+            ->setIsSearchable(false)
+            ->setAttributeConstraint('SameForAll')
+            ->setType(StringType::of())
+        ;
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeAddAttributeDefinitionAction::ofAttribute($definition)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->productTypeDeleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ProductType::class, $result);
+        $this->assertSame($definition->getName(), $result->getAttributes()->current()->getName());
+        $this->assertSame('SameForAll', $result->getAttributes()->current()->getAttributeConstraint());
+        $this->assertNotSame($productType->getVersion(), $result->getVersion());
+        $productType = $result;
+
+        $constraint = 'None';
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeChangeAttributeConstraintAction::ofAttributeNameAndAttributeConstraint(
+                    'testConstraintField',
+                    $constraint
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->productTypeDeleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ProductType::class, $result);
+        $this->assertSame($constraint, $result->getAttributes()->current()->getAttributeConstraint());
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
     }
 }

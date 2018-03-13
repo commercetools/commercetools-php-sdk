@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Customers\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Customers\Command
- * @link https://dev.commercetools.com/http-api-projects-customers.html#set-default-billing-address
+ * @link https://docs.commercetools.com/http-api-projects-customers.html#set-default-billing-address
  * @method string getAddressId()
  * @method CustomerSetDefaultBillingAddressAction setAddressId(string $addressId = null)
  * @method string getAction()

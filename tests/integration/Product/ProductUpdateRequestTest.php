@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 
@@ -45,7 +45,9 @@ use Commercetools\Core\Request\Products\Command\ProductRemoveFromCategoryAction;
 use Commercetools\Core\Request\Products\Command\ProductRemovePriceAction;
 use Commercetools\Core\Request\Products\Command\ProductRemoveVariantAction;
 use Commercetools\Core\Request\Products\Command\ProductRevertStagedChangesAction;
+use Commercetools\Core\Request\Products\Command\ProductRevertStagedVariantChangesAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAssetDescriptionAction;
+use Commercetools\Core\Request\Products\Command\ProductSetAssetKeyAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAssetSourcesAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAssetTagsAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAttributeAction;
@@ -902,6 +904,31 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
+    public function testMetaTitlePublish()
+    {
+        $draft = $this->getDraft('meta-title');
+        $product = $this->createProduct($draft);
+
+        $metaTitle = $this->getTestRun() . '-meta-title';
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetMetaTitleAction::of()->setMetaTitle(
+                    LocalizedString::ofLangAndText('en', $metaTitle)
+                )->setStaged(false)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertSame(
+            $metaTitle,
+            $result->getMasterData()->getCurrent()->getMetaTitle()->en
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
     public function testMetaDescription()
     {
         $draft = $this->getDraft('meta-description');
@@ -928,6 +955,31 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
+    public function testMetaDescriptionPublish()
+    {
+        $draft = $this->getDraft('meta-description');
+        $product = $this->createProduct($draft);
+
+        $metaDescription = $this->getTestRun() . '-meta-description';
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetMetaDescriptionAction::of()->setMetaDescription(
+                    LocalizedString::ofLangAndText('en', $metaDescription)
+                )->setStaged(false)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertSame(
+            $metaDescription,
+            $result->getMasterData()->getCurrent()->getMetaDescription()->en
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
     public function testMetaKeywords()
     {
         $draft = $this->getDraft('meta-keywords');
@@ -950,6 +1002,31 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertSame(
             $metaKeywords,
             $result->getMasterData()->getStaged()->getMetaKeywords()->en
+        );
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+    }
+
+    public function testMetaKeywordsPublish()
+    {
+        $draft = $this->getDraft('meta-keywords');
+        $product = $this->createProduct($draft);
+
+        $metaKeywords = $this->getTestRun() . '-meta-keywords';
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetMetaKeywordsAction::of()->setMetaKeywords(
+                    LocalizedString::ofLangAndText('en', $metaKeywords)
+                )->setStaged(false)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertSame(
+            $metaKeywords,
+            $result->getMasterData()->getCurrent()->getMetaKeywords()->en
         );
         $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
@@ -999,6 +1076,81 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
         $this->assertNull($result->getMasterData()->getStaged()->getMetaDescription());
         $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductUnpublishAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+    }
+
+    public function testRevertStagedVariantChanges()
+    {
+        $sku = 'sku' . uniqid();
+        $draft = $this->getDraft('revert-variant');
+        $draft->setMasterVariant(
+            ProductVariantDraft::of()->setSku($sku)
+        );
+        $product = $this->createProduct($draft);
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductPublishAction::of())
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+        $product = $result;
+
+        $metaKeywords = $this->getTestRun() . '-meta-keywords';
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductSetMetaKeywordsAction::of()->setMetaKeywords(
+                    LocalizedString::ofLangAndText('en', $metaKeywords)
+                )
+            )
+            ->addAction(
+                ProductAddPriceAction::ofSkuAndPrice(
+                    $sku,
+                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
+        $this->assertSame(
+            $metaKeywords,
+            $result->getMasterData()->getStaged()->getMetaKeywords()->en
+        );
+        $this->assertCount(0, $result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+        $this->assertCount(1, $result->getMasterData()->getStaged()->getMasterVariant()->getPrices());
+
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $product = $result;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductRevertStagedVariantChangesAction::ofVariantId(1))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
+        $this->assertSame(
+            $metaKeywords,
+            $result->getMasterData()->getStaged()->getMetaKeywords()->en
+        );
+
+        $this->assertCount(0, $result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+        $this->assertCount(0, $result->getMasterData()->getStaged()->getMasterVariant()->getPrices());
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+
         $product = $result;
 
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
@@ -1360,7 +1512,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertSame('test' . $this->getTestRun(), $asset->getSources()->current()->getUri());
 
         $product = $result;
-
+        $assetKey = uniqid();
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(
                 ProductChangeAssetNameAction::ofSkuAssetIdAndName(
@@ -1385,6 +1537,87 @@ class ProductUpdateRequestTest extends ApiTestCase
                 ProductSetAssetSourcesAction::ofSkuAndAssetId(
                     $variant->getSku(),
                     $asset->getId()
+                )->setSources(
+                    AssetSourceCollection::of()
+                        ->add(AssetSource::of()->setUri('new-test' . $this->getTestRun()))
+                )
+            )
+            ->addAction(
+                ProductSetAssetKeyAction::ofSkuAssetIdAndAssetKey(
+                    $variant->getSku(),
+                    $asset->getId(),
+                    $assetKey
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+        $asset = $result->getMasterData()->getStaged()->getMasterVariant()->getAssets()->current();
+        $this->assertInstanceOf(Asset::class, $asset);
+        $this->assertSame($assetKey, $asset->getKey());
+        $this->assertSame('new-test', $asset->getName()->en);
+        $this->assertSame('new-description', $asset->getDescription()->en);
+        $this->assertSame(['123', 'abc'], $asset->getTags());
+        $this->assertSame('new-test' . $this->getTestRun(), $asset->getSources()->current()->getUri());
+    }
+
+    public function testAssetsWithSKUAndAssetKey()
+    {
+        $assetKey = uniqid();
+        $draft = $this->getDraft('assets');
+        $draft->setMasterVariant(
+            ProductVariantDraft::of()->setSku('sku' . uniqid())
+        );
+        $product = $this->createProduct($draft);
+
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        $assetDraft = AssetDraft::of()->setKey($assetKey)->setSources(AssetSourceCollection::of()->add(
+            AssetSource::of()->setUri('test' . $this->getTestRun())
+        ))->setName(LocalizedString::ofLangAndText('en', 'test'));
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(ProductAddAssetAction::ofSkuAndAsset($variant->getSku(), $assetDraft))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertNotSame($product->getVersion(), $result->getVersion());
+        $asset = $result->getMasterData()->getStaged()->getMasterVariant()->getAssets()->current();
+        $this->assertInstanceOf(Asset::class, $asset);
+        $this->assertSame('test' . $this->getTestRun(), $asset->getSources()->current()->getUri());
+
+        $product = $result;
+
+        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+            ->addAction(
+                ProductChangeAssetNameAction::ofSkuAssetKeyAndName(
+                    $variant->getSku(),
+                    $assetKey,
+                    LocalizedString::ofLangAndText('en', 'new-test')
+                )
+            )
+            ->addAction(
+                ProductSetAssetDescriptionAction::ofSkuAndAssetKey(
+                    $variant->getSku(),
+                    $assetKey
+                )->setDescription(LocalizedString::ofLangAndText('en', 'new-description'))
+            )
+            ->addAction(
+                ProductSetAssetTagsAction::ofSkuAndAssetKey(
+                    $variant->getSku(),
+                    $assetKey
+                )->setTags(['123', 'abc'])
+            )
+            ->addAction(
+                ProductSetAssetSourcesAction::ofSkuAndAssetKey(
+                    $variant->getSku(),
+                    $assetKey
                 )->setSources(
                     AssetSourceCollection::of()
                         ->add(AssetSource::of()->setUri('new-test' . $this->getTestRun()))

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Reviews;
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Reviews
- * @link https://dev.commercetools.com/http-api-projects-reviews.html#update-review-by-key
+ * @link https://docs.commercetools.com/http-api-projects-reviews.html#update-review-by-key
  * @method Review mapResponse(ApiResponseInterface $response)
  * @method Review mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
@@ -24,7 +24,7 @@ class ReviewUpdateByKeyRequest extends AbstractUpdateByKeyRequest
 
     /**
      * @param string $key
-     * @param string $version
+     * @param int $version
      * @param array $actions
      * @param Context $context
      */

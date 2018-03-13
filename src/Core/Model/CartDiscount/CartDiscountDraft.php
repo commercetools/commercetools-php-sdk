@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CartDiscount;
@@ -9,11 +9,12 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use DateTime;
 
 /**
  * @package Commercetools\Core\Model\CartDiscount
- * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscount
+ * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscount
  * @method LocalizedString getName()
  * @method CartDiscountDraft setName(LocalizedString $name = null)
  * @method LocalizedString getDescription()
@@ -34,6 +35,10 @@ use DateTime;
  * @method CartDiscountDraft setValidUntil(DateTime $validUntil = null)
  * @method bool getRequiresDiscountCode()
  * @method CartDiscountDraft setRequiresDiscountCode(bool $requiresDiscountCode = null)
+ * @method string getStackingMode()
+ * @method CartDiscountDraft setStackingMode(string $stackingMode = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method CartDiscountDraft setCustom(CustomFieldObjectDraft $custom = null)
  */
 class CartDiscountDraft extends JsonObject
 {
@@ -47,6 +52,8 @@ class CartDiscountDraft extends JsonObject
     const VALID_FROM = 'validFrom';
     const VALID_UNTIL = 'validUntil';
     const REQUIRES_DISCOUNT_CODE = 'requiresDiscountCode';
+    const STACKING_MODE = 'stackingMode';
+    const CUSTOM = 'custom';
 
     public function fieldDefinitions()
     {
@@ -67,6 +74,8 @@ class CartDiscountDraft extends JsonObject
                 static::DECORATOR => DateTimeDecorator::class
             ],
             static::REQUIRES_DISCOUNT_CODE => [static::TYPE => 'bool'],
+            static::STACKING_MODE => [static::TYPE => 'string'],
+            static::CUSTOM => [static::TYPE => CustomFieldObjectDraft::class]
         ];
     }
 

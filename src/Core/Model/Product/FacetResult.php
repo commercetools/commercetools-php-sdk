@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Product;
@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Product
+ * @ramlTestIgnoreFields('missing', 'total', 'other', 'terms', 'ranges')
  * @method string getType()
  * @method FacetResult setType(string $type = null)
  * @method int getMissing()

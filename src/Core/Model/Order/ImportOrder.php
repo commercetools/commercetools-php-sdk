@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Order;
@@ -18,7 +18,8 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders-import.html#orderimportdraft
+ * @ramlTestIgnoreClass
+ * @link https://docs.commercetools.com/http-api-projects-orders-import.html#orderimportdraft
  * @method string getOrderNumber()
  * @method ImportOrder setOrderNumber(string $orderNumber = null)
  * @method string getCustomerId()
@@ -57,6 +58,10 @@ use DateTime;
  * @method ImportOrder setInventoryMode(string $inventoryMode = null)
  * @method string getTaxRoundingMode()
  * @method ImportOrder setTaxRoundingMode(string $taxRoundingMode = null)
+ * @method string getOrigin()
+ * @method ImportOrder setOrigin(string $origin = null)
+ * @method string getTaxCalculationMode()
+ * @method ImportOrder setTaxCalculationMode(string $taxCalculationMode = null)
  */
 class ImportOrder extends JsonObject
 {
@@ -85,6 +90,8 @@ class ImportOrder extends JsonObject
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'inventoryMode' => [static::TYPE => 'string'],
             'taxRoundingMode' => [static::TYPE => 'string'],
+            'origin' => [static::TYPE => 'string'],
+            'taxCalculationMode' => [static::TYPE => 'string'],
         ];
     }
 }

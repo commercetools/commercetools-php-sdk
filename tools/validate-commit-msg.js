@@ -40,7 +40,7 @@ var util = require('util');
 
 var MAX_LENGTH = 100;
 var PATTERN = /^(?:fixup!\s*)?(\w*)(\(([\w\$\.\*/-]*)\))?\: (.*)$/;
-var IGNORED = /^WIP\:/;
+var IGNORED = /^WIP\:|^Merge/;
 var TYPES = {
     feat: true,
     fix: true,

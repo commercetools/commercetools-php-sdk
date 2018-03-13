@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products;
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Products
- * @link https://dev.commercetools.com/http-api-projects-products.html#delete-product
+ * @link https://docs.commercetools.com/http-api-projects-products.html#delete-product
  * @method Product mapResponse(ApiResponseInterface $response)
  * @method Product mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

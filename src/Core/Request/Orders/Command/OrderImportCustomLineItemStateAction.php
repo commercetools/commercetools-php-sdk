@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Orders\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @link https://dev.commercetools.com/http-api-projects-orders.html#import-state-for-customlineitems
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#import-state-for-customlineitems
  * @method string getAction()
  * @method OrderImportCustomLineItemStateAction setAction(string $action = null)
  * @method string getCustomLineItemId()

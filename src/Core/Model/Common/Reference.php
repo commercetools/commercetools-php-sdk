@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 27.01.15, 14:53
  */
 
@@ -27,7 +27,8 @@ use Commercetools\Core\Model\Zone\ZoneReference;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-types.html#reference
+ * @ramlTestIgnoreFields('obj')
+ * @link https://docs.commercetools.com/http-api-types.html#reference
  * @method string getTypeId()
  * @method string getId()
  * @method Reference setTypeId(string $typeId = null)

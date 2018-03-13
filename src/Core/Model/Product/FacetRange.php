@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Product;
@@ -19,8 +19,6 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method FacetRange setToStr(string $toStr = null)
  * @method int getCount()
  * @method FacetRange setCount(int $count = null)
- * @method int getTotalCount()
- * @method FacetRange setTotalCount(int $totalCount = null)
  * @method int getTotal()
  * @method FacetRange setTotal(int $total = null)
  * @method int getMin()
@@ -29,6 +27,8 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method FacetRange setMax(int $max = null)
  * @method int getMean()
  * @method FacetRange setMean(int $mean = null)
+ * @method int getProductCount()
+ * @method FacetRange setProductCount(int $productCount = null)
  */
 class FacetRange extends JsonObject
 {
@@ -40,11 +40,30 @@ class FacetRange extends JsonObject
             "to" => [static::TYPE => 'int'],
             "toStr" => [static::TYPE => 'string'],
             "count" => [static::TYPE => 'int'],
-            "totalCount" => [static::TYPE => 'int'],
             "total" => [static::TYPE => 'int'],
             "min" => [static::TYPE => 'int'],
             "max" => [static::TYPE => 'int'],
             "mean" => [static::TYPE => 'int'],
+            'productCount' => [static::TYPE => 'int'],
         ];
+    }
+
+    /**
+     * @deprecated use getCount instead - will be removed with version 3.0
+     * @return int
+     */
+    public function getTotalCount()
+    {
+        return $this->getCount();
+    }
+
+    /**
+     * @deprecated use setCount instead - will be removed with version 3.0
+     * @param int $totalCount
+     * @return FacetRange
+     */
+    public function setTotalCount($totalCount = null)
+    {
+        return $this->setCount($totalCount);
     }
 }

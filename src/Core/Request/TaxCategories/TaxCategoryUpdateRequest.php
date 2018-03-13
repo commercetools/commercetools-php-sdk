@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\TaxCategories;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\TaxCategories
- * @link https://dev.commercetools.com/http-api-projects-taxCategories.html#update-taxcategory
+ * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#update-taxcategory
  * @method TaxCategory mapResponse(ApiResponseInterface $response)
  * @method TaxCategory mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
@@ -23,7 +23,7 @@ class TaxCategoryUpdateRequest extends AbstractUpdateRequest
 
     /**
      * @param string $id
-     * @param string $version
+     * @param int $version
      * @param array $actions
      * @param Context $context
      */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\State;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Model\State
- * @link https://dev.commercetools.com/http-api-projects-states.html#statedraft
+ * @link https://docs.commercetools.com/http-api-projects-states.html#statedraft
  * @method string getKey()
  * @method StateDraft setKey(string $key = null)
  * @method string getType()

@@ -1,14 +1,15 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Payment;
 
 /**
  * Class TransactionType
+ * @deprecated use Transaction::<TYPE> instead
  * @package Commercetools\Core\Model\Payment
- * @link https://dev.commercetools.com/http-api-projects-payments.html#transactiontype
+ * @link https://docs.commercetools.com/http-api-projects-payments.html#transactiontype
  */
 class TransactionType
 {

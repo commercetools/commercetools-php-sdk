@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Message;
@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\Message
- * @link https://dev.commercetools.com/http-api-projects-messages.html#productvariantdeleted-message
+ * @link https://docs.commercetools.com/http-api-projects-messages.html#productvariantdeleted-message
  * @method string getId()
  * @method ProductVariantDeletedMessage setId(string $id = null)
  * @method int getVersion()

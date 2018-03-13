@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Categories\Command;
@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Type\TypeReference;
 
 /**
  * @package Commercetools\Core\Request\Categories\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-asset-custom-type
+ * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-custom-type
  * @method string getAction()
  * @method CategorySetAssetCustomTypeAction setAction(string $action = null)
  * @method string getAssetId()
@@ -21,6 +21,8 @@ use Commercetools\Core\Model\Type\TypeReference;
  * @method CategorySetAssetCustomTypeAction setType(TypeReference $type = null)
  * @method FieldContainer getFields()
  * @method CategorySetAssetCustomTypeAction setFields(FieldContainer $fields = null)
+ * @method string getAssetKey()
+ * @method CategorySetAssetCustomTypeAction setAssetKey(string $assetKey = null)
  */
 class CategorySetAssetCustomTypeAction extends SetCustomTypeAction
 {
@@ -29,6 +31,7 @@ class CategorySetAssetCustomTypeAction extends SetCustomTypeAction
         return [
             'action' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
+            'assetKey' => [static::TYPE => 'string'],
             'type' => [static::TYPE => TypeReference::class],
             'fields' => [static::TYPE => FieldContainer::class],
         ];
@@ -53,5 +56,16 @@ class CategorySetAssetCustomTypeAction extends SetCustomTypeAction
     public static function ofTypeAssetIdAndName(TypeReference $type, $assetId, $context = null)
     {
         return static::of($context)->setType($type)->setAssetId($assetId);
+    }
+
+    /**
+     * @param TypeReference $type
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return CategorySetAssetCustomTypeAction
+     */
+    public static function ofTypeAssetKeyAndName(TypeReference $type, $assetKey, $context = null)
+    {
+        return static::of($context)->setType($type)->setAssetKey($assetKey);
     }
 }

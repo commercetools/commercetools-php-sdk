@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 04.02.15, 16:35
  */
 
@@ -16,7 +16,7 @@ use Commercetools\Core\Model\State\StateReference;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link https://dev.commercetools.com/http-api-projects-products.html#productdraft
+ * @link https://docs.commercetools.com/http-api-projects-products.html#productdraft
  * @method LocalizedString getName()
  * @method ProductDraft setName(LocalizedString $name = null)
  * @method LocalizedString getSlug()
@@ -47,6 +47,8 @@ use Commercetools\Core\Model\State\StateReference;
  * @method ProductDraft setPublish(bool $publish = null)
  * @method string getKey()
  * @method ProductDraft setKey(string $key = null)
+ * @method array getCategoryOrderHints()
+ * @method ProductDraft setCategoryOrderHints(array $categoryOrderHints = null)
  */
 class ProductDraft extends JsonObject
 {
@@ -68,6 +70,7 @@ class ProductDraft extends JsonObject
             'state' => [static::TYPE => StateReference::class],
             'publish' => [static::TYPE => 'bool'],
             'key' => [static::TYPE => 'string'],
+            'categoryOrderHints' => [static::TYPE => 'array']
         ];
     }
 

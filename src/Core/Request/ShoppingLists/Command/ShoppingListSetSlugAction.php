@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ShoppingLists\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Request\ShoppingLists\Command
- * @link https://dev.commercetools.com/http-api-projects-shoppingLists.html#set-slug
+ * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-slug
  * @method string getAction()
  * @method ShoppingListSetSlugAction setAction(string $action = null)
  * @method LocalizedString getSlug()

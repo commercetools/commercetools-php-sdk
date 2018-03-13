@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Payments\Command;
@@ -13,7 +13,7 @@ use Commercetools\Core\Request\States\Command\TransitionStateAction;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#transition-state
+ * @link https://docs.commercetools.com/http-api-projects-payments.html#transition-state
  * @method string getAction()
  * @method PaymentTransitionStateAction setAction(string $action = null)
  * @method StateReference getState()

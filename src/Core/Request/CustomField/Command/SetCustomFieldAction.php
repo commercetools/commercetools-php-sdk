@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\CustomField\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\CustomField\Command
- *
+ * @ramlTestIgnoreClass
  * @method string getAction()
  * @method SetCustomFieldAction setAction(string $action = null)
  * @method string getName()

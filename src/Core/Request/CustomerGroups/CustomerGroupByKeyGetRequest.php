@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\CustomerGroups;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\CustomerGroups
- * @link https://dev.commercetools.com/http-api-projects-customerGroups.html#get-customergroup-by-key
+ * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#get-customergroup-by-key
  * @method CustomerGroup mapResponse(ApiResponseInterface $response)
  * @method CustomerGroup mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

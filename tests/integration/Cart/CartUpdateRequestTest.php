@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Cart;
@@ -17,9 +17,14 @@ use Commercetools\Core\Model\Cart\LineItem;
 use Commercetools\Core\Model\Cart\LineItemCollection;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
+use Commercetools\Core\Model\Cart\ScoreShippingRateInput;
+use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
+use Commercetools\Core\Model\CartDiscount\LineItemsTarget;
+use Commercetools\Core\Model\CartDiscount\MultiBuyLineItemsTarget;
+use Commercetools\Core\Model\CartDiscount\RelativeCartDiscountValue;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
@@ -32,6 +37,8 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
+use Commercetools\Core\Model\Project\CartScoreType;
+use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
@@ -47,6 +54,7 @@ use Commercetools\Core\Request\Carts\Command\CartAddPaymentAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemMoneyAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemQuantityAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction;
+use Commercetools\Core\Request\Carts\Command\CartChangeTaxCalculationModeAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeTaxRoundingModeAction;
 use Commercetools\Core\Request\Carts\Command\CartRecalculateAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction;
@@ -74,6 +82,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetLocaleAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxAmountAction;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingRateInputAction;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
@@ -81,6 +90,9 @@ use Commercetools\Core\Request\Products\Command\ProductChangeNameAction;
 use Commercetools\Core\Request\Products\Command\ProductChangePriceAction;
 use Commercetools\Core\Request\Products\Command\ProductPublishAction;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
+use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
+use Commercetools\Core\Request\Project\ProjectGetRequest;
+use Commercetools\Core\Request\Project\ProjectUpdateRequest;
 
 class CartUpdateRequestTest extends ApiTestCase
 {
@@ -1185,11 +1197,11 @@ class CartUpdateRequestTest extends ApiTestCase
 
         $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
             LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-            CartDiscountValue::of()->setType('absolute')->setMoney(
+            AbsoluteCartDiscountValue::of()->setMoney(
                 MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
             ),
             'custom(testField = "' . $this->getTestRun() . '")',
-            CartDiscountTarget::of()->setType('lineItems')->setPredicate('1=1'),
+            LineItemsTarget::of()->setPredicate('1=1'),
             '0.9' . trim((string)mt_rand(1, 1000), '0'),
             true,
             true
@@ -1215,6 +1227,58 @@ class CartUpdateRequestTest extends ApiTestCase
                 ->getDiscountedPricePerQuantity()->current()
                 ->getDiscountedPrice()->getIncludedDiscounts()->current()
                 ->getDiscount()->getId()
+        );
+    }
+
+    public function testMultiBuyDiscount()
+    {
+        $draft = $this->getDraft();
+        $draft->setLineItems(
+            LineItemDraftCollection::of()
+                ->add(LineItemDraft::of()->setProductId($this->getProduct()->getId())->setVariantId(1)->setQuantity(3))
+        );
+
+        $cart = $this->createCart($draft);
+
+        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
+            RelativeCartDiscountValue::of()->setPermyriad(10000),
+            '1=1',
+            MultiBuyLineItemsTarget::ofPredicateTriggerDiscountedAndMode(
+                '1=1',
+                3,
+                1,
+                MultiBuyLineItemsTarget::MODE_CHEAPEST
+            ),
+            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            true,
+            true
+        );
+        $request = CartDiscountCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $this->cartDiscount = $request->mapResponse($response);
+
+        $discountCode = $this->getDiscountCode();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+
+        $this->assertSame(
+            $this->cartDiscount->getId(),
+            $cart->getLineItems()->current()
+                ->getDiscountedPricePerQuantity()->current()
+                ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                ->getDiscount()->getId()
+        );
+        $this->assertSame(
+            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount() * 2,
+            $cart->getLineItems()->current()->getTotalPrice()->getCentAmount()
         );
     }
 
@@ -1375,6 +1439,34 @@ class CartUpdateRequestTest extends ApiTestCase
 
         $this->assertSame(Cart::TAX_ROUNDING_MODE_HALF_DOWN, $cart->getTaxRoundingMode());
     }
+
+    public function testTaxCalculationModeUnitPrice()
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $this->assertSame(Cart::TAX_CALCULATION_MODE_LINE_ITEM_LEVEL, $cart->getTaxCalculationMode());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartChangeTaxCalculationModeAction::ofTaxCalculationMode(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL, $cart->getTaxCalculationMode());
+    }
+
+    public function testCreateWithTaxCalculationMode()
+    {
+        $draft = $this->getDraft();
+        $draft->setTaxCalculationMode(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL);
+        $cart = $this->createCart($draft);
+
+        $this->assertSame(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL, $cart->getTaxCalculationMode());
+    }
+
 
     public function testAutomaticDelete()
     {
@@ -1642,6 +1734,37 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertSame($taxAmount, $cart->getTaxedPrice()->getTotalGross()->getCentAmount());
     }
 
+    public function testSetShippingRateInput()
+    {
+        $request = ProjectGetRequest::of();
+        $response = $request->executeWithClient($this->getClient());
+        $project = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Project::class, $project);
+
+        $request = ProjectUpdateRequest::ofVersion($project->getVersion());
+        $request->addAction(
+            ProjectSetShippingRateInputTypeAction::of()
+                ->setShippingRateInputType(CartScoreType::of())
+        );
+        $request->executeWithClient($this->getClient());
+
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartSetShippingRateInputAction::of()
+                    ->setShippingRateInput(ScoreShippingRateInput::ofScore(1))
+            );
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertInstanceOf(ScoreShippingRateInput::class, $cart->getShippingRateInput());
+        $this->assertSame(1, $cart->getShippingRateInput()->getScore());
+
+    }
     /**
      * @return CartDraft
      */

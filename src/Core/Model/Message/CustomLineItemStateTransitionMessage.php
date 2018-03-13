@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Message;
@@ -12,7 +12,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
- * @link https://dev.commercetools.com/http-api-projects-messages.html#customlineitemstatetransition-message
+ * @link https://docs.commercetools.com/http-api-projects-messages.html#customlineitemstatetransition-message
  * @method string getId()
  * @method CustomLineItemStateTransitionMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

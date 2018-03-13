@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Orders\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @link https://dev.commercetools.com/http-api-projects-orders.html#change-shipmentstate
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#change-shipmentstate
  * @method string getAction()
  * @method OrderChangeShipmentStateAction setAction(string $action = null)
  * @method string getShipmentState()

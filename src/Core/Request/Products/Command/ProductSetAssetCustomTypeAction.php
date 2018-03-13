@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -12,7 +12,7 @@ use Commercetools\Core\Model\Type\TypeReference;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-asset-custom-type
+ * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-custom-type
  * @method string getAction()
  * @method ProductSetAssetCustomTypeAction setAction(string $action = null)
  * @method int getVariantId()
@@ -27,6 +27,8 @@ use Commercetools\Core\Model\Type\TypeReference;
  * @method ProductSetAssetCustomTypeAction setType(TypeReference $type = null)
  * @method FieldContainer getFields()
  * @method ProductSetAssetCustomTypeAction setFields(FieldContainer $fields = null)
+ * @method string getAssetKey()
+ * @method ProductSetAssetCustomTypeAction setAssetKey(string $assetKey = null)
  */
 class ProductSetAssetCustomTypeAction extends SetCustomTypeAction
 {
@@ -37,6 +39,7 @@ class ProductSetAssetCustomTypeAction extends SetCustomTypeAction
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
+            'assetKey' => [static::TYPE => 'string'],
             'staged' => [static::TYPE => 'bool'],
             'type' => [static::TYPE => TypeReference::class],
             'fields' => [static::TYPE => FieldContainer::class],
@@ -75,5 +78,29 @@ class ProductSetAssetCustomTypeAction extends SetCustomTypeAction
     public static function ofTypeSkuAssetIdAndName(TypeReference $type, $sku, $assetId, $context = null)
     {
         return static::of($context)->setType($type)->setSku($sku)->setAssetId($assetId);
+    }
+
+    /**
+     * @param TypeReference $type
+     * @param int $variantId
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return ProductSetAssetCustomTypeAction
+     */
+    public static function ofTypeVariantIdAssetKeyAndName(TypeReference $type, $variantId, $assetKey, $context = null)
+    {
+        return static::of($context)->setType($type)->setVariantId($variantId)->setAssetKey($assetKey);
+    }
+
+    /**
+     * @param TypeReference $type
+     * @param string $sku
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return ProductSetAssetCustomTypeAction
+     */
+    public static function ofTypeSkuAssetKeyAndName(TypeReference $type, $sku, $assetKey, $context = null)
+    {
+        return static::of($context)->setType($type)->setSku($sku)->setAssetKey($assetKey);
     }
 }

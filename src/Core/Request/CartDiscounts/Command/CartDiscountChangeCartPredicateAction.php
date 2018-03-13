@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\CartDiscounts\Command;
@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
- * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#change-cart-predicate
+ * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-cart-predicate
  * @method string getAction()
  * @method CartDiscountChangeCartPredicateAction setAction(string $action = null)
  * @method string getCartPredicate()

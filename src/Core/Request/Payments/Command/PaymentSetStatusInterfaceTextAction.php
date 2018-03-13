@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Payments\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Customer\CustomerReference;
 
 /**
  * @package Commercetools\Core\Request\Payments\Command
- * @link https://dev.commercetools.com/http-api-projects-payments.html#set-statusinterfacetext
+ * @link https://docs.commercetools.com/http-api-projects-payments.html#set-statusinterfacetext
  * @method string getAction()
  * @method PaymentSetStatusInterfaceTextAction setAction(string $action = null)
  * @method string getInterfaceText()

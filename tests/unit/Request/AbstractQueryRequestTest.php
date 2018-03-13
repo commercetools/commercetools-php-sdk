@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 10.02.15, 10:29
  */
 
@@ -82,6 +82,15 @@ class AbstractQueryRequestTest extends \PHPUnit\Framework\TestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('test?sort=test', (string)$httpRequest->getUri());
+    }
+
+    public function testMultiSort()
+    {
+        $request = $this->getQueryRequest();
+        $request->sort('def')->sort('abc')->expand('test');
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('test?expand=test&sort=def&sort=abc', (string)$httpRequest->getUri());
     }
 
     public function testLimit()

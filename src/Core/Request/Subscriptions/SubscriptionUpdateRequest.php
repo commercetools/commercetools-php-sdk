@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Subscriptions;
@@ -13,7 +13,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Subscriptions
- * @link https://dev.commercetools.com/http-api-projects-subscriptions.html#update-subscription
+ * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#update-subscription
  * @method Subscription mapResponse(ApiResponseInterface $response)
  * @method Subscription mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
@@ -23,7 +23,7 @@ class SubscriptionUpdateRequest extends AbstractUpdateRequest
 
     /**
      * @param string $id
-     * @param string $version
+     * @param int $version
      * @param array $actions
      * @param Context $context
      */

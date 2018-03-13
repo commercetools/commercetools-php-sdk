@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 22.01.15, 10:30
  */
 
@@ -25,10 +25,30 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         unset($testConfig[Config::OAUTH_URL]);
         unset($testConfig[Config::API_URL]);
         $config = Config::fromArray($testConfig);
+        $config->check();
         $this->assertInstanceOf(Config::class, $config);
 
         $this->assertEquals($testConfig[Config::CLIENT_ID], $config->getClientId());
         $this->assertEquals($testConfig[Config::CLIENT_SECRET], $config->getClientSecret());
+        $this->assertEquals('https://auth.sphere.io/oauth/token', $config->getOauthUrl());
+        $this->assertEquals($testConfig[Config::PROJECT], $config->getProject());
+        $this->assertEquals('https://api.sphere.io', $config->getApiUrl());
+    }
+
+    public function testSetBearerTokenOnly()
+    {
+        $testConfig = $this->getConfig();
+        $testConfig[Config::BEARER_TOKEN] = 'abcdef';
+        $testConfig[Config::GRANT_TYPE] = Config::GRANT_TYPE_BEARER_TOKEN;
+        unset($testConfig[Config::OAUTH_URL]);
+        unset($testConfig[Config::CLIENT_ID]);
+        unset($testConfig[Config::CLIENT_SECRET]);
+        unset($testConfig[Config::API_URL]);
+        $config = Config::fromArray($testConfig);
+        $config->check();
+        $this->assertInstanceOf(Config::class, $config);
+
+        $this->assertEquals($testConfig[Config::BEARER_TOKEN], $config->getBearerToken());
         $this->assertEquals('https://auth.sphere.io/oauth/token', $config->getOauthUrl());
         $this->assertEquals($testConfig[Config::PROJECT], $config->getProject());
         $this->assertEquals('https://api.sphere.io', $config->getApiUrl());

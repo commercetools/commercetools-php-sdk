@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 27.01.15, 10:51
  */
 
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\Common\AssetDraftCollection;
 
 /**
  * @package Commercetools\Core\Model\Category
- * @link https://dev.commercetools.com/http-api-projects-categories.html#categorydraft
+ * @link https://docs.commercetools.com/http-api-projects-categories.html#categorydraft
  * @method LocalizedString getName()
  * @method LocalizedString getSlug()
  * @method LocalizedString getDescription()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Order;
@@ -11,7 +11,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders.html#parcel
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#parcel
  * @method string getId()
  * @method Parcel setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()
@@ -20,6 +20,8 @@ use DateTime;
  * @method Parcel setMeasurements(ParcelMeasurements $measurements = null)
  * @method TrackingData getTrackingData()
  * @method Parcel setTrackingData(TrackingData $trackingData = null)
+ * @method DeliveryItemCollection getItems()
+ * @method Parcel setItems(DeliveryItemCollection $items = null)
  */
 class Parcel extends JsonObject
 {
@@ -33,6 +35,7 @@ class Parcel extends JsonObject
             ],
             'measurements' => [static::TYPE => ParcelMeasurements::class],
             'trackingData' => [static::TYPE => TrackingData::class],
+            'items' => [static::TYPE => DeliveryItemCollection::class],
         ];
     }
 }

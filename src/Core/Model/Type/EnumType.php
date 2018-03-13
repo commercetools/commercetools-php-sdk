@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Type;
@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\EnumCollection;
 
 /**
  * @package Commercetools\Core\Model\Type
- * @link https://dev.commercetools.com/http-api-projects-types.html#enumtype
+ * @link https://docs.commercetools.com/http-api-projects-types.html#enumtype
  * @method string getName()
  * @method EnumType setName(string $name = null)
  * @method EnumCollection getValues()

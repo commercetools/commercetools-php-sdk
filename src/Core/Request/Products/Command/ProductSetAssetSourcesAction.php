@@ -1,18 +1,17 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
 
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Common\AssetSourceCollection;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-asset-tags
+ * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-tags
  * @method string getAction()
  * @method ProductSetAssetSourcesAction setAction(string $action = null)
  * @method bool getStaged()
@@ -25,6 +24,8 @@ use Commercetools\Core\Model\Common\AssetSourceCollection;
  * @method ProductSetAssetSourcesAction setAssetId(string $assetId = null)
  * @method AssetSourceCollection getSources()
  * @method ProductSetAssetSourcesAction setSources(AssetSourceCollection $sources = null)
+ * @method string getAssetKey()
+ * @method ProductSetAssetSourcesAction setAssetKey(string $assetKey = null)
  */
 class ProductSetAssetSourcesAction extends AbstractAction
 {
@@ -35,6 +36,7 @@ class ProductSetAssetSourcesAction extends AbstractAction
             'variantId' => [static::TYPE => 'int'],
             'sku' => [static::TYPE => 'string'],
             'assetId' => [static::TYPE => 'string'],
+            'assetKey' => [static::TYPE => 'string'],
             'sources' => [static::TYPE => AssetSourceCollection::class],
             'staged' => [static::TYPE => 'bool'],
         ];
@@ -70,5 +72,27 @@ class ProductSetAssetSourcesAction extends AbstractAction
     public static function ofSkuAndAssetId($sku, $assetId, $context = null)
     {
         return static::of($context)->setSku($sku)->setAssetId($assetId);
+    }
+
+    /**
+     * @param int $variantId
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return ProductSetAssetSourcesAction
+     */
+    public static function ofVariantIdAndAssetKey($variantId, $assetKey, $context = null)
+    {
+        return static::of($context)->setVariantId($variantId)->setAssetKey($assetKey);
+    }
+
+    /**
+     * @param string $sku
+     * @param string $assetKey
+     * @param Context|callable $context
+     * @return ProductSetAssetSourcesAction
+     */
+    public static function ofSkuAndAssetKey($sku, $assetKey, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setAssetKey($assetKey);
     }
 }

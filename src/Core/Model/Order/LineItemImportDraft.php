@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Order;
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders-import.html#lineitemimportdraft
+ * @link https://docs.commercetools.com/http-api-projects-orders-import.html#lineitemimportdraft
  * @method string getProductId()
  * @method LineItemImportDraft setProductId(string $productId = null)
  * @method LocalizedString getName()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\ShippingMethod;
@@ -10,13 +10,13 @@ use Commercetools\Core\Model\Zone\ZoneReference;
 
 /**
  * @package Commercetools\Core\Model\ShippingMethod
- * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#zonerate
+ * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#zonerate
  * @method ZoneReference getZone()
  * @method ZoneRate setZone(ZoneReference $zone = null)
  * @method ShippingRateCollection getShippingRates()
  * @method ZoneRate setShippingRates(ShippingRateCollection $shippingRates = null)
  */
-class ZoneRate extends JsonObject
+class ZoneRate extends ZoneRateDraft
 {
     public function fieldDefinitions()
     {

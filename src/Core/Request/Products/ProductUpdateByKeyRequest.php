@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products;
@@ -23,7 +23,7 @@ class ProductUpdateByKeyRequest extends AbstractUpdateByKeyRequest
 
     /**
      * @param string $key
-     * @param string $version
+     * @param int $version
      * @param array $actions
      * @param Context $context
      */

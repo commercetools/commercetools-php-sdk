@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 11.02.15, 15:37
  */
 
@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-types.html#address
+ * @link https://docs.commercetools.com/http-api-types.html#address
  * @method string getId()
  * @method string getTitle()
  * @method string getSalutation()

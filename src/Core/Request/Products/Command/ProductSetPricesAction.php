@@ -1,18 +1,17 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
 
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#set-prices
+ * @link https://docs.commercetools.com/http-api-projects-products.html#set-prices
  * @method string getAction()
  * @method ProductSetPricesAction setAction(string $action = null)
  * @method PriceDraftCollection getPrices()

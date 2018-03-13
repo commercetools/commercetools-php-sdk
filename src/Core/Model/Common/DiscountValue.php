@@ -1,13 +1,14 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @link https://dev.commercetools.com/http-api-projects-productDiscounts.html#productdiscountvalue
+ * @ramlTestIgnoreClass
+ * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#productdiscountvalue
  * @method string getType()
  * @method DiscountValue setType(string $type = null)
  * @method int getPermyriad()

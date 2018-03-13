@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\CustomField;
@@ -12,22 +12,14 @@ use Commercetools\Core\Model\Common\ResourceIdentifier;
 
 /**
  * @package Commercetools\Core\Model\CustomField
- * @link https://dev.commercetools.com/http-api-projects-custom-fields.html#customfieldsdraft
+ * @link https://docs.commercetools.com/http-api-projects-custom-fields.html#customfieldsdraft
  * @method FieldContainer getFields()
  * @method CustomFieldObjectDraft setFields(FieldContainer $fields = null)
  * @method TypeReference getType()
  * @method CustomFieldObjectDraft setType(TypeReference $type = null)
  */
-class CustomFieldObjectDraft extends JsonObject
+class CustomFieldObjectDraft extends CustomFieldObject
 {
-    public function fieldDefinitions()
-    {
-        return [
-            'type' => [static::TYPE => TypeReference::class],
-            'fields' => [static::TYPE => FieldContainer::class]
-        ];
-    }
-
     /**
      * @param $typeKey
      * @param Context|callable $context

@@ -1,31 +1,30 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\ShippingMethod;
 
-use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\Money;
 
 /**
  * @package Commercetools\Core\Model\ShippingMethod
- * @link https://dev.commercetools.com/http-api-projects-shippingMethods.html#shippingrate
+ * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#shippingrate
  * @method Money getPrice()
  * @method ShippingRate setPrice(Money $price = null)
  * @method Money getFreeAbove()
  * @method ShippingRate setFreeAbove(Money $freeAbove = null)
  * @method bool getIsMatching()
  * @method ShippingRate setIsMatching(bool $isMatching = null)
+ * @method ShippingRatePriceTierCollection getTiers()
+ * @method ShippingRate setTiers(ShippingRatePriceTierCollection $tiers = null)
  */
-class ShippingRate extends JsonObject
+class ShippingRate extends ShippingRateDraft
 {
     public function fieldDefinitions()
     {
-        return [
-            'price' => [static::TYPE => Money::class],
-            'freeAbove' => [static::TYPE => Money::class],
-            'isMatching' => [static::TYPE => 'bool']
-        ];
+        $fields = parent::fieldDefinitions();
+        $fields['isMatching'] = [static::TYPE => 'bool'];
+        return $fields;
     }
 }

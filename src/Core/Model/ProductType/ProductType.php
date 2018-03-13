@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\ProductType;
@@ -11,7 +11,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\ProductType
- * @link https://dev.commercetools.com/http-api-projects-productTypes.html#producttype
+ * @link https://docs.commercetools.com/http-api-projects-productTypes.html#producttype
  * @method string getId()
  * @method ProductType setId(string $id = null)
  * @method int getVersion()

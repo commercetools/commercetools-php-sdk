@@ -1,17 +1,18 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class AbstractModelTest
  * @package Commercetools\Core\Model
  */
-abstract class AbstractModelTest extends \PHPUnit\Framework\TestCase
+abstract class AbstractModelTest extends TestCase
 {
     protected $fixture = 'models.yaml';
 

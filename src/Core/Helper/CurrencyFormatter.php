@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Helper;
@@ -23,7 +23,7 @@ use Commercetools\Core\Model\Common\Context;
  * $str = $this->format($centAmount, $currency); // '1.234,56 €'
  * @package Commercetools\Core\Helper
  */
-class CurrencyFormatter
+class CurrencyFormatter implements CurrencyFormatterInterface
 {
     protected $context;
 

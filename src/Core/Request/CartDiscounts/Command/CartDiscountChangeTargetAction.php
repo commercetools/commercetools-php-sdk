@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\CartDiscounts\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 
 /**
  * @package Commercetools\Core\Request\CartDiscounts\Command
- * @link https://dev.commercetools.com/http-api-projects-cartDiscounts.html#change-target
+ * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-target
  * @method string getAction()
  * @method CartDiscountChangeTargetAction setAction(string $action = null)
  * @method CartDiscountTarget getTarget()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Types\Command;
@@ -8,11 +8,10 @@ namespace Commercetools\Core\Request\Types\Command;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Type\FieldDefinition;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Model\Common\LocalizedString;
 
 /**
  * @package Commercetools\Core\Request\Types\Command
- * @link https://dev.commercetools.com/http-api-projects-types.html#add-fielddefinition
+ * @link https://docs.commercetools.com/http-api-projects-types.html#add-fielddefinition
  * @method string getAction()
  * @method TypeAddFieldDefinitionAction setAction(string $action = null)
  * @method FieldDefinition getFieldDefinition()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Order;
@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Order
- * @link https://dev.commercetools.com/http-api-projects-orders.html#deliveryitem
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#deliveryitem
  * @method string getId()
  * @method DeliveryItem setId(string $id = null)
  * @method int getQuantity()

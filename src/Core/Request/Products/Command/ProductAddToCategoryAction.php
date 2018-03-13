@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Products\Command;
@@ -11,13 +11,15 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Products\Command
- * @link https://dev.commercetools.com/http-api-projects-products.html#add-to-category
+ * @link https://docs.commercetools.com/http-api-projects-products.html#add-to-category
  * @method string getAction()
  * @method ProductAddToCategoryAction setAction(string $action = null)
  * @method CategoryReference getCategory()
  * @method ProductAddToCategoryAction setCategory(CategoryReference $category = null)
  * @method bool getStaged()
  * @method ProductAddToCategoryAction setStaged(bool $staged = null)
+ * @method string getOrderHint()
+ * @method ProductAddToCategoryAction setOrderHint(string $orderHint = null)
  */
 class ProductAddToCategoryAction extends AbstractAction
 {
@@ -26,7 +28,8 @@ class ProductAddToCategoryAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'category' => [static::TYPE => CategoryReference::class],
-            'staged' => [static::TYPE => 'bool']
+            'staged' => [static::TYPE => 'bool'],
+            'orderHint' => [static::TYPE => 'string'],
         ];
     }
 

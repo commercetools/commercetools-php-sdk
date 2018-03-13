@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Zones\Command;
@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Zones\Command
- * @link https://dev.commercetools.com/http-api-projects-zones.html#add-location
+ * @link https://docs.commercetools.com/http-api-projects-zones.html#add-location
  * @method string getAction()
  * @method ZoneAddLocationAction setAction(string $action = null)
  * @method Location getLocation()

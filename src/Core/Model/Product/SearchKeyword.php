@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Model\Product;
@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Product
- * @link https://dev.commercetools.com/http-api-projects-products.html#searchkeyword
+ * @link https://docs.commercetools.com/http-api-projects-products.html#searchkeyword
  * @method string getText()
  * @method SearchKeyword setText(string $text = null)
  * @method SuggestTokenizer getSuggestTokenizer()

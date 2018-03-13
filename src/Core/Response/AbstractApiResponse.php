@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 26.01.15, 14:44
  */
 
@@ -105,7 +105,7 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
     }
 
     /**
-     * @param $fieldName
+     * @param string $fieldName
      * @param mixed $default
      * @return mixed
      */

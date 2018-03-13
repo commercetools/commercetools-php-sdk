@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Subscriptions;
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Subscriptions
- * @link https://dev.commercetools.com/http-api-projects-subscriptions.html#create-a-subscription
+ * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#create-a-subscription
  * @method Subscription mapResponse(ApiResponseInterface $response)
  * @method Subscription mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

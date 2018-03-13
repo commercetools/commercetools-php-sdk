@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\Orders\Command;
@@ -13,7 +13,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @link https://dev.commercetools.com/http-api-projects-orders.html#update-syncinfo
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#update-syncinfo
  * @method string getAction()
  * @method OrderUpdateSyncInfoAction setAction(string $action = null)
  * @method ChannelReference getChannel()

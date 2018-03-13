@@ -1,6 +1,6 @@
 <?php
 /**
- * @author @jayS-de <jens.schulze@commercetools.de>
+ * @author @jenschude <jens.schulze@commercetools.de>
  * @created: 26.01.15, 11:00
  */
 
@@ -51,6 +51,14 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
     {
         $this->setContext($context);
         $this->setEndpoint($endpoint);
+    }
+
+    /**
+     * @return int
+     */
+    public function getParamCount()
+    {
+        return count($this->params);
     }
 
     /**
@@ -142,7 +150,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
             },
             $params
         );
-        sort($params);
+        ksort($params);
         $params = implode('&', $params);
 
         return $params;
