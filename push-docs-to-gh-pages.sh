@@ -29,7 +29,7 @@ git add -f .
 
 # for testing the big conditional we do "git status" only for now.
 git status
-#  git commit -m "Auto-pushed phpdoc for $TRAVIS_BRANCH on successful travis build $TRAVIS_BUILD_NUMBER to gh-pages"
-#  git push -fq origin gh-pages > /dev/null 2>&1
+git commit -m "Auto-pushed phpdoc for $TRAVIS_BRANCH on successful travis build $TRAVIS_BUILD_NUMBER to gh-pages"
+git push -fq origin gh-pages > /dev/null 2>&1
 
 echo -e "Published Documentation to gh-pages.\n"

@@ -46,13 +46,6 @@ deploy:
     skip_cleanup: true
     script: ./push-docs-to-gh-pages.sh
     on:
-      branch: travis-gh-deploy-key
-      condition: $GUZZLE = '6'
-      php: 7.1
-  - provider: script
-    skip_cleanup: true
-    script: ./push-docs-to-gh-pages.sh
-    on:
       branch: master
       condition: $GUZZLE = '6'
       php: 7.1
