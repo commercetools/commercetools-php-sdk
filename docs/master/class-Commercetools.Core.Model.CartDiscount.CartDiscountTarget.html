@@ -514,8 +514,12 @@
 				<li><a href="class-Commercetools.Core.Model.CartDiscount.CartDiscountReferenceCollection.html">CartDiscountReferenceCollection</a></li>
 				<li class="active"><a href="class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html">CartDiscountTarget</a></li>
 				<li><a href="class-Commercetools.Core.Model.CartDiscount.CartDiscountValue.html" class="deprecated">CartDiscountValue</a></li>
+				<li><a href="class-Commercetools.Core.Model.CartDiscount.CustomLineItemsTarget.html">CustomLineItemsTarget</a></li>
 				<li><a href="class-Commercetools.Core.Model.CartDiscount.GiftLineItemCartDiscountValue.html">GiftLineItemCartDiscountValue</a></li>
+				<li><a href="class-Commercetools.Core.Model.CartDiscount.LineItemsTarget.html">LineItemsTarget</a></li>
+				<li><a href="class-Commercetools.Core.Model.CartDiscount.MultiBuyLineItemsTarget.html">MultiBuyLineItemsTarget</a></li>
 				<li><a href="class-Commercetools.Core.Model.CartDiscount.RelativeCartDiscountValue.html">RelativeCartDiscountValue</a></li>
+				<li><a href="class-Commercetools.Core.Model.CartDiscount.ShippingCostTarget.html">ShippingCostTarget</a></li>
 			</ul>
 
 
@@ -568,6 +572,15 @@
 	</dl>
 
 
+	<div>
+		<h3>Direct known subclasses</h3>
+		<p class="elementList">
+			<code><a href="class-Commercetools.Core.Model.CartDiscount.CustomLineItemsTarget.html">Commercetools\Core\Model\CartDiscount\CustomLineItemsTarget</a></code>, 
+			<code><a href="class-Commercetools.Core.Model.CartDiscount.LineItemsTarget.html">Commercetools\Core\Model\CartDiscount\LineItemsTarget</a></code>, 
+			<code><a href="class-Commercetools.Core.Model.CartDiscount.MultiBuyLineItemsTarget.html">Commercetools\Core\Model\CartDiscount\MultiBuyLineItemsTarget</a></code>, 
+			<code><a href="class-Commercetools.Core.Model.CartDiscount.ShippingCostTarget.html">Commercetools\Core\Model\CartDiscount\ShippingCostTarget</a></code>
+		</p>
+	</div>
 
 
 
@@ -579,9 +592,11 @@
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Model.html">Model</a>\<a href="namespace-Commercetools.Core.Model.CartDiscount.html">CartDiscount</a><br>
 
+				<b>Ramltestignorefields(&#039;predicate&#039;)</b>
+				<br>
 				<b>API documentation:</b>
-				<b><a href="https://dev.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscounttarget" target="api-doc">https://dev.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscounttarget</a></b><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html#10-29" title="Go to source code">Core/Model/CartDiscount/CartDiscountTarget.php</a>
+				<b><a href="https://docs.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscounttarget" target="api-doc">https://docs.commercetools.com/http-api-projects-cartDiscounts.html#cartdiscounttarget</a></b><br>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html#10-68" title="Go to source code">Core/Model/CartDiscount/CartDiscountTarget.php</a>
 		<br>
 	</div>
 
@@ -589,12 +604,99 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Methods summary</h2></div>
+			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html#24-33" title="Go to source code">__construct</a>( <span>array <var>$data</var> = []</span>, <span>Context|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var></dt>
+						<dd></dd>
+						<dt><var>$context</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+					<h4>Inheritdoc</h4>
+					<div class="list">
+					</div>
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-Commercetools.Core.Model.Common.JsonObject.html#___construct">Commercetools\Core\Model\Common\JsonObject::__construct</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fromArray" id="_fromArray">
+
+			<td class="attributes"><code>
+				 public static
+				<code><a href="class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html">Commercetools\Core\Model\CartDiscount\CartDiscountTarget</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fromArray">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html#44-56" title="Go to source code">fromArray</a>( <span>array <var>$data</var></span>, <span>Context|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var></dt>
+						<dd></dd>
+						<dt><var>$context</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html">Commercetools\Core\Model\CartDiscount\CartDiscountTarget</a></code>
+					</div>
+
+
+					<h4>Inheritdoc</h4>
+					<div class="list">
+					</div>
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#_fromArray">Commercetools\Core\Model\Common\AbstractJsonDeserializeObject::fromArray</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+			</table>
 		</div>
 
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Model.Common.JsonObject.html#methods">Commercetools\Core\Model\Common\JsonObject</a></h3></div>
 			<p class="elementList">
-				<code><a href="class-Commercetools.Core.Model.Common.JsonObject.html#___construct">__construct()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.JsonObject.html#___get">__get()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.JsonObject.html#_hasField">hasField()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.JsonObject.html#_isOptional">isOptional()</a></code>
@@ -604,7 +706,6 @@
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#methods">Commercetools\Core\Model\Common\AbstractJsonDeserializeObject</a></h3></div>
 			<p class="elementList">
 				<code><a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#___sleep">__sleep()</a></code>, 
-				<code><a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#_fromArray">fromArray()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#_jsonSerialize">jsonSerialize()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#_of">of()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.AbstractJsonDeserializeObject.html#_toArray">toArray()</a></code>
@@ -660,7 +761,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getType">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html#13" title="Go to source code">getType</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html#14" title="Go to source code">getType</a>( )</code>
 
 			<div class="description short">
 				
@@ -693,7 +794,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setType">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html#14" title="Go to source code">setType</a>( <span>string <var>$type</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html#15" title="Go to source code">setType</a>( <span>string <var>$type</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -731,7 +832,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getPredicate">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html#15" title="Go to source code">getPredicate</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html#16" title="Go to source code">getPredicate</a>( )</code>
 
 			<div class="description short">
 				
@@ -764,7 +865,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setPredicate">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html#16" title="Go to source code">setPredicate</a>( <span>string <var>$predicate</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.CartDiscount.CartDiscountTarget.html#17" title="Go to source code">setPredicate</a>( <span>string <var>$predicate</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -801,12 +902,36 @@
 		<div class="panel panel-default">
             <div class="panel-heading"><h2>Constants summary</h2></div>
 			<table class="summary table table-bordered table-striped constants" id="constants">
+			<tr data-order="TARGET_TYPE" id="TARGET_TYPE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-constant-TARGET_TYPE.html#21" title="Go to source code"><b>TARGET_TYPE</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#TARGET_TYPE" class="anchor">#</a>
+						<code><span class="php-quote">''</span></code>
+					</div>
+				</td>
+			</tr>
 			<tr data-order="TYPE_LINE_ITEMS" id="TYPE_LINE_ITEMS">
 
 				<td class="attributes"><code>string</code></td>
 				<td class="name">
 					<code>
-						<a href="source-constant-TYPE_LINE_ITEMS.html#20" title="Go to source code"><b>TYPE_LINE_ITEMS</b></a>
+						<a href="source-constant-TYPE_LINE_ITEMS.html#22" title="Go to source code"><b>TYPE_LINE_ITEMS</b></a>
 					</code>
 
 					<div class="description short">
@@ -855,7 +980,7 @@
 		PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
-<script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?4b67af06f73852c7f116dfbeac6970b734c9320d"></script>
+<script src="resources/combined.js?69364dc889403af482b6a5abd6af28f7c0f09a8b"></script>
+<script src="elementlist.js?b6b07103b579df9dc3d03774492b13463776defe"></script>
 </body>
 </html>

@@ -525,9 +525,11 @@
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductRemovePriceAction.html">ProductRemovePriceAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductRemoveVariantAction.html">ProductRemoveVariantAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductRevertStagedChangesAction.html">ProductRevertStagedChangesAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductRevertStagedVariantChangesAction.html">ProductRevertStagedVariantChangesAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomFieldAction.html">ProductSetAssetCustomFieldAction</a></li>
 				<li class="active"><a href="class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html">ProductSetAssetCustomTypeAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetAssetDescriptionAction.html">ProductSetAssetDescriptionAction</a></li>
+				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetAssetKeyAction.html">ProductSetAssetKeyAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetAssetSourcesAction.html">ProductSetAssetSourcesAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetAssetTagsAction.html">ProductSetAssetTagsAction</a></li>
 				<li><a href="class-Commercetools.Core.Request.Products.Command.ProductSetAttributeAction.html">ProductSetAttributeAction</a></li>
@@ -626,8 +628,8 @@
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Request.html">Request</a>\<a href="namespace-Commercetools.Core.Request.Products.html">Products</a>\<a href="namespace-Commercetools.Core.Request.Products.Command.html">Command</a><br>
 
 				<b>API documentation:</b>
-				<b><a href="https://dev.commercetools.com/http-api-projects-products.html#set-asset-custom-type" target="api-doc">https://dev.commercetools.com/http-api-projects-products.html#set-asset-custom-type</a></b><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html#13-79" title="Go to source code">Core/Request/Products/Command/ProductSetAssetCustomTypeAction.php</a>
+				<b><a href="https://docs.commercetools.com/http-api-projects-products.html#set-asset-custom-type" target="api-doc">https://docs.commercetools.com/http-api-projects-products.html#set-asset-custom-type</a></b><br>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html#13-106" title="Go to source code">Core/Request/Products/Command/ProductSetAssetCustomTypeAction.php</a>
 		<br>
 	</div>
 
@@ -647,7 +649,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html#46-54" title="Go to source code">__construct</a>( <span>array <var>$data</var> = []</span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html#49-57" title="Go to source code">__construct</a>( <span>array <var>$data</var> = []</span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -685,7 +687,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofTypeVariantIdAssetIdAndName">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html#56-66" title="Go to source code">ofTypeVariantIdAssetIdAndName</a>( <span><code><a href="class-Commercetools.Core.Model.Type.TypeReference.html">Commercetools\Core\Model\Type\TypeReference</a></code> <var>$type</var></span>, <span>integer <var>$variantId</var></span>, <span>string <var>$assetId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html#59-69" title="Go to source code">ofTypeVariantIdAssetIdAndName</a>( <span><code><a href="class-Commercetools.Core.Model.Type.TypeReference.html">Commercetools\Core\Model\Type\TypeReference</a></code> <var>$type</var></span>, <span>integer <var>$variantId</var></span>, <span>string <var>$assetId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -729,7 +731,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofTypeSkuAssetIdAndName">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html#68-78" title="Go to source code">ofTypeSkuAssetIdAndName</a>( <span><code><a href="class-Commercetools.Core.Model.Type.TypeReference.html">Commercetools\Core\Model\Type\TypeReference</a></code> <var>$type</var></span>, <span>string <var>$sku</var></span>, <span>string <var>$assetId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html#71-81" title="Go to source code">ofTypeSkuAssetIdAndName</a>( <span><code><a href="class-Commercetools.Core.Model.Type.TypeReference.html">Commercetools\Core\Model\Type\TypeReference</a></code> <var>$type</var></span>, <span>string <var>$sku</var></span>, <span>string <var>$assetId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -746,6 +748,94 @@
 						<dt><var>$sku</var></dt>
 						<dd></dd>
 						<dt><var>$assetId</var></dt>
+						<dd></dd>
+						<dt><var>$context</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html">Commercetools\Core\Request\Products\Command\ProductSetAssetCustomTypeAction</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="ofTypeVariantIdAssetKeyAndName" id="_ofTypeVariantIdAssetKeyAndName">
+
+			<td class="attributes"><code>
+				 public static
+				<code><a href="class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html">Commercetools\Core\Request\Products\Command\ProductSetAssetCustomTypeAction</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_ofTypeVariantIdAssetKeyAndName">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html#83-93" title="Go to source code">ofTypeVariantIdAssetKeyAndName</a>( <span><code><a href="class-Commercetools.Core.Model.Type.TypeReference.html">Commercetools\Core\Model\Type\TypeReference</a></code> <var>$type</var></span>, <span>integer <var>$variantId</var></span>, <span>string <var>$assetKey</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$type</var></dt>
+						<dd></dd>
+						<dt><var>$variantId</var></dt>
+						<dd></dd>
+						<dt><var>$assetKey</var></dt>
+						<dd></dd>
+						<dt><var>$context</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html">Commercetools\Core\Request\Products\Command\ProductSetAssetCustomTypeAction</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="ofTypeSkuAssetKeyAndName" id="_ofTypeSkuAssetKeyAndName">
+
+			<td class="attributes"><code>
+				 public static
+				<code><a href="class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html">Commercetools\Core\Request\Products\Command\ProductSetAssetCustomTypeAction</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_ofTypeSkuAssetKeyAndName">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html#95-105" title="Go to source code">ofTypeSkuAssetKeyAndName</a>( <span><code><a href="class-Commercetools.Core.Model.Type.TypeReference.html">Commercetools\Core\Model\Type\TypeReference</a></code> <var>$type</var></span>, <span>string <var>$sku</var></span>, <span>string <var>$assetKey</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$type</var></dt>
+						<dd></dd>
+						<dt><var>$sku</var></dt>
+						<dd></dd>
+						<dt><var>$assetKey</var></dt>
 						<dd></dd>
 						<dt><var>$context</var></dt>
 						<dd></dd>
@@ -1327,6 +1417,77 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getAssetKey" id="m_getAssetKey">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getAssetKey">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html#30" title="Go to source code">getAssetKey</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setAssetKey" id="m_setAssetKey">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html">Commercetools\Core\Request\Products\Command\ProductSetAssetCustomTypeAction</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setAssetKey">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html#31" title="Go to source code">setAssetKey</a>( <span>string <var>$assetKey</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$assetKey</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Products.Command.ProductSetAssetCustomTypeAction.html">Commercetools\Core\Request\Products\Command\ProductSetAssetCustomTypeAction</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 			</table>
 		</div>
 
@@ -1365,7 +1526,7 @@
 		PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
-<script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?4b67af06f73852c7f116dfbeac6970b734c9320d"></script>
+<script src="resources/combined.js?69364dc889403af482b6a5abd6af28f7c0f09a8b"></script>
+<script src="elementlist.js?b6b07103b579df9dc3d03774492b13463776defe"></script>
 </body>
 </html>

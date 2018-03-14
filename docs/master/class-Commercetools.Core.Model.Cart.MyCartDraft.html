@@ -512,6 +512,8 @@
 				<li><a href="class-Commercetools.Core.Model.Cart.CartDraft.html">CartDraft</a></li>
 				<li><a href="class-Commercetools.Core.Model.Cart.CartReference.html">CartReference</a></li>
 				<li><a href="class-Commercetools.Core.Model.Cart.CartState.html">CartState</a></li>
+				<li><a href="class-Commercetools.Core.Model.Cart.ClassificationShippingRateInput.html">ClassificationShippingRateInput</a></li>
+				<li><a href="class-Commercetools.Core.Model.Cart.ClassificationShippingRateInputDraft.html">ClassificationShippingRateInputDraft</a></li>
 				<li><a href="class-Commercetools.Core.Model.Cart.CustomLineItem.html">CustomLineItem</a></li>
 				<li><a href="class-Commercetools.Core.Model.Cart.CustomLineItemCollection.html">CustomLineItemCollection</a></li>
 				<li><a href="class-Commercetools.Core.Model.Cart.CustomLineItemDraft.html">CustomLineItemDraft</a></li>
@@ -533,7 +535,11 @@
 				<li class="active"><a href="class-Commercetools.Core.Model.Cart.MyCartDraft.html">MyCartDraft</a></li>
 				<li><a href="class-Commercetools.Core.Model.Cart.MyLineItemDraft.html">MyLineItemDraft</a></li>
 				<li><a href="class-Commercetools.Core.Model.Cart.MyLineItemDraftCollection.html">MyLineItemDraftCollection</a></li>
+				<li><a href="class-Commercetools.Core.Model.Cart.ScoreShippingRateInput.html">ScoreShippingRateInput</a></li>
+				<li><a href="class-Commercetools.Core.Model.Cart.ScoreShippingRateInputDraft.html">ScoreShippingRateInputDraft</a></li>
 				<li><a href="class-Commercetools.Core.Model.Cart.ShippingInfo.html">ShippingInfo</a></li>
+				<li><a href="class-Commercetools.Core.Model.Cart.ShippingRateInput.html">ShippingRateInput</a></li>
+				<li><a href="class-Commercetools.Core.Model.Cart.ShippingRateInputDraft.html">ShippingRateInputDraft</a></li>
 			</ul>
 
 
@@ -600,8 +606,8 @@
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Model.html">Model</a>\<a href="namespace-Commercetools.Core.Model.Cart.html">Cart</a><br>
 
 				<b>API documentation:</b>
-				<b><a href="https://dev.commercetools.com/http-api-projects-me-carts.html#mycartdraft" target="api-doc">https://dev.commercetools.com/http-api-projects-me-carts.html#mycartdraft</a></b><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Cart.MyCartDraft.html#15-71" title="Go to source code">Core/Model/Cart/MyCartDraft.php</a>
+				<b><a href="https://docs.commercetools.com/http-api-projects-me-carts.html#mycartdraft" target="api-doc">https://docs.commercetools.com/http-api-projects-me-carts.html#mycartdraft</a></b><br>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Cart.MyCartDraft.html#15-74" title="Go to source code">Core/Model/Cart/MyCartDraft.php</a>
 		<br>
 	</div>
 
@@ -621,7 +627,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofCurrency">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Cart.MyCartDraft.html#61-70" title="Go to source code">ofCurrency</a>( <span>string <var>$currency</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Cart.MyCartDraft.html#64-73" title="Go to source code">ofCurrency</a>( <span>string <var>$currency</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code>|callable <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1462,6 +1468,77 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getTaxMode" id="m_getTaxMode">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getTaxMode">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Cart.MyCartDraft.html#39" title="Go to source code">getTaxMode</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setTaxMode" id="m_setTaxMode">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Cart.MyCartDraft.html">Commercetools\Core\Model\Cart\MyCartDraft</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setTaxMode">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Cart.MyCartDraft.html#40" title="Go to source code">setTaxMode</a>( <span>string <var>$taxMode</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$taxMode</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Cart.MyCartDraft.html">Commercetools\Core\Model\Cart\MyCartDraft</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 			</table>
 		</div>
 
@@ -1500,7 +1577,7 @@
 		PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
-<script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?4b67af06f73852c7f116dfbeac6970b734c9320d"></script>
+<script src="resources/combined.js?69364dc889403af482b6a5abd6af28f7c0f09a8b"></script>
+<script src="elementlist.js?b6b07103b579df9dc3d03774492b13463776defe"></script>
 </body>
 </html>
