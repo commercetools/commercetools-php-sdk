@@ -24,6 +24,7 @@ before_install:
 - chmod 600 github_deploy_key
 - eval $(ssh-agent -s)
 - ssh-add github_deploy_key
+- rm github_deploy_key
 - PHP=$TRAVIS_PHP_VERSION
 - if [ $PHP != 'hhvm' ] ; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; fi
 before_script:
@@ -42,18 +43,21 @@ before_deploy:
   - if [ $(phpenv version-name) = "7.1" ] ; then ant apigen; fi
 deploy:
   - provider: script
+    skip_cleanup: true
     script: ./push-docs-to-gh-pages.sh
     on:
       branch: travis-gh-deploy-key
       condition: $GUZZLE = '6'
       php: 7.1
   - provider: script
+    skip_cleanup: true
     script: ./push-docs-to-gh-pages.sh
     on:
       branch: master
       condition: $GUZZLE = '6'
       php: 7.1
   - provider: script
+    skip_cleanup: true
     script: ./push-docs-to-gh-pages.sh
     on:
       tags: true
