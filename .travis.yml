@@ -38,8 +38,19 @@ script:
 - if [ $GUZZLE == '6' ] && [ $PHP != '5.6' ] ; then vendor/bin/phpunit --testsuite=unit; fi
 - if [ $PHP == '7.0' ] && [ $GUZZLE == '6' ] && [ $TRAVIS_PULL_REQUEST == 'false' ]; then vendor/bin/phpunit --testsuite=integration; fi
 - ant behat
-after_success:
-- if [ $PHP == '7.1' ] && [ $GUZZLE == '6' ] ; then ./push-docs-to-gh-pages.sh; fi
+deploy:
+  - provider: script
+    script: ./push-docs-to-gh-pages.sh
+    on:
+      branch: master
+      condition: $GUZZLE = '6'
+      php: 7.1
+  - provider: script
+    script: ./push-docs-to-gh-pages.sh
+    on:
+      tags: true
+      condition: $GUZZLE = '6'
+      php: 7.1
 notifications:
   hipchat:
     rooms:
