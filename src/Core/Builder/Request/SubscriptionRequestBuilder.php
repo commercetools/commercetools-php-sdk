@@ -3,7 +3,7 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Request\Builder;
+namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Model\Subscription\Subscription;
 use Commercetools\Core\Model\Subscription\SubscriptionDraft;

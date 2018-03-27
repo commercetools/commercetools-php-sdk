@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Model\Cart\CartCollection;
 use Commercetools\Core\Model\CartDiscount\CartDiscountCollection;
 use Commercetools\Core\Model\Category\CategoryCollection;
@@ -189,5 +190,22 @@ class GenericQueryRequestTest extends RequestTestCase
     {
         $result = $this->mapEmptyResult($requestClass);
         $this->assertInstanceOf($resultClass, $result);
+    }
+
+    /**
+     * @dataProvider mapResultProvider
+     * @param $requestClass
+     * @param $resultClass
+     */
+    public function testBuilder($requestClass, $resultClass)
+    {
+        $class = new \ReflectionClass($requestClass);
+        $domain = lcfirst(basename(dirname($class->getFileName())));
+
+        $builder = RequestBuilder::of();
+
+        $domainBuilder = $builder->$domain();
+        $request = $domainBuilder->query('');
+        $this->assertInstanceOf($requestClass, $request);
     }
 }

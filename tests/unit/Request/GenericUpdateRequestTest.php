@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\Category\Category;
@@ -161,5 +162,24 @@ class GenericUpdateRequestTest extends RequestTestCase
     {
         $result = $this->mapEmptyResult($requestClass, ['id', 1]);
         $this->assertNull($result);
+    }
+
+    /**
+     * @dataProvider mapResultProvider
+     * @param $requestClass
+     * @param $resultClass
+     */
+    public function testBuilder($requestClass, $resultClass)
+    {
+        $class = new \ReflectionClass($requestClass);
+        $domain = lcfirst(basename(dirname($class->getFileName())));
+
+        $builder = RequestBuilder::of();
+
+        $result = $this->prophesize($resultClass);
+
+        $domainBuilder = $builder->$domain();
+        $request = $domainBuilder->update($result->reveal());
+        $this->assertInstanceOf($requestClass, $request);
     }
 }

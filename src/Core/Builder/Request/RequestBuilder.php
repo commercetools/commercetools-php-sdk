@@ -3,7 +3,7 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Request\Builder;
+namespace Commercetools\Core\Builder\Request;
 
 /**
  *
@@ -45,7 +45,7 @@ class RequestBuilder
     /**
      * @return CustomerGroupRequestBuilder
      */
-    public function customerGroup()
+    public function customerGroups()
     {
         return new CustomerGroupRequestBuilder();
     }
@@ -53,15 +53,23 @@ class RequestBuilder
     /**
      * @return CustomerRequestBuilder
      */
-    public function customer()
+    public function customers()
     {
         return new CustomerRequestBuilder();
     }
 
     /**
+     * @return CustomObjectRequestBuilder
+     */
+    public function customObjects()
+    {
+        return new CustomObjectRequestBuilder();
+    }
+
+    /**
      * @return DiscountCodeRequestBuilder
      */
-    public function discountCode()
+    public function discountCodes()
     {
         return new DiscountCodeRequestBuilder();
     }

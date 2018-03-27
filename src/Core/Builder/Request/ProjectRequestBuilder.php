@@ -3,7 +3,7 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Request\Builder;
+namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Request\Project\ProjectGetRequest;

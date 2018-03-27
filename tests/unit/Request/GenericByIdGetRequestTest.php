@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\Category\Category;
@@ -22,7 +23,9 @@ use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
+use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Model\Subscription\Subscription;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Zone\Zone;
@@ -43,7 +46,9 @@ use Commercetools\Core\Request\Products\ProductByIdGetRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeByIdGetRequest;
 use Commercetools\Core\Request\Reviews\ReviewByIdGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByIdGetRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListByIdGetRequest;
 use Commercetools\Core\Request\States\StateByIdGetRequest;
+use Commercetools\Core\Request\Subscriptions\SubscriptionByIdGetRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryByIdGetRequest;
 use Commercetools\Core\Request\Types\TypeByIdGetRequest;
 use Commercetools\Core\Request\Zones\ZoneByIdGetRequest;
@@ -134,9 +139,17 @@ class GenericByIdGetRequestTest extends RequestTestCase
                 ShippingMethodByIdGetRequest::class,
                 ShippingMethod::class,
             ],
+            ShoppingListByIdGetRequest::class => [
+                ShoppingListByIdGetRequest::class,
+                ShoppingList::class,
+            ],
             StateByIdGetRequest::class => [
                 StateByIdGetRequest::class,
                 State::class,
+            ],
+            SubscriptionByIdGetRequest::class => [
+                SubscriptionByIdGetRequest::class,
+                Subscription::class,
             ],
             TaxCategoryByIdGetRequest::class => [
                 TaxCategoryByIdGetRequest::class,
@@ -177,5 +190,22 @@ class GenericByIdGetRequestTest extends RequestTestCase
     {
         $result = $this->mapEmptyResult($requestClass, ['id']);
         $this->assertNull($result);
+    }
+
+    /**
+     * @dataProvider mapResultProvider
+     * @param $requestClass
+     * @param $resultClass
+     */
+    public function testBuilder($requestClass, $resultClass)
+    {
+        $class = new \ReflectionClass($requestClass);
+        $domain = lcfirst(basename(dirname($class->getFileName())));
+
+        $builder = RequestBuilder::of();
+
+        $domainBuilder = $builder->$domain();
+        $request = $domainBuilder->getById('');
+        $this->assertInstanceOf($requestClass, $request);
     }
 }
