@@ -21,7 +21,9 @@ use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
+use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Model\Subscription\Subscription;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Zone\Zone;
@@ -40,7 +42,9 @@ use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
 use Commercetools\Core\Request\Reviews\ReviewUpdateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListUpdateRequest;
 use Commercetools\Core\Request\States\StateUpdateRequest;
+use Commercetools\Core\Request\Subscriptions\SubscriptionUpdateRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryUpdateRequest;
 use Commercetools\Core\Request\Types\TypeUpdateRequest;
 use Commercetools\Core\Request\Zones\ZoneUpdateRequest;
@@ -123,9 +127,17 @@ class GenericUpdateRequestTest extends RequestTestCase
                 ShippingMethodUpdateRequest::class,
                 ShippingMethod::class,
             ],
+            ShoppingListUpdateRequest::class => [
+                ShoppingListUpdateRequest::class,
+                ShoppingList::class,
+            ],
             StateUpdateRequest::class => [
                 StateUpdateRequest::class,
                 State::class,
+            ],
+            SubscriptionUpdateRequest::class => [
+                SubscriptionUpdateRequest::class,
+                Subscription::class,
             ],
             TaxCategoryUpdateRequest::class => [
                 TaxCategoryUpdateRequest::class,
