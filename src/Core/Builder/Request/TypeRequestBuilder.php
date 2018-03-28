@@ -10,8 +10,10 @@ use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Request\Types\TypeByIdGetRequest;
 use Commercetools\Core\Request\Types\TypeByKeyGetRequest;
 use Commercetools\Core\Request\Types\TypeCreateRequest;
+use Commercetools\Core\Request\Types\TypeDeleteByKeyRequest;
 use Commercetools\Core\Request\Types\TypeDeleteRequest;
 use Commercetools\Core\Request\Types\TypeQueryRequest;
+use Commercetools\Core\Request\Types\TypeUpdateByKeyRequest;
 use Commercetools\Core\Request\Types\TypeUpdateRequest;
 
 class TypeRequestBuilder
@@ -34,6 +36,15 @@ class TypeRequestBuilder
     }
 
     /**
+     * @param Type $type
+     * @return TypeUpdateByKeyRequest
+     */
+    public function updateByKey(Type $type)
+    {
+        return TypeUpdateByKeyRequest::ofKeyAndVersion($type->getKey(), $type->getVersion());
+    }
+
+    /**
      * @param TypeDraft $typeDraft
      * @return TypeCreateRequest
      */
@@ -52,7 +63,16 @@ class TypeRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param Type $type
+     * @return TypeDeleteByKeyRequest
+     */
+    public function deleteByKey(Type $type)
+    {
+        return TypeDeleteByKeyRequest::ofKeyAndVersion($type->getKey(), $type->getVersion());
+    }
+
+    /**
+     * @param string $id
      * @return TypeByIdGetRequest
      */
     public function getById($id)
@@ -61,7 +81,7 @@ class TypeRequestBuilder
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return TypeByKeyGetRequest
      */
     public function getByKey($key)

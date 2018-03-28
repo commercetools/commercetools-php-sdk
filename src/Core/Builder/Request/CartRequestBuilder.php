@@ -7,6 +7,7 @@ namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Request\Carts\CartByCustomerIdGetRequest;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
@@ -51,11 +52,20 @@ class CartRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return CartByIdGetRequest
      */
     public function getById($id)
     {
         return CartByIdGetRequest::ofId($id);
+    }
+
+    /**
+     * @param string $customerId
+     * @return CartByCustomerIdGetRequest
+     */
+    public function getByCustomerId($customerId)
+    {
+        return CartByCustomerIdGetRequest::ofCustomerId($customerId);
     }
 }

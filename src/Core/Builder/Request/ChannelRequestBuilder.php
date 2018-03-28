@@ -51,7 +51,7 @@ class ChannelRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return ChannelByIdGetRequest
      */
     public function getById($id)

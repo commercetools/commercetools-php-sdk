@@ -19,7 +19,7 @@ class MessageRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return MessageByIdGetRequest
      */
     public function getById($id)

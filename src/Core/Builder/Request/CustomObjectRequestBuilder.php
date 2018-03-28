@@ -10,6 +10,7 @@ use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
 use Commercetools\Core\Request\CustomObjects\CustomObjectByIdGetRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectByKeyGetRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest;
+use Commercetools\Core\Request\CustomObjects\CustomObjectDeleteByKeyRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectDeleteRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectQueryRequest;
 
@@ -42,8 +43,20 @@ class CustomObjectRequestBuilder
     }
 
     /**
-     * @param $container
-     * @param $key
+     * @param CustomObject $customObject
+     * @return CustomObjectDeleteByKeyRequest
+     */
+    public function deleteByContainerAndKey(CustomObject $customObject)
+    {
+        return CustomObjectDeleteByKeyRequest::ofContainerAndKey(
+            $customObject->getContainer(),
+            $customObject->getKey()
+        );
+    }
+
+    /**
+     * @param string $container
+     * @param string $key
      * @return CustomObjectByKeyGetRequest
      */
     public function getByContainerAndKey($container, $key)
@@ -52,7 +65,7 @@ class CustomObjectRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return CustomObjectByIdGetRequest
      */
     public function getById($id)

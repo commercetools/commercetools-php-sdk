@@ -51,7 +51,7 @@ class ZoneRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return ZoneByIdGetRequest
      */
     public function getById($id)

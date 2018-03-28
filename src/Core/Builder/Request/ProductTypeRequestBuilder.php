@@ -10,8 +10,10 @@ use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\Request\ProductTypes\ProductTypeByIdGetRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeByKeyGetRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest;
+use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteByKeyRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeQueryRequest;
+use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateByKeyRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
 
 class ProductTypeRequestBuilder
@@ -34,6 +36,15 @@ class ProductTypeRequestBuilder
     }
 
     /**
+     * @param ProductType $productType
+     * @return ProductTypeUpdateByKeyRequest
+     */
+    public function updateByKey(ProductType $productType)
+    {
+        return ProductTypeUpdateByKeyRequest::ofKeyAndVersion($productType->getKey(), $productType->getVersion());
+    }
+
+    /**
      * @param ProductTypeDraft $productTypeDraft
      * @return ProductTypeCreateRequest
      */
@@ -52,7 +63,16 @@ class ProductTypeRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param ProductType $productType
+     * @return ProductTypeDeleteByKeyRequest
+     */
+    public function deleteByKey(ProductType $productType)
+    {
+        return ProductTypeDeleteByKeyRequest::ofKeyAndVersion($productType->getKey(), $productType->getVersion());
+    }
+
+    /**
+     * @param string $id
      * @return ProductTypeByIdGetRequest
      */
     public function getById($id)
@@ -61,7 +81,7 @@ class ProductTypeRequestBuilder
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return ProductTypeByKeyGetRequest
      */
     public function getByKey($key)

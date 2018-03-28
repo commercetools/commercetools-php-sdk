@@ -7,12 +7,13 @@ namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupDraft;
-use Commercetools\Core\Request\Categories\CategoryByKeyGetRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupByIdGetRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupByKeyGetRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupCreateRequest;
+use Commercetools\Core\Request\CustomerGroups\CustomerGroupDeleteByKeyRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupDeleteRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupQueryRequest;
+use Commercetools\Core\Request\CustomerGroups\CustomerGroupUpdateByKeyRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupUpdateRequest;
 
 class CustomerGroupRequestBuilder
@@ -35,6 +36,15 @@ class CustomerGroupRequestBuilder
     }
 
     /**
+     * @param CustomerGroup $customerGroup
+     * @return CustomerGroupUpdateByKeyRequest
+     */
+    public function updateByKey(CustomerGroup $customerGroup)
+    {
+        return CustomerGroupUpdateByKeyRequest::ofKeyAndVersion($customerGroup->getKey(), $customerGroup->getVersion());
+    }
+
+    /**
      * @param CustomerGroupDraft $customerGroupDraft
      * @return CustomerGroupCreateRequest
      */
@@ -53,7 +63,16 @@ class CustomerGroupRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param CustomerGroup $customerGroup
+     * @return CustomerGroupDeleteByKeyRequest
+     */
+    public function deleteByKey(CustomerGroup $customerGroup)
+    {
+        return CustomerGroupDeleteByKeyRequest::ofKeyAndVersion($customerGroup->getKey(), $customerGroup->getVersion());
+    }
+
+    /**
+     * @param string $id
      * @return CustomerGroupByIdGetRequest
      */
     public function getById($id)
@@ -62,7 +81,7 @@ class CustomerGroupRequestBuilder
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return CustomerGroupByKeyGetRequest
      */
     public function getByKey($key)

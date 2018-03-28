@@ -6,12 +6,16 @@
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\Order\ImportOrder;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
 use Commercetools\Core\Request\Orders\OrderByOrderNumberGetRequest;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
+use Commercetools\Core\Request\Orders\OrderDeleteByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
+use Commercetools\Core\Request\Orders\OrderImportRequest;
 use Commercetools\Core\Request\Orders\OrderQueryRequest;
+use Commercetools\Core\Request\Orders\OrderUpdateByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateRequest;
 
 class OrderRequestBuilder
@@ -34,6 +38,15 @@ class OrderRequestBuilder
     }
 
     /**
+     * @param Order $order
+     * @return OrderUpdateByOrderNumberRequest
+     */
+    public function updateByOrderNumber(Order $order)
+    {
+        return OrderUpdateByOrderNumberRequest::ofOrderNumberAndVersion($order->getOrderNumber(), $order->getVersion());
+    }
+
+    /**
      * @param Cart $cart
      * @return OrderCreateFromCartRequest
      */
@@ -52,7 +65,16 @@ class OrderRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param Order $order
+     * @return OrderDeleteByOrderNumberRequest
+     */
+    public function deleteByOrderNumber(Order $order)
+    {
+        return OrderDeleteByOrderNumberRequest::ofOrderNumberAndVersion($order->getOrderNumber(), $order->getVersion());
+    }
+
+    /**
+     * @param string $id
      * @return OrderByIdGetRequest
      */
     public function getById($id)
@@ -67,5 +89,14 @@ class OrderRequestBuilder
     public function getByOrderNumber($orderNumber)
     {
         return OrderByOrderNumberGetRequest::ofOrderNumber($orderNumber);
+    }
+
+    /**
+     * @param ImportOrder $importOrder
+     * @return OrderImportRequest
+     */
+    public function import(ImportOrder $importOrder)
+    {
+        return OrderImportRequest::ofImportOrder($importOrder);
     }
 }

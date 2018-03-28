@@ -10,8 +10,10 @@ use Commercetools\Core\Model\Subscription\SubscriptionDraft;
 use Commercetools\Core\Request\Subscriptions\SubscriptionByIdGetRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionByKeyGetRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionCreateRequest;
+use Commercetools\Core\Request\Subscriptions\SubscriptionDeleteByKeyRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionDeleteRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionQueryRequest;
+use Commercetools\Core\Request\Subscriptions\SubscriptionUpdateByKeyRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionUpdateRequest;
 
 class SubscriptionRequestBuilder
@@ -34,6 +36,15 @@ class SubscriptionRequestBuilder
     }
 
     /**
+     * @param Subscription $subscription
+     * @return SubscriptionUpdateByKeyRequest
+     */
+    public function updateByKey(Subscription $subscription)
+    {
+        return SubscriptionUpdateByKeyRequest::ofKeyAndVersion($subscription->getKey(), $subscription->getVersion());
+    }
+
+    /**
      * @param SubscriptionDraft $subscriptionDraft
      * @return SubscriptionCreateRequest
      */
@@ -52,7 +63,16 @@ class SubscriptionRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param Subscription $subscription
+     * @return SubscriptionDeleteByKeyRequest
+     */
+    public function deleteByKey(Subscription $subscription)
+    {
+        return SubscriptionDeleteByKeyRequest::ofKeyAndVersion($subscription->getKey(), $subscription->getVersion());
+    }
+
+    /**
+     * @param string $id
      * @return SubscriptionByIdGetRequest
      */
     public function getById($id)
@@ -61,7 +81,7 @@ class SubscriptionRequestBuilder
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return SubscriptionByKeyGetRequest
      */
     public function getByKey($key)

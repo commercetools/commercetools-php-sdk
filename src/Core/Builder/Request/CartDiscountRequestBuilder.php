@@ -51,7 +51,7 @@ class CartDiscountRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return CartDiscountByIdGetRequest
      */
     public function getById($id)

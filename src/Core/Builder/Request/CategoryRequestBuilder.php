@@ -10,8 +10,10 @@ use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
 use Commercetools\Core\Request\Categories\CategoryByKeyGetRequest;
 use Commercetools\Core\Request\Categories\CategoryCreateRequest;
+use Commercetools\Core\Request\Categories\CategoryDeleteByKeyRequest;
 use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
 use Commercetools\Core\Request\Categories\CategoryQueryRequest;
+use Commercetools\Core\Request\Categories\CategoryUpdateByKeyRequest;
 use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
 
 class CategoryRequestBuilder
@@ -34,6 +36,15 @@ class CategoryRequestBuilder
     }
 
     /**
+     * @param Category $category
+     * @return CategoryUpdateByKeyRequest
+     */
+    public function updateByKey(Category $category)
+    {
+        return CategoryUpdateByKeyRequest::ofKeyAndVersion($category->getKey(), $category->getVersion());
+    }
+
+    /**
      * @param CategoryDraft $categoryDraft
      * @return CategoryCreateRequest
      */
@@ -52,7 +63,16 @@ class CategoryRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param Category $category
+     * @return CategoryDeleteByKeyRequest
+     */
+    public function deleteByKey(Category $category)
+    {
+        return CategoryDeleteByKeyRequest::ofKeyAndVersion($category->getKey(), $category->getVersion());
+    }
+
+    /**
+     * @param string $id
      * @return CategoryByIdGetRequest
      */
     public function getById($id)
@@ -61,7 +81,7 @@ class CategoryRequestBuilder
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return CategoryByKeyGetRequest
      */
     public function getByKey($key)

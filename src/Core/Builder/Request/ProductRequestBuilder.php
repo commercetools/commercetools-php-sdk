@@ -10,9 +10,13 @@ use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Request\Products\ProductByIdGetRequest;
 use Commercetools\Core\Request\Products\ProductByKeyGetRequest;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
+use Commercetools\Core\Request\Products\ProductDeleteByKeyRequest;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
+use Commercetools\Core\Request\Products\ProductImageUploadRequest;
 use Commercetools\Core\Request\Products\ProductQueryRequest;
+use Commercetools\Core\Request\Products\ProductUpdateByKeyRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
+use Psr\Http\Message\UploadedFileInterface;
 
 class ProductRequestBuilder
 {
@@ -34,6 +38,15 @@ class ProductRequestBuilder
     }
 
     /**
+     * @param Product $product
+     * @return ProductUpdateByKeyRequest
+     */
+    public function updateByKey(Product $product)
+    {
+        return ProductUpdateByKeyRequest::ofKeyAndVersion($product->getKey(), $product->getVersion());
+    }
+
+    /**
      * @param ProductDraft $productDraft
      * @return ProductCreateRequest
      */
@@ -52,7 +65,16 @@ class ProductRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param Product $product
+     * @return ProductDeleteByKeyRequest
+     */
+    public function deleteByKey(Product $product)
+    {
+        return ProductDeleteByKeyRequest::ofKeyAndVersion($product->getKey(), $product->getVersion());
+    }
+
+    /**
+     * @param string $id
      * @return ProductByIdGetRequest
      */
     public function getById($id)
@@ -61,11 +83,22 @@ class ProductRequestBuilder
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return ProductByKeyGetRequest
      */
     public function getByKey($key)
     {
         return ProductByKeyGetRequest::ofKey($key);
+    }
+
+    /**
+     * @param $id
+     * @param $sku
+     * @param UploadedFileInterface $uploadedFile
+     * @return ProductImageUploadRequest
+     */
+    public function uploadImageBySKU($id, $sku, UploadedFileInterface $uploadedFile)
+    {
+        return ProductImageUploadRequest::ofIdSkuAndFile($id, $sku, $uploadedFile);
     }
 }

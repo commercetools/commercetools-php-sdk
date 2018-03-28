@@ -10,8 +10,10 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryByIdGetRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryByKeyGetRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
+use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteByKeyRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryQueryRequest;
+use Commercetools\Core\Request\TaxCategories\TaxCategoryUpdateByKeyRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryUpdateRequest;
 
 class TaxCategoryRequestBuilder
@@ -34,6 +36,15 @@ class TaxCategoryRequestBuilder
     }
 
     /**
+     * @param TaxCategory $taxCategory
+     * @return TaxCategoryUpdateByKeyRequest
+     */
+    public function updateByKey(TaxCategory $taxCategory)
+    {
+        return TaxCategoryUpdateByKeyRequest::ofKeyAndVersion($taxCategory->getKey(), $taxCategory->getVersion());
+    }
+
+    /**
      * @param TaxCategoryDraft $taxCategoryDraft
      * @return TaxCategoryCreateRequest
      */
@@ -52,7 +63,16 @@ class TaxCategoryRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param TaxCategory $taxCategory
+     * @return TaxCategoryDeleteByKeyRequest
+     */
+    public function deleteByKey(TaxCategory $taxCategory)
+    {
+        return TaxCategoryDeleteByKeyRequest::ofKeyAndVersion($taxCategory->getKey(), $taxCategory->getVersion());
+    }
+
+    /**
+     * @param string $id
      * @return TaxCategoryByIdGetRequest
      */
     public function getById($id)
@@ -61,7 +81,7 @@ class TaxCategoryRequestBuilder
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return TaxCategoryByKeyGetRequest
      */
     public function getByKey($key)

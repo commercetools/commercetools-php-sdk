@@ -51,7 +51,7 @@ class InventoryRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return InventoryByIdGetRequest
      */
     public function getById($id)

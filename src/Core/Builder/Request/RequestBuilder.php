@@ -5,6 +5,9 @@
 
 namespace Commercetools\Core\Builder\Request;
 
+use Commercetools\Core\Request\PsrRequest;
+use Psr\Http\Message\RequestInterface;
+
 /**
  *
  */
@@ -131,6 +134,14 @@ class RequestBuilder
     }
 
     /**
+     * @return ProductProjectionRequestBuilder
+     */
+    public function productProjections()
+    {
+        return new ProductProjectionRequestBuilder();
+    }
+
+    /**
      * @return ProductTypeRequestBuilder
      */
     public function productTypes()
@@ -208,6 +219,23 @@ class RequestBuilder
     public function zones()
     {
         return new ZoneRequestBuilder();
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return PsrRequest
+     */
+    public function request(RequestInterface $request)
+    {
+        return PsrRequest::ofRequest($request);
+    }
+
+    /**
+     * @return MeRequestBuilder
+     */
+    public function me()
+    {
+        return new MeRequestBuilder();
     }
 
     /**

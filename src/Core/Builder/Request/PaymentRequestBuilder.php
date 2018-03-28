@@ -10,8 +10,10 @@ use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\Request\Payments\PaymentByIdGetRequest;
 use Commercetools\Core\Request\Payments\PaymentByKeyGetRequest;
 use Commercetools\Core\Request\Payments\PaymentCreateRequest;
+use Commercetools\Core\Request\Payments\PaymentDeleteByKeyRequest;
 use Commercetools\Core\Request\Payments\PaymentDeleteRequest;
 use Commercetools\Core\Request\Payments\PaymentQueryRequest;
+use Commercetools\Core\Request\Payments\PaymentUpdateByKeyRequest;
 use Commercetools\Core\Request\Payments\PaymentUpdateRequest;
 
 class PaymentRequestBuilder
@@ -34,6 +36,15 @@ class PaymentRequestBuilder
     }
 
     /**
+     * @param Payment $payment
+     * @return PaymentUpdateByKeyRequest
+     */
+    public function updateByKey(Payment $payment)
+    {
+        return PaymentUpdateByKeyRequest::ofKeyAndVersion($payment->getKey(), $payment->getVersion());
+    }
+
+    /**
      * @param PaymentDraft $paymentDraft
      * @return PaymentCreateRequest
      */
@@ -52,7 +63,16 @@ class PaymentRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param Payment $payment
+     * @return PaymentDeleteByKeyRequest
+     */
+    public function deleteByKey(Payment $payment)
+    {
+        return PaymentDeleteByKeyRequest::ofKeyAndVersion($payment->getKey(), $payment->getVersion());
+    }
+
+    /**
+     * @param string $id
      * @return PaymentByIdGetRequest
      */
     public function getById($id)
@@ -61,7 +81,7 @@ class PaymentRequestBuilder
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return PaymentByKeyGetRequest
      */
     public function getByKey($key)

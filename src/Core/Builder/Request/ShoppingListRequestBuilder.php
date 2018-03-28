@@ -10,8 +10,10 @@ use Commercetools\Core\Model\ShoppingList\ShoppingListDraft;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListByIdGetRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListByKeyGetRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListCreateRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteByKeyRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListQueryRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListUpdateByKeyRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListUpdateRequest;
 
 class ShoppingListRequestBuilder
@@ -34,6 +36,15 @@ class ShoppingListRequestBuilder
     }
 
     /**
+     * @param ShoppingList $shoppingList
+     * @return ShoppingListUpdateByKeyRequest
+     */
+    public function updateByKey(ShoppingList $shoppingList)
+    {
+        return ShoppingListUpdateByKeyRequest::ofKeyAndVersion($shoppingList->getKey(), $shoppingList->getVersion());
+    }
+
+    /**
      * @param ShoppingListDraft $shoppingListDraft
      * @return ShoppingListCreateRequest
      */
@@ -52,7 +63,16 @@ class ShoppingListRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param ShoppingList $shoppingList
+     * @return ShoppingListDeleteByKeyRequest
+     */
+    public function deleteByKey(ShoppingList $shoppingList)
+    {
+        return ShoppingListDeleteByKeyRequest::ofKeyAndVersion($shoppingList->getKey(), $shoppingList->getVersion());
+    }
+
+    /**
+     * @param string $id
      * @return ShoppingListByIdGetRequest
      */
     public function getById($id)
@@ -61,7 +81,7 @@ class ShoppingListRequestBuilder
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return ShoppingListByKeyGetRequest
      */
     public function getByKey($key)

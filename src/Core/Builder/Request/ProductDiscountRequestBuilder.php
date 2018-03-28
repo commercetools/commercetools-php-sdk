@@ -51,7 +51,7 @@ class ProductDiscountRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return ProductDiscountByIdGetRequest
      */
     public function getById($id)

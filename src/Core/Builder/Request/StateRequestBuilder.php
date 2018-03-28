@@ -51,7 +51,7 @@ class StateRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return StateByIdGetRequest
      */
     public function getById($id)

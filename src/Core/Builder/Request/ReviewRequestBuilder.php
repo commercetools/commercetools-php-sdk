@@ -10,8 +10,10 @@ use Commercetools\Core\Model\Review\ReviewDraft;
 use Commercetools\Core\Request\Reviews\ReviewByIdGetRequest;
 use Commercetools\Core\Request\Reviews\ReviewByKeyGetRequest;
 use Commercetools\Core\Request\Reviews\ReviewCreateRequest;
+use Commercetools\Core\Request\Reviews\ReviewDeleteByKeyRequest;
 use Commercetools\Core\Request\Reviews\ReviewDeleteRequest;
 use Commercetools\Core\Request\Reviews\ReviewQueryRequest;
+use Commercetools\Core\Request\Reviews\ReviewUpdateByKeyRequest;
 use Commercetools\Core\Request\Reviews\ReviewUpdateRequest;
 
 class ReviewRequestBuilder
@@ -34,6 +36,15 @@ class ReviewRequestBuilder
     }
 
     /**
+     * @param Review $review
+     * @return ReviewUpdateByKeyRequest
+     */
+    public function updateByKey(Review $review)
+    {
+        return ReviewUpdateByKeyRequest::ofKeyAndVersion($review->getKey(), $review->getVersion());
+    }
+
+    /**
      * @param ReviewDraft $reviewDraft
      * @return ReviewCreateRequest
      */
@@ -52,7 +63,16 @@ class ReviewRequestBuilder
     }
 
     /**
-     * @param $id
+     * @param Review $review
+     * @return ReviewDeleteByKeyRequest
+     */
+    public function deleteByKey(Review $review)
+    {
+        return ReviewDeleteByKeyRequest::ofKeyAndVersion($review->getKey(), $review->getVersion());
+    }
+
+    /**
+     * @param string $id
      * @return ReviewByIdGetRequest
      */
     public function getById($id)
@@ -61,7 +81,7 @@ class ReviewRequestBuilder
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return ReviewByKeyGetRequest
      */
     public function getByKey($key)

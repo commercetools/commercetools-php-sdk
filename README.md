@@ -69,7 +69,7 @@ To get up and running, [create a free test project](http://admin.sphere.io) on t
 
 require '../vendor/autoload.php';
 
-use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Client;
 use Commercetools\Core\Config;
 use Commercetools\Core\Model\Common\Context;
@@ -87,7 +87,8 @@ $config = Config::fromArray($config)->setContext($context);
  * execute the request and get the PHP Object
  * (the client can and should be re-used)
  */
-$search = ProductProjectionSearchRequest::of()->addParam('text.en', 'red');
+$search = RequestBuilder::of()->productProjections()->search()
+    ->addParam('text.en', 'red');
 
 $client = Client::ofConfig($config);
 $products = $client->execute($search)->toObject();
