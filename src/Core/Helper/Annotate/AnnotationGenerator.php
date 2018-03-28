@@ -7,6 +7,7 @@ namespace Commercetools\Core\Helper\Annotate;
 
 use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\AbstractApiRequest;
 
 class AnnotationGenerator
@@ -54,6 +55,13 @@ class AnnotationGenerator
 
             $annotator->generateMapResponseMethod();
         }
+
+        $domainUpdates = $this->getUpdateObjects($phpFiles);
+
+        foreach ($domainUpdates as $domain => $updates) {
+            $this->generateActionBuilder($domain, $updates);
+        }
+        $this->generateUpdateBuilder(array_keys($domainUpdates));
     }
 
     protected function getJsonObjects(\RegexIterator $phpFiles)
@@ -66,8 +74,9 @@ class AnnotationGenerator
             }
 
             if (!empty($class)) {
-                if (in_array(JsonObject::class, class_parents($class))) {
-                    $jsonObjects[] = $class;
+                $class = new \ReflectionClass($class);
+                if ($class->isSubclassOf(JsonObject::class)) {
+                    $jsonObjects[] = $class->getName();
                 }
             }
         }
@@ -85,8 +94,9 @@ class AnnotationGenerator
             }
 
             if (!empty($class)) {
-                if (in_array(Collection::class, class_parents($class))) {
-                    $collectionObjects[] = $class;
+                $class = new \ReflectionClass($class);
+                if ($class->isSubclassOf(Collection::class)) {
+                    $collectionObjects[] = $class->getName();
                 }
             }
         }
@@ -104,13 +114,36 @@ class AnnotationGenerator
             }
 
             if (!empty($class)) {
-                if (in_array(AbstractApiRequest::class, class_parents($class))) {
-                    $requestObjects[] = $class;
+                $class = new \ReflectionClass($class);
+                if ($class->isSubclassOf(AbstractApiRequest::class)) {
+                    $requestObjects[] = $class->getName();
                 }
             }
         }
 
         return $requestObjects;
+    }
+
+    protected function getUpdateObjects(\RegexIterator $phpFiles)
+    {
+        $actions = [];
+        foreach ($phpFiles as $phpFile) {
+            $class = $this->getClassName($phpFile->getRealPath());
+            if (strpos($class, 'Core\\Helper') > 0) {
+                continue;
+            }
+
+            if (!empty($class)) {
+                $class = new \ReflectionClass($class);
+                if ($class->isSubclassOf(AbstractAction::class) && $class->isInstantiable()) {
+                    $namespaceParts = explode("\\", $class->getNamespaceName());
+                    $domain = $namespaceParts[count($namespaceParts) - 2];
+                    $actions[$domain][] = $class->getName();
+                }
+            }
+        }
+
+        return $actions;
     }
 
     protected function getClassName($fileName)
@@ -141,5 +174,93 @@ class AnnotationGenerator
     {
         $content = file_get_contents($fileName);
         return token_get_all($content);
+    }
+
+    public function generateActionBuilder($domain, $updates)
+    {
+        $className = ucfirst($domain) . 'ActionBuilder';
+        $fileName = __DIR__ . '/../../Builder/Update/' . $className . '.php';
+
+        $updateMethods = [];
+        $uses = [];
+        foreach ($updates as $update) {
+            $uses[] = 'use ' . $update . ';';
+            $updateClass = new \ReflectionClass($update);
+            $actionShortName = $updateClass->getShortName();
+            $action = new $update();
+            $actionName = $action->getAction();
+            $method = <<<METHOD
+    /**
+     * @return $actionShortName
+     */
+    public function $actionName()
+    {
+        return $actionShortName::of();
+    }
+METHOD;
+            $updateMethods[] = $method;
+        }
+
+        $methods = implode(PHP_EOL . PHP_EOL, $updateMethods);
+        $uses = implode(PHP_EOL, $uses);
+        $content = <<<EOF
+<?php
+
+namespace Commercetools\Core\Builder\Update;
+
+$uses
+
+class $className
+{
+$methods
+}
+
+EOF;
+        file_put_contents($fileName, $content);
+    }
+
+    public function generateUpdateBuilder(array $domains)
+    {
+        $builderName = 'ActionBuilder';
+        $fileName = __DIR__ . '/../../Builder/Update/' . $builderName . '.php';
+
+        $methods = [];
+        foreach ($domains as $domain) {
+            $className = ucfirst($domain) . 'ActionBuilder';
+            $uses[] = 'use Commercetools\Core\Builder\Update\\' . $className . ';';
+            $methodName = lcfirst($domain);
+            $method = <<<METHOD
+    /**
+     * @return $className
+     */
+    public function $methodName()
+    {
+        return new $className();
+    }
+METHOD;
+            $methods[] = $method;
+        }
+
+        $uses = implode(PHP_EOL, $uses);
+        $methods = implode(PHP_EOL . PHP_EOL, $methods);
+        $content = <<<EOF
+<?php
+
+namespace Commercetools\Core\Builder\Update;
+
+$uses
+
+class $builderName
+{
+$methods
+
+    public static function of()
+    {
+        return new self();
+    }
+}
+
+EOF;
+        file_put_contents($fileName, $content);
     }
 }
