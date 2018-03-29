@@ -16,82 +16,110 @@ use Commercetools\Core\Request\States\Command\StateSetRolesAction;
 class StatesActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-states.html#set-state-description
+     * @param array $data
      * @return StateSetDescriptionAction
      */
-    public function setDescription()
+    public function setDescription(array $data = [])
     {
-        return StateSetDescriptionAction::of();
+        return new StateSetDescriptionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-states.html#change-state-type
+     * @param array $data
      * @return StateChangeTypeAction
      */
-    public function changeType()
+    public function changeType(array $data = [])
     {
-        return StateChangeTypeAction::of();
+        return new StateChangeTypeAction($data);
     }
 
     /**
+     *
+     * @param array $data
      * @return TransitionStateAction
      */
-    public function transitionState()
+    public function transitionState(array $data = [])
     {
-        return TransitionStateAction::of();
+        return new TransitionStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-states.html#remove-state-roles
+     * @param array $data
      * @return StateRemoveRolesAction
      */
-    public function removeRoles()
+    public function removeRoles(array $data = [])
     {
-        return StateRemoveRolesAction::of();
+        return new StateRemoveRolesAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-states.html#set-state-name
+     * @param array $data
      * @return StateSetNameAction
      */
-    public function setName()
+    public function setName(array $data = [])
     {
-        return StateSetNameAction::of();
+        return new StateSetNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-states.html#add-state-roles
+     * @param array $data
      * @return StateAddRolesAction
      */
-    public function addRoles()
+    public function addRoles(array $data = [])
     {
-        return StateAddRolesAction::of();
+        return new StateAddRolesAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-states.html#change-initial-state
+     * @param array $data
      * @return StateChangeInitialAction
      */
-    public function changeInitial()
+    public function changeInitial(array $data = [])
     {
-        return StateChangeInitialAction::of();
+        return new StateChangeInitialAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-states.html#set-transitions
+     * @param array $data
      * @return StateSetTransitionsAction
      */
-    public function setTransitions()
+    public function setTransitions(array $data = [])
     {
-        return StateSetTransitionsAction::of();
+        return new StateSetTransitionsAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-states.html#change-state-key
+     * @param array $data
      * @return StateChangeKeyAction
      */
-    public function changeKey()
+    public function changeKey(array $data = [])
     {
-        return StateChangeKeyAction::of();
+        return new StateChangeKeyAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-states.html#set-state-roles
+     * @param array $data
      * @return StateSetRolesAction
      */
-    public function setRoles()
+    public function setRoles(array $data = [])
     {
-        return StateSetRolesAction::of();
+        return new StateSetRolesAction($data);
+    }
+
+    /**
+     * @return StatesActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

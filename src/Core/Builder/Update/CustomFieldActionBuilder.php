@@ -8,18 +8,30 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 class CustomFieldActionBuilder
 {
     /**
+     *
+     * @param array $data
      * @return SetCustomFieldAction
      */
-    public function setCustomField()
+    public function setCustomField(array $data = [])
     {
-        return SetCustomFieldAction::of();
+        return new SetCustomFieldAction($data);
     }
 
     /**
+     *
+     * @param array $data
      * @return SetCustomTypeAction
      */
-    public function setCustomType()
+    public function setCustomType(array $data = [])
     {
-        return SetCustomTypeAction::of();
+        return new SetCustomTypeAction($data);
+    }
+
+    /**
+     * @return CustomFieldActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

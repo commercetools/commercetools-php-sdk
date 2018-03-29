@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Subscription\MessageSubscriptionCollection;
 
 /**
  * @package Commercetools\Core\Request\Subscriptions\Command
- *
+ * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#set-messages
  * @method string getAction()
  * @method SubscriptionSetMessagesAction setAction(string $action = null)
  * @method MessageSubscriptionCollection getMessages()

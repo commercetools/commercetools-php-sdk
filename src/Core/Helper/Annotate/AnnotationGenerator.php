@@ -186,16 +186,37 @@ class AnnotationGenerator
         foreach ($updates as $update) {
             $uses[] = 'use ' . $update . ';';
             $updateClass = new \ReflectionClass($update);
+
+            $docComment = $updateClass->getDocComment();
+            $docLinks = [];
+            if (strpos($docComment, '@link https://docs.') > 0) {
+                $docComment = explode(PHP_EOL, $docComment);
+                $docLinks = array_map(
+                    function ($link) {
+                        return trim(str_replace(['*', '@link'], '', $link));
+                    },
+                    array_filter($docComment, function ($line) {
+                        return strpos($line, '@link') > 0;
+                    })
+                );
+            }
+            $docLinks = count($docLinks) > 0 ?
+                ' @link ' . implode(PHP_EOL . '     * @link ', $docLinks):
+                '';
+
             $actionShortName = $updateClass->getShortName();
             $action = new $update();
             $actionName = $action->getAction();
+
             $method = <<<METHOD
     /**
+     *$docLinks
+     * @param array \$data
      * @return $actionShortName
      */
-    public function $actionName()
+    public function $actionName(array \$data = [])
     {
-        return $actionShortName::of();
+        return new $actionShortName(\$data);
     }
 METHOD;
             $updateMethods[] = $method;
@@ -213,6 +234,14 @@ $uses
 class $className
 {
 $methods
+
+    /**
+     * @return $className
+     */
+    public function of()
+    {
+        return new self();
+    }
 }
 
 EOF;
@@ -254,6 +283,9 @@ class $builderName
 {
 $methods
 
+    /**
+     * @return $builderName
+     */
     public static function of()
     {
         return new self();

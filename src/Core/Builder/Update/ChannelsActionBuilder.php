@@ -14,66 +14,90 @@ use Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction;
 class ChannelsActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#set-address
+     * @param array $data
      * @return ChannelSetAddressAction
      */
-    public function setAddress()
+    public function setAddress(array $data = [])
     {
-        return ChannelSetAddressAction::of();
+        return new ChannelSetAddressAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#change-description
+     * @param array $data
      * @return ChannelChangeDescriptionAction
      */
-    public function changeDescription()
+    public function changeDescription(array $data = [])
     {
-        return ChannelChangeDescriptionAction::of();
+        return new ChannelChangeDescriptionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#change-name
+     * @param array $data
      * @return ChannelChangeNameAction
      */
-    public function changeName()
+    public function changeName(array $data = [])
     {
-        return ChannelChangeNameAction::of();
+        return new ChannelChangeNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#set-geolocation
+     * @param array $data
      * @return ChannelSetGeoLocation
      */
-    public function setGeoLocation()
+    public function setGeoLocation(array $data = [])
     {
-        return ChannelSetGeoLocation::of();
+        return new ChannelSetGeoLocation($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#set-roles
+     * @param array $data
      * @return ChannelSetRolesAction
      */
-    public function setRoles()
+    public function setRoles(array $data = [])
     {
-        return ChannelSetRolesAction::of();
+        return new ChannelSetRolesAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#remove-roles
+     * @param array $data
      * @return ChannelRemoveRolesAction
      */
-    public function removeRoles()
+    public function removeRoles(array $data = [])
     {
-        return ChannelRemoveRolesAction::of();
+        return new ChannelRemoveRolesAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#add-roles
+     * @param array $data
      * @return ChannelAddRolesAction
      */
-    public function addRoles()
+    public function addRoles(array $data = [])
     {
-        return ChannelAddRolesAction::of();
+        return new ChannelAddRolesAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#change-key
+     * @param array $data
      * @return ChannelChangeKeyAction
      */
-    public function changeKey()
+    public function changeKey(array $data = [])
     {
-        return ChannelChangeKeyAction::of();
+        return new ChannelChangeKeyAction($data);
+    }
+
+    /**
+     * @return ChannelsActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

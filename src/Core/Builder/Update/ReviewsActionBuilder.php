@@ -15,74 +15,100 @@ use Commercetools\Core\Request\Reviews\Command\ReviewSetAuthorNameAction;
 class ReviewsActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-key
+     * @param array $data
      * @return ReviewSetKeyAction
      */
-    public function setKey()
+    public function setKey(array $data = [])
     {
-        return ReviewSetKeyAction::of();
+        return new ReviewSetKeyAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-customer
+     * @param array $data
      * @return ReviewSetCustomerAction
      */
-    public function setCustomer()
+    public function setCustomer(array $data = [])
     {
-        return ReviewSetCustomerAction::of();
+        return new ReviewSetCustomerAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-title
+     * @param array $data
      * @return ReviewSetTitleAction
      */
-    public function setTitle()
+    public function setTitle(array $data = [])
     {
-        return ReviewSetTitleAction::of();
+        return new ReviewSetTitleAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-text
+     * @param array $data
      * @return ReviewSetTextAction
      */
-    public function setText()
+    public function setText(array $data = [])
     {
-        return ReviewSetTextAction::of();
+        return new ReviewSetTextAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-target
+     * @param array $data
      * @return ReviewSetTargetAction
      */
-    public function setTarget()
+    public function setTarget(array $data = [])
     {
-        return ReviewSetTargetAction::of();
+        return new ReviewSetTargetAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#transition-state
+     * @param array $data
      * @return ReviewTransitionStateAction
      */
-    public function transitionState()
+    public function transitionState(array $data = [])
     {
-        return ReviewTransitionStateAction::of();
+        return new ReviewTransitionStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-rating
+     * @param array $data
      * @return ReviewSetRatingAction
      */
-    public function setRating()
+    public function setRating(array $data = [])
     {
-        return ReviewSetRatingAction::of();
+        return new ReviewSetRatingAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-locale
+     * @param array $data
      * @return ReviewSetLocaleAction
      */
-    public function setLocale()
+    public function setLocale(array $data = [])
     {
-        return ReviewSetLocaleAction::of();
+        return new ReviewSetLocaleAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-author-name
+     * @param array $data
      * @return ReviewSetAuthorNameAction
      */
-    public function setAuthorName()
+    public function setAuthorName(array $data = [])
     {
-        return ReviewSetAuthorNameAction::of();
+        return new ReviewSetAuthorNameAction($data);
+    }
+
+    /**
+     * @return ReviewsActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

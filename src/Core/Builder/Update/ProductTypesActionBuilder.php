@@ -23,138 +23,180 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeInputHintAc
 class ProductTypesActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-label-of-an-localizedenumvalue
+     * @param array $data
      * @return ProductTypeChangeLocalizedEnumLabelAction
      */
-    public function changeLocalizedEnumValueLabel()
+    public function changeLocalizedEnumValueLabel(array $data = [])
     {
-        return ProductTypeChangeLocalizedEnumLabelAction::of();
+        return new ProductTypeChangeLocalizedEnumLabelAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#set-attributedefinition-inputtip
+     * @param array $data
      * @return ProductTypeSetInputTipAction
      */
-    public function setInputTip()
+    public function setInputTip(array $data = [])
     {
-        return ProductTypeSetInputTipAction::of();
+        return new ProductTypeSetInputTipAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-attributedefinition-label
+     * @param array $data
      * @return ProductTypeChangeLabelAction
      */
-    public function changeLabel()
+    public function changeLabel(array $data = [])
     {
-        return ProductTypeChangeLabelAction::of();
+        return new ProductTypeChangeLabelAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#add-attributedefinition
+     * @param array $data
      * @return ProductTypeAddAttributeDefinitionAction
      */
-    public function addAttributeDefinition()
+    public function addAttributeDefinition(array $data = [])
     {
-        return ProductTypeAddAttributeDefinitionAction::of();
+        return new ProductTypeAddAttributeDefinitionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-label-of-an-enumvalue
+     * @param array $data
      * @return ProductTypeChangePlainEnumLabelAction
      */
-    public function changePlainEnumValueLabel()
+    public function changePlainEnumValueLabel(array $data = [])
     {
-        return ProductTypeChangePlainEnumLabelAction::of();
+        return new ProductTypeChangePlainEnumLabelAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#add-plainenumvalue-to-attributedefinition
+     * @param array $data
      * @return ProductTypeAddPlainEnumValueAction
      */
-    public function addPlainEnumValue()
+    public function addPlainEnumValue(array $data = [])
     {
-        return ProductTypeAddPlainEnumValueAction::of();
+        return new ProductTypeAddPlainEnumValueAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#remove-attributedefinition
+     * @param array $data
      * @return ProductTypeRemoveAttributeDefinitionAction
      */
-    public function removeAttributeDefinition()
+    public function removeAttributeDefinition(array $data = [])
     {
-        return ProductTypeRemoveAttributeDefinitionAction::of();
+        return new ProductTypeRemoveAttributeDefinitionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-order-of-enumvalues
+     * @param array $data
      * @return ProductTypeChangePlainEnumValueOrderAction
      */
-    public function changePlainEnumValueOrder()
+    public function changePlainEnumValueOrder(array $data = [])
     {
-        return ProductTypeChangePlainEnumValueOrderAction::of();
+        return new ProductTypeChangePlainEnumValueOrderAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#set-key
+     * @param array $data
      * @return ProductTypeSetKeyAction
      */
-    public function setKey()
+    public function setKey(array $data = [])
     {
-        return ProductTypeSetKeyAction::of();
+        return new ProductTypeSetKeyAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-description
+     * @param array $data
      * @return ProductTypeChangeDescriptionAction
      */
-    public function changeDescription()
+    public function changeDescription(array $data = [])
     {
-        return ProductTypeChangeDescriptionAction::of();
+        return new ProductTypeChangeDescriptionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-attributedefinition-attributeconstraint
+     * @param array $data
      * @return ProductTypeChangeAttributeConstraintAction
      */
-    public function changeAttributeConstraint()
+    public function changeAttributeConstraint(array $data = [])
     {
-        return ProductTypeChangeAttributeConstraintAction::of();
+        return new ProductTypeChangeAttributeConstraintAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-name
+     * @param array $data
      * @return ProductTypeChangeNameAction
      */
-    public function changeName()
+    public function changeName(array $data = [])
     {
-        return ProductTypeChangeNameAction::of();
+        return new ProductTypeChangeNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-order-of-localizedenumvalues
+     * @param array $data
      * @return ProductTypeChangeLocalizedEnumValueOrderAction
      */
-    public function changeLocalizedEnumValueOrder()
+    public function changeLocalizedEnumValueOrder(array $data = [])
     {
-        return ProductTypeChangeLocalizedEnumValueOrderAction::of();
+        return new ProductTypeChangeLocalizedEnumValueOrderAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-attributedefinition-issearchable
+     * @param array $data
      * @return ProductTypeChangeIsSearchableAction
      */
-    public function changeIsSearchable()
+    public function changeIsSearchable(array $data = [])
     {
-        return ProductTypeChangeIsSearchableAction::of();
+        return new ProductTypeChangeIsSearchableAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-order-of-attributedefinitions
+     * @param array $data
      * @return ProductTypeChangeAttributeOrderAction
      */
-    public function changeAttributeOrder()
+    public function changeAttributeOrder(array $data = [])
     {
-        return ProductTypeChangeAttributeOrderAction::of();
+        return new ProductTypeChangeAttributeOrderAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#add-localizableenumvalue-to-attributedefinition
+     * @param array $data
      * @return ProductTypeAddLocalizedEnumValueAction
      */
-    public function addLocalizedEnumValue()
+    public function addLocalizedEnumValue(array $data = [])
     {
-        return ProductTypeAddLocalizedEnumValueAction::of();
+        return new ProductTypeAddLocalizedEnumValueAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-attributedefinition-inputhint
+     * @param array $data
      * @return ProductTypeChangeInputHintAction
      */
-    public function changeInputHint()
+    public function changeInputHint(array $data = [])
     {
-        return ProductTypeChangeInputHintAction::of();
+        return new ProductTypeChangeInputHintAction($data);
+    }
+
+    /**
+     * @return ProductTypesActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

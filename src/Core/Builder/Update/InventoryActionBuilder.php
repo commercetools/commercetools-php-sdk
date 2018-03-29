@@ -12,50 +12,70 @@ use Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction;
 class InventoryActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-expecteddelivery
+     * @param array $data
      * @return InventorySetExpectedDeliveryAction
      */
-    public function setExpectedDelivery()
+    public function setExpectedDelivery(array $data = [])
     {
-        return InventorySetExpectedDeliveryAction::of();
+        return new InventorySetExpectedDeliveryAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-inventory.html#add-quantity
+     * @param array $data
      * @return InventoryAddQuantityAction
      */
-    public function addQuantity()
+    public function addQuantity(array $data = [])
     {
-        return InventoryAddQuantityAction::of();
+        return new InventoryAddQuantityAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-inventory.html#change-quantity
+     * @param array $data
      * @return InventoryChangeQuantityAction
      */
-    public function changeQuantity()
+    public function changeQuantity(array $data = [])
     {
-        return InventoryChangeQuantityAction::of();
+        return new InventoryChangeQuantityAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-supplychannel
+     * @param array $data
      * @return InventorySetSupplyChannelAction
      */
-    public function setSupplyChannel()
+    public function setSupplyChannel(array $data = [])
     {
-        return InventorySetSupplyChannelAction::of();
+        return new InventorySetSupplyChannelAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-restockableindays
+     * @param array $data
      * @return InventorySetRestockableInDaysAction
      */
-    public function setRestockableInDays()
+    public function setRestockableInDays(array $data = [])
     {
-        return InventorySetRestockableInDaysAction::of();
+        return new InventorySetRestockableInDaysAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-inventory.html#remove-quantity
+     * @param array $data
      * @return InventoryRemoveQuantityAction
      */
-    public function removeQuantity()
+    public function removeQuantity(array $data = [])
     {
-        return InventoryRemoveQuantityAction::of();
+        return new InventoryRemoveQuantityAction($data);
+    }
+
+    /**
+     * @return InventoryActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

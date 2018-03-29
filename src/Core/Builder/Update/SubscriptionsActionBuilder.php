@@ -9,26 +9,40 @@ use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetKeyAction;
 class SubscriptionsActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#set-changes
+     * @param array $data
      * @return SubscriptionSetChangesAction
      */
-    public function setChanges()
+    public function setChanges(array $data = [])
     {
-        return SubscriptionSetChangesAction::of();
+        return new SubscriptionSetChangesAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#set-messages
+     * @param array $data
      * @return SubscriptionSetMessagesAction
      */
-    public function setMessages()
+    public function setMessages(array $data = [])
     {
-        return SubscriptionSetMessagesAction::of();
+        return new SubscriptionSetMessagesAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#set-key
+     * @param array $data
      * @return SubscriptionSetKeyAction
      */
-    public function setKey()
+    public function setKey(array $data = [])
     {
-        return SubscriptionSetKeyAction::of();
+        return new SubscriptionSetKeyAction($data);
+    }
+
+    /**
+     * @return SubscriptionsActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

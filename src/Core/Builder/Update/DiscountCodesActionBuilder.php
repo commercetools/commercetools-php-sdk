@@ -16,82 +16,110 @@ use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDisco
 class DiscountCodesActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-groups
+     * @param array $data
      * @return DiscountCodeChangeGroupsAction
      */
-    public function changeGroups()
+    public function changeGroups(array $data = [])
     {
-        return DiscountCodeChangeGroupsAction::of();
+        return new DiscountCodeChangeGroupsAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-max-applications-per-customer
+     * @param array $data
      * @return DiscountCodeSetMaxApplicationsPerCustomerAction
      */
-    public function setMaxApplicationsPerCustomer()
+    public function setMaxApplicationsPerCustomer(array $data = [])
     {
-        return DiscountCodeSetMaxApplicationsPerCustomerAction::of();
+        return new DiscountCodeSetMaxApplicationsPerCustomerAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-cart-predicate
+     * @param array $data
      * @return DiscountCodeSetCartPredicateAction
      */
-    public function setCartPredicate()
+    public function setCartPredicate(array $data = [])
     {
-        return DiscountCodeSetCartPredicateAction::of();
+        return new DiscountCodeSetCartPredicateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-description
+     * @param array $data
      * @return DiscountCodeSetDescriptionAction
      */
-    public function setDescription()
+    public function setDescription(array $data = [])
     {
-        return DiscountCodeSetDescriptionAction::of();
+        return new DiscountCodeSetDescriptionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-valid-until
+     * @param array $data
      * @return DiscountCodeSetValidUntilAction
      */
-    public function setValidUntil()
+    public function setValidUntil(array $data = [])
     {
-        return DiscountCodeSetValidUntilAction::of();
+        return new DiscountCodeSetValidUntilAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-valid-from
+     * @param array $data
      * @return DiscountCodeSetValidFromAction
      */
-    public function setValidFrom()
+    public function setValidFrom(array $data = [])
     {
-        return DiscountCodeSetValidFromAction::of();
+        return new DiscountCodeSetValidFromAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-name
+     * @param array $data
      * @return DiscountCodeSetNameAction
      */
-    public function setName()
+    public function setName(array $data = [])
     {
-        return DiscountCodeSetNameAction::of();
+        return new DiscountCodeSetNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-isactive
+     * @param array $data
      * @return DiscountCodeChangeIsActiveAction
      */
-    public function changeIsActive()
+    public function changeIsActive(array $data = [])
     {
-        return DiscountCodeChangeIsActiveAction::of();
+        return new DiscountCodeChangeIsActiveAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-max-applications
+     * @param array $data
      * @return DiscountCodeSetMaxApplicationsAction
      */
-    public function setMaxApplications()
+    public function setMaxApplications(array $data = [])
     {
-        return DiscountCodeSetMaxApplicationsAction::of();
+        return new DiscountCodeSetMaxApplicationsAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-cartdiscounts
+     * @param array $data
      * @return DiscountCodeChangeCartDiscountsAction
      */
-    public function changeCartDiscounts()
+    public function changeCartDiscounts(array $data = [])
     {
-        return DiscountCodeChangeCartDiscountsAction::of();
+        return new DiscountCodeChangeCartDiscountsAction($data);
+    }
+
+    /**
+     * @return DiscountCodesActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Subscriptions\Command
- *
+ * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#set-key
  * @method string getAction()
  * @method SubscriptionSetKeyAction setAction(string $action = null)
  * @method string getKey()

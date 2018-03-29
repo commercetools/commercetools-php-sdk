@@ -26,162 +26,210 @@ use Commercetools\Core\Request\Categories\Command\CategoryRemoveAssetAction;
 class CategoriesActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-categories.html#set-external-id
+     * @param array $data
      * @return CategorySetExternalIdAction
      */
-    public function setExternalId()
+    public function setExternalId(array $data = [])
     {
-        return CategorySetExternalIdAction::of();
+        return new CategorySetExternalIdAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-categories.html#set-description
+     * @param array $data
      * @return CategorySetDescriptionAction
      */
-    public function setDescription()
+    public function setDescription(array $data = [])
     {
-        return CategorySetDescriptionAction::of();
+        return new CategorySetDescriptionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-categories.html#set-meta-title
+     * @param array $data
      * @return CategorySetMetaTitleAction
      */
-    public function setMetaTitle()
+    public function setMetaTitle(array $data = [])
     {
-        return CategorySetMetaTitleAction::of();
+        return new CategorySetMetaTitleAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-customfield
+     * @param array $data
      * @return CategorySetAssetCustomFieldAction
      */
-    public function setAssetCustomField()
+    public function setAssetCustomField(array $data = [])
     {
-        return CategorySetAssetCustomFieldAction::of();
+        return new CategorySetAssetCustomFieldAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-key
+     * @param array $data
      * @return CategorySetAssetKeyAction
      */
-    public function setAssetKey()
+    public function setAssetKey(array $data = [])
     {
-        return CategorySetAssetKeyAction::of();
+        return new CategorySetAssetKeyAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-custom-type
+     * @param array $data
      * @return CategorySetAssetCustomTypeAction
      */
-    public function setAssetCustomType()
+    public function setAssetCustomType(array $data = [])
     {
-        return CategorySetAssetCustomTypeAction::of();
+        return new CategorySetAssetCustomTypeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-categories.html#set-meta-keywords
+     * @param array $data
      * @return CategorySetMetaKeywordsAction
      */
-    public function setMetaKeywords()
+    public function setMetaKeywords(array $data = [])
     {
-        return CategorySetMetaKeywordsAction::of();
+        return new CategorySetMetaKeywordsAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-categories.html#set-meta-description
+     * @param array $data
      * @return CategorySetMetaDescriptionAction
      */
-    public function setMetaDescription()
+    public function setMetaDescription(array $data = [])
     {
-        return CategorySetMetaDescriptionAction::of();
+        return new CategorySetMetaDescriptionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-categories.html#change-slug
+     * @param array $data
      * @return CategoryChangeSlugAction
      */
-    public function changeSlug()
+    public function changeSlug(array $data = [])
     {
-        return CategoryChangeSlugAction::of();
+        return new CategoryChangeSlugAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-description
+     * @param array $data
      * @return CategorySetAssetDescriptionAction
      */
-    public function setAssetDescription()
+    public function setAssetDescription(array $data = [])
     {
-        return CategorySetAssetDescriptionAction::of();
+        return new CategorySetAssetDescriptionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-categories.html#change-name
+     * @param array $data
      * @return CategoryChangeNameAction
      */
-    public function changeName()
+    public function changeName(array $data = [])
     {
-        return CategoryChangeNameAction::of();
+        return new CategoryChangeNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-tags
+     * @param array $data
      * @return CategorySetAssetSourcesAction
      */
-    public function setAssetSources()
+    public function setAssetSources(array $data = [])
     {
-        return CategorySetAssetSourcesAction::of();
+        return new CategorySetAssetSourcesAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-categories.html#set-key
+     * @param array $data
      * @return CategorySetKeyAction
      */
-    public function setKey()
+    public function setKey(array $data = [])
     {
-        return CategorySetKeyAction::of();
+        return new CategorySetKeyAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-tags
+     * @param array $data
      * @return CategorySetAssetTagsAction
      */
-    public function setAssetTags()
+    public function setAssetTags(array $data = [])
     {
-        return CategorySetAssetTagsAction::of();
+        return new CategorySetAssetTagsAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-categories.html#change-asset-order
+     * @param array $data
      * @return CategoryChangeAssetOrderAction
      */
-    public function changeAssetOrder()
+    public function changeAssetOrder(array $data = [])
     {
-        return CategoryChangeAssetOrderAction::of();
+        return new CategoryChangeAssetOrderAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-products.html#add-asset
+     * @param array $data
      * @return CategoryAddAssetAction
      */
-    public function addAsset()
+    public function addAsset(array $data = [])
     {
-        return CategoryAddAssetAction::of();
+        return new CategoryAddAssetAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-categories.html#change-parent
+     * @param array $data
      * @return CategoryChangeParentAction
      */
-    public function changeParent()
+    public function changeParent(array $data = [])
     {
-        return CategoryChangeParentAction::of();
+        return new CategoryChangeParentAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-categories.html#change-orderhint
+     * @param array $data
      * @return CategoryChangeOrderHintAction
      */
-    public function changeOrderHint()
+    public function changeOrderHint(array $data = [])
     {
-        return CategoryChangeOrderHintAction::of();
+        return new CategoryChangeOrderHintAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-products.html#change-asset-name
+     * @param array $data
      * @return CategoryChangeAssetNameAction
      */
-    public function changeAssetName()
+    public function changeAssetName(array $data = [])
     {
-        return CategoryChangeAssetNameAction::of();
+        return new CategoryChangeAssetNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-products.html#remove-asset
+     * @param array $data
      * @return CategoryRemoveAssetAction
      */
-    public function removeAsset()
+    public function removeAsset(array $data = [])
     {
-        return CategoryRemoveAssetAction::of();
+        return new CategoryRemoveAssetAction($data);
+    }
+
+    /**
+     * @return CategoriesActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

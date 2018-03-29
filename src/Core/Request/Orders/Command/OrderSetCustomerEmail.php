@@ -11,6 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 /**
  * @package Commercetools\Core\Request\Orders\Command
  *
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#set-customer-email
  * @method string getAction()
  * @method OrderSetCustomerEmail setAction(string $action = null)
  * @method string getEmail()

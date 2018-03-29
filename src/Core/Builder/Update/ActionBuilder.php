@@ -212,6 +212,9 @@ class ActionBuilder
         return new ChannelsActionBuilder();
     }
 
+    /**
+     * @return ActionBuilder
+     */
     public static function of()
     {
         return new self();

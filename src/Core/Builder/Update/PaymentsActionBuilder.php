@@ -27,170 +27,220 @@ use Commercetools\Core\Request\Payments\Command\PaymentSetInterfaceIdAction;
 class PaymentsActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-customer
+     * @param array $data
      * @return PaymentSetCustomerAction
      */
-    public function setCustomer()
+    public function setCustomer(array $data = [])
     {
-        return PaymentSetCustomerAction::of();
+        return new PaymentSetCustomerAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#add-interfaceinteraction
+     * @param array $data
      * @return PaymentAddInterfaceInteractionAction
      */
-    public function addInterfaceInteraction()
+    public function addInterfaceInteraction(array $data = [])
     {
-        return PaymentAddInterfaceInteractionAction::of();
+        return new PaymentAddInterfaceInteractionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-custom-type
+     * @param array $data
      * @return PaymentSetCustomTypeAction
      */
-    public function setCustomType()
+    public function setCustomType(array $data = [])
     {
-        return PaymentSetCustomTypeAction::of();
+        return new PaymentSetCustomTypeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-externalid
+     * @param array $data
      * @return PaymentSetExternalIdAction
      */
-    public function setExternalId()
+    public function setExternalId(array $data = [])
     {
-        return PaymentSetExternalIdAction::of();
+        return new PaymentSetExternalIdAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-customfield
+     * @param array $data
      * @return PaymentSetCustomFieldAction
      */
-    public function setCustomField()
+    public function setCustomField(array $data = [])
     {
-        return PaymentSetCustomFieldAction::of();
+        return new PaymentSetCustomFieldAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#transition-state
+     * @param array $data
      * @return PaymentTransitionStateAction
      */
-    public function transitionState()
+    public function transitionState(array $data = [])
     {
-        return PaymentTransitionStateAction::of();
+        return new PaymentTransitionStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#change-transactionstate
+     * @param array $data
      * @return PaymentChangeTransactionStateAction
      */
-    public function changeTransactionState()
+    public function changeTransactionState(array $data = [])
     {
-        return PaymentChangeTransactionStateAction::of();
+        return new PaymentChangeTransactionStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-authorization
+     * @param array $data
      * @return PaymentSetAuthorizationAction
      */
-    public function setAuthorization()
+    public function setAuthorization(array $data = [])
     {
-        return PaymentSetAuthorizationAction::of();
+        return new PaymentSetAuthorizationAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-methodinfomethod
+     * @param array $data
      * @return PaymentSetMethodInfoMethodAction
      */
-    public function setMethodInfoMethod()
+    public function setMethodInfoMethod(array $data = [])
     {
-        return PaymentSetMethodInfoMethodAction::of();
+        return new PaymentSetMethodInfoMethodAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#change-transactioninteractionid
+     * @param array $data
      * @return PaymentChangeTransactionInteractionIdAction
      */
-    public function changeTransactionInteractionId()
+    public function changeTransactionInteractionId(array $data = [])
     {
-        return PaymentChangeTransactionInteractionIdAction::of();
+        return new PaymentChangeTransactionInteractionIdAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-statusinterfacetext
+     * @param array $data
      * @return PaymentSetStatusInterfaceTextAction
      */
-    public function setStatusInterfaceText()
+    public function setStatusInterfaceText(array $data = [])
     {
-        return PaymentSetStatusInterfaceTextAction::of();
+        return new PaymentSetStatusInterfaceTextAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-statusinterfacecode
+     * @param array $data
      * @return PaymentSetStatusInterfaceCodeAction
      */
-    public function setStatusInterfaceCode()
+    public function setStatusInterfaceCode(array $data = [])
     {
-        return PaymentSetStatusInterfaceCodeAction::of();
+        return new PaymentSetStatusInterfaceCodeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-methodinfointerface
+     * @param array $data
      * @return PaymentSetMethodInfoInterfaceAction
      */
-    public function setMethodInfoInterface()
+    public function setMethodInfoInterface(array $data = [])
     {
-        return PaymentSetMethodInfoInterfaceAction::of();
+        return new PaymentSetMethodInfoInterfaceAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-amountrefunded
+     * @param array $data
      * @return PaymentSetAmountRefundedAction
      */
-    public function setAmountRefunded()
+    public function setAmountRefunded(array $data = [])
     {
-        return PaymentSetAmountRefundedAction::of();
+        return new PaymentSetAmountRefundedAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-methodinfoname
+     * @param array $data
      * @return PaymentSetMethodInfoNameAction
      */
-    public function setMethodInfoName()
+    public function setMethodInfoName(array $data = [])
     {
-        return PaymentSetMethodInfoNameAction::of();
+        return new PaymentSetMethodInfoNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#change-amountplanned
+     * @param array $data
      * @return PaymentChangeAmountPlannedAction
      */
-    public function changeAmountPlanned()
+    public function changeAmountPlanned(array $data = [])
     {
-        return PaymentChangeAmountPlannedAction::of();
+        return new PaymentChangeAmountPlannedAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#add-transaction
+     * @param array $data
      * @return PaymentAddTransactionAction
      */
-    public function addTransaction()
+    public function addTransaction(array $data = [])
     {
-        return PaymentAddTransactionAction::of();
+        return new PaymentAddTransactionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-key
+     * @param array $data
      * @return PaymentSetKeyAction
      */
-    public function setKey()
+    public function setKey(array $data = [])
     {
-        return PaymentSetKeyAction::of();
+        return new PaymentSetKeyAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-amountpaid
+     * @param array $data
      * @return PaymentSetAmountPaidAction
      */
-    public function setAmountPaid()
+    public function setAmountPaid(array $data = [])
     {
-        return PaymentSetAmountPaidAction::of();
+        return new PaymentSetAmountPaidAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#change-transactiontimestamp
+     * @param array $data
      * @return PaymentChangeTransactionTimestampAction
      */
-    public function changeTransactionTimestamp()
+    public function changeTransactionTimestamp(array $data = [])
     {
-        return PaymentChangeTransactionTimestampAction::of();
+        return new PaymentChangeTransactionTimestampAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#set-interfaceid
+     * @param array $data
      * @return PaymentSetInterfaceIdAction
      */
-    public function setInterfaceId()
+    public function setInterfaceId(array $data = [])
     {
-        return PaymentSetInterfaceIdAction::of();
+        return new PaymentSetInterfaceIdAction($data);
+    }
+
+    /**
+     * @return PaymentsActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

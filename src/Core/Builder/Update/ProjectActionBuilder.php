@@ -12,50 +12,70 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
 class ProjectActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-project.html#set-shippingrateinputtype
+     * @param array $data
      * @return ProjectSetShippingRateInputTypeAction
      */
-    public function setShippingRateInputType()
+    public function setShippingRateInputType(array $data = [])
     {
-        return ProjectSetShippingRateInputTypeAction::of();
+        return new ProjectSetShippingRateInputTypeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-project.html#change-currencies
+     * @param array $data
      * @return ProjectChangeCurrenciesAction
      */
-    public function changeCurrencies()
+    public function changeCurrencies(array $data = [])
     {
-        return ProjectChangeCurrenciesAction::of();
+        return new ProjectChangeCurrenciesAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-project.html#change-languages
+     * @param array $data
      * @return ProjectChangeLanguagesAction
      */
-    public function changeLanguages()
+    public function changeLanguages(array $data = [])
     {
-        return ProjectChangeLanguagesAction::of();
+        return new ProjectChangeLanguagesAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-project.html#change-name
+     * @param array $data
      * @return ProjectChangeNameAction
      */
-    public function changeName()
+    public function changeName(array $data = [])
     {
-        return ProjectChangeNameAction::of();
+        return new ProjectChangeNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-project.html#change-messages-enabled
+     * @param array $data
      * @return ProjectChangeMessagesEnabledAction
      */
-    public function changeMessagesEnabled()
+    public function changeMessagesEnabled(array $data = [])
     {
-        return ProjectChangeMessagesEnabledAction::of();
+        return new ProjectChangeMessagesEnabledAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-project.html#change-countries
+     * @param array $data
      * @return ProjectChangeCountriesAction
      */
-    public function changeCountries()
+    public function changeCountries(array $data = [])
     {
-        return ProjectChangeCountriesAction::of();
+        return new ProjectChangeCountriesAction($data);
+    }
+
+    /**
+     * @return ProjectActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

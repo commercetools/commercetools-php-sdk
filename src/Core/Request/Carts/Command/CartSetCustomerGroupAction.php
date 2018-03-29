@@ -12,6 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 /**
  * @package Commercetools\Core\Request\Carts\Command
  *
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customer-group
  * @method string getAction()
  * @method CartSetCustomerGroupAction setAction(string $action = null)
  * @method CustomerGroupReference getCustomerGroup()

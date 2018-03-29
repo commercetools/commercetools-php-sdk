@@ -12,6 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 /**
  * @package Commercetools\Core\Request\Customers\Command
  *
+ * @link https://docs.commercetools.com/http-api-projects-customers.html#set-locale
  * @method string getAction()
  * @method CustomerSetLocaleAction setAction(string $action = null)
  * @method string getLocale()

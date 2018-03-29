@@ -47,330 +47,421 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeActi
 class CartsActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-customfield
+     * @param array $data
      * @return CartSetLineItemCustomFieldAction
      */
-    public function setLineItemCustomField()
+    public function setLineItemCustomField(array $data = [])
     {
-        return CartSetLineItemCustomFieldAction::of();
+        return new CartSetLineItemCustomFieldAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#add-payment
+     * @param array $data
      * @return CartAddPaymentAction
      */
-    public function addPayment()
+    public function addPayment(array $data = [])
     {
-        return CartAddPaymentAction::of();
+        return new CartAddPaymentAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#remove-lineitem
+     * @param array $data
      * @return CartRemoveLineItemAction
      */
-    public function removeLineItem()
+    public function removeLineItem(array $data = [])
     {
-        return CartRemoveLineItemAction::of();
+        return new CartRemoveLineItemAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#remove-customlineitem
+     * @param array $data
      * @return CartRemoveCustomLineItemAction
      */
-    public function removeCustomLineItem()
+    public function removeCustomLineItem(array $data = [])
     {
-        return CartRemoveCustomLineItemAction::of();
+        return new CartRemoveCustomLineItemAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-deletedaysafterlastmodification-beta
+     * @param array $data
      * @return CartSetDeleteDaysAfterLastModificationAction
      */
-    public function setDeleteDaysAfterLastModification()
+    public function setDeleteDaysAfterLastModification(array $data = [])
     {
-        return CartSetDeleteDaysAfterLastModificationAction::of();
+        return new CartSetDeleteDaysAfterLastModificationAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-totalprice
+     * @param array $data
      * @return CartSetLineItemPriceAction
      */
-    public function setLineItemPrice()
+    public function setLineItemPrice(array $data = [])
     {
-        return CartSetLineItemPriceAction::of();
+        return new CartSetLineItemPriceAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-taxamount
+     * @param array $data
      * @return CartSetLineItemTaxAmountAction
      */
-    public function setLineItemTaxAmount()
+    public function setLineItemTaxAmount(array $data = [])
     {
-        return CartSetLineItemTaxAmountAction::of();
+        return new CartSetLineItemTaxAmountAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#remove-discountcode
+     * @param array $data
      * @return CartRemoveDiscountCodeAction
      */
-    public function removeDiscountCode()
+    public function removeDiscountCode(array $data = [])
     {
-        return CartRemoveDiscountCodeAction::of();
+        return new CartRemoveDiscountCodeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-shipping-address
+     * @param array $data
      * @return CartSetShippingAddressAction
      */
-    public function setShippingAddress()
+    public function setShippingAddress(array $data = [])
     {
-        return CartSetShippingAddressAction::of();
+        return new CartSetShippingAddressAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#change-customlineitem-money
+     * @param array $data
      * @return CartChangeCustomLineItemMoneyAction
      */
-    public function changeCustomLineItemMoney()
+    public function changeCustomLineItemMoney(array $data = [])
     {
-        return CartChangeCustomLineItemMoneyAction::of();
+        return new CartChangeCustomLineItemMoneyAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customer-email
+     * @param array $data
      * @return CartSetCustomerEmailAction
      */
-    public function setCustomerEmail()
+    public function setCustomerEmail(array $data = [])
     {
-        return CartSetCustomerEmailAction::of();
+        return new CartSetCustomerEmailAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-locale
+     * @param array $data
      * @return CartSetLocaleAction
      */
-    public function setLocale()
+    public function setLocale(array $data = [])
     {
-        return CartSetLocaleAction::of();
+        return new CartSetLocaleAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-custom-shippingmethod
+     * @param array $data
      * @return CartSetCustomShippingMethodAction
      */
-    public function setCustomShippingMethod()
+    public function setCustomShippingMethod(array $data = [])
     {
-        return CartSetCustomShippingMethodAction::of();
+        return new CartSetCustomShippingMethodAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customlineitem-customfield
+     * @param array $data
      * @return CartSetCustomLineItemCustomFieldAction
      */
-    public function setCustomLineItemCustomField()
+    public function setCustomLineItemCustomField(array $data = [])
     {
-        return CartSetCustomLineItemCustomFieldAction::of();
+        return new CartSetCustomLineItemCustomFieldAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-taxrate
+     * @param array $data
      * @return CartSetLineItemTaxRateAction
      */
-    public function setLineItemTaxRate()
+    public function setLineItemTaxRate(array $data = [])
     {
-        return CartSetLineItemTaxRateAction::of();
+        return new CartSetLineItemTaxRateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-shippingmethod-taxrate
+     * @param array $data
      * @return CartSetShippingMethodTaxRateAction
      */
-    public function setShippingMethodTaxRate()
+    public function setShippingMethodTaxRate(array $data = [])
     {
-        return CartSetShippingMethodTaxRateAction::of();
+        return new CartSetShippingMethodTaxRateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#add-customlineitem
+     * @param array $data
      * @return CartAddCustomLineItemAction
      */
-    public function addCustomLineItem()
+    public function addCustomLineItem(array $data = [])
     {
-        return CartAddCustomLineItemAction::of();
+        return new CartAddCustomLineItemAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#change-taxmode
+     * @param array $data
      * @return CartChangeTaxModeAction
      */
-    public function changeTaxMode()
+    public function changeTaxMode(array $data = [])
     {
-        return CartChangeTaxModeAction::of();
+        return new CartChangeTaxModeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customlineitem-taxrate
+     * @param array $data
      * @return CartSetCustomLineItemTaxRateAction
      */
-    public function setCustomLineItemTaxRate()
+    public function setCustomLineItemTaxRate(array $data = [])
     {
-        return CartSetCustomLineItemTaxRateAction::of();
+        return new CartSetCustomLineItemTaxRateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-totalprice
+     * @param array $data
      * @return CartSetLineItemTotalPriceAction
      */
-    public function setLineItemTotalPrice()
+    public function setLineItemTotalPrice(array $data = [])
     {
-        return CartSetLineItemTotalPriceAction::of();
+        return new CartSetLineItemTotalPriceAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-cart-total-tax
+     * @param array $data
      * @return CartSetCartTotalTaxAction
      */
-    public function setCartTotalTax()
+    public function setCartTotalTax(array $data = [])
     {
-        return CartSetCartTotalTaxAction::of();
+        return new CartSetCartTotalTaxAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#change-lineitem-quantity
+     * @param array $data
      * @return CartChangeLineItemQuantityAction
      */
-    public function changeLineItemQuantity()
+    public function changeLineItemQuantity(array $data = [])
     {
-        return CartChangeLineItemQuantityAction::of();
+        return new CartChangeLineItemQuantityAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#recalculate
+     * @param array $data
      * @return CartRecalculateAction
      */
-    public function recalculate()
+    public function recalculate(array $data = [])
     {
-        return CartRecalculateAction::of();
+        return new CartRecalculateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customer-group
+     * @param array $data
      * @return CartSetCustomerGroupAction
      */
-    public function setCustomerGroup()
+    public function setCustomerGroup(array $data = [])
     {
-        return CartSetCustomerGroupAction::of();
+        return new CartSetCustomerGroupAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-billing-address
+     * @param array $data
      * @return CartSetBillingAddressAction
      */
-    public function setBillingAddress()
+    public function setBillingAddress(array $data = [])
     {
-        return CartSetBillingAddressAction::of();
+        return new CartSetBillingAddressAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-anonymous-id
+     * @param array $data
      * @return CartSetAnonymousIdAction
      */
-    public function setAnonymousId()
+    public function setAnonymousId(array $data = [])
     {
-        return CartSetAnonymousIdAction::of();
+        return new CartSetAnonymousIdAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-shippingmethod
+     * @param array $data
      * @return CartSetShippingMethodAction
      */
-    public function setShippingMethod()
+    public function setShippingMethod(array $data = [])
     {
-        return CartSetShippingMethodAction::of();
+        return new CartSetShippingMethodAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customlineitem-custom-type
+     * @param array $data
      * @return CartSetLineItemCustomTypeAction
      */
-    public function setLineItemCustomType()
+    public function setLineItemCustomType(array $data = [])
     {
-        return CartSetLineItemCustomTypeAction::of();
+        return new CartSetLineItemCustomTypeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#add-lineitem
+     * @param array $data
      * @return CartAddLineItemAction
      */
-    public function addLineItem()
+    public function addLineItem(array $data = [])
     {
-        return CartAddLineItemAction::of();
+        return new CartAddLineItemAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customer-id
+     * @param array $data
      * @return CartSetCustomerIdAction
      */
-    public function setCustomerId()
+    public function setCustomerId(array $data = [])
     {
-        return CartSetCustomerIdAction::of();
+        return new CartSetCustomerIdAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customlineitem-taxamount
+     * @param array $data
      * @return CartSetCustomLineItemTaxAmountAction
      */
-    public function setCustomLineItemTaxAmount()
+    public function setCustomLineItemTaxAmount(array $data = [])
     {
-        return CartSetCustomLineItemTaxAmountAction::of();
+        return new CartSetCustomLineItemTaxAmountAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#add-shoppinglist
+     * @param array $data
      * @return CartAddShoppingListAction
      */
-    public function addShoppingList()
+    public function addShoppingList(array $data = [])
     {
-        return CartAddShoppingListAction::of();
+        return new CartAddShoppingListAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#add-discountcode
+     * @param array $data
      * @return CartAddDiscountCodeAction
      */
-    public function addDiscountCode()
+    public function addDiscountCode(array $data = [])
     {
-        return CartAddDiscountCodeAction::of();
+        return new CartAddDiscountCodeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#change-customlineitem-quantity
+     * @param array $data
      * @return CartChangeCustomLineItemQuantityAction
      */
-    public function changeCustomLineItemQuantity()
+    public function changeCustomLineItemQuantity(array $data = [])
     {
-        return CartChangeCustomLineItemQuantityAction::of();
+        return new CartChangeCustomLineItemQuantityAction($data);
     }
 
     /**
+     * @link https://dev.commercetools.com/http-api-projects-carts.html#set-shippingrateinput
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-shippingrateinput
+     * @param array $data
      * @return CartSetShippingRateInputAction
      */
-    public function setShippingRateInput()
+    public function setShippingRateInput(array $data = [])
     {
-        return CartSetShippingRateInputAction::of();
+        return new CartSetShippingRateInputAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-country
+     * @param array $data
      * @return CartSetCountryAction
      */
-    public function setCountry()
+    public function setCountry(array $data = [])
     {
-        return CartSetCountryAction::of();
+        return new CartSetCountryAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#change-tax-roundingmode
+     * @param array $data
      * @return CartChangeTaxRoundingModeAction
      */
-    public function changeTaxRoundingMode()
+    public function changeTaxRoundingMode(array $data = [])
     {
-        return CartChangeTaxRoundingModeAction::of();
+        return new CartChangeTaxRoundingModeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#remove-payment
+     * @param array $data
      * @return CartRemovePaymentAction
      */
-    public function removePayment()
+    public function removePayment(array $data = [])
     {
-        return CartRemovePaymentAction::of();
+        return new CartRemovePaymentAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-shippingmethod-taxamount
+     * @param array $data
      * @return CartSetShippingMethodTaxAmountAction
      */
-    public function setShippingMethodTaxAmount()
+    public function setShippingMethodTaxAmount(array $data = [])
     {
-        return CartSetShippingMethodTaxAmountAction::of();
+        return new CartSetShippingMethodTaxAmountAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#change-tax-calculationmode
+     * @param array $data
      * @return CartChangeTaxCalculationModeAction
      */
-    public function changeTaxCalculationMode()
+    public function changeTaxCalculationMode(array $data = [])
     {
-        return CartChangeTaxCalculationModeAction::of();
+        return new CartChangeTaxCalculationModeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customlineitem-custom-type
+     * @param array $data
      * @return CartSetCustomLineItemCustomTypeAction
      */
-    public function setCustomLineItemCustomType()
+    public function setCustomLineItemCustomType(array $data = [])
     {
-        return CartSetCustomLineItemCustomTypeAction::of();
+        return new CartSetCustomLineItemCustomTypeAction($data);
+    }
+
+    /**
+     * @return CartsActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

@@ -29,186 +29,240 @@ use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerNumberAction
 class CustomersActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-default-shipping-address
+     * @param array $data
      * @return CustomerSetDefaultShippingAddressAction
      */
-    public function setDefaultShippingAddress()
+    public function setDefaultShippingAddress(array $data = [])
     {
-        return CustomerSetDefaultShippingAddressAction::of();
+        return new CustomerSetDefaultShippingAddressAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-title
+     * @param array $data
      * @return CustomerSetTitleAction
      */
-    public function setTitle()
+    public function setTitle(array $data = [])
     {
-        return CustomerSetTitleAction::of();
+        return new CustomerSetTitleAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-customergroup
+     * @param array $data
      * @return CustomerSetCustomerGroupAction
      */
-    public function setCustomerGroup()
+    public function setCustomerGroup(array $data = [])
     {
-        return CustomerSetCustomerGroupAction::of();
+        return new CustomerSetCustomerGroupAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-date-of-birth
+     * @param array $data
      * @return CustomerSetDateOfBirthAction
      */
-    public function setDateOfBirth()
+    public function setDateOfBirth(array $data = [])
     {
-        return CustomerSetDateOfBirthAction::of();
+        return new CustomerSetDateOfBirthAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#change-email
+     * @param array $data
      * @return CustomerChangeEmailAction
      */
-    public function changeEmail()
+    public function changeEmail(array $data = [])
     {
-        return CustomerChangeEmailAction::of();
+        return new CustomerChangeEmailAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-last-name
+     * @param array $data
      * @return CustomerSetLastNameAction
      */
-    public function setLastName()
+    public function setLastName(array $data = [])
     {
-        return CustomerSetLastNameAction::of();
+        return new CustomerSetLastNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-salutation
+     * @param array $data
      * @return CustomerSetSalutationAction
      */
-    public function setSalutation()
+    public function setSalutation(array $data = [])
     {
-        return CustomerSetSalutationAction::of();
+        return new CustomerSetSalutationAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-vat-id
+     * @param array $data
      * @return CustomerSetVatIdAction
      */
-    public function setVatId()
+    public function setVatId(array $data = [])
     {
-        return CustomerSetVatIdAction::of();
+        return new CustomerSetVatIdAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-key
+     * @param array $data
      * @return CustomerSetKeyAction
      */
-    public function setKey()
+    public function setKey(array $data = [])
     {
-        return CustomerSetKeyAction::of();
+        return new CustomerSetKeyAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-locale
+     * @param array $data
      * @return CustomerSetLocaleAction
      */
-    public function setLocale()
+    public function setLocale(array $data = [])
     {
-        return CustomerSetLocaleAction::of();
+        return new CustomerSetLocaleAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-first-name
+     * @param array $data
      * @return CustomerSetFirstNameAction
      */
-    public function setFirstName()
+    public function setFirstName(array $data = [])
     {
-        return CustomerSetFirstNameAction::of();
+        return new CustomerSetFirstNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-company-name
+     * @param array $data
      * @return CustomerSetCompanyNameAction
      */
-    public function setCompanyName()
+    public function setCompanyName(array $data = [])
     {
-        return CustomerSetCompanyNameAction::of();
+        return new CustomerSetCompanyNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#remove-address
+     * @param array $data
      * @return CustomerRemoveAddressAction
      */
-    public function removeAddress()
+    public function removeAddress(array $data = [])
     {
-        return CustomerRemoveAddressAction::of();
+        return new CustomerRemoveAddressAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#add-billing-address-id
+     * @param array $data
      * @return CustomerRemoveBillingAddressAction
      */
-    public function removeBillingAddressId()
+    public function removeBillingAddressId(array $data = [])
     {
-        return CustomerRemoveBillingAddressAction::of();
+        return new CustomerRemoveBillingAddressAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#add-billing-address-id
+     * @param array $data
      * @return CustomerAddBillingAddressAction
      */
-    public function addBillingAddressId()
+    public function addBillingAddressId(array $data = [])
     {
-        return CustomerAddBillingAddressAction::of();
+        return new CustomerAddBillingAddressAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#add-billing-address-id
+     * @param array $data
      * @return CustomerRemoveShippingAddressAction
      */
-    public function removeShippingAddressId()
+    public function removeShippingAddressId(array $data = [])
     {
-        return CustomerRemoveShippingAddressAction::of();
+        return new CustomerRemoveShippingAddressAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#add-address
+     * @param array $data
      * @return CustomerAddAddressAction
      */
-    public function addAddress()
+    public function addAddress(array $data = [])
     {
-        return CustomerAddAddressAction::of();
+        return new CustomerAddAddressAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-middle-name
+     * @param array $data
      * @return CustomerSetMiddleNameAction
      */
-    public function setMiddleName()
+    public function setMiddleName(array $data = [])
     {
-        return CustomerSetMiddleNameAction::of();
+        return new CustomerSetMiddleNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-default-billing-address
+     * @param array $data
      * @return CustomerSetDefaultBillingAddressAction
      */
-    public function setDefaultBillingAddress()
+    public function setDefaultBillingAddress(array $data = [])
     {
-        return CustomerSetDefaultBillingAddressAction::of();
+        return new CustomerSetDefaultBillingAddressAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#change-address
+     * @param array $data
      * @return CustomerChangeAddressAction
      */
-    public function changeAddress()
+    public function changeAddress(array $data = [])
     {
-        return CustomerChangeAddressAction::of();
+        return new CustomerChangeAddressAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-external-id
+     * @param array $data
      * @return CustomerSetExternalIdAction
      */
-    public function setExternalId()
+    public function setExternalId(array $data = [])
     {
-        return CustomerSetExternalIdAction::of();
+        return new CustomerSetExternalIdAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#add-billing-address-id
+     * @param array $data
      * @return CustomerAddShippingAddressAction
      */
-    public function addShippingAddressId()
+    public function addShippingAddressId(array $data = [])
     {
-        return CustomerAddShippingAddressAction::of();
+        return new CustomerAddShippingAddressAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-customer-number
+     * @param array $data
      * @return CustomerSetCustomerNumberAction
      */
-    public function setCustomerNumber()
+    public function setCustomerNumber(array $data = [])
     {
-        return CustomerSetCustomerNumberAction::of();
+        return new CustomerSetCustomerNumberAction($data);
+    }
+
+    /**
+     * @return CustomersActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

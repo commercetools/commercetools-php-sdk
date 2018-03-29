@@ -28,178 +28,230 @@ use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListChangeLineItems
 class ShoppingListsActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-slug
+     * @param array $data
      * @return ShoppingListSetSlugAction
      */
-    public function setSlug()
+    public function setSlug(array $data = [])
     {
-        return ShoppingListSetSlugAction::of();
+        return new ShoppingListSetSlugAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-deletedaysafterlastmodification
+     * @param array $data
      * @return ShoppingListSetDeleteDaysAfterLastModificationAction
      */
-    public function setDeleteDaysAfterLastModification()
+    public function setDeleteDaysAfterLastModification(array $data = [])
     {
-        return ShoppingListSetDeleteDaysAfterLastModificationAction::of();
+        return new ShoppingListSetDeleteDaysAfterLastModificationAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-customer
+     * @param array $data
      * @return ShoppingListSetCustomerAction
      */
-    public function setCustomer()
+    public function setCustomer(array $data = [])
     {
-        return ShoppingListSetCustomerAction::of();
+        return new ShoppingListSetCustomerAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-textlineitem-description
+     * @param array $data
      * @return ShoppingListSetTextLineItemDescriptionAction
      */
-    public function setTextLineItemDescription()
+    public function setTextLineItemDescription(array $data = [])
     {
-        return ShoppingListSetTextLineItemDescriptionAction::of();
+        return new ShoppingListSetTextLineItemDescriptionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-customField
+     * @param array $data
      * @return ShoppingListSetCustomFieldAction
      */
-    public function setCustomField()
+    public function setCustomField(array $data = [])
     {
-        return ShoppingListSetCustomFieldAction::of();
+        return new ShoppingListSetCustomFieldAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-textlineitem-custom-type
+     * @param array $data
      * @return ShoppingListSetTextLineItemCustomTypeAction
      */
-    public function setTextLineItemCustomType()
+    public function setTextLineItemCustomType(array $data = [])
     {
-        return ShoppingListSetTextLineItemCustomTypeAction::of();
+        return new ShoppingListSetTextLineItemCustomTypeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-types.html#change-name
+     * @param array $data
      * @return ShoppingListChangeNameAction
      */
-    public function changeName()
+    public function changeName(array $data = [])
     {
-        return ShoppingListChangeNameAction::of();
+        return new ShoppingListChangeNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-lineitem-customfield
+     * @param array $data
      * @return ShoppingListSetLineItemCustomFieldAction
      */
-    public function setLineItemCustomField()
+    public function setLineItemCustomField(array $data = [])
     {
-        return ShoppingListSetLineItemCustomFieldAction::of();
+        return new ShoppingListSetLineItemCustomFieldAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#change-description
+     * @param array $data
      * @return ShoppingListSetDescriptionAction
      */
-    public function setDescription()
+    public function setDescription(array $data = [])
     {
-        return ShoppingListSetDescriptionAction::of();
+        return new ShoppingListSetDescriptionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-textlineitem-customfield
+     * @param array $data
      * @return ShoppingListSetTextLineItemCustomFieldAction
      */
-    public function setTextLineItemCustomField()
+    public function setTextLineItemCustomField(array $data = [])
     {
-        return ShoppingListSetTextLineItemCustomFieldAction::of();
+        return new ShoppingListSetTextLineItemCustomFieldAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#remove-textlineitem
+     * @param array $data
      * @return ShoppingListRemoveTextLineItemAction
      */
-    public function removeTextLineItem()
+    public function removeTextLineItem(array $data = [])
     {
-        return ShoppingListRemoveTextLineItemAction::of();
+        return new ShoppingListRemoveTextLineItemAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#remove-lineitem
+     * @param array $data
      * @return ShoppingListRemoveLineItemAction
      */
-    public function removeLineItem()
+    public function removeLineItem(array $data = [])
     {
-        return ShoppingListRemoveLineItemAction::of();
+        return new ShoppingListRemoveLineItemAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#change-textlineitem-quantity
+     * @param array $data
      * @return ShoppingListChangeTextLineItemQuantityAction
      */
-    public function changeTextLineItemQuantity()
+    public function changeTextLineItemQuantity(array $data = [])
     {
-        return ShoppingListChangeTextLineItemQuantityAction::of();
+        return new ShoppingListChangeTextLineItemQuantityAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-customType
+     * @param array $data
      * @return ShoppingListSetCustomTypeAction
      */
-    public function setCustomType()
+    public function setCustomType(array $data = [])
     {
-        return ShoppingListSetCustomTypeAction::of();
+        return new ShoppingListSetCustomTypeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#change-textlineitems-order
+     * @param array $data
      * @return ShoppingListChangeTextLineItemsOrderAction
      */
-    public function changeTextLineItemsOrder()
+    public function changeTextLineItemsOrder(array $data = [])
     {
-        return ShoppingListChangeTextLineItemsOrderAction::of();
+        return new ShoppingListChangeTextLineItemsOrderAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-key
+     * @param array $data
      * @return ShoppingListSetKeyAction
      */
-    public function setKey()
+    public function setKey(array $data = [])
     {
-        return ShoppingListSetKeyAction::of();
+        return new ShoppingListSetKeyAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-lineitem-custom-type
+     * @param array $data
      * @return ShoppingListSetLineItemCustomTypeAction
      */
-    public function setLineItemCustomType()
+    public function setLineItemCustomType(array $data = [])
     {
-        return ShoppingListSetLineItemCustomTypeAction::of();
+        return new ShoppingListSetLineItemCustomTypeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#change-textlineitem-name
+     * @param array $data
      * @return ShoppingListChangeTextLineItemNameAction
      */
-    public function changeTextLineItemName()
+    public function changeTextLineItemName(array $data = [])
     {
-        return ShoppingListChangeTextLineItemNameAction::of();
+        return new ShoppingListChangeTextLineItemNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#change-lineitem-quantity
+     * @param array $data
      * @return ShoppingListChangeLineItemQuantityAction
      */
-    public function changeLineItemQuantity()
+    public function changeLineItemQuantity(array $data = [])
     {
-        return ShoppingListChangeLineItemQuantityAction::of();
+        return new ShoppingListChangeLineItemQuantityAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#add-lineitem
+     * @param array $data
      * @return ShoppingListAddLineItemAction
      */
-    public function addLineItem()
+    public function addLineItem(array $data = [])
     {
-        return ShoppingListAddLineItemAction::of();
+        return new ShoppingListAddLineItemAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#add-textlineitem
+     * @param array $data
      * @return ShoppingListAddTextLineItemAction
      */
-    public function addTextLineItem()
+    public function addTextLineItem(array $data = [])
     {
-        return ShoppingListAddTextLineItemAction::of();
+        return new ShoppingListAddTextLineItemAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#change-lineitems-order
+     * @param array $data
      * @return ShoppingListChangeLineItemsOrderAction
      */
-    public function changeLineItemsOrder()
+    public function changeLineItemsOrder(array $data = [])
     {
-        return ShoppingListChangeLineItemsOrderAction::of();
+        return new ShoppingListChangeLineItemsOrderAction($data);
+    }
+
+    /**
+     * @return ShoppingListsActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

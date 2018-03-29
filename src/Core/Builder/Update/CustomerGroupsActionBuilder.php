@@ -8,18 +8,30 @@ use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupChangeNameAct
 class CustomerGroupsActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#set-key
+     * @param array $data
      * @return CustomerGroupSetKeyAction
      */
-    public function setKey()
+    public function setKey(array $data = [])
     {
-        return CustomerGroupSetKeyAction::of();
+        return new CustomerGroupSetKeyAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#change-name
+     * @param array $data
      * @return CustomerGroupChangeNameAction
      */
-    public function changeName()
+    public function changeName(array $data = [])
     {
-        return CustomerGroupChangeNameAction::of();
+        return new CustomerGroupChangeNameAction($data);
+    }
+
+    /**
+     * @return CustomerGroupsActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

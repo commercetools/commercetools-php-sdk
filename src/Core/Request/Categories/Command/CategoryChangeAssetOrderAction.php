@@ -12,6 +12,7 @@ use Commercetools\Core\Model\Common\AssetDraft;
 /**
  * @package Commercetools\Core\Request\Categories\Command
  *
+ * @link https://docs.commercetools.com/http-api-projects-categories.html#change-asset-order
  * @method string getAction()
  * @method CategoryChangeAssetOrderAction setAction(string $action = null)
  * @method array getAssetOrder()

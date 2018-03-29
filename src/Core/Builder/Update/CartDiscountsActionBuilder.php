@@ -17,90 +17,120 @@ use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeTargetAct
 class CartDiscountsActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-name
+     * @param array $data
      * @return CartDiscountChangeNameAction
      */
-    public function changeName()
+    public function changeName(array $data = [])
     {
-        return CartDiscountChangeNameAction::of();
+        return new CartDiscountChangeNameAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-stacking-mode
+     * @param array $data
      * @return CartDiscountChangeStackingModeAction
      */
-    public function changeStackingMode()
+    public function changeStackingMode(array $data = [])
     {
-        return CartDiscountChangeStackingModeAction::of();
+        return new CartDiscountChangeStackingModeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-cart-predicate
+     * @param array $data
      * @return CartDiscountChangeCartPredicateAction
      */
-    public function changeCartPredicate()
+    public function changeCartPredicate(array $data = [])
     {
-        return CartDiscountChangeCartPredicateAction::of();
+        return new CartDiscountChangeCartPredicateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-requires-discountcode
+     * @param array $data
      * @return CartDiscountChangeRequiresDiscountCodeAction
      */
-    public function changeRequiresDiscountCode()
+    public function changeRequiresDiscountCode(array $data = [])
     {
-        return CartDiscountChangeRequiresDiscountCodeAction::of();
+        return new CartDiscountChangeRequiresDiscountCodeAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#set-valid-until
+     * @param array $data
      * @return CartDiscountSetValidUntilAction
      */
-    public function setValidUntil()
+    public function setValidUntil(array $data = [])
     {
-        return CartDiscountSetValidUntilAction::of();
+        return new CartDiscountSetValidUntilAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#set-description
+     * @param array $data
      * @return CartDiscountSetDescriptionAction
      */
-    public function setDescription()
+    public function setDescription(array $data = [])
     {
-        return CartDiscountSetDescriptionAction::of();
+        return new CartDiscountSetDescriptionAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-sort-order
+     * @param array $data
      * @return CartDiscountChangeSortOrderAction
      */
-    public function changeSortOrder()
+    public function changeSortOrder(array $data = [])
     {
-        return CartDiscountChangeSortOrderAction::of();
+        return new CartDiscountChangeSortOrderAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#set-valid-from
+     * @param array $data
      * @return CartDiscountSetValidFromAction
      */
-    public function setValidFrom()
+    public function setValidFrom(array $data = [])
     {
-        return CartDiscountSetValidFromAction::of();
+        return new CartDiscountSetValidFromAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-isactive
+     * @param array $data
      * @return CartDiscountChangeIsActiveAction
      */
-    public function changeIsActive()
+    public function changeIsActive(array $data = [])
     {
-        return CartDiscountChangeIsActiveAction::of();
+        return new CartDiscountChangeIsActiveAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-value
+     * @param array $data
      * @return CartDiscountChangeValueAction
      */
-    public function changeValue()
+    public function changeValue(array $data = [])
     {
-        return CartDiscountChangeValueAction::of();
+        return new CartDiscountChangeValueAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-target
+     * @param array $data
      * @return CartDiscountChangeTargetAction
      */
-    public function changeTarget()
+    public function changeTarget(array $data = [])
     {
-        return CartDiscountChangeTargetAction::of();
+        return new CartDiscountChangeTargetAction($data);
+    }
+
+    /**
+     * @return CartDiscountsActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

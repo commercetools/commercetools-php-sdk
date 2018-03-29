@@ -34,226 +34,290 @@ use Commercetools\Core\Request\Orders\Command\OrderSetParcelItemsAction;
 class OrdersActionBuilder
 {
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#transition-state
+     * @param array $data
      * @return OrderTransitionStateAction
      */
-    public function transitionState()
+    public function transitionState(array $data = [])
     {
-        return OrderTransitionStateAction::of();
+        return new OrderTransitionStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-order-number
+     * @param array $data
      * @return OrderSetOrderNumberAction
      */
-    public function setOrderNumber()
+    public function setOrderNumber(array $data = [])
     {
-        return OrderSetOrderNumberAction::of();
+        return new OrderSetOrderNumberAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#add-payment
+     * @param array $data
      * @return OrderAddPaymentAction
      */
-    public function addPayment()
+    public function addPayment(array $data = [])
     {
-        return OrderAddPaymentAction::of();
+        return new OrderAddPaymentAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#remove-payment
+     * @param array $data
      * @return OrderRemovePaymentAction
      */
-    public function removePayment()
+    public function removePayment(array $data = [])
     {
-        return OrderRemovePaymentAction::of();
+        return new OrderRemovePaymentAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-returnshipmentstate
+     * @param array $data
      * @return OrderSetReturnShipmentStateAction
      */
-    public function setReturnShipmentState()
+    public function setReturnShipmentState(array $data = [])
     {
-        return OrderSetReturnShipmentStateAction::of();
+        return new OrderSetReturnShipmentStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#import-state-for-customlineitems
+     * @param array $data
      * @return OrderImportCustomLineItemStateAction
      */
-    public function importCustomLineItemState()
+    public function importCustomLineItemState(array $data = [])
     {
-        return OrderImportCustomLineItemStateAction::of();
+        return new OrderImportCustomLineItemStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#addreturninfo
+     * @param array $data
      * @return OrderAddReturnInfoAction
      */
-    public function addReturnInfo()
+    public function addReturnInfo(array $data = [])
     {
-        return OrderAddReturnInfoAction::of();
+        return new OrderAddReturnInfoAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#remove-parcel-from-delivery
+     * @param array $data
      * @return OrderRemoveParcelFromDeliveryAction
      */
-    public function removeParcelFromDelivery()
+    public function removeParcelFromDelivery(array $data = [])
     {
-        return OrderRemoveParcelFromDeliveryAction::of();
+        return new OrderRemoveParcelFromDeliveryAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-returnpaymentstate
+     * @param array $data
      * @return OrderSetReturnPaymentStateAction
      */
-    public function setReturnPaymentState()
+    public function setReturnPaymentState(array $data = [])
     {
-        return OrderSetReturnPaymentStateAction::of();
+        return new OrderSetReturnPaymentStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#remove-delivery
+     * @param array $data
      * @return OrderRemoveDeliveryAction
      */
-    public function removeDelivery()
+    public function removeDelivery(array $data = [])
     {
-        return OrderRemoveDeliveryAction::of();
+        return new OrderRemoveDeliveryAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-tracking-data
+     * @param array $data
      * @return OrderSetParcelTrackingDataAction
      */
-    public function setParcelTrackingData()
+    public function setParcelTrackingData(array $data = [])
     {
-        return OrderSetParcelTrackingDataAction::of();
+        return new OrderSetParcelTrackingDataAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-measurements
+     * @param array $data
      * @return OrderSetParcelMeasurementsAction
      */
-    public function setParcelMeasurements()
+    public function setParcelMeasurements(array $data = [])
     {
-        return OrderSetParcelMeasurementsAction::of();
+        return new OrderSetParcelMeasurementsAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-customer-email
+     * @param array $data
      * @return OrderSetCustomerEmail
      */
-    public function setCustomerEmail()
+    public function setCustomerEmail(array $data = [])
     {
-        return OrderSetCustomerEmail::of();
+        return new OrderSetCustomerEmail($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#change-the-state-of-customlineitem-according-to-allowed-transitions
+     * @param array $data
      * @return OrderTransitionCustomLineItemStateAction
      */
-    public function transitionCustomLineItemState()
+    public function transitionCustomLineItemState(array $data = [])
     {
-        return OrderTransitionCustomLineItemStateAction::of();
+        return new OrderTransitionCustomLineItemStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-delivery-items
+     * @param array $data
      * @return OrderSetDeliveryItemsAction
      */
-    public function setDeliveryItems()
+    public function setDeliveryItems(array $data = [])
     {
-        return OrderSetDeliveryItemsAction::of();
+        return new OrderSetDeliveryItemsAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#import-state-for-lineitems
+     * @param array $data
      * @return OrderImportLineItemStateAction
      */
-    public function importLineItemState()
+    public function importLineItemState(array $data = [])
     {
-        return OrderImportLineItemStateAction::of();
+        return new OrderImportLineItemStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#add-parcel
+     * @param array $data
      * @return OrderAddParcelToDeliveryAction
      */
-    public function addParcelToDelivery()
+    public function addParcelToDelivery(array $data = [])
     {
-        return OrderAddParcelToDeliveryAction::of();
+        return new OrderAddParcelToDeliveryAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#change-orderstate
+     * @param array $data
      * @return OrderChangeOrderStateAction
      */
-    public function changeOrderState()
+    public function changeOrderState(array $data = [])
     {
-        return OrderChangeOrderStateAction::of();
+        return new OrderChangeOrderStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-shipping-address
+     * @param array $data
      * @return OrderSetShippingAddress
      */
-    public function setShippingAddress()
+    public function setShippingAddress(array $data = [])
     {
-        return OrderSetShippingAddress::of();
+        return new OrderSetShippingAddress($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-delivery-address
+     * @param array $data
      * @return OrderSetDeliveryAddressAction
      */
-    public function setDeliveryAddress()
+    public function setDeliveryAddress(array $data = [])
     {
-        return OrderSetDeliveryAddressAction::of();
+        return new OrderSetDeliveryAddressAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#update-syncinfo
+     * @param array $data
      * @return OrderUpdateSyncInfoAction
      */
-    public function updateSyncInfo()
+    public function updateSyncInfo(array $data = [])
     {
-        return OrderUpdateSyncInfoAction::of();
+        return new OrderUpdateSyncInfoAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#change-the-state-of-lineitem-according-to-allowed-transitions
+     * @param array $data
      * @return OrderTransitionLineItemStateAction
      */
-    public function transitionLineItemState()
+    public function transitionLineItemState(array $data = [])
     {
-        return OrderTransitionLineItemStateAction::of();
+        return new OrderTransitionLineItemStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#change-paymentstate
+     * @param array $data
      * @return OrderChangePaymentStateAction
      */
-    public function changePaymentState()
+    public function changePaymentState(array $data = [])
     {
-        return OrderChangePaymentStateAction::of();
+        return new OrderChangePaymentStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#add-delivery
+     * @param array $data
      * @return OrderAddDeliveryAction
      */
-    public function addDelivery()
+    public function addDelivery(array $data = [])
     {
-        return OrderAddDeliveryAction::of();
+        return new OrderAddDeliveryAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-locale
+     * @param array $data
      * @return OrderSetLocaleAction
      */
-    public function setLocale()
+    public function setLocale(array $data = [])
     {
-        return OrderSetLocaleAction::of();
+        return new OrderSetLocaleAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#change-shipmentstate
+     * @param array $data
      * @return OrderChangeShipmentStateAction
      */
-    public function changeShipmentState()
+    public function changeShipmentState(array $data = [])
     {
-        return OrderChangeShipmentStateAction::of();
+        return new OrderChangeShipmentStateAction($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-billing-address
+     * @param array $data
      * @return OrderSetBillingAddress
      */
-    public function setBillingAddress()
+    public function setBillingAddress(array $data = [])
     {
-        return OrderSetBillingAddress::of();
+        return new OrderSetBillingAddress($data);
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-items
+     * @param array $data
      * @return OrderSetParcelItemsAction
      */
-    public function setParcelItems()
+    public function setParcelItems(array $data = [])
     {
-        return OrderSetParcelItemsAction::of();
+        return new OrderSetParcelItemsAction($data);
+    }
+
+    /**
+     * @return OrdersActionBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

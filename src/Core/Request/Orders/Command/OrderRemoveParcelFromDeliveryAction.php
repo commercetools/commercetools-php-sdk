@@ -12,6 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 /**
  * @package Commercetools\Core\Request\Orders\Command
  *
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#remove-parcel-from-delivery
  * @method string getAction()
  * @method OrderRemoveParcelFromDeliveryAction setAction(string $action = null)
  * @method string getParcelId()
