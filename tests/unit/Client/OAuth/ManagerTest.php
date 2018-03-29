@@ -9,6 +9,7 @@ namespace Commercetools\Core\Client\OAuth;
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Cache\Adapter\Void\VoidCachePool;
 use Commercetools\Core\Cache\CacheAdapterFactory;
+use Commercetools\Core\Client\Adapter\ConfigAware;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -283,5 +284,20 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
         $output = $method->invoke($manager);
 
         $this->assertSame($this->getConfig()->getOauthUrl(), $output);
+    }
+
+    public function testSetClientOptions()
+    {
+        $config = Config::of()->setClientId('')->setClientSecret('')->setProject('');
+        $manager = new Manager($config);
+
+        $this->assertInstanceOf(ConfigAware::class, $manager->getHttpClient());
+        $this->assertTrue($manager->getHttpClient()->getConfig('verify'));
+
+        $config = Config::of()->setClientId('')->setClientSecret('')->setProject('')->setOAuthClientOptions(['verify' => false]);
+        $manager = new Manager($config);
+
+        $this->assertInstanceOf(ConfigAware::class, $manager->getHttpClient());
+        $this->assertFalse($manager->getHttpClient()->getConfig('verify'));
     }
 }

@@ -19,7 +19,7 @@ use Psr\Log\LoggerInterface;
 use Commercetools\Core\Error\ApiException;
 use Psr\Log\LogLevel;
 
-class Guzzle6Adapter implements AdapterOptionInterface, CorrelationIdAware, TokenProviderAware
+class Guzzle6Adapter implements AdapterOptionInterface, CorrelationIdAware, TokenProviderAware, ConfigAware
 {
     const DEFAULT_CONCURRENCY = 25;
     /**
@@ -220,5 +220,13 @@ class Guzzle6Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
     public static function getAdapterInfo()
     {
         return 'GuzzleHttp/' . Client::VERSION;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getConfig($option)
+    {
+        return $this->client->getConfig($option);
     }
 }
