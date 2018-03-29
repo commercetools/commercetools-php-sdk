@@ -288,13 +288,18 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
 
     public function testSetClientOptions()
     {
+        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            $clientOptions = ['verify' => false];
+        } else {
+            $clientOptions = ['defaults' => ['verify' => false]];
+        }
         $config = Config::of()->setClientId('')->setClientSecret('')->setProject('');
         $manager = new Manager($config);
 
         $this->assertInstanceOf(ConfigAware::class, $manager->getHttpClient());
         $this->assertTrue($manager->getHttpClient()->getConfig('verify'));
 
-        $config = Config::of()->setClientId('')->setClientSecret('')->setProject('')->setOAuthClientOptions(['verify' => false]);
+        $config = Config::of()->setClientId('')->setClientSecret('')->setProject('')->setOAuthClientOptions($clientOptions);
         $manager = new Manager($config);
 
         $this->assertInstanceOf(ConfigAware::class, $manager->getHttpClient());

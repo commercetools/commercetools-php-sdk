@@ -810,6 +810,11 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
     public function testSetClientOptions()
     {
+        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            $clientOptions = ['verify' => false];
+        } else {
+            $clientOptions = ['defaults' => ['verify' => false]];
+        }
         $client = Client::ofConfig(
             Config::of()->setClientId('')->setClientSecret('')->setProject('')
         );
@@ -817,7 +822,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($client->getHttpClient()->getConfig('verify'));
 
         $client = Client::ofConfig(
-            Config::of()->setClientId('')->setClientSecret('')->setProject('')->setClientOptions(['verify' => false])
+            Config::of()->setClientId('')->setClientSecret('')->setProject('')->setClientOptions($clientOptions)
         );
         $this->assertInstanceOf(ConfigAware::class, $client->getHttpClient());
         $this->assertFalse($client->getHttpClient()->getConfig('verify'));

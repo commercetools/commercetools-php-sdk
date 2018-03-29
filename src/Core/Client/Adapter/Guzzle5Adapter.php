@@ -35,7 +35,7 @@ class Guzzle5Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
      */
     protected $logger;
 
-    private $concurrency;
+    private $concurrency = self::DEFAULT_CONCURRENCY;
 
     /**
      * @param array $options
@@ -47,24 +47,22 @@ class Guzzle5Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
             unset($options['base_uri']);
         }
         if (isset($options['concurrency'])) {
-            $options['pool_size'] = $options['concurrency'];
+            $this->concurrency = $options['concurrency'];
             unset($options['concurrency']);
         }
         if (isset($options['headers'])) {
             $options['defaults']['headers'] = $options['headers'];
             unset($options['headers']);
         }
-        $options = array_merge(
+        $options['defaults'] = array_merge(
             [
                 'allow_redirects' => false,
                 'verify' => true,
                 'timeout' => 60,
-                'connect_timeout' => 10,
-                'pool_size' => self::DEFAULT_CONCURRENCY
+                'connect_timeout' => 10
             ],
-            $options
+            isset($options['defaults']) ? $options['defaults'] : []
         );
-        $this->concurrency = $options['pool_size'];
 
         $this->client = new Client($options);
     }
