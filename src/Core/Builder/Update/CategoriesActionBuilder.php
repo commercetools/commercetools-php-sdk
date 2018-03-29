@@ -32,7 +32,7 @@ class CategoriesActionBuilder
      */
     public function setExternalId(array $data = [])
     {
-        return new CategorySetExternalIdAction($data);
+        return CategorySetExternalIdAction::fromArray($data);
     }
 
     /**
@@ -42,7 +42,7 @@ class CategoriesActionBuilder
      */
     public function setDescription(array $data = [])
     {
-        return new CategorySetDescriptionAction($data);
+        return CategorySetDescriptionAction::fromArray($data);
     }
 
     /**
@@ -52,7 +52,7 @@ class CategoriesActionBuilder
      */
     public function setMetaTitle(array $data = [])
     {
-        return new CategorySetMetaTitleAction($data);
+        return CategorySetMetaTitleAction::fromArray($data);
     }
 
     /**
@@ -62,7 +62,7 @@ class CategoriesActionBuilder
      */
     public function setAssetCustomField(array $data = [])
     {
-        return new CategorySetAssetCustomFieldAction($data);
+        return CategorySetAssetCustomFieldAction::fromArray($data);
     }
 
     /**
@@ -72,7 +72,7 @@ class CategoriesActionBuilder
      */
     public function setAssetKey(array $data = [])
     {
-        return new CategorySetAssetKeyAction($data);
+        return CategorySetAssetKeyAction::fromArray($data);
     }
 
     /**
@@ -82,7 +82,7 @@ class CategoriesActionBuilder
      */
     public function setAssetCustomType(array $data = [])
     {
-        return new CategorySetAssetCustomTypeAction($data);
+        return CategorySetAssetCustomTypeAction::fromArray($data);
     }
 
     /**
@@ -92,7 +92,7 @@ class CategoriesActionBuilder
      */
     public function setMetaKeywords(array $data = [])
     {
-        return new CategorySetMetaKeywordsAction($data);
+        return CategorySetMetaKeywordsAction::fromArray($data);
     }
 
     /**
@@ -102,7 +102,7 @@ class CategoriesActionBuilder
      */
     public function setMetaDescription(array $data = [])
     {
-        return new CategorySetMetaDescriptionAction($data);
+        return CategorySetMetaDescriptionAction::fromArray($data);
     }
 
     /**
@@ -112,7 +112,7 @@ class CategoriesActionBuilder
      */
     public function changeSlug(array $data = [])
     {
-        return new CategoryChangeSlugAction($data);
+        return CategoryChangeSlugAction::fromArray($data);
     }
 
     /**
@@ -122,7 +122,7 @@ class CategoriesActionBuilder
      */
     public function setAssetDescription(array $data = [])
     {
-        return new CategorySetAssetDescriptionAction($data);
+        return CategorySetAssetDescriptionAction::fromArray($data);
     }
 
     /**
@@ -132,7 +132,7 @@ class CategoriesActionBuilder
      */
     public function changeName(array $data = [])
     {
-        return new CategoryChangeNameAction($data);
+        return CategoryChangeNameAction::fromArray($data);
     }
 
     /**
@@ -142,7 +142,7 @@ class CategoriesActionBuilder
      */
     public function setAssetSources(array $data = [])
     {
-        return new CategorySetAssetSourcesAction($data);
+        return CategorySetAssetSourcesAction::fromArray($data);
     }
 
     /**
@@ -152,7 +152,7 @@ class CategoriesActionBuilder
      */
     public function setKey(array $data = [])
     {
-        return new CategorySetKeyAction($data);
+        return CategorySetKeyAction::fromArray($data);
     }
 
     /**
@@ -162,7 +162,7 @@ class CategoriesActionBuilder
      */
     public function setAssetTags(array $data = [])
     {
-        return new CategorySetAssetTagsAction($data);
+        return CategorySetAssetTagsAction::fromArray($data);
     }
 
     /**
@@ -172,7 +172,7 @@ class CategoriesActionBuilder
      */
     public function changeAssetOrder(array $data = [])
     {
-        return new CategoryChangeAssetOrderAction($data);
+        return CategoryChangeAssetOrderAction::fromArray($data);
     }
 
     /**
@@ -182,7 +182,7 @@ class CategoriesActionBuilder
      */
     public function addAsset(array $data = [])
     {
-        return new CategoryAddAssetAction($data);
+        return CategoryAddAssetAction::fromArray($data);
     }
 
     /**
@@ -192,7 +192,7 @@ class CategoriesActionBuilder
      */
     public function changeParent(array $data = [])
     {
-        return new CategoryChangeParentAction($data);
+        return CategoryChangeParentAction::fromArray($data);
     }
 
     /**
@@ -202,7 +202,7 @@ class CategoriesActionBuilder
      */
     public function changeOrderHint(array $data = [])
     {
-        return new CategoryChangeOrderHintAction($data);
+        return CategoryChangeOrderHintAction::fromArray($data);
     }
 
     /**
@@ -212,7 +212,7 @@ class CategoriesActionBuilder
      */
     public function changeAssetName(array $data = [])
     {
-        return new CategoryChangeAssetNameAction($data);
+        return CategoryChangeAssetNameAction::fromArray($data);
     }
 
     /**
@@ -222,7 +222,7 @@ class CategoriesActionBuilder
      */
     public function removeAsset(array $data = [])
     {
-        return new CategoryRemoveAssetAction($data);
+        return CategoryRemoveAssetAction::fromArray($data);
     }
 
     /**

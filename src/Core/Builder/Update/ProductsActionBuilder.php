@@ -56,7 +56,7 @@ class ProductsActionBuilder
      */
     public function setAssetKey(array $data = [])
     {
-        return new ProductSetAssetKeyAction($data);
+        return ProductSetAssetKeyAction::fromArray($data);
     }
 
     /**
@@ -66,7 +66,7 @@ class ProductsActionBuilder
      */
     public function setMetaKeywords(array $data = [])
     {
-        return new ProductSetMetaKeywordsAction($data);
+        return ProductSetMetaKeywordsAction::fromArray($data);
     }
 
     /**
@@ -76,7 +76,7 @@ class ProductsActionBuilder
      */
     public function setAssetTags(array $data = [])
     {
-        return new ProductSetAssetTagsAction($data);
+        return ProductSetAssetTagsAction::fromArray($data);
     }
 
     /**
@@ -86,7 +86,7 @@ class ProductsActionBuilder
      */
     public function setMetaDescription(array $data = [])
     {
-        return new ProductSetMetaDescriptionAction($data);
+        return ProductSetMetaDescriptionAction::fromArray($data);
     }
 
     /**
@@ -96,7 +96,7 @@ class ProductsActionBuilder
      */
     public function setAssetCustomType(array $data = [])
     {
-        return new ProductSetAssetCustomTypeAction($data);
+        return ProductSetAssetCustomTypeAction::fromArray($data);
     }
 
     /**
@@ -106,7 +106,7 @@ class ProductsActionBuilder
      */
     public function setProductPriceCustomType(array $data = [])
     {
-        return new ProductSetPriceCustomTypeAction($data);
+        return ProductSetPriceCustomTypeAction::fromArray($data);
     }
 
     /**
@@ -116,7 +116,7 @@ class ProductsActionBuilder
      */
     public function setAssetSources(array $data = [])
     {
-        return new ProductSetAssetSourcesAction($data);
+        return ProductSetAssetSourcesAction::fromArray($data);
     }
 
     /**
@@ -126,7 +126,7 @@ class ProductsActionBuilder
      */
     public function removeImage(array $data = [])
     {
-        return new ProductRemoveImageAction($data);
+        return ProductRemoveImageAction::fromArray($data);
     }
 
     /**
@@ -136,7 +136,7 @@ class ProductsActionBuilder
      */
     public function transitionState(array $data = [])
     {
-        return new ProductTransitionStateAction($data);
+        return ProductTransitionStateAction::fromArray($data);
     }
 
     /**
@@ -146,7 +146,7 @@ class ProductsActionBuilder
      */
     public function setAttribute(array $data = [])
     {
-        return new ProductSetAttributeAction($data);
+        return ProductSetAttributeAction::fromArray($data);
     }
 
     /**
@@ -156,7 +156,7 @@ class ProductsActionBuilder
      */
     public function addToCategory(array $data = [])
     {
-        return new ProductAddToCategoryAction($data);
+        return ProductAddToCategoryAction::fromArray($data);
     }
 
     /**
@@ -166,7 +166,7 @@ class ProductsActionBuilder
      */
     public function revertStagedChanges(array $data = [])
     {
-        return new ProductRevertStagedChangesAction($data);
+        return ProductRevertStagedChangesAction::fromArray($data);
     }
 
     /**
@@ -176,7 +176,7 @@ class ProductsActionBuilder
      */
     public function setTaxCategory(array $data = [])
     {
-        return new ProductSetTaxCategoryAction($data);
+        return ProductSetTaxCategoryAction::fromArray($data);
     }
 
     /**
@@ -186,7 +186,7 @@ class ProductsActionBuilder
      */
     public function revertStagedVariantChanges(array $data = [])
     {
-        return new ProductRevertStagedVariantChangesAction($data);
+        return ProductRevertStagedVariantChangesAction::fromArray($data);
     }
 
     /**
@@ -196,7 +196,7 @@ class ProductsActionBuilder
      */
     public function setProductPriceCustomField(array $data = [])
     {
-        return new ProductSetPriceCustomFieldAction($data);
+        return ProductSetPriceCustomFieldAction::fromArray($data);
     }
 
     /**
@@ -206,7 +206,7 @@ class ProductsActionBuilder
      */
     public function changeAssetOrder(array $data = [])
     {
-        return new ProductChangeAssetOrderAction($data);
+        return ProductChangeAssetOrderAction::fromArray($data);
     }
 
     /**
@@ -216,7 +216,7 @@ class ProductsActionBuilder
      */
     public function unpublish(array $data = [])
     {
-        return new ProductUnpublishAction($data);
+        return ProductUnpublishAction::fromArray($data);
     }
 
     /**
@@ -226,7 +226,7 @@ class ProductsActionBuilder
      */
     public function setSearchKeywords(array $data = [])
     {
-        return new ProductSetSearchKeywordsAction($data);
+        return ProductSetSearchKeywordsAction::fromArray($data);
     }
 
     /**
@@ -236,7 +236,7 @@ class ProductsActionBuilder
      */
     public function setDescription(array $data = [])
     {
-        return new ProductSetDescriptionAction($data);
+        return ProductSetDescriptionAction::fromArray($data);
     }
 
     /**
@@ -246,7 +246,7 @@ class ProductsActionBuilder
      */
     public function removeVariant(array $data = [])
     {
-        return new ProductRemoveVariantAction($data);
+        return ProductRemoveVariantAction::fromArray($data);
     }
 
     /**
@@ -256,7 +256,7 @@ class ProductsActionBuilder
      */
     public function setMetaTitle(array $data = [])
     {
-        return new ProductSetMetaTitleAction($data);
+        return ProductSetMetaTitleAction::fromArray($data);
     }
 
     /**
@@ -266,7 +266,7 @@ class ProductsActionBuilder
      */
     public function setSku(array $data = [])
     {
-        return new ProductSetSkuAction($data);
+        return ProductSetSkuAction::fromArray($data);
     }
 
     /**
@@ -276,7 +276,7 @@ class ProductsActionBuilder
      */
     public function setPrices(array $data = [])
     {
-        return new ProductSetPricesAction($data);
+        return ProductSetPricesAction::fromArray($data);
     }
 
     /**
@@ -286,7 +286,7 @@ class ProductsActionBuilder
      */
     public function setProductVariantKey(array $data = [])
     {
-        return new ProductSetProductVariantKeyAction($data);
+        return ProductSetProductVariantKeyAction::fromArray($data);
     }
 
     /**
@@ -296,7 +296,7 @@ class ProductsActionBuilder
      */
     public function removeAsset(array $data = [])
     {
-        return new ProductRemoveAssetAction($data);
+        return ProductRemoveAssetAction::fromArray($data);
     }
 
     /**
@@ -306,7 +306,7 @@ class ProductsActionBuilder
      */
     public function changeAssetName(array $data = [])
     {
-        return new ProductChangeAssetNameAction($data);
+        return ProductChangeAssetNameAction::fromArray($data);
     }
 
     /**
@@ -316,7 +316,7 @@ class ProductsActionBuilder
      */
     public function setAttributeInAllVariants(array $data = [])
     {
-        return new ProductSetAttributeInAllVariantsAction($data);
+        return ProductSetAttributeInAllVariantsAction::fromArray($data);
     }
 
     /**
@@ -326,7 +326,7 @@ class ProductsActionBuilder
      */
     public function addPrice(array $data = [])
     {
-        return new ProductAddPriceAction($data);
+        return ProductAddPriceAction::fromArray($data);
     }
 
     /**
@@ -336,7 +336,7 @@ class ProductsActionBuilder
      */
     public function removeFromCategory(array $data = [])
     {
-        return new ProductRemoveFromCategoryAction($data);
+        return ProductRemoveFromCategoryAction::fromArray($data);
     }
 
     /**
@@ -346,7 +346,7 @@ class ProductsActionBuilder
      */
     public function setAssetCustomField(array $data = [])
     {
-        return new ProductSetAssetCustomFieldAction($data);
+        return ProductSetAssetCustomFieldAction::fromArray($data);
     }
 
     /**
@@ -356,7 +356,7 @@ class ProductsActionBuilder
      */
     public function addExternalImage(array $data = [])
     {
-        return new ProductAddExternalImageAction($data);
+        return ProductAddExternalImageAction::fromArray($data);
     }
 
     /**
@@ -366,7 +366,7 @@ class ProductsActionBuilder
      */
     public function changeMasterVariant(array $data = [])
     {
-        return new ProductChangeMasterVariantAction($data);
+        return ProductChangeMasterVariantAction::fromArray($data);
     }
 
     /**
@@ -376,7 +376,7 @@ class ProductsActionBuilder
      */
     public function setDiscountedPrice(array $data = [])
     {
-        return new ProductSetDiscountedPriceAction($data);
+        return ProductSetDiscountedPriceAction::fromArray($data);
     }
 
     /**
@@ -386,7 +386,7 @@ class ProductsActionBuilder
      */
     public function setKey(array $data = [])
     {
-        return new ProductSetKeyAction($data);
+        return ProductSetKeyAction::fromArray($data);
     }
 
     /**
@@ -396,7 +396,7 @@ class ProductsActionBuilder
      */
     public function moveImageToPosition(array $data = [])
     {
-        return new ProductMoveImageToPositionAction($data);
+        return ProductMoveImageToPositionAction::fromArray($data);
     }
 
     /**
@@ -406,7 +406,7 @@ class ProductsActionBuilder
      */
     public function publish(array $data = [])
     {
-        return new ProductPublishAction($data);
+        return ProductPublishAction::fromArray($data);
     }
 
     /**
@@ -416,7 +416,7 @@ class ProductsActionBuilder
      */
     public function addVariant(array $data = [])
     {
-        return new ProductAddVariantAction($data);
+        return ProductAddVariantAction::fromArray($data);
     }
 
     /**
@@ -426,7 +426,7 @@ class ProductsActionBuilder
      */
     public function setAssetDescription(array $data = [])
     {
-        return new ProductSetAssetDescriptionAction($data);
+        return ProductSetAssetDescriptionAction::fromArray($data);
     }
 
     /**
@@ -436,7 +436,7 @@ class ProductsActionBuilder
      */
     public function removePrice(array $data = [])
     {
-        return new ProductRemovePriceAction($data);
+        return ProductRemovePriceAction::fromArray($data);
     }
 
     /**
@@ -446,7 +446,7 @@ class ProductsActionBuilder
      */
     public function changeSlug(array $data = [])
     {
-        return new ProductChangeSlugAction($data);
+        return ProductChangeSlugAction::fromArray($data);
     }
 
     /**
@@ -456,7 +456,7 @@ class ProductsActionBuilder
      */
     public function addAsset(array $data = [])
     {
-        return new ProductAddAssetAction($data);
+        return ProductAddAssetAction::fromArray($data);
     }
 
     /**
@@ -466,7 +466,7 @@ class ProductsActionBuilder
      */
     public function setCategoryOrderHint(array $data = [])
     {
-        return new ProductSetCategoryOrderHintAction($data);
+        return ProductSetCategoryOrderHintAction::fromArray($data);
     }
 
     /**
@@ -476,7 +476,7 @@ class ProductsActionBuilder
      */
     public function changeName(array $data = [])
     {
-        return new ProductChangeNameAction($data);
+        return ProductChangeNameAction::fromArray($data);
     }
 
     /**
@@ -486,7 +486,7 @@ class ProductsActionBuilder
      */
     public function changePrice(array $data = [])
     {
-        return new ProductChangePriceAction($data);
+        return ProductChangePriceAction::fromArray($data);
     }
 
     /**

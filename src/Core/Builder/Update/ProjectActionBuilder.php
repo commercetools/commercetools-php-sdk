@@ -18,7 +18,7 @@ class ProjectActionBuilder
      */
     public function setShippingRateInputType(array $data = [])
     {
-        return new ProjectSetShippingRateInputTypeAction($data);
+        return ProjectSetShippingRateInputTypeAction::fromArray($data);
     }
 
     /**
@@ -28,7 +28,7 @@ class ProjectActionBuilder
      */
     public function changeCurrencies(array $data = [])
     {
-        return new ProjectChangeCurrenciesAction($data);
+        return ProjectChangeCurrenciesAction::fromArray($data);
     }
 
     /**
@@ -38,7 +38,7 @@ class ProjectActionBuilder
      */
     public function changeLanguages(array $data = [])
     {
-        return new ProjectChangeLanguagesAction($data);
+        return ProjectChangeLanguagesAction::fromArray($data);
     }
 
     /**
@@ -48,7 +48,7 @@ class ProjectActionBuilder
      */
     public function changeName(array $data = [])
     {
-        return new ProjectChangeNameAction($data);
+        return ProjectChangeNameAction::fromArray($data);
     }
 
     /**
@@ -58,7 +58,7 @@ class ProjectActionBuilder
      */
     public function changeMessagesEnabled(array $data = [])
     {
-        return new ProjectChangeMessagesEnabledAction($data);
+        return ProjectChangeMessagesEnabledAction::fromArray($data);
     }
 
     /**
@@ -68,7 +68,7 @@ class ProjectActionBuilder
      */
     public function changeCountries(array $data = [])
     {
-        return new ProjectChangeCountriesAction($data);
+        return ProjectChangeCountriesAction::fromArray($data);
     }
 
     /**

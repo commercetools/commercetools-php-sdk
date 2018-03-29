@@ -29,7 +29,7 @@ class ProductTypesActionBuilder
      */
     public function changeLocalizedEnumValueLabel(array $data = [])
     {
-        return new ProductTypeChangeLocalizedEnumLabelAction($data);
+        return ProductTypeChangeLocalizedEnumLabelAction::fromArray($data);
     }
 
     /**
@@ -39,7 +39,7 @@ class ProductTypesActionBuilder
      */
     public function setInputTip(array $data = [])
     {
-        return new ProductTypeSetInputTipAction($data);
+        return ProductTypeSetInputTipAction::fromArray($data);
     }
 
     /**
@@ -49,7 +49,7 @@ class ProductTypesActionBuilder
      */
     public function changeLabel(array $data = [])
     {
-        return new ProductTypeChangeLabelAction($data);
+        return ProductTypeChangeLabelAction::fromArray($data);
     }
 
     /**
@@ -59,7 +59,7 @@ class ProductTypesActionBuilder
      */
     public function addAttributeDefinition(array $data = [])
     {
-        return new ProductTypeAddAttributeDefinitionAction($data);
+        return ProductTypeAddAttributeDefinitionAction::fromArray($data);
     }
 
     /**
@@ -69,7 +69,7 @@ class ProductTypesActionBuilder
      */
     public function changePlainEnumValueLabel(array $data = [])
     {
-        return new ProductTypeChangePlainEnumLabelAction($data);
+        return ProductTypeChangePlainEnumLabelAction::fromArray($data);
     }
 
     /**
@@ -79,7 +79,7 @@ class ProductTypesActionBuilder
      */
     public function addPlainEnumValue(array $data = [])
     {
-        return new ProductTypeAddPlainEnumValueAction($data);
+        return ProductTypeAddPlainEnumValueAction::fromArray($data);
     }
 
     /**
@@ -89,7 +89,7 @@ class ProductTypesActionBuilder
      */
     public function removeAttributeDefinition(array $data = [])
     {
-        return new ProductTypeRemoveAttributeDefinitionAction($data);
+        return ProductTypeRemoveAttributeDefinitionAction::fromArray($data);
     }
 
     /**
@@ -99,7 +99,7 @@ class ProductTypesActionBuilder
      */
     public function changePlainEnumValueOrder(array $data = [])
     {
-        return new ProductTypeChangePlainEnumValueOrderAction($data);
+        return ProductTypeChangePlainEnumValueOrderAction::fromArray($data);
     }
 
     /**
@@ -109,7 +109,7 @@ class ProductTypesActionBuilder
      */
     public function setKey(array $data = [])
     {
-        return new ProductTypeSetKeyAction($data);
+        return ProductTypeSetKeyAction::fromArray($data);
     }
 
     /**
@@ -119,7 +119,7 @@ class ProductTypesActionBuilder
      */
     public function changeDescription(array $data = [])
     {
-        return new ProductTypeChangeDescriptionAction($data);
+        return ProductTypeChangeDescriptionAction::fromArray($data);
     }
 
     /**
@@ -129,7 +129,7 @@ class ProductTypesActionBuilder
      */
     public function changeAttributeConstraint(array $data = [])
     {
-        return new ProductTypeChangeAttributeConstraintAction($data);
+        return ProductTypeChangeAttributeConstraintAction::fromArray($data);
     }
 
     /**
@@ -139,7 +139,7 @@ class ProductTypesActionBuilder
      */
     public function changeName(array $data = [])
     {
-        return new ProductTypeChangeNameAction($data);
+        return ProductTypeChangeNameAction::fromArray($data);
     }
 
     /**
@@ -149,7 +149,7 @@ class ProductTypesActionBuilder
      */
     public function changeLocalizedEnumValueOrder(array $data = [])
     {
-        return new ProductTypeChangeLocalizedEnumValueOrderAction($data);
+        return ProductTypeChangeLocalizedEnumValueOrderAction::fromArray($data);
     }
 
     /**
@@ -159,7 +159,7 @@ class ProductTypesActionBuilder
      */
     public function changeIsSearchable(array $data = [])
     {
-        return new ProductTypeChangeIsSearchableAction($data);
+        return ProductTypeChangeIsSearchableAction::fromArray($data);
     }
 
     /**
@@ -169,7 +169,7 @@ class ProductTypesActionBuilder
      */
     public function changeAttributeOrder(array $data = [])
     {
-        return new ProductTypeChangeAttributeOrderAction($data);
+        return ProductTypeChangeAttributeOrderAction::fromArray($data);
     }
 
     /**
@@ -179,7 +179,7 @@ class ProductTypesActionBuilder
      */
     public function addLocalizedEnumValue(array $data = [])
     {
-        return new ProductTypeAddLocalizedEnumValueAction($data);
+        return ProductTypeAddLocalizedEnumValueAction::fromArray($data);
     }
 
     /**
@@ -189,7 +189,7 @@ class ProductTypesActionBuilder
      */
     public function changeInputHint(array $data = [])
     {
-        return new ProductTypeChangeInputHintAction($data);
+        return ProductTypeChangeInputHintAction::fromArray($data);
     }
 
     /**

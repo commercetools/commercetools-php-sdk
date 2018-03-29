@@ -14,7 +14,7 @@ class CustomerGroupsActionBuilder
      */
     public function setKey(array $data = [])
     {
-        return new CustomerGroupSetKeyAction($data);
+        return CustomerGroupSetKeyAction::fromArray($data);
     }
 
     /**
@@ -24,7 +24,7 @@ class CustomerGroupsActionBuilder
      */
     public function changeName(array $data = [])
     {
-        return new CustomerGroupChangeNameAction($data);
+        return CustomerGroupChangeNameAction::fromArray($data);
     }
 
     /**

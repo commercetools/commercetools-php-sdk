@@ -53,7 +53,7 @@ class CartsActionBuilder
      */
     public function setLineItemCustomField(array $data = [])
     {
-        return new CartSetLineItemCustomFieldAction($data);
+        return CartSetLineItemCustomFieldAction::fromArray($data);
     }
 
     /**
@@ -63,7 +63,7 @@ class CartsActionBuilder
      */
     public function addPayment(array $data = [])
     {
-        return new CartAddPaymentAction($data);
+        return CartAddPaymentAction::fromArray($data);
     }
 
     /**
@@ -73,7 +73,7 @@ class CartsActionBuilder
      */
     public function removeLineItem(array $data = [])
     {
-        return new CartRemoveLineItemAction($data);
+        return CartRemoveLineItemAction::fromArray($data);
     }
 
     /**
@@ -83,7 +83,7 @@ class CartsActionBuilder
      */
     public function removeCustomLineItem(array $data = [])
     {
-        return new CartRemoveCustomLineItemAction($data);
+        return CartRemoveCustomLineItemAction::fromArray($data);
     }
 
     /**
@@ -93,7 +93,7 @@ class CartsActionBuilder
      */
     public function setDeleteDaysAfterLastModification(array $data = [])
     {
-        return new CartSetDeleteDaysAfterLastModificationAction($data);
+        return CartSetDeleteDaysAfterLastModificationAction::fromArray($data);
     }
 
     /**
@@ -103,7 +103,7 @@ class CartsActionBuilder
      */
     public function setLineItemPrice(array $data = [])
     {
-        return new CartSetLineItemPriceAction($data);
+        return CartSetLineItemPriceAction::fromArray($data);
     }
 
     /**
@@ -113,7 +113,7 @@ class CartsActionBuilder
      */
     public function setLineItemTaxAmount(array $data = [])
     {
-        return new CartSetLineItemTaxAmountAction($data);
+        return CartSetLineItemTaxAmountAction::fromArray($data);
     }
 
     /**
@@ -123,7 +123,7 @@ class CartsActionBuilder
      */
     public function removeDiscountCode(array $data = [])
     {
-        return new CartRemoveDiscountCodeAction($data);
+        return CartRemoveDiscountCodeAction::fromArray($data);
     }
 
     /**
@@ -133,7 +133,7 @@ class CartsActionBuilder
      */
     public function setShippingAddress(array $data = [])
     {
-        return new CartSetShippingAddressAction($data);
+        return CartSetShippingAddressAction::fromArray($data);
     }
 
     /**
@@ -143,7 +143,7 @@ class CartsActionBuilder
      */
     public function changeCustomLineItemMoney(array $data = [])
     {
-        return new CartChangeCustomLineItemMoneyAction($data);
+        return CartChangeCustomLineItemMoneyAction::fromArray($data);
     }
 
     /**
@@ -153,7 +153,7 @@ class CartsActionBuilder
      */
     public function setCustomerEmail(array $data = [])
     {
-        return new CartSetCustomerEmailAction($data);
+        return CartSetCustomerEmailAction::fromArray($data);
     }
 
     /**
@@ -163,7 +163,7 @@ class CartsActionBuilder
      */
     public function setLocale(array $data = [])
     {
-        return new CartSetLocaleAction($data);
+        return CartSetLocaleAction::fromArray($data);
     }
 
     /**
@@ -173,7 +173,7 @@ class CartsActionBuilder
      */
     public function setCustomShippingMethod(array $data = [])
     {
-        return new CartSetCustomShippingMethodAction($data);
+        return CartSetCustomShippingMethodAction::fromArray($data);
     }
 
     /**
@@ -183,7 +183,7 @@ class CartsActionBuilder
      */
     public function setCustomLineItemCustomField(array $data = [])
     {
-        return new CartSetCustomLineItemCustomFieldAction($data);
+        return CartSetCustomLineItemCustomFieldAction::fromArray($data);
     }
 
     /**
@@ -193,7 +193,7 @@ class CartsActionBuilder
      */
     public function setLineItemTaxRate(array $data = [])
     {
-        return new CartSetLineItemTaxRateAction($data);
+        return CartSetLineItemTaxRateAction::fromArray($data);
     }
 
     /**
@@ -203,7 +203,7 @@ class CartsActionBuilder
      */
     public function setShippingMethodTaxRate(array $data = [])
     {
-        return new CartSetShippingMethodTaxRateAction($data);
+        return CartSetShippingMethodTaxRateAction::fromArray($data);
     }
 
     /**
@@ -213,7 +213,7 @@ class CartsActionBuilder
      */
     public function addCustomLineItem(array $data = [])
     {
-        return new CartAddCustomLineItemAction($data);
+        return CartAddCustomLineItemAction::fromArray($data);
     }
 
     /**
@@ -223,7 +223,7 @@ class CartsActionBuilder
      */
     public function changeTaxMode(array $data = [])
     {
-        return new CartChangeTaxModeAction($data);
+        return CartChangeTaxModeAction::fromArray($data);
     }
 
     /**
@@ -233,7 +233,7 @@ class CartsActionBuilder
      */
     public function setCustomLineItemTaxRate(array $data = [])
     {
-        return new CartSetCustomLineItemTaxRateAction($data);
+        return CartSetCustomLineItemTaxRateAction::fromArray($data);
     }
 
     /**
@@ -243,7 +243,7 @@ class CartsActionBuilder
      */
     public function setLineItemTotalPrice(array $data = [])
     {
-        return new CartSetLineItemTotalPriceAction($data);
+        return CartSetLineItemTotalPriceAction::fromArray($data);
     }
 
     /**
@@ -253,7 +253,7 @@ class CartsActionBuilder
      */
     public function setCartTotalTax(array $data = [])
     {
-        return new CartSetCartTotalTaxAction($data);
+        return CartSetCartTotalTaxAction::fromArray($data);
     }
 
     /**
@@ -263,7 +263,7 @@ class CartsActionBuilder
      */
     public function changeLineItemQuantity(array $data = [])
     {
-        return new CartChangeLineItemQuantityAction($data);
+        return CartChangeLineItemQuantityAction::fromArray($data);
     }
 
     /**
@@ -273,7 +273,7 @@ class CartsActionBuilder
      */
     public function recalculate(array $data = [])
     {
-        return new CartRecalculateAction($data);
+        return CartRecalculateAction::fromArray($data);
     }
 
     /**
@@ -283,7 +283,7 @@ class CartsActionBuilder
      */
     public function setCustomerGroup(array $data = [])
     {
-        return new CartSetCustomerGroupAction($data);
+        return CartSetCustomerGroupAction::fromArray($data);
     }
 
     /**
@@ -293,7 +293,7 @@ class CartsActionBuilder
      */
     public function setBillingAddress(array $data = [])
     {
-        return new CartSetBillingAddressAction($data);
+        return CartSetBillingAddressAction::fromArray($data);
     }
 
     /**
@@ -303,7 +303,7 @@ class CartsActionBuilder
      */
     public function setAnonymousId(array $data = [])
     {
-        return new CartSetAnonymousIdAction($data);
+        return CartSetAnonymousIdAction::fromArray($data);
     }
 
     /**
@@ -313,7 +313,7 @@ class CartsActionBuilder
      */
     public function setShippingMethod(array $data = [])
     {
-        return new CartSetShippingMethodAction($data);
+        return CartSetShippingMethodAction::fromArray($data);
     }
 
     /**
@@ -323,7 +323,7 @@ class CartsActionBuilder
      */
     public function setLineItemCustomType(array $data = [])
     {
-        return new CartSetLineItemCustomTypeAction($data);
+        return CartSetLineItemCustomTypeAction::fromArray($data);
     }
 
     /**
@@ -333,7 +333,7 @@ class CartsActionBuilder
      */
     public function addLineItem(array $data = [])
     {
-        return new CartAddLineItemAction($data);
+        return CartAddLineItemAction::fromArray($data);
     }
 
     /**
@@ -343,7 +343,7 @@ class CartsActionBuilder
      */
     public function setCustomerId(array $data = [])
     {
-        return new CartSetCustomerIdAction($data);
+        return CartSetCustomerIdAction::fromArray($data);
     }
 
     /**
@@ -353,7 +353,7 @@ class CartsActionBuilder
      */
     public function setCustomLineItemTaxAmount(array $data = [])
     {
-        return new CartSetCustomLineItemTaxAmountAction($data);
+        return CartSetCustomLineItemTaxAmountAction::fromArray($data);
     }
 
     /**
@@ -363,7 +363,7 @@ class CartsActionBuilder
      */
     public function addShoppingList(array $data = [])
     {
-        return new CartAddShoppingListAction($data);
+        return CartAddShoppingListAction::fromArray($data);
     }
 
     /**
@@ -373,7 +373,7 @@ class CartsActionBuilder
      */
     public function addDiscountCode(array $data = [])
     {
-        return new CartAddDiscountCodeAction($data);
+        return CartAddDiscountCodeAction::fromArray($data);
     }
 
     /**
@@ -383,7 +383,7 @@ class CartsActionBuilder
      */
     public function changeCustomLineItemQuantity(array $data = [])
     {
-        return new CartChangeCustomLineItemQuantityAction($data);
+        return CartChangeCustomLineItemQuantityAction::fromArray($data);
     }
 
     /**
@@ -394,7 +394,7 @@ class CartsActionBuilder
      */
     public function setShippingRateInput(array $data = [])
     {
-        return new CartSetShippingRateInputAction($data);
+        return CartSetShippingRateInputAction::fromArray($data);
     }
 
     /**
@@ -404,7 +404,7 @@ class CartsActionBuilder
      */
     public function setCountry(array $data = [])
     {
-        return new CartSetCountryAction($data);
+        return CartSetCountryAction::fromArray($data);
     }
 
     /**
@@ -414,7 +414,7 @@ class CartsActionBuilder
      */
     public function changeTaxRoundingMode(array $data = [])
     {
-        return new CartChangeTaxRoundingModeAction($data);
+        return CartChangeTaxRoundingModeAction::fromArray($data);
     }
 
     /**
@@ -424,7 +424,7 @@ class CartsActionBuilder
      */
     public function removePayment(array $data = [])
     {
-        return new CartRemovePaymentAction($data);
+        return CartRemovePaymentAction::fromArray($data);
     }
 
     /**
@@ -434,7 +434,7 @@ class CartsActionBuilder
      */
     public function setShippingMethodTaxAmount(array $data = [])
     {
-        return new CartSetShippingMethodTaxAmountAction($data);
+        return CartSetShippingMethodTaxAmountAction::fromArray($data);
     }
 
     /**
@@ -444,7 +444,7 @@ class CartsActionBuilder
      */
     public function changeTaxCalculationMode(array $data = [])
     {
-        return new CartChangeTaxCalculationModeAction($data);
+        return CartChangeTaxCalculationModeAction::fromArray($data);
     }
 
     /**
@@ -454,7 +454,7 @@ class CartsActionBuilder
      */
     public function setCustomLineItemCustomType(array $data = [])
     {
-        return new CartSetCustomLineItemCustomTypeAction($data);
+        return CartSetCustomLineItemCustomTypeAction::fromArray($data);
     }
 
     /**

@@ -20,7 +20,7 @@ class ProductDiscountsActionBuilder
      */
     public function setDescription(array $data = [])
     {
-        return new ProductDiscountSetDescriptionAction($data);
+        return ProductDiscountSetDescriptionAction::fromArray($data);
     }
 
     /**
@@ -30,7 +30,7 @@ class ProductDiscountsActionBuilder
      */
     public function changeValue(array $data = [])
     {
-        return new ProductDiscountChangeValueAction($data);
+        return ProductDiscountChangeValueAction::fromArray($data);
     }
 
     /**
@@ -40,7 +40,7 @@ class ProductDiscountsActionBuilder
      */
     public function changePredicate(array $data = [])
     {
-        return new ProductDiscountChangePredicateAction($data);
+        return ProductDiscountChangePredicateAction::fromArray($data);
     }
 
     /**
@@ -50,7 +50,7 @@ class ProductDiscountsActionBuilder
      */
     public function changeSortOrder(array $data = [])
     {
-        return new ProductDiscountChangeSortOrderAction($data);
+        return ProductDiscountChangeSortOrderAction::fromArray($data);
     }
 
     /**
@@ -60,7 +60,7 @@ class ProductDiscountsActionBuilder
      */
     public function setValidUntil(array $data = [])
     {
-        return new ProductDiscountSetValidUntilAction($data);
+        return ProductDiscountSetValidUntilAction::fromArray($data);
     }
 
     /**
@@ -70,7 +70,7 @@ class ProductDiscountsActionBuilder
      */
     public function changeName(array $data = [])
     {
-        return new ProductDiscountChangeNameAction($data);
+        return ProductDiscountChangeNameAction::fromArray($data);
     }
 
     /**
@@ -80,7 +80,7 @@ class ProductDiscountsActionBuilder
      */
     public function changeIsActive(array $data = [])
     {
-        return new ProductDiscountChangeIsActiveAction($data);
+        return ProductDiscountChangeIsActiveAction::fromArray($data);
     }
 
     /**
@@ -90,7 +90,7 @@ class ProductDiscountsActionBuilder
      */
     public function setValidFrom(array $data = [])
     {
-        return new ProductDiscountSetValidFromAction($data);
+        return ProductDiscountSetValidFromAction::fromArray($data);
     }
 
     /**

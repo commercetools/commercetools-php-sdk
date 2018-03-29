@@ -22,7 +22,7 @@ class ShippingMethodsActionBuilder
      */
     public function addShippingRate(array $data = [])
     {
-        return new ShippingMethodAddShippingRateAction($data);
+        return ShippingMethodAddShippingRateAction::fromArray($data);
     }
 
     /**
@@ -32,7 +32,7 @@ class ShippingMethodsActionBuilder
      */
     public function changeIsDefault(array $data = [])
     {
-        return new ShippingMethodChangeIsDefaultAction($data);
+        return ShippingMethodChangeIsDefaultAction::fromArray($data);
     }
 
     /**
@@ -42,7 +42,7 @@ class ShippingMethodsActionBuilder
      */
     public function changeTaxCategory(array $data = [])
     {
-        return new ShippingMethodChangeTaxCategoryAction($data);
+        return ShippingMethodChangeTaxCategoryAction::fromArray($data);
     }
 
     /**
@@ -52,7 +52,7 @@ class ShippingMethodsActionBuilder
      */
     public function setKey(array $data = [])
     {
-        return new ShippingMethodSetKeyAction($data);
+        return ShippingMethodSetKeyAction::fromArray($data);
     }
 
     /**
@@ -62,7 +62,7 @@ class ShippingMethodsActionBuilder
      */
     public function addZone(array $data = [])
     {
-        return new ShippingMethodAddZoneAction($data);
+        return ShippingMethodAddZoneAction::fromArray($data);
     }
 
     /**
@@ -72,7 +72,7 @@ class ShippingMethodsActionBuilder
      */
     public function removeZone(array $data = [])
     {
-        return new ShippingMethodRemoveZoneAction($data);
+        return ShippingMethodRemoveZoneAction::fromArray($data);
     }
 
     /**
@@ -82,7 +82,7 @@ class ShippingMethodsActionBuilder
      */
     public function changeName(array $data = [])
     {
-        return new ShippingMethodChangeNameAction($data);
+        return ShippingMethodChangeNameAction::fromArray($data);
     }
 
     /**
@@ -92,7 +92,7 @@ class ShippingMethodsActionBuilder
      */
     public function setPredicate(array $data = [])
     {
-        return new ShippingMethodSetPredicateAction($data);
+        return ShippingMethodSetPredicateAction::fromArray($data);
     }
 
     /**
@@ -102,7 +102,7 @@ class ShippingMethodsActionBuilder
      */
     public function removeShippingRate(array $data = [])
     {
-        return new ShippingMethodRemoveShippingRateAction($data);
+        return ShippingMethodRemoveShippingRateAction::fromArray($data);
     }
 
     /**
@@ -112,7 +112,7 @@ class ShippingMethodsActionBuilder
      */
     public function setDescription(array $data = [])
     {
-        return new ShippingMethodSetDescriptionAction($data);
+        return ShippingMethodSetDescriptionAction::fromArray($data);
     }
 
     /**

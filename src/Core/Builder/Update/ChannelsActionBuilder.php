@@ -20,7 +20,7 @@ class ChannelsActionBuilder
      */
     public function setAddress(array $data = [])
     {
-        return new ChannelSetAddressAction($data);
+        return ChannelSetAddressAction::fromArray($data);
     }
 
     /**
@@ -30,7 +30,7 @@ class ChannelsActionBuilder
      */
     public function changeDescription(array $data = [])
     {
-        return new ChannelChangeDescriptionAction($data);
+        return ChannelChangeDescriptionAction::fromArray($data);
     }
 
     /**
@@ -40,7 +40,7 @@ class ChannelsActionBuilder
      */
     public function changeName(array $data = [])
     {
-        return new ChannelChangeNameAction($data);
+        return ChannelChangeNameAction::fromArray($data);
     }
 
     /**
@@ -50,7 +50,7 @@ class ChannelsActionBuilder
      */
     public function setGeoLocation(array $data = [])
     {
-        return new ChannelSetGeoLocation($data);
+        return ChannelSetGeoLocation::fromArray($data);
     }
 
     /**
@@ -60,7 +60,7 @@ class ChannelsActionBuilder
      */
     public function setRoles(array $data = [])
     {
-        return new ChannelSetRolesAction($data);
+        return ChannelSetRolesAction::fromArray($data);
     }
 
     /**
@@ -70,7 +70,7 @@ class ChannelsActionBuilder
      */
     public function removeRoles(array $data = [])
     {
-        return new ChannelRemoveRolesAction($data);
+        return ChannelRemoveRolesAction::fromArray($data);
     }
 
     /**
@@ -80,7 +80,7 @@ class ChannelsActionBuilder
      */
     public function addRoles(array $data = [])
     {
-        return new ChannelAddRolesAction($data);
+        return ChannelAddRolesAction::fromArray($data);
     }
 
     /**
@@ -90,7 +90,7 @@ class ChannelsActionBuilder
      */
     public function changeKey(array $data = [])
     {
-        return new ChannelChangeKeyAction($data);
+        return ChannelChangeKeyAction::fromArray($data);
     }
 
     /**

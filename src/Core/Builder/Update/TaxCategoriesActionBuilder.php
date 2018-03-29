@@ -18,7 +18,7 @@ class TaxCategoriesActionBuilder
      */
     public function setKey(array $data = [])
     {
-        return new TaxCategorySetKeyAction($data);
+        return TaxCategorySetKeyAction::fromArray($data);
     }
 
     /**
@@ -28,7 +28,7 @@ class TaxCategoriesActionBuilder
      */
     public function replaceTaxRate(array $data = [])
     {
-        return new TaxCategoryReplaceTaxRateAction($data);
+        return TaxCategoryReplaceTaxRateAction::fromArray($data);
     }
 
     /**
@@ -38,7 +38,7 @@ class TaxCategoriesActionBuilder
      */
     public function removeTaxRate(array $data = [])
     {
-        return new TaxCategoryRemoveTaxRateAction($data);
+        return TaxCategoryRemoveTaxRateAction::fromArray($data);
     }
 
     /**
@@ -48,7 +48,7 @@ class TaxCategoriesActionBuilder
      */
     public function changeName(array $data = [])
     {
-        return new TaxCategoryChangeNameAction($data);
+        return TaxCategoryChangeNameAction::fromArray($data);
     }
 
     /**
@@ -58,7 +58,7 @@ class TaxCategoriesActionBuilder
      */
     public function addTaxRate(array $data = [])
     {
-        return new TaxCategoryAddTaxRateAction($data);
+        return TaxCategoryAddTaxRateAction::fromArray($data);
     }
 
     /**
@@ -68,7 +68,7 @@ class TaxCategoriesActionBuilder
      */
     public function setDescription(array $data = [])
     {
-        return new TaxCategorySetDescriptionAction($data);
+        return TaxCategorySetDescriptionAction::fromArray($data);
     }
 
     /**

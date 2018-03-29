@@ -40,7 +40,7 @@ class OrdersActionBuilder
      */
     public function transitionState(array $data = [])
     {
-        return new OrderTransitionStateAction($data);
+        return OrderTransitionStateAction::fromArray($data);
     }
 
     /**
@@ -50,7 +50,7 @@ class OrdersActionBuilder
      */
     public function setOrderNumber(array $data = [])
     {
-        return new OrderSetOrderNumberAction($data);
+        return OrderSetOrderNumberAction::fromArray($data);
     }
 
     /**
@@ -60,7 +60,7 @@ class OrdersActionBuilder
      */
     public function addPayment(array $data = [])
     {
-        return new OrderAddPaymentAction($data);
+        return OrderAddPaymentAction::fromArray($data);
     }
 
     /**
@@ -70,7 +70,7 @@ class OrdersActionBuilder
      */
     public function removePayment(array $data = [])
     {
-        return new OrderRemovePaymentAction($data);
+        return OrderRemovePaymentAction::fromArray($data);
     }
 
     /**
@@ -80,7 +80,7 @@ class OrdersActionBuilder
      */
     public function setReturnShipmentState(array $data = [])
     {
-        return new OrderSetReturnShipmentStateAction($data);
+        return OrderSetReturnShipmentStateAction::fromArray($data);
     }
 
     /**
@@ -90,7 +90,7 @@ class OrdersActionBuilder
      */
     public function importCustomLineItemState(array $data = [])
     {
-        return new OrderImportCustomLineItemStateAction($data);
+        return OrderImportCustomLineItemStateAction::fromArray($data);
     }
 
     /**
@@ -100,7 +100,7 @@ class OrdersActionBuilder
      */
     public function addReturnInfo(array $data = [])
     {
-        return new OrderAddReturnInfoAction($data);
+        return OrderAddReturnInfoAction::fromArray($data);
     }
 
     /**
@@ -110,7 +110,7 @@ class OrdersActionBuilder
      */
     public function removeParcelFromDelivery(array $data = [])
     {
-        return new OrderRemoveParcelFromDeliveryAction($data);
+        return OrderRemoveParcelFromDeliveryAction::fromArray($data);
     }
 
     /**
@@ -120,7 +120,7 @@ class OrdersActionBuilder
      */
     public function setReturnPaymentState(array $data = [])
     {
-        return new OrderSetReturnPaymentStateAction($data);
+        return OrderSetReturnPaymentStateAction::fromArray($data);
     }
 
     /**
@@ -130,7 +130,7 @@ class OrdersActionBuilder
      */
     public function removeDelivery(array $data = [])
     {
-        return new OrderRemoveDeliveryAction($data);
+        return OrderRemoveDeliveryAction::fromArray($data);
     }
 
     /**
@@ -140,7 +140,7 @@ class OrdersActionBuilder
      */
     public function setParcelTrackingData(array $data = [])
     {
-        return new OrderSetParcelTrackingDataAction($data);
+        return OrderSetParcelTrackingDataAction::fromArray($data);
     }
 
     /**
@@ -150,7 +150,7 @@ class OrdersActionBuilder
      */
     public function setParcelMeasurements(array $data = [])
     {
-        return new OrderSetParcelMeasurementsAction($data);
+        return OrderSetParcelMeasurementsAction::fromArray($data);
     }
 
     /**
@@ -160,7 +160,7 @@ class OrdersActionBuilder
      */
     public function setCustomerEmail(array $data = [])
     {
-        return new OrderSetCustomerEmail($data);
+        return OrderSetCustomerEmail::fromArray($data);
     }
 
     /**
@@ -170,7 +170,7 @@ class OrdersActionBuilder
      */
     public function transitionCustomLineItemState(array $data = [])
     {
-        return new OrderTransitionCustomLineItemStateAction($data);
+        return OrderTransitionCustomLineItemStateAction::fromArray($data);
     }
 
     /**
@@ -180,7 +180,7 @@ class OrdersActionBuilder
      */
     public function setDeliveryItems(array $data = [])
     {
-        return new OrderSetDeliveryItemsAction($data);
+        return OrderSetDeliveryItemsAction::fromArray($data);
     }
 
     /**
@@ -190,7 +190,7 @@ class OrdersActionBuilder
      */
     public function importLineItemState(array $data = [])
     {
-        return new OrderImportLineItemStateAction($data);
+        return OrderImportLineItemStateAction::fromArray($data);
     }
 
     /**
@@ -200,7 +200,7 @@ class OrdersActionBuilder
      */
     public function addParcelToDelivery(array $data = [])
     {
-        return new OrderAddParcelToDeliveryAction($data);
+        return OrderAddParcelToDeliveryAction::fromArray($data);
     }
 
     /**
@@ -210,7 +210,7 @@ class OrdersActionBuilder
      */
     public function changeOrderState(array $data = [])
     {
-        return new OrderChangeOrderStateAction($data);
+        return OrderChangeOrderStateAction::fromArray($data);
     }
 
     /**
@@ -220,7 +220,7 @@ class OrdersActionBuilder
      */
     public function setShippingAddress(array $data = [])
     {
-        return new OrderSetShippingAddress($data);
+        return OrderSetShippingAddress::fromArray($data);
     }
 
     /**
@@ -230,7 +230,7 @@ class OrdersActionBuilder
      */
     public function setDeliveryAddress(array $data = [])
     {
-        return new OrderSetDeliveryAddressAction($data);
+        return OrderSetDeliveryAddressAction::fromArray($data);
     }
 
     /**
@@ -240,7 +240,7 @@ class OrdersActionBuilder
      */
     public function updateSyncInfo(array $data = [])
     {
-        return new OrderUpdateSyncInfoAction($data);
+        return OrderUpdateSyncInfoAction::fromArray($data);
     }
 
     /**
@@ -250,7 +250,7 @@ class OrdersActionBuilder
      */
     public function transitionLineItemState(array $data = [])
     {
-        return new OrderTransitionLineItemStateAction($data);
+        return OrderTransitionLineItemStateAction::fromArray($data);
     }
 
     /**
@@ -260,7 +260,7 @@ class OrdersActionBuilder
      */
     public function changePaymentState(array $data = [])
     {
-        return new OrderChangePaymentStateAction($data);
+        return OrderChangePaymentStateAction::fromArray($data);
     }
 
     /**
@@ -270,7 +270,7 @@ class OrdersActionBuilder
      */
     public function addDelivery(array $data = [])
     {
-        return new OrderAddDeliveryAction($data);
+        return OrderAddDeliveryAction::fromArray($data);
     }
 
     /**
@@ -280,7 +280,7 @@ class OrdersActionBuilder
      */
     public function setLocale(array $data = [])
     {
-        return new OrderSetLocaleAction($data);
+        return OrderSetLocaleAction::fromArray($data);
     }
 
     /**
@@ -290,7 +290,7 @@ class OrdersActionBuilder
      */
     public function changeShipmentState(array $data = [])
     {
-        return new OrderChangeShipmentStateAction($data);
+        return OrderChangeShipmentStateAction::fromArray($data);
     }
 
     /**
@@ -300,7 +300,7 @@ class OrdersActionBuilder
      */
     public function setBillingAddress(array $data = [])
     {
-        return new OrderSetBillingAddress($data);
+        return OrderSetBillingAddress::fromArray($data);
     }
 
     /**
@@ -310,7 +310,7 @@ class OrdersActionBuilder
      */
     public function setParcelItems(array $data = [])
     {
-        return new OrderSetParcelItemsAction($data);
+        return OrderSetParcelItemsAction::fromArray($data);
     }
 
     /**

@@ -216,7 +216,7 @@ class AnnotationGenerator
      */
     public function $actionName(array \$data = [])
     {
-        return new $actionShortName(\$data);
+        return $actionShortName::fromArray(\$data);
     }
 METHOD;
             $updateMethods[] = $method;

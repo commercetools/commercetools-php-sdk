@@ -18,7 +18,7 @@ class InventoryActionBuilder
      */
     public function setExpectedDelivery(array $data = [])
     {
-        return new InventorySetExpectedDeliveryAction($data);
+        return InventorySetExpectedDeliveryAction::fromArray($data);
     }
 
     /**
@@ -28,7 +28,7 @@ class InventoryActionBuilder
      */
     public function addQuantity(array $data = [])
     {
-        return new InventoryAddQuantityAction($data);
+        return InventoryAddQuantityAction::fromArray($data);
     }
 
     /**
@@ -38,7 +38,7 @@ class InventoryActionBuilder
      */
     public function changeQuantity(array $data = [])
     {
-        return new InventoryChangeQuantityAction($data);
+        return InventoryChangeQuantityAction::fromArray($data);
     }
 
     /**
@@ -48,7 +48,7 @@ class InventoryActionBuilder
      */
     public function setSupplyChannel(array $data = [])
     {
-        return new InventorySetSupplyChannelAction($data);
+        return InventorySetSupplyChannelAction::fromArray($data);
     }
 
     /**
@@ -58,7 +58,7 @@ class InventoryActionBuilder
      */
     public function setRestockableInDays(array $data = [])
     {
-        return new InventorySetRestockableInDaysAction($data);
+        return InventorySetRestockableInDaysAction::fromArray($data);
     }
 
     /**
@@ -68,7 +68,7 @@ class InventoryActionBuilder
      */
     public function removeQuantity(array $data = [])
     {
-        return new InventoryRemoveQuantityAction($data);
+        return InventoryRemoveQuantityAction::fromArray($data);
     }
 
     /**

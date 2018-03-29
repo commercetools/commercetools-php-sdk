@@ -16,7 +16,7 @@ class ZonesActionBuilder
      */
     public function setDescription(array $data = [])
     {
-        return new ZoneSetDescriptionAction($data);
+        return ZoneSetDescriptionAction::fromArray($data);
     }
 
     /**
@@ -26,7 +26,7 @@ class ZonesActionBuilder
      */
     public function removeLocation(array $data = [])
     {
-        return new ZoneRemoveLocationAction($data);
+        return ZoneRemoveLocationAction::fromArray($data);
     }
 
     /**
@@ -36,7 +36,7 @@ class ZonesActionBuilder
      */
     public function changeName(array $data = [])
     {
-        return new ZoneChangeNameAction($data);
+        return ZoneChangeNameAction::fromArray($data);
     }
 
     /**
@@ -46,7 +46,7 @@ class ZonesActionBuilder
      */
     public function addLocation(array $data = [])
     {
-        return new ZoneAddLocationAction($data);
+        return ZoneAddLocationAction::fromArray($data);
     }
 
     /**

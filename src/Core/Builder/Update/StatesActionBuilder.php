@@ -22,7 +22,7 @@ class StatesActionBuilder
      */
     public function setDescription(array $data = [])
     {
-        return new StateSetDescriptionAction($data);
+        return StateSetDescriptionAction::fromArray($data);
     }
 
     /**
@@ -32,7 +32,7 @@ class StatesActionBuilder
      */
     public function changeType(array $data = [])
     {
-        return new StateChangeTypeAction($data);
+        return StateChangeTypeAction::fromArray($data);
     }
 
     /**
@@ -42,7 +42,7 @@ class StatesActionBuilder
      */
     public function transitionState(array $data = [])
     {
-        return new TransitionStateAction($data);
+        return TransitionStateAction::fromArray($data);
     }
 
     /**
@@ -52,7 +52,7 @@ class StatesActionBuilder
      */
     public function removeRoles(array $data = [])
     {
-        return new StateRemoveRolesAction($data);
+        return StateRemoveRolesAction::fromArray($data);
     }
 
     /**
@@ -62,7 +62,7 @@ class StatesActionBuilder
      */
     public function setName(array $data = [])
     {
-        return new StateSetNameAction($data);
+        return StateSetNameAction::fromArray($data);
     }
 
     /**
@@ -72,7 +72,7 @@ class StatesActionBuilder
      */
     public function addRoles(array $data = [])
     {
-        return new StateAddRolesAction($data);
+        return StateAddRolesAction::fromArray($data);
     }
 
     /**
@@ -82,7 +82,7 @@ class StatesActionBuilder
      */
     public function changeInitial(array $data = [])
     {
-        return new StateChangeInitialAction($data);
+        return StateChangeInitialAction::fromArray($data);
     }
 
     /**
@@ -92,7 +92,7 @@ class StatesActionBuilder
      */
     public function setTransitions(array $data = [])
     {
-        return new StateSetTransitionsAction($data);
+        return StateSetTransitionsAction::fromArray($data);
     }
 
     /**
@@ -102,7 +102,7 @@ class StatesActionBuilder
      */
     public function changeKey(array $data = [])
     {
-        return new StateChangeKeyAction($data);
+        return StateChangeKeyAction::fromArray($data);
     }
 
     /**
@@ -112,7 +112,7 @@ class StatesActionBuilder
      */
     public function setRoles(array $data = [])
     {
-        return new StateSetRolesAction($data);
+        return StateSetRolesAction::fromArray($data);
     }
 
     /**

@@ -14,7 +14,7 @@ class CustomFieldActionBuilder
      */
     public function setCustomField(array $data = [])
     {
-        return new SetCustomFieldAction($data);
+        return SetCustomFieldAction::fromArray($data);
     }
 
     /**
@@ -24,7 +24,7 @@ class CustomFieldActionBuilder
      */
     public function setCustomType(array $data = [])
     {
-        return new SetCustomTypeAction($data);
+        return SetCustomTypeAction::fromArray($data);
     }
 
     /**

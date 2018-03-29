@@ -34,7 +34,7 @@ class ShoppingListsActionBuilder
      */
     public function setSlug(array $data = [])
     {
-        return new ShoppingListSetSlugAction($data);
+        return ShoppingListSetSlugAction::fromArray($data);
     }
 
     /**
@@ -44,7 +44,7 @@ class ShoppingListsActionBuilder
      */
     public function setDeleteDaysAfterLastModification(array $data = [])
     {
-        return new ShoppingListSetDeleteDaysAfterLastModificationAction($data);
+        return ShoppingListSetDeleteDaysAfterLastModificationAction::fromArray($data);
     }
 
     /**
@@ -54,7 +54,7 @@ class ShoppingListsActionBuilder
      */
     public function setCustomer(array $data = [])
     {
-        return new ShoppingListSetCustomerAction($data);
+        return ShoppingListSetCustomerAction::fromArray($data);
     }
 
     /**
@@ -64,7 +64,7 @@ class ShoppingListsActionBuilder
      */
     public function setTextLineItemDescription(array $data = [])
     {
-        return new ShoppingListSetTextLineItemDescriptionAction($data);
+        return ShoppingListSetTextLineItemDescriptionAction::fromArray($data);
     }
 
     /**
@@ -74,7 +74,7 @@ class ShoppingListsActionBuilder
      */
     public function setCustomField(array $data = [])
     {
-        return new ShoppingListSetCustomFieldAction($data);
+        return ShoppingListSetCustomFieldAction::fromArray($data);
     }
 
     /**
@@ -84,7 +84,7 @@ class ShoppingListsActionBuilder
      */
     public function setTextLineItemCustomType(array $data = [])
     {
-        return new ShoppingListSetTextLineItemCustomTypeAction($data);
+        return ShoppingListSetTextLineItemCustomTypeAction::fromArray($data);
     }
 
     /**
@@ -94,7 +94,7 @@ class ShoppingListsActionBuilder
      */
     public function changeName(array $data = [])
     {
-        return new ShoppingListChangeNameAction($data);
+        return ShoppingListChangeNameAction::fromArray($data);
     }
 
     /**
@@ -104,7 +104,7 @@ class ShoppingListsActionBuilder
      */
     public function setLineItemCustomField(array $data = [])
     {
-        return new ShoppingListSetLineItemCustomFieldAction($data);
+        return ShoppingListSetLineItemCustomFieldAction::fromArray($data);
     }
 
     /**
@@ -114,7 +114,7 @@ class ShoppingListsActionBuilder
      */
     public function setDescription(array $data = [])
     {
-        return new ShoppingListSetDescriptionAction($data);
+        return ShoppingListSetDescriptionAction::fromArray($data);
     }
 
     /**
@@ -124,7 +124,7 @@ class ShoppingListsActionBuilder
      */
     public function setTextLineItemCustomField(array $data = [])
     {
-        return new ShoppingListSetTextLineItemCustomFieldAction($data);
+        return ShoppingListSetTextLineItemCustomFieldAction::fromArray($data);
     }
 
     /**
@@ -134,7 +134,7 @@ class ShoppingListsActionBuilder
      */
     public function removeTextLineItem(array $data = [])
     {
-        return new ShoppingListRemoveTextLineItemAction($data);
+        return ShoppingListRemoveTextLineItemAction::fromArray($data);
     }
 
     /**
@@ -144,7 +144,7 @@ class ShoppingListsActionBuilder
      */
     public function removeLineItem(array $data = [])
     {
-        return new ShoppingListRemoveLineItemAction($data);
+        return ShoppingListRemoveLineItemAction::fromArray($data);
     }
 
     /**
@@ -154,7 +154,7 @@ class ShoppingListsActionBuilder
      */
     public function changeTextLineItemQuantity(array $data = [])
     {
-        return new ShoppingListChangeTextLineItemQuantityAction($data);
+        return ShoppingListChangeTextLineItemQuantityAction::fromArray($data);
     }
 
     /**
@@ -164,7 +164,7 @@ class ShoppingListsActionBuilder
      */
     public function setCustomType(array $data = [])
     {
-        return new ShoppingListSetCustomTypeAction($data);
+        return ShoppingListSetCustomTypeAction::fromArray($data);
     }
 
     /**
@@ -174,7 +174,7 @@ class ShoppingListsActionBuilder
      */
     public function changeTextLineItemsOrder(array $data = [])
     {
-        return new ShoppingListChangeTextLineItemsOrderAction($data);
+        return ShoppingListChangeTextLineItemsOrderAction::fromArray($data);
     }
 
     /**
@@ -184,7 +184,7 @@ class ShoppingListsActionBuilder
      */
     public function setKey(array $data = [])
     {
-        return new ShoppingListSetKeyAction($data);
+        return ShoppingListSetKeyAction::fromArray($data);
     }
 
     /**
@@ -194,7 +194,7 @@ class ShoppingListsActionBuilder
      */
     public function setLineItemCustomType(array $data = [])
     {
-        return new ShoppingListSetLineItemCustomTypeAction($data);
+        return ShoppingListSetLineItemCustomTypeAction::fromArray($data);
     }
 
     /**
@@ -204,7 +204,7 @@ class ShoppingListsActionBuilder
      */
     public function changeTextLineItemName(array $data = [])
     {
-        return new ShoppingListChangeTextLineItemNameAction($data);
+        return ShoppingListChangeTextLineItemNameAction::fromArray($data);
     }
 
     /**
@@ -214,7 +214,7 @@ class ShoppingListsActionBuilder
      */
     public function changeLineItemQuantity(array $data = [])
     {
-        return new ShoppingListChangeLineItemQuantityAction($data);
+        return ShoppingListChangeLineItemQuantityAction::fromArray($data);
     }
 
     /**
@@ -224,7 +224,7 @@ class ShoppingListsActionBuilder
      */
     public function addLineItem(array $data = [])
     {
-        return new ShoppingListAddLineItemAction($data);
+        return ShoppingListAddLineItemAction::fromArray($data);
     }
 
     /**
@@ -234,7 +234,7 @@ class ShoppingListsActionBuilder
      */
     public function addTextLineItem(array $data = [])
     {
-        return new ShoppingListAddTextLineItemAction($data);
+        return ShoppingListAddTextLineItemAction::fromArray($data);
     }
 
     /**
@@ -244,7 +244,7 @@ class ShoppingListsActionBuilder
      */
     public function changeLineItemsOrder(array $data = [])
     {
-        return new ShoppingListChangeLineItemsOrderAction($data);
+        return ShoppingListChangeLineItemsOrderAction::fromArray($data);
     }
 
     /**

@@ -23,7 +23,7 @@ class CartDiscountsActionBuilder
      */
     public function changeName(array $data = [])
     {
-        return new CartDiscountChangeNameAction($data);
+        return CartDiscountChangeNameAction::fromArray($data);
     }
 
     /**
@@ -33,7 +33,7 @@ class CartDiscountsActionBuilder
      */
     public function changeStackingMode(array $data = [])
     {
-        return new CartDiscountChangeStackingModeAction($data);
+        return CartDiscountChangeStackingModeAction::fromArray($data);
     }
 
     /**
@@ -43,7 +43,7 @@ class CartDiscountsActionBuilder
      */
     public function changeCartPredicate(array $data = [])
     {
-        return new CartDiscountChangeCartPredicateAction($data);
+        return CartDiscountChangeCartPredicateAction::fromArray($data);
     }
 
     /**
@@ -53,7 +53,7 @@ class CartDiscountsActionBuilder
      */
     public function changeRequiresDiscountCode(array $data = [])
     {
-        return new CartDiscountChangeRequiresDiscountCodeAction($data);
+        return CartDiscountChangeRequiresDiscountCodeAction::fromArray($data);
     }
 
     /**
@@ -63,7 +63,7 @@ class CartDiscountsActionBuilder
      */
     public function setValidUntil(array $data = [])
     {
-        return new CartDiscountSetValidUntilAction($data);
+        return CartDiscountSetValidUntilAction::fromArray($data);
     }
 
     /**
@@ -73,7 +73,7 @@ class CartDiscountsActionBuilder
      */
     public function setDescription(array $data = [])
     {
-        return new CartDiscountSetDescriptionAction($data);
+        return CartDiscountSetDescriptionAction::fromArray($data);
     }
 
     /**
@@ -83,7 +83,7 @@ class CartDiscountsActionBuilder
      */
     public function changeSortOrder(array $data = [])
     {
-        return new CartDiscountChangeSortOrderAction($data);
+        return CartDiscountChangeSortOrderAction::fromArray($data);
     }
 
     /**
@@ -93,7 +93,7 @@ class CartDiscountsActionBuilder
      */
     public function setValidFrom(array $data = [])
     {
-        return new CartDiscountSetValidFromAction($data);
+        return CartDiscountSetValidFromAction::fromArray($data);
     }
 
     /**
@@ -103,7 +103,7 @@ class CartDiscountsActionBuilder
      */
     public function changeIsActive(array $data = [])
     {
-        return new CartDiscountChangeIsActiveAction($data);
+        return CartDiscountChangeIsActiveAction::fromArray($data);
     }
 
     /**
@@ -113,7 +113,7 @@ class CartDiscountsActionBuilder
      */
     public function changeValue(array $data = [])
     {
-        return new CartDiscountChangeValueAction($data);
+        return CartDiscountChangeValueAction::fromArray($data);
     }
 
     /**
@@ -123,7 +123,7 @@ class CartDiscountsActionBuilder
      */
     public function changeTarget(array $data = [])
     {
-        return new CartDiscountChangeTargetAction($data);
+        return CartDiscountChangeTargetAction::fromArray($data);
     }
 
     /**

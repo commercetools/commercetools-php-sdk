@@ -23,7 +23,7 @@ class TypesActionBuilder
      */
     public function changeLocalizedEnumValueOrder(array $data = [])
     {
-        return new TypeChangeLocalizedEnumValueOrderAction($data);
+        return TypeChangeLocalizedEnumValueOrderAction::fromArray($data);
     }
 
     /**
@@ -33,7 +33,7 @@ class TypesActionBuilder
      */
     public function changeName(array $data = [])
     {
-        return new TypeChangeNameAction($data);
+        return TypeChangeNameAction::fromArray($data);
     }
 
     /**
@@ -43,7 +43,7 @@ class TypesActionBuilder
      */
     public function removeFieldDefinition(array $data = [])
     {
-        return new TypeRemoveFieldDefinitionAction($data);
+        return TypeRemoveFieldDefinitionAction::fromArray($data);
     }
 
     /**
@@ -53,7 +53,7 @@ class TypesActionBuilder
      */
     public function changeLabel(array $data = [])
     {
-        return new TypeChangeLabelAction($data);
+        return TypeChangeLabelAction::fromArray($data);
     }
 
     /**
@@ -63,7 +63,7 @@ class TypesActionBuilder
      */
     public function changeKey(array $data = [])
     {
-        return new TypeChangeKeyAction($data);
+        return TypeChangeKeyAction::fromArray($data);
     }
 
     /**
@@ -73,7 +73,7 @@ class TypesActionBuilder
      */
     public function addFieldDefinition(array $data = [])
     {
-        return new TypeAddFieldDefinitionAction($data);
+        return TypeAddFieldDefinitionAction::fromArray($data);
     }
 
     /**
@@ -83,7 +83,7 @@ class TypesActionBuilder
      */
     public function setDescription(array $data = [])
     {
-        return new TypeSetDescriptionAction($data);
+        return TypeSetDescriptionAction::fromArray($data);
     }
 
     /**
@@ -93,7 +93,7 @@ class TypesActionBuilder
      */
     public function changeFieldDefinitionOrder(array $data = [])
     {
-        return new TypeChangeFieldDefinitionOrderAction($data);
+        return TypeChangeFieldDefinitionOrderAction::fromArray($data);
     }
 
     /**
@@ -103,7 +103,7 @@ class TypesActionBuilder
      */
     public function addLocalizedEnumValue(array $data = [])
     {
-        return new TypeAddLocalizedEnumValueAction($data);
+        return TypeAddLocalizedEnumValueAction::fromArray($data);
     }
 
     /**
@@ -113,7 +113,7 @@ class TypesActionBuilder
      */
     public function changeEnumValueOrder(array $data = [])
     {
-        return new TypeChangeEnumValueOrderAction($data);
+        return TypeChangeEnumValueOrderAction::fromArray($data);
     }
 
     /**
@@ -123,7 +123,7 @@ class TypesActionBuilder
      */
     public function addEnumValue(array $data = [])
     {
-        return new TypeAddEnumValueAction($data);
+        return TypeAddEnumValueAction::fromArray($data);
     }
 
     /**

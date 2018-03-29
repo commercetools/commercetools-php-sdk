@@ -22,7 +22,7 @@ class DiscountCodesActionBuilder
      */
     public function changeGroups(array $data = [])
     {
-        return new DiscountCodeChangeGroupsAction($data);
+        return DiscountCodeChangeGroupsAction::fromArray($data);
     }
 
     /**
@@ -32,7 +32,7 @@ class DiscountCodesActionBuilder
      */
     public function setMaxApplicationsPerCustomer(array $data = [])
     {
-        return new DiscountCodeSetMaxApplicationsPerCustomerAction($data);
+        return DiscountCodeSetMaxApplicationsPerCustomerAction::fromArray($data);
     }
 
     /**
@@ -42,7 +42,7 @@ class DiscountCodesActionBuilder
      */
     public function setCartPredicate(array $data = [])
     {
-        return new DiscountCodeSetCartPredicateAction($data);
+        return DiscountCodeSetCartPredicateAction::fromArray($data);
     }
 
     /**
@@ -52,7 +52,7 @@ class DiscountCodesActionBuilder
      */
     public function setDescription(array $data = [])
     {
-        return new DiscountCodeSetDescriptionAction($data);
+        return DiscountCodeSetDescriptionAction::fromArray($data);
     }
 
     /**
@@ -62,7 +62,7 @@ class DiscountCodesActionBuilder
      */
     public function setValidUntil(array $data = [])
     {
-        return new DiscountCodeSetValidUntilAction($data);
+        return DiscountCodeSetValidUntilAction::fromArray($data);
     }
 
     /**
@@ -72,7 +72,7 @@ class DiscountCodesActionBuilder
      */
     public function setValidFrom(array $data = [])
     {
-        return new DiscountCodeSetValidFromAction($data);
+        return DiscountCodeSetValidFromAction::fromArray($data);
     }
 
     /**
@@ -82,7 +82,7 @@ class DiscountCodesActionBuilder
      */
     public function setName(array $data = [])
     {
-        return new DiscountCodeSetNameAction($data);
+        return DiscountCodeSetNameAction::fromArray($data);
     }
 
     /**
@@ -92,7 +92,7 @@ class DiscountCodesActionBuilder
      */
     public function changeIsActive(array $data = [])
     {
-        return new DiscountCodeChangeIsActiveAction($data);
+        return DiscountCodeChangeIsActiveAction::fromArray($data);
     }
 
     /**
@@ -102,7 +102,7 @@ class DiscountCodesActionBuilder
      */
     public function setMaxApplications(array $data = [])
     {
-        return new DiscountCodeSetMaxApplicationsAction($data);
+        return DiscountCodeSetMaxApplicationsAction::fromArray($data);
     }
 
     /**
@@ -112,7 +112,7 @@ class DiscountCodesActionBuilder
      */
     public function changeCartDiscounts(array $data = [])
     {
-        return new DiscountCodeChangeCartDiscountsAction($data);
+        return DiscountCodeChangeCartDiscountsAction::fromArray($data);
     }
 
     /**

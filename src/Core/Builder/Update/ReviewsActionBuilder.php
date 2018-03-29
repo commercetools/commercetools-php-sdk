@@ -21,7 +21,7 @@ class ReviewsActionBuilder
      */
     public function setKey(array $data = [])
     {
-        return new ReviewSetKeyAction($data);
+        return ReviewSetKeyAction::fromArray($data);
     }
 
     /**
@@ -31,7 +31,7 @@ class ReviewsActionBuilder
      */
     public function setCustomer(array $data = [])
     {
-        return new ReviewSetCustomerAction($data);
+        return ReviewSetCustomerAction::fromArray($data);
     }
 
     /**
@@ -41,7 +41,7 @@ class ReviewsActionBuilder
      */
     public function setTitle(array $data = [])
     {
-        return new ReviewSetTitleAction($data);
+        return ReviewSetTitleAction::fromArray($data);
     }
 
     /**
@@ -51,7 +51,7 @@ class ReviewsActionBuilder
      */
     public function setText(array $data = [])
     {
-        return new ReviewSetTextAction($data);
+        return ReviewSetTextAction::fromArray($data);
     }
 
     /**
@@ -61,7 +61,7 @@ class ReviewsActionBuilder
      */
     public function setTarget(array $data = [])
     {
-        return new ReviewSetTargetAction($data);
+        return ReviewSetTargetAction::fromArray($data);
     }
 
     /**
@@ -71,7 +71,7 @@ class ReviewsActionBuilder
      */
     public function transitionState(array $data = [])
     {
-        return new ReviewTransitionStateAction($data);
+        return ReviewTransitionStateAction::fromArray($data);
     }
 
     /**
@@ -81,7 +81,7 @@ class ReviewsActionBuilder
      */
     public function setRating(array $data = [])
     {
-        return new ReviewSetRatingAction($data);
+        return ReviewSetRatingAction::fromArray($data);
     }
 
     /**
@@ -91,7 +91,7 @@ class ReviewsActionBuilder
      */
     public function setLocale(array $data = [])
     {
-        return new ReviewSetLocaleAction($data);
+        return ReviewSetLocaleAction::fromArray($data);
     }
 
     /**
@@ -101,7 +101,7 @@ class ReviewsActionBuilder
      */
     public function setAuthorName(array $data = [])
     {
-        return new ReviewSetAuthorNameAction($data);
+        return ReviewSetAuthorNameAction::fromArray($data);
     }
 
     /**

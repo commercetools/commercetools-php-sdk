@@ -15,7 +15,7 @@ class SubscriptionsActionBuilder
      */
     public function setChanges(array $data = [])
     {
-        return new SubscriptionSetChangesAction($data);
+        return SubscriptionSetChangesAction::fromArray($data);
     }
 
     /**
@@ -25,7 +25,7 @@ class SubscriptionsActionBuilder
      */
     public function setMessages(array $data = [])
     {
-        return new SubscriptionSetMessagesAction($data);
+        return SubscriptionSetMessagesAction::fromArray($data);
     }
 
     /**
@@ -35,7 +35,7 @@ class SubscriptionsActionBuilder
      */
     public function setKey(array $data = [])
     {
-        return new SubscriptionSetKeyAction($data);
+        return SubscriptionSetKeyAction::fromArray($data);
     }
 
     /**

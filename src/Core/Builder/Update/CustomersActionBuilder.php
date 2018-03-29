@@ -35,7 +35,7 @@ class CustomersActionBuilder
      */
     public function setDefaultShippingAddress(array $data = [])
     {
-        return new CustomerSetDefaultShippingAddressAction($data);
+        return CustomerSetDefaultShippingAddressAction::fromArray($data);
     }
 
     /**
@@ -45,7 +45,7 @@ class CustomersActionBuilder
      */
     public function setTitle(array $data = [])
     {
-        return new CustomerSetTitleAction($data);
+        return CustomerSetTitleAction::fromArray($data);
     }
 
     /**
@@ -55,7 +55,7 @@ class CustomersActionBuilder
      */
     public function setCustomerGroup(array $data = [])
     {
-        return new CustomerSetCustomerGroupAction($data);
+        return CustomerSetCustomerGroupAction::fromArray($data);
     }
 
     /**
@@ -65,7 +65,7 @@ class CustomersActionBuilder
      */
     public function setDateOfBirth(array $data = [])
     {
-        return new CustomerSetDateOfBirthAction($data);
+        return CustomerSetDateOfBirthAction::fromArray($data);
     }
 
     /**
@@ -75,7 +75,7 @@ class CustomersActionBuilder
      */
     public function changeEmail(array $data = [])
     {
-        return new CustomerChangeEmailAction($data);
+        return CustomerChangeEmailAction::fromArray($data);
     }
 
     /**
@@ -85,7 +85,7 @@ class CustomersActionBuilder
      */
     public function setLastName(array $data = [])
     {
-        return new CustomerSetLastNameAction($data);
+        return CustomerSetLastNameAction::fromArray($data);
     }
 
     /**
@@ -95,7 +95,7 @@ class CustomersActionBuilder
      */
     public function setSalutation(array $data = [])
     {
-        return new CustomerSetSalutationAction($data);
+        return CustomerSetSalutationAction::fromArray($data);
     }
 
     /**
@@ -105,7 +105,7 @@ class CustomersActionBuilder
      */
     public function setVatId(array $data = [])
     {
-        return new CustomerSetVatIdAction($data);
+        return CustomerSetVatIdAction::fromArray($data);
     }
 
     /**
@@ -115,7 +115,7 @@ class CustomersActionBuilder
      */
     public function setKey(array $data = [])
     {
-        return new CustomerSetKeyAction($data);
+        return CustomerSetKeyAction::fromArray($data);
     }
 
     /**
@@ -125,7 +125,7 @@ class CustomersActionBuilder
      */
     public function setLocale(array $data = [])
     {
-        return new CustomerSetLocaleAction($data);
+        return CustomerSetLocaleAction::fromArray($data);
     }
 
     /**
@@ -135,7 +135,7 @@ class CustomersActionBuilder
      */
     public function setFirstName(array $data = [])
     {
-        return new CustomerSetFirstNameAction($data);
+        return CustomerSetFirstNameAction::fromArray($data);
     }
 
     /**
@@ -145,7 +145,7 @@ class CustomersActionBuilder
      */
     public function setCompanyName(array $data = [])
     {
-        return new CustomerSetCompanyNameAction($data);
+        return CustomerSetCompanyNameAction::fromArray($data);
     }
 
     /**
@@ -155,7 +155,7 @@ class CustomersActionBuilder
      */
     public function removeAddress(array $data = [])
     {
-        return new CustomerRemoveAddressAction($data);
+        return CustomerRemoveAddressAction::fromArray($data);
     }
 
     /**
@@ -165,7 +165,7 @@ class CustomersActionBuilder
      */
     public function removeBillingAddressId(array $data = [])
     {
-        return new CustomerRemoveBillingAddressAction($data);
+        return CustomerRemoveBillingAddressAction::fromArray($data);
     }
 
     /**
@@ -175,7 +175,7 @@ class CustomersActionBuilder
      */
     public function addBillingAddressId(array $data = [])
     {
-        return new CustomerAddBillingAddressAction($data);
+        return CustomerAddBillingAddressAction::fromArray($data);
     }
 
     /**
@@ -185,7 +185,7 @@ class CustomersActionBuilder
      */
     public function removeShippingAddressId(array $data = [])
     {
-        return new CustomerRemoveShippingAddressAction($data);
+        return CustomerRemoveShippingAddressAction::fromArray($data);
     }
 
     /**
@@ -195,7 +195,7 @@ class CustomersActionBuilder
      */
     public function addAddress(array $data = [])
     {
-        return new CustomerAddAddressAction($data);
+        return CustomerAddAddressAction::fromArray($data);
     }
 
     /**
@@ -205,7 +205,7 @@ class CustomersActionBuilder
      */
     public function setMiddleName(array $data = [])
     {
-        return new CustomerSetMiddleNameAction($data);
+        return CustomerSetMiddleNameAction::fromArray($data);
     }
 
     /**
@@ -215,7 +215,7 @@ class CustomersActionBuilder
      */
     public function setDefaultBillingAddress(array $data = [])
     {
-        return new CustomerSetDefaultBillingAddressAction($data);
+        return CustomerSetDefaultBillingAddressAction::fromArray($data);
     }
 
     /**
@@ -225,7 +225,7 @@ class CustomersActionBuilder
      */
     public function changeAddress(array $data = [])
     {
-        return new CustomerChangeAddressAction($data);
+        return CustomerChangeAddressAction::fromArray($data);
     }
 
     /**
@@ -235,7 +235,7 @@ class CustomersActionBuilder
      */
     public function setExternalId(array $data = [])
     {
-        return new CustomerSetExternalIdAction($data);
+        return CustomerSetExternalIdAction::fromArray($data);
     }
 
     /**
@@ -245,7 +245,7 @@ class CustomersActionBuilder
      */
     public function addShippingAddressId(array $data = [])
     {
-        return new CustomerAddShippingAddressAction($data);
+        return CustomerAddShippingAddressAction::fromArray($data);
     }
 
     /**
@@ -255,7 +255,7 @@ class CustomersActionBuilder
      */
     public function setCustomerNumber(array $data = [])
     {
-        return new CustomerSetCustomerNumberAction($data);
+        return CustomerSetCustomerNumberAction::fromArray($data);
     }
 
     /**

@@ -33,7 +33,7 @@ class PaymentsActionBuilder
      */
     public function setCustomer(array $data = [])
     {
-        return new PaymentSetCustomerAction($data);
+        return PaymentSetCustomerAction::fromArray($data);
     }
 
     /**
@@ -43,7 +43,7 @@ class PaymentsActionBuilder
      */
     public function addInterfaceInteraction(array $data = [])
     {
-        return new PaymentAddInterfaceInteractionAction($data);
+        return PaymentAddInterfaceInteractionAction::fromArray($data);
     }
 
     /**
@@ -53,7 +53,7 @@ class PaymentsActionBuilder
      */
     public function setCustomType(array $data = [])
     {
-        return new PaymentSetCustomTypeAction($data);
+        return PaymentSetCustomTypeAction::fromArray($data);
     }
 
     /**
@@ -63,7 +63,7 @@ class PaymentsActionBuilder
      */
     public function setExternalId(array $data = [])
     {
-        return new PaymentSetExternalIdAction($data);
+        return PaymentSetExternalIdAction::fromArray($data);
     }
 
     /**
@@ -73,7 +73,7 @@ class PaymentsActionBuilder
      */
     public function setCustomField(array $data = [])
     {
-        return new PaymentSetCustomFieldAction($data);
+        return PaymentSetCustomFieldAction::fromArray($data);
     }
 
     /**
@@ -83,7 +83,7 @@ class PaymentsActionBuilder
      */
     public function transitionState(array $data = [])
     {
-        return new PaymentTransitionStateAction($data);
+        return PaymentTransitionStateAction::fromArray($data);
     }
 
     /**
@@ -93,7 +93,7 @@ class PaymentsActionBuilder
      */
     public function changeTransactionState(array $data = [])
     {
-        return new PaymentChangeTransactionStateAction($data);
+        return PaymentChangeTransactionStateAction::fromArray($data);
     }
 
     /**
@@ -103,7 +103,7 @@ class PaymentsActionBuilder
      */
     public function setAuthorization(array $data = [])
     {
-        return new PaymentSetAuthorizationAction($data);
+        return PaymentSetAuthorizationAction::fromArray($data);
     }
 
     /**
@@ -113,7 +113,7 @@ class PaymentsActionBuilder
      */
     public function setMethodInfoMethod(array $data = [])
     {
-        return new PaymentSetMethodInfoMethodAction($data);
+        return PaymentSetMethodInfoMethodAction::fromArray($data);
     }
 
     /**
@@ -123,7 +123,7 @@ class PaymentsActionBuilder
      */
     public function changeTransactionInteractionId(array $data = [])
     {
-        return new PaymentChangeTransactionInteractionIdAction($data);
+        return PaymentChangeTransactionInteractionIdAction::fromArray($data);
     }
 
     /**
@@ -133,7 +133,7 @@ class PaymentsActionBuilder
      */
     public function setStatusInterfaceText(array $data = [])
     {
-        return new PaymentSetStatusInterfaceTextAction($data);
+        return PaymentSetStatusInterfaceTextAction::fromArray($data);
     }
 
     /**
@@ -143,7 +143,7 @@ class PaymentsActionBuilder
      */
     public function setStatusInterfaceCode(array $data = [])
     {
-        return new PaymentSetStatusInterfaceCodeAction($data);
+        return PaymentSetStatusInterfaceCodeAction::fromArray($data);
     }
 
     /**
@@ -153,7 +153,7 @@ class PaymentsActionBuilder
      */
     public function setMethodInfoInterface(array $data = [])
     {
-        return new PaymentSetMethodInfoInterfaceAction($data);
+        return PaymentSetMethodInfoInterfaceAction::fromArray($data);
     }
 
     /**
@@ -163,7 +163,7 @@ class PaymentsActionBuilder
      */
     public function setAmountRefunded(array $data = [])
     {
-        return new PaymentSetAmountRefundedAction($data);
+        return PaymentSetAmountRefundedAction::fromArray($data);
     }
 
     /**
@@ -173,7 +173,7 @@ class PaymentsActionBuilder
      */
     public function setMethodInfoName(array $data = [])
     {
-        return new PaymentSetMethodInfoNameAction($data);
+        return PaymentSetMethodInfoNameAction::fromArray($data);
     }
 
     /**
@@ -183,7 +183,7 @@ class PaymentsActionBuilder
      */
     public function changeAmountPlanned(array $data = [])
     {
-        return new PaymentChangeAmountPlannedAction($data);
+        return PaymentChangeAmountPlannedAction::fromArray($data);
     }
 
     /**
@@ -193,7 +193,7 @@ class PaymentsActionBuilder
      */
     public function addTransaction(array $data = [])
     {
-        return new PaymentAddTransactionAction($data);
+        return PaymentAddTransactionAction::fromArray($data);
     }
 
     /**
@@ -203,7 +203,7 @@ class PaymentsActionBuilder
      */
     public function setKey(array $data = [])
     {
-        return new PaymentSetKeyAction($data);
+        return PaymentSetKeyAction::fromArray($data);
     }
 
     /**
@@ -213,7 +213,7 @@ class PaymentsActionBuilder
      */
     public function setAmountPaid(array $data = [])
     {
-        return new PaymentSetAmountPaidAction($data);
+        return PaymentSetAmountPaidAction::fromArray($data);
     }
 
     /**
@@ -223,7 +223,7 @@ class PaymentsActionBuilder
      */
     public function changeTransactionTimestamp(array $data = [])
     {
-        return new PaymentChangeTransactionTimestampAction($data);
+        return PaymentChangeTransactionTimestampAction::fromArray($data);
     }
 
     /**
@@ -233,7 +233,7 @@ class PaymentsActionBuilder
      */
     public function setInterfaceId(array $data = [])
     {
-        return new PaymentSetInterfaceIdAction($data);
+        return PaymentSetInterfaceIdAction::fromArray($data);
     }
 
     /**
