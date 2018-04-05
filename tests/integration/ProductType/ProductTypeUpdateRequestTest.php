@@ -49,6 +49,7 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLocalizedEn
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeNameAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangePlainEnumLabelAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveAttributeDefinitionAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveEnumValuesAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction;
 use Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest;
@@ -693,5 +694,46 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf(ProductType::class, $result);
         $this->assertSame($constraint, $result->getAttributes()->current()->getAttributeConstraint());
         $this->assertNotSame($productType->getVersion(), $result->getVersion());
+    }
+
+    public function testRemoveEnumValues()
+    {
+        $draft = $this->getDraft('remove-enum-values');
+        $definition = AttributeDefinition::of()
+            ->setName('testEnumField')
+            ->setLabel(LocalizedString::ofLangAndText('en', 'testEnumField'))
+            ->setIsRequired(false)
+            ->setType(EnumType::of()->setValues(
+                EnumCollection::of()
+                    ->add(Enum::of()->setKey('foo')->setLabel('foo'))
+                    ->add(Enum::of()->setKey('bar')->setLabel('bar'))
+                )
+            );
+        $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+        $productType = $this->createProductType($draft);
+
+        $this->assertInstanceOf(ProductType::class, $productType);
+        /**
+         * @var EnumType $attributeType
+         */
+        $attributeType = $productType->getAttributes()->current()->getType();
+        $this->assertCount(2, $attributeType->getValues());
+
+
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeRemoveEnumValuesAction::ofAttributeNameAndKeys('testEnumField', ['foo'])
+            );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->productTypeDeleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ProductType::class, $result);
+        /**
+         * @var EnumType $type
+         */
+        $type = $result->getAttributes()->current()->getType();
+        $this->assertCount(1, $type->getValues());
+        $this->assertSame('bar', $type->getValues()->current()->getKey());
     }
 }
