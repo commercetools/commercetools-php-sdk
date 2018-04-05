@@ -15,5 +15,5 @@ myapp.ini
 requests.log
 env.list
 humbug.*
-/cache
+cache/
 github_deploy_key

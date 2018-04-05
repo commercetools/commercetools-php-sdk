@@ -15,6 +15,28 @@ use DateTime;
 /**
  * @package Commercetools\Core\Model\Message
  * @link https://docs.commercetools.com/http-api-projects-messages.html#parceltrackingdataupdated-message
+ * @method string getId()
+ * @method ParcelItemsUpdatedMessage setId(string $id = null)
+ * @method int getVersion()
+ * @method ParcelItemsUpdatedMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getCreatedAt()
+ * @method ParcelItemsUpdatedMessage setCreatedAt(DateTime $createdAt = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method ParcelItemsUpdatedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method int getSequenceNumber()
+ * @method ParcelItemsUpdatedMessage setSequenceNumber(int $sequenceNumber = null)
+ * @method Reference getResource()
+ * @method ParcelItemsUpdatedMessage setResource(Reference $resource = null)
+ * @method int getResourceVersion()
+ * @method ParcelItemsUpdatedMessage setResourceVersion(int $resourceVersion = null)
+ * @method string getType()
+ * @method ParcelItemsUpdatedMessage setType(string $type = null)
+ * @method string getDeliveryId()
+ * @method ParcelItemsUpdatedMessage setDeliveryId(string $deliveryId = null)
+ * @method string getParcelId()
+ * @method ParcelItemsUpdatedMessage setParcelId(string $parcelId = null)
+ * @method DeliveryItemCollection getItems()
+ * @method ParcelItemsUpdatedMessage setItems(DeliveryItemCollection $items = null)
  */
 class ParcelItemsUpdatedMessage extends Message
 {
