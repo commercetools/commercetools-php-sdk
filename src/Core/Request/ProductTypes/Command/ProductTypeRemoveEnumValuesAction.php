@@ -44,7 +44,7 @@ class ProductTypeRemoveEnumValuesAction extends AbstractAction
      * @param string $attributeName
      * @param array $keys
      * @param Context|callable $context
-     * @return ProductTypeAddPlainEnumValueAction
+     * @return ProductTypeRemoveEnumValuesAction
      */
     public static function ofAttributeNameAndKeys($attributeName, array $keys, $context = null)
     {

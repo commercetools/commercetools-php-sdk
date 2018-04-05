@@ -15,5 +15,5 @@ myapp.ini
 requests.log
 env.list
 humbug.*
-cache/
+cache/commercetools_io_access_token*
 github_deploy_key
