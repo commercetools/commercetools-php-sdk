@@ -17,3 +17,4 @@ env.list
 humbug.*
 cache/commercetools_io_access_token*
 github_deploy_key
+node_modules
