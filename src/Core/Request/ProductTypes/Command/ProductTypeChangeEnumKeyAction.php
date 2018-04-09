@@ -13,6 +13,14 @@ use Commercetools\Core\Request\AbstractAction;
  * @codingStandardsIgnoreStart
  * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-key-of-an-enumvalue
  * @codingStandardsIgnoreEnd
+ * @method string getAction()
+ * @method ProductTypeChangeEnumKeyAction setAction(string $action = null)
+ * @method string getAttributeName()
+ * @method ProductTypeChangeEnumKeyAction setAttributeName(string $attributeName = null)
+ * @method string getKey()
+ * @method ProductTypeChangeEnumKeyAction setKey(string $key = null)
+ * @method string getNewKey()
+ * @method ProductTypeChangeEnumKeyAction setNewKey(string $newKey = null)
  */
 class ProductTypeChangeEnumKeyAction extends AbstractAction
 {
