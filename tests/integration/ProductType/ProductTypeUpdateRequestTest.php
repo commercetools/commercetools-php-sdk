@@ -41,7 +41,9 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefin
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumValueAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeConstraintAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeNameAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeDescriptionAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeEnumKeyAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeInputHintAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeIsSearchableAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction;
@@ -735,5 +737,95 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $type = $result->getAttributes()->current()->getType();
         $this->assertCount(1, $type->getValues());
         $this->assertSame('bar', $type->getValues()->current()->getKey());
+    }
+
+    public function testChangeAttributeName()
+    {
+        $draft = $this->getDraft('change-attribute-name');
+
+        $name = 'testNameField' . $this->getTestRun();
+        $definition = AttributeDefinition::of()
+            ->setName($name)
+            ->setLabel(LocalizedString::ofLangAndText('en', $name))
+            ->setIsRequired(false)
+            ->setIsSearchable(false)
+            ->setType(StringType::of())
+        ;
+
+        $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+        $productType = $this->createProductType($draft);
+
+        $this->assertInstanceOf(ProductType::class, $productType);
+        $this->assertSame($name, $productType->getAttributes()->getByName($name)->getName());
+
+
+        $newAttributeName = 'new' . ucfirst($name);
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeChangeAttributeNameAction::ofAttributeName(
+                    $productType->getAttributes()->getByName($name)->getName(),
+                    $newAttributeName
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->productTypeDeleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ProductType::class, $result);
+        $this->assertSame($newAttributeName, $result->getAttributes()->current()->getName());
+        $this->assertSame($newAttributeName, $result->getAttributes()->getByName($newAttributeName)->getName());
+        $this->assertNull($result->getAttributes()->getByName($name));
+    }
+
+    public function testChangeEnumKey()
+    {
+        $draft = $this->getDraft('change-enum-key');
+
+        $name = 'testNameField' . $this->getTestRun();
+        $keyName = 'foo';
+        $definition = AttributeDefinition::of()
+            ->setName($name)
+            ->setLabel(LocalizedString::ofLangAndText('en', $name))
+            ->setIsRequired(false)
+            ->setIsSearchable(false)
+            ->setType(EnumType::of()->setValues(
+                    EnumCollection::of()
+                        ->add(Enum::of()->setKey('foo')->setLabel('foo'))
+                )
+            );
+
+        $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+        $productType = $this->createProductType($draft);
+
+        $this->assertInstanceOf(ProductType::class, $productType);
+        /**
+         * @var EnumType $enumType
+         */
+        $enumType = $productType->getAttributes()->getByName($name)->getType();
+        $this->assertSame($keyName, $enumType->getValues()->getByKey($keyName)->getKey());
+
+
+        $newKeyName = 'new-foo';
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeChangeEnumKeyAction::ofAttributeNameAndEnumKey(
+                    $productType->getAttributes()->getByName($name)->getName(),
+                    $keyName,
+                    $newKeyName
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->productTypeDeleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ProductType::class, $result);
+        /**
+         * @var EnumType $enumType
+         */
+        $enumType = $result->getAttributes()->getByName($name)->getType();
+        $this->assertSame($newKeyName, $enumType->getValues()->getByKey($newKeyName)->getKey());
+        $this->assertNull($enumType->getValues()->getByKey($keyName));
     }
 }
