@@ -1154,10 +1154,8 @@ class OrderUpdateRequestTest extends ApiTestCase
         $cartDraft = $this->getCartDraft();
         $order = $this->createOrder($cartDraft);
 
-        $reference = OrderReference::ofId($order->getId());
-        $replicaDraft = ReplicaCartDraft::ofOrder($reference);
+        $request = CartReplicateRequest::ofOrderId($order->getId());
 
-        $request = CartReplicateRequest::ofReplicaCartDraft($replicaDraft);
         $response = $request->executeWithClient($this->getClient());
         $replicaCart = $request->mapResponse($response);
         $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($replicaCart->getId(), $replicaCart->getVersion());

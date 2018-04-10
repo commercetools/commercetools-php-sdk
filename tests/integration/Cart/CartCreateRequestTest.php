@@ -96,10 +96,8 @@ class CartCreateRequestTest extends ApiTestCase
 
         $this->deleteRequest->setVersion($cart->getVersion());
 
-        $reference = CartReference::ofId($cart->getId());
-        $replicaDraft = ReplicaCartDraft::ofCart($reference);
+        $request = CartReplicateRequest::ofCartId($cart->getId());
 
-        $request = CartReplicateRequest::ofReplicaCartDraft($replicaDraft);
         $response = $request->executeWithClient($this->getClient());
         $replicaCart = $request->mapResponse($response);
         $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($replicaCart->getId(), $replicaCart->getVersion());

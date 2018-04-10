@@ -6,8 +6,10 @@
 namespace Commercetools\Core\Request\Carts;
 
 use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\Cart\ReplicaCartDraft;
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Order\OrderReference;
 use Commercetools\Core\Request\AbstractCreateRequest;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
@@ -39,6 +41,46 @@ class CartReplicateRequest extends AbstractCreateRequest
     public static function ofReplicaCartDraft(ReplicaCartDraft $replicaCartDraft, Context $context = null)
     {
         return new static($replicaCartDraft, $context);
+    }
+
+    /**
+     * @param CartReference $cart
+     * @param Context $context
+     * @return static
+     */
+    public static function ofCartReference(CartReference $cart, Context $context = null)
+    {
+        return static::ofReplicaCartDraft(ReplicaCartDraft::ofCart($cart, $context), $context);
+    }
+
+    /**
+     * @param $id
+     * @param Context $context
+     * @return static
+     */
+    public static function ofCartId($id, Context $context = null)
+    {
+        return static::ofCartReference(CartReference::ofId($id, $context), $context);
+    }
+
+    /**
+     * @param OrderReference $order
+     * @param Context $context
+     * @return static
+     */
+    public static function ofOrderReference(OrderReference $order, Context $context = null)
+    {
+        return static::ofReplicaCartDraft(ReplicaCartDraft::ofOrder($order, $context), $context);
+    }
+
+    /**
+     * @param $id
+     * @param Context $context
+     * @return static
+     */
+    public static function ofOrderId($id, Context $context = null)
+    {
+        return static::ofOrderReference(OrderReference::ofId($id, $context), $context);
     }
 
     /**
