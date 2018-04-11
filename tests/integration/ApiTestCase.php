@@ -367,8 +367,8 @@ class ApiTestCase extends TestCase
     {
         if (!isset(self::$client[$scope])) {
             $config = $this->getClientConfig($scope);
-            $config->setOAuthClientConfig(['verify' => $this->getVerifySSL()]);
-            $config->setClientConfig(['verify' => $this->getVerifySSL()]);
+            $config->getOauthClientConfig()->setClientOptions(['verify' => $this->getVerifySSL()]);
+            $config->getClientConfig()->setClientOptions(['verify' => $this->getVerifySSL()]);
 
             self::$client[$scope] = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         }
