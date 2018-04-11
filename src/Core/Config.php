@@ -96,7 +96,6 @@ class Config extends ConfigObject implements ContextAwareInterface
 
     public function __construct()
     {
-        $this->enableCorrelationId = Uuid::active();
         $this->credentials = new Credentials();
         $this->clientConfig = new ClientConfig('https://api.sphere.io');
         $this->oauthClientConfig = new ClientConfig('https://auth.sphere.io');

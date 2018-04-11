@@ -8,6 +8,7 @@ namespace Commercetools\Core\Client;
 use Commercetools\Core\ConfigObject;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Helper\DefaultCorrelationIdProvider;
+use Commercetools\Core\Helper\Uuid;
 use Psr\Log\LogLevel;
 
 class ClientConfig extends ConfigObject
@@ -55,6 +56,7 @@ class ClientConfig extends ConfigObject
      */
     public function __construct($baseUri)
     {
+        $this->enableCorrelationId = Uuid::active();
         $this->baseUri = $baseUri;
     }
 
