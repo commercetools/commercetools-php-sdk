@@ -10,6 +10,7 @@ use Commercetools\Core\Client\Adapter\CorrelationIdAware;
 use Commercetools\Core\Client\Adapter\TokenProviderAware;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Client\Adapter\AdapterOptionInterface;
+use Commercetools\Core\Model\Common\ContextTrait;
 use Commercetools\Core\Response\ErrorResponse;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -129,8 +130,10 @@ use Commercetools\Core\Client\OAuth\Manager;
  *
  * @package Commercetools\Core
  */
-class Client extends AbstractHttpClient implements LoggerAwareInterface
+class Client extends AbstractHttpClient implements LoggerAwareInterface, ContextAwareInterface
 {
+    use ContextTrait;
+
     const DEPRECATION_HEADER = 'X-DEPRECATION-NOTICE';
 
     /**
@@ -152,8 +155,6 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
     protected $tokenRefreshed = false;
 
     protected $project;
-
-    protected $context;
 
     /**
      * @param array|Config $config
@@ -178,7 +179,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
         $config->getCredentials()->check();
         parent::setConfig($config);
         $this->project = $config->getCredentials()->getProject();
-        $this->context = $config->getContext();
+        $this->setContext($config->getContext());
 
         return $this;
     }
@@ -268,7 +269,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
     public function execute(ClientRequestInterface $request, array $headers = null, array $clientOptions = [])
     {
         if ($request instanceof ContextAwareInterface) {
-            $request->setContextIfNull($this->context);
+            $request->setContextIfNull($this->getContext());
         }
         $httpRequest = $this->createHttpRequest($request, $headers);
 
@@ -308,7 +309,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
     public function executeAsync(ClientRequestInterface $request, array $headers = null, array $clientOptions = [])
     {
         if ($request instanceof ContextAwareInterface) {
-            $request->setContextIfNull($this->context);
+            $request->setContextIfNull($this->getContext());
         }
         $httpRequest = $this->createHttpRequest($request, $headers);
         $client = $this->getHttpClient();
@@ -485,7 +486,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
     public function addBatchRequest(ClientRequestInterface $request)
     {
         if ($request instanceof ContextAwareInterface) {
-            $request->setContextIfNull($this->context);
+            $request->setContextIfNull($this->getContext());
         }
         $this->batchRequests[] = $request;
         return $this;

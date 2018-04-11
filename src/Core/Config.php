@@ -155,6 +155,7 @@ class Config extends ConfigObject implements ContextAwareInterface
     {
         $this->credentials->setProject($project);
         $this->clientConfig->setProject($project);
+        $this->oauthClientConfig->setProject($project);
 
         return $this;
     }
@@ -510,12 +511,12 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @param array $clientConfig
+     * @param array $clientOptions
      * @return Config
      */
-    public function setClientOptions(array $clientConfig)
+    public function setClientOptions(array $clientOptions)
     {
-        $this->clientConfig->setClientOptions($clientConfig);
+        $this->clientConfig->setClientOptions($clientOptions);
         return $this;
     }
 
