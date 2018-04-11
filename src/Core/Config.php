@@ -102,43 +102,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @param array $configValues
-     * @return static
-     */
-    public static function fromArray(array $configValues)
-    {
-        $config = static::of();
-        array_walk(
-            $configValues,
-            function ($value, $key) use ($config) {
-                $functionName = 'set' . $config->camelize($key);
-                if (!is_callable([$config, $functionName])) {
-                    throw new InvalidArgumentException(sprintf(Message::SETTER_NOT_IMPLEMENTED, $key));
-                }
-                $config->$functionName($value);
-            }
-        );
-
-        return $config;
-    }
-
-    protected function camelize($scored)
-    {
-        return lcfirst(
-            implode(
-                '',
-                array_map(
-                    'ucfirst',
-                    array_map(
-                        'strtolower',
-                        explode('_', $scored)
-                    )
-                )
-            )
-        );
-    }
-
-    /**
      * @deprecated
      * @return string
      */
@@ -155,14 +118,6 @@ class Config extends ConfigObject implements ContextAwareInterface
             default:
                 return $this->oauthClientConfig->getBaseUri() . '/oauth/token';
         }
-    }
-
-    /**
-     * @return static
-     */
-    public static function of()
-    {
-        return new static();
     }
 
     /**
