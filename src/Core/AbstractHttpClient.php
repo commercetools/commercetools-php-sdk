@@ -8,6 +8,7 @@ namespace Commercetools\Core;
 
 use Commercetools\Core\Client\Adapter\AdapterFactory;
 use Commercetools\Core\Client\Adapter\AdapterInterface;
+use Commercetools\Core\Client\ClientConfig;
 
 /**
  * @package Commercetools\Core
@@ -34,6 +35,11 @@ abstract class AbstractHttpClient
     protected $userAgent;
 
     /**
+     * @var ClientConfig
+     */
+    protected $clientConfig;
+
+    /**
      * @param Config|array $config
      */
     public function __construct($config)
@@ -52,7 +58,7 @@ abstract class AbstractHttpClient
         } elseif (is_array($config)) {
             $this->config = Config::fromArray($config);
         }
-        $this->getConfig()->check();
+        $this->clientConfig = $this->config->getClientConfig();
 
         return $this;
     }
@@ -64,6 +70,7 @@ abstract class AbstractHttpClient
     {
         if (is_null($this->config)) {
             $this->config = new Config();
+            $this->clientConfig = $this->config->getClientConfig();
         }
         return $this->config;
     }
@@ -77,8 +84,8 @@ abstract class AbstractHttpClient
     {
         if (is_null($this->httpClient)) {
             $headers = ['User-Agent' => $this->getUserAgent()];
-            if (!is_null($this->getConfig()->getAcceptEncoding())) {
-                $headers['Accept-Encoding'] = $this->getConfig()->getAcceptEncoding();
+            if (!is_null($this->clientConfig->getAcceptEncoding())) {
+                $headers['Accept-Encoding'] = $this->clientConfig->getAcceptEncoding();
             }
             $options = array_merge(
                 [
@@ -87,7 +94,7 @@ abstract class AbstractHttpClient
                 ],
                 $options
             );
-            $this->httpClient = $this->getAdapterFactory()->getAdapter($this->getConfig()->getAdapter(), $options);
+            $this->httpClient = $this->getAdapterFactory()->getAdapter($this->clientConfig->getAdapter(), $options);
         }
 
         return $this->httpClient;
@@ -112,7 +119,7 @@ abstract class AbstractHttpClient
         if (is_null($this->userAgent)) {
             $agent = 'commercetools-php-sdk/' . static::VERSION;
 
-            $adapterClass = $this->getAdapterFactory()->getClass($this->getConfig()->getAdapter());
+            $adapterClass = $this->getAdapterFactory()->getClass($this->clientConfig->getAdapter());
             $agent .= ' (' . $adapterClass::getAdapterInfo();
             if (extension_loaded('curl') && function_exists('curl_version')) {
                 $agent .= '; curl/' . \curl_version()['version'];

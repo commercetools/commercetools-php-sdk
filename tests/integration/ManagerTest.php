@@ -17,12 +17,12 @@ class ManagerTest extends ApiTestCase
     public function testEmptyScope()
     {
         $config = $this->getClientConfig('manage_project');
-        $config->setScope('');
+        $config->getCredentials()->setScope('');
         $manager = new Manager($config);
         $manager->getHttpClient(['verify' => $this->getVerifySSL()]);
 
         $token = $manager->refreshToken();
-        $this->assertEmpty($config->getScope());
+        $this->assertEmpty($config->getCredentials()->getScope());
         $this->assertNotEmpty($token->getScope());
         $this->assertNotEmpty($token->getToken());
         $this->assertContains('manage_project', $token->getScope());
@@ -31,16 +31,16 @@ class ManagerTest extends ApiTestCase
     public function testCorrelationId()
     {
         $config = $this->getClientConfig('manage_project');
-        $correlationId = DefaultCorrelationIdProvider::of($config->getProject())->getCorrelationId() . '/' . $this->getTestRun();
+        $correlationId = DefaultCorrelationIdProvider::of($config->getCredentials()->getProject())->getCorrelationId() . '/' . $this->getTestRun();
         $provider = $this->prophesize(CorrelationIdProvider::class);
         $provider->getCorrelationId()->willReturn($correlationId);
 
-        $config->setCorrelationIdProvider($provider->reveal());
+        $config->getOauthClientConfig()->setCorrelationIdProvider($provider->reveal());
 
         $manager = new Manager($config);
         $manager->getHttpClient(['verify' => $this->getVerifySSL()]);
 
-        $grantType = $config->getGrantType();
+        $grantType = $config->getCredentials()->getGrantType();
         $data = [Config::GRANT_TYPE => $grantType];
 
         $response = $manager->execute($data);

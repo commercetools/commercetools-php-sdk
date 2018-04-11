@@ -151,6 +151,10 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
 
     protected $tokenRefreshed = false;
 
+    protected $project;
+
+    protected $context;
+
     /**
      * @param array|Config $config
      * @param $cache
@@ -163,6 +167,20 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
         $manager = new Manager($config, $cache);
         $this->setOauthManager($manager);
         $this->setLogger($logger);
+    }
+
+    /**
+     * @param Config|array $config
+     * @return $this
+     */
+    public function setConfig($config)
+    {
+        $config->getCredentials()->check();
+        parent::setConfig($config);
+        $this->project = $config->getCredentials()->getProject();
+        $this->context = $config->getContext();
+
+        return $this;
     }
 
     /**
@@ -202,7 +220,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
     public function getHttpClient($options = [])
     {
         if (is_null($this->httpClient)) {
-            $clientOptions = $this->config->getClientOptions();
+            $clientOptions = $this->clientConfig->getClientOptions();
             if (count($clientOptions) > 0) {
                 $options = array_merge($clientOptions, $options);
             }
@@ -213,14 +231,14 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
             if ($this->logger instanceof LoggerInterface) {
                 $client->setLogger(
                     $this->logger,
-                    $this->getConfig()->getLogLevel(),
-                    $this->getConfig()->getMessageFormatter()
+                    $this->clientConfig->getLogLevel(),
+                    $this->clientConfig->getMessageFormatter()
                 );
             }
-            if ($this->getConfig()->getCorrelationIdProvider() instanceof CorrelationIdProvider
+            if ($this->clientConfig->getCorrelationIdProvider() instanceof CorrelationIdProvider
                 && $client instanceof CorrelationIdAware
             ) {
-                $client->setCorrelationIdProvider($this->getConfig()->getCorrelationIdProvider());
+                $client->setCorrelationIdProvider($this->clientConfig->getCorrelationIdProvider());
             }
             $this->httpClient = $client;
         }
@@ -234,7 +252,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
      */
     protected function getBaseUrl()
     {
-        return $this->getConfig()->getApiUrl() . '/' . $this->getConfig()->getProject() . '/';
+        return $this->clientConfig->getBaseUri() . '/' . $this->project . '/';
     }
 
     /**
@@ -250,7 +268,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
     public function execute(ClientRequestInterface $request, array $headers = null, array $clientOptions = [])
     {
         if ($request instanceof ContextAwareInterface) {
-            $request->setContextIfNull($this->getConfig()->getContext());
+            $request->setContextIfNull($this->context);
         }
         $httpRequest = $this->createHttpRequest($request, $headers);
 
@@ -268,7 +286,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
                 $this->getOauthManager()->refreshToken();
                 return $this->execute($request);
             }
-            if ($this->getConfig()->getThrowExceptions() || !$exception->getResponse() instanceof ResponseInterface) {
+            if ($this->clientConfig->isThrowExceptions() || !$exception->getResponse() instanceof ResponseInterface) {
                 throw $exception;
             }
             $httpResponse = $exception->getResponse();
@@ -290,7 +308,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
     public function executeAsync(ClientRequestInterface $request, array $headers = null, array $clientOptions = [])
     {
         if ($request instanceof ContextAwareInterface) {
-            $request->setContextIfNull($this->getConfig()->getContext());
+            $request->setContextIfNull($this->context);
         }
         $httpRequest = $this->createHttpRequest($request, $headers);
         $client = $this->getHttpClient();
@@ -358,7 +376,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
             $httpRequest = $requests[$key];
             if ($httpResponse instanceof ApiException) {
                 $exception = $httpResponse;
-                if ($this->getConfig()->getThrowExceptions() ||
+                if ($this->clientConfig->isThrowExceptions() ||
                     !$httpResponse->getResponse() instanceof ResponseInterface
                 ) {
                     throw $exception;
@@ -467,7 +485,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
     public function addBatchRequest(ClientRequestInterface $request)
     {
         if ($request instanceof ContextAwareInterface) {
-            $request->setContextIfNull($this->getConfig()->getContext());
+            $request->setContextIfNull($this->context);
         }
         $this->batchRequests[] = $request;
         return $this;

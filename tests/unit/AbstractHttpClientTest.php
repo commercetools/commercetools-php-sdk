@@ -51,7 +51,7 @@ class AbstractHttpClientTest extends \PHPUnit\Framework\TestCase
 
     public function testGetHttpClient()
     {
-        $client = $this->getMockForAbstractClass(AbstractHttpClient::class, [], '', false);
+        $client = $this->getMockForAbstractClass(AbstractHttpClient::class, [[]], '', true);
         $client->expects($this->once())
             ->method('getBaseUrl')
             ->will($this->returnValue('test'));

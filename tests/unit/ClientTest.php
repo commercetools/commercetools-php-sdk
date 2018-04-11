@@ -9,6 +9,8 @@ namespace Commercetools\Core;
 use Commercetools\Core\Client\Adapter\AdapterFactory;
 use Commercetools\Core\Client\Adapter\AdapterOptionInterface;
 use Commercetools\Core\Client\Adapter\ConfigAware;
+use Commercetools\Core\Client\ClientConfig;
+use Commercetools\Core\Client\Credentials;
 use Commercetools\Core\Client\OAuth\Manager;
 use Commercetools\Core\Error\BadGatewayException;
 use Commercetools\Core\Error\ConcurrentModificationException;
@@ -20,6 +22,7 @@ use Commercetools\Core\Error\InvalidClientCredentialsException;
 use Commercetools\Core\Error\InvalidTokenException;
 use Commercetools\Core\Error\NotFoundException;
 use Commercetools\Core\Error\ServiceUnavailableException;
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractByIdGetRequest;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Response\ErrorResponse;
@@ -179,15 +182,24 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
     public function testOptions()
     {
+        $credentials = $this->prophesize(Credentials::class);
+        $credentials->check()->willReturn(true);
+        $credentials->getProject()->willReturn('');
+
+        $clientConfig = $this->prophesize(ClientConfig::class);
+        $clientConfig->getClientOptions()->willReturn([])->shouldBeCalled();
+        $clientConfig->getAdapter()->willReturn(null);
+        $clientConfig->getAcceptEncoding()->willReturn(null);
+        $clientConfig->getBaseUri()->willReturn('http://example.org');
+        $clientConfig->getCorrelationIdProvider()->willReturn(null);
+
         $config = $this->prophesize(Config::class);
-        $config->check()->willReturn(true);
-        $config->getAdapter()->willReturn(null);
-        $config->getAcceptEncoding()->willReturn(null);
-        $config->getApiUrl()->willReturn('http://example.org');
-        $config->getProject()->willReturn('');
         $config->getCacheDir()->willReturn(getcwd());
-        $config->getCorrelationIdProvider()->willReturn(null);
-        $config->getClientOptions()->willReturn([])->shouldBeCalled();
+        $config->getContext()->willReturn(new Context());
+        $config->getClientConfig()->willReturn($clientConfig->reveal());
+        $config->getOauthClientConfig()->willReturn($clientConfig->reveal());
+        $config->getCredentials()->willReturn($credentials->reveal());
+
         $client = Client::ofConfig($config->reveal());
         $httpClient = $client->getHttpClient();
         $this->assertInstanceOf(AdapterOptionInterface::class, $httpClient);
@@ -821,8 +833,11 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(ConfigAware::class, $client->getHttpClient());
         $this->assertTrue($client->getHttpClient()->getConfig('verify'));
 
+        $config = Config::of();
+        $config->getCredentials()->setClientId('')->setClientSecret('')->setProject('');
+        $config->getClientConfig()->setClientOptions($clientOptions);
         $client = Client::ofConfig(
-            Config::of()->setClientId('')->setClientSecret('')->setProject('')->setClientOptions($clientOptions)
+            $config
         );
         $this->assertInstanceOf(ConfigAware::class, $client->getHttpClient());
         $this->assertFalse($client->getHttpClient()->getConfig('verify'));

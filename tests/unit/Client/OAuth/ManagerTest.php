@@ -299,7 +299,10 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(ConfigAware::class, $manager->getHttpClient());
         $this->assertTrue($manager->getHttpClient()->getConfig('verify'));
 
-        $config = Config::of()->setClientId('')->setClientSecret('')->setProject('')->setOAuthClientOptions($clientOptions);
+        $config = Config::of();
+        $config->getCredentials()->setClientId('')->setClientSecret('')->setProject('');
+        $config->getOauthClientConfig()->setClientOptions($clientOptions);
+
         $manager = new Manager($config);
 
         $this->assertInstanceOf(ConfigAware::class, $manager->getHttpClient());

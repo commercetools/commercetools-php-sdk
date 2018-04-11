@@ -7,6 +7,7 @@
 namespace Commercetools\Core\Client\OAuth;
 
 use Commercetools\Core\Client\Adapter\CorrelationIdAware;
+use Commercetools\Core\Client\Credentials;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Helper\CorrelationIdProvider;
@@ -48,6 +49,16 @@ class Manager extends AbstractHttpClient implements TokenProvider
      */
     protected $cacheAdapterFactory;
 
+    /**
+     * @var Credentials
+     */
+    protected $credentials;
+
+    /**
+     * @var string
+     */
+    protected $cacheDir;
+
     public function __construct($config, $cache = null)
     {
         parent::__construct($config);
@@ -56,12 +67,27 @@ class Manager extends AbstractHttpClient implements TokenProvider
     }
 
     /**
+     * @param Config|array $config
+     * @return $this
+     */
+    public function setConfig($config)
+    {
+        parent::setConfig($config);
+        $this->clientConfig = $config->getOauthClientConfig();
+        $this->credentials = $config->getCredentials();
+        $this->credentials->check();
+        $this->cacheDir = $config->getCacheDir();
+
+        return $this;
+    }
+
+    /**
      * @return CacheAdapterFactory
      */
     public function getCacheAdapterFactory()
     {
         if (is_null($this->cacheAdapterFactory)) {
-            $this->cacheAdapterFactory = new CacheAdapterFactory($this->getConfig()->getCacheDir());
+            $this->cacheAdapterFactory = new CacheAdapterFactory($this->cacheDir);
         }
         return $this->cacheAdapterFactory;
     }
@@ -91,9 +117,9 @@ class Manager extends AbstractHttpClient implements TokenProvider
      */
     public function getToken()
     {
-        $scope = $this->getConfig()->getScope();
-        if ($this->getConfig()->getGrantType() == Config::GRANT_TYPE_BEARER_TOKEN) {
-            return new Token($this->getConfig()->getBearerToken(), null, $scope);
+        $scope = $this->credentials->getScope();
+        if ($this->credentials->getGrantType() == Config::GRANT_TYPE_BEARER_TOKEN) {
+            return new Token($this->credentials->getBearerToken(), null, $scope);
         }
         if ($token = $this->getCacheToken()) {
             return new Token($token, null, $scope);
@@ -108,8 +134,8 @@ class Manager extends AbstractHttpClient implements TokenProvider
      */
     public function refreshToken()
     {
-        $scope = $this->getConfig()->getScope();
-        $grantType = $this->getConfig()->getGrantType();
+        $scope = $this->credentials->getScope();
+        $grantType = $this->credentials->getGrantType();
         $data = [Config::GRANT_TYPE => $grantType];
         if (!empty($scope)) {
             $data[Config::SCOPE] = $scope;
@@ -117,20 +143,20 @@ class Manager extends AbstractHttpClient implements TokenProvider
 
         switch ($grantType) {
             case Config::GRANT_TYPE_BEARER_TOKEN:
-                return new Token($this->getConfig()->getBearerToken(), null, $scope);
+                return new Token($this->credentials->getBearerToken(), null, $scope);
             case Config::GRANT_TYPE_PASSWORD:
-                $user = $this->getConfig()->getUsername();
-                $password = $this->getConfig()->getPassword();
+                $user = $this->credentials->getUsername();
+                $password = $this->credentials->getPassword();
                 $data[Config::USER_NAME] = $user;
                 $data[Config::PASSWORD] = $password;
                 break;
             case Config::GRANT_TYPE_REFRESH:
-                $refreshToken = $this->getConfig()->getRefreshToken();
+                $refreshToken = $this->credentials->getRefreshToken();
                 $data[Config::REFRESH_TOKEN] = $refreshToken;
                 break;
             case Config::GRANT_TYPE_ANONYMOUS:
                 $data[Config::GRANT_TYPE] = Config::GRANT_TYPE_CLIENT;
-                $anonymousId = $this->getConfig()->getAnonymousId();
+                $anonymousId = $this->credentials->getAnonymousId();
                 if (!empty($anonymousId)) {
                     $data[Config::ANONYMOUS_ID] = $anonymousId;
                 }
@@ -144,7 +170,7 @@ class Manager extends AbstractHttpClient implements TokenProvider
         $this->cache($token, $ttl);
 
         if ($grantType === Config::GRANT_TYPE_PASSWORD || $grantType == Config::GRANT_TYPE_ANONYMOUS) {
-            $this->getConfig()->setRefreshToken($token->getRefreshToken());
+            $this->credentials->setRefreshToken($token->getRefreshToken());
             $this->cache($token, $ttl, $this->getCacheKey(Config::GRANT_TYPE_REFRESH));
         }
 
@@ -187,23 +213,23 @@ class Manager extends AbstractHttpClient implements TokenProvider
      */
     protected function getCacheKey($grantType = null)
     {
-        $scope = $this->getConfig()->getScope();
+        $scope = $this->credentials->getScope();
         if (is_null($grantType)) {
-            $grantType = $this->getConfig()->getGrantType();
+            $grantType = $this->credentials->getGrantType();
         }
         $cacheScope = $scope . '-' . $grantType;
 
         switch ($grantType) {
             case Config::GRANT_TYPE_PASSWORD:
-                $user = base64_encode($this->getConfig()->getUsername());
+                $user = base64_encode($this->credentials->getUsername());
                 $cacheScope .= '-' . $user;
                 break;
             case Config::GRANT_TYPE_REFRESH:
-                $token = $this->getConfig()->getRefreshToken();
+                $token = $this->credentials->getRefreshToken();
                 $cacheScope .= '-' . $token;
                 break;
             case Config::GRANT_TYPE_ANONYMOUS:
-                $anonymousId = $this->getConfig()->getAnonymousId();
+                $anonymousId = $this->credentials->getAnonymousId();
                 if (!empty($anonymousId)) {
                     $cacheScope .= '-' . $anonymousId;
                 }
@@ -251,19 +277,37 @@ class Manager extends AbstractHttpClient implements TokenProvider
     public function getHttpClient($options = [])
     {
         if (is_null($this->httpClient)) {
-            $clientOptions = $this->config->getOAuthClientOptions();
+            $clientOptions = $this->clientConfig->getClientOptions();
             if (count($clientOptions) > 0) {
                 $options = array_merge($clientOptions, $options);
             }
             $client = parent::getHttpClient($options);
-            if ($this->getConfig()->getCorrelationIdProvider() instanceof CorrelationIdProvider
+            if ($this->clientConfig->getCorrelationIdProvider() instanceof CorrelationIdProvider
                 && $client instanceof CorrelationIdAware
             ) {
-                $client->setCorrelationIdProvider($this->getConfig()->getCorrelationIdProvider());
+                $client->setCorrelationIdProvider($this->clientConfig->getCorrelationIdProvider());
             }
             $this->httpClient = $client;
         }
         return $this->httpClient;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getOauthUrl()
+    {
+        switch ($this->credentials->getGrantType()) {
+            case Credentials::GRANT_TYPE_ANONYMOUS:
+                return $this->clientConfig->getBaseUri() . '/oauth/' .
+                    $this->credentials->getProject() . '/anonymous/token';
+            case Credentials::GRANT_TYPE_PASSWORD:
+            case Credentials::GRANT_TYPE_REFRESH:
+                return $this->clientConfig->getBaseUri() . '/oauth/' .
+                    $this->credentials->getProject() . '/customers/token';
+            default:
+                return $this->clientConfig->getBaseUri() . '/oauth/token';
+        }
     }
 
     /**
@@ -273,9 +317,9 @@ class Manager extends AbstractHttpClient implements TokenProvider
     public function execute($data)
     {
         return $this->getHttpClient()->authenticate(
-            $this->getConfig()->getOauthUrl(),
-            $this->getConfig()->getClientId(),
-            $this->getConfig()->getClientSecret(),
+            $this->getOauthUrl(),
+            $this->credentials->getClientId(),
+            $this->credentials->getClientSecret(),
             $data
         );
     }
@@ -285,6 +329,6 @@ class Manager extends AbstractHttpClient implements TokenProvider
      */
     protected function getBaseUrl()
     {
-        return $this->getConfig()->getOauthUrl();
+        return $this->getOauthUrl();
     }
 }

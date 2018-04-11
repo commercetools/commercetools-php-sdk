@@ -6,6 +6,8 @@
 
 namespace Commercetools\Core;
 
+use Commercetools\Core\Client\ClientConfig;
+use Commercetools\Core\Client\Credentials;
 use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Helper\CorrelationIdProvider;
@@ -13,7 +15,6 @@ use Commercetools\Core\Helper\DefaultCorrelationIdProvider;
 use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\Model\Common\ContextAwareInterface;
 use Commercetools\Core\Model\Common\ContextTrait;
-use Psr\Log\LogLevel;
 
 /**
  * Client configuration object
@@ -56,7 +57,7 @@ use Psr\Log\LogLevel;
  * ```
  * @package Commercetools\Core
  */
-class Config implements ContextAwareInterface
+class Config extends ConfigObject implements ContextAwareInterface
 {
     use ContextTrait;
 
@@ -66,119 +67,39 @@ class Config implements ContextAwareInterface
     const SCOPE = 'scope';
     const PROJECT = 'project';
     const API_URL = 'api_url';
-    const USER_NAME = 'username';
-    const PASSWORD = 'password';
-    const REFRESH_TOKEN = 'refresh_token';
-    const BEARER_TOKEN = 'bearer_token';
-    const ANONYMOUS_ID = 'anonymous_id';
-    const GRANT_TYPE = 'grant_type';
+    const USER_NAME = Credentials::USER_NAME;
+    const PASSWORD = Credentials::PASSWORD;
+    const REFRESH_TOKEN = Credentials::REFRESH_TOKEN;
+    const BEARER_TOKEN = Credentials::BEARER_TOKEN;
+    const ANONYMOUS_ID = Credentials::ANONYMOUS_ID;
+    const GRANT_TYPE = Credentials::GRANT_TYPE;
 
-    const GRANT_TYPE_CLIENT = 'client_credentials';
-    const GRANT_TYPE_PASSWORD = 'password';
-    const GRANT_TYPE_REFRESH = 'refresh_token';
-    const GRANT_TYPE_ANONYMOUS = 'anonymous_token';
-    const GRANT_TYPE_BEARER_TOKEN = 'bearer_token';
-
-    /**
-     * @var string
-     */
-    protected $clientSecret;
+    const GRANT_TYPE_CLIENT = Credentials::GRANT_TYPE_CLIENT;
+    const GRANT_TYPE_PASSWORD = Credentials::GRANT_TYPE_PASSWORD;
+    const GRANT_TYPE_REFRESH = Credentials::GRANT_TYPE_REFRESH;
+    const GRANT_TYPE_ANONYMOUS = Credentials::GRANT_TYPE_ANONYMOUS;
+    const GRANT_TYPE_BEARER_TOKEN = Credentials::GRANT_TYPE_BEARER_TOKEN;
 
     /**
-     * @var string
+     * @var Credentials
      */
-    protected $clientId;
-
-    /**
-     * @var string
-     */
-    protected $project;
-
-    /**
-     * @var array
-     */
-    protected $scope = ['manage_project'];
-
-    /**
-     * @var string
-     */
-    protected $oauthUrl = 'https://auth.sphere.io';
-
-    /**
-     * @var string
-     */
-    protected $apiUrl = 'https://api.sphere.io';
-
-    /**
-     * @var int
-     */
-    protected $batchPoolSize = 25;
-
-    protected $adapter;
-
-    /**
-     * @var bool
-     */
-    protected $throwExceptions = false;
-
-    protected $acceptEncoding = 'gzip';
-
-    protected $grantType = 'client_credentials';
-
-    /**
-     * @var string
-     */
-    protected $username;
-
-    /**
-     * @var string
-     */
-    protected $password;
-
-    /**
-     * @var string
-     */
-    protected $refreshToken;
-
-    /**
-     * @var string
-     */
-    protected $bearerToken;
-
-    /**
-     * @var string
-     */
-    protected $anonymousId;
+    protected $credentials;
 
     /**
      * @var string
      */
     protected $cacheDir;
 
-    /**
-     * @var string
-     */
-    protected $logLevel = LogLevel::INFO;
+    protected $clientConfig;
 
-    protected $messageFormatter;
-
-    /**
-     * @var bool
-     */
-    protected $enableCorrelationId = false;
-
-    /**
-     * @var CorrelationIdProvider
-     */
-    protected $correlationIdProvider;
-
-    protected $clientOptions = [];
-
-    protected $oauthClientOptions = [];
+    protected $oauthClientConfig;
 
     public function __construct()
     {
         $this->enableCorrelationId = Uuid::active();
+        $this->credentials = new Credentials();
+        $this->clientConfig = new ClientConfig('https://api.sphere.io');
+        $this->oauthClientConfig = new ClientConfig('https://auth.sphere.io');
     }
 
     /**
@@ -219,249 +140,22 @@ class Config implements ContextAwareInterface
     }
 
     /**
-     * @return string
-     */
-    public function getClientSecret()
-    {
-        return $this->clientSecret;
-    }
-
-    /**
-     * @param string $clientSecret
-     * @return $this
-     */
-    public function setClientSecret($clientSecret)
-    {
-        $this->clientSecret = $clientSecret;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getClientId()
-    {
-        return $this->clientId;
-    }
-
-    /**
-     * @param string $clientId
-     * @return $this
-     */
-    public function setClientId($clientId)
-    {
-        $this->clientId = $clientId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getProject()
-    {
-        return $this->project;
-    }
-
-    /**
-     * @param string $project
-     * @return $this
-     */
-    public function setProject($project)
-    {
-        $this->project = $project;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getScope()
-    {
-        $scope = $this->scope;
-        $project = $this->getProject();
-
-        $permissions = [];
-        foreach ($scope as $key => $value) {
-            if (is_numeric($key)) { // scope defined as string e.g. scope:project_key
-                if (strpos($value, ':') === false) { // scope without project key
-                    $value = $value . ':' . $project;
-                }
-                $permissions[] = $value;
-            } else { // scope defined as array
-                $permissions[] = $key . ':' . $value;
-            }
-        }
-        $scope = implode(' ', $permissions);
-
-        return $scope;
-    }
-
-    /**
-     * @param string $scope
-     * @return $this
-     */
-    public function setScope($scope)
-    {
-        if (empty($scope)) {
-            $scope = [];
-        }
-        if (!is_array($scope)) {
-            $scope = explode(' ', $scope);
-        }
-        $this->scope = $scope;
-
-        return $this;
-    }
-
-    /**
+     * @deprecated
      * @return string
      */
     public function getOauthUrl()
     {
-        switch ($this->getGrantType()) {
+        switch ($this->credentials->getGrantType()) {
             case static::GRANT_TYPE_ANONYMOUS:
-                return $this->oauthUrl . '/oauth/' . $this->getProject() . '/anonymous/token';
+                return $this->oauthClientConfig->getBaseUri() . '/oauth/' .
+                    $this->credentials->getProject() . '/anonymous/token';
             case static::GRANT_TYPE_PASSWORD:
             case static::GRANT_TYPE_REFRESH:
-                return $this->oauthUrl . '/oauth/' . $this->getProject() . '/customers/token';
+                return $this->oauthClientConfig->getBaseUri() . '/oauth/' .
+                    $this->credentials->getProject() . '/customers/token';
             default:
-                return $this->oauthUrl . '/oauth/token';
+                return $this->oauthClientConfig->getBaseUri() . '/oauth/token';
         }
-    }
-
-    /**
-     * @param string $oauthUrl
-     * @return $this
-     */
-    public function setOauthUrl($oauthUrl)
-    {
-        $this->oauthUrl = $oauthUrl;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getApiUrl()
-    {
-        return $this->apiUrl;
-    }
-
-    /**
-     * @param string $apiUrl
-     * @return $this
-     */
-    public function setApiUrl($apiUrl)
-    {
-        $this->apiUrl = $apiUrl;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function check()
-    {
-        if (is_null($this->getClientId()) && $this->getGrantType() !== self::GRANT_TYPE_BEARER_TOKEN) {
-            throw new InvalidArgumentException(Message::NO_CLIENT_ID);
-        }
-
-        if (is_null($this->getClientSecret()) && $this->getGrantType() !== self::GRANT_TYPE_BEARER_TOKEN) {
-            throw new InvalidArgumentException(Message::NO_CLIENT_SECRET);
-        }
-
-        if (is_null($this->getProject())) {
-            throw new InvalidArgumentException(Message::NO_PROJECT_ID);
-        }
-
-        return true;
-    }
-
-    /**
-     * @deprecated use getClientOptions()['concurrency'] instead
-     * @return int
-     */
-    public function getBatchPoolSize()
-    {
-        if (!isset($this->clientOptions['concurrency'])) {
-            return $this->batchPoolSize;
-        }
-        return $this->clientOptions['concurrency'];
-    }
-
-    /**
-     * @deprecated use setClientOptions(['concurrency' => 5]) instead
-     * @param int $batchPoolSize
-     * @return $this
-     */
-    public function setBatchPoolSize($batchPoolSize)
-    {
-        $this->clientOptions['concurrency'] = $batchPoolSize;
-        $this->batchPoolSize = $batchPoolSize;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAdapter()
-    {
-        return $this->adapter;
-    }
-
-    /**
-     * @param string $adapter
-     * @return $this
-     */
-    public function setAdapter($adapter)
-    {
-        $this->adapter = $adapter;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getThrowExceptions()
-    {
-        return $this->throwExceptions;
-    }
-
-    /**
-     * @param bool $throwExceptions
-     * @return $this
-     */
-    public function setThrowExceptions($throwExceptions)
-    {
-        $this->throwExceptions = (bool)$throwExceptions;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAcceptEncoding()
-    {
-        return $this->acceptEncoding;
-    }
-
-    /**
-     * @param string $acceptEncoding
-     * @return $this
-     */
-    public function setAcceptEncoding($acceptEncoding)
-    {
-        $this->acceptEncoding = $acceptEncoding;
-
-        return $this;
     }
 
     /**
@@ -473,96 +167,106 @@ class Config implements ContextAwareInterface
     }
 
     /**
+     * @deprecated
      * @return string
      */
     public function getGrantType()
     {
-        return $this->grantType;
+        return $this->credentials->getGrantType();
     }
 
     /**
+     * @deprecated
      * @param string $grantType
      * @return $this
      */
     public function setGrantType($grantType)
     {
-        $this->grantType = $grantType;
+        $this->credentials->setGrantType($grantType);
 
         return $this;
     }
 
     /**
+     * @deprecated
      * @return string
      */
     public function getUsername()
     {
-        return $this->username;
+        return $this->credentials->getUsername();
     }
 
     /**
+     * @deprecated
      * @param string $username
      * @return $this
      */
     public function setUsername($username)
     {
-        $this->username = $username;
+        $this->credentials->setUsername($username);
 
         return $this;
     }
 
     /**
+     * @deprecated
      * @return string
      */
     public function getPassword()
     {
-        return $this->password;
+        return $this->credentials->getPassword();
     }
 
     /**
+     * @deprecated
      * @param string $password
      * @return $this
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->credentials->setPassword($password);
 
         return $this;
     }
 
     /**
+     * @deprecated
      * @return string
      */
     public function getRefreshToken()
     {
-        return $this->refreshToken;
+        return $this->credentials->getRefreshToken();
     }
 
     /**
+     * @deprecated
      * @param string $refreshToken
      * @return $this
      */
     public function setRefreshToken($refreshToken)
     {
-        $this->refreshToken = $refreshToken;
+        $this->credentials->setRefreshToken($refreshToken);
 
         return $this;
     }
 
     /**
+     * @deprecated
      * @return string
      */
     public function getAnonymousId()
     {
-        return $this->anonymousId;
+        return $this->credentials->getAnonymousId();
     }
 
     /**
+     * @deprecated
      * @param string $anonymousId
      * @return $this
      */
     public function setAnonymousId($anonymousId)
     {
-        $this->anonymousId = $anonymousId;
+        $this->credentials->setAnonymousId($anonymousId);
 
         return $this;
     }
@@ -587,136 +291,409 @@ class Config implements ContextAwareInterface
     }
 
     /**
+     * @deprecated
      * @return string
      */
     public function getLogLevel()
     {
-        return $this->logLevel;
+        return $this->clientConfig->getLogLevel();
     }
 
     /**
+     * @deprecated
      * @param string $logLevel
      * @return $this
      */
     public function setLogLevel($logLevel)
     {
-        $this->logLevel = $logLevel;
+        $this->clientConfig->setLogLevel($logLevel);
 
         return $this;
     }
 
     /**
+     * @deprecated
      * @return mixed
      */
     public function getMessageFormatter()
     {
-        return $this->messageFormatter;
+        return $this->clientConfig->getMessageFormatter();
     }
 
     /**
+     * @deprecated
      * @param mixed $messageFormatter
      * @return $this
      */
     public function setMessageFormatter($messageFormatter)
     {
-        $this->messageFormatter = $messageFormatter;
+        $this->clientConfig->setMessageFormatter($messageFormatter);
         return $this;
     }
 
     /**
+     * @deprecated
      * @return CorrelationIdProvider|null
      */
     public function getCorrelationIdProvider()
     {
-        if (!$this->isEnableCorrelationId()) {
-            return null;
-        }
-        if (is_null($this->correlationIdProvider)) {
-            $this->correlationIdProvider = DefaultCorrelationIdProvider::of($this->getProject());
-        }
-        return $this->correlationIdProvider;
+        return $this->clientConfig->getCorrelationIdProvider();
     }
 
     /**
+     * @deprecated
      * @param CorrelationIdProvider $correlationIdProvider
      * @return Config
      */
     public function setCorrelationIdProvider(CorrelationIdProvider $correlationIdProvider)
     {
-        $this->correlationIdProvider = $correlationIdProvider;
-        $this->setEnableCorrelationId(true);
+        $this->clientConfig->setCorrelationIdProvider($correlationIdProvider);
+
         return $this;
     }
 
     /**
+     * @deprecated
      * @return bool
      */
     public function isEnableCorrelationId()
     {
-        return $this->enableCorrelationId;
+        return $this->clientConfig->isEnableCorrelationId();
     }
 
     /**
+     * @deprecated
      * @param bool $enableCorrelationId
      * @return Config
      */
     public function setEnableCorrelationId($enableCorrelationId)
     {
-        $this->enableCorrelationId = (bool)$enableCorrelationId;
+        $this->clientConfig->setEnableCorrelationId($enableCorrelationId);
         return $this;
     }
 
     /**
+     * @deprecated
      * @return array
      */
     public function getClientOptions()
     {
-        return $this->clientOptions;
+        return $this->clientConfig->getClientOptions();
     }
 
     /**
-     * @param array $clientOptions
+     * @deprecated
+     * @param array $clientConfig
      * @return Config
      */
-    public function setClientOptions(array $clientOptions)
+    public function setClientOptions(array $clientConfig)
     {
-        $this->clientOptions = $clientOptions;
+        $this->clientConfig->setClientOptions($clientConfig);
         return $this;
     }
 
     /**
+     * @deprecated
      * @return array
      */
     public function getOAuthClientOptions()
     {
-        return $this->oauthClientOptions;
+        return $this->oauthClientConfig->getClientOptions();
     }
 
     /**
+     * @deprecated
      * @param array $clientOptions
      * @return Config
      */
     public function setOAuthClientOptions(array $clientOptions)
     {
-        $this->oauthClientOptions = $clientOptions;
+        $this->oauthClientConfig->setClientOptions($clientOptions);
         return $this;
     }
 
     /**
+     * @deprecated
      * @return string
      */
     public function getBearerToken()
     {
-        return $this->bearerToken;
+        return $this->credentials->getBearerToken();
     }
 
     /**
+     * @deprecated
      * @param string $bearerToken
      * @return Config
      */
     public function setBearerToken($bearerToken)
     {
-        $this->bearerToken = $bearerToken;
+        $this->credentials->setBearerToken($bearerToken);
+        return $this;
+    }
+
+    /**
+     * @deprecated
+     * @return string
+     */
+    public function getClientSecret()
+    {
+        return $this->credentials->getClientSecret();
+    }
+
+    /**
+     * @deprecated
+     * @param string $clientSecret
+     * @return $this
+     */
+    public function setClientSecret($clientSecret)
+    {
+        $this->credentials->setClientSecret($clientSecret);
+
+        return $this;
+    }
+
+    /**
+     * @deprecated
+     * @return string
+     */
+    public function getClientId()
+    {
+        return $this->credentials->getClientId();
+    }
+
+    /**
+     * @deprecated
+     * @param string $clientId
+     * @return $this
+     */
+    public function setClientId($clientId)
+    {
+        $this->credentials->setClientId($clientId);
+
+        return $this;
+    }
+
+    /**
+     * @deprecated
+     * @return string
+     */
+    public function getProject()
+    {
+        return $this->credentials->getProject();
+    }
+
+    /**
+     * @deprecated
+     * @param string $project
+     * @return $this
+     */
+    public function setProject($project)
+    {
+        $this->credentials->setProject($project);
+        $this->clientConfig->setProject($project);
+
+        return $this;
+    }
+
+    /**
+     * @deprecated
+     * @return string
+     */
+    public function getScope()
+    {
+        return $this->credentials->getScope();
+    }
+
+    /**
+     * @deprecated
+     * @param string $scope
+     * @return $this
+     */
+    public function setScope($scope)
+    {
+        $this->credentials->setScope($scope);
+
+        return $this;
+    }
+
+    /**
+     * @deprecated
+     * @param string $oauthUrl
+     * @return $this
+     */
+    public function setOauthUrl($oauthUrl)
+    {
+        $this->oauthClientConfig->setBaseUri($oauthUrl);
+
+        return $this;
+    }
+
+    /**
+     * @deprecated
+     * @return string
+     */
+    public function getApiUrl()
+    {
+        return $this->clientConfig->getBaseUri();
+    }
+
+    /**
+     * @deprecated
+     * @param string $apiUrl
+     * @return $this
+     */
+    public function setApiUrl($apiUrl)
+    {
+        $this->clientConfig->setBaseUri($apiUrl);
+
+        return $this;
+    }
+
+    /**
+     * @deprecated
+     * @return bool
+     */
+    public function check()
+    {
+        return $this->credentials->check();
+    }
+
+    /**
+     * @deprecated use getClientOptions()['concurrency'] instead
+     * @return int
+     */
+    public function getBatchPoolSize()
+    {
+        return $this->clientConfig->getBatchPoolSize();
+    }
+
+    /**
+     * @deprecated use setClientOptions(['concurrency' => 5]) instead
+     * @param int $batchPoolSize
+     * @return $this
+     */
+    public function setBatchPoolSize($batchPoolSize)
+    {
+        $this->clientConfig->setBatchPoolSize($batchPoolSize);
+
+        return $this;
+    }
+
+    /**
+     * @deprecated
+     * @return string
+     */
+    public function getAdapter()
+    {
+        return $this->clientConfig->getAdapter();
+    }
+
+    /**
+     * @deprecated
+     * @param string $adapter
+     * @return $this
+     */
+    public function setAdapter($adapter)
+    {
+        $this->clientConfig->setAdapter($adapter);
+
+        return $this;
+    }
+
+    /**
+     * @deprecated
+     * @return bool
+     */
+    public function getThrowExceptions()
+    {
+        return $this->clientConfig->isThrowExceptions();
+    }
+
+    /**
+     * @deprecated
+     * @param bool $throwExceptions
+     * @return $this
+     */
+    public function setThrowExceptions($throwExceptions)
+    {
+        $this->clientConfig->setThrowExceptions($throwExceptions);
+
+        return $this;
+    }
+
+    /**
+     * @deprecated
+     * @return string
+     */
+    public function getAcceptEncoding()
+    {
+        return $this->clientConfig->getAcceptEncoding();
+    }
+
+    /**
+     * @deprecated
+     * @param string $acceptEncoding
+     * @return $this
+     */
+    public function setAcceptEncoding($acceptEncoding)
+    {
+        $this->clientConfig->setAcceptEncoding($acceptEncoding);
+
+        return $this;
+    }
+
+    /**
+     * @return Credentials
+     */
+    public function getCredentials()
+    {
+        return $this->credentials;
+    }
+
+    /**
+     * @param Credentials $credentials
+     * @return Config
+     */
+    public function setCredentials(Credentials $credentials)
+    {
+        $this->credentials = $credentials;
+        return $this;
+    }
+
+    /**
+     * @return ClientConfig
+     */
+    public function getClientConfig()
+    {
+        return $this->clientConfig;
+    }
+
+    /**
+     * @param ClientConfig $clientConfig
+     * @return Config
+     */
+    public function setClientConfig(ClientConfig $clientConfig)
+    {
+        $this->clientConfig = $clientConfig;
+        return $this;
+    }
+
+    /**
+     * @return ClientConfig
+     */
+    public function getOauthClientConfig()
+    {
+        return $this->oauthClientConfig;
+    }
+
+    /**
+     * @param ClientConfig $oauthClientConfig
+     * @return Config
+     */
+    public function setOauthClientConfig(ClientConfig $oauthClientConfig)
+    {
+        $this->oauthClientConfig = $oauthClientConfig;
         return $this;
     }
 }
