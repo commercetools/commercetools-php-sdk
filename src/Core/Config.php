@@ -102,6 +102,83 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
+     * @return string
+     */
+    public function getClientSecret()
+    {
+        return $this->credentials->getClientSecret();
+    }
+
+    /**
+     * @param string $clientSecret
+     * @return $this
+     */
+    public function setClientSecret($clientSecret)
+    {
+        $this->credentials->setClientSecret($clientSecret);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClientId()
+    {
+        return $this->credentials->getClientId();
+    }
+
+    /**
+     * @param string $clientId
+     * @return $this
+     */
+    public function setClientId($clientId)
+    {
+        $this->credentials->setClientId($clientId);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProject()
+    {
+        return $this->credentials->getProject();
+    }
+
+    /**
+     * @param string $project
+     * @return $this
+     */
+    public function setProject($project)
+    {
+        $this->credentials->setProject($project);
+        $this->clientConfig->setProject($project);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScope()
+    {
+        return $this->credentials->getScope();
+    }
+
+    /**
+     * @param string $scope
+     * @return $this
+     */
+    public function setScope($scope)
+    {
+        $this->credentials->setScope($scope);
+
+        return $this;
+    }
+
+    /**
      * @deprecated
      * @return string
      */
@@ -121,7 +198,122 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
+     * @param string $oauthUrl
+     * @return $this
+     */
+    public function setOauthUrl($oauthUrl)
+    {
+        $this->oauthClientConfig->setBaseUri($oauthUrl);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiUrl()
+    {
+        return $this->clientConfig->getBaseUri();
+    }
+
+    /**
+     * @param string $apiUrl
+     * @return $this
+     */
+    public function setApiUrl($apiUrl)
+    {
+        $this->clientConfig->setBaseUri($apiUrl);
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function check()
+    {
+        return $this->credentials->check();
+    }
+
+    /**
+     * @deprecated use getClientOptions()['concurrency'] instead
+     * @return int
+     */
+    public function getBatchPoolSize()
+    {
+        return $this->clientConfig->getBatchPoolSize();
+    }
+
+    /**
+     * @deprecated use setClientOptions(['concurrency' => 5]) instead
+     * @param int $batchPoolSize
+     * @return $this
+     */
+    public function setBatchPoolSize($batchPoolSize)
+    {
+        $this->clientConfig->setBatchPoolSize($batchPoolSize);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdapter()
+    {
+        return $this->clientConfig->getAdapter();
+    }
+
+    /**
+     * @param string $adapter
+     * @return $this
+     */
+    public function setAdapter($adapter)
+    {
+        $this->clientConfig->setAdapter($adapter);
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getThrowExceptions()
+    {
+        return $this->clientConfig->isThrowExceptions();
+    }
+
+    /**
+     * @param bool $throwExceptions
+     * @return $this
+     */
+    public function setThrowExceptions($throwExceptions)
+    {
+        $this->clientConfig->setThrowExceptions($throwExceptions);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAcceptEncoding()
+    {
+        return $this->clientConfig->getAcceptEncoding();
+    }
+
+    /**
+     * @param string $acceptEncoding
+     * @return $this
+     */
+    public function setAcceptEncoding($acceptEncoding)
+    {
+        $this->clientConfig->setAcceptEncoding($acceptEncoding);
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getGrantType()
@@ -130,7 +322,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @param string $grantType
      * @return $this
      */
@@ -142,7 +333,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @return string
      */
     public function getUsername()
@@ -151,7 +341,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @param string $username
      * @return $this
      */
@@ -163,7 +352,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @return string
      */
     public function getPassword()
@@ -172,7 +360,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @param string $password
      * @return $this
      */
@@ -184,7 +371,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @return string
      */
     public function getRefreshToken()
@@ -193,7 +379,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @param string $refreshToken
      * @return $this
      */
@@ -205,7 +390,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @return string
      */
     public function getAnonymousId()
@@ -214,7 +398,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @param string $anonymousId
      * @return $this
      */
@@ -245,7 +428,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @return string
      */
     public function getLogLevel()
@@ -254,7 +436,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @param string $logLevel
      * @return $this
      */
@@ -266,7 +447,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @return mixed
      */
     public function getMessageFormatter()
@@ -275,7 +455,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @param mixed $messageFormatter
      * @return $this
      */
@@ -286,7 +465,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @return CorrelationIdProvider|null
      */
     public function getCorrelationIdProvider()
@@ -295,7 +473,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @param CorrelationIdProvider $correlationIdProvider
      * @return Config
      */
@@ -307,7 +484,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @return bool
      */
     public function isEnableCorrelationId()
@@ -316,7 +492,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @param bool $enableCorrelationId
      * @return Config
      */
@@ -327,7 +502,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @return array
      */
     public function getClientOptions()
@@ -336,7 +510,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @param array $clientConfig
      * @return Config
      */
@@ -347,7 +520,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @return array
      */
     public function getOAuthClientOptions()
@@ -356,7 +528,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @param array $clientOptions
      * @return Config
      */
@@ -367,7 +538,6 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @return string
      */
     public function getBearerToken()
@@ -376,224 +546,12 @@ class Config extends ConfigObject implements ContextAwareInterface
     }
 
     /**
-     * @deprecated
      * @param string $bearerToken
      * @return Config
      */
     public function setBearerToken($bearerToken)
     {
         $this->credentials->setBearerToken($bearerToken);
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function getClientSecret()
-    {
-        return $this->credentials->getClientSecret();
-    }
-
-    /**
-     * @deprecated
-     * @param string $clientSecret
-     * @return $this
-     */
-    public function setClientSecret($clientSecret)
-    {
-        $this->credentials->setClientSecret($clientSecret);
-
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function getClientId()
-    {
-        return $this->credentials->getClientId();
-    }
-
-    /**
-     * @deprecated
-     * @param string $clientId
-     * @return $this
-     */
-    public function setClientId($clientId)
-    {
-        $this->credentials->setClientId($clientId);
-
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function getProject()
-    {
-        return $this->credentials->getProject();
-    }
-
-    /**
-     * @deprecated
-     * @param string $project
-     * @return $this
-     */
-    public function setProject($project)
-    {
-        $this->credentials->setProject($project);
-        $this->clientConfig->setProject($project);
-
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function getScope()
-    {
-        return $this->credentials->getScope();
-    }
-
-    /**
-     * @deprecated
-     * @param string $scope
-     * @return $this
-     */
-    public function setScope($scope)
-    {
-        $this->credentials->setScope($scope);
-
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @param string $oauthUrl
-     * @return $this
-     */
-    public function setOauthUrl($oauthUrl)
-    {
-        $this->oauthClientConfig->setBaseUri($oauthUrl);
-
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function getApiUrl()
-    {
-        return $this->clientConfig->getBaseUri();
-    }
-
-    /**
-     * @deprecated
-     * @param string $apiUrl
-     * @return $this
-     */
-    public function setApiUrl($apiUrl)
-    {
-        $this->clientConfig->setBaseUri($apiUrl);
-
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return bool
-     */
-    public function check()
-    {
-        return $this->credentials->check();
-    }
-
-    /**
-     * @deprecated use getClientOptions()['concurrency'] instead
-     * @return int
-     */
-    public function getBatchPoolSize()
-    {
-        return $this->clientConfig->getBatchPoolSize();
-    }
-
-    /**
-     * @deprecated use setClientOptions(['concurrency' => 5]) instead
-     * @param int $batchPoolSize
-     * @return $this
-     */
-    public function setBatchPoolSize($batchPoolSize)
-    {
-        $this->clientConfig->setBatchPoolSize($batchPoolSize);
-
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function getAdapter()
-    {
-        return $this->clientConfig->getAdapter();
-    }
-
-    /**
-     * @deprecated
-     * @param string $adapter
-     * @return $this
-     */
-    public function setAdapter($adapter)
-    {
-        $this->clientConfig->setAdapter($adapter);
-
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return bool
-     */
-    public function getThrowExceptions()
-    {
-        return $this->clientConfig->isThrowExceptions();
-    }
-
-    /**
-     * @deprecated
-     * @param bool $throwExceptions
-     * @return $this
-     */
-    public function setThrowExceptions($throwExceptions)
-    {
-        $this->clientConfig->setThrowExceptions($throwExceptions);
-
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function getAcceptEncoding()
-    {
-        return $this->clientConfig->getAcceptEncoding();
-    }
-
-    /**
-     * @deprecated
-     * @param string $acceptEncoding
-     * @return $this
-     */
-    public function setAcceptEncoding($acceptEncoding)
-    {
-        $this->clientConfig->setAcceptEncoding($acceptEncoding);
-
         return $this;
     }
 
