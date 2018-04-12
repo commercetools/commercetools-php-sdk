@@ -251,6 +251,10 @@ class Manager extends AbstractHttpClient implements TokenProvider
     public function getHttpClient($options = [])
     {
         if (is_null($this->httpClient)) {
+            $clientOptions = $this->config->getOAuthClientOptions();
+            if (count($clientOptions) > 0) {
+                $options = array_merge($clientOptions, $options);
+            }
             $client = parent::getHttpClient($options);
             if ($this->getConfig()->getCorrelationIdProvider() instanceof CorrelationIdProvider
                 && $client instanceof CorrelationIdAware

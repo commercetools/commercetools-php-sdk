@@ -8,6 +8,7 @@ namespace Commercetools\Core\Builder\Request;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Order\ImportOrder;
 use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Request\Carts\CartReplicateRequest;
 use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
 use Commercetools\Core\Request\Orders\OrderByOrderNumberGetRequest;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
@@ -98,5 +99,14 @@ class OrderRequestBuilder
     public function import(ImportOrder $importOrder)
     {
         return OrderImportRequest::ofImportOrder($importOrder);
+    }
+
+    /**
+     * @param $orderId
+     * @return CartReplicateRequest
+     */
+    public function replicate($orderId)
+    {
+        return CartReplicateRequest::ofOrderId($orderId);
     }
 }

@@ -7,10 +7,12 @@ namespace Commercetools\Core\Order;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Cart\CustomLineItemDraft;
 use Commercetools\Core\Model\Cart\CustomLineItemDraftCollection;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
+use Commercetools\Core\Model\Cart\ReplicaCartDraft;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
@@ -21,6 +23,7 @@ use Commercetools\Core\Model\Order\DeliveryItem;
 use Commercetools\Core\Model\Order\DeliveryItemCollection;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Order\OrderState;
+use Commercetools\Core\Model\Order\OrderReference;
 use Commercetools\Core\Model\Order\Parcel;
 use Commercetools\Core\Model\Order\ParcelCollection;
 use Commercetools\Core\Model\Order\ParcelMeasurements;
@@ -36,6 +39,7 @@ use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
+use Commercetools\Core\Request\Carts\CartReplicateRequest;
 use Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddPaymentAction;
@@ -1143,5 +1147,26 @@ class OrderUpdateRequestTest extends ApiTestCase
             $product2->getVersion()
         );
         $request->executeWithClient($this->getClient());
+    }
+
+    public function testCreateReplicaCartFromOrder()
+    {
+        $cartDraft = $this->getCartDraft();
+        $order = $this->createOrder($cartDraft);
+
+        $request = CartReplicateRequest::ofOrderId($order->getId());
+
+        $response = $request->executeWithClient($this->getClient());
+        $replicaCart = $request->mapResponse($response);
+        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($replicaCart->getId(), $replicaCart->getVersion());
+
+        $this->assertNotEmpty($replicaCart->getLineItems());
+
+        $orderLineItem = $order->getLineItems()->current()->getProductId();
+        $replicaCartLineItem = $replicaCart->getLineItems()->current()->getProductId();
+
+        $this->assertSame($orderLineItem, $replicaCartLineItem);
+        $this->assertNotNull($replicaCartLineItem);
+        $this->assertSame(CartState::ACTIVE, $replicaCart->getCartState());
     }
 }

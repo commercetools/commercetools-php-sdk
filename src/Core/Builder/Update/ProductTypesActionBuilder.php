@@ -6,11 +6,13 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLocalizedEn
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeEnumKeyAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangePlainEnumLabelAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveAttributeDefinitionAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangePlainEnumValueOrderAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeNameAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeDescriptionAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeConstraintAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeNameAction;
@@ -18,6 +20,7 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLocalizedEn
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeIsSearchableAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeOrderAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumValueAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveEnumValuesAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeInputHintAction;
 
 class ProductTypesActionBuilder
@@ -60,6 +63,16 @@ class ProductTypesActionBuilder
     public function addAttributeDefinition(array $data = [])
     {
         return ProductTypeAddAttributeDefinitionAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-key-of-an-enumvalue
+     * @param array $data
+     * @return ProductTypeChangeEnumKeyAction
+     */
+    public function changeEnumKey(array $data = [])
+    {
+        return ProductTypeChangeEnumKeyAction::fromArray($data);
     }
 
     /**
@@ -110,6 +123,16 @@ class ProductTypesActionBuilder
     public function setKey(array $data = [])
     {
         return ProductTypeSetKeyAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-attributedefinition-name
+     * @param array $data
+     * @return ProductTypeChangeAttributeNameAction
+     */
+    public function changeAttributeName(array $data = [])
+    {
+        return ProductTypeChangeAttributeNameAction::fromArray($data);
     }
 
     /**
@@ -180,6 +203,16 @@ class ProductTypesActionBuilder
     public function addLocalizedEnumValue(array $data = [])
     {
         return ProductTypeAddLocalizedEnumValueAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#remove-enumvalues-from-attributedefinition
+     * @param array $data
+     * @return ProductTypeRemoveEnumValuesAction
+     */
+    public function removeEnumValues(array $data = [])
+    {
+        return ProductTypeRemoveEnumValuesAction::fromArray($data);
     }
 
     /**
