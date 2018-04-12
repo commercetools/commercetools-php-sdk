@@ -2,31 +2,21 @@
 
 namespace Commercetools\Core\Builder\Update;
 
-use Commercetools\Core\Request\Zones\Command\ZoneSetDescriptionAction;
-use Commercetools\Core\Request\Zones\Command\ZoneRemoveLocationAction;
-use Commercetools\Core\Request\Zones\Command\ZoneChangeNameAction;
 use Commercetools\Core\Request\Zones\Command\ZoneAddLocationAction;
+use Commercetools\Core\Request\Zones\Command\ZoneChangeNameAction;
+use Commercetools\Core\Request\Zones\Command\ZoneRemoveLocationAction;
+use Commercetools\Core\Request\Zones\Command\ZoneSetDescriptionAction;
 
 class ZonesActionBuilder
 {
     /**
-     * @link https://docs.commercetools.com/http-api-projects-zones.html#set-description
+     * @link https://docs.commercetools.com/http-api-projects-zones.html#add-location
      * @param array $data
-     * @return ZoneSetDescriptionAction
+     * @return ZoneAddLocationAction
      */
-    public function setDescription(array $data = [])
+    public function addLocation(array $data = [])
     {
-        return ZoneSetDescriptionAction::fromArray($data);
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-zones.html#remove-location
-     * @param array $data
-     * @return ZoneRemoveLocationAction
-     */
-    public function removeLocation(array $data = [])
-    {
-        return ZoneRemoveLocationAction::fromArray($data);
+        return ZoneAddLocationAction::fromArray($data);
     }
 
     /**
@@ -40,13 +30,23 @@ class ZonesActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-zones.html#add-location
+     * @link https://docs.commercetools.com/http-api-projects-zones.html#remove-location
      * @param array $data
-     * @return ZoneAddLocationAction
+     * @return ZoneRemoveLocationAction
      */
-    public function addLocation(array $data = [])
+    public function removeLocation(array $data = [])
     {
-        return ZoneAddLocationAction::fromArray($data);
+        return ZoneRemoveLocationAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-zones.html#set-description
+     * @param array $data
+     * @return ZoneSetDescriptionAction
+     */
+    public function setDescription(array $data = [])
+    {
+        return ZoneSetDescriptionAction::fromArray($data);
     }
 
     /**

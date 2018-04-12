@@ -3,15 +3,15 @@
 namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddShippingRateAction;
-use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeIsDefaultAction;
-use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeTaxCategoryAction;
-use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetKeyAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddZoneAction;
-use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeIsDefaultAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeNameAction;
-use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetPredicateAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeTaxCategoryAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveShippingRateAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetKeyAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetPredicateAction;
 
 class ShippingMethodsActionBuilder
 {
@@ -26,36 +26,6 @@ class ShippingMethodsActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#change-isdefault
-     * @param array $data
-     * @return ShippingMethodChangeIsDefaultAction
-     */
-    public function changeIsDefault(array $data = [])
-    {
-        return ShippingMethodChangeIsDefaultAction::fromArray($data);
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#change-taxcategory
-     * @param array $data
-     * @return ShippingMethodChangeTaxCategoryAction
-     */
-    public function changeTaxCategory(array $data = [])
-    {
-        return ShippingMethodChangeTaxCategoryAction::fromArray($data);
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-key
-     * @param array $data
-     * @return ShippingMethodSetKeyAction
-     */
-    public function setKey(array $data = [])
-    {
-        return ShippingMethodSetKeyAction::fromArray($data);
-    }
-
-    /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#add-zone
      * @param array $data
      * @return ShippingMethodAddZoneAction
@@ -66,13 +36,13 @@ class ShippingMethodsActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#remove-zone
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#change-isdefault
      * @param array $data
-     * @return ShippingMethodRemoveZoneAction
+     * @return ShippingMethodChangeIsDefaultAction
      */
-    public function removeZone(array $data = [])
+    public function changeIsDefault(array $data = [])
     {
-        return ShippingMethodRemoveZoneAction::fromArray($data);
+        return ShippingMethodChangeIsDefaultAction::fromArray($data);
     }
 
     /**
@@ -86,13 +56,13 @@ class ShippingMethodsActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-predicate
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#change-taxcategory
      * @param array $data
-     * @return ShippingMethodSetPredicateAction
+     * @return ShippingMethodChangeTaxCategoryAction
      */
-    public function setPredicate(array $data = [])
+    public function changeTaxCategory(array $data = [])
     {
-        return ShippingMethodSetPredicateAction::fromArray($data);
+        return ShippingMethodChangeTaxCategoryAction::fromArray($data);
     }
 
     /**
@@ -106,6 +76,16 @@ class ShippingMethodsActionBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#remove-zone
+     * @param array $data
+     * @return ShippingMethodRemoveZoneAction
+     */
+    public function removeZone(array $data = [])
+    {
+        return ShippingMethodRemoveZoneAction::fromArray($data);
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-description
      * @param array $data
      * @return ShippingMethodSetDescriptionAction
@@ -113,6 +93,26 @@ class ShippingMethodsActionBuilder
     public function setDescription(array $data = [])
     {
         return ShippingMethodSetDescriptionAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-key
+     * @param array $data
+     * @return ShippingMethodSetKeyAction
+     */
+    public function setKey(array $data = [])
+    {
+        return ShippingMethodSetKeyAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-predicate
+     * @param array $data
+     * @return ShippingMethodSetPredicateAction
+     */
+    public function setPredicate(array $data = [])
+    {
+        return ShippingMethodSetPredicateAction::fromArray($data);
     }
 
     /**

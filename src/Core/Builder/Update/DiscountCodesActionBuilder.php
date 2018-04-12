@@ -2,19 +2,29 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeGroupsAction;
-use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsPerCustomerAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeIsActiveAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetCartPredicateAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetDescriptionAction;
-use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidUntilAction;
-use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidFromAction;
-use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetNameAction;
-use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeIsActiveAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsAction;
-use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsPerCustomerAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetNameAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidFromAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidUntilAction;
 
 class DiscountCodesActionBuilder
 {
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-cartdiscounts
+     * @param array $data
+     * @return DiscountCodeChangeCartDiscountsAction
+     */
+    public function changeCartDiscounts(array $data = [])
+    {
+        return DiscountCodeChangeCartDiscountsAction::fromArray($data);
+    }
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-groups
      * @param array $data
@@ -26,13 +36,13 @@ class DiscountCodesActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-max-applications-per-customer
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-isactive
      * @param array $data
-     * @return DiscountCodeSetMaxApplicationsPerCustomerAction
+     * @return DiscountCodeChangeIsActiveAction
      */
-    public function setMaxApplicationsPerCustomer(array $data = [])
+    public function changeIsActive(array $data = [])
     {
-        return DiscountCodeSetMaxApplicationsPerCustomerAction::fromArray($data);
+        return DiscountCodeChangeIsActiveAction::fromArray($data);
     }
 
     /**
@@ -56,23 +66,23 @@ class DiscountCodesActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-valid-until
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-max-applications
      * @param array $data
-     * @return DiscountCodeSetValidUntilAction
+     * @return DiscountCodeSetMaxApplicationsAction
      */
-    public function setValidUntil(array $data = [])
+    public function setMaxApplications(array $data = [])
     {
-        return DiscountCodeSetValidUntilAction::fromArray($data);
+        return DiscountCodeSetMaxApplicationsAction::fromArray($data);
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-valid-from
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-max-applications-per-customer
      * @param array $data
-     * @return DiscountCodeSetValidFromAction
+     * @return DiscountCodeSetMaxApplicationsPerCustomerAction
      */
-    public function setValidFrom(array $data = [])
+    public function setMaxApplicationsPerCustomer(array $data = [])
     {
-        return DiscountCodeSetValidFromAction::fromArray($data);
+        return DiscountCodeSetMaxApplicationsPerCustomerAction::fromArray($data);
     }
 
     /**
@@ -86,33 +96,23 @@ class DiscountCodesActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-isactive
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-valid-from
      * @param array $data
-     * @return DiscountCodeChangeIsActiveAction
+     * @return DiscountCodeSetValidFromAction
      */
-    public function changeIsActive(array $data = [])
+    public function setValidFrom(array $data = [])
     {
-        return DiscountCodeChangeIsActiveAction::fromArray($data);
+        return DiscountCodeSetValidFromAction::fromArray($data);
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-max-applications
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-valid-until
      * @param array $data
-     * @return DiscountCodeSetMaxApplicationsAction
+     * @return DiscountCodeSetValidUntilAction
      */
-    public function setMaxApplications(array $data = [])
+    public function setValidUntil(array $data = [])
     {
-        return DiscountCodeSetMaxApplicationsAction::fromArray($data);
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-cartdiscounts
-     * @param array $data
-     * @return DiscountCodeChangeCartDiscountsAction
-     */
-    public function changeCartDiscounts(array $data = [])
-    {
-        return DiscountCodeChangeCartDiscountsAction::fromArray($data);
+        return DiscountCodeSetValidUntilAction::fromArray($data);
     }
 
     /**

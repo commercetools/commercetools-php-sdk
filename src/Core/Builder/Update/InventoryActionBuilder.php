@@ -2,25 +2,15 @@
 
 namespace Commercetools\Core\Builder\Update;
 
-use Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryAddQuantityAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryChangeQuantityAction;
-use Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction;
-use Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction;
+use Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAction;
+use Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction;
+use Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction;
 
 class InventoryActionBuilder
 {
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-expecteddelivery
-     * @param array $data
-     * @return InventorySetExpectedDeliveryAction
-     */
-    public function setExpectedDelivery(array $data = [])
-    {
-        return InventorySetExpectedDeliveryAction::fromArray($data);
-    }
-
     /**
      * @link https://docs.commercetools.com/http-api-projects-inventory.html#add-quantity
      * @param array $data
@@ -42,13 +32,23 @@ class InventoryActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-supplychannel
+     * @link https://docs.commercetools.com/http-api-projects-inventory.html#remove-quantity
      * @param array $data
-     * @return InventorySetSupplyChannelAction
+     * @return InventoryRemoveQuantityAction
      */
-    public function setSupplyChannel(array $data = [])
+    public function removeQuantity(array $data = [])
     {
-        return InventorySetSupplyChannelAction::fromArray($data);
+        return InventoryRemoveQuantityAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-expecteddelivery
+     * @param array $data
+     * @return InventorySetExpectedDeliveryAction
+     */
+    public function setExpectedDelivery(array $data = [])
+    {
+        return InventorySetExpectedDeliveryAction::fromArray($data);
     }
 
     /**
@@ -62,13 +62,13 @@ class InventoryActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-inventory.html#remove-quantity
+     * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-supplychannel
      * @param array $data
-     * @return InventoryRemoveQuantityAction
+     * @return InventorySetSupplyChannelAction
      */
-    public function removeQuantity(array $data = [])
+    public function setSupplyChannel(array $data = [])
     {
-        return InventoryRemoveQuantityAction::fromArray($data);
+        return InventorySetSupplyChannelAction::fromArray($data);
     }
 
     /**

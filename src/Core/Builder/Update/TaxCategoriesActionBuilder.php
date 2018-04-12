@@ -2,43 +2,23 @@
 
 namespace Commercetools\Core\Builder\Update;
 
-use Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetKeyAction;
-use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryReplaceTaxRateAction;
-use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryRemoveTaxRateAction;
-use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryChangeNameAction;
 use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryAddTaxRateAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryChangeNameAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryRemoveTaxRateAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryReplaceTaxRateAction;
 use Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetDescriptionAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetKeyAction;
 
 class TaxCategoriesActionBuilder
 {
     /**
-     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#set-key
+     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#add-taxrate
      * @param array $data
-     * @return TaxCategorySetKeyAction
+     * @return TaxCategoryAddTaxRateAction
      */
-    public function setKey(array $data = [])
+    public function addTaxRate(array $data = [])
     {
-        return TaxCategorySetKeyAction::fromArray($data);
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#replace-taxrate
-     * @param array $data
-     * @return TaxCategoryReplaceTaxRateAction
-     */
-    public function replaceTaxRate(array $data = [])
-    {
-        return TaxCategoryReplaceTaxRateAction::fromArray($data);
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#remove-taxrate
-     * @param array $data
-     * @return TaxCategoryRemoveTaxRateAction
-     */
-    public function removeTaxRate(array $data = [])
-    {
-        return TaxCategoryRemoveTaxRateAction::fromArray($data);
+        return TaxCategoryAddTaxRateAction::fromArray($data);
     }
 
     /**
@@ -52,13 +32,23 @@ class TaxCategoriesActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#add-taxrate
+     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#remove-taxrate
      * @param array $data
-     * @return TaxCategoryAddTaxRateAction
+     * @return TaxCategoryRemoveTaxRateAction
      */
-    public function addTaxRate(array $data = [])
+    public function removeTaxRate(array $data = [])
     {
-        return TaxCategoryAddTaxRateAction::fromArray($data);
+        return TaxCategoryRemoveTaxRateAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#replace-taxrate
+     * @param array $data
+     * @return TaxCategoryReplaceTaxRateAction
+     */
+    public function replaceTaxRate(array $data = [])
+    {
+        return TaxCategoryReplaceTaxRateAction::fromArray($data);
     }
 
     /**
@@ -69,6 +59,16 @@ class TaxCategoriesActionBuilder
     public function setDescription(array $data = [])
     {
         return TaxCategorySetDescriptionAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#set-key
+     * @param array $data
+     * @return TaxCategorySetKeyAction
+     */
+    public function setKey(array $data = [])
+    {
+        return TaxCategorySetKeyAction::fromArray($data);
     }
 
     /**

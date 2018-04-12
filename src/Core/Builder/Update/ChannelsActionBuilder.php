@@ -2,25 +2,25 @@
 
 namespace Commercetools\Core\Builder\Update;
 
-use Commercetools\Core\Request\Channels\Command\ChannelSetAddressAction;
+use Commercetools\Core\Request\Channels\Command\ChannelAddRolesAction;
 use Commercetools\Core\Request\Channels\Command\ChannelChangeDescriptionAction;
+use Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction;
 use Commercetools\Core\Request\Channels\Command\ChannelChangeNameAction;
+use Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction;
+use Commercetools\Core\Request\Channels\Command\ChannelSetAddressAction;
 use Commercetools\Core\Request\Channels\Command\ChannelSetGeoLocation;
 use Commercetools\Core\Request\Channels\Command\ChannelSetRolesAction;
-use Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction;
-use Commercetools\Core\Request\Channels\Command\ChannelAddRolesAction;
-use Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction;
 
 class ChannelsActionBuilder
 {
     /**
-     * @link https://docs.commercetools.com/http-api-projects-channels.html#set-address
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#add-roles
      * @param array $data
-     * @return ChannelSetAddressAction
+     * @return ChannelAddRolesAction
      */
-    public function setAddress(array $data = [])
+    public function addRoles(array $data = [])
     {
-        return ChannelSetAddressAction::fromArray($data);
+        return ChannelAddRolesAction::fromArray($data);
     }
 
     /**
@@ -34,6 +34,16 @@ class ChannelsActionBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#change-key
+     * @param array $data
+     * @return ChannelChangeKeyAction
+     */
+    public function changeKey(array $data = [])
+    {
+        return ChannelChangeKeyAction::fromArray($data);
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-channels.html#change-name
      * @param array $data
      * @return ChannelChangeNameAction
@@ -41,6 +51,26 @@ class ChannelsActionBuilder
     public function changeName(array $data = [])
     {
         return ChannelChangeNameAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#remove-roles
+     * @param array $data
+     * @return ChannelRemoveRolesAction
+     */
+    public function removeRoles(array $data = [])
+    {
+        return ChannelRemoveRolesAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#set-address
+     * @param array $data
+     * @return ChannelSetAddressAction
+     */
+    public function setAddress(array $data = [])
+    {
+        return ChannelSetAddressAction::fromArray($data);
     }
 
     /**
@@ -61,36 +91,6 @@ class ChannelsActionBuilder
     public function setRoles(array $data = [])
     {
         return ChannelSetRolesAction::fromArray($data);
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-channels.html#remove-roles
-     * @param array $data
-     * @return ChannelRemoveRolesAction
-     */
-    public function removeRoles(array $data = [])
-    {
-        return ChannelRemoveRolesAction::fromArray($data);
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-channels.html#add-roles
-     * @param array $data
-     * @return ChannelAddRolesAction
-     */
-    public function addRoles(array $data = [])
-    {
-        return ChannelAddRolesAction::fromArray($data);
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-channels.html#change-key
-     * @param array $data
-     * @return ChannelChangeKeyAction
-     */
-    public function changeKey(array $data = [])
-    {
-        return ChannelChangeKeyAction::fromArray($data);
     }
 
     /**

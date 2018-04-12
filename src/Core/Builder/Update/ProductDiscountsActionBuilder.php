@@ -2,35 +2,35 @@
 
 namespace Commercetools\Core\Builder\Update;
 
-use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetDescriptionAction;
-use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeValueAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeIsActiveAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeNameAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangePredicateAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeSortOrderAction;
-use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidUntilAction;
-use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeNameAction;
-use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeIsActiveAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeValueAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetDescriptionAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidFromAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidUntilAction;
 
 class ProductDiscountsActionBuilder
 {
     /**
-     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#set-description
+     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#change-is-active
      * @param array $data
-     * @return ProductDiscountSetDescriptionAction
+     * @return ProductDiscountChangeIsActiveAction
      */
-    public function setDescription(array $data = [])
+    public function changeIsActive(array $data = [])
     {
-        return ProductDiscountSetDescriptionAction::fromArray($data);
+        return ProductDiscountChangeIsActiveAction::fromArray($data);
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#change-value
+     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#change-name
      * @param array $data
-     * @return ProductDiscountChangeValueAction
+     * @return ProductDiscountChangeNameAction
      */
-    public function changeValue(array $data = [])
+    public function changeName(array $data = [])
     {
-        return ProductDiscountChangeValueAction::fromArray($data);
+        return ProductDiscountChangeNameAction::fromArray($data);
     }
 
     /**
@@ -54,33 +54,23 @@ class ProductDiscountsActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#set-valid-until
+     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#change-value
      * @param array $data
-     * @return ProductDiscountSetValidUntilAction
+     * @return ProductDiscountChangeValueAction
      */
-    public function setValidUntil(array $data = [])
+    public function changeValue(array $data = [])
     {
-        return ProductDiscountSetValidUntilAction::fromArray($data);
+        return ProductDiscountChangeValueAction::fromArray($data);
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#change-name
+     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#set-description
      * @param array $data
-     * @return ProductDiscountChangeNameAction
+     * @return ProductDiscountSetDescriptionAction
      */
-    public function changeName(array $data = [])
+    public function setDescription(array $data = [])
     {
-        return ProductDiscountChangeNameAction::fromArray($data);
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#change-is-active
-     * @param array $data
-     * @return ProductDiscountChangeIsActiveAction
-     */
-    public function changeIsActive(array $data = [])
-    {
-        return ProductDiscountChangeIsActiveAction::fromArray($data);
+        return ProductDiscountSetDescriptionAction::fromArray($data);
     }
 
     /**
@@ -91,6 +81,16 @@ class ProductDiscountsActionBuilder
     public function setValidFrom(array $data = [])
     {
         return ProductDiscountSetValidFromAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#set-valid-until
+     * @param array $data
+     * @return ProductDiscountSetValidUntilAction
+     */
+    public function setValidUntil(array $data = [])
+    {
+        return ProductDiscountSetValidUntilAction::fromArray($data);
     }
 
     /**

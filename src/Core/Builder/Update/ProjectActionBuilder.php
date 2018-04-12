@@ -2,23 +2,23 @@
 
 namespace Commercetools\Core\Builder\Update;
 
-use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
-use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
-use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
+use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 
 class ProjectActionBuilder
 {
     /**
-     * @link https://docs.commercetools.com/http-api-projects-project.html#set-shippingrateinputtype
+     * @link https://docs.commercetools.com/http-api-projects-project.html#change-countries
      * @param array $data
-     * @return ProjectSetShippingRateInputTypeAction
+     * @return ProjectChangeCountriesAction
      */
-    public function setShippingRateInputType(array $data = [])
+    public function changeCountries(array $data = [])
     {
-        return ProjectSetShippingRateInputTypeAction::fromArray($data);
+        return ProjectChangeCountriesAction::fromArray($data);
     }
 
     /**
@@ -42,16 +42,6 @@ class ProjectActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-project.html#change-name
-     * @param array $data
-     * @return ProjectChangeNameAction
-     */
-    public function changeName(array $data = [])
-    {
-        return ProjectChangeNameAction::fromArray($data);
-    }
-
-    /**
      * @link https://docs.commercetools.com/http-api-projects-project.html#change-messages-enabled
      * @param array $data
      * @return ProjectChangeMessagesEnabledAction
@@ -62,13 +52,23 @@ class ProjectActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-project.html#change-countries
+     * @link https://docs.commercetools.com/http-api-projects-project.html#change-name
      * @param array $data
-     * @return ProjectChangeCountriesAction
+     * @return ProjectChangeNameAction
      */
-    public function changeCountries(array $data = [])
+    public function changeName(array $data = [])
     {
-        return ProjectChangeCountriesAction::fromArray($data);
+        return ProjectChangeNameAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-project.html#set-shippingrateinputtype
+     * @param array $data
+     * @return ProjectSetShippingRateInputTypeAction
+     */
+    public function setShippingRateInputType(array $data = [])
+    {
+        return ProjectSetShippingRateInputTypeAction::fromArray($data);
     }
 
     /**

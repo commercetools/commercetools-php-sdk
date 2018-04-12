@@ -2,21 +2,11 @@
 
 namespace Commercetools\Core\Builder\Update;
 
-use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupSetKeyAction;
 use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupChangeNameAction;
+use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupSetKeyAction;
 
 class CustomerGroupsActionBuilder
 {
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#set-key
-     * @param array $data
-     * @return CustomerGroupSetKeyAction
-     */
-    public function setKey(array $data = [])
-    {
-        return CustomerGroupSetKeyAction::fromArray($data);
-    }
-
     /**
      * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#change-name
      * @param array $data
@@ -25,6 +15,16 @@ class CustomerGroupsActionBuilder
     public function changeName(array $data = [])
     {
         return CustomerGroupChangeNameAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#set-key
+     * @param array $data
+     * @return CustomerGroupSetKeyAction
+     */
+    public function setKey(array $data = [])
+    {
+        return CustomerGroupSetKeyAction::fromArray($data);
     }
 
     /**

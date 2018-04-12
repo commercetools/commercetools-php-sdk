@@ -3,8 +3,8 @@
 namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetChangesAction;
-use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetMessagesAction;
 use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetKeyAction;
+use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetMessagesAction;
 
 class SubscriptionsActionBuilder
 {
@@ -19,16 +19,6 @@ class SubscriptionsActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#set-messages
-     * @param array $data
-     * @return SubscriptionSetMessagesAction
-     */
-    public function setMessages(array $data = [])
-    {
-        return SubscriptionSetMessagesAction::fromArray($data);
-    }
-
-    /**
      * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#set-key
      * @param array $data
      * @return SubscriptionSetKeyAction
@@ -36,6 +26,16 @@ class SubscriptionsActionBuilder
     public function setKey(array $data = [])
     {
         return SubscriptionSetKeyAction::fromArray($data);
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#set-messages
+     * @param array $data
+     * @return SubscriptionSetMessagesAction
+     */
+    public function setMessages(array $data = [])
+    {
+        return SubscriptionSetMessagesAction::fromArray($data);
     }
 
     /**
