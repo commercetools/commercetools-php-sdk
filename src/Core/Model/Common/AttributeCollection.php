@@ -44,6 +44,23 @@ class AttributeCollection extends Collection
         return null;
     }
 
+    public function __call($name, $arguments)
+    {
+        if (strpos($name, 'get') === 0) {
+            $name = lcfirst(substr($name, 3));
+        }
+        return $this->getByName($name);
+    }
+
+
+    public function offsetGet($offset)
+    {
+        if (is_string($offset)) {
+            return $this->getByName($offset);
+        }
+        return $this->getAt($offset);
+    }
+
     /**
      * @param $attributeName
      * @return Attribute|null
