@@ -72,6 +72,29 @@ class AttributeCollectionTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(Enum::class, $attributes->getByName('collection-enum-set')->getValueAsEnumSet()->getAt(0));
     }
 
+    public function testAttributeByNameArrayAccess()
+    {
+        $collection = AttributeCollection::of();
+        $collection->add(Attribute::fromArray(['name' => 'test', 'value' => 'Test']));
+
+        $this->assertSame('Test', $collection['test']->getValue());
+    }
+
+    public function testAttributeByNameMagicCall()
+    {
+        $collection = AttributeCollection::of();
+        $collection->add(Attribute::fromArray(['name' => 'test', 'value' => 'Test']));
+
+        $this->assertSame('Test', $collection->test()->getValue());
+        $this->assertSame('Test', $collection->getTest()->getValue());
+    }
+
+    public function testAttributeByPositionArrayAccess()
+    {
+        $collection = AttributeCollection::of();
+        $collection->add(Attribute::fromArray(['name' => 'test', 'value' => 'Test']));
+        $this->assertSame('Test', $collection[0]->getValue());
+    }
 
     public function testMagicGetNotSet()
     {
