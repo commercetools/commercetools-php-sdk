@@ -22,7 +22,7 @@ class GenericActionBuilderTest extends TestCase
         $action = new $className();
         $actionName = $action->getAction();
         $builder = ActionBuilder::of();
-        $this->assertInstanceOf($className, $builder->$domain()->$actionName());
+        $this->assertInstanceOf($className, current($builder->$domain()->$actionName()->getActions()));
     }
 
     public function getActionClasses()

@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetSlugAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetDeleteDaysAfterLastModificationAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetCustomerAction;
@@ -27,224 +29,248 @@ use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListChangeLineItems
 
 class ShoppingListsActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-slug
-     * @param array $data
-     * @return ShoppingListSetSlugAction
+     * @param ShoppingListSetSlugAction|callable $action
+     * @return $this
      */
-    public function setSlug(array $data = [])
+    public function setSlug($action = null)
     {
-        return ShoppingListSetSlugAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListSetSlugAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-deletedaysafterlastmodification
-     * @param array $data
-     * @return ShoppingListSetDeleteDaysAfterLastModificationAction
+     * @param ShoppingListSetDeleteDaysAfterLastModificationAction|callable $action
+     * @return $this
      */
-    public function setDeleteDaysAfterLastModification(array $data = [])
+    public function setDeleteDaysAfterLastModification($action = null)
     {
-        return ShoppingListSetDeleteDaysAfterLastModificationAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListSetDeleteDaysAfterLastModificationAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-customer
-     * @param array $data
-     * @return ShoppingListSetCustomerAction
+     * @param ShoppingListSetCustomerAction|callable $action
+     * @return $this
      */
-    public function setCustomer(array $data = [])
+    public function setCustomer($action = null)
     {
-        return ShoppingListSetCustomerAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListSetCustomerAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-textlineitem-description
-     * @param array $data
-     * @return ShoppingListSetTextLineItemDescriptionAction
+     * @param ShoppingListSetTextLineItemDescriptionAction|callable $action
+     * @return $this
      */
-    public function setTextLineItemDescription(array $data = [])
+    public function setTextLineItemDescription($action = null)
     {
-        return ShoppingListSetTextLineItemDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListSetTextLineItemDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-customField
-     * @param array $data
-     * @return ShoppingListSetCustomFieldAction
+     * @param ShoppingListSetCustomFieldAction|callable $action
+     * @return $this
      */
-    public function setCustomField(array $data = [])
+    public function setCustomField($action = null)
     {
-        return ShoppingListSetCustomFieldAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListSetCustomFieldAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-textlineitem-custom-type
-     * @param array $data
-     * @return ShoppingListSetTextLineItemCustomTypeAction
+     * @param ShoppingListSetTextLineItemCustomTypeAction|callable $action
+     * @return $this
      */
-    public function setTextLineItemCustomType(array $data = [])
+    public function setTextLineItemCustomType($action = null)
     {
-        return ShoppingListSetTextLineItemCustomTypeAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListSetTextLineItemCustomTypeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#change-name
-     * @param array $data
-     * @return ShoppingListChangeNameAction
+     * @param ShoppingListChangeNameAction|callable $action
+     * @return $this
      */
-    public function changeName(array $data = [])
+    public function changeName($action = null)
     {
-        return ShoppingListChangeNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListChangeNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-lineitem-customfield
-     * @param array $data
-     * @return ShoppingListSetLineItemCustomFieldAction
+     * @param ShoppingListSetLineItemCustomFieldAction|callable $action
+     * @return $this
      */
-    public function setLineItemCustomField(array $data = [])
+    public function setLineItemCustomField($action = null)
     {
-        return ShoppingListSetLineItemCustomFieldAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListSetLineItemCustomFieldAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#change-description
-     * @param array $data
-     * @return ShoppingListSetDescriptionAction
+     * @param ShoppingListSetDescriptionAction|callable $action
+     * @return $this
      */
-    public function setDescription(array $data = [])
+    public function setDescription($action = null)
     {
-        return ShoppingListSetDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListSetDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-textlineitem-customfield
-     * @param array $data
-     * @return ShoppingListSetTextLineItemCustomFieldAction
+     * @param ShoppingListSetTextLineItemCustomFieldAction|callable $action
+     * @return $this
      */
-    public function setTextLineItemCustomField(array $data = [])
+    public function setTextLineItemCustomField($action = null)
     {
-        return ShoppingListSetTextLineItemCustomFieldAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListSetTextLineItemCustomFieldAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#remove-textlineitem
-     * @param array $data
-     * @return ShoppingListRemoveTextLineItemAction
+     * @param ShoppingListRemoveTextLineItemAction|callable $action
+     * @return $this
      */
-    public function removeTextLineItem(array $data = [])
+    public function removeTextLineItem($action = null)
     {
-        return ShoppingListRemoveTextLineItemAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListRemoveTextLineItemAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#remove-lineitem
-     * @param array $data
-     * @return ShoppingListRemoveLineItemAction
+     * @param ShoppingListRemoveLineItemAction|callable $action
+     * @return $this
      */
-    public function removeLineItem(array $data = [])
+    public function removeLineItem($action = null)
     {
-        return ShoppingListRemoveLineItemAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListRemoveLineItemAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#change-textlineitem-quantity
-     * @param array $data
-     * @return ShoppingListChangeTextLineItemQuantityAction
+     * @param ShoppingListChangeTextLineItemQuantityAction|callable $action
+     * @return $this
      */
-    public function changeTextLineItemQuantity(array $data = [])
+    public function changeTextLineItemQuantity($action = null)
     {
-        return ShoppingListChangeTextLineItemQuantityAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListChangeTextLineItemQuantityAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-customType
-     * @param array $data
-     * @return ShoppingListSetCustomTypeAction
+     * @param ShoppingListSetCustomTypeAction|callable $action
+     * @return $this
      */
-    public function setCustomType(array $data = [])
+    public function setCustomType($action = null)
     {
-        return ShoppingListSetCustomTypeAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListSetCustomTypeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#change-textlineitems-order
-     * @param array $data
-     * @return ShoppingListChangeTextLineItemsOrderAction
+     * @param ShoppingListChangeTextLineItemsOrderAction|callable $action
+     * @return $this
      */
-    public function changeTextLineItemsOrder(array $data = [])
+    public function changeTextLineItemsOrder($action = null)
     {
-        return ShoppingListChangeTextLineItemsOrderAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListChangeTextLineItemsOrderAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-key
-     * @param array $data
-     * @return ShoppingListSetKeyAction
+     * @param ShoppingListSetKeyAction|callable $action
+     * @return $this
      */
-    public function setKey(array $data = [])
+    public function setKey($action = null)
     {
-        return ShoppingListSetKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListSetKeyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-lineitem-custom-type
-     * @param array $data
-     * @return ShoppingListSetLineItemCustomTypeAction
+     * @param ShoppingListSetLineItemCustomTypeAction|callable $action
+     * @return $this
      */
-    public function setLineItemCustomType(array $data = [])
+    public function setLineItemCustomType($action = null)
     {
-        return ShoppingListSetLineItemCustomTypeAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListSetLineItemCustomTypeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#change-textlineitem-name
-     * @param array $data
-     * @return ShoppingListChangeTextLineItemNameAction
+     * @param ShoppingListChangeTextLineItemNameAction|callable $action
+     * @return $this
      */
-    public function changeTextLineItemName(array $data = [])
+    public function changeTextLineItemName($action = null)
     {
-        return ShoppingListChangeTextLineItemNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListChangeTextLineItemNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#change-lineitem-quantity
-     * @param array $data
-     * @return ShoppingListChangeLineItemQuantityAction
+     * @param ShoppingListChangeLineItemQuantityAction|callable $action
+     * @return $this
      */
-    public function changeLineItemQuantity(array $data = [])
+    public function changeLineItemQuantity($action = null)
     {
-        return ShoppingListChangeLineItemQuantityAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListChangeLineItemQuantityAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#add-lineitem
-     * @param array $data
-     * @return ShoppingListAddLineItemAction
+     * @param ShoppingListAddLineItemAction|callable $action
+     * @return $this
      */
-    public function addLineItem(array $data = [])
+    public function addLineItem($action = null)
     {
-        return ShoppingListAddLineItemAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListAddLineItemAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#add-textlineitem
-     * @param array $data
-     * @return ShoppingListAddTextLineItemAction
+     * @param ShoppingListAddTextLineItemAction|callable $action
+     * @return $this
      */
-    public function addTextLineItem(array $data = [])
+    public function addTextLineItem($action = null)
     {
-        return ShoppingListAddTextLineItemAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListAddTextLineItemAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#change-lineitems-order
-     * @param array $data
-     * @return ShoppingListChangeLineItemsOrderAction
+     * @param ShoppingListChangeLineItemsOrderAction|callable $action
+     * @return $this
      */
-    public function changeLineItemsOrder(array $data = [])
+    public function changeLineItemsOrder($action = null)
     {
-        return ShoppingListChangeLineItemsOrderAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShoppingListChangeLineItemsOrderAction::class, $action));
+        return $this;
     }
 
     /**
@@ -253,5 +279,57 @@ class ShoppingListsActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

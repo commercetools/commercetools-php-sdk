@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Types\Command\TypeChangeLocalizedEnumValueOrderAction;
 use Commercetools\Core\Request\Types\Command\TypeChangeNameAction;
 use Commercetools\Core\Request\Types\Command\TypeRemoveFieldDefinitionAction;
@@ -16,114 +18,127 @@ use Commercetools\Core\Request\Types\Command\TypeAddEnumValueAction;
 
 class TypesActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#change-the-order-of-localizedenumvalues
-     * @param array $data
-     * @return TypeChangeLocalizedEnumValueOrderAction
+     * @param TypeChangeLocalizedEnumValueOrderAction|callable $action
+     * @return $this
      */
-    public function changeLocalizedEnumValueOrder(array $data = [])
+    public function changeLocalizedEnumValueOrder($action = null)
     {
-        return TypeChangeLocalizedEnumValueOrderAction::fromArray($data);
+        $this->addAction($this->resolveAction(TypeChangeLocalizedEnumValueOrderAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#change-name
-     * @param array $data
-     * @return TypeChangeNameAction
+     * @param TypeChangeNameAction|callable $action
+     * @return $this
      */
-    public function changeName(array $data = [])
+    public function changeName($action = null)
     {
-        return TypeChangeNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(TypeChangeNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#remove-fielddefinition
-     * @param array $data
-     * @return TypeRemoveFieldDefinitionAction
+     * @param TypeRemoveFieldDefinitionAction|callable $action
+     * @return $this
      */
-    public function removeFieldDefinition(array $data = [])
+    public function removeFieldDefinition($action = null)
     {
-        return TypeRemoveFieldDefinitionAction::fromArray($data);
+        $this->addAction($this->resolveAction(TypeRemoveFieldDefinitionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#change-fielddefinition-label
-     * @param array $data
-     * @return TypeChangeLabelAction
+     * @param TypeChangeLabelAction|callable $action
+     * @return $this
      */
-    public function changeLabel(array $data = [])
+    public function changeLabel($action = null)
     {
-        return TypeChangeLabelAction::fromArray($data);
+        $this->addAction($this->resolveAction(TypeChangeLabelAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#change-key
-     * @param array $data
-     * @return TypeChangeKeyAction
+     * @param TypeChangeKeyAction|callable $action
+     * @return $this
      */
-    public function changeKey(array $data = [])
+    public function changeKey($action = null)
     {
-        return TypeChangeKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(TypeChangeKeyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#add-fielddefinition
-     * @param array $data
-     * @return TypeAddFieldDefinitionAction
+     * @param TypeAddFieldDefinitionAction|callable $action
+     * @return $this
      */
-    public function addFieldDefinition(array $data = [])
+    public function addFieldDefinition($action = null)
     {
-        return TypeAddFieldDefinitionAction::fromArray($data);
+        $this->addAction($this->resolveAction(TypeAddFieldDefinitionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#set-description
-     * @param array $data
-     * @return TypeSetDescriptionAction
+     * @param TypeSetDescriptionAction|callable $action
+     * @return $this
      */
-    public function setDescription(array $data = [])
+    public function setDescription($action = null)
     {
-        return TypeSetDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(TypeSetDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#change-the-order-of-fielddefinitions
-     * @param array $data
-     * @return TypeChangeFieldDefinitionOrderAction
+     * @param TypeChangeFieldDefinitionOrderAction|callable $action
+     * @return $this
      */
-    public function changeFieldDefinitionOrder(array $data = [])
+    public function changeFieldDefinitionOrder($action = null)
     {
-        return TypeChangeFieldDefinitionOrderAction::fromArray($data);
+        $this->addAction($this->resolveAction(TypeChangeFieldDefinitionOrderAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#add-localizedenumvalue-to-fielddefinition
-     * @param array $data
-     * @return TypeAddLocalizedEnumValueAction
+     * @param TypeAddLocalizedEnumValueAction|callable $action
+     * @return $this
      */
-    public function addLocalizedEnumValue(array $data = [])
+    public function addLocalizedEnumValue($action = null)
     {
-        return TypeAddLocalizedEnumValueAction::fromArray($data);
+        $this->addAction($this->resolveAction(TypeAddLocalizedEnumValueAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#change-the-order-of-enumvalues
-     * @param array $data
-     * @return TypeChangeEnumValueOrderAction
+     * @param TypeChangeEnumValueOrderAction|callable $action
+     * @return $this
      */
-    public function changeEnumValueOrder(array $data = [])
+    public function changeEnumValueOrder($action = null)
     {
-        return TypeChangeEnumValueOrderAction::fromArray($data);
+        $this->addAction($this->resolveAction(TypeChangeEnumValueOrderAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#add-enumvalue-to-fielddefinition
-     * @param array $data
-     * @return TypeAddEnumValueAction
+     * @param TypeAddEnumValueAction|callable $action
+     * @return $this
      */
-    public function addEnumValue(array $data = [])
+    public function addEnumValue($action = null)
     {
-        return TypeAddEnumValueAction::fromArray($data);
+        $this->addAction($this->resolveAction(TypeAddEnumValueAction::class, $action));
+        return $this;
     }
 
     /**
@@ -132,5 +147,57 @@ class TypesActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

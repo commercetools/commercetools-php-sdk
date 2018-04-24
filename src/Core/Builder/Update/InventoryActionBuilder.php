@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryAddQuantityAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryChangeQuantityAction;
@@ -11,64 +13,72 @@ use Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction;
 
 class InventoryActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-expecteddelivery
-     * @param array $data
-     * @return InventorySetExpectedDeliveryAction
+     * @param InventorySetExpectedDeliveryAction|callable $action
+     * @return $this
      */
-    public function setExpectedDelivery(array $data = [])
+    public function setExpectedDelivery($action = null)
     {
-        return InventorySetExpectedDeliveryAction::fromArray($data);
+        $this->addAction($this->resolveAction(InventorySetExpectedDeliveryAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-inventory.html#add-quantity
-     * @param array $data
-     * @return InventoryAddQuantityAction
+     * @param InventoryAddQuantityAction|callable $action
+     * @return $this
      */
-    public function addQuantity(array $data = [])
+    public function addQuantity($action = null)
     {
-        return InventoryAddQuantityAction::fromArray($data);
+        $this->addAction($this->resolveAction(InventoryAddQuantityAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-inventory.html#change-quantity
-     * @param array $data
-     * @return InventoryChangeQuantityAction
+     * @param InventoryChangeQuantityAction|callable $action
+     * @return $this
      */
-    public function changeQuantity(array $data = [])
+    public function changeQuantity($action = null)
     {
-        return InventoryChangeQuantityAction::fromArray($data);
+        $this->addAction($this->resolveAction(InventoryChangeQuantityAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-supplychannel
-     * @param array $data
-     * @return InventorySetSupplyChannelAction
+     * @param InventorySetSupplyChannelAction|callable $action
+     * @return $this
      */
-    public function setSupplyChannel(array $data = [])
+    public function setSupplyChannel($action = null)
     {
-        return InventorySetSupplyChannelAction::fromArray($data);
+        $this->addAction($this->resolveAction(InventorySetSupplyChannelAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-restockableindays
-     * @param array $data
-     * @return InventorySetRestockableInDaysAction
+     * @param InventorySetRestockableInDaysAction|callable $action
+     * @return $this
      */
-    public function setRestockableInDays(array $data = [])
+    public function setRestockableInDays($action = null)
     {
-        return InventorySetRestockableInDaysAction::fromArray($data);
+        $this->addAction($this->resolveAction(InventorySetRestockableInDaysAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-inventory.html#remove-quantity
-     * @param array $data
-     * @return InventoryRemoveQuantityAction
+     * @param InventoryRemoveQuantityAction|callable $action
+     * @return $this
      */
-    public function removeQuantity(array $data = [])
+    public function removeQuantity($action = null)
     {
-        return InventoryRemoveQuantityAction::fromArray($data);
+        $this->addAction($this->resolveAction(InventoryRemoveQuantityAction::class, $action));
+        return $this;
     }
 
     /**
@@ -77,5 +87,57 @@ class InventoryActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

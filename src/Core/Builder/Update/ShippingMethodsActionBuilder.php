@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddShippingRateAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeIsDefaultAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeTaxCategoryAction;
@@ -15,104 +17,116 @@ use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescript
 
 class ShippingMethodsActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#add-shippingrate
-     * @param array $data
-     * @return ShippingMethodAddShippingRateAction
+     * @param ShippingMethodAddShippingRateAction|callable $action
+     * @return $this
      */
-    public function addShippingRate(array $data = [])
+    public function addShippingRate($action = null)
     {
-        return ShippingMethodAddShippingRateAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShippingMethodAddShippingRateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#change-isdefault
-     * @param array $data
-     * @return ShippingMethodChangeIsDefaultAction
+     * @param ShippingMethodChangeIsDefaultAction|callable $action
+     * @return $this
      */
-    public function changeIsDefault(array $data = [])
+    public function changeIsDefault($action = null)
     {
-        return ShippingMethodChangeIsDefaultAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShippingMethodChangeIsDefaultAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#change-taxcategory
-     * @param array $data
-     * @return ShippingMethodChangeTaxCategoryAction
+     * @param ShippingMethodChangeTaxCategoryAction|callable $action
+     * @return $this
      */
-    public function changeTaxCategory(array $data = [])
+    public function changeTaxCategory($action = null)
     {
-        return ShippingMethodChangeTaxCategoryAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShippingMethodChangeTaxCategoryAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-key
-     * @param array $data
-     * @return ShippingMethodSetKeyAction
+     * @param ShippingMethodSetKeyAction|callable $action
+     * @return $this
      */
-    public function setKey(array $data = [])
+    public function setKey($action = null)
     {
-        return ShippingMethodSetKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShippingMethodSetKeyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#add-zone
-     * @param array $data
-     * @return ShippingMethodAddZoneAction
+     * @param ShippingMethodAddZoneAction|callable $action
+     * @return $this
      */
-    public function addZone(array $data = [])
+    public function addZone($action = null)
     {
-        return ShippingMethodAddZoneAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShippingMethodAddZoneAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#remove-zone
-     * @param array $data
-     * @return ShippingMethodRemoveZoneAction
+     * @param ShippingMethodRemoveZoneAction|callable $action
+     * @return $this
      */
-    public function removeZone(array $data = [])
+    public function removeZone($action = null)
     {
-        return ShippingMethodRemoveZoneAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShippingMethodRemoveZoneAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#change-name
-     * @param array $data
-     * @return ShippingMethodChangeNameAction
+     * @param ShippingMethodChangeNameAction|callable $action
+     * @return $this
      */
-    public function changeName(array $data = [])
+    public function changeName($action = null)
     {
-        return ShippingMethodChangeNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShippingMethodChangeNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-predicate
-     * @param array $data
-     * @return ShippingMethodSetPredicateAction
+     * @param ShippingMethodSetPredicateAction|callable $action
+     * @return $this
      */
-    public function setPredicate(array $data = [])
+    public function setPredicate($action = null)
     {
-        return ShippingMethodSetPredicateAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShippingMethodSetPredicateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#remove-shippingrate
-     * @param array $data
-     * @return ShippingMethodRemoveShippingRateAction
+     * @param ShippingMethodRemoveShippingRateAction|callable $action
+     * @return $this
      */
-    public function removeShippingRate(array $data = [])
+    public function removeShippingRate($action = null)
     {
-        return ShippingMethodRemoveShippingRateAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShippingMethodRemoveShippingRateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-description
-     * @param array $data
-     * @return ShippingMethodSetDescriptionAction
+     * @param ShippingMethodSetDescriptionAction|callable $action
+     * @return $this
      */
-    public function setDescription(array $data = [])
+    public function setDescription($action = null)
     {
-        return ShippingMethodSetDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(ShippingMethodSetDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
@@ -121,5 +135,57 @@ class ShippingMethodsActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

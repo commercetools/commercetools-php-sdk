@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\States\Command\StateSetDescriptionAction;
 use Commercetools\Core\Request\States\Command\StateChangeTypeAction;
 use Commercetools\Core\Request\States\Command\TransitionStateAction;
@@ -15,104 +17,116 @@ use Commercetools\Core\Request\States\Command\StateSetRolesAction;
 
 class StatesActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-states.html#set-state-description
-     * @param array $data
-     * @return StateSetDescriptionAction
+     * @param StateSetDescriptionAction|callable $action
+     * @return $this
      */
-    public function setDescription(array $data = [])
+    public function setDescription($action = null)
     {
-        return StateSetDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(StateSetDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-states.html#change-state-type
-     * @param array $data
-     * @return StateChangeTypeAction
+     * @param StateChangeTypeAction|callable $action
+     * @return $this
      */
-    public function changeType(array $data = [])
+    public function changeType($action = null)
     {
-        return StateChangeTypeAction::fromArray($data);
+        $this->addAction($this->resolveAction(StateChangeTypeAction::class, $action));
+        return $this;
     }
 
     /**
      *
-     * @param array $data
-     * @return TransitionStateAction
+     * @param TransitionStateAction|callable $action
+     * @return $this
      */
-    public function transitionState(array $data = [])
+    public function transitionState($action = null)
     {
-        return TransitionStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(TransitionStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-states.html#remove-state-roles
-     * @param array $data
-     * @return StateRemoveRolesAction
+     * @param StateRemoveRolesAction|callable $action
+     * @return $this
      */
-    public function removeRoles(array $data = [])
+    public function removeRoles($action = null)
     {
-        return StateRemoveRolesAction::fromArray($data);
+        $this->addAction($this->resolveAction(StateRemoveRolesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-states.html#set-state-name
-     * @param array $data
-     * @return StateSetNameAction
+     * @param StateSetNameAction|callable $action
+     * @return $this
      */
-    public function setName(array $data = [])
+    public function setName($action = null)
     {
-        return StateSetNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(StateSetNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-states.html#add-state-roles
-     * @param array $data
-     * @return StateAddRolesAction
+     * @param StateAddRolesAction|callable $action
+     * @return $this
      */
-    public function addRoles(array $data = [])
+    public function addRoles($action = null)
     {
-        return StateAddRolesAction::fromArray($data);
+        $this->addAction($this->resolveAction(StateAddRolesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-states.html#change-initial-state
-     * @param array $data
-     * @return StateChangeInitialAction
+     * @param StateChangeInitialAction|callable $action
+     * @return $this
      */
-    public function changeInitial(array $data = [])
+    public function changeInitial($action = null)
     {
-        return StateChangeInitialAction::fromArray($data);
+        $this->addAction($this->resolveAction(StateChangeInitialAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-states.html#set-transitions
-     * @param array $data
-     * @return StateSetTransitionsAction
+     * @param StateSetTransitionsAction|callable $action
+     * @return $this
      */
-    public function setTransitions(array $data = [])
+    public function setTransitions($action = null)
     {
-        return StateSetTransitionsAction::fromArray($data);
+        $this->addAction($this->resolveAction(StateSetTransitionsAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-states.html#change-state-key
-     * @param array $data
-     * @return StateChangeKeyAction
+     * @param StateChangeKeyAction|callable $action
+     * @return $this
      */
-    public function changeKey(array $data = [])
+    public function changeKey($action = null)
     {
-        return StateChangeKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(StateChangeKeyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-states.html#set-state-roles
-     * @param array $data
-     * @return StateSetRolesAction
+     * @param StateSetRolesAction|callable $action
+     * @return $this
      */
-    public function setRoles(array $data = [])
+    public function setRoles($action = null)
     {
-        return StateSetRolesAction::fromArray($data);
+        $this->addAction($this->resolveAction(StateSetRolesAction::class, $action));
+        return $this;
     }
 
     /**
@@ -121,5 +135,57 @@ class StatesActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

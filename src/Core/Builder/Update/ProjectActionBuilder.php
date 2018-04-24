@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
@@ -11,64 +13,72 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
 
 class ProjectActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-project.html#set-shippingrateinputtype
-     * @param array $data
-     * @return ProjectSetShippingRateInputTypeAction
+     * @param ProjectSetShippingRateInputTypeAction|callable $action
+     * @return $this
      */
-    public function setShippingRateInputType(array $data = [])
+    public function setShippingRateInputType($action = null)
     {
-        return ProjectSetShippingRateInputTypeAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProjectSetShippingRateInputTypeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-project.html#change-currencies
-     * @param array $data
-     * @return ProjectChangeCurrenciesAction
+     * @param ProjectChangeCurrenciesAction|callable $action
+     * @return $this
      */
-    public function changeCurrencies(array $data = [])
+    public function changeCurrencies($action = null)
     {
-        return ProjectChangeCurrenciesAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProjectChangeCurrenciesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-project.html#change-languages
-     * @param array $data
-     * @return ProjectChangeLanguagesAction
+     * @param ProjectChangeLanguagesAction|callable $action
+     * @return $this
      */
-    public function changeLanguages(array $data = [])
+    public function changeLanguages($action = null)
     {
-        return ProjectChangeLanguagesAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProjectChangeLanguagesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-project.html#change-name
-     * @param array $data
-     * @return ProjectChangeNameAction
+     * @param ProjectChangeNameAction|callable $action
+     * @return $this
      */
-    public function changeName(array $data = [])
+    public function changeName($action = null)
     {
-        return ProjectChangeNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProjectChangeNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-project.html#change-messages-enabled
-     * @param array $data
-     * @return ProjectChangeMessagesEnabledAction
+     * @param ProjectChangeMessagesEnabledAction|callable $action
+     * @return $this
      */
-    public function changeMessagesEnabled(array $data = [])
+    public function changeMessagesEnabled($action = null)
     {
-        return ProjectChangeMessagesEnabledAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProjectChangeMessagesEnabledAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-project.html#change-countries
-     * @param array $data
-     * @return ProjectChangeCountriesAction
+     * @param ProjectChangeCountriesAction|callable $action
+     * @return $this
      */
-    public function changeCountries(array $data = [])
+    public function changeCountries($action = null)
     {
-        return ProjectChangeCountriesAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProjectChangeCountriesAction::class, $action));
+        return $this;
     }
 
     /**
@@ -77,5 +87,57 @@ class ProjectActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

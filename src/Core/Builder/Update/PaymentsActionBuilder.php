@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetCustomerAction;
 use Commercetools\Core\Request\Payments\Command\PaymentAddInterfaceInteractionAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetCustomTypeAction;
@@ -26,214 +28,237 @@ use Commercetools\Core\Request\Payments\Command\PaymentSetInterfaceIdAction;
 
 class PaymentsActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-customer
-     * @param array $data
-     * @return PaymentSetCustomerAction
+     * @param PaymentSetCustomerAction|callable $action
+     * @return $this
      */
-    public function setCustomer(array $data = [])
+    public function setCustomer($action = null)
     {
-        return PaymentSetCustomerAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetCustomerAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#add-interfaceinteraction
-     * @param array $data
-     * @return PaymentAddInterfaceInteractionAction
+     * @param PaymentAddInterfaceInteractionAction|callable $action
+     * @return $this
      */
-    public function addInterfaceInteraction(array $data = [])
+    public function addInterfaceInteraction($action = null)
     {
-        return PaymentAddInterfaceInteractionAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentAddInterfaceInteractionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-custom-type
-     * @param array $data
-     * @return PaymentSetCustomTypeAction
+     * @param PaymentSetCustomTypeAction|callable $action
+     * @return $this
      */
-    public function setCustomType(array $data = [])
+    public function setCustomType($action = null)
     {
-        return PaymentSetCustomTypeAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetCustomTypeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-externalid
-     * @param array $data
-     * @return PaymentSetExternalIdAction
+     * @param PaymentSetExternalIdAction|callable $action
+     * @return $this
      */
-    public function setExternalId(array $data = [])
+    public function setExternalId($action = null)
     {
-        return PaymentSetExternalIdAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetExternalIdAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-customfield
-     * @param array $data
-     * @return PaymentSetCustomFieldAction
+     * @param PaymentSetCustomFieldAction|callable $action
+     * @return $this
      */
-    public function setCustomField(array $data = [])
+    public function setCustomField($action = null)
     {
-        return PaymentSetCustomFieldAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetCustomFieldAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#transition-state
-     * @param array $data
-     * @return PaymentTransitionStateAction
+     * @param PaymentTransitionStateAction|callable $action
+     * @return $this
      */
-    public function transitionState(array $data = [])
+    public function transitionState($action = null)
     {
-        return PaymentTransitionStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentTransitionStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#change-transactionstate
-     * @param array $data
-     * @return PaymentChangeTransactionStateAction
+     * @param PaymentChangeTransactionStateAction|callable $action
+     * @return $this
      */
-    public function changeTransactionState(array $data = [])
+    public function changeTransactionState($action = null)
     {
-        return PaymentChangeTransactionStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentChangeTransactionStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-authorization
-     * @param array $data
-     * @return PaymentSetAuthorizationAction
+     * @param PaymentSetAuthorizationAction|callable $action
+     * @return $this
      */
-    public function setAuthorization(array $data = [])
+    public function setAuthorization($action = null)
     {
-        return PaymentSetAuthorizationAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetAuthorizationAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-methodinfomethod
-     * @param array $data
-     * @return PaymentSetMethodInfoMethodAction
+     * @param PaymentSetMethodInfoMethodAction|callable $action
+     * @return $this
      */
-    public function setMethodInfoMethod(array $data = [])
+    public function setMethodInfoMethod($action = null)
     {
-        return PaymentSetMethodInfoMethodAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetMethodInfoMethodAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#change-transactioninteractionid
-     * @param array $data
-     * @return PaymentChangeTransactionInteractionIdAction
+     * @param PaymentChangeTransactionInteractionIdAction|callable $action
+     * @return $this
      */
-    public function changeTransactionInteractionId(array $data = [])
+    public function changeTransactionInteractionId($action = null)
     {
-        return PaymentChangeTransactionInteractionIdAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentChangeTransactionInteractionIdAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-statusinterfacetext
-     * @param array $data
-     * @return PaymentSetStatusInterfaceTextAction
+     * @param PaymentSetStatusInterfaceTextAction|callable $action
+     * @return $this
      */
-    public function setStatusInterfaceText(array $data = [])
+    public function setStatusInterfaceText($action = null)
     {
-        return PaymentSetStatusInterfaceTextAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetStatusInterfaceTextAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-statusinterfacecode
-     * @param array $data
-     * @return PaymentSetStatusInterfaceCodeAction
+     * @param PaymentSetStatusInterfaceCodeAction|callable $action
+     * @return $this
      */
-    public function setStatusInterfaceCode(array $data = [])
+    public function setStatusInterfaceCode($action = null)
     {
-        return PaymentSetStatusInterfaceCodeAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetStatusInterfaceCodeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-methodinfointerface
-     * @param array $data
-     * @return PaymentSetMethodInfoInterfaceAction
+     * @param PaymentSetMethodInfoInterfaceAction|callable $action
+     * @return $this
      */
-    public function setMethodInfoInterface(array $data = [])
+    public function setMethodInfoInterface($action = null)
     {
-        return PaymentSetMethodInfoInterfaceAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetMethodInfoInterfaceAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-amountrefunded
-     * @param array $data
-     * @return PaymentSetAmountRefundedAction
+     * @param PaymentSetAmountRefundedAction|callable $action
+     * @return $this
      */
-    public function setAmountRefunded(array $data = [])
+    public function setAmountRefunded($action = null)
     {
-        return PaymentSetAmountRefundedAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetAmountRefundedAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-methodinfoname
-     * @param array $data
-     * @return PaymentSetMethodInfoNameAction
+     * @param PaymentSetMethodInfoNameAction|callable $action
+     * @return $this
      */
-    public function setMethodInfoName(array $data = [])
+    public function setMethodInfoName($action = null)
     {
-        return PaymentSetMethodInfoNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetMethodInfoNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#change-amountplanned
-     * @param array $data
-     * @return PaymentChangeAmountPlannedAction
+     * @param PaymentChangeAmountPlannedAction|callable $action
+     * @return $this
      */
-    public function changeAmountPlanned(array $data = [])
+    public function changeAmountPlanned($action = null)
     {
-        return PaymentChangeAmountPlannedAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentChangeAmountPlannedAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#add-transaction
-     * @param array $data
-     * @return PaymentAddTransactionAction
+     * @param PaymentAddTransactionAction|callable $action
+     * @return $this
      */
-    public function addTransaction(array $data = [])
+    public function addTransaction($action = null)
     {
-        return PaymentAddTransactionAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentAddTransactionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-key
-     * @param array $data
-     * @return PaymentSetKeyAction
+     * @param PaymentSetKeyAction|callable $action
+     * @return $this
      */
-    public function setKey(array $data = [])
+    public function setKey($action = null)
     {
-        return PaymentSetKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetKeyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-amountpaid
-     * @param array $data
-     * @return PaymentSetAmountPaidAction
+     * @param PaymentSetAmountPaidAction|callable $action
+     * @return $this
      */
-    public function setAmountPaid(array $data = [])
+    public function setAmountPaid($action = null)
     {
-        return PaymentSetAmountPaidAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetAmountPaidAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#change-transactiontimestamp
-     * @param array $data
-     * @return PaymentChangeTransactionTimestampAction
+     * @param PaymentChangeTransactionTimestampAction|callable $action
+     * @return $this
      */
-    public function changeTransactionTimestamp(array $data = [])
+    public function changeTransactionTimestamp($action = null)
     {
-        return PaymentChangeTransactionTimestampAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentChangeTransactionTimestampAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#set-interfaceid
-     * @param array $data
-     * @return PaymentSetInterfaceIdAction
+     * @param PaymentSetInterfaceIdAction|callable $action
+     * @return $this
      */
-    public function setInterfaceId(array $data = [])
+    public function setInterfaceId($action = null)
     {
-        return PaymentSetInterfaceIdAction::fromArray($data);
+        $this->addAction($this->resolveAction(PaymentSetInterfaceIdAction::class, $action));
+        return $this;
     }
 
     /**
@@ -242,5 +267,57 @@ class PaymentsActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

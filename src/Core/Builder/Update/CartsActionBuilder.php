@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartAddPaymentAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction;
@@ -46,415 +48,458 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeActi
 
 class CartsActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-customfield
-     * @param array $data
-     * @return CartSetLineItemCustomFieldAction
+     * @param CartSetLineItemCustomFieldAction|callable $action
+     * @return $this
      */
-    public function setLineItemCustomField(array $data = [])
+    public function setLineItemCustomField($action = null)
     {
-        return CartSetLineItemCustomFieldAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetLineItemCustomFieldAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#add-payment
-     * @param array $data
-     * @return CartAddPaymentAction
+     * @param CartAddPaymentAction|callable $action
+     * @return $this
      */
-    public function addPayment(array $data = [])
+    public function addPayment($action = null)
     {
-        return CartAddPaymentAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartAddPaymentAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#remove-lineitem
-     * @param array $data
-     * @return CartRemoveLineItemAction
+     * @param CartRemoveLineItemAction|callable $action
+     * @return $this
      */
-    public function removeLineItem(array $data = [])
+    public function removeLineItem($action = null)
     {
-        return CartRemoveLineItemAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartRemoveLineItemAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#remove-customlineitem
-     * @param array $data
-     * @return CartRemoveCustomLineItemAction
+     * @param CartRemoveCustomLineItemAction|callable $action
+     * @return $this
      */
-    public function removeCustomLineItem(array $data = [])
+    public function removeCustomLineItem($action = null)
     {
-        return CartRemoveCustomLineItemAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartRemoveCustomLineItemAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-deletedaysafterlastmodification-beta
-     * @param array $data
-     * @return CartSetDeleteDaysAfterLastModificationAction
+     * @param CartSetDeleteDaysAfterLastModificationAction|callable $action
+     * @return $this
      */
-    public function setDeleteDaysAfterLastModification(array $data = [])
+    public function setDeleteDaysAfterLastModification($action = null)
     {
-        return CartSetDeleteDaysAfterLastModificationAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetDeleteDaysAfterLastModificationAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-totalprice
-     * @param array $data
-     * @return CartSetLineItemPriceAction
+     * @param CartSetLineItemPriceAction|callable $action
+     * @return $this
      */
-    public function setLineItemPrice(array $data = [])
+    public function setLineItemPrice($action = null)
     {
-        return CartSetLineItemPriceAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetLineItemPriceAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-taxamount
-     * @param array $data
-     * @return CartSetLineItemTaxAmountAction
+     * @param CartSetLineItemTaxAmountAction|callable $action
+     * @return $this
      */
-    public function setLineItemTaxAmount(array $data = [])
+    public function setLineItemTaxAmount($action = null)
     {
-        return CartSetLineItemTaxAmountAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetLineItemTaxAmountAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#remove-discountcode
-     * @param array $data
-     * @return CartRemoveDiscountCodeAction
+     * @param CartRemoveDiscountCodeAction|callable $action
+     * @return $this
      */
-    public function removeDiscountCode(array $data = [])
+    public function removeDiscountCode($action = null)
     {
-        return CartRemoveDiscountCodeAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartRemoveDiscountCodeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-shipping-address
-     * @param array $data
-     * @return CartSetShippingAddressAction
+     * @param CartSetShippingAddressAction|callable $action
+     * @return $this
      */
-    public function setShippingAddress(array $data = [])
+    public function setShippingAddress($action = null)
     {
-        return CartSetShippingAddressAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetShippingAddressAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#change-customlineitem-money
-     * @param array $data
-     * @return CartChangeCustomLineItemMoneyAction
+     * @param CartChangeCustomLineItemMoneyAction|callable $action
+     * @return $this
      */
-    public function changeCustomLineItemMoney(array $data = [])
+    public function changeCustomLineItemMoney($action = null)
     {
-        return CartChangeCustomLineItemMoneyAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartChangeCustomLineItemMoneyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customer-email
-     * @param array $data
-     * @return CartSetCustomerEmailAction
+     * @param CartSetCustomerEmailAction|callable $action
+     * @return $this
      */
-    public function setCustomerEmail(array $data = [])
+    public function setCustomerEmail($action = null)
     {
-        return CartSetCustomerEmailAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetCustomerEmailAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-locale
-     * @param array $data
-     * @return CartSetLocaleAction
+     * @param CartSetLocaleAction|callable $action
+     * @return $this
      */
-    public function setLocale(array $data = [])
+    public function setLocale($action = null)
     {
-        return CartSetLocaleAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetLocaleAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-custom-shippingmethod
-     * @param array $data
-     * @return CartSetCustomShippingMethodAction
+     * @param CartSetCustomShippingMethodAction|callable $action
+     * @return $this
      */
-    public function setCustomShippingMethod(array $data = [])
+    public function setCustomShippingMethod($action = null)
     {
-        return CartSetCustomShippingMethodAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetCustomShippingMethodAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customlineitem-customfield
-     * @param array $data
-     * @return CartSetCustomLineItemCustomFieldAction
+     * @param CartSetCustomLineItemCustomFieldAction|callable $action
+     * @return $this
      */
-    public function setCustomLineItemCustomField(array $data = [])
+    public function setCustomLineItemCustomField($action = null)
     {
-        return CartSetCustomLineItemCustomFieldAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetCustomLineItemCustomFieldAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-taxrate
-     * @param array $data
-     * @return CartSetLineItemTaxRateAction
+     * @param CartSetLineItemTaxRateAction|callable $action
+     * @return $this
      */
-    public function setLineItemTaxRate(array $data = [])
+    public function setLineItemTaxRate($action = null)
     {
-        return CartSetLineItemTaxRateAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetLineItemTaxRateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-shippingmethod-taxrate
-     * @param array $data
-     * @return CartSetShippingMethodTaxRateAction
+     * @param CartSetShippingMethodTaxRateAction|callable $action
+     * @return $this
      */
-    public function setShippingMethodTaxRate(array $data = [])
+    public function setShippingMethodTaxRate($action = null)
     {
-        return CartSetShippingMethodTaxRateAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetShippingMethodTaxRateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#add-customlineitem
-     * @param array $data
-     * @return CartAddCustomLineItemAction
+     * @param CartAddCustomLineItemAction|callable $action
+     * @return $this
      */
-    public function addCustomLineItem(array $data = [])
+    public function addCustomLineItem($action = null)
     {
-        return CartAddCustomLineItemAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartAddCustomLineItemAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#change-taxmode
-     * @param array $data
-     * @return CartChangeTaxModeAction
+     * @param CartChangeTaxModeAction|callable $action
+     * @return $this
      */
-    public function changeTaxMode(array $data = [])
+    public function changeTaxMode($action = null)
     {
-        return CartChangeTaxModeAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartChangeTaxModeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customlineitem-taxrate
-     * @param array $data
-     * @return CartSetCustomLineItemTaxRateAction
+     * @param CartSetCustomLineItemTaxRateAction|callable $action
+     * @return $this
      */
-    public function setCustomLineItemTaxRate(array $data = [])
+    public function setCustomLineItemTaxRate($action = null)
     {
-        return CartSetCustomLineItemTaxRateAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetCustomLineItemTaxRateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-totalprice
-     * @param array $data
-     * @return CartSetLineItemTotalPriceAction
+     * @param CartSetLineItemTotalPriceAction|callable $action
+     * @return $this
      */
-    public function setLineItemTotalPrice(array $data = [])
+    public function setLineItemTotalPrice($action = null)
     {
-        return CartSetLineItemTotalPriceAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetLineItemTotalPriceAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-cart-total-tax
-     * @param array $data
-     * @return CartSetCartTotalTaxAction
+     * @param CartSetCartTotalTaxAction|callable $action
+     * @return $this
      */
-    public function setCartTotalTax(array $data = [])
+    public function setCartTotalTax($action = null)
     {
-        return CartSetCartTotalTaxAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetCartTotalTaxAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#change-lineitem-quantity
-     * @param array $data
-     * @return CartChangeLineItemQuantityAction
+     * @param CartChangeLineItemQuantityAction|callable $action
+     * @return $this
      */
-    public function changeLineItemQuantity(array $data = [])
+    public function changeLineItemQuantity($action = null)
     {
-        return CartChangeLineItemQuantityAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartChangeLineItemQuantityAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#recalculate
-     * @param array $data
-     * @return CartRecalculateAction
+     * @param CartRecalculateAction|callable $action
+     * @return $this
      */
-    public function recalculate(array $data = [])
+    public function recalculate($action = null)
     {
-        return CartRecalculateAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartRecalculateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customer-group
-     * @param array $data
-     * @return CartSetCustomerGroupAction
+     * @param CartSetCustomerGroupAction|callable $action
+     * @return $this
      */
-    public function setCustomerGroup(array $data = [])
+    public function setCustomerGroup($action = null)
     {
-        return CartSetCustomerGroupAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetCustomerGroupAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-billing-address
-     * @param array $data
-     * @return CartSetBillingAddressAction
+     * @param CartSetBillingAddressAction|callable $action
+     * @return $this
      */
-    public function setBillingAddress(array $data = [])
+    public function setBillingAddress($action = null)
     {
-        return CartSetBillingAddressAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetBillingAddressAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-anonymous-id
-     * @param array $data
-     * @return CartSetAnonymousIdAction
+     * @param CartSetAnonymousIdAction|callable $action
+     * @return $this
      */
-    public function setAnonymousId(array $data = [])
+    public function setAnonymousId($action = null)
     {
-        return CartSetAnonymousIdAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetAnonymousIdAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-shippingmethod
-     * @param array $data
-     * @return CartSetShippingMethodAction
+     * @param CartSetShippingMethodAction|callable $action
+     * @return $this
      */
-    public function setShippingMethod(array $data = [])
+    public function setShippingMethod($action = null)
     {
-        return CartSetShippingMethodAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetShippingMethodAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customlineitem-custom-type
-     * @param array $data
-     * @return CartSetLineItemCustomTypeAction
+     * @param CartSetLineItemCustomTypeAction|callable $action
+     * @return $this
      */
-    public function setLineItemCustomType(array $data = [])
+    public function setLineItemCustomType($action = null)
     {
-        return CartSetLineItemCustomTypeAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetLineItemCustomTypeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#add-lineitem
-     * @param array $data
-     * @return CartAddLineItemAction
+     * @param CartAddLineItemAction|callable $action
+     * @return $this
      */
-    public function addLineItem(array $data = [])
+    public function addLineItem($action = null)
     {
-        return CartAddLineItemAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartAddLineItemAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customer-id
-     * @param array $data
-     * @return CartSetCustomerIdAction
+     * @param CartSetCustomerIdAction|callable $action
+     * @return $this
      */
-    public function setCustomerId(array $data = [])
+    public function setCustomerId($action = null)
     {
-        return CartSetCustomerIdAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetCustomerIdAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customlineitem-taxamount
-     * @param array $data
-     * @return CartSetCustomLineItemTaxAmountAction
+     * @param CartSetCustomLineItemTaxAmountAction|callable $action
+     * @return $this
      */
-    public function setCustomLineItemTaxAmount(array $data = [])
+    public function setCustomLineItemTaxAmount($action = null)
     {
-        return CartSetCustomLineItemTaxAmountAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetCustomLineItemTaxAmountAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#add-shoppinglist
-     * @param array $data
-     * @return CartAddShoppingListAction
+     * @param CartAddShoppingListAction|callable $action
+     * @return $this
      */
-    public function addShoppingList(array $data = [])
+    public function addShoppingList($action = null)
     {
-        return CartAddShoppingListAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartAddShoppingListAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#add-discountcode
-     * @param array $data
-     * @return CartAddDiscountCodeAction
+     * @param CartAddDiscountCodeAction|callable $action
+     * @return $this
      */
-    public function addDiscountCode(array $data = [])
+    public function addDiscountCode($action = null)
     {
-        return CartAddDiscountCodeAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartAddDiscountCodeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#change-customlineitem-quantity
-     * @param array $data
-     * @return CartChangeCustomLineItemQuantityAction
+     * @param CartChangeCustomLineItemQuantityAction|callable $action
+     * @return $this
      */
-    public function changeCustomLineItemQuantity(array $data = [])
+    public function changeCustomLineItemQuantity($action = null)
     {
-        return CartChangeCustomLineItemQuantityAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartChangeCustomLineItemQuantityAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://dev.commercetools.com/http-api-projects-carts.html#set-shippingrateinput
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-shippingrateinput
-     * @param array $data
-     * @return CartSetShippingRateInputAction
+     * @param CartSetShippingRateInputAction|callable $action
+     * @return $this
      */
-    public function setShippingRateInput(array $data = [])
+    public function setShippingRateInput($action = null)
     {
-        return CartSetShippingRateInputAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetShippingRateInputAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-country
-     * @param array $data
-     * @return CartSetCountryAction
+     * @param CartSetCountryAction|callable $action
+     * @return $this
      */
-    public function setCountry(array $data = [])
+    public function setCountry($action = null)
     {
-        return CartSetCountryAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetCountryAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#change-tax-roundingmode
-     * @param array $data
-     * @return CartChangeTaxRoundingModeAction
+     * @param CartChangeTaxRoundingModeAction|callable $action
+     * @return $this
      */
-    public function changeTaxRoundingMode(array $data = [])
+    public function changeTaxRoundingMode($action = null)
     {
-        return CartChangeTaxRoundingModeAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartChangeTaxRoundingModeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#remove-payment
-     * @param array $data
-     * @return CartRemovePaymentAction
+     * @param CartRemovePaymentAction|callable $action
+     * @return $this
      */
-    public function removePayment(array $data = [])
+    public function removePayment($action = null)
     {
-        return CartRemovePaymentAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartRemovePaymentAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-shippingmethod-taxamount
-     * @param array $data
-     * @return CartSetShippingMethodTaxAmountAction
+     * @param CartSetShippingMethodTaxAmountAction|callable $action
+     * @return $this
      */
-    public function setShippingMethodTaxAmount(array $data = [])
+    public function setShippingMethodTaxAmount($action = null)
     {
-        return CartSetShippingMethodTaxAmountAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetShippingMethodTaxAmountAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#change-tax-calculationmode
-     * @param array $data
-     * @return CartChangeTaxCalculationModeAction
+     * @param CartChangeTaxCalculationModeAction|callable $action
+     * @return $this
      */
-    public function changeTaxCalculationMode(array $data = [])
+    public function changeTaxCalculationMode($action = null)
     {
-        return CartChangeTaxCalculationModeAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartChangeTaxCalculationModeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customlineitem-custom-type
-     * @param array $data
-     * @return CartSetCustomLineItemCustomTypeAction
+     * @param CartSetCustomLineItemCustomTypeAction|callable $action
+     * @return $this
      */
-    public function setCustomLineItemCustomType(array $data = [])
+    public function setCustomLineItemCustomType($action = null)
     {
-        return CartSetCustomLineItemCustomTypeAction::fromArray($data);
+        $this->addAction($this->resolveAction(CartSetCustomLineItemCustomTypeAction::class, $action));
+        return $this;
     }
 
     /**
@@ -463,5 +508,57 @@ class CartsActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

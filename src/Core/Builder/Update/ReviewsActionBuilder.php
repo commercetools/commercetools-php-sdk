@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetKeyAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetCustomerAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetTitleAction;
@@ -14,94 +16,105 @@ use Commercetools\Core\Request\Reviews\Command\ReviewSetAuthorNameAction;
 
 class ReviewsActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-key
-     * @param array $data
-     * @return ReviewSetKeyAction
+     * @param ReviewSetKeyAction|callable $action
+     * @return $this
      */
-    public function setKey(array $data = [])
+    public function setKey($action = null)
     {
-        return ReviewSetKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(ReviewSetKeyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-customer
-     * @param array $data
-     * @return ReviewSetCustomerAction
+     * @param ReviewSetCustomerAction|callable $action
+     * @return $this
      */
-    public function setCustomer(array $data = [])
+    public function setCustomer($action = null)
     {
-        return ReviewSetCustomerAction::fromArray($data);
+        $this->addAction($this->resolveAction(ReviewSetCustomerAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-title
-     * @param array $data
-     * @return ReviewSetTitleAction
+     * @param ReviewSetTitleAction|callable $action
+     * @return $this
      */
-    public function setTitle(array $data = [])
+    public function setTitle($action = null)
     {
-        return ReviewSetTitleAction::fromArray($data);
+        $this->addAction($this->resolveAction(ReviewSetTitleAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-text
-     * @param array $data
-     * @return ReviewSetTextAction
+     * @param ReviewSetTextAction|callable $action
+     * @return $this
      */
-    public function setText(array $data = [])
+    public function setText($action = null)
     {
-        return ReviewSetTextAction::fromArray($data);
+        $this->addAction($this->resolveAction(ReviewSetTextAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-target
-     * @param array $data
-     * @return ReviewSetTargetAction
+     * @param ReviewSetTargetAction|callable $action
+     * @return $this
      */
-    public function setTarget(array $data = [])
+    public function setTarget($action = null)
     {
-        return ReviewSetTargetAction::fromArray($data);
+        $this->addAction($this->resolveAction(ReviewSetTargetAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-reviews.html#transition-state
-     * @param array $data
-     * @return ReviewTransitionStateAction
+     * @param ReviewTransitionStateAction|callable $action
+     * @return $this
      */
-    public function transitionState(array $data = [])
+    public function transitionState($action = null)
     {
-        return ReviewTransitionStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(ReviewTransitionStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-rating
-     * @param array $data
-     * @return ReviewSetRatingAction
+     * @param ReviewSetRatingAction|callable $action
+     * @return $this
      */
-    public function setRating(array $data = [])
+    public function setRating($action = null)
     {
-        return ReviewSetRatingAction::fromArray($data);
+        $this->addAction($this->resolveAction(ReviewSetRatingAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-locale
-     * @param array $data
-     * @return ReviewSetLocaleAction
+     * @param ReviewSetLocaleAction|callable $action
+     * @return $this
      */
-    public function setLocale(array $data = [])
+    public function setLocale($action = null)
     {
-        return ReviewSetLocaleAction::fromArray($data);
+        $this->addAction($this->resolveAction(ReviewSetLocaleAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-author-name
-     * @param array $data
-     * @return ReviewSetAuthorNameAction
+     * @param ReviewSetAuthorNameAction|callable $action
+     * @return $this
      */
-    public function setAuthorName(array $data = [])
+    public function setAuthorName($action = null)
     {
-        return ReviewSetAuthorNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(ReviewSetAuthorNameAction::class, $action));
+        return $this;
     }
 
     /**
@@ -110,5 +123,57 @@ class ReviewsActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

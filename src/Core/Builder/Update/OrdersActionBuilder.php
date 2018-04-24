@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Orders\Command\OrderTransitionStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddPaymentAction;
@@ -33,284 +35,314 @@ use Commercetools\Core\Request\Orders\Command\OrderSetParcelItemsAction;
 
 class OrdersActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#transition-state
-     * @param array $data
-     * @return OrderTransitionStateAction
+     * @param OrderTransitionStateAction|callable $action
+     * @return $this
      */
-    public function transitionState(array $data = [])
+    public function transitionState($action = null)
     {
-        return OrderTransitionStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderTransitionStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#set-order-number
-     * @param array $data
-     * @return OrderSetOrderNumberAction
+     * @param OrderSetOrderNumberAction|callable $action
+     * @return $this
      */
-    public function setOrderNumber(array $data = [])
+    public function setOrderNumber($action = null)
     {
-        return OrderSetOrderNumberAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderSetOrderNumberAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#add-payment
-     * @param array $data
-     * @return OrderAddPaymentAction
+     * @param OrderAddPaymentAction|callable $action
+     * @return $this
      */
-    public function addPayment(array $data = [])
+    public function addPayment($action = null)
     {
-        return OrderAddPaymentAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderAddPaymentAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#remove-payment
-     * @param array $data
-     * @return OrderRemovePaymentAction
+     * @param OrderRemovePaymentAction|callable $action
+     * @return $this
      */
-    public function removePayment(array $data = [])
+    public function removePayment($action = null)
     {
-        return OrderRemovePaymentAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderRemovePaymentAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#set-returnshipmentstate
-     * @param array $data
-     * @return OrderSetReturnShipmentStateAction
+     * @param OrderSetReturnShipmentStateAction|callable $action
+     * @return $this
      */
-    public function setReturnShipmentState(array $data = [])
+    public function setReturnShipmentState($action = null)
     {
-        return OrderSetReturnShipmentStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderSetReturnShipmentStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#import-state-for-customlineitems
-     * @param array $data
-     * @return OrderImportCustomLineItemStateAction
+     * @param OrderImportCustomLineItemStateAction|callable $action
+     * @return $this
      */
-    public function importCustomLineItemState(array $data = [])
+    public function importCustomLineItemState($action = null)
     {
-        return OrderImportCustomLineItemStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderImportCustomLineItemStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#addreturninfo
-     * @param array $data
-     * @return OrderAddReturnInfoAction
+     * @param OrderAddReturnInfoAction|callable $action
+     * @return $this
      */
-    public function addReturnInfo(array $data = [])
+    public function addReturnInfo($action = null)
     {
-        return OrderAddReturnInfoAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderAddReturnInfoAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#remove-parcel-from-delivery
-     * @param array $data
-     * @return OrderRemoveParcelFromDeliveryAction
+     * @param OrderRemoveParcelFromDeliveryAction|callable $action
+     * @return $this
      */
-    public function removeParcelFromDelivery(array $data = [])
+    public function removeParcelFromDelivery($action = null)
     {
-        return OrderRemoveParcelFromDeliveryAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderRemoveParcelFromDeliveryAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#set-returnpaymentstate
-     * @param array $data
-     * @return OrderSetReturnPaymentStateAction
+     * @param OrderSetReturnPaymentStateAction|callable $action
+     * @return $this
      */
-    public function setReturnPaymentState(array $data = [])
+    public function setReturnPaymentState($action = null)
     {
-        return OrderSetReturnPaymentStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderSetReturnPaymentStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#remove-delivery
-     * @param array $data
-     * @return OrderRemoveDeliveryAction
+     * @param OrderRemoveDeliveryAction|callable $action
+     * @return $this
      */
-    public function removeDelivery(array $data = [])
+    public function removeDelivery($action = null)
     {
-        return OrderRemoveDeliveryAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderRemoveDeliveryAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-tracking-data
-     * @param array $data
-     * @return OrderSetParcelTrackingDataAction
+     * @param OrderSetParcelTrackingDataAction|callable $action
+     * @return $this
      */
-    public function setParcelTrackingData(array $data = [])
+    public function setParcelTrackingData($action = null)
     {
-        return OrderSetParcelTrackingDataAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderSetParcelTrackingDataAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-measurements
-     * @param array $data
-     * @return OrderSetParcelMeasurementsAction
+     * @param OrderSetParcelMeasurementsAction|callable $action
+     * @return $this
      */
-    public function setParcelMeasurements(array $data = [])
+    public function setParcelMeasurements($action = null)
     {
-        return OrderSetParcelMeasurementsAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderSetParcelMeasurementsAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#set-customer-email
-     * @param array $data
-     * @return OrderSetCustomerEmail
+     * @param OrderSetCustomerEmail|callable $action
+     * @return $this
      */
-    public function setCustomerEmail(array $data = [])
+    public function setCustomerEmail($action = null)
     {
-        return OrderSetCustomerEmail::fromArray($data);
+        $this->addAction($this->resolveAction(OrderSetCustomerEmail::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#change-the-state-of-customlineitem-according-to-allowed-transitions
-     * @param array $data
-     * @return OrderTransitionCustomLineItemStateAction
+     * @param OrderTransitionCustomLineItemStateAction|callable $action
+     * @return $this
      */
-    public function transitionCustomLineItemState(array $data = [])
+    public function transitionCustomLineItemState($action = null)
     {
-        return OrderTransitionCustomLineItemStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderTransitionCustomLineItemStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#set-delivery-items
-     * @param array $data
-     * @return OrderSetDeliveryItemsAction
+     * @param OrderSetDeliveryItemsAction|callable $action
+     * @return $this
      */
-    public function setDeliveryItems(array $data = [])
+    public function setDeliveryItems($action = null)
     {
-        return OrderSetDeliveryItemsAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderSetDeliveryItemsAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#import-state-for-lineitems
-     * @param array $data
-     * @return OrderImportLineItemStateAction
+     * @param OrderImportLineItemStateAction|callable $action
+     * @return $this
      */
-    public function importLineItemState(array $data = [])
+    public function importLineItemState($action = null)
     {
-        return OrderImportLineItemStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderImportLineItemStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#add-parcel
-     * @param array $data
-     * @return OrderAddParcelToDeliveryAction
+     * @param OrderAddParcelToDeliveryAction|callable $action
+     * @return $this
      */
-    public function addParcelToDelivery(array $data = [])
+    public function addParcelToDelivery($action = null)
     {
-        return OrderAddParcelToDeliveryAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderAddParcelToDeliveryAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#change-orderstate
-     * @param array $data
-     * @return OrderChangeOrderStateAction
+     * @param OrderChangeOrderStateAction|callable $action
+     * @return $this
      */
-    public function changeOrderState(array $data = [])
+    public function changeOrderState($action = null)
     {
-        return OrderChangeOrderStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderChangeOrderStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#set-shipping-address
-     * @param array $data
-     * @return OrderSetShippingAddress
+     * @param OrderSetShippingAddress|callable $action
+     * @return $this
      */
-    public function setShippingAddress(array $data = [])
+    public function setShippingAddress($action = null)
     {
-        return OrderSetShippingAddress::fromArray($data);
+        $this->addAction($this->resolveAction(OrderSetShippingAddress::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#set-delivery-address
-     * @param array $data
-     * @return OrderSetDeliveryAddressAction
+     * @param OrderSetDeliveryAddressAction|callable $action
+     * @return $this
      */
-    public function setDeliveryAddress(array $data = [])
+    public function setDeliveryAddress($action = null)
     {
-        return OrderSetDeliveryAddressAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderSetDeliveryAddressAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#update-syncinfo
-     * @param array $data
-     * @return OrderUpdateSyncInfoAction
+     * @param OrderUpdateSyncInfoAction|callable $action
+     * @return $this
      */
-    public function updateSyncInfo(array $data = [])
+    public function updateSyncInfo($action = null)
     {
-        return OrderUpdateSyncInfoAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderUpdateSyncInfoAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#change-the-state-of-lineitem-according-to-allowed-transitions
-     * @param array $data
-     * @return OrderTransitionLineItemStateAction
+     * @param OrderTransitionLineItemStateAction|callable $action
+     * @return $this
      */
-    public function transitionLineItemState(array $data = [])
+    public function transitionLineItemState($action = null)
     {
-        return OrderTransitionLineItemStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderTransitionLineItemStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#change-paymentstate
-     * @param array $data
-     * @return OrderChangePaymentStateAction
+     * @param OrderChangePaymentStateAction|callable $action
+     * @return $this
      */
-    public function changePaymentState(array $data = [])
+    public function changePaymentState($action = null)
     {
-        return OrderChangePaymentStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderChangePaymentStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#add-delivery
-     * @param array $data
-     * @return OrderAddDeliveryAction
+     * @param OrderAddDeliveryAction|callable $action
+     * @return $this
      */
-    public function addDelivery(array $data = [])
+    public function addDelivery($action = null)
     {
-        return OrderAddDeliveryAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderAddDeliveryAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#set-locale
-     * @param array $data
-     * @return OrderSetLocaleAction
+     * @param OrderSetLocaleAction|callable $action
+     * @return $this
      */
-    public function setLocale(array $data = [])
+    public function setLocale($action = null)
     {
-        return OrderSetLocaleAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderSetLocaleAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#change-shipmentstate
-     * @param array $data
-     * @return OrderChangeShipmentStateAction
+     * @param OrderChangeShipmentStateAction|callable $action
+     * @return $this
      */
-    public function changeShipmentState(array $data = [])
+    public function changeShipmentState($action = null)
     {
-        return OrderChangeShipmentStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderChangeShipmentStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#set-billing-address
-     * @param array $data
-     * @return OrderSetBillingAddress
+     * @param OrderSetBillingAddress|callable $action
+     * @return $this
      */
-    public function setBillingAddress(array $data = [])
+    public function setBillingAddress($action = null)
     {
-        return OrderSetBillingAddress::fromArray($data);
+        $this->addAction($this->resolveAction(OrderSetBillingAddress::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-items
-     * @param array $data
-     * @return OrderSetParcelItemsAction
+     * @param OrderSetParcelItemsAction|callable $action
+     * @return $this
      */
-    public function setParcelItems(array $data = [])
+    public function setParcelItems($action = null)
     {
-        return OrderSetParcelItemsAction::fromArray($data);
+        $this->addAction($this->resolveAction(OrderSetParcelItemsAction::class, $action));
+        return $this;
     }
 
     /**
@@ -319,5 +351,57 @@ class OrdersActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

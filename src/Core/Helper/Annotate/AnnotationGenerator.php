@@ -211,12 +211,13 @@ class AnnotationGenerator
             $method = <<<METHOD
     /**
      *$docLinks
-     * @param array \$data
-     * @return $actionShortName
+     * @param $actionShortName|callable \$action
+     * @return \$this
      */
-    public function $actionName(array \$data = [])
+    public function $actionName(\$action = null)
     {
-        return $actionShortName::fromArray(\$data);
+        \$this->addAction(\$this->resolveAction($actionShortName::class, \$action));
+        return \$this;
     }
 METHOD;
             $updateMethods[] = $method;
@@ -229,10 +230,14 @@ METHOD;
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 $uses
 
 class $className
 {
+    private \$actions = [];
+
 $methods
 
     /**
@@ -241,6 +246,58 @@ $methods
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param \$class
+     * @param \$action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction(\$class, \$action = null)
+    {
+        if (is_null(\$action) || is_callable(\$action)) {
+            \$callback = \$action;
+            \$emptyAction = \$class::of();
+            \$action = \$this->callback(\$emptyAction, \$callback);
+        }
+        if (\$action instanceof \$class) {
+            return \$action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', \$class)
+        );
+    }
+
+    /**
+     * @param \$action
+     * @param callable \$callback
+     * @return AbstractAction
+     */
+    private function callback(\$action, callable \$callback = null)
+    {
+        if (!is_null(\$callback)) {
+            \$action = \$callback(\$action);
+        }
+        return \$action;
+    }
+
+    /**
+     * @param AbstractAction \$action
+     * @return \$this;
+     */
+    public function addAction(AbstractAction \$action)
+    {
+        \$this->actions[] = \$action;
+        return \$this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return \$this->actions;
     }
 }
 

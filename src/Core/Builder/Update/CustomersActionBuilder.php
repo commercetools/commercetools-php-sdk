@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetDefaultShippingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerGroupAction;
@@ -28,234 +30,259 @@ use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerNumberAction
 
 class CustomersActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-default-shipping-address
-     * @param array $data
-     * @return CustomerSetDefaultShippingAddressAction
+     * @param CustomerSetDefaultShippingAddressAction|callable $action
+     * @return $this
      */
-    public function setDefaultShippingAddress(array $data = [])
+    public function setDefaultShippingAddress($action = null)
     {
-        return CustomerSetDefaultShippingAddressAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetDefaultShippingAddressAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-title
-     * @param array $data
-     * @return CustomerSetTitleAction
+     * @param CustomerSetTitleAction|callable $action
+     * @return $this
      */
-    public function setTitle(array $data = [])
+    public function setTitle($action = null)
     {
-        return CustomerSetTitleAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetTitleAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-customergroup
-     * @param array $data
-     * @return CustomerSetCustomerGroupAction
+     * @param CustomerSetCustomerGroupAction|callable $action
+     * @return $this
      */
-    public function setCustomerGroup(array $data = [])
+    public function setCustomerGroup($action = null)
     {
-        return CustomerSetCustomerGroupAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetCustomerGroupAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-date-of-birth
-     * @param array $data
-     * @return CustomerSetDateOfBirthAction
+     * @param CustomerSetDateOfBirthAction|callable $action
+     * @return $this
      */
-    public function setDateOfBirth(array $data = [])
+    public function setDateOfBirth($action = null)
     {
-        return CustomerSetDateOfBirthAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetDateOfBirthAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#change-email
-     * @param array $data
-     * @return CustomerChangeEmailAction
+     * @param CustomerChangeEmailAction|callable $action
+     * @return $this
      */
-    public function changeEmail(array $data = [])
+    public function changeEmail($action = null)
     {
-        return CustomerChangeEmailAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerChangeEmailAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-last-name
-     * @param array $data
-     * @return CustomerSetLastNameAction
+     * @param CustomerSetLastNameAction|callable $action
+     * @return $this
      */
-    public function setLastName(array $data = [])
+    public function setLastName($action = null)
     {
-        return CustomerSetLastNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetLastNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-salutation
-     * @param array $data
-     * @return CustomerSetSalutationAction
+     * @param CustomerSetSalutationAction|callable $action
+     * @return $this
      */
-    public function setSalutation(array $data = [])
+    public function setSalutation($action = null)
     {
-        return CustomerSetSalutationAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetSalutationAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-vat-id
-     * @param array $data
-     * @return CustomerSetVatIdAction
+     * @param CustomerSetVatIdAction|callable $action
+     * @return $this
      */
-    public function setVatId(array $data = [])
+    public function setVatId($action = null)
     {
-        return CustomerSetVatIdAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetVatIdAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-key
-     * @param array $data
-     * @return CustomerSetKeyAction
+     * @param CustomerSetKeyAction|callable $action
+     * @return $this
      */
-    public function setKey(array $data = [])
+    public function setKey($action = null)
     {
-        return CustomerSetKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetKeyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-locale
-     * @param array $data
-     * @return CustomerSetLocaleAction
+     * @param CustomerSetLocaleAction|callable $action
+     * @return $this
      */
-    public function setLocale(array $data = [])
+    public function setLocale($action = null)
     {
-        return CustomerSetLocaleAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetLocaleAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-first-name
-     * @param array $data
-     * @return CustomerSetFirstNameAction
+     * @param CustomerSetFirstNameAction|callable $action
+     * @return $this
      */
-    public function setFirstName(array $data = [])
+    public function setFirstName($action = null)
     {
-        return CustomerSetFirstNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetFirstNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-company-name
-     * @param array $data
-     * @return CustomerSetCompanyNameAction
+     * @param CustomerSetCompanyNameAction|callable $action
+     * @return $this
      */
-    public function setCompanyName(array $data = [])
+    public function setCompanyName($action = null)
     {
-        return CustomerSetCompanyNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetCompanyNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#remove-address
-     * @param array $data
-     * @return CustomerRemoveAddressAction
+     * @param CustomerRemoveAddressAction|callable $action
+     * @return $this
      */
-    public function removeAddress(array $data = [])
+    public function removeAddress($action = null)
     {
-        return CustomerRemoveAddressAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerRemoveAddressAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#add-billing-address-id
-     * @param array $data
-     * @return CustomerRemoveBillingAddressAction
+     * @param CustomerRemoveBillingAddressAction|callable $action
+     * @return $this
      */
-    public function removeBillingAddressId(array $data = [])
+    public function removeBillingAddressId($action = null)
     {
-        return CustomerRemoveBillingAddressAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerRemoveBillingAddressAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#add-billing-address-id
-     * @param array $data
-     * @return CustomerAddBillingAddressAction
+     * @param CustomerAddBillingAddressAction|callable $action
+     * @return $this
      */
-    public function addBillingAddressId(array $data = [])
+    public function addBillingAddressId($action = null)
     {
-        return CustomerAddBillingAddressAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerAddBillingAddressAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#add-billing-address-id
-     * @param array $data
-     * @return CustomerRemoveShippingAddressAction
+     * @param CustomerRemoveShippingAddressAction|callable $action
+     * @return $this
      */
-    public function removeShippingAddressId(array $data = [])
+    public function removeShippingAddressId($action = null)
     {
-        return CustomerRemoveShippingAddressAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerRemoveShippingAddressAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#add-address
-     * @param array $data
-     * @return CustomerAddAddressAction
+     * @param CustomerAddAddressAction|callable $action
+     * @return $this
      */
-    public function addAddress(array $data = [])
+    public function addAddress($action = null)
     {
-        return CustomerAddAddressAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerAddAddressAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-middle-name
-     * @param array $data
-     * @return CustomerSetMiddleNameAction
+     * @param CustomerSetMiddleNameAction|callable $action
+     * @return $this
      */
-    public function setMiddleName(array $data = [])
+    public function setMiddleName($action = null)
     {
-        return CustomerSetMiddleNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetMiddleNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-default-billing-address
-     * @param array $data
-     * @return CustomerSetDefaultBillingAddressAction
+     * @param CustomerSetDefaultBillingAddressAction|callable $action
+     * @return $this
      */
-    public function setDefaultBillingAddress(array $data = [])
+    public function setDefaultBillingAddress($action = null)
     {
-        return CustomerSetDefaultBillingAddressAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetDefaultBillingAddressAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#change-address
-     * @param array $data
-     * @return CustomerChangeAddressAction
+     * @param CustomerChangeAddressAction|callable $action
+     * @return $this
      */
-    public function changeAddress(array $data = [])
+    public function changeAddress($action = null)
     {
-        return CustomerChangeAddressAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerChangeAddressAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-external-id
-     * @param array $data
-     * @return CustomerSetExternalIdAction
+     * @param CustomerSetExternalIdAction|callable $action
+     * @return $this
      */
-    public function setExternalId(array $data = [])
+    public function setExternalId($action = null)
     {
-        return CustomerSetExternalIdAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetExternalIdAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#add-billing-address-id
-     * @param array $data
-     * @return CustomerAddShippingAddressAction
+     * @param CustomerAddShippingAddressAction|callable $action
+     * @return $this
      */
-    public function addShippingAddressId(array $data = [])
+    public function addShippingAddressId($action = null)
     {
-        return CustomerAddShippingAddressAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerAddShippingAddressAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#set-customer-number
-     * @param array $data
-     * @return CustomerSetCustomerNumberAction
+     * @param CustomerSetCustomerNumberAction|callable $action
+     * @return $this
      */
-    public function setCustomerNumber(array $data = [])
+    public function setCustomerNumber($action = null)
     {
-        return CustomerSetCustomerNumberAction::fromArray($data);
+        $this->addAction($this->resolveAction(CustomerSetCustomerNumberAction::class, $action));
+        return $this;
     }
 
     /**
@@ -264,5 +291,57 @@ class CustomersActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

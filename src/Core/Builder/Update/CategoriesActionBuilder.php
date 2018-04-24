@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Categories\Command\CategorySetExternalIdAction;
 use Commercetools\Core\Request\Categories\Command\CategorySetDescriptionAction;
 use Commercetools\Core\Request\Categories\Command\CategorySetMetaTitleAction;
@@ -25,204 +27,226 @@ use Commercetools\Core\Request\Categories\Command\CategoryRemoveAssetAction;
 
 class CategoriesActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-categories.html#set-external-id
-     * @param array $data
-     * @return CategorySetExternalIdAction
+     * @param CategorySetExternalIdAction|callable $action
+     * @return $this
      */
-    public function setExternalId(array $data = [])
+    public function setExternalId($action = null)
     {
-        return CategorySetExternalIdAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategorySetExternalIdAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-categories.html#set-description
-     * @param array $data
-     * @return CategorySetDescriptionAction
+     * @param CategorySetDescriptionAction|callable $action
+     * @return $this
      */
-    public function setDescription(array $data = [])
+    public function setDescription($action = null)
     {
-        return CategorySetDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategorySetDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-categories.html#set-meta-title
-     * @param array $data
-     * @return CategorySetMetaTitleAction
+     * @param CategorySetMetaTitleAction|callable $action
+     * @return $this
      */
-    public function setMetaTitle(array $data = [])
+    public function setMetaTitle($action = null)
     {
-        return CategorySetMetaTitleAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategorySetMetaTitleAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-customfield
-     * @param array $data
-     * @return CategorySetAssetCustomFieldAction
+     * @param CategorySetAssetCustomFieldAction|callable $action
+     * @return $this
      */
-    public function setAssetCustomField(array $data = [])
+    public function setAssetCustomField($action = null)
     {
-        return CategorySetAssetCustomFieldAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategorySetAssetCustomFieldAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-key
-     * @param array $data
-     * @return CategorySetAssetKeyAction
+     * @param CategorySetAssetKeyAction|callable $action
+     * @return $this
      */
-    public function setAssetKey(array $data = [])
+    public function setAssetKey($action = null)
     {
-        return CategorySetAssetKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategorySetAssetKeyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-custom-type
-     * @param array $data
-     * @return CategorySetAssetCustomTypeAction
+     * @param CategorySetAssetCustomTypeAction|callable $action
+     * @return $this
      */
-    public function setAssetCustomType(array $data = [])
+    public function setAssetCustomType($action = null)
     {
-        return CategorySetAssetCustomTypeAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategorySetAssetCustomTypeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-categories.html#set-meta-keywords
-     * @param array $data
-     * @return CategorySetMetaKeywordsAction
+     * @param CategorySetMetaKeywordsAction|callable $action
+     * @return $this
      */
-    public function setMetaKeywords(array $data = [])
+    public function setMetaKeywords($action = null)
     {
-        return CategorySetMetaKeywordsAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategorySetMetaKeywordsAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-categories.html#set-meta-description
-     * @param array $data
-     * @return CategorySetMetaDescriptionAction
+     * @param CategorySetMetaDescriptionAction|callable $action
+     * @return $this
      */
-    public function setMetaDescription(array $data = [])
+    public function setMetaDescription($action = null)
     {
-        return CategorySetMetaDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategorySetMetaDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-categories.html#change-slug
-     * @param array $data
-     * @return CategoryChangeSlugAction
+     * @param CategoryChangeSlugAction|callable $action
+     * @return $this
      */
-    public function changeSlug(array $data = [])
+    public function changeSlug($action = null)
     {
-        return CategoryChangeSlugAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategoryChangeSlugAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-description
-     * @param array $data
-     * @return CategorySetAssetDescriptionAction
+     * @param CategorySetAssetDescriptionAction|callable $action
+     * @return $this
      */
-    public function setAssetDescription(array $data = [])
+    public function setAssetDescription($action = null)
     {
-        return CategorySetAssetDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategorySetAssetDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-categories.html#change-name
-     * @param array $data
-     * @return CategoryChangeNameAction
+     * @param CategoryChangeNameAction|callable $action
+     * @return $this
      */
-    public function changeName(array $data = [])
+    public function changeName($action = null)
     {
-        return CategoryChangeNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategoryChangeNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-tags
-     * @param array $data
-     * @return CategorySetAssetSourcesAction
+     * @param CategorySetAssetSourcesAction|callable $action
+     * @return $this
      */
-    public function setAssetSources(array $data = [])
+    public function setAssetSources($action = null)
     {
-        return CategorySetAssetSourcesAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategorySetAssetSourcesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-categories.html#set-key
-     * @param array $data
-     * @return CategorySetKeyAction
+     * @param CategorySetKeyAction|callable $action
+     * @return $this
      */
-    public function setKey(array $data = [])
+    public function setKey($action = null)
     {
-        return CategorySetKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategorySetKeyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-tags
-     * @param array $data
-     * @return CategorySetAssetTagsAction
+     * @param CategorySetAssetTagsAction|callable $action
+     * @return $this
      */
-    public function setAssetTags(array $data = [])
+    public function setAssetTags($action = null)
     {
-        return CategorySetAssetTagsAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategorySetAssetTagsAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-categories.html#change-asset-order
-     * @param array $data
-     * @return CategoryChangeAssetOrderAction
+     * @param CategoryChangeAssetOrderAction|callable $action
+     * @return $this
      */
-    public function changeAssetOrder(array $data = [])
+    public function changeAssetOrder($action = null)
     {
-        return CategoryChangeAssetOrderAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategoryChangeAssetOrderAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#add-asset
-     * @param array $data
-     * @return CategoryAddAssetAction
+     * @param CategoryAddAssetAction|callable $action
+     * @return $this
      */
-    public function addAsset(array $data = [])
+    public function addAsset($action = null)
     {
-        return CategoryAddAssetAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategoryAddAssetAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-categories.html#change-parent
-     * @param array $data
-     * @return CategoryChangeParentAction
+     * @param CategoryChangeParentAction|callable $action
+     * @return $this
      */
-    public function changeParent(array $data = [])
+    public function changeParent($action = null)
     {
-        return CategoryChangeParentAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategoryChangeParentAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-categories.html#change-orderhint
-     * @param array $data
-     * @return CategoryChangeOrderHintAction
+     * @param CategoryChangeOrderHintAction|callable $action
+     * @return $this
      */
-    public function changeOrderHint(array $data = [])
+    public function changeOrderHint($action = null)
     {
-        return CategoryChangeOrderHintAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategoryChangeOrderHintAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#change-asset-name
-     * @param array $data
-     * @return CategoryChangeAssetNameAction
+     * @param CategoryChangeAssetNameAction|callable $action
+     * @return $this
      */
-    public function changeAssetName(array $data = [])
+    public function changeAssetName($action = null)
     {
-        return CategoryChangeAssetNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategoryChangeAssetNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#remove-asset
-     * @param array $data
-     * @return CategoryRemoveAssetAction
+     * @param CategoryRemoveAssetAction|callable $action
+     * @return $this
      */
-    public function removeAsset(array $data = [])
+    public function removeAsset($action = null)
     {
-        return CategoryRemoveAssetAction::fromArray($data);
+        $this->addAction($this->resolveAction(CategoryRemoveAssetAction::class, $action));
+        return $this;
     }
 
     /**
@@ -231,5 +255,57 @@ class CategoriesActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

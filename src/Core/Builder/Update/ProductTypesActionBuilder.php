@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLocalizedEnumLabelAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction;
@@ -22,174 +24,193 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeInputHintAc
 
 class ProductTypesActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-label-of-an-localizedenumvalue
-     * @param array $data
-     * @return ProductTypeChangeLocalizedEnumLabelAction
+     * @param ProductTypeChangeLocalizedEnumLabelAction|callable $action
+     * @return $this
      */
-    public function changeLocalizedEnumValueLabel(array $data = [])
+    public function changeLocalizedEnumValueLabel($action = null)
     {
-        return ProductTypeChangeLocalizedEnumLabelAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeChangeLocalizedEnumLabelAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#set-attributedefinition-inputtip
-     * @param array $data
-     * @return ProductTypeSetInputTipAction
+     * @param ProductTypeSetInputTipAction|callable $action
+     * @return $this
      */
-    public function setInputTip(array $data = [])
+    public function setInputTip($action = null)
     {
-        return ProductTypeSetInputTipAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeSetInputTipAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-attributedefinition-label
-     * @param array $data
-     * @return ProductTypeChangeLabelAction
+     * @param ProductTypeChangeLabelAction|callable $action
+     * @return $this
      */
-    public function changeLabel(array $data = [])
+    public function changeLabel($action = null)
     {
-        return ProductTypeChangeLabelAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeChangeLabelAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#add-attributedefinition
-     * @param array $data
-     * @return ProductTypeAddAttributeDefinitionAction
+     * @param ProductTypeAddAttributeDefinitionAction|callable $action
+     * @return $this
      */
-    public function addAttributeDefinition(array $data = [])
+    public function addAttributeDefinition($action = null)
     {
-        return ProductTypeAddAttributeDefinitionAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeAddAttributeDefinitionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-label-of-an-enumvalue
-     * @param array $data
-     * @return ProductTypeChangePlainEnumLabelAction
+     * @param ProductTypeChangePlainEnumLabelAction|callable $action
+     * @return $this
      */
-    public function changePlainEnumValueLabel(array $data = [])
+    public function changePlainEnumValueLabel($action = null)
     {
-        return ProductTypeChangePlainEnumLabelAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeChangePlainEnumLabelAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#add-plainenumvalue-to-attributedefinition
-     * @param array $data
-     * @return ProductTypeAddPlainEnumValueAction
+     * @param ProductTypeAddPlainEnumValueAction|callable $action
+     * @return $this
      */
-    public function addPlainEnumValue(array $data = [])
+    public function addPlainEnumValue($action = null)
     {
-        return ProductTypeAddPlainEnumValueAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeAddPlainEnumValueAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#remove-attributedefinition
-     * @param array $data
-     * @return ProductTypeRemoveAttributeDefinitionAction
+     * @param ProductTypeRemoveAttributeDefinitionAction|callable $action
+     * @return $this
      */
-    public function removeAttributeDefinition(array $data = [])
+    public function removeAttributeDefinition($action = null)
     {
-        return ProductTypeRemoveAttributeDefinitionAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeRemoveAttributeDefinitionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-order-of-enumvalues
-     * @param array $data
-     * @return ProductTypeChangePlainEnumValueOrderAction
+     * @param ProductTypeChangePlainEnumValueOrderAction|callable $action
+     * @return $this
      */
-    public function changePlainEnumValueOrder(array $data = [])
+    public function changePlainEnumValueOrder($action = null)
     {
-        return ProductTypeChangePlainEnumValueOrderAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeChangePlainEnumValueOrderAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#set-key
-     * @param array $data
-     * @return ProductTypeSetKeyAction
+     * @param ProductTypeSetKeyAction|callable $action
+     * @return $this
      */
-    public function setKey(array $data = [])
+    public function setKey($action = null)
     {
-        return ProductTypeSetKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeSetKeyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-description
-     * @param array $data
-     * @return ProductTypeChangeDescriptionAction
+     * @param ProductTypeChangeDescriptionAction|callable $action
+     * @return $this
      */
-    public function changeDescription(array $data = [])
+    public function changeDescription($action = null)
     {
-        return ProductTypeChangeDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeChangeDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-attributedefinition-attributeconstraint
-     * @param array $data
-     * @return ProductTypeChangeAttributeConstraintAction
+     * @param ProductTypeChangeAttributeConstraintAction|callable $action
+     * @return $this
      */
-    public function changeAttributeConstraint(array $data = [])
+    public function changeAttributeConstraint($action = null)
     {
-        return ProductTypeChangeAttributeConstraintAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeChangeAttributeConstraintAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-name
-     * @param array $data
-     * @return ProductTypeChangeNameAction
+     * @param ProductTypeChangeNameAction|callable $action
+     * @return $this
      */
-    public function changeName(array $data = [])
+    public function changeName($action = null)
     {
-        return ProductTypeChangeNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeChangeNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-order-of-localizedenumvalues
-     * @param array $data
-     * @return ProductTypeChangeLocalizedEnumValueOrderAction
+     * @param ProductTypeChangeLocalizedEnumValueOrderAction|callable $action
+     * @return $this
      */
-    public function changeLocalizedEnumValueOrder(array $data = [])
+    public function changeLocalizedEnumValueOrder($action = null)
     {
-        return ProductTypeChangeLocalizedEnumValueOrderAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeChangeLocalizedEnumValueOrderAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-attributedefinition-issearchable
-     * @param array $data
-     * @return ProductTypeChangeIsSearchableAction
+     * @param ProductTypeChangeIsSearchableAction|callable $action
+     * @return $this
      */
-    public function changeIsSearchable(array $data = [])
+    public function changeIsSearchable($action = null)
     {
-        return ProductTypeChangeIsSearchableAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeChangeIsSearchableAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-order-of-attributedefinitions
-     * @param array $data
-     * @return ProductTypeChangeAttributeOrderAction
+     * @param ProductTypeChangeAttributeOrderAction|callable $action
+     * @return $this
      */
-    public function changeAttributeOrder(array $data = [])
+    public function changeAttributeOrder($action = null)
     {
-        return ProductTypeChangeAttributeOrderAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeChangeAttributeOrderAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#add-localizableenumvalue-to-attributedefinition
-     * @param array $data
-     * @return ProductTypeAddLocalizedEnumValueAction
+     * @param ProductTypeAddLocalizedEnumValueAction|callable $action
+     * @return $this
      */
-    public function addLocalizedEnumValue(array $data = [])
+    public function addLocalizedEnumValue($action = null)
     {
-        return ProductTypeAddLocalizedEnumValueAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeAddLocalizedEnumValueAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-attributedefinition-inputhint
-     * @param array $data
-     * @return ProductTypeChangeInputHintAction
+     * @param ProductTypeChangeInputHintAction|callable $action
+     * @return $this
      */
-    public function changeInputHint(array $data = [])
+    public function changeInputHint($action = null)
     {
-        return ProductTypeChangeInputHintAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTypeChangeInputHintAction::class, $action));
+        return $this;
     }
 
     /**
@@ -198,5 +219,57 @@ class ProductTypesActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

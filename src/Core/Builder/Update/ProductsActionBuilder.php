@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAssetKeyAction;
 use Commercetools\Core\Request\Products\Command\ProductSetMetaKeywordsAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAssetTagsAction;
@@ -49,444 +51,490 @@ use Commercetools\Core\Request\Products\Command\ProductChangePriceAction;
 
 class ProductsActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-key
-     * @param array $data
-     * @return ProductSetAssetKeyAction
+     * @param ProductSetAssetKeyAction|callable $action
+     * @return $this
      */
-    public function setAssetKey(array $data = [])
+    public function setAssetKey($action = null)
     {
-        return ProductSetAssetKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetAssetKeyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-meta-keywords
-     * @param array $data
-     * @return ProductSetMetaKeywordsAction
+     * @param ProductSetMetaKeywordsAction|callable $action
+     * @return $this
      */
-    public function setMetaKeywords(array $data = [])
+    public function setMetaKeywords($action = null)
     {
-        return ProductSetMetaKeywordsAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetMetaKeywordsAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-tags
-     * @param array $data
-     * @return ProductSetAssetTagsAction
+     * @param ProductSetAssetTagsAction|callable $action
+     * @return $this
      */
-    public function setAssetTags(array $data = [])
+    public function setAssetTags($action = null)
     {
-        return ProductSetAssetTagsAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetAssetTagsAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-meta-description
-     * @param array $data
-     * @return ProductSetMetaDescriptionAction
+     * @param ProductSetMetaDescriptionAction|callable $action
+     * @return $this
      */
-    public function setMetaDescription(array $data = [])
+    public function setMetaDescription($action = null)
     {
-        return ProductSetMetaDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetMetaDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-custom-type
-     * @param array $data
-     * @return ProductSetAssetCustomTypeAction
+     * @param ProductSetAssetCustomTypeAction|callable $action
+     * @return $this
      */
-    public function setAssetCustomType(array $data = [])
+    public function setAssetCustomType($action = null)
     {
-        return ProductSetAssetCustomTypeAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetAssetCustomTypeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-price-custom-type
-     * @param array $data
-     * @return ProductSetPriceCustomTypeAction
+     * @param ProductSetPriceCustomTypeAction|callable $action
+     * @return $this
      */
-    public function setProductPriceCustomType(array $data = [])
+    public function setProductPriceCustomType($action = null)
     {
-        return ProductSetPriceCustomTypeAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetPriceCustomTypeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-tags
-     * @param array $data
-     * @return ProductSetAssetSourcesAction
+     * @param ProductSetAssetSourcesAction|callable $action
+     * @return $this
      */
-    public function setAssetSources(array $data = [])
+    public function setAssetSources($action = null)
     {
-        return ProductSetAssetSourcesAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetAssetSourcesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#remove-image
-     * @param array $data
-     * @return ProductRemoveImageAction
+     * @param ProductRemoveImageAction|callable $action
+     * @return $this
      */
-    public function removeImage(array $data = [])
+    public function removeImage($action = null)
     {
-        return ProductRemoveImageAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductRemoveImageAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#transition-state
-     * @param array $data
-     * @return ProductTransitionStateAction
+     * @param ProductTransitionStateAction|callable $action
+     * @return $this
      */
-    public function transitionState(array $data = [])
+    public function transitionState($action = null)
     {
-        return ProductTransitionStateAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductTransitionStateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-attribute
-     * @param array $data
-     * @return ProductSetAttributeAction
+     * @param ProductSetAttributeAction|callable $action
+     * @return $this
      */
-    public function setAttribute(array $data = [])
+    public function setAttribute($action = null)
     {
-        return ProductSetAttributeAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetAttributeAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#add-to-category
-     * @param array $data
-     * @return ProductAddToCategoryAction
+     * @param ProductAddToCategoryAction|callable $action
+     * @return $this
      */
-    public function addToCategory(array $data = [])
+    public function addToCategory($action = null)
     {
-        return ProductAddToCategoryAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductAddToCategoryAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#revert-staged-changes
-     * @param array $data
-     * @return ProductRevertStagedChangesAction
+     * @param ProductRevertStagedChangesAction|callable $action
+     * @return $this
      */
-    public function revertStagedChanges(array $data = [])
+    public function revertStagedChanges($action = null)
     {
-        return ProductRevertStagedChangesAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductRevertStagedChangesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-taxcategory
-     * @param array $data
-     * @return ProductSetTaxCategoryAction
+     * @param ProductSetTaxCategoryAction|callable $action
+     * @return $this
      */
-    public function setTaxCategory(array $data = [])
+    public function setTaxCategory($action = null)
     {
-        return ProductSetTaxCategoryAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetTaxCategoryAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#revert-staged-variant-changes
-     * @param array $data
-     * @return ProductRevertStagedVariantChangesAction
+     * @param ProductRevertStagedVariantChangesAction|callable $action
+     * @return $this
      */
-    public function revertStagedVariantChanges(array $data = [])
+    public function revertStagedVariantChanges($action = null)
     {
-        return ProductRevertStagedVariantChangesAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductRevertStagedVariantChangesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-price-customfield
-     * @param array $data
-     * @return ProductSetPriceCustomFieldAction
+     * @param ProductSetPriceCustomFieldAction|callable $action
+     * @return $this
      */
-    public function setProductPriceCustomField(array $data = [])
+    public function setProductPriceCustomField($action = null)
     {
-        return ProductSetPriceCustomFieldAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetPriceCustomFieldAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#change-asset-order
-     * @param array $data
-     * @return ProductChangeAssetOrderAction
+     * @param ProductChangeAssetOrderAction|callable $action
+     * @return $this
      */
-    public function changeAssetOrder(array $data = [])
+    public function changeAssetOrder($action = null)
     {
-        return ProductChangeAssetOrderAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductChangeAssetOrderAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#unpublish
-     * @param array $data
-     * @return ProductUnpublishAction
+     * @param ProductUnpublishAction|callable $action
+     * @return $this
      */
-    public function unpublish(array $data = [])
+    public function unpublish($action = null)
     {
-        return ProductUnpublishAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductUnpublishAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-searchkeywords
-     * @param array $data
-     * @return ProductSetSearchKeywordsAction
+     * @param ProductSetSearchKeywordsAction|callable $action
+     * @return $this
      */
-    public function setSearchKeywords(array $data = [])
+    public function setSearchKeywords($action = null)
     {
-        return ProductSetSearchKeywordsAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetSearchKeywordsAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-description
-     * @param array $data
-     * @return ProductSetDescriptionAction
+     * @param ProductSetDescriptionAction|callable $action
+     * @return $this
      */
-    public function setDescription(array $data = [])
+    public function setDescription($action = null)
     {
-        return ProductSetDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#remove-productvariant
-     * @param array $data
-     * @return ProductRemoveVariantAction
+     * @param ProductRemoveVariantAction|callable $action
+     * @return $this
      */
-    public function removeVariant(array $data = [])
+    public function removeVariant($action = null)
     {
-        return ProductRemoveVariantAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductRemoveVariantAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-meta-title
-     * @param array $data
-     * @return ProductSetMetaTitleAction
+     * @param ProductSetMetaTitleAction|callable $action
+     * @return $this
      */
-    public function setMetaTitle(array $data = [])
+    public function setMetaTitle($action = null)
     {
-        return ProductSetMetaTitleAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetMetaTitleAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-sku
-     * @param array $data
-     * @return ProductSetSkuAction
+     * @param ProductSetSkuAction|callable $action
+     * @return $this
      */
-    public function setSku(array $data = [])
+    public function setSku($action = null)
     {
-        return ProductSetSkuAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetSkuAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-prices
-     * @param array $data
-     * @return ProductSetPricesAction
+     * @param ProductSetPricesAction|callable $action
+     * @return $this
      */
-    public function setPrices(array $data = [])
+    public function setPrices($action = null)
     {
-        return ProductSetPricesAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetPricesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-productvariant-key
-     * @param array $data
-     * @return ProductSetProductVariantKeyAction
+     * @param ProductSetProductVariantKeyAction|callable $action
+     * @return $this
      */
-    public function setProductVariantKey(array $data = [])
+    public function setProductVariantKey($action = null)
     {
-        return ProductSetProductVariantKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetProductVariantKeyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#remove-asset
-     * @param array $data
-     * @return ProductRemoveAssetAction
+     * @param ProductRemoveAssetAction|callable $action
+     * @return $this
      */
-    public function removeAsset(array $data = [])
+    public function removeAsset($action = null)
     {
-        return ProductRemoveAssetAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductRemoveAssetAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#change-asset-name
-     * @param array $data
-     * @return ProductChangeAssetNameAction
+     * @param ProductChangeAssetNameAction|callable $action
+     * @return $this
      */
-    public function changeAssetName(array $data = [])
+    public function changeAssetName($action = null)
     {
-        return ProductChangeAssetNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductChangeAssetNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-attribute-in-all-variants
-     * @param array $data
-     * @return ProductSetAttributeInAllVariantsAction
+     * @param ProductSetAttributeInAllVariantsAction|callable $action
+     * @return $this
      */
-    public function setAttributeInAllVariants(array $data = [])
+    public function setAttributeInAllVariants($action = null)
     {
-        return ProductSetAttributeInAllVariantsAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetAttributeInAllVariantsAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#add-price
-     * @param array $data
-     * @return ProductAddPriceAction
+     * @param ProductAddPriceAction|callable $action
+     * @return $this
      */
-    public function addPrice(array $data = [])
+    public function addPrice($action = null)
     {
-        return ProductAddPriceAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductAddPriceAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#remove-from-category
-     * @param array $data
-     * @return ProductRemoveFromCategoryAction
+     * @param ProductRemoveFromCategoryAction|callable $action
+     * @return $this
      */
-    public function removeFromCategory(array $data = [])
+    public function removeFromCategory($action = null)
     {
-        return ProductRemoveFromCategoryAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductRemoveFromCategoryAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-customfield
-     * @param array $data
-     * @return ProductSetAssetCustomFieldAction
+     * @param ProductSetAssetCustomFieldAction|callable $action
+     * @return $this
      */
-    public function setAssetCustomField(array $data = [])
+    public function setAssetCustomField($action = null)
     {
-        return ProductSetAssetCustomFieldAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetAssetCustomFieldAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#add-external-image
-     * @param array $data
-     * @return ProductAddExternalImageAction
+     * @param ProductAddExternalImageAction|callable $action
+     * @return $this
      */
-    public function addExternalImage(array $data = [])
+    public function addExternalImage($action = null)
     {
-        return ProductAddExternalImageAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductAddExternalImageAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#change-master-variant
-     * @param array $data
-     * @return ProductChangeMasterVariantAction
+     * @param ProductChangeMasterVariantAction|callable $action
+     * @return $this
      */
-    public function changeMasterVariant(array $data = [])
+    public function changeMasterVariant($action = null)
     {
-        return ProductChangeMasterVariantAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductChangeMasterVariantAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-discounted-price
-     * @param array $data
-     * @return ProductSetDiscountedPriceAction
+     * @param ProductSetDiscountedPriceAction|callable $action
+     * @return $this
      */
-    public function setDiscountedPrice(array $data = [])
+    public function setDiscountedPrice($action = null)
     {
-        return ProductSetDiscountedPriceAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetDiscountedPriceAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-key
-     * @param array $data
-     * @return ProductSetKeyAction
+     * @param ProductSetKeyAction|callable $action
+     * @return $this
      */
-    public function setKey(array $data = [])
+    public function setKey($action = null)
     {
-        return ProductSetKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetKeyAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#move-image-to-position
-     * @param array $data
-     * @return ProductMoveImageToPositionAction
+     * @param ProductMoveImageToPositionAction|callable $action
+     * @return $this
      */
-    public function moveImageToPosition(array $data = [])
+    public function moveImageToPosition($action = null)
     {
-        return ProductMoveImageToPositionAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductMoveImageToPositionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#publish
-     * @param array $data
-     * @return ProductPublishAction
+     * @param ProductPublishAction|callable $action
+     * @return $this
      */
-    public function publish(array $data = [])
+    public function publish($action = null)
     {
-        return ProductPublishAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductPublishAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#add-productvariant
-     * @param array $data
-     * @return ProductAddVariantAction
+     * @param ProductAddVariantAction|callable $action
+     * @return $this
      */
-    public function addVariant(array $data = [])
+    public function addVariant($action = null)
     {
-        return ProductAddVariantAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductAddVariantAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-asset-description
-     * @param array $data
-     * @return ProductSetAssetDescriptionAction
+     * @param ProductSetAssetDescriptionAction|callable $action
+     * @return $this
      */
-    public function setAssetDescription(array $data = [])
+    public function setAssetDescription($action = null)
     {
-        return ProductSetAssetDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetAssetDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#remove-price
-     * @param array $data
-     * @return ProductRemovePriceAction
+     * @param ProductRemovePriceAction|callable $action
+     * @return $this
      */
-    public function removePrice(array $data = [])
+    public function removePrice($action = null)
     {
-        return ProductRemovePriceAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductRemovePriceAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#change-slug
-     * @param array $data
-     * @return ProductChangeSlugAction
+     * @param ProductChangeSlugAction|callable $action
+     * @return $this
      */
-    public function changeSlug(array $data = [])
+    public function changeSlug($action = null)
     {
-        return ProductChangeSlugAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductChangeSlugAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#add-asset
-     * @param array $data
-     * @return ProductAddAssetAction
+     * @param ProductAddAssetAction|callable $action
+     * @return $this
      */
-    public function addAsset(array $data = [])
+    public function addAsset($action = null)
     {
-        return ProductAddAssetAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductAddAssetAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#set-category-order-hint
-     * @param array $data
-     * @return ProductSetCategoryOrderHintAction
+     * @param ProductSetCategoryOrderHintAction|callable $action
+     * @return $this
      */
-    public function setCategoryOrderHint(array $data = [])
+    public function setCategoryOrderHint($action = null)
     {
-        return ProductSetCategoryOrderHintAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductSetCategoryOrderHintAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#change-name
-     * @param array $data
-     * @return ProductChangeNameAction
+     * @param ProductChangeNameAction|callable $action
+     * @return $this
      */
-    public function changeName(array $data = [])
+    public function changeName($action = null)
     {
-        return ProductChangeNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductChangeNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-products.html#change-price
-     * @param array $data
-     * @return ProductChangePriceAction
+     * @param ProductChangePriceAction|callable $action
+     * @return $this
      */
-    public function changePrice(array $data = [])
+    public function changePrice($action = null)
     {
-        return ProductChangePriceAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductChangePriceAction::class, $action));
+        return $this;
     }
 
     /**
@@ -495,5 +543,57 @@ class ProductsActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

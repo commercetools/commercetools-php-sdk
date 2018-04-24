@@ -2,40 +2,47 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetChangesAction;
 use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetMessagesAction;
 use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetKeyAction;
 
 class SubscriptionsActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#set-changes
-     * @param array $data
-     * @return SubscriptionSetChangesAction
+     * @param SubscriptionSetChangesAction|callable $action
+     * @return $this
      */
-    public function setChanges(array $data = [])
+    public function setChanges($action = null)
     {
-        return SubscriptionSetChangesAction::fromArray($data);
+        $this->addAction($this->resolveAction(SubscriptionSetChangesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#set-messages
-     * @param array $data
-     * @return SubscriptionSetMessagesAction
+     * @param SubscriptionSetMessagesAction|callable $action
+     * @return $this
      */
-    public function setMessages(array $data = [])
+    public function setMessages($action = null)
     {
-        return SubscriptionSetMessagesAction::fromArray($data);
+        $this->addAction($this->resolveAction(SubscriptionSetMessagesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#set-key
-     * @param array $data
-     * @return SubscriptionSetKeyAction
+     * @param SubscriptionSetKeyAction|callable $action
+     * @return $this
      */
-    public function setKey(array $data = [])
+    public function setKey($action = null)
     {
-        return SubscriptionSetKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(SubscriptionSetKeyAction::class, $action));
+        return $this;
     }
 
     /**
@@ -44,5 +51,57 @@ class SubscriptionsActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

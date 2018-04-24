@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetDescriptionAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeValueAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangePredicateAction;
@@ -13,84 +15,94 @@ use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidF
 
 class ProductDiscountsActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#set-description
-     * @param array $data
-     * @return ProductDiscountSetDescriptionAction
+     * @param ProductDiscountSetDescriptionAction|callable $action
+     * @return $this
      */
-    public function setDescription(array $data = [])
+    public function setDescription($action = null)
     {
-        return ProductDiscountSetDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductDiscountSetDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#change-value
-     * @param array $data
-     * @return ProductDiscountChangeValueAction
+     * @param ProductDiscountChangeValueAction|callable $action
+     * @return $this
      */
-    public function changeValue(array $data = [])
+    public function changeValue($action = null)
     {
-        return ProductDiscountChangeValueAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductDiscountChangeValueAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#change-predicate
-     * @param array $data
-     * @return ProductDiscountChangePredicateAction
+     * @param ProductDiscountChangePredicateAction|callable $action
+     * @return $this
      */
-    public function changePredicate(array $data = [])
+    public function changePredicate($action = null)
     {
-        return ProductDiscountChangePredicateAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductDiscountChangePredicateAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#change-sort-order
-     * @param array $data
-     * @return ProductDiscountChangeSortOrderAction
+     * @param ProductDiscountChangeSortOrderAction|callable $action
+     * @return $this
      */
-    public function changeSortOrder(array $data = [])
+    public function changeSortOrder($action = null)
     {
-        return ProductDiscountChangeSortOrderAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductDiscountChangeSortOrderAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#set-valid-until
-     * @param array $data
-     * @return ProductDiscountSetValidUntilAction
+     * @param ProductDiscountSetValidUntilAction|callable $action
+     * @return $this
      */
-    public function setValidUntil(array $data = [])
+    public function setValidUntil($action = null)
     {
-        return ProductDiscountSetValidUntilAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductDiscountSetValidUntilAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#change-name
-     * @param array $data
-     * @return ProductDiscountChangeNameAction
+     * @param ProductDiscountChangeNameAction|callable $action
+     * @return $this
      */
-    public function changeName(array $data = [])
+    public function changeName($action = null)
     {
-        return ProductDiscountChangeNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductDiscountChangeNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#change-is-active
-     * @param array $data
-     * @return ProductDiscountChangeIsActiveAction
+     * @param ProductDiscountChangeIsActiveAction|callable $action
+     * @return $this
      */
-    public function changeIsActive(array $data = [])
+    public function changeIsActive($action = null)
     {
-        return ProductDiscountChangeIsActiveAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductDiscountChangeIsActiveAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#set-valid-from
-     * @param array $data
-     * @return ProductDiscountSetValidFromAction
+     * @param ProductDiscountSetValidFromAction|callable $action
+     * @return $this
      */
-    public function setValidFrom(array $data = [])
+    public function setValidFrom($action = null)
     {
-        return ProductDiscountSetValidFromAction::fromArray($data);
+        $this->addAction($this->resolveAction(ProductDiscountSetValidFromAction::class, $action));
+        return $this;
     }
 
     /**
@@ -99,5 +111,57 @@ class ProductDiscountsActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

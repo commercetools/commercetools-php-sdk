@@ -2,6 +2,8 @@
 
 namespace Commercetools\Core\Builder\Update;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Channels\Command\ChannelSetAddressAction;
 use Commercetools\Core\Request\Channels\Command\ChannelChangeDescriptionAction;
 use Commercetools\Core\Request\Channels\Command\ChannelChangeNameAction;
@@ -13,84 +15,94 @@ use Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction;
 
 class ChannelsActionBuilder
 {
+    private $actions = [];
+
     /**
      * @link https://docs.commercetools.com/http-api-projects-channels.html#set-address
-     * @param array $data
-     * @return ChannelSetAddressAction
+     * @param ChannelSetAddressAction|callable $action
+     * @return $this
      */
-    public function setAddress(array $data = [])
+    public function setAddress($action = null)
     {
-        return ChannelSetAddressAction::fromArray($data);
+        $this->addAction($this->resolveAction(ChannelSetAddressAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-channels.html#change-description
-     * @param array $data
-     * @return ChannelChangeDescriptionAction
+     * @param ChannelChangeDescriptionAction|callable $action
+     * @return $this
      */
-    public function changeDescription(array $data = [])
+    public function changeDescription($action = null)
     {
-        return ChannelChangeDescriptionAction::fromArray($data);
+        $this->addAction($this->resolveAction(ChannelChangeDescriptionAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-channels.html#change-name
-     * @param array $data
-     * @return ChannelChangeNameAction
+     * @param ChannelChangeNameAction|callable $action
+     * @return $this
      */
-    public function changeName(array $data = [])
+    public function changeName($action = null)
     {
-        return ChannelChangeNameAction::fromArray($data);
+        $this->addAction($this->resolveAction(ChannelChangeNameAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-channels.html#set-geolocation
-     * @param array $data
-     * @return ChannelSetGeoLocation
+     * @param ChannelSetGeoLocation|callable $action
+     * @return $this
      */
-    public function setGeoLocation(array $data = [])
+    public function setGeoLocation($action = null)
     {
-        return ChannelSetGeoLocation::fromArray($data);
+        $this->addAction($this->resolveAction(ChannelSetGeoLocation::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-channels.html#set-roles
-     * @param array $data
-     * @return ChannelSetRolesAction
+     * @param ChannelSetRolesAction|callable $action
+     * @return $this
      */
-    public function setRoles(array $data = [])
+    public function setRoles($action = null)
     {
-        return ChannelSetRolesAction::fromArray($data);
+        $this->addAction($this->resolveAction(ChannelSetRolesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-channels.html#remove-roles
-     * @param array $data
-     * @return ChannelRemoveRolesAction
+     * @param ChannelRemoveRolesAction|callable $action
+     * @return $this
      */
-    public function removeRoles(array $data = [])
+    public function removeRoles($action = null)
     {
-        return ChannelRemoveRolesAction::fromArray($data);
+        $this->addAction($this->resolveAction(ChannelRemoveRolesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-channels.html#add-roles
-     * @param array $data
-     * @return ChannelAddRolesAction
+     * @param ChannelAddRolesAction|callable $action
+     * @return $this
      */
-    public function addRoles(array $data = [])
+    public function addRoles($action = null)
     {
-        return ChannelAddRolesAction::fromArray($data);
+        $this->addAction($this->resolveAction(ChannelAddRolesAction::class, $action));
+        return $this;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-channels.html#change-key
-     * @param array $data
-     * @return ChannelChangeKeyAction
+     * @param ChannelChangeKeyAction|callable $action
+     * @return $this
      */
-    public function changeKey(array $data = [])
+    public function changeKey($action = null)
     {
-        return ChannelChangeKeyAction::fromArray($data);
+        $this->addAction($this->resolveAction(ChannelChangeKeyAction::class, $action));
+        return $this;
     }
 
     /**
@@ -99,5 +111,57 @@ class ChannelsActionBuilder
     public function of()
     {
         return new self();
+    }
+
+    /**
+     * @param $class
+     * @param $action
+     * @return AbstractAction
+     * @throws InvalidArgumentException
+     */
+    private function resolveAction($class, $action = null)
+    {
+        if (is_null($action) || is_callable($action)) {
+            $callback = $action;
+            $emptyAction = $class::of();
+            $action = $this->callback($emptyAction, $callback);
+        }
+        if ($action instanceof $class) {
+            return $action;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Expected method to be called with or callable to return %s', $class)
+        );
+    }
+
+    /**
+     * @param $action
+     * @param callable $callback
+     * @return AbstractAction
+     */
+    private function callback($action, callable $callback = null)
+    {
+        if (!is_null($callback)) {
+            $action = $callback($action);
+        }
+        return $action;
+    }
+
+    /**
+     * @param AbstractAction $action
+     * @return $this;
+     */
+    public function addAction(AbstractAction $action)
+    {
+        $this->actions[] = $action;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }
