@@ -308,4 +308,14 @@ class CategoriesActionBuilder
     {
         return $this->actions;
     }
+
+    /**
+     * @param array $actions
+     * @return $this
+     */
+    public function setActions(array $actions)
+    {
+        $this->actions = $actions;
+        return $this;
+    }
 }
