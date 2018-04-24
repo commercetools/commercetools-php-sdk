@@ -4,25 +4,25 @@ namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
-use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
-use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
+use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 
 class ProjectActionBuilder
 {
     private $actions = [];
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-project.html#set-shippingrateinputtype
-     * @param ProjectSetShippingRateInputTypeAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-project.html#change-countries
+     * @param ProjectChangeCountriesAction|callable $action
      * @return $this
      */
-    public function setShippingRateInputType($action = null)
+    public function changeCountries($action = null)
     {
-        $this->addAction($this->resolveAction(ProjectSetShippingRateInputTypeAction::class, $action));
+        $this->addAction($this->resolveAction(ProjectChangeCountriesAction::class, $action));
         return $this;
     }
 
@@ -49,17 +49,6 @@ class ProjectActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-project.html#change-name
-     * @param ProjectChangeNameAction|callable $action
-     * @return $this
-     */
-    public function changeName($action = null)
-    {
-        $this->addAction($this->resolveAction(ProjectChangeNameAction::class, $action));
-        return $this;
-    }
-
-    /**
      * @link https://docs.commercetools.com/http-api-projects-project.html#change-messages-enabled
      * @param ProjectChangeMessagesEnabledAction|callable $action
      * @return $this
@@ -71,13 +60,24 @@ class ProjectActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-project.html#change-countries
-     * @param ProjectChangeCountriesAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-project.html#change-name
+     * @param ProjectChangeNameAction|callable $action
      * @return $this
      */
-    public function changeCountries($action = null)
+    public function changeName($action = null)
     {
-        $this->addAction($this->resolveAction(ProjectChangeCountriesAction::class, $action));
+        $this->addAction($this->resolveAction(ProjectChangeNameAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-project.html#set-shippingrateinputtype
+     * @param ProjectSetShippingRateInputTypeAction|callable $action
+     * @return $this
+     */
+    public function setShippingRateInputType($action = null)
+    {
+        $this->addAction($this->resolveAction(ProjectSetShippingRateInputTypeAction::class, $action));
         return $this;
     }
 

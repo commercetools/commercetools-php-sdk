@@ -4,43 +4,21 @@ namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeNameAction;
-use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeStackingModeAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeCartPredicateAction;
-use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeRequiresDiscountCodeAction;
-use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidUntilAction;
-use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetDescriptionAction;
-use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeSortOrderAction;
-use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeIsActiveAction;
-use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeValueAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeNameAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeRequiresDiscountCodeAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeSortOrderAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeStackingModeAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeTargetAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeValueAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetDescriptionAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidUntilAction;
 
 class CartDiscountsActionBuilder
 {
     private $actions = [];
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-name
-     * @param CartDiscountChangeNameAction|callable $action
-     * @return $this
-     */
-    public function changeName($action = null)
-    {
-        $this->addAction($this->resolveAction(CartDiscountChangeNameAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-stacking-mode
-     * @param CartDiscountChangeStackingModeAction|callable $action
-     * @return $this
-     */
-    public function changeStackingMode($action = null)
-    {
-        $this->addAction($this->resolveAction(CartDiscountChangeStackingModeAction::class, $action));
-        return $this;
-    }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-cart-predicate
@@ -50,61 +28,6 @@ class CartDiscountsActionBuilder
     public function changeCartPredicate($action = null)
     {
         $this->addAction($this->resolveAction(CartDiscountChangeCartPredicateAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-requires-discountcode
-     * @param CartDiscountChangeRequiresDiscountCodeAction|callable $action
-     * @return $this
-     */
-    public function changeRequiresDiscountCode($action = null)
-    {
-        $this->addAction($this->resolveAction(CartDiscountChangeRequiresDiscountCodeAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#set-valid-until
-     * @param CartDiscountSetValidUntilAction|callable $action
-     * @return $this
-     */
-    public function setValidUntil($action = null)
-    {
-        $this->addAction($this->resolveAction(CartDiscountSetValidUntilAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#set-description
-     * @param CartDiscountSetDescriptionAction|callable $action
-     * @return $this
-     */
-    public function setDescription($action = null)
-    {
-        $this->addAction($this->resolveAction(CartDiscountSetDescriptionAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-sort-order
-     * @param CartDiscountChangeSortOrderAction|callable $action
-     * @return $this
-     */
-    public function changeSortOrder($action = null)
-    {
-        $this->addAction($this->resolveAction(CartDiscountChangeSortOrderAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#set-valid-from
-     * @param CartDiscountSetValidFromAction|callable $action
-     * @return $this
-     */
-    public function setValidFrom($action = null)
-    {
-        $this->addAction($this->resolveAction(CartDiscountSetValidFromAction::class, $action));
         return $this;
     }
 
@@ -120,13 +43,46 @@ class CartDiscountsActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-value
-     * @param CartDiscountChangeValueAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-name
+     * @param CartDiscountChangeNameAction|callable $action
      * @return $this
      */
-    public function changeValue($action = null)
+    public function changeName($action = null)
     {
-        $this->addAction($this->resolveAction(CartDiscountChangeValueAction::class, $action));
+        $this->addAction($this->resolveAction(CartDiscountChangeNameAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-requires-discountcode
+     * @param CartDiscountChangeRequiresDiscountCodeAction|callable $action
+     * @return $this
+     */
+    public function changeRequiresDiscountCode($action = null)
+    {
+        $this->addAction($this->resolveAction(CartDiscountChangeRequiresDiscountCodeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-sort-order
+     * @param CartDiscountChangeSortOrderAction|callable $action
+     * @return $this
+     */
+    public function changeSortOrder($action = null)
+    {
+        $this->addAction($this->resolveAction(CartDiscountChangeSortOrderAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-stacking-mode
+     * @param CartDiscountChangeStackingModeAction|callable $action
+     * @return $this
+     */
+    public function changeStackingMode($action = null)
+    {
+        $this->addAction($this->resolveAction(CartDiscountChangeStackingModeAction::class, $action));
         return $this;
     }
 
@@ -138,6 +94,50 @@ class CartDiscountsActionBuilder
     public function changeTarget($action = null)
     {
         $this->addAction($this->resolveAction(CartDiscountChangeTargetAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#change-value
+     * @param CartDiscountChangeValueAction|callable $action
+     * @return $this
+     */
+    public function changeValue($action = null)
+    {
+        $this->addAction($this->resolveAction(CartDiscountChangeValueAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#set-description
+     * @param CartDiscountSetDescriptionAction|callable $action
+     * @return $this
+     */
+    public function setDescription($action = null)
+    {
+        $this->addAction($this->resolveAction(CartDiscountSetDescriptionAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#set-valid-from
+     * @param CartDiscountSetValidFromAction|callable $action
+     * @return $this
+     */
+    public function setValidFrom($action = null)
+    {
+        $this->addAction($this->resolveAction(CartDiscountSetValidFromAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#set-valid-until
+     * @param CartDiscountSetValidUntilAction|callable $action
+     * @return $this
+     */
+    public function setValidUntil($action = null)
+    {
+        $this->addAction($this->resolveAction(CartDiscountSetValidUntilAction::class, $action));
         return $this;
     }
 

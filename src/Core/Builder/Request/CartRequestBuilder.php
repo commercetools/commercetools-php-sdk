@@ -12,6 +12,7 @@ use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartQueryRequest;
+use Commercetools\Core\Request\Carts\CartReplicateRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
 
 class CartRequestBuilder
@@ -67,5 +68,10 @@ class CartRequestBuilder
     public function getByCustomerId($customerId)
     {
         return CartByCustomerIdGetRequest::ofCustomerId($customerId);
+    }
+
+    public function replicate($cartId)
+    {
+        return CartReplicateRequest::ofCartId($cartId);
     }
 }

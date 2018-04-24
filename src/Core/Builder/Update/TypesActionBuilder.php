@@ -4,21 +4,98 @@ namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Request\Types\Command\TypeAddEnumValueAction;
+use Commercetools\Core\Request\Types\Command\TypeAddFieldDefinitionAction;
+use Commercetools\Core\Request\Types\Command\TypeAddLocalizedEnumValueAction;
+use Commercetools\Core\Request\Types\Command\TypeChangeEnumValueOrderAction;
+use Commercetools\Core\Request\Types\Command\TypeChangeFieldDefinitionOrderAction;
+use Commercetools\Core\Request\Types\Command\TypeChangeKeyAction;
+use Commercetools\Core\Request\Types\Command\TypeChangeLabelAction;
 use Commercetools\Core\Request\Types\Command\TypeChangeLocalizedEnumValueOrderAction;
 use Commercetools\Core\Request\Types\Command\TypeChangeNameAction;
 use Commercetools\Core\Request\Types\Command\TypeRemoveFieldDefinitionAction;
-use Commercetools\Core\Request\Types\Command\TypeChangeLabelAction;
-use Commercetools\Core\Request\Types\Command\TypeChangeKeyAction;
-use Commercetools\Core\Request\Types\Command\TypeAddFieldDefinitionAction;
 use Commercetools\Core\Request\Types\Command\TypeSetDescriptionAction;
-use Commercetools\Core\Request\Types\Command\TypeChangeFieldDefinitionOrderAction;
-use Commercetools\Core\Request\Types\Command\TypeAddLocalizedEnumValueAction;
-use Commercetools\Core\Request\Types\Command\TypeChangeEnumValueOrderAction;
-use Commercetools\Core\Request\Types\Command\TypeAddEnumValueAction;
 
 class TypesActionBuilder
 {
     private $actions = [];
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-types.html#add-enumvalue-to-fielddefinition
+     * @param TypeAddEnumValueAction|callable $action
+     * @return $this
+     */
+    public function addEnumValue($action = null)
+    {
+        $this->addAction($this->resolveAction(TypeAddEnumValueAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-types.html#add-fielddefinition
+     * @param TypeAddFieldDefinitionAction|callable $action
+     * @return $this
+     */
+    public function addFieldDefinition($action = null)
+    {
+        $this->addAction($this->resolveAction(TypeAddFieldDefinitionAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-types.html#add-localizedenumvalue-to-fielddefinition
+     * @param TypeAddLocalizedEnumValueAction|callable $action
+     * @return $this
+     */
+    public function addLocalizedEnumValue($action = null)
+    {
+        $this->addAction($this->resolveAction(TypeAddLocalizedEnumValueAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-types.html#change-the-order-of-enumvalues
+     * @param TypeChangeEnumValueOrderAction|callable $action
+     * @return $this
+     */
+    public function changeEnumValueOrder($action = null)
+    {
+        $this->addAction($this->resolveAction(TypeChangeEnumValueOrderAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-types.html#change-the-order-of-fielddefinitions
+     * @param TypeChangeFieldDefinitionOrderAction|callable $action
+     * @return $this
+     */
+    public function changeFieldDefinitionOrder($action = null)
+    {
+        $this->addAction($this->resolveAction(TypeChangeFieldDefinitionOrderAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-types.html#change-key
+     * @param TypeChangeKeyAction|callable $action
+     * @return $this
+     */
+    public function changeKey($action = null)
+    {
+        $this->addAction($this->resolveAction(TypeChangeKeyAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-types.html#change-fielddefinition-label
+     * @param TypeChangeLabelAction|callable $action
+     * @return $this
+     */
+    public function changeLabel($action = null)
+    {
+        $this->addAction($this->resolveAction(TypeChangeLabelAction::class, $action));
+        return $this;
+    }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#change-the-order-of-localizedenumvalues
@@ -54,39 +131,6 @@ class TypesActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-types.html#change-fielddefinition-label
-     * @param TypeChangeLabelAction|callable $action
-     * @return $this
-     */
-    public function changeLabel($action = null)
-    {
-        $this->addAction($this->resolveAction(TypeChangeLabelAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-types.html#change-key
-     * @param TypeChangeKeyAction|callable $action
-     * @return $this
-     */
-    public function changeKey($action = null)
-    {
-        $this->addAction($this->resolveAction(TypeChangeKeyAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-types.html#add-fielddefinition
-     * @param TypeAddFieldDefinitionAction|callable $action
-     * @return $this
-     */
-    public function addFieldDefinition($action = null)
-    {
-        $this->addAction($this->resolveAction(TypeAddFieldDefinitionAction::class, $action));
-        return $this;
-    }
-
-    /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#set-description
      * @param TypeSetDescriptionAction|callable $action
      * @return $this
@@ -94,50 +138,6 @@ class TypesActionBuilder
     public function setDescription($action = null)
     {
         $this->addAction($this->resolveAction(TypeSetDescriptionAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-types.html#change-the-order-of-fielddefinitions
-     * @param TypeChangeFieldDefinitionOrderAction|callable $action
-     * @return $this
-     */
-    public function changeFieldDefinitionOrder($action = null)
-    {
-        $this->addAction($this->resolveAction(TypeChangeFieldDefinitionOrderAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-types.html#add-localizedenumvalue-to-fielddefinition
-     * @param TypeAddLocalizedEnumValueAction|callable $action
-     * @return $this
-     */
-    public function addLocalizedEnumValue($action = null)
-    {
-        $this->addAction($this->resolveAction(TypeAddLocalizedEnumValueAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-types.html#change-the-order-of-enumvalues
-     * @param TypeChangeEnumValueOrderAction|callable $action
-     * @return $this
-     */
-    public function changeEnumValueOrder($action = null)
-    {
-        $this->addAction($this->resolveAction(TypeChangeEnumValueOrderAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-types.html#add-enumvalue-to-fielddefinition
-     * @param TypeAddEnumValueAction|callable $action
-     * @return $this
-     */
-    public function addEnumValue($action = null)
-    {
-        $this->addAction($this->resolveAction(TypeAddEnumValueAction::class, $action));
         return $this;
     }
 

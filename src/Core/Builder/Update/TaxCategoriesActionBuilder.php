@@ -4,47 +4,25 @@ namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetKeyAction;
-use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryReplaceTaxRateAction;
-use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryRemoveTaxRateAction;
-use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryChangeNameAction;
 use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryAddTaxRateAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryChangeNameAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryRemoveTaxRateAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryReplaceTaxRateAction;
 use Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetDescriptionAction;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetKeyAction;
 
 class TaxCategoriesActionBuilder
 {
     private $actions = [];
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#set-key
-     * @param TaxCategorySetKeyAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#add-taxrate
+     * @param TaxCategoryAddTaxRateAction|callable $action
      * @return $this
      */
-    public function setKey($action = null)
+    public function addTaxRate($action = null)
     {
-        $this->addAction($this->resolveAction(TaxCategorySetKeyAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#replace-taxrate
-     * @param TaxCategoryReplaceTaxRateAction|callable $action
-     * @return $this
-     */
-    public function replaceTaxRate($action = null)
-    {
-        $this->addAction($this->resolveAction(TaxCategoryReplaceTaxRateAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#remove-taxrate
-     * @param TaxCategoryRemoveTaxRateAction|callable $action
-     * @return $this
-     */
-    public function removeTaxRate($action = null)
-    {
-        $this->addAction($this->resolveAction(TaxCategoryRemoveTaxRateAction::class, $action));
+        $this->addAction($this->resolveAction(TaxCategoryAddTaxRateAction::class, $action));
         return $this;
     }
 
@@ -60,13 +38,24 @@ class TaxCategoriesActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#add-taxrate
-     * @param TaxCategoryAddTaxRateAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#remove-taxrate
+     * @param TaxCategoryRemoveTaxRateAction|callable $action
      * @return $this
      */
-    public function addTaxRate($action = null)
+    public function removeTaxRate($action = null)
     {
-        $this->addAction($this->resolveAction(TaxCategoryAddTaxRateAction::class, $action));
+        $this->addAction($this->resolveAction(TaxCategoryRemoveTaxRateAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#replace-taxrate
+     * @param TaxCategoryReplaceTaxRateAction|callable $action
+     * @return $this
+     */
+    public function replaceTaxRate($action = null)
+    {
+        $this->addAction($this->resolveAction(TaxCategoryReplaceTaxRateAction::class, $action));
         return $this;
     }
 
@@ -78,6 +67,17 @@ class TaxCategoriesActionBuilder
     public function setDescription($action = null)
     {
         $this->addAction($this->resolveAction(TaxCategorySetDescriptionAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#set-key
+     * @param TaxCategorySetKeyAction|callable $action
+     * @return $this
+     */
+    public function setKey($action = null)
+    {
+        $this->addAction($this->resolveAction(TaxCategorySetKeyAction::class, $action));
         return $this;
     }
 

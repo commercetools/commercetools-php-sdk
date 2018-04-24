@@ -183,6 +183,8 @@ class AnnotationGenerator
 
         $updateMethods = [];
         $uses = [];
+
+        sort($updates);
         foreach ($updates as $update) {
             $uses[] = 'use ' . $update . ';';
             $updateClass = new \ReflectionClass($update);
@@ -307,13 +309,14 @@ EOF;
 
     public function generateUpdateBuilder(array $domains)
     {
+        sort($domains);
         $builderName = 'ActionBuilder';
         $fileName = __DIR__ . '/../../Builder/Update/' . $builderName . '.php';
 
         $methods = [];
         foreach ($domains as $domain) {
             $className = ucfirst($domain) . 'ActionBuilder';
-            $uses[] = 'use Commercetools\Core\Builder\Update\\' . $className . ';';
+//            $uses[] = 'use Commercetools\Core\Builder\Update\\' . $className . ';';
             $methodName = lcfirst($domain);
             $method = <<<METHOD
     /**
@@ -327,14 +330,12 @@ METHOD;
             $methods[] = $method;
         }
 
-        $uses = implode(PHP_EOL, $uses);
+//        $uses = implode(PHP_EOL, $uses);
         $methods = implode(PHP_EOL . PHP_EOL, $methods);
         $content = <<<EOF
 <?php
 
 namespace Commercetools\Core\Builder\Update;
-
-$uses
 
 class $builderName
 {

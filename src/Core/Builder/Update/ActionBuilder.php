@@ -2,94 +2,38 @@
 
 namespace Commercetools\Core\Builder\Update;
 
-use Commercetools\Core\Builder\Update\CustomersActionBuilder;
-use Commercetools\Core\Builder\Update\ProductTypesActionBuilder;
-use Commercetools\Core\Builder\Update\TaxCategoriesActionBuilder;
-use Commercetools\Core\Builder\Update\DiscountCodesActionBuilder;
-use Commercetools\Core\Builder\Update\PaymentsActionBuilder;
-use Commercetools\Core\Builder\Update\TypesActionBuilder;
-use Commercetools\Core\Builder\Update\ProductsActionBuilder;
-use Commercetools\Core\Builder\Update\ZonesActionBuilder;
-use Commercetools\Core\Builder\Update\CustomFieldActionBuilder;
-use Commercetools\Core\Builder\Update\CustomerGroupsActionBuilder;
-use Commercetools\Core\Builder\Update\ShippingMethodsActionBuilder;
-use Commercetools\Core\Builder\Update\ShoppingListsActionBuilder;
-use Commercetools\Core\Builder\Update\SubscriptionsActionBuilder;
-use Commercetools\Core\Builder\Update\ProjectActionBuilder;
-use Commercetools\Core\Builder\Update\CartsActionBuilder;
-use Commercetools\Core\Builder\Update\InventoryActionBuilder;
-use Commercetools\Core\Builder\Update\StatesActionBuilder;
-use Commercetools\Core\Builder\Update\OrdersActionBuilder;
-use Commercetools\Core\Builder\Update\ProductDiscountsActionBuilder;
-use Commercetools\Core\Builder\Update\CategoriesActionBuilder;
-use Commercetools\Core\Builder\Update\CartDiscountsActionBuilder;
-use Commercetools\Core\Builder\Update\ReviewsActionBuilder;
-use Commercetools\Core\Builder\Update\ChannelsActionBuilder;
-
 class ActionBuilder
 {
     /**
-     * @return CustomersActionBuilder
+     * @return CartDiscountsActionBuilder
      */
-    public function customers()
+    public function cartDiscounts()
     {
-        return new CustomersActionBuilder();
+        return new CartDiscountsActionBuilder();
     }
 
     /**
-     * @return ProductTypesActionBuilder
+     * @return CartsActionBuilder
      */
-    public function productTypes()
+    public function carts()
     {
-        return new ProductTypesActionBuilder();
+        return new CartsActionBuilder();
     }
 
     /**
-     * @return TaxCategoriesActionBuilder
+     * @return CategoriesActionBuilder
      */
-    public function taxCategories()
+    public function categories()
     {
-        return new TaxCategoriesActionBuilder();
+        return new CategoriesActionBuilder();
     }
 
     /**
-     * @return DiscountCodesActionBuilder
+     * @return ChannelsActionBuilder
      */
-    public function discountCodes()
+    public function channels()
     {
-        return new DiscountCodesActionBuilder();
-    }
-
-    /**
-     * @return PaymentsActionBuilder
-     */
-    public function payments()
-    {
-        return new PaymentsActionBuilder();
-    }
-
-    /**
-     * @return TypesActionBuilder
-     */
-    public function types()
-    {
-        return new TypesActionBuilder();
-    }
-
-    /**
-     * @return ProductsActionBuilder
-     */
-    public function products()
-    {
-        return new ProductsActionBuilder();
-    }
-
-    /**
-     * @return ZonesActionBuilder
-     */
-    public function zones()
-    {
-        return new ZonesActionBuilder();
+        return new ChannelsActionBuilder();
     }
 
     /**
@@ -109,6 +53,86 @@ class ActionBuilder
     }
 
     /**
+     * @return CustomersActionBuilder
+     */
+    public function customers()
+    {
+        return new CustomersActionBuilder();
+    }
+
+    /**
+     * @return DiscountCodesActionBuilder
+     */
+    public function discountCodes()
+    {
+        return new DiscountCodesActionBuilder();
+    }
+
+    /**
+     * @return InventoryActionBuilder
+     */
+    public function inventory()
+    {
+        return new InventoryActionBuilder();
+    }
+
+    /**
+     * @return OrdersActionBuilder
+     */
+    public function orders()
+    {
+        return new OrdersActionBuilder();
+    }
+
+    /**
+     * @return PaymentsActionBuilder
+     */
+    public function payments()
+    {
+        return new PaymentsActionBuilder();
+    }
+
+    /**
+     * @return ProductDiscountsActionBuilder
+     */
+    public function productDiscounts()
+    {
+        return new ProductDiscountsActionBuilder();
+    }
+
+    /**
+     * @return ProductTypesActionBuilder
+     */
+    public function productTypes()
+    {
+        return new ProductTypesActionBuilder();
+    }
+
+    /**
+     * @return ProductsActionBuilder
+     */
+    public function products()
+    {
+        return new ProductsActionBuilder();
+    }
+
+    /**
+     * @return ProjectActionBuilder
+     */
+    public function project()
+    {
+        return new ProjectActionBuilder();
+    }
+
+    /**
+     * @return ReviewsActionBuilder
+     */
+    public function reviews()
+    {
+        return new ReviewsActionBuilder();
+    }
+
+    /**
      * @return ShippingMethodsActionBuilder
      */
     public function shippingMethods()
@@ -125,38 +149,6 @@ class ActionBuilder
     }
 
     /**
-     * @return SubscriptionsActionBuilder
-     */
-    public function subscriptions()
-    {
-        return new SubscriptionsActionBuilder();
-    }
-
-    /**
-     * @return ProjectActionBuilder
-     */
-    public function project()
-    {
-        return new ProjectActionBuilder();
-    }
-
-    /**
-     * @return CartsActionBuilder
-     */
-    public function carts()
-    {
-        return new CartsActionBuilder();
-    }
-
-    /**
-     * @return InventoryActionBuilder
-     */
-    public function inventory()
-    {
-        return new InventoryActionBuilder();
-    }
-
-    /**
      * @return StatesActionBuilder
      */
     public function states()
@@ -165,51 +157,35 @@ class ActionBuilder
     }
 
     /**
-     * @return OrdersActionBuilder
+     * @return SubscriptionsActionBuilder
      */
-    public function orders()
+    public function subscriptions()
     {
-        return new OrdersActionBuilder();
+        return new SubscriptionsActionBuilder();
     }
 
     /**
-     * @return ProductDiscountsActionBuilder
+     * @return TaxCategoriesActionBuilder
      */
-    public function productDiscounts()
+    public function taxCategories()
     {
-        return new ProductDiscountsActionBuilder();
+        return new TaxCategoriesActionBuilder();
     }
 
     /**
-     * @return CategoriesActionBuilder
+     * @return TypesActionBuilder
      */
-    public function categories()
+    public function types()
     {
-        return new CategoriesActionBuilder();
+        return new TypesActionBuilder();
     }
 
     /**
-     * @return CartDiscountsActionBuilder
+     * @return ZonesActionBuilder
      */
-    public function cartDiscounts()
+    public function zones()
     {
-        return new CartDiscountsActionBuilder();
-    }
-
-    /**
-     * @return ReviewsActionBuilder
-     */
-    public function reviews()
-    {
-        return new ReviewsActionBuilder();
-    }
-
-    /**
-     * @return ChannelsActionBuilder
-     */
-    public function channels()
-    {
-        return new ChannelsActionBuilder();
+        return new ZonesActionBuilder();
     }
 
     /**

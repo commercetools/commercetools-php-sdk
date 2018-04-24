@@ -88,6 +88,11 @@ class JsonObjectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('value', $this->getObject()->getKey());
     }
 
+    public function testGetByFieldName()
+    {
+        $this->assertSame('value', $this->getObject()->key());
+    }
+
     public function testSet()
     {
         $this->assertSame('newValue', $this->getObject()->setKey('newValue')->getKey());

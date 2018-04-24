@@ -5,15 +5,15 @@ namespace Commercetools\Core\Builder\Update;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddShippingRateAction;
-use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeIsDefaultAction;
-use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeTaxCategoryAction;
-use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetKeyAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddZoneAction;
-use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeIsDefaultAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeNameAction;
-use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetPredicateAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeTaxCategoryAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveShippingRateAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetKeyAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetPredicateAction;
 
 class ShippingMethodsActionBuilder
 {
@@ -31,39 +31,6 @@ class ShippingMethodsActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#change-isdefault
-     * @param ShippingMethodChangeIsDefaultAction|callable $action
-     * @return $this
-     */
-    public function changeIsDefault($action = null)
-    {
-        $this->addAction($this->resolveAction(ShippingMethodChangeIsDefaultAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#change-taxcategory
-     * @param ShippingMethodChangeTaxCategoryAction|callable $action
-     * @return $this
-     */
-    public function changeTaxCategory($action = null)
-    {
-        $this->addAction($this->resolveAction(ShippingMethodChangeTaxCategoryAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-key
-     * @param ShippingMethodSetKeyAction|callable $action
-     * @return $this
-     */
-    public function setKey($action = null)
-    {
-        $this->addAction($this->resolveAction(ShippingMethodSetKeyAction::class, $action));
-        return $this;
-    }
-
-    /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#add-zone
      * @param ShippingMethodAddZoneAction|callable $action
      * @return $this
@@ -75,13 +42,13 @@ class ShippingMethodsActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#remove-zone
-     * @param ShippingMethodRemoveZoneAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#change-isdefault
+     * @param ShippingMethodChangeIsDefaultAction|callable $action
      * @return $this
      */
-    public function removeZone($action = null)
+    public function changeIsDefault($action = null)
     {
-        $this->addAction($this->resolveAction(ShippingMethodRemoveZoneAction::class, $action));
+        $this->addAction($this->resolveAction(ShippingMethodChangeIsDefaultAction::class, $action));
         return $this;
     }
 
@@ -97,13 +64,13 @@ class ShippingMethodsActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-predicate
-     * @param ShippingMethodSetPredicateAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#change-taxcategory
+     * @param ShippingMethodChangeTaxCategoryAction|callable $action
      * @return $this
      */
-    public function setPredicate($action = null)
+    public function changeTaxCategory($action = null)
     {
-        $this->addAction($this->resolveAction(ShippingMethodSetPredicateAction::class, $action));
+        $this->addAction($this->resolveAction(ShippingMethodChangeTaxCategoryAction::class, $action));
         return $this;
     }
 
@@ -119,6 +86,17 @@ class ShippingMethodsActionBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#remove-zone
+     * @param ShippingMethodRemoveZoneAction|callable $action
+     * @return $this
+     */
+    public function removeZone($action = null)
+    {
+        $this->addAction($this->resolveAction(ShippingMethodRemoveZoneAction::class, $action));
+        return $this;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-description
      * @param ShippingMethodSetDescriptionAction|callable $action
      * @return $this
@@ -126,6 +104,28 @@ class ShippingMethodsActionBuilder
     public function setDescription($action = null)
     {
         $this->addAction($this->resolveAction(ShippingMethodSetDescriptionAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-key
+     * @param ShippingMethodSetKeyAction|callable $action
+     * @return $this
+     */
+    public function setKey($action = null)
+    {
+        $this->addAction($this->resolveAction(ShippingMethodSetKeyAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-predicate
+     * @param ShippingMethodSetPredicateAction|callable $action
+     * @return $this
+     */
+    public function setPredicate($action = null)
+    {
+        $this->addAction($this->resolveAction(ShippingMethodSetPredicateAction::class, $action));
         return $this;
     }
 

@@ -4,34 +4,23 @@ namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Request\Zones\Command\ZoneSetDescriptionAction;
-use Commercetools\Core\Request\Zones\Command\ZoneRemoveLocationAction;
-use Commercetools\Core\Request\Zones\Command\ZoneChangeNameAction;
 use Commercetools\Core\Request\Zones\Command\ZoneAddLocationAction;
+use Commercetools\Core\Request\Zones\Command\ZoneChangeNameAction;
+use Commercetools\Core\Request\Zones\Command\ZoneRemoveLocationAction;
+use Commercetools\Core\Request\Zones\Command\ZoneSetDescriptionAction;
 
 class ZonesActionBuilder
 {
     private $actions = [];
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-zones.html#set-description
-     * @param ZoneSetDescriptionAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-zones.html#add-location
+     * @param ZoneAddLocationAction|callable $action
      * @return $this
      */
-    public function setDescription($action = null)
+    public function addLocation($action = null)
     {
-        $this->addAction($this->resolveAction(ZoneSetDescriptionAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-zones.html#remove-location
-     * @param ZoneRemoveLocationAction|callable $action
-     * @return $this
-     */
-    public function removeLocation($action = null)
-    {
-        $this->addAction($this->resolveAction(ZoneRemoveLocationAction::class, $action));
+        $this->addAction($this->resolveAction(ZoneAddLocationAction::class, $action));
         return $this;
     }
 
@@ -47,13 +36,24 @@ class ZonesActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-zones.html#add-location
-     * @param ZoneAddLocationAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-zones.html#remove-location
+     * @param ZoneRemoveLocationAction|callable $action
      * @return $this
      */
-    public function addLocation($action = null)
+    public function removeLocation($action = null)
     {
-        $this->addAction($this->resolveAction(ZoneAddLocationAction::class, $action));
+        $this->addAction($this->resolveAction(ZoneRemoveLocationAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-zones.html#set-description
+     * @param ZoneSetDescriptionAction|callable $action
+     * @return $this
+     */
+    public function setDescription($action = null)
+    {
+        $this->addAction($this->resolveAction(ZoneSetDescriptionAction::class, $action));
         return $this;
     }
 

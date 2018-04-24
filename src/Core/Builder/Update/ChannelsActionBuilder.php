@@ -4,27 +4,27 @@ namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Request\Channels\Command\ChannelSetAddressAction;
+use Commercetools\Core\Request\Channels\Command\ChannelAddRolesAction;
 use Commercetools\Core\Request\Channels\Command\ChannelChangeDescriptionAction;
+use Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction;
 use Commercetools\Core\Request\Channels\Command\ChannelChangeNameAction;
+use Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction;
+use Commercetools\Core\Request\Channels\Command\ChannelSetAddressAction;
 use Commercetools\Core\Request\Channels\Command\ChannelSetGeoLocation;
 use Commercetools\Core\Request\Channels\Command\ChannelSetRolesAction;
-use Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction;
-use Commercetools\Core\Request\Channels\Command\ChannelAddRolesAction;
-use Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction;
 
 class ChannelsActionBuilder
 {
     private $actions = [];
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-channels.html#set-address
-     * @param ChannelSetAddressAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#add-roles
+     * @param ChannelAddRolesAction|callable $action
      * @return $this
      */
-    public function setAddress($action = null)
+    public function addRoles($action = null)
     {
-        $this->addAction($this->resolveAction(ChannelSetAddressAction::class, $action));
+        $this->addAction($this->resolveAction(ChannelAddRolesAction::class, $action));
         return $this;
     }
 
@@ -40,6 +40,17 @@ class ChannelsActionBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#change-key
+     * @param ChannelChangeKeyAction|callable $action
+     * @return $this
+     */
+    public function changeKey($action = null)
+    {
+        $this->addAction($this->resolveAction(ChannelChangeKeyAction::class, $action));
+        return $this;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-channels.html#change-name
      * @param ChannelChangeNameAction|callable $action
      * @return $this
@@ -47,6 +58,28 @@ class ChannelsActionBuilder
     public function changeName($action = null)
     {
         $this->addAction($this->resolveAction(ChannelChangeNameAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#remove-roles
+     * @param ChannelRemoveRolesAction|callable $action
+     * @return $this
+     */
+    public function removeRoles($action = null)
+    {
+        $this->addAction($this->resolveAction(ChannelRemoveRolesAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-channels.html#set-address
+     * @param ChannelSetAddressAction|callable $action
+     * @return $this
+     */
+    public function setAddress($action = null)
+    {
+        $this->addAction($this->resolveAction(ChannelSetAddressAction::class, $action));
         return $this;
     }
 
@@ -69,39 +102,6 @@ class ChannelsActionBuilder
     public function setRoles($action = null)
     {
         $this->addAction($this->resolveAction(ChannelSetRolesAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-channels.html#remove-roles
-     * @param ChannelRemoveRolesAction|callable $action
-     * @return $this
-     */
-    public function removeRoles($action = null)
-    {
-        $this->addAction($this->resolveAction(ChannelRemoveRolesAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-channels.html#add-roles
-     * @param ChannelAddRolesAction|callable $action
-     * @return $this
-     */
-    public function addRoles($action = null)
-    {
-        $this->addAction($this->resolveAction(ChannelAddRolesAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-channels.html#change-key
-     * @param ChannelChangeKeyAction|callable $action
-     * @return $this
-     */
-    public function changeKey($action = null)
-    {
-        $this->addAction($this->resolveAction(ChannelChangeKeyAction::class, $action));
         return $this;
     }
 

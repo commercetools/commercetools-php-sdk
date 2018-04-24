@@ -4,28 +4,28 @@ namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Request\Reviews\Command\ReviewSetKeyAction;
-use Commercetools\Core\Request\Reviews\Command\ReviewSetCustomerAction;
-use Commercetools\Core\Request\Reviews\Command\ReviewSetTitleAction;
-use Commercetools\Core\Request\Reviews\Command\ReviewSetTextAction;
-use Commercetools\Core\Request\Reviews\Command\ReviewSetTargetAction;
-use Commercetools\Core\Request\Reviews\Command\ReviewTransitionStateAction;
-use Commercetools\Core\Request\Reviews\Command\ReviewSetRatingAction;
-use Commercetools\Core\Request\Reviews\Command\ReviewSetLocaleAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetAuthorNameAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetCustomerAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetKeyAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetLocaleAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetRatingAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetTargetAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetTextAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetTitleAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewTransitionStateAction;
 
 class ReviewsActionBuilder
 {
     private $actions = [];
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-key
-     * @param ReviewSetKeyAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-author-name
+     * @param ReviewSetAuthorNameAction|callable $action
      * @return $this
      */
-    public function setKey($action = null)
+    public function setAuthorName($action = null)
     {
-        $this->addAction($this->resolveAction(ReviewSetKeyAction::class, $action));
+        $this->addAction($this->resolveAction(ReviewSetAuthorNameAction::class, $action));
         return $this;
     }
 
@@ -41,57 +41,13 @@ class ReviewsActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-title
-     * @param ReviewSetTitleAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-key
+     * @param ReviewSetKeyAction|callable $action
      * @return $this
      */
-    public function setTitle($action = null)
+    public function setKey($action = null)
     {
-        $this->addAction($this->resolveAction(ReviewSetTitleAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-text
-     * @param ReviewSetTextAction|callable $action
-     * @return $this
-     */
-    public function setText($action = null)
-    {
-        $this->addAction($this->resolveAction(ReviewSetTextAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-target
-     * @param ReviewSetTargetAction|callable $action
-     * @return $this
-     */
-    public function setTarget($action = null)
-    {
-        $this->addAction($this->resolveAction(ReviewSetTargetAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-reviews.html#transition-state
-     * @param ReviewTransitionStateAction|callable $action
-     * @return $this
-     */
-    public function transitionState($action = null)
-    {
-        $this->addAction($this->resolveAction(ReviewTransitionStateAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-rating
-     * @param ReviewSetRatingAction|callable $action
-     * @return $this
-     */
-    public function setRating($action = null)
-    {
-        $this->addAction($this->resolveAction(ReviewSetRatingAction::class, $action));
+        $this->addAction($this->resolveAction(ReviewSetKeyAction::class, $action));
         return $this;
     }
 
@@ -107,13 +63,57 @@ class ReviewsActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-author-name
-     * @param ReviewSetAuthorNameAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-rating
+     * @param ReviewSetRatingAction|callable $action
      * @return $this
      */
-    public function setAuthorName($action = null)
+    public function setRating($action = null)
     {
-        $this->addAction($this->resolveAction(ReviewSetAuthorNameAction::class, $action));
+        $this->addAction($this->resolveAction(ReviewSetRatingAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-target
+     * @param ReviewSetTargetAction|callable $action
+     * @return $this
+     */
+    public function setTarget($action = null)
+    {
+        $this->addAction($this->resolveAction(ReviewSetTargetAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-text
+     * @param ReviewSetTextAction|callable $action
+     * @return $this
+     */
+    public function setText($action = null)
+    {
+        $this->addAction($this->resolveAction(ReviewSetTextAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#set-title
+     * @param ReviewSetTitleAction|callable $action
+     * @return $this
+     */
+    public function setTitle($action = null)
+    {
+        $this->addAction($this->resolveAction(ReviewSetTitleAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-reviews.html#transition-state
+     * @param ReviewTransitionStateAction|callable $action
+     * @return $this
+     */
+    public function transitionState($action = null)
+    {
+        $this->addAction($this->resolveAction(ReviewTransitionStateAction::class, $action));
         return $this;
     }
 

@@ -8,8 +8,15 @@ namespace Commercetools\Core\Cart;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Model\Cart\CartReference;
+use Commercetools\Core\Model\Cart\CartState;
+use Commercetools\Core\Model\Cart\ReplicaCartDraft;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
+use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
+use Commercetools\Core\Request\Carts\CartReplicateRequest;
+use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
+
 
 class CartCreateRequestTest extends ApiTestCase
 {
@@ -30,7 +37,7 @@ class CartCreateRequestTest extends ApiTestCase
         $cart = $request->mapResponse($response);
 
         if ($cart != null) {
-            $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
+            $this->cleanupRequests[] = $this->deleteRequest = CartDeleteRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
         }
 
         return $cart;
@@ -67,5 +74,41 @@ class CartCreateRequestTest extends ApiTestCase
         } else {
             $this->assertNull($cart);
         }
+    }
+
+    public function testCreateReplicaCartFromCart()
+    {
+        $draft = $this->getDraft();
+        $cart = $this->createCart($draft);
+
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
+            )
+        ;
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->assertFalse($response->isError());
+
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $request = CartReplicateRequest::ofCartId($cart->getId());
+
+        $response = $request->executeWithClient($this->getClient());
+        $replicaCart = $request->mapResponse($response);
+        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($replicaCart->getId(), $replicaCart->getVersion());
+
+        $this->assertNotEmpty($replicaCart->getLineItems());
+
+        $cartLineItem = $cart->getLineItems()->current()->getProductId();
+        $replicaCartLineItem = $replicaCart->getLineItems()->current()->getProductId();
+
+        $this->assertSame($cartLineItem, $replicaCartLineItem);
+        $this->assertNotSame($cart->getId(), $replicaCart->getId());
+        $this->assertSame(CartState::ACTIVE, $replicaCart->getCartState());
     }
 }

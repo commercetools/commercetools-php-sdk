@@ -4,27 +4,16 @@ namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryAddQuantityAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryChangeQuantityAction;
-use Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction;
-use Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction;
+use Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAction;
+use Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction;
+use Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction;
 
 class InventoryActionBuilder
 {
     private $actions = [];
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-expecteddelivery
-     * @param InventorySetExpectedDeliveryAction|callable $action
-     * @return $this
-     */
-    public function setExpectedDelivery($action = null)
-    {
-        $this->addAction($this->resolveAction(InventorySetExpectedDeliveryAction::class, $action));
-        return $this;
-    }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-inventory.html#add-quantity
@@ -49,13 +38,24 @@ class InventoryActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-supplychannel
-     * @param InventorySetSupplyChannelAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-inventory.html#remove-quantity
+     * @param InventoryRemoveQuantityAction|callable $action
      * @return $this
      */
-    public function setSupplyChannel($action = null)
+    public function removeQuantity($action = null)
     {
-        $this->addAction($this->resolveAction(InventorySetSupplyChannelAction::class, $action));
+        $this->addAction($this->resolveAction(InventoryRemoveQuantityAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-expecteddelivery
+     * @param InventorySetExpectedDeliveryAction|callable $action
+     * @return $this
+     */
+    public function setExpectedDelivery($action = null)
+    {
+        $this->addAction($this->resolveAction(InventorySetExpectedDeliveryAction::class, $action));
         return $this;
     }
 
@@ -71,13 +71,13 @@ class InventoryActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-inventory.html#remove-quantity
-     * @param InventoryRemoveQuantityAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-inventory.html#set-supplychannel
+     * @param InventorySetSupplyChannelAction|callable $action
      * @return $this
      */
-    public function removeQuantity($action = null)
+    public function setSupplyChannel($action = null)
     {
-        $this->addAction($this->resolveAction(InventoryRemoveQuantityAction::class, $action));
+        $this->addAction($this->resolveAction(InventorySetSupplyChannelAction::class, $action));
         return $this;
     }
 

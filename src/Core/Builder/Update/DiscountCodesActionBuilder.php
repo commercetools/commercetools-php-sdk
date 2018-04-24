@@ -4,20 +4,31 @@ namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeGroupsAction;
-use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsPerCustomerAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeIsActiveAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetCartPredicateAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetDescriptionAction;
-use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidUntilAction;
-use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidFromAction;
-use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetNameAction;
-use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeIsActiveAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsAction;
-use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsPerCustomerAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetNameAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidFromAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidUntilAction;
 
 class DiscountCodesActionBuilder
 {
     private $actions = [];
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-cartdiscounts
+     * @param DiscountCodeChangeCartDiscountsAction|callable $action
+     * @return $this
+     */
+    public function changeCartDiscounts($action = null)
+    {
+        $this->addAction($this->resolveAction(DiscountCodeChangeCartDiscountsAction::class, $action));
+        return $this;
+    }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-groups
@@ -31,13 +42,13 @@ class DiscountCodesActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-max-applications-per-customer
-     * @param DiscountCodeSetMaxApplicationsPerCustomerAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-isactive
+     * @param DiscountCodeChangeIsActiveAction|callable $action
      * @return $this
      */
-    public function setMaxApplicationsPerCustomer($action = null)
+    public function changeIsActive($action = null)
     {
-        $this->addAction($this->resolveAction(DiscountCodeSetMaxApplicationsPerCustomerAction::class, $action));
+        $this->addAction($this->resolveAction(DiscountCodeChangeIsActiveAction::class, $action));
         return $this;
     }
 
@@ -64,24 +75,24 @@ class DiscountCodesActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-valid-until
-     * @param DiscountCodeSetValidUntilAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-max-applications
+     * @param DiscountCodeSetMaxApplicationsAction|callable $action
      * @return $this
      */
-    public function setValidUntil($action = null)
+    public function setMaxApplications($action = null)
     {
-        $this->addAction($this->resolveAction(DiscountCodeSetValidUntilAction::class, $action));
+        $this->addAction($this->resolveAction(DiscountCodeSetMaxApplicationsAction::class, $action));
         return $this;
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-valid-from
-     * @param DiscountCodeSetValidFromAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-max-applications-per-customer
+     * @param DiscountCodeSetMaxApplicationsPerCustomerAction|callable $action
      * @return $this
      */
-    public function setValidFrom($action = null)
+    public function setMaxApplicationsPerCustomer($action = null)
     {
-        $this->addAction($this->resolveAction(DiscountCodeSetValidFromAction::class, $action));
+        $this->addAction($this->resolveAction(DiscountCodeSetMaxApplicationsPerCustomerAction::class, $action));
         return $this;
     }
 
@@ -97,35 +108,24 @@ class DiscountCodesActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-isactive
-     * @param DiscountCodeChangeIsActiveAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-valid-from
+     * @param DiscountCodeSetValidFromAction|callable $action
      * @return $this
      */
-    public function changeIsActive($action = null)
+    public function setValidFrom($action = null)
     {
-        $this->addAction($this->resolveAction(DiscountCodeChangeIsActiveAction::class, $action));
+        $this->addAction($this->resolveAction(DiscountCodeSetValidFromAction::class, $action));
         return $this;
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-max-applications
-     * @param DiscountCodeSetMaxApplicationsAction|callable $action
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-valid-until
+     * @param DiscountCodeSetValidUntilAction|callable $action
      * @return $this
      */
-    public function setMaxApplications($action = null)
+    public function setValidUntil($action = null)
     {
-        $this->addAction($this->resolveAction(DiscountCodeSetMaxApplicationsAction::class, $action));
-        return $this;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#change-cartdiscounts
-     * @param DiscountCodeChangeCartDiscountsAction|callable $action
-     * @return $this
-     */
-    public function changeCartDiscounts($action = null)
-    {
-        $this->addAction($this->resolveAction(DiscountCodeChangeCartDiscountsAction::class, $action));
+        $this->addAction($this->resolveAction(DiscountCodeSetValidUntilAction::class, $action));
         return $this;
     }
 

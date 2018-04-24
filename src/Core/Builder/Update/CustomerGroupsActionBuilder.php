@@ -4,23 +4,12 @@ namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupSetKeyAction;
 use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupChangeNameAction;
+use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupSetKeyAction;
 
 class CustomerGroupsActionBuilder
 {
     private $actions = [];
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#set-key
-     * @param CustomerGroupSetKeyAction|callable $action
-     * @return $this
-     */
-    public function setKey($action = null)
-    {
-        $this->addAction($this->resolveAction(CustomerGroupSetKeyAction::class, $action));
-        return $this;
-    }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#change-name
@@ -30,6 +19,17 @@ class CustomerGroupsActionBuilder
     public function changeName($action = null)
     {
         $this->addAction($this->resolveAction(CustomerGroupChangeNameAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#set-key
+     * @param CustomerGroupSetKeyAction|callable $action
+     * @return $this
+     */
+    public function setKey($action = null)
+    {
+        $this->addAction($this->resolveAction(CustomerGroupSetKeyAction::class, $action));
         return $this;
     }
 
