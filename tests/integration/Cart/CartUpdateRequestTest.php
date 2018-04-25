@@ -25,6 +25,7 @@ use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\LineItemsTarget;
+use Commercetools\Core\Model\CartDiscount\MultiBuyCustomLineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\MultiBuyLineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\RelativeCartDiscountValue;
 use Commercetools\Core\Model\Common\Address;
@@ -95,6 +96,7 @@ use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
+use League\Flysystem\Adapter\Local;
 
 class CartUpdateRequestTest extends ApiTestCase
 {
@@ -1281,6 +1283,65 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertSame(
             $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount() * 2,
             $cart->getLineItems()->current()->getTotalPrice()->getCentAmount()
+        );
+    }
+
+    public function testMultiBuyCustomLineItemDiscount()
+    {
+        $draft = $this->getDraft();
+        $draft->setCustomLineItems(
+            CustomLineItemDraftCollection::of()
+                ->add(
+                    CustomLineItemDraft::of()
+                        ->setName(LocalizedString::ofLangAndText('en', 'Test'))
+                        ->setSlug('test')
+                        ->setTaxCategory($this->getTaxCategory()->getReference())
+                        ->setMoney(Money::ofCurrencyAndAmount('EUR', 1000))
+                        ->setQuantity(3)
+                )
+        );
+
+        $cart = $this->createCart($draft);
+
+        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
+            RelativeCartDiscountValue::of()->setPermyriad(10000),
+            '1=1',
+            MultiBuyCustomLineItemsTarget::ofPredicateTriggerDiscountedAndMode(
+                '1=1',
+                3,
+                1,
+                MultiBuyCustomLineItemsTarget::MODE_CHEAPEST
+            ),
+            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            true,
+            true
+        );
+        $request = CartDiscountCreateRequest::ofDraft($draft);
+        $response = $request->executeWithClient($this->getClient());
+        $this->cartDiscount = $request->mapResponse($response);
+
+        $discountCode = $this->getDiscountCode();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+
+        $this->assertSame(
+            $this->cartDiscount->getId(),
+            $cart->getCustomLineItems()->current()
+                ->getDiscountedPricePerQuantity()->current()
+                ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                ->getDiscount()->getId()
+        );
+        $this->assertSame(
+            $cart->getCustomLineItems()->current()->getMoney()->getCentAmount() * 2,
+            $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount()
         );
     }
 
