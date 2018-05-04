@@ -17,6 +17,7 @@ use Commercetools\Core\Request\Orders\Command\OrderRemoveDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderRemoveParcelFromDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderRemovePaymentAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddress;
+use Commercetools\Core\Request\Orders\Command\OrderSetCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomerEmail;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction;
@@ -177,6 +178,17 @@ class OrdersActionBuilder
     public function setBillingAddress($action = null)
     {
         $this->addAction($this->resolveAction(OrderSetBillingAddress::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetCustomTypeAction::class, $action));
         return $this;
     }
 

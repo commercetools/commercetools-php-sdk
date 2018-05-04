@@ -29,6 +29,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeActi
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemTaxRateAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerGroupAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction;
@@ -322,6 +323,17 @@ class CartsActionBuilder
     public function setCustomShippingMethod($action = null)
     {
         $this->addAction($this->resolveAction(CartSetCustomShippingMethodAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartSetCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetCustomTypeAction::class, $action));
         return $this;
     }
 
