@@ -7,6 +7,8 @@ use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryAddQuantityAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryChangeQuantityAction;
 use Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction;
+use Commercetools\Core\Request\Inventory\Command\InventorySetCustomFieldAction;
+use Commercetools\Core\Request\Inventory\Command\InventorySetCustomTypeAction;
 use Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAction;
 use Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction;
 use Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction;
@@ -45,6 +47,28 @@ class InventoryActionBuilder
     public function removeQuantity($action = null)
     {
         $this->addAction($this->resolveAction(InventoryRemoveQuantityAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param InventorySetCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(InventorySetCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param InventorySetCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(InventorySetCustomTypeAction::class, $action));
         return $this;
     }
 

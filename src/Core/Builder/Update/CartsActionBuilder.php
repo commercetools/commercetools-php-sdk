@@ -24,6 +24,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetAnonymousIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCartTotalTaxAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCountryAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemTaxAmountAction;
@@ -268,6 +269,17 @@ class CartsActionBuilder
     public function setCountry($action = null)
     {
         $this->addAction($this->resolveAction(CartSetCountryAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartSetCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetCustomFieldAction::class, $action));
         return $this;
     }
 

@@ -18,6 +18,8 @@ use Commercetools\Core\Request\Categories\Command\CategorySetAssetDescriptionAct
 use Commercetools\Core\Request\Categories\Command\CategorySetAssetKeyAction;
 use Commercetools\Core\Request\Categories\Command\CategorySetAssetSourcesAction;
 use Commercetools\Core\Request\Categories\Command\CategorySetAssetTagsAction;
+use Commercetools\Core\Request\Categories\Command\CategorySetCustomFieldAction;
+use Commercetools\Core\Request\Categories\Command\CategorySetCustomTypeAction;
 use Commercetools\Core\Request\Categories\Command\CategorySetDescriptionAction;
 use Commercetools\Core\Request\Categories\Command\CategorySetExternalIdAction;
 use Commercetools\Core\Request\Categories\Command\CategorySetKeyAction;
@@ -180,6 +182,28 @@ class CategoriesActionBuilder
     public function setAssetTags($action = null)
     {
         $this->addAction($this->resolveAction(CategorySetAssetTagsAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CategorySetCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(CategorySetCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CategorySetCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(CategorySetCustomTypeAction::class, $action));
         return $this;
     }
 

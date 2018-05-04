@@ -5,6 +5,8 @@ namespace Commercetools\Core\Builder\Update;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupChangeNameAction;
+use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupSetCustomFieldAction;
+use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupSetCustomTypeAction;
 use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupSetKeyAction;
 
 class CustomerGroupsActionBuilder
@@ -19,6 +21,28 @@ class CustomerGroupsActionBuilder
     public function changeName($action = null)
     {
         $this->addAction($this->resolveAction(CustomerGroupChangeNameAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CustomerGroupSetCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(CustomerGroupSetCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CustomerGroupSetCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(CustomerGroupSetCustomTypeAction::class, $action));
         return $this;
     }
 

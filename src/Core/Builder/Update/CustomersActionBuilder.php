@@ -13,6 +13,7 @@ use Commercetools\Core\Request\Customers\Command\CustomerRemoveAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveBillingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveShippingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCompanyNameAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetCustomFieldAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomTypeAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerGroupAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerNumberAction;
@@ -129,6 +130,17 @@ class CustomersActionBuilder
     public function setCompanyName($action = null)
     {
         $this->addAction($this->resolveAction(CustomerSetCompanyNameAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CustomerSetCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(CustomerSetCustomFieldAction::class, $action));
         return $this;
     }
 
