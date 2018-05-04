@@ -5,6 +5,8 @@ namespace Commercetools\Core\Builder\Update;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetAuthorNameAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetCustomFieldAction;
+use Commercetools\Core\Request\Reviews\Command\ReviewSetCustomTypeAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetCustomerAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetKeyAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetLocaleAction;
@@ -26,6 +28,28 @@ class ReviewsActionBuilder
     public function setAuthorName($action = null)
     {
         $this->addAction($this->resolveAction(ReviewSetAuthorNameAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param ReviewSetCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(ReviewSetCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param ReviewSetCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(ReviewSetCustomTypeAction::class, $action));
         return $this;
     }
 

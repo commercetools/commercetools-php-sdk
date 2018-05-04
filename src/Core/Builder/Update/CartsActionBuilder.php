@@ -24,11 +24,13 @@ use Commercetools\Core\Request\Carts\Command\CartSetAnonymousIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCartTotalTaxAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCountryAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemTaxRateAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerGroupAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction;
@@ -271,6 +273,17 @@ class CartsActionBuilder
     }
 
     /**
+     *
+     * @param CartSetCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customlineitem-customfield
      * @param CartSetCustomLineItemCustomFieldAction|callable $action
      * @return $this
@@ -322,6 +335,17 @@ class CartsActionBuilder
     public function setCustomShippingMethod($action = null)
     {
         $this->addAction($this->resolveAction(CartSetCustomShippingMethodAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartSetCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetCustomTypeAction::class, $action));
         return $this;
     }
 

@@ -12,6 +12,8 @@ use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeSortOrder
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeStackingModeAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeTargetAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeValueAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetCustomFieldAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetCustomTypeAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetDescriptionAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidUntilAction;
@@ -105,6 +107,28 @@ class CartDiscountsActionBuilder
     public function changeValue($action = null)
     {
         $this->addAction($this->resolveAction(CartDiscountChangeValueAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartDiscountSetCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(CartDiscountSetCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartDiscountSetCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(CartDiscountSetCustomTypeAction::class, $action));
         return $this;
     }
 

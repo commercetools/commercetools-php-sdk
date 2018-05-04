@@ -8,6 +8,8 @@ use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDisco
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeGroupsAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeIsActiveAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetCartPredicateAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetCustomFieldAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetCustomTypeAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetDescriptionAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsPerCustomerAction;
@@ -60,6 +62,28 @@ class DiscountCodesActionBuilder
     public function setCartPredicate($action = null)
     {
         $this->addAction($this->resolveAction(DiscountCodeSetCartPredicateAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param DiscountCodeSetCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(DiscountCodeSetCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param DiscountCodeSetCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(DiscountCodeSetCustomTypeAction::class, $action));
         return $this;
     }
 
