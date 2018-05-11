@@ -18,10 +18,14 @@ use Commercetools\Core\Request\Orders\Command\OrderRemoveParcelFromDeliveryActio
 use Commercetools\Core\Request\Orders\Command\OrderRemovePaymentAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddress;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomerEmail;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetLineItemCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLocaleAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelItemsAction;
@@ -195,6 +199,28 @@ class OrdersActionBuilder
 
     /**
      *
+     * @param OrderSetCustomLineItemCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setCustomLineItemCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetCustomLineItemCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetCustomLineItemCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setCustomLineItemCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetCustomLineItemCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
      * @param OrderSetCustomTypeAction|callable $action
      * @return $this
      */
@@ -234,6 +260,28 @@ class OrdersActionBuilder
     public function setDeliveryItems($action = null)
     {
         $this->addAction($this->resolveAction(OrderSetDeliveryItemsAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetLineItemCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setLineItemCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetLineItemCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetLineItemCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setLineItemCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetLineItemCustomTypeAction::class, $action));
         return $this;
     }
 
