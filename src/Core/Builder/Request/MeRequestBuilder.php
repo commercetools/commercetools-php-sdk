@@ -57,7 +57,7 @@ class MeRequestBuilder
      * @param $email
      * @param $password
      * @param bool $updateProductData
-     * @param null $anonymousCartId
+     * @param string $anonymousCartId
      * @return MeLoginRequest
      */
     public function login($email, $password, $updateProductData = false, $anonymousCartId = null)

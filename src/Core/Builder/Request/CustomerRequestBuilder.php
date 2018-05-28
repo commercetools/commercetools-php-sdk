@@ -91,8 +91,8 @@ class CustomerRequestBuilder
         return CustomerLoginRequest::ofEmailPasswordAndUpdateProductData(
             $email,
             $password,
-            $anonymousCartId,
-            $updateProductData
+            $updateProductData,
+            $anonymousCartId
         );
     }
 
