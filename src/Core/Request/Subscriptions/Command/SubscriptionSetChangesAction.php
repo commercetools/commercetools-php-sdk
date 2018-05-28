@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Subscription\ChangeSubscriptionCollection;
 
 /**
  * @package Commercetools\Core\Request\Subscriptions\Command
- *
+ * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#set-changes
  * @method string getAction()
  * @method SubscriptionSetChangesAction setAction(string $action = null)
  * @method ChangeSubscriptionCollection getChanges()

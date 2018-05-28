@@ -12,6 +12,7 @@ use Commercetools\Core\Model\Common\GeoLocation;
 /**
  * @package Commercetools\Core\Request\Channels\Command
  *
+ * @link https://docs.commercetools.com/http-api-projects-channels.html#set-geolocation
  * @method string getAction()
  * @method ChannelSetGeoLocation setAction(string $action = null)
  * @method GeoLocation getGeoLocation()

@@ -12,6 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 /**
  * @package Commercetools\Core\Request\Orders\Command
  *
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#remove-delivery
  * @method string getAction()
  * @method OrderRemoveDeliveryAction setAction(string $action = null)
  * @method string getDeliveryId()

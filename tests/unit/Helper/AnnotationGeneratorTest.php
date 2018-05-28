@@ -2,6 +2,7 @@
 /**
  * @author @jenschude <jens.schulze@commercetools.de>
  */
+
 namespace Commercetools\Core\Helper;
 
 use Commercetools\Core\Helper\Annotate\AnnotationGenerator;

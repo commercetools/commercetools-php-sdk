@@ -13,6 +13,7 @@ use Commercetools\Core\Request\AbstractAction;
 /**
  * @package Commercetools\Core\Request\Orders\Command
  *
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-measurements
  * @method string getAction()
  * @method OrderSetParcelMeasurementsAction setAction(string $action = null)
  * @method string getParcelId()

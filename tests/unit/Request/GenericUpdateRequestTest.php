@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\Category\Category;
@@ -18,9 +19,12 @@ use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
 use Commercetools\Core\Model\ProductType\ProductType;
+use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
+use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Model\Subscription\Subscription;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Zone\Zone;
@@ -37,9 +41,12 @@ use Commercetools\Core\Request\Payments\PaymentUpdateRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
+use Commercetools\Core\Request\Project\ProjectUpdateRequest;
 use Commercetools\Core\Request\Reviews\ReviewUpdateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListUpdateRequest;
 use Commercetools\Core\Request\States\StateUpdateRequest;
+use Commercetools\Core\Request\Subscriptions\SubscriptionUpdateRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryUpdateRequest;
 use Commercetools\Core\Request\Types\TypeUpdateRequest;
 use Commercetools\Core\Request\Zones\ZoneUpdateRequest;
@@ -122,9 +129,17 @@ class GenericUpdateRequestTest extends RequestTestCase
                 ShippingMethodUpdateRequest::class,
                 ShippingMethod::class,
             ],
+            ShoppingListUpdateRequest::class => [
+                ShoppingListUpdateRequest::class,
+                ShoppingList::class,
+            ],
             StateUpdateRequest::class => [
                 StateUpdateRequest::class,
                 State::class,
+            ],
+            SubscriptionUpdateRequest::class => [
+                SubscriptionUpdateRequest::class,
+                Subscription::class,
             ],
             TaxCategoryUpdateRequest::class => [
                 TaxCategoryUpdateRequest::class,
@@ -137,7 +152,7 @@ class GenericUpdateRequestTest extends RequestTestCase
             ZoneUpdateRequest::class => [
                 ZoneUpdateRequest::class,
                 Zone::class,
-            ],
+            ]
         ];
     }
 
@@ -161,5 +176,24 @@ class GenericUpdateRequestTest extends RequestTestCase
     {
         $result = $this->mapEmptyResult($requestClass, ['id', 1]);
         $this->assertNull($result);
+    }
+
+    /**
+     * @dataProvider mapResultProvider
+     * @param $requestClass
+     * @param $resultClass
+     */
+    public function testBuilder($requestClass, $resultClass)
+    {
+        $class = new \ReflectionClass($requestClass);
+        $domain = lcfirst(basename(dirname($class->getFileName())));
+
+        $builder = RequestBuilder::of();
+
+        $result = $this->prophesize($resultClass);
+
+        $domainBuilder = $builder->$domain();
+        $request = $domainBuilder->update($result->reveal());
+        $this->assertInstanceOf($requestClass, $request);
     }
 }
