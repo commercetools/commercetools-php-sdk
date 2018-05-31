@@ -1,3 +1,25 @@
+<a name="2.4.0"></a>
+# [2.4.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.3.0...v2.4.0) (2018-05-31)
+
+
+### Bug Fixes
+
+* **Guzzle5Adapter:** fix applying client options to guzzle5 http client ([e735afd](https://github.com/commercetools/commercetools-php-sdk/commit/e735afd))
+
+
+### Features
+
+* **Attribute:** enhance getting attribute by name from attributes collection ([5d6ef10](https://github.com/commercetools/commercetools-php-sdk/commit/5d6ef10))
+* **Builder:** add request and update actions builder DSL ([3a55e6d](https://github.com/commercetools/commercetools-php-sdk/commit/3a55e6d))
+* **Cart:** Support cart replication ([52d9448](https://github.com/commercetools/commercetools-php-sdk/commit/52d9448)), closes [#392](https://github.com/commercetools/commercetools-php-sdk/issues/392)
+* **CartDiscount:** support MultiBuyDiscount on custom line items ([f53d0b5](https://github.com/commercetools/commercetools-php-sdk/commit/f53d0b5)), closes [#389](https://github.com/commercetools/commercetools-php-sdk/issues/389)
+* **Message:** add customer messages ([2f8c91d](https://github.com/commercetools/commercetools-php-sdk/commit/2f8c91d)), closes [#391](https://github.com/commercetools/commercetools-php-sdk/issues/391)
+* **OAuthManager:** add configuration options for internal HTTP client ([5746c4a](https://github.com/commercetools/commercetools-php-sdk/commit/5746c4a)), closes [#395](https://github.com/commercetools/commercetools-php-sdk/issues/395)
+* **ProductType:** support product type changeAttributeName & changeEnumKey ([#397](https://github.com/commercetools/commercetools-php-sdk/issues/397)) ([8994315](https://github.com/commercetools/commercetools-php-sdk/commit/8994315)), closes [#393](https://github.com/commercetools/commercetools-php-sdk/issues/393)
+* **ProductType:** support product type removeEnumValues update action ([2bf3e13](https://github.com/commercetools/commercetools-php-sdk/commit/2bf3e13)), closes [#388](https://github.com/commercetools/commercetools-php-sdk/issues/388)
+
+
+
 <a name="2.3.0"></a>
 # [2.3.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.2.1...v2.3.0) (2018-03-13)
 
