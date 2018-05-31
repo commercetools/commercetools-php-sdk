@@ -21,7 +21,7 @@ use Commercetools\Core\Helper\Subscriber\Log\LogSubscriber;
 use Commercetools\Core\Error\ApiException;
 use Psr\Log\LogLevel;
 
-class Guzzle5Adapter implements AdapterOptionInterface, CorrelationIdAware, TokenProviderAware
+class Guzzle5Adapter implements AdapterOptionInterface, CorrelationIdAware, TokenProviderAware, ConfigAware
 {
     const DEFAULT_CONCURRENCY = 25;
 
@@ -35,7 +35,7 @@ class Guzzle5Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
      */
     protected $logger;
 
-    private $concurrency;
+    private $concurrency = self::DEFAULT_CONCURRENCY;
 
     /**
      * @param array $options
@@ -47,24 +47,22 @@ class Guzzle5Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
             unset($options['base_uri']);
         }
         if (isset($options['concurrency'])) {
-            $options['pool_size'] = $options['concurrency'];
+            $this->concurrency = $options['concurrency'];
             unset($options['concurrency']);
         }
         if (isset($options['headers'])) {
             $options['defaults']['headers'] = $options['headers'];
             unset($options['headers']);
         }
-        $options = array_merge(
+        $options['defaults'] = array_merge(
             [
                 'allow_redirects' => false,
                 'verify' => true,
                 'timeout' => 60,
-                'connect_timeout' => 10,
-                'pool_size' => self::DEFAULT_CONCURRENCY
+                'connect_timeout' => 10
             ],
-            $options
+            isset($options['defaults']) ? $options['defaults'] : []
         );
-        $this->concurrency = $options['pool_size'];
 
         $this->client = new Client($options);
     }
@@ -282,5 +280,13 @@ class Guzzle5Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
     public static function getAdapterInfo()
     {
         return 'GuzzleHttp/' . Client::VERSION;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getConfig($option)
+    {
+        return $this->client->getDefaultOption($option);
     }
 }

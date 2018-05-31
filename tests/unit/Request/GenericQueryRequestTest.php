@@ -5,10 +5,12 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Model\Cart\CartCollection;
 use Commercetools\Core\Model\CartDiscount\CartDiscountCollection;
 use Commercetools\Core\Model\Category\CategoryCollection;
 use Commercetools\Core\Model\Channel\ChannelCollection;
+use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Customer\CustomerCollection;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupCollection;
 use Commercetools\Core\Model\CustomObject\CustomObjectCollection;
@@ -22,7 +24,9 @@ use Commercetools\Core\Model\ProductDiscount\ProductDiscountCollection;
 use Commercetools\Core\Model\ProductType\ProductTypeCollection;
 use Commercetools\Core\Model\Review\ReviewCollection;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
+use Commercetools\Core\Model\ShoppingList\ShoppingListCollection;
 use Commercetools\Core\Model\State\StateCollection;
+use Commercetools\Core\Model\Subscription\SubscriptionCollection;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryCollection;
 use Commercetools\Core\Model\Type\TypeCollection;
 use Commercetools\Core\Model\Zone\ZoneCollection;
@@ -34,6 +38,7 @@ use Commercetools\Core\Request\CustomerGroups\CustomerGroupQueryRequest;
 use Commercetools\Core\Request\Customers\CustomerQueryRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectQueryRequest;
 use Commercetools\Core\Request\DiscountCodes\DiscountCodeQueryRequest;
+use Commercetools\Core\Request\GraphQL\GraphQLQueryRequest;
 use Commercetools\Core\Request\Inventory\InventoryQueryRequest;
 use Commercetools\Core\Request\Messages\MessageQueryRequest;
 use Commercetools\Core\Request\Orders\OrderQueryRequest;
@@ -43,7 +48,9 @@ use Commercetools\Core\Request\Products\ProductQueryRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeQueryRequest;
 use Commercetools\Core\Request\Reviews\ReviewQueryRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListQueryRequest;
 use Commercetools\Core\Request\States\StateQueryRequest;
+use Commercetools\Core\Request\Subscriptions\SubscriptionQueryRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryQueryRequest;
 use Commercetools\Core\Request\Types\TypeQueryRequest;
 use Commercetools\Core\Request\Zones\ZoneQueryRequest;
@@ -116,6 +123,10 @@ class GenericQueryRequestTest extends RequestTestCase
                 InventoryQueryRequest::class,
                 InventoryEntryCollection::class,
             ],
+            GraphQLQueryRequest::class => [
+                GraphQLQueryRequest::class,
+                null
+            ],
             MessageQueryRequest::class => [
                 MessageQueryRequest::class,
                 MessageCollection::class,
@@ -148,9 +159,17 @@ class GenericQueryRequestTest extends RequestTestCase
                 ShippingMethodQueryRequest::class,
                 ShippingMethodCollection::class,
             ],
+            ShoppingListQueryRequest::class => [
+                ShoppingListQueryRequest::class,
+                ShoppingListCollection::class,
+            ],
             StateQueryRequest::class => [
                 StateQueryRequest::class,
                 StateCollection::class,
+            ],
+            SubscriptionQueryRequest::class => [
+                SubscriptionQueryRequest::class,
+                SubscriptionCollection::class,
             ],
             TaxCategoryQueryRequest::class => [
                 TaxCategoryQueryRequest::class,
@@ -175,6 +194,9 @@ class GenericQueryRequestTest extends RequestTestCase
      */
     public function testMapResult($requestClass, $resultClass, $data = [])
     {
+        if (is_null($resultClass)) {
+            $this->markTestSkipped();
+        }
         $result = $this->mapQueryResult($requestClass, [], $data);
         $this->assertInstanceOf($resultClass, $result);
         $this->assertCount(3, $result);
@@ -187,7 +209,27 @@ class GenericQueryRequestTest extends RequestTestCase
      */
     public function testMapEmptyResult($requestClass, $resultClass)
     {
+        if (is_null($resultClass)) {
+            $this->markTestSkipped();
+        }
         $result = $this->mapEmptyResult($requestClass);
         $this->assertInstanceOf($resultClass, $result);
+    }
+
+    /**
+     * @dataProvider mapResultProvider
+     * @param $requestClass
+     * @param $resultClass
+     */
+    public function testBuilder($requestClass, $resultClass)
+    {
+        $class = new \ReflectionClass($requestClass);
+        $domain = lcfirst(basename(dirname($class->getFileName())));
+
+        $builder = RequestBuilder::of();
+
+        $domainBuilder = $builder->$domain();
+        $request = $domainBuilder->query('');
+        $this->assertInstanceOf($requestClass, $request);
     }
 }

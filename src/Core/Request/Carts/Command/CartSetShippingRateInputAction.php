@@ -12,6 +12,7 @@ use Commercetools\Core\Request\AbstractAction;
 /**
  * @package Commercetools\Core\Request\Carts\Command
  * @link https://dev.commercetools.com/http-api-projects-carts.html#set-shippingrateinput
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#set-shippingrateinput
  * @method string getAction()
  * @method CartSetShippingRateInputAction setAction(string $action = null)
  * @method ShippingRateInput getShippingRateInput()

@@ -11,7 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Project\Command
- * @link https://dev.commercetools.com/http-api-projects-project.html#set-shippingrateinputtype
+ * @link https://docs.commercetools.com/http-api-projects-project.html#set-shippingrateinputtype
  * @method string getAction()
  * @method ProjectSetShippingRateInputTypeAction setAction(string $action = null)
  * @method ShippingRateInputType getShippingRateInputType()

@@ -5,6 +5,7 @@ php:
 - 7.0
 - 5.6
 - 7.1
+- 7.2
 - hhvm
 - nightly
 env:
@@ -24,6 +25,7 @@ before_install:
 - chmod 600 github_deploy_key
 - eval $(ssh-agent -s)
 - ssh-add github_deploy_key
+- rm github_deploy_key
 - PHP=$TRAVIS_PHP_VERSION
 - if [ $PHP != 'hhvm' ] ; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; fi
 before_script:
@@ -33,13 +35,28 @@ before_script:
 - if [ $GUZZLE == '5' ] ; then composer update -o --prefer-dist --prefer-lowest; fi
 - if [ $GUZZLE != '5' ] ; then composer install -o --prefer-dist; fi
 script:
-- ant phpcs-ci
+- if [ $PHP == '7.1' ] && [ $GUZZLE == '6' ]; then ant phpcs-ci; fi
 - if [ $GUZZLE == '5' ] || [ $PHP == '5.6' ] || [ $PHP == 'hhvm' ] ; then vendor/bin/phpunit -c phpunit5.xml.dist --testsuite=unit; fi
 - if [ $GUZZLE == '6' ] && [ $PHP != '5.6' ] ; then vendor/bin/phpunit --testsuite=unit; fi
 - if [ $PHP == '7.0' ] && [ $GUZZLE == '6' ] && [ $TRAVIS_PULL_REQUEST == 'false' ]; then vendor/bin/phpunit --testsuite=integration; fi
 - ant behat
-after_success:
-- if [ $PHP == '7.1' ] && [ $GUZZLE == '6' ] ; then ./push-docs-to-gh-pages.sh; fi
+before_deploy:
+  - if [ $(phpenv version-name) = "7.1" ] ; then ant apigen; fi
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: ./push-docs-to-gh-pages.sh
+    on:
+      branch: master
+      condition: $GUZZLE = '6'
+      php: 7.1
+  - provider: script
+    skip_cleanup: true
+    script: ./push-docs-to-gh-pages.sh
+    on:
+      tags: true
+      condition: $GUZZLE = '6'
+      php: 7.1
 notifications:
   hipchat:
     rooms:

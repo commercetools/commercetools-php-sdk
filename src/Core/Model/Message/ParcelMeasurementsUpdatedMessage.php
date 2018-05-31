@@ -16,6 +16,28 @@ use DateTime;
 /**
  * @package Commercetools\Core\Model\Message
  * @link https://docs.commercetools.com/http-api-projects-messages.html#parcelmeasurementsupdated-message
+ * @method string getId()
+ * @method ParcelMeasurementsUpdatedMessage setId(string $id = null)
+ * @method int getVersion()
+ * @method ParcelMeasurementsUpdatedMessage setVersion(int $version = null)
+ * @method DateTimeDecorator getCreatedAt()
+ * @method ParcelMeasurementsUpdatedMessage setCreatedAt(DateTime $createdAt = null)
+ * @method DateTimeDecorator getLastModifiedAt()
+ * @method ParcelMeasurementsUpdatedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method int getSequenceNumber()
+ * @method ParcelMeasurementsUpdatedMessage setSequenceNumber(int $sequenceNumber = null)
+ * @method Reference getResource()
+ * @method ParcelMeasurementsUpdatedMessage setResource(Reference $resource = null)
+ * @method int getResourceVersion()
+ * @method ParcelMeasurementsUpdatedMessage setResourceVersion(int $resourceVersion = null)
+ * @method string getType()
+ * @method ParcelMeasurementsUpdatedMessage setType(string $type = null)
+ * @method string getDeliveryId()
+ * @method ParcelMeasurementsUpdatedMessage setDeliveryId(string $deliveryId = null)
+ * @method string getParcelId()
+ * @method ParcelMeasurementsUpdatedMessage setParcelId(string $parcelId = null)
+ * @method ParcelMeasurements getMeasurements()
+ * @method ParcelMeasurementsUpdatedMessage setMeasurements(ParcelMeasurements $measurements = null)
  */
 class ParcelMeasurementsUpdatedMessage extends Message
 {

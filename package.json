@@ -1,6 +1,6 @@
 {
   "name": "commercetools-php-sdk-changelog",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "commercetools PHP SDK changelog generator package description",
   "homepage": "https://github.com/commercetools/commercetools-php-sdk",
   "bugs": "https://github.com/commercetools/commercetools-php-sdk/issues",
@@ -8,5 +8,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/commercetools/commercetools-php-sdk.git"
+  },
+  "scripts": {
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -o CHANGELOG.md",
+    "postinstall": "cp tools/commit-msg.sh .git/hooks/commit-msg && cp tools/pre-commit.sh .git/hooks/pre-commit"
+  },
+  "devDependencies": {
+    "conventional-changelog-cli": "^1.3.21"
   }
 }

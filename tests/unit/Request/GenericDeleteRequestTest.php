@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\Category\Category;
@@ -21,7 +22,9 @@ use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
+use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Model\Subscription\Subscription;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Zone\Zone;
@@ -41,7 +44,9 @@ use Commercetools\Core\Request\Products\ProductDeleteRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest;
 use Commercetools\Core\Request\Reviews\ReviewDeleteRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteRequest;
 use Commercetools\Core\Request\States\StateDeleteRequest;
+use Commercetools\Core\Request\Subscriptions\SubscriptionDeleteRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
 use Commercetools\Core\Request\Types\TypeDeleteRequest;
 use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
@@ -128,6 +133,14 @@ class GenericDeleteRequestTest extends RequestTestCase
                 ShippingMethodDeleteRequest::class,
                 ShippingMethod::class,
             ],
+            ShoppingListDeleteRequest::class => [
+                ShoppingListDeleteRequest::class,
+                ShoppingList::class,
+            ],
+            SubscriptionDeleteRequest::class => [
+                SubscriptionDeleteRequest::class,
+                Subscription::class,
+            ],
             StateDeleteRequest::class => [
                 StateDeleteRequest::class,
                 State::class,
@@ -167,5 +180,24 @@ class GenericDeleteRequestTest extends RequestTestCase
     {
         $result = $this->mapEmptyResult($requestClass, ['id', 1]);
         $this->assertNull($result);
+    }
+
+    /**
+     * @dataProvider mapResultProvider
+     * @param $requestClass
+     * @param $resultClass
+     */
+    public function testBuilder($requestClass, $resultClass)
+    {
+        $class = new \ReflectionClass($requestClass);
+        $domain = lcfirst(basename(dirname($class->getFileName())));
+
+        $builder = RequestBuilder::of();
+
+        $result = $this->prophesize($resultClass);
+
+        $domainBuilder = $builder->$domain();
+        $request = $domainBuilder->delete($result->reveal());
+        $this->assertInstanceOf($requestClass, $request);
     }
 }

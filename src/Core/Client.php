@@ -203,7 +203,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
     {
         if (is_null($this->httpClient)) {
             $clientOptions = $this->config->getClientOptions();
-            if (count($clientOptions)) {
+            if (count($clientOptions) > 0) {
                 $options = array_merge($clientOptions, $options);
             }
             $client = parent::getHttpClient($options);

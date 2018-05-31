@@ -6,6 +6,7 @@
 namespace Commercetools\Core;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Monolog\Handler\StreamHandler;
@@ -31,8 +32,9 @@ $search = null;
 if (isset($_POST['search'])) {
     $search = $_POST['search'];
 }
-$request = ProductProjectionSearchRequest::of($config->getContext())
-    ->addParam('text.' . current($config->getContext()->getLanguages()), $search);
+$request = RequestBuilder::of()->productProjections()->search()
+    ->addParam('text.' . current($config->getContext()->getLanguages()), $search)
+    ->setContext($config->getContext());
 
 $log = new Logger('name');
 $log->pushHandler(new StreamHandler('./requests.log'));
@@ -43,7 +45,8 @@ $cache = new FilesystemCachePool($filesystem);
 
 $client = Client::ofConfigCacheAndLogger($config, $cache, $log);
 
-$products = $client->execute($request)->toObject();
+$response = $client->execute($request);
+$products = $request->mapFromResponse($response);
 
 /**
  * @var ProductProjectionCollection $products

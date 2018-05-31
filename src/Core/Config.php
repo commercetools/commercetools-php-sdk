@@ -174,6 +174,8 @@ class Config implements ContextAwareInterface
 
     protected $clientOptions = [];
 
+    protected $oauthClientOptions = [];
+
     public function __construct()
     {
         $this->enableCorrelationId = Uuid::active();
@@ -679,6 +681,24 @@ class Config implements ContextAwareInterface
     public function setClientOptions(array $clientOptions)
     {
         $this->clientOptions = $clientOptions;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOAuthClientOptions()
+    {
+        return $this->oauthClientOptions;
+    }
+
+    /**
+     * @param array $clientOptions
+     * @return Config
+     */
+    public function setOAuthClientOptions(array $clientOptions)
+    {
+        $this->oauthClientOptions = $clientOptions;
         return $this;
     }
 
