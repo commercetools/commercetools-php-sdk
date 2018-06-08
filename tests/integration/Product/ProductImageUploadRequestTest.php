@@ -97,9 +97,9 @@ class ProductImageUploadRequestTest extends ApiTestCase
         $fInfo = finfo_open(FILEINFO_MIME_TYPE);
         $mimeType = finfo_file($fInfo, $fileName);
 
-        $file1 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, '1', $mimeType);
-        $file2 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, '2', $mimeType);
-        $file3 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, '3', $mimeType);
+        $file1 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i1', $mimeType);
+        $file2 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i2', $mimeType);
+        $file3 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i3', $mimeType);
 
         $request = ProductImageUploadRequest::ofIdSkuAndFile(
             $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
@@ -175,9 +175,9 @@ class ProductImageUploadRequestTest extends ApiTestCase
         $fInfo = finfo_open(FILEINFO_MIME_TYPE);
         $mimeType = finfo_file($fInfo, $fileName);
 
-        $file1 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, '1', $mimeType);
-        $file2 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, '2', $mimeType);
-        $file3 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, '3', $mimeType);
+        $file1 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i1', $mimeType);
+        $file2 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i2', $mimeType);
+        $file3 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i3', $mimeType);
 
         $request = ProductImageUploadRequest::ofIdSkuAndFile(
             $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),

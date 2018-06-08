@@ -467,7 +467,7 @@ class ApiTestCase extends TestCase
     protected function getRegion()
     {
         if (is_null($this->region)) {
-            $this->region = (string)mt_rand(1, 1000);
+            $this->region = "r" . (string)mt_rand(1, 1000);
         }
 
         return $this->region;
