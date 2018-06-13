@@ -41,6 +41,8 @@ use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\EnumType;
 use Commercetools\Core\Model\ProductType\StringType;
+use Commercetools\Core\Request\Carts\CartUpdateRequest;
+use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
 use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
@@ -524,17 +526,11 @@ class ErrorResponseTest extends ApiTestCase
 
     public function testInvalidOperation()
     {
-        $product = $this->getProduct();
+        $cart = $this->getCart();
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
             ->addAction(
-                ProductAddVariantAction::of()
-                    ->setSku($this->getTestRun() . '-1')
-                    ->setAttributes(
-                        AttributeCollection::of()->add(
-                            Attribute::of()->setName('uniqueField')->setValue('123456')
-                        )
-                    )
+                CartAddLineItemAction::of()
             )
         ;
         $response = $request->executeWithClient($this->getClient());
@@ -542,12 +538,11 @@ class ErrorResponseTest extends ApiTestCase
         $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
         $error = $response->getErrors()->current();
-        //TODO: fix error assertion
-//        $this->assertInstanceOf(
-//            InvalidOperationError::class,
-//            $error
-//        );
-//        $this->assertSame(InvalidOperationError::CODE, $error->getCode());
+        $this->assertInstanceOf(
+            InvalidOperationError::class,
+            $error
+        );
+        $this->assertSame(InvalidOperationError::CODE, $error->getCode());
     }
 
     public function testInvalidField()
