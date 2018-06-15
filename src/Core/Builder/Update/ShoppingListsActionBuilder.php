@@ -14,6 +14,7 @@ use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListChangeTextLineI
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListChangeTextLineItemsOrderAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListRemoveLineItemAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListRemoveTextLineItemAction;
+use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetAnonymousIdAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetCustomFieldAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetCustomTypeAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetCustomerAction;
@@ -138,6 +139,17 @@ class ShoppingListsActionBuilder
     public function removeTextLineItem($action = null)
     {
         $this->addAction($this->resolveAction(ShoppingListRemoveTextLineItemAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param ShoppingListSetAnonymousIdAction|callable $action
+     * @return $this
+     */
+    public function setAnonymousId($action = null)
+    {
+        $this->addAction($this->resolveAction(ShoppingListSetAnonymousIdAction::class, $action));
         return $this;
     }
 

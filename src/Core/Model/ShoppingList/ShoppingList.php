@@ -41,6 +41,8 @@ use DateTime;
  * @method ShoppingList setCustom(CustomFieldObject $custom = null)
  * @method int getDeleteDaysAfterLastModification()
  * @method ShoppingList setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
+ * @method string getAnonymousId()
+ * @method ShoppingList setAnonymousId(string $anonymousId = null)
  */
 class ShoppingList extends JsonObject
 {
@@ -65,7 +67,8 @@ class ShoppingList extends JsonObject
             'lineItems' => [static::TYPE => LineItemCollection::class],
             'textLineItems' => [static::TYPE => TextLineItemCollection::class],
             'custom' => [static::TYPE => CustomFieldObject::class],
-            'deleteDaysAfterLastModification' => [static::TYPE => 'int']
+            'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
+            'anonymousId' => [static::TYPE => 'string']
         ];
     }
 }
