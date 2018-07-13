@@ -62,7 +62,8 @@ Please read the [Changelog](CHANGELOG.md) before updating in any case.
 
 ### Getting started
 
-To get up and running, [create a free test project](http://admin.sphere.io) on the commercetools platform with API credentials (Menu "Developers"->"API Clients").
+To get up and running, create a free test project ([EU located](https://admin.commercetools.com/en/signup) or [US located](https://admin.commercetools.co/en/signup)) on the commercetools platform. To generate your API credentials go to [EU Merchant Center](https://mc.commercetools.com/) or [US Merchant Center](https://mc.commercetools.co/) (Menu "Settings"->"Developer Settings"->"API Clients"->"Create New Api Client").
+You need to select the template for the "Admin client".
 
 ```php
 <?php
@@ -104,6 +105,18 @@ foreach ($products as $product) {
 
 ```
 
+If you prefer not to have a client with all admin rights, you need to explicitly include the client's permission scopes that you selected when creating the client, on the client's configuration:
+
+```php
+<?php
+$config = [
+    'client_id' => 'my client id',
+    'client_secret' => 'my client secret',
+    'project' => 'my project id',
+    'scope' => 'permission_scope and_another_scope'
+];
+```
+
 In real world, you will not put your API credentials directly into code but use a config file or your framework's config or dependency injection system for that.
 
 #### Using the phar distribution
@@ -118,8 +131,8 @@ require __DIR__ . '/commercetools-php-sdk.phar';
 
 $config = \Commercetools\Core\Config::fromArray([
     'client_id' => 'myClientId',
-     'client_secret' => 'myClientSecret',
-      'project' => 'myProjectId'
+    'client_secret' => 'myClientSecret',
+    'project' => 'myProjectId'
 ]);
 $client = \Commercetools\Core\Client::ofConfig($config);
 $request = \Commercetools\Core\Request\Project\ProjectGetRequest::of();
