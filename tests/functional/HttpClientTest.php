@@ -75,7 +75,7 @@ class HttpClientTest extends TestCase
             $config['config']['curl'] = $options['curl'];
         }
         if (isset($options['headers'])) {
-            $config['defaults']['headers'] = $options['headers'];
+            $config['headers'] = $options['headers'];
         }
 
         return $config;
