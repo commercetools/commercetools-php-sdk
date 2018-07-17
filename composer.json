@@ -27,7 +27,7 @@
       ],
       "Commercetools\\Core\\Test\\Functional": [
         "tests/functional/"
-      ],
+      ]
     }
   },
   "require": {
