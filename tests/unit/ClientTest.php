@@ -827,34 +827,4 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(ConfigAware::class, $client->getHttpClient());
         $this->assertFalse($client->getHttpClient()->getConfig('verify'));
     }
-
-    /**
-     * @expectedException \GuzzleHttp\Exception\ConnectException
-     */
-    public function testTLSFail()
-    {
-        $client = new HttpClient();
-        $client->get(
-            'https://api.escemo.com',
-            [
-                'curl' => [
-                    CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_1
-                ]
-            ]
-        );
-    }
-
-    public function testTLSSuccess()
-    {
-        $client = new HttpClient();
-        $reponse = $client->get(
-            'https://api.escemo.com',
-            [
-                'curl' => [
-                    CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2
-                ]
-            ]
-        );
-        $this->assertSame(200, $reponse->getStatusCode());
-    }
 }
