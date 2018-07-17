@@ -20,12 +20,14 @@ class HttpClientTest extends TestCase
         $client = new Client();
         $client->get(
             'https://api.escemo.com',
-            [
-                'curl' => [
-                    CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_1
-                ],
-                'headers' => $headers
-            ]
+            $this->getOptions(
+                [
+                    'curl' => [
+                        CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_1
+                    ],
+                    'headers' => $headers
+                ]
+            )
         );
     }
 
@@ -35,12 +37,14 @@ class HttpClientTest extends TestCase
         $headers = ['User-Agent' => $this->getUserAgent()];
         $reponse = $client->get(
             'https://api.escemo.com',
-            [
-                'curl' => [
-                    CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2
-                ],
-                'headers' => $headers
-            ]
+            $this->getOptions(
+                [
+                    'curl' => [
+                        CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2
+                    ],
+                    'headers' => $headers
+                ]
+            )
         );
         $this->assertSame(200, $reponse->getStatusCode());
     }
@@ -52,16 +56,34 @@ class HttpClientTest extends TestCase
         $headers = ['User-Agent' => $this->getUserAgent()];
         $reponse = $client->get(
             'https://api.escemo.com',
-            [
-                'headers' => $headers
-            ]
+            $this->getOptions(
+                [
+                    'headers' => $headers
+                ]
+            )
         );
         $this->assertSame(200, $reponse->getStatusCode());
     }
 
+    protected function getOptions(array $options = [])
+    {
+        if (version_compare(Client::VERSION, '6.0.0', '>=')) {
+            return $options;
+        }
+        $config = [];
+        if (isset($options['curl'])) {
+            $config['config']['curl'] = $options['curl'];
+        }
+        if (isset($options['headers'])) {
+            $config['defaults']['headers'] = $options['headers'];
+        }
+
+        return $config;
+    }
+
     protected function getUserAgent()
     {
-        $agent = 'commercetools-php-sdk/' . AbstractHttpClient::VERSION;
+        $agent = 'commercetools-php-sdk-tls/' . AbstractHttpClient::VERSION;
 
         $agent .= ' (Guzzle/' . Client::VERSION;
         if (extension_loaded('curl') && function_exists('curl_version')) {
