@@ -29,7 +29,7 @@ class HttpClientTest extends TestCase
         );
     }
 
-    public function testTLSSuccess()
+    public function testTLSForced1_2Success()
     {
         $client = new Client();
         $headers = ['User-Agent' => $this->getUserAgent()];
@@ -39,6 +39,20 @@ class HttpClientTest extends TestCase
                 'curl' => [
                     CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2
                 ],
+                'headers' => $headers
+            ]
+        );
+        $this->assertSame(200, $reponse->getStatusCode());
+    }
+
+
+    public function testTLSSuccess()
+    {
+        $client = new Client();
+        $headers = ['User-Agent' => $this->getUserAgent()];
+        $reponse = $client->get(
+            'https://api.escemo.com',
+            [
                 'headers' => $headers
             ]
         );
