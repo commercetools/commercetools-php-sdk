@@ -71,16 +71,26 @@ class Tls12Checker
         }
     }
 
+    private function checkCurlVersion()
+    {
+        $curlVersion = curl_version();
+        $supportsTLS12 = true;
+        if (version_compare(curl_version()['version'], '7.34.0', '<')) {
+            $supportsTLS12 = false;
+        }
+        echo 'Curl version: ' . ($supportsTLS12 ? "\033[32m" : "\033[31m") . curl_version()['version'] . "\033[0m" . ($supportsTLS12 ? '' : '(TLS 1.2 not supported)') . PHP_EOL;
+
+        if (isset($curlVersion['ssl_version'])) {
+            echo 'Curl SSL Library: ' . curl_version()['ssl_version'] . PHP_EOL;
+        }
+    }
+
     /**
      * @return int
      */
     public function check()
     {
-        $curlVersion = curl_version();
-        echo 'Curl version: ' . curl_version()['version'] . PHP_EOL;
-        if (isset($curlVersion['ssl_version'])) {
-            echo 'Curl SSL Library: ' . curl_version()['ssl_version'] . PHP_EOL;
-        }
+        $this->checkCurlVersion();
 
         echo "Checking TLS 1.2 connection ... ";
         try {
