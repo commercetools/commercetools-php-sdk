@@ -54,39 +54,77 @@ class Tls12Checker
     /**
      * @throws \Exception
      */
-    private function checkApiConnection()
+    private function checkApiConnection($cipher = null)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://api.escemo.com");
         curl_setopt($ch, CURLOPT_SSLVERSION, 6);
+        if (!is_null($cipher)) {
+            curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, $cipher);
+        }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
         curl_close($ch);
 
-        if ($response === false) {
-            throw new \Exception('Could not connect not connect to API using TLS 1.2', 1);
+        if ($response == false) {
+            throw new \Exception('Could not connect not connect to API using TLS 1.2' . (is_null($cipher) ? '' : ' with cipher ' . $cipher), 1);
         }
     }
 
     /**
-     * @throws \Exception
+     * @return int
      */
     public function check()
     {
-        $this->checkCiphers();
-        $this->checkApiConnection();
+        $curlVersion = curl_version();
+        echo 'Curl version: ' . curl_version()['version'] . PHP_EOL;
+        if (isset($curlVersion['ssl_version'])) {
+            echo 'Curl SSL Library: ' . curl_version()['ssl_version'] . PHP_EOL;
+        }
+
+        echo "Checking TLS 1.2 connection ... ";
+        try {
+            $this->checkCiphers();
+            $this->checkApiConnection();
+        } catch (\Exception $exception) {
+            echo "\033[31mFailed\033[0m" . PHP_EOL;
+            echo $exception->getMessage() . PHP_EOL;
+            return (int)$exception->getCode();
+        }
+
+        echo "\033[32mOK\033[0m" . PHP_EOL;
+
+        return 0;
+    }
+
+    private function availableCiphers()
+    {
+        $localCiphers = explode(' ', exec('openssl ciphers \'ALL:eNULL\' | tr \':\' \' \''));
+        $allowedCiphers = [];
+        foreach ($localCiphers as $localCipher) {
+            exec('echo -n | openssl s_client -connect api.escemo.com:443 -cipher ' . $localCipher . ' -tls1_2 2>&1', $dummy, $status);
+            if ($status === 0) {
+                $allowedCiphers[] = $localCipher;
+            }
+        }
+
+        return $allowedCiphers;
+    }
+
+    private function checkAvailableCiphers()
+    {
+        $availableCiphers = $this->availableCiphers();
+        foreach ($availableCiphers as $cipher) {
+            echo 'Testing ' . $cipher . '...';
+            try {
+                $this->checkApiConnection($cipher);
+                echo "\033[32mOK\033[0m" . PHP_EOL;
+            } catch (\Exception $exception) {
+                echo "\033[31mFailed\033[0m" . PHP_EOL;
+            }
+        }
     }
 }
 
 $checker = new Tls12Checker();
-
-echo "Checking TLS 1.2 connection ... ";
-try {
-    $checker->check();
-} catch (\Exception $exception) {
-    echo "\033[31mFailed\033[0m" . PHP_EOL;
-    echo $exception->getMessage() . PHP_EOL;
-    exit($exception->getCode());
-}
-
-echo "\033[32mOK\033[0m" . PHP_EOL;
+exit($checker->check());
