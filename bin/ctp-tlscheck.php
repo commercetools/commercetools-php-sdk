@@ -48,7 +48,7 @@ class Tls12Checker
         if (count($diff) < count($allowedCiphers)) {
             return;
         };
-        throw new \Exception('None of the allowed cipher suites are supported: ' . implode(', ', $allowedCiphers), 1);
+        throw new \Exception('None of the allowed cipher suites are supported by curl: ' . implode(', ', $allowedCiphers), 1);
     }
 
     /**
