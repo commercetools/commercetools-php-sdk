@@ -59,6 +59,9 @@
   "replaces": {
     "commercetools/commons": "*"
   },
+  "bin": [
+    "bin/ctp-tlscheck.php"
+  ],
   "suggest": {
     "cache/redis-adapter": "For usage of a redis server to store the client access token",
     "cache/doctrine-adapter": "For usage of a doctrine cache instance to store the client access token"
