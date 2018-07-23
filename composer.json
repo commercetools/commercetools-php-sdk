@@ -24,9 +24,6 @@
       ],
       "Commercetools\\Core\\Fixtures\\": [
         "tests/fixtures/"
-      ],
-      "Commercetools\\Core\\Test\\Functional\\": [
-        "tests/functional/"
       ]
     }
   },
