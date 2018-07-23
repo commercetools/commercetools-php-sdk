@@ -7,6 +7,7 @@ namespace Commercetools\Core\Request\Orders;
 
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\RequestTestCase;
 use Commercetools\Core\Response\ResourceResponse;
 
@@ -64,8 +65,12 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
          * @var OrderCreateFromCartRequest $request
          */
         $request = OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1);
+        $stateReference = StateReference::ofId('123');
         $request->setOrderNumber('12345678')
-            ->setPaymentState('paid');
+            ->setPaymentState('paid')
+            ->setOrderState('Confirmed')
+            ->setShipmentState('Ready')
+            ->setState($stateReference);
 
         $httpRequest = $request->httpRequest();
 
@@ -73,7 +78,13 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
             'id' => '12345',
             'version' => 1,
             'orderNumber' => '12345678',
-            'paymentState' => 'paid'
+            'paymentState' => 'paid',
+            'orderState' => 'Confirmed',
+            'shipmentState' => 'Ready',
+            'state' => [
+                'typeId' => 'state',
+                'id' => '123'
+            ]
         ];
         $this->assertJsonStringEqualsJsonString(json_encode($expectedResult), (string)$httpRequest->getBody());
     }
