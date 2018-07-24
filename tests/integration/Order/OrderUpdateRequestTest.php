@@ -1197,6 +1197,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->assertSame('Pending', $order->getPaymentState());
         $this->assertSame('Complete', $order->getOrderState());
         $this->assertInstanceOf(StateReference::class, $order->getState());
+        $this->assertSame($stateReference->getId(), $order->getState()->getId());
         $this->assertSame('Delayed', $order->getShipmentState());
     }
 }
