@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\CustomObjects;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\HttpRequest;
 use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\Request\DataErasureTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
@@ -19,6 +20,8 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CustomObjectDeleteByKeyRequest extends AbstractCustomObjectRequest
 {
+    use DataErasureTrait;
+
     /**
      * @return HttpRequest
      * @internal

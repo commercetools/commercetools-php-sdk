@@ -9,6 +9,7 @@ namespace Commercetools\Core\Request\Customers;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Request\DataErasureTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
@@ -20,6 +21,8 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CustomerDeleteRequest extends AbstractDeleteRequest
 {
+    use DataErasureTrait;
+
     protected $resultClass = Customer::class;
 
     /**
