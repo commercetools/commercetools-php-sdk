@@ -45,7 +45,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     protected $resultClass = Order::class;
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCartId()
     {
@@ -53,7 +53,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $cartId
+     * @param string $cartId
      * @return $this
      */
     public function setCartId($cartId)
@@ -64,7 +64,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getVersion()
     {
@@ -72,7 +72,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $version
+     * @param int $version
      * @return $this
      */
     public function setVersion($version)
@@ -83,7 +83,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getOrderNumber()
     {
@@ -91,7 +91,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $orderNumber
+     * @param string $orderNumber
      * @return $this
      */
     public function setOrderNumber($orderNumber)
@@ -102,7 +102,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getPaymentState()
     {
@@ -110,7 +110,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $paymentState
+     * @param string $paymentState
      * @return $this
      */
     public function setPaymentState($paymentState)
@@ -121,7 +121,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getOrderState()
     {
@@ -129,7 +129,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $orderState
+     * @param string $orderState
      * @return $this
      */
     public function setOrderState($orderState)
@@ -140,7 +140,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @return mixed
+     * @return StateReference
      */
     public function getState()
     {
@@ -159,7 +159,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getShipmentState()
     {
@@ -167,7 +167,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $shipmentState
+     * @param string $shipmentState
      * @return $this
      */
     public function setShipmentState($shipmentState)
