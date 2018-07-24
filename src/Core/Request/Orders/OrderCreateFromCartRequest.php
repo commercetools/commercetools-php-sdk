@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\Orders;
 
+use Commercetools\Core\Model\State\StateReference;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\HttpRequestInterface;
@@ -29,16 +30,22 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     const VERSION = 'version';
     const ORDER_NUMBER = 'orderNumber';
     const PAYMENT_STATE = 'paymentState';
+    const ORDER_STATE = 'orderState';
+    const STATE = 'state';
+    const SHIPMENT_STATE = 'shipmentState';
 
     protected $cartId;
     protected $version;
     protected $orderNumber;
     protected $paymentState;
+    protected $orderState;
+    protected $state;
+    protected $shipmentState;
 
     protected $resultClass = Order::class;
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCartId()
     {
@@ -46,7 +53,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $cartId
+     * @param string $cartId
      * @return $this
      */
     public function setCartId($cartId)
@@ -57,7 +64,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getVersion()
     {
@@ -65,7 +72,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $version
+     * @param int $version
      * @return $this
      */
     public function setVersion($version)
@@ -76,7 +83,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getOrderNumber()
     {
@@ -84,7 +91,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $orderNumber
+     * @param string $orderNumber
      * @return $this
      */
     public function setOrderNumber($orderNumber)
@@ -95,7 +102,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getPaymentState()
     {
@@ -103,12 +110,69 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @param $paymentState
+     * @param string $paymentState
      * @return $this
      */
     public function setPaymentState($paymentState)
     {
         $this->paymentState = $paymentState;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderState()
+    {
+        return $this->orderState;
+    }
+
+    /**
+     * @param string $orderState
+     * @return $this
+     */
+    public function setOrderState($orderState)
+    {
+        $this->orderState = $orderState;
+
+        return $this;
+    }
+
+    /**
+     * @return StateReference
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param StateReference $state
+     * @return $this
+     */
+    public function setState(StateReference $state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipmentState()
+    {
+        return $this->shipmentState;
+    }
+
+    /**
+     * @param string $shipmentState
+     * @return $this
+     */
+    public function setShipmentState($shipmentState)
+    {
+        $this->shipmentState = $shipmentState;
 
         return $this;
     }
@@ -160,6 +224,15 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
         }
         if (!is_null($this->orderNumber)) {
             $payload[static::ORDER_NUMBER] = $this->getOrderNumber();
+        }
+        if (!is_null($this->orderState)) {
+            $payload[static::ORDER_STATE] = $this->getOrderState();
+        }
+        if (!is_null($this->state)) {
+            $payload[static::STATE] = $this->getState();
+        }
+        if (!is_null($this->shipmentState)) {
+            $payload[static::SHIPMENT_STATE] = $this->getShipmentState();
         }
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }
