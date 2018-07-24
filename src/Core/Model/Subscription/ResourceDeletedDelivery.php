@@ -5,7 +5,9 @@
 
 namespace Commercetools\Core\Model\Subscription;
 
+use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Subscription
@@ -17,6 +19,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method ResourceDeletedDelivery setResource(Reference $resource = null)
  * @method int getVersion()
  * @method ResourceDeletedDelivery setVersion(int $version = null)
+ * @method DateTimeDecorator getModifiedAt()
+ * @method ResourceDeletedDelivery setModifiedAt(DateTime $modifiedAt = null)
  */
 class ResourceDeletedDelivery extends Delivery
 {
@@ -24,6 +28,8 @@ class ResourceDeletedDelivery extends Delivery
     {
         $definition = parent::fieldDefinitions();
         $definition['version'] = [static::TYPE => 'int'];
+        $definition['modifiedAt'] = [static::TYPE => DateTime::class, static::DECORATOR => DateTimeDecorator::class ];
+
         return $definition;
     }
 }
