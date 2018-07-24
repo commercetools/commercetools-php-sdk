@@ -11,6 +11,7 @@ use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeSor
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeValueAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetDescriptionAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidFromAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidFromAndUntilAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidUntilAction;
 
 class ProductDiscountsActionBuilder
@@ -91,6 +92,17 @@ class ProductDiscountsActionBuilder
     public function setValidFrom($action = null)
     {
         $this->addAction($this->resolveAction(ProductDiscountSetValidFromAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#set-valid-from-and-until
+     * @param ProductDiscountSetValidFromAndUntilAction|callable $action
+     * @return $this
+     */
+    public function setValidFromAndUntil($action = null)
+    {
+        $this->addAction($this->resolveAction(ProductDiscountSetValidFromAndUntilAction::class, $action));
         return $this;
     }
 

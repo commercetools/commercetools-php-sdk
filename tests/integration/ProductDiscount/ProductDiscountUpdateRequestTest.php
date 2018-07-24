@@ -19,6 +19,7 @@ use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeSor
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeValueAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetDescriptionAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidFromAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidFromAndUntilAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidUntilAction;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountCreateRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest;
@@ -253,6 +254,32 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf(ProductDiscount::class, $result);
         $validUntil->setTimezone(new \DateTimeZone('UTC'));
         $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
+        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+    }
+
+    public function testSetValidFromAndUntil()
+    {
+        $draft = $this->getDraft('set-valid-from-until');
+        $productDiscount = $this->createProductDiscount($draft);
+
+
+        $validFrom = new \DateTime();
+        $validUntil = new \DateTime('+1 second');
+        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
+            $productDiscount->getId(),
+            $productDiscount->getVersion()
+        )
+            ->addAction(ProductDiscountSetValidFromAndUntilAction::of()->setValidFrom($validFrom)->setValidUntil($validUntil))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ProductDiscount::class, $result);
+        $validUntil->setTimezone(new \DateTimeZone('UTC'));
+        $validFrom->setTimezone(new \DateTimeZone('UTC'));
+        $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
+        $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
         $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
     }
 }
