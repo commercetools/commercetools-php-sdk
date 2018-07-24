@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\Payments;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteByKeyRequest;
 use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Request\DataErasureTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\MapperInterface;
@@ -20,6 +21,8 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class PaymentDeleteByKeyRequest extends AbstractDeleteByKeyRequest
 {
+    use DataErasureTrait;
+
     protected $resultClass = Payment::class;
 
     /**

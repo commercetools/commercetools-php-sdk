@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\Reviews;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Model\Review\Review;
+use Commercetools\Core\Request\DataErasureTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
@@ -19,6 +20,8 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ReviewDeleteRequest extends AbstractDeleteRequest
 {
+    use DataErasureTrait;
+
     protected $resultClass = Review::class;
 
     /**

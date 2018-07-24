@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\Orders;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Request\DataErasureTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
@@ -19,6 +20,8 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class OrderDeleteRequest extends AbstractDeleteRequest
 {
+    use DataErasureTrait;
+
     protected $resultClass = Order::class;
 
     /**

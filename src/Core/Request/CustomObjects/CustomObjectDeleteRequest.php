@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\CustomObjects;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\Request\DataErasureTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
@@ -19,6 +20,8 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CustomObjectDeleteRequest extends AbstractDeleteRequest
 {
+    use DataErasureTrait;
+
     protected $resultClass = CustomObject::class;
 
     /**
