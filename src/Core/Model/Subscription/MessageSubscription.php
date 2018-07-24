@@ -21,7 +21,7 @@ class MessageSubscription extends JsonObject
     {
         return [
             'resourceTypeId' => [static::TYPE => 'string'],
-            'types' => [static::TYPE => 'array']
+            'types' => [static::TYPE => 'array'],
         ];
     }
 }

@@ -30,6 +30,8 @@ use DateTime;
  * @method MessageDelivery setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method MessageDelivery setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method PayloadNotIncluded getPayloadNotIncluded()
+ * @method MessageDelivery setPayloadNotIncluded(PayloadNotIncluded $payloadNotIncluded = null)
  */
 class MessageDelivery extends Delivery
 {
@@ -51,13 +53,28 @@ class MessageDelivery extends Delivery
                     static::TYPE => DateTime::class,
                     static::DECORATOR => DateTimeDecorator::class
                 ],
+                'payloadNotIncluded' => [static::TYPE => PayloadNotIncluded::class],
             ]
         );
         return $definition;
     }
 
+    /**
+     * @return Message
+     */
     public function getMessage()
     {
         return Message::fromArray($this->rawData);
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessageType()
+    {
+        if (is_null($this->getPayloadNotIncluded())) {
+            return $this->getMessage()->getType();
+        }
+        return $this->getPayloadNotIncluded()->getPayloadType();
     }
 }
