@@ -12,7 +12,6 @@ use Commercetools\Core\Model\Cart\CustomLineItemDraft;
 use Commercetools\Core\Model\Cart\CustomLineItemDraftCollection;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
-use Commercetools\Core\Model\Cart\ReplicaCartDraft;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
@@ -23,7 +22,6 @@ use Commercetools\Core\Model\Order\DeliveryItem;
 use Commercetools\Core\Model\Order\DeliveryItemCollection;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Order\OrderState;
-use Commercetools\Core\Model\Order\OrderReference;
 use Commercetools\Core\Model\Order\Parcel;
 use Commercetools\Core\Model\Order\ParcelCollection;
 use Commercetools\Core\Model\Order\ParcelMeasurements;
@@ -36,6 +34,7 @@ use Commercetools\Core\Model\Order\ShipmentState;
 use Commercetools\Core\Model\Order\TrackingData;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
+use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
@@ -69,7 +68,6 @@ use Commercetools\Core\Request\Orders\OrderDeleteByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateRequest;
-use Commercetools\Core\Request\Products\Command\ProductPublishAction;
 use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
@@ -109,7 +107,14 @@ class OrderUpdateRequestTest extends ApiTestCase
         return $draft;
     }
 
-    protected function createOrder(CartDraft $draft, $orderNumber = null)
+    protected function createOrder(
+        CartDraft $draft,
+        $orderNumber = null,
+        $paymentState = null,
+        $orderState= null,
+        $state = null,
+        $shipmentState = null
+    )
     {
         $request = CartCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
@@ -122,6 +127,18 @@ class OrderUpdateRequestTest extends ApiTestCase
         $orderRequest = OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
         if (!is_null($orderNumber)) {
             $orderRequest->setOrderNumber($orderNumber);
+        }
+        if (!is_null($paymentState)) {
+            $orderRequest->setPaymentState($paymentState);
+        }
+        if (!is_null($orderState)) {
+            $orderRequest->setOrderState($orderState);
+        }
+        if (!is_null($state)) {
+            $orderRequest->setState($state);
+        }
+        if (!is_null($shipmentState)) {
+            $orderRequest->setShipmentState($shipmentState);
         }
         $response = $orderRequest->executeWithClient($this->getClient());
         $order = $orderRequest->mapResponse($response);
@@ -1168,5 +1185,18 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->assertSame($orderLineItem, $replicaCartLineItem);
         $this->assertNotNull($replicaCartLineItem);
         $this->assertSame(CartState::ACTIVE, $replicaCart->getCartState());
+    }
+
+    public function testCreateOrderWithInitialData()
+    {
+        $cartDraft = $this->getCartDraft();
+        list($state1, $state2) = $this->createStates('OrderState');
+        $stateReference = $state1->getReference();
+        $order = $this->createOrder($cartDraft, '123', 'Pending', 'Complete', $stateReference, 'Delayed');
+
+        $this->assertSame('Pending', $order->getPaymentState());
+        $this->assertSame('Complete', $order->getOrderState());
+        $this->assertInstanceOf(StateReference::class, $order->getState());
+        $this->assertSame('Delayed', $order->getShipmentState());
     }
 }
