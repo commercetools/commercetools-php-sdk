@@ -55,6 +55,28 @@ class DeliveryTest extends \PHPUnit\Framework\TestCase
 
         $this->assertInstanceOf(MessageDelivery::class, $delivery);
         $this->assertInstanceOf(ProductCreatedMessage::class, $delivery->getMessage());
+        $this->assertSame('ProductCreated', $delivery->getMessageType());
+    }
+
+    public function testPayloadNotIncluded()
+    {
+        $payload = [
+            'projectKey' => 'test',
+            'notificationType' => 'Message',
+            'resource' => [
+                'typeId' => 'product',
+                'id' => '123465678'
+            ],
+            'payloadNotIncluded' => [
+                'reason' => 'foo',
+                'payloadType' => 'ProductCreated'
+            ]
+        ];
+
+        $delivery = Delivery::fromArray($payload);
+
+        $this->assertInstanceOf(MessageDelivery::class, $delivery);
+        $this->assertSame('ProductCreated', $delivery->getMessageType());
     }
 
     public function testResourceCreatedPayload()
