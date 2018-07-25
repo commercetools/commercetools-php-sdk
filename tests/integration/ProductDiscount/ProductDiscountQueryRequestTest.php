@@ -78,6 +78,5 @@ class ProductDiscountQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(ProductDiscount::class, $productDiscount);
         $this->assertSame($productDiscount->getId(), $result->getId());
-
     }
 }
