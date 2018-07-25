@@ -14,6 +14,10 @@ use Commercetools\Core\Model\Common\Context;
  * @method AzureServiceBusDestination setType(string $type = null)
  * @method string getConnectionString()
  * @method AzureServiceBusDestination setConnectionString(string $connectionString = null)
+ * @method string getUri()
+ * @method AzureServiceBusDestination setUri(string $uri = null)
+ * @method string getAccessKey()
+ * @method AzureServiceBusDestination setAccessKey(string $accessKey = null)
  */
 class AzureServiceBusDestination extends Destination
 {
@@ -22,13 +26,13 @@ class AzureServiceBusDestination extends Destination
         return [
             'type' => [static::TYPE => 'string'],
             'connectionString' => [static::TYPE => 'string'],
+            'uri' => [static::TYPE => 'string'],
+            'accessKey' => [static::TYPE => 'string'],
         ];
     }
 
     /**
      * @param $connectionString
-     * @param $accessKey
-     * @param $accessSecret
      * @param Context|null $context
      * @return AzureServiceBusDestination
      */
@@ -37,5 +41,19 @@ class AzureServiceBusDestination extends Destination
         return static::of($context)
             ->setType('AzureServiceBus')
             ->setConnectionString($connectionString);
+    }
+
+    /**
+     * @param $uri
+     * @param $accessKey
+     * @param Context|null $context
+     * @return AzureServiceBusDestination
+     */
+    public static function ofUriAndAccessKey($uri, $accessKey, Context $context = null)
+    {
+        return static::of($context)
+            ->setType('AzureServiceBus')
+            ->setUri($uri)
+            ->setAccessKey($accessKey);
     }
 }
