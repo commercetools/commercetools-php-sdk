@@ -165,7 +165,7 @@ class ProductDiscountMatchingRequest extends AbstractApiRequest
         $payload = [
             static::PRODUCT_ID => $this->getProductId(),
             static::VARIANT_ID => $this->getVariantId(),
-            static::STAGED => ($this->getStaged() == true),
+            static::STAGED => ($this->getStaged() === true),
             static::PRICE => $this->getPrice()
         ];
 
