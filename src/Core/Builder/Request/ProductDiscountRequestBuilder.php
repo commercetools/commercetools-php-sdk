@@ -5,11 +5,13 @@
 
 namespace Commercetools\Core\Builder\Request;
 
+use Commercetools\Core\Model\Common\Price;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountDraft;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountByIdGetRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountCreateRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountMatchingRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest;
 
@@ -57,5 +59,16 @@ class ProductDiscountRequestBuilder
     public function getById($id)
     {
         return ProductDiscountByIdGetRequest::ofId($id);
+    }
+
+    /**
+     * @param string $productId
+     * @param int $variantId
+     * @param Price $price
+     * @return ProductDiscountMatchingRequest
+     */
+    public function matching($productId, $variantId, Price $price)
+    {
+        return ProductDiscountMatchingRequest::ofProductIdVariantIdAndPrice($productId, $variantId, $price);
     }
 }

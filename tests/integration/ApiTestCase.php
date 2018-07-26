@@ -840,13 +840,13 @@ class ApiTestCase extends TestCase
         $this->cartDiscount = null;
     }
 
-    protected function getProductDiscount(ProductDiscountValue $discountValue)
+    protected function getProductDiscount(ProductDiscountValue $discountValue, $predicate = null)
     {
         if (is_null($this->productDiscount)) {
             $draft = ProductDiscountDraft::ofNameDiscountPredicateOrderAndActive(
                 LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
                 $discountValue,
-                '1=1',
+                !is_null($predicate) ? $predicate : '1=1',
                 '0.9' . trim((string)mt_rand(1, 1000), '0'),
                 true
             );
