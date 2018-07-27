@@ -44,26 +44,23 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     public function testCentPrecision()
     {
-        $this->assertInstanceOf(
-            CentPrecisionMoney::class,
-            Money::fromArray(['currencyCode' => 'EUR', 'centAmount' => 100, 'type' => Money::TYPE_CENT_PRECISION])
-        );
-
+        $money = Money::fromArray(['currencyCode' => 'EUR', 'centAmount' => 100, 'type' => Money::TYPE_CENT_PRECISION]);
+        $this->assertInstanceOf(Money::class, $money);
+        $this->assertInstanceOf(CentPrecisionMoney::class, $money);
     }
 
     public function testHighPrecision()
     {
-        $this->assertInstanceOf(
-            HighPrecisionMoney::class,
-            Money::fromArray(
-                [
-                    'currencyCode' => 'EUR',
-                    'centAmount' => 100,
-                    'preciseAmount' => 1000,
-                    'fractionDigits' => 3,
-                    'type' => Money::TYPE_HIGH_PRECISION,
-                ]
-            )
+        $money = Money::fromArray(
+            [
+                'currencyCode' => 'EUR',
+                'centAmount' => 100,
+                'preciseAmount' => 1000,
+                'fractionDigits' => 3,
+                'type' => Money::TYPE_HIGH_PRECISION,
+            ]
         );
+        $this->assertInstanceOf(Money::class, $money);
+        $this->assertInstanceOf(HighPrecisionMoney::class, $money);
     }
 }
