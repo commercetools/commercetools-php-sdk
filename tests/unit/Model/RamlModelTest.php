@@ -237,11 +237,12 @@ class RamlModelTest extends AbstractModelTest
                 return [$fixture[$classNameField], $fixture['fields']];
             },
             array_filter(
-            $fixtures,
-            function ($fixture) use ($modelClasses) {
-                return count($fixture['fields']) > 0;
-            }
-        ));
+                $fixtures,
+                function ($fixture) use ($modelClasses) {
+                    return count($fixture['fields']) > 0;
+                }
+            )
+        );
     }
 
     private function getRamlTypes() {

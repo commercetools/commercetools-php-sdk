@@ -39,6 +39,31 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         $context = Context::of()->setLocale('de_DE');
         $money = Money::fromArray(['currencyCode' => 'EUR', 'centAmount' => 100], $context);
         $money = htmlentities((string)$money);
-        $this->assertEquals('1,00&nbsp;&euro;', $money);
+        $this->assertSame('1,00&nbsp;&euro;', $money);
+    }
+
+    public function testCentPrecision()
+    {
+        $this->assertInstanceOf(
+            CentPrecisionMoney::class,
+            Money::fromArray(['currencyCode' => 'EUR', 'centAmount' => 100, 'type' => Money::TYPE_CENT_PRECISION])
+        );
+
+    }
+
+    public function testHighPrecision()
+    {
+        $this->assertInstanceOf(
+            HighPrecisionMoney::class,
+            Money::fromArray(
+                [
+                    'currencyCode' => 'EUR',
+                    'centAmount' => 100,
+                    'preciseAmount' => 1000,
+                    'fractionDigits' => 3,
+                    'type' => Money::TYPE_HIGH_PRECISION,
+                ]
+            )
+        );
     }
 }
