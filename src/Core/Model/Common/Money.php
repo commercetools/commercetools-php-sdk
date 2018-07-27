@@ -26,14 +26,6 @@ class Money extends JsonObject
     const TYPE_CENT_PRECISION = 'centPrecision';
     const TYPE_HIGH_PRECISION = 'highPrecision';
 
-    /**
-     * @inheritDoc
-     */
-    public function __construct(array $data = [], $context = null)
-    {
-        parent::__construct($data, $context);
-    }
-
     public function fieldDefinitions()
     {
         return [
