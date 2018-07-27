@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Cart\LineItemCollection;
 use Commercetools\Core\Model\Cart\ShippingInfo;
 use Commercetools\Core\Model\Cart\ShippingRateInput;
 use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\Money;
@@ -97,6 +98,8 @@ use DateTime;
  * @method Order setTaxMode(string $taxMode = null)
  * @method ShippingRateInput getShippingRateInput()
  * @method Order setShippingRateInput(ShippingRateInput $shippingRateInput = null)
+ * @method AddressCollection getItemShippingAddresses()
+ * @method Order setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
  * @method OrderReference getReference()
  */
 class Order extends Resource
@@ -158,6 +161,7 @@ class Order extends Resource
             'taxCalculationMode' => [static::TYPE => 'string'],
             'taxMode' => [static::TYPE => 'string'],
             'shippingRateInput' => [static::TYPE => ShippingRateInput::class],
+            'itemShippingAddresses' => [static::TYPE => AddressCollection::class],
         ];
     }
 }

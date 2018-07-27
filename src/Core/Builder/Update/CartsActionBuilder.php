@@ -6,9 +6,12 @@ use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction;
+use Commercetools\Core\Request\Carts\Command\CartAddItemShippingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartAddPaymentAction;
 use Commercetools\Core\Request\Carts\Command\CartAddShoppingListAction;
+use Commercetools\Core\Request\Carts\Command\CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction;
+use Commercetools\Core\Request\Carts\Command\CartApplyDeltaToLineItemShippingDetailsTargetsAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemMoneyAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemQuantityAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction;
@@ -18,6 +21,7 @@ use Commercetools\Core\Request\Carts\Command\CartChangeTaxRoundingModeAction;
 use Commercetools\Core\Request\Carts\Command\CartRecalculateAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveDiscountCodeAction;
+use Commercetools\Core\Request\Carts\Command\CartRemoveItemShippingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemovePaymentAction;
 use Commercetools\Core\Request\Carts\Command\CartSetAnonymousIdAction;
@@ -27,6 +31,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetCountryAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemTaxRateAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction;
@@ -38,6 +43,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetDeleteDaysAfterLastModificat
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemPriceAction;
+use Commercetools\Core\Request\Carts\Command\CartSetLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxRateAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTotalPriceAction;
@@ -47,6 +53,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxRateAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingRateInputAction;
+use Commercetools\Core\Request\Carts\Command\CartUpdateItemShippingAddressAction;
 
 class CartsActionBuilder
 {
@@ -71,6 +78,17 @@ class CartsActionBuilder
     public function addDiscountCode($action = null)
     {
         $this->addAction($this->resolveAction(CartAddDiscountCodeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartAddItemShippingAddressAction|callable $action
+     * @return $this
+     */
+    public function addItemShippingAddress($action = null)
+    {
+        $this->addAction($this->resolveAction(CartAddItemShippingAddressAction::class, $action));
         return $this;
     }
 
@@ -104,6 +122,29 @@ class CartsActionBuilder
     public function addShoppingList($action = null)
     {
         $this->addAction($this->resolveAction(CartAddShoppingListAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#apply-deltatocustomlineitemshippingdetailstargets
+     * @param CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction|callable $action
+     * @return $this
+     */
+    public function applyDeltaToCustomLineItemShippingDetailsTargets($action = null)
+    {
+        // @codingStandardsIgnoreLine
+        $this->addAction($this->resolveAction(CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#apply-deltatolineitemshippingdetailstargets
+     * @param CartApplyDeltaToLineItemShippingDetailsTargetsAction|callable $action
+     * @return $this
+     */
+    public function applyDeltaToLineItemShippingDetailsTargets($action = null)
+    {
+        $this->addAction($this->resolveAction(CartApplyDeltaToLineItemShippingDetailsTargetsAction::class, $action));
         return $this;
     }
 
@@ -207,6 +248,17 @@ class CartsActionBuilder
     }
 
     /**
+     *
+     * @param CartRemoveItemShippingAddressAction|callable $action
+     * @return $this
+     */
+    public function removeItemShippingAddress($action = null)
+    {
+        $this->addAction($this->resolveAction(CartRemoveItemShippingAddressAction::class, $action));
+        return $this;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#remove-lineitem
      * @param CartRemoveLineItemAction|callable $action
      * @return $this
@@ -302,6 +354,17 @@ class CartsActionBuilder
     public function setCustomLineItemCustomType($action = null)
     {
         $this->addAction($this->resolveAction(CartSetCustomLineItemCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartSetCustomLineItemShippingDetailsAction|callable $action
+     * @return $this
+     */
+    public function setCustomLineItemShippingDetails($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetCustomLineItemShippingDetailsAction::class, $action));
         return $this;
     }
 
@@ -427,6 +490,17 @@ class CartsActionBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-totalprice
+     * @param CartSetLineItemShippingDetailsAction|callable $action
+     * @return $this
+     */
+    public function setLineItemShippingDetails($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetLineItemShippingDetailsAction::class, $action));
+        return $this;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-taxamount
      * @param CartSetLineItemTaxAmountAction|callable $action
      * @return $this
@@ -523,6 +597,17 @@ class CartsActionBuilder
     public function setShippingRateInput($action = null)
     {
         $this->addAction($this->resolveAction(CartSetShippingRateInputAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartUpdateItemShippingAddressAction|callable $action
+     * @return $this
+     */
+    public function updateItemShippingAddress($action = null)
+    {
+        $this->addAction($this->resolveAction(CartUpdateItemShippingAddressAction::class, $action));
         return $this;
     }
 

@@ -5,12 +5,11 @@
 
 namespace Commercetools\Core\Model\Cart;
 
+use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Model\Order\ItemState;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
-use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 
@@ -31,6 +30,10 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method CustomLineItemDraft setCustom(CustomFieldObject $custom = null)
  * @method ExternalTaxRateDraft getExternalTaxRate()
  * @method CustomLineItemDraft setExternalTaxRate(ExternalTaxRateDraft $externalTaxRate = null)
+ * @method AddressCollection getItemShippingAddresses()
+ * @method CustomLineItemDraft setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
+ * @method ItemShippingDetailsDraft getShippingDetails()
+ * @method CustomLineItemDraft setShippingDetails(ItemShippingDetailsDraft $shippingDetails = null)
  */
 class CustomLineItemDraft extends JsonObject
 {
@@ -44,6 +47,7 @@ class CustomLineItemDraft extends JsonObject
             'taxCategory' => [static::TYPE => TaxCategoryReference::class],
             'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class],
             'custom' => [static::TYPE => CustomFieldObject::class],
+            'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
         ];
     }
 }

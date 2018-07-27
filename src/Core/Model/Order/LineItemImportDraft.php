@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\Order;
 
+use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
+use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Price;
@@ -33,6 +35,10 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method LineItemImportDraft setTaxRate(TaxRate $taxRate = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method LineItemImportDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method AddressCollection getItemShippingAddresses()
+ * @method LineItemImportDraft setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
+ * @method ItemShippingDetailsDraft getShippingDetails()
+ * @method LineItemImportDraft setShippingDetails(ItemShippingDetailsDraft $shippingDetails = null)
  */
 class LineItemImportDraft extends JsonObject
 {
@@ -47,7 +53,8 @@ class LineItemImportDraft extends JsonObject
             'state' => [static::TYPE => ItemStateCollection::class],
             'supplyChannel' => [static::TYPE => ChannelReference::class],
             'taxRate' => [static::TYPE => TaxRate::class],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class]
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
         ];
     }
 }

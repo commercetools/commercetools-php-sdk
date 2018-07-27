@@ -209,7 +209,7 @@ class AnnotationGenerator
             $actionShortName = $updateClass->getShortName();
             $action = new $update();
             $actionName = $action->getAction();
-
+            $csIgnore = strlen($actionShortName) > 55 ? '// @codingStandardsIgnoreLine' . PHP_EOL . '        ' : '';
             $method = <<<METHOD
     /**
      *$docLinks
@@ -218,7 +218,7 @@ class AnnotationGenerator
      */
     public function $actionName(\$action = null)
     {
-        \$this->addAction(\$this->resolveAction($actionShortName::class, \$action));
+        $csIgnore\$this->addAction(\$this->resolveAction($actionShortName::class, \$action));
         return \$this;
     }
 METHOD;

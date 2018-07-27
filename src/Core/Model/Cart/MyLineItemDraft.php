@@ -32,6 +32,8 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method MyLineItemDraft setDistributionChannel(ChannelReference $distributionChannel = null)
  * @method CustomFieldObject getCustom()
  * @method MyLineItemDraft setCustom(CustomFieldObject $custom = null)
+ * @method ItemShippingDetailsDraft getShippingDetails()
+ * @method MyLineItemDraft setShippingDetails(ItemShippingDetailsDraft $shippingDetails = null)
  */
 class MyLineItemDraft extends JsonObject
 {
@@ -44,6 +46,7 @@ class MyLineItemDraft extends JsonObject
             'supplyChannel' => [static::TYPE => ChannelReference::class],
             'distributionChannel' => [static::TYPE => ChannelReference::class],
             'custom' => [static::TYPE => CustomFieldObject::class],
+            'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
         ];
     }
 }
