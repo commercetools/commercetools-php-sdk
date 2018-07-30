@@ -15,15 +15,31 @@ namespace Commercetools\Core\Model\Common;
  */
 class AddressCollection extends Collection
 {
+    const KEY = 'key';
+
     protected $type = Address::class;
 
     protected function indexRow($offset, $row)
     {
+        $id = null;
+        $key = null;
         if ($row instanceof Address) {
-            $name = $row->getId();
-        } else {
-            $name = $row[static::ID];
+            $id = $row->getId();
+            $key = $row->getKey();
+        } elseif (is_array($row)) {
+            $id = isset($row[static::ID]) ? $row[static::ID] : null;
+            $key = isset($row[static::KEY]) ? $row[static::KEY] : null;
         }
-        $this->addToIndex(static::ID, $offset, $name);
+        $this->addToIndex(static::ID, $offset, $id);
+        $this->addToIndex(static::KEY, $offset, $key);
+    }
+
+    /**
+     * @param $key
+     * @return Address|null
+     */
+    public function getByKey($key)
+    {
+        return $this->getBy(static::KEY, $key);
     }
 }

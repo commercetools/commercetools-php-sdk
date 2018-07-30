@@ -8,17 +8,17 @@ namespace Commercetools\Core\Cart;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
-use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Cart\CustomLineItemDraft;
 use Commercetools\Core\Model\Cart\CustomLineItemDraftCollection;
 use Commercetools\Core\Model\Cart\ExternalLineItemTotalPrice;
 use Commercetools\Core\Model\Cart\ExternalTaxAmountDraft;
+use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
+use Commercetools\Core\Model\Cart\ItemShippingTarget;
+use Commercetools\Core\Model\Cart\ItemShippingTargetCollection;
 use Commercetools\Core\Model\Cart\LineItem;
-use Commercetools\Core\Model\Cart\LineItemCollection;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
-use Commercetools\Core\Model\Cart\ReplicaCartDraft;
 use Commercetools\Core\Model\Cart\ScoreShippingRateInput;
 use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
@@ -29,14 +29,13 @@ use Commercetools\Core\Model\CartDiscount\MultiBuyCustomLineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\MultiBuyLineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\RelativeCartDiscountValue;
 use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
 use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceTier;
 use Commercetools\Core\Model\Common\PriceTierCollection;
-use Commercetools\Core\Model\Common\ResourceIdentifier;
-use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
@@ -52,8 +51,11 @@ use Commercetools\Core\Request\Carts\CartQueryRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction;
+use Commercetools\Core\Request\Carts\Command\CartAddItemShippingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartAddPaymentAction;
+use Commercetools\Core\Request\Carts\Command\CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction;
+use Commercetools\Core\Request\Carts\Command\CartApplyDeltaToLineItemShippingDetailsTargetsAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemMoneyAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemQuantityAction;
 use Commercetools\Core\Request\Carts\Command\CartChangeLineItemQuantityAction;
@@ -62,6 +64,7 @@ use Commercetools\Core\Request\Carts\Command\CartChangeTaxRoundingModeAction;
 use Commercetools\Core\Request\Carts\Command\CartRecalculateAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveDiscountCodeAction;
+use Commercetools\Core\Request\Carts\Command\CartRemoveItemShippingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemovePaymentAction;
 use Commercetools\Core\Request\Carts\Command\CartSetAnonymousIdAction;
@@ -73,6 +76,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomerGroupAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetDeleteDaysAfterLastModificationAction;
@@ -86,6 +90,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingRateInputAction;
+use Commercetools\Core\Request\Carts\Command\CartUpdateItemShippingAddressAction;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
@@ -96,7 +101,6 @@ use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
-use League\Flysystem\Adapter\Local;
 
 class CartUpdateRequestTest extends ApiTestCase
 {
@@ -1826,8 +1830,202 @@ class CartUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(ScoreShippingRateInput::class, $cart->getShippingRateInput());
         $this->assertSame(1, $cart->getShippingRateInput()->getScore());
-
     }
+
+    public function testCartAddLineItemWithShippingDetailsAndApplyDelta()
+    {
+        $draft = $this->getDraft();
+        $draft->setItemShippingAddresses(AddressCollection::of()->add(
+            Address::of()->setCountry('DE')->setKey('key1')
+        ));
+        $cart = $this->createCart($draft);
+
+        $product = $this->getProduct();
+        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
+                    ->setShippingDetails(ItemShippingDetailsDraft::of()
+                        ->setTargets(ItemShippingTargetCollection::of()
+                            ->add(ItemShippingTarget::of()
+                                ->setQuantity(10)->setAddressKey('key1'))))
+            );
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $itemShippingAddresses = $cart->getItemShippingAddresses();
+        $addressKey = $cart->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey();
+
+        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+        $this->assertSame('DE', $itemShippingAddresses->current()->getCountry());
+        $this->assertSame('key1', $itemShippingAddresses->current()->getKey());
+        $this->assertSame('key1', $addressKey);
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartApplyDeltaToLineItemShippingDetailsTargetsAction::of()
+                    ->setLineItemId($cart->getLineItems()->current()->getId())
+                    ->setTargetsDelta(ItemShippingTargetCollection::of()->add(
+                        ItemShippingTarget::of()->setQuantity(15)->setAddressKey('key1')
+                    ))
+            );
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(
+            'key1',
+            $cart->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
+        );
+        $this->assertSame(
+            25,
+            $cart->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
+        );
+    }
+
+    public function testCartAddItemShippingAddressAction()
+    {
+        $draft = $this->getDraft();
+        $draft->setItemShippingAddresses(
+            AddressCollection::of()->add(Address::of()->setCountry('DE')->setKey('key1'))
+        );
+        $cart = $this->createCart($draft);
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartAddItemShippingAddressAction::of()
+                ->setAddress(Address::of()->setKey('key2')->setCountry('US')));
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $itemShippingAddresses = $cart->getItemShippingAddresses();
+
+        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+        $this->assertSame(2, $itemShippingAddresses->count());
+        $this->assertSame('US', $itemShippingAddresses->getAt(1)->getCountry());
+        $this->assertSame('key2', $itemShippingAddresses->getAt(1)->getKey());
+    }
+
+    public function testCartRemoveItemShippingAddressAction()
+    {
+        $draft = $this->getDraft();
+        $draft->setItemShippingAddresses(
+            AddressCollection::of()
+                ->add(Address::of()->setCountry('DE')->setKey('key1'))
+                ->add(Address::of()->setCountry('US')->setKey('key2'))
+        );
+        $cart = $this->createCart($draft);
+
+        $itemShippingAddresses = $cart->getItemShippingAddresses();
+        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+        $this->assertSame(2, $itemShippingAddresses->count());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartRemoveItemShippingAddressAction::of()->setAddressKey('key1'));
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $itemShippingAddresses = $cart->getItemShippingAddresses();
+        $this->assertSame(1, $itemShippingAddresses->count());
+        $this->assertSame('US', $itemShippingAddresses->getAt(0)->getCountry());
+        $this->assertSame('key2', $itemShippingAddresses->getAt(0)->getKey());
+    }
+
+    public function testCartUpdateItemShippingAddressAction()
+    {
+        $draft = $this->getDraft();
+        $draft->setItemShippingAddresses(
+            AddressCollection::of()
+                ->add(Address::of()->setCountry('DE')->setKey('key1'))
+        );
+        $cart = $this->createCart($draft);
+
+        $itemShippingAddresses = $cart->getItemShippingAddresses();
+        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+        $this->assertSame(1, $itemShippingAddresses->count());
+        $this->assertSame('DE', $itemShippingAddresses->getAt(0)->getCountry());
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartUpdateItemShippingAddressAction::of()->setAddress(
+                Address::of()->setCountry('US')->setKey('key1')
+            ));
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+
+        $itemShippingAddresses = $cart->getItemShippingAddresses();
+        $this->assertSame(1, $itemShippingAddresses->count());
+        $this->assertSame('US', $itemShippingAddresses->getAt(0)->getCountry());
+        $this->assertSame('key1', $itemShippingAddresses->getAt(0)->getKey());
+    }
+
+    public function testCustomLineItemSetShippingDetailsAndApplyDelta()
+    {
+        $draft = $this->getDraft();
+        $name = LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun());
+
+        $customLineItem = CustomLineItemDraft::of()
+            ->setName($name)->setQuantity(1)->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
+            ->setSlug($name->en)->setTaxCategory($this->getTaxCategory()->getReference());
+        $draft->setCustomLineItems(CustomLineItemDraftCollection::of()->add($customLineItem));
+
+        $cart = $this->createCart($draft);
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartAddItemShippingAddressAction::of()
+                ->setAddress(Address::of()->setKey('key1')->setCountry('US')))
+            ->addAction(
+                CartSetCustomLineItemShippingDetailsAction::of()->setShippingDetails(
+                    ItemShippingDetailsDraft::of()->setTargets(ItemShippingTargetCollection::of()->add(
+                        ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
+                    ))
+                )
+                ->setCustomLineItemId($cart->getCustomLineItems()->current()->getId())
+            );
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($name->en, $cart->getCustomLineItems()->current()->getName()->en);
+        $this->assertSame(
+            'key1',
+            $cart->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
+        );
+        $this->assertSame(
+            10,
+            $cart->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
+        );
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction::of()
+                    ->setCustomLineItemId($cart->getCustomLineItems()->current()->getId())
+                    ->setTargetsDelta(ItemShippingTargetCollection::of()->add(
+                        ItemShippingTarget::of()->setQuantity(20)->setAddressKey('key1')
+                    ))
+            );
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(
+            'key1',
+            $cart->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
+        );
+        $this->assertSame(
+            30,
+            $cart->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
+        );
+    }
+
     /**
      * @return CartDraft
      */
