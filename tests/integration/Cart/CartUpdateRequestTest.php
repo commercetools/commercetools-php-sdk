@@ -83,6 +83,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetDeleteDaysAfterLastModificat
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemPriceAction;
+use Commercetools\Core\Request\Carts\Command\CartSetLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTotalPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLocaleAction;
@@ -1886,6 +1887,29 @@ class CartUpdateRequestTest extends ApiTestCase
             25,
             $cart->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
         );
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(
+                CartSetLineItemShippingDetailsAction::ofLineItemIdAndShippingDetails(
+                    $cart->getLineItems()->current()->getId(),
+                    ItemShippingDetailsDraft::of()->setTargets(ItemShippingTargetCollection::of()->add(
+                        ItemShippingTarget::of()->setQuantity(20)->setAddressKey('key1')
+                    ))
+                )
+            );
+
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame(
+            'key1',
+            $cart->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
+        );
+        $this->assertSame(
+            20,
+            $cart->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
+        );
     }
 
     public function testCartAddItemShippingAddressAction()
@@ -1981,12 +2005,12 @@ class CartUpdateRequestTest extends ApiTestCase
             ->addAction(CartAddItemShippingAddressAction::of()
                 ->setAddress(Address::of()->setKey('key1')->setCountry('US')))
             ->addAction(
-                CartSetCustomLineItemShippingDetailsAction::of()->setShippingDetails(
+                CartSetCustomLineItemShippingDetailsAction::ofCustomLineItemIdAndShippingDetails(
+                    $cart->getCustomLineItems()->current()->getId(),
                     ItemShippingDetailsDraft::of()->setTargets(ItemShippingTargetCollection::of()->add(
                         ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
                     ))
                 )
-                ->setCustomLineItemId($cart->getCustomLineItems()->current()->getId())
             );
 
         $response = $request->executeWithClient($this->getClient());
