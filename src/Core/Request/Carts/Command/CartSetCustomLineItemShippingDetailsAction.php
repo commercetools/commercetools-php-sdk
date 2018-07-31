@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- *
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customlineitemshippingdetails
  * @method string getAction()
  * @method CartSetCustomLineItemShippingDetailsAction setAction(string $action = null)
  * @method string getCustomLineItemId()

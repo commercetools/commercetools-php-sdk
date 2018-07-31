@@ -9,7 +9,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- *
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#remove-itemshippingaddress
  * @method string getAction()
  * @method CartRemoveItemShippingAddressAction setAction(string $action = null)
  * @method string getAddressKey()

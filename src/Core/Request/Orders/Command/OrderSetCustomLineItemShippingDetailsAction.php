@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- *
+ * @link https://docs.commercetools.com/http-api-projects-orders.html#set-customlineitemshippingdetails
  * @method string getAction()
  * @method OrderSetCustomLineItemShippingDetailsAction setAction(string $action = null)
  * @method string getCustomLineItemId()

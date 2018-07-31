@@ -82,7 +82,7 @@ class CartsActionBuilder
     }
 
     /**
-     *
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#add-itemshippingaddress
      * @param CartAddItemShippingAddressAction|callable $action
      * @return $this
      */
@@ -248,7 +248,7 @@ class CartsActionBuilder
     }
 
     /**
-     *
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#remove-itemshippingaddress
      * @param CartRemoveItemShippingAddressAction|callable $action
      * @return $this
      */
@@ -358,7 +358,7 @@ class CartsActionBuilder
     }
 
     /**
-     *
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#set-customlineitemshippingdetails
      * @param CartSetCustomLineItemShippingDetailsAction|callable $action
      * @return $this
      */
@@ -601,7 +601,7 @@ class CartsActionBuilder
     }
 
     /**
-     *
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#update-itemshippingaddress
      * @param CartUpdateItemShippingAddressAction|callable $action
      * @return $this
      */

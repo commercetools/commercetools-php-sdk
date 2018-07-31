@@ -10,7 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
- *
+ * @link https://docs.commercetools.com/http-api-projects-carts.html#update-itemshippingaddress
  * @method string getAction()
  * @method CartUpdateItemShippingAddressAction setAction(string $action = null)
  * @method Address getAddress()
