@@ -39,7 +39,7 @@ class AzureServiceBusDestination extends Destination
     public static function ofQueueURLAccessKeyAndSecret($connectionString, Context $context = null)
     {
         return static::of($context)
-            ->setType('AzureServiceBus')
+            ->setType(static::DESTINATION_AZURE_SERVICE_BUS)
             ->setConnectionString($connectionString);
     }
 
@@ -52,7 +52,7 @@ class AzureServiceBusDestination extends Destination
     public static function ofUriAndAccessKey($uri, $accessKey, Context $context = null)
     {
         return static::of($context)
-            ->setType('AzureServiceBus')
+            ->setType(static::DESTINATION_AZURE_SERVICE_BUS)
             ->setUri($uri)
             ->setAccessKey($accessKey);
     }

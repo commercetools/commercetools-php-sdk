@@ -27,6 +27,6 @@ class IronMQDestination extends Destination
 
     public static function ofUri($uri, Context $context = null)
     {
-        return static::of($context)->setType('IronMQ')->setUri($uri);
+        return static::of($context)->setType(static::DESTINATION_IRON_MQ)->setUri($uri);
     }
 }

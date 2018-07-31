@@ -40,7 +40,7 @@ class SNSDestination extends Destination
      */
     public static function ofTopicArnAccessKeyAndSecret($topicArn, $accessKey, $accessSecret, Context $context = null)
     {
-        return static::of($context)->setType('SNS')
+        return static::of($context)->setType(static::DESTINATION_SNS)
             ->setTopicArn($topicArn)->setAccessKey($accessKey)->setAccessSecret($accessSecret);
     }
 }

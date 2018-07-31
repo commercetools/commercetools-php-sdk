@@ -469,6 +469,13 @@ class RamlModelTest extends AbstractModelTest
             'ShippingMethod\CartScoreTier' => 'ShippingMethod\CartScore',
             'ShippingMethod\CartClassificationTier' => 'ShippingMethod\CartClassification',
             'ShippingMethod\CartValueTier' => 'ShippingMethod\CartValue',
+            'Extension\ExtensionHttpDestination' => 'Extension\HttpDestination',
+            'Extension\ExtensionDestination' => 'Extension\Destination',
+            'Extension\ExtensionAWSLambdaDestination' => 'Extension\AWSLambdaDestination',
+            'Extension\ExtensionHttpDestinationAuthentication' => 'Extension\HttpDestinationAuthentication',
+            'Extension\ExtensionAzureFunctionsAuthentication' => 'Extension\AzureFunctionsAuthentication',
+            'Extension\ExtensionAuthorizationHeaderAuthentication' => 'Extension\AuthorizationHeaderAuthentication',
+            'Extension\ExtensionTrigger' => 'Extension\Trigger',
         ];
     }
 

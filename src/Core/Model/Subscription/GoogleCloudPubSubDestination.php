@@ -35,6 +35,8 @@ class GoogleCloudPubSubDestination extends Destination
      */
     public static function ofProjectIdAndTopic($projectId, $topic, Context $context = null)
     {
-        return static::of($context)->setType('GoogleCloudPubSub')->setProjectId($projectId)->setTopic($topic);
+        return static::of($context)->setType(static::DESTINATION_GOOGLE_CLOUD_PUB_SUB)
+            ->setProjectId($projectId)
+            ->setTopic($topic);
     }
 }
