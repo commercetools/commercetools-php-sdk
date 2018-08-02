@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Carts\Command;
 
 use Commercetools\Core\Model\Cart\ItemShippingTargetCollection;
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
@@ -35,7 +36,7 @@ class CartApplyDeltaToLineItemShippingDetailsTargetsAction extends AbstractActio
      * @param array $data
      * @param Context|callable $context
      */
-    public function __construct(array $data = [], $context = null)
+    public function __construct(array $data = [], Context $context = null)
     {
         parent::__construct($data, $context);
         $this->setAction('applyDeltaToLineItemShippingDetailsTargets');
