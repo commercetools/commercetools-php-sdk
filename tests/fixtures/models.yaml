@@ -31,3 +31,4 @@ importOrder:
     - taxRoundingMode
     - origin
     - taxCalculationMode
+    - itemShippingAddresses

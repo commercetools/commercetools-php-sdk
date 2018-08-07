@@ -40,6 +40,8 @@ use Commercetools\Core\Model\Common\TaxedItemPrice;
  * @method DiscountedPricePerQuantityCollection getDiscountedPricePerQuantity()
  * @method TaxedItemPrice getTaxedPrice()
  * @method CustomLineItem setTaxedPrice(TaxedItemPrice $taxedPrice = null)
+ * @method ItemShippingDetails getShippingDetails()
+ * @method CustomLineItem setShippingDetails(ItemShippingDetails $shippingDetails = null)
  */
 class CustomLineItem extends JsonObject
 {
@@ -60,6 +62,7 @@ class CustomLineItem extends JsonObject
             'discountedPricePerQuantity' => [
                 static::TYPE => DiscountedPricePerQuantityCollection::class
             ],
+            'shippingDetails' => [static::TYPE => ItemShippingDetails::class],
         ];
     }
 

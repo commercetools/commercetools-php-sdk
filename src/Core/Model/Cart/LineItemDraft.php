@@ -41,6 +41,8 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method LineItemDraft setExternalTotalPrice(ExternalLineItemTotalPrice $externalTotalPrice = null)
  * @method string getSku()
  * @method LineItemDraft setSku(string $sku = null)
+ * @method ItemShippingDetailsDraft getShippingDetails()
+ * @method LineItemDraft setShippingDetails(ItemShippingDetailsDraft $shippingDetails = null)
  */
 class LineItemDraft extends JsonObject
 {
@@ -57,6 +59,7 @@ class LineItemDraft extends JsonObject
             'externalTotalPrice' => [static::TYPE => ExternalLineItemTotalPrice::class],
             'custom' => [static::TYPE => CustomFieldObject::class],
             'sku' => [static::TYPE => 'string'],
+            'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
         ];
     }
 
