@@ -1,32 +1,26 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
 
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\PsrRequest;
 use Psr\Http\Message\RequestInterface;
 
-/**
- *
- */
 class RequestBuilder
 {
-    /**
-     * @return CartRequestBuilder
-     */
-    public function carts()
-    {
-        return new CartRequestBuilder();
-    }
-
     /**
      * @return CartDiscountRequestBuilder
      */
     public function cartDiscounts()
     {
         return new CartDiscountRequestBuilder();
+    }
+
+    /**
+     * @return CartRequestBuilder
+     */
+    public function carts()
+    {
+        return new CartRequestBuilder();
     }
 
     /**
@@ -46,6 +40,14 @@ class RequestBuilder
     }
 
     /**
+     * @return CustomObjectRequestBuilder
+     */
+    public function customObjects()
+    {
+        return new CustomObjectRequestBuilder();
+    }
+
+    /**
      * @return CustomerGroupRequestBuilder
      */
     public function customerGroups()
@@ -59,14 +61,6 @@ class RequestBuilder
     public function customers()
     {
         return new CustomerRequestBuilder();
-    }
-
-    /**
-     * @return CustomObjectRequestBuilder
-     */
-    public function customObjects()
-    {
-        return new CustomObjectRequestBuilder();
     }
 
     /**
@@ -91,6 +85,14 @@ class RequestBuilder
     public function inventory()
     {
         return new InventoryRequestBuilder();
+    }
+
+    /**
+     * @return MeRequestBuilder
+     */
+    public function me()
+    {
+        return new MeRequestBuilder();
     }
 
     /**
@@ -126,14 +128,6 @@ class RequestBuilder
     }
 
     /**
-     * @return ProductRequestBuilder
-     */
-    public function products()
-    {
-        return new ProductRequestBuilder();
-    }
-
-    /**
      * @return ProductProjectionRequestBuilder
      */
     public function productProjections()
@@ -147,6 +141,14 @@ class RequestBuilder
     public function productTypes()
     {
         return new ProductTypeRequestBuilder();
+    }
+
+    /**
+     * @return ProductRequestBuilder
+     */
+    public function products()
+    {
+        return new ProductRequestBuilder();
     }
 
     /**
@@ -228,14 +230,6 @@ class RequestBuilder
     public function request(RequestInterface $request)
     {
         return PsrRequest::ofRequest($request);
-    }
-
-    /**
-     * @return MeRequestBuilder
-     */
-    public function me()
-    {
-        return new MeRequestBuilder();
     }
 
     /**

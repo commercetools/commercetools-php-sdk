@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Request\PsrRequest;
 
 class AnnotationGenerator
 {
@@ -55,6 +56,9 @@ class AnnotationGenerator
 
             $annotator->generateMapResponseMethod();
         }
+
+        $domainRequests = $this->getRequestDomainObjects($phpFiles);
+        $this->generateRequestBuilder(array_keys($domainRequests));
 
         $domainUpdates = $this->getUpdateObjects($phpFiles);
 
@@ -124,6 +128,35 @@ class AnnotationGenerator
         return $requestObjects;
     }
 
+    protected function getRequestDomainObjects(\RegexIterator $phpFiles)
+    {
+        $requestObjects = [];
+        foreach ($phpFiles as $phpFile) {
+            $class = $this->getClassName($phpFile->getRealPath());
+            if (strpos($class, 'Core\\Helper') > 0) {
+                continue;
+            }
+
+            if (!empty($class)) {
+                $class = new \ReflectionClass($class);
+                if (
+                    $class->isSubclassOf(AbstractApiRequest::class)
+                    && $class->isInstantiable()
+                    && $class->name !== PsrRequest::class
+                ) {
+                    $namespaceParts = explode("\\", $class->getNamespaceName());
+                    $domain = $namespaceParts[count($namespaceParts) - 1];
+                    if (strpos($class, 'ProductProjection') > 0) {
+                        $domain = 'ProductProjections';
+                    }
+                    $requestObjects[$domain][] = $class->getName();
+                }
+            }
+        }
+        ksort($requestObjects);
+        return $requestObjects;
+    }
+
     protected function getUpdateObjects(\RegexIterator $phpFiles)
     {
         $actions = [];
@@ -142,7 +175,7 @@ class AnnotationGenerator
                 }
             }
         }
-
+        ksort($actions);
         return $actions;
     }
 
@@ -319,7 +352,6 @@ EOF;
 
     public function generateUpdateBuilder(array $domains)
     {
-        sort($domains);
         $builderName = 'ActionBuilder';
         $fileName = __DIR__ . '/../../Builder/Update/' . $builderName . '.php';
 
@@ -350,6 +382,102 @@ namespace Commercetools\Core\Builder\Update;
 class $builderName
 {
 $methods
+
+    /**
+     * @return $builderName
+     */
+    public static function of()
+    {
+        return new self();
+    }
+}
+
+EOF;
+        file_put_contents($fileName, $content);
+    }
+
+    private function singularize($word)
+    {
+        $singular = array(
+            '/(quiz)zes$/i' => '\\1',
+            '/(matr)ices$/i' => '\\1ix',
+            '/(vert|ind)ices$/i' => '\\1ex',
+            '/^(ox)en/i' => '\\1',
+            '/(alias|status)es$/i' => '\\1',
+            '/([octop|vir])i$/i' => '\\1us',
+            '/(cris|ax|test)es$/i' => '\\1is',
+            '/(shoe)s$/i' => '\\1',
+            '/(o)es$/i' => '\\1',
+            '/(bus)es$/i' => '\\1',
+            '/([m|l])ice$/i' => '\\1ouse',
+            '/(x|ch|ss|sh)es$/i' => '\\1',
+            '/(m)ovies$/i' => '\\1ovie',
+            '/(s)eries$/i' => '\\1eries',
+            '/([^aeiouy]|qu)ies$/i' => '\\1y',
+            '/([lr])ves$/i' => '\\1f',
+            '/(tive)s$/i' => '\\1',
+            '/(hive)s$/i' => '\\1',
+            '/([^f])ves$/i' => '\\1fe',
+            '/(^analy)ses$/i' => '\\1sis',
+            '/((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)ses$/i' => '\\1\\2sis',
+            '/([ti])a$/i' => '\\1um',
+            '/(n)ews$/i' => '\\1ews',
+            '/s$/i' => ''
+        );
+
+        foreach ($singular as $rule => $replacement) {
+            if (preg_match($rule, $word)) {
+                return preg_replace($rule, $replacement, $word);
+            }
+        }
+        return $word;
+    }
+
+    public function generateRequestBuilder(array $domains)
+    {
+        sort($domains);
+        $builderName = 'RequestBuilder';
+        $fileName = __DIR__ . '/../../Builder/Request/' . $builderName . '.php';
+
+        $methods = [];
+        foreach ($domains as $domain) {
+            $className = ucfirst($this->singularize($domain)) . 'RequestBuilder';
+//            $uses[] = 'use Commercetools\Core\Builder\Update\\' . $className . ';';
+            $methodName = lcfirst($domain);
+            $method = <<<METHOD
+    /**
+     * @return $className
+     */
+    public function $methodName()
+    {
+        return new $className();
+    }
+METHOD;
+            $methods[] = $method;
+        }
+
+//        $uses = implode(PHP_EOL, $uses);
+        $methods = implode(PHP_EOL . PHP_EOL, $methods);
+        $content = <<<EOF
+<?php
+
+namespace Commercetools\Core\Builder\Request;
+
+use Commercetools\Core\Request\PsrRequest;
+use Psr\Http\Message\RequestInterface;
+
+class $builderName
+{
+$methods
+
+    /**
+     * @param RequestInterface \$request
+     * @return PsrRequest
+     */
+    public function request(RequestInterface \$request)
+    {
+        return PsrRequest::ofRequest(\$request);
+    }
 
     /**
      * @return $builderName
