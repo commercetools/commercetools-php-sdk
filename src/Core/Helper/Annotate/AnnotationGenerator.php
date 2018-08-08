@@ -139,8 +139,7 @@ class AnnotationGenerator
 
             if (!empty($class)) {
                 $class = new \ReflectionClass($class);
-                if (
-                    $class->isSubclassOf(AbstractApiRequest::class)
+                if ($class->isSubclassOf(AbstractApiRequest::class)
                     && $class->isInstantiable()
                     && $class->name !== PsrRequest::class
                 ) {
