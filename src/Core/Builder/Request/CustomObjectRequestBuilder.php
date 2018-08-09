@@ -1,75 +1,92 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
 
 namespace Commercetools\Core\Builder\Request;
 
-use Commercetools\Core\Model\CustomObject\CustomObject;
-use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
 use Commercetools\Core\Request\CustomObjects\CustomObjectByIdGetRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectByKeyGetRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest;
+use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
 use Commercetools\Core\Request\CustomObjects\CustomObjectDeleteByKeyRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectDeleteRequest;
+use Commercetools\Core\Model\CustomObject\CustomObject;
 use Commercetools\Core\Request\CustomObjects\CustomObjectQueryRequest;
 
 class CustomObjectRequestBuilder
 {
+
     /**
-     * @return CustomObjectQueryRequest
+     *
+     * @param string $id
+     * @return CustomObjectByIdGetRequest
      */
-    public function query()
+    public function getById($id)
     {
-        return CustomObjectQueryRequest::of();
+        $request = CustomObjectByIdGetRequest::ofId($id);
+        return $request;
     }
 
     /**
-     * @param CustomObjectDraft $customObjectDraft
-     * @return CustomObjectCreateRequest
-     */
-    public function create(CustomObjectDraft $customObjectDraft)
-    {
-        return CustomObjectCreateRequest::ofDraft($customObjectDraft);
-    }
-
-    /**
-     * @param CustomObject $customObject
-     * @return CustomObjectDeleteRequest
-     */
-    public function delete(CustomObject $customObject)
-    {
-        return CustomObjectDeleteRequest::ofIdAndVersion($customObject->getId(), $customObject->getVersion());
-    }
-
-    /**
-     * @param CustomObject $customObject
-     * @return CustomObjectDeleteByKeyRequest
-     */
-    public function deleteByContainerAndKey(CustomObject $customObject)
-    {
-        return CustomObjectDeleteByKeyRequest::ofContainerAndKey(
-            $customObject->getContainer(),
-            $customObject->getKey()
-        );
-    }
-
-    /**
+     * @link https://docs.commercetools.com/http-api-projects-custom-objects.html#get-customobject-by-container-and-key
      * @param string $container
      * @param string $key
      * @return CustomObjectByKeyGetRequest
      */
     public function getByContainerAndKey($container, $key)
     {
-        return CustomObjectByKeyGetRequest::ofContainerAndKey($container, $key);
+        $request = CustomObjectByKeyGetRequest::ofContainerAndKey($container, $key);
+        return $request;
     }
 
     /**
-     * @param string $id
-     * @return CustomObjectByIdGetRequest
+     * @link https://docs.commercetools.com/http-api-projects-custom-objects.html#create-a-customobject
+     * @param CustomObjectDraft $customObject
+     * @return CustomObjectCreateRequest
      */
-    public function getById($id)
+    public function create(CustomObjectDraft $customObject)
     {
-        return CustomObjectByIdGetRequest::ofId($id);
+        $request = CustomObjectCreateRequest::ofDraft($customObject);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-custom-objects.html#delete-customobject-by-container-and-key
+     * @param string $container
+     * @param string $key
+     * @return CustomObjectDeleteByKeyRequest
+     */
+    public function deleteByContainerAndKey($container, $key)
+    {
+        $request = CustomObjectDeleteByKeyRequest::ofContainerAndKey($container, $key);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-custom-objects.html#delete-customobject-by-id
+     * @param CustomObject $customObject
+     * @return CustomObjectDeleteRequest
+     */
+    public function delete(CustomObject $customObject)
+    {
+        $request = CustomObjectDeleteRequest::ofIdAndVersion($customObject->getId(), $customObject->getVersion());
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-custom-objects.html#query-customobjects
+     * @param 
+     * @return CustomObjectQueryRequest
+     */
+    public function query()
+    {
+        $request = CustomObjectQueryRequest::of();
+        return $request;
+    }
+
+    /**
+     * @return CustomObjectRequestBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

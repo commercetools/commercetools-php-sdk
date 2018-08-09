@@ -1,86 +1,90 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
 
 namespace Commercetools\Core\Builder\Request;
 
-use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\Products\ProductProjectionByIdGetRequest;
 use Commercetools\Core\Request\Products\ProductProjectionByKeyGetRequest;
 use Commercetools\Core\Request\Products\ProductProjectionBySkuGetRequest;
 use Commercetools\Core\Request\Products\ProductProjectionBySlugGetRequest;
 use Commercetools\Core\Request\Products\ProductProjectionQueryRequest;
 use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
-use Commercetools\Core\Request\Products\ProductsSuggestRequest;
 
 class ProductProjectionRequestBuilder
 {
-    /**
-     * @param bool $staged
-     * @return ProductProjectionQueryRequest
-     */
-    public function query($staged = false)
-    {
-        return ProductProjectionQueryRequest::of()->staged($staged);
-    }
 
     /**
-     * @param bool $staged
-     * @return ProductProjectionSearchRequest
-     */
-    public function search($staged = false)
-    {
-        return ProductProjectionSearchRequest::of()->staged($staged);
-    }
-
-    /**
+     * @link https://docs.commercetools.com/http-api-projects-productProjections.html#get-productprojection-by-id
      * @param string $id
-     * @param bool $staged
      * @return ProductProjectionByIdGetRequest
      */
-    public function getById($id, $staged = false)
+    public function getById($id)
     {
-        return ProductProjectionByIdGetRequest::ofId($id)->staged($staged);
+        $request = ProductProjectionByIdGetRequest::ofId($id);
+        return $request;
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-productProjections.html#get-productprojection-by-key
      * @param string $key
-     * @param bool $staged
      * @return ProductProjectionByKeyGetRequest
      */
-    public function getByKey($key, $staged = false)
+    public function getByKey($key)
     {
-        return ProductProjectionByKeyGetRequest::ofKey($key)->staged($staged);
+        $request = ProductProjectionByKeyGetRequest::ofKey($key);
+        return $request;
     }
 
     /**
+     *
      * @param string $sku
-     * @param bool $staged
      * @return ProductProjectionBySkuGetRequest
      */
-    public function getBySku($sku, $staged = false)
+    public function getBySku($sku)
     {
-        return ProductProjectionBySkuGetRequest::ofSku($sku)->staged($staged);
+        $request = ProductProjectionBySkuGetRequest::ofSku($sku);
+        return $request;
     }
 
     /**
+     *
      * @param string $slug
      * @param array $languages
-     * @param bool $staged
+     * @param string $staged
      * @return ProductProjectionBySlugGetRequest
      */
     public function getBySlug($slug, array $languages, $staged = false)
     {
-        return ProductProjectionBySlugGetRequest::ofSlugAndLanguages($slug, $languages)->staged($staged);
+        $request = ProductProjectionBySlugGetRequest::ofSlugAndLanguages($slug, $languages)->staged($staged);
+        return $request;
     }
 
     /**
-     * @param LocalizedString $keywords
-     * @return ProductsSuggestRequest
+     * @link https://docs.commercetools.com/http-api-projects-products.html#query-productprojections
+     * @param 
+     * @return ProductProjectionQueryRequest
      */
-    public function suggest(LocalizedString $keywords)
+    public function query()
     {
-        return ProductsSuggestRequest::ofKeywords($keywords);
+        $request = ProductProjectionQueryRequest::of();
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-products-search.html#search-productprojections
+     * @param 
+     * @return ProductProjectionSearchRequest
+     */
+    public function search()
+    {
+        $request = ProductProjectionSearchRequest::of();
+        return $request;
+    }
+
+    /**
+     * @return ProductProjectionRequestBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }
