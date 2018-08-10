@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Payments\PaymentByIdGetRequest;
@@ -73,7 +73,7 @@ class PaymentRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-payments.html#query-payments
-     * @param 
+     *
      * @return PaymentQueryRequest
      */
     public function query()

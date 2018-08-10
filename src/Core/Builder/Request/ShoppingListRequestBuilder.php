@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\ShoppingLists\ShoppingListByIdGetRequest;
@@ -73,7 +73,7 @@ class ShoppingListRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-ShoppingLists.html#query-ShoppingLists
-     * @param 
+     *
      * @return ShoppingListQueryRequest
      */
     public function query()

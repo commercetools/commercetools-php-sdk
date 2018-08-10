@@ -767,21 +767,22 @@ EOF;
                     $methodParams
                 )
             );
-            $docParams = implode(
-                PHP_EOL . '     * @param ',
-                array_map(
-                    function ($param) {
-                        return (isset($param[self::PARAM_TYPE]) ? $param[self::PARAM_TYPE] . ' ' : '') .
-                            (isset($param[self::PARAM_DOC_TYPE]) ? $param[self::PARAM_DOC_TYPE] . ' ' : '') .
-                            $param[self::PARAM_NAME];
-                    },
-                    $methodParams
-                )
-            );
+            $docParams = count($methodParams) > 0 ?
+                ' @param ' . implode(
+                    PHP_EOL . '     * @param ',
+                    array_map(
+                        function ($param) {
+                            return (isset($param[self::PARAM_TYPE]) ? $param[self::PARAM_TYPE] . ' ' : '') .
+                                (isset($param[self::PARAM_DOC_TYPE]) ? $param[self::PARAM_DOC_TYPE] . ' ' : '') .
+                                $param[self::PARAM_NAME];
+                        },
+                        $methodParams
+                    )
+                ) : '';
             $factoryMethod = <<<METHOD
     /**
      *$docLinks
-     * @param $docParams
+     *$docParams
      * @return $requestShortName
      */
     public function $methodName($functionParams)
@@ -797,7 +798,7 @@ METHOD;
         $uses = implode(PHP_EOL, $uses);
         $content = <<<EOF
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 $uses

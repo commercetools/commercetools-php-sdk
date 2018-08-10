@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest;
@@ -186,7 +186,7 @@ class CustomerRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-id
-     * @param 
+     *
      * @return CustomerQueryRequest
      */
     public function query()

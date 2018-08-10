@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Zones\ZoneByIdGetRequest;
@@ -48,7 +48,7 @@ class ZoneRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-zones.html#query-zones
-     * @param 
+     *
      * @return ZoneQueryRequest
      */
     public function query()

@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Messages\MessageByIdGetRequest;
@@ -21,7 +21,7 @@ class MessageRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-messages.html#query-messages
-     * @param 
+     *
      * @return MessageQueryRequest
      */
     public function query()

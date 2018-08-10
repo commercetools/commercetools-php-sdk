@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\TaxCategories\TaxCategoryByIdGetRequest;
@@ -73,7 +73,7 @@ class TaxCategoryRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#query-taxcategories
-     * @param 
+     *
      * @return TaxCategoryQueryRequest
      */
     public function query()

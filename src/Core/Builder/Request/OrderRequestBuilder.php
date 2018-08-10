@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
@@ -86,7 +86,7 @@ class OrderRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#query-orders
-     * @param 
+     *
      * @return OrderQueryRequest
      */
     public function query()

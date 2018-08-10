@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
@@ -73,7 +73,7 @@ class CategoryRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-categories.html#query-categories
-     * @param 
+     *
      * @return CategoryQueryRequest
      */
     public function query()

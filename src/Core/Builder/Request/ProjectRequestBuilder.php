@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Project\ProjectGetRequest;
@@ -11,7 +11,7 @@ class ProjectRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-project.html#get-project
-     * @param 
+     *
      * @return ProjectGetRequest
      */
     public function get()

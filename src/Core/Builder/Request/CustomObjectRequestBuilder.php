@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\CustomObjects\CustomObjectByIdGetRequest;
@@ -72,7 +72,7 @@ class CustomObjectRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-custom-objects.html#query-customobjects
-     * @param 
+     *
      * @return CustomObjectQueryRequest
      */
     public function query()

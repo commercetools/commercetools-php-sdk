@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupByIdGetRequest;
@@ -73,7 +73,7 @@ class CustomerGroupRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#query-customergroups
-     * @param 
+     *
      * @return CustomerGroupQueryRequest
      */
     public function query()

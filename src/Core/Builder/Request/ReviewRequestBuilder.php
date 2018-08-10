@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Reviews\ReviewByIdGetRequest;
@@ -73,7 +73,7 @@ class ReviewRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-reviews.html#query-reviews
-     * @param 
+     *
      * @return ReviewQueryRequest
      */
     public function query()

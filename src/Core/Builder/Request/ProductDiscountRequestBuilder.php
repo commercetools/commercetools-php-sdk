@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountByIdGetRequest;
@@ -63,7 +63,7 @@ class ProductDiscountRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#query-productdiscounts
-     * @param 
+     *
      * @return ProductDiscountQueryRequest
      */
     public function query()

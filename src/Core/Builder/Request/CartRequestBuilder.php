@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Carts\CartByCustomerIdGetRequest;
@@ -61,7 +61,7 @@ class CartRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#query-carts
-     * @param 
+     *
      * @return CartQueryRequest
      */
     public function query()

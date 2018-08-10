@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\States\StateByIdGetRequest;
@@ -48,7 +48,7 @@ class StateRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-states.html#query-states
-     * @param 
+     *
      * @return StateQueryRequest
      */
     public function query()

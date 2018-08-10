@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Channels\ChannelByIdGetRequest;
@@ -48,7 +48,7 @@ class ChannelRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-channels.html#query-channels
-     * @param 
+     *
      * @return ChannelQueryRequest
      */
     public function query()

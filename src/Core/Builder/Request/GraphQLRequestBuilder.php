@@ -1,5 +1,5 @@
 <?php
-// phpcs:ignoreFile
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\GraphQL\GraphQLQueryRequest;
@@ -9,7 +9,7 @@ class GraphQLRequestBuilder
 
     /**
      *
-     * @param 
+     *
      * @return GraphQLQueryRequest
      */
     public function query()
