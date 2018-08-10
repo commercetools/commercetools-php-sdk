@@ -1,18 +1,15 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
 
 namespace Commercetools\Core\Builder\Request;
 
-use Commercetools\Core\Model\Customer\Customer;
-use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByKeyGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByTokenGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
+use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Request\Customers\CustomerDeleteByKeyRequest;
+use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
 use Commercetools\Core\Request\Customers\CustomerEmailConfirmRequest;
 use Commercetools\Core\Request\Customers\CustomerEmailTokenRequest;
@@ -26,60 +23,109 @@ use Commercetools\Core\Request\Customers\CustomerUpdateRequest;
 
 class CustomerRequestBuilder
 {
+
     /**
-     * @return CustomerQueryRequest
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-email-token
+     * @param string $token
+     * @return CustomerByEmailTokenGetRequest
      */
-    public function query()
+    public function getByEmailToken($token)
     {
-        return CustomerQueryRequest::of();
+        $request = CustomerByEmailTokenGetRequest::ofToken($token);
+        return $request;
     }
 
     /**
-     * @param Customer $customer
-     * @return CustomerUpdateRequest
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-id
+     * @param string $id
+     * @return CustomerByIdGetRequest
      */
-    public function update(Customer $customer)
+    public function getById($id)
     {
-        return CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion());
+        $request = CustomerByIdGetRequest::ofId($id);
+        return $request;
     }
 
     /**
-     * @param Customer $customer
-     * @return CustomerUpdateByKeyRequest
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-key
+     * @param string $key
+     * @return CustomerByKeyGetRequest
      */
-    public function updateByKey(Customer $customer)
+    public function getByKey($key)
     {
-        return CustomerUpdateByKeyRequest::ofKeyAndVersion($customer->getKey(), $customer->getVersion());
+        $request = CustomerByKeyGetRequest::ofKey($key);
+        return $request;
     }
 
     /**
-     * @param CustomerDraft $customerDraft
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-password-token
+     * @param string $tokenValue
+     * @return CustomerByTokenGetRequest
+     */
+    public function getByPasswordToken($tokenValue)
+    {
+        $request = CustomerByTokenGetRequest::ofToken($tokenValue);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#create-customer-sign-up
+     * @param CustomerDraft $customer
      * @return CustomerCreateRequest
      */
-    public function create(CustomerDraft $customerDraft)
+    public function create(CustomerDraft $customer)
     {
-        return CustomerCreateRequest::ofDraft($customerDraft);
+        $request = CustomerCreateRequest::ofDraft($customer);
+        return $request;
     }
 
     /**
-     * @param Customer $customer
-     * @return CustomerDeleteRequest
-     */
-    public function delete(Customer $customer)
-    {
-        return CustomerDeleteRequest::ofIdAndVersion($customer->getId(), $customer->getVersion());
-    }
-
-    /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#delete-customer-by-key
      * @param Customer $customer
      * @return CustomerDeleteByKeyRequest
      */
     public function deleteByKey(Customer $customer)
     {
-        return CustomerDeleteByKeyRequest::ofKeyAndVersion($customer->getKey(), $customer->getVersion());
+        $request = CustomerDeleteByKeyRequest::ofKeyAndVersion($customer->getKey(), $customer->getVersion());
+        return $request;
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#delete-customer
+     * @param Customer $customer
+     * @return CustomerDeleteRequest
+     */
+    public function delete(Customer $customer)
+    {
+        $request = CustomerDeleteRequest::ofIdAndVersion($customer->getId(), $customer->getVersion());
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#verify-customers-email
+     * @param string $tokenValue
+     * @return CustomerEmailConfirmRequest
+     */
+    public function confirmEmail($tokenValue)
+    {
+        $request = CustomerEmailConfirmRequest::ofToken($tokenValue);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#create-a-token-for-verifying-the-customers-email
+     * @param Customer $customer
+     * @param int $ttlMinutes
+     * @return CustomerEmailTokenRequest
+     */
+    public function createEmailVerificationToken(Customer $customer, $ttlMinutes)
+    {
+        $request = CustomerEmailTokenRequest::ofIdVersionAndTtl($customer->getId(), $customer->getVersion(), $ttlMinutes);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#authenticate-customer-sign-in
      * @param string $email
      * @param string $password
      * @param bool $updateProductData
@@ -88,15 +134,17 @@ class CustomerRequestBuilder
      */
     public function login($email, $password, $updateProductData = false, $anonymousCartId = null)
     {
-        return CustomerLoginRequest::ofEmailPasswordAndUpdateProductData(
+        $request = CustomerLoginRequest::ofEmailPasswordAndUpdateProductData(
             $email,
             $password,
             $updateProductData,
             $anonymousCartId
         );
+        return $request;
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#change-customers-password
      * @param Customer $customer
      * @param string $currentPassword
      * @param string $newPassword
@@ -104,85 +152,76 @@ class CustomerRequestBuilder
      */
     public function changePassword(Customer $customer, $currentPassword, $newPassword)
     {
-        return CustomerPasswordChangeRequest::ofIdVersionAndPasswords(
+        $request = CustomerPasswordChangeRequest::ofIdVersionAndPasswords(
             $customer->getId(),
             $customer->getVersion(),
             $currentPassword,
             $newPassword
         );
+        return $request;
     }
 
     /**
-     * @param string $email
-     * @return CustomerPasswordTokenRequest
-     */
-    public function createResetPasswordToken($email)
-    {
-        return CustomerPasswordTokenRequest::ofEmail($email);
-    }
-
-    /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#customers-password-reset
      * @param string $tokenValue
      * @param string $newPassword
      * @return CustomerPasswordResetRequest
      */
     public function resetPassword($tokenValue, $newPassword)
     {
-        return CustomerPasswordResetRequest::ofTokenAndPassword($tokenValue, $newPassword);
+        $request = CustomerPasswordResetRequest::ofTokenAndPassword($tokenValue, $newPassword);
+        return $request;
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#create-a-token-for-resetting-the-customers-password
+     * @param string $email
+     * @return CustomerPasswordTokenRequest
+     */
+    public function createResetPasswordToken($email)
+    {
+        $request = CustomerPasswordTokenRequest::ofEmail($email);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-id
+     * @param 
+     * @return CustomerQueryRequest
+     */
+    public function query()
+    {
+        $request = CustomerQueryRequest::of();
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#update-customer-by-key
      * @param Customer $customer
-     * @param int $ttlMinutes
-     * @return CustomerEmailTokenRequest
+     * @return CustomerUpdateByKeyRequest
      */
-    public function createEmailVerificationToken(Customer $customer, $ttlMinutes)
+    public function updateByKey(Customer $customer)
     {
-        return CustomerEmailTokenRequest::ofIdVersionAndTtl($customer->getId(), $customer->getVersion(), $ttlMinutes);
+        $request = CustomerUpdateByKeyRequest::ofKeyAndVersion($customer->getKey(), $customer->getVersion());
+        return $request;
     }
 
     /**
-     * @param string $tokenValue
-     * @return CustomerEmailConfirmRequest
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#update-customer
+     * @param Customer $customer
+     * @return CustomerUpdateRequest
      */
-    public function confirmEmail($tokenValue)
+    public function update(Customer $customer)
     {
-        return CustomerEmailConfirmRequest::ofToken($tokenValue);
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion());
+        return $request;
     }
 
     /**
-     * @param string $id
-     * @return CustomerByIdGetRequest
+     * @return CustomerRequestBuilder
      */
-    public function getById($id)
+    public function of()
     {
-        return CustomerByIdGetRequest::ofId($id);
-    }
-
-    /**
-     * @param string $key
-     * @return CustomerByKeyGetRequest
-     */
-    public function getByKey($key)
-    {
-        return CustomerByKeyGetRequest::ofKey($key);
-    }
-
-    /**
-     * @param string $tokenValue
-     * @return CustomerByTokenGetRequest
-     */
-    public function getByPasswordToken($tokenValue)
-    {
-        return CustomerByTokenGetRequest::ofToken($tokenValue);
-    }
-
-    /**
-     * @param string $tokenValue
-     * @return CustomerByEmailTokenGetRequest
-     */
-    public function getByEmailToken($tokenValue)
-    {
-        return CustomerByEmailTokenGetRequest::ofToken($tokenValue);
+        return new self();
     }
 }

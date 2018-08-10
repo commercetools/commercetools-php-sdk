@@ -1,7 +1,4 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
 
 namespace Commercetools\Core\Builder\Request;
 
@@ -10,20 +7,34 @@ use Commercetools\Core\Request\Messages\MessageQueryRequest;
 
 class MessageRequestBuilder
 {
-    /**
-     * @return MessageQueryRequest
-     */
-    public function query()
-    {
-        return MessageQueryRequest::of();
-    }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-messages.html#get-message-by-id
      * @param string $id
      * @return MessageByIdGetRequest
      */
     public function getById($id)
     {
-        return MessageByIdGetRequest::ofId($id);
+        $request = MessageByIdGetRequest::ofId($id);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-messages.html#query-messages
+     * @param 
+     * @return MessageQueryRequest
+     */
+    public function query()
+    {
+        $request = MessageQueryRequest::of();
+        return $request;
+    }
+
+    /**
+     * @return MessageRequestBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

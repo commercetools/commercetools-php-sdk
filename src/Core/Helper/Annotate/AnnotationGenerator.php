@@ -5,14 +5,27 @@
 
 namespace Commercetools\Core\Helper\Annotate;
 
+use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Price;
+use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\Model\Order\ImportOrder;
+use Commercetools\Core\Model\Zone\Location;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Request\Orders\OrderByOrderNumberGetRequest;
 use Commercetools\Core\Request\PsrRequest;
+use Psr\Http\Message\UploadedFileInterface;
 
 class AnnotationGenerator
 {
+    const PARAM_DOC_TYPE = 'doc_type';
+    const PARAM_TYPE = 'type';
+    const PARAM_NAME = 'name';
+    const PARAM_DEFAULT = 'default';
+
     /**
      * @var \ReflectionClass
      */
@@ -58,6 +71,12 @@ class AnnotationGenerator
         }
 
         $domainRequests = $this->getRequestDomainObjects($phpFiles);
+        foreach ($domainRequests as $domain => $requests) {
+            if ($domain == 'Me') {
+                continue;
+            }
+            $this->generateDomainRequestBuilder($domain, $requests);
+        }
         $this->generateRequestBuilder(array_keys($domainRequests));
 
         $domainUpdates = $this->getUpdateObjects($phpFiles);
@@ -146,6 +165,9 @@ class AnnotationGenerator
                     $namespaceParts = explode("\\", $class->getNamespaceName());
                     $domain = $namespaceParts[count($namespaceParts) - 1];
                     if (strpos($class, 'ProductProjection') > 0) {
+                        $domain = 'ProductProjections';
+                    }
+                    if (strpos($class, 'ProductsSuggest') > 0) {
                         $domain = 'ProductProjections';
                     }
                     $requestObjects[$domain][] = $class->getName();
@@ -482,6 +504,281 @@ $methods
      * @return $builderName
      */
     public static function of()
+    {
+        return new self();
+    }
+}
+
+EOF;
+        file_put_contents($fileName, $content);
+    }
+
+    public function generateDomainRequestBuilder($domain, $requests)
+    {
+        $singularDomain = $this->singularize($domain);
+        $className = ucfirst($singularDomain) . 'RequestBuilder';
+        $fileName = __DIR__ . '/../../Builder/Request/' . $className . '.php';
+
+        $requestMethods = [];
+        $uses = [];
+
+        sort($requests);
+        foreach ($requests as $request) {
+            $uses[] = 'use ' . $request . ';';
+            $requestClass = new \ReflectionClass($request);
+
+            $docComment = $requestClass->getDocComment();
+            $docLinks = [];
+            if (strpos($docComment, '@link https://docs.') > 0) {
+                $docComment = explode(PHP_EOL, $docComment);
+                $docLinks = array_map(
+                    function ($link) {
+                        return trim(str_replace(['*', '@link'], '', $link));
+                    },
+                    array_filter($docComment, function ($line) {
+                        return strpos($line, '@link') > 0;
+                    })
+                );
+            }
+            $docLinks = count($docLinks) > 0 ?
+                ' @link ' . implode(PHP_EOL . '     * @link ', $docLinks):
+                '';
+
+            $requestShortName = $requestClass->getShortName();
+
+            $methodName = lcfirst(preg_replace(['/^' . $singularDomain . '/', '/Request$/'], '', $requestShortName));
+            $resultClassName = 'Commercetools\Core\Model\\' . $singularDomain . '\\' .
+                ($singularDomain !== 'Inventory' ? $singularDomain : 'InventoryEntry');
+            if (class_exists($resultClassName)) {
+                $resultClass = new \ReflectionClass($resultClassName);
+            } else {
+                var_dump($resultClassName);
+            }
+            $methodParams = [];
+            switch ($methodName) {
+                case 'create':
+                    $factoryMethod = $requestClass->getMethod('ofDraft');
+                    $params = $factoryMethod->getParameters();
+                    $draftParam = current($params);
+                    $type = $draftParam->getClass();
+                    $uses[] = 'use ' . $type->getName() . ';';
+                    $methodParams[] = [self::PARAM_TYPE => $type->getShortName(), self::PARAM_NAME => '$' . $draftParam->getName()];
+                    $factoryCall = 'ofDraft($' . $draftParam->getName() . ');';
+                    break;
+                case 'createFromCart':
+                    $uses[] = 'use ' . Cart::class . ';';
+                    $methodParams[] = [self::PARAM_TYPE => 'Cart', self::PARAM_NAME => '$cart'];
+                    $factoryCall = 'ofCartIdAndVersion($cart->getId(), $cart->getVersion());';
+                    break;
+                case 'emailToken':
+                    $methodName = 'createEmailVerificationToken';
+                    $methodParams[] = [self::PARAM_TYPE => 'Customer', self::PARAM_NAME => '$customer'];
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'int', self::PARAM_NAME => '$ttlMinutes'];
+                    $factoryCall = 'ofIdVersionAndTtl($customer->getId(), $customer->getVersion(), $ttlMinutes);';
+                    break;
+                case 'byTokenGet':
+                    $methodName = 'getByPasswordToken';
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$tokenValue'];
+                    $factoryCall = 'ofToken($tokenValue);';
+                    break;
+                case 'login':
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$email'];
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$password'];
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'bool', self::PARAM_NAME => '$updateProductData', self::PARAM_DEFAULT => 'false'];
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$anonymousCartId', self::PARAM_DEFAULT => 'null'];
+                    $factoryCall = 'ofEmailPasswordAndUpdateProductData(
+            $email,
+            $password,
+            $updateProductData,
+            $anonymousCartId
+        );';
+                    break;
+                case 'passwordChange':
+                    $methodName = 'changePassword';
+                    $methodParams[] = [self::PARAM_TYPE => 'Customer', self::PARAM_NAME => '$customer'];
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$currentPassword'];
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$newPassword'];
+                    $factoryCall = 'ofIdVersionAndPasswords(
+            $customer->getId(),
+            $customer->getVersion(),
+            $currentPassword,
+            $newPassword
+        );';
+                    break;
+                case 'matching':
+                    $uses[] = 'use ' . Price::class . ';';
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$productId'];
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'int', self::PARAM_NAME => '$variantId'];
+                    $methodParams[] = [self::PARAM_TYPE => 'Price', self::PARAM_NAME => '$price'];
+                    $factoryCall = 'ofProductIdVariantIdAndPrice($productId, $variantId, $price);';
+                    break;
+                case 'replicate':
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$cartId'];
+                    $factoryCall = 'ofCartId($cartId);';
+                    break;
+                case 'passwordReset':
+                    $methodName = 'resetPassword';
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$tokenValue'];
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$newPassword'];
+                    $factoryCall = 'ofTokenAndPassword($tokenValue, $newPassword);';
+                    break;
+                case 'passwordToken':
+                    $methodName = 'createResetPasswordToken';
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$email'];
+                    $factoryCall = 'ofEmail($email);';
+                    break;
+                case 'emailConfirm':
+                    $methodName = 'confirmEmail';
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$tokenValue'];
+                    $factoryCall = 'ofToken($tokenValue);';
+                    break;
+                case 'update':
+                case 'delete':
+                    $uses[$resultClassName] = 'use ' . $resultClassName . ';';
+                    $methodParams[] = [self::PARAM_TYPE => $resultClass->getShortName(), self::PARAM_NAME => '$' . lcfirst($singularDomain)];
+                    $factoryCall = 'ofIdAndVersion($' . lcfirst($singularDomain) . '->getId(), $' . lcfirst($singularDomain) . '->getVersion());';
+                    if ($domain == 'Project') {
+                        $factoryCall = 'ofVersion($' . lcfirst($singularDomain) . '->getVersion());';
+                    }
+                    break;
+                case 'import':
+                    $uses[ImportOrder::class] = 'use ' . ImportOrder::class . ';';
+                    $methodParams[] = [self::PARAM_TYPE => 'ImportOrder', self::PARAM_NAME => '$importOrder'];
+                    $factoryCall = 'ofImportOrder($importOrder);';
+                    break;
+                case 'productsSuggest':
+                    $methodName = 'suggest';
+                    $uses[LocalizedString::class] = 'use ' . LocalizedString::class . ';';
+                    $methodParams[] = [self::PARAM_TYPE => 'LocalizedString', self::PARAM_NAME => '$keywords'];
+                    $factoryCall = 'ofKeywords($keywords);';
+                    break;
+                case 'updateByKey':
+                case 'deleteByKey':
+                case 'updateByOrderNumber':
+                case 'deleteByOrderNumber':
+                    $param = 'key';
+                    if (strpos($methodName, 'ByOrderNumber') > 0) {
+                        $param = 'orderNumber';
+                    }
+                    if ($param == 'key' && $resultClassName == CustomObject::class) {
+                        $methodName = 'deleteByContainerAndKey';
+                        $methodParams[] = [self::PARAM_TYPE => 'CustomObject', self::PARAM_NAME => '$customObject'];
+                        $factoryCall = 'ofContainerAndKey($customObject->getContainer(), $customObject->getKey());';
+                        break;
+                    }
+                    $uses[$resultClassName] = 'use ' . $resultClassName . ';';
+                    $methodParams[] = [self::PARAM_TYPE => $resultClass->getShortName(), self::PARAM_NAME => '$' . lcfirst($singularDomain)];
+                    $factoryCall = 'of' . ucfirst($param) . 'AndVersion($' . lcfirst($singularDomain) . '->get' . ucfirst($param) . '(), $' . lcfirst($singularDomain) . '->getVersion());';
+                    if ($resultClass == CustomObject::class) {
+                        $factoryCall = str_replace('ofKeyAndVersion', 'ofContainerAndKey', $factoryCall);
+                    }
+                    break;
+                case 'byLocationGet':
+                    $methodName = 'getByLocation';
+                    $uses[Location::class] = 'use ' . Location::class . ';';
+                    $methodParams[] = [self::PARAM_TYPE => 'Location', self::PARAM_NAME => '$location'];
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$currency', self::PARAM_DEFAULT => 'null'];
+                    $factoryCall = 'ofCountry($location->getCountry());
+        if (!is_null($location->getState())) {
+            $request->withState($location->getState());
+        }
+        if (!is_null($currency)) {
+            $request->withCurrency($currency);
+        }';
+                    break;
+                case 'imageUpload':
+                    $methodName = 'uploadImageBySKU';
+                    $uses[UploadedFileInterface::class] = 'use ' . UploadedFileInterface::class . ';';
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$id'];
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$sku'];
+                    $methodParams[] = [self::PARAM_TYPE => 'UploadedFileInterface', self::PARAM_NAME => '$uploadedFile'];
+                    $factoryCall = 'ofIdSkuAndFile($id, $sku, $uploadedFile);';
+                    break;
+                case preg_match('/^by([a-zA-Z]+)Get$/', $methodName, $matches) === 1:
+                    $param = lcfirst($matches[1]);
+                    if ($param == 'key' && $resultClassName == CustomObject::class) {
+                        $methodName = 'getByContainerAndKey';
+                        $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$container'];
+                        $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$key'];
+                        $factoryCall = 'ofContainerAndKey($container, $key);';
+                        break;
+                    }
+                    if ($param == 'slug') {
+                        $methodName = 'getBySlug';
+                        $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$slug'];
+                        $methodParams[] = [self::PARAM_TYPE => 'array', self::PARAM_NAME => '$languages'];
+                        $factoryCall = 'ofSlugAndLanguages($slug, $languages);';
+                        break;
+                    }
+                    $methodName = 'getBy' . ucfirst($param);
+                    if ($param == 'emailToken') {
+                        $param = 'token';
+                    }
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$' . $param];
+                    $factoryCall = 'of' . ucfirst($param) . '($' . $param . ');';
+                    break;
+                default:
+                    $factoryCall = 'of();';
+            }
+            if ($domain == 'ProductProjections') {
+                $methodParams[] = [self::PARAM_DOC_TYPE => 'bool', self::PARAM_NAME => '$staged', self::PARAM_DEFAULT => 'false'];
+                $factoryCall = str_replace(';', '->staged($staged);', $factoryCall);
+            }
+            $functionParams = implode(
+                ', ',
+                array_map(
+                    function ($param) {
+                        return (isset($param[self::PARAM_TYPE]) ? $param[self::PARAM_TYPE] . ' ' : '') .
+                            $param[self::PARAM_NAME] .
+                            (isset($param[self::PARAM_DEFAULT]) ? ' = ' . $param[self::PARAM_DEFAULT] : '');
+                    },
+                    $methodParams
+                )
+            );
+            $docParams = implode(
+                PHP_EOL . '     * @param ',
+                array_map(
+                    function ($param) {
+                        return (isset($param[self::PARAM_TYPE]) ? $param[self::PARAM_TYPE] . ' ' : '') .
+                            (isset($param[self::PARAM_DOC_TYPE]) ? $param[self::PARAM_DOC_TYPE] . ' ' : '') .
+                            $param[self::PARAM_NAME];
+                    },
+                    $methodParams
+                )
+            );
+            $factoryMethod = <<<METHOD
+    /**
+     *$docLinks
+     * @param $docParams
+     * @return $requestShortName
+     */
+    public function $methodName($functionParams)
+    {
+        \$request = $requestShortName::$factoryCall
+        return \$request;
+    }
+METHOD;
+            $requestMethods[] = $factoryMethod;
+        }
+
+        $factoryMethods = implode(PHP_EOL . PHP_EOL, $requestMethods);
+        $uses = implode(PHP_EOL, $uses);
+        $content = <<<EOF
+<?php
+
+namespace Commercetools\Core\Builder\Request;
+
+$uses
+
+class $className
+{
+
+$factoryMethods
+
+    /**
+     * @return $className
+     */
+    public function of()
     {
         return new self();
     }
