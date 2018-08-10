@@ -14,7 +14,6 @@ use Psr\Http\Message\UploadedFileInterface;
 use Commercetools\Core\Request\Products\ProductQueryRequest;
 use Commercetools\Core\Request\Products\ProductUpdateByKeyRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
-use Commercetools\Core\Request\Products\ProductsSuggestRequest;
 
 class ProductRequestBuilder
 {
@@ -117,17 +116,6 @@ class ProductRequestBuilder
     public function update(Product $product)
     {
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion());
-        return $request;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-products-suggestions.html#suggest-query
-     * @param 
-     * @return ProductsSuggestRequest
-     */
-    public function sSuggest()
-    {
-        $request = ProductsSuggestRequest::of();
         return $request;
     }
 

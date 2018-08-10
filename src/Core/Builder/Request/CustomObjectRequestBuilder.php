@@ -50,13 +50,12 @@ class CustomObjectRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-custom-objects.html#delete-customobject-by-container-and-key
-     * @param string $container
-     * @param string $key
+     * @param CustomObject $customObject
      * @return CustomObjectDeleteByKeyRequest
      */
-    public function deleteByContainerAndKey($container, $key)
+    public function deleteByContainerAndKey(CustomObject $customObject)
     {
-        $request = CustomObjectDeleteByKeyRequest::ofContainerAndKey($container, $key);
+        $request = CustomObjectDeleteByKeyRequest::ofContainerAndKey($customObject->getContainer(), $customObject->getKey());
         return $request;
     }
 

@@ -10,6 +10,7 @@ use Commercetools\Core\Request\Orders\OrderDeleteByOrderNumberRequest;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderImportRequest;
+use Commercetools\Core\Model\Order\ImportOrder;
 use Commercetools\Core\Request\Orders\OrderQueryRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateRequest;
@@ -74,12 +75,12 @@ class OrderRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-orders-import.html#create-an-order-by-import
-     * @param 
+     * @param ImportOrder $importOrder
      * @return OrderImportRequest
      */
-    public function import()
+    public function import(ImportOrder $importOrder)
     {
-        $request = OrderImportRequest::of();
+        $request = OrderImportRequest::ofImportOrder($importOrder);
         return $request;
     }
 

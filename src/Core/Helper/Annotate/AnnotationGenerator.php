@@ -8,8 +8,10 @@ namespace Commercetools\Core\Helper\Annotate;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Price;
 use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\Model\Order\ImportOrder;
 use Commercetools\Core\Model\Zone\Location;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\AbstractApiRequest;
@@ -163,6 +165,9 @@ class AnnotationGenerator
                     $namespaceParts = explode("\\", $class->getNamespaceName());
                     $domain = $namespaceParts[count($namespaceParts) - 1];
                     if (strpos($class, 'ProductProjection') > 0) {
+                        $domain = 'ProductProjections';
+                    }
+                    if (strpos($class, 'ProductsSuggest') > 0) {
                         $domain = 'ProductProjections';
                     }
                     $requestObjects[$domain][] = $class->getName();
@@ -636,6 +641,17 @@ EOF;
                         $factoryCall = 'ofVersion($' . lcfirst($singularDomain) . '->getVersion());';
                     }
                     break;
+                case 'import':
+                    $uses[ImportOrder::class] = 'use ' . ImportOrder::class . ';';
+                    $methodParams[] = [self::PARAM_TYPE => 'ImportOrder', self::PARAM_NAME => '$importOrder'];
+                    $factoryCall = 'ofImportOrder($importOrder);';
+                    break;
+                case 'productsSuggest':
+                    $methodName = 'suggest';
+                    $uses[LocalizedString::class] = 'use ' . LocalizedString::class . ';';
+                    $methodParams[] = [self::PARAM_TYPE => 'LocalizedString', self::PARAM_NAME => '$keywords'];
+                    $factoryCall = 'ofKeywords($keywords);';
+                    break;
                 case 'updateByKey':
                 case 'deleteByKey':
                 case 'updateByOrderNumber':
@@ -646,9 +662,8 @@ EOF;
                     }
                     if ($param == 'key' && $resultClassName == CustomObject::class) {
                         $methodName = 'deleteByContainerAndKey';
-                        $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$container'];
-                        $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$key'];
-                        $factoryCall = 'ofContainerAndKey($container, $key);';
+                        $methodParams[] = [self::PARAM_TYPE => 'CustomObject', self::PARAM_NAME => '$customObject'];
+                        $factoryCall = 'ofContainerAndKey($customObject->getContainer(), $customObject->getKey());';
                         break;
                     }
                     $uses[$resultClassName] = 'use ' . $resultClassName . ';';
@@ -692,8 +707,7 @@ EOF;
                         $methodName = 'getBySlug';
                         $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$slug'];
                         $methodParams[] = [self::PARAM_TYPE => 'array', self::PARAM_NAME => '$languages'];
-                        $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$staged', self::PARAM_DEFAULT => 'false'];
-                        $factoryCall = 'ofSlugAndLanguages($slug, $languages)->staged($staged);';
+                        $factoryCall = 'ofSlugAndLanguages($slug, $languages);';
                         break;
                     }
                     $methodName = 'getBy' . ucfirst($param);
@@ -706,7 +720,10 @@ EOF;
                 default:
                     $factoryCall = 'of();';
             }
-
+            if ($domain == 'ProductProjections') {
+                $methodParams[] = [self::PARAM_DOC_TYPE => 'bool', self::PARAM_NAME => '$staged', self::PARAM_DEFAULT => 'false'];
+                $factoryCall = str_replace(';', '->staged($staged);', $factoryCall);
+            }
             $functionParams = implode(
                 ', ',
                 array_map(
