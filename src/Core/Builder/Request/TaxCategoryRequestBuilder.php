@@ -1,5 +1,5 @@
 <?php
-
+// phpcs:ignoreFile
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\TaxCategories\TaxCategoryByIdGetRequest;

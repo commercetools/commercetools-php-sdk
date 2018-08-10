@@ -546,13 +546,13 @@ EOF;
 
             $requestShortName = $requestClass->getShortName();
 
-            $methodName = lcfirst(preg_replace(['/^' . $singularDomain . '/', '/Request$/'], '', $requestShortName));
+            $methodName = lcfirst(
+                preg_replace(['/^' . $singularDomain . '/', '/Request$/'], '', $requestShortName)
+            );
             $resultClassName = 'Commercetools\Core\Model\\' . $singularDomain . '\\' .
                 ($singularDomain !== 'Inventory' ? $singularDomain : 'InventoryEntry');
             if (class_exists($resultClassName)) {
                 $resultClass = new \ReflectionClass($resultClassName);
-            } else {
-                var_dump($resultClassName);
             }
             $methodParams = [];
             switch ($methodName) {
@@ -562,7 +562,10 @@ EOF;
                     $draftParam = current($params);
                     $type = $draftParam->getClass();
                     $uses[] = 'use ' . $type->getName() . ';';
-                    $methodParams[] = [self::PARAM_TYPE => $type->getShortName(), self::PARAM_NAME => '$' . $draftParam->getName()];
+                    $methodParams[] = [
+                        self::PARAM_TYPE => $type->getShortName(),
+                        self::PARAM_NAME => '$' . $draftParam->getName()
+                    ];
                     $factoryCall = 'ofDraft($' . $draftParam->getName() . ');';
                     break;
                 case 'createFromCart':
@@ -584,8 +587,16 @@ EOF;
                 case 'login':
                     $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$email'];
                     $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$password'];
-                    $methodParams[] = [self::PARAM_DOC_TYPE => 'bool', self::PARAM_NAME => '$updateProductData', self::PARAM_DEFAULT => 'false'];
-                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$anonymousCartId', self::PARAM_DEFAULT => 'null'];
+                    $methodParams[] = [
+                        self::PARAM_DOC_TYPE => 'bool',
+                        self::PARAM_NAME => '$updateProductData',
+                        self::PARAM_DEFAULT => 'false'
+                    ];
+                    $methodParams[] = [
+                        self::PARAM_DOC_TYPE => 'string',
+                        self::PARAM_NAME => '$anonymousCartId',
+                        self::PARAM_DEFAULT => 'null'
+                    ];
                     $factoryCall = 'ofEmailPasswordAndUpdateProductData(
             $email,
             $password,
@@ -635,8 +646,13 @@ EOF;
                 case 'update':
                 case 'delete':
                     $uses[$resultClassName] = 'use ' . $resultClassName . ';';
-                    $methodParams[] = [self::PARAM_TYPE => $resultClass->getShortName(), self::PARAM_NAME => '$' . lcfirst($singularDomain)];
-                    $factoryCall = 'ofIdAndVersion($' . lcfirst($singularDomain) . '->getId(), $' . lcfirst($singularDomain) . '->getVersion());';
+                    $methodParams[] = [
+                        self::PARAM_TYPE => $resultClass->getShortName(),
+                        self::PARAM_NAME => '$' . lcfirst($singularDomain)
+                    ];
+                    $factoryCall = 'ofIdAndVersion($' .
+                        lcfirst($singularDomain) . '->getId(), $' .
+                        lcfirst($singularDomain) . '->getVersion());';
                     if ($domain == 'Project') {
                         $factoryCall = 'ofVersion($' . lcfirst($singularDomain) . '->getVersion());';
                     }
@@ -667,8 +683,13 @@ EOF;
                         break;
                     }
                     $uses[$resultClassName] = 'use ' . $resultClassName . ';';
-                    $methodParams[] = [self::PARAM_TYPE => $resultClass->getShortName(), self::PARAM_NAME => '$' . lcfirst($singularDomain)];
-                    $factoryCall = 'of' . ucfirst($param) . 'AndVersion($' . lcfirst($singularDomain) . '->get' . ucfirst($param) . '(), $' . lcfirst($singularDomain) . '->getVersion());';
+                    $methodParams[] = [
+                        self::PARAM_TYPE => $resultClass->getShortName(),
+                        self::PARAM_NAME => '$' . lcfirst($singularDomain)
+                    ];
+                    $factoryCall = 'of' . ucfirst($param) . 'AndVersion($' .
+                        lcfirst($singularDomain) . '->get' . ucfirst($param) . '(), $' .
+                        lcfirst($singularDomain) . '->getVersion());';
                     if ($resultClass == CustomObject::class) {
                         $factoryCall = str_replace('ofKeyAndVersion', 'ofContainerAndKey', $factoryCall);
                     }
@@ -677,7 +698,11 @@ EOF;
                     $methodName = 'getByLocation';
                     $uses[Location::class] = 'use ' . Location::class . ';';
                     $methodParams[] = [self::PARAM_TYPE => 'Location', self::PARAM_NAME => '$location'];
-                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$currency', self::PARAM_DEFAULT => 'null'];
+                    $methodParams[] = [
+                        self::PARAM_DOC_TYPE => 'string',
+                        self::PARAM_NAME => '$currency',
+                        self::PARAM_DEFAULT => 'null'
+                    ];
                     $factoryCall = 'ofCountry($location->getCountry());
         if (!is_null($location->getState())) {
             $request->withState($location->getState());
@@ -691,7 +716,10 @@ EOF;
                     $uses[UploadedFileInterface::class] = 'use ' . UploadedFileInterface::class . ';';
                     $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$id'];
                     $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$sku'];
-                    $methodParams[] = [self::PARAM_TYPE => 'UploadedFileInterface', self::PARAM_NAME => '$uploadedFile'];
+                    $methodParams[] = [
+                        self::PARAM_TYPE => 'UploadedFileInterface',
+                        self::PARAM_NAME => '$uploadedFile'
+                    ];
                     $factoryCall = 'ofIdSkuAndFile($id, $sku, $uploadedFile);';
                     break;
                 case preg_match('/^by([a-zA-Z]+)Get$/', $methodName, $matches) === 1:
@@ -721,7 +749,11 @@ EOF;
                     $factoryCall = 'of();';
             }
             if ($domain == 'ProductProjections') {
-                $methodParams[] = [self::PARAM_DOC_TYPE => 'bool', self::PARAM_NAME => '$staged', self::PARAM_DEFAULT => 'false'];
+                $methodParams[] = [
+                    self::PARAM_DOC_TYPE => 'bool',
+                    self::PARAM_NAME => '$staged',
+                    self::PARAM_DEFAULT => 'false'
+                ];
                 $factoryCall = str_replace(';', '->staged($staged);', $factoryCall);
             }
             $functionParams = implode(
@@ -765,7 +797,7 @@ METHOD;
         $uses = implode(PHP_EOL, $uses);
         $content = <<<EOF
 <?php
-
+// phpcs:ignoreFile
 namespace Commercetools\Core\Builder\Request;
 
 $uses

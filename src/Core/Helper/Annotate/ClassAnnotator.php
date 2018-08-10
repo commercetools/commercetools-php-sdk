@@ -290,9 +290,9 @@ class ClassAnnotator
             $methodString = ' * @method ' . trim($method);
 
             if (strlen($methodString) >= 120) {
-                $classHead[] = ' * @codingStandardsIgnoreStart';
+                $classHead[] = ' * phpcs:disable';
                 $classHead[] = $methodString;
-                $classHead[] = ' * @codingStandardsIgnoreEnd';
+                $classHead[] = ' * phpcs:enable';
             } else {
                 $classHead[] = $methodString;
             }
@@ -315,14 +315,14 @@ class ClassAnnotator
     protected function ignoreDocBlockLine($lineNr, $lines)
     {
         if (isset($lines[$lineNr+1]) &&
-            strpos($lines[$lineNr], '@codingStandardsIgnoreStart') !== false &&
-            strpos($lines[$lineNr+1], '@codingStandardsIgnoreEnd') !== false
+            strpos($lines[$lineNr], 'phpcs:disable') !== false &&
+            strpos($lines[$lineNr+1], 'phpcs:enable') !== false
         ) {
             return true;
         }
         if (isset($lines[$lineNr-1]) &&
-            strpos($lines[$lineNr], '@codingStandardsIgnoreEnd') !== false &&
-            strpos($lines[$lineNr-1], '@codingStandardsIgnoreStart') !== false
+            strpos($lines[$lineNr], 'phpcs:enable') !== false &&
+            strpos($lines[$lineNr-1], 'phpcs:disable') !== false
         ) {
             return true;
         }

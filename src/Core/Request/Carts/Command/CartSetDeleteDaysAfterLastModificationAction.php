@@ -14,9 +14,9 @@ use Commercetools\Core\Request\AbstractAction;
  * @method string getAction()
  * @method CartSetDeleteDaysAfterLastModificationAction setAction(string $action = null)
  * @method int getDeleteDaysAfterLastModification()
- * @codingStandardsIgnoreStart
+ * phpcs:disable
  * @method CartSetDeleteDaysAfterLastModificationAction setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
- * @codingStandardsIgnoreEnd
+ * phpcs:enable
  */
 class CartSetDeleteDaysAfterLastModificationAction extends AbstractAction
 {
