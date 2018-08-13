@@ -72,6 +72,14 @@ class RequestBuilder
     }
 
     /**
+     * @return ExtensionRequestBuilder
+     */
+    public function extensions()
+    {
+        return new ExtensionRequestBuilder();
+    }
+
+    /**
      * @return GraphQLRequestBuilder
      */
     public function graphQL()

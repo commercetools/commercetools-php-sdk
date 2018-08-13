@@ -3,7 +3,16 @@
 
 class Tls12Checker
 {
-    const API_URI = 'api.escemo.com';
+    const API_URI = 'api-tls12.commercetools.com';
+
+    const URIS = [
+        'auth-tls12.commercetools.com',
+        'api-tls12.commercetools.com',
+        'auth-tls12.commercetools.co',
+        'api-tls12.commercetools.co',
+        'api.sphere.io',
+        'api.commercetools.co',
+    ];
 
     public function allowedCiphers()
     {
@@ -59,12 +68,14 @@ class Tls12Checker
     }
 
     /**
-     * @throws \Exception
+     * @param string $apiUri
+     * @param string $cipher
+     * @throws Exception
      */
-    private function checkApiConnection($cipher = null)
+    private function checkApiConnection($apiUri = self::API_URI, $cipher = null)
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://' . self::API_URI);
+        curl_setopt($ch, CURLOPT_URL, 'https://' . $apiUri);
         curl_setopt($ch, CURLOPT_SSLVERSION, 6);
         if (!is_null($cipher)) {
             curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, $cipher);
@@ -102,7 +113,9 @@ class Tls12Checker
         echo "Checking TLS 1.2 connection ... ";
         try {
             $this->checkCiphers();
-            $this->checkApiConnection();
+            foreach (self::URIS as $uri) {
+                $this->checkApiConnection($uri);
+            }
         } catch (\Exception $exception) {
             echo "\033[31mFailed\033[0m" . PHP_EOL;
             echo $exception->getMessage() . PHP_EOL;
@@ -114,33 +127,33 @@ class Tls12Checker
         return 0;
     }
 
-    private function availableCiphers()
-    {
-        $localCiphers = explode(' ', exec('openssl ciphers \'ALL:eNULL\' | tr \':\' \' \''));
-        $allowedCiphers = [];
-        foreach ($localCiphers as $localCipher) {
-            exec('echo -n | openssl s_client -connect ' . self::API_URI . ':443 -cipher ' . $localCipher . ' -tls1_2 2>&1', $dummy, $status);
-            if ($status === 0) {
-                $allowedCiphers[] = $localCipher;
-            }
-        }
-
-        return $allowedCiphers;
-    }
-
-    private function checkAvailableCiphers()
-    {
-        $availableCiphers = $this->availableCiphers();
-        foreach ($availableCiphers as $cipher) {
-            echo 'Testing ' . $cipher . '...';
-            try {
-                $this->checkApiConnection($cipher);
-                echo "\033[32mOK\033[0m" . PHP_EOL;
-            } catch (\Exception $exception) {
-                echo "\033[31mFailed\033[0m" . PHP_EOL;
-            }
-        }
-    }
+//    private function availableCiphers()
+//    {
+//        $localCiphers = explode(' ', exec('openssl ciphers \'ALL:eNULL\' | tr \':\' \' \''));
+//        $allowedCiphers = [];
+//        foreach ($localCiphers as $localCipher) {
+//            exec('echo -n | openssl s_client -connect ' . self::API_URI . ':443 -cipher ' . $localCipher . ' -tls1_2 2>&1', $dummy, $status);
+//            if ($status === 0) {
+//                $allowedCiphers[] = $localCipher;
+//            }
+//        }
+//
+//        return $allowedCiphers;
+//    }
+//
+//    private function checkAvailableCiphers()
+//    {
+//        $availableCiphers = $this->availableCiphers();
+//        foreach ($availableCiphers as $cipher) {
+//            echo 'Testing ' . $cipher . '...';
+//            try {
+//                $this->checkApiConnection(self::API_URI, $cipher);
+//                echo "\033[32mOK\033[0m" . PHP_EOL;
+//            } catch (\Exception $exception) {
+//                echo "\033[31mFailed\033[0m" . PHP_EOL;
+//            }
+//        }
+//    }
 }
 
 $checker = new Tls12Checker();
