@@ -34,7 +34,7 @@ class ExtensionDraft extends JsonObject
      * @param Context|callable $context
      * @return ExtensionDraft
      */
-    public static function ofDestinationAndMessages(
+    public static function ofDestinationAndTriggers(
         Destination $destination,
         TriggerCollection $triggers,
         $context = null

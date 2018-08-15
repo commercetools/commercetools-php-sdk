@@ -15,7 +15,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 class Destination extends JsonObject
 {
     const DESTINATION_TYPE = null;
-    const DESTINATION_HTTP = 'Http';
+    const DESTINATION_HTTP = 'HTTP';
     const DESTINATION_AWS_LAMBDA = 'AWSLambda';
 
     /**

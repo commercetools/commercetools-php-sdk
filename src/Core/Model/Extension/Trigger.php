@@ -16,6 +16,14 @@ use Commercetools\Core\Model\Common\JsonObject;
  */
 class Trigger extends JsonObject
 {
+    const TYPE_CART = 'cart';
+    const TYPE_ORDER = 'order';
+    const TYPE_PAYMENT = 'paymemnt';
+    const TYPE_CUSTOMER = 'customer';
+
+    const ACTION_CREATE = 'Create';
+    const ACTION_UPDATE = 'Update';
+
     public function fieldDefinitions()
     {
         return [
