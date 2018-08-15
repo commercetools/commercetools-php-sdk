@@ -46,7 +46,7 @@ class SQSDestination extends Destination
     public static function ofQueueURLAccessKeyAndSecret($uri, $accessKey, $accessSecret, Context $context = null)
     {
         return static::of($context)
-            ->setType('SQS')
+            ->setType(static::DESTINATION_SQS)
             ->setQueueURL($uri)
             ->setAccessKey($accessKey)
             ->setAccessSecret($accessSecret);

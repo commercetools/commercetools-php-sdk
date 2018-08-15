@@ -13,9 +13,9 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Request\Orders\Command
- * @codingStandardsIgnoreStart
+ * phpcs:disable
  * @link https://docs.commercetools.com/http-api-projects-orders.html#change-the-state-of-customlineitem-according-to-allowed-transitions
- * @codingStandardsIgnoreEnd
+ * phpcs:enable
  * @method string getAction()
  * @method OrderTransitionCustomLineItemStateAction setAction(string $action = null)
  * @method string getCustomLineItemId()

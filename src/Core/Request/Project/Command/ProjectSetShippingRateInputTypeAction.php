@@ -15,9 +15,9 @@ use Commercetools\Core\Request\AbstractAction;
  * @method string getAction()
  * @method ProjectSetShippingRateInputTypeAction setAction(string $action = null)
  * @method ShippingRateInputType getShippingRateInputType()
- * @codingStandardsIgnoreStart
+ * phpcs:disable
  * @method ProjectSetShippingRateInputTypeAction setShippingRateInputType(ShippingRateInputType $shippingRateInputType = null)
- * @codingStandardsIgnoreEnd
+ * phpcs:enable
  */
 class ProjectSetShippingRateInputTypeAction extends AbstractAction
 {

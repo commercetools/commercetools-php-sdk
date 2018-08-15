@@ -1,16 +1,13 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
-
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
-use Commercetools\Core\Model\Payment\Payment;
-use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\Request\Payments\PaymentByIdGetRequest;
 use Commercetools\Core\Request\Payments\PaymentByKeyGetRequest;
 use Commercetools\Core\Request\Payments\PaymentCreateRequest;
+use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\Request\Payments\PaymentDeleteByKeyRequest;
+use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Request\Payments\PaymentDeleteRequest;
 use Commercetools\Core\Request\Payments\PaymentQueryRequest;
 use Commercetools\Core\Request\Payments\PaymentUpdateByKeyRequest;
@@ -18,74 +15,100 @@ use Commercetools\Core\Request\Payments\PaymentUpdateRequest;
 
 class PaymentRequestBuilder
 {
-    /**
-     * @return PaymentQueryRequest
-     */
-    public function query()
-    {
-        return PaymentQueryRequest::of();
-    }
 
     /**
-     * @param Payment $payment
-     * @return PaymentUpdateRequest
-     */
-    public function update(Payment $payment)
-    {
-        return PaymentUpdateRequest::ofIdAndVersion($payment->getId(), $payment->getVersion());
-    }
-
-    /**
-     * @param Payment $payment
-     * @return PaymentUpdateByKeyRequest
-     */
-    public function updateByKey(Payment $payment)
-    {
-        return PaymentUpdateByKeyRequest::ofKeyAndVersion($payment->getKey(), $payment->getVersion());
-    }
-
-    /**
-     * @param PaymentDraft $paymentDraft
-     * @return PaymentCreateRequest
-     */
-    public function create(PaymentDraft $paymentDraft)
-    {
-        return PaymentCreateRequest::ofDraft($paymentDraft);
-    }
-
-    /**
-     * @param Payment $payment
-     * @return PaymentDeleteRequest
-     */
-    public function delete(Payment $payment)
-    {
-        return PaymentDeleteRequest::ofIdAndVersion($payment->getId(), $payment->getVersion());
-    }
-
-    /**
-     * @param Payment $payment
-     * @return PaymentDeleteByKeyRequest
-     */
-    public function deleteByKey(Payment $payment)
-    {
-        return PaymentDeleteByKeyRequest::ofKeyAndVersion($payment->getKey(), $payment->getVersion());
-    }
-
-    /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#get-payment-by-id
      * @param string $id
      * @return PaymentByIdGetRequest
      */
     public function getById($id)
     {
-        return PaymentByIdGetRequest::ofId($id);
+        $request = PaymentByIdGetRequest::ofId($id);
+        return $request;
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#get-payment-by-key
      * @param string $key
      * @return PaymentByKeyGetRequest
      */
     public function getByKey($key)
     {
-        return PaymentByKeyGetRequest::ofKey($key);
+        $request = PaymentByKeyGetRequest::ofKey($key);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#create-a-payment
+     * @param PaymentDraft $payment
+     * @return PaymentCreateRequest
+     */
+    public function create(PaymentDraft $payment)
+    {
+        $request = PaymentCreateRequest::ofDraft($payment);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#delete-payment-by-key
+     * @param Payment $payment
+     * @return PaymentDeleteByKeyRequest
+     */
+    public function deleteByKey(Payment $payment)
+    {
+        $request = PaymentDeleteByKeyRequest::ofKeyAndVersion($payment->getKey(), $payment->getVersion());
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#delete-payment
+     * @param Payment $payment
+     * @return PaymentDeleteRequest
+     */
+    public function delete(Payment $payment)
+    {
+        $request = PaymentDeleteRequest::ofIdAndVersion($payment->getId(), $payment->getVersion());
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#query-payments
+     *
+     * @return PaymentQueryRequest
+     */
+    public function query()
+    {
+        $request = PaymentQueryRequest::of();
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#update-payment-by-key
+     * @param Payment $payment
+     * @return PaymentUpdateByKeyRequest
+     */
+    public function updateByKey(Payment $payment)
+    {
+        $request = PaymentUpdateByKeyRequest::ofKeyAndVersion($payment->getKey(), $payment->getVersion());
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-payments.html#update-payment
+     * @param Payment $payment
+     * @return PaymentUpdateRequest
+     */
+    public function update(Payment $payment)
+    {
+        $request = PaymentUpdateRequest::ofIdAndVersion($payment->getId(), $payment->getVersion());
+        return $request;
+    }
+
+    /**
+     * @return PaymentRequestBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

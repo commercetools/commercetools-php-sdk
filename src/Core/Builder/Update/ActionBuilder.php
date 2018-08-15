@@ -69,6 +69,14 @@ class ActionBuilder
     }
 
     /**
+     * @return ExtensionsActionBuilder
+     */
+    public function extensions()
+    {
+        return new ExtensionsActionBuilder();
+    }
+
+    /**
      * @return InventoryActionBuilder
      */
     public function inventory()

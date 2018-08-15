@@ -16,9 +16,9 @@ use Commercetools\Core\Request\AbstractAction;
  * @method string getAction()
  * @method DiscountCodeChangeCartDiscountsAction setAction(string $action = null)
  * @method CartDiscountReferenceCollection getCartDiscounts()
- * @codingStandardsIgnoreStart
+ * phpcs:disable
  * @method DiscountCodeChangeCartDiscountsAction setCartDiscounts(CartDiscountReferenceCollection $cartDiscounts = null)
- * @codingStandardsIgnoreEnd
+ * phpcs:enable
  */
 class DiscountCodeChangeCartDiscountsAction extends AbstractAction
 {

@@ -1,30 +1,41 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
-
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
-use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
+use Commercetools\Core\Model\Project\Project;
 
 class ProjectRequestBuilder
 {
+
     /**
+     * @link https://docs.commercetools.com/http-api-projects-project.html#get-project
+     *
+     * @return ProjectGetRequest
+     */
+    public function get()
+    {
+        $request = ProjectGetRequest::of();
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-project.html#update-project
      * @param Project $project
      * @return ProjectUpdateRequest
      */
     public function update(Project $project)
     {
-        return ProjectUpdateRequest::ofVersion($project->getVersion());
+        $request = ProjectUpdateRequest::ofVersion($project->getVersion());
+        return $request;
     }
 
     /**
-     * @return ProjectGetRequest
+     * @return ProjectRequestBuilder
      */
-    public function get()
+    public function of()
     {
-        return ProjectGetRequest::of();
+        return new self();
     }
 }

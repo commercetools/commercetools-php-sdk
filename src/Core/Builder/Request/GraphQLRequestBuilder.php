@@ -1,19 +1,28 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
-
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\GraphQL\GraphQLQueryRequest;
 
 class GraphQLRequestBuilder
 {
+
     /**
+     *
+     *
      * @return GraphQLQueryRequest
      */
     public function query()
     {
-        return GraphQLQueryRequest::of();
+        $request = GraphQLQueryRequest::of();
+        return $request;
+    }
+
+    /**
+     * @return GraphQLRequestBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

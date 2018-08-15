@@ -61,11 +61,11 @@ class Formatter
      * Apache Common Log Format.
      * @link http://httpd.apache.org/docs/1.3/logs.html#common
      * @var string
-     * @codingStandardsIgnoreStart
+     * phpcs:disable
      */
     const CLF = "{hostname} {req_header_User-Agent} - [{ts}] \"{method} {resource} {protocol}/{version}\" {code} {res_header_Content-Length}";
     /**
-     * codingStandardsIgnoreEnd
+     * phpcs:enable
      */
     const DEBUG = ">>>>>>>>\n{request}\n<<<<<<<<\n{response}\n--------\n{error}";
     const SHORT = '[{ts}] "{method} {resource} {protocol}/{version}" {code}';
