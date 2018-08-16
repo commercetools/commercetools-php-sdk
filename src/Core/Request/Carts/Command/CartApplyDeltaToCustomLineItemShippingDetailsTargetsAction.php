@@ -17,13 +17,13 @@ use Commercetools\Core\Request\AbstractAction;
  * @method string getLineItemId()
  * @method CartApplyDeltaToLineItemShippingDetailsTargetsAction setLineItemId(string $lineItemId = null)
  * @method ItemShippingTargetCollection getTargetsDelta()
- * @codingStandardsIgnoreStart
+ * phpcs:disable
  * @method CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction setTargetsDelta(ItemShippingTargetCollection $targetsDelta = null)
- * @codingStandardsIgnoreEnd
+ * phpcs:enable
  * @method string getCustomLineItemId()
- * @codingStandardsIgnoreStart
+ * phpcs:disable
  * @method CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction setCustomLineItemId(string $customLineItemId = null)
- * @codingStandardsIgnoreEnd
+ * phpcs:enable
  */
 class CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction extends AbstractAction
 {

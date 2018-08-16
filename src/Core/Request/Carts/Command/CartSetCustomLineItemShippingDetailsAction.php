@@ -16,9 +16,9 @@ use Commercetools\Core\Request\AbstractAction;
  * @method string getCustomLineItemId()
  * @method CartSetCustomLineItemShippingDetailsAction setCustomLineItemId(string $customLineItemId = null)
  * @method ItemShippingDetailsDraft getShippingDetails()
- * @codingStandardsIgnoreStart
+ * phpcs:disable
  * @method CartSetCustomLineItemShippingDetailsAction setShippingDetails(ItemShippingDetailsDraft $shippingDetails = null)
- * @codingStandardsIgnoreEnd
+ * phpcs:enable
  */
 class CartSetCustomLineItemShippingDetailsAction extends AbstractAction
 {

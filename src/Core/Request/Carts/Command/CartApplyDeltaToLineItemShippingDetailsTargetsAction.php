@@ -17,9 +17,9 @@ use Commercetools\Core\Request\AbstractAction;
  * @method string getLineItemId()
  * @method CartApplyDeltaToLineItemShippingDetailsTargetsAction setLineItemId(string $lineItemId = null)
  * @method ItemShippingTargetCollection getTargetsDelta()
- * @codingStandardsIgnoreStart
+ * phpcs:disable
  * @method CartApplyDeltaToLineItemShippingDetailsTargetsAction setTargetsDelta(ItemShippingTargetCollection $targetsDelta = null)
- * @codingStandardsIgnoreEnd
+ * phpcs:enable
  */
 class CartApplyDeltaToLineItemShippingDetailsTargetsAction extends AbstractAction
 {

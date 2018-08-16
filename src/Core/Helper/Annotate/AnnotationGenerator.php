@@ -263,7 +263,7 @@ class AnnotationGenerator
             $actionShortName = $updateClass->getShortName();
             $action = new $update();
             $actionName = $action->getAction();
-            $csIgnore = strlen($actionShortName) > 55 ? '// @codingStandardsIgnoreLine' . PHP_EOL . '        ' : '';
+            $csIgnore = strlen($actionShortName) > 55 ? '// phpcs:ignore' . PHP_EOL . '        ' : '';
             $method = <<<METHOD
     /**
      *$docLinks

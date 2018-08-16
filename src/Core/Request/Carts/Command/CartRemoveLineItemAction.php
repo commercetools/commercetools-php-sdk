@@ -25,9 +25,9 @@ use Commercetools\Core\Request\AbstractAction;
  * @method ExternalLineItemTotalPrice getExternalTotalPrice()
  * @method CartRemoveLineItemAction setExternalTotalPrice(ExternalLineItemTotalPrice $externalTotalPrice = null)
  * @method ItemShippingDetailsDraft getShippingDetailsToRemove()
- * @codingStandardsIgnoreStart
+ * phpcs:disable
  * @method CartRemoveLineItemAction setShippingDetailsToRemove(ItemShippingDetailsDraft $shippingDetailsToRemove = null)
- * @codingStandardsIgnoreEnd
+ * phpcs:enable
  */
 class CartRemoveLineItemAction extends AbstractAction
 {
