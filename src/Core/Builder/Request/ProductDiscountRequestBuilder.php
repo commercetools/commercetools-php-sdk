@@ -1,61 +1,93 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
-
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
-use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
-use Commercetools\Core\Model\ProductDiscount\ProductDiscountDraft;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountByIdGetRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountCreateRequest;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscountDraft;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest;
+use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountMatchingRequest;
+use Commercetools\Core\Model\Common\Price;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest;
 
 class ProductDiscountRequestBuilder
 {
-    /**
-     * @return ProductDiscountQueryRequest
-     */
-    public function query()
-    {
-        return ProductDiscountQueryRequest::of();
-    }
 
     /**
-     * @param ProductDiscount $productDiscount
-     * @return ProductDiscountUpdateRequest
-     */
-    public function update(ProductDiscount $productDiscount)
-    {
-        return ProductDiscountUpdateRequest::ofIdAndVersion($productDiscount->getId(), $productDiscount->getVersion());
-    }
-
-    /**
-     * @param ProductDiscountDraft $productDiscountDraft
-     * @return ProductDiscountCreateRequest
-     */
-    public function create(ProductDiscountDraft $productDiscountDraft)
-    {
-        return ProductDiscountCreateRequest::ofDraft($productDiscountDraft);
-    }
-
-    /**
-     * @param ProductDiscount $productDiscount
-     * @return ProductDiscountDeleteRequest
-     */
-    public function delete(ProductDiscount $productDiscount)
-    {
-        return ProductDiscountDeleteRequest::ofIdAndVersion($productDiscount->getId(), $productDiscount->getVersion());
-    }
-
-    /**
+     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#get-productdiscount-by-id
      * @param string $id
      * @return ProductDiscountByIdGetRequest
      */
     public function getById($id)
     {
-        return ProductDiscountByIdGetRequest::ofId($id);
+        $request = ProductDiscountByIdGetRequest::ofId($id);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#create-a-productdiscount
+     * @param ProductDiscountDraft $productDiscount
+     * @return ProductDiscountCreateRequest
+     */
+    public function create(ProductDiscountDraft $productDiscount)
+    {
+        $request = ProductDiscountCreateRequest::ofDraft($productDiscount);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#delete-productdiscount
+     * @param ProductDiscount $productDiscount
+     * @return ProductDiscountDeleteRequest
+     */
+    public function delete(ProductDiscount $productDiscount)
+    {
+        $request = ProductDiscountDeleteRequest::ofIdAndVersion($productDiscount->getId(), $productDiscount->getVersion());
+        return $request;
+    }
+
+    /**
+     *
+     * @param string $productId
+     * @param int $variantId
+     * @param Price $price
+     * @return ProductDiscountMatchingRequest
+     */
+    public function matching($productId, $variantId, Price $price)
+    {
+        $request = ProductDiscountMatchingRequest::ofProductIdVariantIdAndPrice($productId, $variantId, $price);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#query-productdiscounts
+     *
+     * @return ProductDiscountQueryRequest
+     */
+    public function query()
+    {
+        $request = ProductDiscountQueryRequest::of();
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#update-productdiscount
+     * @param ProductDiscount $productDiscount
+     * @return ProductDiscountUpdateRequest
+     */
+    public function update(ProductDiscount $productDiscount)
+    {
+        $request = ProductDiscountUpdateRequest::ofIdAndVersion($productDiscount->getId(), $productDiscount->getVersion());
+        return $request;
+    }
+
+    /**
+     * @return ProductDiscountRequestBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

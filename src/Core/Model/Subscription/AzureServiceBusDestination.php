@@ -26,16 +26,27 @@ class AzureServiceBusDestination extends Destination
     }
 
     /**
-     * @param $connectionString
-     * @param $accessKey
-     * @param $accessSecret
+     * @deprecated use ofConnectionString instead
+     * @param string $connectionString
      * @param Context|null $context
      * @return AzureServiceBusDestination
      */
     public static function ofQueueURLAccessKeyAndSecret($connectionString, Context $context = null)
     {
         return static::of($context)
-            ->setType('AzureServiceBus')
+            ->setType(static::DESTINATION_AZURE_SERVICE_BUS)
+            ->setConnectionString($connectionString);
+    }
+
+    /**
+     * @param string $connectionString
+     * @param Context|null $context
+     * @return AzureServiceBusDestination
+     */
+    public static function ofConnectionString($connectionString, Context $context = null)
+    {
+        return static::of($context)
+            ->setType(static::DESTINATION_AZURE_SERVICE_BUS)
             ->setConnectionString($connectionString);
     }
 }

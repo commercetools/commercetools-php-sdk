@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Cart;
 
 use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
 use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\Money;
@@ -77,6 +78,8 @@ use DateTime;
  * @method Cart setTaxCalculationMode(string $taxCalculationMode = null)
  * @method ShippingRateInput getShippingRateInput()
  * @method Cart setShippingRateInput(ShippingRateInput $shippingRateInput = null)
+ * @method AddressCollection getItemShippingAddresses()
+ * @method Cart setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
  * @method CartReference getReference()
  */
 class Cart extends Resource
@@ -134,7 +137,8 @@ class Cart extends Resource
             'refusedGifts' => [static::TYPE => CartDiscountReferenceCollection::class],
             'origin' => [static::TYPE => 'string'],
             'taxCalculationMode' => [static::TYPE => 'string'],
-            'shippingRateInput' => [static::TYPE => ShippingRateInput::class]
+            'shippingRateInput' => [static::TYPE => ShippingRateInput::class],
+            'itemShippingAddresses' => [static::TYPE => AddressCollection::class],
         ];
     }
 

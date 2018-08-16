@@ -64,7 +64,7 @@
         <exec executable="${toolsdir}phpcs${execPostfix}" failonerror="true">
             <arg value="--standard=PSR2" />
             <arg value="--extensions=php" />
-            <arg value="--ignore=autoload.php" />
+            <arg value="--ignore=autoload.php,src/Core/Builder" />
             <arg path="${basedir}/src" />
             <arg path="${basedir}/tests" />
         </exec>
@@ -76,7 +76,7 @@
         <exec executable="${toolsdir}phpcs${execPostfix}" failonerror="true">
             <arg value="--standard=PSR2" />
             <arg value="--extensions=php" />
-            <arg value="--ignore=autoload.php" />
+            <arg value="--ignore=autoload.php,src/Core/Builder" />
             <arg path="${basedir}/src" />
         </exec>
     </target>

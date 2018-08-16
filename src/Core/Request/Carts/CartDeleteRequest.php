@@ -9,6 +9,7 @@ namespace Commercetools\Core\Request\Carts;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Request\DataErasureTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
@@ -20,6 +21,8 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CartDeleteRequest extends AbstractDeleteRequest
 {
+    use DataErasureTrait;
+
     protected $resultClass = Cart::class;
 
     /**

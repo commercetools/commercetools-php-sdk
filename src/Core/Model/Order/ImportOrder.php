@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Order;
 
+use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Cart\CustomLineItemCollection;
 use Commercetools\Core\Model\Common\Money;
@@ -62,6 +63,8 @@ use DateTime;
  * @method ImportOrder setOrigin(string $origin = null)
  * @method string getTaxCalculationMode()
  * @method ImportOrder setTaxCalculationMode(string $taxCalculationMode = null)
+ * @method AddressCollection getItemShippingAddresses()
+ * @method ImportOrder setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
  */
 class ImportOrder extends JsonObject
 {
@@ -92,6 +95,7 @@ class ImportOrder extends JsonObject
             'taxRoundingMode' => [static::TYPE => 'string'],
             'origin' => [static::TYPE => 'string'],
             'taxCalculationMode' => [static::TYPE => 'string'],
+            'itemShippingAddresses' => [static::TYPE => AddressCollection::class],
         ];
     }
 }

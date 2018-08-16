@@ -5,6 +5,7 @@ namespace Commercetools\Core\Builder\Update;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction;
+use Commercetools\Core\Request\Orders\Command\OrderAddItemShippingAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddPaymentAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddReturnInfoAction;
@@ -14,18 +15,21 @@ use Commercetools\Core\Request\Orders\Command\OrderChangeShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderImportCustomLineItemStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderImportLineItemStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderRemoveDeliveryAction;
+use Commercetools\Core\Request\Orders\Command\OrderRemoveItemShippingAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderRemoveParcelFromDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderRemovePaymentAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddress;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemCustomTypeAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomerEmail;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLineItemCustomTypeAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLocaleAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelItemsAction;
@@ -37,6 +41,7 @@ use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
 use Commercetools\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderTransitionLineItemStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderTransitionStateAction;
+use Commercetools\Core\Request\Orders\Command\OrderUpdateItemShippingAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction;
 
 class OrdersActionBuilder
@@ -51,6 +56,17 @@ class OrdersActionBuilder
     public function addDelivery($action = null)
     {
         $this->addAction($this->resolveAction(OrderAddDeliveryAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#add-itemshippingaddress
+     * @param OrderAddItemShippingAddressAction|callable $action
+     * @return $this
+     */
+    public function addItemShippingAddress($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderAddItemShippingAddressAction::class, $action));
         return $this;
     }
 
@@ -154,6 +170,17 @@ class OrdersActionBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#remove-itemshippingaddress
+     * @param OrderRemoveItemShippingAddressAction|callable $action
+     * @return $this
+     */
+    public function removeItemShippingAddress($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderRemoveItemShippingAddressAction::class, $action));
+        return $this;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#remove-parcel-from-delivery
      * @param OrderRemoveParcelFromDeliveryAction|callable $action
      * @return $this
@@ -220,6 +247,17 @@ class OrdersActionBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-customlineitemshippingdetails
+     * @param OrderSetCustomLineItemShippingDetailsAction|callable $action
+     * @return $this
+     */
+    public function setCustomLineItemShippingDetails($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetCustomLineItemShippingDetailsAction::class, $action));
+        return $this;
+    }
+
+    /**
      *
      * @param OrderSetCustomTypeAction|callable $action
      * @return $this
@@ -282,6 +320,17 @@ class OrdersActionBuilder
     public function setLineItemCustomType($action = null)
     {
         $this->addAction($this->resolveAction(OrderSetLineItemCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-lineitemshippingdetails
+     * @param OrderSetLineItemShippingDetailsAction|callable $action
+     * @return $this
+     */
+    public function setLineItemShippingDetails($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetLineItemShippingDetailsAction::class, $action));
         return $this;
     }
 
@@ -403,6 +452,17 @@ class OrdersActionBuilder
     public function transitionState($action = null)
     {
         $this->addAction($this->resolveAction(OrderTransitionStateAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#update-itemshippingaddress
+     * @param OrderUpdateItemShippingAddressAction|callable $action
+     * @return $this
+     */
+    public function updateItemShippingAddress($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderUpdateItemShippingAddressAction::class, $action));
         return $this;
     }
 

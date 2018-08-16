@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Carts\Command;
 
 use Commercetools\Core\Model\Cart\ExternalLineItemTotalPrice;
+use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Request\AbstractAction;
@@ -23,6 +24,10 @@ use Commercetools\Core\Request\AbstractAction;
  * @method CartRemoveLineItemAction setExternalPrice(Money $externalPrice = null)
  * @method ExternalLineItemTotalPrice getExternalTotalPrice()
  * @method CartRemoveLineItemAction setExternalTotalPrice(ExternalLineItemTotalPrice $externalTotalPrice = null)
+ * @method ItemShippingDetailsDraft getShippingDetailsToRemove()
+ * phpcs:disable
+ * @method CartRemoveLineItemAction setShippingDetailsToRemove(ItemShippingDetailsDraft $shippingDetailsToRemove = null)
+ * phpcs:enable
  */
 class CartRemoveLineItemAction extends AbstractAction
 {
@@ -34,6 +39,7 @@ class CartRemoveLineItemAction extends AbstractAction
             'quantity' => [static::TYPE => 'int'],
             'externalPrice' => [static::TYPE => Money::class],
             'externalTotalPrice' => [static::TYPE => ExternalLineItemTotalPrice::class],
+            'shippingDetailsToRemove' => [static::TYPE => ItemShippingDetailsDraft::class],
         ];
     }
 

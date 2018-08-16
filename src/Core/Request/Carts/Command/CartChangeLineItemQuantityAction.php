@@ -22,9 +22,9 @@ use Commercetools\Core\Request\AbstractAction;
  * @method Money getExternalPrice()
  * @method CartChangeLineItemQuantityAction setExternalPrice(Money $externalPrice = null)
  * @method ExternalLineItemTotalPrice getExternalTotalPrice()
- * @codingStandardsIgnoreStart
+ * phpcs:disable
  * @method CartChangeLineItemQuantityAction setExternalTotalPrice(ExternalLineItemTotalPrice $externalTotalPrice = null)
- * @codingStandardsIgnoreEnd
+ * phpcs:enable
  */
 class CartChangeLineItemQuantityAction extends AbstractAction
 {

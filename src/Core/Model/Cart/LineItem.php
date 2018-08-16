@@ -55,6 +55,8 @@ use Commercetools\Core\Model\ProductType\ProductTypeReference;
  * @method LineItem setProductType(ProductTypeReference $productType = null)
  * @method string getLineItemMode()
  * @method LineItem setLineItemMode(string $lineItemMode = null)
+ * @method ItemShippingDetails getShippingDetails()
+ * @method LineItem setShippingDetails(ItemShippingDetails $shippingDetails = null)
  */
 class LineItem extends JsonObject
 {
@@ -88,6 +90,7 @@ class LineItem extends JsonObject
             'priceMode' => [static::TYPE => 'string'],
             'lineItemMode' => [static::TYPE => 'string'],
             'productType' => [static::TYPE => ProductTypeReference::class],
+            'shippingDetails' => [static::TYPE => ItemShippingDetails::class],
         ];
     }
 

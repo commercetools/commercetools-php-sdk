@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Carts\Command;
 
 use Commercetools\Core\Model\Cart\ExternalLineItemTotalPrice;
+use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Request\AbstractAction;
@@ -38,6 +39,8 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method CartAddLineItemAction setExternalTotalPrice(ExternalLineItemTotalPrice $externalTotalPrice = null)
  * @method string getSku()
  * @method CartAddLineItemAction setSku(string $sku = null)
+ * @method ItemShippingDetailsDraft getShippingDetails()
+ * @method CartAddLineItemAction setShippingDetails(ItemShippingDetailsDraft $shippingDetails = null)
  */
 class CartAddLineItemAction extends AbstractAction
 {
@@ -55,6 +58,7 @@ class CartAddLineItemAction extends AbstractAction
             'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class],
             'externalPrice' => [static::TYPE => Money::class],
             'externalTotalPrice' => [static::TYPE => ExternalLineItemTotalPrice::class],
+            'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
         ];
     }
 

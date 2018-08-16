@@ -10,10 +10,13 @@ use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Cart\CustomLineItemDraft;
 use Commercetools\Core\Model\Cart\CustomLineItemDraftCollection;
+use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
+use Commercetools\Core\Model\Cart\ItemShippingTarget;
+use Commercetools\Core\Model\Cart\ItemShippingTargetCollection;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
-use Commercetools\Core\Model\Cart\ReplicaCartDraft;
 use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
@@ -23,7 +26,6 @@ use Commercetools\Core\Model\Order\DeliveryItem;
 use Commercetools\Core\Model\Order\DeliveryItemCollection;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Order\OrderState;
-use Commercetools\Core\Model\Order\OrderReference;
 use Commercetools\Core\Model\Order\Parcel;
 use Commercetools\Core\Model\Order\ParcelCollection;
 use Commercetools\Core\Model\Order\ParcelMeasurements;
@@ -36,11 +38,13 @@ use Commercetools\Core\Model\Order\ShipmentState;
 use Commercetools\Core\Model\Order\TrackingData;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
+use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartReplicateRequest;
 use Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction;
+use Commercetools\Core\Request\Orders\Command\OrderAddItemShippingAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddPaymentAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddReturnInfoAction;
@@ -48,12 +52,15 @@ use Commercetools\Core\Request\Orders\Command\OrderChangeOrderStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderChangePaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderChangeShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderRemoveDeliveryAction;
+use Commercetools\Core\Request\Orders\Command\OrderRemoveItemShippingAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderRemoveParcelFromDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderRemovePaymentAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddress;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomerEmail;
+use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLocaleAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelItemsAction;
@@ -62,6 +69,7 @@ use Commercetools\Core\Request\Orders\Command\OrderSetParcelTrackingDataAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
+use Commercetools\Core\Request\Orders\Command\OrderUpdateItemShippingAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction;
 use Commercetools\Core\Request\Orders\OrderByOrderNumberGetRequest;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
@@ -69,7 +77,6 @@ use Commercetools\Core\Request\Orders\OrderDeleteByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateRequest;
-use Commercetools\Core\Request\Products\Command\ProductPublishAction;
 use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
@@ -109,8 +116,14 @@ class OrderUpdateRequestTest extends ApiTestCase
         return $draft;
     }
 
-    protected function createOrder(CartDraft $draft, $orderNumber = null)
-    {
+    protected function createOrder(
+        CartDraft $draft,
+        $orderNumber = null,
+        $paymentState = null,
+        $orderState = null,
+        $state = null,
+        $shipmentState = null
+    ) {
         $request = CartCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
         $cart = $request->mapResponse($response);
@@ -122,6 +135,18 @@ class OrderUpdateRequestTest extends ApiTestCase
         $orderRequest = OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
         if (!is_null($orderNumber)) {
             $orderRequest->setOrderNumber($orderNumber);
+        }
+        if (!is_null($paymentState)) {
+            $orderRequest->setPaymentState($paymentState);
+        }
+        if (!is_null($orderState)) {
+            $orderRequest->setOrderState($orderState);
+        }
+        if (!is_null($state)) {
+            $orderRequest->setState($state);
+        }
+        if (!is_null($shipmentState)) {
+            $orderRequest->setShipmentState($shipmentState);
         }
         $response = $orderRequest->executeWithClient($this->getClient());
         $order = $orderRequest->mapResponse($response);
@@ -745,7 +770,7 @@ class OrderUpdateRequestTest extends ApiTestCase
                                 )
                             )
                         )
-                )
+                    )
             )
         ;
         $response = $request->executeWithClient($this->getClient());
@@ -1168,5 +1193,176 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->assertSame($orderLineItem, $replicaCartLineItem);
         $this->assertNotNull($replicaCartLineItem);
         $this->assertSame(CartState::ACTIVE, $replicaCart->getCartState());
+    }
+
+    public function testCreateOrderWithInitialData()
+    {
+        $cartDraft = $this->getCartDraft();
+        list($state1, $state2) = $this->createStates('OrderState');
+        $stateReference = $state1->getReference();
+        $order = $this->createOrder($cartDraft, '123', 'Pending', 'Complete', $stateReference, 'Delayed');
+
+        $this->assertSame('Pending', $order->getPaymentState());
+        $this->assertSame('Complete', $order->getOrderState());
+        $this->assertInstanceOf(StateReference::class, $order->getState());
+        $this->assertSame($stateReference->getId(), $order->getState()->getId());
+        $this->assertSame('Delayed', $order->getShipmentState());
+    }
+
+    public function testItemShippingAddress()
+    {
+        $cartDraft = $this->getCartDraft();
+        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
+        $order = $this->createOrder($cartDraft, $orderNumber);
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())->addAction(
+            OrderAddItemShippingAddressAction::of()->setAddress(
+                Address::of()->setCountry('DE')->setKey('key1')
+            )
+        );
+
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertNotSame($order->getVersion(), $result->getVersion());
+        $this->assertInstanceOf(Order::class, $result);
+
+        $itemShippingAddresses = $result->getItemShippingAddresses();
+
+        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+        $this->assertSame('DE', $itemShippingAddresses->current()->getCountry());
+        $this->assertSame('key1', $itemShippingAddresses->current()->getKey());
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $result->getVersion())->addAction(
+            OrderUpdateItemShippingAddressAction::of()->setAddress(
+                Address::of()->setCountry('US')->setKey('key1')
+            )
+        )->addAction(
+            OrderAddItemShippingAddressAction::of()->setAddress(
+                Address::of()->setCountry('FR')->setKey('key2')
+            )
+        );
+
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Order::class, $result);
+
+        $itemShippingAddresses = $result->getItemShippingAddresses();
+
+        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+        $this->assertSame(2, $itemShippingAddresses->count());
+        $this->assertSame('US', $itemShippingAddresses->getAt(0)->getCountry());
+        $this->assertSame('key1', $itemShippingAddresses->getAt(0)->getKey());
+        $this->assertSame('FR', $itemShippingAddresses->getAt(1)->getCountry());
+        $this->assertSame('key2', $itemShippingAddresses->getAt(1)->getKey());
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $result->getVersion())->addAction(
+            OrderRemoveItemShippingAddressAction::of()->setAddressKey('key1')
+        );
+
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Order::class, $result);
+
+        $itemShippingAddresses = $result->getItemShippingAddresses();
+
+        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+        $this->assertSame(1, $itemShippingAddresses->count());
+        $this->assertSame('FR', $itemShippingAddresses->getAt(0)->getCountry());
+        $this->assertSame('key2', $itemShippingAddresses->getAt(0)->getKey());
+    }
+
+    public function testLineItemShippingDetails()
+    {
+        $cartDraft = $this->getCartDraft();
+        $cartDraft->setItemShippingAddresses(AddressCollection::of()->add(
+            Address::of()->setCountry('DE')->setKey('key1')
+        ))->setLineItems(
+            LineItemDraftCollection::of()
+                ->add(
+                    LineItemDraft::of()
+                        ->setProductId($this->getProduct()->getId())
+                        ->setVariantId(1)
+                        ->setQuantity(10)
+                )
+        );
+        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
+        $order = $this->createOrder($cartDraft, $orderNumber);
+
+        $this->assertNull($order->getLineItems()->current()->getShippingDetails());
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(
+                OrderSetLineItemShippingDetailsAction::ofLineItemIdAndShippingDetails(
+                    $order->getLineItems()->current()->getId(),
+                    ItemShippingDetailsDraft::of()->setTargets(ItemShippingTargetCollection::of()->add(
+                        ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
+                    ))
+                )
+            );
+
+        $response = $request->executeWithClient($this->getClient());
+        $order = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($order->getVersion());
+
+        $this->assertSame(
+            'key1',
+            $order->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
+        );
+        $this->assertSame(
+            10,
+            $order->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
+        );
+    }
+
+    public function testCustomLineItemShippingDetails()
+    {
+        $cartDraft = $this->getCartDraft();
+        $taxCategory = $this->getTaxCategory();
+
+        $cartDraft->setItemShippingAddresses(AddressCollection::of()->add(
+            Address::of()->setCountry('DE')->setKey('key1')
+        ))->setCustomLineItems(
+            CustomLineItemDraftCollection::of()->add(
+                CustomLineItemDraft::of()
+                    ->setName(LocalizedString::ofLangAndText('en', 'test'))
+                    ->setSlug('test')
+                    ->setQuantity(10)
+                    ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                    ->setTaxCategory($taxCategory->getReference())
+            )
+        );
+        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
+        $order = $this->createOrder($cartDraft, $orderNumber);
+
+        $this->assertNull($order->getCustomLineItems()->current()->getShippingDetails());
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(
+                OrderSetCustomLineItemShippingDetailsAction::ofCustomLineItemIdAndShippingDetails(
+                    $order->getCustomLineItems()->current()->getId(),
+                    ItemShippingDetailsDraft::of()->setTargets(ItemShippingTargetCollection::of()->add(
+                        ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
+                    ))
+                )
+            );
+
+        $response = $request->executeWithClient($this->getClient());
+        $order = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($order->getVersion());
+
+        $this->assertSame(
+            'key1',
+            $order->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
+        );
+        $this->assertSame(
+            10,
+            $order->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
+        );
     }
 }

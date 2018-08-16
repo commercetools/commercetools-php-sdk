@@ -1,112 +1,127 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
-
+// phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
-use Commercetools\Core\Model\Cart\Cart;
-use Commercetools\Core\Model\Order\ImportOrder;
-use Commercetools\Core\Model\Order\Order;
-use Commercetools\Core\Request\Carts\CartReplicateRequest;
 use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
 use Commercetools\Core\Request\Orders\OrderByOrderNumberGetRequest;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
+use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Request\Orders\OrderDeleteByOrderNumberRequest;
+use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderImportRequest;
+use Commercetools\Core\Model\Order\ImportOrder;
 use Commercetools\Core\Request\Orders\OrderQueryRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateRequest;
 
 class OrderRequestBuilder
 {
-    /**
-     * @return OrderQueryRequest
-     */
-    public function query()
-    {
-        return OrderQueryRequest::of();
-    }
 
     /**
-     * @param Order $order
-     * @return OrderUpdateRequest
-     */
-    public function update(Order $order)
-    {
-        return OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion());
-    }
-
-    /**
-     * @param Order $order
-     * @return OrderUpdateByOrderNumberRequest
-     */
-    public function updateByOrderNumber(Order $order)
-    {
-        return OrderUpdateByOrderNumberRequest::ofOrderNumberAndVersion($order->getOrderNumber(), $order->getVersion());
-    }
-
-    /**
-     * @param Cart $cart
-     * @return OrderCreateFromCartRequest
-     */
-    public function createFromCart(Cart $cart)
-    {
-        return OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
-    }
-
-    /**
-     * @param Order $order
-     * @return OrderDeleteRequest
-     */
-    public function delete(Order $order)
-    {
-        return OrderDeleteRequest::ofIdAndVersion($order->getId(), $order->getVersion());
-    }
-
-    /**
-     * @param Order $order
-     * @return OrderDeleteByOrderNumberRequest
-     */
-    public function deleteByOrderNumber(Order $order)
-    {
-        return OrderDeleteByOrderNumberRequest::ofOrderNumberAndVersion($order->getOrderNumber(), $order->getVersion());
-    }
-
-    /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#get-order-by-id
      * @param string $id
      * @return OrderByIdGetRequest
      */
     public function getById($id)
     {
-        return OrderByIdGetRequest::ofId($id);
+        $request = OrderByIdGetRequest::ofId($id);
+        return $request;
     }
 
     /**
-     * @param $orderNumber
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#get-order-by-ordernumber
+     * @param string $orderNumber
      * @return OrderByOrderNumberGetRequest
      */
     public function getByOrderNumber($orderNumber)
     {
-        return OrderByOrderNumberGetRequest::ofOrderNumber($orderNumber);
+        $request = OrderByOrderNumberGetRequest::ofOrderNumber($orderNumber);
+        return $request;
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#create-order-from-cart
+     * @param Cart $cart
+     * @return OrderCreateFromCartRequest
+     */
+    public function createFromCart(Cart $cart)
+    {
+        $request = OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#delete-order-by-ordernumber
+     * @param Order $order
+     * @return OrderDeleteByOrderNumberRequest
+     */
+    public function deleteByOrderNumber(Order $order)
+    {
+        $request = OrderDeleteByOrderNumberRequest::ofOrderNumberAndVersion($order->getOrderNumber(), $order->getVersion());
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#delete-order
+     * @param Order $order
+     * @return OrderDeleteRequest
+     */
+    public function delete(Order $order)
+    {
+        $request = OrderDeleteRequest::ofIdAndVersion($order->getId(), $order->getVersion());
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-orders-import.html#create-an-order-by-import
      * @param ImportOrder $importOrder
      * @return OrderImportRequest
      */
     public function import(ImportOrder $importOrder)
     {
-        return OrderImportRequest::ofImportOrder($importOrder);
+        $request = OrderImportRequest::ofImportOrder($importOrder);
+        return $request;
     }
 
     /**
-     * @param $orderId
-     * @return CartReplicateRequest
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#query-orders
+     *
+     * @return OrderQueryRequest
      */
-    public function replicate($orderId)
+    public function query()
     {
-        return CartReplicateRequest::ofOrderId($orderId);
+        $request = OrderQueryRequest::of();
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#update-order-by-ordernumber
+     * @param Order $order
+     * @return OrderUpdateByOrderNumberRequest
+     */
+    public function updateByOrderNumber(Order $order)
+    {
+        $request = OrderUpdateByOrderNumberRequest::ofOrderNumberAndVersion($order->getOrderNumber(), $order->getVersion());
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#update-order
+     * @param Order $order
+     * @return OrderUpdateRequest
+     */
+    public function update(Order $order)
+    {
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion());
+        return $request;
+    }
+
+    /**
+     * @return OrderRequestBuilder
+     */
+    public function of()
+    {
+        return new self();
     }
 }

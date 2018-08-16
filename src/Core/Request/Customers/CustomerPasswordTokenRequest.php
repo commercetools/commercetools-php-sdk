@@ -18,9 +18,9 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\Customers
- * @codingStandardsIgnoreStart
+ * phpcs:disable
  * @link https://docs.commercetools.com/http-api-projects-customers.html#create-a-token-for-resetting-the-customers-password
- * @codingStandardsIgnoreEnd
+ * phpcs:enable
  * @method CustomerToken mapResponse(ApiResponseInterface $response)
  * @method CustomerToken mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */

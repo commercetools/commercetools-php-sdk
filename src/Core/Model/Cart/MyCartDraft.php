@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Cart;
 
+use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocaleTrait;
@@ -38,6 +39,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  * @method MyCartDraft setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
  * @method string getTaxMode()
  * @method MyCartDraft setTaxMode(string $taxMode = null)
+ * @method AddressCollection getItemShippingAddresses()
+ * @method MyCartDraft setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
  */
 class MyCartDraft extends JsonObject
 {
@@ -58,6 +61,7 @@ class MyCartDraft extends JsonObject
             'locale' => [static::TYPE => 'string'],
             'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
             'taxMode' => [static::TYPE => 'string'],
+            'itemShippingAddresses' => [static::TYPE => AddressCollection::class],
         ];
     }
 

@@ -1,3 +1,24 @@
+<a name="2.5.0"></a>
+# [2.5.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.4.0...v2.5.0) (2018-08-16)
+
+
+### Features
+
+* **Cart:** support multiple shipping addresses ([20014da](https://github.com/commercetools/commercetools-php-sdk/commit/20014da))
+* **Extension:** support API extensions  ([9ca58c8](https://github.com/commercetools/commercetools-php-sdk/commit/9ca58c8)), closes [#365](https://github.com/commercetools/commercetools-php-sdk/issues/365)
+* **Money:** support high precision money ([95722b9](https://github.com/commercetools/commercetools-php-sdk/commit/95722b9)), closes [#410](https://github.com/commercetools/commercetools-php-sdk/issues/410)
+* **Order:** support multiple shipping addresses ([d98c259](https://github.com/commercetools/commercetools-php-sdk/commit/d98c259))
+* **OrderFromCart:** support state, orderState, shipmentState at OrderCreateFromCart ([5fd4375](https://github.com/commercetools/commercetools-php-sdk/commit/5fd4375)), closes [#412](https://github.com/commercetools/commercetools-php-sdk/issues/412) [#417](https://github.com/commercetools/commercetools-php-sdk/issues/417)
+* **ProductDiscount:** add setValidFromAndUntil update action ([1e54656](https://github.com/commercetools/commercetools-php-sdk/commit/1e54656))
+* **ProductDiscounts:** add endpoint for Matching ProductDiscount ([9258a62](https://github.com/commercetools/commercetools-php-sdk/commit/9258a62))
+* **Request:** add GDPR dataErasure flag ([5d35ea1](https://github.com/commercetools/commercetools-php-sdk/commit/5d35ea1)), closes [#411](https://github.com/commercetools/commercetools-php-sdk/issues/411)
+* **ShoppingList:** support AnonymousId on ShoppingList owner ([efd2565](https://github.com/commercetools/commercetools-php-sdk/commit/efd2565))
+* **Subscription:** add Google Cloud PubSub destination ([585501a](https://github.com/commercetools/commercetools-php-sdk/commit/585501a)), closes [#418](https://github.com/commercetools/commercetools-php-sdk/issues/418)
+* **Subscription:** add modifiedAt to change subscription payloads ([602303a](https://github.com/commercetools/commercetools-php-sdk/commit/602303a)), closes [#416](https://github.com/commercetools/commercetools-php-sdk/issues/416)
+* **Subscription:** add payloadNotIncluded to message delivery ([60e207b](https://github.com/commercetools/commercetools-php-sdk/commit/60e207b)), closes [#413](https://github.com/commercetools/commercetools-php-sdk/issues/413)
+
+
+
 <a name="2.4.0"></a>
 # [2.4.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.3.0...v2.4.0) (2018-05-31)
 

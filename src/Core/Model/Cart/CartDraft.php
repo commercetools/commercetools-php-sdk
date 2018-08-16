@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Cart;
 
+use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocaleTrait;
@@ -58,6 +59,8 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method CartDraft setExternalTaxRateForShippingMethod(ExternalTaxRateDraft $externalTaxRateForShippingMethod = null)
  * @method ShippingRateInputDraft getShippingRateInput()
  * @method CartDraft setShippingRateInput(ShippingRateInputDraft $shippingRateInput = null)
+ * @method AddressCollection getItemShippingAddresses()
+ * @method CartDraft setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
  */
 class CartDraft extends JsonObject
 {
@@ -87,6 +90,7 @@ class CartDraft extends JsonObject
             'taxCalculationMode' => [static::TYPE => 'string'],
             'externalTaxRateForShippingMethod' => [static::TYPE => ExternalTaxRateDraft::class],
             'shippingRateInput' => [static::TYPE => ShippingRateInputDraft::class],
+            'itemShippingAddresses' => [static::TYPE => AddressCollection::class],
         ];
     }
 

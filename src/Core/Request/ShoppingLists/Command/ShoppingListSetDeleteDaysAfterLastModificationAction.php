@@ -11,9 +11,9 @@ use Commercetools\Core\Request\AbstractAction;
  * @method string getAction()
  * @method ShoppingListSetDeleteDaysAfterLastModificationAction setAction(string $action = null)
  * @method int getDeleteDaysAfterLastModification()
- * @codingStandardsIgnoreStart
+ * phpcs:disable
  * @method ShoppingListSetDeleteDaysAfterLastModificationAction setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
- * @codingStandardsIgnoreEnd
+ * phpcs:enable
  */
 class ShoppingListSetDeleteDaysAfterLastModificationAction extends AbstractAction
 {
