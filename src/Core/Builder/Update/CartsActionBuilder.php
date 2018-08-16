@@ -132,7 +132,7 @@ class CartsActionBuilder
      */
     public function applyDeltaToCustomLineItemShippingDetailsTargets($action = null)
     {
-        // @codingStandardsIgnoreLine
+        // phpcs:ignore
         $this->addAction($this->resolveAction(CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction::class, $action));
         return $this;
     }

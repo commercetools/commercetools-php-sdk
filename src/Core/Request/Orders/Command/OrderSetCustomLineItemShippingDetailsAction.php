@@ -16,9 +16,9 @@ use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
  * @method string getCustomLineItemId()
  * @method OrderSetCustomLineItemShippingDetailsAction setCustomLineItemId(string $customLineItemId = null)
  * @method ItemShippingDetailsDraft getShippingDetails()
- * @codingStandardsIgnoreStart
+ * phpcs:disable
  * @method OrderSetCustomLineItemShippingDetailsAction setShippingDetails(ItemShippingDetailsDraft $shippingDetails = null)
- * @codingStandardsIgnoreEnd
+ * phpcs:enable
  */
 class OrderSetCustomLineItemShippingDetailsAction extends CartSetCustomLineItemShippingDetailsAction
 {
