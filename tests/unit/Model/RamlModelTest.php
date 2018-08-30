@@ -268,6 +268,7 @@ class RamlModelTest extends AbstractModelTest
             foreach ($ramlTypes as $typeName => $ramlType) {
                 $ramlFile = trim(str_replace('!include', '', $types[$typeName]));
                 $package = $this->pascalcase(dirname($ramlFile));
+                $package = preg_replace('/\/updates$/', '', $package);
                 $domain = $this->mapRamlToDomain($package, $typeName);
                 $model = $this->mapRamlToModel($package, $typeName);
                 $modelClassName = $this->getClassName($domain, $model);
@@ -465,7 +466,7 @@ class RamlModelTest extends AbstractModelTest
             'Order\OrderSetCustomerEmailAction' => 'Order\OrderSetCustomerEmail',
             'Order\OrderSetShippingAddressAction' => 'Order\OrderSetShippingAddress',
             'Order\OrderSetBillingAddressAction' => 'Order\OrderSetBillingAddress',
-            'Channel\ChannelSetGeolocationAction' => 'Channel\ChannelSetGeoLocation',
+            'Channel\ChannelSetGeoLocationAction' => 'Channel\ChannelSetGeoLocation',
             'ShippingMethod\CartScoreTier' => 'ShippingMethod\CartScore',
             'ShippingMethod\CartClassificationTier' => 'ShippingMethod\CartClassification',
             'ShippingMethod\CartValueTier' => 'ShippingMethod\CartValue',
