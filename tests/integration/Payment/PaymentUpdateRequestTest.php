@@ -23,6 +23,7 @@ use Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionStateAct
 use Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionTimestampAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetAmountPaidAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetAmountRefundedAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetAnonymousIdAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetAuthorizationAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetCustomerAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetCustomFieldAction;
@@ -133,6 +134,29 @@ class PaymentUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Payment::class, $result);
         $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+        $this->assertNotSame($payment->getVersion(), $result->getVersion());
+    }
+
+    public function testSetAnonymousId()
+    {
+        $anonymousId = $this->getTestRun() . '-anon';
+        $draft = $this->getDraft();
+        $draft->setAnonymousId($anonymousId);
+        $payment = $this->createPayment($draft);
+        $this->assertSame($anonymousId, $payment->getAnonymousId());
+
+        $anonymousId = $this->getTestRun() . '-new-anon';
+        $request = PaymentUpdateRequest::ofIdAndVersion($payment->getId(), $payment->getVersion())
+            ->addAction(
+                PaymentSetAnonymousIdAction::of()->setAnonymousId($anonymousId)
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Payment::class, $result);
+        $this->assertSame($anonymousId, $result->getAnonymousId());
         $this->assertNotSame($payment->getVersion(), $result->getVersion());
     }
 

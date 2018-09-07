@@ -34,6 +34,8 @@ use DateTime;
  * @method PaymentDraft setInterfaceInteractions(CustomFieldObjectDraftCollection $interfaceInteractions = null)
  * @method string getKey()
  * @method PaymentDraft setKey(string $key = null)
+ * @method string getAnonymousId()
+ * @method PaymentDraft setAnonymousId(string $anonymousId = null)
  */
 class PaymentDraft extends JsonObject
 {
@@ -42,6 +44,7 @@ class PaymentDraft extends JsonObject
         return [
             'key' => [static::TYPE => 'string'],
             'customer' => [static::TYPE => CustomerReference::class],
+            'anonymousId' => [static::TYPE => 'string'],
             'externalId' => [static::TYPE => 'string'],
             'interfaceId' => [static::TYPE => 'string'],
             'amountPlanned' => [static::TYPE => Money::class],
