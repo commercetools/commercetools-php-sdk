@@ -85,6 +85,14 @@ class ActionBuilder
     }
 
     /**
+     * @return OrderEditsActionBuilder
+     */
+    public function orderEdits()
+    {
+        return new OrderEditsActionBuilder();
+    }
+
+    /**
      * @return OrdersActionBuilder
      */
     public function orders()

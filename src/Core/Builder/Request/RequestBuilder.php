@@ -112,6 +112,14 @@ class RequestBuilder
     }
 
     /**
+     * @return OrderEditRequestBuilder
+     */
+    public function orderEdits()
+    {
+        return new OrderEditRequestBuilder();
+    }
+
+    /**
      * @return OrderRequestBuilder
      */
     public function orders()
