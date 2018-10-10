@@ -3,15 +3,14 @@
 
 class Tls12Checker
 {
-    const API_URI = 'api-tls12.commercetools.com';
+    const API_URI = 'api.commercetools.com';
 
     const URIS = [
-        'auth-tls12.commercetools.com',
-        'api-tls12.commercetools.com',
-        'auth-tls12.commercetools.co',
-        'api-tls12.commercetools.co',
-        'api.sphere.io',
+        'auth.commercetools.com',
+        'api.commercetools.com',
+        'auth.commercetools.co',
         'api.commercetools.co',
+        'api.sphere.io',
     ];
 
     public function allowedCiphers()
