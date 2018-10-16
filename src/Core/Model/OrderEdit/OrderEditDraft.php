@@ -32,7 +32,8 @@ class OrderEditDraft extends JsonObject
             'resource' => [static::TYPE => OrderReference::class],
             'stagedActions' => [static::TYPE => 'array'],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
-            'comment' => [static::TYPE => 'string']
+            'comment' => [static::TYPE => 'string'],
+            'dryRun' => [static::TYPE => 'boolean'],
         ];
     }
 }

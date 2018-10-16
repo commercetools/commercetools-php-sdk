@@ -4,6 +4,8 @@
 
 namespace Commercetools\Core\Request\OrderEdits;
 
+use Commercetools\Core\Client\HttpMethod;
+use Commercetools\Core\Client\JsonRequest;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Request\AbstractUpdateByKeyRequest;
@@ -18,7 +20,22 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class OrderEditUpdateByKeyRequest extends AbstractUpdateByKeyRequest
 {
+    const DRY_RUN = 'dryRun';
+
     protected $resultClass = OrderEdit::class;
+
+    protected $dryRun = false;
+
+    /**
+     * @param bool $dryRun
+     * @return OrderEditUpdateByKeyRequest
+     */
+    public function setDryRun($dryRun)
+    {
+        $this->dryRun = $dryRun;
+
+        return $this;
+    }
 
     /**
      * @param string $key
@@ -40,5 +57,19 @@ class OrderEditUpdateByKeyRequest extends AbstractUpdateByKeyRequest
     public static function ofKeyAndVersion($key, $version, Context $context = null)
     {
         return new static($key, $version, [], $context);
+    }
+
+    /**
+     * @return JsonRequest
+     * @internal
+     */
+    public function httpRequest()
+    {
+        $payload = [
+            static::VERSION => $this->getVersion(),
+            static::ACTIONS => $this->getActions(),
+            static::DRY_RUN => $this->dryRun
+        ];
+        return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }
 }
