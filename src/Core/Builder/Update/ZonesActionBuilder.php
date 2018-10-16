@@ -60,7 +60,7 @@ class ZonesActionBuilder
     /**
      * @return ZonesActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -116,6 +116,7 @@ class ZonesActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

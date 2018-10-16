@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Order\OrderReference;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderUpdateActionCollection;
 use DateTime;
 
 /**
@@ -26,8 +27,8 @@ use DateTime;
  * @method OrderEdit setKey(string $key = null)
  * @method OrderReference getResource()
  * @method OrderEdit setResource(OrderReference $resource = null)
- * @method array getStagedActions()
- * @method OrderEdit setStagedActions(array $stagedActions = null)
+ * @method StagedOrderUpdateActionCollection getStagedActions()
+ * @method OrderEdit setStagedActions(StagedOrderUpdateActionCollection $stagedActions = null)
  * @method CustomFieldObject getCustom()
  * @method OrderEdit setCustom(CustomFieldObject $custom = null)
  * @method OrderEditResult getResult()
@@ -54,7 +55,7 @@ class OrderEdit extends Resource
             ],
             'key' => [static::TYPE => 'string'],
             'resource' => [static::TYPE => OrderReference::class],
-            'stagedActions' => [static::TYPE => 'array'],
+            'stagedActions' => [static::TYPE => StagedOrderUpdateActionCollection::class],
             'custom' => [static::TYPE => CustomFieldObject::class],
             'result' => [static::TYPE => OrderEditResult::class],
             'comment' => [static::TYPE => 'string']

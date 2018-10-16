@@ -288,7 +288,7 @@ class ShoppingListsActionBuilder
     /**
      * @return ShoppingListsActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -344,6 +344,7 @@ class ShoppingListsActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

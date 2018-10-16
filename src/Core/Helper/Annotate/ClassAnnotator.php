@@ -131,7 +131,7 @@ class ClassAnnotator
                 );
             }
             $getByIdMethod = $reflectionClass->getMethod('getById');
-            if ($getByIdMethod->class != $this->class->getClassName()) {
+            if ($getByIdMethod->class != $this->class->getClassName() && $elementTypeClass->isInstantiable()) {
                 $elementTypeObject = $elementTypeClass->newInstanceWithoutConstructor();
                 if ($elementTypeObject instanceof JsonObject && isset($elementTypeObject->fieldDefinitions()['id'])) {
                     $this->class->addMagicMethod(

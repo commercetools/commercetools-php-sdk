@@ -165,7 +165,15 @@ class RamlModelTest extends AbstractModelTest
                 $domain = 'Categories';
                 break;
             case 'Project':
+                break;
             case 'Inventory':
+                $model = str_replace('InventoryEntry', 'Inventory', $model);
+                break;
+            case 'OrderEdit':
+                $domain .= 's';
+                if (strpos($model, 'StagedOrder') === 0) {
+                    $domain = 'OrderEdits\\StagedOrder';
+                }
                 break;
             default:
                 $domain .= 's';
@@ -294,7 +302,8 @@ class RamlModelTest extends AbstractModelTest
         return $this->ramlTypes;
     }
 
-    public function getModelClasses($searchPath) {
+    public function getModelClasses($searchPath)
+    {
         $allFiles = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($searchPath));
         $phpFiles = new \RegexIterator($allFiles, '/\.php$/');
 
@@ -315,7 +324,8 @@ class RamlModelTest extends AbstractModelTest
         return $modelClasses;
     }
 
-    private function getFixtures($modelClasses, $ramlInfos, $classNameField) {
+    private function getFixtures($modelClasses, $ramlInfos, $classNameField)
+    {
         return array_filter(
             $ramlInfos,
             function ($fixture) use ($modelClasses, $classNameField) {
@@ -325,8 +335,11 @@ class RamlModelTest extends AbstractModelTest
         );
     }
 
-    private function getFixtureClasses($fixtures, $classNameField) {
-        return array_flip(array_map(function ($fixture) use ($classNameField) { return $fixture[$classNameField]; }, $fixtures));
+    private function getFixtureClasses($fixtures, $classNameField)
+    {
+        return array_flip(array_map(function ($fixture) use ($classNameField) {
+            return $fixture[$classNameField];
+        }, $fixtures));
     }
 
     private function resolveProperties($ramlTypes, $ramlType)

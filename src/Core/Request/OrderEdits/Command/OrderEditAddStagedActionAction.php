@@ -7,6 +7,7 @@ namespace Commercetools\Core\Request\OrderEdits\Command;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderUpdateAction;
 
 /**
  * @package Commercetools\Core\Request\OrderEdits\Command
@@ -35,5 +36,4 @@ class OrderEditAddStagedActionAction extends AbstractAction
         parent::__construct($data, $context);
         $this->setAction('addStagedAction');
     }
-
 }

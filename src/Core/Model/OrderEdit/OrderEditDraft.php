@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\OrderEdit;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Order\OrderReference;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderUpdateActionCollection;
 
 /**
  * @package Commercetools\Core\Model\OrderEdit
@@ -16,12 +17,14 @@ use Commercetools\Core\Model\Order\OrderReference;
  * @method OrderEditDraft setKey(string $key = null)
  * @method OrderReference getResource()
  * @method OrderEditDraft setResource(OrderReference $resource = null)
- * @method array getStagedActions()
- * @method OrderEditDraft setStagedActions(array $stagedActions = null)
+ * @method StagedOrderUpdateActionCollection getStagedActions()
+ * @method OrderEditDraft setStagedActions(StagedOrderUpdateActionCollection $stagedActions = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method OrderEditDraft setCustom(CustomFieldObjectDraft $custom = null)
  * @method string getComment()
  * @method OrderEditDraft setComment(string $comment = null)
+ * @method boolean getDryRun()
+ * @method OrderEditDraft setDryRun(boolean $dryRun = null)
  */
 class OrderEditDraft extends JsonObject
 {
@@ -30,7 +33,7 @@ class OrderEditDraft extends JsonObject
         return [
             'key' => [static::TYPE => 'string'],
             'resource' => [static::TYPE => OrderReference::class],
-            'stagedActions' => [static::TYPE => 'array'],
+            'stagedActions' => [static::TYPE => StagedOrderUpdateActionCollection::class],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'comment' => [static::TYPE => 'string'],
             'dryRun' => [static::TYPE => 'boolean'],

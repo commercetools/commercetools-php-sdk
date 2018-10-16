@@ -276,7 +276,7 @@ class PaymentsActionBuilder
     /**
      * @return PaymentsActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -332,6 +332,7 @@ class PaymentsActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

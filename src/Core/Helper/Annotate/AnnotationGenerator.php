@@ -239,6 +239,7 @@ class AnnotationGenerator
         $uses = [];
 
         sort($updates);
+        $actionsMethod = PHP_EOL;
         foreach ($updates as $update) {
             $uses[] = 'use ' . $update . ';';
             $updateClass = new \ReflectionClass($update);
@@ -264,6 +265,7 @@ class AnnotationGenerator
             $action = new $update();
             $actionName = $action->getAction();
             $csIgnore = strlen($actionShortName) > 55 ? '// phpcs:ignore' . PHP_EOL . '        ' : '';
+
             $method = <<<METHOD
     /**
      *$docLinks
@@ -277,6 +279,23 @@ class AnnotationGenerator
     }
 METHOD;
             $updateMethods[] = $method;
+        }
+
+        $actionCollectionShortName = ucfirst($domain) . 'UpdateActionCollection';
+        $updateClass = new \ReflectionClass(current($updates));
+        $actionCollection = $updateClass->getNamespaceName() . '\\' . $actionCollectionShortName;
+        if (class_exists($actionCollection)) {
+            $uses[] = 'use ' . $actionCollection . ';';
+            $actionsMethod = <<<METHOD
+
+    /**
+     * @return $actionCollectionShortName
+     */
+    public function getActionsCollection()
+    {
+        return $actionCollectionShortName::fromArray(\$this->actions);
+    }
+METHOD;
         }
 
         $methods = implode(PHP_EOL . PHP_EOL, $updateMethods);
@@ -299,7 +318,7 @@ $methods
     /**
      * @return $className
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -355,7 +374,7 @@ $methods
     {
         return \$this->actions;
     }
-
+$actionsMethod
     /**
      * @param array \$actions
      * @return \$this

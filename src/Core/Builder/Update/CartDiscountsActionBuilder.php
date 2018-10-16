@@ -168,7 +168,7 @@ class CartDiscountsActionBuilder
     /**
      * @return CartDiscountsActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -224,6 +224,7 @@ class CartDiscountsActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

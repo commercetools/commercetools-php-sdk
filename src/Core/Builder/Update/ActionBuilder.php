@@ -165,6 +165,14 @@ class ActionBuilder
     }
 
     /**
+     * @return StagedOrderActionBuilder
+     */
+    public function stagedOrder()
+    {
+        return new StagedOrderActionBuilder();
+    }
+
+    /**
      * @return StatesActionBuilder
      */
     public function states()
