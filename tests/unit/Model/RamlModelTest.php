@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model;
 
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Message\Message;
 use Symfony\Component\Yaml\Yaml;
 
 
@@ -28,6 +29,10 @@ class RamlModelTest extends AbstractModelTest
         $validFields = array_flip($validFields);
         $t = new \ReflectionClass($className);
         $missingFields = [];
+        if ($t->isSubclassOf(Message::class)) {
+            $messageFields = array_flip(array_keys((new Message())->fieldDefinitions()));
+            $validFields = array_merge($validFields, $messageFields);
+        }
         foreach ($this->fieldDefinitions($className) as $fieldKey => $field) {
             if (!isset($validFields[$fieldKey])) {
                 $missingFields[] = $fieldKey;
