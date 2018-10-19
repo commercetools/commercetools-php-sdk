@@ -20,6 +20,7 @@ use Commercetools\Core\Model\Cart\ExternalTaxAmountDraft;
  * @method StagedOrderSetCustomLineItemTaxAmountAction setExternalTaxAmount(ExternalTaxAmountDraft $externalTaxAmount = null)
  * phpcs:enable
  */
+// phpcs:ignore
 class StagedOrderSetCustomLineItemTaxAmountAction extends CartSetCustomLineItemTaxAmountAction implements StagedOrderUpdateAction
 {
 

@@ -15,6 +15,7 @@ use Commercetools\Core\Request\Carts\Command\CartChangeTaxCalculationModeAction;
  * @method string getTaxCalculationMode()
  * @method StagedOrderChangeTaxCalculationModeAction setTaxCalculationMode(string $taxCalculationMode = null)
  */
+// phpcs:ignore
 class StagedOrderChangeTaxCalculationModeAction extends CartChangeTaxCalculationModeAction implements StagedOrderUpdateAction
 {
 

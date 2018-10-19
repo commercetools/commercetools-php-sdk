@@ -18,6 +18,7 @@ use Commercetools\Core\Model\Common\Money;
  * @method Money getMoney()
  * @method StagedOrderChangeCustomLineItemMoneyAction setMoney(Money $money = null)
  */
+// phpcs:ignore
 class StagedOrderChangeCustomLineItemMoneyAction extends CartChangeCustomLineItemMoneyAction implements StagedOrderUpdateAction
 {
 

@@ -18,6 +18,7 @@ use Commercetools\Core\Model\Order\ItemStateCollection;
  * @method ItemStateCollection getState()
  * @method StagedOrderImportCustomLineItemStateAction setState(ItemStateCollection $state = null)
  */
+// phpcs:ignore
 class StagedOrderImportCustomLineItemStateAction extends OrderImportCustomLineItemStateAction implements StagedOrderUpdateAction
 {
 

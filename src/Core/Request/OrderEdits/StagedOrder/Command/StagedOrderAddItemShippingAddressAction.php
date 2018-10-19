@@ -16,6 +16,7 @@ use Commercetools\Core\Model\Common\Address;
  * @method Address getAddress()
  * @method StagedOrderAddItemShippingAddressAction setAddress(Address $address = null)
  */
+// phpcs:ignore
 class StagedOrderAddItemShippingAddressAction extends OrderAddItemShippingAddressAction implements StagedOrderUpdateAction
 {
 

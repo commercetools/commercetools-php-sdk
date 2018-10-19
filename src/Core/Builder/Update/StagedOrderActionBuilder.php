@@ -62,6 +62,7 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParc
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAction;
+// phpcs:ignore
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndCustomShippingMethodAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndShippingMethodAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodAction;

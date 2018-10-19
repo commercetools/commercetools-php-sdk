@@ -16,6 +16,7 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method ExternalTaxRateDraft getExternalTaxRate()
  * @method StagedOrderSetShippingMethodTaxRateAction setExternalTaxRate(ExternalTaxRateDraft $externalTaxRate = null)
  */
+// phpcs:ignore
 class StagedOrderSetShippingMethodTaxRateAction extends CartSetShippingMethodTaxRateAction implements StagedOrderUpdateAction
 {
 }

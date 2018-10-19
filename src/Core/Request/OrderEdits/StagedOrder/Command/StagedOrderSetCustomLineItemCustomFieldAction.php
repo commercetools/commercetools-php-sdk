@@ -19,6 +19,7 @@ use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemCustomFieldA
  * @method mixed getValue()
  * @method StagedOrderSetCustomLineItemCustomFieldAction setValue($value = null)
  */
+// phpcs:ignore
 class StagedOrderSetCustomLineItemCustomFieldAction extends OrderSetCustomLineItemCustomFieldAction implements StagedOrderUpdateAction
 {
 }

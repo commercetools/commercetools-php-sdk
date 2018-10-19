@@ -241,7 +241,11 @@ class AnnotationGenerator
         sort($updates);
         $actionsMethod = PHP_EOL;
         foreach ($updates as $update) {
-            $uses[] = 'use ' . $update . ';';
+            $use = 'use ' . $update . ';';
+            if (strlen($use) > 120) {
+                $uses[] = '// phpcs:ignore';
+            }
+            $uses[] = $use;
             $updateClass = new \ReflectionClass($update);
 
             $docComment = $updateClass->getDocComment();

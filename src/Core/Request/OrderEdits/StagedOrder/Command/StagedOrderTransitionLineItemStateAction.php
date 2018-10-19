@@ -26,6 +26,7 @@ use DateTime;
  * @method DateTimeDecorator getActualTransitionDate()
  * @method StagedOrderTransitionLineItemStateAction setActualTransitionDate(DateTime $actualTransitionDate = null)
  */
+// phpcs:ignore
 class StagedOrderTransitionLineItemStateAction extends OrderTransitionLineItemStateAction implements StagedOrderUpdateAction
 {
 }

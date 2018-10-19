@@ -15,6 +15,7 @@ use Commercetools\Core\Request\Orders\Command\OrderRemoveItemShippingAddressActi
  * @method string getAddressKey()
  * @method StagedOrderRemoveItemShippingAddressAction setAddressKey(string $addressKey = null)
  */
+// phpcs:ignore
 class StagedOrderRemoveItemShippingAddressAction extends OrderRemoveItemShippingAddressAction implements StagedOrderUpdateAction
 {
 

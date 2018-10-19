@@ -20,6 +20,7 @@ use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
  * @method StagedOrderSetCustomLineItemShippingDetailsAction setShippingDetails(ItemShippingDetailsDraft $shippingDetails = null)
  * phpcs:enable
  */
+// phpcs:ignore
 class StagedOrderSetCustomLineItemShippingDetailsAction extends OrderSetCustomLineItemShippingDetailsAction implements StagedOrderUpdateAction
 {
 

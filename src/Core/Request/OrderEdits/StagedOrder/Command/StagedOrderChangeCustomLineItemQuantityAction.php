@@ -17,6 +17,7 @@ use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemQuantityAct
  * @method int getQuantity()
  * @method StagedOrderChangeCustomLineItemQuantityAction setQuantity(int $quantity = null)
  */
+// phpcs:ignore
 class StagedOrderChangeCustomLineItemQuantityAction extends CartChangeCustomLineItemQuantityAction implements StagedOrderUpdateAction
 {
 

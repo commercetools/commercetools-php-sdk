@@ -21,6 +21,7 @@ use Commercetools\Core\Model\CustomField\FieldContainer;
  * @method FieldContainer getFields()
  * @method StagedOrderSetCustomLineItemCustomTypeAction setFields(FieldContainer $fields = null)
  */
+// phpcs:ignore
 class StagedOrderSetCustomLineItemCustomTypeAction extends OrderSetCustomLineItemCustomTypeAction implements StagedOrderUpdateAction
 {
 }

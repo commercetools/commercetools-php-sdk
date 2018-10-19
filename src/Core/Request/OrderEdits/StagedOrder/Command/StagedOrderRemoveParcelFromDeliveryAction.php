@@ -15,6 +15,7 @@ use Commercetools\Core\Request\Orders\Command\OrderRemoveParcelFromDeliveryActio
  * @method string getParcelId()
  * @method StagedOrderRemoveParcelFromDeliveryAction setParcelId(string $parcelId = null)
  */
+// phpcs:ignore
 class StagedOrderRemoveParcelFromDeliveryAction extends OrderRemoveParcelFromDeliveryAction implements StagedOrderUpdateAction
 {
 }

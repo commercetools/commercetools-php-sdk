@@ -303,6 +303,11 @@ class ClassAnnotator
 
         $source = file_get_contents($fileName);
 
+        preg_match('/^class[^\r\n]*/m', $source, $matches);
+        if (isset($matches[0]) && strlen($matches[0]) > 120) {
+            $classHead[] = '// phpcs:ignore';
+        }
+
         $newSource = preg_replace(
             '~namespace(.*)class ' . $this->class->getShortClassName() . '~s',
             implode(PHP_EOL, $classHead) . PHP_EOL . 'class ' . $this->class->getShortClassName(),

@@ -28,6 +28,7 @@ use DateTime;
  * @method StagedOrderTransitionCustomLineItemStateAction setActualTransitionDate(DateTime $actualTransitionDate = null)
  * phpcs:enable
  */
+// phpcs:ignore
 class StagedOrderTransitionCustomLineItemStateAction extends OrderTransitionCustomLineItemStateAction implements StagedOrderUpdateAction
 {
 }

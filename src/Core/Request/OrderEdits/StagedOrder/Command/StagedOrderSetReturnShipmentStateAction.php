@@ -17,6 +17,7 @@ use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
  * @method string getShipmentState()
  * @method StagedOrderSetReturnShipmentStateAction setShipmentState(string $shipmentState = null)
  */
+// phpcs:ignore
 class StagedOrderSetReturnShipmentStateAction extends OrderSetReturnShipmentStateAction implements StagedOrderUpdateAction
 {
 }

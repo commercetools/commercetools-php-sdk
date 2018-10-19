@@ -18,6 +18,7 @@ use Commercetools\Core\Model\Cart\ExternalTaxAmountDraft;
  * @method StagedOrderSetShippingMethodTaxAmountAction setExternalTaxAmount(ExternalTaxAmountDraft $externalTaxAmount = null)
  * phpcs:enable
  */
+// phpcs:ignore
 class StagedOrderSetShippingMethodTaxAmountAction extends CartSetShippingMethodTaxAmountAction implements StagedOrderUpdateAction
 {
 

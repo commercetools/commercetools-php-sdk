@@ -36,6 +36,7 @@ use Commercetools\Core\Request\AbstractAction;
  * @method StagedOrderSetShippingAddressAndCustomShippingMethodAction setExternalTaxRate(ExternalTaxRateDraft $externalTaxRate = null)
  * phpcs:enable
  */
+// phpcs:ignore
 class StagedOrderSetShippingAddressAndCustomShippingMethodAction extends AbstractAction implements StagedOrderUpdateAction
 {
     public function fieldDefinitions()
