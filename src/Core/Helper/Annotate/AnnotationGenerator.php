@@ -285,12 +285,13 @@ METHOD;
             $updateMethods[] = $method;
         }
 
-        $actionCollectionShortName = ucfirst($domain) . 'UpdateActionCollection';
-        $updateClass = new \ReflectionClass(current($updates));
-        $actionCollection = $updateClass->getNamespaceName() . '\\' . $actionCollectionShortName;
-        if (class_exists($actionCollection)) {
-            $uses[] = 'use ' . $actionCollection . ';';
-            $actionsMethod = <<<METHOD
+        if (count($updates) > 0) {
+            $actionCollectionShortName = ucfirst($domain) . 'UpdateActionCollection';
+            $updateClass = new \ReflectionClass(current($updates));
+            $actionCollection = $updateClass->getNamespaceName() . '\\' . $actionCollectionShortName;
+            if (class_exists($actionCollection)) {
+                $uses[] = 'use ' . $actionCollection . ';';
+                $actionsMethod = <<<METHOD
 
     /**
      * @return $actionCollectionShortName
@@ -300,6 +301,7 @@ METHOD;
         return $actionCollectionShortName::fromArray(\$this->actions);
     }
 METHOD;
+            }
         }
 
         $methods = implode(PHP_EOL . PHP_EOL, $updateMethods);
