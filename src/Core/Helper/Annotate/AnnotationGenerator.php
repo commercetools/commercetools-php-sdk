@@ -230,7 +230,7 @@ class AnnotationGenerator
         return token_get_all($content);
     }
 
-    public function generateActionBuilder($domain, $updates)
+    public function generateActionBuilder($domain, array $updates)
     {
         $className = ucfirst($domain) . 'ActionBuilder';
         $fileName = __DIR__ . '/../../Builder/Update/' . $className . '.php';
@@ -286,8 +286,11 @@ METHOD;
         }
 
         if (count($updates) > 0) {
+            reset($updates);
             $actionCollectionShortName = ucfirst($domain) . 'UpdateActionCollection';
-            $updateClass = new \ReflectionClass(current($updates));
+
+            $argument = current($updates);
+            $updateClass = new \ReflectionClass($argument);
             $actionCollection = $updateClass->getNamespaceName() . '\\' . $actionCollectionShortName;
             if (class_exists($actionCollection)) {
                 $uses[] = 'use ' . $actionCollection . ';';
