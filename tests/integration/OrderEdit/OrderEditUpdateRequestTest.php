@@ -6,10 +6,20 @@
 namespace Commercetools\Core\OrderEdit;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\Cart\ExternalTaxAmountDraft;
+use Commercetools\Core\Model\Cart\ScoreShippingRateInput;
+use Commercetools\Core\Model\Common\Address;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Order\OrderReference;
 use Commercetools\Core\Model\OrderEdit\OrderEdit;
+use Commercetools\Core\Model\OrderEdit\OrderEditApplied;
 use Commercetools\Core\Model\OrderEdit\OrderEditDraft;
+use Commercetools\Core\Model\ShippingMethod\ShippingRateDraft;
+use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Model\Type\TypeReference;
 use Commercetools\Core\Order\OrderUpdateRequestTest;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCommentAction;
@@ -19,48 +29,97 @@ use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetKeyAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetStagedActionsAction;
 use Commercetools\Core\Request\OrderEdits\OrderEditCreateRequest;
 use Commercetools\Core\Request\OrderEdits\OrderEditDeleteRequest;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddCustomLineItemAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddDiscountCodeAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddItemShippingAddressAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddLineItemAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddPaymentAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderChangeCustomLineItemMoneyAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderChangeCustomLineItemQuantityAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderChangeLineItemQuantityAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderChangeTaxCalculationModeAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderChangeTaxModeAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderChangeTaxRoundingModeAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveCustomLineItemAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveDiscountCodeAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveItemShippingAddressAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveLineItemAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemovePaymentAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCountryAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomerEmailAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomerGroupAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomerIdAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomLineItemCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomLineItemCustomTypeAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomLineItemTaxAmountAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomLineItemTaxRateAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomShippingMethodAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomTypeAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemCustomTypeAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemPriceAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemShippingDetailsAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemTaxAmountAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemTaxRateAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemTotalPriceAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLocaleAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetOrderTotalTaxAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAction;
+//phpcs:ignore
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndCustomShippingMethodAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndShippingMethodAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodTaxAmountAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodTaxRateAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingRateInputAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderUpdateActionCollection;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderUpdateItemShippingAddressAction;
 
 class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 {
+    /** @var OrderEdit */
+    protected $orderEdit;
+
+    /** @var Order */
+    protected $order;
+
     protected function getOrderEditDraft()
     {
         $cartDraft = $this->getCartDraft();
         $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
-        $order = $this->createOrder($cartDraft, $orderNumber);
+        $this->order = $this->createOrder($cartDraft, $orderNumber);
 
-        $orderEditDraft = OrderEditDraft::of()->setResource(OrderReference::ofId($order->getId()));
+        $orderEditDraft = OrderEditDraft::of()->setResource(OrderReference::ofId($this->order->getId()));
         return $orderEditDraft;
     }
 
-    protected function createOrderEdit($key = null, $customField = null)
+    protected function getOrderEdit(OrderEditDraft $draft = null)
     {
-        $orderEditDraft = $this->getOrderEditDraft();
+        if (is_null($this->orderEdit)) {
+            if (is_null($draft)) {
+                $draft = $this->getOrderEditDraft();
+            }
 
-        if (!is_null($key)) {
-            $orderEditDraft->setKey($key);
+            $request = OrderEditCreateRequest::ofDraft($draft);
+            $response = $request->executeWithClient($this->getClient());
+            $orderEdit = $request->mapResponse($response);
+
+            $this->cleanupRequests[] = $this->deleteRequest = OrderEditDeleteRequest::ofIdAndVersion(
+                $orderEdit->getId(),
+                $orderEdit->getVersion()
+            );
+
+            $this->orderEdit = $orderEdit;
         }
-        if (!is_null($customField)) {
-            $orderEditDraft->setCustom(CustomFieldObjectDraft::of()->setType(TypeReference::ofKey($customField)));
-        }
 
-        $request = OrderEditCreateRequest::ofDraft($orderEditDraft);
-        $response = $request->executeWithClient($this->getClient());
-        $orderEdit = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = $this->deleteRequest = OrderEditDeleteRequest::ofIdAndVersion(
-            $orderEdit->getId(),
-            $orderEdit->getVersion()
-        );
-
-        return $orderEdit;
+        return $this->orderEdit;
     }
 
     public function testOrderEditSetKey()
     {
-        $orderEdit = $this->createOrderEdit();
+        $orderEdit = $this->getOrderEdit();
         $this->assertInstanceOf(OrderEdit::class, $orderEdit);
 
         $request = RequestBuilder::of()->orderEdits()->update($orderEdit)->setActions([
@@ -78,7 +137,10 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
     public function testUpdateOrderEditByKeySetComment()
     {
-        $orderEdit = $this->createOrderEdit('foo1');
+        $orderEditDraft = $this->getOrderEditDraft();
+        $orderEditDraft->setKey('foo1');
+
+        $orderEdit = $this->getOrderEdit($orderEditDraft);
         $this->assertNull($orderEdit->getComment());
 
         $request = RequestBuilder::of()->orderEdits()->updateByKey($orderEdit)->setActions([
@@ -99,7 +161,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $typeKey = 'type-' . $this->getTestRun();
         $type = $this->getType($typeKey, 'order-edit');
 
-        $orderEdit = $this->createOrderEdit();
+        $orderEdit = $this->getOrderEdit();
 
         $request = RequestBuilder::of()->orderEdits()->update($orderEdit)->setActions([
             OrderEditSetCustomTypeAction::ofTypeKey($typeKey)
@@ -120,7 +182,10 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $type = $this->getType('order-edit-set-field1', 'order-edit');
         $fieldValue = $this->getTestRun() . '-new value';
 
-        $orderEdit = $this->createOrderEdit(null, 'order-edit-set-field1');
+        $orderEditDraft = $this->getOrderEditDraft();
+        $orderEditDraft->setCustom(CustomFieldObjectDraft::of()->setType(TypeReference::ofKey('order-edit-set-field1')));
+
+        $orderEdit = $this->getOrderEdit($orderEditDraft);
 
         $request = RequestBuilder::of()->orderEdits()->update($orderEdit)->setActions([
             OrderEditSetCustomFieldAction::ofName('testField')->setValue($fieldValue)
@@ -139,7 +204,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
     public function testUpdateOrderEditSetStagedActions()
     {
-        $orderEdit = $this->createOrderEdit();
+        $orderEdit = $this->getOrderEdit();
         $this->assertInstanceOf(OrderEdit::class, $orderEdit);
 
         $request = RequestBuilder::of()->orderEdits()->update($orderEdit)->setActions([
@@ -159,13 +224,138 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $this->assertInstanceOf(StagedOrderUpdateActionCollection::class, $stagedActions);
         $this->assertCount(2, $stagedActions);
 
-        $this->assertJsonStringEqualsJsonString(
-            json_encode(['action' => 'setCountry', 'country' => 'DE']),
-            json_encode($stagedActions->current())
+        $this->assertEquals(['action' => 'setCountry', 'country' => 'DE'], $stagedActions->current());
+        $this->assertEquals(['action' => 'setCustomerEmail', 'email' => 'user@localhost'], $stagedActions->getAt(1));
+    }
+
+    //phpcs:disable
+    public function stagedActionsProvider()
+    {
+        return [
+            StagedOrderSetCustomerEmailAction::class => [StagedOrderSetCustomerEmailAction::of()->setEmail('user@localhost')],
+            StagedOrderSetShippingAddressAction::class =>[StagedOrderSetShippingAddressAction::of()->setAddress(Address::of()->setCountry('DE'))],
+            StagedOrderSetBillingAddressAction::class => [StagedOrderSetBillingAddressAction::of()->setAddress(Address::of()->setCountry('DE'))],
+            StagedOrderSetCountryAction::class => [StagedOrderSetCountryAction::of()->setCountry('DE')],
+            StagedOrderSetShippingMethodAction::class => [StagedOrderSetShippingMethodAction::of()->setShippingMethod($this->getShippingMethod()->getReference())],
+            StagedOrderSetCustomShippingMethodAction::class => [StagedOrderSetCustomShippingMethodAction::of()
+                ->setShippingMethodName($this->getTestRun() . '-name')
+                ->setShippingRate(ShippingRateDraft::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100)))],
+            StagedOrderAddDiscountCodeAction::class => [StagedOrderAddDiscountCodeAction::of()->setCode($this->getDiscountCode()->getCode())],
+            StagedOrderRemoveDiscountCodeAction::class => [StagedOrderRemoveDiscountCodeAction::of()->setDiscountCode($this->getDiscountCode()->getReference())],
+            StagedOrderSetCustomerIdAction::class => [StagedOrderSetCustomerIdAction::of()->setCustomerId($this->getCustomer()->getId())],
+            StagedOrderSetCustomerGroupAction::class => [StagedOrderSetCustomerGroupAction::of()->setCustomerGroup($this->getCustomerGroup()->getReference())],
+            StagedOrderSetCustomTypeAction::class => [StagedOrderSetCustomTypeAction::of()
+                ->setType($this->getType('order-edit-' . $this->getTestRun(), 'order-edit')->getReference())],
+            StagedOrderSetCustomFieldAction::class => [StagedOrderSetCustomFieldAction::of()->setName($this->getTestRun() . '-name')],
+            StagedOrderAddPaymentAction::class => [StagedOrderAddPaymentAction::of()->setPayment($this->getPayment()->getReference())],
+            StagedOrderRemovePaymentAction::class => [StagedOrderRemovePaymentAction::of()->setPayment($this->getPayment()->getReference())],
+            StagedOrderSetShippingMethodTaxAmountAction::class => [StagedOrderSetShippingMethodTaxAmountAction::of()->setExternalTaxAmount(
+                ExternalTaxAmountDraft::of()
+                    ->setTotalGross(Money::ofCurrencyAndAmount('EUR', 100))
+                    ->setTaxRate(ExternalTaxRateDraft::ofNameCountryAndAmount($this->getTestRun() . '-name','DE',100.00))
+            )],
+            StagedOrderSetShippingMethodTaxRateAction::class => [StagedOrderSetShippingMethodTaxRateAction::of()->setExternalTaxRate(
+                ExternalTaxRateDraft::ofNameCountryAndAmount($this->getTestRun() . '-name', 'DE', 100.00)
+            )],
+            StagedOrderSetOrderTotalTaxAction::class => [StagedOrderSetOrderTotalTaxAction::of()
+                ->setExternalTotalGross(Money::ofCurrencyAndAmount('EUR', 100))],
+            StagedOrderChangeTaxModeAction::class => [StagedOrderChangeTaxModeAction::of()->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT)],
+            StagedOrderSetLocaleAction::class => [StagedOrderSetLocaleAction::of()->setLocale('en')],
+            StagedOrderChangeTaxRoundingModeAction::class => [StagedOrderChangeTaxRoundingModeAction::of()->setTaxRoundingMode(Cart::TAX_ROUNDING_MODE_HALF_EVEN)],
+            StagedOrderSetShippingRateInputAction::class => [StagedOrderSetShippingRateInputAction::of()->setShippingRateInput(
+                ScoreShippingRateInput::ofScore(1)
+            )],
+            StagedOrderChangeTaxCalculationModeAction::class => [StagedOrderChangeTaxCalculationModeAction::of()
+                ->setTaxCalculationMode(Cart::TAX_CALCULATION_MODE_LINE_ITEM_LEVEL)],
+////            StagedOrderAddShoppingListAction::class => [StagedOrderAddShoppingListAction::of()->setShoppingList($this->getShoppingList()->getReference())],
+            StagedOrderAddItemShippingAddressAction::class => [StagedOrderAddItemShippingAddressAction::of()->setAddress(Address::of()->setCountry('DE'))],
+            StagedOrderRemoveItemShippingAddressAction::class => [StagedOrderRemoveItemShippingAddressAction::of()
+                ->setAddressKey($this->getTestRun() . '-key')],
+            StagedOrderUpdateItemShippingAddressAction::class => [StagedOrderUpdateItemShippingAddressAction::of()
+                ->setAddress(Address::of()->setCountry('DE'))],
+            StagedOrderSetShippingAddressAndShippingMethodAction::class => [StagedOrderSetShippingAddressAndShippingMethodAction::of()->setAddress(Address::of()->setCountry('DE'))],
+            StagedOrderSetShippingAddressAndCustomShippingMethodAction::class => [StagedOrderSetShippingAddressAndCustomShippingMethodAction::of()
+                ->setAddress(Address::of()->setCountry('DE'))
+                ->setShippingMethodName($this->getTestRun().'-name')
+                ->setShippingRate(ShippingRateDraft::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100)))],
+            StagedOrderSetLineItemShippingDetailsAction::class => [StagedOrderSetLineItemShippingDetailsAction::of()->setLineItemId($this->getProduct()->getId())],
+
+            //line items
+            StagedOrderAddLineItemAction::class => [StagedOrderAddLineItemAction::of()->setSku($this->getTestRun() . '-sku')],
+            StagedOrderRemoveLineItemAction::class => [StagedOrderRemoveLineItemAction::of()->setLineItemId($this->getProduct()->getId())],
+            StagedOrderChangeLineItemQuantityAction::class => [StagedOrderChangeLineItemQuantityAction::of()
+                ->setLineItemId($this->getProduct()->getId())->setQuantity(5)],
+            StagedOrderSetLineItemCustomTypeAction::class => [StagedOrderSetLineItemCustomTypeAction::of()->setLineItemId($this->getProduct()->getId())],
+            StagedOrderSetLineItemCustomFieldAction::class => [StagedOrderSetLineItemCustomFieldAction::of()
+                ->setLineItemId($this->getProduct()->getId())->setName($this->getTestRun().'-name')],
+            StagedOrderSetLineItemTaxRateAction::class => [StagedOrderSetLineItemTaxRateAction::of()->setLineItemId($this->getProduct()->getId())],
+            StagedOrderSetLineItemTaxAmountAction::class => [StagedOrderSetLineItemTaxAmountAction::of()->setLineItemId($this->getProduct()->getId())],
+            StagedOrderSetLineItemTotalPriceAction::class => [StagedOrderSetLineItemTotalPriceAction::of()->setLineItemId($this->getProduct()->getId())],
+            StagedOrderSetLineItemPriceAction::class => [StagedOrderSetLineItemPriceAction::of()->setLineItemId($this->getProduct()->getId())],
+
+            //custom line items
+            StagedOrderAddCustomLineItemAction::class => [StagedOrderAddCustomLineItemAction::of()
+                ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun().'-name'))
+                ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                ->setSlug($this->getTestRun().'-slug')],
+            StagedOrderRemoveCustomLineItemAction::class => [StagedOrderRemoveCustomLineItemAction::of()->setCustomLineItemId($this->getProduct()->getId())],
+            StagedOrderChangeCustomLineItemQuantityAction::class => [StagedOrderChangeCustomLineItemQuantityAction::of()
+                ->setCustomLineItemId($this->getProduct()->getId())->setQuantity(10)],
+            StagedOrderSetCustomLineItemCustomTypeAction::class => [StagedOrderSetCustomLineItemCustomTypeAction::of()->setCustomLineItemId($this->getProduct()->getId())],
+            StagedOrderSetCustomLineItemCustomFieldAction::class => [StagedOrderSetCustomLineItemCustomFieldAction::of()
+                ->setCustomLineItemId($this->getProduct()->getId())->setName($this->getTestRun().'-name')],
+            StagedOrderSetCustomLineItemTaxRateAction::class => [StagedOrderSetCustomLineItemTaxRateAction::of()->setCustomLineItemId($this->getProduct()->getId())],
+            StagedOrderSetCustomLineItemTaxAmountAction::class => [StagedOrderSetCustomLineItemTaxAmountAction::of()->setCustomLineItemId($this->getProduct()->getId())],
+            StagedOrderChangeCustomLineItemMoneyAction::class => [StagedOrderChangeCustomLineItemMoneyAction::of()
+                ->setCustomLineItemId($this->getProduct()->getId())->setMoney(Money::ofCurrencyAndAmount('EUR', 100))],
+        ];
+
+    }
+    //phpcs:enable
+
+    /**
+     * @dataProvider stagedActionsProvider
+     */
+    public function testOrderEditStagedActions($action)
+    {
+        $orderEdit = $this->getOrderEdit();
+
+        $request = RequestBuilder::of()->orderEdits()->update($orderEdit)->setActions([
+            OrderEditSetStagedActionsAction::of()->setStagedActions(
+                StagedOrderUpdateActionCollection::of()->add($action)
+            )
+        ]);
+
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertNotSame($orderEdit->getVersion(), $result->getVersion());
+        $this->assertInstanceOf(OrderEdit::class, $result);
+        $stagedActions = $result->getStagedActions();
+
+        $this->assertInstanceOf(StagedOrderUpdateActionCollection::class, $stagedActions);
+        $this->assertCount(1, $stagedActions);
+        $this->assertSame($action->getAction(), $stagedActions->getAt(0)['action']);
+    }
+
+    public function testOrderEditApply()
+    {
+        $draft = $this->getOrderEditDraft();
+        $draft->setStagedActions(
+            StagedOrderUpdateActionCollection::of()
+                ->add(StagedOrderSetCustomerEmailAction::of()->setEmail('user@localhost'))
         );
-        $this->assertJsonStringEqualsJsonString(
-            json_encode(['action' => 'setCustomerEmail', 'email' => 'user@localhost']),
-            json_encode($stagedActions->getAt(1))
-        );
+
+        $this->orderEdit = $this->getOrderEdit($draft);
+
+        $request = RequestBuilder::of()->orderEdits()->apply($this->orderEdit, $this->order->getVersion());
+
+        $response = $request->executeWithClient($this->getClient());
+        $orderEdit = $request->mapResponse($response);
+
+        $this->assertInstanceOf(OrderEdit::class, $orderEdit);
+        $this->assertSame(OrderEditApplied::ORDER_EDIT_RESULT_TYPE, $orderEdit->getResult()->getType());
     }
 }

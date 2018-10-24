@@ -325,6 +325,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $request = CartDiscountCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
         $cartDiscount = $request->mapResponse($response);
+
         $this->cleanupRequests[] = $this->deleteRequest = CartDiscountDeleteRequest::ofIdAndVersion(
             $cartDiscount->getId(),
             $cartDiscount->getVersion()

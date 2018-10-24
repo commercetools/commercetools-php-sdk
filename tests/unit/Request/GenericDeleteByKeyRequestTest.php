@@ -9,6 +9,7 @@ use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
+use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\ProductType\ProductType;
@@ -21,6 +22,7 @@ use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Request\Categories\CategoryDeleteByKeyRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupDeleteByKeyRequest;
 use Commercetools\Core\Request\Customers\CustomerDeleteByKeyRequest;
+use Commercetools\Core\Request\OrderEdits\OrderEditDeleteByKeyRequest;
 use Commercetools\Core\Request\Payments\PaymentDeleteByKeyRequest;
 use Commercetools\Core\Request\Products\ProductDeleteByKeyRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteByKeyRequest;
@@ -60,6 +62,10 @@ class GenericDeleteByKeyRequestTest extends RequestTestCase
             CustomerDeleteByKeyRequest::class => [
                 CustomerDeleteByKeyRequest::class,
                 Customer::class
+            ],
+            OrderEditDeleteByKeyRequest::class => [
+                OrderEditDeleteByKeyRequest::class,
+                OrderEdit::class
             ],
             PaymentDeleteByKeyRequest::class => [
                 PaymentDeleteByKeyRequest::class,
