@@ -36,7 +36,7 @@ class OrderEditDraft extends JsonObject
             'stagedActions' => [static::TYPE => StagedOrderUpdateActionCollection::class],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'comment' => [static::TYPE => 'string'],
-            'dryRun' => [static::TYPE => 'boolean'],
+            'dryRun' => [static::TYPE => 'bool'],
         ];
     }
 }
