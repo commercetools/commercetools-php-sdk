@@ -13,8 +13,8 @@ namespace Commercetools\Core\Model\Common;
  * @method HighPrecisionMoney setCentAmount(int $centAmount = null)
  * @method string getType()
  * @method HighPrecisionMoney setType(string $type = null)
- * @method string getFractionDigits()
- * @method HighPrecisionMoney setFractionDigits(string $fractionDigits = null)
+ * @method int getFractionDigits()
+ * @method HighPrecisionMoney setFractionDigits(int $fractionDigits = null)
  * @method int getPreciseAmount()
  * @method HighPrecisionMoney setPreciseAmount(int $preciseAmount = null)
  * @method string getHighPrecision()
@@ -39,7 +39,7 @@ class HighPrecisionMoney extends Money
             static::CURRENCY_CODE => [self::TYPE => 'string'],
             static::CENT_AMOUNT => [self::TYPE => 'int'],
             static::TYPE => [self::TYPE => 'string'],
-            static::FRACTION_DIGITS => [self::TYPE => 'string'],
+            static::FRACTION_DIGITS => [self::TYPE => 'int'],
             static::PRECISE_AMOUNT => [self::TYPE => 'int'],
         ];
     }
