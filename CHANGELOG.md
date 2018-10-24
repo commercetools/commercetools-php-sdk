@@ -1,3 +1,13 @@
+<a name="2.5.1"></a>
+## [2.5.1](https://github.com/commercetools/commercetools-php-sdk/compare/v2.5.0...v2.5.1) (2018-10-24)
+
+
+### Bug Fixes
+
+* **Money:** fix fraction digits type ([f870109](https://github.com/commercetools/commercetools-php-sdk/commit/f870109)), closes [#429](https://github.com/commercetools/commercetools-php-sdk/issues/429)
+
+
+
 <a name="2.5.0"></a>
 # [2.5.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.4.0...v2.5.0) (2018-08-16)
 

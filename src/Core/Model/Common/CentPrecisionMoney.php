@@ -13,8 +13,8 @@ namespace Commercetools\Core\Model\Common;
  * @method CentPrecisionMoney setCentAmount(int $centAmount = null)
  * @method string getType()
  * @method CentPrecisionMoney setType(string $type = null)
- * @method string getFractionDigits()
- * @method CentPrecisionMoney setFractionDigits(string $fractionDigits = null)
+ * @method int getFractionDigits()
+ * @method CentPrecisionMoney setFractionDigits(int $fractionDigits = null)
  */
 class CentPrecisionMoney extends Money
 {
@@ -33,7 +33,7 @@ class CentPrecisionMoney extends Money
             static::CURRENCY_CODE => [self::TYPE => 'string'],
             static::CENT_AMOUNT => [self::TYPE => 'int'],
             static::TYPE => [self::TYPE => 'string'],
-            static::FRACTION_DIGITS => [self::TYPE => 'string']
+            static::FRACTION_DIGITS => [self::TYPE => 'int']
         ];
     }
 
