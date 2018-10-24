@@ -14,6 +14,8 @@ use Commercetools\Core\Model\Message\MessageCollection;
  * @method OrderEditPreviewSuccess setPreview(StagedOrder $preview = null)
  * @method MessageCollection getMessagePayloads()
  * @method OrderEditPreviewSuccess setMessagePayloads(MessageCollection $messagePayloads = null)
+ * @method string getType()
+ * @method OrderEditPreviewSuccess setType(string $type = null)
  */
 class OrderEditPreviewSuccess extends OrderEditResult
 {
@@ -22,6 +24,7 @@ class OrderEditPreviewSuccess extends OrderEditResult
     public function fieldDefinitions()
     {
         return [
+            'type' => [static::TYPE => 'string'],
             'preview' => [static::TYPE => StagedOrder::class],
             'messagePayloads' => [static::TYPE => MessageCollection::class]
         ];

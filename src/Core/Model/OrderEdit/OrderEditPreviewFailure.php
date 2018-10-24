@@ -12,6 +12,8 @@ use Commercetools\Core\Error\ErrorContainer;
  *
  * @method ErrorContainer getErrors()
  * @method OrderEditPreviewFailure setErrors(ErrorContainer $errors = null)
+ * @method string getType()
+ * @method OrderEditPreviewFailure setType(string $type = null)
  */
 class OrderEditPreviewFailure extends OrderEditResult
 {
@@ -20,6 +22,7 @@ class OrderEditPreviewFailure extends OrderEditResult
     public function fieldDefinitions()
     {
         return [
+            'type' => [static::TYPE => 'string'],
             'errors' => [static::TYPE => ErrorContainer::class]
         ];
     }

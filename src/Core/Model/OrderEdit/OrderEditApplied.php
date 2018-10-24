@@ -17,6 +17,8 @@ use DateTime;
  * @method OrderEditApplied setExcerptBeforeEdit(OrderExcerpt $excerptBeforeEdit = null)
  * @method OrderExcerpt getExcerptAfterEdit()
  * @method OrderEditApplied setExcerptAfterEdit(OrderExcerpt $excerptAfterEdit = null)
+ * @method string getType()
+ * @method OrderEditApplied setType(string $type = null)
  */
 class OrderEditApplied extends OrderEditResult
 {
@@ -25,6 +27,7 @@ class OrderEditApplied extends OrderEditResult
     public function fieldDefinitions()
     {
         return [
+            'type' => [static::TYPE => 'string'],
             'appliedAt' => [
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
