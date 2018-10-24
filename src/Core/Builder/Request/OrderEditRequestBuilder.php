@@ -3,12 +3,12 @@
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\OrderEdits\OrderEditApplyRequest;
+use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Request\OrderEdits\OrderEditByIdGetRequest;
 use Commercetools\Core\Request\OrderEdits\OrderEditByKeyGetRequest;
 use Commercetools\Core\Request\OrderEdits\OrderEditCreateRequest;
 use Commercetools\Core\Model\OrderEdit\OrderEditDraft;
 use Commercetools\Core\Request\OrderEdits\OrderEditDeleteByKeyRequest;
-use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Request\OrderEdits\OrderEditDeleteRequest;
 use Commercetools\Core\Request\OrderEdits\OrderEditQueryRequest;
 use Commercetools\Core\Request\OrderEdits\OrderEditUpdateByKeyRequest;
@@ -19,12 +19,13 @@ class OrderEditRequestBuilder
 
     /**
      *
-     *
+     * @param OrderEdit $orderEdit
+     * @param int $resourceVersion
      * @return OrderEditApplyRequest
      */
-    public function apply()
+    public function apply(OrderEdit $orderEdit, $resourceVersion)
     {
-        $request = OrderEditApplyRequest::of();
+        $request = OrderEditApplyRequest::ofIdVersionAndResourceVersion($orderEdit->getId(), $orderEdit->getVersion(), $resourceVersion);
         return $request;
     }
 

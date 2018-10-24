@@ -750,6 +750,20 @@ EOF;
                     ];
                     $factoryCall = 'ofIdSkuAndFile($id, $sku, $uploadedFile);';
                     break;
+                case 'apply':
+                    $uses[$resultClassName] = 'use ' . $resultClassName . ';';
+                    $methodParams[] = [
+                        self::PARAM_TYPE => $resultClass->getShortName(),
+                        self::PARAM_NAME => '$' . lcfirst($singularDomain)
+                    ];
+                    $methodParams[] = [
+                        self::PARAM_DOC_TYPE => 'int',
+                        self::PARAM_NAME => '$resourceVersion'
+                    ];
+                    $factoryCall = 'ofIdVersionAndResourceVersion($' .
+                        lcfirst($singularDomain) . '->getId(), $' .
+                        lcfirst($singularDomain) . '->getVersion(), $resourceVersion);';
+                    break;
                 case preg_match('/^by([a-zA-Z]+)Get$/', $methodName, $matches) === 1:
                     $param = lcfirst($matches[1]);
                     if ($param == 'key' && $resultClassName == CustomObject::class) {
