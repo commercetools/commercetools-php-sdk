@@ -74,6 +74,7 @@ use Commercetools\Core\Request\Products\ProductDeleteRequest;
 use Commercetools\Core\Request\Products\ProductUpdateByKeyRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Response\ErrorResponse;
+use Commercetools\Core\TestHelper;
 
 class ProductUpdateRequestTest extends ApiTestCase
 {
@@ -806,7 +807,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $product2 = $request->mapResponse($response);
-        $this->product = $product2;
+        TestHelper::getInstance($this->getClient())->setProduct($product2);
 
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(
@@ -830,7 +831,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         ;
         $response = $request->executeWithClient($this->getClient());
         $product2 = $request->mapResponse($response);
-        $this->product = $product2;
+        TestHelper::getInstance($this->getClient())->setProduct($product2);
 
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(

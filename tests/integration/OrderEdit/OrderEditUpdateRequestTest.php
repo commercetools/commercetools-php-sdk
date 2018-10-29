@@ -22,6 +22,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingRateDraft;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Model\Type\TypeReference;
 use Commercetools\Core\Order\OrderUpdateRequestTest;
+use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCommentAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCustomFieldAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCustomTypeAction;
@@ -76,6 +77,7 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShip
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingRateInputAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderUpdateActionCollection;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderUpdateItemShippingAddressAction;
+use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
 
 class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 {
@@ -84,6 +86,11 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
     /** @var Order */
     protected $order;
+
+    /**
+     * @var AbstractDeleteRequest
+     */
+    protected $orderEditDeleteRequest;
 
     protected function getOrderEditDraft()
     {
@@ -106,7 +113,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
             $response = $request->executeWithClient($this->getClient());
             $orderEdit = $request->mapResponse($response);
 
-            $this->cleanupRequests[] = $this->deleteRequest = OrderEditDeleteRequest::ofIdAndVersion(
+            $this->cleanupRequests[] = $this->orderEditDeleteRequest = OrderEditDeleteRequest::ofIdAndVersion(
                 $orderEdit->getId(),
                 $orderEdit->getVersion()
             );
@@ -128,7 +135,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        $this->orderEditDeleteRequest->setVersion($result->getVersion());
 
         $this->assertNotSame($orderEdit->getVersion(), $result->getVersion());
         $this->assertInstanceOf(OrderEdit::class, $result);
@@ -149,7 +156,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        $this->orderEditDeleteRequest->setVersion($result->getVersion());
 
         $this->assertSame($orderEdit->getVersion(), $result->getVersion());
         $this->assertInstanceOf(OrderEdit::class, $result);
@@ -174,7 +181,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
         $this->assertNotSame($orderEdit->getVersion(), $result->getVersion());
 
-        $this->deleteRequest->setVersion($result->getVersion());
+        $this->orderEditDeleteRequest->setVersion($result->getVersion());
     }
 
     public function testUpdateOrderEditSetCustomField()
@@ -199,7 +206,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $this->assertSame($fieldValue, $result->getCustom()->getFields()->getTestField());
         $this->assertNotSame($orderEdit->getVersion(), $result->getVersion());
 
-        $this->deleteRequest->setVersion($result->getVersion());
+        $this->orderEditDeleteRequest->setVersion($result->getVersion());
     }
 
     public function testUpdateOrderEditSetStagedActions()
@@ -215,7 +222,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        $this->orderEditDeleteRequest->setVersion($result->getVersion());
 
         $this->assertNotSame($orderEdit->getVersion(), $result->getVersion());
         $this->assertInstanceOf(OrderEdit::class, $result);
@@ -232,82 +239,82 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
     public function stagedActionsProvider()
     {
         return [
-            StagedOrderSetCustomerEmailAction::class => [StagedOrderSetCustomerEmailAction::of()->setEmail('user@localhost')],
-            StagedOrderSetShippingAddressAction::class =>[StagedOrderSetShippingAddressAction::of()->setAddress(Address::of()->setCountry('DE'))],
-            StagedOrderSetBillingAddressAction::class => [StagedOrderSetBillingAddressAction::of()->setAddress(Address::of()->setCountry('DE'))],
-            StagedOrderSetCountryAction::class => [StagedOrderSetCountryAction::of()->setCountry('DE')],
-            StagedOrderSetShippingMethodAction::class => [StagedOrderSetShippingMethodAction::of()->setShippingMethod($this->getShippingMethod()->getReference())],
-            StagedOrderSetCustomShippingMethodAction::class => [StagedOrderSetCustomShippingMethodAction::of()
+            StagedOrderSetCustomerEmailAction::class => [function () {return StagedOrderSetCustomerEmailAction::of()->setEmail('user@localhost'); } ],
+            StagedOrderSetShippingAddressAction::class =>[function() { return StagedOrderSetShippingAddressAction::of()->setAddress(Address::of()->setCountry('DE')); }],
+            StagedOrderSetBillingAddressAction::class => [function() { return StagedOrderSetBillingAddressAction::of()->setAddress(Address::of()->setCountry('DE')); }],
+            StagedOrderSetCountryAction::class => [function() { return StagedOrderSetCountryAction::of()->setCountry('DE'); }],
+            StagedOrderSetShippingMethodAction::class => [function() { return StagedOrderSetShippingMethodAction::of()->setShippingMethod($this->getShippingMethod()->getReference()); }],
+            StagedOrderSetCustomShippingMethodAction::class => [function() { return StagedOrderSetCustomShippingMethodAction::of()
                 ->setShippingMethodName($this->getTestRun() . '-name')
-                ->setShippingRate(ShippingRateDraft::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100)))],
-            StagedOrderAddDiscountCodeAction::class => [StagedOrderAddDiscountCodeAction::of()->setCode($this->getDiscountCode()->getCode())],
-            StagedOrderRemoveDiscountCodeAction::class => [StagedOrderRemoveDiscountCodeAction::of()->setDiscountCode($this->getDiscountCode()->getReference())],
-            StagedOrderSetCustomerIdAction::class => [StagedOrderSetCustomerIdAction::of()->setCustomerId($this->getCustomer()->getId())],
-            StagedOrderSetCustomerGroupAction::class => [StagedOrderSetCustomerGroupAction::of()->setCustomerGroup($this->getCustomerGroup()->getReference())],
-            StagedOrderSetCustomTypeAction::class => [StagedOrderSetCustomTypeAction::of()
-                ->setType($this->getType('order-edit-' . $this->getTestRun(), 'order-edit')->getReference())],
-            StagedOrderSetCustomFieldAction::class => [StagedOrderSetCustomFieldAction::of()->setName($this->getTestRun() . '-name')],
-            StagedOrderAddPaymentAction::class => [StagedOrderAddPaymentAction::of()->setPayment($this->getPayment()->getReference())],
-            StagedOrderRemovePaymentAction::class => [StagedOrderRemovePaymentAction::of()->setPayment($this->getPayment()->getReference())],
-            StagedOrderSetShippingMethodTaxAmountAction::class => [StagedOrderSetShippingMethodTaxAmountAction::of()->setExternalTaxAmount(
+                ->setShippingRate(ShippingRateDraft::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100))); }],
+            StagedOrderAddDiscountCodeAction::class => [function() { return StagedOrderAddDiscountCodeAction::of()->setCode($this->getDiscountCode()->getCode()); }],
+            StagedOrderRemoveDiscountCodeAction::class => [function() {return StagedOrderRemoveDiscountCodeAction::of()->setDiscountCode($this->getDiscountCode()->getReference()); }],
+            StagedOrderSetCustomerIdAction::class => [function() { return StagedOrderSetCustomerIdAction::of()->setCustomerId($this->getCustomer()->getId()); }],
+            StagedOrderSetCustomerGroupAction::class => [function() { return StagedOrderSetCustomerGroupAction::of()->setCustomerGroup($this->getCustomerGroup()->getReference()); }],
+            StagedOrderSetCustomTypeAction::class => [function() { return StagedOrderSetCustomTypeAction::of()
+                ->setType($this->getType('order-edit-' . $this->getTestRun(), 'order-edit')->getReference()); }],
+            StagedOrderSetCustomFieldAction::class => [function() { return StagedOrderSetCustomFieldAction::of()->setName($this->getTestRun() . '-name'); }],
+            StagedOrderAddPaymentAction::class => [function() { return StagedOrderAddPaymentAction::of()->setPayment($this->getPayment()->getReference()); }],
+            StagedOrderRemovePaymentAction::class => [function() { return StagedOrderRemovePaymentAction::of()->setPayment($this->getPayment()->getReference()); }],
+            StagedOrderSetShippingMethodTaxAmountAction::class => [function() { return StagedOrderSetShippingMethodTaxAmountAction::of()->setExternalTaxAmount(
                 ExternalTaxAmountDraft::of()
                     ->setTotalGross(Money::ofCurrencyAndAmount('EUR', 100))
                     ->setTaxRate(ExternalTaxRateDraft::ofNameCountryAndAmount($this->getTestRun() . '-name','DE',100.00))
-            )],
-            StagedOrderSetShippingMethodTaxRateAction::class => [StagedOrderSetShippingMethodTaxRateAction::of()->setExternalTaxRate(
+            ); }],
+            StagedOrderSetShippingMethodTaxRateAction::class => [function() { return StagedOrderSetShippingMethodTaxRateAction::of()->setExternalTaxRate(
                 ExternalTaxRateDraft::ofNameCountryAndAmount($this->getTestRun() . '-name', 'DE', 100.00)
-            )],
-            StagedOrderSetOrderTotalTaxAction::class => [StagedOrderSetOrderTotalTaxAction::of()
-                ->setExternalTotalGross(Money::ofCurrencyAndAmount('EUR', 100))],
-            StagedOrderChangeTaxModeAction::class => [StagedOrderChangeTaxModeAction::of()->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT)],
-            StagedOrderSetLocaleAction::class => [StagedOrderSetLocaleAction::of()->setLocale('en')],
-            StagedOrderChangeTaxRoundingModeAction::class => [StagedOrderChangeTaxRoundingModeAction::of()->setTaxRoundingMode(Cart::TAX_ROUNDING_MODE_HALF_EVEN)],
-            StagedOrderSetShippingRateInputAction::class => [StagedOrderSetShippingRateInputAction::of()->setShippingRateInput(
+            ); }],
+            StagedOrderSetOrderTotalTaxAction::class => [function() { return StagedOrderSetOrderTotalTaxAction::of()
+                ->setExternalTotalGross(Money::ofCurrencyAndAmount('EUR', 100)); }],
+            StagedOrderChangeTaxModeAction::class => [function() { return StagedOrderChangeTaxModeAction::of()->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT); }],
+            StagedOrderSetLocaleAction::class => [function() { return StagedOrderSetLocaleAction::of()->setLocale('en'); }],
+            StagedOrderChangeTaxRoundingModeAction::class => [function() { return StagedOrderChangeTaxRoundingModeAction::of()->setTaxRoundingMode(Cart::TAX_ROUNDING_MODE_HALF_EVEN); }],
+            StagedOrderSetShippingRateInputAction::class => [function() { return StagedOrderSetShippingRateInputAction::of()->setShippingRateInput(
                 ScoreShippingRateInput::ofScore(1)
-            )],
-            StagedOrderChangeTaxCalculationModeAction::class => [StagedOrderChangeTaxCalculationModeAction::of()
-                ->setTaxCalculationMode(Cart::TAX_CALCULATION_MODE_LINE_ITEM_LEVEL)],
-////            StagedOrderAddShoppingListAction::class => [StagedOrderAddShoppingListAction::of()->setShoppingList($this->getShoppingList()->getReference())],
-            StagedOrderAddItemShippingAddressAction::class => [StagedOrderAddItemShippingAddressAction::of()->setAddress(Address::of()->setCountry('DE'))],
-            StagedOrderRemoveItemShippingAddressAction::class => [StagedOrderRemoveItemShippingAddressAction::of()
-                ->setAddressKey($this->getTestRun() . '-key')],
-            StagedOrderUpdateItemShippingAddressAction::class => [StagedOrderUpdateItemShippingAddressAction::of()
-                ->setAddress(Address::of()->setCountry('DE'))],
-            StagedOrderSetShippingAddressAndShippingMethodAction::class => [StagedOrderSetShippingAddressAndShippingMethodAction::of()->setAddress(Address::of()->setCountry('DE'))],
-            StagedOrderSetShippingAddressAndCustomShippingMethodAction::class => [StagedOrderSetShippingAddressAndCustomShippingMethodAction::of()
+            ); }],
+            StagedOrderChangeTaxCalculationModeAction::class => [function() { return StagedOrderChangeTaxCalculationModeAction::of()
+                ->setTaxCalculationMode(Cart::TAX_CALCULATION_MODE_LINE_ITEM_LEVEL); }],
+////            StagedOrderAddShoppingListAction::class => [function() { return StagedOrderAddShoppingListAction::of()->setShoppingList($this->getShoppingList()->getReference()); }],
+            StagedOrderAddItemShippingAddressAction::class => [function() { return StagedOrderAddItemShippingAddressAction::of()->setAddress(Address::of()->setCountry('DE')); }],
+            StagedOrderRemoveItemShippingAddressAction::class => [function() { return StagedOrderRemoveItemShippingAddressAction::of()
+                ->setAddressKey($this->getTestRun() . '-key'); }],
+            StagedOrderUpdateItemShippingAddressAction::class => [function() { return StagedOrderUpdateItemShippingAddressAction::of()
+                ->setAddress(Address::of()->setCountry('DE')); }],
+            StagedOrderSetShippingAddressAndShippingMethodAction::class => [function() { return StagedOrderSetShippingAddressAndShippingMethodAction::of()->setAddress(Address::of()->setCountry('DE')); }],
+            StagedOrderSetShippingAddressAndCustomShippingMethodAction::class => [function() { return StagedOrderSetShippingAddressAndCustomShippingMethodAction::of()
                 ->setAddress(Address::of()->setCountry('DE'))
                 ->setShippingMethodName($this->getTestRun().'-name')
-                ->setShippingRate(ShippingRateDraft::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100)))],
-            StagedOrderSetLineItemShippingDetailsAction::class => [StagedOrderSetLineItemShippingDetailsAction::of()->setLineItemId($this->getProduct()->getId())],
+                ->setShippingRate(ShippingRateDraft::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100))); }],
+            StagedOrderSetLineItemShippingDetailsAction::class => [function() { return StagedOrderSetLineItemShippingDetailsAction::of()->setLineItemId($this->getProduct()->getId()); }],
 
             //line items
-            StagedOrderAddLineItemAction::class => [StagedOrderAddLineItemAction::of()->setSku($this->getTestRun() . '-sku')],
-            StagedOrderRemoveLineItemAction::class => [StagedOrderRemoveLineItemAction::of()->setLineItemId($this->getProduct()->getId())],
-            StagedOrderChangeLineItemQuantityAction::class => [StagedOrderChangeLineItemQuantityAction::of()
-                ->setLineItemId($this->getProduct()->getId())->setQuantity(5)],
-            StagedOrderSetLineItemCustomTypeAction::class => [StagedOrderSetLineItemCustomTypeAction::of()->setLineItemId($this->getProduct()->getId())],
-            StagedOrderSetLineItemCustomFieldAction::class => [StagedOrderSetLineItemCustomFieldAction::of()
-                ->setLineItemId($this->getProduct()->getId())->setName($this->getTestRun().'-name')],
-            StagedOrderSetLineItemTaxRateAction::class => [StagedOrderSetLineItemTaxRateAction::of()->setLineItemId($this->getProduct()->getId())],
-            StagedOrderSetLineItemTaxAmountAction::class => [StagedOrderSetLineItemTaxAmountAction::of()->setLineItemId($this->getProduct()->getId())],
-            StagedOrderSetLineItemTotalPriceAction::class => [StagedOrderSetLineItemTotalPriceAction::of()->setLineItemId($this->getProduct()->getId())],
-            StagedOrderSetLineItemPriceAction::class => [StagedOrderSetLineItemPriceAction::of()->setLineItemId($this->getProduct()->getId())],
+            StagedOrderAddLineItemAction::class => [function() { return StagedOrderAddLineItemAction::of()->setSku($this->getTestRun() . '-sku'); }],
+            StagedOrderRemoveLineItemAction::class => [function() { return StagedOrderRemoveLineItemAction::of()->setLineItemId($this->getProduct()->getId()); }],
+            StagedOrderChangeLineItemQuantityAction::class => [function() { return StagedOrderChangeLineItemQuantityAction::of()
+                ->setLineItemId($this->getProduct()->getId())->setQuantity(5); }],
+            StagedOrderSetLineItemCustomTypeAction::class => [function() { return StagedOrderSetLineItemCustomTypeAction::of()->setLineItemId($this->getProduct()->getId()); }],
+            StagedOrderSetLineItemCustomFieldAction::class => [function() { return StagedOrderSetLineItemCustomFieldAction::of()
+                ->setLineItemId($this->getProduct()->getId())->setName($this->getTestRun().'-name'); }],
+            StagedOrderSetLineItemTaxRateAction::class => [function() { return StagedOrderSetLineItemTaxRateAction::of()->setLineItemId($this->getProduct()->getId()); }],
+            StagedOrderSetLineItemTaxAmountAction::class => [function() { return StagedOrderSetLineItemTaxAmountAction::of()->setLineItemId($this->getProduct()->getId()); }],
+            StagedOrderSetLineItemTotalPriceAction::class => [function() { return StagedOrderSetLineItemTotalPriceAction::of()->setLineItemId($this->getProduct()->getId()); }],
+            StagedOrderSetLineItemPriceAction::class => [function() { return StagedOrderSetLineItemPriceAction::of()->setLineItemId($this->getProduct()->getId()); }],
 
             //custom line items
-            StagedOrderAddCustomLineItemAction::class => [StagedOrderAddCustomLineItemAction::of()
+            StagedOrderAddCustomLineItemAction::class => [function() { return StagedOrderAddCustomLineItemAction::of()
                 ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun().'-name'))
                 ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                ->setSlug($this->getTestRun().'-slug')],
-            StagedOrderRemoveCustomLineItemAction::class => [StagedOrderRemoveCustomLineItemAction::of()->setCustomLineItemId($this->getProduct()->getId())],
-            StagedOrderChangeCustomLineItemQuantityAction::class => [StagedOrderChangeCustomLineItemQuantityAction::of()
-                ->setCustomLineItemId($this->getProduct()->getId())->setQuantity(10)],
-            StagedOrderSetCustomLineItemCustomTypeAction::class => [StagedOrderSetCustomLineItemCustomTypeAction::of()->setCustomLineItemId($this->getProduct()->getId())],
-            StagedOrderSetCustomLineItemCustomFieldAction::class => [StagedOrderSetCustomLineItemCustomFieldAction::of()
-                ->setCustomLineItemId($this->getProduct()->getId())->setName($this->getTestRun().'-name')],
-            StagedOrderSetCustomLineItemTaxRateAction::class => [StagedOrderSetCustomLineItemTaxRateAction::of()->setCustomLineItemId($this->getProduct()->getId())],
-            StagedOrderSetCustomLineItemTaxAmountAction::class => [StagedOrderSetCustomLineItemTaxAmountAction::of()->setCustomLineItemId($this->getProduct()->getId())],
-            StagedOrderChangeCustomLineItemMoneyAction::class => [StagedOrderChangeCustomLineItemMoneyAction::of()
-                ->setCustomLineItemId($this->getProduct()->getId())->setMoney(Money::ofCurrencyAndAmount('EUR', 100))],
+                ->setSlug($this->getTestRun().'-slug'); }],
+            StagedOrderRemoveCustomLineItemAction::class => [function() { return StagedOrderRemoveCustomLineItemAction::of()->setCustomLineItemId($this->getProduct()->getId()); }],
+            StagedOrderChangeCustomLineItemQuantityAction::class => [function() { return StagedOrderChangeCustomLineItemQuantityAction::of()
+                ->setCustomLineItemId($this->getProduct()->getId())->setQuantity(10); }],
+            StagedOrderSetCustomLineItemCustomTypeAction::class => [function() { return StagedOrderSetCustomLineItemCustomTypeAction::of()->setCustomLineItemId($this->getProduct()->getId()); }],
+            StagedOrderSetCustomLineItemCustomFieldAction::class => [function() { return StagedOrderSetCustomLineItemCustomFieldAction::of()
+                ->setCustomLineItemId($this->getProduct()->getId())->setName($this->getTestRun().'-name'); }],
+            StagedOrderSetCustomLineItemTaxRateAction::class => [function() { return StagedOrderSetCustomLineItemTaxRateAction::of()->setCustomLineItemId($this->getProduct()->getId()); }],
+            StagedOrderSetCustomLineItemTaxAmountAction::class => [function() { return StagedOrderSetCustomLineItemTaxAmountAction::of()->setCustomLineItemId($this->getProduct()->getId()); }],
+            StagedOrderChangeCustomLineItemMoneyAction::class => [function() { return StagedOrderChangeCustomLineItemMoneyAction::of()
+                ->setCustomLineItemId($this->getProduct()->getId())->setMoney(Money::ofCurrencyAndAmount('EUR', 100)); }],
         ];
 
     }
@@ -316,8 +323,9 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
     /**
      * @dataProvider stagedActionsProvider
      */
-    public function testOrderEditStagedActions($action)
+    public function testOrderEditStagedActions($actionCallback)
     {
+        $action = $actionCallback();
         $orderEdit = $this->getOrderEdit();
 
         $request = RequestBuilder::of()->orderEdits()->update($orderEdit)->setActions([
@@ -329,7 +337,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
+        $this->orderEditDeleteRequest->setVersion($result->getVersion());
 
         $this->assertNotSame($orderEdit->getVersion(), $result->getVersion());
         $this->assertInstanceOf(OrderEdit::class, $result);
@@ -354,6 +362,13 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
         $response = $request->executeWithClient($this->getClient());
         $orderEdit = $request->mapResponse($response);
+
+        $orderRequest = OrderByIdGetRequest::ofId($this->order->getId());
+        $response = $orderRequest->executeWithClient($this->getClient());
+        $order = $orderRequest->mapFromResponse($response);
+
+        $this->deleteRequest->setVersion($order->getVersion());
+        $this->orderEditDeleteRequest->setVersion($orderEdit->getVersion());
 
         $this->assertInstanceOf(OrderEdit::class, $orderEdit);
         $this->assertSame(OrderEditApplied::ORDER_EDIT_RESULT_TYPE, $orderEdit->getResult()->getType());

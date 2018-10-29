@@ -23,8 +23,8 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderUpdateA
  * @method OrderEditDraft setCustom(CustomFieldObjectDraft $custom = null)
  * @method string getComment()
  * @method OrderEditDraft setComment(string $comment = null)
- * @method boolean getDryRun()
- * @method OrderEditDraft setDryRun(boolean $dryRun = null)
+ * @method bool getDryRun()
+ * @method OrderEditDraft setDryRun(bool $dryRun = null)
  */
 class OrderEditDraft extends JsonObject
 {
