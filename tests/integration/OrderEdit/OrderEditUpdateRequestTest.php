@@ -18,6 +18,7 @@ use Commercetools\Core\Model\Order\OrderReference;
 use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Model\OrderEdit\OrderEditApplied;
 use Commercetools\Core\Model\OrderEdit\OrderEditDraft;
+use Commercetools\Core\Model\OrderEdit\OrderEditPreviewSuccess;
 use Commercetools\Core\Model\ShippingMethod\ShippingRateDraft;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Model\Type\TypeReference;
@@ -342,6 +343,8 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
         $this->assertNotSame($orderEdit->getVersion(), $result->getVersion());
         $this->assertInstanceOf(OrderEdit::class, $result);
+        $this->assertSame(OrderEditPreviewSuccess::ORDER_EDIT_RESULT_TYPE, $orderEdit->getResult()->getType());
+
         $stagedActions = $result->getStagedActions();
 
         $this->assertInstanceOf(StagedOrderUpdateActionCollection::class, $stagedActions);
