@@ -19,6 +19,7 @@ use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountValue;
 use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
+use Commercetools\Core\Model\ShoppingList\ShoppingListDraft;
 use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
@@ -266,6 +267,7 @@ class ApiTestCase extends TestCase
         $this->deleteType();
         $this->deleteChannel();
         $this->deleteStates();
+        $this->deleteShoppingList();
     }
 
     protected function map(callable $callback, $collection)
@@ -520,5 +522,23 @@ class ApiTestCase extends TestCase
     protected function deleteCart()
     {
         TestHelper::getInstance($this->getClient())->deleteCart();
+    }
+
+    /**
+     * @return ShoppingListDraft
+     */
+    protected function getShoppingListDraft($name = null)
+    {
+        return TestHelper::getInstance($this->getClient())->getShoppingListDraft($name);
+    }
+
+    protected function getShoppingList(ShoppingListDraft $draft = null)
+    {
+        return TestHelper::getInstance($this->getClient())->getShoppingList($draft);
+    }
+
+    protected function deleteShoppingList()
+    {
+        TestHelper::getInstance($this->getClient())->deleteShoppingList();
     }
 }

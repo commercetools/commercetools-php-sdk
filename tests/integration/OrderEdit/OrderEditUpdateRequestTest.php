@@ -35,6 +35,7 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddDisc
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddItemShippingAddressAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddLineItemAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddPaymentAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddShoppingListAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderChangeCustomLineItemMoneyAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderChangeCustomLineItemQuantityAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderChangeLineItemQuantityAction;
@@ -274,7 +275,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
             ); }],
             StagedOrderChangeTaxCalculationModeAction::class => [function() { return StagedOrderChangeTaxCalculationModeAction::of()
                 ->setTaxCalculationMode(Cart::TAX_CALCULATION_MODE_LINE_ITEM_LEVEL); }],
-////            StagedOrderAddShoppingListAction::class => [function() { return StagedOrderAddShoppingListAction::of()->setShoppingList($this->getShoppingList()->getReference()); }],
+            StagedOrderAddShoppingListAction::class => [function() { return StagedOrderAddShoppingListAction::of()->setShoppingList($this->getShoppingList()->getReference()); }],
             StagedOrderAddItemShippingAddressAction::class => [function() { return StagedOrderAddItemShippingAddressAction::of()->setAddress(Address::of()->setCountry('DE')); }],
             StagedOrderRemoveItemShippingAddressAction::class => [function() { return StagedOrderRemoveItemShippingAddressAction::of()
                 ->setAddressKey($this->getTestRun() . '-key'); }],

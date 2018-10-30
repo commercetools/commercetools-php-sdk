@@ -10,7 +10,6 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Client;
 use Commercetools\Core\Client\OAuth\Token;
 use Commercetools\Core\Config;
-use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\DuplicateFieldError;
 use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Customer\CustomerDraft;

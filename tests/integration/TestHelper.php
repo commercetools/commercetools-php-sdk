@@ -50,6 +50,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingRate;
 use Commercetools\Core\Model\ShippingMethod\ShippingRateCollection;
 use Commercetools\Core\Model\ShippingMethod\ZoneRate;
 use Commercetools\Core\Model\ShippingMethod\ZoneRateCollection;
+use Commercetools\Core\Model\ShoppingList\ShoppingList;
+use Commercetools\Core\Model\ShoppingList\ShoppingListDraft;
 use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Model\State\StateDraft;
 use Commercetools\Core\Model\State\StateReferenceCollection;
@@ -92,6 +94,8 @@ use Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListCreateRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteRequest;
 use Commercetools\Core\Request\States\StateCreateRequest;
 use Commercetools\Core\Request\States\StateDeleteRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
@@ -189,6 +193,11 @@ class TestHelper
      * @var ProductDiscount
      */
     private $productDiscount;
+
+    /**
+     * @var ShoppingList
+     */
+    private $shoppingList;
 
     /**
      * @var State
@@ -974,6 +983,45 @@ class TestHelper
             );
             $request->executeWithClient($this->getClient());
             $this->cart = null;
+        }
+    }
+
+    /**
+     * @return ShoppingListDraft
+     */
+    public function getShoppingListDraft($name = null)
+    {
+        $draft = ShoppingListDraft::ofNameAndKey(
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name),
+            'key-' . $this->getTestRun()
+        );
+
+        return $draft;
+    }
+
+    public function getShoppingList(ShoppingListDraft $draft = null)
+    {
+        if (is_null($this->shoppingList)) {
+            if (is_null($draft)) {
+                $draft = $this->getShoppingListDraft();
+            }
+            $request = ShoppingListCreateRequest::ofDraft($draft);
+            $response = $request->executeWithClient($this->getClient());
+            $this->shoppingList = $request->mapResponse($response);
+        }
+
+        return $this->shoppingList;
+    }
+
+    public function deleteShoppingList()
+    {
+        if (!is_null($this->shoppingList)) {
+            $request = ShoppingListDeleteRequest::ofIdAndVersion(
+                $this->shoppingList->getId(),
+                $this->shoppingList->getVersion()
+            );
+            $request->executeWithClient($this->getClient());
+            $this->shoppingList = null;
         }
     }
 

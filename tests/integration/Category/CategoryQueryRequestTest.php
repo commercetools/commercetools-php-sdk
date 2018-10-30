@@ -68,7 +68,6 @@ class CategoryQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Category::class, $result);
         $this->assertSame($category->getId(), $result->getId());
-
     }
 
     public function testQuery()
