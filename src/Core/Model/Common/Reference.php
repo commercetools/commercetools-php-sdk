@@ -15,11 +15,13 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomObject\CustomObjectReference;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeReference;
 use Commercetools\Core\Model\Order\OrderReference;
+use Commercetools\Core\Model\OrderEdit\OrderEditReference;
 use Commercetools\Core\Model\Payment\PaymentReference;
 use Commercetools\Core\Model\Product\ProductReference;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountReference;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
+use Commercetools\Core\Model\ShoppingList\ShoppingListReference;
 use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\Type\TypeReference;
@@ -81,6 +83,7 @@ class Reference extends ResourceIdentifier
                 CustomerGroupReference::class,
             DiscountCodeReference::TYPE_DISCOUNT_CODE => DiscountCodeReference::class,
             CustomObjectReference::TYPE_CUSTOM_OBJECT => CustomObjectReference::class,
+            OrderEditReference::TYPE_ORDER_EDIT => OrderEditReference::class,
             PaymentReference::TYPE_PAYMENT => PaymentReference::class,
             ProductReference::TYPE_PRODUCT => ProductReference::class,
             ProductDiscountReference::TYPE_PRODUCT_DISCOUNT =>
@@ -89,6 +92,7 @@ class Reference extends ResourceIdentifier
             OrderReference::TYPE_ORDER => OrderReference::class,
             ShippingMethodReference::TYPE_SHIPPING_METHOD =>
                 ShippingMethodReference::class,
+            ShoppingListReference::TYPE_SHOPPING_LIST => ShoppingListReference::class,
             StateReference::TYPE_STATE => StateReference::class,
             TaxCategoryReference::TYPE_TAX_CATEGORY => TaxCategoryReference::class,
             TypeReference::TYPE_TYPE => TypeReference::class,

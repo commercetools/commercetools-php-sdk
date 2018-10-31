@@ -226,7 +226,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
         $request = RequestBuilder::of()->orderEdits()->update($orderEdit)->setActions([
             OrderEditSetStagedActionsAction::of()->setStagedActions(StagedOrderUpdateActionCollection::of()
-                ->add(StagedOrderSetCountryAction::of()->setCountry('DE'))
+                ->add(StagedOrderSetCountryAction::of()->setCountry('FR'))
                 ->add(StagedOrderSetCustomerEmailAction::of()->setEmail('user@localhost')))
         ]);
 
@@ -241,8 +241,15 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $this->assertInstanceOf(StagedOrderUpdateActionCollection::class, $stagedActions);
         $this->assertCount(2, $stagedActions);
 
-        $this->assertEquals(['action' => 'setCountry', 'country' => 'DE'], $stagedActions->current());
+        $this->assertEquals(['action' => 'setCountry', 'country' => 'FR'], $stagedActions->current());
         $this->assertEquals(['action' => 'setCustomerEmail', 'email' => 'user@localhost'], $stagedActions->getAt(1));
+
+        $this->assertInstanceOf(OrderEditPreviewSuccess::class, $result->getResult());
+        /** @var Order $orderPreview */
+        $orderPreview = $result->getResult()->getPreview();
+        $this->assertInstanceOf(Order::class, $orderPreview);
+        $this->assertSame('FR', $orderPreview->getCountry());
+        $this->assertSame('user@localhost', $orderPreview->getCustomerEmail());
     }
 
     //phpcs:disable
@@ -351,7 +358,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
         $this->assertNotSame($orderEdit->getVersion(), $result->getVersion());
         $this->assertInstanceOf(OrderEdit::class, $result);
-        $this->assertSame(OrderEditPreviewSuccess::ORDER_EDIT_RESULT_TYPE, $orderEdit->getResult()->getType());
+        $this->assertInstanceOf(OrderEditPreviewSuccess::class, $orderEdit->getResult());
 
         $stagedActions = $result->getStagedActions();
 
@@ -383,7 +390,8 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $this->orderEditDeleteRequest->setVersion($orderEdit->getVersion());
 
         $this->assertInstanceOf(OrderEdit::class, $orderEdit);
-        $this->assertSame(OrderEditApplied::ORDER_EDIT_RESULT_TYPE, $orderEdit->getResult()->getType());
+        $this->assertInstanceOf(OrderEditApplied::class, $orderEdit->getResult());
+        $this->assertSame('user@localhost', $order->getCustomerEmail());
     }
 
     public function testUpdateOrderWithDryRun()
@@ -425,6 +433,6 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $this->assertInstanceOf(OrderEdit::class, $result);
         $this->assertNotSame($orderEdit->getVersion(), $result->getVersion());
         $this->assertNull($result->getComment());
-        $this->assertSame(OrderEditApplied::ORDER_EDIT_RESULT_TYPE, $result->getResult()->getType());
+        $this->assertInstanceOf(OrderEditApplied::class, $result->getResult());
     }
 }
