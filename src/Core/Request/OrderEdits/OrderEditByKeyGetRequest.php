@@ -6,7 +6,7 @@ namespace Commercetools\Core\Request\OrderEdits;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\OrderEdit\OrderEdit;
-use Commercetools\Core\Request\AbstractByIdGetRequest;
+use Commercetools\Core\Request\AbstractByKeyGetRequest;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
@@ -16,7 +16,7 @@ use Commercetools\Core\Model\MapperInterface;
  * @method OrderEdit mapResponse(ApiResponseInterface $response)
  * @method OrderEdit mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
-class OrderEditByKeyGetRequest extends AbstractByIdGetRequest
+class OrderEditByKeyGetRequest extends AbstractByKeyGetRequest
 {
     protected $resultClass = OrderEdit::class;
 

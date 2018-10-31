@@ -154,13 +154,20 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
         $request = RequestBuilder::of()->orderEdits()->updateByKey($orderEdit)->setActions([
             OrderEditSetCommentAction::of()->setComment('bar')
-        ])->setDryRun(true);
+        ])->setDryRun(false);
 
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
         $this->orderEditDeleteRequest->setVersion($result->getVersion());
 
-        $this->assertSame($orderEdit->getVersion(), $result->getVersion());
+        $this->assertNotSame($orderEdit->getVersion(), $result->getVersion());
+        $this->assertInstanceOf(OrderEdit::class, $result);
+        $this->assertSame('bar', $result->getComment());
+
+        $request = RequestBuilder::of()->orderEdits()->getByKey('foo1');
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
         $this->assertInstanceOf(OrderEdit::class, $result);
         $this->assertSame('bar', $result->getComment());
     }
@@ -188,11 +195,12 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
     public function testUpdateOrderEditSetCustomField()
     {
-        $type = $this->getType('order-edit-set-field1', 'order-edit');
+        $typeKey = 'type-' . $this->getTestRun();
+        $type = $this->getType($typeKey, 'order-edit');
         $fieldValue = $this->getTestRun() . '-new value';
 
         $orderEditDraft = $this->getOrderEditDraft();
-        $orderEditDraft->setCustom(CustomFieldObjectDraft::of()->setType(TypeReference::ofKey('order-edit-set-field1')));
+        $orderEditDraft->setCustom(CustomFieldObjectDraft::of()->setType(TypeReference::ofKey($typeKey)));
 
         $orderEdit = $this->getOrderEdit($orderEditDraft);
 
@@ -376,5 +384,47 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
         $this->assertInstanceOf(OrderEdit::class, $orderEdit);
         $this->assertSame(OrderEditApplied::ORDER_EDIT_RESULT_TYPE, $orderEdit->getResult()->getType());
+    }
+
+    public function testUpdateOrderWithDryRun()
+    {
+        $orderEditDraft = $this->getOrderEditDraft();
+        $orderEditDraft->setStagedActions(
+            StagedOrderUpdateActionCollection::of()
+                ->add(StagedOrderSetCustomerEmailAction::of()->setEmail('user@localhost'))
+        );
+        $orderEdit = $this->getOrderEdit($orderEditDraft);
+
+        $request = RequestBuilder::of()->orderEdits()->update($orderEdit)->setActions([
+            OrderEditSetCommentAction::of()->setComment('bar'),
+            OrderEditSetStagedActionsAction::of()->setStagedActions(
+                StagedOrderUpdateActionCollection::of()
+                    ->add(StagedOrderSetCustomerEmailAction::of()->setEmail('user1@localhost1'))
+            )
+        ])->setDryRun(true);
+
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertSame($orderEdit->getVersion(), $result->getVersion());
+        $this->assertSame('bar', $result->getComment());
+
+        $request = RequestBuilder::of()->orderEdits()->apply($this->orderEdit, $this->order->getVersion());
+
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $orderRequest = OrderByIdGetRequest::ofId($this->order->getId());
+        $response = $orderRequest->executeWithClient($this->getClient());
+        $order = $orderRequest->mapFromResponse($response);
+
+        $this->deleteRequest->setVersion($order->getVersion());
+        $this->assertSame('user@localhost', $order->getCustomerEmail());
+
+        $this->orderEditDeleteRequest->setVersion($result->getVersion());
+        $this->assertInstanceOf(OrderEdit::class, $result);
+        $this->assertNotSame($orderEdit->getVersion(), $result->getVersion());
+        $this->assertNull($result->getComment());
+        $this->assertSame(OrderEditApplied::ORDER_EDIT_RESULT_TYPE, $result->getResult()->getType());
     }
 }
