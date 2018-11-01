@@ -174,6 +174,8 @@ class OrderImportRequestTest extends ApiTestCase
         $this->assertNotNull($order->getVersion());
         $this->assertInstanceOf(Order::class, $order);
 
+        usleep(100000);
+
         $request = InventoryByIdGetRequest::ofId($inventory->getId());
         $response = $request->executeWithClient($this->getClient());
         $inventory = $request->mapResponse($response);
