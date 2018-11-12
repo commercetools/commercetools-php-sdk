@@ -70,7 +70,6 @@ class CartQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Cart::class, $result);
         $this->assertSame($cart->getId(), $result->getId());
-
     }
 
     public function testQuery()

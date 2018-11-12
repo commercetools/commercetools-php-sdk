@@ -36,7 +36,7 @@ class CustomFieldActionBuilder
     /**
      * @return CustomFieldActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -92,6 +92,7 @@ class CustomFieldActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

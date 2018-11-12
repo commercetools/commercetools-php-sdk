@@ -25,6 +25,8 @@ use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
 use Commercetools\Core\Model\Inventory\InventoryEntry;
+use Commercetools\Core\Model\OrderEdit\OrderEdit;
+use Commercetools\Core\Model\OrderEdit\OrderEditDraft;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\Model\Product\Product;
@@ -58,6 +60,7 @@ use Commercetools\Core\Request\Customers\CustomerCreateRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest;
 use Commercetools\Core\Request\DiscountCodes\DiscountCodeCreateRequest;
 use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
+use Commercetools\Core\Request\OrderEdits\OrderEditCreateRequest;
 use Commercetools\Core\Request\Payments\PaymentCreateRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountCreateRequest;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
@@ -135,6 +138,11 @@ class GenericCreateRequestTest extends RequestTestCase
                 InventoryCreateRequest::class,
                 InventoryEntry::class,
                 InventoryDraft::class,
+            ],
+            OrderEditCreateRequest::class => [
+                OrderEditCreateRequest::class,
+                OrderEdit::class,
+                OrderEditDraft::class,
             ],
             PaymentCreateRequest::class => [
                 PaymentCreateRequest::class,

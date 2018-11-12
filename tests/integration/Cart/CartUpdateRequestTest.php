@@ -102,6 +102,7 @@ use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
+use Commercetools\Core\TestHelper;
 
 class CartUpdateRequestTest extends ApiTestCase
 {
@@ -135,10 +136,12 @@ class CartUpdateRequestTest extends ApiTestCase
             ->addAction(CartRecalculateAction::of())
         ;
         $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
         if (!$response->isError()) {
+            $this->deleteRequest->setVersion($result->getVersion());
             $this->markTestSkipped('Recalculation for removed products not erroring anymore');
         }
-        $result = $request->mapResponse($response);
         $this->assertTrue($response->isError());
 
         $request = CartByIdGetRequest::ofId($cart->getId());
@@ -621,7 +624,6 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertSame(CartState::ACTIVE, $anonCart->getCartState());
 
         $this->assertNotSame($customerCart->getId(), $anonCart->getId());
-        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($anonCart->getId(), $anonCart->getVersion());
 
         $loginRequest = CustomerLoginRequest::ofEmailAndPassword(
             $customerDraft->getEmail(),
@@ -644,6 +646,13 @@ class CartUpdateRequestTest extends ApiTestCase
         $anonCartRequest = CartByIdGetRequest::ofId($anonCart->getId());
         $response = $anonCartRequest->executeWithClient($this->getClient());
         $anonCart = $request->mapResponse($response);
+
+        $customerCartRequest = CartByIdGetRequest::ofId($anonCart->getId());
+        $response = $customerCartRequest->executeWithClient($this->getClient());
+        $customerCart = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($customerCart->getVersion());
+        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($anonCart->getId(), $anonCart->getVersion());
 
         $this->assertSame(CartState::MERGED, $anonCart->getCartState());
     }
@@ -843,7 +852,7 @@ class CartUpdateRequestTest extends ApiTestCase
             ->addAction(ProductPublishAction::of())
         ;
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($request->mapResponse($response));
 
         $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
             ->addAction(CartRecalculateAction::of())
@@ -888,7 +897,7 @@ class CartUpdateRequestTest extends ApiTestCase
             ->addAction(ProductPublishAction::of())
         ;
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($request->mapResponse($response));
 
         $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
             ->addAction(CartRecalculateAction::of())
@@ -1217,7 +1226,7 @@ class CartUpdateRequestTest extends ApiTestCase
         );
         $request = CartDiscountCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
-        $this->cartDiscount = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setCartDiscount($request->mapResponse($response));
 
         $discountCode = $this->getDiscountCode();
 
@@ -1231,7 +1240,7 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
 
         $this->assertSame(
-            $this->cartDiscount->getId(),
+            TestHelper::getInstance($this->getClient())->getCartDiscount()->getId(),
             $cart->getLineItems()->current()
                 ->getDiscountedPricePerQuantity()->current()
                 ->getDiscountedPrice()->getIncludedDiscounts()->current()
@@ -1265,7 +1274,7 @@ class CartUpdateRequestTest extends ApiTestCase
         );
         $request = CartDiscountCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
-        $this->cartDiscount = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setCartDiscount($request->mapResponse($response));
 
         $discountCode = $this->getDiscountCode();
 
@@ -1279,7 +1288,7 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
 
         $this->assertSame(
-            $this->cartDiscount->getId(),
+            TestHelper::getInstance($this->getClient())->getCartDiscount()->getId(),
             $cart->getLineItems()->current()
                 ->getDiscountedPricePerQuantity()->current()
                 ->getDiscountedPrice()->getIncludedDiscounts()->current()
@@ -1324,7 +1333,7 @@ class CartUpdateRequestTest extends ApiTestCase
         );
         $request = CartDiscountCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
-        $this->cartDiscount = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setCartDiscount($request->mapResponse($response));
 
         $discountCode = $this->getDiscountCode();
 
@@ -1338,7 +1347,7 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
 
         $this->assertSame(
-            $this->cartDiscount->getId(),
+            TestHelper::getInstance($this->getClient())->getCartDiscount()->getId(),
             $cart->getCustomLineItems()->current()
                 ->getDiscountedPricePerQuantity()->current()
                 ->getDiscountedPrice()->getIncludedDiscounts()->current()
@@ -1381,7 +1390,7 @@ class CartUpdateRequestTest extends ApiTestCase
         );
         $request = CartDiscountCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
-        $this->cartDiscount = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setCartDiscount($request->mapResponse($response));
 
         $discountCode = $this->getDiscountCode();
 
@@ -1395,7 +1404,7 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
 
         $this->assertSame(
-            $this->cartDiscount->getId(),
+            TestHelper::getInstance($this->getClient())->getCartDiscount()->getId(),
             $cart->getLineItems()->current()
                 ->getDiscountedPricePerQuantity()->current()
                 ->getDiscountedPrice()->getIncludedDiscounts()->current()
@@ -1929,6 +1938,8 @@ class CartUpdateRequestTest extends ApiTestCase
 
         $itemShippingAddresses = $cart->getItemShippingAddresses();
 
+        $this->deleteRequest->setVersion($cart->getVersion());
+
         $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
         $this->assertSame(2, $itemShippingAddresses->count());
         $this->assertSame('US', $itemShippingAddresses->getAt(1)->getCountry());
@@ -1954,6 +1965,8 @@ class CartUpdateRequestTest extends ApiTestCase
 
         $response = $request->executeWithClient($this->getClient());
         $cart = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($cart->getVersion());
 
         $itemShippingAddresses = $cart->getItemShippingAddresses();
         $this->assertSame(1, $itemShippingAddresses->count());
@@ -1982,6 +1995,8 @@ class CartUpdateRequestTest extends ApiTestCase
 
         $response = $request->executeWithClient($this->getClient());
         $cart = $request->mapResponse($response);
+
+        $this->deleteRequest->setVersion($cart->getVersion());
 
         $itemShippingAddresses = $cart->getItemShippingAddresses();
         $this->assertSame(1, $itemShippingAddresses->count());

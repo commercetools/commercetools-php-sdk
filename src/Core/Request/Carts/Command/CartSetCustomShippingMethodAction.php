@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request\Carts\Command;
 
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\ShippingMethod\ShippingRateDraft;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
@@ -18,8 +19,8 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method CartSetCustomShippingMethodAction setAction(string $action = null)
  * @method string getShippingMethodName()
  * @method CartSetCustomShippingMethodAction setShippingMethodName(string $shippingMethodName = null)
- * @method ShippingRate getShippingRate()
- * @method CartSetCustomShippingMethodAction setShippingRate(ShippingRate $shippingRate = null)
+ * @method ShippingRateDraft getShippingRate()
+ * @method CartSetCustomShippingMethodAction setShippingRate(ShippingRateDraft $shippingRate = null)
  * @method TaxCategoryReference getTaxCategory()
  * @method CartSetCustomShippingMethodAction setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method ExternalTaxRateDraft getExternalTaxRate()
@@ -32,7 +33,7 @@ class CartSetCustomShippingMethodAction extends AbstractAction
         return [
             'action' => [static::TYPE => 'string'],
             'shippingMethodName' => [static::TYPE => 'string'],
-            'shippingRate' => [static::TYPE => ShippingRate::class],
+            'shippingRate' => [static::TYPE => ShippingRateDraft::class],
             'taxCategory' => [static::TYPE => TaxCategoryReference::class],
             'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class],
         ];

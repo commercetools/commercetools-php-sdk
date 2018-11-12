@@ -11,6 +11,7 @@ use Commercetools\Core\Request\Products\Command\ProductMoveImageToPositionAction
 use Commercetools\Core\Request\Products\Command\ProductRemoveImageAction;
 use Commercetools\Core\Request\Products\ProductImageUploadRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
+use Commercetools\Core\TestHelper;
 use GuzzleHttp\Psr7\UploadedFile;
 
 class ProductImageUploadRequestTest extends ApiTestCase
@@ -34,7 +35,9 @@ class ProductImageUploadRequestTest extends ApiTestCase
         );
 
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
+
         $this->assertRegExp(
             $fileAliasPattern,
             basename($product->getMasterData()->getStaged()->getMasterVariant()->getImages()->current()->getUrl())
@@ -47,7 +50,9 @@ class ProductImageUploadRequestTest extends ApiTestCase
             )
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
+
         $this->assertCount(0, $product->getMasterData()->getStaged()->getMasterVariant()->getImages());
     }
 
@@ -70,7 +75,9 @@ class ProductImageUploadRequestTest extends ApiTestCase
         );
 
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
+
         $this->assertRegExp(
             $fileAliasPattern,
             basename($product->getMasterData()->getStaged()->getMasterVariant()->getImages()->current()->getUrl())
@@ -83,7 +90,9 @@ class ProductImageUploadRequestTest extends ApiTestCase
             )
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
+
         $this->assertCount(0, $product->getMasterData()->getStaged()->getMasterVariant()->getImages());
     }
 
@@ -106,21 +115,25 @@ class ProductImageUploadRequestTest extends ApiTestCase
             $file1
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
+
 
         $request = ProductImageUploadRequest::ofIdSkuAndFile(
             $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
             $file2
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
 
         $request = ProductImageUploadRequest::ofIdSkuAndFile(
             $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
             $file3
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
 
         $this->assertCount(3, $product->getMasterData()->getStaged()->getMasterVariant()->getImages());
 
@@ -139,7 +152,8 @@ class ProductImageUploadRequestTest extends ApiTestCase
             )
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
 
         $this->assertCount(3, $product->getMasterData()->getStaged()->getMasterVariant()->getImages());
 
@@ -161,7 +175,9 @@ class ProductImageUploadRequestTest extends ApiTestCase
             );
         }
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
+
         $this->assertCount(0, $product->getMasterData()->getStaged()->getMasterVariant()->getImages());
     }
 
@@ -184,21 +200,24 @@ class ProductImageUploadRequestTest extends ApiTestCase
             $file1
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
 
         $request = ProductImageUploadRequest::ofIdSkuAndFile(
             $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
             $file2
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
 
         $request = ProductImageUploadRequest::ofIdSkuAndFile(
             $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
             $file3
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
 
         $this->assertCount(3, $product->getMasterData()->getStaged()->getMasterVariant()->getImages());
 
@@ -211,7 +230,8 @@ class ProductImageUploadRequestTest extends ApiTestCase
             )
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
 
         $this->assertCount(3, $product->getMasterData()->getStaged()->getMasterVariant()->getImages());
 
@@ -233,7 +253,9 @@ class ProductImageUploadRequestTest extends ApiTestCase
             );
         }
         $response = $request->executeWithClient($this->getClient());
-        $this->product = $product = $request->mapResponse($response);
+        $product = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProduct($product);
+
         $this->assertCount(0, $product->getMasterData()->getStaged()->getMasterVariant()->getImages());
     }
 }

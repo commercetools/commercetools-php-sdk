@@ -131,7 +131,7 @@ class ClassAnnotator
                 );
             }
             $getByIdMethod = $reflectionClass->getMethod('getById');
-            if ($getByIdMethod->class != $this->class->getClassName()) {
+            if ($getByIdMethod->class != $this->class->getClassName() && $elementTypeClass->isInstantiable()) {
                 $elementTypeObject = $elementTypeClass->newInstanceWithoutConstructor();
                 if ($elementTypeObject instanceof JsonObject && isset($elementTypeObject->fieldDefinitions()['id'])) {
                     $this->class->addMagicMethod(
@@ -302,6 +302,11 @@ class ClassAnnotator
         $fileName = $this->class->getFileName();
 
         $source = file_get_contents($fileName);
+
+        preg_match('/^class[^\r\n]*/m', $source, $matches);
+        if (isset($matches[0]) && strlen($matches[0]) > 120) {
+            $classHead[] = '// phpcs:ignore';
+        }
 
         $newSource = preg_replace(
             '~namespace(.*)class ' . $this->class->getShortClassName() . '~s',

@@ -132,7 +132,7 @@ class ShippingMethodsActionBuilder
     /**
      * @return ShippingMethodsActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -188,6 +188,7 @@ class ShippingMethodsActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

@@ -5,9 +5,9 @@
 
 namespace Commercetools\Core\Model\ShoppingList;
 
-use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use DateTime;
@@ -43,8 +43,9 @@ use DateTime;
  * @method ShoppingList setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
  * @method string getAnonymousId()
  * @method ShoppingList setAnonymousId(string $anonymousId = null)
+ * @method ShoppingListReference getReference()
  */
-class ShoppingList extends JsonObject
+class ShoppingList extends Resource
 {
     public function fieldDefinitions()
     {

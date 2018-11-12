@@ -144,7 +144,7 @@ class ReviewsActionBuilder
     /**
      * @return ReviewsActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -200,6 +200,7 @@ class ReviewsActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

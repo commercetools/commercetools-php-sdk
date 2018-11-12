@@ -48,7 +48,7 @@ class SubscriptionsActionBuilder
     /**
      * @return SubscriptionsActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -104,6 +104,7 @@ class SubscriptionsActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

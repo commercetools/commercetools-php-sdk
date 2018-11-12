@@ -7,18 +7,8 @@
 namespace Commercetools\Core\DiscountCode;
 
 use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Model\CartDiscount\CartDiscount;
-use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
-use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
-use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
-use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
-use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Model\Common\MoneyCollection;
 use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteRequest;
 use Commercetools\Core\Request\DiscountCodes\DiscountCodeByIdGetRequest;
 use Commercetools\Core\Request\DiscountCodes\DiscountCodeCreateRequest;
 use Commercetools\Core\Request\DiscountCodes\DiscountCodeDeleteRequest;
@@ -26,26 +16,6 @@ use Commercetools\Core\Request\DiscountCodes\DiscountCodeQueryRequest;
 
 class DiscountCodeQueryRequestTest extends ApiTestCase
 {
-    protected function cleanup()
-    {
-        parent::cleanup();
-        $this->deleteCartDiscount();
-    }
-
-
-    protected function deleteCartDiscount()
-    {
-        if (!is_null($this->cartDiscount)) {
-            $request = CartDiscountDeleteRequest::ofIdAndVersion(
-                $this->cartDiscount->getId(),
-                $this->cartDiscount->getVersion()
-            );
-            $response = $request->executeWithClient($this->getClient());
-            $this->cartDiscount = $request->mapResponse($response);
-        }
-        $this->cartDiscount = null;
-    }
-
     /**
      * @return DiscountCodeDraft
      */

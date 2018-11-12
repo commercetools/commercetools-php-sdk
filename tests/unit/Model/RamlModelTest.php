@@ -247,7 +247,15 @@ class RamlModelTest extends AbstractModelTest
                 $domain = 'Categories';
                 break;
             case 'Project':
+                break;
             case 'Inventory':
+                $model = str_replace('InventoryEntry', 'Inventory', $model);
+                break;
+            case 'OrderEdit':
+                $domain .= 's';
+                if (strpos($model, 'StagedOrder') === 0) {
+                    $domain = 'OrderEdits\\StagedOrder';
+                }
                 break;
             default:
                 $domain .= 's';

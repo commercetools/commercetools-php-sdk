@@ -9,6 +9,7 @@ use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
+use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\ProductType\ProductType;
@@ -21,6 +22,7 @@ use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Request\Categories\CategoryByKeyGetRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupByKeyGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByKeyGetRequest;
+use Commercetools\Core\Request\OrderEdits\OrderEditByKeyGetRequest;
 use Commercetools\Core\Request\Payments\PaymentByKeyGetRequest;
 use Commercetools\Core\Request\Products\ProductByKeyGetRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeByKeyGetRequest;
@@ -60,6 +62,10 @@ class GenericByKeyGetRequestTest extends RequestTestCase
             CustomerByKeyGetRequest::class => [
                 CustomerByKeyGetRequest::class,
                 Customer::class
+            ],
+            OrderEditByKeyGetRequest::class => [
+                OrderEditByKeyGetRequest::class,
+                OrderEdit::class
             ],
             PaymentByKeyGetRequest::class => [
                 PaymentByKeyGetRequest::class,

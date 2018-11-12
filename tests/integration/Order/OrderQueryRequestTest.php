@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
@@ -57,10 +58,6 @@ class OrderQueryRequestTest extends ApiTestCase
         $request = CartCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
         $cart = $request->mapResponse($response);
-        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
-            $cart->getId(),
-            $cart->getVersion()
-        );
 
         $orderRequest = OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
         $response = $orderRequest->executeWithClient($this->getClient());
@@ -68,6 +65,15 @@ class OrderQueryRequestTest extends ApiTestCase
         $this->cleanupRequests[] = $this->deleteRequest = OrderDeleteRequest::ofIdAndVersion(
             $order->getId(),
             $order->getVersion()
+        );
+
+        $cartRequest = CartByIdGetRequest::ofId($cart->getId());
+        $response = $cartRequest->executeWithClient($this->getClient());
+        $cart = $cartRequest->mapResponse($response);
+
+        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
+            $cart->getId(),
+            $cart->getVersion()
         );
 
         return $order;
@@ -84,7 +90,6 @@ class OrderQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Order::class, $result);
         $this->assertSame($order->getId(), $result->getId());
-
     }
 
     public function testQuery()

@@ -18,6 +18,7 @@ use Commercetools\Core\Model\DiscountCode\DiscountCodeCollection;
 use Commercetools\Core\Model\Inventory\InventoryEntryCollection;
 use Commercetools\Core\Model\Message\MessageCollection;
 use Commercetools\Core\Model\Order\OrderCollection;
+use Commercetools\Core\Model\OrderEdit\OrderEditCollection;
 use Commercetools\Core\Model\Payment\PaymentCollection;
 use Commercetools\Core\Model\Product\ProductCollection;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountCollection;
@@ -41,6 +42,7 @@ use Commercetools\Core\Request\DiscountCodes\DiscountCodeQueryRequest;
 use Commercetools\Core\Request\GraphQL\GraphQLQueryRequest;
 use Commercetools\Core\Request\Inventory\InventoryQueryRequest;
 use Commercetools\Core\Request\Messages\MessageQueryRequest;
+use Commercetools\Core\Request\OrderEdits\OrderEditQueryRequest;
 use Commercetools\Core\Request\Orders\OrderQueryRequest;
 use Commercetools\Core\Request\Payments\PaymentQueryRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest;
@@ -134,6 +136,10 @@ class GenericQueryRequestTest extends RequestTestCase
             OrderQueryRequest::class => [
                 OrderQueryRequest::class,
                 OrderCollection::class,
+            ],
+            OrderEditQueryRequest::class => [
+                OrderEditQueryRequest::class,
+                OrderEditCollection::class,
             ],
             PaymentQueryRequest::class => [
                 PaymentQueryRequest::class,

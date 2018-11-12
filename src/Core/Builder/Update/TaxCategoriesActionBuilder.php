@@ -84,7 +84,7 @@ class TaxCategoriesActionBuilder
     /**
      * @return TaxCategoriesActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -140,6 +140,7 @@ class TaxCategoriesActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

@@ -8,8 +8,6 @@ namespace Commercetools\Core\ShoppingList;
 
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Model\ShoppingList\LineItemDraft;
-use Commercetools\Core\Model\ShoppingList\LineItemDraftCollection;
 use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\ShoppingList\ShoppingListDraft;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListByIdGetRequest;

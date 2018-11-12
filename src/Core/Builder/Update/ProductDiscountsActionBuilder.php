@@ -120,7 +120,7 @@ class ProductDiscountsActionBuilder
     /**
      * @return ProductDiscountsActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -176,6 +176,7 @@ class ProductDiscountsActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

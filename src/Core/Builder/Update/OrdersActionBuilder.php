@@ -480,7 +480,7 @@ class OrdersActionBuilder
     /**
      * @return OrdersActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -536,6 +536,7 @@ class OrdersActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

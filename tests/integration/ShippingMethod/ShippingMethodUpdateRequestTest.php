@@ -23,7 +23,6 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
 use Commercetools\Core\Model\ShippingMethod\ShippingRateCollection;
-use Commercetools\Core\Model\ShippingMethod\ShippingRatePriceTier;
 use Commercetools\Core\Model\ShippingMethod\ShippingRatePriceTierCollection;
 use Commercetools\Core\Model\ShippingMethod\ZoneRate;
 use Commercetools\Core\Model\ShippingMethod\ZoneRateCollection;

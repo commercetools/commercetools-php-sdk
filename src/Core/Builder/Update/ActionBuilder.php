@@ -85,6 +85,14 @@ class ActionBuilder
     }
 
     /**
+     * @return OrderEditsActionBuilder
+     */
+    public function orderEdits()
+    {
+        return new OrderEditsActionBuilder();
+    }
+
+    /**
      * @return OrdersActionBuilder
      */
     public function orders()
@@ -154,6 +162,14 @@ class ActionBuilder
     public function shoppingLists()
     {
         return new ShoppingListsActionBuilder();
+    }
+
+    /**
+     * @return StagedOrderActionBuilder
+     */
+    public function stagedOrder()
+    {
+        return new StagedOrderActionBuilder();
     }
 
     /**
