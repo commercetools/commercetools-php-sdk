@@ -6,14 +6,12 @@ php:
 - 5.6
 - 7.1
 - 7.2
-- hhvm
 - nightly
 env:
   - GUZZLE=5
   - GUZZLE=6
 matrix:
   allow_failures:
-  - php: hhvm
   - php: nightly
 services:
 - redis-server
