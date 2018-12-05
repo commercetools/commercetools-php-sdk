@@ -8,6 +8,14 @@ use Psr\Http\Message\RequestInterface;
 class RequestBuilder
 {
     /**
+     * @return ApiClientRequestBuilder
+     */
+    public function apiClients()
+    {
+        return new ApiClientRequestBuilder();
+    }
+
+    /**
      * @return CartDiscountRequestBuilder
      */
     public function cartDiscounts()
