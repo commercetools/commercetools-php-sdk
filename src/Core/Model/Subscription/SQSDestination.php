@@ -22,6 +22,8 @@ use Commercetools\Core\Model\Common\Context;
  * @method SQSDestination setAccessSecret(string $accessSecret = null)
  * @method string getRegion()
  * @method SQSDestination setRegion(string $region = null)
+ * @method string getQueueUrl()
+ * @method SQSDestination setQueueUrl(string $queueUrl = null)
  */
 class SQSDestination extends Destination
 {
@@ -29,7 +31,7 @@ class SQSDestination extends Destination
     {
         return [
             'type' => [static::TYPE => 'string'],
-            'queueURL' => [static::TYPE => 'string'],
+            'queueUrl' => [static::TYPE => 'string'],
             'accessKey' => [static::TYPE => 'string'],
             'accessSecret' => [static::TYPE => 'string'],
             'region' => [static::TYPE => 'string'],
