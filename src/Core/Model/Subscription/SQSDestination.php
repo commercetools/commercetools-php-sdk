@@ -14,8 +14,6 @@ use Commercetools\Core\Model\Common\Context;
  * @method SQSDestination setType(string $type = null)
  * @method string getUri()
  * @method IronMQDestination setUri(string $uri = null)
- * @method string getQueueURL()
- * @method SQSDestination setQueueURL(string $queueURL = null)
  * @method string getAccessKey()
  * @method SQSDestination setAccessKey(string $accessKey = null)
  * @method string getAccessSecret()
