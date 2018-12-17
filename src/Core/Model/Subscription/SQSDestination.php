@@ -14,14 +14,14 @@ use Commercetools\Core\Model\Common\Context;
  * @method SQSDestination setType(string $type = null)
  * @method string getUri()
  * @method IronMQDestination setUri(string $uri = null)
- * @method string getQueueURL()
- * @method SQSDestination setQueueURL(string $queueURL = null)
  * @method string getAccessKey()
  * @method SQSDestination setAccessKey(string $accessKey = null)
  * @method string getAccessSecret()
  * @method SQSDestination setAccessSecret(string $accessSecret = null)
  * @method string getRegion()
  * @method SQSDestination setRegion(string $region = null)
+ * @method string getQueueUrl()
+ * @method SQSDestination setQueueUrl(string $queueUrl = null)
  */
 class SQSDestination extends Destination
 {
@@ -29,7 +29,7 @@ class SQSDestination extends Destination
     {
         return [
             'type' => [static::TYPE => 'string'],
-            'queueURL' => [static::TYPE => 'string'],
+            'queueUrl' => [static::TYPE => 'string'],
             'accessKey' => [static::TYPE => 'string'],
             'accessSecret' => [static::TYPE => 'string'],
             'region' => [static::TYPE => 'string'],
