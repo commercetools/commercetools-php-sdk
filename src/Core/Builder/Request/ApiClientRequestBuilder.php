@@ -41,7 +41,7 @@ class ApiClientRequestBuilder
      */
     public function delete(ApiClient $apiClient)
     {
-        $request = ApiClientDeleteRequest::ofIdAndVersion($apiClient->getId(), $apiClient->getVersion());
+        $request = ApiClientDeleteRequest::ofId($apiClient->getId());
         return $request;
     }
 
