@@ -29,6 +29,7 @@ class ApiClientTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient(self::API_CLIENTS_SCOPE));
         $result = $request->mapResponse($response);
 
+        $this->assertNotNull($result);
         $this->assertNotNull($result->getId());
         $getByIdRequest = ApiClientByIdGetRequest::ofId($result->getId());
         $getResponse = $getByIdRequest->executeWithClient($this->getClient(self::API_CLIENTS_SCOPE));
