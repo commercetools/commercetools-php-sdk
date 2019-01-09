@@ -217,7 +217,18 @@ Now you can enable at Preferences > Editor > Inspections > PHP the "PHP code sni
 
 ### Running integration tests
 
-For running the integration tests you need an empty commercetools project and have to create an API client using the commercetools Admin Center with the scopes manage_project, view_orders and view_products.
+For running the integration tests you need an empty commercetools project and have to create an API client using the commercetools Merchant Center with the scopes:
+```
+manage_project
+view_orders
+view_products
+manage_my_shopping_lists
+manage_my_orders
+manage_my_payments
+manage_my_profile
+manage_api_clients
+create_anonymous_token
+```
 
 #### Local environment
 
