@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Model\ApiClient\ApiClientCollection;
 use Commercetools\Core\Model\Cart\CartCollection;
 use Commercetools\Core\Model\CartDiscount\CartDiscountCollection;
 use Commercetools\Core\Model\Category\CategoryCollection;
@@ -31,6 +32,7 @@ use Commercetools\Core\Model\Subscription\SubscriptionCollection;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryCollection;
 use Commercetools\Core\Model\Type\TypeCollection;
 use Commercetools\Core\Model\Zone\ZoneCollection;
+use Commercetools\Core\Request\ApiClients\ApiClientQueryRequest;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountQueryRequest;
 use Commercetools\Core\Request\Carts\CartQueryRequest;
 use Commercetools\Core\Request\Categories\CategoryQueryRequest;
@@ -75,6 +77,10 @@ class GenericQueryRequestTest extends RequestTestCase
     public function mapResultProvider()
     {
         return [
+            ApiClientQueryRequest::class => [
+                ApiClientQueryRequest::class,
+                ApiClientCollection::class
+            ],
             CartDiscountQueryRequest::class => [
                 CartDiscountQueryRequest::class,
                 CartDiscountCollection::class,

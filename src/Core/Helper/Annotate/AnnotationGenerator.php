@@ -684,6 +684,9 @@ EOF;
                     if ($domain == 'Project') {
                         $factoryCall = 'ofVersion($' . lcfirst($singularDomain) . '->getVersion());';
                     }
+                    if ($domain == 'ApiClients') {
+                        $factoryCall = 'ofId($' . lcfirst($singularDomain) . '->getId());';
+                    }
                     break;
                 case 'import':
                     $uses[ImportOrder::class] = 'use ' . ImportOrder::class . ';';
