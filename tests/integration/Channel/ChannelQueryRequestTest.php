@@ -9,7 +9,6 @@ namespace Commercetools\Core\Channel;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Channel\ChannelDraft;
-use Commercetools\Core\Model\Common\GeoLocation;
 use Commercetools\Core\Model\Common\GeoPoint;
 use Commercetools\Core\Request\Channels\ChannelByIdGetRequest;
 use Commercetools\Core\Request\Channels\ChannelCreateRequest;

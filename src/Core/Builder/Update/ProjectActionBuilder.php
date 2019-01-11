@@ -84,7 +84,7 @@ class ProjectActionBuilder
     /**
      * @return ProjectActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -140,6 +140,7 @@ class ProjectActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

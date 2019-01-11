@@ -1,3 +1,25 @@
+<a name="2.6.0"></a>
+# [2.6.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.5.1...v2.6.0) (2019-01-11)
+
+
+### Bug Fixes
+
+* **OrderEditResult:** fix data mapping ([08af3bd](https://github.com/commercetools/commercetools-php-sdk/commit/08af3bd))
+* **OrderEditResult:** fix type property ([c84d649](https://github.com/commercetools/commercetools-php-sdk/commit/c84d649))
+* **OrderEditUpdateByKey:** fix inheritance class & add test for dryRun ([7e0a465](https://github.com/commercetools/commercetools-php-sdk/commit/7e0a465))
+* **OrderEdit:** fix StagedOrder structure & ActionBuilder ([6fd3c65](https://github.com/commercetools/commercetools-php-sdk/commit/6fd3c65))
+* **RequestBuilder:** fix OrderEditApplyRequest ([252f319](https://github.com/commercetools/commercetools-php-sdk/commit/252f319))
+* **SetCustomShippingMethodAction:** fix type of shippingRate property ([ce1afa4](https://github.com/commercetools/commercetools-php-sdk/commit/ce1afa4))
+* **Subscription:** fix typo in SQS destination ([cbf1dae](https://github.com/commercetools/commercetools-php-sdk/commit/cbf1dae))
+* **TLS Check:** update urls for TLS 1.2 check ([f006006](https://github.com/commercetools/commercetools-php-sdk/commit/f006006))
+
+
+### Features
+
+* **ApiClients:** add support for managing api clients ([93b62de](https://github.com/commercetools/commercetools-php-sdk/commit/93b62de))
+* **Order:** add support for CustomLineItemReturnItem ([82ebfdf](https://github.com/commercetools/commercetools-php-sdk/commit/82ebfdf))
+* **Payment:** support anonymousId ([4dd0e3e](https://github.com/commercetools/commercetools-php-sdk/commit/4dd0e3e))
+
 <a name="2.5.1"></a>
 ## [2.5.1](https://github.com/commercetools/commercetools-php-sdk/compare/v2.5.0...v2.5.1) (2018-10-24)
 

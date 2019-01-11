@@ -17,6 +17,7 @@ use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\Inventory\InventoryEntry;
 use Commercetools\Core\Model\Message\Message;
 use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
@@ -39,6 +40,7 @@ use Commercetools\Core\Request\CustomObjects\CustomObjectByIdGetRequest;
 use Commercetools\Core\Request\DiscountCodes\DiscountCodeByIdGetRequest;
 use Commercetools\Core\Request\Inventory\InventoryByIdGetRequest;
 use Commercetools\Core\Request\Messages\MessageByIdGetRequest;
+use Commercetools\Core\Request\OrderEdits\OrderEditByIdGetRequest;
 use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
 use Commercetools\Core\Request\Payments\PaymentByIdGetRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountByIdGetRequest;
@@ -110,6 +112,10 @@ class GenericByIdGetRequestTest extends RequestTestCase
             MessageByIdGetRequest::class => [
                 MessageByIdGetRequest::class,
                 Message::class,
+            ],
+            OrderEditByIdGetRequest::class => [
+                OrderEditByIdGetRequest::class,
+                OrderEdit::class,
             ],
             OrderByIdGetRequest::class => [
                 OrderByIdGetRequest::class,

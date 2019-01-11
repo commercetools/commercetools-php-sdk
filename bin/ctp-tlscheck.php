@@ -11,7 +11,7 @@ class Tls12Checker
         'auth.commercetools.co',
         'api.commercetools.co',
         'api.sphere.io',
-        'api.commercetools.co',
+        'auth.sphere.io',
     ];
 
     public function allowedCiphers()

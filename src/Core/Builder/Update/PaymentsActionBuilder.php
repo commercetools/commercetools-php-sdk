@@ -12,6 +12,7 @@ use Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionStateAct
 use Commercetools\Core\Request\Payments\Command\PaymentChangeTransactionTimestampAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetAmountPaidAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetAmountRefundedAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetAnonymousIdAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetAuthorizationAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetCustomFieldAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetCustomTypeAction;
@@ -115,6 +116,17 @@ class PaymentsActionBuilder
     public function setAmountRefunded($action = null)
     {
         $this->addAction($this->resolveAction(PaymentSetAmountRefundedAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-payments#set-anonymousid
+     * @param PaymentSetAnonymousIdAction|callable $action
+     * @return $this
+     */
+    public function setAnonymousId($action = null)
+    {
+        $this->addAction($this->resolveAction(PaymentSetAnonymousIdAction::class, $action));
         return $this;
     }
 
@@ -264,7 +276,7 @@ class PaymentsActionBuilder
     /**
      * @return PaymentsActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -320,6 +332,7 @@ class PaymentsActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

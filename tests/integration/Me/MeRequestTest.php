@@ -19,6 +19,7 @@ use Commercetools\Core\Request\Me\MeGetRequest;
 use Commercetools\Core\Request\Me\MeLoginRequest;
 use Commercetools\Core\Request\Me\MePasswordChangeRequest;
 use Commercetools\Core\Request\Me\MePasswordResetRequest;
+use Commercetools\Core\TestHelper;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 
@@ -90,7 +91,7 @@ class MeRequestTest extends ApiTestCase
 
         $this->assertContains('customers/token', current($handler->getRecords())['message']);
         $this->assertSame($customer->getId(), $result->getId());
-        $this->customer = $result;
+        TestHelper::getInstance($this->getClient())->setCustomer($result);
 
         $request = MeGetRequest::of();
         $request->executeWithClient($client);
@@ -126,7 +127,7 @@ class MeRequestTest extends ApiTestCase
 
         $this->assertContains('customers/token', current($handler->getRecords())['message']);
         $this->assertSame($customer->getId(), $result->getId());
-        $this->customer = $result;
+        TestHelper::getInstance($this->getClient())->setCustomer($result);
 
         $config->setPassword($newPassword);
 
@@ -173,7 +174,7 @@ class MeRequestTest extends ApiTestCase
 
         $this->assertContains('anonymous/token', current($handler->getRecords())['message']);
         $this->assertSame($customer->getId(), $result->getId());
-        $this->customer = $result;
+        TestHelper::getInstance($this->getClient())->setCustomer($result);
 
         $config = $this->getClientConfig(['manage_my_profile']);
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
@@ -234,7 +235,7 @@ class MeRequestTest extends ApiTestCase
         );
         $response = $request->executeWithClient($client);
         $result = $request->mapResponse($response);
-        $this->customer = $result;
+        TestHelper::getInstance($this->getClient())->setCustomer($result);
 
         $this->assertTrue($result->getIsEmailVerified());
     }
@@ -260,7 +261,7 @@ class MeRequestTest extends ApiTestCase
 
         $request = MeDeleteRequest::ofVersion($customer->getVersion());
         $response = $request->executeWithClient($client);
-        $this->customer = null;
+        TestHelper::getInstance($this->getClient())->setCustomer(null);
 
         $this->assertFalse($response->isError());
 

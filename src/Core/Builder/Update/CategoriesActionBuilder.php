@@ -276,7 +276,7 @@ class CategoriesActionBuilder
     /**
      * @return CategoriesActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -332,6 +332,7 @@ class CategoriesActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions

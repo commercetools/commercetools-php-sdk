@@ -62,6 +62,14 @@ order:
     domain: order
     model: Order
 
+orderEdit:
+  domain: orderEdit
+  model: OrderEditReference
+  typeId: order-edit
+  obj:
+    domain: orderEdit
+    model: OrderEdit
+
 product:
   domain: product
   model: ProductReference

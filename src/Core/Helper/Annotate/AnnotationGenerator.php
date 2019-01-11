@@ -230,7 +230,7 @@ class AnnotationGenerator
         return token_get_all($content);
     }
 
-    public function generateActionBuilder($domain, $updates)
+    public function generateActionBuilder($domain, array $updates)
     {
         $className = ucfirst($domain) . 'ActionBuilder';
         $fileName = __DIR__ . '/../../Builder/Update/' . $className . '.php';
@@ -239,8 +239,13 @@ class AnnotationGenerator
         $uses = [];
 
         sort($updates);
+        $actionsMethod = PHP_EOL;
         foreach ($updates as $update) {
-            $uses[] = 'use ' . $update . ';';
+            $use = 'use ' . $update . ';';
+            if (strlen($use) > 120) {
+                $uses[] = '// phpcs:ignore';
+            }
+            $uses[] = $use;
             $updateClass = new \ReflectionClass($update);
 
             $docComment = $updateClass->getDocComment();
@@ -264,6 +269,7 @@ class AnnotationGenerator
             $action = new $update();
             $actionName = $action->getAction();
             $csIgnore = strlen($actionShortName) > 55 ? '// phpcs:ignore' . PHP_EOL . '        ' : '';
+
             $method = <<<METHOD
     /**
      *$docLinks
@@ -277,6 +283,28 @@ class AnnotationGenerator
     }
 METHOD;
             $updateMethods[] = $method;
+        }
+
+        if (count($updates) > 0) {
+            reset($updates);
+            $actionCollectionShortName = ucfirst($domain) . 'UpdateActionCollection';
+
+            $argument = current($updates);
+            $updateClass = new \ReflectionClass($argument);
+            $actionCollection = $updateClass->getNamespaceName() . '\\' . $actionCollectionShortName;
+            if (class_exists($actionCollection)) {
+                $uses[] = 'use ' . $actionCollection . ';';
+                $actionsMethod = <<<METHOD
+
+    /**
+     * @return $actionCollectionShortName
+     */
+    public function getActionsCollection()
+    {
+        return $actionCollectionShortName::fromArray(\$this->actions);
+    }
+METHOD;
+            }
         }
 
         $methods = implode(PHP_EOL . PHP_EOL, $updateMethods);
@@ -299,7 +327,7 @@ $methods
     /**
      * @return $className
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -355,7 +383,7 @@ $methods
     {
         return \$this->actions;
     }
-
+$actionsMethod
     /**
      * @param array \$actions
      * @return \$this
@@ -656,6 +684,9 @@ EOF;
                     if ($domain == 'Project') {
                         $factoryCall = 'ofVersion($' . lcfirst($singularDomain) . '->getVersion());';
                     }
+                    if ($domain == 'ApiClients') {
+                        $factoryCall = 'ofId($' . lcfirst($singularDomain) . '->getId());';
+                    }
                     break;
                 case 'import':
                     $uses[ImportOrder::class] = 'use ' . ImportOrder::class . ';';
@@ -721,6 +752,20 @@ EOF;
                         self::PARAM_NAME => '$uploadedFile'
                     ];
                     $factoryCall = 'ofIdSkuAndFile($id, $sku, $uploadedFile);';
+                    break;
+                case 'apply':
+                    $uses[$resultClassName] = 'use ' . $resultClassName . ';';
+                    $methodParams[] = [
+                        self::PARAM_TYPE => $resultClass->getShortName(),
+                        self::PARAM_NAME => '$' . lcfirst($singularDomain)
+                    ];
+                    $methodParams[] = [
+                        self::PARAM_DOC_TYPE => 'int',
+                        self::PARAM_NAME => '$resourceVersion'
+                    ];
+                    $factoryCall = 'ofIdVersionAndResourceVersion($' .
+                        lcfirst($singularDomain) . '->getId(), $' .
+                        lcfirst($singularDomain) . '->getVersion(), $resourceVersion);';
                     break;
                 case preg_match('/^by([a-zA-Z]+)Get$/', $methodName, $matches) === 1:
                     $param = lcfirst($matches[1]);

@@ -16,6 +16,7 @@ use Commercetools\Core\Model\CustomObject\CustomObject;
 use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\Inventory\InventoryEntry;
 use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
@@ -37,6 +38,7 @@ use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
 use Commercetools\Core\Request\CustomObjects\CustomObjectDeleteRequest;
 use Commercetools\Core\Request\DiscountCodes\DiscountCodeDeleteRequest;
 use Commercetools\Core\Request\Inventory\InventoryDeleteRequest;
+use Commercetools\Core\Request\OrderEdits\OrderEditDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 use Commercetools\Core\Request\Payments\PaymentDeleteRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest;
@@ -104,6 +106,10 @@ class GenericDeleteRequestTest extends RequestTestCase
             InventoryDeleteRequest::class => [
                 InventoryDeleteRequest::class,
                 InventoryEntry::class,
+            ],
+            OrderEditDeleteRequest::class => [
+                OrderEditDeleteRequest::class,
+                OrderEdit::class,
             ],
             OrderDeleteRequest::class => [
                 OrderDeleteRequest::class,

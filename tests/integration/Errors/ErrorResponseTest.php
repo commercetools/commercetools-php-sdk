@@ -58,6 +58,7 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefin
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
 use Commercetools\Core\Request\PsrRequest;
 use Commercetools\Core\Response\ErrorResponse;
+use Commercetools\Core\TestHelper;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Cache\CacheItemPoolInterface;
@@ -121,7 +122,7 @@ class ErrorResponseTest extends ApiTestCase
         );
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-        $this->category = $result;
+        TestHelper::getInstance($this->getClient())->setCategory($result);
         $this->assertFalse($response->isError());
 
         $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())->addAction(
@@ -350,7 +351,8 @@ class ErrorResponseTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
 
         if (!$response->isError()) {
-            $this->product = $request->mapResponse($response);
+            $result = $request->mapResponse($response);
+            TestHelper::getInstance($this->getClient())->setProduct($result);
         }
         $this->assertInstanceOf(ErrorResponse::class, $response);
         $this->assertSame(400, $response->getStatusCode());
@@ -379,7 +381,8 @@ class ErrorResponseTest extends ApiTestCase
             )
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->productType = $request->mapResponse($response);
+        $result = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProductType($result);
 
         $product = $this->getProduct();
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
@@ -441,7 +444,8 @@ class ErrorResponseTest extends ApiTestCase
             )
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->productType = $request->mapResponse($response);
+        $result = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProductType($result);
 
         $product = $this->getProduct();
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
@@ -498,7 +502,8 @@ class ErrorResponseTest extends ApiTestCase
             )
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->productType = $request->mapResponse($response);
+        $result = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProductType($result);
 
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(
@@ -567,7 +572,8 @@ class ErrorResponseTest extends ApiTestCase
             )
         );
         $response = $request->executeWithClient($this->getClient());
-        $this->productType = $request->mapResponse($response);
+        $result = $request->mapResponse($response);
+        TestHelper::getInstance($this->getClient())->setProductType($result);
 
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(

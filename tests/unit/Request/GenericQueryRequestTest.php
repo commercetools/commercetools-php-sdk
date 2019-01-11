@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Request;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Model\ApiClient\ApiClientCollection;
 use Commercetools\Core\Model\Cart\CartCollection;
 use Commercetools\Core\Model\CartDiscount\CartDiscountCollection;
 use Commercetools\Core\Model\Category\CategoryCollection;
@@ -18,6 +19,7 @@ use Commercetools\Core\Model\DiscountCode\DiscountCodeCollection;
 use Commercetools\Core\Model\Inventory\InventoryEntryCollection;
 use Commercetools\Core\Model\Message\MessageCollection;
 use Commercetools\Core\Model\Order\OrderCollection;
+use Commercetools\Core\Model\OrderEdit\OrderEditCollection;
 use Commercetools\Core\Model\Payment\PaymentCollection;
 use Commercetools\Core\Model\Product\ProductCollection;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountCollection;
@@ -30,6 +32,7 @@ use Commercetools\Core\Model\Subscription\SubscriptionCollection;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryCollection;
 use Commercetools\Core\Model\Type\TypeCollection;
 use Commercetools\Core\Model\Zone\ZoneCollection;
+use Commercetools\Core\Request\ApiClients\ApiClientQueryRequest;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountQueryRequest;
 use Commercetools\Core\Request\Carts\CartQueryRequest;
 use Commercetools\Core\Request\Categories\CategoryQueryRequest;
@@ -41,6 +44,7 @@ use Commercetools\Core\Request\DiscountCodes\DiscountCodeQueryRequest;
 use Commercetools\Core\Request\GraphQL\GraphQLQueryRequest;
 use Commercetools\Core\Request\Inventory\InventoryQueryRequest;
 use Commercetools\Core\Request\Messages\MessageQueryRequest;
+use Commercetools\Core\Request\OrderEdits\OrderEditQueryRequest;
 use Commercetools\Core\Request\Orders\OrderQueryRequest;
 use Commercetools\Core\Request\Payments\PaymentQueryRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest;
@@ -73,6 +77,10 @@ class GenericQueryRequestTest extends RequestTestCase
     public function mapResultProvider()
     {
         return [
+            ApiClientQueryRequest::class => [
+                ApiClientQueryRequest::class,
+                ApiClientCollection::class
+            ],
             CartDiscountQueryRequest::class => [
                 CartDiscountQueryRequest::class,
                 CartDiscountCollection::class,
@@ -134,6 +142,10 @@ class GenericQueryRequestTest extends RequestTestCase
             OrderQueryRequest::class => [
                 OrderQueryRequest::class,
                 OrderCollection::class,
+            ],
+            OrderEditQueryRequest::class => [
+                OrderEditQueryRequest::class,
+                OrderEditCollection::class,
             ],
             PaymentQueryRequest::class => [
                 PaymentQueryRequest::class,

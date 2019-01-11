@@ -42,6 +42,8 @@ use DateTime;
  * @method Payment setInterfaceInteractions(CustomFieldObjectCollection $interfaceInteractions = null)
  * @method string getKey()
  * @method Payment setKey(string $key = null)
+ * @method string getAnonymousId()
+ * @method Payment setAnonymousId(string $anonymousId = null)
  * @method PaymentReference getReference()
  */
 class Payment extends Resource
@@ -61,6 +63,7 @@ class Payment extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'customer' => [static::TYPE => CustomerReference::class],
+            'anonymousId' => [static::TYPE => 'string'],
             'externalId' => [static::TYPE => 'string'],
             'interfaceId' => [static::TYPE => 'string'],
             'amountPlanned' => [static::TYPE => Money::class],

@@ -54,7 +54,7 @@
     "cache/filesystem-adapter": "^1.0",
     "cache/void-adapter": "^1.0",
     "incenteev/composer-parameter-handler": "^2.1",
-    "commercetools/commercetools-api-reference": "dev-master#646973bdc9a5da9216fa8ae774ed51110186e3fa"
+    "commercetools/commercetools-api-reference": "dev-master"
   },
   "replaces": {
     "commercetools/commons": "*"

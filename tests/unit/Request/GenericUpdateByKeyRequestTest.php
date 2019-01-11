@@ -9,6 +9,7 @@ use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
+use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\ProductType\ProductType;
@@ -21,6 +22,7 @@ use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Request\Categories\CategoryUpdateByKeyRequest;
 use Commercetools\Core\Request\CustomerGroups\CustomerGroupUpdateByKeyRequest;
 use Commercetools\Core\Request\Customers\CustomerUpdateByKeyRequest;
+use Commercetools\Core\Request\OrderEdits\OrderEditUpdateByKeyRequest;
 use Commercetools\Core\Request\Payments\PaymentUpdateByKeyRequest;
 use Commercetools\Core\Request\Products\ProductUpdateByKeyRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateByKeyRequest;
@@ -60,6 +62,10 @@ class GenericUpdateByKeyRequestTest extends RequestTestCase
             CustomerUpdateByKeyRequest::class => [
                 CustomerUpdateByKeyRequest::class,
                 Customer::class
+            ],
+            OrderEditUpdateByKeyRequest::class => [
+                OrderEditUpdateByKeyRequest::class,
+                OrderEdit::class
             ],
             PaymentUpdateByKeyRequest::class => [
                 PaymentUpdateByKeyRequest::class,

@@ -8,6 +8,14 @@ use Psr\Http\Message\RequestInterface;
 class RequestBuilder
 {
     /**
+     * @return ApiClientRequestBuilder
+     */
+    public function apiClients()
+    {
+        return new ApiClientRequestBuilder();
+    }
+
+    /**
      * @return CartDiscountRequestBuilder
      */
     public function cartDiscounts()
@@ -109,6 +117,14 @@ class RequestBuilder
     public function messages()
     {
         return new MessageRequestBuilder();
+    }
+
+    /**
+     * @return OrderEditRequestBuilder
+     */
+    public function orderEdits()
+    {
+        return new OrderEditRequestBuilder();
     }
 
     /**

@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model;
 
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Message\Message;
 use Symfony\Component\Yaml\Yaml;
 
 
@@ -28,6 +29,10 @@ class RamlModelTest extends AbstractModelTest
         $validFields = array_flip($validFields);
         $t = new \ReflectionClass($className);
         $missingFields = [];
+        if ($t->isSubclassOf(Message::class)) {
+            $messageFields = array_flip(array_keys((new Message())->fieldDefinitions()));
+            $validFields = array_merge($validFields, $messageFields);
+        }
         foreach ($this->fieldDefinitions($className) as $fieldKey => $field) {
             if (!isset($validFields[$fieldKey])) {
                 $missingFields[] = $fieldKey;
@@ -39,6 +44,83 @@ class RamlModelTest extends AbstractModelTest
                 'Failed asserting that \'%s\' %s at \'%s\' (%s:0)',
                 implode('\', \'', $missingFields),
                 count($missingFields) > 1 ? 'are valid fields': 'is a valid field',
+                $className,
+                $t->getFileName()
+            )
+        );
+    }
+
+    private $primitives = [
+        'boolean' => 'bool',
+        'number' => ['float', 'int'],
+        'int64' => 'int',
+        'int32' => 'int',
+        'int8' => 'int',
+        'string' => ['string', 'DateTime'],
+        'datetime' => ['DateTime', 'string']
+    ];
+
+    /**
+     * @test
+     * @dataProvider modelFieldTypeProvider
+     * @param string $className
+     * @param array $validFields
+     */
+    public function modelFieldType($className, array $validFields = [])
+    {
+        $t = new \ReflectionClass($className);
+        if ($t->isSubclassOf(Message::class)) {
+            $messageFields = array_flip(array_keys((new Message())->fieldDefinitions()));
+            $validFields = array_merge($validFields, $messageFields);
+        }
+        $wrongTypes = [];
+        foreach ($this->fieldDefinitions($className) as $fieldKey => $field) {
+            $expectedFieldType = $validFields[$fieldKey]['type'];
+            if ($validFields[$fieldKey]['type'] === 'number' && isset($validFields[$fieldKey]['format'])) {
+                $expectedFieldType = $validFields[$fieldKey]['format'];
+            }
+            if (!isset($this->primitives[$expectedFieldType]) || !isset($field[JsonObject::TYPE])) {
+                continue;
+            }
+            $primitiveType = $this->primitives[$expectedFieldType];
+            if (is_array($primitiveType)) {
+                $this->assertContains(
+                    $field[JsonObject::TYPE],
+                    $primitiveType,
+                    sprintf(
+                        'Failed asserting that \'%s\' is of type \'%s\' at \'%s\' (%s:0)',
+                        $fieldKey,
+                        $validFields[$fieldKey]['type'],
+                        $className,
+                        $t->getFileName()
+                    )
+                );
+                if (!in_array($field[JsonObject::TYPE], $primitiveType)) {
+                    $wrongTypes[$fieldKey] = $fieldKey;
+                }
+            } else {
+                $this->assertSame(
+                    $this->primitives[$expectedFieldType],
+                    $field[JsonObject::TYPE],
+                    sprintf(
+                        'Failed asserting that \'%s\' is of type \'%s\' at \'%s\' (%s:0)',
+                        $fieldKey,
+                        $validFields[$fieldKey]['type'],
+                        $className,
+                        $t->getFileName()
+                    )
+                );
+                if ($this->primitives[$expectedFieldType] != $field[JsonObject::TYPE]) {
+                    $wrongTypes[$fieldKey] = $fieldKey;
+                }
+            }
+        }
+        $this->assertEmpty(
+            $wrongTypes,
+            sprintf(
+                'Failed asserting that \'%s\' %s at \'%s\' (%s:0)',
+                implode('\', \'', $wrongTypes),
+                count($wrongTypes) > 1 ? 'are valid fields': 'is a valid field',
                 $className,
                 $t->getFileName()
             )
@@ -165,7 +247,15 @@ class RamlModelTest extends AbstractModelTest
                 $domain = 'Categories';
                 break;
             case 'Project':
+                break;
             case 'Inventory':
+                $model = str_replace('InventoryEntry', 'Inventory', $model);
+                break;
+            case 'OrderEdit':
+                $domain .= 's';
+                if (strpos($model, 'StagedOrder') === 0) {
+                    $domain = 'OrderEdits\\StagedOrder';
+                }
                 break;
             default:
                 $domain .= 's';
@@ -220,6 +310,12 @@ class RamlModelTest extends AbstractModelTest
         return $this->objectFieldProvider($modelClasses);
     }
 
+    public function modelFieldTypeProvider()
+    {
+        $modelClasses = $this->getModelClasses(static::MODEL_PATH);
+        return $this->objectFieldTypeProvider($modelClasses);
+    }
+
     public function commandFieldProvider()
     {
         $commandClasses = $this->getModelClasses(static::COMMAND_PATH);
@@ -228,6 +324,24 @@ class RamlModelTest extends AbstractModelTest
 
 
     public function objectFieldProvider(array $modelClasses, $classNameField = 'modelClass') {
+        $ramlInfos = $this->getRamlTypes();
+
+        $fixtures = $this->getFixtures($modelClasses, $ramlInfos, $classNameField);
+
+        return array_map(
+            function ($fixture) use ($classNameField){
+                return [$fixture[$classNameField], array_keys($fixture['fields'])];
+            },
+            array_filter(
+                $fixtures,
+                function ($fixture) use ($modelClasses) {
+                    return count($fixture['fields']) > 0;
+                }
+            )
+        );
+    }
+
+    public function objectFieldTypeProvider(array $modelClasses, $classNameField = 'modelClass') {
         $ramlInfos = $this->getRamlTypes();
 
         $fixtures = $this->getFixtures($modelClasses, $ramlInfos, $classNameField);
@@ -268,6 +382,7 @@ class RamlModelTest extends AbstractModelTest
             foreach ($ramlTypes as $typeName => $ramlType) {
                 $ramlFile = trim(str_replace('!include', '', $types[$typeName]));
                 $package = $this->pascalcase(dirname($ramlFile));
+                $package = preg_replace('/\/updates$/', '', $package);
                 $domain = $this->mapRamlToDomain($package, $typeName);
                 $model = $this->mapRamlToModel($package, $typeName);
                 $modelClassName = $this->getClassName($domain, $model);
@@ -277,7 +392,8 @@ class RamlModelTest extends AbstractModelTest
                     $fields,
                     function ($field) {
                         return strpos($field, '/') === false;
-                    }
+                    },
+                    ARRAY_FILTER_USE_KEY
                 );
                 $ramlInfos[$typeName] = [
                     'fields' => $fields,
@@ -287,13 +403,65 @@ class RamlModelTest extends AbstractModelTest
                     'commandClass' => $commandClassName
                 ];
             }
+            ksort($ramlInfos);
             $this->ramlTypes = $ramlInfos;
         }
 
         return $this->ramlTypes;
     }
 
-    public function getModelClasses($searchPath) {
+    private function resolveProperties($ramlTypes, $ramlType)
+    {
+        if (isset($ramlType['type']) && !is_array($ramlType['type'])) {
+            $parentType = isset($ramlTypes[$ramlType['type']]) ? $ramlTypes[$ramlType['type']] : [];
+            $parentProperties = $this->resolveProperties($ramlTypes, $parentType);
+        } else {
+            $parentProperties = [];
+        }
+        if (isset($ramlType['properties'])) {
+            $properties = array_map(
+                [$this, 'parseProperty'],
+                array_keys($ramlType['properties']),
+                $ramlType['properties']
+            );
+            $properties = array_combine(array_map(function ($property) { return $property['name'];}, $properties), $properties);
+        } else {
+            $properties = [];
+        }
+        foreach ($properties as $name => $property) {
+            $parentProperty = isset($parentProperties[$name]) ? $parentProperties[$name] : [];
+            $parentProperties[$name] = $this->mergeProperty($parentProperty, $property);
+        }
+        return $parentProperties;
+    }
+
+    private function mergeProperty($parentProperty, $property) {
+        foreach ($property as $key => $value) {
+            if (is_array($property[$key])) {
+                $parentPropertyValue = isset($parentProperty[$key]) ? $parentProperty[$key] : [];
+                $parentProperty[$key] = array_merge($parentPropertyValue, $property[$key]);
+            } else if (isset($property[$key])) {
+                $parentProperty[$key] = $property[$key];
+            }
+        }
+
+        return $parentProperty;
+    }
+
+    private function parseProperty($key, $property)
+    {
+        $name = str_replace('?', '', $key);
+        if (!is_array($property)) {
+            $property = ['type' => $property];
+        }
+        $property['name'] = $name;
+        $optional = strpos($key, '?') > 0;
+        $property['required'] = isset($property['required']) ? ($property['required'] == true) : !$optional;
+        return $property;
+    }
+
+    public function getModelClasses($searchPath)
+    {
         $allFiles = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($searchPath));
         $phpFiles = new \RegexIterator($allFiles, '/\.php$/');
 
@@ -314,7 +482,8 @@ class RamlModelTest extends AbstractModelTest
         return $modelClasses;
     }
 
-    private function getFixtures($modelClasses, $ramlInfos, $classNameField) {
+    private function getFixtures($modelClasses, $ramlInfos, $classNameField)
+    {
         return array_filter(
             $ramlInfos,
             function ($fixture) use ($modelClasses, $classNameField) {
@@ -324,29 +493,11 @@ class RamlModelTest extends AbstractModelTest
         );
     }
 
-    private function getFixtureClasses($fixtures, $classNameField) {
-        return array_flip(array_map(function ($fixture) use ($classNameField) { return $fixture[$classNameField]; }, $fixtures));
-    }
-
-    private function resolveProperties($ramlTypes, $ramlType)
+    private function getFixtureClasses($fixtures, $classNameField)
     {
-        if (isset($ramlType['type'])) {
-            $parentType = isset($ramlTypes[$ramlType['type']]) ? $ramlTypes[$ramlType['type']] : [];
-            $parentProperties = $this->resolveProperties($ramlTypes, $parentType);
-        } else {
-            $parentProperties = [];
-        }
-        if (isset($ramlType['properties'])) {
-            $properties = array_map(
-                function ($property) {
-                    return str_replace('?', '', $property);
-                },
-                array_keys($ramlType['properties'])
-            );
-        } else {
-            $properties = [];
-        }
-        return array_merge($parentProperties, $properties);
+        return array_flip(array_map(function ($fixture) use ($classNameField) {
+            return $fixture[$classNameField];
+        }, $fixtures));
     }
 
     private function getFileClassName($fileName)
@@ -465,7 +616,7 @@ class RamlModelTest extends AbstractModelTest
             'Order\OrderSetCustomerEmailAction' => 'Order\OrderSetCustomerEmail',
             'Order\OrderSetShippingAddressAction' => 'Order\OrderSetShippingAddress',
             'Order\OrderSetBillingAddressAction' => 'Order\OrderSetBillingAddress',
-            'Channel\ChannelSetGeolocationAction' => 'Channel\ChannelSetGeoLocation',
+            'Channel\ChannelSetGeoLocationAction' => 'Channel\ChannelSetGeoLocation',
             'ShippingMethod\CartScoreTier' => 'ShippingMethod\CartScore',
             'ShippingMethod\CartClassificationTier' => 'ShippingMethod\CartClassification',
             'ShippingMethod\CartValueTier' => 'ShippingMethod\CartValue',

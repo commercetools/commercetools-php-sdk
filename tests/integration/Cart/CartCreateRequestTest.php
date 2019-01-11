@@ -8,15 +8,12 @@ namespace Commercetools\Core\Cart;
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
-use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\Cart\CartState;
-use Commercetools\Core\Model\Cart\ReplicaCartDraft;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartReplicateRequest;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
-
 
 class CartCreateRequestTest extends ApiTestCase
 {

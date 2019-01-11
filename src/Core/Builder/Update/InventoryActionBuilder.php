@@ -108,7 +108,7 @@ class InventoryActionBuilder
     /**
      * @return InventoryActionBuilder
      */
-    public function of()
+    public static function of()
     {
         return new self();
     }
@@ -164,6 +164,7 @@ class InventoryActionBuilder
     {
         return $this->actions;
     }
+
 
     /**
      * @param array $actions
