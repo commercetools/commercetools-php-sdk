@@ -235,7 +235,7 @@ echo "COMMERCETOOLS_CLIENT_ID=YourClientID" > env.list
 echo "COMMERCETOOLS_CLIENT_SECRET=YourClientSecret" >> env.list
 echo "COMMERCETOOLS_PROJECT=YourProjectKey" >> env.list
 
-docker run --env-file env.list -v $PWD:/opt/app -w /opt/app --rm=true jaysde/php-test-base tools/docker-phpunit.sh
+docker run --env-file env.list -v $PWD:/opt/app -w /opt/app --rm=true jenschude/php-test-base tools/docker-phpunit.sh
 ```
 
 ### <a name="contribute"></a>Contribute
