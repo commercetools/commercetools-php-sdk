@@ -1,0 +1,2415 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>CTP SDK : Class Commercetools\Core\Builder\Update\OrdersActionBuilder | PHP SDK</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
+	<link rel="stylesheet" href="resources/style.css?102290b3b885078d22775035a196a21915f80efe">
+    <link rel="shortcut icon" type="image/png" href="resources/favicon.png?9c2a6ec825b4dbff6085830fb749cd4d0299fcea">
+</head>
+
+<body>
+	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand"><img src="resources/ct-logo.svg?065fe633e263f47f5912ed2699add0e26a15e230" id="navbar-logo" alt="commercetools platform PHP SDK">PHP SDK </a>
+			</div>
+			<div class="collapse navbar-collapse">
+
+                <form id="search" class="navbar-form navbar-left" role="search">
+                    <input type="hidden" name="cx" value="">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <div class="form-group">
+                        <input type="text" name="q" class="search-query form-control" placeholder="Search">
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="namespace-Commercetools.Core.Builder.Update.html" title="Summary of Commercetools\Core\Builder\Update"><span>Namespace</span></a>
+					</li>
+					<li class="active">
+<span>Class</span>					</li>
+
+					<li class="divider-vertical"></li>
+
+					<li>
+						<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+					</li>
+
+
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div id="left">
+	<div id="menu">
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active">
+						<a href="namespace-Commercetools.html">
+							Commercetools<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Commons.html">
+							Commons<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Commons.Helper.html">
+							Helper						</a>
+							</li>
+								</ul></li>
+					<li class="active">
+						<a href="namespace-Commercetools.Core.html">
+							Core<span></span>
+						</a>
+							<ul>
+					<li class="active">
+						<a href="namespace-Commercetools.Core.Builder.html">
+							Builder<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Builder.Request.html">
+							Request						</a>
+							</li>
+					<li class="active">
+						<a href="namespace-Commercetools.Core.Builder.Update.html">
+							Update						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Cache.html">
+							Cache						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Client.html">
+							Client<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Client.Adapter.html">
+							Adapter						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Client.OAuth.html">
+							OAuth						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Error.html">
+							Error						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.html">
+							Helper<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.Annotate.html">
+							Annotate						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.State.html">
+							State<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.State.Renderer.html">
+							Renderer						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.Subscriber.html">
+							Subscriber<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.Subscriber.Log.html">
+							Log						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.html">
+							Model<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ApiClient.html">
+							ApiClient						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Cart.html">
+							Cart						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CartDiscount.html">
+							CartDiscount						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Category.html">
+							Category						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Channel.html">
+							Channel						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Common.html">
+							Common						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Customer.html">
+							Customer						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomerGroup.html">
+							CustomerGroup						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomField.html">
+							CustomField						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomObject.html">
+							CustomObject						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.DiscountCode.html">
+							DiscountCode						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Extension.html">
+							Extension						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Inventory.html">
+							Inventory						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Message.html">
+							Message						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Order.html">
+							Order						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.OrderEdit.html">
+							OrderEdit						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Payment.html">
+							Payment						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Product.html">
+							Product<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Product.Search.html">
+							Search						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ProductDiscount.html">
+							ProductDiscount						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ProductType.html">
+							ProductType						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Project.html">
+							Project						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Review.html">
+							Review						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ShippingMethod.html">
+							ShippingMethod						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ShoppingList.html">
+							ShoppingList						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.State.html">
+							State						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Subscription.html">
+							Subscription						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.TaxCategory.html">
+							TaxCategory						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Type.html">
+							Type						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Zone.html">
+							Zone						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.html">
+							Request<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ApiClients.html">
+							ApiClients						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CartDiscounts.html">
+							CartDiscounts<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CartDiscounts.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Carts.html">
+							Carts<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Carts.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Categories.html">
+							Categories<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Categories.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Channels.html">
+							Channels<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Channels.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomerGroups.html">
+							CustomerGroups<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomerGroups.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Customers.html">
+							Customers<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Customers.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.html">
+							CustomField<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomObjects.html">
+							CustomObjects						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.DiscountCodes.html">
+							DiscountCodes<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.DiscountCodes.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Extensions.html">
+							Extensions<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Extensions.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
+							GraphQL						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Inventory.html">
+							Inventory<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Inventory.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Me.html">
+							Me						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Messages.html">
+							Messages						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.html">
+							OrderEdits<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.Command.html">
+							Command						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.StagedOrder.html">
+							StagedOrder<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.StagedOrder.Command.html">
+							Command						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Orders.html">
+							Orders<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Orders.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Payments.html">
+							Payments<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Payments.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductDiscounts.html">
+							ProductDiscounts<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductDiscounts.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Products.html">
+							Products<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Products.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductTypes.html">
+							ProductTypes<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductTypes.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Project.html">
+							Project<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Project.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Query.html">
+							Query						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Reviews.html">
+							Reviews<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Reviews.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShippingMethods.html">
+							ShippingMethods<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShippingMethods.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShoppingLists.html">
+							ShoppingLists<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShoppingLists.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.States.html">
+							States<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.States.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Subscriptions.html">
+							Subscriptions<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Subscriptions.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.TaxCategories.html">
+							TaxCategories<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.TaxCategories.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.html">
+							Types<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Zones.html">
+							Zones<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Zones.Command.html">
+							Command						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Response.html">
+							Response						</a>
+							</li>
+								</ul></li></ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Commercetools.Core.Builder.Update.ActionBuilder.html">ActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.CartDiscountsActionBuilder.html">CartDiscountsActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.CartsActionBuilder.html">CartsActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.CategoriesActionBuilder.html">CategoriesActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.ChannelsActionBuilder.html">ChannelsActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.CustomerGroupsActionBuilder.html">CustomerGroupsActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.CustomersActionBuilder.html">CustomersActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.CustomFieldActionBuilder.html">CustomFieldActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.DiscountCodesActionBuilder.html">DiscountCodesActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.ExtensionsActionBuilder.html">ExtensionsActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.InventoryActionBuilder.html">InventoryActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.OrderEditsActionBuilder.html">OrderEditsActionBuilder</a></li>
+				<li class="active"><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">OrdersActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.PaymentsActionBuilder.html">PaymentsActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.ProductDiscountsActionBuilder.html">ProductDiscountsActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.ProductsActionBuilder.html">ProductsActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.ProductTypesActionBuilder.html">ProductTypesActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.ProjectActionBuilder.html">ProjectActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.ReviewsActionBuilder.html">ReviewsActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.ShippingMethodsActionBuilder.html">ShippingMethodsActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.ShoppingListsActionBuilder.html">ShoppingListsActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.StagedOrderActionBuilder.html">StagedOrderActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.StatesActionBuilder.html">StatesActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.SubscriptionsActionBuilder.html">SubscriptionsActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.TaxCategoriesActionBuilder.html">TaxCategoriesActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.TypesActionBuilder.html">TypesActionBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Update.ZonesActionBuilder.html">ZonesActionBuilder</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class OrdersActionBuilder</h1>
+
+
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Builder.html">Builder</a>\<a href="namespace-Commercetools.Core.Builder.Update.html">Update</a><br>
+
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#47-550" title="Go to source code">Core/Builder/Update/OrdersActionBuilder.php</a>
+		<br>
+	</div>
+
+
+
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2>Methods summary</h2></div>
+			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="addDelivery" id="_addDelivery">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addDelivery">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#51-60" title="Go to source code">addDelivery</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderAddDeliveryAction.html">Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#add-delivery">https://docs.commercetools.com/http-api-projects-orders.html#add-delivery</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="addItemShippingAddress" id="_addItemShippingAddress">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addItemShippingAddress">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#62-71" title="Go to source code">addItemShippingAddress</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderAddItemShippingAddressAction.html">Commercetools\Core\Request\Orders\Command\OrderAddItemShippingAddressAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#add-itemshippingaddress">https://docs.commercetools.com/http-api-projects-orders.html#add-itemshippingaddress</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="addParcelToDelivery" id="_addParcelToDelivery">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addParcelToDelivery">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#73-82" title="Go to source code">addParcelToDelivery</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderAddParcelToDeliveryAction.html">Commercetools\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#add-parcel">https://docs.commercetools.com/http-api-projects-orders.html#add-parcel</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="addPayment" id="_addPayment">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addPayment">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#84-93" title="Go to source code">addPayment</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderAddPaymentAction.html">Commercetools\Core\Request\Orders\Command\OrderAddPaymentAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#add-payment">https://docs.commercetools.com/http-api-projects-orders.html#add-payment</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="addReturnInfo" id="_addReturnInfo">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addReturnInfo">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#95-104" title="Go to source code">addReturnInfo</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderAddReturnInfoAction.html">Commercetools\Core\Request\Orders\Command\OrderAddReturnInfoAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#addreturninfo">https://docs.commercetools.com/http-api-projects-orders.html#addreturninfo</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="changeOrderState" id="_changeOrderState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_changeOrderState">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#106-115" title="Go to source code">changeOrderState</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderChangeOrderStateAction.html">Commercetools\Core\Request\Orders\Command\OrderChangeOrderStateAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#change-orderstate">https://docs.commercetools.com/http-api-projects-orders.html#change-orderstate</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="changePaymentState" id="_changePaymentState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_changePaymentState">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#117-126" title="Go to source code">changePaymentState</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderChangePaymentStateAction.html">Commercetools\Core\Request\Orders\Command\OrderChangePaymentStateAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#change-paymentstate">https://docs.commercetools.com/http-api-projects-orders.html#change-paymentstate</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="changeShipmentState" id="_changeShipmentState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_changeShipmentState">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#128-137" title="Go to source code">changeShipmentState</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderChangeShipmentStateAction.html">Commercetools\Core\Request\Orders\Command\OrderChangeShipmentStateAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#change-shipmentstate">https://docs.commercetools.com/http-api-projects-orders.html#change-shipmentstate</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="importCustomLineItemState" id="_importCustomLineItemState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_importCustomLineItemState">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#139-148" title="Go to source code">importCustomLineItemState</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderImportCustomLineItemStateAction.html">Commercetools\Core\Request\Orders\Command\OrderImportCustomLineItemStateAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#import-state-for-customlineitems">https://docs.commercetools.com/http-api-projects-orders.html#import-state-for-customlineitems</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="importLineItemState" id="_importLineItemState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_importLineItemState">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#150-159" title="Go to source code">importLineItemState</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderImportLineItemStateAction.html">Commercetools\Core\Request\Orders\Command\OrderImportLineItemStateAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#import-state-for-lineitems">https://docs.commercetools.com/http-api-projects-orders.html#import-state-for-lineitems</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="removeDelivery" id="_removeDelivery">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_removeDelivery">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#161-170" title="Go to source code">removeDelivery</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderRemoveDeliveryAction.html">Commercetools\Core\Request\Orders\Command\OrderRemoveDeliveryAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#remove-delivery">https://docs.commercetools.com/http-api-projects-orders.html#remove-delivery</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="removeItemShippingAddress" id="_removeItemShippingAddress">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_removeItemShippingAddress">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#172-181" title="Go to source code">removeItemShippingAddress</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderRemoveItemShippingAddressAction.html">Commercetools\Core\Request\Orders\Command\OrderRemoveItemShippingAddressAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#remove-itemshippingaddress">https://docs.commercetools.com/http-api-projects-orders.html#remove-itemshippingaddress</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="removeParcelFromDelivery" id="_removeParcelFromDelivery">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_removeParcelFromDelivery">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#183-192" title="Go to source code">removeParcelFromDelivery</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderRemoveParcelFromDeliveryAction.html">Commercetools\Core\Request\Orders\Command\OrderRemoveParcelFromDeliveryAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#remove-parcel-from-delivery">https://docs.commercetools.com/http-api-projects-orders.html#remove-parcel-from-delivery</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="removePayment" id="_removePayment">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_removePayment">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#194-203" title="Go to source code">removePayment</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderRemovePaymentAction.html">Commercetools\Core\Request\Orders\Command\OrderRemovePaymentAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#remove-payment">https://docs.commercetools.com/http-api-projects-orders.html#remove-payment</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setBillingAddress" id="_setBillingAddress">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setBillingAddress">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#205-214" title="Go to source code">setBillingAddress</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetBillingAddress.html">Commercetools\Core\Request\Orders\Command\OrderSetBillingAddress</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-billing-address">https://docs.commercetools.com/http-api-projects-orders.html#set-billing-address</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setCustomField" id="_setCustomField">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setCustomField">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#216-225" title="Go to source code">setCustomField</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetCustomFieldAction.html">Commercetools\Core\Request\Orders\Command\OrderSetCustomFieldAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setCustomLineItemCustomField" id="_setCustomLineItemCustomField">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setCustomLineItemCustomField">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#227-236" title="Go to source code">setCustomLineItemCustomField</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetCustomLineItemCustomFieldAction.html">Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemCustomFieldAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setCustomLineItemCustomType" id="_setCustomLineItemCustomType">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setCustomLineItemCustomType">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#238-247" title="Go to source code">setCustomLineItemCustomType</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetCustomLineItemCustomTypeAction.html">Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemCustomTypeAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setCustomLineItemShippingDetails" id="_setCustomLineItemShippingDetails">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setCustomLineItemShippingDetails">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#249-258" title="Go to source code">setCustomLineItemShippingDetails</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetCustomLineItemShippingDetailsAction.html">Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemShippingDetailsAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-customlineitemshippingdetails">https://docs.commercetools.com/http-api-projects-orders.html#set-customlineitemshippingdetails</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setCustomType" id="_setCustomType">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setCustomType">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#260-269" title="Go to source code">setCustomType</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetCustomTypeAction.html">Commercetools\Core\Request\Orders\Command\OrderSetCustomTypeAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setCustomerEmail" id="_setCustomerEmail">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setCustomerEmail">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#271-280" title="Go to source code">setCustomerEmail</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetCustomerEmail.html">Commercetools\Core\Request\Orders\Command\OrderSetCustomerEmail</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-customer-email">https://docs.commercetools.com/http-api-projects-orders.html#set-customer-email</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setDeliveryAddress" id="_setDeliveryAddress">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setDeliveryAddress">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#282-291" title="Go to source code">setDeliveryAddress</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetDeliveryAddressAction.html">Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-delivery-address">https://docs.commercetools.com/http-api-projects-orders.html#set-delivery-address</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setDeliveryItems" id="_setDeliveryItems">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setDeliveryItems">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#293-302" title="Go to source code">setDeliveryItems</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetDeliveryItemsAction.html">Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-delivery-items">https://docs.commercetools.com/http-api-projects-orders.html#set-delivery-items</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setLineItemCustomField" id="_setLineItemCustomField">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setLineItemCustomField">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#304-313" title="Go to source code">setLineItemCustomField</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetLineItemCustomFieldAction.html">Commercetools\Core\Request\Orders\Command\OrderSetLineItemCustomFieldAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setLineItemCustomType" id="_setLineItemCustomType">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setLineItemCustomType">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#315-324" title="Go to source code">setLineItemCustomType</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetLineItemCustomTypeAction.html">Commercetools\Core\Request\Orders\Command\OrderSetLineItemCustomTypeAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setLineItemShippingDetails" id="_setLineItemShippingDetails">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setLineItemShippingDetails">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#326-335" title="Go to source code">setLineItemShippingDetails</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetLineItemShippingDetailsAction.html">Commercetools\Core\Request\Orders\Command\OrderSetLineItemShippingDetailsAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-lineitemshippingdetails">https://docs.commercetools.com/http-api-projects-orders.html#set-lineitemshippingdetails</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setLocale" id="_setLocale">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setLocale">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#337-346" title="Go to source code">setLocale</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetLocaleAction.html">Commercetools\Core\Request\Orders\Command\OrderSetLocaleAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-locale">https://docs.commercetools.com/http-api-projects-orders.html#set-locale</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setOrderNumber" id="_setOrderNumber">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setOrderNumber">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#348-357" title="Go to source code">setOrderNumber</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetOrderNumberAction.html">Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-order-number">https://docs.commercetools.com/http-api-projects-orders.html#set-order-number</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setParcelItems" id="_setParcelItems">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setParcelItems">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#359-368" title="Go to source code">setParcelItems</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetParcelItemsAction.html">Commercetools\Core\Request\Orders\Command\OrderSetParcelItemsAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-items">https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-items</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setParcelMeasurements" id="_setParcelMeasurements">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setParcelMeasurements">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#370-379" title="Go to source code">setParcelMeasurements</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetParcelMeasurementsAction.html">Commercetools\Core\Request\Orders\Command\OrderSetParcelMeasurementsAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-measurements">https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-measurements</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setParcelTrackingData" id="_setParcelTrackingData">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setParcelTrackingData">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#381-390" title="Go to source code">setParcelTrackingData</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetParcelTrackingDataAction.html">Commercetools\Core\Request\Orders\Command\OrderSetParcelTrackingDataAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-tracking-data">https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-tracking-data</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setReturnPaymentState" id="_setReturnPaymentState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setReturnPaymentState">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#392-401" title="Go to source code">setReturnPaymentState</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetReturnPaymentStateAction.html">Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-returnpaymentstate">https://docs.commercetools.com/http-api-projects-orders.html#set-returnpaymentstate</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setReturnShipmentState" id="_setReturnShipmentState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setReturnShipmentState">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#403-412" title="Go to source code">setReturnShipmentState</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetReturnShipmentStateAction.html">Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-returnshipmentstate">https://docs.commercetools.com/http-api-projects-orders.html#set-returnshipmentstate</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setShippingAddress" id="_setShippingAddress">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setShippingAddress">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#414-423" title="Go to source code">setShippingAddress</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderSetShippingAddress.html">Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#set-shipping-address">https://docs.commercetools.com/http-api-projects-orders.html#set-shipping-address</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="transitionCustomLineItemState" id="_transitionCustomLineItemState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_transitionCustomLineItemState">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#425-434" title="Go to source code">transitionCustomLineItemState</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderTransitionCustomLineItemStateAction.html">Commercetools\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#change-the-state-of-customlineitem-according-to-allowed-transitions">https://docs.commercetools.com/http-api-projects-orders.html#change-the-state-of-customlineitem-according-to-allowed-transitions</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="transitionLineItemState" id="_transitionLineItemState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_transitionLineItemState">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#436-445" title="Go to source code">transitionLineItemState</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderTransitionLineItemStateAction.html">Commercetools\Core\Request\Orders\Command\OrderTransitionLineItemStateAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#change-the-state-of-lineitem-according-to-allowed-transitions">https://docs.commercetools.com/http-api-projects-orders.html#change-the-state-of-lineitem-according-to-allowed-transitions</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="transitionState" id="_transitionState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_transitionState">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#447-456" title="Go to source code">transitionState</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderTransitionStateAction.html">Commercetools\Core\Request\Orders\Command\OrderTransitionStateAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#transition-state">https://docs.commercetools.com/http-api-projects-orders.html#transition-state</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="updateItemShippingAddress" id="_updateItemShippingAddress">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_updateItemShippingAddress">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#458-467" title="Go to source code">updateItemShippingAddress</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderUpdateItemShippingAddressAction.html">Commercetools\Core\Request\Orders\Command\OrderUpdateItemShippingAddressAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#update-itemshippingaddress">https://docs.commercetools.com/http-api-projects-orders.html#update-itemshippingaddress</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="updateSyncInfo" id="_updateSyncInfo">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_updateSyncInfo">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#469-478" title="Go to source code">updateSyncInfo</a>( <span><code><a href="class-Commercetools.Core.Request.Orders.Command.OrderUpdateSyncInfoAction.html">Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction</a></code>|callable <var>$action</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-orders.html#update-syncinfo">https://docs.commercetools.com/http-api-projects-orders.html#update-syncinfo</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="of" id="_of">
+
+			<td class="attributes"><code>
+				 public static
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_of">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#480-486" title="Go to source code">of</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="addAction" id="_addAction">
+
+			<td class="attributes"><code>
+				 public 
+				$this;
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addAction">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#522-530" title="Go to source code">addAction</a>( <span><code><a href="class-Commercetools.Core.Request.AbstractAction.html">Commercetools\Core\Request\AbstractAction</a></code> <var>$action</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$action</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						$this;<br>$this;
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getActions" id="_getActions">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getActions">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#532-538" title="Go to source code">getActions</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setActions" id="_setActions">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setActions">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html#541-549" title="Go to source code">setActions</a>( <span>array <var>$actions</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$actions</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Update.OrdersActionBuilder.html">Commercetools\Core\Builder\Update\OrdersActionBuilder</a></code><br>$this
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+			</table>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
+<script src="elementlist.js?6b19b3f51fcef71a63cb5d292edc12061c26ce4d"></script>
+</body>
+</html>
