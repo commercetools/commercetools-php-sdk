@@ -143,6 +143,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.ApiClient.html">
+							ApiClient						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Cart.html">
 							Cart						</a>
 							</li>
@@ -183,6 +187,10 @@
 							DiscountCode						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Extension.html">
+							Extension						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Inventory.html">
 							Inventory						</a>
 							</li>
@@ -193,6 +201,10 @@
 					<li>
 						<a href="namespace-Commercetools.Core.Model.Order.html">
 							Order						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.OrderEdit.html">
+							OrderEdit						</a>
 							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Model.Payment.html">
@@ -258,6 +270,10 @@
 							Request<span></span>
 						</a>
 							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ApiClients.html">
+							ApiClients						</a>
+							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.CartDiscounts.html">
 							CartDiscounts<span></span>
@@ -343,6 +359,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.Extensions.html">
+							Extensions<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Extensions.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
 							GraphQL						</a>
 							</li>
@@ -364,6 +390,25 @@
 						<a href="namespace-Commercetools.Core.Request.Messages.html">
 							Messages						</a>
 							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.html">
+							OrderEdits<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.Command.html">
+							Command						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.StagedOrder.html">
+							StagedOrder<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.StagedOrder.Command.html">
+							Command						</a>
+							</li>
+								</ul></li></ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Orders.html">
 							Orders<span></span>
@@ -555,7 +600,7 @@
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Helper.html">Helper</a>\<a href="namespace-Commercetools.Core.Helper.Annotate.html">Annotate</a><br>
 
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Helper.Annotate.AnnotationGenerator.html#13-366" title="Go to source code">Core/Helper/Annotate/AnnotationGenerator.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Helper.Annotate.AnnotationGenerator.html#22-868" title="Go to source code">Core/Helper/Annotate/AnnotationGenerator.php</a>
 		<br>
 	</div>
 
@@ -575,7 +620,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_run">#</a>
-			<code><a href="source-class-Commercetools.Core.Helper.Annotate.AnnotationGenerator.html#25-31" title="Go to source code">run</a>( <span> <var>$path</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Helper.Annotate.AnnotationGenerator.html#39-45" title="Go to source code">run</a>( <span> <var>$path</var></span> )</code>
 
 			<div class="description short">
 				
@@ -604,7 +649,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_generateActionBuilder">#</a>
-			<code><a href="source-class-Commercetools.Core.Helper.Annotate.AnnotationGenerator.html#179-318" title="Go to source code">generateActionBuilder</a>( <span> <var>$domain</var></span>, <span> <var>$updates</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Helper.Annotate.AnnotationGenerator.html#233-400" title="Go to source code">generateActionBuilder</a>( <span> <var>$domain</var></span>, <span>array <var>$updates</var></span> )</code>
 
 			<div class="description short">
 				
@@ -633,7 +678,65 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_generateUpdateBuilder">#</a>
-			<code><a href="source-class-Commercetools.Core.Helper.Annotate.AnnotationGenerator.html#320-365" title="Go to source code">generateUpdateBuilder</a>( <span>array <var>$domains</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Helper.Annotate.AnnotationGenerator.html#402-446" title="Go to source code">generateUpdateBuilder</a>( <span>array <var>$domains</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="generateRequestBuilder" id="_generateRequestBuilder">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_generateRequestBuilder">#</a>
+			<code><a href="source-class-Commercetools.Core.Helper.Annotate.AnnotationGenerator.html#485-542" title="Go to source code">generateRequestBuilder</a>( <span>array <var>$domains</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="generateDomainRequestBuilder" id="_generateDomainRequestBuilder">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_generateDomainRequestBuilder">#</a>
+			<code><a href="source-class-Commercetools.Core.Helper.Annotate.AnnotationGenerator.html#544-867" title="Go to source code">generateDomainRequestBuilder</a>( <span> <var>$domain</var></span>, <span> <var>$requests</var></span> )</code>
 
 			<div class="description short">
 				
@@ -661,6 +764,108 @@
 
 
 
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Constants summary</h2></div>
+			<table class="summary table table-bordered table-striped constants" id="constants">
+			<tr data-order="PARAM_DOC_TYPE" id="PARAM_DOC_TYPE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-constant-PARAM_DOC_TYPE.html#24" title="Go to source code"><b>PARAM_DOC_TYPE</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARAM_DOC_TYPE" class="anchor">#</a>
+						<code><span class="php-quote">'doc_type'</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PARAM_TYPE" id="PARAM_TYPE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-constant-PARAM_TYPE.html#25" title="Go to source code"><b>PARAM_TYPE</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARAM_TYPE" class="anchor">#</a>
+						<code><span class="php-quote">'type'</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PARAM_NAME" id="PARAM_NAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-constant-PARAM_NAME.html#26" title="Go to source code"><b>PARAM_NAME</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARAM_NAME" class="anchor">#</a>
+						<code><span class="php-quote">'name'</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PARAM_DEFAULT" id="PARAM_DEFAULT">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-constant-PARAM_DEFAULT.html#27" title="Go to source code"><b>PARAM_DEFAULT</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARAM_DEFAULT" class="anchor">#</a>
+						<code><span class="php-quote">'default'</span></code>
+					</div>
+				</td>
+			</tr>
+			</table>
+		</div>
+
 
 
 
@@ -672,6 +877,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?d7c5ed67bb10f945429d18acaef63ebd70ba47d1"></script>
+<script src="elementlist.js?6b19b3f51fcef71a63cb5d292edc12061c26ce4d"></script>
 </body>
 </html>

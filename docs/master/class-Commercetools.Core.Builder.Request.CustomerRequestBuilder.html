@@ -143,6 +143,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.ApiClient.html">
+							ApiClient						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Cart.html">
 							Cart						</a>
 							</li>
@@ -183,6 +187,10 @@
 							DiscountCode						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Extension.html">
+							Extension						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Inventory.html">
 							Inventory						</a>
 							</li>
@@ -193,6 +201,10 @@
 					<li>
 						<a href="namespace-Commercetools.Core.Model.Order.html">
 							Order						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.OrderEdit.html">
+							OrderEdit						</a>
 							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Model.Payment.html">
@@ -258,6 +270,10 @@
 							Request<span></span>
 						</a>
 							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ApiClients.html">
+							ApiClients						</a>
+							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.CartDiscounts.html">
 							CartDiscounts<span></span>
@@ -343,6 +359,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.Extensions.html">
+							Extensions<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Extensions.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
 							GraphQL						</a>
 							</li>
@@ -364,6 +390,25 @@
 						<a href="namespace-Commercetools.Core.Request.Messages.html">
 							Messages						</a>
 							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.html">
+							OrderEdits<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.Command.html">
+							Command						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.StagedOrder.html">
+							StagedOrder<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.StagedOrder.Command.html">
+							Command						</a>
+							</li>
+								</ul></li></ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Orders.html">
 							Orders<span></span>
@@ -520,6 +565,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Commercetools.Core.Builder.Request.ApiClientRequestBuilder.html">ApiClientRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html">CartDiscountRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.CartRequestBuilder.html">CartRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.CategoryRequestBuilder.html">CategoryRequestBuilder</a></li>
@@ -528,12 +574,14 @@
 				<li class="active"><a href="class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html">CustomerRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.CustomObjectRequestBuilder.html">CustomObjectRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.DiscountCodeRequestBuilder.html">DiscountCodeRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.ExtensionRequestBuilder.html">ExtensionRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.GraphQLRequestBuilder.html">GraphQLRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.InventoryRequestBuilder.html">InventoryRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.MeCartRequestBuilder.html">MeCartRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.MeOrderRequestBuilder.html">MeOrderRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.MeRequestBuilder.html">MeRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.MessageRequestBuilder.html">MessageRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.OrderEditRequestBuilder.html">OrderEditRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.OrderRequestBuilder.html">OrderRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.PaymentRequestBuilder.html">PaymentRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.ProductDiscountRequestBuilder.html">ProductDiscountRequestBuilder</a></li>
@@ -582,7 +630,7 @@
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Builder.html">Builder</a>\<a href="namespace-Commercetools.Core.Builder.Request.html">Request</a><br>
 
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#27-188" title="Go to source code">Core/Builder/Request/CustomerRequestBuilder.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#24-227" title="Go to source code">Core/Builder/Request/CustomerRequestBuilder.php</a>
 		<br>
 	</div>
 
@@ -591,51 +639,18 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Methods summary</h2></div>
 			<table class="summary table table-bordered table-striped methods" id="methods">
-		<tr data-order="query" id="_query">
+		<tr data-order="getByEmailToken" id="_getByEmailToken">
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.CustomerQueryRequest.html">Commercetools\Core\Request\Customers\CustomerQueryRequest</a></code>
+				<code><a href="class-Commercetools.Core.Request.Customers.CustomerByEmailTokenGetRequest.html">Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_query">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#29-35" title="Go to source code">query</a>( )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.CustomerQueryRequest.html">Commercetools\Core\Request\Customers\CustomerQueryRequest</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="update" id="_update">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.CustomerUpdateRequest.html">Commercetools\Core\Request\Customers\CustomerUpdateRequest</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_update">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#37-44" title="Go to source code">update</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.Customer.html">Commercetools\Core\Model\Customer\Customer</a></code> <var>$customer</var></span> )</code>
+			<a class="anchor" href="#_getByEmailToken">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#27-36" title="Go to source code">getByEmailToken</a>( <span>string <var>$token</var></span> )</code>
 
 			<div class="description short">
 				
@@ -647,33 +662,37 @@
 
 					<h4>Parameters</h4>
 					<div class="list"><dl>
-						<dt><var>$customer</var></dt>
+						<dt><var>$token</var></dt>
 						<dd></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.CustomerUpdateRequest.html">Commercetools\Core\Request\Customers\CustomerUpdateRequest</a></code>
+						<code><a href="class-Commercetools.Core.Request.Customers.CustomerByEmailTokenGetRequest.html">Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest</a></code>
 					</div>
 
 
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-email-token">https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-email-token</a><br>
+					</div>
 
 
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="updateByKey" id="_updateByKey">
+		<tr data-order="getById" id="_getById">
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.CustomerUpdateByKeyRequest.html">Commercetools\Core\Request\Customers\CustomerUpdateByKeyRequest</a></code>
+				<code><a href="class-Commercetools.Core.Request.Customers.CustomerByIdGetRequest.html">Commercetools\Core\Request\Customers\CustomerByIdGetRequest</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_updateByKey">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#46-53" title="Go to source code">updateByKey</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.Customer.html">Commercetools\Core\Model\Customer\Customer</a></code> <var>$customer</var></span> )</code>
+			<a class="anchor" href="#_getById">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#38-47" title="Go to source code">getById</a>( <span>string <var>$id</var></span> )</code>
 
 			<div class="description short">
 				
@@ -685,16 +704,104 @@
 
 					<h4>Parameters</h4>
 					<div class="list"><dl>
-						<dt><var>$customer</var></dt>
+						<dt><var>$id</var></dt>
 						<dd></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.CustomerUpdateByKeyRequest.html">Commercetools\Core\Request\Customers\CustomerUpdateByKeyRequest</a></code>
+						<code><a href="class-Commercetools.Core.Request.Customers.CustomerByIdGetRequest.html">Commercetools\Core\Request\Customers\CustomerByIdGetRequest</a></code>
 					</div>
 
 
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-id">https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-id</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getByKey" id="_getByKey">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Customers.CustomerByKeyGetRequest.html">Commercetools\Core\Request\Customers\CustomerByKeyGetRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getByKey">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#49-58" title="Go to source code">getByKey</a>( <span>string <var>$key</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$key</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Customers.CustomerByKeyGetRequest.html">Commercetools\Core\Request\Customers\CustomerByKeyGetRequest</a></code>
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-key">https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-key</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getByPasswordToken" id="_getByPasswordToken">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html">Commercetools\Core\Request\Customers\CustomerByTokenGetRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getByPasswordToken">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#60-69" title="Go to source code">getByPasswordToken</a>( <span>string <var>$tokenValue</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$tokenValue</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html">Commercetools\Core\Request\Customers\CustomerByTokenGetRequest</a></code>
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-password-token">https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-password-token</a><br>
+					</div>
 
 
 			</div>
@@ -711,45 +818,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_create">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#55-62" title="Go to source code">create</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.CustomerDraft.html">Commercetools\Core\Model\Customer\CustomerDraft</a></code> <var>$customerDraft</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$customerDraft</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.CustomerCreateRequest.html">Commercetools\Core\Request\Customers\CustomerCreateRequest</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="delete" id="_delete">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.CustomerDeleteRequest.html">Commercetools\Core\Request\Customers\CustomerDeleteRequest</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_delete">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#64-71" title="Go to source code">delete</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.Customer.html">Commercetools\Core\Model\Customer\Customer</a></code> <var>$customer</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#71-80" title="Go to source code">create</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.CustomerDraft.html">Commercetools\Core\Model\Customer\CustomerDraft</a></code> <var>$customer</var></span> )</code>
 
 			<div class="description short">
 				
@@ -767,10 +836,14 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.CustomerDeleteRequest.html">Commercetools\Core\Request\Customers\CustomerDeleteRequest</a></code>
+						<code><a href="class-Commercetools.Core.Request.Customers.CustomerCreateRequest.html">Commercetools\Core\Request\Customers\CustomerCreateRequest</a></code>
 					</div>
 
 
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#create-customer-sign-up">https://docs.commercetools.com/http-api-projects-customers.html#create-customer-sign-up</a><br>
+					</div>
 
 
 			</div>
@@ -787,7 +860,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_deleteByKey">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#73-80" title="Go to source code">deleteByKey</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.Customer.html">Commercetools\Core\Model\Customer\Customer</a></code> <var>$customer</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#82-91" title="Go to source code">deleteByKey</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.Customer.html">Commercetools\Core\Model\Customer\Customer</a></code> <var>$customer</var></span> )</code>
 
 			<div class="description short">
 				
@@ -809,6 +882,138 @@
 					</div>
 
 
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#delete-customer-by-key">https://docs.commercetools.com/http-api-projects-customers.html#delete-customer-by-key</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="delete" id="_delete">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Customers.CustomerDeleteRequest.html">Commercetools\Core\Request\Customers\CustomerDeleteRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_delete">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#93-102" title="Go to source code">delete</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.Customer.html">Commercetools\Core\Model\Customer\Customer</a></code> <var>$customer</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$customer</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Customers.CustomerDeleteRequest.html">Commercetools\Core\Request\Customers\CustomerDeleteRequest</a></code>
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#delete-customer">https://docs.commercetools.com/http-api-projects-customers.html#delete-customer</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="confirmEmail" id="_confirmEmail">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Customers.CustomerEmailConfirmRequest.html">Commercetools\Core\Request\Customers\CustomerEmailConfirmRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_confirmEmail">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#104-113" title="Go to source code">confirmEmail</a>( <span>string <var>$tokenValue</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$tokenValue</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Customers.CustomerEmailConfirmRequest.html">Commercetools\Core\Request\Customers\CustomerEmailConfirmRequest</a></code>
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#verify-customers-email">https://docs.commercetools.com/http-api-projects-customers.html#verify-customers-email</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="createEmailVerificationToken" id="_createEmailVerificationToken">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Customers.CustomerEmailTokenRequest.html">Commercetools\Core\Request\Customers\CustomerEmailTokenRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_createEmailVerificationToken">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#115-125" title="Go to source code">createEmailVerificationToken</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.Customer.html">Commercetools\Core\Model\Customer\Customer</a></code> <var>$customer</var></span>, <span>integer <var>$ttlMinutes</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$customer</var></dt>
+						<dd></dd>
+						<dt><var>$ttlMinutes</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Customers.CustomerEmailTokenRequest.html">Commercetools\Core\Request\Customers\CustomerEmailTokenRequest</a></code>
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#create-a-token-for-verifying-the-customers-email">https://docs.commercetools.com/http-api-projects-customers.html#create-a-token-for-verifying-the-customers-email</a><br>
+					</div>
 
 
 			</div>
@@ -825,7 +1030,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_login">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#82-97" title="Go to source code">login</a>( <span>string <var>$email</var></span>, <span>string <var>$password</var></span>, <span>boolean <var>$updateProductData</var> = <span class="php-keyword1">false</span></span>, <span>string <var>$anonymousCartId</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#127-144" title="Go to source code">login</a>( <span>string <var>$email</var></span>, <span>string <var>$password</var></span>, <span>boolean <var>$updateProductData</var> = <span class="php-keyword1">false</span></span>, <span>string <var>$anonymousCartId</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -853,6 +1058,10 @@
 					</div>
 
 
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#authenticate-customer-sign-in">https://docs.commercetools.com/http-api-projects-customers.html#authenticate-customer-sign-in</a><br>
+					</div>
 
 
 			</div>
@@ -869,7 +1078,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_changePassword">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#99-113" title="Go to source code">changePassword</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.Customer.html">Commercetools\Core\Model\Customer\Customer</a></code> <var>$customer</var></span>, <span>string <var>$currentPassword</var></span>, <span>string <var>$newPassword</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#146-162" title="Go to source code">changePassword</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.Customer.html">Commercetools\Core\Model\Customer\Customer</a></code> <var>$customer</var></span>, <span>string <var>$currentPassword</var></span>, <span>string <var>$newPassword</var></span> )</code>
 
 			<div class="description short">
 				
@@ -895,44 +1104,10 @@
 					</div>
 
 
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="createResetPasswordToken" id="_createResetPasswordToken">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.CustomerPasswordTokenRequest.html">Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_createResetPasswordToken">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#115-122" title="Go to source code">createResetPasswordToken</a>( <span>string <var>$email</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$email</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
+					<h4>Link</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.CustomerPasswordTokenRequest.html">Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest</a></code>
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#change-customers-password">https://docs.commercetools.com/http-api-projects-customers.html#change-customers-password</a><br>
 					</div>
-
-
 
 
 			</div>
@@ -949,7 +1124,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_resetPassword">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#124-132" title="Go to source code">resetPassword</a>( <span>string <var>$tokenValue</var></span>, <span>string <var>$newPassword</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#164-174" title="Go to source code">resetPassword</a>( <span>string <var>$tokenValue</var></span>, <span>string <var>$newPassword</var></span> )</code>
 
 			<div class="description short">
 				
@@ -973,23 +1148,106 @@
 					</div>
 
 
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#customers-password-reset">https://docs.commercetools.com/http-api-projects-customers.html#customers-password-reset</a><br>
+					</div>
 
 
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="createEmailVerificationToken" id="_createEmailVerificationToken">
+		<tr data-order="createResetPasswordToken" id="_createResetPasswordToken">
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.CustomerEmailTokenRequest.html">Commercetools\Core\Request\Customers\CustomerEmailTokenRequest</a></code>
+				<code><a href="class-Commercetools.Core.Request.Customers.CustomerPasswordTokenRequest.html">Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_createEmailVerificationToken">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#134-142" title="Go to source code">createEmailVerificationToken</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.Customer.html">Commercetools\Core\Model\Customer\Customer</a></code> <var>$customer</var></span>, <span>integer <var>$ttlMinutes</var></span> )</code>
+			<a class="anchor" href="#_createResetPasswordToken">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#176-185" title="Go to source code">createResetPasswordToken</a>( <span>string <var>$email</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$email</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Customers.CustomerPasswordTokenRequest.html">Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest</a></code>
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#create-a-token-for-resetting-the-customers-password">https://docs.commercetools.com/http-api-projects-customers.html#create-a-token-for-resetting-the-customers-password</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="query" id="_query">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Customers.CustomerQueryRequest.html">Commercetools\Core\Request\Customers\CustomerQueryRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_query">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#187-196" title="Go to source code">query</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Customers.CustomerQueryRequest.html">Commercetools\Core\Request\Customers\CustomerQueryRequest</a></code>
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-id">https://docs.commercetools.com/http-api-projects-customers.html#get-customer-by-id</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="updateByKey" id="_updateByKey">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Customers.CustomerUpdateByKeyRequest.html">Commercetools\Core\Request\Customers\CustomerUpdateByKeyRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_updateByKey">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#198-207" title="Go to source code">updateByKey</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.Customer.html">Commercetools\Core\Model\Customer\Customer</a></code> <var>$customer</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1003,33 +1261,35 @@
 					<div class="list"><dl>
 						<dt><var>$customer</var></dt>
 						<dd></dd>
-						<dt><var>$ttlMinutes</var></dt>
-						<dd></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.CustomerEmailTokenRequest.html">Commercetools\Core\Request\Customers\CustomerEmailTokenRequest</a></code>
+						<code><a href="class-Commercetools.Core.Request.Customers.CustomerUpdateByKeyRequest.html">Commercetools\Core\Request\Customers\CustomerUpdateByKeyRequest</a></code>
 					</div>
 
 
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#update-customer-by-key">https://docs.commercetools.com/http-api-projects-customers.html#update-customer-by-key</a><br>
+					</div>
 
 
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="confirmEmail" id="_confirmEmail">
+		<tr data-order="update" id="_update">
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.CustomerEmailConfirmRequest.html">Commercetools\Core\Request\Customers\CustomerEmailConfirmRequest</a></code>
+				<code><a href="class-Commercetools.Core.Request.Customers.CustomerUpdateRequest.html">Commercetools\Core\Request\Customers\CustomerUpdateRequest</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_confirmEmail">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#144-151" title="Go to source code">confirmEmail</a>( <span>string <var>$tokenValue</var></span> )</code>
+			<a class="anchor" href="#_update">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#209-218" title="Go to source code">update</a>( <span><code><a href="class-Commercetools.Core.Model.Customer.Customer.html">Commercetools\Core\Model\Customer\Customer</a></code> <var>$customer</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1041,33 +1301,37 @@
 
 					<h4>Parameters</h4>
 					<div class="list"><dl>
-						<dt><var>$tokenValue</var></dt>
+						<dt><var>$customer</var></dt>
 						<dd></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.CustomerEmailConfirmRequest.html">Commercetools\Core\Request\Customers\CustomerEmailConfirmRequest</a></code>
+						<code><a href="class-Commercetools.Core.Request.Customers.CustomerUpdateRequest.html">Commercetools\Core\Request\Customers\CustomerUpdateRequest</a></code>
 					</div>
 
 
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-customers.html#update-customer">https://docs.commercetools.com/http-api-projects-customers.html#update-customer</a><br>
+					</div>
 
 
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="getById" id="_getById">
+		<tr data-order="of" id="_of">
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.CustomerByIdGetRequest.html">Commercetools\Core\Request\Customers\CustomerByIdGetRequest</a></code>
+				<code><a href="class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html">Commercetools\Core\Builder\Request\CustomerRequestBuilder</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_getById">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#153-160" title="Go to source code">getById</a>( <span>string <var>$id</var></span> )</code>
+			<a class="anchor" href="#_of">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#220-226" title="Go to source code">of</a>( )</code>
 
 			<div class="description short">
 				
@@ -1077,129 +1341,10 @@
 				
 
 
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$id</var></dt>
-						<dd></dd>
-					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.CustomerByIdGetRequest.html">Commercetools\Core\Request\Customers\CustomerByIdGetRequest</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getByKey" id="_getByKey">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.CustomerByKeyGetRequest.html">Commercetools\Core\Request\Customers\CustomerByKeyGetRequest</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_getByKey">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#162-169" title="Go to source code">getByKey</a>( <span>string <var>$key</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$key</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.CustomerByKeyGetRequest.html">Commercetools\Core\Request\Customers\CustomerByKeyGetRequest</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getByPasswordToken" id="_getByPasswordToken">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html">Commercetools\Core\Request\Customers\CustomerByTokenGetRequest</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_getByPasswordToken">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#171-178" title="Go to source code">getByPasswordToken</a>( <span>string <var>$tokenValue</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$tokenValue</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.CustomerByTokenGetRequest.html">Commercetools\Core\Request\Customers\CustomerByTokenGetRequest</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getByEmailToken" id="_getByEmailToken">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Request.Customers.CustomerByEmailTokenGetRequest.html">Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_getByEmailToken">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html#180-187" title="Go to source code">getByEmailToken</a>( <span>string <var>$tokenValue</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$tokenValue</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Customers.CustomerByEmailTokenGetRequest.html">Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest</a></code>
+						<code><a href="class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html">Commercetools\Core\Builder\Request\CustomerRequestBuilder</a></code>
 					</div>
 
 
@@ -1229,6 +1374,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?d7c5ed67bb10f945429d18acaef63ebd70ba47d1"></script>
+<script src="elementlist.js?6b19b3f51fcef71a63cb5d292edc12061c26ce4d"></script>
 </body>
 </html>

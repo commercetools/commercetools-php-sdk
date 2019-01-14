@@ -143,6 +143,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.ApiClient.html">
+							ApiClient						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Cart.html">
 							Cart						</a>
 							</li>
@@ -183,6 +187,10 @@
 							DiscountCode						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Extension.html">
+							Extension						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Inventory.html">
 							Inventory						</a>
 							</li>
@@ -193,6 +201,10 @@
 					<li>
 						<a href="namespace-Commercetools.Core.Model.Order.html">
 							Order						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.OrderEdit.html">
+							OrderEdit						</a>
 							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Model.Payment.html">
@@ -258,6 +270,10 @@
 							Request<span></span>
 						</a>
 							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ApiClients.html">
+							ApiClients						</a>
+							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.CartDiscounts.html">
 							CartDiscounts<span></span>
@@ -343,6 +359,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.Extensions.html">
+							Extensions<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Extensions.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
 							GraphQL						</a>
 							</li>
@@ -364,6 +390,25 @@
 						<a href="namespace-Commercetools.Core.Request.Messages.html">
 							Messages						</a>
 							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.html">
+							OrderEdits<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.Command.html">
+							Command						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.StagedOrder.html">
+							StagedOrder<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.StagedOrder.Command.html">
+							Command						</a>
+							</li>
+								</ul></li></ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Orders.html">
 							Orders<span></span>
@@ -520,6 +565,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Commercetools.Core.Builder.Request.ApiClientRequestBuilder.html">ApiClientRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html">CartDiscountRequestBuilder</a></li>
 				<li class="active"><a href="class-Commercetools.Core.Builder.Request.CartRequestBuilder.html">CartRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.CategoryRequestBuilder.html">CategoryRequestBuilder</a></li>
@@ -528,12 +574,14 @@
 				<li><a href="class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html">CustomerRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.CustomObjectRequestBuilder.html">CustomObjectRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.DiscountCodeRequestBuilder.html">DiscountCodeRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.ExtensionRequestBuilder.html">ExtensionRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.GraphQLRequestBuilder.html">GraphQLRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.InventoryRequestBuilder.html">InventoryRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.MeCartRequestBuilder.html">MeCartRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.MeOrderRequestBuilder.html">MeOrderRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.MeRequestBuilder.html">MeRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.MessageRequestBuilder.html">MessageRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.OrderEditRequestBuilder.html">OrderEditRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.OrderRequestBuilder.html">OrderRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.PaymentRequestBuilder.html">PaymentRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.ProductDiscountRequestBuilder.html">ProductDiscountRequestBuilder</a></li>
@@ -582,7 +630,7 @@
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Builder.html">Builder</a>\<a href="namespace-Commercetools.Core.Builder.Request.html">Request</a><br>
 
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#18-77" title="Go to source code">Core/Builder/Request/CartRequestBuilder.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#15-102" title="Go to source code">Core/Builder/Request/CartRequestBuilder.php</a>
 		<br>
 	</div>
 
@@ -591,191 +639,6 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Methods summary</h2></div>
 			<table class="summary table table-bordered table-striped methods" id="methods">
-		<tr data-order="query" id="_query">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Request.Carts.CartQueryRequest.html">Commercetools\Core\Request\Carts\CartQueryRequest</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_query">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#20-26" title="Go to source code">query</a>( )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Carts.CartQueryRequest.html">Commercetools\Core\Request\Carts\CartQueryRequest</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="update" id="_update">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Request.Carts.CartUpdateRequest.html">Commercetools\Core\Request\Carts\CartUpdateRequest</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_update">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#28-35" title="Go to source code">update</a>( <span><code><a href="class-Commercetools.Core.Model.Cart.Cart.html">Commercetools\Core\Model\Cart\Cart</a></code> <var>$cart</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$cart</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Carts.CartUpdateRequest.html">Commercetools\Core\Request\Carts\CartUpdateRequest</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="create" id="_create">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Request.Carts.CartCreateRequest.html">Commercetools\Core\Request\Carts\CartCreateRequest</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_create">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#37-44" title="Go to source code">create</a>( <span><code><a href="class-Commercetools.Core.Model.Cart.CartDraft.html">Commercetools\Core\Model\Cart\CartDraft</a></code> <var>$cartDraft</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$cartDraft</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Carts.CartCreateRequest.html">Commercetools\Core\Request\Carts\CartCreateRequest</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="delete" id="_delete">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Request.Carts.CartDeleteRequest.html">Commercetools\Core\Request\Carts\CartDeleteRequest</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_delete">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#46-53" title="Go to source code">delete</a>( <span><code><a href="class-Commercetools.Core.Model.Cart.Cart.html">Commercetools\Core\Model\Cart\Cart</a></code> <var>$cart</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$cart</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Carts.CartDeleteRequest.html">Commercetools\Core\Request\Carts\CartDeleteRequest</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getById" id="_getById">
-
-			<td class="attributes"><code>
-				 public 
-				<code><a href="class-Commercetools.Core.Request.Carts.CartByIdGetRequest.html">Commercetools\Core\Request\Carts\CartByIdGetRequest</a></code>
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_getById">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#55-62" title="Go to source code">getById</a>( <span>string <var>$id</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$id</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code><a href="class-Commercetools.Core.Request.Carts.CartByIdGetRequest.html">Commercetools\Core\Request\Carts\CartByIdGetRequest</a></code>
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
 		<tr data-order="getByCustomerId" id="_getByCustomerId">
 
 			<td class="attributes"><code>
@@ -787,7 +650,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getByCustomerId">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#64-71" title="Go to source code">getByCustomerId</a>( <span>string <var>$customerId</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#18-27" title="Go to source code">getByCustomerId</a>( <span>string <var>$customerId</var></span> )</code>
 
 			<div class="description short">
 				
@@ -809,23 +672,153 @@
 					</div>
 
 
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-carts.html#get-cart-by-customer-id">https://docs.commercetools.com/http-api-projects-carts.html#get-cart-by-customer-id</a><br>
+					</div>
 
 
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="replicate" id="_replicate">
+		<tr data-order="getById" id="_getById">
 
 			<td class="attributes"><code>
 				 public 
-				
+				<code><a href="class-Commercetools.Core.Request.Carts.CartByIdGetRequest.html">Commercetools\Core\Request\Carts\CartByIdGetRequest</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_replicate">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#73-76" title="Go to source code">replicate</a>( <span> <var>$cartId</var></span> )</code>
+			<a class="anchor" href="#_getById">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#29-38" title="Go to source code">getById</a>( <span>string <var>$id</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Carts.CartByIdGetRequest.html">Commercetools\Core\Request\Carts\CartByIdGetRequest</a></code>
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-carts.html#get-cart-by-id">https://docs.commercetools.com/http-api-projects-carts.html#get-cart-by-id</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="create" id="_create">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Carts.CartCreateRequest.html">Commercetools\Core\Request\Carts\CartCreateRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_create">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#40-49" title="Go to source code">create</a>( <span><code><a href="class-Commercetools.Core.Model.Cart.CartDraft.html">Commercetools\Core\Model\Cart\CartDraft</a></code> <var>$cartDraft</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$cartDraft</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Carts.CartCreateRequest.html">Commercetools\Core\Request\Carts\CartCreateRequest</a></code>
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-carts.html#create-cart">https://docs.commercetools.com/http-api-projects-carts.html#create-cart</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="delete" id="_delete">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Carts.CartDeleteRequest.html">Commercetools\Core\Request\Carts\CartDeleteRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_delete">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#51-60" title="Go to source code">delete</a>( <span><code><a href="class-Commercetools.Core.Model.Cart.Cart.html">Commercetools\Core\Model\Cart\Cart</a></code> <var>$cart</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$cart</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Carts.CartDeleteRequest.html">Commercetools\Core\Request\Carts\CartDeleteRequest</a></code>
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-carts.html#delete-cart">https://docs.commercetools.com/http-api-projects-carts.html#delete-cart</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="query" id="_query">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Carts.CartQueryRequest.html">Commercetools\Core\Request\Carts\CartQueryRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_query">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#62-71" title="Go to source code">query</a>( )</code>
 
 			<div class="description short">
 				
@@ -836,6 +829,131 @@
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Carts.CartQueryRequest.html">Commercetools\Core\Request\Carts\CartQueryRequest</a></code>
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-carts.html#query-carts">https://docs.commercetools.com/http-api-projects-carts.html#query-carts</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="replicate" id="_replicate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Carts.CartReplicateRequest.html">Commercetools\Core\Request\Carts\CartReplicateRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_replicate">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#73-82" title="Go to source code">replicate</a>( <span>string <var>$cartId</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$cartId</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Carts.CartReplicateRequest.html">Commercetools\Core\Request\Carts\CartReplicateRequest</a></code>
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-carts.html#replicate-existing-cart-or-order-to-a-new-cart">https://docs.commercetools.com/http-api-projects-carts.html#replicate-existing-cart-or-order-to-a-new-cart</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="update" id="_update">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Carts.CartUpdateRequest.html">Commercetools\Core\Request\Carts\CartUpdateRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_update">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#84-93" title="Go to source code">update</a>( <span><code><a href="class-Commercetools.Core.Model.Cart.Cart.html">Commercetools\Core\Model\Cart\Cart</a></code> <var>$cart</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$cart</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Carts.CartUpdateRequest.html">Commercetools\Core\Request\Carts\CartUpdateRequest</a></code>
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="https://docs.commercetools.com/http-api-projects-carts.html#update-cart">https://docs.commercetools.com/http-api-projects-carts.html#update-cart</a><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="of" id="_of">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.CartRequestBuilder.html">Commercetools\Core\Builder\Request\CartRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_of">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartRequestBuilder.html#95-101" title="Go to source code">of</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.CartRequestBuilder.html">Commercetools\Core\Builder\Request\CartRequestBuilder</a></code>
+					</div>
 
 
 
@@ -864,6 +982,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?d7c5ed67bb10f945429d18acaef63ebd70ba47d1"></script>
+<script src="elementlist.js?6b19b3f51fcef71a63cb5d292edc12061c26ce4d"></script>
 </body>
 </html>
