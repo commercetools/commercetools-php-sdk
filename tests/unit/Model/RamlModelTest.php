@@ -600,6 +600,7 @@ class RamlModelTest extends AbstractModelTest
             'Product\FacetResultRange' => 'Product\FacetRange',
             'Product\FacetResultTerm' => 'Product\FacetTerm',
             'Message\MessageConfiguration' => 'Message\MessagesConfiguration',
+            'Message\OrderPaymentStateChangedMessage' => 'Message\OrderPaymentChangedMessage',
             'Order\PaymentInfo' => 'Payment\PaymentInfo',
             'Cart\ExternalTaxRateDraft' => 'TaxCategory\ExternalTaxRateDraft',
             'Type\CustomFields' => 'CustomField\CustomFieldObject',
