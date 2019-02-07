@@ -34,7 +34,7 @@ class ProductImageUploadRequestTest extends ApiTestCase
             $file
         );
 
-        $response = $request->executeWithClient($this->getClient());
+        $response = $this->getClient()->execute($request, null, ['timeout' => 60]);
         $product = $request->mapResponse($response);
         TestHelper::getInstance($this->getClient())->setProduct($product);
 
