@@ -4,6 +4,7 @@ namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Request\Subscriptions\Command\SubscriptionChangeDestinationAction;
 use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetChangesAction;
 use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetKeyAction;
 use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetMessagesAction;
@@ -11,6 +12,17 @@ use Commercetools\Core\Request\Subscriptions\Command\SubscriptionSetMessagesActi
 class SubscriptionsActionBuilder
 {
     private $actions = [];
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#change-destination
+     * @param SubscriptionChangeDestinationAction|callable $action
+     * @return $this
+     */
+    public function changeDestination($action = null)
+    {
+        $this->addAction($this->resolveAction(SubscriptionChangeDestinationAction::class, $action));
+        return $this;
+    }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-subscriptions.html#set-changes
