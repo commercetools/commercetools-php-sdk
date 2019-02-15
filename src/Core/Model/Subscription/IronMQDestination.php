@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Context;
 /**
  * @package Commercetools\Core\Model\Subscription
  *
+ * @deprecated
  * @method string getType()
  * @method IronMQDestination setType(string $type = null)
  * @method string getUri()
