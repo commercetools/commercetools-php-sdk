@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\ShippingMethods;
 
+use Commercetools\Core\Request\ExpandTrait;
 use Commercetools\Core\Response\ResourceResponse;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\HttpMethod;
@@ -24,6 +25,8 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ShippingMethodByCartIdGetRequest extends AbstractApiRequest
 {
+    use ExpandTrait;
+
     protected $resultClass = ShippingMethodCollection::class;
 
     /**

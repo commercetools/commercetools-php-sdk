@@ -15,6 +15,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingRate;
 use Commercetools\Core\Model\ShippingMethod\ShippingRateCollection;
 use Commercetools\Core\Model\ShippingMethod\ZoneRate;
 use Commercetools\Core\Model\ShippingMethod\ZoneRateCollection;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByIdGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByLocationGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
@@ -92,11 +93,13 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
         $shippingMethod = $this->createShippingMethod($draft);
 
         $request = ShippingMethodByLocationGetRequest::ofCountry('DE')->withState($this->getRegion());
+        $request->expand('taxCategory.id');
         $response = $request->executeWithClient($this->getClient(), ['X-Vrap-Disable-Validation' => 'response']);
         $result = $request->mapResponse($response);
 
         $this->assertTrue($result->current()->getZoneRates()->current()->getShippingRates()->current()->getIsMatching());
         $this->assertInstanceOf(ShippingMethodCollection::class, $result);
         $this->assertSame($shippingMethod->getId(), $result->current()->getId());
+        $this->assertInstanceOf(TaxCategory::class, $result->current()->getTaxCategory()->getObj());
     }
 }
