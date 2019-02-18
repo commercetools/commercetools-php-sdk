@@ -42,6 +42,22 @@ class CustomerPasswordTokenRequestTest extends RequestTestCase
         );
     }
 
+    public function testHttpRequestObjectWithTtlMinutes()
+    {
+        $request = CustomerPasswordTokenRequest::ofEmailAndTtlMinutes('john.doe@company.com', 50);
+        $httpRequest = $request->httpRequest();
+
+        $this->assertJsonStringEqualsJsonString(
+            json_encode(
+                [
+                    'email' => 'john.doe@company.com',
+                    'ttlMinutes' => 50
+                ]
+            ),
+            (string)$httpRequest->getBody()
+        );
+    }
+
     public function testBuildResponse()
     {
         $mockBuilder = $this->getMockBuilder('\GuzzleHttp\Psr7\Response');
