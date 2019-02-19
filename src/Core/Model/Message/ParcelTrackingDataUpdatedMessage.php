@@ -38,6 +38,10 @@ use DateTime;
  * @method ParcelTrackingDataUpdatedMessage setParcelId(string $parcelId = null)
  * @method TrackingData getTrackingData()
  * @method ParcelTrackingDataUpdatedMessage setTrackingData(TrackingData $trackingData = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ParcelTrackingDataUpdatedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ParcelTrackingDataUpdatedMessage extends Message
 {

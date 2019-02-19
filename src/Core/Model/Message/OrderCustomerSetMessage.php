@@ -38,6 +38,10 @@ use Commercetools\Core\Model\Common\Reference;
  * @method OrderCustomerSetMessage setOldCustomer(CustomerReference $oldCustomer = null)
  * @method CustomerGroupReference getOldCustomerGroup()
  * @method OrderCustomerSetMessage setOldCustomerGroup(CustomerGroupReference $oldCustomerGroup = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method OrderCustomerSetMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class OrderCustomerSetMessage extends Message
 {

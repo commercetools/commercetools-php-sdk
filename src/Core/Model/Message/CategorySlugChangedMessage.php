@@ -32,6 +32,10 @@ use DateTime;
  * @method CategorySlugChangedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method CategorySlugChangedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method CategorySlugChangedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class CategorySlugChangedMessage extends Message
 {

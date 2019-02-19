@@ -32,6 +32,10 @@ use Commercetools\Core\Model\Common\Reference;
  * @method PaymentTransactionChangedMessage setTransactionId(string $transactionId = null)
  * @method string getState()
  * @method PaymentTransactionChangedMessage setState(string $state = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method PaymentTransactionChangedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class PaymentTransactionChangedMessage extends PaymentTransactionStateChangedMessage
 {

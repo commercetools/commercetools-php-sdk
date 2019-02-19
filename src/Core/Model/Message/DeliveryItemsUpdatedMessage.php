@@ -34,6 +34,10 @@ use DateTime;
  * @method DeliveryItemsUpdatedMessage setDeliveryId(string $deliveryId = null)
  * @method DeliveryItemCollection getItems()
  * @method DeliveryItemsUpdatedMessage setItems(DeliveryItemCollection $items = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method DeliveryItemsUpdatedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class DeliveryItemsUpdatedMessage extends Message
 {

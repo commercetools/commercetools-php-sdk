@@ -37,6 +37,10 @@ use DateTime;
  * @method ParcelItemsUpdatedMessage setParcelId(string $parcelId = null)
  * @method DeliveryItemCollection getItems()
  * @method ParcelItemsUpdatedMessage setItems(DeliveryItemCollection $items = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ParcelItemsUpdatedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ParcelItemsUpdatedMessage extends Message
 {

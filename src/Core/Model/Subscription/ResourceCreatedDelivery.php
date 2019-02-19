@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Subscription;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
 use DateTime;
+use Commercetools\Core\Model\Message\UserProvidedIdentifiers;
 
 /**
  * @package Commercetools\Core\Model\Subscription
@@ -21,6 +22,10 @@ use DateTime;
  * @method ResourceCreatedDelivery setVersion(int $version = null)
  * @method DateTimeDecorator getModifiedAt()
  * @method ResourceCreatedDelivery setModifiedAt(DateTime $modifiedAt = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ResourceCreatedDelivery setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ResourceCreatedDelivery extends Delivery
 {

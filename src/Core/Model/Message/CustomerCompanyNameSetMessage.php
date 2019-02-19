@@ -30,6 +30,10 @@ use Commercetools\Core\Model\Common\Reference;
  * @method CustomerCompanyNameSetMessage setType(string $type = null)
  * @method string getCompanyName()
  * @method CustomerCompanyNameSetMessage setCompanyName(string $companyName = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method CustomerCompanyNameSetMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class CustomerCompanyNameSetMessage extends Message
 {

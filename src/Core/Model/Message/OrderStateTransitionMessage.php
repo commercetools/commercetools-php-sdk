@@ -33,6 +33,10 @@ use DateTime;
  * @method OrderStateTransitionMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method bool getForce()
  * @method OrderStateTransitionMessage setForce(bool $force = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method OrderStateTransitionMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class OrderStateTransitionMessage extends StateTransitionMessage
 {

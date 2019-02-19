@@ -30,6 +30,10 @@ use DateTime;
  * @method OrderStateChangedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method OrderStateChangedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method OrderStateChangedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class OrderStateChangedMessage extends Message
 {

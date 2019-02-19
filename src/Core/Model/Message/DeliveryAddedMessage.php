@@ -31,6 +31,10 @@ use DateTime;
  * @method DeliveryAddedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method DeliveryAddedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method DeliveryAddedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class DeliveryAddedMessage extends Message
 {
