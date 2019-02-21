@@ -39,6 +39,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method LineItemImportDraft setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
  * @method ItemShippingDetailsDraft getShippingDetails()
  * @method LineItemImportDraft setShippingDetails(ItemShippingDetailsDraft $shippingDetails = null)
+ * @method ChannelReference getDistributionChannel()
+ * @method LineItemImportDraft setDistributionChannel(ChannelReference $distributionChannel = null)
  */
 class LineItemImportDraft extends JsonObject
 {
@@ -52,6 +54,7 @@ class LineItemImportDraft extends JsonObject
             'quantity' => [static::TYPE => 'int'],
             'state' => [static::TYPE => ItemStateCollection::class],
             'supplyChannel' => [static::TYPE => ChannelReference::class],
+            'distributionChannel' => [static::TYPE => ChannelReference::class],
             'taxRate' => [static::TYPE => TaxRate::class],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
