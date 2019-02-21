@@ -7,6 +7,7 @@ use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
@@ -45,6 +46,17 @@ class ProjectActionBuilder
     public function changeLanguages($action = null)
     {
         $this->addAction($this->resolveAction(ProjectChangeLanguagesAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-project.html#change-messages-enabled
+     * @param ProjectChangeMessagesConfigurationAction|callable $action
+     * @return $this
+     */
+    public function changeMessagesConfiguration($action = null)
+    {
+        $this->addAction($this->resolveAction(ProjectChangeMessagesConfigurationAction::class, $action));
         return $this;
     }
 

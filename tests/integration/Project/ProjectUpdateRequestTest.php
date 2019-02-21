@@ -9,6 +9,7 @@ use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedEnum;
 use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Message\MessagesConfigurationDraft;
 use Commercetools\Core\Model\Project\CartClassificationType;
 use Commercetools\Core\Model\Project\CartScoreType;
 use Commercetools\Core\Model\Project\CartValueType;
@@ -16,6 +17,7 @@ use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
@@ -144,6 +146,40 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
         $request = ProjectUpdateRequest::ofVersion($result->getVersion());
         $request->addAction(ProjectChangeMessagesEnabledAction::ofMessagesEnabled($messagesEnabled));
+        $response = $request->executeWithClient($this->getClient());
+
+        $this->assertFalse($response->isError());
+    }
+
+    public function testChangeMessagesConfiguration()
+    {
+        $request = ProjectGetRequest::of();
+        $response = $request->executeWithClient($this->getClient());
+        $project = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Project::class, $project);
+        $messagesConfiguration = $project->getMessages();
+        $messagesEnabled = $messagesConfiguration->getEnabled();
+        $deleteDaysAfterCreation = (5 === $messagesConfiguration->getDeleteDaysAfterCreation() ?  10 : 5);
+
+        $messagesConfigurationDraft = MessagesConfigurationDraft::of()
+            ->setEnabled(!$messagesEnabled)
+            ->setDeleteDaysAfterCreation($deleteDaysAfterCreation);
+
+        $request = ProjectUpdateRequest::ofVersion($project->getVersion());
+        $request->addAction(ProjectChangeMessagesConfigurationAction::ofDraft($messagesConfigurationDraft));
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Project::class, $result);
+        $this->assertNotSame($messagesEnabled, $result->getMessages()->getEnabled());
+        $this->assertSame($deleteDaysAfterCreation, $result->getMessages()->getDeleteDaysAfterCreation());
+
+        $request = ProjectUpdateRequest::ofVersion($result->getVersion());
+        $messagesConfigurationDraft = MessagesConfigurationDraft::of()
+            ->setEnabled($messagesEnabled)
+            ->setDeleteDaysAfterCreation($deleteDaysAfterCreation);
+        $request->addAction(ProjectChangeMessagesConfigurationAction::ofDraft($messagesConfigurationDraft));
         $response = $request->executeWithClient($this->getClient());
 
         $this->assertFalse($response->isError());

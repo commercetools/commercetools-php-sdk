@@ -11,6 +11,7 @@ use Commercetools\Core\Request\AbstractAction;
 /**
  * @package Commercetools\Core\Request\Project\Command
  * @link https://docs.commercetools.com/http-api-projects-project.html#change-messages-enabled
+ * @deprecated
  * @method string getAction()
  * @method ProjectChangeMessagesEnabledAction setAction(string $action = null)
  * @method bool getMessagesEnabled()
