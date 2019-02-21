@@ -35,4 +35,14 @@ class ZoneReference extends Reference
     {
         return static::ofTypeAndId(static::TYPE_ZONE, $id, $context);
     }
+
+    /**
+     * @param $key
+     * @param Context|callable $context
+     * @return ZoneReference
+     */
+    public static function ofKey($key, $context = null)
+    {
+        return static::ofTypeAndKey(static::TYPE_ZONE, $key, $context);
+    }
 }

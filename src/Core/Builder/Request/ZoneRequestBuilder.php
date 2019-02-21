@@ -3,11 +3,14 @@
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Zones\ZoneByIdGetRequest;
+use Commercetools\Core\Request\Zones\ZoneByKeyGetRequest;
 use Commercetools\Core\Request\Zones\ZoneCreateRequest;
 use Commercetools\Core\Model\Zone\ZoneDraft;
-use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
+use Commercetools\Core\Request\Zones\ZoneDeleteByKeyRequest;
 use Commercetools\Core\Model\Zone\Zone;
+use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
 use Commercetools\Core\Request\Zones\ZoneQueryRequest;
+use Commercetools\Core\Request\Zones\ZoneUpdateByKeyRequest;
 use Commercetools\Core\Request\Zones\ZoneUpdateRequest;
 
 class ZoneRequestBuilder
@@ -25,6 +28,17 @@ class ZoneRequestBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-zones.html#get-zone-by-key
+     * @param string $key
+     * @return ZoneByKeyGetRequest
+     */
+    public function getByKey($key)
+    {
+        $request = ZoneByKeyGetRequest::ofKey($key);
+        return $request;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-zones.html#create-zone
      * @param ZoneDraft $zone
      * @return ZoneCreateRequest
@@ -32,6 +46,17 @@ class ZoneRequestBuilder
     public function create(ZoneDraft $zone)
     {
         $request = ZoneCreateRequest::ofDraft($zone);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-zones.html#delete-zone-by-key
+     * @param Zone $zone
+     * @return ZoneDeleteByKeyRequest
+     */
+    public function deleteByKey(Zone $zone)
+    {
+        $request = ZoneDeleteByKeyRequest::ofKeyAndVersion($zone->getKey(), $zone->getVersion());
         return $request;
     }
 
@@ -54,6 +79,17 @@ class ZoneRequestBuilder
     public function query()
     {
         $request = ZoneQueryRequest::of();
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-zones.html#update-zone-by-key
+     * @param Zone $zone
+     * @return ZoneUpdateByKeyRequest
+     */
+    public function updateByKey(Zone $zone)
+    {
+        $request = ZoneUpdateByKeyRequest::ofKeyAndVersion($zone->getKey(), $zone->getVersion());
         return $request;
     }
 
