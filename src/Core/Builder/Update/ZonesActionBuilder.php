@@ -8,6 +8,7 @@ use Commercetools\Core\Request\Zones\Command\ZoneAddLocationAction;
 use Commercetools\Core\Request\Zones\Command\ZoneChangeNameAction;
 use Commercetools\Core\Request\Zones\Command\ZoneRemoveLocationAction;
 use Commercetools\Core\Request\Zones\Command\ZoneSetDescriptionAction;
+use Commercetools\Core\Request\Zones\Command\ZoneSetKeyAction;
 
 class ZonesActionBuilder
 {
@@ -54,6 +55,17 @@ class ZonesActionBuilder
     public function setDescription($action = null)
     {
         $this->addAction($this->resolveAction(ZoneSetDescriptionAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-zones.html#set-key
+     * @param ZoneSetKeyAction|callable $action
+     * @return $this
+     */
+    public function setKey($action = null)
+    {
+        $this->addAction($this->resolveAction(ZoneSetKeyAction::class, $action));
         return $this;
     }
 

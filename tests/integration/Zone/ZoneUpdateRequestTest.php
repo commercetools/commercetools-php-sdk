@@ -15,8 +15,10 @@ use Commercetools\Core\Request\Zones\Command\ZoneAddLocationAction;
 use Commercetools\Core\Request\Zones\Command\ZoneChangeNameAction;
 use Commercetools\Core\Request\Zones\Command\ZoneRemoveLocationAction;
 use Commercetools\Core\Request\Zones\Command\ZoneSetDescriptionAction;
+use Commercetools\Core\Request\Zones\Command\ZoneSetKeyAction;
 use Commercetools\Core\Request\Zones\ZoneCreateRequest;
 use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
+use Commercetools\Core\Request\Zones\ZoneUpdateByKeyRequest;
 use Commercetools\Core\Request\Zones\ZoneUpdateRequest;
 
 class ZoneUpdateRequestTest extends ApiTestCase
@@ -127,6 +129,27 @@ class ZoneUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Zone::class, $result);
         $this->assertCount(1, $result->getLocations());
+        $this->assertNotSame($zone->getVersion(), $result->getVersion());
+    }
+
+    public function testUpdateByKey()
+    {
+        $draft = $this->getDraft('change-key')->setKey($this->getTestRun() . '-key');
+        $zone = $this->createZone($draft);
+
+        $key = $this->getTestRun() . '-new-key';
+        $request = ZoneUpdateByKeyRequest::ofKeyAndVersion(
+            $zone->getKey(),
+            $zone->getVersion()
+        )
+            ->addAction(ZoneSetKeyAction::ofKey($key))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Zone::class, $result);
+        $this->assertSame($key, $result->getKey());
         $this->assertNotSame($zone->getVersion(), $result->getVersion());
     }
 }

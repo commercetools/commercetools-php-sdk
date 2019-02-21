@@ -26,6 +26,8 @@ use DateTime;
  * @method Zone setDescription(string $description = null)
  * @method LocationCollection getLocations()
  * @method Zone setLocations(LocationCollection $locations = null)
+ * @method string getKey()
+ * @method Zone setKey(string $key = null)
  * @method ZoneReference getReference()
  */
 class Zone extends Resource
@@ -35,6 +37,7 @@ class Zone extends Resource
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
+            'key' => [static::TYPE => 'string'],
             'createdAt' => [
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class

@@ -17,12 +17,15 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method ZoneDraft setDescription(string $description = null)
  * @method LocationCollection getLocations()
  * @method ZoneDraft setLocations(LocationCollection $locations = null)
+ * @method string getKey()
+ * @method ZoneDraft setKey(string $key = null)
  */
 class ZoneDraft extends JsonObject
 {
     public function fieldDefinitions()
     {
         return [
+            'key' => [static::TYPE => 'string'],
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
             'locations' => [static::TYPE => LocationCollection::class],
