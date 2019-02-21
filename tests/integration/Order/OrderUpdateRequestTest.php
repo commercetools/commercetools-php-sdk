@@ -15,6 +15,7 @@ use Commercetools\Core\Model\Cart\ItemShippingTarget;
 use Commercetools\Core\Model\Cart\ItemShippingTargetCollection;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
+use Commercetools\Core\Model\Cart\ShippingInfo;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
@@ -396,7 +397,11 @@ class OrderUpdateRequestTest extends ApiTestCase
 
         $this->assertNotSame($order->getVersion(), $result->getVersion());
         $this->assertInstanceOf(Order::class, $result);
-        $delivery = $result->getShippingInfo()->getDeliveries()->current();
+
+        $shippingInfo = $result->getShippingInfo();
+        $this->assertInstanceOf(ShippingInfo::class, $shippingInfo);
+
+        $delivery = $shippingInfo->getDeliveries()->current();
         $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
         $order = $result;
 
