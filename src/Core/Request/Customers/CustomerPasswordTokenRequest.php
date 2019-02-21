@@ -42,18 +42,24 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
     protected $ttlMinutes;
 
     /**
+     * @param int $ttlMinutes
+     * @return CustomerPasswordTokenRequest
+     */
+    public function setTtlMinutes($ttlMinutes)
+    {
+        $this->ttlMinutes = $ttlMinutes;
+
+        return $this;
+    }
+
+    /**
      * @param string $email
      * @param Context|null $context
-     * @param int|null $ttlMinutes
      */
-    public function __construct($email, Context $context = null, $ttlMinutes = null)
+    public function __construct($email, Context $context = null)
     {
         parent::__construct(CustomersEndpoint::endpoint(), $context);
         $this->email = $email;
-
-        if (!is_null($ttlMinutes)) {
-            $this->ttlMinutes = $ttlMinutes;
-        }
     }
 
     /**
@@ -74,12 +80,9 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
      * @param Context $context
      * @return static
      */
-    public static function ofEmailAndTtlMinutes(
-        $email,
-        $ttlMinutes,
-        Context $context = null
-    ) {
-        return new static($email, $context, $ttlMinutes);
+    public static function ofEmailAndTtlMinutes($email, $ttlMinutes, Context $context = null)
+    {
+        return (new static($email, $context))->setTtlMinutes($ttlMinutes);
     }
 
     /**
