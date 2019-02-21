@@ -36,4 +36,14 @@ class TaxCategoryReference extends Reference
     {
         return static::ofTypeAndId(static::TYPE_TAX_CATEGORY, $id, $context);
     }
+
+    /**
+     * @param $key
+     * @param Context|callable $context
+     * @return TaxCategoryReference
+     */
+    public static function ofKey($key, $context = null)
+    {
+        return static::ofTypeAndKey(static::TYPE_TAX_CATEGORY, $key, $context);
+    }
 }

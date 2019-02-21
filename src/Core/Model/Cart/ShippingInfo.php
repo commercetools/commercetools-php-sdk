@@ -5,18 +5,19 @@
 
 namespace Commercetools\Core\Model\Cart;
 
-use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Order\DeliveryCollection;
+use Commercetools\Core\Model\Order\ShippingInfoImportDraft;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
-use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\Common\TaxedItemPrice;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
  * @package Commercetools\Core\Model\Cart
  * @link https://docs.commercetools.com/http-api-projects-carts.html#shippinginfo
+ *
  * @method string getShippingMethodName()
  * @method ShippingInfo setShippingMethodName(string $shippingMethodName = null)
  * @method Money getPrice()
@@ -25,37 +26,26 @@ use Commercetools\Core\Model\Common\TaxedItemPrice;
  * @method ShippingInfo setShippingRate(ShippingRate $shippingRate = null)
  * @method TaxRate getTaxRate()
  * @method ShippingInfo setTaxRate(TaxRate $taxRate = null)
- * @method TaxCategory getTaxCategory()
- * @method ShippingInfo setTaxCategory(TaxCategory $taxCategory = null)
+ * @method TaxCategoryReference getTaxCategory()
+ * @method ShippingInfo setTaxCategory(TaxCategoryReference $taxCategory = null)
  * @method ShippingMethodReference getShippingMethod()
  * @method ShippingInfo setShippingMethod(ShippingMethodReference $shippingMethod = null)
  * @method DeliveryCollection getDeliveries()
  * @method ShippingInfo setDeliveries(DeliveryCollection $deliveries = null)
- * @method TaxedItemPrice getTaxedPrice()
- * @method ShippingInfo setTaxedPrice(TaxedItemPrice $taxedPrice = null)
  * @method DiscountedLineItemPrice getDiscountedPrice()
  * @method ShippingInfo setDiscountedPrice(DiscountedLineItemPrice $discountedPrice = null)
  * @method string getShippingMethodState()
  * @method ShippingInfo setShippingMethodState(string $shippingMethodState = null)
+ * @method TaxedItemPrice getTaxedPrice()
+ * @method ShippingInfo setTaxedPrice(TaxedItemPrice $taxedPrice = null)
  */
-class ShippingInfo extends JsonObject
+class ShippingInfo extends ShippingInfoImportDraft
 {
-    const SHIPPING_METHOD_MATCH = 'MatchesCart';
-    const SHIPPING_METHOD_DONT_MATCH = 'DoesNotMatchCart';
-
     public function fieldDefinitions()
     {
-        return [
-            'shippingMethodName' => [static::TYPE => 'string'],
-            'price' => [static::TYPE => Money::class],
-            'shippingRate' => [static::TYPE => ShippingRate::class],
-            'taxedPrice' => [static::TYPE => TaxedItemPrice::class],
-            'taxRate' => [static::TYPE => TaxRate::class],
-            'taxCategory' => [static::TYPE => TaxCategory::class],
-            'shippingMethod' => [static::TYPE => ShippingMethodReference::class],
-            'deliveries' => [static::TYPE => DeliveryCollection::class],
-            'discountedPrice' => [static::TYPE => DiscountedLineItemPrice::class],
-            'shippingMethodState' => [static::TYPE => 'string']
-        ];
+        $fields = parent::fieldDefinitions();
+        $fields['taxedPrice'] = [static::TYPE => TaxedItemPrice::class];
+
+        return $fields;
     }
 }
