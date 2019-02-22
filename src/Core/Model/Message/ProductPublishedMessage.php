@@ -35,6 +35,10 @@ use DateTime;
  * @method ProductPublishedMessage setRemovedImageUrls(array $removedImageUrls = null)
  * @method string getScope()
  * @method ProductPublishedMessage setScope(string $scope = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ProductPublishedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ProductPublishedMessage extends Message
 {

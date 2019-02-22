@@ -34,6 +34,10 @@ use DateTime;
  * @method DeliveryAddressSetMessage setDeliveryId(string $deliveryId = null)
  * @method Address getAddress()
  * @method DeliveryAddressSetMessage setAddress(Address $address = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method DeliveryAddressSetMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class DeliveryAddressSetMessage extends Message
 {

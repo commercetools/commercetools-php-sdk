@@ -31,6 +31,8 @@ use DateTime;
  * @method Message setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method Message setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * @method Message setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
  */
 class Message extends Resource
 {
@@ -66,6 +68,7 @@ class Message extends Resource
             'resource' => [static::TYPE => Reference::class],
             'resourceVersion' => [static::TYPE => 'int'],
             'type' => [static::TYPE => 'string'],
+            'resourceUserProvidedIdentifiers' => [static::TYPE => UserProvidedIdentifiers::class],
         ];
     }
 

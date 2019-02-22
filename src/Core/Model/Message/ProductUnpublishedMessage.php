@@ -28,6 +28,10 @@ use DateTime;
  * @method ProductUnpublishedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method ProductUnpublishedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ProductUnpublishedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ProductUnpublishedMessage extends Message
 {

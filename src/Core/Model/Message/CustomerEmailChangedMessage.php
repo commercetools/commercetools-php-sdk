@@ -30,6 +30,10 @@ use Commercetools\Core\Model\Common\Reference;
  * @method CustomerEmailChangedMessage setType(string $type = null)
  * @method string getEmail()
  * @method CustomerEmailChangedMessage setEmail(string $email = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method CustomerEmailChangedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class CustomerEmailChangedMessage extends Message
 {

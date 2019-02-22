@@ -31,6 +31,10 @@ use DateTime;
  * @method DeliveryRemovedMessage setType(string $type = null)
  * @method Delivery getDelivery()
  * @method DeliveryRemovedMessage setDelivery(Delivery $delivery = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method DeliveryRemovedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class DeliveryRemovedMessage extends Message
 {

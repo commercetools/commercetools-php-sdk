@@ -31,6 +31,10 @@ use DateTime;
  * @method OrderImportedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method OrderImportedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method OrderImportedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class OrderImportedMessage extends Message
 {

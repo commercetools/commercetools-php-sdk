@@ -34,6 +34,10 @@ use DateTime;
  * @method InventoryEntryDeletedMessage setSku(string $sku = null)
  * @method ChannelReference getSupplyChannel()
  * @method InventoryEntryDeletedMessage setSupplyChannel(ChannelReference $supplyChannel = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method InventoryEntryDeletedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class InventoryEntryDeletedMessage extends Message
 {

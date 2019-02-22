@@ -32,6 +32,10 @@ use DateTime;
  * @method OrderShippingAddressSetMessage setType(string $type = null)
  * @method Address getAddress()
  * @method OrderShippingAddressSetMessage setAddress(Address $address = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method OrderShippingAddressSetMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class OrderShippingAddressSetMessage extends Message
 {

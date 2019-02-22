@@ -31,6 +31,10 @@ use DateTime;
  * @method OrderCustomerEmailSetMessage setType(string $type = null)
  * @method string getEmail()
  * @method OrderCustomerEmailSetMessage setEmail(string $email = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method OrderCustomerEmailSetMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class OrderCustomerEmailSetMessage extends Message
 {

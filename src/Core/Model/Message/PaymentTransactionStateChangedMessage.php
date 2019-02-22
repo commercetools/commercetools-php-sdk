@@ -33,6 +33,10 @@ use DateTime;
  * @method PaymentTransactionStateChangedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getTransactionId()
  * @method PaymentTransactionStateChangedMessage setTransactionId(string $transactionId = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method PaymentTransactionStateChangedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class PaymentTransactionStateChangedMessage extends Message
 {

@@ -34,6 +34,10 @@ use DateTime;
  * @method ParcelAddedToDeliveryMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method ParcelAddedToDeliveryMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ParcelAddedToDeliveryMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ParcelAddedToDeliveryMessage extends Message
 {

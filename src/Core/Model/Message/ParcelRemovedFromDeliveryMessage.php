@@ -35,6 +35,10 @@ use DateTime;
  * @method ParcelRemovedFromDeliveryMessage setDeliveryId(string $deliveryId = null)
  * @method Parcel getParcel()
  * @method ParcelRemovedFromDeliveryMessage setParcel(Parcel $parcel = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ParcelRemovedFromDeliveryMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ParcelRemovedFromDeliveryMessage extends Message
 {

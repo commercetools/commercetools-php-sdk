@@ -38,6 +38,10 @@ use DateTime;
  * @method ParcelMeasurementsUpdatedMessage setParcelId(string $parcelId = null)
  * @method ParcelMeasurements getMeasurements()
  * @method ParcelMeasurementsUpdatedMessage setMeasurements(ParcelMeasurements $measurements = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ParcelMeasurementsUpdatedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ParcelMeasurementsUpdatedMessage extends Message
 {

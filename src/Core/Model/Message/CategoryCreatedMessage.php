@@ -31,6 +31,10 @@ use DateTime;
  * @method CategoryCreatedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method CategoryCreatedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method CategoryCreatedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class CategoryCreatedMessage extends Message
 {

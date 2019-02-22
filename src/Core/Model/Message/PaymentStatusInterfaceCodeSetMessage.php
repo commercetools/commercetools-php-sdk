@@ -30,6 +30,10 @@ use DateTime;
  * @method PaymentStatusInterfaceCodeSetMessage setType(string $type = null)
  * @method string getInterfaceCode()
  * @method PaymentStatusInterfaceCodeSetMessage setInterfaceCode(string $interfaceCode = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method PaymentStatusInterfaceCodeSetMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class PaymentStatusInterfaceCodeSetMessage extends Message
 {

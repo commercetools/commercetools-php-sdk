@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Message\Message;
 use DateTime;
+use Commercetools\Core\Model\Message\UserProvidedIdentifiers;
 
 /**
  * @package Commercetools\Core\Model\Subscription
@@ -32,6 +33,10 @@ use DateTime;
  * @method MessageDelivery setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method PayloadNotIncluded getPayloadNotIncluded()
  * @method MessageDelivery setPayloadNotIncluded(PayloadNotIncluded $payloadNotIncluded = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method MessageDelivery setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class MessageDelivery extends Delivery
 {
