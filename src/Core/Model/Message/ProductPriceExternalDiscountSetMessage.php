@@ -44,6 +44,10 @@ use DateTime;
  * @method ProductPriceExternalDiscountSetMessage setDiscounted(DiscountedPrice $discounted = null)
  * @method bool getStaged()
  * @method ProductPriceExternalDiscountSetMessage setStaged(bool $staged = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ProductPriceExternalDiscountSetMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ProductPriceExternalDiscountSetMessage extends Message
 {

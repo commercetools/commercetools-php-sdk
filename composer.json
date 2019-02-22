@@ -46,6 +46,7 @@
     "monolog/monolog": "^1.12",
     "behat/behat": "^3.0",
     "symfony/yaml": "^3.2",
+    "symfony/stopwatch": "^3.2",
     "cache/adapter-common": "^1.0",
     "cache/apcu-adapter": "^1.0",
     "cache/array-adapter": "^1.0",

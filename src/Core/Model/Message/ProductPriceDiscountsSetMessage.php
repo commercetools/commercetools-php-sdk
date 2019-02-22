@@ -31,6 +31,10 @@ use DateTime;
  * phpcs:disable
  * @method ProductPriceDiscountsSetMessage setUpdatedPrices(ProductPriceDiscountsSetUpdatedPriceCollection $updatedPrices = null)
  * phpcs:enable
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ProductPriceDiscountsSetMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ProductPriceDiscountsSetMessage extends Message
 {

@@ -30,6 +30,10 @@ use DateTime;
  * @method OrderDeletedMessage setType(string $type = null)
  * @method Order getOrder()
  * @method OrderDeletedMessage setOrder(Order $order = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method OrderDeletedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class OrderDeletedMessage extends Message
 {

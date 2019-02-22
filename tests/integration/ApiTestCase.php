@@ -1,13 +1,12 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
 
 namespace Commercetools\Core;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Commercetools\Core\Fixtures\ManuelActivationStrategy;
+use Commercetools\Core\Fixtures\ProfilerMiddleware;
 use Commercetools\Core\Fixtures\TeamCityFormatter;
+use Commercetools\Core\Fixtures\TimingProfiler;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Common\Context;
@@ -36,6 +35,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
+use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Yaml\Yaml;
 
 class ApiTestCase extends TestCase
@@ -43,6 +43,7 @@ class ApiTestCase extends TestCase
     private static $testRun;
     private static $client = [];
     private static $errorHandler;
+    private static $profiler;
     /**
      * @var Project
      */
@@ -185,10 +186,27 @@ class ApiTestCase extends TestCase
             $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
             $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
 
-            self::$client[$scope] = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
+            $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
+            $enableProfiler = getenv('PHP_SDK_PROFILE');
+            if ($enableProfiler !== 'false') {
+                $client->getHttpClient()->addHandler($this->getProfiler());
+            }
+
+            self::$client[$scope] = $client;
         }
 
         return self::$client[$scope];
+    }
+
+    private function getProfiler()
+    {
+        if (is_null(self::$profiler)) {
+            self::$profiler = new TimingProfiler(__DIR__ .'/profile.csv');
+        }
+        return new ProfilerMiddleware(
+            self::$profiler,
+            new Stopwatch()
+        );
     }
 
     protected function getVerifySSL()
