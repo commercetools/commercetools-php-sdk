@@ -26,7 +26,8 @@ class TimingProfiler implements Profiler
                 'uri',
                 'duration',
                 'context',
-                'correlationId'
+                'correlationId',
+                'serverTiming'
             ],
             ';',
             '"'
@@ -53,8 +54,10 @@ class TimingProfiler implements Profiler
             }
         }
         $correlationId = '';
+        $serverTiming = '';
         if (!is_null($response)) {
             $correlationId = $response->getHeaderLine('x-correlation-id');
+            $serverTiming = $response->getHeaderLine('server-timing');
         }
         fputcsv(
             $this->file,
@@ -63,7 +66,8 @@ class TimingProfiler implements Profiler
                 (string)$request->getUri(),
                 $stopwatchEvent->getDuration(),
                 implode(",", $context),
-                $correlationId
+                $correlationId,
+                $serverTiming
             ],
             ';',
             '"'
