@@ -1,6 +1,5 @@
 <?php
 /**
- * @author @jenschude <jens.schulze@commercetools.de>
  */
 
 namespace Commercetools\Core\Request\ProductTypes\Command;
@@ -12,19 +11,20 @@ use Commercetools\Core\Request\AbstractAction;
 /**
  * @package Commercetools\Core\Request\ProductTypes\Command
  * @link https://docs.commercetools.com/http-api-projects-productTypes#change-the-order-of-attributedefinitions
- * @deprecated
  * @method string getAction()
- * @method ProductTypeChangeAttributeOrderAction setAction(string $action = null)
+ * @method ProductTypeChangeAttributeOrderByNameAction setAction(string $action = null)
  * @method AttributeDefinitionCollection getAttributes()
- * @method ProductTypeChangeAttributeOrderAction setAttributes(AttributeDefinitionCollection $attributes = null)
+ * @method ProductTypeChangeAttributeOrderByNameAction setAttributes(AttributeDefinitionCollection $attributes = null)
+ * @method array getAttributeNames()
+ * @method ProductTypeChangeAttributeOrderByNameAction setAttributeNames(array $attributeNames = null)
  */
-class ProductTypeChangeAttributeOrderAction extends AbstractAction
+class ProductTypeChangeAttributeOrderByNameAction extends AbstractAction
 {
     public function fieldDefinitions()
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'attributes' => [static::TYPE => AttributeDefinitionCollection::class],
+            'attributeNames' => [static::TYPE => 'array'],
         ];
     }
 
@@ -35,16 +35,16 @@ class ProductTypeChangeAttributeOrderAction extends AbstractAction
     public function __construct(array $data = [], $context = null)
     {
         parent::__construct($data, $context);
-        $this->setAction('changeAttributeOrder');
+        $this->setAction('changeAttributeOrderByName');
     }
 
     /**
-     * @param AttributeDefinitionCollection $attributes
+     * @param array $attributeNames
      * @param Context|callable $context
-     * @return ProductTypeChangeAttributeOrderAction
+     * @return ProductTypeChangeAttributeOrderByNameAction
      */
-    public static function ofAttributes(AttributeDefinitionCollection $attributes, $context = null)
+    public static function ofAttributeNames(array $attributeNames, $context = null)
     {
-        return static::of($context)->setAttributes($attributes);
+        return static::of($context)->setAttributeNames($attributeNames);
     }
 }
