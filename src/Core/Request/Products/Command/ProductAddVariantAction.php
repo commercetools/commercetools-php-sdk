@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\Products\Command;
 
+use Commercetools\Core\Model\Common\AssetCollection;
 use Commercetools\Core\Model\Common\AttributeCollection;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
@@ -28,6 +29,8 @@ use Commercetools\Core\Model\Common\ImageCollection;
  * @method ProductAddVariantAction setKey(string $key = null)
  * @method ImageCollection getImages()
  * @method ProductAddVariantAction setImages(ImageCollection $images = null)
+ * @method AssetCollection getAssets()
+ * @method ProductAddVariantAction setAssets(AssetCollection $assets = null)
  */
 class ProductAddVariantAction extends AbstractAction
 {
@@ -40,7 +43,8 @@ class ProductAddVariantAction extends AbstractAction
             'attributes' => [static::TYPE => AttributeCollection::class],
             'staged' => [static::TYPE => 'bool'],
             'key' => [static::TYPE => 'string'],
-            'images' => [static::TYPE => ImageCollection::class]
+            'images' => [static::TYPE => ImageCollection::class],
+            'assets' => [static::TYPE => AssetCollection::class],
         ];
     }
 
