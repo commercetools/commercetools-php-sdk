@@ -188,7 +188,7 @@ class ApiTestCase extends TestCase
 
             $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
             $enableProfiler = getenv('PHP_SDK_PROFILE');
-            if ($enableProfiler !== 'false') {
+            if ($enableProfiler === 'true') {
                 $client->getHttpClient()->addHandler($this->getProfiler());
             }
 
