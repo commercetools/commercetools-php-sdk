@@ -20,6 +20,8 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method ExternalTaxRateDraft setState(string $state = null)
  * @method SubRateCollection getSubRates()
  * @method ExternalTaxRateDraft setSubRates(SubRateCollection $subRates = null)
+ * @method bool getIncludedInPrice()
+ * @method ExternalTaxRateDraft setIncludedInPrice(bool $includedInPrice = null)
  */
 class ExternalTaxRateDraft extends JsonObject
 {
@@ -28,6 +30,7 @@ class ExternalTaxRateDraft extends JsonObject
         return [
             'name' => [self::TYPE => 'string'],
             'amount' => [self::TYPE => 'float'],
+            'includedInPrice' => [self::TYPE => 'bool'],
             'country' => [self::TYPE => 'string'],
             'state' => [self::TYPE => 'string'],
             'subRates' => [static::TYPE => SubRateCollection::class]
