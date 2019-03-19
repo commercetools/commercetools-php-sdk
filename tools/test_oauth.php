@@ -15,6 +15,7 @@ curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $retry = 60;
+
 echo 'Testing connection (' . $uri . ')';
 do {
     sleep(2);
@@ -24,7 +25,7 @@ do {
     echo '.';
 } while ($status['http_code'] !== 200 && $retry > 0);
 
-
+curl_close($ch);
 if ($status['http_code'] == 200) {
     echo 'success' . PHP_EOL;
     exit(0);
