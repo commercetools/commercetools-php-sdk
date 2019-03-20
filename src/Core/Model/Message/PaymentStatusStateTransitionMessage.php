@@ -33,6 +33,10 @@ use DateTime;
  * @method PaymentStatusStateTransitionMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method bool getForce()
  * @method PaymentStatusStateTransitionMessage setForce(bool $force = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method PaymentStatusStateTransitionMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class PaymentStatusStateTransitionMessage extends StateTransitionMessage
 {

@@ -34,6 +34,10 @@ use Commercetools\Core\Model\Common\Reference;
  * @method OrderEditAppliedMessage setEdit(OrderEditReference $edit = null)
  * @method OrderEditApplied getResult()
  * @method OrderEditAppliedMessage setResult(OrderEditApplied $result = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method OrderEditAppliedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class OrderEditAppliedMessage extends Message
 {

@@ -25,6 +25,7 @@ use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemCustomTypeAc
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomerEmail;
+use Commercetools\Core\Request\Orders\Command\OrderSetCustomerIdAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLineItemCustomFieldAction;
@@ -276,6 +277,17 @@ class OrdersActionBuilder
     public function setCustomerEmail($action = null)
     {
         $this->addAction($this->resolveAction(OrderSetCustomerEmail::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-customer-id
+     * @param OrderSetCustomerIdAction|callable $action
+     * @return $this
+     */
+    public function setCustomerId($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetCustomerIdAction::class, $action));
         return $this;
     }
 

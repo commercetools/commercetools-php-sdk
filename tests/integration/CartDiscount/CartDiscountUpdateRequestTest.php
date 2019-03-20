@@ -26,6 +26,7 @@ use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteRequest;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountUpdateRequest;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAndUntilAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidUntilAction;
 
 class CartDiscountUpdateRequestTest extends ApiTestCase
@@ -297,6 +298,31 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertSame(CartDiscount::MODE_STACKING, $result->getStackingMode());
+    }
+
+    public function testSetValidFromAndUntil()
+    {
+        $draft = $this->getDraft('set-valid-from-until');
+        $cartDiscount = $this->createCartDiscount($draft);
+
+        $validFrom = new \DateTime();
+        $validUntil = new \DateTime('+1 second');
+        $request = CartDiscountUpdateRequest::ofIdAndVersion(
+            $cartDiscount->getId(),
+            $cartDiscount->getVersion()
+        )
+            ->addAction(CartDiscountSetValidFromAndUntilAction::of()->setValidFrom($validFrom)->setValidUntil($validUntil))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(CartDiscount::class, $result);
+        $validUntil->setTimezone(new \DateTimeZone('UTC'));
+        $validFrom->setTimezone(new \DateTimeZone('UTC'));
+        $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
+        $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
+        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
     }
 
     /**

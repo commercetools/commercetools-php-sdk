@@ -49,8 +49,8 @@ use DateTime;
  * @method ImportOrder setShipmentState(string $shipmentState = null)
  * @method string getPaymentState()
  * @method ImportOrder setPaymentState(string $paymentState = null)
- * @method ShippingInfo getShippingInfo()
- * @method ImportOrder setShippingInfo(ShippingInfo $shippingInfo = null)
+ * @method ShippingInfoImportDraft getShippingInfo()
+ * @method ImportOrder setShippingInfo(ShippingInfoImportDraft $shippingInfo = null)
  * @method DateTimeDecorator getCompletedAt()
  * @method ImportOrder setCompletedAt(DateTime $completedAt = null)
  * @method CustomFieldObjectDraft getCustom()
@@ -85,7 +85,7 @@ class ImportOrder extends JsonObject
             'orderState' => [static::TYPE => 'string'],
             'shipmentState' => [static::TYPE => 'string'],
             'paymentState' => [static::TYPE => 'string'],
-            'shippingInfo' => [static::TYPE => ShippingInfo::class],
+            'shippingInfo' => [static::TYPE => ShippingInfoImportDraft::class],
             'completedAt' => [
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class

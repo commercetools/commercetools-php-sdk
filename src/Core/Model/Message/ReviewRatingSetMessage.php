@@ -36,6 +36,10 @@ use DateTime;
  * @method ReviewRatingSetMessage setIncludedInStatistics(bool $includedInStatistics = null)
  * @method Reference getTarget()
  * @method ReviewRatingSetMessage setTarget(Reference $target = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ReviewRatingSetMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ReviewRatingSetMessage extends Message
 {

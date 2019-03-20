@@ -16,6 +16,7 @@ use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetCustomFieldA
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetCustomTypeAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetDescriptionAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAndUntilAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidUntilAction;
 
 class CartDiscountsActionBuilder
@@ -151,6 +152,17 @@ class CartDiscountsActionBuilder
     public function setValidFrom($action = null)
     {
         $this->addAction($this->resolveAction(CartDiscountSetValidFromAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-cartDiscounts.html#set-valid-from-and-until
+     * @param CartDiscountSetValidFromAndUntilAction|callable $action
+     * @return $this
+     */
+    public function setValidFromAndUntil($action = null)
+    {
+        $this->addAction($this->resolveAction(CartDiscountSetValidFromAndUntilAction::class, $action));
         return $this;
     }
 

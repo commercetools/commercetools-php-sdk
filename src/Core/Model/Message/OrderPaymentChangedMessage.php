@@ -30,6 +30,10 @@ use DateTime;
  * @method OrderPaymentChangedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method string getPaymentState()
  * @method OrderPaymentChangedMessage setPaymentState(string $paymentState = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method OrderPaymentChangedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class OrderPaymentChangedMessage extends Message
 {

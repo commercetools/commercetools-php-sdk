@@ -13,6 +13,7 @@ use Commercetools\Core\Config;
 use Commercetools\Core\Error\DuplicateFieldError;
 use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Customer\CustomerDraft;
+use Commercetools\Core\Model\Customer\CustomerToken;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
@@ -184,6 +185,26 @@ class CustomerLoginRequestTest extends ApiTestCase
         $request = CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $draft->getPassword());
         $response = $request->executeWithClient($this->getClient());
         $this->assertTrue($response->isError());
+    }
+
+    public function testPasswordResetWithTtlMinutes()
+    {
+        $draft = $this->getDraft('email');
+        $customer = $this->createCustomer($draft);
+
+        $request = CustomerPasswordTokenRequest::ofEmailAndTtlMinutes(
+            $customer->getEmail(),
+            60
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(CustomerToken::class, $result);
+
+        $dateCreated = $result->getCreatedAt()->getDateTime();
+        $dateExpires = $result->getExpiresAt()->getDateTime();
+        $interval = $dateExpires->diff($dateCreated);
+        $this->assertSame(1, (int)$interval->format('%h'));
     }
 
     public function testPasswordResetLowerCased()

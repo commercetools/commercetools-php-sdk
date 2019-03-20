@@ -41,6 +41,10 @@ use DateTime;
  * @method ReviewStateTransitionMessage setTarget(Reference $target = null)
  * @method bool getForce()
  * @method ReviewStateTransitionMessage setForce(bool $force = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ReviewStateTransitionMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ReviewStateTransitionMessage extends Message
 {

@@ -33,6 +33,10 @@ use Commercetools\Core\Model\Common\Reference;
  * @method ProductVariantDeletedMessage setRemovedImageUrls(array $removedImageUrls = null)
  * @method ProductVariant getVariant()
  * @method ProductVariantDeletedMessage setVariant(ProductVariant $variant = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ProductVariantDeletedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ProductVariantDeletedMessage extends Message
 {

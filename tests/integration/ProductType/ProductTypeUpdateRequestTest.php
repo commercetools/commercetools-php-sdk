@@ -42,6 +42,7 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumV
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeConstraintAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeNameAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeOrderByNameAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeDescriptionAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeEnumKeyAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeInputHintAction;
@@ -776,6 +777,51 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $this->assertSame($newAttributeName, $result->getAttributes()->current()->getName());
         $this->assertSame($newAttributeName, $result->getAttributes()->getByName($newAttributeName)->getName());
         $this->assertNull($result->getAttributes()->getByName($name));
+    }
+
+    public function testChangeAttributeOrderByName()
+    {
+        $draft = $this->getDraft('change-attribute-order');
+
+        $name = 'testNameField-1-' . $this->getTestRun();
+        $definition = AttributeDefinition::of()
+            ->setName($name)
+            ->setLabel(LocalizedString::ofLangAndText('en', $name))
+            ->setIsRequired(false)
+            ->setIsSearchable(false)
+            ->setType(StringType::of())
+        ;
+
+        $name2 = 'testNameField-2-' . $this->getTestRun();
+        $definition2 = AttributeDefinition::of()
+            ->setName($name2)
+            ->setLabel(LocalizedString::ofLangAndText('en', $name2))
+            ->setIsRequired(false)
+            ->setIsSearchable(false)
+            ->setType(StringType::of())
+        ;
+
+        $attributeCollection = AttributeDefinitionCollection::of()->add($definition)->add($definition2);
+
+        $draft->setAttributes($attributeCollection);
+        $productType = $this->createProductType($draft);
+
+        $this->assertInstanceOf(ProductType::class, $productType);
+        $this->assertSame($name, $productType->getAttributes()->getAt(0)->getName());
+        $this->assertSame($name2, $productType->getAttributes()->getAt(1)->getName());
+
+        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
+            ->addAction(
+                ProductTypeChangeAttributeOrderByNameAction::ofAttributeNames([$name2, $name])
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->productTypeDeleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(ProductType::class, $result);
+        $this->assertSame($name2, $result->getAttributes()->getAt(0)->getName());
+        $this->assertSame($name, $result->getAttributes()->getAt(1)->getName());
     }
 
     public function testChangeEnumKey()

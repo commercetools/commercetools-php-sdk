@@ -32,6 +32,10 @@ use DateTime;
  * @method ProductSlugChangedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method ProductSlugChangedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ProductSlugChangedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ProductSlugChangedMessage extends Message
 {

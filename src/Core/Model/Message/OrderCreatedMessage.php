@@ -31,6 +31,10 @@ use DateTime;
  * @method OrderCreatedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method OrderCreatedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method OrderCreatedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class OrderCreatedMessage extends Message
 {

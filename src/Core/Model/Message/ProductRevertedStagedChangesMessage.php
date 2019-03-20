@@ -30,6 +30,10 @@ use Commercetools\Core\Model\Common\Reference;
  * @method ProductRevertedStagedChangesMessage setType(string $type = null)
  * @method array getRemovedImageUrls()
  * @method ProductRevertedStagedChangesMessage setRemovedImageUrls(array $removedImageUrls = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ProductRevertedStagedChangesMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ProductRevertedStagedChangesMessage extends Message
 {

@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core\Order;
 
-
 use Commercetools\Core\ApiTestCase;
 use Commercetools\Core\Error\OutOfStockError;
 use Commercetools\Core\Model\Cart\Cart;
@@ -21,6 +20,8 @@ use Commercetools\Core\Model\Order\LineItemImportDraft;
 use Commercetools\Core\Model\Order\LineItemImportDraftCollection;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Order\ProductVariantImportDraft;
+use Commercetools\Core\Model\Order\ShippingInfoImportDraft;
+use Commercetools\Core\Model\ShippingMethod\ShippingRate;
 use Commercetools\Core\Request\Inventory\InventoryByIdGetRequest;
 use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
 use Commercetools\Core\Request\Inventory\InventoryDeleteRequest;
@@ -211,6 +212,24 @@ class OrderImportRequestTest extends ApiTestCase
             [$importOrder->getLineItems()->current()->getVariant()->getSku()],
             $response->getErrors()->getByCode('OutOfStock')->getSkus()
         );
+    }
+
+    public function testShippingInfo()
+    {
+        $draft = $this->getOrderImportDraft()->setShippingInfo(ShippingInfoImportDraft::of()
+            ->setShippingMethodName('test-' . $this->getTestRun())
+            ->setPrice(Money::ofCurrencyAndAmount('EUR', 100))
+            ->setShippingRate(ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 200)))
+            ->setShippingMethodState(ShippingInfoImportDraft::SHIPPING_METHOD_MATCH)
+        );
+
+        $order = $this->importOrder($draft);
+
+        $this->assertNotNull($order->getId());
+        $this->assertNotNull($order->getVersion());
+        $this->assertInstanceOf(Order::class, $order);
+        $this->assertInstanceOf(ShippingInfoImportDraft::class, $order->getShippingInfo());
+        $this->assertSame('test-' . $this->getTestRun(), $order->getShippingInfo()->getShippingMethodName());
     }
 
 }

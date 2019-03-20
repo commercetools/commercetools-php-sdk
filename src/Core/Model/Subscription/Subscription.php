@@ -32,10 +32,17 @@ use DateTime;
  * @method Subscription setMessages(MessageSubscriptionCollection $messages = null)
  * @method ChangeSubscriptionCollection getChanges()
  * @method Subscription setChanges(ChangeSubscriptionCollection $changes = null)
+ * @method string getStatus()
+ * @method Subscription setStatus(string $status = null)
  * @method SubscriptionReference getReference()
  */
 class Subscription extends Resource
 {
+    const STATUS_HEALTHY = 'Healthy';
+    const STATUS_CONFIGURATION_ERROR = 'ConfigurationError';
+    const STATUS_CONFIGURATION_ERROR_DELIVERY_STOPPED = 'ConfigurationErrorDeliveryStopped';
+    const STATUS_TEMPORARY_ERROR = 'TemporaryError';
+
     public function fieldDefinitions()
     {
         return [
@@ -53,6 +60,7 @@ class Subscription extends Resource
             'destination' => [static::TYPE => Destination::class],
             'messages' => [static::TYPE => MessageSubscriptionCollection::class],
             'changes' => [static::TYPE => ChangeSubscriptionCollection::class],
+            'status' => [static::TYPE => 'string']
         ];
     }
 }

@@ -31,6 +31,10 @@ use Commercetools\Core\Model\Common\Reference;
  * @method CustomerGroupSetMessage setType(string $type = null)
  * @method CustomerGroupReference getCustomerGroup()
  * @method CustomerGroupSetMessage setCustomerGroup(CustomerGroupReference $customerGroup = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method CustomerGroupSetMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class CustomerGroupSetMessage extends Message
 {

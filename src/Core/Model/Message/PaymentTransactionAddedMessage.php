@@ -31,6 +31,10 @@ use DateTime;
  * @method PaymentTransactionAddedMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method PaymentTransactionAddedMessage setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method PaymentTransactionAddedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class PaymentTransactionAddedMessage extends Message
 {

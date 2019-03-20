@@ -31,6 +31,10 @@ use DateTime;
  * @method ReviewCreatedMessage setType(string $type = null)
  * @method Review getReview()
  * @method ReviewCreatedMessage setReview(Review $review = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ReviewCreatedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ReviewCreatedMessage extends Message
 {

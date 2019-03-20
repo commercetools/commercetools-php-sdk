@@ -15,6 +15,7 @@ use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicati
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetMaxApplicationsPerCustomerAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetNameAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidFromAction;
+use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidFromAndUntilAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidUntilAction;
 
 class DiscountCodesActionBuilder
@@ -139,6 +140,17 @@ class DiscountCodesActionBuilder
     public function setValidFrom($action = null)
     {
         $this->addAction($this->resolveAction(DiscountCodeSetValidFromAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-discountCodes.html#set-valid-from-and-until
+     * @param DiscountCodeSetValidFromAndUntilAction|callable $action
+     * @return $this
+     */
+    public function setValidFromAndUntil($action = null)
+    {
+        $this->addAction($this->resolveAction(DiscountCodeSetValidFromAndUntilAction::class, $action));
         return $this;
     }
 

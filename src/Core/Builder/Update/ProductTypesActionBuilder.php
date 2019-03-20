@@ -10,6 +10,7 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValue
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeConstraintAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeNameAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeOrderAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeOrderByNameAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeDescriptionAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeEnumKeyAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeInputHintAction;
@@ -85,13 +86,24 @@ class ProductTypesActionBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-productTypes.html#change-the-order-of-attributedefinitions
+     * @link https://docs.commercetools.com/http-api-projects-productTypes#change-the-order-of-attributedefinitions
      * @param ProductTypeChangeAttributeOrderAction|callable $action
      * @return $this
      */
     public function changeAttributeOrder($action = null)
     {
         $this->addAction($this->resolveAction(ProductTypeChangeAttributeOrderAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-productTypes#change-the-order-of-attributedefinitions
+     * @param ProductTypeChangeAttributeOrderByNameAction|callable $action
+     * @return $this
+     */
+    public function changeAttributeOrderByName($action = null)
+    {
+        $this->addAction($this->resolveAction(ProductTypeChangeAttributeOrderByNameAction::class, $action));
         return $this;
     }
 

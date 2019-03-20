@@ -45,10 +45,14 @@ class GraphQLQueryRequest extends AbstractApiRequest
     public function httpRequest()
     {
         $body = [
-            'query' => $this->query,
-            'variables' => $this->variables,
-            'operationName' => $this->operationName
+            'query' => $this->query
         ];
+        if (count($this->variables) > 0) {
+            $body['variables'] = $this->variables;
+        }
+        if (!is_null($this->operationName)) {
+            $body['operationName'] = $this->operationName;
+        }
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $body);
     }
 

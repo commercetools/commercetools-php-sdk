@@ -31,6 +31,10 @@ use Commercetools\Core\Model\Common\Reference;
  * @method CustomerAddressRemovedMessage setType(string $type = null)
  * @method Address getAddress()
  * @method CustomerAddressRemovedMessage setAddress(Address $address = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method CustomerAddressRemovedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class CustomerAddressRemovedMessage extends Message
 {

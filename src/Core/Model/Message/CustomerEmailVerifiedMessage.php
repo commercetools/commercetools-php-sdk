@@ -28,6 +28,10 @@ use Commercetools\Core\Model\Common\Reference;
  * @method CustomerEmailVerifiedMessage setResourceVersion(int $resourceVersion = null)
  * @method string getType()
  * @method CustomerEmailVerifiedMessage setType(string $type = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method CustomerEmailVerifiedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class CustomerEmailVerifiedMessage extends Message
 {

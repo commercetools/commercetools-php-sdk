@@ -76,4 +76,22 @@ GRAPHQL;
             $result['masterData']['staged']['name']
         );
     }
+
+    public function testWithoutVariables()
+    {
+        $request = GraphQLQueryRequest::of();
+
+        $query = <<<GRAPHQL
+query Sphere {
+    products {
+        count
+    }
+}
+GRAPHQL;
+
+        $request->query($query);
+
+        $response = $request->executeWithClient($this->getClient());
+        $this->assertFalse($response->isError());
+    }
 }

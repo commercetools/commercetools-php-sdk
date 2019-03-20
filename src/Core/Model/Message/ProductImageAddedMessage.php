@@ -36,6 +36,10 @@ use DateTime;
  * @method ProductImageAddedMessage setImage(Image $image = null)
  * @method bool getStaged()
  * @method ProductImageAddedMessage setStaged(bool $staged = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method ProductImageAddedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class ProductImageAddedMessage extends Message
 {

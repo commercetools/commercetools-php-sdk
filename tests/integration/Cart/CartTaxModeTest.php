@@ -72,7 +72,7 @@ class CartTaxModeTest extends ApiTestCase
             ->addAction(
                 CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
                     ->setExternalTaxRate(
-                        ExternalTaxRateDraft::ofNameCountryAndAmount($taxRateName, $taxRateCountry, $taxRate)
+                        ExternalTaxRateDraft::ofNameCountryAndAmount($taxRateName, $taxRateCountry, $taxRate)->setIncludedInPrice(true)
                     )
             )
         ;
@@ -83,6 +83,7 @@ class CartTaxModeTest extends ApiTestCase
         $this->assertSame($taxRateName, $cart->getLineItems()->current()->getTaxRate()->getName());
         $this->assertSame($taxRateCountry, $cart->getLineItems()->current()->getTaxRate()->getCountry());
         $this->assertSame($taxRate, $cart->getLineItems()->current()->getTaxRate()->getAmount());
+        $this->assertTrue($cart->getLineItems()->current()->getTaxRate()->getIncludedInPrice());
     }
 
     public function getSubRates()
@@ -182,6 +183,7 @@ class CartTaxModeTest extends ApiTestCase
         $this->assertSame($taxRateName, $cart->getLineItems()->current()->getTaxRate()->getName());
         $this->assertSame($taxRateCountry, $cart->getLineItems()->current()->getTaxRate()->getCountry());
         $this->assertSame($taxRate, $cart->getLineItems()->current()->getTaxRate()->getAmount());
+        $this->assertFalse($cart->getLineItems()->current()->getTaxRate()->getIncludedInPrice());
 
         $subRates = [];
         foreach ($cart->getLineItems()->current()->getTaxRate()->getSubRates() as $subRate) {
@@ -208,6 +210,7 @@ class CartTaxModeTest extends ApiTestCase
                     Money::ofCurrencyAndAmount('EUR', 100),
                     'test',
                     ExternalTaxRateDraft::ofNameCountryAndAmount($taxRateName, $taxRateCountry, $taxRate)
+                        ->setIncludedInPrice(false)
                 )
             )
         ;
@@ -218,6 +221,7 @@ class CartTaxModeTest extends ApiTestCase
         $this->assertSame($taxRateName, $cart->getCustomLineItems()->current()->getTaxRate()->getName());
         $this->assertSame($taxRateCountry, $cart->getCustomLineItems()->current()->getTaxRate()->getCountry());
         $this->assertSame($taxRate, $cart->getCustomLineItems()->current()->getTaxRate()->getAmount());
+        $this->assertFalse($cart->getCustomLineItems()->current()->getTaxRate()->getIncludedInPrice());
     }
 
     /**

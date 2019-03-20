@@ -262,7 +262,6 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('set-valid-from-until');
         $productDiscount = $this->createProductDiscount($draft);
 
-
         $validFrom = new \DateTime();
         $validUntil = new \DateTime('+1 second');
         $request = ProductDiscountUpdateRequest::ofIdAndVersion(

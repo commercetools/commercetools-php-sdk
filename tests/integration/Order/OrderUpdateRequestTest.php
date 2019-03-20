@@ -15,6 +15,7 @@ use Commercetools\Core\Model\Cart\ItemShippingTarget;
 use Commercetools\Core\Model\Cart\ItemShippingTargetCollection;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
+use Commercetools\Core\Model\Cart\ShippingInfo;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
@@ -22,6 +23,8 @@ use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Model\Customer\CustomerDraft;
+use Commercetools\Core\Model\Customer\CustomerSigninResult;
 use Commercetools\Core\Model\Order\DeliveryItem;
 use Commercetools\Core\Model\Order\DeliveryItemCollection;
 use Commercetools\Core\Model\Order\Order;
@@ -43,6 +46,8 @@ use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartReplicateRequest;
+use Commercetools\Core\Request\Customers\CustomerCreateRequest;
+use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
 use Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddItemShippingAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction;
@@ -57,6 +62,7 @@ use Commercetools\Core\Request\Orders\Command\OrderRemoveParcelFromDeliveryActio
 use Commercetools\Core\Request\Orders\Command\OrderRemovePaymentAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddress;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomerEmail;
+use Commercetools\Core\Request\Orders\Command\OrderSetCustomerIdAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction;
@@ -391,7 +397,11 @@ class OrderUpdateRequestTest extends ApiTestCase
 
         $this->assertNotSame($order->getVersion(), $result->getVersion());
         $this->assertInstanceOf(Order::class, $result);
-        $delivery = $result->getShippingInfo()->getDeliveries()->current();
+
+        $shippingInfo = $result->getShippingInfo();
+        $this->assertInstanceOf(ShippingInfo::class, $shippingInfo);
+
+        $delivery = $shippingInfo->getDeliveries()->current();
         $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
         $order = $result;
 
@@ -667,6 +677,42 @@ class OrderUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Order::class, $order);
         $this->assertNotSame($draft->getCustomerEmail(), $order->getCustomerEmail());
+    }
+
+    public function testSetCustomerId()
+    {
+        $draft = $this->getCartDraft();
+        $order = $this->createOrder($draft);
+
+        $customerDraft = CustomerDraft::ofEmailNameAndPassword(
+            $this->getTestRun() . '-another@example.com',
+            'firstName',
+            'lastName',
+            'password'
+        );
+        $request = CustomerCreateRequest::ofDraft($customerDraft);
+        $response = $request->executeWithClient($this->getClient());
+        $customerSignInResult = $request->mapResponse($response);
+        $customer = $customerSignInResult->getCustomer();
+
+        $this->cleanupRequests[] = CustomerDeleteRequest::ofIdAndVersion(
+            $customer->getId(),
+            $customer->getVersion()
+        );
+
+        $this->assertNotSame($order->getCustomerId(), $customer->getId());
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(OrderSetCustomerIdAction::of()->setCustomerId($customer->getId()))
+        ;
+
+        $response = $request->executeWithClient($this->getClient());
+        $order = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($order->getVersion());
+
+        $this->assertInstanceOf(Order::class, $order);
+        $this->assertNotSame($draft->getCustomerId(), $order->getCustomerId());
+        $this->assertSame($customer->getId(), $order->getCustomerId());
     }
 
     public function testSetShippingAddress()

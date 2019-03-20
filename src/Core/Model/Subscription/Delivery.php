@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Subscription;
 
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\Reference;
+use Commercetools\Core\Model\Message\UserProvidedIdentifiers;
 
 /**
  * @package Commercetools\Core\Model\Subscription
@@ -17,6 +18,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method Delivery setNotificationType(string $notificationType = null)
  * @method Reference getResource()
  * @method Delivery setResource(Reference $resource = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * @method Delivery setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
  */
 class Delivery extends JsonObject
 {
@@ -32,6 +35,7 @@ class Delivery extends JsonObject
             'projectKey' => [static::TYPE => 'string'],
             static::NOTIFICATION_TYPE => [static::TYPE => 'string'],
             'resource' => [static::TYPE => Reference::class],
+            'resourceUserProvidedIdentifiers' => [static::TYPE => UserProvidedIdentifiers::class],
         ];
     }
 

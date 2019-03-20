@@ -31,6 +31,10 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
  * @method CustomerDateOfBirthSetMessage setType(string $type = null)
  * @method DateDecorator getDateOfBirth()
  * @method CustomerDateOfBirthSetMessage setDateOfBirth(DateTime $dateOfBirth = null)
+ * @method UserProvidedIdentifiers getResourceUserProvidedIdentifiers()
+ * phpcs:disable
+ * @method CustomerDateOfBirthSetMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
+ * phpcs:enable
  */
 class CustomerDateOfBirthSetMessage extends Message
 {

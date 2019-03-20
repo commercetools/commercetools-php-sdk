@@ -27,6 +27,7 @@ use Commercetools\Core\Model\MapperInterface;
 class CustomerPasswordTokenRequest extends AbstractApiRequest
 {
     const EMAIL = 'email';
+    const TTL_MINUTES = 'ttlMinutes';
 
     protected $resultClass = CustomerToken::class;
 
@@ -36,8 +37,24 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
     protected $email;
 
     /**
+     * @var int
+     */
+    protected $ttlMinutes;
+
+    /**
+     * @param int $ttlMinutes
+     * @return CustomerPasswordTokenRequest
+     */
+    public function setTtlMinutes($ttlMinutes)
+    {
+        $this->ttlMinutes = $ttlMinutes;
+
+        return $this;
+    }
+
+    /**
      * @param string $email
-     * @param Context $context
+     * @param Context|null $context
      */
     public function __construct($email, Context $context = null)
     {
@@ -58,6 +75,17 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
     }
 
     /**
+     * @param string $email
+     * @param int $ttlMinutes
+     * @param Context $context
+     * @return static
+     */
+    public static function ofEmailAndTtlMinutes($email, $ttlMinutes, Context $context = null)
+    {
+        return (new static($email, $context))->setTtlMinutes($ttlMinutes);
+    }
+
+    /**
      * @return string
      * @internal
      */
@@ -75,6 +103,11 @@ class CustomerPasswordTokenRequest extends AbstractApiRequest
         $payload = [
             static::EMAIL => $this->email
         ];
+
+        if (!is_null($this->ttlMinutes)) {
+            $payload[static::TTL_MINUTES] = $this->ttlMinutes;
+        }
+
         return new JsonRequest(HttpMethod::POST, $this->getPath(), $payload);
     }
 
