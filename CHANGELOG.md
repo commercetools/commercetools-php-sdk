@@ -1,3 +1,34 @@
+<a name="2.7.0"></a>
+# [2.7.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.6.0...v2.7.0) (2019-03-20)
+
+
+### Bug Fixes
+
+* **GraphQL:** fix GraphQL requests without variables ([fa9d376](https://github.com/commercetools/commercetools-php-sdk/commit/fa9d376))
+* **LineItemImportDraft:** add missing field distributionChannel ([52d2ff0](https://github.com/commercetools/commercetools-php-sdk/commit/52d2ff0))
+
+
+### Features
+
+* **Discounts:** add setValidFromAndUntil action ([c226e1f](https://github.com/commercetools/commercetools-php-sdk/commit/c226e1f))
+* **Error:** add error codes for BadRequest ([9012d5d](https://github.com/commercetools/commercetools-php-sdk/commit/9012d5d))
+* **ExternalTaxRateDraft:** add field includedInPrice ([2771f2d](https://github.com/commercetools/commercetools-php-sdk/commit/2771f2d)), closes [#451](https://github.com/commercetools/commercetools-php-sdk/issues/451)
+* **Message:** add new messages for ProductPriceDiscounts ([fc876f7](https://github.com/commercetools/commercetools-php-sdk/commit/fc876f7)), closes [#445](https://github.com/commercetools/commercetools-php-sdk/issues/445)
+* **Message:** add OrderDeleted Message ([22ab652](https://github.com/commercetools/commercetools-php-sdk/commit/22ab652))
+* **Messages:** set MessagesConfiguration at Project ([5389c23](https://github.com/commercetools/commercetools-php-sdk/commit/5389c23)), closes [#443](https://github.com/commercetools/commercetools-php-sdk/issues/443)
+* **Order:** support setCustomerId ([756811d](https://github.com/commercetools/commercetools-php-sdk/commit/756811d))
+* **PasswordResetToken:** support ttlMinutes for token ([ebe6d77](https://github.com/commercetools/commercetools-php-sdk/commit/ebe6d77))
+* **ProductAddVariantAction:** support field assets ([ce591e8](https://github.com/commercetools/commercetools-php-sdk/commit/ce591e8))
+* **ProductType:** support changeAttributeOrderByName action ([dd52af8](https://github.com/commercetools/commercetools-php-sdk/commit/dd52af8)), closes [#453](https://github.com/commercetools/commercetools-php-sdk/issues/453)
+* **ShippingInfoImportDraft:** add ShippingInfoImportDraft representation ([bde4473](https://github.com/commercetools/commercetools-php-sdk/commit/bde4473)), closes [#449](https://github.com/commercetools/commercetools-php-sdk/issues/449)
+* **ShippingMethod:** support Reference expansion ([bd745f7](https://github.com/commercetools/commercetools-php-sdk/commit/bd745f7))
+* **Subscription:** add changeDestination update action ([b0fbb04](https://github.com/commercetools/commercetools-php-sdk/commit/b0fbb04)), closes [#437](https://github.com/commercetools/commercetools-php-sdk/issues/437)
+* **Subscription:** add subscription status ([a2ff2e1](https://github.com/commercetools/commercetools-php-sdk/commit/a2ff2e1)), closes [#436](https://github.com/commercetools/commercetools-php-sdk/issues/436)
+* **UserProvidedIdentifiers:** support UserProvidedIdentifiers at Messages & Subscriptions ([aeece56](https://github.com/commercetools/commercetools-php-sdk/commit/aeece56))
+* **Zone:** support Key on shipping Zones ([d331cff](https://github.com/commercetools/commercetools-php-sdk/commit/d331cff)), closes [#448](https://github.com/commercetools/commercetools-php-sdk/issues/448)
+
+
+
 <a name="2.6.0"></a>
 # [2.6.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.5.1...v2.6.0) (2019-01-11)
 
