@@ -612,6 +612,8 @@
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>Commercetools\Core\Request\ShippingMethods\ShippingMethodByCartIdGetRequest</span></b>			
 			
+			 uses 
+					<a href="class-Commercetools.Core.Request.ExpandTrait.html"><span>Commercetools\Core\Request\ExpandTrait</span></a>
 			
 		</dd>
 	</dl>
@@ -630,7 +632,7 @@
 
 				<b>API documentation:</b>
 				<b><a href="https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-a-cart" target="api-doc">https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-a-cart</a></b><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#19-80" title="Go to source code">Core/Request/ShippingMethods/ShippingMethodByCartIdGetRequest.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#20-83" title="Go to source code">Core/Request/ShippingMethods/ShippingMethodByCartIdGetRequest.php</a>
 		<br>
 	</div>
 
@@ -650,7 +652,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#34-42" title="Go to source code">__construct</a>( <span>string <var>$cartId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#37-45" title="Go to source code">__construct</a>( <span>string <var>$cartId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -688,7 +690,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_withCartId">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#44-51" title="Go to source code">withCartId</a>( <span>string <var>$cartId</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#47-54" title="Go to source code">withCartId</a>( <span>string <var>$cartId</var></span> )</code>
 
 			<div class="description short">
 				
@@ -726,7 +728,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofCartId">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#53-61" title="Go to source code">ofCartId</a>( <span>string <var>$cartId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#56-64" title="Go to source code">ofCartId</a>( <span>string <var>$cartId</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -766,7 +768,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_buildResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#72-79" title="Go to source code">buildResponse</a>( <span>Psr\Http\Message\ResponseInterface <var>$response</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#75-82" title="Go to source code">buildResponse</a>( <span>Psr\Http\Message\ResponseInterface <var>$response</var></span> )</code>
 
 			<div class="description short">
 				
@@ -827,6 +829,13 @@
 		</div>
 
 		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Request.ExpandTrait.html#methods">Commercetools\Core\Request\ExpandTrait</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Request.ExpandTrait.html#_addParamObject">addParamObject()</a></code>, 
+				<code><a href="class-Commercetools.Core.Request.ExpandTrait.html#_expand">expand()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Model.Common.ContextTrait.html#methods">Commercetools\Core\Model\Common\ContextTrait</a></h3></div>
 			<p class="elementList">
 				<code><a href="class-Commercetools.Core.Model.Common.ContextTrait.html#_getContext">getContext()</a></code>, 
@@ -850,7 +859,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_mapResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#22" title="Go to source code">mapResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#23" title="Go to source code">mapResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span> )</code>
 
 			<div class="description short">
 				
@@ -890,7 +899,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_mapFromResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#23" title="Go to source code">mapFromResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span>, <span><code><a href="class-Commercetools.Core.Model.MapperInterface.html">Commercetools\Core\Model\MapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.ShippingMethods.ShippingMethodByCartIdGetRequest.html#24" title="Go to source code">mapFromResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span>, <span><code><a href="class-Commercetools.Core.Model.MapperInterface.html">Commercetools\Core\Model\MapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -939,6 +948,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?6b19b3f51fcef71a63cb5d292edc12061c26ce4d"></script>
+<script src="elementlist.js?4d6ea9d0eae1c77832510ccd693868199f0d063a"></script>
 </body>
 </html>

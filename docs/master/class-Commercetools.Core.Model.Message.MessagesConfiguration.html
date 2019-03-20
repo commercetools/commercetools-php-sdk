@@ -586,9 +586,12 @@
 				<li><a href="class-Commercetools.Core.Model.Message.Message.html">Message</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.MessageCollection.html">MessageCollection</a></li>
 				<li class="active"><a href="class-Commercetools.Core.Model.Message.MessagesConfiguration.html">MessagesConfiguration</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.MessagesConfigurationDraft.html">MessagesConfigurationDraft</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderBillingAddressSetMessage.html">OrderBillingAddressSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderCreatedMessage.html">OrderCreatedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderCustomerEmailSetMessage.html">OrderCustomerEmailSetMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.OrderCustomerSetMessage.html">OrderCustomerSetMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.OrderDeletedMessage.html">OrderDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderEditAppliedMessage.html">OrderEditAppliedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderImportedMessage.html">OrderImportedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderPaymentChangedMessage.html">OrderPaymentChangedMessage</a></li>
@@ -610,6 +613,10 @@
 				<li><a href="class-Commercetools.Core.Model.Message.ProductCreatedMessage.html">ProductCreatedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductDeletedMessage.html">ProductDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductImageAddedMessage.html">ProductImageAddedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.ProductPriceDiscountsSetMessage.html">ProductPriceDiscountsSetMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.ProductPriceDiscountsSetUpdatedPrice.html">ProductPriceDiscountsSetUpdatedPrice</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.ProductPriceDiscountsSetUpdatedPriceCollection.html">ProductPriceDiscountsSetUpdatedPriceCollection</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.ProductPriceExternalDiscountSetMessage.html">ProductPriceExternalDiscountSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductPublishedMessage.html">ProductPublishedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductRevertedStagedChangesMessage.html">ProductRevertedStagedChangesMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductSlugChangedMessage.html">ProductSlugChangedMessage</a></li>
@@ -620,6 +627,7 @@
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewRatingSetMessage.html">ReviewRatingSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewStateTransitionMessage.html">ReviewStateTransitionMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.StateTransitionMessage.html">StateTransitionMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.UserProvidedIdentifiers.html">UserProvidedIdentifiers</a></li>
 			</ul>
 
 
@@ -665,6 +673,13 @@
 		</dd>
 		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-Commercetools.Core.Model.Message.MessagesConfigurationDraft.html"><span>Commercetools\Core\Model\Message\MessagesConfigurationDraft</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by">
 <b><span>Commercetools\Core\Model\Message\MessagesConfiguration</span></b>			
 			
 			
@@ -683,7 +698,7 @@
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Model.html">Model</a>\<a href="namespace-Commercetools.Core.Model.Message.html">Message</a><br>
 
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Message.MessagesConfiguration.html#10-24" title="Go to source code">Core/Model/Message/MessagesConfiguration.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Message.MessagesConfiguration.html#8-18" title="Go to source code">Core/Model/Message/MessagesConfiguration.php</a>
 		<br>
 	</div>
 
@@ -713,20 +728,20 @@
 			</p>
 		</div>
 		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#methods">Commercetools\Core\Model\Common\ObjectTreeInterface</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_parentSet">parentSet()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_rootGet">rootGet()</a></code>, 
+				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_rootSet">rootSet()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#methods">Commercetools\Core\Model\Common\ContextAwareInterface</a></h3></div>
 			<p class="elementList">
 				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_getContext">getContext()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_getContextCallback">getContextCallback()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_setContext">setContext()</a></code>, 
 				<code><a href="class-Commercetools.Core.Model.Common.ContextAwareInterface.html#_setContextIfNull">setContextIfNull()</a></code>
-			</p>
-		</div>
-		<div class="panel panel-default">
-	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#methods">Commercetools\Core\Model\Common\ObjectTreeInterface</a></h3></div>
-			<p class="elementList">
-				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_parentSet">parentSet()</a></code>, 
-				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_rootGet">rootGet()</a></code>, 
-				<code><a href="class-Commercetools.Core.Model.Common.ObjectTreeInterface.html#_rootSet">rootSet()</a></code>
 			</p>
 		</div>
 
@@ -762,7 +777,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getEnabled">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.MessagesConfiguration.html#13" title="Go to source code">getEnabled</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Message.MessagesConfiguration.html#11" title="Go to source code">getEnabled</a>( )</code>
 
 			<div class="description short">
 				
@@ -795,7 +810,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setEnabled">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.MessagesConfiguration.html#14" title="Go to source code">setEnabled</a>( <span>boolean <var>$enabled</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Message.MessagesConfiguration.html#12" title="Go to source code">setEnabled</a>( <span>boolean <var>$enabled</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -808,6 +823,77 @@
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$enabled</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Message.MessagesConfiguration.html">Commercetools\Core\Model\Message\MessagesConfiguration</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getDeleteDaysAfterCreation" id="m_getDeleteDaysAfterCreation">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getDeleteDaysAfterCreation">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Message.MessagesConfiguration.html#13" title="Go to source code">getDeleteDaysAfterCreation</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						integer
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setDeleteDaysAfterCreation" id="m_setDeleteDaysAfterCreation">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Message.MessagesConfiguration.html">Commercetools\Core\Model\Message\MessagesConfiguration</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setDeleteDaysAfterCreation">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Message.MessagesConfiguration.html#14" title="Go to source code">setDeleteDaysAfterCreation</a>( <span>integer <var>$deleteDaysAfterCreation</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$deleteDaysAfterCreation</var></dt>
 						<dd></dd>
 					</dl></div>
 
@@ -861,6 +947,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?6b19b3f51fcef71a63cb5d292edc12061c26ce4d"></script>
+<script src="elementlist.js?4d6ea9d0eae1c77832510ccd693868199f0d063a"></script>
 </body>
 </html>

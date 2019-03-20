@@ -572,7 +572,7 @@
 				<li><a href="class-Commercetools.Core.Model.Subscription.Delivery.html">Delivery</a></li>
 				<li><a href="class-Commercetools.Core.Model.Subscription.Destination.html">Destination</a></li>
 				<li><a href="class-Commercetools.Core.Model.Subscription.GoogleCloudPubSubDestination.html">GoogleCloudPubSubDestination</a></li>
-				<li><a href="class-Commercetools.Core.Model.Subscription.IronMQDestination.html">IronMQDestination</a></li>
+				<li><a href="class-Commercetools.Core.Model.Subscription.IronMQDestination.html" class="deprecated">IronMQDestination</a></li>
 				<li><a href="class-Commercetools.Core.Model.Subscription.MessageDelivery.html">MessageDelivery</a></li>
 				<li><a href="class-Commercetools.Core.Model.Subscription.MessageSubscription.html">MessageSubscription</a></li>
 				<li><a href="class-Commercetools.Core.Model.Subscription.MessageSubscriptionCollection.html">MessageSubscriptionCollection</a></li>
@@ -660,7 +660,7 @@
 
 				<b>API documentation:</b>
 				<b><a href="https://docs.commercetools.com/http-api-projects-subscriptions.html#subscription" target="api-doc">https://docs.commercetools.com/http-api-projects-subscriptions.html#subscription</a></b><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Subscription.Subscription.html#16-58" title="Go to source code">Core/Model/Subscription/Subscription.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Subscription.Subscription.html#16-66" title="Go to source code">Core/Model/Subscription/Subscription.php</a>
 		<br>
 	</div>
 
@@ -1303,6 +1303,77 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getStatus" id="m_getStatus">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getStatus">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Subscription.Subscription.html#35" title="Go to source code">getStatus</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setStatus" id="m_setStatus">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Subscription.Subscription.html">Commercetools\Core\Model\Subscription\Subscription</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setStatus">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Subscription.Subscription.html#36" title="Go to source code">setStatus</a>( <span>string <var>$status</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$status</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Subscription.Subscription.html">Commercetools\Core\Model\Subscription\Subscription</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="getReference" id="m_getReference">
 
 			<td class="attributes"><code>
@@ -1314,7 +1385,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getReference">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Subscription.Subscription.html#35" title="Go to source code">getReference</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Subscription.Subscription.html#37" title="Go to source code">getReference</a>( )</code>
 
 			<div class="description short">
 				
@@ -1347,6 +1418,104 @@
 
 		<div class="panel panel-default">
             <div class="panel-heading"><h2>Constants summary</h2></div>
+			<table class="summary table table-bordered table-striped constants" id="constants">
+			<tr data-order="STATUS_HEALTHY" id="STATUS_HEALTHY">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-constant-STATUS_HEALTHY.html#41" title="Go to source code"><b>STATUS_HEALTHY</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#STATUS_HEALTHY" class="anchor">#</a>
+						<code><span class="php-quote">'Healthy'</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="STATUS_CONFIGURATION_ERROR" id="STATUS_CONFIGURATION_ERROR">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-constant-STATUS_CONFIGURATION_ERROR.html#42" title="Go to source code"><b>STATUS_CONFIGURATION_ERROR</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#STATUS_CONFIGURATION_ERROR" class="anchor">#</a>
+						<code><span class="php-quote">'ConfigurationError'</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="STATUS_CONFIGURATION_ERROR_DELIVERY_STOPPED" id="STATUS_CONFIGURATION_ERROR_DELIVERY_STOPPED">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-constant-STATUS_CONFIGURATION_ERROR_DELIVERY_STOPPED.html#43" title="Go to source code"><b>STATUS_CONFIGURATION_ERROR_DELIVERY_STOPPED</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#STATUS_CONFIGURATION_ERROR_DELIVERY_STOPPED" class="anchor">#</a>
+						<code><span class="php-quote">'ConfigurationErrorDeliveryStopped'</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="STATUS_TEMPORARY_ERROR" id="STATUS_TEMPORARY_ERROR">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-constant-STATUS_TEMPORARY_ERROR.html#44" title="Go to source code"><b>STATUS_TEMPORARY_ERROR</b></a>
+					</code>
+
+					<div class="description short">
+						
+					</div>
+
+					<div class="description detailed hidden">
+						
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#STATUS_TEMPORARY_ERROR" class="anchor">#</a>
+						<code><span class="php-quote">'TemporaryError'</span></code>
+					</div>
+				</td>
+			</tr>
+			</table>
 		</div>
 
 		<div class="panel panel-default">
@@ -1377,6 +1546,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?6b19b3f51fcef71a63cb5d292edc12061c26ce4d"></script>
+<script src="elementlist.js?4d6ea9d0eae1c77832510ccd693868199f0d063a"></script>
 </body>
 </html>
