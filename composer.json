@@ -57,7 +57,7 @@
     "incenteev/composer-parameter-handler": "^2.1",
     "commercetools/commercetools-api-reference": "dev-master"
   },
-  "replaces": {
+  "replace": {
     "commercetools/commons": "*"
   },
   "bin": [
