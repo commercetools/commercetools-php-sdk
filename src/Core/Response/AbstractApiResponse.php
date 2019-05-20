@@ -6,7 +6,11 @@
 
 namespace Commercetools\Core\Response;
 
+use Commercetools\Core\Client\Adapter\PromiseGetInterface;
 use Commercetools\Core\Error\ErrorContainer;
+use Commercetools\Core\Error\InvalidArgumentException;
+use GuzzleHttp\Ring\Future\FutureInterface;
+use Prophecy\Promise\PromiseInterface;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\Adapter\AdapterPromiseInterface;
 use Commercetools\Core\Error\Message;
@@ -18,7 +22,7 @@ use Commercetools\Core\Request\ClientRequestInterface;
 /**
  * @package Commercetools\Core\Response
  */
-abstract class AbstractApiResponse implements ApiResponseInterface, ContextAwareInterface
+abstract class AbstractApiResponse implements ApiResponseInterface, ContextAwareInterface, ApiPromiseGetInterface
 {
     const X_CORRELATION_ID = 'X-Correlation-ID';
     use ContextTrait;
@@ -209,5 +213,17 @@ abstract class AbstractApiResponse implements ApiResponseInterface, ContextAware
         $this->getResponse()->then($onFulfilled, $onRejected);
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPromise()
+    {
+        $adapterResponse = $this->getResponse();
+        if ($adapterResponse instanceof PromiseGetInterface) {
+            return $adapterResponse->getPromise();
+        }
+        throw new \BadMethodCallException(Message::FUTURE_BAD_METHOD_CALL);
     }
 }
