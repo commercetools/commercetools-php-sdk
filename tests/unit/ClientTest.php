@@ -29,7 +29,6 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Ring\Future\FutureInterface;
 use GuzzleHttp\Psr7\BufferStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -840,9 +839,9 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($response->isError());
 
         if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
-            $this->assertInstanceOf(PromiseInterface::class, $response->getPromise());
+            $this->assertInstanceOf(PromiseInterface::class, $response->getResponse());
         } else {
-            $this->assertInstanceOf(FutureInterface::class, $response->getPromise());
+            $this->assertInstanceOf(\React\Promise\PromiseInterface::class, $response->getPromise());
         }
     }
 }
