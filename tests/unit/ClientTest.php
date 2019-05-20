@@ -839,7 +839,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($response->isError());
 
         if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
-            $this->assertInstanceOf(PromiseInterface::class, $response->getResponse());
+            $this->assertInstanceOf(PromiseInterface::class, $response->getPromise());
         } else {
             $this->assertInstanceOf(\React\Promise\PromiseInterface::class, $response->getPromise());
         }
