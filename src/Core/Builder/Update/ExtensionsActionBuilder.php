@@ -7,6 +7,7 @@ use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Extensions\Command\ExtensionChangeDestinationAction;
 use Commercetools\Core\Request\Extensions\Command\ExtensionChangeTriggersAction;
 use Commercetools\Core\Request\Extensions\Command\ExtensionSetKeyAction;
+use Commercetools\Core\Request\Extensions\Command\ExtensionSetTimeoutInMsAction;
 
 class ExtensionsActionBuilder
 {
@@ -42,6 +43,17 @@ class ExtensionsActionBuilder
     public function setKey($action = null)
     {
         $this->addAction($this->resolveAction(ExtensionSetKeyAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-api-extensions.html#set-timeoutinms
+     * @param ExtensionSetTimeoutInMsAction|callable $action
+     * @return $this
+     */
+    public function setTimeoutInMs($action = null)
+    {
+        $this->addAction($this->resolveAction(ExtensionSetTimeoutInMsAction::class, $action));
         return $this;
     }
 

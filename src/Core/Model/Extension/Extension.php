@@ -25,6 +25,8 @@ use DateTime;
  * @method Extension setDestination(Destination $destination = null)
  * @method TriggerCollection getTriggers()
  * @method Extension setTriggers(TriggerCollection $triggers = null)
+ * @method int getTimeoutInMs()
+ * @method Extension setTimeoutInMs(int $timeoutInMs = null)
  */
 class Extension extends Resource
 {
@@ -44,6 +46,7 @@ class Extension extends Resource
             'key' => [static::TYPE => 'string'],
             'destination' => [static::TYPE => Destination::class],
             'triggers' => [static::TYPE => TriggerCollection::class],
+            'timeoutInMs' => [static::TYPE => 'int'],
         ];
     }
 }
