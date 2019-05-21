@@ -27,6 +27,7 @@ use Commercetools\Core\Response\ApiResponseInterface;
  */
 abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwareInterface
 {
+    const EXTERNAL_USER_HEADER = 'X-External-User-ID';
     use ContextTrait;
 
     /**
@@ -42,6 +43,8 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
     protected $identifier;
 
     protected $resultClass = JsonObject::class;
+
+    protected $headers = [];
 
     /**
      * @param JsonEndpoint $endpoint
@@ -89,6 +92,17 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
     public function setIdentifier($identifier)
     {
         $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    /**
+     * @param string $externalUserId
+     * @return $this
+     */
+    public function setExternalUserId($externalUserId)
+    {
+        $this->headers[self::EXTERNAL_USER_HEADER] = $externalUserId;
 
         return $this;
     }
@@ -241,6 +255,9 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
      */
     public function executeWithClient(Client $client, array $headers = null)
     {
-        return $client->execute($this, $headers);
+        if (!is_null($headers)) {
+            $this->headers = array_merge($headers, $this->headers);
+        }
+        return $client->execute($this, $this->headers);
     }
 }
