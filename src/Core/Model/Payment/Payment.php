@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\Payment;
 
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Customer\CustomerReference;
@@ -44,6 +46,10 @@ use DateTime;
  * @method Payment setKey(string $key = null)
  * @method string getAnonymousId()
  * @method Payment setAnonymousId(string $anonymousId = null)
+ * @method CreatedBy getCreatedBy()
+ * @method Payment setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method Payment setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method PaymentReference getReference()
  */
 class Payment extends Resource
@@ -81,6 +87,8 @@ class Payment extends Resource
             'interfaceInteractions' => [
                 static::TYPE => CustomFieldObjectCollection::class
             ],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 

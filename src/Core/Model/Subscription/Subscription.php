@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\Subscription;
 
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
@@ -34,6 +36,10 @@ use DateTime;
  * @method Subscription setChanges(ChangeSubscriptionCollection $changes = null)
  * @method string getStatus()
  * @method Subscription setStatus(string $status = null)
+ * @method CreatedBy getCreatedBy()
+ * @method Subscription setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method Subscription setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method SubscriptionReference getReference()
  */
 class Subscription extends Resource
@@ -60,7 +66,9 @@ class Subscription extends Resource
             'destination' => [static::TYPE => Destination::class],
             'messages' => [static::TYPE => MessageSubscriptionCollection::class],
             'changes' => [static::TYPE => ChangeSubscriptionCollection::class],
-            'status' => [static::TYPE => 'string']
+            'status' => [static::TYPE => 'string'],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }

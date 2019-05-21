@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\Inventory;
 
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
@@ -36,6 +38,10 @@ use DateTime;
  * @method InventoryEntry setExpectedDelivery(DateTime $expectedDelivery = null)
  * @method CustomFieldObject getCustom()
  * @method InventoryEntry setCustom(CustomFieldObject $custom = null)
+ * @method CreatedBy getCreatedBy()
+ * @method InventoryEntry setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method InventoryEntry setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  */
 class InventoryEntry extends Resource
 {
@@ -62,6 +68,8 @@ class InventoryEntry extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'custom' => [static::TYPE => CustomFieldObject::class],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }

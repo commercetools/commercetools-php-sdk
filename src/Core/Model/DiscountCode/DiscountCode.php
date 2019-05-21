@@ -6,6 +6,8 @@
 namespace Commercetools\Core\Model\DiscountCode;
 
 use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\ReferenceCollection;
@@ -50,6 +52,10 @@ use DateTime;
  * @method DiscountCode setValidFrom(DateTime $validFrom = null)
  * @method DateTimeDecorator getValidUntil()
  * @method DiscountCode setValidUntil(DateTime $validUntil = null)
+ * @method CreatedBy getCreatedBy()
+ * @method DiscountCode setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method DiscountCode setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method DiscountCodeReference getReference()
  */
 class DiscountCode extends Resource
@@ -88,6 +94,8 @@ class DiscountCode extends Resource
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }
