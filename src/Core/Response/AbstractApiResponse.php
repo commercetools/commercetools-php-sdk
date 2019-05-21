@@ -8,9 +8,7 @@ namespace Commercetools\Core\Response;
 
 use Commercetools\Core\Client\Adapter\PromiseGetInterface;
 use Commercetools\Core\Error\ErrorContainer;
-use Commercetools\Core\Error\InvalidArgumentException;
 use GuzzleHttp\Ring\Future\FutureInterface;
-use Prophecy\Promise\PromiseInterface;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\Adapter\AdapterPromiseInterface;
 use Commercetools\Core\Error\Message;
