@@ -82,7 +82,7 @@ class ClientTest extends ApiTestCase
         $record = current($logHandler->getRecords());
 
         $this->assertTrue($logHandler->hasInfo($record));
-        $this->assertContains('GET /'.$clientConfig->getProject().'/ HTTP/1.1" 200', (string)$record['message']);
+        $this->assertContains('/'.$clientConfig->getProject().'/ HTTP/1.1" 200', (string)$record['message']);
         $this->assertStringStartsWith($clientConfig->getProject(), current($record['context'][AbstractApiResponse::X_CORRELATION_ID]));
         $this->assertSame(Logger::INFO, $record['level']);
     }
