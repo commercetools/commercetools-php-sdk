@@ -22,6 +22,7 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Model\Payment\PaymentInfo;
+use Commercetools\Core\Model\Store\StoreReference;
 use DateTime;
 
 /**
@@ -100,6 +101,8 @@ use DateTime;
  * @method Order setShippingRateInput(ShippingRateInput $shippingRateInput = null)
  * @method AddressCollection getItemShippingAddresses()
  * @method Order setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
+ * @method StoreReference getStore()
+ * @method Order setStore(StoreReference $store = null)
  * @method OrderReference getReference()
  */
 class Order extends Resource
@@ -162,6 +165,7 @@ class Order extends Resource
             'taxMode' => [static::TYPE => 'string'],
             'shippingRateInput' => [static::TYPE => ShippingRateInput::class],
             'itemShippingAddresses' => [static::TYPE => AddressCollection::class],
+            'store' => [static::TYPE => StoreReference::class],
         ];
     }
 }

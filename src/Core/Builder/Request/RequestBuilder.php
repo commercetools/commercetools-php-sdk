@@ -216,6 +216,14 @@ class RequestBuilder
     }
 
     /**
+     * @return StoreRequestBuilder
+     */
+    public function stores()
+    {
+        return new StoreRequestBuilder();
+    }
+
+    /**
      * @return SubscriptionRequestBuilder
      */
     public function subscriptions()
