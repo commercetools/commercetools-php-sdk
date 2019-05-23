@@ -320,7 +320,7 @@ class ApiTestCase extends TestCase
 
     private function deleteCategory()
     {
-        TestHelper::getInstance($this->getCategory())->deleteCategory();
+        TestHelper::getInstance($this->getClient())->deleteCategory();
     }
 
     protected function getTaxCategory()

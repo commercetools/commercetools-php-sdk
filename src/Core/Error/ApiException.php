@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Error;
 
+use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -12,7 +13,7 @@ use Psr\Http\Message\ResponseInterface;
  * Base exception for responses with http status code different than 200 or 201
  * @package Commercetools\Core\Error
  */
-class ApiException extends \Exception
+class ApiException extends Exception
 {
     /**
      * @var RequestInterface
@@ -28,7 +29,7 @@ class ApiException extends \Exception
         $message,
         RequestInterface $request,
         ResponseInterface $response = null,
-        \Exception $previous = null
+        Exception $previous = null
     ) {
         $code = $response ? $response->getStatusCode() : 0;
         parent::__construct($message, $code, $previous);
@@ -39,12 +40,12 @@ class ApiException extends \Exception
     /**
      * @param RequestInterface $request
      * @param ResponseInterface|null $response
-     * @param \Exception|null $previous
+     * @param Exception|null $previous
      */
     public static function create(
         RequestInterface $request,
         ResponseInterface $response = null,
-        \Exception $previous = null
+        Exception $previous = null
     ) {
         if (is_null($response)) {
             return new self('Error completing request', $request, null, $previous);

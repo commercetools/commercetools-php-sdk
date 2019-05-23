@@ -8,13 +8,13 @@ use Commercetools\Core\Client\OAuth\CredentialTokenProvider;
 use Commercetools\Core\Client\OAuth\OAuth2Handler;
 use Commercetools\Core\Client\OAuth\TokenProvider;
 use Commercetools\Core\Config;
+use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Helper\Subscriber\Log\Formatter;
 use Commercetools\Core\Helper\Subscriber\Log\LogSubscriber;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Client;
 use GuzzleHttp\Event\BeforeEvent;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
@@ -80,7 +80,8 @@ class ClientFactory
     private function getDefaultOptions(Config $config)
     {
         $options = $config->getClientOptions();
-        $options['base_uri'] = $config->getApiUrl() . "/" . $config->getProject();
+        $options['http_errors'] = $config->getThrowExceptions();
+        $options['base_uri'] = $config->getApiUrl() . "/" . $config->getProject() . "/";
         $defaultHeaders = [
             'User-Agent' => (new UserAgentProvider())->getUserAgent()
         ];
@@ -133,7 +134,7 @@ class ClientFactory
                 'verify' => true,
                 'timeout' => 60,
                 'connect_timeout' => 10,
-                'pool_size' => 25
+                'pool_size' => 25,
             ],
             $options
         );
@@ -141,6 +142,10 @@ class ClientFactory
         if (!is_null($logger)) {
             $this->setLogger($handler, $logger);
         }
+
+        $handler->remove("http_errors");
+        $handler->unshift(self::httpErrors(), 'ctp_http_errors');
+
         $handler->push(
             Middleware::mapRequest($oauthHandler),
             'oauth_2_0'
@@ -170,6 +175,32 @@ class ClientFactory
             $formatter = new MessageFormatter();
         }
         $handler->push(self::log($logger, $formatter, $logLevel), 'ctp_logger');
+    }
+
+    /**
+     * Middleware that throws exceptions for 4xx or 5xx responses when the
+     * "http_error" request option is set to true.
+     *
+     * @return callable Returns a function that accepts the next handler.
+     */
+    public static function httpErrors()
+    {
+        return function (callable $handler) {
+            return function ($request, array $options) use ($handler) {
+                if (empty($options['http_errors'])) {
+                    return $handler($request, $options);
+                }
+                return $handler($request, $options)->then(
+                    function (ResponseInterface $response) use ($request, $handler) {
+                        $code = $response->getStatusCode();
+                        if ($code < 400) {
+                            return $response;
+                        }
+                        throw ApiException::create($request, $response);
+                    }
+                );
+            };
+        };
     }
 
     /**
