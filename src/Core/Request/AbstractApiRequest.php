@@ -209,8 +209,14 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
         return $this->mapFromResponse($response);
     }
 
-    public function mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+    /**
+     * @inheritdoc
+     */
+    public function mapFromResponse($response, MapperInterface $mapper = null)
     {
+        if ($response instanceof ResponseInterface) {
+            $response = $this->buildResponse($response);
+        }
         if ($response->isError()) {
             return null;
         }

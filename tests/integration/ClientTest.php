@@ -3,23 +3,17 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Project;
+namespace Commercetools\Core;
 
-use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Client;
 use Commercetools\Core\Fixtures\FooHandler;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Helper\DefaultCorrelationIdProvider;
 use Commercetools\Core\Model\Project\Project;
-use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Promise;
-use GuzzleHttp\Psr7\Response;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class ClientTest extends ApiTestCase
