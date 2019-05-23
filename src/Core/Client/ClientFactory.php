@@ -160,8 +160,12 @@ class ClientFactory
         return $client;
     }
 
-    private function setLogger(HandlerStack $handler, LoggerInterface $logger, $logLevel = LogLevel::INFO, $formatter = null)
-    {
+    private function setLogger(
+        HandlerStack $handler,
+        LoggerInterface $logger,
+        $logLevel = LogLevel::INFO,
+        $formatter = null
+    ) {
         if (is_null($formatter)) {
             $formatter = new MessageFormatter();
         }
