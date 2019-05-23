@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Request\Carts;
 
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
+use Commercetools\Core\Request\InStores\InStoreTrait;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\HttpRequest;
@@ -21,10 +23,12 @@ use Commercetools\Core\Model\MapperInterface;
  * @link https://docs.commercetools.com/http-api-projects-carts.html#get-cart-by-customer-id
  * @method Cart mapResponse(ApiResponseInterface $response)
  * @method Cart mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+ * @method CartByCustomerIdGetRequest|InStoreRequestDecorator inStore($storeKey)
  */
 class CartByCustomerIdGetRequest extends AbstractApiRequest
 {
     use CustomerIdTrait;
+    use InStoreTrait;
 
     protected $resultClass = Cart::class;
 

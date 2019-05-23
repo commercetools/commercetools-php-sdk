@@ -8,6 +8,8 @@ namespace Commercetools\Core\Request\Orders;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractUpdateRequest;
 use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
+use Commercetools\Core\Request\InStores\InStoreTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
@@ -16,9 +18,12 @@ use Commercetools\Core\Model\MapperInterface;
  * @link https://docs.commercetools.com/http-api-projects-orders.html#update-order-by-ordernumber
  * @method Order mapResponse(ApiResponseInterface $response)
  * @method Order mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+ * @method OrderUpdateByOrderNumberRequest|InStoreRequestDecorator inStore($storeKey)
  */
 class OrderUpdateByOrderNumberRequest extends AbstractUpdateRequest
 {
+    use InStoreTrait;
+
     protected $resultClass = Order::class;
 
     /**

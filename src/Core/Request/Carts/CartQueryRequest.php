@@ -8,6 +8,8 @@ namespace Commercetools\Core\Request\Carts;
 use Commercetools\Core\Model\Cart\CartCollection;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
+use Commercetools\Core\Request\InStores\InStoreTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
@@ -16,9 +18,12 @@ use Commercetools\Core\Model\MapperInterface;
  * @link https://docs.commercetools.com/http-api-projects-carts.html#query-carts
  * @method CartCollection mapResponse(ApiResponseInterface $response)
  * @method CartCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+ * @method CartQueryRequest|InStoreRequestDecorator inStore($storeKey)
  */
 class CartQueryRequest extends AbstractQueryRequest
 {
+    use InStoreTrait;
+
     protected $resultClass = CartCollection::class;
 
     /**

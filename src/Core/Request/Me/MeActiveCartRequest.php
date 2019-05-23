@@ -9,8 +9,9 @@ use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\HttpRequest;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractApiRequest;
-use Commercetools\Core\Request\AbstractByIdGetRequest;
 use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
+use Commercetools\Core\Request\InStores\InStoreTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Response\ResourceResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -21,9 +22,12 @@ use Commercetools\Core\Model\MapperInterface;
  * @link https://docs.commercetools.com/http-api-projects-me-carts.html#get-active-cart
  * @method Cart mapResponse(ApiResponseInterface $response)
  * @method Cart mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+ * @method MeActiveCartRequest|InStoreRequestDecorator inStore($storeKey)
  */
 class MeActiveCartRequest extends AbstractApiRequest
 {
+    use InStoreTrait;
+
     protected $resultClass = Cart::class;
 
     /**

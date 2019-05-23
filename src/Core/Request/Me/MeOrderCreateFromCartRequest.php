@@ -5,9 +5,10 @@
 
 namespace Commercetools\Core\Request\Me;
 
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
+use Commercetools\Core\Request\InStores\InStoreTrait;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\HttpMethod;
-use Commercetools\Core\Client\HttpRequestInterface;
 use Commercetools\Core\Client\JsonRequest;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractApiRequest;
@@ -22,9 +23,12 @@ use Commercetools\Core\Model\MapperInterface;
  * @link https://docs.commercetools.com/http-api-projects-me-orders.html#create-order-from-a-cart
  * @method Order mapResponse(ApiResponseInterface $response)
  * @method Order mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+ * @method MeOrderCreateFromCartRequest|InStoreRequestDecorator inStore($storeKey)
  */
 class MeOrderCreateFromCartRequest extends AbstractApiRequest
 {
+    use InStoreTrait;
+
     const ID = 'id';
     const VERSION = 'version';
 
