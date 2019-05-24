@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\DiscountCode;
+namespace Commercetools\Core\IntegrationTests\DiscountCode;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
 use Commercetools\Core\Request\DiscountCodes\DiscountCodeByIdGetRequest;
@@ -65,4 +65,3 @@ class DiscountCodeQueryRequestTest extends ApiTestCase
         $this->assertSame($discountCode->getId(), $result->getId());
     }
 }
-

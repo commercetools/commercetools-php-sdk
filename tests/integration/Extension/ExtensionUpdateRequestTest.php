@@ -2,9 +2,9 @@
 /**
  */
 
-namespace Commercetools\Core\Extension;
+namespace Commercetools\Core\IntegrationTests\Extension;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Model\Extension\Extension;
 use Commercetools\Core\Model\Extension\ExtensionDraft;

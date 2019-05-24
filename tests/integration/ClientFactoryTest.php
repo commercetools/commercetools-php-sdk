@@ -1,6 +1,6 @@
 <?php
 
-namespace Commercetools\Core;
+namespace Commercetools\Core\IntegrationTests;
 
 use Commercetools\Core\Client\ClientFactory;
 use Commercetools\Core\Client\UserAgentProvider;

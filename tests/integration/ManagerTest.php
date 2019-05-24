@@ -4,10 +4,10 @@
  */
 
 
-namespace Commercetools\Core;
-
+namespace Commercetools\Core\IntegrationTests;
 
 use Commercetools\Core\Client\OAuth\Manager;
+use Commercetools\Core\Config;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Helper\DefaultCorrelationIdProvider;
 use Commercetools\Core\Response\AbstractApiResponse;

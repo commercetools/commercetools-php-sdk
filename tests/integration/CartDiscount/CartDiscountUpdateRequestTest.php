@@ -3,9 +3,9 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\CartDiscount;
+namespace Commercetools\Core\IntegrationTests\CartDiscount;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 use Commercetools\Core\Model\Common\Money;
@@ -359,5 +359,4 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
 
         return $cartDiscount;
     }
-
 }

@@ -3,7 +3,7 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core;
+namespace Commercetools\Core\IntegrationTests;
 
 use PHPUnit\Framework\BaseTestListener;
 use PHPUnit_Framework_AssertionFailedError;

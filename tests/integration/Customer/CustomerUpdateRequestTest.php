@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Customer;
+namespace Commercetools\Core\IntegrationTests\Customer;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Customer\Customer;
@@ -547,7 +547,6 @@ class CustomerUpdateRequestTest extends ApiTestCase
 
         $this->assertSame($customer->getVersion(), $result->getVersion());
         $this->assertSame($customer->getCompanyName(), $result->getCompanyName());
-
     }
 
     public function testDateOfBirth()

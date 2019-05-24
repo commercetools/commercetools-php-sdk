@@ -3,9 +3,11 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core;
+namespace Commercetools\Core\IntegrationTests\Project;
 
 use Commercetools\Core\Fixtures\FooHandler;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\Client;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Helper\DefaultCorrelationIdProvider;
 use Commercetools\Core\Model\Project\Project;

@@ -1,8 +1,10 @@
 <?php
 
-namespace Commercetools\Core;
+namespace Commercetools\Core\IntegrationTests;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Commercetools\Core\Client;
+use Commercetools\Core\Config;
 use Commercetools\Core\Fixtures\ManuelActivationStrategy;
 use Commercetools\Core\Fixtures\ProfilerMiddleware;
 use Commercetools\Core\Fixtures\TeamCityFormatter;

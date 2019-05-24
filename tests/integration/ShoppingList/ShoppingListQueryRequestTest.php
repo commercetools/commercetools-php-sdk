@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\ShoppingList;
+namespace Commercetools\Core\IntegrationTests\ShoppingList;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\ShoppingList\ShoppingListDraft;
@@ -74,7 +74,6 @@ class ShoppingListQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(ShoppingList::class, $shoppingList);
         $this->assertSame($shoppingList->getId(), $result->getId());
-
     }
 
     public function testGetByKey()

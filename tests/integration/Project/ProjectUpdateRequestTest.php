@@ -3,9 +3,9 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Project;
+namespace Commercetools\Core\IntegrationTests\Project;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedEnum;
 use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 use Commercetools\Core\Model\Common\LocalizedString;

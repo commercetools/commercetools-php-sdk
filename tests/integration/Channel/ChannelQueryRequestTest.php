@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Channel;
+namespace Commercetools\Core\IntegrationTests\Channel;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Common\GeoPoint;
@@ -68,7 +68,6 @@ class ChannelQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Channel::class, $channel);
         $this->assertSame($channel->getId(), $result->getId());
-
     }
 
     public function testQueryByLocation()
@@ -81,7 +80,7 @@ class ChannelQueryRequestTest extends ApiTestCase
         $channel = $this->createChannel($draft);
 
         $request = ChannelQueryRequest::of()->where(
-            sprintf('geoLocation within circle(%s, %s, 1150)', $brandenburgerTor[0], $brandenburgerTor[1] )
+            sprintf('geoLocation within circle(%s, %s, 1150)', $brandenburgerTor[0], $brandenburgerTor[1])
         );
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
@@ -100,7 +99,7 @@ class ChannelQueryRequestTest extends ApiTestCase
         $channel = $this->createChannel($draft);
 
         $request = ChannelQueryRequest::of()->where(
-            sprintf('geoLocation within circle(%s, %s, 1000)', $brandenburgerTor[0], $brandenburgerTor[1] )
+            sprintf('geoLocation within circle(%s, %s, 1000)', $brandenburgerTor[0], $brandenburgerTor[1])
         );
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);

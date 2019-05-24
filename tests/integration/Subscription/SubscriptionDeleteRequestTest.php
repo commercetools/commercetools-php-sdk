@@ -3,9 +3,9 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Subscription;
+namespace Commercetools\Core\IntegrationTests\Subscription;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Subscription\IronMQDestination;
 use Commercetools\Core\Model\Subscription\MessageSubscription;
 use Commercetools\Core\Model\Subscription\MessageSubscriptionCollection;

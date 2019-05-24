@@ -2,7 +2,7 @@
 /**
  */
 
-namespace Commercetools\Core\Order;
+namespace Commercetools\Core\IntegrationTests\Order;
 
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Order\OrderReference;

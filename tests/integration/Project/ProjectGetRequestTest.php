@@ -3,9 +3,9 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Project;
+namespace Commercetools\Core\IntegrationTests\Project;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 

@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Type;
+namespace Commercetools\Core\IntegrationTests\Type;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeDraft;
@@ -76,7 +76,6 @@ class TypeQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Type::class, $type);
         $this->assertSame($type->getId(), $result->getId());
-
     }
 
     public function testGetByKey()
@@ -90,6 +89,5 @@ class TypeQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Type::class, $productType);
         $this->assertSame($productType->getId(), $result->getId());
-
     }
 }

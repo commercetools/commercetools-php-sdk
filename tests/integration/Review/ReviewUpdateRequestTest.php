@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Review;
+namespace Commercetools\Core\IntegrationTests\Review;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\Review\ReviewDraft;
