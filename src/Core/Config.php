@@ -726,7 +726,7 @@ class Config implements ContextAwareInterface
         return new ClientCredentials([
             ClientCredentials::CLIENT_ID => $this->clientId,
             ClientCredentials::CLIENT_SECRET => $this->clientSecret,
-            ClientCredentials::SCOPE => $this->scope
+            ClientCredentials::SCOPE => $this->getScope()
         ]);
     }
 }

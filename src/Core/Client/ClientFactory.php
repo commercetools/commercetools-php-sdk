@@ -3,6 +3,7 @@
 namespace Commercetools\Core\Client;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Commercetools\Core\Cache\CacheAdapterFactory;
 use Commercetools\Core\Client\OAuth\ClientCredentials;
 use Commercetools\Core\Client\OAuth\CredentialTokenProvider;
 use Commercetools\Core\Client\OAuth\OAuth2Handler;
@@ -10,6 +11,9 @@ use Commercetools\Core\Client\OAuth\TokenProvider;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\DeprecatedException;
+use Commercetools\Core\Error\InvalidCredentialsError;
+use Commercetools\Core\Error\InvalidTokenException;
+use Commercetools\Core\Error\Message;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Response\AbstractApiResponse;
@@ -25,6 +29,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
+use Psr\SimpleCache\CacheInterface;
 
 class ClientFactory
 {
@@ -47,29 +52,31 @@ class ClientFactory
     /**
      * @param Config|array $config
      * @param LoggerInterface $logger
-     * @param CacheItemPoolInterface $cache
+     * @param CacheItemPoolInterface|CacheInterface $cache
      * @param TokenProvider $provider
+     * @param CacheAdapterFactory $cacheAdapterFactory
      * @return HttpClient
      */
     public function createClient(
         $config,
         LoggerInterface $logger = null,
-        CacheItemPoolInterface $cache = null,
-        TokenProvider $provider = null
+        $cache = null,
+        TokenProvider $provider = null,
+        CacheAdapterFactory $cacheAdapterFactory = null
     ) {
         $config = $this->createConfig($config);
 
-        if (is_null($cache)) {
+        if (is_null($cacheAdapterFactory)) {
             $cacheDir = $config->getCacheDir();
             $cacheDir = !is_null($cacheDir) ? $cacheDir : realpath(__DIR__ . '/../../..');
-            $filesystemAdapter = new Local($cacheDir);
-            $filesystem        = new Filesystem($filesystemAdapter);
-            $cache = new FilesystemCachePool($filesystem);
+            $cacheAdapterFactory = new CacheAdapterFactory($cacheDir);
         }
+
         $credentials = $config->getClientCredentials();
         $oauthHandler = $this->getHandler(
             $credentials,
             $config->getOauthUrl(),
+            $cacheAdapterFactory,
             $cache,
             $provider,
             $config->getOAuthClientOptions()
@@ -153,6 +160,10 @@ class ClientFactory
             Middleware::mapRequest($oauthHandler),
             'oauth_2_0'
         );
+        $handler->push(
+            self::reauthenticate($oauthHandler),
+            'reauthenticate'
+        );
 
         if (!is_null($correlationIdProvider)) {
             $handler->push(Middleware::mapRequest(function (RequestInterface $request) use ($correlationIdProvider) {
@@ -181,6 +192,38 @@ class ClientFactory
     }
 
     /**
+     * Middleware that reauthenticates on invalid token error
+     *
+     * @param OAuth2Handler $oauthHandler
+     * @param int $maxRetries
+     * @return callable Returns a function that accepts the next handler.
+     */
+    public static function reauthenticate(OAuth2Handler $oauthHandler, $maxRetries = 1)
+    {
+        return function (callable $handler) use ($oauthHandler, $maxRetries) {
+            return function (RequestInterface $request, array $options) use ($handler, $oauthHandler, $maxRetries) {
+                return $handler($request, $options)->then(
+                    function (ResponseInterface $response) use ($request, $handler, $oauthHandler, $options, $maxRetries) {
+                        if ($response->getStatusCode() == 401) {
+                            if (!isset($options['reauth'])) {
+                                $options['reauth'] = 0;
+                            }
+                            $exception = ApiException::create($request, $response);
+                            if ($options['reauth'] < $maxRetries && $exception instanceof InvalidTokenException) {
+                                $options['reauth']++;
+                                $token = $oauthHandler->refreshToken();
+                                $request = $request->withHeader('Authorization', 'Bearer ' . $token->getToken());
+                                return $handler($request, $options);
+                            }
+                        }
+                        return $response;
+                    }
+                );
+            };
+        };
+    }
+
+    /**
      * Middleware that throws exceptions for 4xx or 5xx responses when the
      * "http_error" request option is set to true.
      *
@@ -204,6 +247,34 @@ class ClientFactory
                 );
             };
         };
+    }
+
+    /**
+     * @param ClientCredentials $credentials
+     * @param string $accessTokenUrl
+     * @param CacheAdapterFactory $cacheAdapterFactory
+     * @param CacheItemPoolInterface|CacheInterface $cache
+     * @param TokenProvider $provider
+     * @param array $authClientOptions
+     * @return OAuth2Handler
+     */
+    private function getHandler(
+        ClientCredentials $credentials,
+        $accessTokenUrl,
+        CacheAdapterFactory $cacheAdapterFactory,
+        $cache,
+        TokenProvider $provider = null,
+        array $authClientOptions = []
+    ) {
+        if (is_null($provider)) {
+            $provider = new CredentialTokenProvider(
+                new HttpClient($authClientOptions),
+                $accessTokenUrl,
+                $credentials
+            );
+        }
+        $cacheKey = sha1($credentials->getClientId() . $credentials->getScope());
+        return new OAuth2Handler($provider, $cache, $cacheAdapterFactory, $cacheKey);
     }
 
     /**
@@ -249,31 +320,6 @@ class ClientFactory
                 );
             };
         };
-    }
-
-    /**
-     * @param ClientCredentials $credentials
-     * @param string $accessTokenUrl
-     * @param CacheItemPoolInterface $cache
-     * @param TokenProvider $provider
-     * @param array $authClientOptions
-     * @return OAuth2Handler
-     */
-    private function getHandler(
-        ClientCredentials $credentials,
-        $accessTokenUrl,
-        CacheItemPoolInterface $cache = null,
-        TokenProvider $provider = null,
-        array $authClientOptions = []
-    ) {
-        if (is_null($provider)) {
-            $provider = new CredentialTokenProvider(
-                new HttpClient($authClientOptions),
-                $accessTokenUrl,
-                $credentials
-            );
-        }
-        return new OAuth2Handler($provider, $cache);
     }
 
     /**

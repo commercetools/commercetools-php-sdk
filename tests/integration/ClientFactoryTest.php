@@ -2,7 +2,9 @@
 
 namespace Commercetools\Core\IntegrationTests;
 
+use Commercetools\Core\Cache\CacheAdapterFactory;
 use Commercetools\Core\Client\ClientFactory;
+use Commercetools\Core\Client\OAuth\OAuth2Handler;
 use Commercetools\Core\Client\UserAgentProvider;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\ErrorContainer;
@@ -17,6 +19,8 @@ use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Psr7\Response as PsrResponse;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
+use Prophecy\Argument;
+use Psr\SimpleCache\CacheInterface;
 
 class ClientFactoryTest extends ApiTestCase
 {
@@ -120,5 +124,37 @@ class ClientFactoryTest extends ApiTestCase
 
         $this->assertInstanceOf(ErrorContainer::class, $errors);
         $this->assertInstanceOf(InvalidOperationError::class, $errors->getByCode(InvalidOperationError::CODE));
+    }
+
+    public function testReAuthenticate()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+
+        $config = $this->getClientConfig('manage_project');
+        $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+        $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+
+
+        $cache = $this->prophesize(CacheInterface::class);
+        $cache->get(Argument::any(), null)->willReturn('abc')->shouldBeCalledOnce();
+        $cache->set(Argument::any(), Argument::any(), Argument::any())->shouldBeCalledOnce();
+
+        $client = ClientFactory::of()->createClient($config, $logger, $cache->reveal());
+        $this->assertInstanceOf(HttpClient::class, $client);
+
+        $request = CategoryQueryRequest::of();
+        $response = $client->send($request->httpRequest());
+
+        $this->assertInstanceOf(PsrResponse::class, $response);
+
+        $categories = $request->mapFromResponse($response);
+        $this->assertInstanceOf(CategoryCollection::class, $categories);
+
+        $record = current($handler->getRecords());
+        $this->assertStringStartsWith($config->getProject(), $record['context']['X-Correlation-ID'][0]);
+        $this->assertContains((new UserAgentProvider())->getUserAgent(), $record['message']);
     }
 }
