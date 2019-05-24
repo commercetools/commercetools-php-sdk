@@ -121,7 +121,7 @@ In real world, you will not put your API credentials directly into code but use 
 
 #### Using the client factory
 
-It's also possible to use a preconfigured Guzzle client using the client factory.
+When using at Guzzle greater then version 6, it's also possible to use a preconfigured Guzzle client using the client factory. At the moment this is limited to client credentials authentication flow.
 
 ```php
 <?php
