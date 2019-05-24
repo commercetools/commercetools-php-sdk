@@ -44,7 +44,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
 
     protected $resultClass = JsonObject::class;
 
-    protected $headers = [];
+    protected $externalUserId = null;
 
     /**
      * @param JsonEndpoint $endpoint
@@ -97,12 +97,12 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
     }
 
     /**
-     * @param string $externalUserId
+     * @param string|null $externalUserId
      * @return $this
      */
     public function setExternalUserId($externalUserId)
     {
-        $this->headers[self::EXTERNAL_USER_HEADER] = $externalUserId;
+        $this->externalUserId = $externalUserId;
 
         return $this;
     }
@@ -255,9 +255,9 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
      */
     public function executeWithClient(Client $client, array $headers = null)
     {
-        if (!is_null($headers)) {
-            $this->headers = array_merge($headers, $this->headers);
+        if (!is_null($this->externalUserId)) {
+            $headers[self::EXTERNAL_USER_HEADER] = $this->externalUserId;
         }
-        return $client->execute($this, $this->headers);
+        return $client->execute($this, $headers);
     }
 }
