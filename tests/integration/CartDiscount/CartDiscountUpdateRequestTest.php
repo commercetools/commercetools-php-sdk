@@ -13,6 +13,9 @@ use Commercetools\Core\Model\Common\MoneyCollection;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
+use Commercetools\Core\Request\CartDiscounts\CartDiscountByKeyGetRequest;
+use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteByKeyRequest;
+use Commercetools\Core\Request\CartDiscounts\CartDiscountUpdateByKeyRequest;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeCartPredicateAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeIsActiveAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeNameAction;
@@ -25,6 +28,7 @@ use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetDescriptionA
 use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteRequest;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountUpdateRequest;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetKeyAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAndUntilAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidUntilAction;
@@ -325,6 +329,76 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
     }
 
+    public function testSetKey()
+    {
+        $draft = $this->getDraft('set-key')->setKey('test-' . $this->getTestRun() . '-foo');
+        $cartDiscount = $this->createCartDiscount($draft);
+
+        $this->assertSame('test-' . $this->getTestRun() . '-foo', $cartDiscount->getKey());
+
+        $request = CartDiscountUpdateRequest::ofIdAndVersion(
+            $cartDiscount->getId(),
+            $cartDiscount->getVersion()
+        )
+            ->addAction(CartDiscountSetKeyAction::ofKey('test-' . $this->getTestRun() . '-bar'))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(CartDiscount::class, $result);
+        $this->assertSame('test-' . $this->getTestRun() . '-bar', $result->getKey());
+        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+    }
+
+    public function testUpdateByKey()
+    {
+        $draft = $this->getDraft('update-by-key')->setKey('test-' . $this->getTestRun() . '-update');
+        $cartDiscount = $this->createCartDiscount($draft);
+
+        $this->assertSame('test-' . $this->getTestRun() . '-update-by-key', $cartDiscount->getName()->en);
+
+        $request = CartDiscountUpdateByKeyRequest::ofKeyAndVersion(
+            $cartDiscount->getKey(),
+            $cartDiscount->getVersion()
+        )
+            ->addAction(
+                CartDiscountChangeNameAction::ofName(
+                    LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-updated-name')
+                )
+            )
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(CartDiscount::class, $result);
+        $this->assertSame('test-' . $this->getTestRun() . '-updated-name', $result->getName()->en);
+        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+    }
+
+    public function testDeleteByKey()
+    {
+        $draft = $this->getDraft('delete-by-key')->setKey('test-' . $this->getTestRun() . '-delete');
+        $cartDiscount = $this->createCartDiscount($draft);
+
+        $request = CartDiscountDeleteByKeyRequest::ofKeyAndVersion(
+            $cartDiscount->getKey(),
+            $cartDiscount->getVersion()
+        );
+
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(CartDiscount::class, $result);
+
+        $request = CartDiscountByKeyGetRequest::ofKey($result->getKey());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertNull($result);
+    }
+
     /**
      * @param $name
      * @return CartDiscountDraft
@@ -359,5 +433,4 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
 
         return $cartDiscount;
     }
-
 }

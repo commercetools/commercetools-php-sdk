@@ -33,7 +33,7 @@ class CartDiscountCreateRequestTest extends ApiTestCase
             '0.9' . trim((string)mt_rand(1, 1000), '0'),
             true,
             false
-        );
+        )->setKey('foo');
 
         return $draft;
     }
@@ -72,5 +72,6 @@ class CartDiscountCreateRequestTest extends ApiTestCase
         $this->assertSame($draft->getSortOrder(), $cartDiscount->getSortOrder());
         $this->assertSame($draft->getIsActive(), $cartDiscount->getIsActive());
         $this->assertSame($draft->getRequiresDiscountCode(), $cartDiscount->getRequiresDiscountCode());
+        $this->assertSame($draft->getKey(), $cartDiscount->getKey());
     }
 }
