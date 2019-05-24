@@ -58,11 +58,11 @@ class ClientTest extends ApiTestCase
 
         $stack = HandlerStack::create(new FooHandler("bar"));
         $clientConfig = $this->getClientConfig('manage_project')->setClientOptions(['handler' => $stack]);
+        $clientConfig->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
         $client = Client::ofConfigAndLogger(
             $clientConfig,
             $logger
         );
-
         $promise = $client->executeAsync(
             ProjectGetRequest::of(),
             null
