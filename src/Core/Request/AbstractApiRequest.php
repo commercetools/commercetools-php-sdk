@@ -250,12 +250,12 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
 
     /**
      * @param Client $client
-     * @param array $headers
+     * @param array|null $headers
      * @return ApiResponseInterface
      */
     public function executeWithClient(Client $client, array $headers = null)
     {
-        if (!is_null($this->externalUserId)) {
+        if (!is_null($this->externalUserId) && !isset($headers[self::EXTERNAL_USER_HEADER])) {
             $headers[self::EXTERNAL_USER_HEADER] = $this->externalUserId;
         }
         return $client->execute($this, $headers);
