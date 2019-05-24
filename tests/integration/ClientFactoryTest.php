@@ -5,7 +5,6 @@ namespace Commercetools\Core;
 use Commercetools\Core\Client\ClientFactory;
 use Commercetools\Core\Client\UserAgentProvider;
 use Commercetools\Core\Error\ApiException;
-use Commercetools\Core\Error\BadRequestException;
 use Commercetools\Core\Error\ErrorContainer;
 use Commercetools\Core\Error\ErrorResponseException;
 use Commercetools\Core\Error\InvalidOperationError;
@@ -14,12 +13,10 @@ use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
 use Commercetools\Core\Request\Categories\CategoryQueryRequest;
 use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
-use Commercetools\Core\Response\ErrorResponse;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Psr7\Response as PsrResponse;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
-use GuzzleHttp\Exception\GuzzleException;
 
 class ClientFactoryTest extends ApiTestCase
 {

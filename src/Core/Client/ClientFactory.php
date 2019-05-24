@@ -9,24 +9,19 @@ use Commercetools\Core\Client\OAuth\OAuth2Handler;
 use Commercetools\Core\Client\OAuth\TokenProvider;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
+use Commercetools\Core\Error\DeprecatedException;
 use Commercetools\Core\Helper\CorrelationIdProvider;
-use Commercetools\Core\Helper\Subscriber\Log\Formatter;
-use Commercetools\Core\Helper\Subscriber\Log\LogSubscriber;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Event\BeforeEvent;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
-use GuzzleHttp\Psr7\Response;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\RequestInterface;
-use GuzzleHttp\Message\RequestInterface as GuzzleRequestInterface;
-use GuzzleHttp\Message\ResponseInterface as GuzzleResponseInferface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -37,6 +32,17 @@ class ClientFactory
      * @var bool
      */
     private static $isGuzzle6;
+
+    /**
+     * ClientFactory constructor.
+     * @throws DeprecatedException
+     */
+    public function __construct()
+    {
+        if (!self::isGuzzle6()) {
+            throw new DeprecatedException("ClientFactory doesn't support Guzzle version < 6");
+        }
+    }
 
     /**
      * @param Config|array $config
@@ -70,11 +76,8 @@ class ClientFactory
         );
 
         $options = $this->getDefaultOptions($config);
-        if (self::isGuzzle6()) {
-            return $this->createGuzzle6Client($options, $oauthHandler, $logger, $config->getCorrelationIdProvider());
-        } else {
-            return $this->createGuzzle5Client($options, $oauthHandler, $logger);
-        }
+
+        return $this->createGuzzle6Client($options, $oauthHandler, $logger, $config->getCorrelationIdProvider());
     }
 
     private function getDefaultOptions(Config $config)
@@ -218,7 +221,7 @@ class ClientFactory
         return function (callable $handler) use ($logger, $formatter, $logLevel) {
             return function ($request, array $options) use ($handler, $logger, $formatter, $logLevel) {
                 return $handler($request, $options)->then(
-                    function ($response) use ($logger, $request, $formatter, $logLevel) {
+                    function (ResponseInterface $response) use ($logger, $request, $formatter, $logLevel) {
                         $message = $formatter->format($request, $response);
                         $context = [
                             AbstractApiResponse::X_CORRELATION_ID => $response->getHeader(
@@ -246,89 +249,6 @@ class ClientFactory
                 );
             };
         };
-    }
-
-    /**
-     * @param array $options
-     * @param LoggerInterface|null $logger
-     * @param OAuth2Handler $oauthHandler
-     * @return HttpClient
-     */
-    private function createGuzzle5Client(
-        array $options,
-        OAuth2Handler $oauthHandler,
-        LoggerInterface $logger = null
-    ) {
-        if (isset($options['base_uri'])) {
-            $options['base_url'] = $options['base_uri'];
-            unset($options['base_uri']);
-        }
-        if (isset($options['headers'])) {
-            $options['defaults']['headers'] = $options['headers'];
-            unset($options['headers']);
-        }
-        $options = array_merge(
-            [
-                'allow_redirects' => false,
-                'verify' => true,
-                'timeout' => 60,
-                'connect_timeout' => 10,
-                'pool_size' => 25
-            ],
-            $options
-        );
-        $client = new HttpClient($options);
-        if ($logger instanceof LoggerInterface) {
-            $formatter = new Formatter();
-            $client->getEmitter()->attach(new LogSubscriber($logger, $formatter, LogLevel::INFO));
-        }
-
-        $client->getEmitter()->on('before', function (BeforeEvent $e) use ($oauthHandler) {
-            $e->getRequest()->setHeader('Authorization', $oauthHandler->getAuthorizationHeader());
-        });
-
-        return $client;
-    }
-
-    /**
-     * @param RequestInterface $psrRequest
-     * @param HttpClient $client
-     * @return GuzzleRequestInterface|RequestInterface
-     */
-    public function createRequest(RequestInterface $psrRequest, HttpClient $client)
-    {
-        if (self::isGuzzle6()) {
-            return $psrRequest;
-        }
-        $options = [
-            'headers' => $psrRequest->getHeaders(),
-            'body' => (string)$psrRequest->getBody()
-        ];
-
-        return $client->createRequest($psrRequest->getMethod(), (string)$psrRequest->getUri(), $options);
-    }
-
-    /**
-     * @param GuzzleResponseInferface|ResponseInterface $response
-     * @return ResponseInterface
-     */
-    public function createResponse($response)
-    {
-        if ($response instanceof ResponseInterface) {
-            return $response;
-        }
-        if ($response instanceof GuzzleResponseInferface) {
-            return new Response(
-                $response->getStatusCode(),
-                $response->getHeaders(),
-                (string)$response->getBody()
-            );
-        }
-
-        throw new InvalidArgumentException(
-            'Argument 1 must be an instance of Psr\Http\Message\ResponseInterface ' .
-            'or GuzzleHttp\Message\ResponseInterface'
-        );
     }
 
     /**
@@ -377,22 +297,5 @@ class ClientFactory
     public static function of()
     {
         return new static();
-    }
-
-    protected function getUserAgent()
-    {
-        if (is_null($this->userAgent)) {
-            $agent = 'commercetools-php-sdk/' . static::VERSION;
-
-            $adapterClass = $this->getAdapterFactory()->getClass($this->getConfig()->getAdapter());
-            $agent .= ' (' . $adapterClass::getAdapterInfo();
-            if (extension_loaded('curl') && function_exists('curl_version')) {
-                $agent .= '; curl/' . \curl_version()['version'];
-            }
-            $agent .= ') PHP/' . PHP_VERSION;
-            $this->userAgent = $agent;
-        }
-
-        return $this->userAgent;
     }
 }
