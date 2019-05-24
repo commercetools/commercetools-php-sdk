@@ -32,6 +32,9 @@ class ClientFactoryTest extends ApiTestCase
         $logger->pushHandler($handler);
 
         $config = $this->getClientConfig('manage_project');
+        $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+        $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+
         $client = ClientFactory::of()->createClient($config, $logger);
         $this->assertInstanceOf(HttpClient::class, $client);
 
@@ -55,6 +58,9 @@ class ClientFactoryTest extends ApiTestCase
         $logger->pushHandler($handler);
 
         $config = $this->getClientConfig('manage_project');
+        $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+        $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+
         $client = ClientFactory::of()->createClient($config, $logger);
         $this->assertInstanceOf(HttpClient::class, $client);
 
@@ -77,6 +83,9 @@ class ClientFactoryTest extends ApiTestCase
         $logger->pushHandler($handler);
 
         $config = $this->getClientConfig('manage_project')->setThrowExceptions(true);
+        $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+        $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+
         $client = ClientFactory::of()->createClient($config, $logger);
         $this->assertInstanceOf(HttpClient::class, $client);
 
@@ -91,6 +100,9 @@ class ClientFactoryTest extends ApiTestCase
         $logger->pushHandler($handler);
 
         $config = $this->getClientConfig('manage_project')->setThrowExceptions(true);
+        $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+        $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+
         $client = ClientFactory::of()->createClient($config, $logger);
         $this->assertInstanceOf(HttpClient::class, $client);
 
