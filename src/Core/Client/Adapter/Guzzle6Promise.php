@@ -9,7 +9,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
-class Guzzle6Promise implements AdapterPromiseInterface
+class Guzzle6Promise implements AdapterPromiseInterface, PromiseGetInterface
 {
     protected $response;
     protected $promise;
@@ -18,6 +18,14 @@ class Guzzle6Promise implements AdapterPromiseInterface
     {
         $this->response = $promise;
         $this->promise = $promise;
+    }
+
+    /**
+     * @return PromiseInterface
+     */
+    public function getPromise()
+    {
+        return $this->promise;
     }
 
     public function then(callable $onFulfilled = null, callable $onRejected = null)

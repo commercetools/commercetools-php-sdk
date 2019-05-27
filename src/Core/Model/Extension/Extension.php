@@ -27,6 +27,8 @@ use DateTime;
  * @method Extension setDestination(Destination $destination = null)
  * @method TriggerCollection getTriggers()
  * @method Extension setTriggers(TriggerCollection $triggers = null)
+ * @method int getTimeoutInMs()
+ * @method Extension setTimeoutInMs(int $timeoutInMs = null)
  * @method CreatedBy getCreatedBy()
  * @method Extension setCreatedBy(CreatedBy $createdBy = null)
  * @method LastModifiedBy getLastModifiedBy()
@@ -52,6 +54,7 @@ class Extension extends Resource
             'triggers' => [static::TYPE => TriggerCollection::class],
             'createdBy' => [static::TYPE => CreatedBy::class],
             'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'timeoutInMs' => [static::TYPE => 'int'],
         ];
     }
 }
