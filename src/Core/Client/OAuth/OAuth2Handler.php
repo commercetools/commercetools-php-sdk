@@ -106,7 +106,7 @@ class OAuth2Handler
         if ($cache instanceof CacheInterface) {
             $var = $cache->get($this->cacheKey, null);
             return $var;
-        } else if ($cache instanceof CacheItemPoolInterface) {
+        } elseif ($cache instanceof CacheItemPoolInterface) {
             $item = $cache->getItem($this->cacheKey);
             if ($item->isHit()) {
                 return $item->get();
@@ -121,7 +121,7 @@ class OAuth2Handler
         $cache = $this->cache;
         if ($cache instanceof CacheInterface) {
             $cache->set($this->cacheKey, $token->getToken(), (int)$ttl);
-        } else if ($cache instanceof CacheItemPoolInterface) {
+        } elseif ($cache instanceof CacheItemPoolInterface) {
             $item = $cache->getItem($this->cacheKey)->set($token->getToken())->expiresAfter((int)$ttl);
             $cache->save($item);
         }
