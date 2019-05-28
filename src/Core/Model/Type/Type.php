@@ -5,8 +5,10 @@
 
 namespace Commercetools\Core\Model\Type;
 
+use Commercetools\Core\Model\Common\CreatedBy;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Resource;
 use DateTime;
@@ -32,6 +34,10 @@ use DateTime;
  * @method Type setResourceTypeIds(array $resourceTypeIds = null)
  * @method FieldDefinitionCollection getFieldDefinitions()
  * @method Type setFieldDefinitions(FieldDefinitionCollection $fieldDefinitions = null)
+ * @method CreatedBy getCreatedBy()
+ * @method Type setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method Type setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method TypeReference getReference()
  */
 class Type extends Resource
@@ -54,6 +60,8 @@ class Type extends Resource
             'description' => [static::TYPE => LocalizedString::class],
             'resourceTypeIds' => [static::TYPE => 'array'],
             'fieldDefinitions' => [static::TYPE => FieldDefinitionCollection::class],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }

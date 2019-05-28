@@ -6,6 +6,8 @@
 
 namespace Commercetools\Core\Model\Product;
 
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
@@ -38,6 +40,10 @@ use DateTime;
  * @method Product setState(StateReference $state = null)
  * @method string getKey()
  * @method Product setKey(string $key = null)
+ * @method CreatedBy getCreatedBy()
+ * @method Product setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method Product setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method ProductReference getReference()
  */
 class Product extends Resource
@@ -61,6 +67,8 @@ class Product extends Resource
             'reviewRatingStatistics' => [static::TYPE => ReviewRatingStatistics::class],
             'state' => [static::TYPE => StateReference::class],
             'key' => [static::TYPE => 'string'],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }

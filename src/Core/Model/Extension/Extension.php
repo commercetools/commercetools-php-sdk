@@ -4,7 +4,9 @@
 
 namespace Commercetools\Core\Model\Extension;
 
+use Commercetools\Core\Model\Common\CreatedBy;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use DateTime;
 
@@ -27,6 +29,10 @@ use DateTime;
  * @method Extension setTriggers(TriggerCollection $triggers = null)
  * @method int getTimeoutInMs()
  * @method Extension setTimeoutInMs(int $timeoutInMs = null)
+ * @method CreatedBy getCreatedBy()
+ * @method Extension setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method Extension setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  */
 class Extension extends Resource
 {
@@ -46,6 +52,8 @@ class Extension extends Resource
             'key' => [static::TYPE => 'string'],
             'destination' => [static::TYPE => Destination::class],
             'triggers' => [static::TYPE => TriggerCollection::class],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
             'timeoutInMs' => [static::TYPE => 'int'],
         ];
     }

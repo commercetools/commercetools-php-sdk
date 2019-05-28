@@ -5,7 +5,9 @@
 
 namespace Commercetools\Core\Model\ShoppingList;
 
+use Commercetools\Core\Model\Common\CreatedBy;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Customer\CustomerReference;
@@ -43,6 +45,10 @@ use DateTime;
  * @method ShoppingList setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
  * @method string getAnonymousId()
  * @method ShoppingList setAnonymousId(string $anonymousId = null)
+ * @method CreatedBy getCreatedBy()
+ * @method ShoppingList setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method ShoppingList setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method ShoppingListReference getReference()
  */
 class ShoppingList extends Resource
@@ -69,7 +75,9 @@ class ShoppingList extends Resource
             'textLineItems' => [static::TYPE => TextLineItemCollection::class],
             'custom' => [static::TYPE => CustomFieldObject::class],
             'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
-            'anonymousId' => [static::TYPE => 'string']
+            'anonymousId' => [static::TYPE => 'string'],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }

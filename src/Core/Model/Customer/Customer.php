@@ -7,6 +7,8 @@ namespace Commercetools\Core\Model\Customer;
 
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
@@ -69,6 +71,10 @@ use DateTime;
  * @method Customer setSalutation(string $salutation = null)
  * @method string getKey()
  * @method Customer setKey(string $key = null)
+ * @method CreatedBy getCreatedBy()
+ * @method Customer setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method Customer setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method CustomerReference getReference()
  */
 class Customer extends Resource
@@ -113,6 +119,8 @@ class Customer extends Resource
             'billingAddressIds' => [static::TYPE => 'array'],
             'salutation' => [static::TYPE => 'string'],
             'key' => [static::TYPE => 'string'],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 
