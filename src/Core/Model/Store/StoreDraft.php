@@ -36,4 +36,15 @@ class StoreDraft extends JsonObject
     {
         return static::of($context)->setKey($key);
     }
+
+    /**
+     * @param string $key
+     * @param LocalizedString $name
+     * @param Context|null $context
+     * @return StoreDraft
+     */
+    public static function ofKeyAndName($key, LocalizedString $name, $context = null)
+    {
+        return static::of($context)->setKey($key)->setName($name);
+    }
 }

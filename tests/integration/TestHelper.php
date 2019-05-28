@@ -55,6 +55,8 @@ use Commercetools\Core\Model\ShoppingList\ShoppingListDraft;
 use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Model\State\StateDraft;
 use Commercetools\Core\Model\State\StateReferenceCollection;
+use Commercetools\Core\Model\Store\Store;
+use Commercetools\Core\Model\Store\StoreDraft;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
@@ -98,6 +100,8 @@ use Commercetools\Core\Request\ShoppingLists\ShoppingListCreateRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteRequest;
 use Commercetools\Core\Request\States\StateCreateRequest;
 use Commercetools\Core\Request\States\StateDeleteRequest;
+use Commercetools\Core\Request\Stores\StoreCreateRequest;
+use Commercetools\Core\Request\Stores\StoreDeleteRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
 use Commercetools\Core\Request\Types\TypeCreateRequest;
@@ -198,6 +202,11 @@ class TestHelper
      * @var ShoppingList
      */
     private $shoppingList;
+
+    /**
+     * @var Store
+     */
+    private $store;
 
     /**
      * @var State
@@ -1025,4 +1034,42 @@ class TestHelper
         }
     }
 
+    /**
+     * @return StoreDraft
+     */
+    public function getStoreDraft($name = null)
+    {
+        $draft = StoreDraft::ofKeyAndName(
+            'key-' . $this->getTestRun(),
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name)
+        );
+
+        return $draft;
+    }
+
+    public function getStore(StoreDraft $draft = null)
+    {
+        if (is_null($this->store)) {
+            if (is_null($draft)) {
+                $draft = $this->getStoreDraft();
+            }
+            $request = StoreCreateRequest::ofDraft($draft);
+            $response = $request->executeWithClient($this->getClient());
+            $this->store = $request->mapResponse($response);
+        }
+
+        return $this->store;
+    }
+
+    public function deleteStore()
+    {
+        if (!is_null($this->store)) {
+            $request = StoreDeleteRequest::ofIdAndVersion(
+                $this->store->getId(),
+                $this->store->getVersion()
+            );
+            $request->executeWithClient($this->getClient());
+            $this->store = null;
+        }
+    }
 }

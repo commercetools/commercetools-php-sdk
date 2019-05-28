@@ -227,6 +227,7 @@ use Commercetools\Core\Request\States\Command\StateSetNameAction;
 use Commercetools\Core\Request\States\Command\StateSetRolesAction;
 use Commercetools\Core\Request\States\Command\StateSetTransitionsAction;
 use Commercetools\Core\Request\States\Command\TransitionStateAction;
+use Commercetools\Core\Request\Stores\Command\StoreSetNameAction;
 use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryAddTaxRateAction;
 use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryChangeNameAction;
 use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryRemoveTaxRateAction;
@@ -342,7 +343,9 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
         ];
 
-        $actionNames = array_map(function ($value) { return current($value); }, $actions);
+        $actionNames = array_map(function ($value) {
+            return current($value);
+        }, $actions);
 
         return array_combine($actionNames, $actions);
     }
@@ -1393,11 +1396,17 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
                 'ofState',
                 [$this->getInstance(StateReference::class)]
             ],
+            [
+                StoreSetNameAction::class,
+                'ofName',
+                [$this->getInstance(LocalizedString::class)]
+            ],
         ];
 
-        $actionNames = array_map(function ($value) { return $value[0] . '::' . $value[1]; }, $actions);
+        $actionNames = array_map(function ($value) {
+            return $value[0] . '::' . $value[1];
+        }, $actions);
 
         return array_combine($actionNames, $actions);
-
     }
 }

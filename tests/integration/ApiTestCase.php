@@ -20,6 +20,7 @@ use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Commercetools\Core\Model\ShoppingList\ShoppingListDraft;
 use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Model\Store\StoreDraft;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
@@ -558,5 +559,23 @@ class ApiTestCase extends TestCase
     protected function deleteShoppingList()
     {
         TestHelper::getInstance($this->getClient())->deleteShoppingList();
+    }
+
+    /**
+     * @return StoreDraft
+     */
+    protected function getStoreDraft($name = null)
+    {
+        return TestHelper::getInstance($this->getClient())->getStoreDraft($name);
+    }
+
+    protected function getStore(StoreDraft $draft = null)
+    {
+        return TestHelper::getInstance($this->getClient())->getStore($draft);
+    }
+
+    protected function deleteStore()
+    {
+        TestHelper::getInstance($this->getClient())->deleteStore();
     }
 }

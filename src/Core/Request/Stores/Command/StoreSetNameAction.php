@@ -35,4 +35,14 @@ class StoreSetNameAction extends AbstractAction
         parent::__construct($data, $context);
         $this->setAction('setName');
     }
+
+    /**
+     * @param LocalizedString $name
+     * @param Context|callable $context
+     * @return StoreSetNameAction
+     */
+    public static function ofName(LocalizedString $name, $context = null)
+    {
+        return static::of($context)->setName($name);
+    }
 }
