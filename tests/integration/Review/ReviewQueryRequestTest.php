@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Review;
+namespace Commercetools\Core\IntegrationTests\Review;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\Review\ReviewDraft;
 use Commercetools\Core\Request\Reviews\ReviewByIdGetRequest;
@@ -67,6 +67,5 @@ class ReviewQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Review::class, $review);
         $this->assertSame($review->getId(), $result->getId());
-
     }
 }

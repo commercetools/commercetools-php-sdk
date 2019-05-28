@@ -3,9 +3,9 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Order;
+namespace Commercetools\Core\IntegrationTests\Order;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Cart\CustomLineItemDraft;
@@ -296,7 +296,6 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->assertSame($channel->getId(), $result->getSyncInfo()->current()->getChannel()->getId());
         $syncedAt->setTimezone(new \DateTimeZone('UTC'));
         $this->assertSame($syncedAt->format('c'), $result->getSyncInfo()->current()->getSyncedAt()->getDateTime()->format('c'));
-
     }
 
     public function testReturnInfo()

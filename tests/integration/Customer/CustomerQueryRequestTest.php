@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Customer;
+namespace Commercetools\Core\IntegrationTests\Customer;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
@@ -71,7 +71,6 @@ class CustomerQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Customer::class, $customer);
         $this->assertSame($customer->getId(), $result->getId());
-
     }
 
     public function testGetByKey()
@@ -86,6 +85,5 @@ class CustomerQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Customer::class, $customer);
         $this->assertSame($customer->getId(), $result->getId());
-
     }
 }

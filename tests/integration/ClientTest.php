@@ -3,23 +3,19 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Project;
+namespace Commercetools\Core\IntegrationTests\Project;
 
-use Commercetools\Core\ApiTestCase;
-use Commercetools\Core\Client;
 use Commercetools\Core\Fixtures\FooHandler;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\Client;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Helper\DefaultCorrelationIdProvider;
 use Commercetools\Core\Model\Project\Project;
-use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Promise;
-use GuzzleHttp\Psr7\Response;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class ClientTest extends ApiTestCase
@@ -62,11 +58,11 @@ class ClientTest extends ApiTestCase
 
         $stack = HandlerStack::create(new FooHandler("bar"));
         $clientConfig = $this->getClientConfig('manage_project')->setClientOptions(['handler' => $stack]);
+        $clientConfig->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '20']);
         $client = Client::ofConfigAndLogger(
             $clientConfig,
             $logger
         );
-
         $promise = $client->executeAsync(
             ProjectGetRequest::of(),
             null

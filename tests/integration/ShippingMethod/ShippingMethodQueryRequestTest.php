@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\ShippingMethod;
+namespace Commercetools\Core\IntegrationTests\ShippingMethod;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;

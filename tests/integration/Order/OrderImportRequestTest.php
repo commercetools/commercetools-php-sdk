@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Order;
+namespace Commercetools\Core\IntegrationTests\Order;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Error\OutOfStockError;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\InventoryMode;
@@ -220,8 +220,7 @@ class OrderImportRequestTest extends ApiTestCase
             ->setShippingMethodName('test-' . $this->getTestRun())
             ->setPrice(Money::ofCurrencyAndAmount('EUR', 100))
             ->setShippingRate(ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 200)))
-            ->setShippingMethodState(ShippingInfoImportDraft::SHIPPING_METHOD_MATCH)
-        );
+            ->setShippingMethodState(ShippingInfoImportDraft::SHIPPING_METHOD_MATCH));
 
         $order = $this->importOrder($draft);
 
@@ -231,5 +230,4 @@ class OrderImportRequestTest extends ApiTestCase
         $this->assertInstanceOf(ShippingInfoImportDraft::class, $order->getShippingInfo());
         $this->assertSame('test-' . $this->getTestRun(), $order->getShippingInfo()->getShippingMethodName());
     }
-
 }

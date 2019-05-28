@@ -119,6 +119,52 @@ $config = [
 
 In real world, you will not put your API credentials directly into code but use a config file or your framework's config or dependency injection system for that.
 
+#### Using the client factory
+
+When using at Guzzle greater then version 6, it's also possible to use a preconfigured Guzzle client using the client factory. At the moment this is limited to client credentials authentication flow.
+
+```php
+<?php
+
+require '../vendor/autoload.php';
+
+use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Client\ClientFactory;
+use Commercetools\Core\Config;
+use Commercetools\Core\Model\Common\Context;
+
+$config = [
+    'client_id' => 'my client id',
+    'client_secret' => 'my client secret',
+    'project' => 'my project id'
+];
+$context = Context::of()->setLanguages(['en'])->setLocale('en_US')->setGraceful(true);
+$config = Config::fromArray($config)->setContext($context)->setThrowExceptions(true);
+
+/**
+ * create a search request and a client,
+ * execute the request and get the PHP Object
+ * (the client can and should be re-used)
+ */
+$search = RequestBuilder::of()->productProjections()->search()
+    ->addParam('text.en', 'red');
+
+$client = ClientFactory::of()->createClient($config);
+
+try {
+    $response = $client->send($request->httpRequest());
+} catch (ApiException $exception) {
+    throw new \Exception("Ooops! Something happened.", 0, $exception);
+}
+$products = $request->mapFromResponse($response);
+
+header('Content-Type: text/html; charset=utf-8');
+
+foreach ($products as $product) {
+    echo $product->getName()->en . '<br/>';
+}
+```
+
 #### Using the phar distribution
 
 Since version 1.6 the SDK is also released as a PHAR. You can find them in the [releases section](https://github.com/commercetools/commercetools-php-sdk/releases) at Github.

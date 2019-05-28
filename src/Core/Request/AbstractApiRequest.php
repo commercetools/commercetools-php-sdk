@@ -208,6 +208,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
      * @param Context $context
      * @return JsonDeserializeInterface|null
      * @internal
+     * @deprecated Use map() instead
      */
     public function mapResult(array $result, Context $context = null)
     {
@@ -217,14 +218,21 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
     /**
      * @param ApiResponseInterface $response
      * @return JsonDeserializeInterface|null
+     * @deprecated Use mapFromResponse() instead
      */
     public function mapResponse(ApiResponseInterface $response)
     {
         return $this->mapFromResponse($response);
     }
 
-    public function mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+    /**
+     * @inheritdoc
+     */
+    public function mapFromResponse($response, MapperInterface $mapper = null)
     {
+        if ($response instanceof ResponseInterface) {
+            $response = $this->buildResponse($response);
+        }
         if ($response->isError()) {
             return null;
         }
@@ -252,6 +260,7 @@ abstract class AbstractApiRequest implements ClientRequestInterface, ContextAwar
      * @param Client $client
      * @param array|null $headers
      * @return ApiResponseInterface
+     * @throws \Commercetools\Core\Error\ApiException
      */
     public function executeWithClient(Client $client, array $headers = null)
     {

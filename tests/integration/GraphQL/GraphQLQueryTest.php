@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\GraphQL;
+namespace Commercetools\Core\IntegrationTests\GraphQL;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Request\GraphQL\GraphQLQueryRequest;
 
 class GraphQLQueryTest extends ApiTestCase

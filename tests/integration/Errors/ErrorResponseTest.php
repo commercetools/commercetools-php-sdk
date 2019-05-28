@@ -4,11 +4,11 @@
  */
 
 
-namespace Commercetools\Core\Errors;
+namespace Commercetools\Core\IntegrationTests\Errors;
 
 use Cache\Adapter\Common\CacheItem;
 use Cache\Adapter\PHPArray\ArrayCachePool;
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Cache\CacheAdapterFactory;
 use Commercetools\Core\Cache\CacheAdapterInterface;
 use Commercetools\Core\Client;
@@ -58,7 +58,7 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefin
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
 use Commercetools\Core\Request\PsrRequest;
 use Commercetools\Core\Response\ErrorResponse;
-use Commercetools\Core\TestHelper;
+use Commercetools\Core\IntegrationTests\TestHelper;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Cache\CacheItemPoolInterface;

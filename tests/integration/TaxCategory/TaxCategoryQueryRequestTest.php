@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\TaxCategory;
+namespace Commercetools\Core\IntegrationTests\TaxCategory;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
@@ -78,7 +78,6 @@ class TaxCategoryQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(TaxCategory::class, $taxCategory);
         $this->assertSame($taxCategory->getId(), $result->getId());
-
     }
 
     public function testGetByKey()
