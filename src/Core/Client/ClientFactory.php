@@ -203,7 +203,13 @@ class ClientFactory
         return function (callable $handler) use ($oauthHandler, $maxRetries) {
             return function (RequestInterface $request, array $options) use ($handler, $oauthHandler, $maxRetries) {
                 return $handler($request, $options)->then(
-                    function (ResponseInterface $response) use ($request, $handler, $oauthHandler, $options, $maxRetries) {
+                    function (ResponseInterface $response) use (
+                        $request,
+                        $handler,
+                        $oauthHandler,
+                        $options,
+                        $maxRetries
+                    ) {
                         if ($response->getStatusCode() == 401) {
                             if (!isset($options['reauth'])) {
                                 $options['reauth'] = 0;
@@ -212,7 +218,10 @@ class ClientFactory
                             if ($options['reauth'] < $maxRetries && $exception instanceof InvalidTokenException) {
                                 $options['reauth']++;
                                 $token = $oauthHandler->refreshToken();
-                                $request = $request->withHeader('Authorization', 'Bearer ' . $token->getToken());
+                                $request = $request->withHeader(
+                                    'Authorization',
+                                    'Bearer ' . $token->getToken()
+                                );
                                 return $handler($request, $options);
                             }
                         }
