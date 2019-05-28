@@ -6,6 +6,8 @@
 namespace Commercetools\Core\Model\TaxCategory;
 
 use Commercetools\Core\Model\Common\Collection;
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use DateTime;
@@ -29,6 +31,10 @@ use DateTime;
  * @method TaxCategory setRates(TaxRateCollection $rates = null)
  * @method string getKey()
  * @method TaxCategory setKey(string $key = null)
+ * @method CreatedBy getCreatedBy()
+ * @method TaxCategory setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method TaxCategory setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method TaxCategoryReference getReference()
  */
 class TaxCategory extends Resource
@@ -50,6 +56,8 @@ class TaxCategory extends Resource
             'description' => [self::TYPE => 'string'],
             'rates' => [self::TYPE => TaxRateCollection::class],
             'key' => [self::TYPE => 'string'],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }

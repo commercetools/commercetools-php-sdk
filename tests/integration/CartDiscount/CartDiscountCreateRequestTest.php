@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\CartDiscount;
+namespace Commercetools\Core\IntegrationTests\CartDiscount;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 use Commercetools\Core\Model\CartDiscount\CartDiscountValue;

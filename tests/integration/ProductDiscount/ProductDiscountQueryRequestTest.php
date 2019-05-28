@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\ProductDiscount;
+namespace Commercetools\Core\IntegrationTests\ProductDiscount;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;

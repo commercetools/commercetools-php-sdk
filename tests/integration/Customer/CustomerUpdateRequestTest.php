@@ -4,11 +4,13 @@
  */
 
 
-namespace Commercetools\Core\Customer;
+namespace Commercetools\Core\IntegrationTests\Customer;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
@@ -547,7 +549,6 @@ class CustomerUpdateRequestTest extends ApiTestCase
 
         $this->assertSame($customer->getVersion(), $result->getVersion());
         $this->assertSame($customer->getCompanyName(), $result->getCompanyName());
-
     }
 
     public function testDateOfBirth()
@@ -651,6 +652,48 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($customer->getVersion());
 
         $this->assertSame($this->getTestRun(), $customer->getCustom()->getFields()->getTestField());
+    }
+
+
+    public function testSetExternalUserOnCustomerUpdate()
+    {
+        $draft = $this->getDraft('name');
+
+        $request = CustomerCreateRequest::ofDraft($draft);
+        $request->setExternalUserId('custom-external-user-id');
+
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->cleanupRequests[] = $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
+            $result->getCustomer()->getId(),
+            $result->getCustomer()->getVersion()
+        );
+        $customer = $result->getCustomer();
+
+        $this->assertInstanceOf(Customer::class, $customer);
+        $this->assertInstanceOf(CreatedBy::class, $customer->getCreatedBy());
+        $this->assertInstanceOf(LastModifiedBy::class, $customer->getLastModifiedBy());
+        $this->assertSame('custom-external-user-id', $customer->getCreatedBy()->getExternalUserId());
+        $this->assertSame('custom-external-user-id', $customer->getLastModifiedBy()->getExternalUserId());
+
+        $key = 'new-' . $this->getTestRun();
+        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(
+                CustomerSetKeyAction::of()->setKey($key)
+            )
+        ;
+        $request->setExternalUserId('another-user');
+
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Customer::class, $result);
+        $this->assertInstanceOf(CreatedBy::class, $result->getCreatedBy());
+        $this->assertInstanceOf(LastModifiedBy::class, $result->getLastModifiedBy());
+        $this->assertSame('custom-external-user-id', $result->getCreatedBy()->getExternalUserId());
+        $this->assertSame('another-user', $result->getLastModifiedBy()->getExternalUserId());
     }
 
     public function localeProvider()

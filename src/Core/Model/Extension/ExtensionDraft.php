@@ -16,6 +16,8 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method ExtensionDraft setDestination(Destination $destination = null)
  * @method TriggerCollection getTriggers()
  * @method ExtensionDraft setTriggers(TriggerCollection $triggers = null)
+ * @method int getTimeoutInMs()
+ * @method ExtensionDraft setTimeoutInMs(int $timeoutInMs = null)
  */
 class ExtensionDraft extends JsonObject
 {
@@ -25,6 +27,7 @@ class ExtensionDraft extends JsonObject
             'key' => [static::TYPE => 'string'],
             'destination' => [static::TYPE => Destination::class],
             'triggers' => [static::TYPE => TriggerCollection::class],
+            'timeoutInMs' => [static::TYPE => 'int'],
         ];
     }
 

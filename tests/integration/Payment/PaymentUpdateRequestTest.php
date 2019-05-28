@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Payment;
+namespace Commercetools\Core\IntegrationTests\Payment;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Payment\Payment;
@@ -350,7 +350,7 @@ class PaymentUpdateRequestTest extends ApiTestCase
         $request = PaymentUpdateRequest::ofIdAndVersion($payment->getId(), $payment->getVersion())
             ->addAction(
                 PaymentSetMethodInfoNameAction::of()
-                    ->setName(LocalizedString::ofLangAndText('en',$name))
+                    ->setName(LocalizedString::ofLangAndText('en', $name))
             )
         ;
         $response = $request->executeWithClient($this->getClient());

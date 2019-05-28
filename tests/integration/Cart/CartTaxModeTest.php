@@ -3,9 +3,9 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Cart;
+namespace Commercetools\Core\IntegrationTests\Cart;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CustomLineItemDraft;
@@ -363,7 +363,7 @@ class CartTaxModeTest extends ApiTestCase
     public function testSetLineItemExternalTaxRate()
     {
         $product = $this->getProduct();
-        
+
         $draft = $this->getDraft();
         $draft->setLineItems(
             LineItemDraftCollection::of()->add(

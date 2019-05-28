@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\CustomObject;
+namespace Commercetools\Core\IntegrationTests\CustomObject;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Error\ConcurrentModificationError;
 use Commercetools\Core\Model\CustomObject\CustomObject;
 use Commercetools\Core\Model\CustomObject\CustomObjectDraft;

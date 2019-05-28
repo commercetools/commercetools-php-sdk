@@ -3,9 +3,9 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Cart;
+namespace Commercetools\Core\IntegrationTests\Cart;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
@@ -102,7 +102,7 @@ use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
-use Commercetools\Core\TestHelper;
+use Commercetools\Core\IntegrationTests\TestHelper;
 
 class CartUpdateRequestTest extends ApiTestCase
 {
@@ -758,7 +758,6 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($cart->getVersion());
 
         $this->assertNull($cart->getAnonymousId());
-
     }
 
     public function testSetShippingMethod()
@@ -1573,8 +1572,7 @@ class CartUpdateRequestTest extends ApiTestCase
             )
             ->add(
                 PriceTier::of()->setValue(Money::ofCurrencyAndAmount('EUR', 1))->setMinimumQuantity(3)
-            )
-        );
+            ));
         $product = $this->getProduct($productDraft);
         $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
@@ -1689,7 +1687,7 @@ class CartUpdateRequestTest extends ApiTestCase
                 $this->assertCount(1, $lineItem->getDiscountedPricePerQuantity());
                 $this->assertSame(
                     $cartDiscount->getId(),
-                        $lineItem->getDiscountedPricePerQuantity()->current()
+                    $lineItem->getDiscountedPricePerQuantity()->current()
                             ->getDiscountedPrice()->getIncludedDiscounts()->current()
                             ->getDiscount()->getId()
                 );
@@ -1733,7 +1731,7 @@ class CartUpdateRequestTest extends ApiTestCase
             CustomLineItemDraftCollection::of()
                 ->add(
                     CustomLineItemDraft::of()
-                        ->setName(LocalizedString::ofLangAndText('en','test'))
+                        ->setName(LocalizedString::ofLangAndText('en', 'test'))
                         ->setQuantity(1)
                         ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
                         ->setSlug('test-124')

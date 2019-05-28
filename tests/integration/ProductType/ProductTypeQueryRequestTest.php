@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\ProductType;
+namespace Commercetools\Core\IntegrationTests\ProductType;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\Request\ProductTypes\ProductTypeByIdGetRequest;
@@ -69,7 +69,6 @@ class ProductTypeQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(ProductType::class, $productType);
         $this->assertSame($productType->getId(), $result->getId());
-
     }
 
     public function testGetByKey()
@@ -83,6 +82,5 @@ class ProductTypeQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(ProductType::class, $productType);
         $this->assertSame($productType->getId(), $result->getId());
-
     }
 }

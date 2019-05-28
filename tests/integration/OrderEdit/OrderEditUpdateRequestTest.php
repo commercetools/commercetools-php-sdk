@@ -3,9 +3,10 @@
  *
  */
 
-namespace Commercetools\Core\OrderEdit;
+namespace Commercetools\Core\IntegrationTests\OrderEdit;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\IntegrationTests\Order\OrderUpdateRequestTest;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\ExternalTaxAmountDraft;
 use Commercetools\Core\Model\Cart\ScoreShippingRateInput;
@@ -22,7 +23,6 @@ use Commercetools\Core\Model\OrderEdit\OrderEditPreviewSuccess;
 use Commercetools\Core\Model\ShippingMethod\ShippingRateDraft;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Model\Type\TypeReference;
-use Commercetools\Core\Order\OrderUpdateRequestTest;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCommentAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCustomFieldAction;

@@ -4,14 +4,14 @@
  */
 
 
-namespace Commercetools\Core\Product;
+namespace Commercetools\Core\IntegrationTests\Product;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Request\Products\Command\ProductMoveImageToPositionAction;
 use Commercetools\Core\Request\Products\Command\ProductRemoveImageAction;
 use Commercetools\Core\Request\Products\ProductImageUploadRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
-use Commercetools\Core\TestHelper;
+use Commercetools\Core\IntegrationTests\TestHelper;
 use GuzzleHttp\Psr7\UploadedFile;
 
 class ProductImageUploadRequestTest extends ApiTestCase
@@ -30,7 +30,8 @@ class ProductImageUploadRequestTest extends ApiTestCase
         $file = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, $fileAlias, $mimeType);
 
         $request = ProductImageUploadRequest::ofIdVariantIdAndFile(
-            $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
+            $product->getId(),
+            $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
             $file
         );
 
@@ -70,7 +71,8 @@ class ProductImageUploadRequestTest extends ApiTestCase
         $file = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, $fileAlias, $mimeType);
 
         $request = ProductImageUploadRequest::ofIdSkuAndFile(
-            $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+            $product->getId(),
+            $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
             $file
         );
 
@@ -111,7 +113,8 @@ class ProductImageUploadRequestTest extends ApiTestCase
         $file3 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i3', $mimeType);
 
         $request = ProductImageUploadRequest::ofIdSkuAndFile(
-            $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+            $product->getId(),
+            $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
             $file1
         );
         $response = $request->executeWithClient($this->getClient());
@@ -120,7 +123,8 @@ class ProductImageUploadRequestTest extends ApiTestCase
 
 
         $request = ProductImageUploadRequest::ofIdSkuAndFile(
-            $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+            $product->getId(),
+            $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
             $file2
         );
         $response = $request->executeWithClient($this->getClient());
@@ -128,7 +132,8 @@ class ProductImageUploadRequestTest extends ApiTestCase
         TestHelper::getInstance($this->getClient())->setProduct($product);
 
         $request = ProductImageUploadRequest::ofIdSkuAndFile(
-            $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+            $product->getId(),
+            $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
             $file3
         );
         $response = $request->executeWithClient($this->getClient());
@@ -196,7 +201,8 @@ class ProductImageUploadRequestTest extends ApiTestCase
         $file3 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i3', $mimeType);
 
         $request = ProductImageUploadRequest::ofIdSkuAndFile(
-            $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+            $product->getId(),
+            $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
             $file1
         );
         $response = $request->executeWithClient($this->getClient());
@@ -204,7 +210,8 @@ class ProductImageUploadRequestTest extends ApiTestCase
         TestHelper::getInstance($this->getClient())->setProduct($product);
 
         $request = ProductImageUploadRequest::ofIdSkuAndFile(
-            $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+            $product->getId(),
+            $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
             $file2
         );
         $response = $request->executeWithClient($this->getClient());
@@ -212,7 +219,8 @@ class ProductImageUploadRequestTest extends ApiTestCase
         TestHelper::getInstance($this->getClient())->setProduct($product);
 
         $request = ProductImageUploadRequest::ofIdSkuAndFile(
-            $product->getId(), $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+            $product->getId(),
+            $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
             $file3
         );
         $response = $request->executeWithClient($this->getClient());

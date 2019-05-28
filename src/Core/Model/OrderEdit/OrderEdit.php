@@ -5,7 +5,9 @@
 
 namespace Commercetools\Core\Model\OrderEdit;
 
+use Commercetools\Core\Model\Common\CreatedBy;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Order\OrderReference;
@@ -35,6 +37,10 @@ use DateTime;
  * @method OrderEdit setResult(OrderEditResult $result = null)
  * @method string getComment()
  * @method OrderEdit setComment(string $comment = null)
+ * @method CreatedBy getCreatedBy()
+ * @method OrderEdit setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method OrderEdit setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method OrderEditReference getReference()
  */
 class OrderEdit extends Resource
@@ -58,7 +64,9 @@ class OrderEdit extends Resource
             'stagedActions' => [static::TYPE => StagedOrderUpdateActionCollection::class],
             'custom' => [static::TYPE => CustomFieldObject::class],
             'result' => [static::TYPE => OrderEditResult::class],
-            'comment' => [static::TYPE => 'string']
+            'comment' => [static::TYPE => 'string'],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }
