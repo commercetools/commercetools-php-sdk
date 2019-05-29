@@ -18,7 +18,7 @@ class InStoreRequestDecoratorTest extends RequestTestCase
     public function testHttpRequestWithCart()
     {
         $request = CartByIdGetRequest::ofId('cart-id');
-        $inStoreRequest = InStoreRequestDecorator::ofStoreAndRequest('store-key', $request);
+        $inStoreRequest = InStoreRequestDecorator::ofStoreKeyAndRequest('store-key', $request);
 
         $decoratedRequest = $inStoreRequest->httpRequest();
         $this->assertSame('in-store/key=store-key/carts/cart-id', (string)$decoratedRequest->getUri());
@@ -27,7 +27,7 @@ class InStoreRequestDecoratorTest extends RequestTestCase
     public function testHttpRequestWithOrder()
     {
         $request = OrderByIdGetRequest::ofId('order-id');
-        $inStoreRequest = InStoreRequestDecorator::ofStoreAndRequest('store-key', $request);
+        $inStoreRequest = InStoreRequestDecorator::ofStoreKeyAndRequest('store-key', $request);
 
         $decoratedRequest = $inStoreRequest->httpRequest();
         $this->assertSame('in-store/key=store-key/orders/order-id', (string)$decoratedRequest->getUri());
@@ -39,6 +39,6 @@ class InStoreRequestDecoratorTest extends RequestTestCase
     public function testInvalidRequest()
     {
         $request = CustomerByIdGetRequest::ofId('customer');
-        InStoreRequestDecorator::ofStoreAndRequest('store-key', $request);
+        InStoreRequestDecorator::ofStoreKeyAndRequest('store-key', $request);
     }
 }

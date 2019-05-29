@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\InStores;
 
+use Commercetools\Core\Client;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\MapperInterface;
@@ -79,7 +80,22 @@ class InStoreRequestDecorator implements ClientRequestInterface
         return $this->request->mapFromResponse($response, $mapper);
     }
 
-    public static function ofStoreAndRequest($storeKey, ClientRequestInterface $request)
+    /**
+     * @param Client $client
+     * @param array $headers
+     * @return ApiResponseInterface
+     */
+    public function executeWithClient(Client $client, array $headers = null)
+    {
+        return $client->execute($this, $headers);
+    }
+
+    /**
+     * @param string $storeKey
+     * @param ClientRequestInterface $request
+     * @return InStoreRequestDecorator
+     */
+    public static function ofStoreKeyAndRequest($storeKey, ClientRequestInterface $request)
     {
         return new static($storeKey, $request);
     }

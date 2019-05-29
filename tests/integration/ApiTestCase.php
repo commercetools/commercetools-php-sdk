@@ -287,6 +287,7 @@ class ApiTestCase extends TestCase
         $this->deleteChannel();
         $this->deleteStates();
         $this->deleteShoppingList();
+        $this->deleteStore();
     }
 
     protected function map(callable $callback, $collection)

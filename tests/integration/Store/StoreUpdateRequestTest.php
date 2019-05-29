@@ -16,37 +16,18 @@ use Commercetools\Core\Request\Stores\StoreUpdateRequest;
 
 class StoreUpdateRequestTest extends ApiTestCase
 {
-    private $storeDeleteRequests = [];
-
-    protected function cleanup()
-    {
-        parent::cleanup();
-        $this->deleteStore();
-    }
-
     protected function createStore($draft)
     {
         $request = StoreCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
         $store = $request->mapResponse($response);
 
-        $this->storeDeleteRequests[] = $this->deleteRequest = StoreDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = StoreDeleteRequest::ofIdAndVersion(
             $store->getId(),
             $store->getVersion()
         );
 
         return $store;
-    }
-
-    protected function deleteStore()
-    {
-        if (count($this->storeDeleteRequests) > 0) {
-            foreach ($this->storeDeleteRequests as $request) {
-                $this->getClient()->addBatchRequest($request);
-            }
-            $this->getClient()->executeBatch();
-            $this->storeDeleteRequests = [];
-        }
     }
 
     public function testUpdateName()
