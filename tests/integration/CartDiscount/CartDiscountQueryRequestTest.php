@@ -15,6 +15,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountByIdGetRequest;
+use Commercetools\Core\Request\CartDiscounts\CartDiscountByKeyGetRequest;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteRequest;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountQueryRequest;
@@ -78,7 +79,21 @@ class CartDiscountQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf(CartDiscount::class, $cartDiscount);
+        $this->assertInstanceOf(CartDiscount::class, $result);
         $this->assertSame($cartDiscount->getId(), $result->getId());
+    }
+
+    public function testGetByKey()
+    {
+        $draft = $this->getDraft()->setKey('test-' . $this->getTestRun() . '-discount');
+        $cartDiscount = $this->createCartDiscount($draft);
+
+        $request = CartDiscountByKeyGetRequest::ofKey($cartDiscount->getKey());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(CartDiscount::class, $result);
+        $this->assertSame($cartDiscount->getId(), $result->getId());
+        $this->assertSame($cartDiscount->getKey(), $result->getKey());
     }
 }

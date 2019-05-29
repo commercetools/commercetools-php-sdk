@@ -15,6 +15,7 @@ use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeValueActi
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetCustomFieldAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetCustomTypeAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetDescriptionAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetKeyAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAndUntilAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidUntilAction;
@@ -141,6 +142,17 @@ class CartDiscountsActionBuilder
     public function setDescription($action = null)
     {
         $this->addAction($this->resolveAction(CartDiscountSetDescriptionAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartDiscountSetKeyAction|callable $action
+     * @return $this
+     */
+    public function setKey($action = null)
+    {
+        $this->addAction($this->resolveAction(CartDiscountSetKeyAction::class, $action));
         return $this;
     }
 

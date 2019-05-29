@@ -51,6 +51,8 @@ use DateTime;
  * @method CartDiscount setStackingMode(string $stackingMode = null)
  * @method CustomFieldObject getCustom()
  * @method CartDiscount setCustom(CustomFieldObject $custom = null)
+ * @method string getKey()
+ * @method CartDiscount setKey(string $key = null)
  * @method CreatedBy getCreatedBy()
  * @method CartDiscount setCreatedBy(CreatedBy $createdBy = null)
  * @method LastModifiedBy getLastModifiedBy()
@@ -76,6 +78,7 @@ class CartDiscount extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => LocalizedString::class],
+            'key' => [static::TYPE => 'string'],
             'description' => [static::TYPE => LocalizedString::class],
             'value' => [static::TYPE => CartDiscountValue::class],
             'cartPredicate' => [static::TYPE => 'string'],
