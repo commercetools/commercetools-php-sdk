@@ -75,7 +75,7 @@ class InStoreRequestDecorator implements ClientRequestInterface
         return $this->request->map($data, $context, $mapper);
     }
 
-    public function mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+    public function mapFromResponse($response, MapperInterface $mapper = null)
     {
         return $this->request->mapFromResponse($response, $mapper);
     }

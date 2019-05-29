@@ -3,9 +3,9 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Inventory;
+namespace Commercetools\Core\IntegrationTests\Inventory;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
 use Commercetools\Core\Model\Inventory\InventoryEntry;

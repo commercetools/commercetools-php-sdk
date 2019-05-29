@@ -2,9 +2,9 @@
 /**
  */
 
-namespace Commercetools\Core\Store;
+namespace Commercetools\Core\IntegrationTests\Store;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Request\Stores\Command\StoreSetNameAction;

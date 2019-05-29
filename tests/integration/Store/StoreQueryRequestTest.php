@@ -3,9 +3,9 @@
  */
 
 
-namespace Commercetools\Core\Store;
+namespace Commercetools\Core\IntegrationTests\Store;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreDraft;
 use Commercetools\Core\Request\Stores\StoreByIdGetRequest;

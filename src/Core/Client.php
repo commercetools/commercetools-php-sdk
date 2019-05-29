@@ -10,6 +10,7 @@ use Commercetools\Core\Client\Adapter\CorrelationIdAware;
 use Commercetools\Core\Client\Adapter\TokenProviderAware;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Client\Adapter\AdapterOptionInterface;
+use Commercetools\Core\Response\ApiPromiseGetInterface;
 use Commercetools\Core\Response\ErrorResponse;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -285,7 +286,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
      * Executes an API request asynchronously
      * @param ClientRequestInterface $request
      * @param array $clientOptions
-     * @return ApiResponseInterface
+     * @return ApiResponseInterface|ApiPromiseGetInterface
      */
     public function executeAsync(ClientRequestInterface $request, array $headers = null, array $clientOptions = [])
     {

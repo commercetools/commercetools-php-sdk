@@ -1,6 +1,7 @@
 .vagrant
 .idea
 /vendor
+/cache
 /build/*
 !/build/theme
 !/build/apigen.neon

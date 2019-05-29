@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\CartDiscount;
 
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\ReferenceCollection;
@@ -49,6 +51,12 @@ use DateTime;
  * @method CartDiscount setStackingMode(string $stackingMode = null)
  * @method CustomFieldObject getCustom()
  * @method CartDiscount setCustom(CustomFieldObject $custom = null)
+ * @method string getKey()
+ * @method CartDiscount setKey(string $key = null)
+ * @method CreatedBy getCreatedBy()
+ * @method CartDiscount setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method CartDiscount setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method CartDiscountReference getReference()
  */
 class CartDiscount extends Resource
@@ -70,6 +78,7 @@ class CartDiscount extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => LocalizedString::class],
+            'key' => [static::TYPE => 'string'],
             'description' => [static::TYPE => LocalizedString::class],
             'value' => [static::TYPE => CartDiscountValue::class],
             'cartPredicate' => [static::TYPE => 'string'],
@@ -87,7 +96,9 @@ class CartDiscount extends Resource
             'requiresDiscountCode' => [static::TYPE => 'bool'],
             'references' => [static::TYPE => ReferenceCollection::class],
             'stackingMode' => [static::TYPE => 'string'],
-            'custom' => [static::TYPE => CustomFieldObject::class]
+            'custom' => [static::TYPE => CustomFieldObject::class],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }

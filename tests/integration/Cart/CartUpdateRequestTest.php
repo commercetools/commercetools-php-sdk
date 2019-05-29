@@ -3,9 +3,9 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Cart;
+namespace Commercetools\Core\IntegrationTests\Cart;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
@@ -104,7 +104,7 @@ use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
-use Commercetools\Core\TestHelper;
+use Commercetools\Core\IntegrationTests\TestHelper;
 
 class CartUpdateRequestTest extends ApiTestCase
 {

@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\Review;
 
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\State\StateReference;
@@ -54,6 +56,10 @@ use DateTime;
  * @method Review setCustomer(CustomerReference $customer = null)
  * @method CustomFieldObject getCustom()
  * @method Review setCustom(CustomFieldObject $custom = null)
+ * @method CreatedBy getCreatedBy()
+ * @method Review setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method Review setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  */
 class Review extends Resource
 {
@@ -82,6 +88,8 @@ class Review extends Resource
             'includedInStatistics' => [static::TYPE => 'bool'],
             'customer' => [static::TYPE => CustomerReference::class],
             'custom' => [static::TYPE => CustomFieldObject::class],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 

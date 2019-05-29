@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\Channel;
 
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
@@ -41,6 +43,10 @@ use DateTime;
  * @method Channel setAddress(Address $address = null)
  * @method GeoLocation getGeoLocation()
  * @method Channel setGeoLocation(GeoLocation $geoLocation = null)
+ * @method CreatedBy getCreatedBy()
+ * @method Channel setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method Channel setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method ChannelReference getReference()
  */
 class Channel extends Resource
@@ -66,6 +72,8 @@ class Channel extends Resource
             'custom' => [static::TYPE => CustomFieldObject::class],
             'address' => [static::TYPE => Address::class],
             'geoLocation' => [static::TYPE => GeoLocation::class],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }

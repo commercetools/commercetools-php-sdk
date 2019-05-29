@@ -3,9 +3,9 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Type;
+namespace Commercetools\Core\IntegrationTests\Type;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\Enum;
 use Commercetools\Core\Model\Common\EnumCollection;
 use Commercetools\Core\Model\Common\LocalizedEnum;

@@ -189,7 +189,6 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
 
     /**
      * @return Client\HttpRequest
-     * @internal
      */
     public function httpRequest()
     {

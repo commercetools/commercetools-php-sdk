@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Inventory;
+namespace Commercetools\Core\IntegrationTests\Inventory;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
 use Commercetools\Core\Model\Inventory\InventoryEntry;
 use Commercetools\Core\Request\Inventory\InventoryByIdGetRequest;
@@ -68,6 +68,5 @@ class InventoryQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(InventoryEntry::class, $inventory);
         $this->assertSame($inventory->getId(), $result->getId());
-
     }
 }

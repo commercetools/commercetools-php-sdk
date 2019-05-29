@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Product;
+namespace Commercetools\Core\IntegrationTests\Product;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
@@ -254,4 +254,3 @@ class ProductQueryRequestTest extends ApiTestCase
         $this->assertSame(100, $result->getMasterVariant()->getPrice()->getValue()->getCentAmount());
     }
 }
-

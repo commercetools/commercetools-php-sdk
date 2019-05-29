@@ -30,7 +30,7 @@ class QueryHelper
             $lastId = end($results)['id'];
         } while (count($results) >= static::DEFAULT_PAGE_SIZE);
 
-        $result = $request->mapResult($data, $client->getConfig()->getContext());
+        $result = $request->map($data, $client->getConfig()->getContext());
 
         return $result;
     }

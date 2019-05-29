@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\State;
 
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
@@ -37,6 +39,10 @@ use DateTime;
  * @method State setBuiltIn(bool $builtIn = null)
  * @method array getRoles()
  * @method State setRoles(array $roles = null)
+ * @method CreatedBy getCreatedBy()
+ * @method State setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method State setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method StateReference getReference()
  */
 class State extends Resource
@@ -61,7 +67,9 @@ class State extends Resource
             'initial' => [static::TYPE => 'bool'],
             'builtIn' => [static::TYPE => 'bool'],
             'roles' => [static::TYPE => 'array'],
-            'transitions' => [static::TYPE => StateReferenceCollection::class]
+            'transitions' => [static::TYPE => StateReferenceCollection::class],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }

@@ -19,7 +19,9 @@
   "autoload-dev": {
     "psr-4": {
       "Commercetools\\Core\\": [
-        "tests/unit/",
+        "tests/unit/"
+      ],
+      "Commercetools\\Core\\IntegrationTests\\": [
         "tests/integration/"
       ],
       "Commercetools\\Core\\Fixtures\\": [

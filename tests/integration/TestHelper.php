@@ -3,7 +3,7 @@
  *
  */
 
-namespace Commercetools\Core;
+namespace Commercetools\Core\IntegrationTests;
 
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;

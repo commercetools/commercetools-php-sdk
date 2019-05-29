@@ -6,10 +6,12 @@
 namespace Commercetools\Core\Client\Adapter;
 
 use Commercetools\Core\Client\OAuth\TokenProvider;
+use Commercetools\Core\Config;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Pool;
@@ -53,7 +55,7 @@ class Guzzle6Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
             $formatter = new MessageFormatter();
         }
         $this->logger = $logger;
-        $this->addHandler(self::log($logger, $formatter, $logLevel));
+        $this->addHandler(self::log($logger, $formatter, $logLevel), 'ctp_logger');
     }
 
     public function setCorrelationIdProvider(CorrelationIdProvider $provider)
@@ -63,7 +65,7 @@ class Guzzle6Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
                 AbstractApiResponse::X_CORRELATION_ID,
                 $provider->getCorrelationId()
             );
-        }));
+        }), 'ctp_correlation_id');
     }
 
     public function setOAuthTokenProvider(TokenProvider $tokenProvider)
@@ -73,7 +75,7 @@ class Guzzle6Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
                 'Authorization',
                 'Bearer ' . $tokenProvider->getToken()->getToken()
             );
-        }));
+        }), 'ctp_auth_provider');
     }
 
     /**
@@ -121,9 +123,13 @@ class Guzzle6Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
         };
     }
 
-    public function addHandler($handler)
+    public function addHandler($handler, $name = '')
     {
-        $this->client->getConfig('handler')->push($handler);
+        /**
+         * @var HandlerStack $stack
+         */
+        $stack = $this->client->getConfig('handler');
+        $stack->push($handler, $name);
     }
 
     /**

@@ -2,9 +2,9 @@
 /**
  */
 
-namespace Commercetools\Core\Extension;
+namespace Commercetools\Core\IntegrationTests\Extension;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Model\Extension\Extension;
 use Commercetools\Core\Model\Extension\ExtensionDraft;
@@ -14,6 +14,7 @@ use Commercetools\Core\Model\Extension\TriggerCollection;
 use Commercetools\Core\Request\Extensions\Command\ExtensionChangeDestinationAction;
 use Commercetools\Core\Request\Extensions\Command\ExtensionChangeTriggersAction;
 use Commercetools\Core\Request\Extensions\Command\ExtensionSetKeyAction;
+use Commercetools\Core\Request\Extensions\Command\ExtensionSetTimeoutInMsAction;
 use Commercetools\Core\Request\Extensions\ExtensionCreateRequest;
 use Commercetools\Core\Request\Extensions\ExtensionDeleteRequest;
 
@@ -121,5 +122,34 @@ class ExtensionUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($extension->getVersion(), $result->getVersion());
         $this->assertInstanceOf(Extension::class, $result);
         $this->assertSame('https://api.commercetools.com', $result->getDestination()->getUrl());
+    }
+
+    public function testSetTimeoutInMs()
+    {
+        $draft = $this->getExtensionDraft();
+        $extension = $this->createExtension($draft);
+
+        $this->assertNull($extension->getTimeoutInMs());
+
+        $request = RequestBuilder::of()->extensions()->update($extension)
+            ->addAction(
+                ExtensionSetTimeoutInMsAction::of()->setTimeoutInMs(1000)
+            );
+        $response = $this->getClient()->execute($request);
+        $result = $request->mapFromResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertNotSame($extension->getVersion(), $result->getVersion());
+        $this->assertInstanceOf(Extension::class, $result);
+        $this->assertSame(1000, $result->getTimeoutInMs());
+    }
+
+    public function testCreateWithTimeoutMs()
+    {
+        $draft = $this->getExtensionDraft();
+        $draft->setTimeoutInMs(600);
+        $extension = $this->createExtension($draft);
+
+        $this->assertSame(600, $extension->getTimeoutInMs());
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
-namespace Commercetools\Core;
+namespace Commercetools\Core\IntegrationTests;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Commercetools\Core\Client;
+use Commercetools\Core\Config;
 use Commercetools\Core\Fixtures\ManuelActivationStrategy;
 use Commercetools\Core\Fixtures\ProfilerMiddleware;
 use Commercetools\Core\Fixtures\TeamCityFormatter;
@@ -322,7 +324,7 @@ class ApiTestCase extends TestCase
 
     private function deleteCategory()
     {
-        TestHelper::getInstance($this->getCategory())->deleteCategory();
+        TestHelper::getInstance($this->getClient())->deleteCategory();
     }
 
     protected function getTaxCategory()

@@ -39,6 +39,8 @@ use DateTime;
  * @method CartDiscountDraft setStackingMode(string $stackingMode = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method CartDiscountDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method string getKey()
+ * @method CartDiscountDraft setKey(string $key = null)
  */
 class CartDiscountDraft extends JsonObject
 {
@@ -54,6 +56,7 @@ class CartDiscountDraft extends JsonObject
     const REQUIRES_DISCOUNT_CODE = 'requiresDiscountCode';
     const STACKING_MODE = 'stackingMode';
     const CUSTOM = 'custom';
+    const KEY = 'key';
 
     public function fieldDefinitions()
     {
@@ -75,7 +78,8 @@ class CartDiscountDraft extends JsonObject
             ],
             static::REQUIRES_DISCOUNT_CODE => [static::TYPE => 'bool'],
             static::STACKING_MODE => [static::TYPE => 'string'],
-            static::CUSTOM => [static::TYPE => CustomFieldObjectDraft::class]
+            static::CUSTOM => [static::TYPE => CustomFieldObjectDraft::class],
+            static::KEY => [static::TYPE => 'string'],
         ];
     }
 

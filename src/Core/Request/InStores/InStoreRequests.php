@@ -5,7 +5,6 @@
 
 namespace Commercetools\Core\Request\InStores;
 
-
 use Commercetools\Core\Request\Carts\CartByCustomerIdGetRequest;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;

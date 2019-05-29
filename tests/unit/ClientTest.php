@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core;
 
-use Commercetools\Core\Client\Adapter\AdapterFactory;
 use Commercetools\Core\Client\Adapter\AdapterOptionInterface;
 use Commercetools\Core\Client\Adapter\ConfigAware;
 use Commercetools\Core\Client\OAuth\Manager;
@@ -29,6 +28,7 @@ use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\BufferStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -824,5 +824,25 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         );
         $this->assertInstanceOf(ConfigAware::class, $client->getHttpClient());
         $this->assertFalse($client->getHttpClient()->getConfig('verify'));
+    }
+
+    public function testGetPromise()
+    {
+        $client = $this->getMockClient($this->getConfig(), $this->getSingleOpResult(), 200);
+
+        $endpoint = new JsonEndpoint('test');
+        $request = $this->getMockForAbstractClass(
+            AbstractByIdGetRequest::class,
+            [$endpoint, 'id']
+        );
+        $response = $client->executeAsync($request);
+
+        $this->assertFalse($response->isError());
+
+        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            $this->assertInstanceOf(PromiseInterface::class, $response->getPromise());
+        } else {
+            $this->assertInstanceOf(\React\Promise\PromiseInterface::class, $response->getPromise());
+        }
     }
 }
