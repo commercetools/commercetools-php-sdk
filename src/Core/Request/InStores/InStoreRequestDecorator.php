@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\InStores;
 
+use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\MapperInterface;
 use Commercetools\Core\Request\ClientRequestInterface;
@@ -25,7 +26,10 @@ class InStoreRequestDecorator implements ClientRequestInterface
      */
     public function __construct($storeKey, ClientRequestInterface $request)
     {
-        //
+        if (!InStoreRequests::of()->can(get_class($request))) {
+            throw new InvalidArgumentException('In-store request is not available in: ' . get_class($request));
+        }
+
         $this->request = $request;
         $this->endpoint = InStoreEndpoint::endpoint($storeKey);
     }
