@@ -140,4 +140,18 @@ class CartQueryRequestTest extends ApiTestCase
         $this->assertSame($cart->getId(), $result->getAt(0)->getId());
         $this->assertSame($store->getKey(), $result->getAt(0)->getStore()->getKey());
     }
+
+    public function testGetByIdNotInStore()
+    {
+        $store = $this->getStore();
+        $cartDraft = $this->getDraft();
+        $cart = $this->createCart($cartDraft);
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), CartByIdGetRequest::ofId($cart->getId()));
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+
+        $this->assertNull($result);
+        $this->assertSame('in-store/key='.$store->getKey().'/carts/'.$cart->getId(), (string)$request->httpRequest()->getUri());
+    }
 }
