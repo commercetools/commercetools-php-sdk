@@ -825,7 +825,7 @@ class TestHelper
     public function getCustomerDraft()
     {
         $draft = CustomerDraft::ofEmailNameAndPassword(
-            'TEST-' . $this->getTestRun() . '-em.ail+sphere@example.org',
+            'TEST-' . $this->getTestRun() . '-email+sphere@example.org',
             'test-' . $this->getTestRun() . '-firstName',
             'test-' . $this->getTestRun() . '-lastName',
             'test-' . $this->getTestRun() . '-password'
