@@ -158,8 +158,8 @@ class ApiTestCase extends TestCase
             $handler = new ErrorLogHandler();
             if (getenv("TEAMCITY_FORMATTER") == "true") {
                 $handler->setFormatter(new TeamCityFormatter());
-                $handler = new FingersCrossedHandler($handler, new ManuelActivationStrategy());
             }
+            $handler = new FingersCrossedHandler($handler, new ManuelActivationStrategy());
             self::$errorHandler = $handler;
         }
 
