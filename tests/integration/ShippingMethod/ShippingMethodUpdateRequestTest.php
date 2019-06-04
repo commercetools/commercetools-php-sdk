@@ -56,7 +56,7 @@ use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
 
 class ShippingMethodUpdateRequestTest extends ApiTestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         $request = ProjectGetRequest::of();

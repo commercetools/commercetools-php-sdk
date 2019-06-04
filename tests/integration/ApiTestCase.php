@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpLanguageLevelInspection */
+declare(strict_types=1);
 
 namespace Commercetools\Core\IntegrationTests;
 
@@ -63,7 +65,7 @@ class ApiTestCase extends TestCase
 
     private $cache;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (self::$errorHandler instanceof FingersCrossedHandler) {
             self::$errorHandler->clear();
@@ -81,7 +83,7 @@ class ApiTestCase extends TestCase
         return self::$testRun;
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->cleanup();
     }
@@ -159,8 +161,8 @@ class ApiTestCase extends TestCase
             $handler = new ErrorLogHandler();
             if (getenv("TEAMCITY_FORMATTER") == "true") {
                 $handler->setFormatter(new TeamCityFormatter());
-                $handler = new FingersCrossedHandler($handler, new ManuelActivationStrategy());
             }
+            $handler = new FingersCrossedHandler($handler, new ManuelActivationStrategy());
             self::$errorHandler = $handler;
         }
 
@@ -186,8 +188,8 @@ class ApiTestCase extends TestCase
     {
         if (!isset(self::$client[$scope])) {
             $config = $this->getClientConfig($scope);
-            $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
-            $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+            $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '15']);
+            $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '15']);
 
             $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
             $enableProfiler = getenv('PHP_SDK_PROFILE');
