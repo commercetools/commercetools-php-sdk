@@ -42,7 +42,7 @@
   },
   "require-dev": {
     "guzzlehttp/guzzle": "^6.0",
-    "phpunit/phpunit": "^8.1 || ^7.0 || ^6.0 || ^5.7.21",
+    "phpunit/phpunit": "^7.0 || ^6.0 || ^5.7.21",
     "squizlabs/php_codesniffer": "^3.2",
     "doctrine/cache": "^1.6",
     "monolog/monolog": "^1.12",

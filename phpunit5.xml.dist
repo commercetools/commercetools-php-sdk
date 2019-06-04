@@ -19,8 +19,4 @@
             <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
-    <listeners>
-        <listener class="Commercetools\Core\IntegrationTests\ErrorListener5" file="tests/integration/ErrorListener5.php">
-        </listener>
-    </listeners>
 </phpunit>
