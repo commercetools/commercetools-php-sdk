@@ -39,7 +39,7 @@ class CustomerLoginRequestTest extends ApiTestCase
     protected function getDraft($name)
     {
         $draft = CustomerDraft::ofEmailNameAndPassword(
-            'TEST-' . $this->getTestRun() . '-email+sphere@example.org',
+            'TEST-' . $this->getTestRun() . '-em.ail+sphere@example.org',
             'test-' . $this->getTestRun() . '-' . $name,
             'test-' . $this->getTestRun() . '-lastName',
             'test-' . $this->getTestRun() . '-password'
