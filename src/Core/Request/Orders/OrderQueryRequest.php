@@ -8,6 +8,8 @@ namespace Commercetools\Core\Request\Orders;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\Order\OrderCollection;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
+use Commercetools\Core\Request\InStores\InStoreTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
@@ -16,9 +18,12 @@ use Commercetools\Core\Model\MapperInterface;
  * @link https://docs.commercetools.com/http-api-projects-orders.html#query-orders
  * @method OrderCollection mapResponse(ApiResponseInterface $response)
  * @method OrderCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+ * @method OrderQueryRequest|InStoreRequestDecorator inStore($storeKey)
  */
 class OrderQueryRequest extends AbstractQueryRequest
 {
+    use InStoreTrait;
+
     protected $resultClass = OrderCollection::class;
 
     /**

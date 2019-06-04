@@ -326,7 +326,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $handler = new TestHandler();
         $logger = new Logger('test');
         $logger->pushHandler($handler);
-        $config =$this->getConfig();
+        $config = $this->getConfig();
         $config = $config->setLogLevel(LogLevel::DEBUG);
 
         $client = $this->getMockClient($config, $this->getSingleOpResult(), 200, $logger);
@@ -513,6 +513,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         );
         $this->assertJsonStringEqualsJsonString($errorBody, $logEntry['context']['responseBody']);
     }
+
     /**
      * @expectedException \Commercetools\Core\Error\ApiException
      */
@@ -644,7 +645,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         return [
             ErrorResponseException::class => [400, ErrorResponseException::class, ''],
-            InvalidTokenException::class => [401, InvalidTokenException::class, ['invalid_token','invalid_token']],
+            InvalidTokenException::class => [401, InvalidTokenException::class, ['invalid_token', 'invalid_token']],
             InvalidClientCredentialsException::class => [401, InvalidClientCredentialsException::class, ''],
             NotFoundException::class => [404, NotFoundException::class, ''],
             ConcurrentModificationException::class => [409, ConcurrentModificationException::class, ''],

@@ -18,6 +18,7 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Payment\PaymentInfo;
+use Commercetools\Core\Model\Store\StoreReference;
 use DateTime;
 
 /**
@@ -82,6 +83,8 @@ use DateTime;
  * @method Cart setShippingRateInput(ShippingRateInput $shippingRateInput = null)
  * @method AddressCollection getItemShippingAddresses()
  * @method Cart setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
+ * @method StoreReference getStore()
+ * @method Cart setStore(StoreReference $store = null)
  * @method CreatedBy getCreatedBy()
  * @method Cart setCreatedBy(CreatedBy $createdBy = null)
  * @method LastModifiedBy getLastModifiedBy()
@@ -145,6 +148,7 @@ class Cart extends Resource
             'taxCalculationMode' => [static::TYPE => 'string'],
             'shippingRateInput' => [static::TYPE => ShippingRateInput::class],
             'itemShippingAddresses' => [static::TYPE => AddressCollection::class],
+            'store' => [static::TYPE => StoreReference::class],
             'createdBy' => [static::TYPE => CreatedBy::class],
             'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];

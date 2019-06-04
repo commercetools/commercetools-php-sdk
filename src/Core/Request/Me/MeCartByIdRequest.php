@@ -8,6 +8,8 @@ namespace Commercetools\Core\Request\Me;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractByIdGetRequest;
 use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
+use Commercetools\Core\Request\InStores\InStoreTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
@@ -16,9 +18,12 @@ use Commercetools\Core\Model\MapperInterface;
  * @link https://docs.commercetools.com/http-api-projects-me-carts.html#get-cart-by-id
  * @method Cart mapResponse(ApiResponseInterface $response)
  * @method Cart mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+ * @method MeCartByIdRequest|InStoreRequestDecorator inStore($storeKey)
  */
 class MeCartByIdRequest extends AbstractByIdGetRequest
 {
+    use InStoreTrait;
+
     protected $resultClass = Cart::class;
 
     /**

@@ -61,7 +61,7 @@ class DiscountCodeQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf(DiscountCode::class, $discountCode);
+        $this->assertInstanceOf(DiscountCode::class, $result);
         $this->assertSame($discountCode->getId(), $result->getId());
     }
 }

@@ -26,6 +26,7 @@ use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Subscription\Subscription;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Type\Type;
@@ -50,6 +51,7 @@ use Commercetools\Core\Request\Reviews\ReviewByIdGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByIdGetRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListByIdGetRequest;
 use Commercetools\Core\Request\States\StateByIdGetRequest;
+use Commercetools\Core\Request\Stores\StoreByIdGetRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionByIdGetRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryByIdGetRequest;
 use Commercetools\Core\Request\Types\TypeByIdGetRequest;
@@ -169,9 +171,9 @@ class GenericByIdGetRequestTest extends RequestTestCase
                 ZoneByIdGetRequest::class,
                 Zone::class,
             ],
-            ShippingMethodByIdGetRequest::class => [
-                ShippingMethodByIdGetRequest::class,
-                ShippingMethod::class,
+            StoreByIdGetRequest::class => [
+                StoreByIdGetRequest::class,
+                Store::class,
             ],
         ];
     }

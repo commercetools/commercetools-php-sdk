@@ -25,6 +25,7 @@ use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Subscription\Subscription;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Type\Type;
@@ -48,6 +49,7 @@ use Commercetools\Core\Request\Reviews\ReviewDeleteRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteRequest;
 use Commercetools\Core\Request\States\StateDeleteRequest;
+use Commercetools\Core\Request\Stores\StoreDeleteRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionDeleteRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
 use Commercetools\Core\Request\Types\TypeDeleteRequest;
@@ -162,6 +164,10 @@ class GenericDeleteRequestTest extends RequestTestCase
             ZoneDeleteRequest::class => [
                 ZoneDeleteRequest::class,
                 Zone::class,
+            ],
+            StoreDeleteRequest::class => [
+                StoreDeleteRequest::class,
+                Store::class,
             ],
         ];
     }

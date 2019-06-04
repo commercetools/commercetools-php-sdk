@@ -42,12 +42,14 @@ use Commercetools\Core\Model\Order\TrackingData;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\State\StateReference;
+use Commercetools\Core\Model\Store\StoreReference;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartReplicateRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
 use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 use Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddItemShippingAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction;
@@ -1409,5 +1411,30 @@ class OrderUpdateRequestTest extends ApiTestCase
             10,
             $order->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
         );
+    }
+
+    public function testUpdateAndDeleteForOrderInStore()
+    {
+        $store = $this->getStore();
+        $cartDraft = $this->getCartDraft()->setStore(StoreReference::ofKey($store->getKey()));
+        $order = $this->createOrder($cartDraft);
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(OrderChangeShipmentStateAction::ofShipmentState(ShipmentState::SHIPPED)));
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Order::class, $result);
+        $this->assertStringStartsWith('in-store/key='.$store->getKey().'/orders/'.$result->getId(), (string)$request->httpRequest()->getUri());
+        $this->assertSame(ShipmentState::SHIPPED, $result->getShipmentState());
+        $this->assertNotSame($order->getVersion(), $result->getVersion());
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), OrderDeleteRequest::ofIdAndVersion($result->getId(), $result->getVersion()));
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+
+        $this->assertInstanceOf(Order::class, $result);
+        $this->assertSame($order->getId(), $result->getId());
     }
 }

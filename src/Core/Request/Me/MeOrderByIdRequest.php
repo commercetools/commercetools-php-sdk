@@ -8,6 +8,8 @@ namespace Commercetools\Core\Request\Me;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Request\AbstractByIdGetRequest;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
+use Commercetools\Core\Request\InStores\InStoreTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
@@ -16,9 +18,12 @@ use Commercetools\Core\Model\MapperInterface;
  * @link https://docs.commercetools.com/http-api-projects-me-orders.html#get-order-by-id
  * @method Order mapResponse(ApiResponseInterface $response)
  * @method Order mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+ * @method MeOrderByIdRequest|InStoreRequestDecorator inStore($storeKey)
  */
 class MeOrderByIdRequest extends AbstractByIdGetRequest
 {
+    use InStoreTrait;
+
     protected $resultClass = Order::class;
 
     /**
