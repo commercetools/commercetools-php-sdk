@@ -30,13 +30,13 @@ before_install:
 before_script:
 - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
 - if [ $GUZZLE == '5' ] ; then ./set_guzzle5.sh; fi
-- if [ $GUZZLE == '5' ] ; then composer update -o --prefer-dist --prefer-lowest; fi
+- if [ $GUZZLE == '5' ] && [ $PHP == '5.6' ] ; then composer update -o --prefer-dist --prefer-lowest; fi
 - if [ $GUZZLE != '5' ] ; then composer install -o --prefer-dist; fi
 script:
-- if [ $PHP == '7.1' ] && [ $GUZZLE == '6' ]; then vendor/bin/phpcs --standard=PSR2 --extensions=php --ignore=autoload.php,src/Core/Builder src/; fi
-- if [ $GUZZLE == '5' ] || [ $PHP == '5.6' ] ; then vendor/bin/phpunit -c phpunit5.xml.dist --testsuite=unit; fi
-- if [ $GUZZLE == '6' ] && [ $PHP == '7.0' ] ; then vendor/bin/phpunit -c phpunit6.xml.dist --testsuite=unit; fi
-- if [ $GUZZLE == '6' ] && [ $PHP != '5.6' ] && [ $PHP != '7.0' ] ; then vendor/bin/phpunit --testsuite=unit; fi
+- if [ $PHP == '7.2' ] && [ $GUZZLE == '6' ]; then vendor/bin/phpcs --standard=PSR2 --extensions=php --ignore=autoload.php,src/Core/Builder src/; fi
+- if [ $PHP == '5.6' ] ; then vendor/bin/phpunit -c phpunit5.xml.dist --testsuite=unit; fi
+- if [ $PHP == '7.0' ] ; then vendor/bin/phpunit -c phpunit6.xml.dist --testsuite=unit; fi
+- if [ $PHP != '5.6' ] && [ $PHP != '7.0' ] ; then vendor/bin/phpunit --testsuite=unit; fi
 - if [ $PHP == '7.3' ] && [ $GUZZLE == '6' ] && [ $TRAVIS_PULL_REQUEST == 'false' ]; then vendor/bin/phpunit --testsuite=integration; fi
 - bin/ctp-tlscheck.php
 before_deploy:
