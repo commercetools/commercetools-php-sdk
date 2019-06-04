@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="vendor/autoload.php"
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.0/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
          backupGlobals="false"
          backupStaticAttributes="false"
          verbose="true">
@@ -19,15 +22,7 @@
         </whitelist>
     </filter>
     <listeners>
-        <listener class="Commercetools\Core\IntegrationTests\ErrorListener" file="tests/integration/ErrorListener.php">
+        <listener class="Commercetools\Core\Fixtures\ErrorListener" file="tests/fixtures/ErrorListener.php">
         </listener>
     </listeners>
-    <!--<logging>
-        <log type="coverage-html" target="build/coverage" title="Commercetools PHP SDK"
-             charset="UTF-8" yui="true" highlight="true"
-             lowUpperBound="35" highLowerBound="70"/>
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-        <log type="coverage-xml" target="build/logs/coverage/xml"/>
-        <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
-    </logging>-->
 </phpunit>

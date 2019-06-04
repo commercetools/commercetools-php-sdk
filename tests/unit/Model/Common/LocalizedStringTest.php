@@ -12,7 +12,7 @@ class LocalizedStringTest extends \PHPUnit\Framework\TestCase
 {
     protected static $intlLoaded = true;
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         static::$intlLoaded = true;

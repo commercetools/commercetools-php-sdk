@@ -25,7 +25,7 @@ use Monolog\Logger;
 
 class MeRequestTest extends ApiTestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         $this->getCache()->clear();

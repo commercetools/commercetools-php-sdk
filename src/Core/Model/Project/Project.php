@@ -34,6 +34,8 @@ use DateTime;
  * @method Project setVersion(int $version = null)
  * @method ShippingRateInputType getShippingRateInputType()
  * @method Project setShippingRateInputType(ShippingRateInputType $shippingRateInputType = null)
+ * @method ExternalOAuth getExternalOAuth()
+ * @method Project setExternalOAuth(ExternalOAuth $externalOAuth = null)
  */
 class Project extends JsonObject
 {
@@ -55,7 +57,8 @@ class Project extends JsonObject
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'messages' => [static::TYPE => MessagesConfiguration::class],
-            'shippingRateInputType' => [static::TYPE => ShippingRateInputType::class]
+            'shippingRateInputType' => [static::TYPE => ShippingRateInputType::class],
+            'externalOAuth' => [static::TYPE => ExternalOAuth::class]
         ];
     }
 }

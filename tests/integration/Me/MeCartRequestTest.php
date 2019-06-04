@@ -71,7 +71,7 @@ class MeCartRequestTest extends ApiTestCase
         return $cart;
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         $this->getCache()->clear();
