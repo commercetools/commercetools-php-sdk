@@ -22,7 +22,7 @@
         </whitelist>
     </filter>
     <listeners>
-        <listener class="Commercetools\Core\IntegrationTests\ErrorListener" file="tests/integration/ErrorListener.php">
+        <listener class="Commercetools\Core\Fixtures\ErrorListener" file="tests/fixtures/ErrorListener.php">
         </listener>
     </listeners>
 </phpunit>

@@ -5,8 +5,9 @@ declare(strict_types=1);
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\IntegrationTests;
+namespace Commercetools\Core\Fixtures;
 
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Test;
 use PHPUnit\Framework\TestListener;
