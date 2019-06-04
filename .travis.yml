@@ -30,8 +30,7 @@ before_install:
 before_script:
 - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
 - if [ $GUZZLE == '5' ] ; then ./set_guzzle5.sh; fi
-- if [ $GUZZLE == '5' ] && [ $PHP == '5.6' ] ; then composer update -o --prefer-dist --prefer-lowest; fi
-- if [ $GUZZLE != '5' ] && [ $PHP != '5.6' ] ; then composer install -o --prefer-dist; fi
+- if [ $GUZZLE == '5' ] && [ $PHP == '5.6' ] ; then composer update -o --prefer-dist --prefer-lowest; else composer install -o --prefer-dist; fi
 script:
 - if [ $PHP == '7.2' ] && [ $GUZZLE == '6' ]; then vendor/bin/phpcs --standard=PSR2 --extensions=php --ignore=autoload.php,src/Core/Builder src/; fi
 - if [ $PHP == '5.6' ] ; then vendor/bin/phpunit -c phpunit5.xml.dist --testsuite=unit; fi
