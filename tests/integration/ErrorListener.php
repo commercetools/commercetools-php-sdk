@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpLanguageLevelInspection */
+declare(strict_types=1);
 /**
  * @author @jenschude <jens.schulze@commercetools.de>
  */
@@ -6,24 +8,25 @@
 namespace Commercetools\Core\IntegrationTests;
 
 use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\BaseTestListener;
 use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestListener;
+use PHPUnit\Framework\TestListenerDefaultImplementation;
 
-class ErrorListener extends BaseTestListener
+class ErrorListener implements TestListener
 {
-    public function addError(Test $test, \Exception $e, $time)
+    use TestListenerDefaultImplementation;
+
+    public function addError(Test $test, \Throwable $t, float $time): void
     {
         if ($test instanceof ApiTestCase) {
             $test->flushErrorLog();
         }
-        parent::addError($test, $e, $time);
     }
 
-    public function addFailure(Test $test, AssertionFailedError $e, $time)
+    public function addFailure(Test $test, AssertionFailedError $e, float $time): void
     {
         if ($test instanceof ApiTestCase) {
             $test->flushErrorLog();
         }
-        parent::addFailure($test, $e, $time);
     }
 }

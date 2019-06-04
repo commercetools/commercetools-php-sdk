@@ -80,7 +80,7 @@ class ProductUpdateRequestTest extends ApiTestCase
 {
     private $productId;
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $request = ProductUpdateRequest::ofIdAndVersion($this->productId, $this->deleteRequest->getVersion())
             ->addAction(ProductUnpublishAction::of())

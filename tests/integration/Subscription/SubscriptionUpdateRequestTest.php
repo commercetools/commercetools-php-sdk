@@ -27,7 +27,7 @@ use Commercetools\Core\Request\Subscriptions\SubscriptionUpdateRequest;
 
 class SubscriptionUpdateRequestTest extends ApiTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $uri = getenv('IRONMQ_URI');
         if (empty($uri)) {

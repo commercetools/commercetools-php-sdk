@@ -7,6 +7,10 @@
     <testsuites>
         <testsuite name="unit">
             <directory suffix="Test.php">tests/unit</directory>
+            <exclude>
+                <file>tests/unit/Model/Common/LocalizedStringTest.php</file>
+                <file>tests/unit/Client/OAuth/ManagerTest.php</file>
+            </exclude>
         </testsuite>
         <testsuite name="integration">
             <directory suffix="Test.php">tests/integration</directory>

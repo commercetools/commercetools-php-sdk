@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpLanguageLevelInspection */
+declare(strict_types=1);
 
 namespace Commercetools\Core\IntegrationTests;
 
@@ -62,7 +64,7 @@ class ApiTestCase extends TestCase
 
     private $cache;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (self::$errorHandler instanceof FingersCrossedHandler) {
             self::$errorHandler->clear();
@@ -80,7 +82,7 @@ class ApiTestCase extends TestCase
         return self::$testRun;
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->cleanup();
     }

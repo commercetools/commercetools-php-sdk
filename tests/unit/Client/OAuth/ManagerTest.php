@@ -23,7 +23,7 @@ use Psr\SimpleCache\CacheInterface;
 
 class ManagerTest extends \PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!extension_loaded('apcu') && !extension_loaded('apc')) {
             $this->markTestSkipped(
