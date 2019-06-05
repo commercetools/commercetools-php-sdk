@@ -46,6 +46,8 @@ use DateTime;
  * @method ProductDiscount setCreatedBy(CreatedBy $createdBy = null)
  * @method LastModifiedBy getLastModifiedBy()
  * @method ProductDiscount setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
+ * @method string getKey()
+ * @method ProductDiscount setKey(string $key = null)
  * @method ProductDiscountReference getReference()
  */
 class ProductDiscount extends Resource
@@ -64,6 +66,7 @@ class ProductDiscount extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => LocalizedString::class],
+            'key' => [static::TYPE => 'string'],
             'description' => [static::TYPE => LocalizedString::class],
             'value' => [static::TYPE => ProductDiscountValue::class],
             'predicate' => [],

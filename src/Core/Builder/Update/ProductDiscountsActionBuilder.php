@@ -10,6 +10,7 @@ use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangePre
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeSortOrderAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeValueAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetDescriptionAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetKeyAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidFromAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidFromAndUntilAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidUntilAction;
@@ -81,6 +82,17 @@ class ProductDiscountsActionBuilder
     public function setDescription($action = null)
     {
         $this->addAction($this->resolveAction(ProductDiscountSetDescriptionAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param ProductDiscountSetKeyAction|callable $action
+     * @return $this
+     */
+    public function setKey($action = null)
+    {
+        $this->addAction($this->resolveAction(ProductDiscountSetKeyAction::class, $action));
         return $this;
     }
 

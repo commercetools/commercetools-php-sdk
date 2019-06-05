@@ -18,11 +18,14 @@ use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangePre
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeSortOrderAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeValueAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetDescriptionAction;
+use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetKeyAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidFromAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidFromAndUntilAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidUntilAction;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountCreateRequest;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteByKeyRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateByKeyRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest;
 
 class ProductDiscountUpdateRequestTest extends ApiTestCase
@@ -280,5 +283,53 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
         $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
         $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+    }
+
+    public function testSetKey()
+    {
+        $draft = $this->getDraft('set-key')->setKey('key-' .$this->getTestRun());
+        $productDiscount = $this->createProductDiscount($draft);
+
+        $newKey = 'another-key-' . $this->getTestRun();
+        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
+            $productDiscount->getId(),
+            $productDiscount->getVersion()
+        )
+            ->addAction(ProductDiscountSetKeyAction::ofKey($newKey))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(ProductDiscount::class, $result);
+        $this->assertSame($newKey, $result->getKey());
+        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+
+        $this->deleteRequest->setVersion($result->getVersion());
+    }
+
+    public function testUpdateAndDeleteByKey()
+    {
+        $draft = $this->getDraft('set-key')->setKey('key-' .$this->getTestRun());
+        $productDiscount = $this->createProductDiscount($draft);
+
+        $newKey = 'another-key-' . $this->getTestRun();
+        $request = ProductDiscountUpdateByKeyRequest::ofKeyAndVersion(
+            $productDiscount->getKey(),
+            $productDiscount->getVersion()
+        )
+            ->addAction(ProductDiscountSetKeyAction::ofKey($newKey))
+        ;
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(ProductDiscount::class, $result);
+        $this->assertSame($newKey, $result->getKey());
+        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+
+        $deleteRequest = ProductDiscountDeleteByKeyRequest::ofKeyAndVersion($newKey, $result->getVersion());
+        $response = $deleteRequest->executeWithClient($this->getClient());
+        $result = $deleteRequest->mapResponse($response);
+
+        $this->assertInstanceOf(ProductDiscount::class, $result);
     }
 }

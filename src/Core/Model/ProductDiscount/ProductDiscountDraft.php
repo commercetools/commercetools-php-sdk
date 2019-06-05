@@ -30,6 +30,8 @@ use DateTime;
  * @method ProductDiscountDraft setValidFrom(DateTime $validFrom = null)
  * @method DateTimeDecorator getValidUntil()
  * @method ProductDiscountDraft setValidUntil(DateTime $validUntil = null)
+ * @method string getKey()
+ * @method ProductDiscountDraft setKey(string $key = null)
  */
 class ProductDiscountDraft extends JsonObject
 {
@@ -37,6 +39,7 @@ class ProductDiscountDraft extends JsonObject
     {
         return [
             'name' => [static::TYPE => LocalizedString::class],
+            'key' => [static::TYPE => 'string'],
             'description' => [static::TYPE => LocalizedString::class],
             'value' => [static::TYPE => ProductDiscountValue::class],
             'predicate' => [static::TYPE => 'string'],

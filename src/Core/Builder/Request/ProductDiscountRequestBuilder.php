@@ -3,13 +3,16 @@
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountByIdGetRequest;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountByKeyGetRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountCreateRequest;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountDraft;
-use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteByKeyRequest;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountMatchingRequest;
 use Commercetools\Core\Model\Common\Price;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateByKeyRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest;
 
 class ProductDiscountRequestBuilder
@@ -27,6 +30,17 @@ class ProductDiscountRequestBuilder
     }
 
     /**
+     *
+     * @param string $key
+     * @return ProductDiscountByKeyGetRequest
+     */
+    public function getByKey($key)
+    {
+        $request = ProductDiscountByKeyGetRequest::ofKey($key);
+        return $request;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-productDiscounts.html#create-a-productdiscount
      * @param ProductDiscountDraft $productDiscount
      * @return ProductDiscountCreateRequest
@@ -34,6 +48,17 @@ class ProductDiscountRequestBuilder
     public function create(ProductDiscountDraft $productDiscount)
     {
         $request = ProductDiscountCreateRequest::ofDraft($productDiscount);
+        return $request;
+    }
+
+    /**
+     *
+     * @param ProductDiscount $productDiscount
+     * @return ProductDiscountDeleteByKeyRequest
+     */
+    public function deleteByKey(ProductDiscount $productDiscount)
+    {
+        $request = ProductDiscountDeleteByKeyRequest::ofKeyAndVersion($productDiscount->getKey(), $productDiscount->getVersion());
         return $request;
     }
 
@@ -69,6 +94,17 @@ class ProductDiscountRequestBuilder
     public function query()
     {
         $request = ProductDiscountQueryRequest::of();
+        return $request;
+    }
+
+    /**
+     *
+     * @param ProductDiscount $productDiscount
+     * @return ProductDiscountUpdateByKeyRequest
+     */
+    public function updateByKey(ProductDiscount $productDiscount)
+    {
+        $request = ProductDiscountUpdateByKeyRequest::ofKeyAndVersion($productDiscount->getKey(), $productDiscount->getVersion());
         return $request;
     }
 
