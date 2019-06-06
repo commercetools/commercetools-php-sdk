@@ -249,6 +249,10 @@
 							State						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Store.html">
+							Store						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Subscription.html">
 							Subscription						</a>
 							</li>
@@ -371,6 +375,10 @@
 					<li>
 						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
 							GraphQL						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.InStores.html">
+							InStores						</a>
 							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Inventory.html">
@@ -514,6 +522,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.html">
+							Stores<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.Subscriptions.html">
 							Subscriptions<span></span>
 						</a>
@@ -568,6 +586,7 @@
 				<li><a href="class-Commercetools.Core.Request.Me.MeActiveCartRequest.html">MeActiveCartRequest</a></li>
 				<li><a href="class-Commercetools.Core.Request.Me.MeCartByIdRequest.html">MeCartByIdRequest</a></li>
 				<li><a href="class-Commercetools.Core.Request.Me.MeCartCreateRequest.html">MeCartCreateRequest</a></li>
+				<li><a href="class-Commercetools.Core.Request.Me.MeCartDeleteRequest.html">MeCartDeleteRequest</a></li>
 				<li><a href="class-Commercetools.Core.Request.Me.MeCartQueryRequest.html">MeCartQueryRequest</a></li>
 				<li><a href="class-Commercetools.Core.Request.Me.MeCartsEndpoint.html">MeCartsEndpoint</a></li>
 				<li><a href="class-Commercetools.Core.Request.Me.MeCartUpdateRequest.html">MeCartUpdateRequest</a></li>
@@ -620,6 +639,8 @@
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>Commercetools\Core\Request\Me\MeOrderCreateFromCartRequest</span></b>			
 			
+			 uses 
+					<a href="class-Commercetools.Core.Request.InStores.InStoreTrait.html"><span>Commercetools\Core\Request\InStores\InStoreTrait</span></a>
 			
 		</dd>
 	</dl>
@@ -638,7 +659,7 @@
 
 				<b>API documentation:</b>
 				<b><a href="https://docs.commercetools.com/http-api-projects-me-orders.html#create-order-from-a-cart" target="api-doc">https://docs.commercetools.com/http-api-projects-me-orders.html#create-order-from-a-cart</a></b><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#20-119" title="Go to source code">Core/Request/Me/MeOrderCreateFromCartRequest.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#21-123" title="Go to source code">Core/Request/Me/MeOrderCreateFromCartRequest.php</a>
 		<br>
 	</div>
 
@@ -658,7 +679,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCartId">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#36-42" title="Go to source code">getCartId</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#40-46" title="Go to source code">getCartId</a>( )</code>
 
 			<div class="description short">
 				
@@ -691,7 +712,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setCartId">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#44-53" title="Go to source code">setCartId</a>( <span> <var>$cartId</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#48-57" title="Go to source code">setCartId</a>( <span> <var>$cartId</var></span> )</code>
 
 			<div class="description short">
 				
@@ -729,7 +750,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getVersion">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#55-61" title="Go to source code">getVersion</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#59-65" title="Go to source code">getVersion</a>( )</code>
 
 			<div class="description short">
 				
@@ -762,7 +783,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setVersion">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#63-72" title="Go to source code">setVersion</a>( <span> <var>$version</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#67-76" title="Go to source code">setVersion</a>( <span> <var>$version</var></span> )</code>
 
 			<div class="description short">
 				
@@ -800,7 +821,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#74-83" title="Go to source code">__construct</a>( <span>string <var>$cartId</var></span>, <span>integer <var>$version</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#78-87" title="Go to source code">__construct</a>( <span>string <var>$cartId</var></span>, <span>integer <var>$version</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -840,7 +861,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofCartIdAndVersion">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#85-94" title="Go to source code">ofCartIdAndVersion</a>( <span>string <var>$cartId</var></span>, <span>integer <var>$version</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#89-98" title="Go to source code">ofCartIdAndVersion</a>( <span>string <var>$cartId</var></span>, <span>integer <var>$version</var></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -884,7 +905,8 @@
 				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_getParamCount">getParamCount()</a></code>, 
 				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_map">map()</a></code>, 
 				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_mapFromResponse">mapFromResponse()</a></code>, 
-				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_mapResponse">mapResponse()</a></code>, 
+				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_mapResponse"><span class="deprecated">mapResponse()</span></a></code>, 
+				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_setExternalUserId">setExternalUserId()</a></code>, 
 				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_setIdentifier">setIdentifier()</a></code>
 			</p>
 		</div>
@@ -904,6 +926,12 @@
 			</p>
 		</div>
 
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Request.InStores.InStoreTrait.html#methods">Commercetools\Core\Request\InStores\InStoreTrait</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Request.InStores.InStoreTrait.html#_inStore">inStore()</a></code>
+			</p>
+		</div>
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Model.Common.ContextTrait.html#methods">Commercetools\Core\Model\Common\ContextTrait</a></h3></div>
 			<p class="elementList">
@@ -928,7 +956,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_mapResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#23" title="Go to source code">mapResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#24" title="Go to source code">mapResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span> )</code>
 
 			<div class="description short">
 				
@@ -968,7 +996,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_mapFromResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#24" title="Go to source code">mapFromResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span>, <span><code><a href="class-Commercetools.Core.Model.MapperInterface.html">Commercetools\Core\Model\MapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#25" title="Go to source code">mapFromResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span>, <span><code><a href="class-Commercetools.Core.Model.MapperInterface.html">Commercetools\Core\Model\MapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -999,6 +1027,44 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="inStore" id="m_inStore">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html">Commercetools\Core\Request\Me\MeOrderCreateFromCartRequest</a></code>|<code><a href="class-Commercetools.Core.Request.InStores.InStoreRequestDecorator.html">Commercetools\Core\Request\InStores\InStoreRequestDecorator</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_inStore">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html#26" title="Go to source code">inStore</a>( <span> <var>$storeKey</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$storeKey</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Me.MeOrderCreateFromCartRequest.html">Commercetools\Core\Request\Me\MeOrderCreateFromCartRequest</a></code>|<code><a href="class-Commercetools.Core.Request.InStores.InStoreRequestDecorator.html">Commercetools\Core\Request\InStores\InStoreRequestDecorator</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 			</table>
 		</div>
 
@@ -1014,7 +1080,7 @@
 				<td class="attributes"><code>string</code></td>
 				<td class="name">
 					<code>
-						<a href="source-constant-ID.html#28" title="Go to source code"><b>ID</b></a>
+						<a href="source-constant-ID.html#32" title="Go to source code"><b>ID</b></a>
 					</code>
 
 					<div class="description short">
@@ -1038,7 +1104,7 @@
 				<td class="attributes"><code>string</code></td>
 				<td class="name">
 					<code>
-						<a href="source-constant-VERSION.html#29" title="Go to source code"><b>VERSION</b></a>
+						<a href="source-constant-VERSION.html#33" title="Go to source code"><b>VERSION</b></a>
 					</code>
 
 					<div class="description short">
@@ -1060,6 +1126,12 @@
 			</table>
 		</div>
 
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Constants inherited from <a href="class-Commercetools.Core.Request.AbstractApiRequest.html#constants">Commercetools\Core\Request\AbstractApiRequest</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#EXTERNAL_USER_HEADER"><b>EXTERNAL_USER_HEADER</b></a></code>
+			</p>
+		</div>
 
 
 
@@ -1071,6 +1143,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?4d6ea9d0eae1c77832510ccd693868199f0d063a"></script>
+<script src="elementlist.js?60346864f86b9ad7417096013482905e3b9e52ae"></script>
 </body>
 </html>

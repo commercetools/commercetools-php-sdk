@@ -250,6 +250,10 @@
 							State						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Store.html">
+							Store						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Subscription.html">
 							Subscription						</a>
 							</li>
@@ -372,6 +376,10 @@
 					<li>
 						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
 							GraphQL						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.InStores.html">
+							InStores						</a>
 							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Inventory.html">
@@ -515,6 +523,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.html">
+							Stores<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.Subscriptions.html">
 							Subscriptions<span></span>
 						</a>
@@ -616,7 +634,7 @@
 </span><span id="30" class="l">            <span class="php-var">$lastId</span> = <span class="php-keyword2">end</span>(<span class="php-var">$results</span>)[<span class="php-quote">'id'</span>];
 </span><span id="31" class="l">        } <span class="php-keyword1">while</span> (<span class="php-keyword2">count</span>(<span class="php-var">$results</span>) &gt;= <span class="php-keyword1">static</span>::DEFAULT_PAGE_SIZE);
 </span><span id="32" class="l">
-</span><span id="33" class="l">        <span class="php-var">$result</span> = <span class="php-var">$request</span>-&gt;mapResult(<span class="php-var">$data</span>, <span class="php-var">$client</span>-&gt;getConfig()-&gt;getContext());
+</span><span id="33" class="l">        <span class="php-var">$result</span> = <span class="php-var">$request</span>-&gt;map(<span class="php-var">$data</span>, <span class="php-var">$client</span>-&gt;getConfig()-&gt;getContext());
 </span><span id="34" class="l">
 </span><span id="35" class="l">        <span class="php-keyword1">return</span> <span class="php-var">$result</span>;
 </span><span id="36" class="l">    }
@@ -630,6 +648,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?4d6ea9d0eae1c77832510ccd693868199f0d063a"></script>
+<script src="elementlist.js?60346864f86b9ad7417096013482905e3b9e52ae"></script>
 </body>
 </html>

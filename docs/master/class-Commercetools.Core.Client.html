@@ -249,6 +249,10 @@
 							State						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Store.html">
+							Store						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Subscription.html">
 							Subscription						</a>
 							</li>
@@ -371,6 +375,10 @@
 					<li>
 						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
 							GraphQL						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.InStores.html">
+							InStores						</a>
 							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Inventory.html">
@@ -510,6 +518,16 @@
 							<ul>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.States.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.html">
+							Stores<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.Command.html">
 							Command						</a>
 							</li>
 								</ul></li>
@@ -703,7 +721,7 @@ E.g. Redis:</p>
     }
     <span class="php-keyword1">return</span> <span class="php-keyword1">null</span>;
 });</pre><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.html#27-519" title="Go to source code">Core/Client.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.html#28-520" title="Go to source code">Core/Client.php</a>
 		<br>
 	</div>
 
@@ -723,7 +741,7 @@ E.g. Redis:</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.html#154-166" title="Go to source code">__construct</a>( <span>array|<code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code> <var>$config</var></span>, <span> <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.html#155-167" title="Go to source code">__construct</a>( <span>array|<code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code> <var>$config</var></span>, <span> <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -763,7 +781,7 @@ E.g. Redis:</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getOauthManager">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.html#168-174" title="Go to source code">getOauthManager</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.html#169-175" title="Go to source code">getOauthManager</a>( )</code>
 
 			<div class="description short">
 				
@@ -796,7 +814,7 @@ E.g. Redis:</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setLogger">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.html#186-196" title="Go to source code">setLogger</a>( <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.html#187-197" title="Go to source code">setLogger</a>( <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -834,7 +852,7 @@ E.g. Redis:</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHttpClient">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.html#198-229" title="Go to source code">getHttpClient</a>( <span>array <var>$options</var> = []</span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.html#199-230" title="Go to source code">getHttpClient</a>( <span>array <var>$options</var> = []</span> )</code>
 
 			<div class="description short">
 				
@@ -874,7 +892,7 @@ E.g. Redis:</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_execute">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.html#240-282" title="Go to source code">execute</a>( <span><code><a href="class-Commercetools.Core.Request.ClientRequestInterface.html">Commercetools\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span>, <span>array <var>$headers</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$clientOptions</var> = []</span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.html#241-283" title="Go to source code">execute</a>( <span><code><a href="class-Commercetools.Core.Request.ClientRequestInterface.html">Commercetools\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span>, <span>array <var>$headers</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$clientOptions</var> = []</span> )</code>
 
 			<div class="description short">
 				<p>Executes an API request synchronously</p>
@@ -914,14 +932,14 @@ E.g. Redis:</p>
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code>
+				<code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code>|<code><a href="class-Commercetools.Core.Response.ApiPromiseGetInterface.html">Commercetools\Core\Response\ApiPromiseGetInterface</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_executeAsync">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.html#284-311" title="Go to source code">executeAsync</a>( <span><code><a href="class-Commercetools.Core.Request.ClientRequestInterface.html">Commercetools\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span>, <span>array <var>$headers</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$clientOptions</var> = []</span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.html#285-312" title="Go to source code">executeAsync</a>( <span><code><a href="class-Commercetools.Core.Request.ClientRequestInterface.html">Commercetools\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span>, <span>array <var>$headers</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$clientOptions</var> = []</span> )</code>
 
 			<div class="description short">
 				<p>Executes an API request asynchronously</p>
@@ -943,7 +961,7 @@ E.g. Redis:</p>
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code>
+						<code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code>|<code><a href="class-Commercetools.Core.Response.ApiPromiseGetInterface.html">Commercetools\Core\Response\ApiPromiseGetInterface</a></code>
 					</div>
 
 
@@ -963,7 +981,7 @@ E.g. Redis:</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_executeBatch">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.html#338-382" title="Go to source code">executeBatch</a>( <span>array <var>$headers</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$clientOptions</var> = []</span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.html#339-383" title="Go to source code">executeBatch</a>( <span>array <var>$headers</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$clientOptions</var> = []</span> )</code>
 
 			<div class="description short">
 				<p>Executes API requests in batch</p>
@@ -1007,7 +1025,7 @@ E.g. Redis:</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addBatchRequest">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.html#462-474" title="Go to source code">addBatchRequest</a>( <span><code><a href="class-Commercetools.Core.Request.ClientRequestInterface.html">Commercetools\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.html#463-475" title="Go to source code">addBatchRequest</a>( <span><code><a href="class-Commercetools.Core.Request.ClientRequestInterface.html">Commercetools\Core\Request\ClientRequestInterface</a></code> <var>$request</var></span> )</code>
 
 			<div class="description short">
 				<p>Adds a request to the batch execution queue</p>
@@ -1045,7 +1063,7 @@ E.g. Redis:</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofConfig">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.html#476-484" title="Go to source code">ofConfig</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code> <var>$config</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.html#477-485" title="Go to source code">ofConfig</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code> <var>$config</var></span> )</code>
 
 			<div class="description short">
 				<p>Instantiates a client with the given config</p>
@@ -1083,7 +1101,7 @@ E.g. Redis:</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofConfigAndCache">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.html#486-495" title="Go to source code">ofConfigAndCache</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code> <var>$config</var></span>, <span> <var>$cache</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.html#487-496" title="Go to source code">ofConfigAndCache</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code> <var>$config</var></span>, <span> <var>$cache</var></span> )</code>
 
 			<div class="description short">
 				<p>Instantiates a client with the given config and cache adapter</p>
@@ -1123,7 +1141,7 @@ E.g. Redis:</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofConfigAndLogger">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.html#497-506" title="Go to source code">ofConfigAndLogger</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code> <var>$config</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.html#498-507" title="Go to source code">ofConfigAndLogger</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code> <var>$config</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var></span> )</code>
 
 			<div class="description short">
 				<p>Instantiates a client with the given config and a PSR-3 compliant logger</p>
@@ -1163,7 +1181,7 @@ E.g. Redis:</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ofConfigCacheAndLogger">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.html#508-518" title="Go to source code">ofConfigCacheAndLogger</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code> <var>$config</var></span>, <span> <var>$cache</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.html#509-519" title="Go to source code">ofConfigCacheAndLogger</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code> <var>$config</var></span>, <span> <var>$cache</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var></span> )</code>
 
 			<div class="description short">
 				<p>Instantiates a client with the given config, a cache adapter and a PSR-3 compliant logger</p>
@@ -1220,7 +1238,7 @@ E.g. Redis:</p>
 				<td class="attributes"><code>string</code></td>
 				<td class="name">
 					<code>
-						<a href="source-constant-DEPRECATION_HEADER.html#134" title="Go to source code"><b>DEPRECATION_HEADER</b></a>
+						<a href="source-constant-DEPRECATION_HEADER.html#135" title="Go to source code"><b>DEPRECATION_HEADER</b></a>
 					</code>
 
 					<div class="description short">
@@ -1259,6 +1277,6 @@ E.g. Redis:</p>
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?4d6ea9d0eae1c77832510ccd693868199f0d063a"></script>
+<script src="elementlist.js?60346864f86b9ad7417096013482905e3b9e52ae"></script>
 </body>
 </html>

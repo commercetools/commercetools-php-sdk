@@ -249,6 +249,10 @@
 							State						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Store.html">
+							Store						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Subscription.html">
 							Subscription						</a>
 							</li>
@@ -371,6 +375,10 @@
 					<li>
 						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
 							GraphQL						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.InStores.html">
+							InStores						</a>
 							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Inventory.html">
@@ -514,6 +522,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.html">
+							Stores<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.Subscriptions.html">
 							Subscriptions<span></span>
 						</a>
@@ -594,6 +612,7 @@
 				<li><a href="class-Commercetools.Core.Builder.Request.ShippingMethodRequestBuilder.html">ShippingMethodRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.ShoppingListRequestBuilder.html">ShoppingListRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.StateRequestBuilder.html">StateRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.StoreRequestBuilder.html">StoreRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.SubscriptionRequestBuilder.html">SubscriptionRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.TaxCategoryRequestBuilder.html">TaxCategoryRequestBuilder</a></li>
 				<li><a href="class-Commercetools.Core.Builder.Request.TypeRequestBuilder.html">TypeRequestBuilder</a></li>
@@ -630,7 +649,7 @@
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Builder.html">Builder</a>\<a href="namespace-Commercetools.Core.Builder.Request.html">Request</a><br>
 
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#13-78" title="Go to source code">Core/Builder/Request/CartDiscountRequestBuilder.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#16-114" title="Go to source code">Core/Builder/Request/CartDiscountRequestBuilder.php</a>
 		<br>
 	</div>
 
@@ -650,7 +669,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getById">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#16-25" title="Go to source code">getById</a>( <span>string <var>$id</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#19-28" title="Go to source code">getById</a>( <span>string <var>$id</var></span> )</code>
 
 			<div class="description short">
 				
@@ -681,6 +700,44 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getByKey" id="_getByKey">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.CartDiscounts.CartDiscountByKeyGetRequest.html">Commercetools\Core\Request\CartDiscounts\CartDiscountByKeyGetRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getByKey">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#30-39" title="Go to source code">getByKey</a>( <span>string <var>$key</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$key</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.CartDiscounts.CartDiscountByKeyGetRequest.html">Commercetools\Core\Request\CartDiscounts\CartDiscountByKeyGetRequest</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="create" id="_create">
 
 			<td class="attributes"><code>
@@ -692,7 +749,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_create">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#27-36" title="Go to source code">create</a>( <span><code><a href="class-Commercetools.Core.Model.CartDiscount.CartDiscountDraft.html">Commercetools\Core\Model\CartDiscount\CartDiscountDraft</a></code> <var>$cartDiscountDraft</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#41-50" title="Go to source code">create</a>( <span><code><a href="class-Commercetools.Core.Model.CartDiscount.CartDiscountDraft.html">Commercetools\Core\Model\CartDiscount\CartDiscountDraft</a></code> <var>$cartDiscountDraft</var></span> )</code>
 
 			<div class="description short">
 				
@@ -723,6 +780,44 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="deleteByKey" id="_deleteByKey">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.CartDiscounts.CartDiscountDeleteByKeyRequest.html">Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteByKeyRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_deleteByKey">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#52-61" title="Go to source code">deleteByKey</a>( <span><code><a href="class-Commercetools.Core.Model.CartDiscount.CartDiscount.html">Commercetools\Core\Model\CartDiscount\CartDiscount</a></code> <var>$cartDiscount</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$cartDiscount</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.CartDiscounts.CartDiscountDeleteByKeyRequest.html">Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteByKeyRequest</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="delete" id="_delete">
 
 			<td class="attributes"><code>
@@ -734,7 +829,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_delete">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#38-47" title="Go to source code">delete</a>( <span><code><a href="class-Commercetools.Core.Model.CartDiscount.CartDiscount.html">Commercetools\Core\Model\CartDiscount\CartDiscount</a></code> <var>$cartDiscount</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#63-72" title="Go to source code">delete</a>( <span><code><a href="class-Commercetools.Core.Model.CartDiscount.CartDiscount.html">Commercetools\Core\Model\CartDiscount\CartDiscount</a></code> <var>$cartDiscount</var></span> )</code>
 
 			<div class="description short">
 				
@@ -776,7 +871,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_query">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#49-58" title="Go to source code">query</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#74-83" title="Go to source code">query</a>( )</code>
 
 			<div class="description short">
 				
@@ -802,6 +897,44 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="updateByKey" id="_updateByKey">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.CartDiscounts.CartDiscountUpdateByKeyRequest.html">Commercetools\Core\Request\CartDiscounts\CartDiscountUpdateByKeyRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_updateByKey">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#85-94" title="Go to source code">updateByKey</a>( <span><code><a href="class-Commercetools.Core.Model.CartDiscount.CartDiscount.html">Commercetools\Core\Model\CartDiscount\CartDiscount</a></code> <var>$cartDiscount</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$cartDiscount</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.CartDiscounts.CartDiscountUpdateByKeyRequest.html">Commercetools\Core\Request\CartDiscounts\CartDiscountUpdateByKeyRequest</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="update" id="_update">
 
 			<td class="attributes"><code>
@@ -813,7 +946,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_update">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#60-69" title="Go to source code">update</a>( <span><code><a href="class-Commercetools.Core.Model.CartDiscount.CartDiscount.html">Commercetools\Core\Model\CartDiscount\CartDiscount</a></code> <var>$cartDiscount</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#96-105" title="Go to source code">update</a>( <span><code><a href="class-Commercetools.Core.Model.CartDiscount.CartDiscount.html">Commercetools\Core\Model\CartDiscount\CartDiscount</a></code> <var>$cartDiscount</var></span> )</code>
 
 			<div class="description short">
 				
@@ -855,7 +988,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_of">#</a>
-			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#71-77" title="Go to source code">of</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html#107-113" title="Go to source code">of</a>( )</code>
 
 			<div class="description short">
 				
@@ -898,6 +1031,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?4d6ea9d0eae1c77832510ccd693868199f0d063a"></script>
+<script src="elementlist.js?60346864f86b9ad7417096013482905e3b9e52ae"></script>
 </body>
 </html>

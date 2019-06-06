@@ -249,6 +249,10 @@
 							State						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Store.html">
+							Store						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Subscription.html">
 							Subscription						</a>
 							</li>
@@ -371,6 +375,10 @@
 					<li>
 						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
 							GraphQL						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.InStores.html">
+							InStores						</a>
 							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Inventory.html">
@@ -514,6 +522,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.html">
+							Stores<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.Subscriptions.html">
 							Subscriptions<span></span>
 						</a>
@@ -579,6 +597,7 @@
 				<li><a href="class-Commercetools.Core.Client.Adapter.AdapterPromiseInterface.html">AdapterPromiseInterface</a></li>
 				<li><a href="class-Commercetools.Core.Client.Adapter.ConfigAware.html">ConfigAware</a></li>
 				<li><a href="class-Commercetools.Core.Client.Adapter.CorrelationIdAware.html">CorrelationIdAware</a></li>
+				<li><a href="class-Commercetools.Core.Client.Adapter.PromiseGetInterface.html">PromiseGetInterface</a></li>
 				<li><a href="class-Commercetools.Core.Client.Adapter.TokenProviderAware.html">TokenProviderAware</a></li>
 			</ul>
 
@@ -602,7 +621,9 @@
 		<dd style="padding-left:0px">
 <b><span>Commercetools\Core\Client\Adapter\Guzzle5Promise</span></b>			
 			 implements 
-				<a href="class-Commercetools.Core.Client.Adapter.AdapterPromiseInterface.html"><span>Commercetools\Core\Client\Adapter\AdapterPromiseInterface</span></a>
+				<a href="class-Commercetools.Core.Client.Adapter.AdapterPromiseInterface.html"><span>Commercetools\Core\Client\Adapter\AdapterPromiseInterface</span></a>, 
+			
+				<a href="class-Commercetools.Core.Client.Adapter.PromiseGetInterface.html"><span>Commercetools\Core\Client\Adapter\PromiseGetInterface</span></a>
 			
 			
 		</dd>
@@ -620,7 +641,7 @@
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Client.html">Client</a>\<a href="namespace-Commercetools.Core.Client.Adapter.html">Adapter</a><br>
 
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#14-313" title="Go to source code">Core/Client/Adapter/Guzzle5Promise.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#14-321" title="Go to source code">Core/Client/Adapter/Guzzle5Promise.php</a>
 		<br>
 	</div>
 
@@ -700,6 +721,41 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getPromise" id="_getPromise">
+
+			<td class="attributes"><code>
+				 public 
+				GuzzleHttp\Ring\Future\FutureInterface
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getPromise">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#39-45" title="Go to source code">getPromise</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						GuzzleHttp\Ring\Future\FutureInterface
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Commercetools.Core.Client.Adapter.PromiseGetInterface.html#_getPromise">Commercetools\Core\Client\Adapter\PromiseGetInterface::getPromise()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="wait" id="_wait">
 
 			<td class="attributes"><code>
@@ -711,7 +767,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_wait">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#39-54" title="Go to source code">wait</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#47-62" title="Go to source code">wait</a>( )</code>
 
 			<div class="description short">
 				
@@ -746,7 +802,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getProtocolVersion">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#56-66" title="Go to source code">getProtocolVersion</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#64-74" title="Go to source code">getProtocolVersion</a>( )</code>
 
 			<div class="description short">
 				<p>Retrieves the HTTP protocol version as a string.</p>
@@ -781,7 +837,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_withProtocolVersion">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#68-84" title="Go to source code">withProtocolVersion</a>( <span>string <var>$version</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#76-92" title="Go to source code">withProtocolVersion</a>( <span>string <var>$version</var></span> )</code>
 
 			<div class="description short">
 				<p>Return an instance with the specified HTTP protocol version.</p>
@@ -826,7 +882,7 @@ new protocol version.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHeaders">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#86-114" title="Go to source code">getHeaders</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#94-122" title="Go to source code">getHeaders</a>( )</code>
 
 			<div class="description short">
 				<p>Retrieves all message header values.</p>
@@ -880,7 +936,7 @@ exact case in which headers were originally specified.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_hasHeader">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#116-127" title="Go to source code">hasHeader</a>( <span>string <var>$name</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#124-135" title="Go to source code">hasHeader</a>( <span>string <var>$name</var></span> )</code>
 
 			<div class="description short">
 				<p>Checks if a header exists by the given case-insensitive name.</p>
@@ -920,7 +976,7 @@ exact case in which headers were originally specified.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHeader">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#129-146" title="Go to source code">getHeader</a>( <span>string <var>$name</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#137-154" title="Go to source code">getHeader</a>( <span>string <var>$name</var></span> )</code>
 
 			<div class="description short">
 				<p>Retrieves a message header value by the given case-insensitive name.</p>
@@ -966,7 +1022,7 @@ empty array.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHeaderLine">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#148-170" title="Go to source code">getHeaderLine</a>( <span>string <var>$name</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#156-178" title="Go to source code">getHeaderLine</a>( <span>string <var>$name</var></span> )</code>
 
 			<div class="description short">
 				<p>Retrieves a comma-separated string of the values for a single header.</p>
@@ -1017,7 +1073,7 @@ an empty string.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_withHeader">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#172-190" title="Go to source code">withHeader</a>( <span>string <var>$name</var></span>, <span>string|string[] <var>$value</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#180-198" title="Go to source code">withHeader</a>( <span>string <var>$name</var></span>, <span>string|string[] <var>$value</var></span> )</code>
 
 			<div class="description short">
 				<p>Return an instance with the provided value replacing the specified header.</p>
@@ -1068,7 +1124,7 @@ new and/or updated header and value.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_withAddedHeader">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#192-211" title="Go to source code">withAddedHeader</a>( <span>string <var>$name</var></span>, <span>string|string[] <var>$value</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#200-219" title="Go to source code">withAddedHeader</a>( <span>string <var>$name</var></span>, <span>string|string[] <var>$value</var></span> )</code>
 
 			<div class="description short">
 				<p>Return an instance with the specified header appended with the given value.</p>
@@ -1120,7 +1176,7 @@ new header and/or value.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_withoutHeader">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#213-228" title="Go to source code">withoutHeader</a>( <span>string <var>$name</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#221-236" title="Go to source code">withoutHeader</a>( <span>string <var>$name</var></span> )</code>
 
 			<div class="description short">
 				<p>Return an instance without the specified header.</p>
@@ -1164,7 +1220,7 @@ the named header.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getBody">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#230-238" title="Go to source code">getBody</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#238-246" title="Go to source code">getBody</a>( )</code>
 
 			<div class="description short">
 				<p>Gets the body of the message.</p>
@@ -1197,7 +1253,7 @@ the named header.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_withBody">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#240-256" title="Go to source code">withBody</a>( <span>Psr\Http\Message\StreamInterface <var>$body</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#248-264" title="Go to source code">withBody</a>( <span>Psr\Http\Message\StreamInterface <var>$body</var></span> )</code>
 
 			<div class="description short">
 				<p>Return an instance with the specified message body.</p>
@@ -1245,7 +1301,7 @@ new body stream.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getStatusCode">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#258-269" title="Go to source code">getStatusCode</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#266-277" title="Go to source code">getStatusCode</a>( )</code>
 
 			<div class="description short">
 				<p>Gets the response status code.</p>
@@ -1281,7 +1337,7 @@ to understand and satisfy the request.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_withStatus">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#271-294" title="Go to source code">withStatus</a>( <span>integer <var>$code</var></span>, <span>string <var>$reasonPhrase</var> = <span class="php-quote">''</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#279-302" title="Go to source code">withStatus</a>( <span>integer <var>$code</var></span>, <span>string <var>$reasonPhrase</var> = <span class="php-quote">''</span></span> )</code>
 
 			<div class="description short">
 				<p>Return an instance with the specified status code and, optionally, reason phrase.</p>
@@ -1340,7 +1396,7 @@ updated status and reason phrase.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getReasonPhrase">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#296-312" title="Go to source code">getReasonPhrase</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.Adapter.Guzzle5Promise.html#304-320" title="Go to source code">getReasonPhrase</a>( )</code>
 
 			<div class="description short">
 				<p>Gets the response reason phrase associated with the status code.</p>
@@ -1394,6 +1450,6 @@ status code.</p>
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?4d6ea9d0eae1c77832510ccd693868199f0d063a"></script>
+<script src="elementlist.js?60346864f86b9ad7417096013482905e3b9e52ae"></script>
 </body>
 </html>

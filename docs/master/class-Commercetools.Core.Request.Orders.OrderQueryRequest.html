@@ -249,6 +249,10 @@
 							State						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.Store.html">
+							Store						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.Subscription.html">
 							Subscription						</a>
 							</li>
@@ -371,6 +375,10 @@
 					<li>
 						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
 							GraphQL						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.InStores.html">
+							InStores						</a>
 							</li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Inventory.html">
@@ -514,6 +522,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.html">
+							Stores<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.Subscriptions.html">
 							Subscriptions<span></span>
 						</a>
@@ -630,6 +648,8 @@
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>Commercetools\Core\Request\Orders\OrderQueryRequest</span></b>			
 			
+			 uses 
+					<a href="class-Commercetools.Core.Request.InStores.InStoreTrait.html"><span>Commercetools\Core\Request\InStores\InStoreTrait</span></a>
 			
 		</dd>
 	</dl>
@@ -648,7 +668,7 @@
 
 				<b>API documentation:</b>
 				<b><a href="https://docs.commercetools.com/http-api-projects-orders.html#query-orders" target="api-doc">https://docs.commercetools.com/http-api-projects-orders.html#query-orders</a></b><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Request.Orders.OrderQueryRequest.html#14-40" title="Go to source code">Core/Request/Orders/OrderQueryRequest.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Request.Orders.OrderQueryRequest.html#16-45" title="Go to source code">Core/Request/Orders/OrderQueryRequest.php</a>
 		<br>
 	</div>
 
@@ -668,7 +688,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Orders.OrderQueryRequest.html#24-30" title="Go to source code">__construct</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Orders.OrderQueryRequest.html#29-35" title="Go to source code">__construct</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -704,7 +724,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_of">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Orders.OrderQueryRequest.html#32-39" title="Go to source code">of</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Orders.OrderQueryRequest.html#37-44" title="Go to source code">of</a>( <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -749,7 +769,8 @@
 				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_getIdentifier">getIdentifier()</a></code>, 
 				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_getParamCount">getParamCount()</a></code>, 
 				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_mapFromResponse">mapFromResponse()</a></code>, 
-				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_mapResponse">mapResponse()</a></code>, 
+				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_mapResponse"><span class="deprecated">mapResponse()</span></a></code>, 
+				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_setExternalUserId">setExternalUserId()</a></code>, 
 				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#_setIdentifier">setIdentifier()</a></code>
 			</p>
 		</div>
@@ -794,6 +815,12 @@
 			</p>
 		</div>
 
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Request.InStores.InStoreTrait.html#methods">Commercetools\Core\Request\InStores\InStoreTrait</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Request.InStores.InStoreTrait.html#_inStore">inStore()</a></code>
+			</p>
+		</div>
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods used from <a href="class-Commercetools.Core.Request.QueryTrait.html#methods">Commercetools\Core\Request\QueryTrait</a></h3></div>
 			<p class="elementList">
@@ -851,7 +878,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_mapResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Orders.OrderQueryRequest.html#17" title="Go to source code">mapResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Orders.OrderQueryRequest.html#19" title="Go to source code">mapResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span> )</code>
 
 			<div class="description short">
 				
@@ -891,7 +918,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_mapFromResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Request.Orders.OrderQueryRequest.html#18" title="Go to source code">mapFromResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span>, <span><code><a href="class-Commercetools.Core.Model.MapperInterface.html">Commercetools\Core\Model\MapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Request.Orders.OrderQueryRequest.html#20" title="Go to source code">mapFromResponse</a>( <span><code><a href="class-Commercetools.Core.Response.ApiResponseInterface.html">Commercetools\Core\Response\ApiResponseInterface</a></code> <var>$response</var></span>, <span><code><a href="class-Commercetools.Core.Model.MapperInterface.html">Commercetools\Core\Model\MapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -922,6 +949,44 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="inStore" id="m_inStore">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.Orders.OrderQueryRequest.html">Commercetools\Core\Request\Orders\OrderQueryRequest</a></code>|<code><a href="class-Commercetools.Core.Request.InStores.InStoreRequestDecorator.html">Commercetools\Core\Request\InStores\InStoreRequestDecorator</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_inStore">#</a>
+			<code><a href="source-class-Commercetools.Core.Request.Orders.OrderQueryRequest.html#21" title="Go to source code">inStore</a>( <span> <var>$storeKey</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$storeKey</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.Orders.OrderQueryRequest.html">Commercetools\Core\Request\Orders\OrderQueryRequest</a></code>|<code><a href="class-Commercetools.Core.Request.InStores.InStoreRequestDecorator.html">Commercetools\Core\Request\InStores\InStoreRequestDecorator</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 			</table>
 		</div>
 
@@ -940,6 +1005,12 @@
 		</div>
 
 		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Constants inherited from <a href="class-Commercetools.Core.Request.AbstractApiRequest.html#constants">Commercetools\Core\Request\AbstractApiRequest</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Commercetools.Core.Request.AbstractApiRequest.html#EXTERNAL_USER_HEADER"><b>EXTERNAL_USER_HEADER</b></a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
             <div class="panel-heading"><h3>Constants inherited from <a href="class-Commercetools.Core.Request.PageRequestInterface.html#constants">Commercetools\Core\Request\PageRequestInterface</a></h3></div>
 			<p class="elementList">
 				<code><a href="class-Commercetools.Core.Request.PageRequestInterface.html#MAX_PAGE_SIZE"><b>MAX_PAGE_SIZE</b></a></code>
@@ -956,6 +1027,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?4d6ea9d0eae1c77832510ccd693868199f0d063a"></script>
+<script src="elementlist.js?60346864f86b9ad7417096013482905e3b9e52ae"></script>
 </body>
 </html>
