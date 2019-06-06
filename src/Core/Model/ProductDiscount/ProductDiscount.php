@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\ProductDiscount;
 
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\ReferenceCollection;
@@ -40,6 +42,12 @@ use DateTime;
  * @method ProductDiscount setValidFrom(DateTime $validFrom = null)
  * @method DateTimeDecorator getValidUntil()
  * @method ProductDiscount setValidUntil(DateTime $validUntil = null)
+ * @method CreatedBy getCreatedBy()
+ * @method ProductDiscount setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method ProductDiscount setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
+ * @method string getKey()
+ * @method ProductDiscount setKey(string $key = null)
  * @method ProductDiscountReference getReference()
  */
 class ProductDiscount extends Resource
@@ -58,6 +66,7 @@ class ProductDiscount extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => LocalizedString::class],
+            'key' => [static::TYPE => 'string'],
             'description' => [static::TYPE => LocalizedString::class],
             'value' => [static::TYPE => ProductDiscountValue::class],
             'predicate' => [],
@@ -72,6 +81,8 @@ class ProductDiscount extends Resource
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }

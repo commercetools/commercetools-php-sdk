@@ -16,6 +16,7 @@ use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShoppingList\ShoppingList;
+use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Subscription\Subscription;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Type\Type;
@@ -29,6 +30,7 @@ use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteByKeyRequest;
 use Commercetools\Core\Request\Reviews\ReviewDeleteByKeyRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteByKeyRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteByKeyRequest;
+use Commercetools\Core\Request\Stores\StoreDeleteByKeyRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionDeleteByKeyRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteByKeyRequest;
 use Commercetools\Core\Request\Types\TypeDeleteByKeyRequest;
@@ -102,6 +104,10 @@ class GenericDeleteByKeyRequestTest extends RequestTestCase
             TypeDeleteByKeyRequest::class => [
                 TypeDeleteByKeyRequest::class,
                 Type::class,
+            ],
+            StoreDeleteByKeyRequest::class => [
+                StoreDeleteByKeyRequest::class,
+                Store::class,
             ],
         ];
     }

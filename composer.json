@@ -19,7 +19,9 @@
   "autoload-dev": {
     "psr-4": {
       "Commercetools\\Core\\": [
-        "tests/unit/",
+        "tests/unit/"
+      ],
+      "Commercetools\\Core\\IntegrationTests\\": [
         "tests/integration/"
       ],
       "Commercetools\\Core\\Fixtures\\": [
@@ -40,7 +42,7 @@
   },
   "require-dev": {
     "guzzlehttp/guzzle": "^6.0",
-    "phpunit/phpunit": "^6.0 || ^5.7.21",
+    "phpunit/phpunit": "^7.0 || ^6.0 || ^5.7.21",
     "squizlabs/php_codesniffer": "^3.2",
     "doctrine/cache": "^1.6",
     "monolog/monolog": "^1.12",
@@ -57,7 +59,7 @@
     "incenteev/composer-parameter-handler": "^2.1",
     "commercetools/commercetools-api-reference": "dev-master"
   },
-  "replaces": {
+  "replace": {
     "commercetools/commons": "*"
   },
   "bin": [
@@ -76,7 +78,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-develop": "2.6-dev"
+      "dev-develop": "2.8-dev"
     },
     "incenteev-parameters": [
       {

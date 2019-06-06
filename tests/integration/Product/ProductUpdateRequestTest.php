@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Product;
+namespace Commercetools\Core\IntegrationTests\Product;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Error\DuplicateFieldError;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
@@ -74,13 +74,13 @@ use Commercetools\Core\Request\Products\ProductDeleteRequest;
 use Commercetools\Core\Request\Products\ProductUpdateByKeyRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Response\ErrorResponse;
-use Commercetools\Core\TestHelper;
+use Commercetools\Core\IntegrationTests\TestHelper;
 
 class ProductUpdateRequestTest extends ApiTestCase
 {
     private $productId;
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $request = ProductUpdateRequest::ofIdAndVersion($this->productId, $this->deleteRequest->getVersion())
             ->addAction(ProductUnpublishAction::of())
@@ -1222,8 +1222,7 @@ class ProductUpdateRequestTest extends ApiTestCase
             ->addAction(
                 ProductSetPricesAction::of()->setSku('sku-' . $this->getTestRun())
                     ->setPrices(PriceDraftCollection::of()
-                        ->add(PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 200)))
-                    )
+                        ->add(PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 200))))
             )
             ->addAction(ProductPublishAction::of()->setScope(ProductPublishAction::PRICES))
         ;
@@ -1845,4 +1844,3 @@ class ProductUpdateRequestTest extends ApiTestCase
         return $product;
     }
 }
-

@@ -4,10 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Me;
+namespace Commercetools\Core\IntegrationTests\Me;
 
-
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Client;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ResourceNotFoundError;
@@ -22,6 +21,7 @@ use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 use Commercetools\Core\Request\Me\MeCartCreateRequest;
 use Commercetools\Core\Request\Me\MeOrderByIdRequest;
 use Commercetools\Core\Request\Me\MeOrderQueryRequest;
@@ -322,5 +322,55 @@ class MeOrderRequestTest extends ApiTestCase
 
         $this->assertSame($order->getId(), $result->getId());
         $this->assertSame($order->getAnonymousId(), $result->getAnonymousId());
+    }
+
+    public function testCustomerCreateMyOrderInStore()
+    {
+        $customerDraft = $this->getCustomerDraft();
+        $customer = $this->getCustomer($customerDraft);
+
+        $store = $this->getStore();
+
+        $config = $this->getClientConfig(['manage_my_orders']);
+        $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
+            ->setUsername($customerDraft->getEmail())
+            ->setPassword($customerDraft->getPassword());
+
+        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
+        $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
+
+        $cartDraft = $this->getMyCartDraft();
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), MeCartCreateRequest::ofDraft($cartDraft));
+        $response = $request->executeWithClient($client);
+        $cart = $request->mapResponse($response);
+
+        $this->cleanupRequests[] = $cartDeleteRequest = CartDeleteRequest::ofIdAndVersion(
+            $cart->getId(),
+            $cart->getVersion()
+        );
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), MeOrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion()));
+        $response = $request->executeWithClient($client);
+        $order = $request->mapResponse($response);
+
+        $this->cleanupRequests[] = OrderDeleteRequest::ofIdAndVersion(
+            $order->getId(),
+            $order->getVersion()
+        );
+
+        $request = CartByIdGetRequest::ofId($cart->getId());
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapResponse($response);
+        $cartDeleteRequest->setVersion($cart->getVersion());
+
+        $this->assertSame($customer->getId(), $order->getCustomerId());
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), MeOrderByIdRequest::ofId($order->getId()));
+        $response = $request->executeWithClient($client);
+        $result = $request->mapResponse($response);
+
+        $this->assertSame($order->getId(), $result->getId());
+        $this->assertSame($customer->getId(), $result->getCustomerId());
     }
 }

@@ -181,6 +181,14 @@ class ActionBuilder
     }
 
     /**
+     * @return StoresActionBuilder
+     */
+    public function stores()
+    {
+        return new StoresActionBuilder();
+    }
+
+    /**
      * @return SubscriptionsActionBuilder
      */
     public function subscriptions()

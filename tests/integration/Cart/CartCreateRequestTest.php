@@ -3,9 +3,9 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Cart;
+namespace Commercetools\Core\IntegrationTests\Cart;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
@@ -14,6 +14,7 @@ use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartReplicateRequest;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 
 class CartCreateRequestTest extends ApiTestCase
 {
@@ -107,5 +108,21 @@ class CartCreateRequestTest extends ApiTestCase
         $this->assertSame($cartLineItem, $replicaCartLineItem);
         $this->assertNotSame($cart->getId(), $replicaCart->getId());
         $this->assertSame(CartState::ACTIVE, $replicaCart->getCartState());
+    }
+
+    public function testCreateCartInStore()
+    {
+        $store = $this->getStore();
+        $cartDraft = $this->getDraft();
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), CartCreateRequest::ofDraft($cartDraft));
+        $response = $request->executeWithClient($this->getClient());
+        $cart = $request->mapFromResponse($response);
+        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
+
+        $this->assertInstanceOf(Cart::class, $cart);
+        $this->assertSame($cartDraft->getCountry(), $cart->getCountry());
+        $this->assertSame('in-store/key='.$store->getKey().'/carts', (string)$request->httpRequest()->getUri());
+        $this->assertSame($store->getKey(), $cart->getStore()->getKey());
     }
 }

@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\ProductType;
 
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use DateTime;
@@ -28,6 +30,10 @@ use DateTime;
  * @method ProductType setAttributes(AttributeDefinitionCollection $attributes = null)
  * @method string getKey()
  * @method ProductType setKey(string $key = null)
+ * @method CreatedBy getCreatedBy()
+ * @method ProductType setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method ProductType setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method ProductTypeReference getReference()
  */
 class ProductType extends Resource
@@ -51,7 +57,9 @@ class ProductType extends Resource
             'key' => [static::TYPE => 'string'],
             'name' => [static::TYPE => 'string'],
             'description' => [static::TYPE => 'string'],
-            'attributes' => [static::TYPE => AttributeDefinitionCollection::class]
+            'attributes' => [static::TYPE => AttributeDefinitionCollection::class],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }

@@ -64,9 +64,9 @@ interface ClientRequestInterface
     public function map(array $data, Context $context = null, MapperInterface $mapper = null);
 
     /**
-     * @param ApiResponseInterface $response
+     * @param ApiResponseInterface|ResponseInterface $response
      * @param MapperInterface $mapper
      * @return mixed
      */
-    public function mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null);
+    public function mapFromResponse($response, MapperInterface $mapper = null);
 }

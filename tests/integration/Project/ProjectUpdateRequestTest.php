@@ -3,9 +3,11 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Project;
+namespace Commercetools\Core\IntegrationTests\Project;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Builder\Update\ActionBuilder;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedEnum;
 use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
@@ -13,6 +15,7 @@ use Commercetools\Core\Model\Message\MessagesConfigurationDraft;
 use Commercetools\Core\Model\Project\CartClassificationType;
 use Commercetools\Core\Model\Project\CartScoreType;
 use Commercetools\Core\Model\Project\CartValueType;
+use Commercetools\Core\Model\Project\ExternalOAuth;
 use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
@@ -20,6 +23,7 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
+use Commercetools\Core\Request\Project\Command\ProjectSetExternalOAuthAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
@@ -279,5 +283,40 @@ class ProjectUpdateRequestTest extends ApiTestCase
         $request->addAction(ProjectSetShippingRateInputTypeAction::of());
         $response = $request->executeWithClient($this->getClient());
         $this->assertFalse($response->isError());
+    }
+
+    public function testExternalOAuth()
+    {
+        $request = ProjectGetRequest::of();
+        $response = $request->executeWithClient($this->getClient());
+        $project = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Project::class, $project);
+
+        $request = RequestBuilder::of()->project()->update($project)->setActions(
+            ActionBuilder::of()->project()->setExternalOAuth(function (ProjectSetExternalOAuthAction $action) {
+                $action->setExternalOAuth(
+                    ExternalOAuth::of()->setUrl("https://localhost")
+                        ->setAuthorizationHeader("Bearer")
+                );
+                return $action;
+            })->getActions()
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Project::class, $result);
+        $this->assertInstanceOf(ExternalOAuth::class, $result->getExternalOAuth());
+        $this->assertNotSame("Bearer", $result->getExternalOAuth()->getAuthorizationHeader());
+
+        $request = RequestBuilder::of()->project()->update($result)->setActions(
+            ActionBuilder::of()->project()->setExternalOAuth(function (ProjectSetExternalOAuthAction $action) {
+                return $action;
+            })->getActions()
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->assertFalse($response->isError());
+        $this->assertNull($result->getExternalOAuth());
     }
 }

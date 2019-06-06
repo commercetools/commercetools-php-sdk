@@ -3,17 +3,20 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Cart;
+namespace Commercetools\Core\IntegrationTests\Cart;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\Cart\CartCollection;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Model\Store\StoreReference;
 use Commercetools\Core\Request\Carts\CartByCustomerIdGetRequest;
 use Commercetools\Core\Request\Carts\CartQueryRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 
 class CartQueryRequestTest extends ApiTestCase
 {
@@ -100,5 +103,55 @@ class CartQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Cart::class, $result);
         $this->assertSame($cart->getId(), $result->getId());
+    }
+
+    public function testGetByIdInStore()
+    {
+        $store = $this->getStore();
+        $cartDraft = $this->getDraft()->setStore(StoreReference::ofKey($store->getKey()));
+        $cart = $this->createCart($cartDraft);
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), CartByIdGetRequest::ofId($cart->getId()));
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+
+        $this->assertInstanceOf(Cart::class, $result);
+        $this->assertSame($cartDraft->getCountry(), $result->getCountry());
+        $this->assertSame('in-store/key='.$store->getKey().'/carts/'.$result->getId(), (string)$request->httpRequest()->getUri());
+        $this->assertSame($store->getKey(), $result->getStore()->getKey());
+    }
+
+    public function testQueryInStore()
+    {
+        $store = $this->getStore();
+        $cartDraft = $this->getDraft()->setStore(StoreReference::ofKey($store->getKey()));
+        $cart = $this->createCart($cartDraft);
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), CartQueryRequest::of()->where(
+            'customerEmail="' . $cartDraft->getCustomerEmail() . '"'
+        ));
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+
+        $this->assertInstanceOf(CartCollection::class, $result);
+        $this->assertStringStartsWith('in-store/key='.$store->getKey().'/carts', (string)$request->httpRequest()->getUri());
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf(Cart::class, $result->getAt(0));
+        $this->assertSame($cart->getId(), $result->getAt(0)->getId());
+        $this->assertSame($store->getKey(), $result->getAt(0)->getStore()->getKey());
+    }
+
+    public function testGetByIdNotInStore()
+    {
+        $store = $this->getStore();
+        $cartDraft = $this->getDraft();
+        $cart = $this->createCart($cartDraft);
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), CartByIdGetRequest::ofId($cart->getId()));
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+
+        $this->assertNull($result);
+        $this->assertSame('in-store/key='.$store->getKey().'/carts/'.$cart->getId(), (string)$request->httpRequest()->getUri());
     }
 }

@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Zone;
+namespace Commercetools\Core\IntegrationTests\Zone;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\Model\Zone\ZoneDraft;
 use Commercetools\Core\Model\Zone\Location;

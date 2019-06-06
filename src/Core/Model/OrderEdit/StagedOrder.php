@@ -24,6 +24,9 @@ use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Model\Payment\PaymentInfo;
 use Commercetools\Core\Model\Cart\ShippingRateInput;
 use Commercetools\Core\Model\Common\AddressCollection;
+use Commercetools\Core\Model\Store\StoreReference;
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 
 /**
  * @package Commercetools\Core\Model\OrderEdit
@@ -101,6 +104,12 @@ use Commercetools\Core\Model\Common\AddressCollection;
  * @method StagedOrder setShippingRateInput(ShippingRateInput $shippingRateInput = null)
  * @method AddressCollection getItemShippingAddresses()
  * @method StagedOrder setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
+ * @method StoreReference getStore()
+ * @method StagedOrder setStore(StoreReference $store = null)
+ * @method CreatedBy getCreatedBy()
+ * @method StagedOrder setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method StagedOrder setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  */
 class StagedOrder extends Order
 {

@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\ProductType;
+namespace Commercetools\Core\IntegrationTests\ProductType;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Error\InvalidOperationError;
 use Commercetools\Core\Model\Common\Attribute;
 use Commercetools\Core\Model\Common\AttributeCollection;
@@ -443,8 +443,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
                     LocalizedEnumCollection::of()->add(
                         LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'))
                     )
-                )
-            );
+                ));
         $draft = $this->getDraft('enum-change-label');
         $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
         $productType = $this->createProductType($draft);
@@ -477,8 +476,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
                     LocalizedEnumCollection::of()->add(
                         LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'))
                     )
-                )
-            );
+                ));
         $draft = $this->getDraft('enum-change-label');
         $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
         $productType = $this->createProductType($draft);
@@ -509,8 +507,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
                     EnumCollection::of()->add(
                         Enum::of()->setKey('test')->setLabel('test')
                     )
-                )
-            );
+                ));
         $draft = $this->getDraft('enum-change-label');
         $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
         $productType = $this->createProductType($draft);
@@ -543,8 +540,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
                     EnumCollection::of()->add(
                         Enum::of()->setKey('test')->setLabel('test')
                     )
-                )
-            );
+                ));
         $draft = $this->getDraft('enum-change-label');
         $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
         $productType = $this->createProductType($draft);
@@ -710,8 +706,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
                 EnumCollection::of()
                     ->add(Enum::of()->setKey('foo')->setLabel('foo'))
                     ->add(Enum::of()->setKey('bar')->setLabel('bar'))
-                )
-            );
+            ));
         $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
         $productType = $this->createProductType($draft);
 
@@ -836,10 +831,9 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
             ->setIsRequired(false)
             ->setIsSearchable(false)
             ->setType(EnumType::of()->setValues(
-                    EnumCollection::of()
+                EnumCollection::of()
                         ->add(Enum::of()->setKey('foo')->setLabel('foo'))
-                )
-            );
+            ));
 
         $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
         $productType = $this->createProductType($draft);

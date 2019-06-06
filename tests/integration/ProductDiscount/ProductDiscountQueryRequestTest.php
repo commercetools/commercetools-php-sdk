@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\ProductDiscount;
+namespace Commercetools\Core\IntegrationTests\ProductDiscount;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
@@ -14,6 +14,7 @@ use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountDraft;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountValue;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountByIdGetRequest;
+use Commercetools\Core\Request\ProductDiscounts\ProductDiscountByKeyGetRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountCreateRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountQueryRequest;
@@ -78,5 +79,19 @@ class ProductDiscountQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(ProductDiscount::class, $productDiscount);
         $this->assertSame($productDiscount->getId(), $result->getId());
+    }
+
+    public function testGetByKey()
+    {
+        $draft = $this->getDraft()->setKey('key-' . $this->getTestRun());
+        $productDiscount = $this->createProductDiscount($draft);
+
+        $request = ProductDiscountByKeyGetRequest::ofKey($productDiscount->getKey());
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(ProductDiscount::class, $productDiscount);
+        $this->assertSame($productDiscount->getId(), $result->getId());
+        $this->assertSame($productDiscount->getKey(), $result->getKey());
     }
 }

@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\CustomerGroup;
 
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
@@ -27,6 +29,10 @@ use DateTime;
  * @method CustomerGroup setKey(string $key = null)
  * @method CustomFieldObject getCustom()
  * @method CustomerGroup setCustom(CustomFieldObject $custom = null)
+ * @method CreatedBy getCreatedBy()
+ * @method CustomerGroup setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method CustomerGroup setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method CustomerGroupReference getReference()
  */
 class CustomerGroup extends Resource
@@ -47,6 +53,8 @@ class CustomerGroup extends Resource
             'name' => [static::TYPE => 'string'],
             'key' => [static::TYPE => 'string'],
             'custom' => [static::TYPE => CustomFieldObject::class],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }

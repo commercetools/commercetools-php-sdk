@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\State;
+namespace Commercetools\Core\IntegrationTests\State;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Model\State\StateDraft;
 use Commercetools\Core\Request\States\StateByIdGetRequest;
@@ -68,6 +68,5 @@ class StateQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(State::class, $state);
         $this->assertSame($state->getId(), $result->getId());
-
     }
 }

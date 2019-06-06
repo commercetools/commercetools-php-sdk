@@ -10,6 +10,7 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
+use Commercetools\Core\Request\Project\Command\ProjectSetExternalOAuthAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 
 class ProjectActionBuilder
@@ -79,6 +80,17 @@ class ProjectActionBuilder
     public function changeName($action = null)
     {
         $this->addAction($this->resolveAction(ProjectChangeNameAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-project.html#set-externaloauth
+     * @param ProjectSetExternalOAuthAction|callable $action
+     * @return $this
+     */
+    public function setExternalOAuth($action = null)
+    {
+        $this->addAction($this->resolveAction(ProjectSetExternalOAuthAction::class, $action));
         return $this;
     }
 

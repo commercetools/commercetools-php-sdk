@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Subscription;
+namespace Commercetools\Core\IntegrationTests\Subscription;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Subscription\IronMQDestination;
 use Commercetools\Core\Model\Subscription\MessageSubscription;
 use Commercetools\Core\Model\Subscription\MessageSubscriptionCollection;
@@ -20,7 +20,7 @@ use Commercetools\Core\Request\Subscriptions\SubscriptionQueryRequest;
 
 class SubscriptionQueryRequestTest extends ApiTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $uri = getenv('IRONMQ_URI');
         if (empty($uri)) {

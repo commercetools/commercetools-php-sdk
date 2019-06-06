@@ -43,6 +43,8 @@ use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\ShoppingList\ShoppingListDraft;
 use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Model\State\StateDraft;
+use Commercetools\Core\Model\Store\Store;
+use Commercetools\Core\Model\Store\StoreDraft;
 use Commercetools\Core\Model\Subscription\Subscription;
 use Commercetools\Core\Model\Subscription\SubscriptionDraft;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
@@ -69,6 +71,7 @@ use Commercetools\Core\Request\Reviews\ReviewCreateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListCreateRequest;
 use Commercetools\Core\Request\States\StateCreateRequest;
+use Commercetools\Core\Request\Stores\StoreCreateRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionCreateRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
 use Commercetools\Core\Request\Types\TypeCreateRequest;
@@ -204,10 +207,10 @@ class GenericCreateRequestTest extends RequestTestCase
                 Zone::class,
                 ZoneDraft::class,
             ],
-            ShippingMethodCreateRequest::class => [
-                ShippingMethodCreateRequest::class,
-                ShippingMethod::class,
-                ShippingMethodDraft::class,
+            StoreCreateRequest::class => [
+                StoreCreateRequest::class,
+                Store::class,
+                StoreDraft::class,
             ],
         ];
     }

@@ -3,9 +3,9 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\CustomerGroup;
+namespace Commercetools\Core\IntegrationTests\CustomerGroup;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupDraft;
 use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupSetKeyAction;

@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Customer;
+namespace Commercetools\Core\IntegrationTests\Customer;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Client;
 use Commercetools\Core\Client\OAuth\Token;
 use Commercetools\Core\Config;

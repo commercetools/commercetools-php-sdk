@@ -5,6 +5,8 @@
 
 namespace Commercetools\Core\Model\Category;
 
+use Commercetools\Core\Model\Common\CreatedBy;
+use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
@@ -49,6 +51,10 @@ use DateTime;
  * @method Category setAssets(AssetCollection $assets = null)
  * @method string getKey()
  * @method Category setKey(string $key = null)
+ * @method CreatedBy getCreatedBy()
+ * @method Category setCreatedBy(CreatedBy $createdBy = null)
+ * @method LastModifiedBy getLastModifiedBy()
+ * @method Category setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method CategoryReference getReference()
  */
 class Category extends Resource
@@ -79,6 +85,8 @@ class Category extends Resource
             'custom' => [static::TYPE => CustomFieldObject::class],
             'assets' => [static::TYPE => AssetCollection::class],
             'key' => [static::TYPE => 'string'],
+            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
     }
 }

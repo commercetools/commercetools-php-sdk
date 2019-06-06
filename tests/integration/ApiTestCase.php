@@ -1,8 +1,12 @@
 <?php
+/** @noinspection PhpLanguageLevelInspection */
+declare(strict_types=1);
 
-namespace Commercetools\Core;
+namespace Commercetools\Core\IntegrationTests;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Commercetools\Core\Client;
+use Commercetools\Core\Config;
 use Commercetools\Core\Fixtures\ManuelActivationStrategy;
 use Commercetools\Core\Fixtures\ProfilerMiddleware;
 use Commercetools\Core\Fixtures\TeamCityFormatter;
@@ -20,6 +24,7 @@ use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Commercetools\Core\Model\ShoppingList\ShoppingListDraft;
 use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Model\Store\StoreDraft;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
@@ -60,7 +65,7 @@ class ApiTestCase extends TestCase
 
     private $cache;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (self::$errorHandler instanceof FingersCrossedHandler) {
             self::$errorHandler->clear();
@@ -78,7 +83,7 @@ class ApiTestCase extends TestCase
         return self::$testRun;
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->cleanup();
     }
@@ -156,8 +161,8 @@ class ApiTestCase extends TestCase
             $handler = new ErrorLogHandler();
             if (getenv("TEAMCITY_FORMATTER") == "true") {
                 $handler->setFormatter(new TeamCityFormatter());
-                $handler = new FingersCrossedHandler($handler, new ManuelActivationStrategy());
             }
+            $handler = new FingersCrossedHandler($handler, new ManuelActivationStrategy());
             self::$errorHandler = $handler;
         }
 
@@ -183,8 +188,8 @@ class ApiTestCase extends TestCase
     {
         if (!isset(self::$client[$scope])) {
             $config = $this->getClientConfig($scope);
-            $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
-            $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+            $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '15']);
+            $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '15']);
 
             $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
             $enableProfiler = getenv('PHP_SDK_PROFILE');
@@ -286,6 +291,7 @@ class ApiTestCase extends TestCase
         $this->deleteChannel();
         $this->deleteStates();
         $this->deleteShoppingList();
+        $this->deleteStore();
     }
 
     protected function map(callable $callback, $collection)
@@ -320,7 +326,7 @@ class ApiTestCase extends TestCase
 
     private function deleteCategory()
     {
-        TestHelper::getInstance($this->getCategory())->deleteCategory();
+        TestHelper::getInstance($this->getClient())->deleteCategory();
     }
 
     protected function getTaxCategory()
@@ -558,5 +564,23 @@ class ApiTestCase extends TestCase
     protected function deleteShoppingList()
     {
         TestHelper::getInstance($this->getClient())->deleteShoppingList();
+    }
+
+    /**
+     * @return StoreDraft
+     */
+    protected function getStoreDraft($name = null)
+    {
+        return TestHelper::getInstance($this->getClient())->getStoreDraft($name);
+    }
+
+    protected function getStore(StoreDraft $draft = null)
+    {
+        return TestHelper::getInstance($this->getClient())->getStore($draft);
+    }
+
+    protected function deleteStore()
+    {
+        TestHelper::getInstance($this->getClient())->deleteStore();
     }
 }

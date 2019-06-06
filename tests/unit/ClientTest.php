@@ -6,7 +6,6 @@
 
 namespace Commercetools\Core;
 
-use Commercetools\Core\Client\Adapter\AdapterFactory;
 use Commercetools\Core\Client\Adapter\AdapterOptionInterface;
 use Commercetools\Core\Client\Adapter\ConfigAware;
 use Commercetools\Core\Client\OAuth\Manager;
@@ -29,6 +28,7 @@ use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\BufferStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -326,7 +326,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $handler = new TestHandler();
         $logger = new Logger('test');
         $logger->pushHandler($handler);
-        $config =$this->getConfig();
+        $config = $this->getConfig();
         $config = $config->setLogLevel(LogLevel::DEBUG);
 
         $client = $this->getMockClient($config, $this->getSingleOpResult(), 200, $logger);
@@ -513,6 +513,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         );
         $this->assertJsonStringEqualsJsonString($errorBody, $logEntry['context']['responseBody']);
     }
+
     /**
      * @expectedException \Commercetools\Core\Error\ApiException
      */
@@ -644,7 +645,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         return [
             ErrorResponseException::class => [400, ErrorResponseException::class, ''],
-            InvalidTokenException::class => [401, InvalidTokenException::class, ['invalid_token','invalid_token']],
+            InvalidTokenException::class => [401, InvalidTokenException::class, ['invalid_token', 'invalid_token']],
             InvalidClientCredentialsException::class => [401, InvalidClientCredentialsException::class, ''],
             NotFoundException::class => [404, NotFoundException::class, ''],
             ConcurrentModificationException::class => [409, ConcurrentModificationException::class, ''],
@@ -745,11 +746,9 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             $this->assertSame('commercetools-php-sdk/' . AbstractHttpClient::VERSION, $userAgent[$n++]);
             $this->assertSame('GuzzleHttp/' . HttpClient::VERSION, trim($userAgent[$n++], '();'));
             if (extension_loaded('curl') && function_exists('curl_version')) {
-                $this->assertSame('curl/' . \curl_version()['version'],trim($userAgent[$n++], '();'));
+                $this->assertSame('curl/' . \curl_version()['version'], trim($userAgent[$n++], '();'));
             }
             $this->assertSame('PHP/' . PHP_VERSION, $userAgent[$n++]);
-
-
         }
     }
 
@@ -805,7 +804,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(ErrorContainer::class, $response->getErrors());
         $this->assertEmpty($response->getErrors());
         $this->assertSame('Length Required', $response->getMessage());
-
     }
 
     public function testSetClientOptions()
@@ -826,5 +824,25 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         );
         $this->assertInstanceOf(ConfigAware::class, $client->getHttpClient());
         $this->assertFalse($client->getHttpClient()->getConfig('verify'));
+    }
+
+    public function testGetPromise()
+    {
+        $client = $this->getMockClient($this->getConfig(), $this->getSingleOpResult(), 200);
+
+        $endpoint = new JsonEndpoint('test');
+        $request = $this->getMockForAbstractClass(
+            AbstractByIdGetRequest::class,
+            [$endpoint, 'id']
+        );
+        $response = $client->executeAsync($request);
+
+        $this->assertFalse($response->isError());
+
+        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            $this->assertInstanceOf(PromiseInterface::class, $response->getPromise());
+        } else {
+            $this->assertInstanceOf(\React\Promise\PromiseInterface::class, $response->getPromise());
+        }
     }
 }

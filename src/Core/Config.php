@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core;
 
+use Commercetools\Core\Client\OAuth\ClientCredentials;
 use Commercetools\Core\Error\Message;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Helper\CorrelationIdProvider;
@@ -718,5 +719,14 @@ class Config implements ContextAwareInterface
     {
         $this->bearerToken = $bearerToken;
         return $this;
+    }
+
+    public function getClientCredentials()
+    {
+        return new ClientCredentials([
+            ClientCredentials::CLIENT_ID => $this->clientId,
+            ClientCredentials::CLIENT_SECRET => $this->clientSecret,
+            ClientCredentials::SCOPE => $this->getScope()
+        ]);
     }
 }

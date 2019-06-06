@@ -3,9 +3,9 @@
  *
  */
 
-namespace Commercetools\Core\ApiClient;
+namespace Commercetools\Core\IntegrationTests\ApiClient;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\ApiClient\ApiClient;
 use Commercetools\Core\Model\ApiClient\ApiClientCollection;
 use Commercetools\Core\Model\ApiClient\ApiClientDraft;

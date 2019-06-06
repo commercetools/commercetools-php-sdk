@@ -28,6 +28,7 @@ use Commercetools\Core\Model\Review\ReviewCollection;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
 use Commercetools\Core\Model\ShoppingList\ShoppingListCollection;
 use Commercetools\Core\Model\State\StateCollection;
+use Commercetools\Core\Model\Store\StoreCollection;
 use Commercetools\Core\Model\Subscription\SubscriptionCollection;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryCollection;
 use Commercetools\Core\Model\Type\TypeCollection;
@@ -54,6 +55,7 @@ use Commercetools\Core\Request\Reviews\ReviewQueryRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListQueryRequest;
 use Commercetools\Core\Request\States\StateQueryRequest;
+use Commercetools\Core\Request\Stores\StoreQueryRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionQueryRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryQueryRequest;
 use Commercetools\Core\Request\Types\TypeQueryRequest;
@@ -194,6 +196,10 @@ class GenericQueryRequestTest extends RequestTestCase
             ZoneQueryRequest::class => [
                 ZoneQueryRequest::class,
                 ZoneCollection::class,
+            ],
+            StoreQueryRequest::class => [
+                StoreQueryRequest::class,
+                StoreCollection::class,
             ],
         ];
     }

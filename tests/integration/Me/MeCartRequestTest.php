@@ -4,18 +4,20 @@
  */
 
 
-namespace Commercetools\Core\Me;
+namespace Commercetools\Core\IntegrationTests\Me;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Client;
 use Commercetools\Core\Config;
 use Commercetools\Core\Client\OAuth\Manager;
 use Commercetools\Core\Error\ResourceNotFoundError;
+use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\MyCartDraft;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 use Commercetools\Core\Request\Me\MeActiveCartRequest;
 use Commercetools\Core\Request\Me\MeCartByIdRequest;
 use Commercetools\Core\Request\Me\MeCartCreateRequest;
@@ -71,7 +73,7 @@ class MeCartRequestTest extends ApiTestCase
         return $cart;
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         $this->getCache()->clear();
@@ -580,5 +582,42 @@ class MeCartRequestTest extends ApiTestCase
             ResourceNotFoundError::class,
             $response->getErrors()->getByCode(ResourceNotFoundError::CODE)
         );
+    }
+
+    public function testCustomerCreateMyCartInStore()
+    {
+        $customerDraft = $this->getCustomerDraft();
+        $customer = $this->getCustomer($customerDraft);
+
+        $store = $this->getStore();
+
+        $config = $this->getClientConfig(['manage_my_orders', 'create_anonymous_token']);
+        $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
+            ->setUsername($customerDraft->getEmail())
+            ->setPassword($customerDraft->getPassword());
+
+        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
+        $client->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
+
+        $cartDraft = $this->getMyCartDraft();
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), MeCartCreateRequest::ofDraft($cartDraft));
+        $response = $request->executeWithClient($client);
+        $cart = $request->mapResponse($response);
+        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
+            $cart->getId(),
+            $cart->getVersion()
+        );
+
+        $this->assertSame($customer->getId(), $cart->getCustomerId());
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), MeCartByIdRequest::ofId($cart->getId()));
+        $response = $request->executeWithClient($client);
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Cart::class, $result);
+        $this->assertSame($cart->getId(), $result->getId());
+        $this->assertSame($customer->getId(), $result->getCustomerId());
+        $this->assertSame('in-store/key='.$store->getKey().'/me/carts/'.$cart->getId(), (string)$request->httpRequest()->getUri());
     }
 }

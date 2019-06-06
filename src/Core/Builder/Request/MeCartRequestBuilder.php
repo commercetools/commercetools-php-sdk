@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Cart\MyCartDraft;
 use Commercetools\Core\Request\Me\MeActiveCartRequest;
 use Commercetools\Core\Request\Me\MeCartByIdRequest;
 use Commercetools\Core\Request\Me\MeCartCreateRequest;
+use Commercetools\Core\Request\Me\MeCartDeleteRequest;
 use Commercetools\Core\Request\Me\MeCartQueryRequest;
 use Commercetools\Core\Request\Me\MeCartUpdateRequest;
 
@@ -56,5 +57,14 @@ class MeCartRequestBuilder
     public function create(MyCartDraft $cartDraft)
     {
         return MeCartCreateRequest::ofDraft($cartDraft);
+    }
+
+    /**
+     * @param Cart $cart
+     * @return MeCartDeleteRequest
+     */
+    public function delete(Cart $cart)
+    {
+        return MeCartDeleteRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
     }
 }

@@ -3,9 +3,9 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Cart;
+namespace Commercetools\Core\IntegrationTests\Cart;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
@@ -42,6 +42,7 @@ use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Model\Project\CartScoreType;
 use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
+use Commercetools\Core\Model\Store\StoreReference;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
@@ -95,6 +96,7 @@ use Commercetools\Core\Request\Carts\Command\CartUpdateItemShippingAddressAction
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 use Commercetools\Core\Request\Products\Command\ProductChangeNameAction;
 use Commercetools\Core\Request\Products\Command\ProductChangePriceAction;
 use Commercetools\Core\Request\Products\Command\ProductPublishAction;
@@ -102,7 +104,7 @@ use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
-use Commercetools\Core\TestHelper;
+use Commercetools\Core\IntegrationTests\TestHelper;
 
 class CartUpdateRequestTest extends ApiTestCase
 {
@@ -758,7 +760,6 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->deleteRequest->setVersion($cart->getVersion());
 
         $this->assertNull($cart->getAnonymousId());
-
     }
 
     public function testSetShippingMethod()
@@ -1573,8 +1574,7 @@ class CartUpdateRequestTest extends ApiTestCase
             )
             ->add(
                 PriceTier::of()->setValue(Money::ofCurrencyAndAmount('EUR', 1))->setMinimumQuantity(3)
-            )
-        );
+            ));
         $product = $this->getProduct($productDraft);
         $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
@@ -1689,7 +1689,7 @@ class CartUpdateRequestTest extends ApiTestCase
                 $this->assertCount(1, $lineItem->getDiscountedPricePerQuantity());
                 $this->assertSame(
                     $cartDiscount->getId(),
-                        $lineItem->getDiscountedPricePerQuantity()->current()
+                    $lineItem->getDiscountedPricePerQuantity()->current()
                             ->getDiscountedPrice()->getIncludedDiscounts()->current()
                             ->getDiscount()->getId()
                 );
@@ -1733,7 +1733,7 @@ class CartUpdateRequestTest extends ApiTestCase
             CustomLineItemDraftCollection::of()
                 ->add(
                     CustomLineItemDraft::of()
-                        ->setName(LocalizedString::ofLangAndText('en','test'))
+                        ->setName(LocalizedString::ofLangAndText('en', 'test'))
                         ->setQuantity(1)
                         ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
                         ->setSlug('test-124')
@@ -2063,6 +2063,36 @@ class CartUpdateRequestTest extends ApiTestCase
             30,
             $cart->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
         );
+    }
+
+    public function testUpdateAndDeleteForCartInStore()
+    {
+        $store = $this->getStore();
+        $cartDraft = $this->getDraft()->setStore(StoreReference::ofKey($store->getKey()));
+        $cart = $this->createCart($cartDraft);
+
+        $email = 'test-' . $this->getTestRun() . '@example.com';
+
+        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
+            ->addAction(CartSetCustomerEmailAction::of()->setEmail($email))
+            ->inStore($store->getKey());
+
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Cart::class, $result);
+        $this->assertSame($cart->getId(), $result->getId());
+        $this->assertSame($email, $result->getCustomerEmail());
+        $this->assertSame('in-store/key='.$store->getKey().'/carts/'.$result->getId(), (string)$request->httpRequest()->getUri());
+        $this->assertSame($store->getKey(), $result->getStore()->getKey());
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), CartDeleteRequest::ofIdAndVersion($result->getId(), $result->getVersion()));
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Cart::class, $result);
+        $this->assertSame($cart->getId(), $result->getId());
     }
 
     /**

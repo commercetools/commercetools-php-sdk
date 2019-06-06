@@ -16,6 +16,7 @@ use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShoppingList\ShoppingList;
+use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Subscription\Subscription;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Type\Type;
@@ -29,6 +30,7 @@ use Commercetools\Core\Request\ProductTypes\ProductTypeByKeyGetRequest;
 use Commercetools\Core\Request\Reviews\ReviewByKeyGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByKeyGetRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListByKeyGetRequest;
+use Commercetools\Core\Request\Stores\StoreByKeyGetRequest;
 use Commercetools\Core\Request\Subscriptions\SubscriptionByKeyGetRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryByKeyGetRequest;
 use Commercetools\Core\Request\Types\TypeByKeyGetRequest;
@@ -102,6 +104,10 @@ class GenericByKeyGetRequestTest extends RequestTestCase
             TypeByKeyGetRequest::class => [
                 TypeByKeyGetRequest::class,
                 Type::class,
+            ],
+            StoreByKeyGetRequest::class => [
+                StoreByKeyGetRequest::class,
+                Store::class,
             ],
         ];
     }

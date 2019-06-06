@@ -7,10 +7,13 @@ use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Types\Command\TypeAddEnumValueAction;
 use Commercetools\Core\Request\Types\Command\TypeAddFieldDefinitionAction;
 use Commercetools\Core\Request\Types\Command\TypeAddLocalizedEnumValueAction;
+use Commercetools\Core\Request\Types\Command\TypeChangeEnumValueLabelAction;
 use Commercetools\Core\Request\Types\Command\TypeChangeEnumValueOrderAction;
 use Commercetools\Core\Request\Types\Command\TypeChangeFieldDefinitionOrderAction;
+use Commercetools\Core\Request\Types\Command\TypeChangeInputHintAction;
 use Commercetools\Core\Request\Types\Command\TypeChangeKeyAction;
 use Commercetools\Core\Request\Types\Command\TypeChangeLabelAction;
+use Commercetools\Core\Request\Types\Command\TypeChangeLocalizedEnumValueLabelAction;
 use Commercetools\Core\Request\Types\Command\TypeChangeLocalizedEnumValueOrderAction;
 use Commercetools\Core\Request\Types\Command\TypeChangeNameAction;
 use Commercetools\Core\Request\Types\Command\TypeRemoveFieldDefinitionAction;
@@ -54,6 +57,17 @@ class TypesActionBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-types#change-enumvalue-label
+     * @param TypeChangeEnumValueLabelAction|callable $action
+     * @return $this
+     */
+    public function changeEnumValueLabel($action = null)
+    {
+        $this->addAction($this->resolveAction(TypeChangeEnumValueLabelAction::class, $action));
+        return $this;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#change-the-order-of-enumvalues
      * @param TypeChangeEnumValueOrderAction|callable $action
      * @return $this
@@ -76,6 +90,17 @@ class TypesActionBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-types#change-inputhint
+     * @param TypeChangeInputHintAction|callable $action
+     * @return $this
+     */
+    public function changeInputHint($action = null)
+    {
+        $this->addAction($this->resolveAction(TypeChangeInputHintAction::class, $action));
+        return $this;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-types.html#change-key
      * @param TypeChangeKeyAction|callable $action
      * @return $this
@@ -94,6 +119,17 @@ class TypesActionBuilder
     public function changeLabel($action = null)
     {
         $this->addAction($this->resolveAction(TypeChangeLabelAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-types#change-localizedenumvalue-label
+     * @param TypeChangeLocalizedEnumValueLabelAction|callable $action
+     * @return $this
+     */
+    public function changeLocalizedEnumValueLabel($action = null)
+    {
+        $this->addAction($this->resolveAction(TypeChangeLocalizedEnumValueLabelAction::class, $action));
         return $this;
     }
 

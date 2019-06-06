@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Subscription;
+namespace Commercetools\Core\IntegrationTests\Subscription;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Subscription\ChangeSubscription;
 use Commercetools\Core\Model\Subscription\ChangeSubscriptionCollection;
 use Commercetools\Core\Model\Subscription\IronMQDestination;
@@ -27,7 +27,7 @@ use Commercetools\Core\Request\Subscriptions\SubscriptionUpdateRequest;
 
 class SubscriptionUpdateRequestTest extends ApiTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $uri = getenv('IRONMQ_URI');
         if (empty($uri)) {
@@ -103,7 +103,7 @@ class SubscriptionUpdateRequestTest extends ApiTestCase
             $subscription->getId(),
             $subscription->getVersion()
         );
-        
+
         $key = $this->getTestRun() . '-new';
         $request->addAction(
             SubscriptionSetKeyAction::of()->setKey($key)

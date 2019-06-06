@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\ShippingMethod;
+namespace Commercetools\Core\IntegrationTests\ShippingMethod;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedEnum;
 use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
@@ -56,7 +56,7 @@ use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
 
 class ShippingMethodUpdateRequestTest extends ApiTestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         $request = ProjectGetRequest::of();

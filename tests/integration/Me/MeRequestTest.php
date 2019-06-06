@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Me;
+namespace Commercetools\Core\IntegrationTests\Me;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Client;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ResourceNotFoundError;
@@ -19,13 +19,13 @@ use Commercetools\Core\Request\Me\MeGetRequest;
 use Commercetools\Core\Request\Me\MeLoginRequest;
 use Commercetools\Core\Request\Me\MePasswordChangeRequest;
 use Commercetools\Core\Request\Me\MePasswordResetRequest;
-use Commercetools\Core\TestHelper;
+use Commercetools\Core\IntegrationTests\TestHelper;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 
 class MeRequestTest extends ApiTestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         $this->getCache()->clear();

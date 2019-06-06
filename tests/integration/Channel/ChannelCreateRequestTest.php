@@ -4,9 +4,9 @@
  */
 
 
-namespace Commercetools\Core\Channel;
+namespace Commercetools\Core\IntegrationTests\Channel;
 
-use Commercetools\Core\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Request\Channels\ChannelCreateRequest;
 use Commercetools\Core\Request\Channels\ChannelDeleteRequest;

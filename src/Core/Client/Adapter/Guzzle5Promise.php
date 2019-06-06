@@ -11,7 +11,7 @@ use GuzzleHttp\Ring\Future\FutureInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
-class Guzzle5Promise implements AdapterPromiseInterface
+class Guzzle5Promise implements AdapterPromiseInterface, PromiseGetInterface
 {
     /**
      * @var FutureResponse
@@ -34,6 +34,14 @@ class Guzzle5Promise implements AdapterPromiseInterface
         $this->promise = $this->promise->then($onFulfilled, $onRejected);
 
         return $this;
+    }
+
+    /**
+     * @return FutureInterface
+     */
+    public function getPromise()
+    {
+        return $this->promise;
     }
 
     /**
