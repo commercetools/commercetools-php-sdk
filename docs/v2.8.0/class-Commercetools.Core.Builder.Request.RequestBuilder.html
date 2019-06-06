@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>CTP SDK : Class Commercetools\Core\Builder\Request\RequestBuilder | PHP SDK</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
+	<link rel="stylesheet" href="resources/style.css?102290b3b885078d22775035a196a21915f80efe">
+    <link rel="shortcut icon" type="image/png" href="resources/favicon.png?9c2a6ec825b4dbff6085830fb749cd4d0299fcea">
+</head>
+
+<body>
+	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand"><img src="resources/ct-logo.svg?065fe633e263f47f5912ed2699add0e26a15e230" id="navbar-logo" alt="commercetools platform PHP SDK">PHP SDK </a>
+			</div>
+			<div class="collapse navbar-collapse">
+
+                <form id="search" class="navbar-form navbar-left" role="search">
+                    <input type="hidden" name="cx" value="">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <div class="form-group">
+                        <input type="text" name="q" class="search-query form-control" placeholder="Search">
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="namespace-Commercetools.Core.Builder.Request.html" title="Summary of Commercetools\Core\Builder\Request"><span>Namespace</span></a>
+					</li>
+					<li class="active">
+<span>Class</span>					</li>
+
+					<li class="divider-vertical"></li>
+
+					<li>
+						<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+					</li>
+
+
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div id="left">
+	<div id="menu">
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active">
+						<a href="namespace-Commercetools.html">
+							Commercetools<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Commons.html">
+							Commons<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Commons.Helper.html">
+							Helper						</a>
+							</li>
+								</ul></li>
+					<li class="active">
+						<a href="namespace-Commercetools.Core.html">
+							Core<span></span>
+						</a>
+							<ul>
+					<li class="active">
+						<a href="namespace-Commercetools.Core.Builder.html">
+							Builder<span></span>
+						</a>
+							<ul>
+					<li class="active">
+						<a href="namespace-Commercetools.Core.Builder.Request.html">
+							Request						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Builder.Update.html">
+							Update						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Cache.html">
+							Cache						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Client.html">
+							Client<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Client.Adapter.html">
+							Adapter						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Client.OAuth.html">
+							OAuth						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Error.html">
+							Error						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.html">
+							Helper<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.Annotate.html">
+							Annotate						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.State.html">
+							State<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.State.Renderer.html">
+							Renderer						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.Subscriber.html">
+							Subscriber<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Helper.Subscriber.Log.html">
+							Log						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.html">
+							Model<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ApiClient.html">
+							ApiClient						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Cart.html">
+							Cart						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CartDiscount.html">
+							CartDiscount						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Category.html">
+							Category						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Channel.html">
+							Channel						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Common.html">
+							Common						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Customer.html">
+							Customer						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomerGroup.html">
+							CustomerGroup						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomField.html">
+							CustomField						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.CustomObject.html">
+							CustomObject						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.DiscountCode.html">
+							DiscountCode						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Extension.html">
+							Extension						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Inventory.html">
+							Inventory						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Message.html">
+							Message						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Order.html">
+							Order						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.OrderEdit.html">
+							OrderEdit						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Payment.html">
+							Payment						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Product.html">
+							Product<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Product.Search.html">
+							Search						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ProductDiscount.html">
+							ProductDiscount						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ProductType.html">
+							ProductType						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Project.html">
+							Project						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Review.html">
+							Review						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ShippingMethod.html">
+							ShippingMethod						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.ShoppingList.html">
+							ShoppingList						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.State.html">
+							State						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Store.html">
+							Store						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Subscription.html">
+							Subscription						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.TaxCategory.html">
+							TaxCategory						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Type.html">
+							Type						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Model.Zone.html">
+							Zone						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.html">
+							Request<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ApiClients.html">
+							ApiClients						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CartDiscounts.html">
+							CartDiscounts<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CartDiscounts.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Carts.html">
+							Carts<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Carts.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Categories.html">
+							Categories<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Categories.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Channels.html">
+							Channels<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Channels.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomerGroups.html">
+							CustomerGroups<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomerGroups.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Customers.html">
+							Customers<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Customers.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.html">
+							CustomField<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomField.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.CustomObjects.html">
+							CustomObjects						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.DiscountCodes.html">
+							DiscountCodes<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.DiscountCodes.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Extensions.html">
+							Extensions<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Extensions.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.GraphQL.html">
+							GraphQL						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.InStores.html">
+							InStores						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Inventory.html">
+							Inventory<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Inventory.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Me.html">
+							Me						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Messages.html">
+							Messages						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.html">
+							OrderEdits<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.Command.html">
+							Command						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.StagedOrder.html">
+							StagedOrder<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.OrderEdits.StagedOrder.Command.html">
+							Command						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Orders.html">
+							Orders<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Orders.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Payments.html">
+							Payments<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Payments.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductDiscounts.html">
+							ProductDiscounts<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductDiscounts.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Products.html">
+							Products<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Products.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductTypes.html">
+							ProductTypes<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductTypes.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Project.html">
+							Project<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Project.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Query.html">
+							Query						</a>
+							</li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Reviews.html">
+							Reviews<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Reviews.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShippingMethods.html">
+							ShippingMethods<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShippingMethods.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShoppingLists.html">
+							ShoppingLists<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ShoppingLists.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.States.html">
+							States<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.States.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.html">
+							Stores<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Stores.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Subscriptions.html">
+							Subscriptions<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Subscriptions.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.TaxCategories.html">
+							TaxCategories<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.TaxCategories.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.html">
+							Types<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Types.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Zones.html">
+							Zones<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Zones.Command.html">
+							Command						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Response.html">
+							Response						</a>
+							</li>
+								</ul></li></ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Commercetools.Core.Builder.Request.ApiClientRequestBuilder.html">ApiClientRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html">CartDiscountRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.CartRequestBuilder.html">CartRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.CategoryRequestBuilder.html">CategoryRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.ChannelRequestBuilder.html">ChannelRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.CustomerGroupRequestBuilder.html">CustomerGroupRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html">CustomerRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.CustomObjectRequestBuilder.html">CustomObjectRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.DiscountCodeRequestBuilder.html">DiscountCodeRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.ExtensionRequestBuilder.html">ExtensionRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.GraphQLRequestBuilder.html">GraphQLRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.InventoryRequestBuilder.html">InventoryRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.MeCartRequestBuilder.html">MeCartRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.MeOrderRequestBuilder.html">MeOrderRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.MeRequestBuilder.html">MeRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.MessageRequestBuilder.html">MessageRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.OrderEditRequestBuilder.html">OrderEditRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.OrderRequestBuilder.html">OrderRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.PaymentRequestBuilder.html">PaymentRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.ProductDiscountRequestBuilder.html">ProductDiscountRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.ProductProjectionRequestBuilder.html">ProductProjectionRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.ProductRequestBuilder.html">ProductRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.ProductTypeRequestBuilder.html">ProductTypeRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.ProjectRequestBuilder.html">ProjectRequestBuilder</a></li>
+				<li class="active"><a href="class-Commercetools.Core.Builder.Request.RequestBuilder.html">RequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.ReviewRequestBuilder.html">ReviewRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.ShippingMethodRequestBuilder.html">ShippingMethodRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.ShoppingListRequestBuilder.html">ShoppingListRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.StateRequestBuilder.html">StateRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.StoreRequestBuilder.html">StoreRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.SubscriptionRequestBuilder.html">SubscriptionRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.TaxCategoryRequestBuilder.html">TaxCategoryRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.TypeRequestBuilder.html">TypeRequestBuilder</a></li>
+				<li><a href="class-Commercetools.Core.Builder.Request.ZoneRequestBuilder.html">ZoneRequestBuilder</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class RequestBuilder</h1>
+
+
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Builder.html">Builder</a>\<a href="namespace-Commercetools.Core.Builder.Request.html">Request</a><br>
+
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#8-274" title="Go to source code">Core/Builder/Request/RequestBuilder.php</a>
+		<br>
+	</div>
+
+
+
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2>Methods summary</h2></div>
+			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="apiClients" id="_apiClients">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.ApiClientRequestBuilder.html">Commercetools\Core\Builder\Request\ApiClientRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_apiClients">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#10-16" title="Go to source code">apiClients</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.ApiClientRequestBuilder.html">Commercetools\Core\Builder\Request\ApiClientRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="cartDiscounts" id="_cartDiscounts">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html">Commercetools\Core\Builder\Request\CartDiscountRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_cartDiscounts">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#18-24" title="Go to source code">cartDiscounts</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.CartDiscountRequestBuilder.html">Commercetools\Core\Builder\Request\CartDiscountRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="carts" id="_carts">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.CartRequestBuilder.html">Commercetools\Core\Builder\Request\CartRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_carts">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#26-32" title="Go to source code">carts</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.CartRequestBuilder.html">Commercetools\Core\Builder\Request\CartRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="categories" id="_categories">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.CategoryRequestBuilder.html">Commercetools\Core\Builder\Request\CategoryRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_categories">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#34-40" title="Go to source code">categories</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.CategoryRequestBuilder.html">Commercetools\Core\Builder\Request\CategoryRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="channels" id="_channels">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.ChannelRequestBuilder.html">Commercetools\Core\Builder\Request\ChannelRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_channels">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#42-48" title="Go to source code">channels</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.ChannelRequestBuilder.html">Commercetools\Core\Builder\Request\ChannelRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="customObjects" id="_customObjects">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.CustomObjectRequestBuilder.html">Commercetools\Core\Builder\Request\CustomObjectRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_customObjects">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#50-56" title="Go to source code">customObjects</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.CustomObjectRequestBuilder.html">Commercetools\Core\Builder\Request\CustomObjectRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="customerGroups" id="_customerGroups">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.CustomerGroupRequestBuilder.html">Commercetools\Core\Builder\Request\CustomerGroupRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_customerGroups">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#58-64" title="Go to source code">customerGroups</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.CustomerGroupRequestBuilder.html">Commercetools\Core\Builder\Request\CustomerGroupRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="customers" id="_customers">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html">Commercetools\Core\Builder\Request\CustomerRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_customers">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#66-72" title="Go to source code">customers</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.CustomerRequestBuilder.html">Commercetools\Core\Builder\Request\CustomerRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="discountCodes" id="_discountCodes">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.DiscountCodeRequestBuilder.html">Commercetools\Core\Builder\Request\DiscountCodeRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_discountCodes">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#74-80" title="Go to source code">discountCodes</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.DiscountCodeRequestBuilder.html">Commercetools\Core\Builder\Request\DiscountCodeRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="extensions" id="_extensions">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.ExtensionRequestBuilder.html">Commercetools\Core\Builder\Request\ExtensionRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_extensions">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#82-88" title="Go to source code">extensions</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.ExtensionRequestBuilder.html">Commercetools\Core\Builder\Request\ExtensionRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="graphQL" id="_graphQL">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.GraphQLRequestBuilder.html">Commercetools\Core\Builder\Request\GraphQLRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_graphQL">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#90-96" title="Go to source code">graphQL</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.GraphQLRequestBuilder.html">Commercetools\Core\Builder\Request\GraphQLRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="inventory" id="_inventory">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.InventoryRequestBuilder.html">Commercetools\Core\Builder\Request\InventoryRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_inventory">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#98-104" title="Go to source code">inventory</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.InventoryRequestBuilder.html">Commercetools\Core\Builder\Request\InventoryRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="me" id="_me">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.MeRequestBuilder.html">Commercetools\Core\Builder\Request\MeRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_me">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#106-112" title="Go to source code">me</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.MeRequestBuilder.html">Commercetools\Core\Builder\Request\MeRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="messages" id="_messages">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.MessageRequestBuilder.html">Commercetools\Core\Builder\Request\MessageRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_messages">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#114-120" title="Go to source code">messages</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.MessageRequestBuilder.html">Commercetools\Core\Builder\Request\MessageRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="orderEdits" id="_orderEdits">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.OrderEditRequestBuilder.html">Commercetools\Core\Builder\Request\OrderEditRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_orderEdits">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#122-128" title="Go to source code">orderEdits</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.OrderEditRequestBuilder.html">Commercetools\Core\Builder\Request\OrderEditRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="orders" id="_orders">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.OrderRequestBuilder.html">Commercetools\Core\Builder\Request\OrderRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_orders">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#130-136" title="Go to source code">orders</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.OrderRequestBuilder.html">Commercetools\Core\Builder\Request\OrderRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="payments" id="_payments">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.PaymentRequestBuilder.html">Commercetools\Core\Builder\Request\PaymentRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_payments">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#138-144" title="Go to source code">payments</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.PaymentRequestBuilder.html">Commercetools\Core\Builder\Request\PaymentRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="productDiscounts" id="_productDiscounts">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.ProductDiscountRequestBuilder.html">Commercetools\Core\Builder\Request\ProductDiscountRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_productDiscounts">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#146-152" title="Go to source code">productDiscounts</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.ProductDiscountRequestBuilder.html">Commercetools\Core\Builder\Request\ProductDiscountRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="productProjections" id="_productProjections">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.ProductProjectionRequestBuilder.html">Commercetools\Core\Builder\Request\ProductProjectionRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_productProjections">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#154-160" title="Go to source code">productProjections</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.ProductProjectionRequestBuilder.html">Commercetools\Core\Builder\Request\ProductProjectionRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="productTypes" id="_productTypes">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.ProductTypeRequestBuilder.html">Commercetools\Core\Builder\Request\ProductTypeRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_productTypes">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#162-168" title="Go to source code">productTypes</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.ProductTypeRequestBuilder.html">Commercetools\Core\Builder\Request\ProductTypeRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="products" id="_products">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.ProductRequestBuilder.html">Commercetools\Core\Builder\Request\ProductRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_products">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#170-176" title="Go to source code">products</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.ProductRequestBuilder.html">Commercetools\Core\Builder\Request\ProductRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="project" id="_project">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.ProjectRequestBuilder.html">Commercetools\Core\Builder\Request\ProjectRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_project">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#178-184" title="Go to source code">project</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.ProjectRequestBuilder.html">Commercetools\Core\Builder\Request\ProjectRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reviews" id="_reviews">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.ReviewRequestBuilder.html">Commercetools\Core\Builder\Request\ReviewRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reviews">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#186-192" title="Go to source code">reviews</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.ReviewRequestBuilder.html">Commercetools\Core\Builder\Request\ReviewRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="shippingMethods" id="_shippingMethods">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.ShippingMethodRequestBuilder.html">Commercetools\Core\Builder\Request\ShippingMethodRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_shippingMethods">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#194-200" title="Go to source code">shippingMethods</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.ShippingMethodRequestBuilder.html">Commercetools\Core\Builder\Request\ShippingMethodRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="shoppingLists" id="_shoppingLists">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.ShoppingListRequestBuilder.html">Commercetools\Core\Builder\Request\ShoppingListRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_shoppingLists">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#202-208" title="Go to source code">shoppingLists</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.ShoppingListRequestBuilder.html">Commercetools\Core\Builder\Request\ShoppingListRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="states" id="_states">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.StateRequestBuilder.html">Commercetools\Core\Builder\Request\StateRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_states">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#210-216" title="Go to source code">states</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.StateRequestBuilder.html">Commercetools\Core\Builder\Request\StateRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="stores" id="_stores">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.StoreRequestBuilder.html">Commercetools\Core\Builder\Request\StoreRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_stores">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#218-224" title="Go to source code">stores</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.StoreRequestBuilder.html">Commercetools\Core\Builder\Request\StoreRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="subscriptions" id="_subscriptions">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.SubscriptionRequestBuilder.html">Commercetools\Core\Builder\Request\SubscriptionRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_subscriptions">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#226-232" title="Go to source code">subscriptions</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.SubscriptionRequestBuilder.html">Commercetools\Core\Builder\Request\SubscriptionRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="taxCategories" id="_taxCategories">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.TaxCategoryRequestBuilder.html">Commercetools\Core\Builder\Request\TaxCategoryRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_taxCategories">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#234-240" title="Go to source code">taxCategories</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.TaxCategoryRequestBuilder.html">Commercetools\Core\Builder\Request\TaxCategoryRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="types" id="_types">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.TypeRequestBuilder.html">Commercetools\Core\Builder\Request\TypeRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_types">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#242-248" title="Go to source code">types</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.TypeRequestBuilder.html">Commercetools\Core\Builder\Request\TypeRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="zones" id="_zones">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Builder.Request.ZoneRequestBuilder.html">Commercetools\Core\Builder\Request\ZoneRequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_zones">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#250-256" title="Go to source code">zones</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.ZoneRequestBuilder.html">Commercetools\Core\Builder\Request\ZoneRequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="request" id="_request">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Request.PsrRequest.html">Commercetools\Core\Request\PsrRequest</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_request">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#258-265" title="Go to source code">request</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$request</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Request.PsrRequest.html">Commercetools\Core\Request\PsrRequest</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="of" id="_of">
+
+			<td class="attributes"><code>
+				 public static
+				<code><a href="class-Commercetools.Core.Builder.Request.RequestBuilder.html">Commercetools\Core\Builder\Request\RequestBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_of">#</a>
+			<code><a href="source-class-Commercetools.Core.Builder.Request.RequestBuilder.html#267-273" title="Go to source code">of</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Builder.Request.RequestBuilder.html">Commercetools\Core\Builder\Request\RequestBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+			</table>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
+<script src="elementlist.js?60346864f86b9ad7417096013482905e3b9e52ae"></script>
+</body>
+</html>
