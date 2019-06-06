@@ -7,12 +7,14 @@ php:
 - 7.1
 - 7.2
 - 7.3
+- 7.4snapshot
 - nightly
 env:
   - GUZZLE=5
   - GUZZLE=6
 matrix:
   allow_failures:
+  - php: 7.4snapshot
   - php: nightly
 services:
 - redis-server
