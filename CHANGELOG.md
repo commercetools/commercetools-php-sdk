@@ -1,3 +1,24 @@
+# [2.8.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.7.0...v2.8.0) (2019-06-06)
+
+
+### Features
+
+* **CartDiscount:** support key attribute ([641a8e0](https://github.com/commercetools/commercetools-php-sdk/commit/641a8e0))
+* **Client:** add client factory for direct usage of guzzle http client ([40a0bd0](https://github.com/commercetools/commercetools-php-sdk/commit/40a0bd0))
+* **ClientLogging:** add CreatedBy and LastModifieldBy fields ([b64d199](https://github.com/commercetools/commercetools-php-sdk/commit/b64d199))
+* **ClientLogging:** support setting X-External-User-ID header ([bc863c7](https://github.com/commercetools/commercetools-php-sdk/commit/bc863c7))
+* **Extension:** support timeoutInMs ([92fcc1b](https://github.com/commercetools/commercetools-php-sdk/commit/92fcc1b))
+* **InStore:** allow only valid in-store endpoints ([b263181](https://github.com/commercetools/commercetools-php-sdk/commit/b263181))
+* **Me:** add MeCartDeleteRequest ([b42424a](https://github.com/commercetools/commercetools-php-sdk/commit/b42424a))
+* **ProductDiscount:** support key attribute ([a06a00d](https://github.com/commercetools/commercetools-php-sdk/commit/a06a00d))
+* **Project:** support external OAuth ([0522fe0](https://github.com/commercetools/commercetools-php-sdk/commit/0522fe0)), closes [#474](https://github.com/commercetools/commercetools-php-sdk/issues/474)
+* **Response:** add method to extract guzzle promise ([bb75909](https://github.com/commercetools/commercetools-php-sdk/commit/bb75909))
+* **Store:** support in-store requests ([526d0ba](https://github.com/commercetools/commercetools-php-sdk/commit/526d0ba))
+* **Store:** support Store model ([a166426](https://github.com/commercetools/commercetools-php-sdk/commit/a166426))
+* **Type:** add new type update actions ([0e5774c](https://github.com/commercetools/commercetools-php-sdk/commit/0e5774c)), closes [#489](https://github.com/commercetools/commercetools-php-sdk/issues/489)
+
+
+
 <a name="2.7.0"></a>
 # [2.7.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.6.0...v2.7.0) (2019-03-20)
 
