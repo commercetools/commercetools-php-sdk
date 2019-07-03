@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\CustomObject
+ * @ramlTestIgnoreFields('key')
  * @link https://docs.commercetools.com/http-api-types.html#reference-types
  * @method string getTypeId()
  * @method CustomObjectReference setTypeId(string $typeId = null)
