@@ -4,7 +4,7 @@ namespace Commercetools\Core\Client\OAuth;
 
 use GuzzleHttp\Client;
 
-class CredentialTokenProvider implements TokenProvider
+class CredentialTokenProvider implements RefreshTokenProvider
 {
     const GRANT_TYPE = 'grant_type';
     const GRANT_TYPE_CLIENT_CREDENTIALS = 'client_credentials';
@@ -59,5 +59,13 @@ class CredentialTokenProvider implements TokenProvider
 
         $body = json_decode((string)$result->getBody(), true);
         return new Token((string)$body[self::ACCESS_TOKEN], (int)$body[self::EXPIRES_IN], $body[self::SCOPE]);
+    }
+
+    /**
+     * @return Token
+     */
+    public function refreshToken()
+    {
+        return $this->getToken();
     }
 }

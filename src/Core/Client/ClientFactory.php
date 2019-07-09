@@ -2,16 +2,16 @@
 
 namespace Commercetools\Core\Client;
 
-use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Commercetools\Core\Cache\CacheAdapterFactory;
+use Commercetools\Core\Client\OAuth\CacheTokenProvider;
 use Commercetools\Core\Client\OAuth\ClientCredentials;
 use Commercetools\Core\Client\OAuth\CredentialTokenProvider;
 use Commercetools\Core\Client\OAuth\OAuth2Handler;
+use Commercetools\Core\Client\OAuth\RefreshTokenProvider;
 use Commercetools\Core\Client\OAuth\TokenProvider;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\DeprecatedException;
-use Commercetools\Core\Error\InvalidCredentialsError;
 use Commercetools\Core\Error\InvalidTokenException;
 use Commercetools\Core\Error\Message;
 use Commercetools\Core\Helper\CorrelationIdProvider;
@@ -22,8 +22,6 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -53,7 +51,7 @@ class ClientFactory
      * @param Config|array $config
      * @param LoggerInterface $logger
      * @param CacheItemPoolInterface|CacheInterface $cache
-     * @param TokenProvider $provider
+     * @param RefreshTokenProvider $provider
      * @param CacheAdapterFactory $cacheAdapterFactory
      * @return HttpClient
      */
@@ -61,7 +59,7 @@ class ClientFactory
         $config,
         LoggerInterface $logger = null,
         $cache = null,
-        TokenProvider $provider = null,
+        RefreshTokenProvider $provider = null,
         CacheAdapterFactory $cacheAdapterFactory = null
     ) {
         $config = $this->createConfig($config);
@@ -72,11 +70,15 @@ class ClientFactory
             $cacheAdapterFactory = new CacheAdapterFactory($cacheDir);
         }
 
+        $cache = $cacheAdapterFactory->get($cache);
+        if (is_null($cache)) {
+            throw new InvalidArgumentException(Message::INVALID_CACHE_ADAPTER);
+        }
+
         $credentials = $config->getClientCredentials();
         $oauthHandler = $this->getHandler(
             $credentials,
             $config->getOauthUrl(),
-            $cacheAdapterFactory,
             $cache,
             $provider,
             $config->getOAuthClientOptions()
@@ -270,9 +272,8 @@ class ClientFactory
     private function getHandler(
         ClientCredentials $credentials,
         $accessTokenUrl,
-        CacheAdapterFactory $cacheAdapterFactory,
         $cache,
-        TokenProvider $provider = null,
+        RefreshTokenProvider $provider = null,
         array $authClientOptions = []
     ) {
         if (is_null($provider)) {
@@ -281,9 +282,10 @@ class ClientFactory
                 $accessTokenUrl,
                 $credentials
             );
+            $cacheKey = sha1($credentials->getClientId() . $credentials->getScope());
+            $provider = new CacheTokenProvider($provider, $cache, $cacheKey);
         }
-        $cacheKey = sha1($credentials->getClientId() . $credentials->getScope());
-        return new OAuth2Handler($provider, $cache, $cacheAdapterFactory, $cacheKey);
+        return new OAuth2Handler($provider);
     }
 
     /**
