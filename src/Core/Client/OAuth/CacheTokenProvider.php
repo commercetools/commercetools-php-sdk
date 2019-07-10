@@ -47,7 +47,7 @@ class CacheTokenProvider implements RefreshTokenProvider
 
         $token = $this->getCacheToken();
         if (!is_null($token)) {
-            return $token;
+            return new Token($token);
         }
 
         return $this->refreshToken();
@@ -72,11 +72,11 @@ class CacheTokenProvider implements RefreshTokenProvider
         $cache = $this->cache;
         if ($cache instanceof CacheInterface) {
             $var = $cache->get($this->cacheKey, null);
-            return new Token($var);
+            return $var;
         } elseif ($cache instanceof CacheItemPoolInterface) {
             $item = $cache->getItem($this->cacheKey);
             if ($item->isHit()) {
-                return new Token($item->get());
+                return $item->get();
             }
         }
 
