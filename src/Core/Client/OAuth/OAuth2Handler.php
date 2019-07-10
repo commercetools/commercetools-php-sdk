@@ -45,7 +45,7 @@ class OAuth2Handler
      */
     public function getAuthorizationHeader()
     {
-        return 'Bearer ' . $this->getBearerToken();
+        return 'Bearer ' . $this->getBearerToken()->getToken();
     }
 
     public function refreshToken()
@@ -54,7 +54,7 @@ class OAuth2Handler
     }
 
     /**
-     * @return string
+     * @return Token
      */
     private function getBearerToken()
     {
