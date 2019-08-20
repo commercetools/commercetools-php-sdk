@@ -6,6 +6,7 @@
 namespace Commercetools\Core\IntegrationTests\Category;
 
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\TestHelper;
 use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Common\AssetDraft;
@@ -145,7 +146,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('change order hint', 'change-order-hint');
         $category = $this->createCategory($draft);
 
-        $hint = '0.9' . trim(mt_rand(1, 1000));
+        $hint = '0.9' . trim(mt_rand(1, TestHelper::RAND_MAX));
         $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
             ->addAction(CategoryChangeOrderHintAction::ofOrderHint($hint))
         ;

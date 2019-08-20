@@ -1221,7 +1221,7 @@ class CartUpdateRequestTest extends ApiTestCase
             ),
             'custom(testField = "' . $this->getTestRun() . '")',
             LineItemsTarget::of()->setPredicate('1=1'),
-            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
             true,
             true
         );
@@ -1269,7 +1269,7 @@ class CartUpdateRequestTest extends ApiTestCase
                 1,
                 MultiBuyLineItemsTarget::MODE_CHEAPEST
             ),
-            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
             true,
             true
         );
@@ -1328,7 +1328,7 @@ class CartUpdateRequestTest extends ApiTestCase
                 1,
                 MultiBuyCustomLineItemsTarget::MODE_CHEAPEST
             ),
-            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
             true,
             true
         );
@@ -1385,7 +1385,7 @@ class CartUpdateRequestTest extends ApiTestCase
             ),
             '1=1',
             CartDiscountTarget::of()->setType('lineItems')->setPredicate('custom.testField = "' . $this->getTestRun() . '"'),
-            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
             true,
             true
         );

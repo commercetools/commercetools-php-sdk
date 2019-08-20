@@ -6,6 +6,7 @@
 namespace Commercetools\Core\IntegrationTests\ProductDiscount;
 
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\TestHelper;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
@@ -43,7 +44,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
                     ->add(Money::ofCurrencyAndAmount('EUR', 100))
             ),
             '1=1',
-            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
             false
         );
 
@@ -166,7 +167,7 @@ class ProductDiscountUpdateRequestTest extends ApiTestCase
         $productDiscount = $this->createProductDiscount($draft);
 
 
-        $sortOrder = '0.90' . trim((string)mt_rand(1, 1000), '0');
+        $sortOrder = '0.90' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0');
         $request = ProductDiscountUpdateRequest::ofIdAndVersion(
             $productDiscount->getId(),
             $productDiscount->getVersion()

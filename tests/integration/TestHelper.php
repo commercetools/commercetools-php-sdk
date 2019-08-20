@@ -112,6 +112,7 @@ use Commercetools\Core\Model\Type\StringType as CustomStringType;
 
 class TestHelper
 {
+    const RAND_MAX = 10000;
     private static $instance;
 
     private $client;
@@ -314,7 +315,7 @@ class TestHelper
             ),
             '1=1',
             CartDiscountTarget::of()->setType('lineItems')->setPredicate('1=1'),
-            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            '0.9' . trim((string)mt_rand(1, static::RAND_MAX), '0'),
             true,
             true
         );
@@ -367,7 +368,7 @@ class TestHelper
                     ->setProduct($product->getReference())
                     ->setVariantId($product->getMasterData()->getCurrent()->getMasterVariant()->getId()),
                 '1=1',
-                '0.9' . trim((string)mt_rand(1, 1000), '0'),
+                '0.9' . trim((string)mt_rand(1, static::RAND_MAX), '0'),
                 true,
                 false
             );
@@ -710,7 +711,7 @@ class TestHelper
                 LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
                 $discountValue,
                 !is_null($predicate) ? $predicate : '1=1',
-                '0.9' . trim((string)mt_rand(1, 1000), '0'),
+                '0.9' . trim((string)mt_rand(1, static::RAND_MAX), '0'),
                 true
             );
             $request = ProductDiscountCreateRequest::ofDraft($draft);
@@ -736,7 +737,7 @@ class TestHelper
     public function getRegion()
     {
         if (is_null($this->region)) {
-            $this->region = "r" . (string)mt_rand(1, 1000);
+            $this->region = "r" . (string)mt_rand(1, static::RAND_MAX);
         }
 
         return $this->region;
