@@ -29,6 +29,8 @@ use DateTime;
  * @method PriceDraft setCustom(CustomFieldObject $custom = null)
  * @method PriceTierCollection getTiers()
  * @method PriceDraft setTiers(PriceTierCollection $tiers = null)
+ * @method DiscountedPrice getDiscounted()
+ * @method PriceDraft setDiscounted(DiscountedPrice $discounted = null)
  */
 class PriceDraft extends JsonObject
 {
@@ -58,7 +60,8 @@ class PriceDraft extends JsonObject
                 self::DECORATOR => DateTimeDecorator::class
             ],
             static::CUSTOM => [static::TYPE => CustomFieldObject::class],
-            static::TIERS => [static::TYPE => PriceTierCollection::class]
+            static::TIERS => [static::TYPE => PriceTierCollection::class],
+            static::DISCOUNTED => [static::TYPE => DiscountedPrice::class],
         ];
     }
 
