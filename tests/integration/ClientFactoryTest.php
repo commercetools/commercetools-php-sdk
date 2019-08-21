@@ -15,7 +15,8 @@ use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
 use Commercetools\Core\Request\Categories\CategoryQueryRequest;
 use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
-use GuzzleHttp\Client as HttpClient;
+use Commercetools\Core\Client\HttpClient;
+use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response as PsrResponse;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
@@ -27,6 +28,16 @@ class ClientFactoryTest extends ApiTestCase
     public function testOf()
     {
         $this->assertInstanceOf(ClientFactory::class, ClientFactory::of());
+    }
+
+    public function testCustomGuzzleClient()
+    {
+        $this->assertInstanceOf(Client::class, ClientFactory::of()->createCustomClient(Client::class, $this->getClientConfig('manage_project')));
+    }
+
+    public function testCustomClient()
+    {
+        $this->assertInstanceOf(HttpClient::class, ClientFactory::of()->createCustomClient(HttpClient::class, $this->getClientConfig('manage_project')));
     }
 
     public function testCreateClient()
@@ -44,6 +55,58 @@ class ClientFactoryTest extends ApiTestCase
 
         $request = CategoryQueryRequest::of();
         $response = $client->send($request->httpRequest());
+
+        $this->assertInstanceOf(PsrResponse::class, $response);
+
+        $categories = $request->mapFromResponse($response);
+        $this->assertInstanceOf(CategoryCollection::class, $categories);
+
+        $record = current($handler->getRecords());
+        $this->assertStringStartsWith($config->getProject(), $record['context']['X-Correlation-ID'][0]);
+        $this->assertContains((new UserAgentProvider())->getUserAgent(), $record['message']);
+    }
+
+    public function testExecute()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+        $config = $this->getClientConfig('manage_project');
+        $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+        $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+
+        $client = ClientFactory::of()->createClient($config, $logger);
+        $this->assertInstanceOf(HttpClient::class, $client);
+
+        $request = CategoryQueryRequest::of();
+        $response = $client->execute($request);
+
+        $this->assertInstanceOf(PsrResponse::class, $response);
+
+        $categories = $request->mapFromResponse($response);
+        $this->assertInstanceOf(CategoryCollection::class, $categories);
+
+        $record = current($handler->getRecords());
+        $this->assertStringStartsWith($config->getProject(), $record['context']['X-Correlation-ID'][0]);
+        $this->assertContains((new UserAgentProvider())->getUserAgent(), $record['message']);
+    }
+
+    public function testExecuteAsync()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+        $config = $this->getClientConfig('manage_project');
+        $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+        $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+
+        $client = ClientFactory::of()->createClient($config, $logger);
+        $this->assertInstanceOf(HttpClient::class, $client);
+
+        $request = CategoryQueryRequest::of();
+        $response = $client->executeAsync($request)->wait();
 
         $this->assertInstanceOf(PsrResponse::class, $response);
 
