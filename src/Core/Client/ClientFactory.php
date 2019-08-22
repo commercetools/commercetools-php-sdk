@@ -15,6 +15,8 @@ use Commercetools\Core\Error\DeprecatedException;
 use Commercetools\Core\Error\InvalidTokenException;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\ContextAwareInterface;
 use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -61,7 +63,8 @@ class ClientFactory
         LoggerInterface $logger = null,
         $cache = null,
         RefreshTokenProvider $provider = null,
-        CacheAdapterFactory $cacheAdapterFactory = null
+        CacheAdapterFactory $cacheAdapterFactory = null,
+        Context $context = null
     ) {
         $config = $this->createConfig($config);
 
@@ -87,7 +90,12 @@ class ClientFactory
 
         $options = $this->getDefaultOptions($config);
 
-        return $this->createGuzzle6Client($clientClass, $options, $oauthHandler, $logger, $config->getCorrelationIdProvider());
+        $client = $this->createGuzzle6Client($clientClass, $options, $oauthHandler, $logger, $config->getCorrelationIdProvider());
+
+        if ($client instanceof ContextAwareInterface) {
+            $client->setContext($context);
+        }
+        return $client;
     }
 
     /**
@@ -103,9 +111,10 @@ class ClientFactory
         LoggerInterface $logger = null,
         $cache = null,
         TokenProvider $provider = null,
-        CacheAdapterFactory $cacheAdapterFactory = null
+        CacheAdapterFactory $cacheAdapterFactory = null,
+        Context $context = null
     ) {
-        return $this->createCustomClient(HttpClient::class, $config, $logger, $cache, $provider, $cacheAdapterFactory);
+        return $this->createCustomClient(HttpClient::class, $config, $logger, $cache, $provider, $cacheAdapterFactory, $context);
     }
 
     private function getDefaultOptions(Config $config)
