@@ -7,6 +7,7 @@
 namespace Commercetools\Core\IntegrationTests\ProductDiscount;
 
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\TestHelper;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
@@ -33,7 +34,7 @@ class ProductDiscountQueryRequestTest extends ApiTestCase
                     ->add(Money::ofCurrencyAndAmount('EUR', 100))
             ),
             '1=1',
-            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
             false
         );
 

@@ -9,7 +9,6 @@ use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Message\Message;
 use Symfony\Component\Yaml\Yaml;
 
-
 class RamlModelTest extends AbstractModelTest
 {
     const RAML_MODEL_PATH = __DIR__ . '/../../../vendor/commercetools/commercetools-api-reference/types/';
@@ -29,10 +28,6 @@ class RamlModelTest extends AbstractModelTest
         $validFields = array_flip($validFields);
         $t = new \ReflectionClass($className);
         $missingFields = [];
-        if ($t->isSubclassOf(Message::class)) {
-            $messageFields = array_flip(array_keys((new Message())->fieldDefinitions()));
-            $validFields = array_merge($validFields, $messageFields);
-        }
         foreach ($this->fieldDefinitions($className) as $fieldKey => $field) {
             if (!isset($validFields[$fieldKey])) {
                 $missingFields[] = $fieldKey;
@@ -69,10 +64,6 @@ class RamlModelTest extends AbstractModelTest
     public function modelFieldType($className, array $validFields = [])
     {
         $t = new \ReflectionClass($className);
-        if ($t->isSubclassOf(Message::class)) {
-            $messageFields = array_flip(array_keys((new Message())->fieldDefinitions()));
-            $validFields = array_merge($validFields, $messageFields);
-        }
         $wrongTypes = [];
         foreach ($this->fieldDefinitions($className) as $fieldKey => $field) {
             $expectedFieldType = $validFields[$fieldKey]['type'];
@@ -281,7 +272,7 @@ class RamlModelTest extends AbstractModelTest
         );
 
         $data = array_map(
-            function($modelClass) use ($fixtureClasses){
+            function ($modelClass) use ($fixtureClasses) {
                 return [
                     'class' => $modelClass,
                     'hasFixture' => isset($fixtureClasses[$modelClass])
@@ -323,13 +314,14 @@ class RamlModelTest extends AbstractModelTest
     }
 
 
-    public function objectFieldProvider(array $modelClasses, $classNameField = 'modelClass') {
+    public function objectFieldProvider(array $modelClasses, $classNameField = 'modelClass')
+    {
         $ramlInfos = $this->getRamlTypes();
 
         $fixtures = $this->getFixtures($modelClasses, $ramlInfos, $classNameField);
 
         return array_map(
-            function ($fixture) use ($classNameField){
+            function ($fixture) use ($classNameField) {
                 return [$fixture[$classNameField], array_keys($fixture['fields'])];
             },
             array_filter(
@@ -341,13 +333,14 @@ class RamlModelTest extends AbstractModelTest
         );
     }
 
-    public function objectFieldTypeProvider(array $modelClasses, $classNameField = 'modelClass') {
+    public function objectFieldTypeProvider(array $modelClasses, $classNameField = 'modelClass')
+    {
         $ramlInfos = $this->getRamlTypes();
 
         $fixtures = $this->getFixtures($modelClasses, $ramlInfos, $classNameField);
 
         return array_map(
-            function ($fixture) use ($classNameField){
+            function ($fixture) use ($classNameField) {
                 return [$fixture[$classNameField], $fixture['fields']];
             },
             array_filter(
@@ -359,7 +352,8 @@ class RamlModelTest extends AbstractModelTest
         );
     }
 
-    private function getRamlTypes() {
+    private function getRamlTypes()
+    {
         if (empty($this->ramlTypes)) {
             $ramlTypesFile = static::RAML_MODEL_PATH . 'types.raml';
             if (!file_exists($ramlTypesFile)) {
@@ -424,7 +418,9 @@ class RamlModelTest extends AbstractModelTest
                 array_keys($ramlType['properties']),
                 $ramlType['properties']
             );
-            $properties = array_combine(array_map(function ($property) { return $property['name'];}, $properties), $properties);
+            $properties = array_combine(array_map(function ($property) {
+                return $property['name'];
+            }, $properties), $properties);
         } else {
             $properties = [];
         }
@@ -435,7 +431,8 @@ class RamlModelTest extends AbstractModelTest
         return $parentProperties;
     }
 
-    private function mergeProperty($parentProperty, $property) {
+    private function mergeProperty($parentProperty, $property)
+    {
         foreach ($property as $key => $value) {
             if (is_array($property[$key])) {
                 $parentPropertyValue = isset($parentProperty[$key]) ? $parentProperty[$key] : [];

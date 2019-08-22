@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\IntegrationTests\Me;
 
+use Cache\Adapter\PHPArray\ArrayCachePool;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Client;
 use Commercetools\Core\Config;
@@ -207,7 +208,9 @@ class MeOrderRequestTest extends ApiTestCase
         $logger = new Logger('testOauth');
         $logger->pushHandler($handler);
 
-        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
+        $cache = new ArrayCachePool();
+
+        $client = Client::ofConfigCacheAndLogger($config, $cache, $this->getLogger());
         $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()])->setLogger($logger);
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
 
@@ -237,7 +240,8 @@ class MeOrderRequestTest extends ApiTestCase
             ->setPassword($customerDraft->getPassword())
         ;
 
-        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
+        $cache = new ArrayCachePool();
+        $client = Client::ofConfigCacheAndLogger($config, $cache, $this->getLogger());
         $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
 

@@ -7,6 +7,7 @@
 namespace Commercetools\Core\IntegrationTests\CartDiscount;
 
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\TestHelper;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
@@ -34,7 +35,7 @@ class CartDiscountQueryRequestTest extends ApiTestCase
             ),
             '1=1',
             CartDiscountTarget::of()->setType('lineItems')->setPredicate('1=1'),
-            '0.9' . trim((string)mt_rand(1, 1000), '0'),
+            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
             true,
             false
         );

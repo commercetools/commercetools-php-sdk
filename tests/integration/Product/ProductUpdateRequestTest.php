@@ -682,7 +682,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $this->assertNotSame($product->getVersion(), $result->getVersion());
         $product = $result;
 
-        $orderHint = '0.9' . trim((string)mt_rand(1, 1000), '0');
+        $orderHint = '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0');
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(ProductSetCategoryOrderHintAction::ofCategoryId($category->getId())->setOrderHint($orderHint))
         ;
@@ -1791,11 +1791,11 @@ class ProductUpdateRequestTest extends ApiTestCase
                 ProductPublishAction::of()
             )
         ;
+        sleep(1);
+
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
-
-        sleep(1);
 
         $this->assertInstanceOf(Product::class, $result);
         $this->assertNotSame($product->getVersion(), $result->getVersion());

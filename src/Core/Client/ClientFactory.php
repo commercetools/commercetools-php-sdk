@@ -13,11 +13,10 @@ use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\DeprecatedException;
 use Commercetools\Core\Error\InvalidTokenException;
-use Commercetools\Core\Error\Message;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Response\AbstractApiResponse;
-use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
@@ -48,14 +47,16 @@ class ClientFactory
     }
 
     /**
+     * @param string $clientClass
      * @param Config|array $config
      * @param LoggerInterface $logger
      * @param CacheItemPoolInterface|CacheInterface $cache
      * @param RefreshTokenProvider $provider
      * @param CacheAdapterFactory $cacheAdapterFactory
-     * @return HttpClient
+     * @return Client
      */
-    public function createClient(
+    public function createCustomClient(
+        $clientClass,
         $config,
         LoggerInterface $logger = null,
         $cache = null,
@@ -86,7 +87,25 @@ class ClientFactory
 
         $options = $this->getDefaultOptions($config);
 
-        return $this->createGuzzle6Client($options, $oauthHandler, $logger, $config->getCorrelationIdProvider());
+        return $this->createGuzzle6Client($clientClass, $options, $oauthHandler, $logger, $config->getCorrelationIdProvider());
+    }
+
+    /**
+     * @param Config|array $config
+     * @param LoggerInterface $logger
+     * @param CacheItemPoolInterface|CacheInterface $cache
+     * @param TokenProvider $provider
+     * @param CacheAdapterFactory $cacheAdapterFactory
+     * @return HttpClient
+     */
+    public function createClient(
+        $config,
+        LoggerInterface $logger = null,
+        $cache = null,
+        TokenProvider $provider = null,
+        CacheAdapterFactory $cacheAdapterFactory = null
+    ) {
+        return $this->createCustomClient(HttpClient::class, $config, $logger, $cache, $provider, $cacheAdapterFactory);
     }
 
     private function getDefaultOptions(Config $config)
@@ -122,12 +141,15 @@ class ClientFactory
     }
 
     /**
+     * @param string $clientClass
      * @param array $options
-     * @param LoggerInterface|null $logger
      * @param OAuth2Handler $oauthHandler
-     * @return HttpClient
+     * @param LoggerInterface|null $logger
+     * @param CorrelationIdProvider|null $correlationIdProvider
+     * @return Client
      */
     private function createGuzzle6Client(
+        $clientClass,
         array $options,
         OAuth2Handler $oauthHandler,
         LoggerInterface $logger = null,
@@ -176,7 +198,7 @@ class ClientFactory
             }), 'ctp_correlation_id');
         }
 
-        $client = new HttpClient($options);
+        $client = new $clientClass($options);
 
         return $client;
     }

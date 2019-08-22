@@ -131,6 +131,7 @@ require '../vendor/autoload.php';
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Client\ClientFactory;
 use Commercetools\Core\Config;
+use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Model\Common\Context;
 
 $config = [
@@ -146,13 +147,13 @@ $config = Config::fromArray($config)->setContext($context)->setThrowExceptions(t
  * execute the request and get the PHP Object
  * (the client can and should be re-used)
  */
-$search = RequestBuilder::of()->productProjections()->search()
+$request = RequestBuilder::of()->productProjections()->search()
     ->addParam('text.en', 'red');
 
 $client = ClientFactory::of()->createClient($config);
 
 try {
-    $response = $client->send($request->httpRequest());
+    $response = $client->execute($request);
 } catch (ApiException $exception) {
     throw new \Exception("Ooops! Something happened.", 0, $exception);
 }
