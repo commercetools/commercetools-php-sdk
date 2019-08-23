@@ -17,6 +17,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupDraft;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
+use Commercetools\Core\Model\Message\MessagesConfigurationDraft;
 use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountValue;
@@ -29,6 +30,7 @@ use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
@@ -251,7 +253,7 @@ class ApiTestCase extends TestCase
                 $request->addAction(ProjectChangeCountriesAction::ofCountries(['FR', 'DE', 'ES', 'US']));
             }
             if ($project->getMessages()->getEnabled() === false) {
-                $request->addAction(ProjectChangeMessagesEnabledAction::ofMessagesEnabled(true));
+                $request->addAction(ProjectChangeMessagesConfigurationAction::ofDraft(MessagesConfigurationDraft::of()->setEnabled(true)));
             }
 
             if ($request->hasActions()) {

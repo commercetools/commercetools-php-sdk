@@ -55,6 +55,7 @@ class ClientFactory
      * @param CacheItemPoolInterface|CacheInterface $cache
      * @param RefreshTokenProvider $provider
      * @param CacheAdapterFactory $cacheAdapterFactory
+     * @param Context|null $context
      * @return Client
      */
     public function createCustomClient(
@@ -104,6 +105,7 @@ class ClientFactory
      * @param CacheItemPoolInterface|CacheInterface $cache
      * @param TokenProvider $provider
      * @param CacheAdapterFactory $cacheAdapterFactory
+     * @param Context|null $context
      * @return HttpClient
      */
     public function createClient(
