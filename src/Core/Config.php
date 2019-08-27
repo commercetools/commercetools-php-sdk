@@ -318,11 +318,16 @@ class Config implements ContextAwareInterface
     }
 
     /**
+     * @param string|null $grantType
      * @return string
      */
-    public function getOauthUrl()
+    public function getOauthUrl($grantType = null)
     {
-        switch ($this->getGrantType()) {
+        if (is_null($grantType)) {
+            $grantType = $this->getGrantType();
+        }
+
+        switch ($grantType) {
             case static::GRANT_TYPE_ANONYMOUS:
                 return $this->oauthUrl . '/oauth/' . $this->getProject() . '/anonymous/token';
             case static::GRANT_TYPE_PASSWORD:
