@@ -53,7 +53,7 @@ class ClientFactory
      * @param Config|array $config
      * @param LoggerInterface $logger
      * @param CacheItemPoolInterface|CacheInterface $cache
-     * @param RefreshTokenProvider $provider
+     * @param TokenProvider $provider
      * @param CacheAdapterFactory $cacheAdapterFactory
      * @param Context|null $context
      * @return Client
@@ -63,7 +63,7 @@ class ClientFactory
         $config,
         LoggerInterface $logger = null,
         $cache = null,
-        RefreshTokenProvider $provider = null,
+        TokenProvider $provider = null,
         CacheAdapterFactory $cacheAdapterFactory = null,
         Context $context = null
     ) {
@@ -195,10 +195,12 @@ class ClientFactory
             Middleware::mapRequest($oauthHandler),
             'oauth_2_0'
         );
-        $handler->push(
-            self::reauthenticate($oauthHandler),
-            'reauthenticate'
-        );
+        if ($oauthHandler->refreshable()) {
+            $handler->push(
+                self::reauthenticate($oauthHandler),
+                'reauthenticate'
+            );
+        }
 
         if (!is_null($correlationIdProvider)) {
             $handler->push(Middleware::mapRequest(function (RequestInterface $request) use ($correlationIdProvider) {
@@ -296,7 +298,6 @@ class ClientFactory
     /**
      * @param ClientCredentials $credentials
      * @param string $accessTokenUrl
-     * @param CacheAdapterFactory $cacheAdapterFactory
      * @param CacheItemPoolInterface|CacheInterface $cache
      * @param TokenProvider $provider
      * @param array $authClientOptions
@@ -306,7 +307,7 @@ class ClientFactory
         ClientCredentials $credentials,
         $accessTokenUrl,
         $cache,
-        RefreshTokenProvider $provider = null,
+        TokenProvider $provider = null,
         array $authClientOptions = []
     ) {
         if (is_null($provider)) {

@@ -3,6 +3,7 @@
 namespace Commercetools\Core\Client\OAuth;
 
 use Commercetools\Core\Cache\CacheAdapterFactory;
+use Commercetools\Core\Error\InvalidArgumentException;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\SimpleCache\CacheInterface;
@@ -22,7 +23,7 @@ class OAuth2Handler
      * @param string $cacheKey
      */
     public function __construct(
-        RefreshTokenProvider $provider
+        TokenProvider $provider
     ) {
         $this->provider = $provider;
     }
@@ -50,7 +51,10 @@ class OAuth2Handler
 
     public function refreshToken()
     {
-        return $this->provider->refreshToken();
+        if ($this->provider instanceof RefreshTokenProvider) {
+            return $this->provider->refreshToken();
+        }
+        throw new InvalidArgumentException();
     }
 
     /**
@@ -59,5 +63,13 @@ class OAuth2Handler
     private function getBearerToken()
     {
         return $this->provider->getToken();
+    }
+
+    /**
+     * @return bool
+     */
+    public function refreshable()
+    {
+        return ($this->provider instanceof RefreshTokenProvider);
     }
 }

@@ -5,7 +5,10 @@ namespace Commercetools\Core\IntegrationTests;
 use Commercetools\Core\Cache\CacheAdapterFactory;
 use Commercetools\Core\Client\ClientFactory;
 use Commercetools\Core\Client\OAuth\OAuth2Handler;
+use Commercetools\Core\Client\OAuth\PreAuthTokenProvider;
+use Commercetools\Core\Client\OAuth\Token;
 use Commercetools\Core\Client\UserAgentProvider;
+use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\ErrorContainer;
 use Commercetools\Core\Error\ErrorResponseException;
@@ -219,5 +222,22 @@ class ClientFactoryTest extends ApiTestCase
         $record = current($handler->getRecords());
         $this->assertStringStartsWith($config->getProject(), $record['context']['X-Correlation-ID'][0]);
         $this->assertContains((new UserAgentProvider())->getUserAgent(), $record['message']);
+    }
+
+    public function testPreAuthProvider()
+    {
+        $provider = $this->prophesize(PreAuthTokenProvider::class);
+        $provider->getToken()->willReturn(new Token('12345'))->shouldBeCalledOnce();
+
+        $client = ClientFactory::of()->createClient(new Config(), null, null, $provider->reveal());
+
+        $this->assertInstanceOf(HttpClient::class, $client);
+
+        $request = CategoryQueryRequest::of();
+        $response = $client->execute($request);
+
+        $this->assertInstanceOf(PsrResponse::class, $response);
+
+        $this->assertSame(401, $response->getStatusCode());
     }
 }
