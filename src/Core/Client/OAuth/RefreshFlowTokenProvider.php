@@ -79,7 +79,7 @@ class RefreshFlowTokenProvider implements RefreshTokenProvider
             'auth' => [$this->credentials->getClientId(), $this->credentials->getClientSecret()]
         ];
 
-        $result = $this->client->post($this->config->getOauthUrl(), $options);
+        $result = $this->client->post($this->accessTokenUrl, $options);
 
         $body = json_decode((string)$result->getBody(), true);
         $token = new Token((string)$body[self::ACCESS_TOKEN], (int)$body[self::EXPIRES_IN], $body[self::SCOPE]);
