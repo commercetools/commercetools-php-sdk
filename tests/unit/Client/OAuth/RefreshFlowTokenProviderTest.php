@@ -23,14 +23,14 @@ class RefreshFlowTokenProviderTest extends TestCase
             ["form_params" => ["grant_type" => "refresh_token", "refresh_token" => "refresh-token"], "auth" => ["client-id", "client-secret"]]
         )
             ->willReturn(new Response(200, [], self::REFRESH_RESPONSE))
-            ->shouldBeCalledOnce();
+            ->shouldBeCalled();
 
         $tokenStorage = $this->prophesize(TokenStorage::class);
-        $tokenStorage->getRefreshToken()->willReturn('refresh-token')->shouldBeCalledOnce();
+        $tokenStorage->getRefreshToken()->willReturn('refresh-token')->shouldBeCalled();
 
         $credentials = $this->prophesize(ClientCredentials::class);
-        $credentials->getClientId()->willReturn('client-id')->shouldBeCalledOnce();
-        $credentials->getClientSecret()->willReturn('client-secret')->shouldBeCalledOnce();
+        $credentials->getClientId()->willReturn('client-id')->shouldBeCalled();
+        $credentials->getClientSecret()->willReturn('client-secret')->shouldBeCalled();
 
         $provider = new RefreshFlowTokenProvider(
             $client->reveal(),
@@ -54,14 +54,14 @@ class RefreshFlowTokenProviderTest extends TestCase
             ["form_params" => ["grant_type" => "refresh_token", "refresh_token" => "refresh-token"], "auth" => ["client-id", "client-secret"]]
         )
             ->willReturn(new Response(200, [], self::REFRESH_RESPONSE))
-            ->shouldBeCalledOnce();
+            ->shouldBeCalled();
 
         $tokenStorage = $this->prophesize(TokenStorage::class);
-        $tokenStorage->getRefreshToken()->willReturn('refresh-token')->shouldBeCalledOnce();
+        $tokenStorage->getRefreshToken()->willReturn('refresh-token')->shouldBeCalled();
 
         $credentials = $this->prophesize(ClientCredentials::class);
-        $credentials->getClientId()->willReturn('client-id')->shouldBeCalledOnce();
-        $credentials->getClientSecret()->willReturn('client-secret')->shouldBeCalledOnce();
+        $credentials->getClientId()->willReturn('client-id')->shouldBeCalled();
+        $credentials->getClientSecret()->willReturn('client-secret')->shouldBeCalled();
 
         $provider = new RefreshFlowTokenProvider(
             $client->reveal(),

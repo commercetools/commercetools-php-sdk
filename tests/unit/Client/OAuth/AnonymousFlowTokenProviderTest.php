@@ -24,12 +24,12 @@ class AnonymousFlowTokenProviderTest extends TestCase
             ["form_params" => ["grant_type" => "client_credentials"], "auth" => ["client-id", "client-secret"]]
         )
             ->willReturn(new Response(200, [], self::ANON_RESPONSE))
-            ->shouldBeCalledOnce();
+            ->shouldBeCalled();
 
         $refreshTokenProvider = $this->prophesize(RefreshFlowTokenProvider::class);
         $credentials = $this->prophesize(ClientCredentials::class);
-        $credentials->getClientId()->willReturn('client-id')->shouldBeCalledOnce();
-        $credentials->getClientSecret()->willReturn('client-secret')->shouldBeCalledOnce();
+        $credentials->getClientId()->willReturn('client-id')->shouldBeCalled();
+        $credentials->getClientSecret()->willReturn('client-secret')->shouldBeCalled();
 
         $provider = new AnonymousFlowTokenProvider(
             $client->reveal(),
@@ -50,7 +50,7 @@ class AnonymousFlowTokenProviderTest extends TestCase
         $client = $this->prophesize(Client::class);
         $credentials = $this->prophesize(ClientCredentials::class);
         $refreshTokenProvider = $this->prophesize(RefreshFlowTokenProvider::class);
-        $refreshTokenProvider->refreshToken()->willReturn(new Token('access-token'))->shouldBeCalledOnce();
+        $refreshTokenProvider->refreshToken()->willReturn(new Token('access-token'))->shouldBeCalled();
 
         $provider = new AnonymousFlowTokenProvider(
             $client->reveal(),
