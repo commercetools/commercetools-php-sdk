@@ -3,12 +3,16 @@
 namespace Commercetools\Core\Client;
 
 use Commercetools\Core\Cache\CacheAdapterFactory;
+use Commercetools\Core\Client\OAuth\AnonymousFlowTokenProvider;
 use Commercetools\Core\Client\OAuth\CacheTokenProvider;
 use Commercetools\Core\Client\OAuth\ClientCredentials;
 use Commercetools\Core\Client\OAuth\CredentialTokenProvider;
 use Commercetools\Core\Client\OAuth\OAuth2Handler;
+use Commercetools\Core\Client\OAuth\RefreshFlowTokenProvider;
 use Commercetools\Core\Client\OAuth\RefreshTokenProvider;
 use Commercetools\Core\Client\OAuth\TokenProvider;
+use Commercetools\Core\Client\OAuth\TokenStorage;
+use Commercetools\Core\Client\OAuth\TokenStorageProvider;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\DeprecatedException;
@@ -117,6 +121,44 @@ class ClientFactory
         Context $context = null
     ) {
         return $this->createCustomClient(HttpClient::class, $config, $logger, $cache, $provider, $cacheAdapterFactory, $context);
+    }
+
+    public function createTokenStorageProviderFor(Config $config, Client $client, TokenStorage $storage)
+    {
+        return $this->createTokenStorageProvider(
+            $config->getOauthUrl(Config::GRANT_TYPE_ANONYMOUS),
+            $config->getOauthUrl(Config::GRANT_TYPE_REFRESH),
+            $config->getClientCredentials(),
+            $client,
+            $storage
+        );
+    }
+
+    public function createTokenStorageProvider($anonTokenUrl, $refreshTokenUrl, ClientCredentials $credentials, Client $client, TokenStorage $storage)
+    {
+        $refreshTokenProvider = $this->createRefreshTokenProvider(
+            $refreshTokenUrl,
+            $credentials,
+            $client,
+            $storage
+        );
+        $anonProvider = $this->createAnonymousProvider(
+            $anonTokenUrl,
+            $credentials,
+            $client,
+            $refreshTokenProvider
+        );
+        return new TokenStorageProvider($storage, $anonProvider);
+    }
+
+    public function createAnonymousProvider($anonTokenUrl, ClientCredentials $credentials, Client $client, RefreshFlowTokenProvider $refreshFlowTokenProvider)
+    {
+        return new AnonymousFlowTokenProvider($client, $anonTokenUrl, $credentials, $refreshFlowTokenProvider);
+    }
+
+    public function createRefreshTokenProvider($refreshTokenUrl, ClientCredentials $credentials, Client $client, TokenStorage $storage)
+    {
+        return new RefreshFlowTokenProvider($client, $refreshTokenUrl, $credentials, $storage);
     }
 
     private function getDefaultOptions(Config $config)
