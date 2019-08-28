@@ -8,6 +8,7 @@ use Commercetools\Core\Client\OAuth\CacheTokenProvider;
 use Commercetools\Core\Client\OAuth\ClientCredentials;
 use Commercetools\Core\Client\OAuth\CredentialTokenProvider;
 use Commercetools\Core\Client\OAuth\OAuth2Handler;
+use Commercetools\Core\Client\OAuth\PasswordFlowTokenProvider;
 use Commercetools\Core\Client\OAuth\RefreshFlowTokenProvider;
 use Commercetools\Core\Client\OAuth\RefreshTokenProvider;
 use Commercetools\Core\Client\OAuth\TokenProvider;
@@ -120,7 +121,15 @@ class ClientFactory
         CacheAdapterFactory $cacheAdapterFactory = null,
         Context $context = null
     ) {
-        return $this->createCustomClient(HttpClient::class, $config, $logger, $cache, $provider, $cacheAdapterFactory, $context);
+        return $this->createCustomClient(
+            HttpClient::class,
+            $config,
+            $logger,
+            $cache,
+            $provider,
+            $cacheAdapterFactory,
+            $context
+        );
     }
 
     public function createTokenStorageProviderFor(Config $config, Client $client, TokenStorage $storage)
@@ -134,15 +143,20 @@ class ClientFactory
         );
     }
 
-    public function createTokenStorageProvider($anonTokenUrl, $refreshTokenUrl, ClientCredentials $credentials, Client $client, TokenStorage $storage)
-    {
-        $refreshTokenProvider = $this->createRefreshTokenProvider(
+    public function createTokenStorageProvider(
+        $anonTokenUrl,
+        $refreshTokenUrl,
+        ClientCredentials $credentials,
+        Client $client,
+        TokenStorage $storage
+    ) {
+        $refreshTokenProvider = $this->createRefreshFlowProvider(
             $refreshTokenUrl,
             $credentials,
             $client,
             $storage
         );
-        $anonProvider = $this->createAnonymousProvider(
+        $anonProvider = $this->createAnonymousFlowProvider(
             $anonTokenUrl,
             $credentials,
             $client,
@@ -151,13 +165,40 @@ class ClientFactory
         return new TokenStorageProvider($storage, $anonProvider);
     }
 
-    public function createAnonymousProvider($anonTokenUrl, ClientCredentials $credentials, Client $client, RefreshFlowTokenProvider $refreshFlowTokenProvider)
+    public function createPasswordFlowProviderFor(Config $config, Client $client, TokenStorage $storage)
     {
+        return $this->createPasswordFlowProvider(
+            $config->getOauthUrl(Config::GRANT_TYPE_PASSWORD),
+            $config->getClientCredentials(),
+            $client,
+            $storage
+        );
+    }
+
+    public function createPasswordFlowProvider(
+        $passwordTokenUrl,
+        ClientCredentials $credentials,
+        Client $client,
+        TokenStorage $storage
+    ) {
+        return new PasswordFlowTokenProvider($client, $passwordTokenUrl, $credentials, $storage);
+    }
+
+    public function createAnonymousFlowProvider(
+        $anonTokenUrl,
+        ClientCredentials $credentials,
+        Client $client,
+        RefreshFlowTokenProvider $refreshFlowTokenProvider
+    ) {
         return new AnonymousFlowTokenProvider($client, $anonTokenUrl, $credentials, $refreshFlowTokenProvider);
     }
 
-    public function createRefreshTokenProvider($refreshTokenUrl, ClientCredentials $credentials, Client $client, TokenStorage $storage)
-    {
+    public function createRefreshFlowProvider(
+        $refreshTokenUrl,
+        ClientCredentials $credentials,
+        Client $client,
+        TokenStorage $storage
+    ) {
         return new RefreshFlowTokenProvider($client, $refreshTokenUrl, $credentials, $storage);
     }
 
