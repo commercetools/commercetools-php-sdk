@@ -10,7 +10,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class HttpClient extends Client implements ContextAwareInterface
+class ApiClient extends Client implements ContextAwareInterface
 {
     use ContextTrait;
 

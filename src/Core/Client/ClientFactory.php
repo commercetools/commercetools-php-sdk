@@ -105,7 +105,7 @@ class ClientFactory
      * @param TokenProvider $provider
      * @param CacheAdapterFactory $cacheAdapterFactory
      * @param Context|null $context
-     * @return HttpClient
+     * @return ApiClient
      */
     public function createClient(
         $config,
@@ -116,7 +116,7 @@ class ClientFactory
         Context $context = null
     ) {
         return $this->createCustomClient(
-            HttpClient::class,
+            ApiClient::class,
             $config,
             $logger,
             $cache,
@@ -319,7 +319,7 @@ class ClientFactory
     ) {
         if (is_null($provider)) {
             $provider = new CredentialTokenProvider(
-                new HttpClient($authClientOptions),
+                new ApiClient($authClientOptions),
                 $accessTokenUrl,
                 $credentials
             );
@@ -380,7 +380,7 @@ class ClientFactory
     private static function isGuzzle6()
     {
         if (is_null(self::$isGuzzle6)) {
-            if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            if (version_compare(Client::VERSION, '6.0.0', '>=')) {
                 self::$isGuzzle6 = true;
             } else {
                 self::$isGuzzle6 = false;
