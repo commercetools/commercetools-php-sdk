@@ -38,23 +38,31 @@ class AnonymousFlowTokenProvider implements RefreshTokenProvider
      */
     private $refreshTokenProvider;
 
+    /**
+     * @var AnonymousIdProvider
+     */
+    private $anonymousIdProvider;
+
 
     /**
      * @param Client $client
      * @param $accessTokenUrl
      * @param ClientCredentials $credentials
      * @param RefreshFlowTokenProvider $refreshTokenProvider
+     * @param AnonymousIdProvider|null $anonymousIdProvider
      */
     public function __construct(
         Client $client,
         $accessTokenUrl,
         ClientCredentials $credentials,
-        RefreshFlowTokenProvider $refreshTokenProvider
+        RefreshFlowTokenProvider $refreshTokenProvider,
+        AnonymousIdProvider $anonymousIdProvider = null
     ) {
         $this->accessTokenUrl = $accessTokenUrl;
         $this->client = $client;
         $this->credentials = $credentials;
         $this->refreshTokenProvider = $refreshTokenProvider;
+        $this->anonymousIdProvider = $anonymousIdProvider;
     }
 
     /**
@@ -65,6 +73,9 @@ class AnonymousFlowTokenProvider implements RefreshTokenProvider
         $data = [
             self::GRANT_TYPE => self::GRANT_TYPE_CLIENT_CREDENTIALS,
         ];
+        if ($this->anonymousIdProvider) {
+            $data['anonymous_id'] = $this->anonymousIdProvider->getAnonymousId();
+        }
         $options = [
             'form_params' => $data,
             'auth' => [$this->credentials->getClientId(), $this->credentials->getClientSecret()]

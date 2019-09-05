@@ -4,6 +4,7 @@ namespace Commercetools\Core\Client;
 
 use Commercetools\Core\Cache\CacheAdapterFactory;
 use Commercetools\Core\Client\OAuth\AnonymousFlowTokenProvider;
+use Commercetools\Core\Client\OAuth\AnonymousIdProvider;
 use Commercetools\Core\Client\OAuth\CacheTokenProvider;
 use Commercetools\Core\Client\OAuth\ClientCredentials;
 use Commercetools\Core\Client\OAuth\CredentialTokenProvider;
@@ -111,7 +112,7 @@ class ClientFactory
      * @param TokenProvider $provider
      * @param CacheAdapterFactory $cacheAdapterFactory
      * @param Context|null $context
-     * @return HttpClient
+     * @return ApiClient
      */
     public function createClient(
         $config,
@@ -122,7 +123,7 @@ class ClientFactory
         Context $context = null
     ) {
         return $this->createCustomClient(
-            HttpClient::class,
+            ApiClient::class,
             $config,
             $logger,
             $cache,
@@ -132,14 +133,15 @@ class ClientFactory
         );
     }
 
-    public function createTokenStorageProviderFor(Config $config, Client $client, TokenStorage $storage)
+    public function createTokenStorageProviderFor(Config $config, Client $client, TokenStorage $storage, AnonymousIdProvider $anonymousIdProvider = null)
     {
         return $this->createTokenStorageProvider(
             $config->getOauthUrl(Config::GRANT_TYPE_ANONYMOUS),
             $config->getOauthUrl(Config::GRANT_TYPE_REFRESH),
             $config->getClientCredentials(),
             $client,
-            $storage
+            $storage,
+            $anonymousIdProvider
         );
     }
 
@@ -148,7 +150,8 @@ class ClientFactory
         $refreshTokenUrl,
         ClientCredentials $credentials,
         Client $client,
-        TokenStorage $storage
+        TokenStorage $storage,
+        AnonymousIdProvider $anonymousIdProvider = null
     ) {
         $refreshTokenProvider = $this->createRefreshFlowProvider(
             $refreshTokenUrl,
@@ -160,7 +163,8 @@ class ClientFactory
             $anonTokenUrl,
             $credentials,
             $client,
-            $refreshTokenProvider
+            $refreshTokenProvider,
+            $anonymousIdProvider
         );
         return new TokenStorageProvider($storage, $anonProvider);
     }
@@ -188,9 +192,10 @@ class ClientFactory
         $anonTokenUrl,
         ClientCredentials $credentials,
         Client $client,
-        RefreshFlowTokenProvider $refreshFlowTokenProvider
+        RefreshFlowTokenProvider $refreshFlowTokenProvider,
+        AnonymousIdProvider $anonymousIdProvider = null
     ) {
-        return new AnonymousFlowTokenProvider($client, $anonTokenUrl, $credentials, $refreshFlowTokenProvider);
+        return new AnonymousFlowTokenProvider($client, $anonTokenUrl, $credentials, $refreshFlowTokenProvider, $anonymousIdProvider);
     }
 
     public function createRefreshFlowProvider(
@@ -395,7 +400,7 @@ class ClientFactory
     ) {
         if (is_null($provider)) {
             $provider = new CredentialTokenProvider(
-                new HttpClient($authClientOptions),
+                new ApiClient($authClientOptions),
                 $accessTokenUrl,
                 $credentials
             );
@@ -456,7 +461,7 @@ class ClientFactory
     private static function isGuzzle6()
     {
         if (is_null(self::$isGuzzle6)) {
-            if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            if (version_compare(Client::VERSION, '6.0.0', '>=')) {
                 self::$isGuzzle6 = true;
             } else {
                 self::$isGuzzle6 = false;
