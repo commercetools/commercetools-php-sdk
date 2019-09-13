@@ -6,6 +6,8 @@
 
 namespace Commercetools\Core\IntegrationTests\Me;
 
+use Commercetools\Core\Client\ClientFactory;
+use Commercetools\Core\Fixtures\AnonymousId;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Client;
 use Commercetools\Core\Config;
@@ -203,17 +205,12 @@ class MeCartRequestTest extends ApiTestCase
 
     public function testAnonMyCart()
     {
-        $config = $this->getClientConfig(['manage_my_orders', 'create_anonymous_token']);
-        $config->setGrantType(Config::GRANT_TYPE_ANONYMOUS);
-
-        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
-        $client->getHttpClient(['verify' => $this->getVerifySSL()]);
-        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
-
+        $client = $this->getAnonymousMeClient();
         $cartDraft = $this->getMyCartDraft();
         $request = MeCartCreateRequest::ofDraft($cartDraft);
-        $response = $request->executeWithClient($client);
-        $cart = $request->mapResponse($response);
+        $response = $client->execute($request);
+
+        $cart = $request->mapFromResponse($response);
         $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
             $cart->getId(),
             $cart->getVersion()
@@ -222,8 +219,8 @@ class MeCartRequestTest extends ApiTestCase
         $this->assertNotEmpty($cart->getAnonymousId());
 
         $request = MeCartByIdRequest::ofId($cart->getId());
-        $response = $request->executeWithClient($client);
-        $result = $request->mapResponse($response);
+        $response = $client->execute($request);
+        $result = $request->mapFromResponse($response);
 
         $this->assertSame($cart->getId(), $result->getId());
         $this->assertSame($cart->getAnonymousId(), $result->getAnonymousId());
@@ -284,18 +281,13 @@ class MeCartRequestTest extends ApiTestCase
     public function testAnonMyCartWithId()
     {
         $anonId = uniqid();
-        $config = $this->getClientConfig(['manage_my_orders', 'create_anonymous_token']);
-        $config->setGrantType(Config::GRANT_TYPE_ANONYMOUS)
-            ->setAnonymousId($anonId);
-
-        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
-        $client->getHttpClient(['verify' => $this->getVerifySSL()]);
-        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $anonymousIdProvider = new AnonymousId($anonId);
+        $client = $this->getAnonymousMeClient($anonymousIdProvider);
 
         $cartDraft = $this->getMyCartDraft();
         $request = MeCartCreateRequest::ofDraft($cartDraft);
-        $response = $request->executeWithClient($client);
-        $cart = $request->mapResponse($response);
+        $response = $client->execute($request);
+        $cart = $request->mapFromResponse($response);
         $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
             $cart->getId(),
             $cart->getVersion()
@@ -304,8 +296,8 @@ class MeCartRequestTest extends ApiTestCase
         $this->assertSame($anonId, $cart->getAnonymousId());
 
         $request = MeCartByIdRequest::ofId($cart->getId());
-        $response = $request->executeWithClient($client);
-        $result = $request->mapResponse($response);
+        $response = $client->execute($request);
+        $result = $request->mapFromResponse($response);
 
         $this->assertSame($cart->getId(), $result->getId());
         $this->assertSame($anonId, $result->getAnonymousId());
@@ -313,35 +305,25 @@ class MeCartRequestTest extends ApiTestCase
 
     public function testCustomerCreateMyCart()
     {
-        $customerDraft = $this->getCustomerDraft();
-        $customer = $this->getCustomer($customerDraft);
-
-        $config = $this->getClientConfig(['manage_my_orders', 'create_anonymous_token']);
-        $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
-            ->setUsername($customerDraft->getEmail())
-            ->setPassword($customerDraft->getPassword());
-
-        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
-        $client->getHttpClient(['verify' => $this->getVerifySSL()]);
-        $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $client = $this->getCustomerMeClient();
 
         $cartDraft = $this->getMyCartDraft();
         $request = MeCartCreateRequest::ofDraft($cartDraft);
-        $response = $request->executeWithClient($client);
-        $cart = $request->mapResponse($response);
+        $response = $client->execute($request);
+        $cart = $request->mapFromResponse($response);
         $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
             $cart->getId(),
             $cart->getVersion()
         );
 
-        $this->assertSame($customer->getId(), $cart->getCustomerId());
+        $this->assertSame($this->getCustomer()->getId(), $cart->getCustomerId());
 
         $request = MeCartByIdRequest::ofId($cart->getId());
-        $response = $request->executeWithClient($client);
-        $result = $request->mapResponse($response);
+        $response = $client->execute($request);
+        $result = $request->mapFromResponse($response);
 
         $this->assertSame($cart->getId(), $result->getId());
-        $this->assertSame($customer->getId(), $result->getCustomerId());
+        $this->assertSame($this->getCustomer()->getId(), $result->getCustomerId());
     }
 
     public function testCustomerGetMyCart()

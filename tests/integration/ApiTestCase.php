@@ -6,7 +6,11 @@ namespace Commercetools\Core\IntegrationTests;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Commercetools\Core\Client;
+use Commercetools\Core\Client\ClientFactory;
+use Commercetools\Core\Client\ProviderFactory;
+use Commercetools\Core\Client\OAuth\AnonymousIdProvider;
 use Commercetools\Core\Config;
+use Commercetools\Core\Fixtures\InstanceTokenStorage;
 use Commercetools\Core\Fixtures\ManuelActivationStrategy;
 use Commercetools\Core\Fixtures\ProfilerMiddleware;
 use Commercetools\Core\Fixtures\TeamCityFormatter;
@@ -17,6 +21,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupDraft;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
+use Commercetools\Core\Model\Message\MessagesConfigurationDraft;
 use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountValue;
@@ -29,6 +34,7 @@ use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
@@ -42,6 +48,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Yaml\Yaml;
+use GuzzleHttp\Client as HttpClient;
 
 class ApiTestCase extends TestCase
 {
@@ -251,7 +258,7 @@ class ApiTestCase extends TestCase
                 $request->addAction(ProjectChangeCountriesAction::ofCountries(['FR', 'DE', 'ES', 'US']));
             }
             if ($project->getMessages()->getEnabled() === false) {
-                $request->addAction(ProjectChangeMessagesEnabledAction::ofMessagesEnabled(true));
+                $request->addAction(ProjectChangeMessagesConfigurationAction::ofDraft(MessagesConfigurationDraft::of()->setEnabled(true)));
             }
 
             if ($request->hasActions()) {
@@ -582,5 +589,27 @@ class ApiTestCase extends TestCase
     protected function deleteStore()
     {
         TestHelper::getInstance($this->getClient())->deleteStore();
+    }
+
+    public function getAnonymousMeClient(AnonymousIdProvider $anonymousIdProvider = null)
+    {
+        $config = $this->getClientConfig(['view_products', 'manage_my_profile', 'manage_my_orders', 'manage_my_shopping_lists', 'create_anonymous_token']);
+
+        $provider = ProviderFactory::of()->createTokenStorageProviderFor($config, new HttpClient(), new InstanceTokenStorage(), $anonymousIdProvider);
+        return ClientFactory::of()->createClient($config, $this->getLogger(), $this->getCache(), $provider);
+    }
+
+    public function getCustomerMeClient()
+    {
+        $customerDraft = $this->getCustomerDraft();
+        $this->getCustomer($customerDraft);
+
+        $storage = new InstanceTokenStorage();
+        $config = $this->getClientConfig(['view_products', 'manage_my_profile', 'manage_my_orders', 'manage_my_shopping_lists', 'create_anonymous_token']);
+        $provider = ProviderFactory::of()->createPasswordFlowProviderFor($config, new HttpClient(), $storage);
+        $provider->getTokenFor($customerDraft->getEmail(), $customerDraft->getPassword());
+
+        $provider = ProviderFactory::of()->createTokenStorageProviderFor($config, new HttpClient(), $storage);
+        return ClientFactory::of()->createClient($config, $this->getLogger(), $this->getCache(), $provider);
     }
 }

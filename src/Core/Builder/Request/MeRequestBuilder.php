@@ -96,6 +96,14 @@ class MeRequestBuilder
     }
 
     /**
+     * @return MeShoppingListRequestBuilder
+     */
+    public function shoppingLists()
+    {
+        return new MeShoppingListRequestBuilder();
+    }
+
+    /**
      * @param Customer $customer
      * @param string $currentPassword
      * @param string $newPassword

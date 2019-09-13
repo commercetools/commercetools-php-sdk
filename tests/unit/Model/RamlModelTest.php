@@ -569,6 +569,7 @@ class RamlModelTest extends AbstractModelTest
             'Me\MyLineItemDraft' => 'Cart\MyLineItemDraft',
             'Me\MyCartDraft' => 'Cart\MyCartDraft',
             'Me\MyCustomerDraft' => 'Customer\MyCustomerDraft',
+            'Me\MyShoppingListDraft' => 'ShoppingList\MyShoppingListDraft',
             'ProductType\AttributeDateType' => 'ProductType\DateType',
             'ProductType\AttributeSetType' => 'ProductType\SetType',
             'ProductType\AttributeEnumType' => 'ProductType\EnumType',
