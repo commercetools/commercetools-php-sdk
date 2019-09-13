@@ -3,6 +3,7 @@
 namespace Commercetools\Core\Client;
 
 use Commercetools\Core\Client\OAuth\AnonymousFlowTokenProvider;
+use Commercetools\Core\Client\OAuth\AnonymousIdProvider;
 use Commercetools\Core\Client\OAuth\ClientCredentials;
 use Commercetools\Core\Client\OAuth\PasswordFlowTokenProvider;
 use Commercetools\Core\Client\OAuth\RefreshFlowTokenProvider;
@@ -13,14 +14,15 @@ use GuzzleHttp\Client;
 
 class ProviderFactory
 {
-    public function createTokenStorageProviderFor(Config $config, Client $client, TokenStorage $storage)
+    public function createTokenStorageProviderFor(Config $config, Client $client, TokenStorage $storage, AnonymousIdProvider $anonymousIdProvider = null)
     {
         return $this->createTokenStorageProvider(
             $config->getOauthUrl(Config::GRANT_TYPE_ANONYMOUS),
             $config->getOauthUrl(Config::GRANT_TYPE_REFRESH),
             $config->getClientCredentials(),
             $client,
-            $storage
+            $storage,
+            $anonymousIdProvider
         );
     }
 
@@ -29,7 +31,8 @@ class ProviderFactory
         $refreshTokenUrl,
         ClientCredentials $credentials,
         Client $client,
-        TokenStorage $storage
+        TokenStorage $storage,
+        AnonymousIdProvider $anonymousIdProvider = null
     ) {
         $refreshTokenProvider = $this->createRefreshFlowProvider(
             $refreshTokenUrl,
@@ -41,7 +44,8 @@ class ProviderFactory
             $anonTokenUrl,
             $credentials,
             $client,
-            $refreshTokenProvider
+            $refreshTokenProvider,
+            $anonymousIdProvider
         );
         return new TokenStorageProvider($storage, $anonProvider);
     }
@@ -69,9 +73,10 @@ class ProviderFactory
         $anonTokenUrl,
         ClientCredentials $credentials,
         Client $client,
-        RefreshFlowTokenProvider $refreshFlowTokenProvider
+        RefreshFlowTokenProvider $refreshFlowTokenProvider,
+        AnonymousIdProvider $anonymousIdProvider = null
     ) {
-        return new AnonymousFlowTokenProvider($client, $anonTokenUrl, $credentials, $refreshFlowTokenProvider);
+        return new AnonymousFlowTokenProvider($client, $anonTokenUrl, $credentials, $refreshFlowTokenProvider, $anonymousIdProvider);
     }
 
     public function createRefreshFlowProvider(
