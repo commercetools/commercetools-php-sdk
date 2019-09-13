@@ -14,8 +14,12 @@ use GuzzleHttp\Client;
 
 class ProviderFactory
 {
-    public function createTokenStorageProviderFor(Config $config, Client $client, TokenStorage $storage, AnonymousIdProvider $anonymousIdProvider = null)
-    {
+    public function createTokenStorageProviderFor(
+        Config $config,
+        Client $client,
+        TokenStorage $storage,
+        AnonymousIdProvider $anonymousIdProvider = null
+    ) {
         return $this->createTokenStorageProvider(
             $config->getOauthUrl(Config::GRANT_TYPE_ANONYMOUS),
             $config->getOauthUrl(Config::GRANT_TYPE_REFRESH),
@@ -76,7 +80,13 @@ class ProviderFactory
         RefreshFlowTokenProvider $refreshFlowTokenProvider,
         AnonymousIdProvider $anonymousIdProvider = null
     ) {
-        return new AnonymousFlowTokenProvider($client, $anonTokenUrl, $credentials, $refreshFlowTokenProvider, $anonymousIdProvider);
+        return new AnonymousFlowTokenProvider(
+            $client,
+            $anonTokenUrl,
+            $credentials,
+            $refreshFlowTokenProvider,
+            $anonymousIdProvider
+        );
     }
 
     public function createRefreshFlowProvider(
