@@ -30,7 +30,7 @@ class CredentialTokenProvider implements RefreshTokenProvider
     /**
      * @param Client $client
      * @param string $accessTokenUrl
-     * @param array $credentials
+     * @param ClientCredentials $credentials
      */
     public function __construct(Client $client, $accessTokenUrl, ClientCredentials $credentials)
     {

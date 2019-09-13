@@ -26,7 +26,7 @@ class CacheTokenProvider implements RefreshTokenProvider
 
     /**
      * CacheTokenProvider constructor.
-     * @param TokenProvider $tokenProvider
+     * @param RefreshTokenProvider $tokenProvider
      * @param CacheItemPoolInterface|CacheInterface $cache
      * @param string $cacheKey
      */

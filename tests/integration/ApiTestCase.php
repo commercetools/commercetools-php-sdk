@@ -6,7 +6,10 @@ namespace Commercetools\Core\IntegrationTests;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Commercetools\Core\Client;
+use Commercetools\Core\Client\ClientFactory;
+use Commercetools\Core\Client\OAuth\AnonymousIdProvider;
 use Commercetools\Core\Config;
+use Commercetools\Core\Fixtures\InstanceTokenStorage;
 use Commercetools\Core\Fixtures\ManuelActivationStrategy;
 use Commercetools\Core\Fixtures\ProfilerMiddleware;
 use Commercetools\Core\Fixtures\TeamCityFormatter;
@@ -44,6 +47,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Yaml\Yaml;
+use GuzzleHttp\Client as HttpClient;
 
 class ApiTestCase extends TestCase
 {
@@ -584,5 +588,27 @@ class ApiTestCase extends TestCase
     protected function deleteStore()
     {
         TestHelper::getInstance($this->getClient())->deleteStore();
+    }
+
+    public function getAnonymousMeClient(AnonymousIdProvider $anonymousIdProvider = null)
+    {
+        $config = $this->getClientConfig(['view_products', 'manage_my_profile', 'manage_my_orders', 'manage_my_shopping_lists', 'create_anonymous_token']);
+
+        $provider = ClientFactory::of()->createTokenStorageProviderFor($config, new HttpClient(), new InstanceTokenStorage(), $anonymousIdProvider);
+        return ClientFactory::of()->createClient($config, $this->getLogger(), $this->getCache(), $provider);
+    }
+
+    public function getCustomerMeClient()
+    {
+        $customerDraft = $this->getCustomerDraft();
+        $this->getCustomer($customerDraft);
+
+        $storage = new InstanceTokenStorage();
+        $config = $this->getClientConfig(['view_products', 'manage_my_profile', 'manage_my_orders', 'manage_my_shopping_lists', 'create_anonymous_token']);
+        $provider = ClientFactory::of()->createPasswordFlowProviderFor($config, new HttpClient(), $storage);
+        $provider->getTokenFor($customerDraft->getEmail(), $customerDraft->getPassword());
+
+        $provider = ClientFactory::of()->createTokenStorageProviderFor($config, new HttpClient(), $storage);
+        return ClientFactory::of()->createClient($config, $this->getLogger(), $this->getCache(), $provider);
     }
 }
