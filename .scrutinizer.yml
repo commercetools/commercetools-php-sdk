@@ -15,7 +15,7 @@ before_commands:
 build:
   environment:
     php:
-      version: '7.1'
+      version: '7.3'
       ini:
         apc.enabled: 1
         apc.enable_cli: 1
@@ -23,8 +23,6 @@ build:
     my-tests:
       tests:
         override:
-          -
-            command: vendor/bin/behat -f progress
           -
             command: vendor/bin/phpunit --coverage-clover=coverage0
             coverage:
