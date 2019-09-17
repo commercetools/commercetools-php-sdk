@@ -15,6 +15,7 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Cart\ShippingInfo;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\Store\StoreReference;
 use DateTime;
 
 /**
@@ -65,6 +66,8 @@ use DateTime;
  * @method ImportOrder setTaxCalculationMode(string $taxCalculationMode = null)
  * @method AddressCollection getItemShippingAddresses()
  * @method ImportOrder setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
+ * @method StoreReference getStore()
+ * @method ImportOrder setStore(StoreReference $store = null)
  */
 class ImportOrder extends JsonObject
 {
@@ -96,6 +99,7 @@ class ImportOrder extends JsonObject
             'origin' => [static::TYPE => 'string'],
             'taxCalculationMode' => [static::TYPE => 'string'],
             'itemShippingAddresses' => [static::TYPE => AddressCollection::class],
+            'store' => [static::TYPE => StoreReference::class]
         ];
     }
 }

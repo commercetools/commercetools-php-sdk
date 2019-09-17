@@ -22,6 +22,7 @@ use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Order\ProductVariantImportDraft;
 use Commercetools\Core\Model\Order\ShippingInfoImportDraft;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
+use Commercetools\Core\Model\Store\StoreReference;
 use Commercetools\Core\Request\Inventory\InventoryByIdGetRequest;
 use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
 use Commercetools\Core\Request\Inventory\InventoryDeleteRequest;
@@ -73,6 +74,7 @@ class OrderImportRequestTest extends ApiTestCase
             'invalidOrigin' => ['invalidOrigin', false],
         ];
     }
+
     /**
      * @return ImportOrder
      */
@@ -129,6 +131,19 @@ class OrderImportRequestTest extends ApiTestCase
         $this->assertNotNull($order->getId());
         $this->assertNotNull($order->getVersion());
         $this->assertInstanceOf(Order::class, $order);
+    }
+
+    public function testImportOrderStore()
+    {
+        $importOrder = $this->getOrderImportDraft();
+        $store = $this->getStore();
+        $importOrder->setStore(StoreReference::ofKey($store->getKey()));
+        $order = $this->importOrder($importOrder);
+
+        $this->assertNotNull($order->getId());
+        $this->assertNotNull($order->getVersion());
+        $this->assertInstanceOf(Order::class, $order);
+        $this->assertSame($store->getKey(), $order->getStore()->getKey());
     }
 
     /**
