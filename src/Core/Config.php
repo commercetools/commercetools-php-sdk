@@ -331,7 +331,6 @@ class Config implements ContextAwareInterface
             case static::GRANT_TYPE_ANONYMOUS:
                 return $this->oauthUrl . '/oauth/' . $this->getProject() . '/anonymous/token';
             case static::GRANT_TYPE_PASSWORD:
-            case static::GRANT_TYPE_REFRESH:
                 return $this->oauthUrl . '/oauth/' . $this->getProject() . '/customers/token';
             default:
                 return $this->oauthUrl . '/oauth/token';
