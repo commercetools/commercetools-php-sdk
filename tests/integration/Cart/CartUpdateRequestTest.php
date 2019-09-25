@@ -1219,7 +1219,7 @@ class CartUpdateRequestTest extends ApiTestCase
             AbsoluteCartDiscountValue::of()->setMoney(
                 MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
             ),
-            'custom(testField = "' . $this->getTestRun() . '")',
+            'custom.testField = "' . $this->getTestRun() . '"',
             LineItemsTarget::of()->setPredicate('1=1'),
             '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
             true,
@@ -1227,8 +1227,8 @@ class CartUpdateRequestTest extends ApiTestCase
         );
         $request = CartDiscountCreateRequest::ofDraft($draft);
         $response = $request->executeWithClient($this->getClient());
-        TestHelper::getInstance($this->getClient())->setCartDiscount($request->mapResponse($response));
-
+        $cartDiscount = $request->mapFromResponse($response);
+        TestHelper::getInstance($this->getClient())->setCartDiscount($cartDiscount);
         $discountCode = $this->getDiscountCode();
 
         $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
@@ -1241,7 +1241,7 @@ class CartUpdateRequestTest extends ApiTestCase
         $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
 
         $this->assertSame(
-            TestHelper::getInstance($this->getClient())->getCartDiscount()->getId(),
+            $cartDiscount->getId(),
             $cart->getLineItems()->current()
                 ->getDiscountedPricePerQuantity()->current()
                 ->getDiscountedPrice()->getIncludedDiscounts()->current()
