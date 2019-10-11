@@ -28,6 +28,6 @@ build:
             coverage:
               file: 'coverage0'
               format: 'php-clover'
-          - command: php-scrutinizer-run
+          - command: php-scrutinizer-run --enable-security-analysis
 filter:
     excluded_paths: [build/*, tests/*, docroot/*, features/*, src/Core/Helper/Annotate/*, src/Core/Helper/State/*, src/Core/Helper/Subscriber/*]
