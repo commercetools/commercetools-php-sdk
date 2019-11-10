@@ -9,11 +9,13 @@ namespace Commercetools\Core\IntegrationTests\Customer;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
+use Commercetools\Core\Model\Store\StoreReferenceCollection;
 use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByKeyGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
 use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
 use Commercetools\Core\Request\Customers\CustomerQueryRequest;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 
 class CustomerQueryRequestTest extends ApiTestCase
 {
@@ -85,5 +87,64 @@ class CustomerQueryRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Customer::class, $customer);
         $this->assertSame($customer->getId(), $result->getId());
+    }
+
+    public function testInstoreGetById()
+    {
+        $store = $this->getStore();
+        $draft = $this->getDraft()->setStores(StoreReferenceCollection::of()->add($store->getReference()));
+        $customer = $this->createCustomer($draft);
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $store->getKey(),
+            CustomerQueryRequest::of()
+        );
+
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertInstanceOf(Customer::class, $customer);
+        $this->assertSame($customer->getId(), $result->getId());
+        $this->assertSame($customer->getStores()->current()->getId(), $result->getStores()->current()->getId());
+    }
+
+    public function testInstoreGetByKey()
+    {
+        $store = $this->getStore();
+        $draft = $this->getDraft()->setStores(StoreReferenceCollection::of()->add($store->getReference()));
+        $draft->setKey('test-'. $this->getTestRun());
+        $customer = $this->createCustomer($draft);
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $store->getKey(),
+            CustomerQueryRequest::of()
+        );
+        $response = $request->executeWithClient($this->getClient());
+        /**
+         * @var Customer $result
+         */
+        $result = $request->mapFromResponse($response);
+
+        $this->assertInstanceOf(Customer::class, $customer);
+        $this->assertSame($customer->getId(), $result->getId());
+        $this->assertSame($customer->getStores()->current()->getKey(), $result->getStores()->current()->getKey());
+    }
+
+    public function testInstoreQueryCustomer()
+    {
+        $store = $this->getStore();
+        $draft = $this->getDraft();
+        $customer = $this->createCustomer($draft);
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $store->getKey(),
+            CustomerQueryRequest::of()->where('email="' . $draft->getEmail() . '"')
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf(Customer::class, $result->getAt(0));
+        $this->assertSame($customer->getId(), $result->getAt(0)->getId());
     }
 }
