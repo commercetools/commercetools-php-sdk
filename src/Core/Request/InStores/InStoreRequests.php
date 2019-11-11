@@ -12,7 +12,6 @@ use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartQueryRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest;
-use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByKeyGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByTokenGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
@@ -23,6 +22,8 @@ use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordResetRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest;
 use Commercetools\Core\Request\Customers\CustomerQueryRequest;
+use Commercetools\Core\Request\Customers\CustomerUpdateByKeyRequest;
+use Commercetools\Core\Request\Customers\CustomerUpdateRequest;
 use Commercetools\Core\Request\Me\MeActiveCartRequest;
 use Commercetools\Core\Request\Me\MeCartByIdRequest;
 use Commercetools\Core\Request\Me\MeCartCreateRequest;
@@ -78,6 +79,8 @@ class InStoreRequests
         CustomerEmailTokenRequest::class => 1,
         CustomerByEmailTokenGetRequest::class => 1,
         CustomerEmailConfirmRequest::class => 1,
+        CustomerUpdateRequest::class => 1,
+        CustomerUpdateByKeyRequest::class => 1,
     ];
 
     public function can($request)
