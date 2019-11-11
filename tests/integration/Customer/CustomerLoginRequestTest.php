@@ -12,7 +12,6 @@ use Commercetools\Core\Client\OAuth\Token;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\DuplicateFieldError;
 use Commercetools\Core\Model\Cart\CartState;
-use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\Customer\CustomerToken;
 use Commercetools\Core\Model\Store\StoreReferenceCollection;
@@ -70,10 +69,10 @@ class CustomerLoginRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->cleanupRequests[] = $this->deleteRequest = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, CustomerDeleteRequest::ofIdAndVersion(
+        $this->cleanupRequests[] = $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
             $result->getCustomer()->getId(),
             $result->getCustomer()->getVersion()
-        ));
+        );
         return $result->getCustomer();
     }
 
@@ -501,6 +500,8 @@ class CustomerLoginRequestTest extends ApiTestCase
         );
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
         $this->assertSame($customer->getId(), $result->getId());
 
         $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
