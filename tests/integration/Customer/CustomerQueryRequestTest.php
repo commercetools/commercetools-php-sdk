@@ -133,7 +133,7 @@ class CustomerQueryRequestTest extends ApiTestCase
     public function testInStoreQueryCustomer()
     {
         $store = $this->getStore();
-        $draft = $this->getDraft();
+        $draft = $this->getDraft()->setStores(StoreReferenceCollection::of()->add($store->getReference()));
         $customer = $this->createCustomer($draft);
 
         $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
