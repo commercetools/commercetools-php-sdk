@@ -89,7 +89,7 @@ class CustomerQueryRequestTest extends ApiTestCase
         $this->assertSame($customer->getId(), $result->getId());
     }
 
-    public function testInstoreGetById()
+    public function testInStoreGetById()
     {
         $store = $this->getStore();
         $draft = $this->getDraft()->setStores(StoreReferenceCollection::of()->add($store->getReference()));
@@ -108,7 +108,7 @@ class CustomerQueryRequestTest extends ApiTestCase
         $this->assertSame($customer->getStores()->current()->getId(), $result->getStores()->current()->getId());
     }
 
-    public function testInstoreGetByKey()
+    public function testInStoreGetByKey()
     {
         $store = $this->getStore();
         $draft = $this->getDraft()->setStores(StoreReferenceCollection::of()->add($store->getReference()));
@@ -130,7 +130,7 @@ class CustomerQueryRequestTest extends ApiTestCase
         $this->assertSame($customer->getStores()->current()->getKey(), $result->getStores()->current()->getKey());
     }
 
-    public function testInstoreQueryCustomer()
+    public function testInStoreQueryCustomer()
     {
         $store = $this->getStore();
         $draft = $this->getDraft();
