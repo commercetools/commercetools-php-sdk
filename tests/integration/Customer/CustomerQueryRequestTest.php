@@ -101,7 +101,7 @@ class CustomerQueryRequestTest extends ApiTestCase
         );
 
         $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        $result = $request->mapFromResponse($response);
 
         $this->assertInstanceOf(Customer::class, $customer);
         $this->assertSame($customer->getId(), $result->getId());
@@ -141,7 +141,7 @@ class CustomerQueryRequestTest extends ApiTestCase
             CustomerQueryRequest::of()->where('email="' . $draft->getEmail() . '"')
         );
         $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        $result = $request->mapFromResponse($response);
 
         $this->assertCount(1, $result);
         $this->assertInstanceOf(Customer::class, $result->getAt(0));

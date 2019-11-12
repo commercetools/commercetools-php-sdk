@@ -481,7 +481,7 @@ class CustomerLoginRequestTest extends ApiTestCase
             CustomerPasswordTokenRequest::ofEmail($customer->getEmail())
         );
         $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        $result = $request->mapFromResponse($response);
 
         $token = $result->getValue();
         $this->assertNotEmpty($token);
@@ -491,7 +491,7 @@ class CustomerLoginRequestTest extends ApiTestCase
             CustomerByTokenGetRequest::ofToken($token)
         );
         $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        $result = $request->mapFromResponse($response);
         $this->assertSame($customer->getId(), $result->getId());
 
         $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
@@ -499,7 +499,7 @@ class CustomerLoginRequestTest extends ApiTestCase
             CustomerPasswordResetRequest::ofTokenAndPassword($token, $this->getTestRun())
         );
         $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        $result = $request->mapFromResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertSame($customer->getId(), $result->getId());
@@ -509,7 +509,7 @@ class CustomerLoginRequestTest extends ApiTestCase
             CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $this->getTestRun())
         );
         $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        $result = $request->mapFromResponse($response);
         $this->assertSame($customer->getId(), $result->getCustomer()->getId());
 
         $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
@@ -533,7 +533,7 @@ class CustomerLoginRequestTest extends ApiTestCase
             CustomerEmailTokenRequest::ofIdVersionAndTtl($customer->getId(), $customer->getVersion(), 15)
         );
         $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        $result = $request->mapFromResponse($response);
 
         $token = $result->getValue();
         $this->assertNotEmpty($token);
@@ -543,7 +543,7 @@ class CustomerLoginRequestTest extends ApiTestCase
             CustomerByEmailTokenGetRequest::ofToken($token)
         );
         $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        $result = $request->mapFromResponse($response);
         $this->assertSame($customer->getId(), $result->getId());
 
         $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
@@ -551,7 +551,7 @@ class CustomerLoginRequestTest extends ApiTestCase
             CustomerEmailConfirmRequest::ofToken($token)
         );
         $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        $result = $request->mapFromResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertTrue($result->getIsEmailVerified());

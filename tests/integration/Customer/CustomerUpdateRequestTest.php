@@ -786,7 +786,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
             )
         );
         $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        $result = $request->mapFromResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf(Customer::class, $result);
@@ -809,7 +809,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
             )
         );
         $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        $result = $request->mapFromResponse($response);
         $this->deleteRequest->setVersion($result->getVersion());
 
         $this->assertInstanceOf(Customer::class, $result);
