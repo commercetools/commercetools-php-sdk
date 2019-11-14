@@ -44,6 +44,7 @@ use Commercetools\Core\Request\Customers\CustomerUpdateByKeyRequest;
 use Commercetools\Core\Request\Customers\CustomerUpdateRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 use function GuzzleHttp\Psr7\str;
 
 class CustomerUpdateRequestTest extends ApiTestCase
@@ -73,6 +74,24 @@ class CustomerUpdateRequestTest extends ApiTestCase
             $result->getCustomer()->getId(),
             $result->getCustomer()->getVersion()
         );
+        return $result->getCustomer();
+    }
+
+    protected function createStoreCustomer($storeKey, CustomerDraft $draft)
+    {
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $storeKey,
+            CustomerCreateRequest::ofDraft($draft)
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
+            $result->getCustomer()->getId(),
+            $result->getCustomer()->getVersion()
+        );
+        $this->cleanupRequests[] = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, $this->deleteRequest);
+
         return $result->getCustomer();
     }
 
@@ -752,5 +771,50 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
 
         $this->assertTrue($response->isError());
+    }
+
+    public function testUpdateInStoreCustomerById()
+    {
+        $store = $this->getStore();
+        $draft = $this->getDraft('in-store-update-by-id');
+        $customer = $this->createStoreCustomer($store->getKey(), $draft);
+
+        $firstName = 'test-' . $this->getTestRun() . '-new firstName';
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $store->getKey(),
+            CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
+            ->addAction(
+                CustomerSetFirstNameAction::of()->setFirstName($firstName)
+            )
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Customer::class, $result);
+        $this->assertSame($firstName, $result->getFirstName());
+    }
+
+    public function testUpdateInStoreCustomerByKey()
+    {
+        $store = $this->getStore();
+        $draft = $this->getDraft('in-store-update-by-key');
+        $draft->setKey('test-'. $this->getTestRun());
+        $customer = $this->createStoreCustomer($store->getKey(), $draft);
+
+        $firstName = 'test-' . $this->getTestRun() . '-new firstName';
+        $request =InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $store->getKey(),
+            CustomerUpdateByKeyRequest::ofKeyAndVersion($customer->getKey(), $customer->getVersion())
+            ->addAction(
+                CustomerSetFirstNameAction::of()->setFirstName($firstName)
+            )
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Customer::class, $result);
+        $this->assertSame($firstName, $result->getFirstName());
     }
 }

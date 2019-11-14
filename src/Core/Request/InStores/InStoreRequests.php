@@ -11,6 +11,20 @@ use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartQueryRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
+use Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest;
+use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
+use Commercetools\Core\Request\Customers\CustomerByKeyGetRequest;
+use Commercetools\Core\Request\Customers\CustomerByTokenGetRequest;
+use Commercetools\Core\Request\Customers\CustomerCreateRequest;
+use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
+use Commercetools\Core\Request\Customers\CustomerEmailConfirmRequest;
+use Commercetools\Core\Request\Customers\CustomerEmailTokenRequest;
+use Commercetools\Core\Request\Customers\CustomerLoginRequest;
+use Commercetools\Core\Request\Customers\CustomerPasswordResetRequest;
+use Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest;
+use Commercetools\Core\Request\Customers\CustomerQueryRequest;
+use Commercetools\Core\Request\Customers\CustomerUpdateByKeyRequest;
+use Commercetools\Core\Request\Customers\CustomerUpdateRequest;
 use Commercetools\Core\Request\Me\MeActiveCartRequest;
 use Commercetools\Core\Request\Me\MeCartByIdRequest;
 use Commercetools\Core\Request\Me\MeCartCreateRequest;
@@ -55,6 +69,20 @@ class InStoreRequests
         MeOrderByIdRequest::class => 1,
         MeOrderQueryRequest::class => 1,
         MeOrderCreateFromCartRequest::class => 1,
+        CustomerByIdGetRequest::class => 1,
+        CustomerByKeyGetRequest::class => 1,
+        CustomerQueryRequest::class => 1,
+        CustomerPasswordTokenRequest::class => 1,
+        CustomerCreateRequest::class => 1,
+        CustomerDeleteRequest::class => 1,
+        CustomerByTokenGetRequest::class => 1,
+        CustomerPasswordResetRequest::class => 1,
+        CustomerLoginRequest::class => 1,
+        CustomerEmailTokenRequest::class => 1,
+        CustomerByEmailTokenGetRequest::class => 1,
+        CustomerEmailConfirmRequest::class => 1,
+        CustomerUpdateRequest::class => 1,
+        CustomerUpdateByKeyRequest::class => 1,
     ];
 
     public function can($request)

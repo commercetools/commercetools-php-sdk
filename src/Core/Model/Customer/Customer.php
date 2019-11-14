@@ -15,6 +15,8 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\DateDecorator;
+use Commercetools\Core\Model\Store\StoreReference;
+use Commercetools\Core\Model\Store\StoreReferenceCollection;
 use DateTime;
 
 /**
@@ -75,6 +77,8 @@ use DateTime;
  * @method Customer setCreatedBy(CreatedBy $createdBy = null)
  * @method LastModifiedBy getLastModifiedBy()
  * @method Customer setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
+ * @method StoreReferenceCollection getStores()
+ * @method Customer setStores(StoreReferenceCollection $stores = null)
  * @method CustomerReference getReference()
  */
 class Customer extends Resource
@@ -121,6 +125,7 @@ class Customer extends Resource
             'key' => [static::TYPE => 'string'],
             'createdBy' => [static::TYPE => CreatedBy::class],
             'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'stores' => [static::TYPE => StoreReferenceCollection::class],
         ];
     }
 
