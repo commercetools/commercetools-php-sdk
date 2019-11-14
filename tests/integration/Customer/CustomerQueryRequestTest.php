@@ -52,11 +52,12 @@ class CustomerQueryRequestTest extends ApiTestCase
         $request = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, CustomerCreateRequest::ofDraft($draft));
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
+        $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
             $result->getCustomer()->getId(),
             $result->getCustomer()->getVersion()
         );
+        $this->cleanupRequests[] = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, $this->deleteRequest);
+
         return $result->getCustomer();
     }
 
@@ -105,7 +106,7 @@ class CustomerQueryRequestTest extends ApiTestCase
     public function testInStoreGetById()
     {
         $store = $this->getStore();
-        $draft = $this->getDraft()->setStores(StoreReferenceCollection::of()->add($store->getReference()));
+        $draft = $this->getDraft();
         $customer = $this->createStoreCustomer($store->getKey(), $draft);
 
         $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
@@ -124,7 +125,7 @@ class CustomerQueryRequestTest extends ApiTestCase
     public function testInStoreGetByKey()
     {
         $store = $this->getStore();
-        $draft = $this->getDraft()->setStores(StoreReferenceCollection::of()->add($store->getReference()));
+        $draft = $this->getDraft();
         $draft->setKey('test-'. $this->getTestRun());
         $customer = $this->createStoreCustomer($store->getKey(), $draft);
 
@@ -142,7 +143,7 @@ class CustomerQueryRequestTest extends ApiTestCase
     public function testInStoreQueryCustomer()
     {
         $store = $this->getStore();
-        $draft = $this->getDraft()->setStores(StoreReferenceCollection::of()->add($store->getReference()));
+        $draft = $this->getDraft();
         $customer = $this->createCustomer($draft);
 
         $request = InStoreRequestDecorator::ofStoreKeyAndRequest(

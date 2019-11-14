@@ -86,10 +86,12 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->cleanupRequests[] = $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
+        $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
             $result->getCustomer()->getId(),
             $result->getCustomer()->getVersion()
         );
+        $this->cleanupRequests[] = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, $this->deleteRequest);
+
         return $result->getCustomer();
     }
 
@@ -774,7 +776,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
     public function testUpdateInStoreCustomerById()
     {
         $store = $this->getStore();
-        $draft = $this->getDraft('update-by-id');
+        $draft = $this->getDraft('in-store-update-by-id');
         $customer = $this->createStoreCustomer($store->getKey(), $draft);
 
         $firstName = 'test-' . $this->getTestRun() . '-new firstName';
@@ -796,7 +798,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
     public function testUpdateInStoreCustomerByKey()
     {
         $store = $this->getStore();
-        $draft = $this->getDraft('update-by-key');
+        $draft = $this->getDraft('in-store-update-by-key');
         $draft->setKey('test-'. $this->getTestRun());
         $customer = $this->createStoreCustomer($store->getKey(), $draft);
 

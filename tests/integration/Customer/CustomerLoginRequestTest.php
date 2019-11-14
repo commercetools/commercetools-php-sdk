@@ -69,10 +69,12 @@ class CustomerLoginRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
-        $this->cleanupRequests[] = $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
+        $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
             $result->getCustomer()->getId(),
             $result->getCustomer()->getVersion()
         );
+        $this->cleanupRequests[] = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, $this->deleteRequest);
+
         return $result->getCustomer();
     }
 
@@ -473,7 +475,7 @@ class CustomerLoginRequestTest extends ApiTestCase
     public function testInStorePasswordReset()
     {
         $store = $this->getStore();
-        $draft = $this->getDraft('email')->setStores(StoreReferenceCollection::of()->add($store->getReference()));
+        $draft = $this->getDraft('email');
         $customer = $this->createStoreCustomer($store->getKey(), $draft);
 
         $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
@@ -523,8 +525,8 @@ class CustomerLoginRequestTest extends ApiTestCase
     public function testInStoreVerifyEmail()
     {
         $store = $this->getStore();
-        $draft = $this->getDraft('email')->setStores(StoreReferenceCollection::of()->add($store->getReference()));
-        $customer = $this->createCustomer($draft);
+        $draft = $this->getDraft('email');
+        $customer = $this->createStoreCustomer($store->getKey(), $draft);
 
         $this->assertFalse($customer->getIsEmailVerified());
 
