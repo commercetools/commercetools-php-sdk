@@ -47,6 +47,19 @@ class CustomerQueryRequestTest extends ApiTestCase
         return $result->getCustomer();
     }
 
+    protected function createStoreCustomer($storeKey, CustomerDraft $draft)
+    {
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, CustomerCreateRequest::ofDraft($draft));
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->cleanupRequests[] = $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
+            $result->getCustomer()->getId(),
+            $result->getCustomer()->getVersion()
+        );
+        return $result->getCustomer();
+    }
+
     public function testQuery()
     {
         $draft = $this->getDraft();
@@ -93,11 +106,11 @@ class CustomerQueryRequestTest extends ApiTestCase
     {
         $store = $this->getStore();
         $draft = $this->getDraft()->setStores(StoreReferenceCollection::of()->add($store->getReference()));
-        $customer = $this->createCustomer($draft);
+        $customer = $this->createStoreCustomer($store->getKey(), $draft);
 
         $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
             $store->getKey(),
-            CustomerQueryRequest::of()
+            CustomerByIdGetRequest::ofId($customer->getId())
         );
 
         $response = $request->executeWithClient($this->getClient());
@@ -113,20 +126,16 @@ class CustomerQueryRequestTest extends ApiTestCase
         $store = $this->getStore();
         $draft = $this->getDraft()->setStores(StoreReferenceCollection::of()->add($store->getReference()));
         $draft->setKey('test-'. $this->getTestRun());
-        $customer = $this->createCustomer($draft);
+        $customer = $this->createStoreCustomer($store->getKey(), $draft);
 
         $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
             $store->getKey(),
-            CustomerQueryRequest::of()
+            CustomerByKeyGetRequest::ofKey($customer->getKey())
         );
         $response = $request->executeWithClient($this->getClient());
-        /**
-         * @var Customer $result
-         */
         $result = $request->mapFromResponse($response);
 
         $this->assertInstanceOf(Customer::class, $customer);
-        $this->assertSame($customer->getId(), $result->getId());
         $this->assertSame($customer->getStores()->current()->getKey(), $result->getStores()->current()->getKey());
     }
 
