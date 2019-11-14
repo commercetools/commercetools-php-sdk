@@ -12,6 +12,7 @@ use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartQueryRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest;
+use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByKeyGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByTokenGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
@@ -68,6 +69,7 @@ class InStoreRequests
         MeOrderByIdRequest::class => 1,
         MeOrderQueryRequest::class => 1,
         MeOrderCreateFromCartRequest::class => 1,
+        CustomerByIdGetRequest::class => 1,
         CustomerByKeyGetRequest::class => 1,
         CustomerQueryRequest::class => 1,
         CustomerPasswordTokenRequest::class => 1,

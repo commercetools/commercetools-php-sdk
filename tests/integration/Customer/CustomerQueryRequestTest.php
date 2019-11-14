@@ -9,7 +9,6 @@ namespace Commercetools\Core\IntegrationTests\Customer;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
-use Commercetools\Core\Model\Store\StoreReferenceCollection;
 use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByKeyGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
