@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\OrderEdit;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Order\OrderReference;
@@ -38,5 +39,19 @@ class OrderEditDraft extends JsonObject
             'comment' => [static::TYPE => 'string'],
             'dryRun' => [static::TYPE => 'bool'],
         ];
+    }
+
+    /**
+     * @param OrderReference $resource
+     * @param StagedOrderUpdateActionCollection $stagedActions
+     * @param Context|callable $context
+     * @return OrderEditDraft
+     */
+    public static function ofResourceAndStagedActions(
+        OrderReference $resource,
+        StagedOrderUpdateActionCollection $stagedActions,
+        $context = null
+    ) {
+        return static::of($context)->setResource($resource)->setStagedActions($stagedActions);
     }
 }

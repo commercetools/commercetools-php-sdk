@@ -5,6 +5,7 @@
 namespace Commercetools\Core\Model\Order;
 
 use Commercetools\Core\Model\Cart\DiscountedLineItemPrice;
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
@@ -53,5 +54,30 @@ class ShippingInfoImportDraft extends JsonObject
             'discountedPrice' => [static::TYPE => DiscountedLineItemPrice::class],
             'shippingMethodState' => [static::TYPE => 'string'],
         ];
+    }
+
+    /**
+     * @param string $shippingMethodName
+     * @param Money $price
+     * @param ShippingRate $shippingRate
+     * @param DeliveryCollection $deliveries
+     * @param string $shippingMethodState
+     * @param Context|callable $context
+     * @return ShippingInfoImportDraft
+     */
+    public static function ofNamePriceRateDeliveryAndState(
+        $shippingMethodName,
+        Money $price,
+        ShippingRate $shippingRate,
+        DeliveryCollection $deliveries,
+        $shippingMethodState,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setShippingMethodName($shippingMethodName)
+            ->setPrice($price)
+            ->setShippingRate($shippingRate)
+            ->setDeliveries($deliveries)
+            ->setShippingMethodState($shippingMethodState);
     }
 }

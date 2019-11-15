@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Payment;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\Common\Money;
@@ -158,5 +159,15 @@ class PaymentDraft extends JsonObject
     public function setAuthorizedUntil(Money $amountUntil = null)
     {
         return parent::setAuthorizedUntil($amountUntil);
+    }
+
+    /**
+     * @param Money $amountPlanned
+     * @param Context|callable $context
+     * @return PaymentDraft
+     */
+    public static function ofAmountPlanned(Money $amountPlanned, $context = null)
+    {
+        return static::of($context)->setAmountPlanned($amountPlanned);
     }
 }

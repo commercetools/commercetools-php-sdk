@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\ShoppingList;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
@@ -39,5 +40,15 @@ class TextLineItemDraft extends JsonObject
             ],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
         ];
+    }
+
+    /**
+     * @param LocalizedString $name
+     * @param Context|null $context
+     * @return TextLineItemDraft
+     */
+    public static function ofName($name, $context = null)
+    {
+        return static::of($context)->setName($name);
     }
 }

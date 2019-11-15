@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\ShippingMethod;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\Money;
 
@@ -27,5 +28,15 @@ class ShippingRateDraft extends JsonObject
             'freeAbove' => [static::TYPE => Money::class],
             'tiers' => [static::TYPE => ShippingRatePriceTierCollection::class]
         ];
+    }
+
+    /**
+     * @param Money $price
+     * @param Context|callable $context
+     * @return ShippingRateDraft
+     */
+    public static function ofPrice(Money $price, $context = null)
+    {
+        return static::of($context)->setPrice($price);
     }
 }

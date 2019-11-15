@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Model\Cart;
 
 use Commercetools\Core\Model\Channel\ChannelReference;
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
@@ -34,6 +35,8 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method MyLineItemDraft setCustom(CustomFieldObject $custom = null)
  * @method ItemShippingDetailsDraft getShippingDetails()
  * @method MyLineItemDraft setShippingDetails(ItemShippingDetailsDraft $shippingDetails = null)
+ * @method string getSku()
+ * @method MyLineItemDraft setSku(string $sku = null)
  */
 class MyLineItemDraft extends JsonObject
 {
@@ -46,7 +49,29 @@ class MyLineItemDraft extends JsonObject
             'supplyChannel' => [static::TYPE => ChannelReference::class],
             'distributionChannel' => [static::TYPE => ChannelReference::class],
             'custom' => [static::TYPE => CustomFieldObject::class],
+            'sku' => [static::TYPE => 'string'],
             'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
         ];
+    }
+
+    /**
+     * @param string $productId
+     * @param Context|callable $context
+     * @return MyLineItemDraft
+     */
+    public static function ofProductId($productId, $context = null)
+    {
+        return static::of($context)->setProductId($productId);
+    }
+
+    /**
+     * @param string $sku
+     * @param Context|callable $context
+     * @return MyLineItemDraft
+     */
+    public static function ofSku($sku, $context = null)
+    {
+        $draft = static::of($context);
+        return $draft->setSku($sku);
     }
 }
