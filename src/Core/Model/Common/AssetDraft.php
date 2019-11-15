@@ -37,4 +37,21 @@ class AssetDraft extends JsonObject
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
         ];
     }
+
+    /**
+     * @param AssetSource $sources
+     * @param string $uri
+     * @param LocalizedString $name
+     * @param Context|callable $context
+     * @return AssetDraft
+     */
+    public static function ofSourcesAndName(AssetSource $sources, $uri, LocalizedString $name, $context = null)
+    {
+        $sources->setUri($uri);
+        return static::of($context)
+            ->setSources(AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($uri)
+            ))
+            ->setName($name);
+    }
 }
