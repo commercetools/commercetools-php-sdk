@@ -68,7 +68,6 @@ class CustomLineItemDraft extends JsonObject
             ->setMoney($money)
             ->setSlug($slug);
     }
-//TODO is it correct?
 
     /**
      * @param LocalizedString $name
