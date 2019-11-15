@@ -23,8 +23,10 @@ class ApiClientTest extends ApiTestCase
         $client = $this->getClient(self::API_CLIENTS_SCOPE);
         $project = $client->getConfig()->getProject();
 
-        $apiClientDraft = ApiClientDraft::of()
-            ->setName('test-' . $this->getTestRun())->setScope('view_products:' . $project);
+        $apiClientDraft = ApiClientDraft::ofNameAndScope(
+            'test-' . $this->getTestRun(),
+            'view_products:' . $project
+        );
         $request = ApiClientCreateRequest::ofDraft($apiClientDraft);
         $response = $request->executeWithClient($client);
         $result = $request->mapResponse($response);
