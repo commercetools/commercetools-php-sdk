@@ -1805,10 +1805,7 @@ class ProductUpdateRequestTest extends ApiTestCase
 
         $cartDraft = $this->getCartDraft()->setLineItems(
             LineItemDraftCollection::of()->add(
-                LineItemDraft::of()
-                    ->setProductId($result->getId())
-                    ->setVariantId($resultVariant->getId())
-                    ->setQuantity(1)
+                LineItemDraft::ofProductIdVariantIdAndQuantity($result->getId(), $resultVariant->getId(), 1)
             )
         );
         $cart = $this->getCart($cartDraft);

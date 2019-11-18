@@ -41,14 +41,10 @@ class OrderQueryRequestTest extends ApiTestCase
             ->setLineItems(
                 LineItemDraftCollection::of()
                     ->add(
-                        LineItemDraft::of()
-                            ->setProductId($this->getProduct()->getId())
-                            ->setVariantId(1)
-                            ->setQuantity(1)
+                        LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1)
                     )
-            )
-            ->setShippingMethod($this->getShippingMethod()->getReference())
-        ;
+            );
+        $draft->setShippingMethod($this->getShippingMethod()->getReference());
 
         return $draft;
     }

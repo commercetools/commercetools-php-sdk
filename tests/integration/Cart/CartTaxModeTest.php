@@ -325,11 +325,12 @@ class CartTaxModeTest extends ApiTestCase
         $draft = $this->getDraft();
         $draft->setCustomLineItems(
             CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::ofNameMoneyAndSlug(
+                CustomLineItemDraft::ofNameMoneySlugAndQuantity(
                     LocalizedString::ofLangAndText('en', 'Test'),
                     Money::ofCurrencyAndAmount('EUR', 100),
-                    'test'
-                )->setQuantity(1)
+                    'test',
+                    1
+                )
             )
         );
         $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL);
@@ -367,10 +368,11 @@ class CartTaxModeTest extends ApiTestCase
         $draft = $this->getDraft();
         $draft->setLineItems(
             LineItemDraftCollection::of()->add(
-                LineItemDraft::of()
-                    ->setProductId($product->getId())
-                    ->setQuantity(1)
-                    ->setVariantId($product->getMasterData()->getCurrent()->getMasterVariant()->getId())
+                LineItemDraft::ofProductIdVariantIdAndQuantity(
+                    $product->getId(),
+                    $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
+                    1
+                )
             )
         );
         $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL);
@@ -449,17 +451,17 @@ class CartTaxModeTest extends ApiTestCase
 
         $draft->setLineItems(
             LineItemDraftCollection::of()->add(
-                LineItemDraft::of()
-                    ->setProductId($product->getId())
-                    ->setQuantity(1)
-                    ->setVariantId($product->getMasterData()->getCurrent()->getMasterVariant()->getId())
-                    ->setExternalTaxRate(
-                        ExternalTaxRateDraft::ofNameCountryAndAmount(
-                            $taxRateName,
-                            $taxRateCountry,
-                            $taxRate
-                        )
+                LineItemDraft::ofProductIdVariantIdAndQuantity(
+                    $product->getId(),
+                    $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
+                    1
+                )->setExternalTaxRate(
+                    ExternalTaxRateDraft::ofNameCountryAndAmount(
+                        $taxRateName,
+                        $taxRateCountry,
+                        $taxRate
                     )
+                )
             )
         );
         $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL);

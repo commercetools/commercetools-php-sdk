@@ -109,14 +109,10 @@ class OrderUpdateRequestTest extends ApiTestCase
             ->setLineItems(
                 LineItemDraftCollection::of()
                     ->add(
-                        LineItemDraft::of()
-                            ->setProductId($this->getProduct()->getId())
-                            ->setVariantId(1)
-                            ->setQuantity(1)
+                        LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1)
                     )
-            )
-            ->setShippingMethod($this->getShippingMethod()->getReference())
-        ;
+            );
+        $draft->setShippingMethod($this->getShippingMethod()->getReference());
 
         return $draft;
     }
@@ -776,16 +772,20 @@ class OrderUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $product2 = $request->mapResponse($response);
 
-        $cartDraft->getLineItems()->add(LineItemDraft::ofSku($product2->getMasterData()->getCurrent()->getMasterVariant()->getSku())->setQuantity(1));
+        $cartDraft->getLineItems()->add(LineItemDraft::ofSkuAndQuantity(
+            $product2->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+            1
+        ));
 
         $cartDraft->setCustomLineItems(
             CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::of()
-                    ->setName(LocalizedString::ofLangAndText('en', 'test'))
-                    ->setSlug('test')
-                    ->setQuantity(1)
-                    ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                    ->setTaxCategory($taxCategory->getReference())
+                CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
+                    LocalizedString::ofLangAndText('en', 'test'),
+                    Money::ofCurrencyAndAmount('EUR', 100),
+                    'test',
+                    $taxCategory->getReference(),
+                    1
+                )
             )
         );
         $order = $this->createOrder($cartDraft);
@@ -866,16 +866,20 @@ class OrderUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $product2 = $request->mapResponse($response);
 
-        $cartDraft->getLineItems()->add(LineItemDraft::ofSku($product2->getMasterData()->getCurrent()->getMasterVariant()->getSku())->setQuantity(1));
+        $cartDraft->getLineItems()->add(LineItemDraft::ofSkuAndQuantity(
+            $product2->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+            1
+        ));
 
         $cartDraft->setCustomLineItems(
             CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::of()
-                    ->setName(LocalizedString::ofLangAndText('en', 'test'))
-                    ->setSlug('test')
-                    ->setQuantity(1)
-                    ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                    ->setTaxCategory($taxCategory->getReference())
+                CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
+                    LocalizedString::ofLangAndText('en', 'test'),
+                    Money::ofCurrencyAndAmount('EUR', 100),
+                    'test',
+                    $taxCategory->getReference(),
+                    1
+                )
             )
         );
         $order = $this->createOrder($cartDraft);
@@ -972,16 +976,20 @@ class OrderUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $product2 = $request->mapResponse($response);
 
-        $cartDraft->getLineItems()->add(LineItemDraft::ofSku($product2->getMasterData()->getCurrent()->getMasterVariant()->getSku())->setQuantity(1));
+        $cartDraft->getLineItems()->add(LineItemDraft::ofSkuAndQuantity(
+            $product2->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+            1
+        ));
 
         $cartDraft->setCustomLineItems(
             CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::of()
-                    ->setName(LocalizedString::ofLangAndText('en', 'test'))
-                    ->setSlug('test')
-                    ->setQuantity(1)
-                    ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                    ->setTaxCategory($taxCategory->getReference())
+                CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
+                    LocalizedString::ofLangAndText('en', 'test'),
+                    Money::ofCurrencyAndAmount('EUR', 100),
+                    'test',
+                    $taxCategory->getReference(),
+                    1
+                )
             )
         );
         $order = $this->createOrder($cartDraft);
@@ -1064,16 +1072,21 @@ class OrderUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $product2 = $request->mapResponse($response);
 
-        $cartDraft->getLineItems()->add(LineItemDraft::ofSku($product2->getMasterData()->getCurrent()->getMasterVariant()->getSku())->setQuantity(1));
+        $cartDraft->getLineItems()
+            ->add(LineItemDraft::ofSkuAndQuantity(
+                $product2->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+                1
+            ));
 
         $cartDraft->setCustomLineItems(
             CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::of()
-                    ->setName(LocalizedString::ofLangAndText('en', 'test'))
-                    ->setSlug('test')
-                    ->setQuantity(1)
-                    ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                    ->setTaxCategory($taxCategory->getReference())
+                CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
+                    LocalizedString::ofLangAndText('en', 'test'),
+                    Money::ofCurrencyAndAmount('EUR', 100),
+                    'test',
+                    $taxCategory->getReference(),
+                    1
+                )
             )
         );
         $order = $this->createOrder($cartDraft);
@@ -1156,16 +1169,21 @@ class OrderUpdateRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $product2 = $request->mapResponse($response);
 
-        $cartDraft->getLineItems()->add(LineItemDraft::ofSku($product2->getMasterData()->getCurrent()->getMasterVariant()->getSku())->setQuantity(1));
+        $cartDraft->getLineItems()
+            ->add(LineItemDraft::ofSkuAndQuantity(
+                $product2->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+                1
+            ));
 
         $cartDraft->setCustomLineItems(
             CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::of()
-                    ->setName(LocalizedString::ofLangAndText('en', 'test'))
-                    ->setSlug('test')
-                    ->setQuantity(1)
-                    ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                    ->setTaxCategory($taxCategory->getReference())
+                CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
+                    LocalizedString::ofLangAndText('en', 'test'),
+                    Money::ofCurrencyAndAmount('EUR', 100),
+                    'test',
+                    $taxCategory->getReference(),
+                    1
+                )
             )
         );
         $order = $this->createOrder($cartDraft);
@@ -1329,10 +1347,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         ))->setLineItems(
             LineItemDraftCollection::of()
                 ->add(
-                    LineItemDraft::of()
-                        ->setProductId($this->getProduct()->getId())
-                        ->setVariantId(1)
-                        ->setQuantity(10)
+                    LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 10)
                 )
         );
         $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
@@ -1375,12 +1390,13 @@ class OrderUpdateRequestTest extends ApiTestCase
             Address::of()->setCountry('DE')->setKey('key1')
         ))->setCustomLineItems(
             CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::of()
-                    ->setName(LocalizedString::ofLangAndText('en', 'test'))
-                    ->setSlug('test')
-                    ->setQuantity(10)
-                    ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                    ->setTaxCategory($taxCategory->getReference())
+                CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
+                    LocalizedString::ofLangAndText('en', 'test'),
+                    Money::ofCurrencyAndAmount('EUR', 100),
+                    'test',
+                    $taxCategory->getReference(),
+                    10
+                )
             )
         );
         $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
