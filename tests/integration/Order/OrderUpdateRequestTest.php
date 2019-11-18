@@ -1344,9 +1344,11 @@ class OrderUpdateRequestTest extends ApiTestCase
             ->addAction(
                 OrderSetLineItemShippingDetailsAction::ofLineItemIdAndShippingDetails(
                     $order->getLineItems()->current()->getId(),
-                    ItemShippingDetailsDraft::of()->setTargets(ItemShippingTargetCollection::of()->add(
-                        ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
-                    ))
+                    ItemShippingDetailsDraft::ofTargets(
+                        ItemShippingTargetCollection::of()->add(
+                            ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
+                        )
+                    )
                 )
             );
 
@@ -1390,9 +1392,11 @@ class OrderUpdateRequestTest extends ApiTestCase
             ->addAction(
                 OrderSetCustomLineItemShippingDetailsAction::ofCustomLineItemIdAndShippingDetails(
                     $order->getCustomLineItems()->current()->getId(),
-                    ItemShippingDetailsDraft::of()->setTargets(ItemShippingTargetCollection::of()->add(
-                        ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
-                    ))
+                    ItemShippingDetailsDraft::ofTargets(
+                        ItemShippingTargetCollection::of()->add(
+                            ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
+                        )
+                    )
                 )
             );
 

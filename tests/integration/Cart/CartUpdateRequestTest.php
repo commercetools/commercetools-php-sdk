@@ -1859,10 +1859,11 @@ class CartUpdateRequestTest extends ApiTestCase
         $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
             ->addAction(
                 CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-                    ->setShippingDetails(ItemShippingDetailsDraft::of()
-                        ->setTargets(ItemShippingTargetCollection::of()
+                    ->setShippingDetails(ItemShippingDetailsDraft::ofTargets(
+                        ItemShippingTargetCollection::of()
                             ->add(ItemShippingTarget::of()
-                                ->setQuantity(10)->setAddressKey('key1'))))
+                                ->setQuantity(10)->setAddressKey('key1'))
+                    ))
             );
 
         $response = $request->executeWithClient($this->getClient());
@@ -1904,9 +1905,11 @@ class CartUpdateRequestTest extends ApiTestCase
             ->addAction(
                 CartSetLineItemShippingDetailsAction::ofLineItemIdAndShippingDetails(
                     $cart->getLineItems()->current()->getId(),
-                    ItemShippingDetailsDraft::of()->setTargets(ItemShippingTargetCollection::of()->add(
-                        ItemShippingTarget::of()->setQuantity(20)->setAddressKey('key1')
-                    ))
+                    ItemShippingDetailsDraft::ofTargets(
+                        ItemShippingTargetCollection::of()->add(
+                            ItemShippingTarget::of()->setQuantity(20)->setAddressKey('key1')
+                        )
+                    )
                 )
             );
 
@@ -2028,9 +2031,11 @@ class CartUpdateRequestTest extends ApiTestCase
             ->addAction(
                 CartSetCustomLineItemShippingDetailsAction::ofCustomLineItemIdAndShippingDetails(
                     $cart->getCustomLineItems()->current()->getId(),
-                    ItemShippingDetailsDraft::of()->setTargets(ItemShippingTargetCollection::of()->add(
-                        ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
-                    ))
+                    ItemShippingDetailsDraft::ofTargets(
+                        ItemShippingTargetCollection::of()->add(
+                            ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
+                        )
+                    )
                 )
             );
 
