@@ -331,14 +331,12 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('set keywords', 'add-assets');
         $category = $this->createCategory($draft);
 
-        $assetDraft = AssetDraft::of()
-            ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun()))
-            ->setSources(
-                AssetSourceCollection::of()->add(
-                    AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-                )
-            )
-        ;
+        $assetDraft = AssetDraft::ofSourcesAndName(
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+            ),
+            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        );
         $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
             ->addAction(CategoryAddAssetAction::ofAsset($assetDraft))
         ;
@@ -356,14 +354,12 @@ class CategoryUpdateRequestTest extends ApiTestCase
 
     public function testRemoveAsset()
     {
-        $assetDraft = AssetDraft::of()
-            ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun()))
-            ->setSources(
-                AssetSourceCollection::of()->add(
-                    AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-                )
-            )
-        ;
+        $assetDraft = AssetDraft::ofSourcesAndName(
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+            ),
+            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        );
         $draft = $this->getDraft('set keywords', 'remove-assets');
         $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
         $category = $this->createCategory($draft);
@@ -381,14 +377,12 @@ class CategoryUpdateRequestTest extends ApiTestCase
 
     public function testChangeAssetName()
     {
-        $assetDraft = AssetDraft::of()
-            ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun()))
-            ->setSources(
-                AssetSourceCollection::of()->add(
-                    AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-                )
-            )
-        ;
+        $assetDraft = AssetDraft::ofSourcesAndName(
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+            ),
+            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        );
         $draft = $this->getDraft('set keywords', 'change-assetname');
         $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
         $category = $this->createCategory($draft);
@@ -415,14 +409,12 @@ class CategoryUpdateRequestTest extends ApiTestCase
 
     public function testSetAssetDescription()
     {
-        $assetDraft = AssetDraft::of()
-            ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun()))
-            ->setSources(
-                AssetSourceCollection::of()->add(
-                    AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-                )
-            )
-        ;
+        $assetDraft = AssetDraft::ofSourcesAndName(
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+            ),
+            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        );
         $draft = $this->getDraft('set keywords', 'set-asset-description');
         $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
         $category = $this->createCategory($draft);
@@ -447,14 +439,12 @@ class CategoryUpdateRequestTest extends ApiTestCase
 
     public function testSetAssetTags()
     {
-        $assetDraft = AssetDraft::of()
-            ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun()))
-            ->setSources(
-                AssetSourceCollection::of()->add(
-                    AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-                )
-            )
-        ;
+        $assetDraft = AssetDraft::ofSourcesAndName(
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+            ),
+            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        );
         $draft = $this->getDraft('set keywords', 'set-asset-tags');
         $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
         $category = $this->createCategory($draft);
@@ -479,14 +469,12 @@ class CategoryUpdateRequestTest extends ApiTestCase
 
     public function testSetAssetSources()
     {
-        $assetDraft = AssetDraft::of()
-            ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun()))
-            ->setSources(
-                AssetSourceCollection::of()->add(
-                    AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-                )
-            )
-        ;
+        $assetDraft = AssetDraft::ofSourcesAndName(
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+            ),
+            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        );
         $draft = $this->getDraft('set keywords', 'set-asset-tags');
         $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
         $category = $this->createCategory($draft);
@@ -512,14 +500,12 @@ class CategoryUpdateRequestTest extends ApiTestCase
     public function testSetAssetKey()
     {
         $assetKey = uniqid();
-        $assetDraft = AssetDraft::of()
-            ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun()))
-            ->setSources(
-                AssetSourceCollection::of()->add(
-                    AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-                )
-            )
-        ;
+        $assetDraft = AssetDraft::ofSourcesAndName(
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+            ),
+            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        );
         $draft = $this->getDraft('set keywords', 'change-assetname');
         $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
         $category = $this->createCategory($draft);
@@ -550,15 +536,13 @@ class CategoryUpdateRequestTest extends ApiTestCase
         $category = $this->createCategory($draft);
 
         $assetKey = uniqid();
-        $assetDraft = AssetDraft::of()
-            ->setKey($assetKey)
-            ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun()))
-            ->setSources(
-                AssetSourceCollection::of()->add(
-                    AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-                )
-            )
-        ;
+        $assetDraft = AssetDraft::ofKeySourcesAndName(
+            $assetKey,
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+            ),
+            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        );
         $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
             ->addAction(CategoryAddAssetAction::ofAsset($assetDraft))
         ;
@@ -578,15 +562,13 @@ class CategoryUpdateRequestTest extends ApiTestCase
     public function testRemoveAssetByKey()
     {
         $assetKey = uniqid();
-        $assetDraft = AssetDraft::of()
-            ->setKey($assetKey)
-            ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun()))
-            ->setSources(
-                AssetSourceCollection::of()->add(
-                    AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-                )
-            )
-        ;
+        $assetDraft = AssetDraft::ofKeySourcesAndName(
+            $assetKey,
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+            ),
+            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        );
         $draft = $this->getDraft('set keywords', 'remove-assets');
         $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
         $category = $this->createCategory($draft);
@@ -605,15 +587,13 @@ class CategoryUpdateRequestTest extends ApiTestCase
     public function testChangeAssetNameByKey()
     {
         $assetKey = uniqid();
-        $assetDraft = AssetDraft::of()
-            ->setKey($assetKey)
-            ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun()))
-            ->setSources(
-                AssetSourceCollection::of()->add(
-                    AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-                )
-            )
-        ;
+        $assetDraft = AssetDraft::ofKeySourcesAndName(
+            $assetKey,
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+            ),
+            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        );
         $draft = $this->getDraft('set keywords', 'change-assetname');
         $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
         $category = $this->createCategory($draft);
@@ -641,15 +621,13 @@ class CategoryUpdateRequestTest extends ApiTestCase
     public function testSetAssetDescriptionByKey()
     {
         $assetKey = uniqid();
-        $assetDraft = AssetDraft::of()
-            ->setKey($assetKey)
-            ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun()))
-            ->setSources(
-                AssetSourceCollection::of()->add(
-                    AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-                )
-            )
-        ;
+        $assetDraft = AssetDraft::ofKeySourcesAndName(
+            $assetKey,
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+            ),
+            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        );
         $draft = $this->getDraft('set keywords', 'set-asset-description');
         $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
         $category = $this->createCategory($draft);
@@ -675,15 +653,13 @@ class CategoryUpdateRequestTest extends ApiTestCase
     public function testSetAssetTagsByKey()
     {
         $assetKey = uniqid();
-        $assetDraft = AssetDraft::of()
-            ->setKey($assetKey)
-            ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun()))
-            ->setSources(
-                AssetSourceCollection::of()->add(
-                    AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-                )
-            )
-        ;
+        $assetDraft = AssetDraft::ofKeySourcesAndName(
+            $assetKey,
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+            ),
+            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        );
         $draft = $this->getDraft('set keywords', 'set-asset-tags');
         $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
         $category = $this->createCategory($draft);
@@ -709,15 +685,13 @@ class CategoryUpdateRequestTest extends ApiTestCase
     public function testSetAssetSourcesByKey()
     {
         $assetKey = uniqid();
-        $assetDraft = AssetDraft::of()
-            ->setKey($assetKey)
-            ->setName(LocalizedString::ofLangAndText('en', $this->getTestRun()))
-            ->setSources(
-                AssetSourceCollection::of()->add(
-                    AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-                )
-            )
-        ;
+        $assetDraft = AssetDraft::ofKeySourcesAndName(
+            $assetKey,
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+            ),
+            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        );
         $draft = $this->getDraft('set keywords', 'set-asset-tags');
         $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
         $category = $this->createCategory($draft);

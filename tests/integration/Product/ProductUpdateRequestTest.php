@@ -1495,9 +1495,12 @@ class ProductUpdateRequestTest extends ApiTestCase
         $product = $this->createProduct($draft);
 
         $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
-        $assetDraft = AssetDraft::of()->setSources(AssetSourceCollection::of()->add(
-            AssetSource::of()->setUri('test' . $this->getTestRun())
-        ))->setName(LocalizedString::ofLangAndText('en', 'test'));
+        $assetDraft = AssetDraft::ofSourcesAndName(
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri('test' . $this->getTestRun())
+            ),
+            LocalizedString::ofLangAndText('en', 'test')
+        );
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(ProductAddAssetAction::ofSkuAndAsset($variant->getSku(), $assetDraft))
         ;
@@ -1576,9 +1579,13 @@ class ProductUpdateRequestTest extends ApiTestCase
         $product = $this->createProduct($draft);
 
         $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
-        $assetDraft = AssetDraft::of()->setKey($assetKey)->setSources(AssetSourceCollection::of()->add(
-            AssetSource::of()->setUri('test' . $this->getTestRun())
-        ))->setName(LocalizedString::ofLangAndText('en', 'test'));
+        $assetDraft = AssetDraft::ofKeySourcesAndName(
+            $assetKey,
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri('test' . $this->getTestRun())
+            ),
+            LocalizedString::ofLangAndText('en', 'test')
+        );
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(ProductAddAssetAction::ofSkuAndAsset($variant->getSku(), $assetDraft))
         ;
