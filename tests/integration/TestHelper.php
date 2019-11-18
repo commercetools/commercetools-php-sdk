@@ -604,8 +604,10 @@ class TestHelper
                 ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku')
                     ->setPrices(
                         PriceDraftCollection::of()->add(
-                            PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                                ->setCountry('DE')
+                            PriceDraft::ofMoneyAndCountry(
+                                Money::ofCurrencyAndAmount('EUR', 100),
+                                'DE'
+                            )
                         )
                     )
             )

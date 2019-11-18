@@ -759,8 +759,10 @@ class OrderUpdateRequestTest extends ApiTestCase
                 ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku2')
                     ->setPrices(
                         PriceDraftCollection::of()->add(
-                            PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                                ->setCountry('DE')
+                            PriceDraft::ofMoneyAndCountry(
+                                Money::ofCurrencyAndAmount('EUR', 100),
+                                'DE'
+                            )
                         )
                     )
             )
@@ -853,8 +855,10 @@ class OrderUpdateRequestTest extends ApiTestCase
                 ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku2')
                     ->setPrices(
                         PriceDraftCollection::of()->add(
-                            PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                                ->setCountry('DE')
+                            PriceDraft::ofMoneyAndCountry(
+                                Money::ofCurrencyAndAmount('EUR', 100),
+                                'DE'
+                            )
                         )
                     )
             )
@@ -963,8 +967,10 @@ class OrderUpdateRequestTest extends ApiTestCase
                 ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku2')
                     ->setPrices(
                         PriceDraftCollection::of()->add(
-                            PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                                ->setCountry('DE')
+                            PriceDraft::ofMoneyAndCountry(
+                                Money::ofCurrencyAndAmount('EUR', 100),
+                                'DE'
+                            )
                         )
                     )
             )
@@ -1059,8 +1065,10 @@ class OrderUpdateRequestTest extends ApiTestCase
                 ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku2')
                     ->setPrices(
                         PriceDraftCollection::of()->add(
-                            PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                                ->setCountry('DE')
+                            PriceDraft::ofMoneyAndCountry(
+                                Money::ofCurrencyAndAmount('EUR', 100),
+                                'DE'
+                            )
                         )
                     )
             )
@@ -1156,8 +1164,10 @@ class OrderUpdateRequestTest extends ApiTestCase
                 ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku2')
                     ->setPrices(
                         PriceDraftCollection::of()->add(
-                            PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                                ->setCountry('DE')
+                            PriceDraft::ofMoneyAndCountry(
+                                Money::ofCurrencyAndAmount('EUR', 100),
+                                'DE'
+                            )
                         )
                     )
             )

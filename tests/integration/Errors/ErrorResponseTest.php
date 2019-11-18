@@ -243,7 +243,10 @@ class ErrorResponseTest extends ApiTestCase
             ->addAction(
                 ProductAddPriceAction::ofVariantIdAndPrice(
                     1,
-                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 200))->setCountry('DE')
+                    PriceDraft::ofMoneyAndCountry(
+                        Money::ofCurrencyAndAmount('EUR', 200),
+                        'DE'
+                    )
                 )
             )
         ;
