@@ -54,11 +54,12 @@ class OrderImportRequestTest extends ApiTestCase
             ->setLineItems(
                 LineItemImportDraftCollection::of()
                     ->add(
-                        LineItemImportDraft::of()
-                            ->setName(LocalizedString::ofLangAndText('en', 'test'))
-                            ->setPrice(Price::ofMoney(Money::ofCurrencyAndAmount('EUR', 100)))
-                            ->setVariant(ProductVariantImportDraft::of()->setSku($variant->getSku()))
-                            ->setQuantity(1)
+                        LineItemImportDraft::ofNamePriceVariantAndQuantity(
+                            LocalizedString::ofLangAndText('en', 'test'),
+                            Price::ofMoney(Money::ofCurrencyAndAmount('EUR', 100)),
+                            ProductVariantImportDraft::of()->setSku($variant->getSku()),
+                            1
+                        )
                     )
             )
         ;
@@ -96,11 +97,12 @@ class OrderImportRequestTest extends ApiTestCase
             ->setLineItems(
                 LineItemImportDraftCollection::of()
                     ->add(
-                        LineItemImportDraft::of()
-                            ->setName(LocalizedString::ofLangAndText('en', 'test'))
-                            ->setPrice(Price::ofMoney(Money::ofCurrencyAndAmount('EUR', 100)))
-                            ->setVariant(ProductVariantImportDraft::of()->setSku($variant->getSku()))
-                            ->setQuantity(1)
+                        LineItemImportDraft::ofNamePriceVariantAndQuantity(
+                            LocalizedString::ofLangAndText('en', 'test'),
+                            Price::ofMoney(Money::ofCurrencyAndAmount('EUR', 100)),
+                            ProductVariantImportDraft::of()->setSku($variant->getSku()),
+                            1
+                        )
                     )
             )
         ;

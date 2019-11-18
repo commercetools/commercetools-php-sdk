@@ -73,4 +73,21 @@ class LineItemImportDraft extends JsonObject
     {
         return static::of($context)->setName($name)->setPrice($price)->setQuantity($quantity);
     }
+
+    /**
+     * @param LocalizedString $name
+     * @param Price $price
+     * @param ProductVariantImportDraft $variant
+     * @param int $quantity
+     * @param Context|callable $context
+     * @return LineItemImportDraft
+     */
+    public static function ofNamePriceVariantAndQuantity($name, $price, $variant, $quantity, $context = null)
+    {
+        return static::of($context)
+            ->setName($name)
+            ->setPrice($price)
+            ->setVariant($variant)
+            ->setQuantity($quantity);
+    }
 }
