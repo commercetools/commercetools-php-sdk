@@ -210,11 +210,10 @@ class ChannelUpdateRequestTest extends ApiTestCase
 
         $draft = $this->getDraft('channel-custom');
         $draft->setCustom(
-            CustomFieldObjectDraft::ofTypeKey('channel_custom')
-                ->setFields(
-                    FieldContainer::of()
-                        ->setTestField('value')
-                )
+            CustomFieldObjectDraft::ofTypeKeyAndFields(
+                'channel_custom',
+                FieldContainer::of()->setTestField('value')
+            )
         );
         $channel = $this->createChannel($draft);
 

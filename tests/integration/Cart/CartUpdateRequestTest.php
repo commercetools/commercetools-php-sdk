@@ -1014,21 +1014,19 @@ class CartUpdateRequestTest extends ApiTestCase
             ->addAction(
                 CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
                     ->setCustom(
-                        CustomFieldObjectDraft::ofTypeKey($type->getKey())
-                            ->setFields(
-                                FieldContainer::of()
-                                    ->setTestField('1')
-                            )
+                        CustomFieldObjectDraft::ofTypeKeyAndFields(
+                            $type->getKey(),
+                            FieldContainer::of()->setTestField('1')
+                        )
                     )
             )
             ->addAction(
                 CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
                     ->setCustom(
-                        CustomFieldObjectDraft::ofTypeKey($type->getKey())
-                            ->setFields(
-                                FieldContainer::of()
-                                    ->setTestField('2')
-                            )
+                        CustomFieldObjectDraft::ofTypeKeyAndFields(
+                            $type->getKey(),
+                            FieldContainer::of()->setTestField('2')
+                        )
                     )
             )
         ;
@@ -1207,8 +1205,10 @@ class CartUpdateRequestTest extends ApiTestCase
         $type = $this->getType('key-' . $this->getTestRun(), 'order');
         $draft = $this->getDraft();
         $draft->setCustom(
-            CustomFieldObjectDraft::ofType($type->getReference())
-                ->setFields(FieldContainer::of()->set('testField', $this->getTestRun()))
+            CustomFieldObjectDraft::ofTypeAndFields(
+                $type->getReference(),
+                FieldContainer::of()->set('testField', $this->getTestRun())
+            )
         );
         $draft->setLineItems(
             LineItemDraftCollection::of()

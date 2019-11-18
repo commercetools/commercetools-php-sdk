@@ -34,7 +34,7 @@ class OrderEditQueryRequestTest extends OrderQueryRequestTest
             $orderEditDraft->setKey($key);
         }
         if (!is_null($customField)) {
-            $orderEditDraft->setCustom(CustomFieldObjectDraft::of()->setType(TypeReference::ofKey($customField)));
+            $orderEditDraft->setCustom(CustomFieldObjectDraft::ofTypeKey(TypeReference::ofKey($customField)));
         }
 
         $request = OrderEditCreateRequest::ofDraft($orderEditDraft);

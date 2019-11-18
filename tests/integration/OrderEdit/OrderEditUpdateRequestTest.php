@@ -202,7 +202,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $fieldValue = $this->getTestRun() . '-new value';
 
         $orderEditDraft = $this->getOrderEditDraft();
-        $orderEditDraft->setCustom(CustomFieldObjectDraft::of()->setType(TypeReference::ofKey($typeKey)));
+        $orderEditDraft->setCustom(CustomFieldObjectDraft::ofTypeKey(TypeReference::ofKey($typeKey)));
 
         $orderEdit = $this->getOrderEdit($orderEditDraft);
 
