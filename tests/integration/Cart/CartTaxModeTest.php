@@ -325,11 +325,11 @@ class CartTaxModeTest extends ApiTestCase
         $draft = $this->getDraft();
         $draft->setCustomLineItems(
             CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::of()
-                    ->setName(LocalizedString::ofLangAndText('en', 'Test'))
-                    ->setQuantity(1)
-                    ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                    ->setSlug('test')
+                CustomLineItemDraft::ofNameMoneyAndSlug(
+                    LocalizedString::ofLangAndText('en', 'Test'),
+                    Money::ofCurrencyAndAmount('EUR', 100),
+                    'test'
+                )->setQuantity(1)
             )
         );
         $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL);

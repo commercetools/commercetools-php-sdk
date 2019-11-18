@@ -62,7 +62,7 @@ class CustomLineItemDraft extends JsonObject
      * @param Context|callable $context
      * @return CustomLineItemDraft
      */
-    public static function ofNameAndMoneyAndSlug(LocalizedString $name, Money $money, $slug, $context = null)
+    public static function ofNameMoneyAndSlug(LocalizedString $name, Money $money, $slug, $context = null)
     {
         return static::of($context)->setName($name)
             ->setMoney($money)
@@ -77,7 +77,7 @@ class CustomLineItemDraft extends JsonObject
      * @param Context|callable $context
      * @return CustomLineItemDraft
      */
-    public static function ofNameAndMoneyAndSlugAndTaxCategory(
+    public static function ofNameMoneySlugAndTaxCategory(
         LocalizedString $name,
         Money $money,
         $slug,

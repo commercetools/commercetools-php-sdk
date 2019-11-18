@@ -523,12 +523,12 @@ class CartUpdateRequestTest extends ApiTestCase
         $draft->setCustomLineItems(
             CustomLineItemDraftCollection::of()
                 ->add(
-                    CustomLineItemDraft::of()
-                        ->setName($name)
-                        ->setSlug($name->en)
-                        ->setQuantity(1)
-                        ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                        ->setTaxCategory($this->getTaxCategory()->getReference())
+                    CustomLineItemDraft::ofNameMoneySlugAndTaxCategory(
+                        $name,
+                        Money::ofCurrencyAndAmount('EUR', 100),
+                        $name->en,
+                        $this->getTaxCategory()->getReference()
+                    )->setQuantity(1)
                 )
         );
         $cart = $this->createCart($draft);
@@ -561,12 +561,12 @@ class CartUpdateRequestTest extends ApiTestCase
         $draft->setCustomLineItems(
             CustomLineItemDraftCollection::of()
                 ->add(
-                    CustomLineItemDraft::of()
-                        ->setName($name)
-                        ->setSlug($name->en)
-                        ->setQuantity(2)
-                        ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                        ->setTaxCategory($this->getTaxCategory()->getReference())
+                    CustomLineItemDraft::ofNameMoneySlugAndTaxCategory(
+                        $name,
+                        Money::ofCurrencyAndAmount('EUR', 100),
+                        $name->en,
+                        $this->getTaxCategory()->getReference()
+                    )->setQuantity(2)
                 )
         );
         $cart = $this->createCart($draft);
@@ -612,12 +612,12 @@ class CartUpdateRequestTest extends ApiTestCase
         $anonCartDraft->setCustomLineItems(
             CustomLineItemDraftCollection::of()
                 ->add(
-                    CustomLineItemDraft::of()
-                        ->setName($anonName)
-                        ->setQuantity(1)
-                        ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                        ->setSlug($anonName->en)
-                        ->setTaxCategory($this->getTaxCategory()->getReference())
+                    CustomLineItemDraft::ofNameMoneySlugAndTaxCategory(
+                        $anonName,
+                        Money::ofCurrencyAndAmount('EUR', 100),
+                        $anonName->en,
+                        $this->getTaxCategory()->getReference()
+                    )->setQuantity(1)
                 )
         );
         $request = CartCreateRequest::ofDraft($anonCartDraft);
@@ -1307,12 +1307,12 @@ class CartUpdateRequestTest extends ApiTestCase
         $draft->setCustomLineItems(
             CustomLineItemDraftCollection::of()
                 ->add(
-                    CustomLineItemDraft::of()
-                        ->setName(LocalizedString::ofLangAndText('en', 'Test'))
-                        ->setSlug('test')
-                        ->setTaxCategory($this->getTaxCategory()->getReference())
-                        ->setMoney(Money::ofCurrencyAndAmount('EUR', 1000))
-                        ->setQuantity(3)
+                    CustomLineItemDraft::ofNameMoneySlugAndTaxCategory(
+                        LocalizedString::ofLangAndText('en', 'Test'),
+                        Money::ofCurrencyAndAmount('EUR', 1000),
+                        'test',
+                        $this->getTaxCategory()->getReference()
+                    )->setQuantity(3)
                 )
         );
 
@@ -1732,11 +1732,11 @@ class CartUpdateRequestTest extends ApiTestCase
         $draft->setCustomLineItems(
             CustomLineItemDraftCollection::of()
                 ->add(
-                    CustomLineItemDraft::of()
-                        ->setName(LocalizedString::ofLangAndText('en', 'test'))
-                        ->setQuantity(1)
-                        ->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                        ->setSlug('test-124')
+                    CustomLineItemDraft::ofNameMoneyAndSlug(
+                        LocalizedString::ofLangAndText('en', 'test'),
+                        Money::ofCurrencyAndAmount('EUR', 100),
+                        'test-124'
+                    )->setQuantity(1)
                 )
         );
         $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT);
@@ -2009,9 +2009,12 @@ class CartUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft();
         $name = LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun());
 
-        $customLineItem = CustomLineItemDraft::of()
-            ->setName($name)->setQuantity(1)->setMoney(Money::ofCurrencyAndAmount('EUR', 100))
-            ->setSlug($name->en)->setTaxCategory($this->getTaxCategory()->getReference());
+        $customLineItem = CustomLineItemDraft::ofNameMoneySlugAndTaxCategory(
+            $name,
+            Money::ofCurrencyAndAmount('EUR', 100),
+            $name->en,
+            $this->getTaxCategory()->getReference()
+        )->setQuantity(1);
         $draft->setCustomLineItems(CustomLineItemDraftCollection::of()->add($customLineItem));
 
         $cart = $this->createCart($draft);
