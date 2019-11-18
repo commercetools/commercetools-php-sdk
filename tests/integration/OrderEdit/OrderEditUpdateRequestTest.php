@@ -276,9 +276,10 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
             StagedOrderAddPaymentAction::class => [function() { return StagedOrderAddPaymentAction::of()->setPayment($this->getPayment()->getReference()); }],
             StagedOrderRemovePaymentAction::class => [function() { return StagedOrderRemovePaymentAction::of()->setPayment($this->getPayment()->getReference()); }],
             StagedOrderSetShippingMethodTaxAmountAction::class => [function() { return StagedOrderSetShippingMethodTaxAmountAction::of()->setExternalTaxAmount(
-                ExternalTaxAmountDraft::of()
-                    ->setTotalGross(Money::ofCurrencyAndAmount('EUR', 100))
-                    ->setTaxRate(ExternalTaxRateDraft::ofNameCountryAndAmount($this->getTestRun() . '-name','DE',100.00))
+                ExternalTaxAmountDraft::ofTotalGrossAndTaxRate(
+                    Money::ofCurrencyAndAmount('EUR', 100),
+                    ExternalTaxRateDraft::ofNameCountryAndAmount($this->getTestRun() . '-name','DE',100.00)
+                )
             ); }],
             StagedOrderSetShippingMethodTaxRateAction::class => [function() { return StagedOrderSetShippingMethodTaxRateAction::of()->setExternalTaxRate(
                 ExternalTaxRateDraft::ofNameCountryAndAmount($this->getTestRun() . '-name', 'DE', 100.00)

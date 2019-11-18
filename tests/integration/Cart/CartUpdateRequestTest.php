@@ -1714,9 +1714,10 @@ class CartUpdateRequestTest extends ApiTestCase
                 CartSetLineItemTaxAmountAction::of()
                     ->setLineItemId($cart->getLineItems()->current()->getId())
                     ->setExternalTaxAmount(
-                        ExternalTaxAmountDraft::of()
-                            ->setTotalGross(Money::ofCurrencyAndAmount('EUR', $taxAmount))
-                            ->setTaxRate(ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0))
+                        ExternalTaxAmountDraft::ofTotalGrossAndTaxRate(
+                            Money::ofCurrencyAndAmount('EUR', $taxAmount),
+                            ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0)
+                        )
                     )
             );
         $response = $request->executeWithClient($this->getClient());
@@ -1748,9 +1749,10 @@ class CartUpdateRequestTest extends ApiTestCase
                 CartSetCustomLineItemTaxAmountAction::of()
                     ->setCustomLineItemId($cart->getCustomLineItems()->current()->getId())
                     ->setExternalTaxAmount(
-                        ExternalTaxAmountDraft::of()
-                            ->setTotalGross(Money::ofCurrencyAndAmount('EUR', $taxAmount))
-                            ->setTaxRate(ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0))
+                        ExternalTaxAmountDraft::ofTotalGrossAndTaxRate(
+                            Money::ofCurrencyAndAmount('EUR', $taxAmount),
+                            ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0)
+                        )
                     )
             );
         $response = $request->executeWithClient($this->getClient());
@@ -1774,9 +1776,10 @@ class CartUpdateRequestTest extends ApiTestCase
             ->addAction(
                 CartSetShippingMethodTaxAmountAction::of()
                     ->setExternalTaxAmount(
-                        ExternalTaxAmountDraft::of()
-                            ->setTotalGross(Money::ofCurrencyAndAmount('EUR', $taxAmount))
-                            ->setTaxRate(ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0))
+                        ExternalTaxAmountDraft::ofTotalGrossAndTaxRate(
+                            Money::ofCurrencyAndAmount('EUR', $taxAmount),
+                            ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0)
+                        )
                     )
             );
         $response = $request->executeWithClient($this->getClient());
