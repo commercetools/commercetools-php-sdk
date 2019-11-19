@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Order;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\PriceCollection;
 use Commercetools\Core\Model\Common\AttributeCollection;
@@ -35,5 +36,15 @@ class ProductVariantImportDraft extends JsonObject
             'attributes' => [static::TYPE => AttributeCollection::class],
             'images' => [static::TYPE => ImageCollection::class],
         ];
+    }
+
+    /**
+     * @param string $sku
+     * @param Context|callable $context
+     * @return ProductVariantImportDraft
+     */
+    public static function ofSku($sku, $context = null)
+    {
+        return static::of($context)->setSku($sku);
     }
 }

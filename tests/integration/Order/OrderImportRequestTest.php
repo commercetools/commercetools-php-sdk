@@ -15,10 +15,16 @@ use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\Price;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
+use Commercetools\Core\Model\Order\Delivery;
+use Commercetools\Core\Model\Order\DeliveryCollection;
+use Commercetools\Core\Model\Order\DeliveryItem;
+use Commercetools\Core\Model\Order\DeliveryItemCollection;
 use Commercetools\Core\Model\Order\ImportOrder;
 use Commercetools\Core\Model\Order\LineItemImportDraft;
 use Commercetools\Core\Model\Order\LineItemImportDraftCollection;
 use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Model\Order\Parcel;
+use Commercetools\Core\Model\Order\ParcelCollection;
 use Commercetools\Core\Model\Order\ProductVariantImportDraft;
 use Commercetools\Core\Model\Order\ShippingInfoImportDraft;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
@@ -57,7 +63,7 @@ class OrderImportRequestTest extends ApiTestCase
                         LineItemImportDraft::ofNamePriceVariantAndQuantity(
                             LocalizedString::ofLangAndText('en', 'test'),
                             Price::ofMoney(Money::ofCurrencyAndAmount('EUR', 100)),
-                            ProductVariantImportDraft::of()->setSku($variant->getSku()),
+                            ProductVariantImportDraft::ofSku($variant->getSku()),
                             1
                         )
                     )
@@ -100,7 +106,7 @@ class OrderImportRequestTest extends ApiTestCase
                         LineItemImportDraft::ofNamePriceVariantAndQuantity(
                             LocalizedString::ofLangAndText('en', 'test'),
                             Price::ofMoney(Money::ofCurrencyAndAmount('EUR', 100)),
-                            ProductVariantImportDraft::of()->setSku($variant->getSku()),
+                            ProductVariantImportDraft::ofSku($variant->getSku()),
                             1
                         )
                     )
@@ -233,11 +239,15 @@ class OrderImportRequestTest extends ApiTestCase
 
     public function testShippingInfo()
     {
-        $draft = $this->getOrderImportDraft()->setShippingInfo(ShippingInfoImportDraft::of()
-            ->setShippingMethodName('test-' . $this->getTestRun())
-            ->setPrice(Money::ofCurrencyAndAmount('EUR', 100))
-            ->setShippingRate(ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 200)))
-            ->setShippingMethodState(ShippingInfoImportDraft::SHIPPING_METHOD_MATCH));
+        $draft = $this->getOrderImportDraft();
+        $draft->setShippingInfo(
+            ShippingInfoImportDraft::ofNamePriceRateDeliveryAndState(
+                'test-' . $this->getTestRun(),
+                Money::ofCurrencyAndAmount('EUR', 100),
+                ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 200)),
+                ShippingInfoImportDraft::SHIPPING_METHOD_MATCH
+            )
+        );
 
         $order = $this->importOrder($draft);
 

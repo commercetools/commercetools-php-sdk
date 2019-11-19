@@ -60,7 +60,6 @@ class ShippingInfoImportDraft extends JsonObject
      * @param string $shippingMethodName
      * @param Money $price
      * @param ShippingRate $shippingRate
-     * @param DeliveryCollection $deliveries
      * @param string $shippingMethodState
      * @param Context|callable $context
      * @return ShippingInfoImportDraft
@@ -69,7 +68,6 @@ class ShippingInfoImportDraft extends JsonObject
         $shippingMethodName,
         Money $price,
         ShippingRate $shippingRate,
-        DeliveryCollection $deliveries,
         $shippingMethodState,
         $context = null
     ) {
@@ -77,7 +75,6 @@ class ShippingInfoImportDraft extends JsonObject
             ->setShippingMethodName($shippingMethodName)
             ->setPrice($price)
             ->setShippingRate($shippingRate)
-            ->setDeliveries($deliveries)
             ->setShippingMethodState($shippingMethodState);
     }
 }
