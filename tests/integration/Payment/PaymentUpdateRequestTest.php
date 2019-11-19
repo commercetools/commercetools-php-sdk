@@ -49,15 +49,16 @@ class PaymentUpdateRequestTest extends ApiTestCase
      */
     protected function getDraft()
     {
-        $draft = PaymentDraft::of()
-            ->setExternalId('test-' . $this->getTestRun() . '-payment')
-            ->setAmountPlanned(Money::ofCurrencyAndAmount('EUR', 100))
-            ->setPaymentMethodInfo(
-                PaymentMethodInfo::of()
-                    ->setPaymentInterface('Test')
-                    ->setMethod('CreditCard')
-            )
-        ;
+        $externalId = 'test-' . $this->getTestRun() . '-payment';
+        $draft = PaymentDraft::ofKeyExternalIdAmountPlannedAndPaymentMethodInfo(
+            $externalId,
+            $externalId,
+            Money::ofCurrencyAndAmount('EUR', 100),
+            PaymentMethodInfo::of()
+                ->setPaymentInterface('Test')
+                ->setMethod('CreditCard')
+        );
+
         return $draft;
     }
 
@@ -292,10 +293,12 @@ class PaymentUpdateRequestTest extends ApiTestCase
 
     public function testSetMethodInfoInterface()
     {
-        $draft = PaymentDraft::of()
-            ->setExternalId('test-' . $this->getTestRun() . '-payment')
-            ->setAmountPlanned(Money::ofCurrencyAndAmount('EUR', 100))
-        ;
+        $externalId = 'test-' . $this->getTestRun() . '-payment';
+        $draft = PaymentDraft::ofKeyExternalIdAndAmountPlanned(
+            $externalId,
+            $externalId,
+            Money::ofCurrencyAndAmount('EUR', 100)
+        );
         $payment = $this->createPayment($draft);
 
         $interface = $this->getTestRun() . '-interface';
@@ -316,10 +319,12 @@ class PaymentUpdateRequestTest extends ApiTestCase
 
     public function testSetMethodInfoMethod()
     {
-        $draft = PaymentDraft::of()
-            ->setExternalId('test-' . $this->getTestRun() . '-payment')
-            ->setAmountPlanned(Money::ofCurrencyAndAmount('EUR', 100))
-        ;
+        $externalId = 'test-' . $this->getTestRun() . '-payment';
+        $draft = PaymentDraft::ofKeyExternalIdAndAmountPlanned(
+            $externalId,
+            $externalId,
+            Money::ofCurrencyAndAmount('EUR', 100)
+        );
         $payment = $this->createPayment($draft);
 
         $method = $this->getTestRun() . '-method';
@@ -340,10 +345,12 @@ class PaymentUpdateRequestTest extends ApiTestCase
 
     public function testSetMethodInfoName()
     {
-        $draft = PaymentDraft::of()
-            ->setExternalId('test-' . $this->getTestRun() . '-payment')
-            ->setAmountPlanned(Money::ofCurrencyAndAmount('EUR', 100))
-        ;
+        $externalId = 'test-' . $this->getTestRun() . '-payment';
+        $draft = PaymentDraft::ofKeyExternalIdAndAmountPlanned(
+            $externalId,
+            $externalId,
+            Money::ofCurrencyAndAmount('EUR', 100)
+        );
         $payment = $this->createPayment($draft);
 
         $name = $this->getTestRun() . '-name';

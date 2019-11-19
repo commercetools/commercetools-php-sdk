@@ -22,7 +22,7 @@ class OrderEditQueryRequestTest extends OrderQueryRequestTest
         $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
         $order = $this->createOrder($cartDraft, $orderNumber);
 
-        $orderEditDraft = OrderEditDraft::of()->setResource(OrderReference::ofId($order->getId()));
+        $orderEditDraft = OrderEditDraft::ofResource(OrderReference::ofId($order->getId()));
         return $orderEditDraft;
     }
 

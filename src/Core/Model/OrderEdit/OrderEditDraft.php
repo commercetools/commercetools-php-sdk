@@ -43,15 +43,11 @@ class OrderEditDraft extends JsonObject
 
     /**
      * @param OrderReference $resource
-     * @param StagedOrderUpdateActionCollection $stagedActions
      * @param Context|callable $context
      * @return OrderEditDraft
      */
-    public static function ofResourceAndStagedActions(
-        OrderReference $resource,
-        StagedOrderUpdateActionCollection $stagedActions,
-        $context = null
-    ) {
-        return static::of($context)->setResource($resource)->setStagedActions($stagedActions);
+    public static function ofResource(OrderReference $resource, $context = null)
+    {
+        return static::of($context)->setResource($resource);
     }
 }

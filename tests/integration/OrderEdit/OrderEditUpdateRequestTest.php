@@ -100,7 +100,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
         $this->order = $this->createOrder($cartDraft, $orderNumber);
 
-        $orderEditDraft = OrderEditDraft::of()->setResource(OrderReference::ofId($this->order->getId()));
+        $orderEditDraft = OrderEditDraft::ofResource(OrderReference::ofId($this->order->getId()));
         return $orderEditDraft;
     }
 

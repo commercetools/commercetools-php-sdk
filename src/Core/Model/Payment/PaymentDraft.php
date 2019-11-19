@@ -76,7 +76,7 @@ class PaymentDraft extends JsonObject
     }
 
     /**
-     * @deprecated
+     * @deprecated use setKey() instead
      * @param string $externalId
      * @return static
      */
@@ -169,5 +169,39 @@ class PaymentDraft extends JsonObject
     public static function ofAmountPlanned(Money $amountPlanned, $context = null)
     {
         return static::of($context)->setAmountPlanned($amountPlanned);
+    }
+
+    /**
+     * @param string $key
+     * @param string $externalId
+     * @param Money $amountPlanned
+     * @param Context|callable $context
+     * @return PaymentDraft
+     */
+    public static function ofKeyExternalIdAndAmountPlanned($key, $externalId, Money $amountPlanned, $context = null)
+    {
+        return static::of($context)->setKey($key)->setExternalId($externalId)->setAmountPlanned($amountPlanned);
+    }
+
+    /**
+     * @param string $key
+     * @param string $externalId
+     * @param Money $amountPlanned
+     * @param PaymentMethodInfo $paymentMethodInfo
+     * @param Context|callable $context
+     * @return PaymentDraft
+     */
+    public static function ofKeyExternalIdAmountPlannedAndPaymentMethodInfo(
+        $key,
+        $externalId,
+        Money $amountPlanned,
+        PaymentMethodInfo $paymentMethodInfo,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setKey($key)
+            ->setExternalId($externalId)
+            ->setAmountPlanned($amountPlanned)
+            ->setPaymentMethodInfo($paymentMethodInfo);
     }
 }
