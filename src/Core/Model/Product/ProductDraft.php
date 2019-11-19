@@ -87,8 +87,8 @@ class ProductDraft extends JsonObject
         LocalizedString $slug,
         $context = null
     ) {
-        $draft = static::of($context);
-        return $draft->setProductType($productType)
+        return static::of($context)
+            ->setProductType($productType)
             ->setName($name)
             ->setSlug($slug);
     }
@@ -110,8 +110,8 @@ class ProductDraft extends JsonObject
         TaxCategoryReference $taxCategory,
         $context = null
     ) {
-        $draft = static::of($context);
-        return $draft->setProductType($productType)
+        return static::of($context)
+            ->setProductType($productType)
             ->setName($name)
             ->setSlug($slug)
             ->setMasterVariant($masterVariant)
@@ -137,8 +137,8 @@ class ProductDraft extends JsonObject
         $publish,
         $context = null
     ) {
-        $draft = static::of($context);
-        return $draft->setProductType($productType)
+        return static::of($context)
+            ->setProductType($productType)
             ->setName($name)
             ->setSlug($slug)
             ->setMasterVariant($masterVariant)

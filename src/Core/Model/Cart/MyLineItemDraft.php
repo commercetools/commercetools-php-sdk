@@ -49,8 +49,8 @@ class MyLineItemDraft extends JsonObject
             'supplyChannel' => [static::TYPE => ChannelReference::class],
             'distributionChannel' => [static::TYPE => ChannelReference::class],
             'custom' => [static::TYPE => CustomFieldObject::class],
-            'sku' => [static::TYPE => 'string'],
             'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
+            'sku' => [static::TYPE => 'string'],
         ];
     }
 
@@ -71,8 +71,7 @@ class MyLineItemDraft extends JsonObject
      */
     public static function ofSku($sku, $context = null)
     {
-        $draft = static::of($context);
-        return $draft->setSku($sku);
+        return static::of($context)->setSku($sku);
     }
 
     /**
@@ -84,7 +83,6 @@ class MyLineItemDraft extends JsonObject
      */
     public static function ofProductIdVariantIdAndQuantity($productId, $variantId, $quantity, $context = null)
     {
-        $draft = static::of($context);
-        return $draft->setProductId($productId)->setVariantId($variantId)->setQuantity($quantity);
+        return static::of($context)->setProductId($productId)->setVariantId($variantId)->setQuantity($quantity);
     }
 }
