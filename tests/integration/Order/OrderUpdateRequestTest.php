@@ -97,7 +97,7 @@ class OrderUpdateRequestTest extends ApiTestCase
      */
     protected function getCartDraft()
     {
-        $draft = CartDraft::ofCurrencyAndCountry('EUR', 'DE');
+        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
         /**
          * @var Customer $customer
          */

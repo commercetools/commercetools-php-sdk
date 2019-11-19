@@ -34,7 +34,7 @@ class MeCartRequestTest extends ApiTestCase
      */
     protected function getCartDraft()
     {
-        $draft = CartDraft::ofCurrencyAndCountry('EUR', 'DE');
+        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
 
         return $draft;
     }
@@ -44,7 +44,7 @@ class MeCartRequestTest extends ApiTestCase
      */
     protected function getMyCartDraft()
     {
-        $draft = MyCartDraft::ofCurrencyAndCountry('EUR', 'DE');
+        $draft = MyCartDraft::ofCurrency('EUR')->setCountry('DE');
 
         return $draft;
     }

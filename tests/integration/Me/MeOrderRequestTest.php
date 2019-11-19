@@ -63,7 +63,7 @@ class MeOrderRequestTest extends ApiTestCase
      */
     protected function getMyCartDraft()
     {
-        $draft = MyCartDraft::ofCurrencyAndCountry('EUR', 'DE');
+        $draft = MyCartDraft::ofCurrency('EUR')->setCountry('DE');
         /**
          * @var Customer $customer
          */

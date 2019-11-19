@@ -23,7 +23,7 @@ class CartCreateRequestTest extends ApiTestCase
      */
     protected function getDraft()
     {
-        $draft = CartDraft::ofCurrencyAndCountry('EUR', 'DE');
+        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
 
         return $draft;
     }
