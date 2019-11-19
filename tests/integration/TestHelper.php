@@ -965,7 +965,7 @@ class TestHelper
      */
     public function getCartDraft()
     {
-        $draft = CartDraft::ofCurrencyAndCountry('EUR', 'DE');
+        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
 
         return $draft;
     }
