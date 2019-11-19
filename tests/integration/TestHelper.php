@@ -595,24 +595,21 @@ class TestHelper
      */
     public function getProductDraft()
     {
-        $draft = ProductDraft::ofTypeNameAndSlug(
+        $draft = ProductDraft::ofTypeNameSlugMasterVariantAndTaxCategory(
             $this->getProductType()->getReference(),
             LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product')
-        )
-            ->setMasterVariant(
-                ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku')
-                    ->setPrices(
-                        PriceDraftCollection::of()->add(
-                            PriceDraft::ofMoneyAndCountry(
-                                Money::ofCurrencyAndAmount('EUR', 100),
-                                'DE'
-                            )
-                        )
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product'),
+            ProductVariantDraft::ofSkuAndPrices(
+                'test-' . $this->getTestRun() . '-sku',
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoneyAndCountry(
+                        Money::ofCurrencyAndAmount('EUR', 100),
+                        'DE'
                     )
-            )
-            ->setTaxCategory($this->getTaxCategory()->getReference())
-        ;
+                )
+            ),
+            $this->getTaxCategory()->getReference()
+        );
 
         return $draft;
     }

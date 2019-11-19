@@ -750,25 +750,22 @@ class OrderUpdateRequestTest extends ApiTestCase
         $taxCategory = $this->getTaxCategory();
         $cartDraft = $this->getCartDraft();
 
-        $product2 = ProductDraft::ofTypeNameAndSlug(
+        $product2 = ProductDraft::ofTypeNameSlugMasterVariantTaxCategoryAndPublish(
             $this->getProductType()->getReference(),
             LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2')
-        )
-            ->setMasterVariant(
-                ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku2')
-                    ->setPrices(
-                        PriceDraftCollection::of()->add(
-                            PriceDraft::ofMoneyAndCountry(
-                                Money::ofCurrencyAndAmount('EUR', 100),
-                                'DE'
-                            )
-                        )
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
+            ProductVariantDraft::ofSkuAndPrices(
+                'test-' . $this->getTestRun() . '-sku2',
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoneyAndCountry(
+                        Money::ofCurrencyAndAmount('EUR', 100),
+                        'DE'
                     )
-            )
-            ->setTaxCategory($this->getTaxCategory()->getReference())
-            ->setPublish(true)
-        ;
+                )
+            ),
+            $this->getTaxCategory()->getReference(),
+            true
+        );
 
         $request = ProductCreateRequest::ofDraft($product2);
         $response = $request->executeWithClient($this->getClient());
@@ -846,25 +843,22 @@ class OrderUpdateRequestTest extends ApiTestCase
         $taxCategory = $this->getTaxCategory();
         $cartDraft = $this->getCartDraft();
 
-        $product2 = ProductDraft::ofTypeNameAndSlug(
+        $product2 = ProductDraft::ofTypeNameSlugMasterVariantTaxCategoryAndPublish(
             $this->getProductType()->getReference(),
             LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2')
-        )
-            ->setMasterVariant(
-                ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku2')
-                    ->setPrices(
-                        PriceDraftCollection::of()->add(
-                            PriceDraft::ofMoneyAndCountry(
-                                Money::ofCurrencyAndAmount('EUR', 100),
-                                'DE'
-                            )
-                        )
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
+            ProductVariantDraft::ofSkuAndPrices(
+                'test-' . $this->getTestRun() . '-sku2',
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoneyAndCountry(
+                        Money::ofCurrencyAndAmount('EUR', 100),
+                        'DE'
                     )
-            )
-            ->setTaxCategory($this->getTaxCategory()->getReference())
-            ->setPublish(true)
-        ;
+                )
+            ),
+            $this->getTaxCategory()->getReference(),
+            true
+        );
 
         $request = ProductCreateRequest::ofDraft($product2);
         $response = $request->executeWithClient($this->getClient());
@@ -958,25 +952,22 @@ class OrderUpdateRequestTest extends ApiTestCase
         $taxCategory = $this->getTaxCategory();
         $cartDraft = $this->getCartDraft();
 
-        $product2 = ProductDraft::ofTypeNameAndSlug(
+        $product2 = ProductDraft::ofTypeNameSlugMasterVariantTaxCategoryAndPublish(
             $this->getProductType()->getReference(),
             LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2')
-        )
-            ->setMasterVariant(
-                ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku2')
-                    ->setPrices(
-                        PriceDraftCollection::of()->add(
-                            PriceDraft::ofMoneyAndCountry(
-                                Money::ofCurrencyAndAmount('EUR', 100),
-                                'DE'
-                            )
-                        )
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
+            ProductVariantDraft::ofSkuAndPrices(
+                'test-' . $this->getTestRun() . '-sku2',
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoneyAndCountry(
+                        Money::ofCurrencyAndAmount('EUR', 100),
+                        'DE'
                     )
-            )
-            ->setTaxCategory($this->getTaxCategory()->getReference())
-            ->setPublish(true)
-        ;
+                )
+            ),
+            $this->getTaxCategory()->getReference(),
+            true
+        );
 
         $request = ProductCreateRequest::ofDraft($product2);
         $response = $request->executeWithClient($this->getClient());
@@ -1056,25 +1047,22 @@ class OrderUpdateRequestTest extends ApiTestCase
         $taxCategory = $this->getTaxCategory();
         $cartDraft = $this->getCartDraft();
 
-        $product2 = ProductDraft::ofTypeNameAndSlug(
+        $product2 = ProductDraft::ofTypeNameSlugMasterVariantTaxCategoryAndPublish(
             $this->getProductType()->getReference(),
             LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2')
-        )
-            ->setMasterVariant(
-                ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku2')
-                    ->setPrices(
-                        PriceDraftCollection::of()->add(
-                            PriceDraft::ofMoneyAndCountry(
-                                Money::ofCurrencyAndAmount('EUR', 100),
-                                'DE'
-                            )
-                        )
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
+            ProductVariantDraft::ofSkuAndPrices(
+                'test-' . $this->getTestRun() . '-sku2',
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoneyAndCountry(
+                        Money::ofCurrencyAndAmount('EUR', 100),
+                        'DE'
                     )
-            )
-            ->setTaxCategory($this->getTaxCategory()->getReference())
-            ->setPublish(true)
-        ;
+                )
+            ),
+            $this->getTaxCategory()->getReference(),
+            true
+        );
 
         $request = ProductCreateRequest::ofDraft($product2);
         $response = $request->executeWithClient($this->getClient());
@@ -1155,25 +1143,22 @@ class OrderUpdateRequestTest extends ApiTestCase
         $taxCategory = $this->getTaxCategory();
         $cartDraft = $this->getCartDraft();
 
-        $product2 = ProductDraft::ofTypeNameAndSlug(
+        $product2 = ProductDraft::ofTypeNameSlugMasterVariantTaxCategoryAndPublish(
             $this->getProductType()->getReference(),
             LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2')
-        )
-            ->setMasterVariant(
-                ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku2')
-                    ->setPrices(
-                        PriceDraftCollection::of()->add(
-                            PriceDraft::ofMoneyAndCountry(
-                                Money::ofCurrencyAndAmount('EUR', 100),
-                                'DE'
-                            )
-                        )
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
+            ProductVariantDraft::ofSkuAndPrices(
+                'test-' . $this->getTestRun() . '-sku2',
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoneyAndCountry(
+                        Money::ofCurrencyAndAmount('EUR', 100),
+                        'DE'
                     )
-            )
-            ->setTaxCategory($this->getTaxCategory()->getReference())
-            ->setPublish(true)
-        ;
+                )
+            ),
+            $this->getTaxCategory()->getReference(),
+            true
+        );
 
         $request = ProductCreateRequest::ofDraft($product2);
         $response = $request->executeWithClient($this->getClient());

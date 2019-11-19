@@ -92,4 +92,57 @@ class ProductDraft extends JsonObject
             ->setName($name)
             ->setSlug($slug);
     }
+
+    /**
+     * @param ProductTypeReference $productType
+     * @param LocalizedString $name
+     * @param LocalizedString $slug
+     * @param ProductVariantDraft $masterVariant
+     * @param TaxCategoryReference $taxCategory
+     * @param Context|callable $context
+     * @return ProductDraft
+     */
+    public static function ofTypeNameSlugMasterVariantAndTaxCategory(
+        ProductTypeReference $productType,
+        LocalizedString $name,
+        LocalizedString $slug,
+        ProductVariantDraft $masterVariant,
+        TaxCategoryReference $taxCategory,
+        $context = null
+    ) {
+        $draft = static::of($context);
+        return $draft->setProductType($productType)
+            ->setName($name)
+            ->setSlug($slug)
+            ->setMasterVariant($masterVariant)
+            ->setTaxCategory($taxCategory);
+    }
+
+    /**
+     * @param ProductTypeReference $productType
+     * @param LocalizedString $name
+     * @param LocalizedString $slug
+     * @param ProductVariantDraft $masterVariant
+     * @param TaxCategoryReference $taxCategory
+     * @param bool $publish
+     * @param Context|callable $context
+     * @return ProductDraft
+     */
+    public static function ofTypeNameSlugMasterVariantTaxCategoryAndPublish(
+        ProductTypeReference $productType,
+        LocalizedString $name,
+        LocalizedString $slug,
+        ProductVariantDraft $masterVariant,
+        TaxCategoryReference $taxCategory,
+        $publish,
+        $context = null
+    ) {
+        $draft = static::of($context);
+        return $draft->setProductType($productType)
+            ->setName($name)
+            ->setSlug($slug)
+            ->setMasterVariant($masterVariant)
+            ->setTaxCategory($taxCategory)
+            ->setPublish($publish);
+    }
 }
