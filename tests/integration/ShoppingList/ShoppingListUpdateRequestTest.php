@@ -385,7 +385,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $name = $this->getTestRun() . '-text line item name';
         $draft = $this->getDraft('remove-text-line-item');
         $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
-            TextLineItemDraft::of()->setName(LocalizedString::ofLangAndText('en', $name))
+            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
         ));
         $shoppingList = $this->createShoppingList($draft);
 
@@ -407,7 +407,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $name = $this->getTestRun() . '-text line item name';
         $draft = $this->getDraft('change-text-line-item');
         $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
-            TextLineItemDraft::of()->setName(LocalizedString::ofLangAndText('en', $name))
+            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
         ));
         $shoppingList = $this->createShoppingList($draft);
 
@@ -432,7 +432,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('set-line-item-custom-type');
         $name = $this->getTestRun() . '-text line item name';
         $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
-            TextLineItemDraft::of()->setName(LocalizedString::ofLangAndText('en', $name))
+            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
         ));
         $shoppingList = $this->createShoppingList($draft);
 
@@ -458,7 +458,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('set-line-item-custom-type');
         $name = $this->getTestRun() . '-text line item name';
         $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
-            TextLineItemDraft::of()->setName(LocalizedString::ofLangAndText('en', $name))
+            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
                 ->setCustom(CustomFieldObjectDraft::ofTypeKey('shopping-list-textLineItem-set-field'))
         ));
         $shoppingList = $this->createShoppingList($draft);

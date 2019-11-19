@@ -265,7 +265,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
             StagedOrderSetShippingMethodAction::class => [function() { return StagedOrderSetShippingMethodAction::of()->setShippingMethod($this->getShippingMethod()->getReference()); }],
             StagedOrderSetCustomShippingMethodAction::class => [function() { return StagedOrderSetCustomShippingMethodAction::of()
                 ->setShippingMethodName($this->getTestRun() . '-name')
-                ->setShippingRate(ShippingRateDraft::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100))); }],
+                ->setShippingRate(ShippingRateDraft::ofPrice(Money::ofCurrencyAndAmount('EUR', 100))); }],
             StagedOrderAddDiscountCodeAction::class => [function() { return StagedOrderAddDiscountCodeAction::of()->setCode($this->getDiscountCode()->getCode()); }],
             StagedOrderRemoveDiscountCodeAction::class => [function() {return StagedOrderRemoveDiscountCodeAction::of()->setDiscountCode($this->getDiscountCode()->getReference()); }],
             StagedOrderSetCustomerIdAction::class => [function() { return StagedOrderSetCustomerIdAction::of()->setCustomerId($this->getCustomer()->getId()); }],
@@ -304,7 +304,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
             StagedOrderSetShippingAddressAndCustomShippingMethodAction::class => [function() { return StagedOrderSetShippingAddressAndCustomShippingMethodAction::of()
                 ->setAddress(Address::of()->setCountry('DE'))
                 ->setShippingMethodName($this->getTestRun().'-name')
-                ->setShippingRate(ShippingRateDraft::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100))); }],
+                ->setShippingRate(ShippingRateDraft::ofPrice(Money::ofCurrencyAndAmount('EUR', 100))); }],
             StagedOrderSetLineItemShippingDetailsAction::class => [function() { return StagedOrderSetLineItemShippingDetailsAction::of()->setLineItemId($this->getProduct()->getId()); }],
 
             //line items
