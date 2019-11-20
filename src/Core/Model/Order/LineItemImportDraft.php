@@ -69,7 +69,7 @@ class LineItemImportDraft extends JsonObject
      * @param Context|callable $context
      * @return LineItemImportDraft
      */
-    public static function ofNamePriceAndQuantity($name, $price, $quantity, $context = null)
+    public static function ofNamePriceAndQuantity(LocalizedString $name, Price $price, $quantity, $context = null)
     {
         return static::of($context)->setName($name)->setPrice($price)->setQuantity($quantity);
     }
@@ -82,8 +82,13 @@ class LineItemImportDraft extends JsonObject
      * @param Context|callable $context
      * @return LineItemImportDraft
      */
-    public static function ofNamePriceVariantAndQuantity($name, $price, ProductVariantImportDraft $variant, $quantity, $context = null)
-    {
+    public static function ofNamePriceVariantAndQuantity(
+        LocalizedString $name,
+        Price $price,
+        ProductVariantImportDraft $variant,
+        $quantity,
+        $context = null
+    ) {
         return static::of($context)
             ->setName($name)
             ->setPrice($price)

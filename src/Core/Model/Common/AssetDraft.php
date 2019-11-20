@@ -39,16 +39,16 @@ class AssetDraft extends JsonObject
     }
 
     /**
-     * @param AssetSourceCollection $sources
      * @param LocalizedString $name
+     * @param AssetSourceCollection $sources
      * @param Context|callable $context
      * @return AssetDraft
      */
     public static function ofNameAndSources(LocalizedString $name, AssetSourceCollection $sources, $context = null)
     {
         return static::of($context)
-            ->setSources($sources)
-            ->setName($name);
+            ->setName($name)
+            ->setSources($sources);
     }
 
     /**

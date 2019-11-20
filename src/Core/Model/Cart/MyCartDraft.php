@@ -82,7 +82,7 @@ class MyCartDraft extends JsonObject
      * @param Context|callable $context
      * @return MyCartDraft
      */
-    public static function ofCurrencyAndCountry($currency, $country, $context = null)
+    public static function ofCurrencyAndShippingCountry($currency, $country, $context = null)
     {
         $draft = static::of($context);
 

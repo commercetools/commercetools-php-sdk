@@ -64,7 +64,7 @@ class ShippingInfoImportDraft extends JsonObject
      * @param Context|callable $context
      * @return ShippingInfoImportDraft
      */
-    public static function ofNamePriceRateDeliveryAndState(
+    public static function ofNamePriceRateAndState(
         $shippingMethodName,
         Money $price,
         ShippingRate $shippingRate,

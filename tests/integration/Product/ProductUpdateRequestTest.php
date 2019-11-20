@@ -1495,11 +1495,11 @@ class ProductUpdateRequestTest extends ApiTestCase
         $product = $this->createProduct($draft);
 
         $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
-        $assetDraft = AssetDraft::ofSourcesAndName(
+        $assetDraft = AssetDraft::ofNameAndSources(
+            LocalizedString::ofLangAndText('en', 'test'),
             AssetSourceCollection::of()->add(
                 AssetSource::of()->setUri('test' . $this->getTestRun())
-            ),
-            LocalizedString::ofLangAndText('en', 'test')
+            )
         );
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(ProductAddAssetAction::ofSkuAndAsset($variant->getSku(), $assetDraft))

@@ -241,7 +241,7 @@ class OrderImportRequestTest extends ApiTestCase
     {
         $draft = $this->getOrderImportDraft();
         $draft->setShippingInfo(
-            ShippingInfoImportDraft::ofNamePriceRateDeliveryAndState(
+            ShippingInfoImportDraft::ofNamePriceRateAndState(
                 'test-' . $this->getTestRun(),
                 Money::ofCurrencyAndAmount('EUR', 100),
                 ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 200)),
