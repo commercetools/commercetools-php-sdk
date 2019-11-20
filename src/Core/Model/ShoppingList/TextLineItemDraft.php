@@ -47,7 +47,7 @@ class TextLineItemDraft extends JsonObject
      * @param Context|null $context
      * @return TextLineItemDraft
      */
-    public static function ofName($name, $context = null)
+    public static function ofName(LocalizedString $name, $context = null)
     {
         return static::of($context)->setName($name);
     }

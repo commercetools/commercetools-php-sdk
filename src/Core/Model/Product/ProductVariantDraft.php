@@ -60,7 +60,7 @@ class ProductVariantDraft extends JsonObject
      * @param Context|callable $context
      * @return ProductVariantDraft
      */
-    public static function ofSkuAndPrices($sku, $prices, $context = null)
+    public static function ofSkuAndPrices($sku, PriceDraftCollection $prices, $context = null)
     {
         return static::of($context)->setSku($sku)->setPrices($prices);
     }
@@ -70,7 +70,7 @@ class ProductVariantDraft extends JsonObject
      * @param Context|callable $context
      * @return ProductVariantDraft
      */
-    public static function ofPrices($prices, $context = null)
+    public static function ofPrices(PriceDraftCollection $prices, $context = null)
     {
         return static::of($context)->setPrices($prices);
     }
