@@ -50,7 +50,10 @@ class MeOrderRequestTest extends ApiTestCase
             ->setLineItems(
                 LineItemDraftCollection::of()
                     ->add(
-                        LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1)
+                        LineItemDraft::of()
+                            ->setProductId($this->getProduct()->getId())
+                            ->setVariantId(1)
+                            ->setQuantity(1)
                     )
             );
         $draft->setShippingMethod($this->getShippingMethod()->getReference());
@@ -74,7 +77,10 @@ class MeOrderRequestTest extends ApiTestCase
             ->setLineItems(
                 MyLineItemDraftCollection::of()
                     ->add(
-                        MyLineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1)
+                        MyLineItemDraft::of()
+                            ->setProductId($this->getProduct()->getId())
+                            ->setVariantId(1)
+                            ->setQuantity(1)
                     )
             );
         $draft->setShippingMethod($this->getShippingMethod()->getReference());
