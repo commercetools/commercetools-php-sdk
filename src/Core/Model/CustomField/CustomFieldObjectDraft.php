@@ -21,7 +21,7 @@ use Commercetools\Core\Model\Common\ResourceIdentifier;
 class CustomFieldObjectDraft extends CustomFieldObject
 {
     /**
-     * @param $typeKey
+     * @param string $typeKey
      * @param Context|callable $context
      * @return CustomFieldObjectDraft
      */
