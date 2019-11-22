@@ -37,4 +37,36 @@ class AssetDraft extends JsonObject
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
         ];
     }
+
+    /**
+     * @param LocalizedString $name
+     * @param AssetSourceCollection $sources
+     * @param Context|callable $context
+     * @return AssetDraft
+     */
+    public static function ofNameAndSources(LocalizedString $name, AssetSourceCollection $sources, $context = null)
+    {
+        return static::of($context)
+            ->setName($name)
+            ->setSources($sources);
+    }
+
+    /**
+     * @param string $key
+     * @param AssetSourceCollection $sources
+     * @param LocalizedString $name
+     * @param Context|callable $context
+     * @return AssetDraft
+     */
+    public static function ofKeySourcesAndName(
+        $key,
+        AssetSourceCollection $sources,
+        LocalizedString $name,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setKey($key)
+            ->setSources($sources)
+            ->setName($name);
+    }
 }

@@ -62,4 +62,20 @@ class SubscriptionDraft extends JsonObject
     ) {
         return static::of($context)->setDestination($destination)->setChanges($changes);
     }
+
+    /**
+     * @param string $key
+     * @param Destination $destination
+     * @param MessageSubscriptionCollection $messages
+     * @param Context|callable $context
+     * @return SubscriptionDraft
+     */
+    public static function ofKeyDestinationAndMessages(
+        $key,
+        Destination $destination,
+        MessageSubscriptionCollection $messages,
+        $context = null
+    ) {
+        return static::of($context)->setKey($key)->setDestination($destination)->setMessages($messages);
+    }
 }

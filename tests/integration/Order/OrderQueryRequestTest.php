@@ -29,9 +29,7 @@ class OrderQueryRequestTest extends ApiTestCase
      */
     protected function getCartDraft()
     {
-        $draft = CartDraft::ofCurrency(
-            'EUR'
-        );
+        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
         /**
          * @var Customer $customer
          */
@@ -40,18 +38,13 @@ class OrderQueryRequestTest extends ApiTestCase
             ->setShippingAddress($customer->getDefaultShippingAddress())
             ->setBillingAddress($customer->getDefaultBillingAddress())
             ->setCustomerEmail($customer->getEmail())
-            ->setCountry('DE')
             ->setLineItems(
                 LineItemDraftCollection::of()
                     ->add(
-                        LineItemDraft::of()
-                            ->setProductId($this->getProduct()->getId())
-                            ->setVariantId(1)
-                            ->setQuantity(1)
+                        LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1)
                     )
             )
-            ->setShippingMethod($this->getShippingMethod()->getReference())
-        ;
+            ->setShippingMethod($this->getShippingMethod()->getReference());
 
         return $draft;
     }

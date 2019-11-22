@@ -43,8 +43,8 @@ class SubscriptionUpdateRequestTest extends ApiTestCase
         $uri = getenv('IRONMQ_URI');
         $destination = IronMQDestination::ofUri($uri);
         $messages = MessageSubscriptionCollection::of()->add(MessageSubscription::of()->setResourceTypeId('product'));
-        $draft = SubscriptionDraft::ofDestinationAndMessages($destination, $messages)
-            ->setKey('test-' . $this->getTestRun());
+        $key = 'test-' . $this->getTestRun();
+        $draft = SubscriptionDraft::ofKeyDestinationAndMessages($key, $destination, $messages);
 
         return $draft;
     }

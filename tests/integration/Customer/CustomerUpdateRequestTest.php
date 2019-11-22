@@ -637,7 +637,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('custom-field');
         // add custom type field at customer creation
         $draft->setCustom(
-            CustomFieldObjectDraft::ofTypeKey($typeKey)->setFields(FieldContainer::of()->setTestField('value'))
+            CustomFieldObjectDraft::ofTypeKeyAndFields($typeKey, FieldContainer::of()->setTestField('value'))
         );
         $customer = $this->createCustomer($draft);
 

@@ -117,12 +117,12 @@ class ProductQueryRequestTest extends ApiTestCase
     {
         $draft = $this->getDraft();
         $draft->setMasterVariant(
-            ProductVariantDraft::of()->setSku('sku' . uniqid())
-                ->setPrices(
-                    PriceDraftCollection::of()->add(
-                        PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                    )
+            ProductVariantDraft::ofSkuAndPrices(
+                'sku' . uniqid(),
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
                 )
+            )
         );
         $this->createProduct($draft);
 
@@ -146,12 +146,12 @@ class ProductQueryRequestTest extends ApiTestCase
     {
         $draft = $this->getDraft();
         $draft->setMasterVariant(
-            ProductVariantDraft::of()->setSku('sku' . uniqid())
-                ->setPrices(
-                    PriceDraftCollection::of()->add(
-                        PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                    )
+            ProductVariantDraft::ofSkuAndPrices(
+                'sku' . uniqid(),
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
                 )
+            )
         );
         $product = $this->createProduct($draft);
 
@@ -173,12 +173,12 @@ class ProductQueryRequestTest extends ApiTestCase
     {
         $draft = $this->getDraft();
         $draft->setMasterVariant(
-            ProductVariantDraft::of()->setSku('sku' . uniqid())
-                ->setPrices(
-                    PriceDraftCollection::of()->add(
-                        PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                    )
+            ProductVariantDraft::ofSkuAndPrices(
+                'sku' . uniqid(),
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
                 )
+            )
         );
         $this->createProduct($draft);
 
@@ -204,8 +204,8 @@ class ProductQueryRequestTest extends ApiTestCase
         $draft = $this->getDraft();
         $sku1 = 'sku1' . uniqid();
         $sku2 = 'sku2' . uniqid();
-        $draft->setMasterVariant(ProductVariantDraft::of()->setSku($sku1));
-        $draft->setVariants(ProductVariantDraftCollection::of()->add(ProductVariantDraft::of()->setSku($sku2)));
+        $draft->setMasterVariant(ProductVariantDraft::ofSku($sku1));
+        $draft->setVariants(ProductVariantDraftCollection::of()->add(ProductVariantDraft::ofSku($sku2)));
         $this->createProduct($draft);
 
         $request = ProductProjectionQueryRequest::of()
@@ -230,12 +230,12 @@ class ProductQueryRequestTest extends ApiTestCase
     {
         $draft = $this->getDraft();
         $draft->setMasterVariant(
-            ProductVariantDraft::of()->setSku('sku' . uniqid())
-                ->setPrices(
-                    PriceDraftCollection::of()->add(
-                        PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                    )
+            ProductVariantDraft::ofSkuAndPrices(
+                'sku' . uniqid(),
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
                 )
+            )
         );
         $product = $this->createProduct($draft);
 
@@ -258,12 +258,12 @@ class ProductQueryRequestTest extends ApiTestCase
     {
         $draft = $this->getDraft();
         $draft->setMasterVariant(
-            ProductVariantDraft::of()->setSku('sku' . uniqid())
-                ->setPrices(
-                    PriceDraftCollection::of()->add(
-                        PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                    )
+            ProductVariantDraft::ofSkuAndPrices(
+                'sku' . uniqid(),
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
                 )
+            )
         );
         $product = $this->createProduct($draft);
 

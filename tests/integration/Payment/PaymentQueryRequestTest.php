@@ -24,15 +24,16 @@ class PaymentQueryRequestTest extends ApiTestCase
      */
     protected function getDraft()
     {
-        $draft = PaymentDraft::of()
-            ->setExternalId('test-' . $this->getTestRun() . '-payment')
-            ->setAmountPlanned(Money::ofCurrencyAndAmount('EUR', 100))
-            ->setPaymentMethodInfo(
-                PaymentMethodInfo::of()
-                    ->setPaymentInterface('Test')
-                    ->setMethod('CreditCard')
-            )
-        ;
+        $externalId = 'test-' . $this->getTestRun() . '-payment';
+        $draft = PaymentDraft::ofKeyExternalIdAmountPlannedAndPaymentMethodInfo(
+            $externalId,
+            $externalId,
+            Money::ofCurrencyAndAmount('EUR', 100),
+            PaymentMethodInfo::of()
+                ->setPaymentInterface('Test')
+                ->setMethod('CreditCard')
+        );
+
         return $draft;
     }
 

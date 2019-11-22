@@ -22,7 +22,7 @@ class OrderEditQueryRequestTest extends OrderQueryRequestTest
         $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
         $order = $this->createOrder($cartDraft, $orderNumber);
 
-        $orderEditDraft = OrderEditDraft::of()->setResource(OrderReference::ofId($order->getId()));
+        $orderEditDraft = OrderEditDraft::ofResource(OrderReference::ofId($order->getId()));
         return $orderEditDraft;
     }
 
@@ -34,7 +34,7 @@ class OrderEditQueryRequestTest extends OrderQueryRequestTest
             $orderEditDraft->setKey($key);
         }
         if (!is_null($customField)) {
-            $orderEditDraft->setCustom(CustomFieldObjectDraft::of()->setType(TypeReference::ofKey($customField)));
+            $orderEditDraft->setCustom(CustomFieldObjectDraft::ofTypeKey(TypeReference::ofKey($customField)));
         }
 
         $request = OrderEditCreateRequest::ofDraft($orderEditDraft);

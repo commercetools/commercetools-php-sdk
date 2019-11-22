@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Order;
 
 use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
 use Commercetools\Core\Model\Common\AddressCollection;
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Price;
@@ -59,5 +60,39 @@ class LineItemImportDraft extends JsonObject
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
         ];
+    }
+
+    /**
+     * @param LocalizedString $name
+     * @param Price $price
+     * @param int $quantity
+     * @param Context|callable $context
+     * @return LineItemImportDraft
+     */
+    public static function ofNamePriceAndQuantity(LocalizedString $name, Price $price, $quantity, $context = null)
+    {
+        return static::of($context)->setName($name)->setPrice($price)->setQuantity($quantity);
+    }
+
+    /**
+     * @param LocalizedString $name
+     * @param Price $price
+     * @param ProductVariantImportDraft $variant
+     * @param int $quantity
+     * @param Context|callable $context
+     * @return LineItemImportDraft
+     */
+    public static function ofNamePriceVariantAndQuantity(
+        LocalizedString $name,
+        Price $price,
+        ProductVariantImportDraft $variant,
+        $quantity,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setName($name)
+            ->setPrice($price)
+            ->setVariant($variant)
+            ->setQuantity($quantity);
     }
 }

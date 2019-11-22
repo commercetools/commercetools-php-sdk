@@ -595,22 +595,21 @@ class TestHelper
      */
     public function getProductDraft()
     {
-        $draft = ProductDraft::ofTypeNameAndSlug(
+        $draft = ProductDraft::ofTypeNameSlugMasterVariantAndTaxCategory(
             $this->getProductType()->getReference(),
             LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product')
-        )
-            ->setMasterVariant(
-                ProductVariantDraft::of()->setSku('test-' . $this->getTestRun() . '-sku')
-                    ->setPrices(
-                        PriceDraftCollection::of()->add(
-                            PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                                ->setCountry('DE')
-                        )
+            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product'),
+            ProductVariantDraft::ofSkuAndPrices(
+                'test-' . $this->getTestRun() . '-sku',
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoneyAndCountry(
+                        Money::ofCurrencyAndAmount('EUR', 100),
+                        'DE'
                     )
-            )
-            ->setTaxCategory($this->getTaxCategory()->getReference())
-        ;
+                )
+            ),
+            $this->getTaxCategory()->getReference()
+        );
 
         return $draft;
     }
@@ -668,15 +667,16 @@ class TestHelper
      */
     public function getPaymentDraft()
     {
-        $draft = PaymentDraft::of()
-            ->setExternalId('test-' . $this->getTestRun() . '-payment')
-            ->setAmountPlanned(Money::ofCurrencyAndAmount('EUR', 100))
-            ->setPaymentMethodInfo(
-                PaymentMethodInfo::of()
-                    ->setPaymentInterface('Test')
-                    ->setMethod('CreditCard')
-            )
-        ;
+        $externalId = 'test-' . $this->getTestRun() . '-payment';
+        $draft = PaymentDraft::ofKeyExternalIdAmountPlannedAndPaymentMethodInfo(
+            $externalId,
+            $externalId,
+            Money::ofCurrencyAndAmount('EUR', 100),
+            PaymentMethodInfo::of()
+                ->setPaymentInterface('Test')
+                ->setMethod('CreditCard')
+        );
+
         return $draft;
     }
 

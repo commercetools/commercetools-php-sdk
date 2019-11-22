@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Cart;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
@@ -25,5 +26,16 @@ class ExternalTaxAmountDraft extends JsonObject
             'totalGross' => [static::TYPE => Money::class],
             'taxRate' => [static::TYPE => ExternalTaxRateDraft::class]
         ];
+    }
+
+    /**
+     * @param Money $totalGross
+     * @param ExternalTaxRateDraft $taxRate
+     * @param Context|callable $context
+     * @return ExternalTaxAmountDraft
+     */
+    public static function ofTotalGrossAndTaxRate(Money $totalGross, ExternalTaxRateDraft $taxRate, $context = null)
+    {
+        return static::of($context)->setTotalGross($totalGross)->setTaxRate($taxRate);
     }
 }

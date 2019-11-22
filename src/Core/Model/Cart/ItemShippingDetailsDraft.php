@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Cart;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 
 /**
@@ -20,5 +21,15 @@ class ItemShippingDetailsDraft extends JsonObject
         return [
             'targets' => [static::TYPE => ItemShippingTargetCollection::class],
         ];
+    }
+
+    /**
+     * @param ItemShippingTargetCollection $targets[]
+     * @param Context|callable $context
+     * @return ItemShippingDetailsDraft
+     */
+    public static function ofTargets(ItemShippingTargetCollection $targets, $context = null)
+    {
+        return static::of($context)->setTargets($targets);
     }
 }

@@ -39,9 +39,7 @@ class MeOrderRequestTest extends ApiTestCase
      */
     protected function getCartDraft()
     {
-        $draft = CartDraft::ofCurrency(
-            'EUR'
-        );
+        $draft = CartDraft::ofCurrencyAndShippingCountry('EUR', 'DE');
         /**
          * @var Customer $customer
          */
@@ -49,7 +47,6 @@ class MeOrderRequestTest extends ApiTestCase
         $draft->setShippingAddress($customer->getDefaultShippingAddress())
             ->setBillingAddress($customer->getDefaultBillingAddress())
             ->setCustomerEmail($customer->getEmail())
-            ->setCountry('DE')
             ->setLineItems(
                 LineItemDraftCollection::of()
                     ->add(
@@ -70,9 +67,7 @@ class MeOrderRequestTest extends ApiTestCase
      */
     protected function getMyCartDraft()
     {
-        $draft = MyCartDraft::ofCurrency(
-            'EUR'
-        );
+        $draft = MyCartDraft::ofCurrency('EUR')->setCountry('DE');
         /**
          * @var Customer $customer
          */
@@ -80,7 +75,6 @@ class MeOrderRequestTest extends ApiTestCase
         $draft->setShippingAddress($customer->getDefaultShippingAddress())
             ->setBillingAddress($customer->getDefaultBillingAddress())
             ->setCustomerEmail($customer->getEmail())
-            ->setCountry('DE')
             ->setLineItems(
                 MyLineItemDraftCollection::of()
                     ->add(

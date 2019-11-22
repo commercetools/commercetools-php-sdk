@@ -258,7 +258,12 @@ class ApiTestCase extends TestCase
                 $request->addAction(ProjectChangeCountriesAction::ofCountries(['FR', 'DE', 'ES', 'US']));
             }
             if ($project->getMessages()->getEnabled() === false) {
-                $request->addAction(ProjectChangeMessagesConfigurationAction::ofDraft(MessagesConfigurationDraft::of()->setDeleteDaysAfterCreation(15)->setEnabled(true)));
+                $request->addAction(ProjectChangeMessagesConfigurationAction::ofDraft(
+                    MessagesConfigurationDraft::ofEnabledAndDeleteDaysAfterCreation(
+                        true,
+                        15
+                    )
+                ));
             }
 
             if ($request->hasActions()) {

@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\ShippingMethod;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Zone\ZoneReference;
 
@@ -24,5 +25,19 @@ class ZoneRateDraft extends JsonObject
             'zone' => [static::TYPE => ZoneReference::class],
             'shippingRates' => [static::TYPE => ShippingRateDraftCollection::class]
         ];
+    }
+
+    /**
+     * @param ZoneReference $zone
+     * @param ShippingRateDraftCollection $shippingRates
+     * @param Context|callable $context
+     * @return ZoneRateDraft
+     */
+    public static function ofZoneAndShippingRates(
+        ZoneReference $zone,
+        ShippingRateDraftCollection $shippingRates,
+        $context = null
+    ) {
+        return static::of($context)->setZone($zone)->setShippingRates($shippingRates);
     }
 }

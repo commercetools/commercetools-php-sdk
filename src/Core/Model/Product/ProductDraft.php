@@ -87,9 +87,62 @@ class ProductDraft extends JsonObject
         LocalizedString $slug,
         $context = null
     ) {
-        $draft = static::of($context);
-        return $draft->setProductType($productType)
+        return static::of($context)
+            ->setProductType($productType)
             ->setName($name)
             ->setSlug($slug);
+    }
+
+    /**
+     * @param ProductTypeReference $productType
+     * @param LocalizedString $name
+     * @param LocalizedString $slug
+     * @param ProductVariantDraft $masterVariant
+     * @param TaxCategoryReference $taxCategory
+     * @param Context|callable $context
+     * @return ProductDraft
+     */
+    public static function ofTypeNameSlugMasterVariantAndTaxCategory(
+        ProductTypeReference $productType,
+        LocalizedString $name,
+        LocalizedString $slug,
+        ProductVariantDraft $masterVariant,
+        TaxCategoryReference $taxCategory,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setProductType($productType)
+            ->setName($name)
+            ->setSlug($slug)
+            ->setMasterVariant($masterVariant)
+            ->setTaxCategory($taxCategory);
+    }
+
+    /**
+     * @param ProductTypeReference $productType
+     * @param LocalizedString $name
+     * @param LocalizedString $slug
+     * @param ProductVariantDraft $masterVariant
+     * @param TaxCategoryReference $taxCategory
+     * @param bool $publish
+     * @param Context|callable $context
+     * @return ProductDraft
+     */
+    public static function ofTypeNameSlugMasterVariantTaxCategoryAndPublish(
+        ProductTypeReference $productType,
+        LocalizedString $name,
+        LocalizedString $slug,
+        ProductVariantDraft $masterVariant,
+        TaxCategoryReference $taxCategory,
+        $publish,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setProductType($productType)
+            ->setName($name)
+            ->setSlug($slug)
+            ->setMasterVariant($masterVariant)
+            ->setTaxCategory($taxCategory)
+            ->setPublish($publish);
     }
 }

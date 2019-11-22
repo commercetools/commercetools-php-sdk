@@ -264,7 +264,7 @@ class ProductUpdateRequestTest extends ApiTestCase
     public function testChangeMasterVariant()
     {
         $draft = $this->getDraft('change-master-variant');
-        $draft->setMasterVariant(ProductVariantDraft::of()->setSku($this->getTestRun() . '-master-sku'));
+        $draft->setMasterVariant(ProductVariantDraft::ofSku($this->getTestRun() . '-master-sku'));
         $product = $this->createProduct($draft);
 
         $sku = $this->getTestRun() . '-sku';
@@ -463,7 +463,7 @@ class ProductUpdateRequestTest extends ApiTestCase
     public function testPricesWithSku()
     {
         $draft = $this->getDraft('add-price');
-        $draft->setMasterVariant(ProductVariantDraft::of()->setSku($this->getTestRun()));
+        $draft->setMasterVariant(ProductVariantDraft::ofSku($this->getTestRun()));
         $product = $this->createProduct($draft);
 
         $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100));
@@ -609,7 +609,7 @@ class ProductUpdateRequestTest extends ApiTestCase
     public function testAttributeWithSKu()
     {
         $draft = $this->getDraft('attribute');
-        $draft->setMasterVariant(ProductVariantDraft::of()->setSku($this->getTestRun()));
+        $draft->setMasterVariant(ProductVariantDraft::ofSku($this->getTestRun()));
         $product = $this->createProduct($draft);
 
         $attributeValue = $this->getTestRun() . '-new value';
@@ -1092,7 +1092,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $sku = 'sku' . uniqid();
         $draft = $this->getDraft('revert-variant');
         $draft->setMasterVariant(
-            ProductVariantDraft::of()->setSku($sku)
+            ProductVariantDraft::ofSku($sku)
         );
         $product = $this->createProduct($draft);
 
@@ -1210,11 +1210,11 @@ class ProductUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('publish-prices');
         $draft
             ->setMasterVariant(
-                ProductVariantDraft::of()->setSku('sku-' . $this->getTestRun())
-                    ->setPrices(
-                        PriceDraftCollection::of()
+                ProductVariantDraft::ofSkuAndPrices(
+                    'sku-' . $this->getTestRun(),
+                    PriceDraftCollection::of()
                             ->add(PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100)))
-                    )
+                )
             )->setPublish(true);
         $product = $this->createProduct($draft);
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
@@ -1433,12 +1433,12 @@ class ProductUpdateRequestTest extends ApiTestCase
     {
         $draft = $this->getDraft('update-reference-expansion');
         $draft->setMasterVariant(
-            ProductVariantDraft::of()->setSku('sku' . uniqid())
-                ->setPrices(
-                    PriceDraftCollection::of()->add(
-                        PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                    )
+            ProductVariantDraft::ofSkuAndPrices(
+                'sku' . uniqid(),
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
                 )
+            )
         );
 
         $request = ProductCreateRequest::ofDraft($draft);
@@ -1490,14 +1490,17 @@ class ProductUpdateRequestTest extends ApiTestCase
     {
         $draft = $this->getDraft('assets');
         $draft->setMasterVariant(
-            ProductVariantDraft::of()->setSku('sku' . uniqid())
+            ProductVariantDraft::ofSku('sku' . uniqid())
         );
         $product = $this->createProduct($draft);
 
         $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
-        $assetDraft = AssetDraft::of()->setSources(AssetSourceCollection::of()->add(
-            AssetSource::of()->setUri('test' . $this->getTestRun())
-        ))->setName(LocalizedString::ofLangAndText('en', 'test'));
+        $assetDraft = AssetDraft::ofNameAndSources(
+            LocalizedString::ofLangAndText('en', 'test'),
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri('test' . $this->getTestRun())
+            )
+        );
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(ProductAddAssetAction::ofSkuAndAsset($variant->getSku(), $assetDraft))
         ;
@@ -1571,14 +1574,18 @@ class ProductUpdateRequestTest extends ApiTestCase
         $assetKey = uniqid();
         $draft = $this->getDraft('assets');
         $draft->setMasterVariant(
-            ProductVariantDraft::of()->setSku('sku' . uniqid())
+            ProductVariantDraft::ofSku('sku' . uniqid())
         );
         $product = $this->createProduct($draft);
 
         $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
-        $assetDraft = AssetDraft::of()->setKey($assetKey)->setSources(AssetSourceCollection::of()->add(
-            AssetSource::of()->setUri('test' . $this->getTestRun())
-        ))->setName(LocalizedString::ofLangAndText('en', 'test'));
+        $assetDraft = AssetDraft::ofKeySourcesAndName(
+            $assetKey,
+            AssetSourceCollection::of()->add(
+                AssetSource::of()->setUri('test' . $this->getTestRun())
+            ),
+            LocalizedString::ofLangAndText('en', 'test')
+        );
         $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
             ->addAction(ProductAddAssetAction::ofSkuAndAsset($variant->getSku(), $assetDraft))
         ;
@@ -1732,7 +1739,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('set-discounted-price');
         $draft->setTaxCategory($this->getTaxCategory()->getReference());
         $draft->setMasterVariant(
-            ProductVariantDraft::of()->setPrices(
+            ProductVariantDraft::ofPrices(
                 PriceDraftCollection::of()->add(
                     PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 1000))
                 )
@@ -1769,7 +1776,7 @@ class ProductUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('set-discounted-price');
         $draft->setTaxCategory($this->getTaxCategory()->getReference());
         $draft->setMasterVariant(
-            ProductVariantDraft::of()->setPrices(
+            ProductVariantDraft::ofPrices(
                 PriceDraftCollection::of()->add(
                     PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 1000))
                 )
@@ -1805,10 +1812,7 @@ class ProductUpdateRequestTest extends ApiTestCase
 
         $cartDraft = $this->getCartDraft()->setLineItems(
             LineItemDraftCollection::of()->add(
-                LineItemDraft::of()
-                    ->setProductId($result->getId())
-                    ->setVariantId($resultVariant->getId())
-                    ->setQuantity(1)
+                LineItemDraft::ofProductIdVariantIdAndQuantity($result->getId(), $resultVariant->getId(), 1)
             )
         );
         $cart = $this->getCart($cartDraft);

@@ -77,6 +77,17 @@ class PriceDraft extends JsonObject
     }
 
     /**
+     * @param Money $money
+     * @param string $country
+     * @param Context|callable $context
+     * @return PriceDraft
+     */
+    public static function ofMoneyAndCountry(Money $money, $country, $context = null)
+    {
+        return static::of($context)->setValue($money)->setCountry($country);
+    }
+
+    /**
      * @return string
      */
     public function __toString()

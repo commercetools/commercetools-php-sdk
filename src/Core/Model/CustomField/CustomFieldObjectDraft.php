@@ -21,7 +21,7 @@ use Commercetools\Core\Model\Common\ResourceIdentifier;
 class CustomFieldObjectDraft extends CustomFieldObject
 {
     /**
-     * @param $typeKey
+     * @param string $typeKey
      * @param Context|callable $context
      * @return CustomFieldObjectDraft
      */
@@ -30,6 +30,19 @@ class CustomFieldObjectDraft extends CustomFieldObject
         $draft = static::of($context)->setType(TypeReference::ofKey($typeKey));
 
         return $draft;
+    }
+
+    /**
+     * @param string $typeKey
+     * @param FieldContainer $fields
+     * @param Context|callable $context
+     * @return CustomFieldObjectDraft
+     */
+    public static function ofTypeKeyAndFields($typeKey, FieldContainer $fields, $context = null)
+    {
+        return static::of($context)
+            ->setType(TypeReference::ofKey($typeKey))
+            ->setFields($fields);
     }
 
     /**
@@ -54,5 +67,18 @@ class CustomFieldObjectDraft extends CustomFieldObject
         $draft = static::of($context)->setType($type);
 
         return $draft;
+    }
+
+    /**
+     * @param TypeReference $type
+     * @param FieldContainer $fields
+     * @param Context|callable $context
+     * @return CustomFieldObjectDraft
+     */
+    public static function ofTypeAndFields(TypeReference $type, FieldContainer $fields, $context = null)
+    {
+        return static::of($context)
+            ->setType($type)
+            ->setFields($fields);
     }
 }

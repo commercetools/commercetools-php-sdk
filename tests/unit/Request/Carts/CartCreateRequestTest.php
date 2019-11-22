@@ -24,4 +24,18 @@ class CartCreateRequestTest extends RequestTestCase
         $result = $this->mapEmptyResult(CartCreateRequest::ofDraft(CartDraft::ofCurrency('EUR')));
         $this->assertNull($result);
     }
+
+    public function testMapResultWithCountry()
+    {
+        $result = $this->mapResult(CartCreateRequest::ofDraft(CartDraft::ofCurrency('EUR')->setCountry('DE')));
+        $this->assertInstanceOf(Cart::class, $result);
+    }
+
+    public function testMapEmptyResultWithCountry()
+    {
+        $result = $this->mapEmptyResult(CartCreateRequest::ofDraft(
+            CartDraft::ofCurrencyAndShippingCountry('EUR', 'DE')
+        ));
+        $this->assertNull($result);
+    }
 }
