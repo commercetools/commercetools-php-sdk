@@ -92,7 +92,8 @@ class ClientFactory
             $config->getOauthUrl(),
             $cache,
             $provider,
-            $config->getOAuthClientOptions()
+            $config->getOAuthClientOptions(),
+            $config->getCorrelationIdProvider()
         );
 
         $options = $this->getDefaultOptions($config);
@@ -137,6 +138,24 @@ class ClientFactory
             $cacheAdapterFactory,
             $context
         );
+    }
+
+    public function createAuthClient(
+        array $options = [],
+        CorrelationIdProvider $correlationIdProvider = null
+    ) {
+        if (isset($options['handler']) && $options['handler'] instanceof HandlerStack) {
+            $handler = $options['handler'];
+        } else {
+            $handler = HandlerStack::create();
+            $options['handler'] = $handler;
+        }
+
+        $this->setCorrelationIdMiddleware($handler, $correlationIdProvider);
+
+        $options = $this->addMiddlewares($handler, $options);
+
+        return new Client($options);
     }
 
     private function getDefaultOptions(Config $config)
@@ -222,14 +241,8 @@ class ClientFactory
             );
         }
 
-        if (!is_null($correlationIdProvider)) {
-            $handler->push(Middleware::mapRequest(function (RequestInterface $request) use ($correlationIdProvider) {
-                return $request->withAddedHeader(
-                    AbstractApiResponse::X_CORRELATION_ID,
-                    $correlationIdProvider->getCorrelationId()
-                );
-            }), 'ctp_correlation_id');
-        }
+        $this->setCorrelationIdMiddleware($handler, $correlationIdProvider);
+        $options = $this->addMiddlewares($handler, $options);
 
         $client = new $clientClass($options);
 
@@ -246,6 +259,46 @@ class ClientFactory
             $formatter = new MessageFormatter();
         }
         $handler->push(self::log($logger, $formatter, $logLevel), 'ctp_logger');
+    }
+
+    /**
+     * @param CorrelationIdProvider $correlationIdProvider
+     * @param HandlerStack $handler
+     */
+    private function setCorrelationIdMiddleware(
+        HandlerStack $handler,
+        CorrelationIdProvider $correlationIdProvider = null
+    ) {
+        if (!is_null($correlationIdProvider)) {
+            $handler->push(Middleware::mapRequest(function (RequestInterface $request) use ($correlationIdProvider) {
+                return $request->withAddedHeader(
+                    AbstractApiResponse::X_CORRELATION_ID,
+                    $correlationIdProvider->getCorrelationId()
+                );
+            }), 'ctp_correlation_id');
+        }
+    }
+
+    /**
+     * @param HandlerStack $handler
+     * @param array $options
+     * @return array
+     */
+    private function addMiddlewares(HandlerStack $handler, array $options)
+    {
+        if (isset($options['middlewares']) && is_array($options['middlewares'])) {
+            foreach ($options['middlewares'] as $key => $middleware) {
+                if (is_callable($middleware)) {
+                    if (!is_numeric($key)) {
+                        $handler->remove($key);
+                        $handler->push($middleware, $key);
+                    } else {
+                        $handler->push($middleware);
+                    }
+                }
+            }
+        }
+        return $options;
     }
 
     /**
@@ -321,6 +374,7 @@ class ClientFactory
      * @param CacheItemPoolInterface|CacheInterface $cache
      * @param TokenProvider $provider
      * @param array $authClientOptions
+     * @param CorrelationIdProvider|null $correlationIdProvider
      * @return OAuth2Handler
      */
     private function getHandler(
@@ -328,11 +382,12 @@ class ClientFactory
         $accessTokenUrl,
         $cache,
         TokenProvider $provider = null,
-        array $authClientOptions = []
+        array $authClientOptions = [],
+        CorrelationIdProvider $correlationIdProvider = null
     ) {
         if (is_null($provider)) {
             $provider = new CredentialTokenProvider(
-                new ApiClient($authClientOptions),
+                $this->createAuthClient($authClientOptions, $correlationIdProvider),
                 $accessTokenUrl,
                 $credentials
             );
