@@ -43,8 +43,8 @@ class OrderQueryRequestTest extends ApiTestCase
                     ->add(
                         LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1)
                     )
-            );
-        $draft->setShippingMethod($this->getShippingMethod()->getReference());
+            )
+            ->setShippingMethod($this->getShippingMethod()->getReference());
 
         return $draft;
     }

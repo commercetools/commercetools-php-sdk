@@ -55,8 +55,9 @@ class MeOrderRequestTest extends ApiTestCase
                             ->setVariantId(1)
                             ->setQuantity(1)
                     )
-            );
-        $draft->setShippingMethod($this->getShippingMethod()->getReference());
+            )
+            ->setShippingMethod($this->getShippingMethod()->getReference())
+        ;
 
         return $draft;
     }
@@ -82,8 +83,9 @@ class MeOrderRequestTest extends ApiTestCase
                             ->setVariantId(1)
                             ->setQuantity(1)
                     )
-            );
-        $draft->setShippingMethod($this->getShippingMethod()->getReference());
+            )
+            ->setShippingMethod($this->getShippingMethod()->getReference())
+        ;
 
         return $draft;
     }
