@@ -9,6 +9,7 @@ use Commercetools\Core\Model\Cart\CustomLineItemCollection;
 use Commercetools\Core\Model\Cart\LineItemCollection;
 use Commercetools\Core\Model\Cart\ShippingInfo;
 use Commercetools\Core\Model\Cart\ShippingRateInput;
+use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\CreatedBy;
@@ -109,6 +110,8 @@ use DateTime;
  * @method Order setCreatedBy(CreatedBy $createdBy = null)
  * @method LastModifiedBy getLastModifiedBy()
  * @method Order setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
+ * @method CartDiscountReferenceCollection getRefusedGifts()
+ * @method Order setRefusedGifts(CartDiscountReferenceCollection $refusedGifts = null)
  * @method OrderReference getReference()
  */
 class Order extends Resource
@@ -174,6 +177,7 @@ class Order extends Resource
             'store' => [static::TYPE => StoreReference::class],
             'createdBy' => [static::TYPE => CreatedBy::class],
             'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'refusedGifts' => [static::TYPE => CartDiscountReferenceCollection::class],
         ];
     }
 }
