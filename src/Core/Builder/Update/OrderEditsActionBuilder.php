@@ -9,6 +9,7 @@ use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCommentAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCustomFieldAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetKeyAction;
+use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetLineItemPriceAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetStagedActionsAction;
 
 class OrderEditsActionBuilder
@@ -67,6 +68,17 @@ class OrderEditsActionBuilder
     public function setKey($action = null)
     {
         $this->addAction($this->resolveAction(OrderEditSetKeyAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-order-edits.html#set-lineitem-price
+     * @param OrderEditSetLineItemPriceAction|callable $action
+     * @return $this
+     */
+    public function setLineItemPrice($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderEditSetLineItemPriceAction::class, $action));
         return $this;
     }
 
