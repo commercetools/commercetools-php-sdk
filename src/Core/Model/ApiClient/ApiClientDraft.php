@@ -14,6 +14,8 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method ApiClientDraft setName(string $name = null)
  * @method string getScope()
  * @method ApiClientDraft setScope(string $scope = null)
+ * @method int getDeleteDaysAfterCreation()
+ * @method ApiClientDraft setDeleteDaysAfterCreation(int $deleteDaysAfterCreation = null)
  */
 class ApiClientDraft extends JsonObject
 {
@@ -21,7 +23,8 @@ class ApiClientDraft extends JsonObject
     {
         return [
             'name' => [static::TYPE => 'string'],
-            'scope' => [static::TYPE => 'string']
+            'scope' => [static::TYPE => 'string'],
+            'deleteDaysAfterCreation' => [static::TYPE => 'int'],
         ];
     }
 
