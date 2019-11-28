@@ -43,9 +43,6 @@ use Commercetools\Core\Request\Orders\OrderQueryRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByCartIdGetRequest;
-use Commercetools\Core\Request\ShippingMethods\ShippingMethodByIdGetRequest;
-use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
-use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
 
 class InStoreRequests
 {
