@@ -42,6 +42,7 @@ use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderQueryRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateRequest;
+use Commercetools\Core\Request\ShippingMethods\ShippingMethodByCartIdGetRequest;
 
 class InStoreRequests
 {
@@ -83,6 +84,7 @@ class InStoreRequests
         CustomerEmailConfirmRequest::class => 1,
         CustomerUpdateRequest::class => 1,
         CustomerUpdateByKeyRequest::class => 1,
+        ShippingMethodByCartIdGetRequest::class => 1,
     ];
 
     public function can($request)
