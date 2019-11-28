@@ -24,6 +24,8 @@ use DateTime;
  * @method ApiClient setLastUsedAt(DateTime $lastUsedAt = null)
  * @method string getSecret()
  * @method ApiClient setSecret(string $secret = null)
+ * @method DateTimeDecorator getDeleteAt()
+ * @method ApiClient setDeleteAt(DateTime $deleteAt = null)
  */
 class ApiClient extends JsonObject
 {
@@ -41,7 +43,11 @@ class ApiClient extends JsonObject
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateDecorator::class
             ],
-            'secret' => [static::TYPE => 'string']
+            'secret' => [static::TYPE => 'string'],
+            'deleteAt' => [
+                static::TYPE => DateTime::class,
+                static::DECORATOR => DateTimeDecorator::class
+            ],
         ];
     }
 }
