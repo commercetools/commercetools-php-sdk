@@ -37,7 +37,7 @@ abstract class ResourceFixture
 
     final protected static function withUpdateableDraftResource(ApiClient $client, callable $draftBuilderFunction, callable $assertFunction, callable $createFunction, callable $deleteFunction, callable $draftFunction)
     {
-        $resourceDraft = $draftFunction();
+        $resourceDraft = call_user_func($draftFunction);
 
         $resourceDraft = call_user_func($draftBuilderFunction, $resourceDraft);
 
@@ -52,7 +52,7 @@ abstract class ResourceFixture
 
     final protected static function withDraftResource(ApiClient $client, callable $draftBuilderFunction, callable $assertFunction, callable $createFunction, callable $deleteFunction, callable $draftFunction)
     {
-        $initialDraft = $draftFunction();
+        $initialDraft = call_user_func($draftFunction);
 
         $resourceDraft = call_user_func($draftBuilderFunction, $initialDraft);
 

@@ -105,43 +105,62 @@ class CategoryQueryRequestTest extends ApiTestCase
 
     public function testQueryByExternalId()
     {
-        $category = $this->createCategory($this->getDraft('myCategory', 'my-category')->setExternalId('myExternalId'));
+        $client = $this->getApiClient();
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setExternalId('myExternalId');
+            },
+            function (Category $category) use ($client) {
+                $request = RequestBuilder::of()->categories()->query()->where('externalId="myExternalId"');
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
 
-        $result = $this->getClient()->execute(
-            CategoryQueryRequest::of()->where('externalId="myExternalId"')
-        )->toObject();
-
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(Category::class, $result->getAt(0));
-        $this->assertSame($category->getId(), $result->getAt(0)->getId());
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(Category::class, $result->current());
+                $this->assertSame($category->getId(), $result->current()->getId());
+            }
+        );
     }
 
     public function testQueryHierarchy()
     {
-        $parent = $this->createCategory($this->getDraft('parentCategory', 'parent-category'));
-        $child = $this->createCategory(
-            $this->getDraft('childCategory', 'child-category')
-                ->setParent(CategoryReference::ofId($parent->getId()))
+        $client = $this->getApiClient();
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $parentDraft) {
+                return $parentDraft->setName(LocalizedString::ofLangAndText('en', 'parentCategory'));
+            },
+            function (Category $parent) use ($client) {
+                CategoryFixture::withDraftCategory(
+                    $client,
+                    function (CategoryDraft $childDraft) use ($parent) {
+                        return $childDraft->setParent(CategoryReference::ofId($parent->getId()))
+                            ->setName(LocalizedString::ofLangAndText('en', 'childCategory'));
+                    },
+                    function (Category $child) use ($client, $parent) {
+                        $this->assertSame('childCategory', $child->getName()->en);
+                        $this->assertSame('parentCategory', $parent->getName()->en);
+
+                        $request = RequestBuilder::of()->categories()->query()->where('parent(id="'.$parent->getId().'")');
+                        $response = $client->execute($request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame($child->getId(), $result->current()->getId());
+
+                        $request = RequestBuilder::of()->categories()->query()->where('parent is defined');
+                        $response = $client->execute($request);
+                        $result = $request->mapFromResponse($response);
+                        $this->assertSame($child->getId(), $result->getAt(0)->getId());
+
+                        $request = RequestBuilder::of()->categories()->query()->where('parent is not defined');
+                        $response = $client->execute($request);
+                        $result = $request->mapFromResponse($response);
+                        $this->assertSame($parent->getId(), $result->getAt(0)->getId());
+                    }
+                );
+            }
         );
-
-        $this->assertSame('childCategory', $child->getName()->en);
-        $this->assertSame('parentCategory', $parent->getName()->en);
-
-        $result = $this->getClient()->execute(
-            CategoryQueryRequest::of()->where('parent(id="'.$parent->getId().'")')
-        )->toObject();
-
-        $this->assertSame($child->getId(), $result->getAt(0)->getId());
-
-        $result = $this->getClient()->execute(
-            CategoryQueryRequest::of()->where('parent is defined')
-        )->toObject();
-        $this->assertSame($child->getId(), $result->getAt(0)->getId());
-
-        $result = $this->getClient()->execute(
-            CategoryQueryRequest::of()->where('parent is not defined')
-        )->toObject();
-        $this->assertSame($parent->getId(), $result->getAt(0)->getId());
     }
 
     public function testAncestorExpansion()

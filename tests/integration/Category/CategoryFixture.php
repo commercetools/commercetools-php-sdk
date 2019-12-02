@@ -25,9 +25,10 @@ class CategoryFixture extends ResourceFixture
     {
         $draft = CategoryDraft::of();
 
-        $draft->setName(LocalizedString::ofLangAndText('en', self::uniqueCategoryString()))
-            ->setSlug(LocalizedString::ofLangAndText('en', self::uniqueCategoryString()))
-            ->setKey(self::uniqueCategoryString());
+        $uniqueCategoryString = self::uniqueCategoryString();
+        $draft->setName(LocalizedString::ofLangAndText('en', $uniqueCategoryString))
+            ->setSlug(LocalizedString::ofLangAndText('en', $uniqueCategoryString))
+            ->setKey($uniqueCategoryString);
 
         return $draft;
     }
