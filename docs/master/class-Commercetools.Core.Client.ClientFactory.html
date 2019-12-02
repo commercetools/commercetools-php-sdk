@@ -583,8 +583,10 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Commercetools.Core.Client.ApiClient.html">ApiClient</a></li>
 				<li class="active"><a href="class-Commercetools.Core.Client.ClientFactory.html">ClientFactory</a></li>
 				<li><a href="class-Commercetools.Core.Client.HttpMethod.html">HttpMethod</a></li>
+				<li><a href="class-Commercetools.Core.Client.ProviderFactory.html">ProviderFactory</a></li>
 				<li><a href="class-Commercetools.Core.Client.UserAgentProvider.html">UserAgentProvider</a></li>
 			</ul>
 
@@ -622,7 +624,7 @@
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Client.html">Client</a><br>
 
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.ClientFactory.html#34-356" title="Go to source code">Core/Client/ClientFactory.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.ClientFactory.html#39-467" title="Go to source code">Core/Client/ClientFactory.php</a>
 		<br>
 	</div>
 
@@ -642,7 +644,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#41-50" title="Go to source code">__construct</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#46-55" title="Go to source code">__construct</a>( )</code>
 
 			<div class="description short">
 				<p>ClientFactory constructor.</p>
@@ -664,7 +666,7 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="createClient" id="_createClient">
+		<tr data-order="createCustomClient" id="_createCustomClient">
 
 			<td class="attributes"><code>
 				 public 
@@ -674,8 +676,58 @@
 			</td>
 
 			<td class="name"><div>
+			<a class="anchor" href="#_createCustomClient">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#57-113" title="Go to source code">createCustomClient</a>( <span>string <var>$clientClass</var></span>, <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code>|array <var>$config</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Cache\CacheItemPoolInterface|Psr\SimpleCache\CacheInterface <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$provider</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Cache.CacheAdapterFactory.html">Commercetools\Core\Cache\CacheAdapterFactory</a></code> <var>$cacheAdapterFactory</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$clientClass</var></dt>
+						<dd></dd>
+						<dt><var>$config</var></dt>
+						<dd></dd>
+						<dt><var>$logger</var></dt>
+						<dd></dd>
+						<dt><var>$cache</var></dt>
+						<dd></dd>
+						<dt><var>$provider</var></dt>
+						<dd></dd>
+						<dt><var>$cacheAdapterFactory</var></dt>
+						<dd></dd>
+						<dt><var>$context</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						GuzzleHttp\Client
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="createClient" id="_createClient">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Client.ApiClient.html">Commercetools\Core\Client\ApiClient</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
 			<a class="anchor" href="#_createClient">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#52-88" title="Go to source code">createClient</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code>|array <var>$config</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Cache\CacheItemPoolInterface|Psr\SimpleCache\CacheInterface <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$provider</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Cache.CacheAdapterFactory.html">Commercetools\Core\Cache\CacheAdapterFactory</a></code> <var>$cacheAdapterFactory</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#115-141" title="Go to source code">createClient</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code>|array <var>$config</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Cache\CacheItemPoolInterface|Psr\SimpleCache\CacheInterface <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$provider</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Cache.CacheAdapterFactory.html">Commercetools\Core\Cache\CacheAdapterFactory</a></code> <var>$cacheAdapterFactory</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -697,12 +749,43 @@
 						<dd></dd>
 						<dt><var>$cacheAdapterFactory</var></dt>
 						<dd></dd>
+						<dt><var>$context</var></dt>
+						<dd></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
-						GuzzleHttp\Client
+						<code><a href="class-Commercetools.Core.Client.ApiClient.html">Commercetools\Core\Client\ApiClient</a></code>
 					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="createAuthClient" id="_createAuthClient">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_createAuthClient">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#143-159" title="Go to source code">createAuthClient</a>( <span>array <var>$options</var> = []</span>, <span><code><a href="class-Commercetools.Core.Helper.CorrelationIdProvider.html">Commercetools\Core\Helper\CorrelationIdProvider</a></code> <var>$correlationIdProvider</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
 
 
 
@@ -721,7 +804,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reauthenticate">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#194-233" title="Go to source code">reauthenticate</a>( <span><code><a href="class-Commercetools.Core.Client.OAuth.OAuth2Handler.html">Commercetools\Core\Client\OAuth\OAuth2Handler</a></code> <var>$oauthHandler</var></span>, <span>integer <var>$maxRetries</var> = <span class="php-num">1</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#304-343" title="Go to source code">reauthenticate</a>( <span><code><a href="class-Commercetools.Core.Client.OAuth.OAuth2Handler.html">Commercetools\Core\Client\OAuth\OAuth2Handler</a></code> <var>$oauthHandler</var></span>, <span>integer <var>$maxRetries</var> = <span class="php-num">1</span></span> )</code>
 
 			<div class="description short">
 				<p>Middleware that reauthenticates on invalid token error</p>
@@ -761,7 +844,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_httpErrors">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#235-259" title="Go to source code">httpErrors</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#345-369" title="Go to source code">httpErrors</a>( )</code>
 
 			<div class="description short">
 				<p>Middleware that throws exceptions for 4xx or 5xx responses when the
@@ -796,7 +879,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_of">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#349-355" title="Go to source code">of</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#460-466" title="Go to source code">of</a>( )</code>
 
 			<div class="description short">
 				
@@ -839,6 +922,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?60346864f86b9ad7417096013482905e3b9e52ae"></script>
+<script src="elementlist.js?7b7b254b99cbd29c1cb519f623a0bf95aea42ba5"></script>
 </body>
 </html>

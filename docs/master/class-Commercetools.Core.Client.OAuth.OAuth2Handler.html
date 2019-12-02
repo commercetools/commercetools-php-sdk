@@ -583,15 +583,24 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Commercetools.Core.Client.OAuth.AnonymousFlowTokenProvider.html">AnonymousFlowTokenProvider</a></li>
+				<li><a href="class-Commercetools.Core.Client.OAuth.CacheTokenProvider.html">CacheTokenProvider</a></li>
 				<li><a href="class-Commercetools.Core.Client.OAuth.ClientCredentials.html">ClientCredentials</a></li>
 				<li><a href="class-Commercetools.Core.Client.OAuth.CredentialTokenProvider.html">CredentialTokenProvider</a></li>
 				<li class="active"><a href="class-Commercetools.Core.Client.OAuth.OAuth2Handler.html">OAuth2Handler</a></li>
+				<li><a href="class-Commercetools.Core.Client.OAuth.PasswordFlowTokenProvider.html">PasswordFlowTokenProvider</a></li>
+				<li><a href="class-Commercetools.Core.Client.OAuth.PreAuthTokenProvider.html">PreAuthTokenProvider</a></li>
+				<li><a href="class-Commercetools.Core.Client.OAuth.RefreshFlowTokenProvider.html">RefreshFlowTokenProvider</a></li>
 				<li><a href="class-Commercetools.Core.Client.OAuth.Token.html">Token</a></li>
+				<li><a href="class-Commercetools.Core.Client.OAuth.TokenStorageProvider.html">TokenStorageProvider</a></li>
 			</ul>
 
 			<h3>Interfaces</h3>
 			<ul>
+				<li><a href="class-Commercetools.Core.Client.OAuth.AnonymousIdProvider.html">AnonymousIdProvider</a></li>
+				<li><a href="class-Commercetools.Core.Client.OAuth.RefreshTokenProvider.html">RefreshTokenProvider</a></li>
 				<li><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">TokenProvider</a></li>
+				<li><a href="class-Commercetools.Core.Client.OAuth.TokenStorage.html">TokenStorage</a></li>
 			</ul>
 
 
@@ -623,7 +632,7 @@
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Client.html">Client</a>\<a href="namespace-Commercetools.Core.Client.OAuth.html">OAuth</a><br>
 
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.OAuth.OAuth2Handler.html#16-129" title="Go to source code">Core/Client/OAuth/OAuth2Handler.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.OAuth.OAuth2Handler.html#11-75" title="Go to source code">Core/Client/OAuth/OAuth2Handler.php</a>
 		<br>
 	</div>
 
@@ -643,7 +652,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.OAuth.OAuth2Handler.html#31-57" title="Go to source code">__construct</a>( <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$provider</var></span>, <span>Psr\Cache\CacheItemPoolInterface|Psr\SimpleCache\CacheInterface <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Cache.CacheAdapterFactory.html">Commercetools\Core\Cache\CacheAdapterFactory</a></code> <var>$factory</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$cacheKey</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.OAuth.OAuth2Handler.html#18-29" title="Go to source code">__construct</a>( <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$provider</var></span>, <span>Psr\Cache\CacheItemPoolInterface|Psr\SimpleCache\CacheInterface <var>$cache</var>,…</span>, <span><code><a href="class-Commercetools.Core.Cache.CacheAdapterFactory.html">Commercetools\Core\Cache\CacheAdapterFactory</a></code>|null <var>$factory</var>,…</span>, <span>string <var>$cacheKey</var>,…</span> )</code>
 
 			<div class="description short">
 				<p>OAuth2Handler constructor.</p>
@@ -657,11 +666,11 @@
 					<div class="list"><dl>
 						<dt><var>$provider</var></dt>
 						<dd></dd>
-						<dt><var>$cache</var></dt>
+						<dt><var>$cache</var>,…</dt>
 						<dd></dd>
-						<dt><var>$factory</var></dt>
+						<dt><var>$factory</var>,…</dt>
 						<dd></dd>
-						<dt><var>$cacheKey</var></dt>
+						<dt><var>$cacheKey</var>,…</dt>
 						<dd></dd>
 					</dl></div>
 
@@ -683,7 +692,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___invoke">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.OAuth.OAuth2Handler.html#59-67" title="Go to source code">__invoke</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>array <var>$options</var> = []</span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.OAuth.OAuth2Handler.html#31-42" title="Go to source code">__invoke</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 			<div class="description short">
 				
@@ -723,7 +732,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getAuthorizationHeader">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.OAuth.OAuth2Handler.html#69-75" title="Go to source code">getAuthorizationHeader</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.OAuth.OAuth2Handler.html#44-50" title="Go to source code">getAuthorizationHeader</a>( )</code>
 
 			<div class="description short">
 				
@@ -756,7 +765,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_refreshToken">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.OAuth.OAuth2Handler.html#77-86" title="Go to source code">refreshToken</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.OAuth.OAuth2Handler.html#52-58" title="Go to source code">refreshToken</a>( )</code>
 
 			<div class="description short">
 				
@@ -774,6 +783,39 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="refreshable" id="_refreshable">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_refreshable">#</a>
+			<code><a href="source-class-Commercetools.Core.Client.OAuth.OAuth2Handler.html#68-74" title="Go to source code">refreshable</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 			</table>
 		</div>
 
@@ -783,36 +825,6 @@
 
 
 
-
-		<div class="panel panel-default">
-            <div class="panel-heading"><h2>Constants summary</h2></div>
-			<table class="summary table table-bordered table-striped constants" id="constants">
-			<tr data-order="TOKEN_CACHE_KEY" id="TOKEN_CACHE_KEY">
-
-				<td class="attributes"><code>string</code></td>
-				<td class="name">
-					<code>
-						<a href="source-constant-TOKEN_CACHE_KEY.html#18" title="Go to source code"><b>TOKEN_CACHE_KEY</b></a>
-					</code>
-
-					<div class="description short">
-						
-					</div>
-
-					<div class="description detailed hidden">
-						
-
-					</div>
-				</td>
-				<td class="value">
-					<div>
-						<a href="#TOKEN_CACHE_KEY" class="anchor">#</a>
-						<code><span class="php-quote">'commercetools_io_access_token'</span></code>
-					</div>
-				</td>
-			</tr>
-			</table>
-		</div>
 
 
 
@@ -825,6 +837,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?0d562ddc79224e94669c256311279e4952a55561"></script>
-<script src="elementlist.js?60346864f86b9ad7417096013482905e3b9e52ae"></script>
+<script src="elementlist.js?7b7b254b99cbd29c1cb519f623a0bf95aea42ba5"></script>
 </body>
 </html>
