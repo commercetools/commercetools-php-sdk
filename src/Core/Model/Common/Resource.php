@@ -9,7 +9,10 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @method getId()
+ * @method string getId()
+ * @method int getVersion()
+ * @method DateTimeDecorator getCreatedAt()
+ * @method DateTimeDecorator getLastModifiedAt()
  */
 abstract class Resource extends JsonObject implements ReferenceObjectInterface
 {

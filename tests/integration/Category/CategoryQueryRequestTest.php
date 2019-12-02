@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\IntegrationTests\Category;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
@@ -49,24 +50,35 @@ class CategoryQueryRequestTest extends ApiTestCase
 
     public function testGetById()
     {
-        $category = $this->createCategory($this->getDraft('myCategory', 'my-category'));
+        $client = $this->getApiClient();
+        CategoryFixture::withCategory(
+            $client,
+            function (Category $category) use ($client) {
+                $request = RequestBuilder::of()->categories()->getById($category->getId());
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
 
-        $result = $this->getClient()->execute(CategoryByIdGetRequest::ofId($category->getId()))->toObject();
-
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($category->getId(), $result->getId());
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($category->getId(), $result->getId());
+            }
+        );
     }
 
     public function testGetByKey()
     {
-        $category = $this->createCategory(
-            $this->getDraft('myCategory', 'my-category')->setKey($this->getTestRun())
+        $client = $this->getApiClient();
+        CategoryFixture::withCategory(
+            $client,
+            function (Category $category) use ($client) {
+                $request = RequestBuilder::of()->categories()->getByKey($category->getKey());
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($category->getId(), $result->getId());
+                $this->assertSame($category->getKey(), $result->getKey());
+            }
         );
-
-        $result = $this->getClient()->execute(CategoryByKeyGetRequest::ofKey($category->getKey()))->toObject();
-
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($category->getId(), $result->getId());
     }
 
     public function testQuery()

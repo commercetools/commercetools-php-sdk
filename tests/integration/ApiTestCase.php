@@ -54,6 +54,7 @@ class ApiTestCase extends TestCase
 {
     private static $testRun;
     private static $client = [];
+    private static $apiClient = [];
     private static $errorHandler;
     private static $profiler;
     /**
@@ -208,6 +209,31 @@ class ApiTestCase extends TestCase
         }
 
         return self::$client[$scope];
+    }
+
+    /**
+     * @param string $scope
+     * @return Client\ApiClient
+     */
+    public function getApiClient($scope = 'manage_project')
+    {
+        if (!isset(self::$apiClient[$scope])) {
+            $config = $this->getClientConfig($scope);
+            $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '15']);
+
+            $clientOptions =['verify' => $this->getVerifySSL(), 'timeout' => '15'];
+            $enableProfiler = getenv('PHP_SDK_PROFILE');
+            if ($enableProfiler === 'true') {
+                $clientOptions['middlewares'][] = $this->getProfiler();
+            }
+            $config->setClientOptions($clientOptions);
+
+            $client = ClientFactory::of()->createClient($config, $this->getLogger());
+
+            self::$apiClient[$scope] = $client;
+        }
+
+        return self::$apiClient[$scope];
     }
 
     private function getProfiler()
