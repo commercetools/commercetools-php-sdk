@@ -22,17 +22,23 @@ class ApiClientTest extends ApiTestCase
     {
         $client = $this->getClient(self::API_CLIENTS_SCOPE);
         $project = $client->getConfig()->getProject();
+        $deleteDaysAfterCreation = 1;
 
         $apiClientDraft = ApiClientDraft::ofNameAndScope(
             'test-' . $this->getTestRun(),
             'view_products:' . $project
-        );
+        )->setDeleteDaysAfterCreation($deleteDaysAfterCreation);
+
         $request = ApiClientCreateRequest::ofDraft($apiClientDraft);
         $response = $request->executeWithClient($client);
-        $result = $request->mapResponse($response);
+        $result = $request->mapFromResponse($response);
 
         $this->assertNotNull($result);
         $this->assertNotNull($result->getId());
+
+        $calcDate = new \DateTime('+' . $deleteDaysAfterCreation . 'day');
+        $this->assertEquals($calcDate->format('Y-m-d'), $result->getDeleteAt()->format('Y-m-d'));
+
         $getByIdRequest = ApiClientByIdGetRequest::ofId($result->getId());
         $getResponse = $getByIdRequest->executeWithClient($client);
         $getResult = $request->mapResponse($getResponse);
