@@ -1,12 +1,34 @@
 #!/usr/bin/env php
 <?php
 
-$uri = $_SERVER['COMMERCETOOLS_API_URL'];
+$authUri = $_SERVER['COMMERCETOOLS_OAUTH_URL'] . '/oauth/token';
+
+$clientId = $_SERVER['COMMERCETOOLS_CLIENT_ID'];
+$clientSecret = $_SERVER['COMMERCETOOLS_CLIENT_SECRET'];
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $authUri);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Basic ' . base64_encode($clientId . ':' . $clientSecret),
+    'Content-Type: application/x-www-form-urlencoded'
+]);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+$res = curl_exec($ch);
+curl_close($ch);
+
+$res = json_decode($res, true);
+$token = $res['access_token'];
+
+$project = $_SERVER['COMMERCETOOLS_PROJECT'];
+$uri = $_SERVER['COMMERCETOOLS_API_URL'] . '/' . $project;
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $uri);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    'Content-Type: application/json'
+    'Content-Type: application/json',
+    'Authorization: Bearer ' . $token
 ]);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $retry = 60;

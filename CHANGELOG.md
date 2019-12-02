@@ -1,3 +1,30 @@
+# [2.9.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.8.0...v2.9.0) (2019-12-02)
+
+
+### Bug Fixes
+
+* **Cart:** fix serialization of cart draft ([024b8fd](https://github.com/commercetools/commercetools-php-sdk/commit/024b8fd))
+* **OAuth:** fix oauth refresh token URL ([0bf801d](https://github.com/commercetools/commercetools-php-sdk/commit/0bf801d))
+
+
+### Features
+
+* **ApiClient:** add deleteAt to feldDefinition method ([d2b6b35](https://github.com/commercetools/commercetools-php-sdk/commit/d2b6b35))
+* **ApiClientDraft:** add deleteDaysAfterCreation in fieldDefinitions ([4ee7f07](https://github.com/commercetools/commercetools-php-sdk/commit/4ee7f07))
+* **ClientFactory:** add option to inject middleware to HttpClients ([734fe63](https://github.com/commercetools/commercetools-php-sdk/commit/734fe63))
+* **ClientFactory:** create HttpClient with CTP client compatible request signature ([3a55d24](https://github.com/commercetools/commercetools-php-sdk/commit/3a55d24))
+* **Customer:** support stores for customer ([5eee954](https://github.com/commercetools/commercetools-php-sdk/commit/5eee954))
+* **Draft:** add factory methods in draft classes for ApiClient and Asset and Cart ([bc0f616](https://github.com/commercetools/commercetools-php-sdk/commit/bc0f616))
+* **ImportOrder:** support store for order import ([175953c](https://github.com/commercetools/commercetools-php-sdk/commit/175953c)), closes [#499](https://github.com/commercetools/commercetools-php-sdk/issues/499)
+* **InStoreRequest:** add request to InStoreRequests to add new shipping method endpoint ([ee7620f](https://github.com/commercetools/commercetools-php-sdk/commit/ee7620f))
+* **Me:** support me/shopping-lists endpoint ([fc52e82](https://github.com/commercetools/commercetools-php-sdk/commit/fc52e82))
+* **Message:** add messages ProductAddedToCategory and ProductRemovedFromCategory ([673b4cf](https://github.com/commercetools/commercetools-php-sdk/commit/673b4cf))
+* **Order:** add refusedGift field ([7532e38](https://github.com/commercetools/commercetools-php-sdk/commit/7532e38))
+* **Product:** add discounted field to PriceDraft ([b3c44fe](https://github.com/commercetools/commercetools-php-sdk/commit/b3c44fe))
+* **Query:** add support for parametrized queries ([b3bc4ad](https://github.com/commercetools/commercetools-php-sdk/commit/b3bc4ad)), closes [#505](https://github.com/commercetools/commercetools-php-sdk/issues/505)
+
+
+
 # [2.8.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.7.0...v2.8.0) (2019-06-06)
 
 

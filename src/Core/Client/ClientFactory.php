@@ -2,28 +2,33 @@
 
 namespace Commercetools\Core\Client;
 
-use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Commercetools\Core\Cache\CacheAdapterFactory;
+use Commercetools\Core\Client\OAuth\AnonymousFlowTokenProvider;
+use Commercetools\Core\Client\OAuth\AnonymousIdProvider;
+use Commercetools\Core\Client\OAuth\CacheTokenProvider;
 use Commercetools\Core\Client\OAuth\ClientCredentials;
 use Commercetools\Core\Client\OAuth\CredentialTokenProvider;
 use Commercetools\Core\Client\OAuth\OAuth2Handler;
+use Commercetools\Core\Client\OAuth\PasswordFlowTokenProvider;
+use Commercetools\Core\Client\OAuth\RefreshFlowTokenProvider;
 use Commercetools\Core\Client\OAuth\TokenProvider;
+use Commercetools\Core\Client\OAuth\TokenStorage;
+use Commercetools\Core\Client\OAuth\TokenStorageProvider;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\DeprecatedException;
-use Commercetools\Core\Error\InvalidCredentialsError;
 use Commercetools\Core\Error\InvalidTokenException;
 use Commercetools\Core\Error\Message;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Error\InvalidArgumentException;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\ContextAwareInterface;
 use Commercetools\Core\Response\AbstractApiResponse;
-use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -50,19 +55,23 @@ class ClientFactory
     }
 
     /**
+     * @param string $clientClass
      * @param Config|array $config
      * @param LoggerInterface $logger
      * @param CacheItemPoolInterface|CacheInterface $cache
      * @param TokenProvider $provider
      * @param CacheAdapterFactory $cacheAdapterFactory
-     * @return HttpClient
+     * @param Context|null $context
+     * @return Client
      */
-    public function createClient(
+    public function createCustomClient(
+        $clientClass,
         $config,
         LoggerInterface $logger = null,
         $cache = null,
         TokenProvider $provider = null,
-        CacheAdapterFactory $cacheAdapterFactory = null
+        CacheAdapterFactory $cacheAdapterFactory = null,
+        Context $context = null
     ) {
         $config = $this->createConfig($config);
 
@@ -72,19 +81,81 @@ class ClientFactory
             $cacheAdapterFactory = new CacheAdapterFactory($cacheDir);
         }
 
+        $cache = $cacheAdapterFactory->get($cache);
+        if (is_null($cache)) {
+            throw new InvalidArgumentException(Message::INVALID_CACHE_ADAPTER);
+        }
+
         $credentials = $config->getClientCredentials();
         $oauthHandler = $this->getHandler(
             $credentials,
             $config->getOauthUrl(),
-            $cacheAdapterFactory,
             $cache,
             $provider,
-            $config->getOAuthClientOptions()
+            $config->getOAuthClientOptions(),
+            $config->getCorrelationIdProvider()
         );
 
         $options = $this->getDefaultOptions($config);
 
-        return $this->createGuzzle6Client($options, $oauthHandler, $logger, $config->getCorrelationIdProvider());
+        $client = $this->createGuzzle6Client(
+            $clientClass,
+            $options,
+            $oauthHandler,
+            $logger,
+            $config->getCorrelationIdProvider()
+        );
+
+        if ($client instanceof ContextAwareInterface) {
+            $client->setContext($context);
+        }
+        return $client;
+    }
+
+    /**
+     * @param Config|array $config
+     * @param LoggerInterface $logger
+     * @param CacheItemPoolInterface|CacheInterface $cache
+     * @param TokenProvider $provider
+     * @param CacheAdapterFactory $cacheAdapterFactory
+     * @param Context|null $context
+     * @return ApiClient
+     */
+    public function createClient(
+        $config,
+        LoggerInterface $logger = null,
+        $cache = null,
+        TokenProvider $provider = null,
+        CacheAdapterFactory $cacheAdapterFactory = null,
+        Context $context = null
+    ) {
+        return $this->createCustomClient(
+            ApiClient::class,
+            $config,
+            $logger,
+            $cache,
+            $provider,
+            $cacheAdapterFactory,
+            $context
+        );
+    }
+
+    public function createAuthClient(
+        array $options = [],
+        CorrelationIdProvider $correlationIdProvider = null
+    ) {
+        if (isset($options['handler']) && $options['handler'] instanceof HandlerStack) {
+            $handler = $options['handler'];
+        } else {
+            $handler = HandlerStack::create();
+            $options['handler'] = $handler;
+        }
+
+        $this->setCorrelationIdMiddleware($handler, $correlationIdProvider);
+
+        $options = $this->addMiddlewares($handler, $options);
+
+        return new Client($options);
     }
 
     private function getDefaultOptions(Config $config)
@@ -120,12 +191,15 @@ class ClientFactory
     }
 
     /**
+     * @param string $clientClass
      * @param array $options
-     * @param LoggerInterface|null $logger
      * @param OAuth2Handler $oauthHandler
-     * @return HttpClient
+     * @param LoggerInterface|null $logger
+     * @param CorrelationIdProvider|null $correlationIdProvider
+     * @return Client
      */
     private function createGuzzle6Client(
+        $clientClass,
         array $options,
         OAuth2Handler $oauthHandler,
         LoggerInterface $logger = null,
@@ -160,21 +234,17 @@ class ClientFactory
             Middleware::mapRequest($oauthHandler),
             'oauth_2_0'
         );
-        $handler->push(
-            self::reauthenticate($oauthHandler),
-            'reauthenticate'
-        );
-
-        if (!is_null($correlationIdProvider)) {
-            $handler->push(Middleware::mapRequest(function (RequestInterface $request) use ($correlationIdProvider) {
-                return $request->withAddedHeader(
-                    AbstractApiResponse::X_CORRELATION_ID,
-                    $correlationIdProvider->getCorrelationId()
-                );
-            }), 'ctp_correlation_id');
+        if ($oauthHandler->refreshable()) {
+            $handler->push(
+                self::reauthenticate($oauthHandler),
+                'reauthenticate'
+            );
         }
 
-        $client = new HttpClient($options);
+        $this->setCorrelationIdMiddleware($handler, $correlationIdProvider);
+        $options = $this->addMiddlewares($handler, $options);
+
+        $client = new $clientClass($options);
 
         return $client;
     }
@@ -189,6 +259,46 @@ class ClientFactory
             $formatter = new MessageFormatter();
         }
         $handler->push(self::log($logger, $formatter, $logLevel), 'ctp_logger');
+    }
+
+    /**
+     * @param CorrelationIdProvider $correlationIdProvider
+     * @param HandlerStack $handler
+     */
+    private function setCorrelationIdMiddleware(
+        HandlerStack $handler,
+        CorrelationIdProvider $correlationIdProvider = null
+    ) {
+        if (!is_null($correlationIdProvider)) {
+            $handler->push(Middleware::mapRequest(function (RequestInterface $request) use ($correlationIdProvider) {
+                return $request->withAddedHeader(
+                    AbstractApiResponse::X_CORRELATION_ID,
+                    $correlationIdProvider->getCorrelationId()
+                );
+            }), 'ctp_correlation_id');
+        }
+    }
+
+    /**
+     * @param HandlerStack $handler
+     * @param array $options
+     * @return array
+     */
+    private function addMiddlewares(HandlerStack $handler, array $options)
+    {
+        if (isset($options['middlewares']) && is_array($options['middlewares'])) {
+            foreach ($options['middlewares'] as $key => $middleware) {
+                if (is_callable($middleware)) {
+                    if (!is_numeric($key)) {
+                        $handler->remove($key);
+                        $handler->push($middleware, $key);
+                    } else {
+                        $handler->push($middleware);
+                    }
+                }
+            }
+        }
+        return $options;
     }
 
     /**
@@ -261,29 +371,30 @@ class ClientFactory
     /**
      * @param ClientCredentials $credentials
      * @param string $accessTokenUrl
-     * @param CacheAdapterFactory $cacheAdapterFactory
      * @param CacheItemPoolInterface|CacheInterface $cache
      * @param TokenProvider $provider
      * @param array $authClientOptions
+     * @param CorrelationIdProvider|null $correlationIdProvider
      * @return OAuth2Handler
      */
     private function getHandler(
         ClientCredentials $credentials,
         $accessTokenUrl,
-        CacheAdapterFactory $cacheAdapterFactory,
         $cache,
         TokenProvider $provider = null,
-        array $authClientOptions = []
+        array $authClientOptions = [],
+        CorrelationIdProvider $correlationIdProvider = null
     ) {
         if (is_null($provider)) {
             $provider = new CredentialTokenProvider(
-                new HttpClient($authClientOptions),
+                $this->createAuthClient($authClientOptions, $correlationIdProvider),
                 $accessTokenUrl,
                 $credentials
             );
+            $cacheKey = sha1($credentials->getClientId() . $credentials->getScope());
+            $provider = new CacheTokenProvider($provider, $cache, $cacheKey);
         }
-        $cacheKey = sha1($credentials->getClientId() . $credentials->getScope());
-        return new OAuth2Handler($provider, $cache, $cacheAdapterFactory, $cacheKey);
+        return new OAuth2Handler($provider);
     }
 
     /**
@@ -337,7 +448,7 @@ class ClientFactory
     private static function isGuzzle6()
     {
         if (is_null(self::$isGuzzle6)) {
-            if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+            if (version_compare(Client::VERSION, '6.0.0', '>=')) {
                 self::$isGuzzle6 = true;
             } else {
                 self::$isGuzzle6 = false;

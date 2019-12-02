@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\IntegrationTests\Me;
 
+use Cache\Adapter\PHPArray\ArrayCachePool;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Client;
 use Commercetools\Core\Config;
@@ -38,9 +39,7 @@ class MeOrderRequestTest extends ApiTestCase
      */
     protected function getCartDraft()
     {
-        $draft = CartDraft::ofCurrency(
-            'EUR'
-        );
+        $draft = CartDraft::ofCurrencyAndShippingCountry('EUR', 'DE');
         /**
          * @var Customer $customer
          */
@@ -48,7 +47,6 @@ class MeOrderRequestTest extends ApiTestCase
         $draft->setShippingAddress($customer->getDefaultShippingAddress())
             ->setBillingAddress($customer->getDefaultBillingAddress())
             ->setCustomerEmail($customer->getEmail())
-            ->setCountry('DE')
             ->setLineItems(
                 LineItemDraftCollection::of()
                     ->add(
@@ -69,9 +67,7 @@ class MeOrderRequestTest extends ApiTestCase
      */
     protected function getMyCartDraft()
     {
-        $draft = MyCartDraft::ofCurrency(
-            'EUR'
-        );
+        $draft = MyCartDraft::ofCurrency('EUR')->setCountry('DE');
         /**
          * @var Customer $customer
          */
@@ -79,7 +75,6 @@ class MeOrderRequestTest extends ApiTestCase
         $draft->setShippingAddress($customer->getDefaultShippingAddress())
             ->setBillingAddress($customer->getDefaultBillingAddress())
             ->setCustomerEmail($customer->getEmail())
-            ->setCountry('DE')
             ->setLineItems(
                 MyLineItemDraftCollection::of()
                     ->add(
@@ -207,7 +202,9 @@ class MeOrderRequestTest extends ApiTestCase
         $logger = new Logger('testOauth');
         $logger->pushHandler($handler);
 
-        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
+        $cache = new ArrayCachePool();
+
+        $client = Client::ofConfigCacheAndLogger($config, $cache, $this->getLogger());
         $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()])->setLogger($logger);
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
 
@@ -237,7 +234,8 @@ class MeOrderRequestTest extends ApiTestCase
             ->setPassword($customerDraft->getPassword())
         ;
 
-        $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
+        $cache = new ArrayCachePool();
+        $client = Client::ofConfigCacheAndLogger($config, $cache, $this->getLogger());
         $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
         $client->getHttpClient(['verify' => $this->getVerifySSL()]);
 

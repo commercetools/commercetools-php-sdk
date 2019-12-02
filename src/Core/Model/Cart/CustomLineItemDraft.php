@@ -6,9 +6,13 @@
 namespace Commercetools\Core\Model\Cart;
 
 use Commercetools\Core\Model\Common\AddressCollection;
+use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\HighPrecisionMoney;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Common\ResourceIdentifier;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
@@ -49,5 +53,87 @@ class CustomLineItemDraft extends JsonObject
             'custom' => [static::TYPE => CustomFieldObject::class],
             'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
         ];
+    }
+
+    /**
+     * @param LocalizedString $name
+     * @param Money|HighPrecisionMoney $money
+     * @param string $slug
+     * @param Context|callable $context
+     * @return CustomLineItemDraft
+     */
+    public static function ofNameMoneyAndSlug(LocalizedString $name, Money $money, $slug, $context = null)
+    {
+        return static::of($context)->setName($name)
+            ->setMoney($money)
+            ->setSlug($slug);
+    }
+
+    /**
+     * @param LocalizedString $name
+     * @param Money|HighPrecisionMoney $money
+     * @param string $slug
+     * @param int $quantity
+     * @param Context|callable $context
+     * @return CustomLineItemDraft
+     */
+    public static function ofNameMoneySlugAndQuantity(
+        LocalizedString $name,
+        Money $money,
+        $slug,
+        $quantity,
+        $context = null
+    ) {
+        return static::of($context)->setName($name)
+            ->setMoney($money)
+            ->setSlug($slug)
+            ->setQuantity($quantity);
+    }
+
+    /**
+     * @param LocalizedString $name
+     * @param Money|HighPrecisionMoney $money
+     * @param string $slug
+     * @param ResourceIdentifier|TaxCategoryReference $taxCategory
+     * @param Context|callable $context
+     * @return CustomLineItemDraft
+     */
+    public static function ofNameMoneySlugAndTaxCategory(
+        LocalizedString $name,
+        Money $money,
+        $slug,
+        ResourceIdentifier $taxCategory,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setName($name)
+            ->setMoney($money)
+            ->setSlug($slug)
+            ->setTaxCategory($taxCategory);
+    }
+
+    /**
+     * @param LocalizedString $name
+     * @param Money|HighPrecisionMoney $money
+     * @param string $slug
+     * @param ResourceIdentifier|TaxCategoryReference $taxCategory
+     * @param int $quantity
+     * @param Context|callable $context
+     * @return CustomLineItemDraft
+     */
+    public static function ofNameMoneySlugTaxCategoryAndQuantity(
+        LocalizedString $name,
+        Money $money,
+        $slug,
+        ResourceIdentifier $taxCategory,
+        $quantity,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setName($name)
+            ->setMoney($money)
+            ->setSlug($slug)
+            ->setTaxCategory($taxCategory)
+            ->setQuantity($quantity);
     }
 }

@@ -4,6 +4,7 @@
 
 namespace Commercetools\Core\Model\Message;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 
 /**
@@ -22,5 +23,16 @@ class MessagesConfigurationDraft extends JsonObject
             'enabled' => [static::TYPE => 'bool'],
             'deleteDaysAfterCreation' => [static::TYPE => 'int'],
         ];
+    }
+
+    /**
+     * @param bool $enabled
+     * @param int $deleteDaysAfterCreation
+     * @param Context|callable $context
+     * @return MessagesConfigurationDraft
+     */
+    public static function ofEnabledAndDeleteDaysAfterCreation($enabled, $deleteDaysAfterCreation, $context = null)
+    {
+        return static::of($context)->setEnabled($enabled)->setDeleteDaysAfterCreation($deleteDaysAfterCreation);
     }
 }

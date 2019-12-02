@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- * @ramlTestIgnoreFields('obj')
+ * @ramlTestIgnoreFields('obj', 'key')
  * @link https://docs.commercetools.com/http-api-types.html#reference
  * @method string getTypeId()
  * @method string getId()

@@ -7,7 +7,9 @@
 namespace Commercetools\Core\Model\Product;
 
 use Commercetools\Core\Model\Common\AttributeCollection;
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\Common\ImageCollection;
 use Commercetools\Core\Model\Common\AssetDraftCollection;
@@ -40,5 +42,36 @@ class ProductVariantDraft extends JsonObject
             'assets' => [static::TYPE => AssetDraftCollection::class],
             'key' => [static::TYPE => 'string'],
         ];
+    }
+
+    /**
+     * @param string $sku
+     * @param Context|callable $context
+     * @return ProductVariantDraft
+     */
+    public static function ofSku($sku, $context = null)
+    {
+        return static::of($context)->setSku($sku);
+    }
+
+    /**
+     * @param string $sku
+     * @param PriceDraftCollection $prices
+     * @param Context|callable $context
+     * @return ProductVariantDraft
+     */
+    public static function ofSkuAndPrices($sku, PriceDraftCollection $prices, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setPrices($prices);
+    }
+
+    /**
+     * @param PriceDraftCollection $prices
+     * @param Context|callable $context
+     * @return ProductVariantDraft
+     */
+    public static function ofPrices(PriceDraftCollection $prices, $context = null)
+    {
+        return static::of($context)->setPrices($prices);
     }
 }

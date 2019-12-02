@@ -5,7 +5,10 @@ namespace Commercetools\Core\IntegrationTests;
 use Commercetools\Core\Cache\CacheAdapterFactory;
 use Commercetools\Core\Client\ClientFactory;
 use Commercetools\Core\Client\OAuth\OAuth2Handler;
+use Commercetools\Core\Client\OAuth\PreAuthTokenProvider;
+use Commercetools\Core\Client\OAuth\Token;
 use Commercetools\Core\Client\UserAgentProvider;
+use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\ErrorContainer;
 use Commercetools\Core\Error\ErrorResponseException;
@@ -15,7 +18,8 @@ use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
 use Commercetools\Core\Request\Categories\CategoryQueryRequest;
 use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
-use GuzzleHttp\Client as HttpClient;
+use Commercetools\Core\Client\ApiClient;
+use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response as PsrResponse;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
@@ -29,6 +33,16 @@ class ClientFactoryTest extends ApiTestCase
         $this->assertInstanceOf(ClientFactory::class, ClientFactory::of());
     }
 
+    public function testCustomGuzzleClient()
+    {
+        $this->assertInstanceOf(Client::class, ClientFactory::of()->createCustomClient(Client::class, $this->getClientConfig('manage_project')));
+    }
+
+    public function testCustomClient()
+    {
+        $this->assertInstanceOf(ApiClient::class, ClientFactory::of()->createCustomClient(ApiClient::class, $this->getClientConfig('manage_project')));
+    }
+
     public function testCreateClient()
     {
         $handler = new TestHandler();
@@ -40,10 +54,62 @@ class ClientFactoryTest extends ApiTestCase
         $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
 
         $client = ClientFactory::of()->createClient($config, $logger);
-        $this->assertInstanceOf(HttpClient::class, $client);
+        $this->assertInstanceOf(ApiClient::class, $client);
 
         $request = CategoryQueryRequest::of();
         $response = $client->send($request->httpRequest());
+
+        $this->assertInstanceOf(PsrResponse::class, $response);
+
+        $categories = $request->mapFromResponse($response);
+        $this->assertInstanceOf(CategoryCollection::class, $categories);
+
+        $record = current($handler->getRecords());
+        $this->assertStringStartsWith($config->getProject(), $record['context']['X-Correlation-ID'][0]);
+        $this->assertContains((new UserAgentProvider())->getUserAgent(), $record['message']);
+    }
+
+    public function testExecute()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+        $config = $this->getClientConfig('manage_project');
+        $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+        $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+
+        $client = ClientFactory::of()->createClient($config, $logger);
+        $this->assertInstanceOf(ApiClient::class, $client);
+
+        $request = CategoryQueryRequest::of();
+        $response = $client->execute($request);
+
+        $this->assertInstanceOf(PsrResponse::class, $response);
+
+        $categories = $request->mapFromResponse($response);
+        $this->assertInstanceOf(CategoryCollection::class, $categories);
+
+        $record = current($handler->getRecords());
+        $this->assertStringStartsWith($config->getProject(), $record['context']['X-Correlation-ID'][0]);
+        $this->assertContains((new UserAgentProvider())->getUserAgent(), $record['message']);
+    }
+
+    public function testExecuteAsync()
+    {
+        $handler = new TestHandler();
+        $logger = new Logger('test');
+        $logger->pushHandler($handler);
+
+        $config = $this->getClientConfig('manage_project');
+        $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+        $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
+
+        $client = ClientFactory::of()->createClient($config, $logger);
+        $this->assertInstanceOf(ApiClient::class, $client);
+
+        $request = CategoryQueryRequest::of();
+        $response = $client->executeAsync($request)->wait();
 
         $this->assertInstanceOf(PsrResponse::class, $response);
 
@@ -66,7 +132,7 @@ class ClientFactoryTest extends ApiTestCase
         $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
 
         $client = ClientFactory::of()->createClient($config, $logger);
-        $this->assertInstanceOf(HttpClient::class, $client);
+        $this->assertInstanceOf(ApiClient::class, $client);
 
         $request = CategoryByIdGetRequest::ofId("abc");
         $response = $client->send($request->httpRequest());
@@ -91,7 +157,7 @@ class ClientFactoryTest extends ApiTestCase
         $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
 
         $client = ClientFactory::of()->createClient($config, $logger);
-        $this->assertInstanceOf(HttpClient::class, $client);
+        $this->assertInstanceOf(ApiClient::class, $client);
 
         $request = CategoryByIdGetRequest::ofId("abc");
         $client->send($request->httpRequest());
@@ -108,7 +174,7 @@ class ClientFactoryTest extends ApiTestCase
         $config->setClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '10']);
 
         $client = ClientFactory::of()->createClient($config, $logger);
-        $this->assertInstanceOf(HttpClient::class, $client);
+        $this->assertInstanceOf(ApiClient::class, $client);
 
         $category = $this->getCategory();
         $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion());
@@ -143,7 +209,7 @@ class ClientFactoryTest extends ApiTestCase
         $cache->set(Argument::any(), Argument::any(), Argument::any())->shouldBeCalledOnce();
 
         $client = ClientFactory::of()->createClient($config, $logger, $cache->reveal());
-        $this->assertInstanceOf(HttpClient::class, $client);
+        $this->assertInstanceOf(ApiClient::class, $client);
 
         $request = CategoryQueryRequest::of();
         $response = $client->send($request->httpRequest());
@@ -156,5 +222,22 @@ class ClientFactoryTest extends ApiTestCase
         $record = current($handler->getRecords());
         $this->assertStringStartsWith($config->getProject(), $record['context']['X-Correlation-ID'][0]);
         $this->assertContains((new UserAgentProvider())->getUserAgent(), $record['message']);
+    }
+
+    public function testPreAuthProvider()
+    {
+        $provider = $this->prophesize(PreAuthTokenProvider::class);
+        $provider->getToken()->willReturn(new Token('12345'))->shouldBeCalledOnce();
+
+        $client = ClientFactory::of()->createClient(new Config(), null, null, $provider->reveal());
+
+        $this->assertInstanceOf(ApiClient::class, $client);
+
+        $request = CategoryQueryRequest::of();
+        $response = $client->execute($request);
+
+        $this->assertInstanceOf(PsrResponse::class, $response);
+
+        $this->assertSame(401, $response->getStatusCode());
     }
 }

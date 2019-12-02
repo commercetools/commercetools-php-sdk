@@ -28,6 +28,7 @@ use Commercetools\Core\Model\Zone\ZoneReference;
 
 /**
  * @package Commercetools\Core\Model\Common
+ * @ramlTestIgnoreFields('id')
  * @link https://docs.commercetools.com/http-api-types.html#keyreference
  * @method string getTypeId()
  * @method KeyReference setTypeId(string $typeId = null)

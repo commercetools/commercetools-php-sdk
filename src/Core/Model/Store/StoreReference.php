@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Common\Reference;
  * @package Commercetools\Core\Model\Store
  * @link https://docs.commercetools.com/http-api-types.html#reference-types
  * @link https://docs.commercetools.com/http-api-projects-stores#store
- *
+ * @ramlTestIgnoreFields('key')
  * @method string getTypeId()
  * @method StoreReference setTypeId(string $typeId = null)
  * @method string getId()

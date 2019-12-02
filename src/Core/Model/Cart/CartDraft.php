@@ -108,4 +108,19 @@ class CartDraft extends JsonObject
         $draft = static::of($context);
         return $draft->setCurrency($currency);
     }
+
+    /**
+     * @param string $currency
+     * @param string $country
+     * @param Context|callable $context
+     * @return CartDraft
+     */
+    public static function ofCurrencyAndShippingCountry($currency, $country, $context = null)
+    {
+        $draft = static::of($context);
+
+        return $draft->setCurrency($currency)
+            ->setCountry($country)
+            ->setShippingAddress(Address::of()->setCountry($country));
+    }
 }

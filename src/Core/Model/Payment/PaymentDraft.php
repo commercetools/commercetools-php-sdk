@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Payment;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\Common\Money;
@@ -75,7 +76,7 @@ class PaymentDraft extends JsonObject
     }
 
     /**
-     * @deprecated
+     * @deprecated use setKey() instead
      * @param string $externalId
      * @return static
      */
@@ -158,5 +159,49 @@ class PaymentDraft extends JsonObject
     public function setAuthorizedUntil(Money $amountUntil = null)
     {
         return parent::setAuthorizedUntil($amountUntil);
+    }
+
+    /**
+     * @param Money $amountPlanned
+     * @param Context|callable $context
+     * @return PaymentDraft
+     */
+    public static function ofAmountPlanned(Money $amountPlanned, $context = null)
+    {
+        return static::of($context)->setAmountPlanned($amountPlanned);
+    }
+
+    /**
+     * @param string $key
+     * @param string $externalId
+     * @param Money $amountPlanned
+     * @param Context|callable $context
+     * @return PaymentDraft
+     */
+    public static function ofKeyExternalIdAndAmountPlanned($key, $externalId, Money $amountPlanned, $context = null)
+    {
+        return static::of($context)->setKey($key)->setExternalId($externalId)->setAmountPlanned($amountPlanned);
+    }
+
+    /**
+     * @param string $key
+     * @param string $externalId
+     * @param Money $amountPlanned
+     * @param PaymentMethodInfo $paymentMethodInfo
+     * @param Context|callable $context
+     * @return PaymentDraft
+     */
+    public static function ofKeyExternalIdAmountPlannedAndPaymentMethodInfo(
+        $key,
+        $externalId,
+        Money $amountPlanned,
+        PaymentMethodInfo $paymentMethodInfo,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setKey($key)
+            ->setExternalId($externalId)
+            ->setAmountPlanned($amountPlanned)
+            ->setPaymentMethodInfo($paymentMethodInfo);
     }
 }

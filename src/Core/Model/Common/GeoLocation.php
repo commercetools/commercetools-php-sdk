@@ -7,7 +7,7 @@ namespace Commercetools\Core\Model\Common;
 
 /**
  * @package Commercetools\Core\Model\Common
- *
+ * @ramlTestIgnoreFields('coordinates')
  * @method string getType()
  * @method GeoLocation setType(string $type = null)
  * @method array getCoordinates()

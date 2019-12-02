@@ -22,12 +22,16 @@ trait QueryTrait
 
     /**
      * @param string $where
+     * @param array $params
      * @return $this
      */
-    public function where($where)
+    public function where($where, array $params = [])
     {
         if (!is_null($where)) {
             $this->addParamObject(new MultiParameter('where', $where));
+            foreach ($params as $paramName => $paramValue) {
+                $this->addParam($paramName, $paramValue);
+            }
         }
 
         return $this;

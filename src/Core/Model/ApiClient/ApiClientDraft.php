@@ -4,6 +4,7 @@
 
 namespace Commercetools\Core\Model\ApiClient;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 
 /**
@@ -13,6 +14,8 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method ApiClientDraft setName(string $name = null)
  * @method string getScope()
  * @method ApiClientDraft setScope(string $scope = null)
+ * @method int getDeleteDaysAfterCreation()
+ * @method ApiClientDraft setDeleteDaysAfterCreation(int $deleteDaysAfterCreation = null)
  */
 class ApiClientDraft extends JsonObject
 {
@@ -20,7 +23,19 @@ class ApiClientDraft extends JsonObject
     {
         return [
             'name' => [static::TYPE => 'string'],
-            'scope' => [static::TYPE => 'string']
+            'scope' => [static::TYPE => 'string'],
+            'deleteDaysAfterCreation' => [static::TYPE => 'int'],
         ];
+    }
+
+    /**
+     * @param string $name
+     * @param string $scope
+     * @param Context|callable $context
+     * @return ApiClientDraft
+     */
+    public static function ofNameAndScope($name, $scope, $context = null)
+    {
+        return static::of($context)->setName($name)->setScope($scope);
     }
 }

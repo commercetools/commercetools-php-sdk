@@ -75,6 +75,18 @@ class LineItemDraft extends JsonObject
     }
 
     /**
+     * @param string $productId
+     * @param int $variantId
+     * @param int $quantity
+     * @param Context|callable $context
+     * @return LineItemDraft
+     */
+    public static function ofProductIdVariantIdAndQuantity($productId, $variantId, $quantity, $context = null)
+    {
+        return static::of($context)->setProductId($productId)->setVariantId($variantId)->setQuantity($quantity);
+    }
+
+    /**
      * @param string $sku
      * @param Context|callable $context
      * @return LineItemDraft
@@ -83,5 +95,16 @@ class LineItemDraft extends JsonObject
     {
         $draft = static::of($context);
         return $draft->setSku($sku);
+    }
+
+    /**
+     * @param string $sku
+     * @param int $quantity
+     * @param Context|callable $context
+     * @return LineItemDraft
+     */
+    public static function ofSkuAndQuantity($sku, $quantity, $context = null)
+    {
+        return static::of($context)->setSku($sku)->setQuantity($quantity);
     }
 }

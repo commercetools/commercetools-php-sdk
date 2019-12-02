@@ -251,9 +251,11 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $product = $this->getProduct();
         $draft = $this->getDraft('remove-line-item');
         $draft->setLineItems(LineItemDraftCollection::of()->add(
-            LineItemDraft::of()->setProductId($product->getId())
-                ->setVariantId($product->getMasterData()->getCurrent()->getMasterVariant()->getId())
-                ->setQuantity(1)
+            LineItemDraft::ofProductIdVariantIdAndQuantity(
+                $product->getId(),
+                $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
+                1
+            )
         ));
         $shoppingList = $this->createShoppingList($draft);
 
@@ -275,9 +277,11 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $product = $this->getProduct();
         $draft = $this->getDraft('change-line-item');
         $draft->setLineItems(LineItemDraftCollection::of()->add(
-            LineItemDraft::of()->setProductId($product->getId())
-                ->setVariantId($product->getMasterData()->getCurrent()->getMasterVariant()->getId())
-                ->setQuantity(1)
+            LineItemDraft::ofProductIdVariantIdAndQuantity(
+                $product->getId(),
+                $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
+                1
+            )
         ));
         $shoppingList = $this->createShoppingList($draft);
 
@@ -302,9 +306,11 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $product = $this->getProduct();
         $draft = $this->getDraft('set-line-item-custom-type');
         $draft->setLineItems(LineItemDraftCollection::of()->add(
-            LineItemDraft::of()->setProductId($product->getId())
-                ->setVariantId($product->getMasterData()->getCurrent()->getMasterVariant()->getId())
-                ->setQuantity(1)
+            LineItemDraft::ofProductIdVariantIdAndQuantity(
+                $product->getId(),
+                $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
+                1
+            )
         ));
         $shoppingList = $this->createShoppingList($draft);
 
@@ -330,10 +336,11 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $product = $this->getProduct();
         $draft = $this->getDraft('set-line-item-custom-type');
         $draft->setLineItems(LineItemDraftCollection::of()->add(
-            LineItemDraft::of()->setProductId($product->getId())
-                ->setVariantId($product->getMasterData()->getCurrent()->getMasterVariant()->getId())
-                ->setQuantity(1)
-                ->setCustom(CustomFieldObjectDraft::ofTypeKey('shopping-list-lineitem-set-field'))
+            LineItemDraft::ofProductIdVariantIdAndQuantity(
+                $product->getId(),
+                $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
+                1
+            )->setCustom(CustomFieldObjectDraft::ofTypeKey('shopping-list-lineitem-set-field'))
         ));
         $shoppingList = $this->createShoppingList($draft);
 
@@ -378,7 +385,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $name = $this->getTestRun() . '-text line item name';
         $draft = $this->getDraft('remove-text-line-item');
         $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
-            TextLineItemDraft::of()->setName(LocalizedString::ofLangAndText('en', $name))
+            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
         ));
         $shoppingList = $this->createShoppingList($draft);
 
@@ -400,7 +407,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $name = $this->getTestRun() . '-text line item name';
         $draft = $this->getDraft('change-text-line-item');
         $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
-            TextLineItemDraft::of()->setName(LocalizedString::ofLangAndText('en', $name))
+            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
         ));
         $shoppingList = $this->createShoppingList($draft);
 
@@ -425,7 +432,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('set-line-item-custom-type');
         $name = $this->getTestRun() . '-text line item name';
         $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
-            TextLineItemDraft::of()->setName(LocalizedString::ofLangAndText('en', $name))
+            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
         ));
         $shoppingList = $this->createShoppingList($draft);
 
@@ -451,7 +458,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $draft = $this->getDraft('set-line-item-custom-type');
         $name = $this->getTestRun() . '-text line item name';
         $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
-            TextLineItemDraft::of()->setName(LocalizedString::ofLangAndText('en', $name))
+            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
                 ->setCustom(CustomFieldObjectDraft::ofTypeKey('shopping-list-textLineItem-set-field'))
         ));
         $shoppingList = $this->createShoppingList($draft);

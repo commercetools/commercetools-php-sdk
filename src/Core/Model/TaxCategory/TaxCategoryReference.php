@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\TaxCategory
+ * @ramlTestIgnoreFields('key')
  * @link https://docs.commercetools.com/http-api-types.html#reference-types
  * @link https://docs.commercetools.com/http-api-projects-taxCategories.html#taxcategory
  * @method string getTypeId()

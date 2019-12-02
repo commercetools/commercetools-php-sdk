@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\JsonObject;
 
 /**
  * @package Commercetools\Core\Model\Type
+ * @ramlTestIgnoreFields('key')
  * @link https://docs.commercetools.com/http-api-types.html#reference-types
  * @link https://docs.commercetools.com/http-api-projects-types.html#type
  * @method string getTypeId()

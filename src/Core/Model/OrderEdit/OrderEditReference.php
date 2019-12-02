@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\OrderEdit
- *
+ * @ramlTestIgnoreFields('key')
  * @method string getTypeId()
  * @method OrderEditReference setTypeId(string $typeId = null)
  * @method string getId()

@@ -22,17 +22,25 @@ class ApiClientTest extends ApiTestCase
     {
         $client = $this->getClient(self::API_CLIENTS_SCOPE);
         $project = $client->getConfig()->getProject();
+        $deleteDaysAfterCreation = 1;
 
-        $apiClientDraft = ApiClientDraft::of()
-            ->setName('test-' . $this->getTestRun())->setScope('view_products:' . $project);
+        $apiClientDraft = ApiClientDraft::ofNameAndScope(
+            'test-' . $this->getTestRun(),
+            'view_products:' . $project
+        )->setDeleteDaysAfterCreation($deleteDaysAfterCreation);
+
         $request = ApiClientCreateRequest::ofDraft($apiClientDraft);
-        $response = $request->executeWithClient($this->getClient(self::API_CLIENTS_SCOPE));
-        $result = $request->mapResponse($response);
+        $response = $request->executeWithClient($client);
+        $result = $request->mapFromResponse($response);
 
         $this->assertNotNull($result);
         $this->assertNotNull($result->getId());
+
+        $calcDate = new \DateTime('+' . $deleteDaysAfterCreation . 'day');
+        $this->assertEquals($calcDate->format('Y-m-d'), $result->getDeleteAt()->format('Y-m-d'));
+
         $getByIdRequest = ApiClientByIdGetRequest::ofId($result->getId());
-        $getResponse = $getByIdRequest->executeWithClient($this->getClient(self::API_CLIENTS_SCOPE));
+        $getResponse = $getByIdRequest->executeWithClient($client);
         $getResult = $request->mapResponse($getResponse);
 
         $this->assertInstanceOf(ApiClient::class, $getResult);
@@ -42,7 +50,7 @@ class ApiClientTest extends ApiTestCase
         $this->assertNull($getResult->getSecret());
 
         $queryRequest = ApiClientQueryRequest::of();
-        $queryResponse = $queryRequest->executeWithClient($this->getClient(self::API_CLIENTS_SCOPE));
+        $queryResponse = $queryRequest->executeWithClient($client);
         $queryResult = $queryRequest->mapResponse($queryResponse);
 
         $this->assertInstanceOf(ApiClientCollection::class, $queryResult);
@@ -50,14 +58,14 @@ class ApiClientTest extends ApiTestCase
 
         $deleteRequest = ApiClientDeleteRequest::ofId($result->getId());
 
-        $deleteResponse = $deleteRequest->executeWithClient($this->getClient(self::API_CLIENTS_SCOPE));
+        $deleteResponse = $deleteRequest->executeWithClient($client);
         $deleteResult = $request->mapResponse($deleteResponse);
 
         $this->assertInstanceOf(ApiClient::class, $deleteResult);
         $this->assertSame('test-' . $this->getTestRun(), $deleteResult->getName());
 
         $getByIdRequest = ApiClientByIdGetRequest::ofId($result->getId());
-        $getResponse = $getByIdRequest->executeWithClient($this->getClient(self::API_CLIENTS_SCOPE));
+        $getResponse = $getByIdRequest->executeWithClient($client);
         $getResult = $request->mapResponse($getResponse);
 
         $this->assertNull($getResult);

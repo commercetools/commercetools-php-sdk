@@ -100,7 +100,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
         $this->order = $this->createOrder($cartDraft, $orderNumber);
 
-        $orderEditDraft = OrderEditDraft::of()->setResource(OrderReference::ofId($this->order->getId()));
+        $orderEditDraft = OrderEditDraft::ofResource(OrderReference::ofId($this->order->getId()));
         return $orderEditDraft;
     }
 
@@ -131,8 +131,9 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $orderEdit = $this->getOrderEdit();
         $this->assertInstanceOf(OrderEdit::class, $orderEdit);
 
+        $newKey = 'foo-set-key-' . $this->getTestRun();
         $request = RequestBuilder::of()->orderEdits()->update($orderEdit)->setActions([
-            OrderEditSetKeyAction::ofKey('foo1')
+            OrderEditSetKeyAction::ofKey($newKey)
         ])->setDryRun(false);
 
         $response = $request->executeWithClient($this->getClient());
@@ -141,13 +142,14 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
 
         $this->assertNotSame($orderEdit->getVersion(), $result->getVersion());
         $this->assertInstanceOf(OrderEdit::class, $result);
-        $this->assertSame('foo1', $result->getKey());
+        $this->assertSame($newKey, $result->getKey());
     }
 
     public function testUpdateOrderEditByKeySetComment()
     {
         $orderEditDraft = $this->getOrderEditDraft();
-        $orderEditDraft->setKey('foo1');
+        $key = 'foo-set-key-comment-' . $this->getTestRun();
+        $orderEditDraft->setKey($key);
 
         $orderEdit = $this->getOrderEdit($orderEditDraft);
         $this->assertNull($orderEdit->getComment());
@@ -164,7 +166,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
         $this->assertInstanceOf(OrderEdit::class, $result);
         $this->assertSame('bar', $result->getComment());
 
-        $request = RequestBuilder::of()->orderEdits()->getByKey('foo1');
+        $request = RequestBuilder::of()->orderEdits()->getByKey($key);
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
 
@@ -263,7 +265,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
             StagedOrderSetShippingMethodAction::class => [function() { return StagedOrderSetShippingMethodAction::of()->setShippingMethod($this->getShippingMethod()->getReference()); }],
             StagedOrderSetCustomShippingMethodAction::class => [function() { return StagedOrderSetCustomShippingMethodAction::of()
                 ->setShippingMethodName($this->getTestRun() . '-name')
-                ->setShippingRate(ShippingRateDraft::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100))); }],
+                ->setShippingRate(ShippingRateDraft::ofPrice(Money::ofCurrencyAndAmount('EUR', 100))); }],
             StagedOrderAddDiscountCodeAction::class => [function() { return StagedOrderAddDiscountCodeAction::of()->setCode($this->getDiscountCode()->getCode()); }],
             StagedOrderRemoveDiscountCodeAction::class => [function() {return StagedOrderRemoveDiscountCodeAction::of()->setDiscountCode($this->getDiscountCode()->getReference()); }],
             StagedOrderSetCustomerIdAction::class => [function() { return StagedOrderSetCustomerIdAction::of()->setCustomerId($this->getCustomer()->getId()); }],
@@ -274,9 +276,10 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
             StagedOrderAddPaymentAction::class => [function() { return StagedOrderAddPaymentAction::of()->setPayment($this->getPayment()->getReference()); }],
             StagedOrderRemovePaymentAction::class => [function() { return StagedOrderRemovePaymentAction::of()->setPayment($this->getPayment()->getReference()); }],
             StagedOrderSetShippingMethodTaxAmountAction::class => [function() { return StagedOrderSetShippingMethodTaxAmountAction::of()->setExternalTaxAmount(
-                ExternalTaxAmountDraft::of()
-                    ->setTotalGross(Money::ofCurrencyAndAmount('EUR', 100))
-                    ->setTaxRate(ExternalTaxRateDraft::ofNameCountryAndAmount($this->getTestRun() . '-name','DE',100.00))
+                ExternalTaxAmountDraft::ofTotalGrossAndTaxRate(
+                    Money::ofCurrencyAndAmount('EUR', 100),
+                    ExternalTaxRateDraft::ofNameCountryAndAmount($this->getTestRun() . '-name','DE',100.00)
+                )
             ); }],
             StagedOrderSetShippingMethodTaxRateAction::class => [function() { return StagedOrderSetShippingMethodTaxRateAction::of()->setExternalTaxRate(
                 ExternalTaxRateDraft::ofNameCountryAndAmount($this->getTestRun() . '-name', 'DE', 100.00)
@@ -301,7 +304,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
             StagedOrderSetShippingAddressAndCustomShippingMethodAction::class => [function() { return StagedOrderSetShippingAddressAndCustomShippingMethodAction::of()
                 ->setAddress(Address::of()->setCountry('DE'))
                 ->setShippingMethodName($this->getTestRun().'-name')
-                ->setShippingRate(ShippingRateDraft::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100))); }],
+                ->setShippingRate(ShippingRateDraft::ofPrice(Money::ofCurrencyAndAmount('EUR', 100))); }],
             StagedOrderSetLineItemShippingDetailsAction::class => [function() { return StagedOrderSetLineItemShippingDetailsAction::of()->setLineItemId($this->getProduct()->getId()); }],
 
             //line items

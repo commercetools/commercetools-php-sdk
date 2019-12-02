@@ -5,8 +5,13 @@
 
 namespace Commercetools\Core\Model\Common;
 
+use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Model\Product\Product;
+use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 
 class ResourceTest extends \PHPUnit\Framework\TestCase
 {
@@ -47,6 +52,16 @@ class ResourceTest extends \PHPUnit\Framework\TestCase
         $this->assertJsonStringEqualsJsonString(
             '{"typeId": "product-type", "id": "123456"}',
             json_encode($reference)
+        );
+    }
+
+    public function testSerializeNestedReference()
+    {
+        $method = ShippingMethod::of()->setId('123456');
+        $product = CartDraft::of()->setShippingMethod($method->getReference());
+        $this->assertJsonStringEqualsJsonString(
+            '{ "shippingMethod":{"typeId":"shipping-method", "id":"123456"} }',
+            json_encode($product)
         );
     }
 

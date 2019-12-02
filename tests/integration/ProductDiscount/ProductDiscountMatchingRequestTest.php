@@ -22,11 +22,12 @@ class ProductDiscountMatchingRequestTest extends ApiTestCase
         $productDraft = $this->getProductDraft();
         $sku = $this->getTestRun() . '-sku';
         $productDraft->setMasterVariant(
-            ProductVariantDraft::of()->setSku($sku)->setKey($sku)->setPrices(
+            ProductVariantDraft::ofSkuAndPrices(
+                $sku,
                 PriceDraftCollection::of()->add(
                     PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
                 )
-            )
+            )->setKey($sku)
         );
         $product = $this->getProduct($productDraft);
 

@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\CustomerGroup
+ * @ramlTestIgnoreFields('key')
  * @link https://docs.commercetools.com/http-api-types.html#reference-types
  * @link https://docs.commercetools.com/http-api-projects-customerGroups.html#customergroup
  * @method string getTypeId()

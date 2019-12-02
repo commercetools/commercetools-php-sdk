@@ -13,6 +13,7 @@ use Commercetools\Core\Model\Common\LocaleTrait;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\Store\StoreReferenceCollection;
 use DateTime;
 use Commercetools\Core\Model\Common\DateDecorator;
 
@@ -66,6 +67,8 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method CustomerDraft setKey(string $key = null)
  * @method string getAnonymousId()
  * @method CustomerDraft setAnonymousId(string $anonymousId = null)
+ * @method StoreReferenceCollection getStores()
+ * @method CustomerDraft setStores(StoreReferenceCollection $stores = null)
  */
 class CustomerDraft extends JsonObject
 {
@@ -101,6 +104,7 @@ class CustomerDraft extends JsonObject
             'salutation' => [static::TYPE => 'string'],
             'key' => [static::TYPE => 'string'],
             'anonymousId' => [static::TYPE => 'string'],
+            'stores' => [static::TYPE => StoreReferenceCollection::class],
         ];
     }
 

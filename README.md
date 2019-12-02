@@ -62,7 +62,7 @@ Please read the [Changelog](CHANGELOG.md) before updating in any case.
 
 ### Getting started
 
-To get up and running, create a free test project ([EU located](https://admin.commercetools.com/en/signup) or [US located](https://admin.commercetools.co/en/signup)) on the commercetools platform. To generate your API credentials go to [EU Merchant Center](https://mc.commercetools.com/) or [US Merchant Center](https://mc.commercetools.co/) (Menu "Settings"->"Developer Settings"->"API Clients"->"Create New Api Client").
+To get up and running, create a free test project ([EU located](https://mc.commercetools.com/login/new) or [US located](https://mc.commercetools.co/login/new)) on the commercetools platform. To generate your API credentials go to [EU Merchant Center](https://mc.commercetools.com/) or [US Merchant Center](https://mc.commercetools.co/) (Menu "Settings"->"Developer Settings"->"API Clients"->"Create New Api Client").
 You need to select the template for the "Admin client".
 
 ```php
@@ -131,6 +131,7 @@ require '../vendor/autoload.php';
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Client\ClientFactory;
 use Commercetools\Core\Config;
+use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Model\Common\Context;
 
 $config = [
@@ -146,13 +147,13 @@ $config = Config::fromArray($config)->setContext($context)->setThrowExceptions(t
  * execute the request and get the PHP Object
  * (the client can and should be re-used)
  */
-$search = RequestBuilder::of()->productProjections()->search()
+$request = RequestBuilder::of()->productProjections()->search()
     ->addParam('text.en', 'red');
 
 $client = ClientFactory::of()->createClient($config);
 
 try {
-    $response = $client->send($request->httpRequest());
+    $response = $client->execute($request);
 } catch (ApiException $exception) {
     throw new \Exception("Ooops! Something happened.", 0, $exception);
 }

@@ -27,6 +27,7 @@ use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordChangeRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordResetRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Psr\Log\LogLevel;
@@ -60,6 +61,22 @@ class CustomerLoginRequestTest extends ApiTestCase
         );
         return $result->getCustomer();
     }
+
+    protected function createStoreCustomer($storeKey, CustomerDraft $draft)
+    {
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, CustomerCreateRequest::ofDraft($draft));
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapResponse($response);
+
+        $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
+            $result->getCustomer()->getId(),
+            $result->getCustomer()->getVersion()
+        );
+        $this->cleanupRequests[] = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, $this->deleteRequest);
+
+        return $result->getCustomer();
+    }
+
 
     public function testLoginSuccess()
     {
@@ -452,5 +469,92 @@ class CustomerLoginRequestTest extends ApiTestCase
         $this->assertSame($customerCart->getId(), $loggedInCart->getId());
         $this->assertSame(CartState::MERGED, $anonCart->getCartState());
         $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
+    }
+
+    public function testInStorePasswordReset()
+    {
+        $store = $this->getStore();
+        $draft = $this->getDraft('email');
+        $customer = $this->createStoreCustomer($store->getKey(), $draft);
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $store->getKey(),
+            CustomerPasswordTokenRequest::ofEmail($customer->getEmail())
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+
+        $token = $result->getValue();
+        $this->assertNotEmpty($token);
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $store->getKey(),
+            CustomerByTokenGetRequest::ofToken($token)
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+        $this->assertSame($customer->getId(), $result->getId());
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $store->getKey(),
+            CustomerPasswordResetRequest::ofTokenAndPassword($token, $this->getTestRun())
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertSame($customer->getId(), $result->getId());
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $store->getKey(),
+            CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $this->getTestRun())
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $store->getKey(),
+            CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $draft->getPassword())
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $this->assertTrue($response->isError());
+    }
+
+    public function testInStoreVerifyEmail()
+    {
+        $store = $this->getStore();
+        $draft = $this->getDraft('email');
+        $customer = $this->createStoreCustomer($store->getKey(), $draft);
+
+        $this->assertFalse($customer->getIsEmailVerified());
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $store->getKey(),
+            CustomerEmailTokenRequest::ofIdVersionAndTtl($customer->getId(), $customer->getVersion(), 15)
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+
+        $token = $result->getValue();
+        $this->assertNotEmpty($token);
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $store->getKey(),
+            CustomerByEmailTokenGetRequest::ofToken($token)
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+        $this->assertSame($customer->getId(), $result->getId());
+
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $store->getKey(),
+            CustomerEmailConfirmRequest::ofToken($token)
+        );
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertTrue($result->getIsEmailVerified());
     }
 }
