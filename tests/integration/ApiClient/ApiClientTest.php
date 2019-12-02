@@ -36,7 +36,7 @@ class ApiClientTest extends ApiTestCase
         $this->assertNotNull($result);
         $this->assertNotNull($result->getId());
 
-        $calcDate = date_modify(new \DateTime(), '+' . $deleteDaysAfterCreation . 'day');
+        $calcDate = new \DateTime('+' . $deleteDaysAfterCreation . 'day');
         $this->assertEquals($calcDate->format('Y-m-d'), $result->getDeleteAt()->format('Y-m-d'));
 
         $getByIdRequest = ApiClientByIdGetRequest::ofId($result->getId());
