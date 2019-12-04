@@ -35,8 +35,14 @@ abstract class ResourceFixture
         return $request->mapFromResponse($response);
     }
 
-    final protected static function withUpdateableDraftResource(ApiClient $client, callable $draftBuilderFunction, callable $assertFunction, callable $createFunction, callable $deleteFunction, callable $draftFunction)
-    {
+    final protected static function withUpdatableDraftResource(
+        ApiClient $client,
+        callable $draftBuilderFunction,
+        callable $assertFunction,
+        callable $createFunction,
+        callable $deleteFunction,
+        callable $draftFunction
+    ) {
         $resourceDraft = call_user_func($draftFunction);
 
         $resourceDraft = call_user_func($draftBuilderFunction, $resourceDraft);
@@ -50,8 +56,14 @@ abstract class ResourceFixture
         }
     }
 
-    final protected static function withDraftResource(ApiClient $client, callable $draftBuilderFunction, callable $assertFunction, callable $createFunction, callable $deleteFunction, callable $draftFunction)
-    {
+    final protected static function withDraftResource(
+        ApiClient $client,
+        callable $draftBuilderFunction,
+        callable $assertFunction,
+        callable $createFunction,
+        callable $deleteFunction,
+        callable $draftFunction
+    ) {
         $initialDraft = call_user_func($draftFunction);
 
         $resourceDraft = call_user_func($draftBuilderFunction, $initialDraft);

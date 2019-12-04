@@ -48,8 +48,14 @@ class CategoryFixture extends ResourceFixture
         return parent::defaultDeleteFunction($client, self::DELETE_REQUEST_TYPE, $resource);
     }
 
-    final public static function withUpdateableDraftCategory(ApiClient $client, callable $draftBuilderFunction, callable $assertFunction, callable $createFunction = null, callable $deleteFunction = null, callable $draftFunction = null)
-    {
+    final public static function withUpdatableDraftCategory(
+        ApiClient $client,
+        callable $draftBuilderFunction,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
         if ($draftFunction == null) {
             $draftFunction = [__CLASS__, 'defaultCategoryDraftFunction'];
         }
@@ -60,11 +66,17 @@ class CategoryFixture extends ResourceFixture
             $deleteFunction = [__CLASS__, 'defaultCategoryDeleteFunction'];
         }
 
-        parent::withUpdateableDraftResource($client, $draftBuilderFunction, $assertFunction, $createFunction, $deleteFunction, $draftFunction);
+        parent::withUpdatableDraftResource($client, $draftBuilderFunction, $assertFunction, $createFunction, $deleteFunction, $draftFunction);
     }
 
-    final public static function withDraftCategory(ApiClient $client, callable $draftBuilderFunction, callable $assertFunction, callable $createFunction = null, callable $deleteFunction = null, callable $draftFunction = null)
-    {
+    final public static function withDraftCategory(
+        ApiClient $client,
+        callable $draftBuilderFunction,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
         if ($draftFunction == null) {
             $draftFunction = [__CLASS__, 'defaultCategoryDraftFunction'];
         }
@@ -78,13 +90,23 @@ class CategoryFixture extends ResourceFixture
         parent::withDraftResource($client, $draftBuilderFunction, $assertFunction, $createFunction, $deleteFunction, $draftFunction);
     }
 
-    final public static function withCategory(ApiClient $client, callable $assertFunction, callable $createFunction = null, callable $deleteFunction = null, callable $draftFunction = null)
-    {
+    final public static function withCategory(
+        ApiClient $client,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
         self::withDraftCategory($client, [__CLASS__, 'defaultCategoryDraftBuilderFunction'], $assertFunction, $createFunction, $deleteFunction, $draftFunction);
     }
 
-    final public static function withUpdateableCategory(ApiClient $client, callable $assertFunction, callable $createFunction = null, callable $deleteFunction = null, callable $draftFunction = null)
-    {
-        self::withUpdateableDraftCategory($client, [__CLASS__, 'defaultCategoryDraftBuilderFunction'], $assertFunction, $createFunction, $deleteFunction, $draftFunction);
+    final public static function withUpdatableCategory(
+        ApiClient $client,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
+        self::withUpdatableDraftCategory($client, [__CLASS__, 'defaultCategoryDraftBuilderFunction'], $assertFunction, $createFunction, $deleteFunction, $draftFunction);
     }
 }
