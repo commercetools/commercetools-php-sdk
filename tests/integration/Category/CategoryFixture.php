@@ -66,7 +66,14 @@ class CategoryFixture extends ResourceFixture
             $deleteFunction = [__CLASS__, 'defaultCategoryDeleteFunction'];
         }
 
-        parent::withUpdatableDraftResource($client, $draftBuilderFunction, $assertFunction, $createFunction, $deleteFunction, $draftFunction);
+        parent::withUpdatableDraftResource(
+            $client,
+            $draftBuilderFunction,
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
+        );
     }
 
     final public static function withDraftCategory(
@@ -87,7 +94,14 @@ class CategoryFixture extends ResourceFixture
             $deleteFunction = [__CLASS__, 'defaultCategoryDeleteFunction'];
         }
 
-        parent::withDraftResource($client, $draftBuilderFunction, $assertFunction, $createFunction, $deleteFunction, $draftFunction);
+        parent::withDraftResource(
+            $client,
+            $draftBuilderFunction,
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
+        );
     }
 
     final public static function withCategory(
@@ -97,7 +111,14 @@ class CategoryFixture extends ResourceFixture
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        self::withDraftCategory($client, [__CLASS__, 'defaultCategoryDraftBuilderFunction'], $assertFunction, $createFunction, $deleteFunction, $draftFunction);
+        self::withDraftCategory(
+            $client,
+            [__CLASS__, 'defaultCategoryDraftBuilderFunction'],
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
+        );
     }
 
     final public static function withUpdatableCategory(
@@ -107,6 +128,13 @@ class CategoryFixture extends ResourceFixture
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        self::withUpdatableDraftCategory($client, [__CLASS__, 'defaultCategoryDraftBuilderFunction'], $assertFunction, $createFunction, $deleteFunction, $draftFunction);
+        self::withUpdatableDraftCategory(
+            $client,
+            [__CLASS__, 'defaultCategoryDraftBuilderFunction'],
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
+        );
     }
 }

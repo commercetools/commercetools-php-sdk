@@ -6,6 +6,7 @@
 namespace Commercetools\Core\IntegrationTests\Category;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Client\ApiClient;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
@@ -16,6 +17,9 @@ use Commercetools\Core\Request\Categories\CategoryQueryRequest;
 use Commercetools\Core\Request\Categories\CategoryCreateRequest;
 use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
 use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
+use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Response\PagedQueryResponse;
+use Psr\Http\Message\ResponseInterface;
 
 class CategoryQueryRequestTest extends ApiTestCase
 {
@@ -191,8 +195,8 @@ class CategoryQueryRequestTest extends ApiTestCase
 
         CategoryFixture::withDraftCategory(
             $client,
-            function (CategoryDraft $level1draft) {
-                return $level1draft->setName(LocalizedString::ofLangAndText('en', 'level1'));
+            function (CategoryDraft $level1Draft) {
+                return $level1Draft->setName(LocalizedString::ofLangAndText('en', 'level1'));
             },
             function (Category $level1) use ($client) {
                 CategoryFixture::withDraftCategory(
@@ -237,7 +241,10 @@ class CategoryQueryRequestTest extends ApiTestCase
                                         $level3ExpandedAncestor = $result->getAncestors()->getAt(2)->getObj();
 
                                         $this->assertSame($level3->getId(), $level3ExpandedAncestor->getId());
-                                        $this->assertSame($level1->getId(), $level3ExpandedAncestor->getAncestors()->current()->getObj()->getId());
+                                        $this->assertSame(
+                                            $level1->getId(),
+                                            $level3ExpandedAncestor->getAncestors()->current()->getObj()->getId()
+                                        );
                                     }
                                 );
                             }
@@ -277,23 +284,49 @@ class CategoryQueryRequestTest extends ApiTestCase
         );
     }
 
-    protected function predicateTestCase($predicate)
+    public function testPredicates()
     {
-        $this->createCategory($this->getDraft('1', 'test-1'));
-        $draft = $this->getDraft('2', 'test-2');
-        $draft->getName()->add('cn', 'x');
-        $this->createCategory($draft);
-        $this->createCategory($this->getDraft('10', 'test-10'));
+        $client = $this->getApiClient();
 
-        return $this->getClient()->execute(
-            CategoryQueryRequest::of()->where($predicate)->sort('createdAt DESC')
-        )->toObject();
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $level1Draft) {
+                return $level1Draft->setName(LocalizedString::ofLangAndText('en', '1'));
+            },
+            function (Category $level1) use ($client) {
+                CategoryFixture::withDraftCategory(
+                    $client,
+                    function (CategoryDraft $level2Draft) {
+                        return $level2Draft->setName(LocalizedString::ofLangAndText('en', '2')->add('cn', 'x'));
+                    },
+                    function (Category $level2) use ($client) {
+                        CategoryFixture::withDraftCategory(
+                            $client,
+                            function (CategoryDraft $level3Draft) use ($level2) {
+                                return $level3Draft->setName(LocalizedString::ofLangAndText('en', '10'));
+                            },
+                            function (Category $level3) use ($client) {
+                                $this->greaterThanComparison($client);
+                                $this->lesserThanComparison($client);
+                                $this->lesserThanEqualsComparison($client);
+                                $this->greaterThanEqualsComparison($client);
+                                $this->notIn($client);
+                                $this->isDefined($client);
+                                $this->isNotDefined($client);
+                            }
+                        );
+                    }
+                );
+            }
+        );
     }
 
-    public function testGreaterThanComparison()
+    private function queryCategories(ApiClient $client, $predicate)
     {
-        $predicate = 'name(en > "1")';
-        $result = $this->predicateTestCase($predicate);
+        $request = RequestBuilder::of()->categories()
+            ->query()->where($predicate)->sort('createdAt DESC');
+        $response = $client->execute($request);
+        $result = $request->mapFromResponse($response);
 
         $names = array_flip($this->map(
             function ($value) {
@@ -301,108 +334,67 @@ class CategoryQueryRequestTest extends ApiTestCase
             },
             $result
         ));
+
+        return $names;
+    }
+
+    public function greaterThanComparison(ApiClient $client)
+    {
+        $names = $this->queryCategories($client, 'name(en > "1")');
 
         $this->assertArrayHasKey('2', $names);
         $this->assertArrayHasKey('10', $names);
         $this->assertArrayNotHasKey('1', $names);
     }
 
-    public function testLesserThanComparison()
+    public function lesserThanComparison(ApiClient $client)
     {
-        $predicate = 'name(en < "2")';
-        $result = $this->predicateTestCase($predicate);
-
-        $names = array_flip($this->map(
-            function ($value) {
-                return $value->getName()->en;
-            },
-            $result
-        ));
+        $names = $this->queryCategories($client, 'name(en < "2")');
 
         $this->assertArrayHasKey('1', $names);
         $this->assertArrayHasKey('10', $names);
         $this->assertArrayNotHasKey('2', $names);
     }
 
-    public function testLesserThanEqualsComparison()
+    public function lesserThanEqualsComparison(ApiClient $client)
     {
-        $predicate = 'name(en <= "10")';
-        $result = $this->predicateTestCase($predicate);
-
-        $names = array_flip($this->map(
-            function ($value) {
-                return $value->getName()->en;
-            },
-            $result
-        ));
+        $names = $this->queryCategories($client, 'name(en <= "10")');
 
         $this->assertArrayHasKey('1', $names);
         $this->assertArrayHasKey('10', $names);
         $this->assertArrayNotHasKey('2', $names);
     }
 
-    public function testGreaterThanEqualsComparison()
+    public function greaterThanEqualsComparison(ApiClient $client)
     {
-        $predicate = 'name(en >= "10")';
-        $result = $this->predicateTestCase($predicate);
-
-        $names = array_flip($this->map(
-            function ($value) {
-                return $value->getName()->en;
-            },
-            $result
-        ));
+        $names = $this->queryCategories($client, 'name(en >= "10")');
 
         $this->assertArrayHasKey('2', $names);
         $this->assertArrayHasKey('10', $names);
         $this->assertArrayNotHasKey('1', $names);
     }
 
-    public function testNotIn()
+    public function notIn(ApiClient $client)
     {
-        $predicate = 'name(en not in("10", "2"))';
-        $result = $this->predicateTestCase($predicate);
-
-        $names = array_flip($this->map(
-            function ($value) {
-                return $value->getName()->en;
-            },
-            $result
-        ));
+        $names = $this->queryCategories($client, 'name(en not in("10", "2"))');
 
         $this->assertArrayNotHasKey('2', $names);
         $this->assertArrayNotHasKey('10', $names);
         $this->assertArrayHasKey('1', $names);
     }
 
-    public function testIsDefined()
+    public function isDefined(ApiClient $client)
     {
-        $predicate = 'name(cn is defined)';
-        $result = $this->predicateTestCase($predicate);
-
-        $names = array_flip($this->map(
-            function ($value) {
-                return $value->getName()->en;
-            },
-            $result
-        ));
+        $names = $this->queryCategories($client, 'name(cn is defined)');
 
         $this->assertArrayNotHasKey('1', $names);
         $this->assertArrayNotHasKey('10', $names);
         $this->assertArrayHasKey('2', $names);
     }
 
-    public function testIsNotDefined()
+    public function isNotDefined(ApiClient $client)
     {
-        $predicate = 'name(cn is not defined)';
-        $result = $this->predicateTestCase($predicate);
-
-        $names = array_flip($this->map(
-            function ($value) {
-                return $value->getName()->en;
-            },
-            $result
-        ));
+        $names = $this->queryCategories($client, 'name(cn is not defined)');
 
         $this->assertArrayHasKey('1', $names);
         $this->assertArrayHasKey('10', $names);
