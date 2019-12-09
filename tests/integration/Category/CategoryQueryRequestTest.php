@@ -414,34 +414,36 @@ class CategoryQueryRequestTest extends ApiTestCase
 
     public function testMinSlug()
     {
-        $draft = $this->getDraft('min', '1');
-        $request = CategoryCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
+        $client = $this->getApiClient();
 
-        $category = $request->mapResponse($response);
-        if ($category instanceof Category) {
-            $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
-                $category->getId(),
-                $category->getVersion()
-            );
-        }
+        CategoryFixture::withCategory(
+            $client,
+            function (Category $draft) use ($client) {
+                $draft->setName(LocalizedString::ofLangAndText('en', 'min')->add('en', '1'));
+                $request = RequestBuilder::of()->categories()->getById($draft->getId());
+                $response = $client->execute($request);
 
-        $this->assertTrue($response->isError());
+                $isNotError = (in_array($response->getStatusCode(), [200, 201]));
+                $this->assertTrue($isNotError);
+            }
+        );
     }
 
     public function testMaxSlug()
     {
-        $draft = $this->getDraft('max', str_pad('1', 257, '0'));
-        $request = CategoryCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $category = $request->mapResponse($response);
-        if ($category instanceof Category) {
-            $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
-                $category->getId(),
-                $category->getVersion()
-            );
-        }
+        $client = $this->getApiClient();
 
-        $this->assertTrue($response->isError());
+        CategoryFixture::withCategory(
+            $client,
+            function (Category $draft) use ($client) {
+                $draft->setName(LocalizedString::ofLangAndText('en', 'max')
+                    ->add('en', str_pad('1', 257, '0')));
+                $request = RequestBuilder::of()->categories()->getById($draft->getId());
+                $response = $client->execute($request);
+
+                $isNotError = (in_array($response->getStatusCode(), [200, 201]));
+                $this->assertTrue($isNotError);
+            }
+        );
     }
 }
