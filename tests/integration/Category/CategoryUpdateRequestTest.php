@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\IntegrationTests\Category;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\TestHelper;
 use Commercetools\Core\Model\Category\Category;
@@ -16,7 +17,6 @@ use Commercetools\Core\Model\Common\AssetSourceCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\Categories\CategoryCreateRequest;
 use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
-use Commercetools\Core\Request\Categories\CategoryUpdateByKeyRequest;
 use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
 use Commercetools\Core\Request\Categories\Command\CategoryAddAssetAction;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeAssetNameAction;
@@ -68,147 +68,176 @@ class CategoryUpdateRequestTest extends ApiTestCase
 
     public function testUpdateNameByKey()
     {
-        $draft = $this->getDraft('update name', 'update-name')->setKey($this->getTestRun());
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $result = $this->getClient()->execute(
-            CategoryUpdateByKeyRequest::ofKeyAndVersion($category->getKey(), $category->getVersion())->addAction(
-                CategoryChangeNameAction::ofName(
-                    LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name')
-                )
-            )
-        )->toObject();
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'update name')
+                    ->add('en', 'update-name'));
+            },
+            function (Category $draft) use ($client) {
+                $request = RequestBuilder::of()->categories()->updateByKey($draft)->addAction(
+                    CategoryChangeNameAction::ofName(
+                        LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name')
+                    )
+                );
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($this->getTestRun() .'-new name', $result->getName()->en);
-        $this->assertNotSame($category->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en);
+                $this->assertNotSame($draft->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(Category::class, $result);
+                return $result;
+            }
+        );
     }
+
 
     public function testUpdateName()
     {
-        $draft = $this->getDraft('update name', 'update-name');
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $result = $this->getClient()->execute(
-            CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())->addAction(
-                CategoryChangeNameAction::ofName(
-                    LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name')
-                )
-            )
-        )->toObject();
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'update name')
+                    ->add('en', 'update-name'));
+            },
+            function (Category $draft) use ($client) {
+                $request = RequestBuilder::of()->categories()->update($draft)->addAction(
+                    CategoryChangeNameAction::ofName(
+                        LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name')
+                    )
+                );
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($this->getTestRun() .'-new name', $result->getName()->en);
-        $this->assertNotSame($category->getVersion(), $result->getVersion());
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en);
+                $this->assertNotSame($draft->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(Category::class, $result);
+                return $result;
+            }
+        );
     }
 
     public function testUpdateLocalizedName()
     {
-        $draft = $this->getDraft('update name', 'update-name');
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $result = $this->getClient()->execute(
-            CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-                ->addAction(
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'update name')
+                    ->add('en', 'update-name'));
+            },
+            function (Category $draft) use ($client) {
+                $request = RequestBuilder::of()->categories()->update($draft)->addAction(
                     CategoryChangeNameAction::ofName(
                         LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name')
                             ->add('en-US', $this->getTestRun() . '-new name')
                     )
-                )
-        )->toObject();
+                );
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en);
-        $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en_US);
-        $this->assertNotSame($category->getVersion(), $result->getVersion());
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en);
+                $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en_US);
+                $this->assertNotSame($draft->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(Category::class, $result);
+                return $result;
+            }
+        );
     }
 
     public function testChangeOrderHint()
     {
-        $draft = $this->getDraft('change order hint', 'change-order-hint');
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $hint = '0.9' . trim(mt_rand(1, TestHelper::RAND_MAX));
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(CategoryChangeOrderHintAction::ofOrderHint($hint))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'change order hint')
+                    ->add('en', 'change-order-hint'));
+            },
+            function (Category $draft) use ($client) {
+                $hint = '0.9' . trim(mt_rand(1, TestHelper::RAND_MAX));
+                $request = RequestBuilder::of()->categories()->update($draft)
+                    ->addAction(CategoryChangeOrderHintAction::ofOrderHint($hint));
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($hint, $result->getOrderHint());
-        $this->assertNotSame($category->getVersion(), $result->getVersion());
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($hint, $result->getOrderHint());
+                $this->assertNotSame($draft->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(Category::class, $result);
+                return $result;
+            }
+        );
     }
 
     public function testChangeParent()
     {
-        $draft1 = $this->getDraft('category1', 'category1');
-        $category1 = $this->createCategory($draft1);
-        $draft2 = $this->getDraft('category2', 'category2');
-        $category2 = $this->createCategory($draft2);
+        $client = $this->getApiClient();
 
-        $request = CategoryUpdateRequest::ofIdAndVersion($category2->getId(), $category2->getVersion())
-            ->addAction(CategoryChangeParentAction::ofParentCategory($category1->getReference()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $category1Draft) {
+                return $category1Draft->setName(LocalizedString::ofLangAndText('en', 'category1'));
+            },
+            function (Category $category1) use ($client) {
+                CategoryFixture::withDraftCategory(
+                    $client,
+                    function (CategoryDraft $category2Draft) use ($category1) {
+                        return $category2Draft->setName(LocalizedString::ofLangAndText('en', 'category2'));
+                    },
+                    function (Category $category2) use ($client, $category1) {
+                        $request = RequestBuilder::of()->categories()->update($category2)
+                            ->addAction(CategoryChangeParentAction::ofParentCategory($category1->getReference()));
+                        $response = $client->execute($request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($category1->getId(), $result->getParent()->getId());
-        $this->assertNotSame($category2->getVersion(), $result->getVersion());
+                        $this->assertInstanceOf(Category::class, $result);
+                        $this->assertSame($category1->getId(), $result->getParent()->getId());
+                        $this->assertNotSame($category2->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(Category::class, $result);
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testChangeSlug()
     {
-        $draft = $this->getDraft('change slug', 'change-slug');
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $slug = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-slug');
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(CategoryChangeSlugAction::ofSlug($slug))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'change slug')
+                    ->add('en', 'change-slug'));
+            },
+            function (Category $category) use ($client) {
+                $slug = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-slug');
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(CategoryChangeSlugAction::ofSlug($slug));
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($slug->en, $result->getSlug()->en);
-        $this->assertNotSame($category->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($slug->en, $result->getSlug()->en);
+                $this->assertNotSame($category->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(Category::class, $result);
+                return $result;
+            }
+        );
     }
 
     public function testSetDescription()

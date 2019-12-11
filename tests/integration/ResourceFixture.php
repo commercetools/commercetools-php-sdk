@@ -2,7 +2,12 @@
 namespace Commercetools\Core\IntegrationTests;
 
 use Commercetools\Core\Client\ApiClient;
+use Commercetools\Core\Error\ConcurrentModificationError;
+use Commercetools\Core\Error\ConcurrentModificationException;
+use Commercetools\Core\Error\ErrorContainer;
+use Commercetools\Core\Error\NotFoundException;
 use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Response\ErrorResponse;
 
 abstract class ResourceFixture
 {
@@ -30,8 +35,20 @@ abstract class ResourceFixture
     {
         $request = $deleteRequestType::ofIdAndVersion($resource->getId(), $resource->getVersion());
 
-        $response = $client->execute($request);
+        try {
+            $response = $client->execute($request);
+        } catch (NotFoundException $e) {
+            return null;
+        } catch (ConcurrentModificationException $e) {
+            $errorResponse = new ErrorResponse($e, $request, $e->getResponse());
 
+            /** @var ConcurrentModificationError $error */
+            $error = $errorResponse->getErrors()->getByCode(ConcurrentModificationError::CODE);
+            $currentVersion = $error->getCurrentVersion();
+
+            $request = $deleteRequestType::ofIdAndVersion($resource->getId(), $currentVersion);
+            $response = $client->execute($request);
+        }
         return $request->mapFromResponse($response);
     }
 
@@ -50,9 +67,9 @@ abstract class ResourceFixture
         $resource = call_user_func($createFunction, $client, $resourceDraft);
 
         try {
-            $resource = call_user_func($assertFunction, $resource);
+            $updatedResource = call_user_func($assertFunction, $resource);
         } finally {
-            call_user_func($deleteFunction, $client, $resource);
+            call_user_func($deleteFunction, $client, $updatedResource != null ? $updatedResource : $resource);
         }
     }
 
