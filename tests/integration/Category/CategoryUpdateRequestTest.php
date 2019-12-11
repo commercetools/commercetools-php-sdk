@@ -318,435 +318,514 @@ class CategoryUpdateRequestTest extends ApiTestCase
 
     public function testSetMetaTitle()
     {
-        $draft = $this->getDraft('set title', 'set-title');
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $title = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-title');
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(CategorySetMetaTitleAction::of()->setMetaTitle($title))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set title')
+                    ->add('en', 'set-title'));
+            },
+            function (Category $category) use ($client) {
+                $title = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-title');
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(CategorySetMetaTitleAction::of()->setMetaTitle($title));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($title->en, $result->getMetaTitle()->en);
-        $this->assertNotSame($category->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(Category::class, $result);
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($title->en, $result->getMetaTitle()->en);
+                $this->assertNotSame($category->getVersion(), $result->getVersion());
+            }
+        );
     }
 
     public function testSetMetaKeywords()
     {
-        $draft = $this->getDraft('set keywords', 'set-keywords');
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $keywords = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-keywords');
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(CategorySetMetaKeywordsAction::of()->setMetaKeywords($keywords))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords')
+                    ->add('en', 'set-keywords'));
+            },
+            function (Category $category) use ($client) {
+                $keywords = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-keywords');
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(CategorySetMetaKeywordsAction::of()->setMetaKeywords($keywords));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($keywords->en, $result->getMetaKeywords()->en);
-        $this->assertNotSame($category->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(Category::class, $result);
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($keywords->en, $result->getMetaKeywords()->en);
+                $this->assertNotSame($category->getVersion(), $result->getVersion());
+            }
+        );
     }
 
     public function testAddAsset()
     {
-        $draft = $this->getDraft('set keywords', 'add-assets');
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $assetDraft = AssetDraft::ofNameAndSources(
-            LocalizedString::ofLangAndText('en', $this->getTestRun()),
-            AssetSourceCollection::of()->add(
-                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-            )
-        );
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(CategoryAddAssetAction::ofAsset($assetDraft))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords')
+                    ->add('en', 'add-assets'));
+            },
+            function (Category $category) use ($client) {
+                $assetDraft = AssetDraft::ofNameAndSources(
+                    LocalizedString::ofLangAndText('en', $this->getTestRun()),
+                    AssetSourceCollection::of()->add(
+                        AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+                    )
+                );
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(CategoryAddAssetAction::ofAsset($assetDraft));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertNotNull($result->getAssets()->current()->getId());
-        $this->assertSame(
-            $assetDraft->getSources()->current()->getUri(),
-            $result->getAssets()->current()->getSources()->current()->getUri()
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertNotNull($result->getAssets()->current()->getId());
+                $this->assertSame(
+                    $assetDraft->getSources()->current()->getUri(),
+                    $result->getAssets()->current()->getSources()->current()->getUri()
+                );
+            }
         );
     }
 
     public function testRemoveAsset()
     {
-        $assetDraft = AssetDraft::ofNameAndSources(
-            LocalizedString::ofLangAndText('en', $this->getTestRun()),
-            AssetSourceCollection::of()->add(
-                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-            )
+        $client = $this->getApiClient();
+
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                $assetDraft = AssetDraft::ofNameAndSources(
+                    LocalizedString::ofLangAndText('en', $this->getTestRun()),
+                    AssetSourceCollection::of()->add(
+                        AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+                    )
+                );
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'remove-assets'))
+                    ->setAssets(AssetDraftCollection::of()->add($assetDraft));
+            },
+            function (Category $category) use ($client) {
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(CategoryRemoveAssetAction::ofAssetId($category->getAssets()->current()->getId()));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertCount(0, $result->getAssets());
+            }
         );
-        $draft = $this->getDraft('set keywords', 'remove-assets');
-        $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
-        $category = $this->createCategory($draft);
-
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(CategoryRemoveAssetAction::ofAssetId($category->getAssets()->current()->getId()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertCount(0, $result->getAssets());
     }
 
     public function testChangeAssetName()
     {
-        $assetDraft = AssetDraft::ofNameAndSources(
-            LocalizedString::ofLangAndText('en', $this->getTestRun()),
-            AssetSourceCollection::of()->add(
-                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-            )
-        );
-        $draft = $this->getDraft('set keywords', 'change-assetname');
-        $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $newName = $this->getTestRun() . '-new';
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(
-                CategoryChangeAssetNameAction::ofAssetIdAndName(
-                    $category->getAssets()->current()->getId(),
-                    LocalizedString::ofLangAndText('en', $newName)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                $assetDraft = AssetDraft::ofNameAndSources(
+                    LocalizedString::ofLangAndText('en', $this->getTestRun()),
+                    AssetSourceCollection::of()->add(
+                        AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+                    )
+                );
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'change-assetname'))
+                    ->setAssets(AssetDraftCollection::of()->add($assetDraft));
+            },
+            function (Category $category) use ($client) {
+                $newName = $this->getTestRun() . '-new';
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(
+                        CategoryChangeAssetNameAction::ofAssetIdAndName(
+                            $category->getAssets()->current()->getId(),
+                            LocalizedString::ofLangAndText('en', $newName)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame(
-            $newName,
-            $result->getAssets()->current()->getName()->en
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame(
+                    $newName,
+                    $result->getAssets()->current()->getName()->en
+                );
+            }
         );
     }
 
     public function testSetAssetDescription()
     {
-        $assetDraft = AssetDraft::ofNameAndSources(
-            LocalizedString::ofLangAndText('en', $this->getTestRun()),
-            AssetSourceCollection::of()->add(
-                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-            )
-        );
-        $draft = $this->getDraft('set keywords', 'set-asset-description');
-        $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $newDescription = $this->getTestRun() . '-new';
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(
-                CategorySetAssetDescriptionAction::ofAssetId($category->getAssets()->current()->getId())
-                    ->setDescription(LocalizedString::ofLangAndText('en', $newDescription))
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                $assetDraft = AssetDraft::ofNameAndSources(
+                    LocalizedString::ofLangAndText('en', $this->getTestRun()),
+                    AssetSourceCollection::of()->add(
+                        AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+                    )
+                );
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'set-asset-description'))
+                    ->setAssets(AssetDraftCollection::of()->add($assetDraft));
+            },
+            function (Category $category) use ($client) {
+                $newDescription = $this->getTestRun() . '-new';
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(
+                        CategorySetAssetDescriptionAction::ofAssetId($category->getAssets()->current()->getId())
+                            ->setDescription(LocalizedString::ofLangAndText('en', $newDescription))
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame(
-            $newDescription,
-            $result->getAssets()->current()->getDescription()->en
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame(
+                    $newDescription,
+                    $result->getAssets()->current()->getDescription()->en
+                );
+            }
         );
     }
 
     public function testSetAssetTags()
     {
-        $assetDraft = AssetDraft::ofNameAndSources(
-            LocalizedString::ofLangAndText('en', $this->getTestRun()),
-            AssetSourceCollection::of()->add(
-                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-            )
-        );
-        $draft = $this->getDraft('set keywords', 'set-asset-tags');
-        $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $newTag = $this->getTestRun() . '-new';
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(
-                CategorySetAssetTagsAction::ofAssetId($category->getAssets()->current()->getId())
-                    ->setTags([$newTag])
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                $assetDraft = AssetDraft::ofNameAndSources(
+                    LocalizedString::ofLangAndText('en', $this->getTestRun()),
+                    AssetSourceCollection::of()->add(
+                        AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+                    )
+                );
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'set-asset-tags'))
+                    ->setAssets(AssetDraftCollection::of()->add($assetDraft));
+            },
+            function (Category $category) use ($client) {
+                $newTag = $this->getTestRun() . '-new';
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(
+                        CategorySetAssetTagsAction::ofAssetId($category->getAssets()->current()->getId())
+                        ->setTags([$newTag])
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertContains(
-            $newTag,
-            $result->getAssets()->current()->getTags()
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertContains(
+                    $newTag,
+                    $result->getAssets()->current()->getTags()
+                );
+            }
         );
     }
 
     public function testSetAssetSources()
     {
-        $assetDraft = AssetDraft::ofNameAndSources(
-            LocalizedString::ofLangAndText('en', $this->getTestRun()),
-            AssetSourceCollection::of()->add(
-                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-            )
-        );
-        $draft = $this->getDraft('set keywords', 'set-asset-tags');
-        $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $newSource = AssetSource::of()->setUri($this->getTestRun() . '-new.jpq')->setKey('test');
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(
-                CategorySetAssetSourcesAction::ofAssetId($category->getAssets()->current()->getId())
-                    ->setSources(AssetSourceCollection::of()->add($newSource))
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                $assetDraft = AssetDraft::ofNameAndSources(
+                    LocalizedString::ofLangAndText('en', $this->getTestRun()),
+                    AssetSourceCollection::of()->add(
+                        AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+                    )
+                );
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'set-asset-tags'))
+                    ->setAssets(AssetDraftCollection::of()->add($assetDraft));
+            },
+            function (Category $category) use ($client) {
+                $newSource = AssetSource::of()->setUri($this->getTestRun() . '-new.jpq')->setKey('test');
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(
+                        CategorySetAssetSourcesAction::ofAssetId($category->getAssets()->current()->getId())
+                            ->setSources(AssetSourceCollection::of()->add($newSource))
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertContains(
-            $newSource->getUri(),
-            $result->getAssets()->current()->getSources()->current()->getUri()
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertContains(
+                    $newSource->getUri(),
+                    $result->getAssets()->current()->getSources()->current()->getUri()
+                );
+            }
         );
     }
 
     public function testSetAssetKey()
     {
-        $assetKey = uniqid();
-        $assetDraft = AssetDraft::ofNameAndSources(
-            LocalizedString::ofLangAndText('en', $this->getTestRun()),
-            AssetSourceCollection::of()->add(
-                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-            )
-        );
-        $draft = $this->getDraft('set keywords', 'change-assetname');
-        $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $newName = $this->getTestRun() . '-new';
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(
-                CategorySetAssetKeyAction::ofAssetIdAndAssetKey(
-                    $category->getAssets()->current()->getId(),
-                    $assetKey
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                $assetDraft = AssetDraft::ofNameAndSources(
+                    LocalizedString::ofLangAndText('en', $this->getTestRun()),
+                    AssetSourceCollection::of()->add(
+                        AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+                    )
+                );
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'change-assetname'))
+                    ->setAssets(AssetDraftCollection::of()->add($assetDraft));
+            },
+            function (Category $category) use ($client) {
+                $assetKey = uniqid();
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(
+                        CategorySetAssetKeyAction::ofAssetIdAndAssetKey(
+                            $category->getAssets()->current()->getId(),
+                            $assetKey
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame(
-            $assetKey,
-            $result->getAssets()->current()->getKey()
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame(
+                    $assetKey,
+                    $result->getAssets()->current()->getKey()
+                );
+            }
         );
     }
 
     public function testAddAssetWithKey()
     {
-        $draft = $this->getDraft('set keywords', 'add-assets');
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $assetKey = uniqid();
-        $assetDraft = AssetDraft::ofKeySourcesAndName(
-            $assetKey,
-            AssetSourceCollection::of()->add(
-                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-            ),
-            LocalizedString::ofLangAndText('en', $this->getTestRun())
-        );
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(CategoryAddAssetAction::ofAsset($assetDraft))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'add-assets'));
+            },
+            function (Category $category) use ($client) {
+                $assetKey = uniqid();
+                $assetDraft = AssetDraft::ofKeySourcesAndName(
+                    $assetKey,
+                    AssetSourceCollection::of()->add(
+                        AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+                    ),
+                    LocalizedString::ofLangAndText('en', $this->getTestRun())
+                );
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(CategoryAddAssetAction::ofAsset($assetDraft));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertNotNull($result->getAssets()->current()->getId());
-        $this->assertSame($assetKey, $result->getAssets()->current()->getKey());
-        $this->assertSame(
-            $assetDraft->getSources()->current()->getUri(),
-            $result->getAssets()->current()->getSources()->current()->getUri()
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertNotNull($result->getAssets()->current()->getId());
+                $this->assertSame($assetKey, $result->getAssets()->current()->getKey());
+                $this->assertSame(
+                    $assetDraft->getSources()->current()->getUri(),
+                    $result->getAssets()->current()->getSources()->current()->getUri()
+                );
+            }
         );
     }
 
     public function testRemoveAssetByKey()
     {
-        $assetKey = uniqid();
-        $assetDraft = AssetDraft::ofKeySourcesAndName(
-            $assetKey,
-            AssetSourceCollection::of()->add(
-                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-            ),
-            LocalizedString::ofLangAndText('en', $this->getTestRun())
+        $client = $this->getApiClient();
+
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                $assetKey = uniqid();
+                $assetDraft = AssetDraft::ofKeySourcesAndName(
+                    $assetKey,
+                    AssetSourceCollection::of()->add(
+                        AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+                    ),
+                    LocalizedString::ofLangAndText('en', $this->getTestRun())
+                );
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'remove-assets'))
+                    ->setAssets(AssetDraftCollection::of()->add($assetDraft));
+            },
+            function (Category $category) use ($client) {
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(CategoryRemoveAssetAction::ofAssetKey($category->getAssets()->current()->getKey()));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertCount(0, $result->getAssets());
+            }
         );
-        $draft = $this->getDraft('set keywords', 'remove-assets');
-        $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
-        $category = $this->createCategory($draft);
-
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(CategoryRemoveAssetAction::ofAssetKey($assetKey))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertCount(0, $result->getAssets());
     }
 
     public function testChangeAssetNameByKey()
     {
-        $assetKey = uniqid();
-        $assetDraft = AssetDraft::ofKeySourcesAndName(
-            $assetKey,
-            AssetSourceCollection::of()->add(
-                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-            ),
-            LocalizedString::ofLangAndText('en', $this->getTestRun())
-        );
-        $draft = $this->getDraft('set keywords', 'change-assetname');
-        $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $newName = $this->getTestRun() . '-new';
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(
-                CategoryChangeAssetNameAction::ofAssetKeyAndName(
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                $assetKey = uniqid();
+                $assetDraft = AssetDraft::ofKeySourcesAndName(
                     $assetKey,
-                    LocalizedString::ofLangAndText('en', $newName)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                    AssetSourceCollection::of()->add(
+                        AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+                    ),
+                    LocalizedString::ofLangAndText('en', $this->getTestRun())
+                );
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'change-assetnames'))
+                    ->setAssets(AssetDraftCollection::of()->add($assetDraft));
+            },
+            function (Category $category) use ($client) {
+                $newName = $this->getTestRun() . '-new';
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(
+                        CategoryChangeAssetNameAction::ofAssetKeyAndName(
+                            $category->getAssets()->current()->getKey(),
+                            LocalizedString::ofLangAndText('en', $newName)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame(
-            $newName,
-            $result->getAssets()->current()->getName()->en
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame(
+                    $newName,
+                    $result->getAssets()->current()->getName()->en
+                );
+            }
         );
     }
 
     public function testSetAssetDescriptionByKey()
     {
-        $assetKey = uniqid();
-        $assetDraft = AssetDraft::ofKeySourcesAndName(
-            $assetKey,
-            AssetSourceCollection::of()->add(
-                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-            ),
-            LocalizedString::ofLangAndText('en', $this->getTestRun())
-        );
-        $draft = $this->getDraft('set keywords', 'set-asset-description');
-        $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $newDescription = $this->getTestRun() . '-new';
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(
-                CategorySetAssetDescriptionAction::ofAssetKey($assetKey)
-                    ->setDescription(LocalizedString::ofLangAndText('en', $newDescription))
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                $assetKey = uniqid();
+                $assetDraft = AssetDraft::ofKeySourcesAndName(
+                    $assetKey,
+                    AssetSourceCollection::of()->add(
+                        AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+                    ),
+                    LocalizedString::ofLangAndText('en', $this->getTestRun())
+                );
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'set-asset-description'))
+                    ->setAssets(AssetDraftCollection::of()->add($assetDraft));
+            },
+            function (Category $category) use ($client) {
+                $newDescription = $this->getTestRun() . '-new';
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(
+                        CategorySetAssetDescriptionAction::ofAssetKey($category->getAssets()->current()->getKey())
+                            ->setDescription(LocalizedString::ofLangAndText('en', $newDescription))
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame(
-            $newDescription,
-            $result->getAssets()->current()->getDescription()->en
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame(
+                    $newDescription,
+                    $result->getAssets()->current()->getDescription()->en
+                );
+            }
         );
     }
 
     public function testSetAssetTagsByKey()
     {
-        $assetKey = uniqid();
-        $assetDraft = AssetDraft::ofKeySourcesAndName(
-            $assetKey,
-            AssetSourceCollection::of()->add(
-                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-            ),
-            LocalizedString::ofLangAndText('en', $this->getTestRun())
-        );
-        $draft = $this->getDraft('set keywords', 'set-asset-tags');
-        $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $newTag = $this->getTestRun() . '-new';
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(
-                CategorySetAssetTagsAction::ofAssetKey($assetKey)
-                    ->setTags([$newTag])
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                $assetKey = uniqid();
+                $assetDraft = AssetDraft::ofKeySourcesAndName(
+                    $assetKey,
+                    AssetSourceCollection::of()->add(
+                        AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+                    ),
+                    LocalizedString::ofLangAndText('en', $this->getTestRun())
+                );
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'set-asset-tags'))
+                    ->setAssets(AssetDraftCollection::of()->add($assetDraft));
+            },
+            function (Category $category) use ($client) {
+                $newTag = $this->getTestRun() . '-new';
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(
+                        CategorySetAssetTagsAction::ofAssetKey($category->getAssets()->current()->getKey())
+                            ->setTags([$newTag])
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertContains(
-            $newTag,
-            $result->getAssets()->current()->getTags()
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertContains(
+                    $newTag,
+                    $result->getAssets()->current()->getTags()
+                );
+            }
         );
     }
 
     public function testSetAssetSourcesByKey()
     {
-        $assetKey = uniqid();
-        $assetDraft = AssetDraft::ofKeySourcesAndName(
-            $assetKey,
-            AssetSourceCollection::of()->add(
-                AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
-            ),
-            LocalizedString::ofLangAndText('en', $this->getTestRun())
-        );
-        $draft = $this->getDraft('set keywords', 'set-asset-tags');
-        $draft->setAssets(AssetDraftCollection::of()->add($assetDraft));
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $newSource = AssetSource::of()->setUri($this->getTestRun() . '-new.jpq')->setKey('test');
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(
-                CategorySetAssetSourcesAction::ofAssetKey($assetKey)
-                    ->setSources(AssetSourceCollection::of()->add($newSource))
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                $assetKey = uniqid();
+                $assetDraft = AssetDraft::ofKeySourcesAndName(
+                    $assetKey,
+                    AssetSourceCollection::of()->add(
+                        AssetSource::of()->setUri($this->getTestRun() . '.jpg')->setKey('test')
+                    ),
+                    LocalizedString::ofLangAndText('en', $this->getTestRun())
+                );
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'set-asset-tags'))
+                    ->setAssets(AssetDraftCollection::of()->add($assetDraft));
+            },
+            function (Category $category) use ($client) {
+                $newSource = AssetSource::of()->setUri($this->getTestRun() . '-new.jpq')->setKey('test');
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(
+                        CategorySetAssetSourcesAction::ofAssetKey($category->getAssets()->current()->getKey())
+                            ->setSources(AssetSourceCollection::of()->add($newSource))
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertContains(
-            $newSource->getUri(),
-            $result->getAssets()->current()->getSources()->current()->getUri()
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertContains(
+                    $newSource->getUri(),
+                    $result->getAssets()->current()->getSources()->current()->getUri()
+                );
+            }
         );
     }
 }
