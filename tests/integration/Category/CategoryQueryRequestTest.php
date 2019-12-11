@@ -413,13 +413,11 @@ class CategoryQueryRequestTest extends ApiTestCase
             function (Category $draft) use ($client) {
                 $request = RequestBuilder::of()->categories()->query()->offset(10000);
                 $response = $client->execute($request);
-                $result = $request->mapFromResponse($response);
+                $pageQueryResponse = new PagedQueryResponse($response, $request);
 
-                $response = json_decode($response->getBody(), true);
-
-                $this->assertSame(10000, $response['offset']);
-                $this->assertSame(0, $response['count']);
-                $this->assertCount(0, $result);
+                $this->assertSame(10000, $pageQueryResponse->getOffset());
+                $this->assertSame(0, $pageQueryResponse->getCount());
+                $this->assertCount(0, $pageQueryResponse->toObject());
             }
         );
     }
@@ -428,15 +426,15 @@ class CategoryQueryRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withCategory(
+        CategoryFixture::withDraftCategory(
             $client,
-            function (Category $draft) use ($client) {
-                $draft->setName(LocalizedString::ofLangAndText('en', 'min')->add('en', '1'));
-                $request = RequestBuilder::of()->categories()->getById($draft->getId());
-                $response = $client->execute($request);
-
-                $isNotError = (in_array($response->getStatusCode(), [200, 201]));
-                $this->assertTrue($isNotError);
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'min'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', '12'));
+            },
+            function (Category $category) use ($client) {
+                $this->assertSame('min', $category->getName()->en);
+                $this->assertSame('12', $category->getSlug()->en);
             }
         );
     }
@@ -445,16 +443,15 @@ class CategoryQueryRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withCategory(
+        CategoryFixture::withDraftCategory(
             $client,
-            function (Category $draft) use ($client) {
-                $draft->setName(LocalizedString::ofLangAndText('en', 'max')
-                    ->add('en', str_pad('1', 257, '0')));
-                $request = RequestBuilder::of()->categories()->getById($draft->getId());
-                $response = $client->execute($request);
-
-                $isNotError = (in_array($response->getStatusCode(), [200, 201]));
-                $this->assertTrue($isNotError);
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'max'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', str_pad('1', 256, '0')));
+            },
+            function (Category $category) use ($client) {
+                $this->assertSame('max', $category->getName()->en);
+                $this->assertSame(str_pad('1', 256, '0'), $category->getSlug()->en);
             }
         );
     }

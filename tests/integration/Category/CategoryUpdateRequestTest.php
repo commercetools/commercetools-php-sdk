@@ -82,7 +82,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
                         LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name')
                     )
                 );
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Category::class, $result);
@@ -112,7 +112,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     )
                 );
 
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Category::class, $result);
@@ -142,7 +142,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     )
                 );
 
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Category::class, $result);
@@ -170,7 +170,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
                 $request = RequestBuilder::of()->categories()->update($draft)
                     ->addAction(CategoryChangeOrderHintAction::ofOrderHint($hint));
 
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Category::class, $result);
@@ -200,7 +200,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     function (Category $category2) use ($client, $category1) {
                         $request = RequestBuilder::of()->categories()->update($category2)
                             ->addAction(CategoryChangeParentAction::ofParentCategory($category1->getReference()));
-                        $response = $client->execute($request);
+                        $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
                         $this->assertInstanceOf(Category::class, $result);
@@ -228,7 +228,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
                 $slug = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-slug');
                 $request = RequestBuilder::of()->categories()->update($category)
                     ->addAction(CategoryChangeSlugAction::ofSlug($slug));
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Category::class, $result);
@@ -242,71 +242,78 @@ class CategoryUpdateRequestTest extends ApiTestCase
 
     public function testSetDescription()
     {
-        $draft = $this->getDraft('set description', 'set-description');
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $description = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-description');
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(CategorySetDescriptionAction::ofDescription($description))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set description')
+                    ->add('en', 'set-description'));
+            },
+            function (Category $category) use ($client) {
+                $description = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-description');
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(CategorySetDescriptionAction::ofDescription($description));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($description->en, $result->getDescription()->en);
-        $this->assertNotSame($category->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($description->en, $result->getDescription()->en);
+                $this->assertNotSame($category->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(Category::class, $result);
+                return $result;
+            }
+        );
     }
 
     public function testSetExternalId()
     {
-        $draft = $this->getDraft('set externalId', 'set-external-id');
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $externalId = $this->getTestRun() . '-new-external-id';
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(CategorySetExternalIdAction::ofExternalId($externalId))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set externalId')
+                    ->add('en', 'set-external-id'));
+            },
+            function (Category $category) use ($client) {
+                $externalId = $this->getTestRun() . '-new-external-id';
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(CategorySetExternalIdAction::ofExternalId($externalId));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($externalId, $result->getExternalId());
-        $this->assertNotSame($category->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($externalId, $result->getExternalId());
+                $this->assertNotSame($category->getVersion(), $result->getVersion());
 
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(Category::class, $result);
+                return $result;
+            }
+        );
     }
 
     public function testSetMetaDescription()
     {
-        $draft = $this->getDraft('set description', 'set-description');
-        $category = $this->createCategory($draft);
+        $client = $this->getApiClient();
 
-        $description = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-description');
-        $request = CategoryUpdateRequest::ofIdAndVersion($category->getId(), $category->getVersion())
-            ->addAction(CategorySetMetaDescriptionAction::of()->setMetaDescription($description))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CategoryFixture::withUpdatableDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set description')
+                    ->add('en', 'set-description'));
+            },
+            function (Category $category) use ($client) {
+                $description = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-description');
+                $request = RequestBuilder::of()->categories()->update($category)
+                    ->addAction(CategorySetMetaDescriptionAction::of()->setMetaDescription($description));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($description->en, $result->getMetaDescription()->en);
-        $this->assertNotSame($category->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(Category::class, $result);
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($description->en, $result->getMetaDescription()->en);
+                $this->assertNotSame($category->getVersion(), $result->getVersion());
+            }
+        );
     }
 
     public function testSetMetaTitle()

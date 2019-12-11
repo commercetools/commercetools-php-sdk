@@ -10,6 +10,7 @@ use Commercetools\Core\Client\ClientFactory;
 use Commercetools\Core\Client\ProviderFactory;
 use Commercetools\Core\Client\OAuth\AnonymousIdProvider;
 use Commercetools\Core\Config;
+use Commercetools\Core\Error\ApiServiceException;
 use Commercetools\Core\Fixtures\InstanceTokenStorage;
 use Commercetools\Core\Fixtures\ManuelActivationStrategy;
 use Commercetools\Core\Fixtures\ProfilerMiddleware;
@@ -643,5 +644,16 @@ class ApiTestCase extends TestCase
 
         $provider = ProviderFactory::of()->createTokenStorageProviderFor($config, new HttpClient(), $storage);
         return ClientFactory::of()->createClient($config, $this->getLogger(), $this->getCache(), $provider);
+    }
+
+    protected function execute(Client\ApiClient $client, $request)
+    {
+        try {
+            $response = $client->execute($request);
+        } catch (ApiServiceException $e) {
+            throw ResourceFixture::toFixtureException($e);
+        }
+
+        return $response;
     }
 }
