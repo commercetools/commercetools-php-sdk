@@ -11,7 +11,6 @@ use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\Categories\CategoryCreateRequest;
-use Commercetools\Core\Request\Categories\CategoryDeleteByKeyRequest;
 use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
 
 class CategoryCreateRequestTest extends ApiTestCase

@@ -7,6 +7,7 @@ namespace Commercetools\Core\IntegrationTests\Category;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Client\ApiClient;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
@@ -418,6 +419,25 @@ class CategoryQueryRequestTest extends ApiTestCase
         );
     }
 
+    public function testMinSlugFail()
+    {
+        $client = $this->getApiClient();
+
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidField/");
+
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'min'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', '1'));
+            },
+            function (Category $category) use ($client) {
+            }
+        );
+    }
+
     public function testMinSlug()
     {
         $client = $this->getApiClient();
@@ -435,19 +455,40 @@ class CategoryQueryRequestTest extends ApiTestCase
         );
     }
 
-    public function testMaxSlug()
+    public function testMaxSlugFail()
     {
         $client = $this->getApiClient();
+
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidField/");
 
         CategoryFixture::withDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'max'))
-                    ->setSlug(LocalizedString::ofLangAndText('en', str_pad('1', 256, '0')));
+                    ->setSlug(LocalizedString::ofLangAndText('en', str_pad('1', 257, '0')));
             },
             function (Category $category) use ($client) {
+            }
+        );
+    }
+
+    public function testMaxSlug()
+    {
+        $client = $this->getApiClient();
+
+        $slug = str_pad('1', 256, '0');
+
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $draft) use ($slug) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'max'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', $slug));
+            },
+            function (Category $category) use ($client, $slug) {
                 $this->assertSame('max', $category->getName()->en);
-                $this->assertSame(str_pad('1', 256, '0'), $category->getSlug()->en);
+                $this->assertSame($slug, $category->getSlug()->en);
             }
         );
     }

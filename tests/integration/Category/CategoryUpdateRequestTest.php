@@ -90,7 +90,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'update name'));
@@ -118,7 +118,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'update name'));
@@ -146,7 +146,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'update name'));
@@ -176,7 +176,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'change order hint'));
@@ -202,7 +202,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $category1Draft) {
                 return $category1Draft->setName(LocalizedString::ofLangAndText('en', 'category1'));
@@ -234,7 +234,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'change slug'))
@@ -260,7 +260,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'set description'));
@@ -285,7 +285,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'set externalId'));
@@ -310,7 +310,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'set description'));
@@ -333,7 +333,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'set title'));
@@ -356,7 +356,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
@@ -380,7 +380,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
@@ -412,7 +412,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 $assetDraft = $this->getAssetDraftFromNameAndSources();
@@ -436,7 +436,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 $assetDraft = $this->getAssetDraftFromNameAndSources();
@@ -469,7 +469,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 $assetDraft = $this->getAssetDraftFromNameAndSources();
@@ -500,7 +500,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 $assetDraft = $this->getAssetDraftFromNameAndSources();
@@ -531,7 +531,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 $assetDraft = $this->getAssetDraftFromNameAndSources();
@@ -562,7 +562,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 $assetDraft = $this->getAssetDraftFromNameAndSources();
@@ -595,7 +595,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
@@ -624,7 +624,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 $assetKey = uniqid();
@@ -649,7 +649,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 $assetKey = uniqid();
@@ -683,7 +683,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 $assetKey = uniqid();
@@ -715,7 +715,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 $assetKey = uniqid();
@@ -747,7 +747,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withUpdatableDraftCategory(
+        CategoryFixture::withUpdateableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 $assetKey = uniqid();

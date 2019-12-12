@@ -48,7 +48,7 @@ class CategoryFixture extends ResourceFixture
         return parent::defaultDeleteFunction($client, self::DELETE_REQUEST_TYPE, $resource);
     }
 
-    final public static function withUpdatableDraftCategory(
+    final public static function withUpdateableDraftCategory(
         ApiClient $client,
         callable $draftBuilderFunction,
         callable $assertFunction,
@@ -66,7 +66,7 @@ class CategoryFixture extends ResourceFixture
             $deleteFunction = [__CLASS__, 'defaultCategoryDeleteFunction'];
         }
 
-        parent::withUpdatableDraftResource(
+        parent::withUpdateableDraftResource(
             $client,
             $draftBuilderFunction,
             $assertFunction,
@@ -121,14 +121,14 @@ class CategoryFixture extends ResourceFixture
         );
     }
 
-    final public static function withUpdatableCategory(
+    final public static function withUpdateableCategory(
         ApiClient $client,
         callable $assertFunction,
         callable $createFunction = null,
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        self::withUpdatableDraftCategory(
+        self::withUpdateableDraftCategory(
             $client,
             [__CLASS__, 'defaultCategoryDraftBuilderFunction'],
             $assertFunction,

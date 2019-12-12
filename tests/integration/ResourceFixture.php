@@ -68,7 +68,7 @@ abstract class ResourceFixture
         return $request->mapFromResponse($response);
     }
 
-    final protected static function withUpdatableDraftResource(
+    final protected static function withUpdateableDraftResource(
         ApiClient $client,
         callable $draftBuilderFunction,
         callable $assertFunction,
