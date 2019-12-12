@@ -12,14 +12,9 @@ use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Category\CategoryReference;
 use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Request\Categories\CategoryByKeyGetRequest;
-use Commercetools\Core\Request\Categories\CategoryQueryRequest;
 use Commercetools\Core\Request\Categories\CategoryCreateRequest;
 use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
-use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
-use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Response\PagedQueryResponse;
-use Psr\Http\Message\ResponseInterface;
 
 class CategoryQueryRequestTest extends ApiTestCase
 {
@@ -168,7 +163,8 @@ class CategoryQueryRequestTest extends ApiTestCase
                         $this->assertSame('childCategory', $child->getName()->en);
                         $this->assertSame('parentCategory', $parent->getName()->en);
 
-                        $request = RequestBuilder::of()->categories()->query()->where('parent(id="'.$parent->getId().'")');
+                        $request = RequestBuilder::of()->categories()->query()
+                            ->where('parent(id="'.$parent->getId().'")');
                         $response = $client->execute($request);
                         $result = $request->mapFromResponse($response);
 

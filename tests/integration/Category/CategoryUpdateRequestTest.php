@@ -17,7 +17,6 @@ use Commercetools\Core\Model\Common\AssetSourceCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Request\Categories\CategoryCreateRequest;
 use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
-use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
 use Commercetools\Core\Request\Categories\Command\CategoryAddAssetAction;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeAssetNameAction;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
@@ -94,8 +93,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         CategoryFixture::withUpdatableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'update name')
-                    ->add('en', 'update-name'));
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'update name'));
             },
             function (Category $draft) use ($client) {
                 $request = RequestBuilder::of()->categories()->updateByKey($draft)->addAction(
@@ -123,8 +121,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         CategoryFixture::withUpdatableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'update name')
-                    ->add('en', 'update-name'));
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'update name'));
             },
             function (Category $draft) use ($client) {
                 $request = RequestBuilder::of()->categories()->update($draft)->addAction(
@@ -152,8 +149,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         CategoryFixture::withUpdatableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'update name')
-                    ->add('en', 'update-name'));
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'update name'));
             },
             function (Category $draft) use ($client) {
                 $request = RequestBuilder::of()->categories()->update($draft)->addAction(
@@ -183,8 +179,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         CategoryFixture::withUpdatableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'change order hint')
-                    ->add('en', 'change-order-hint'));
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'change order hint'));
             },
             function (Category $draft) use ($client) {
                 $hint = '0.9' . trim(mt_rand(1, TestHelper::RAND_MAX));
@@ -242,8 +237,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
         CategoryFixture::withUpdatableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'change slug')
-                    ->add('en', 'change-slug'));
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'change slug'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'change-slug'));
             },
             function (Category $category) use ($client) {
                 $slug = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-slug');
@@ -268,8 +263,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         CategoryFixture::withUpdatableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'set description')
-                    ->add('en', 'set-description'));
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set description'));
             },
             function (Category $category) use ($client) {
                 $description = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-description');
@@ -294,8 +288,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         CategoryFixture::withUpdatableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'set externalId')
-                    ->add('en', 'set-external-id'));
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set externalId'));
             },
             function (Category $category) use ($client) {
                 $externalId = $this->getTestRun() . '-new-external-id';
@@ -320,8 +313,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         CategoryFixture::withUpdatableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'set description')
-                    ->add('en', 'set-description'));
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set description'));
             },
             function (Category $category) use ($client) {
                 $description = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-description');
@@ -344,8 +336,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
         CategoryFixture::withUpdatableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'set title')
-                    ->add('en', 'set-title'));
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set title'));
             },
             function (Category $category) use ($client) {
                 $title = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-title');
@@ -368,8 +359,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
         CategoryFixture::withUpdatableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords')
-                    ->add('en', 'set-keywords'));
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'set-keywords'));
             },
             function (Category $category) use ($client) {
                 $keywords = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-keywords');
@@ -392,8 +383,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
         CategoryFixture::withUpdatableDraftCategory(
             $client,
             function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords')
-                    ->add('en', 'add-assets'));
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set keywords'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', 'add-assets'));
             },
             function (Category $category) use ($client) {
                 $assetDraft = AssetDraft::ofNameAndSources(
