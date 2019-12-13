@@ -13,41 +13,10 @@ use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Category\CategoryReference;
 use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Request\Categories\CategoryCreateRequest;
-use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
 use Commercetools\Core\Response\PagedQueryResponse;
 
 class CategoryQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @param $name
-     * @param $slug
-     * @return CategoryDraft
-     */
-    protected function getDraft($name, $slug)
-    {
-        $draft = CategoryDraft::ofNameAndSlug(
-            LocalizedString::fromArray(['en' => $name]),
-            LocalizedString::fromArray(['en' => $slug])
-        );
-
-        return $draft;
-    }
-
-    protected function createCategory(CategoryDraft $draft)
-    {
-        $request = CategoryCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $category = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
-            $category->getId(),
-            $category->getVersion()
-        );
-
-        return $category;
-    }
-
     public function testGetById()
     {
         $client = $this->getApiClient();
@@ -56,7 +25,7 @@ class CategoryQueryRequestTest extends ApiTestCase
             $client,
             function (Category $category) use ($client) {
                 $request = RequestBuilder::of()->categories()->getById($category->getId());
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Category::class, $result);
@@ -73,7 +42,7 @@ class CategoryQueryRequestTest extends ApiTestCase
             $client,
             function (Category $category) use ($client) {
                 $request = RequestBuilder::of()->categories()->getByKey($category->getKey());
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Category::class, $result);
@@ -87,14 +56,12 @@ class CategoryQueryRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withDraftCategory(
+        CategoryFixture::withCategory(
             $client,
-            function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'myCategory'));
-            },
             function (Category $category) use ($client) {
-                $request = RequestBuilder::of()->categories()->query()->where('name(en="myCategory")');
-                $response = $client->execute($request);
+                $request = RequestBuilder::of()->categories()->query()
+                    ->where('name(en=:name)', ['name' => $category->getName()->en]);
+                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertCount(1, $result);
@@ -108,14 +75,12 @@ class CategoryQueryRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CategoryFixture::withDraftCategory(
+        CategoryFixture::withCategory(
             $client,
-            function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'myCategory'));
-            },
             function (Category $category) use ($client) {
-                $request = RequestBuilder::of()->categories()->query()->where('not(name(en="myCategory"))');
-                $response = $client->execute($request);
+                $request = RequestBuilder::of()->categories()->query()
+                    ->where('not(name(en=:name))', ['name' => $category->getName()->en]);
+                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertCount(0, $result);
@@ -134,7 +99,7 @@ class CategoryQueryRequestTest extends ApiTestCase
             },
             function (Category $category) use ($client) {
                 $request = RequestBuilder::of()->categories()->query()->where('externalId="myExternalId"');
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertCount(1, $result);
@@ -166,18 +131,18 @@ class CategoryQueryRequestTest extends ApiTestCase
 
                         $request = RequestBuilder::of()->categories()->query()
                             ->where('parent(id="'.$parent->getId().'")');
-                        $response = $client->execute($request);
+                        $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
                         $this->assertSame($child->getId(), $result->current()->getId());
 
                         $request = RequestBuilder::of()->categories()->query()->where('parent is defined');
-                        $response = $client->execute($request);
+                        $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
                         $this->assertSame($child->getId(), $result->getAt(0)->getId());
 
                         $request = RequestBuilder::of()->categories()->query()->where('parent is not defined');
-                        $response = $client->execute($request);
+                        $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
                         $this->assertSame($parent->getId(), $result->getAt(0)->getId());
                     }
@@ -220,7 +185,7 @@ class CategoryQueryRequestTest extends ApiTestCase
                                         $request = RequestBuilder::of()
                                             ->categories()
                                             ->getById($level4->getId())->expand('ancestors[*].ancestors[*]');
-                                        $response = $client->execute($request);
+                                        $response = $this->execute($client, $request);
                                         $result = $request->mapFromResponse($response);
 
                                         $this->assertCount(3, $result->getAncestors());
@@ -271,7 +236,7 @@ class CategoryQueryRequestTest extends ApiTestCase
                     function (Category $level2) use ($client, $level1) {
                         $request = RequestBuilder::of()->categories()
                             ->getById($level2->getId())->expand('parent');
-                        $response = $client->execute($request);
+                        $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
                         $this->assertSame($level1->getId(), $result->getParent()->getObj()->getId());
@@ -322,7 +287,7 @@ class CategoryQueryRequestTest extends ApiTestCase
     {
         $request = RequestBuilder::of()->categories()
             ->query()->where($predicate)->sort('createdAt DESC');
-        $response = $client->execute($request);
+        $response = $this->execute($client, $request);
         $result = $request->mapFromResponse($response);
 
         $names = array_flip($this->map(
@@ -409,7 +374,7 @@ class CategoryQueryRequestTest extends ApiTestCase
             },
             function (Category $draft) use ($client) {
                 $request = RequestBuilder::of()->categories()->query()->offset(10000);
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $pageQueryResponse = new PagedQueryResponse($response, $request);
 
                 $this->assertSame(10000, $pageQueryResponse->getOffset());

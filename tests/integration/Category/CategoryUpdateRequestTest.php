@@ -15,8 +15,6 @@ use Commercetools\Core\Model\Common\AssetDraftCollection;
 use Commercetools\Core\Model\Common\AssetSource;
 use Commercetools\Core\Model\Common\AssetSourceCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Request\Categories\CategoryCreateRequest;
-use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
 use Commercetools\Core\Request\Categories\Command\CategoryAddAssetAction;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeAssetNameAction;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
@@ -36,35 +34,6 @@ use Commercetools\Core\Request\Categories\Command\CategorySetMetaTitleAction;
 
 class CategoryUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @param $name
-     * @param $slug
-     * @return CategoryDraft
-     */
-    protected function getDraft($name, $slug)
-    {
-        $draft = CategoryDraft::ofNameAndSlug(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $slug)
-        );
-
-        return $draft;
-    }
-
-    protected function createCategory(CategoryDraft $draft)
-    {
-        $request = CategoryCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $category = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = $this->deleteRequest = CategoryDeleteRequest::ofIdAndVersion(
-            $category->getId(),
-            $category->getVersion()
-        );
-
-        return $category;
-    }
-
     protected function getAssetDraftFromKeySourcesAndName($assetKey)
     {
         return AssetDraft::ofKeySourcesAndName(

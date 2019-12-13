@@ -2,7 +2,6 @@
 namespace Commercetools\Core\IntegrationTests;
 
 use Commercetools\Core\Client\ApiClient;
-use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\ApiServiceException;
 use Commercetools\Core\Error\ConcurrentModificationError;
 use Commercetools\Core\Error\ConcurrentModificationException;
@@ -10,7 +9,6 @@ use Commercetools\Core\Error\NotFoundException;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Response\ErrorResponse;
-use PHPUnit\Framework\TestCase;
 
 abstract class ResourceFixture
 {
@@ -29,6 +27,7 @@ abstract class ResourceFixture
     {
         $message = ($e->getResponse() != null) ? (string)$e->getResponse()->getBody() : $e->getMessage();
         $code = ($e->getResponse() != null) ? $e->getResponse()->getStatusCode() : $e->getCode();
+
         return new FixtureException($message, $code, $e);
     }
 
@@ -65,6 +64,7 @@ abstract class ResourceFixture
         } catch (ApiServiceException $e) {
             throw self::toFixtureException($e);
         }
+
         return $request->mapFromResponse($response);
     }
 
