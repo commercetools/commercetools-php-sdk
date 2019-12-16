@@ -6,73 +6,52 @@
 
 namespace Commercetools\Core\IntegrationTests\CartDiscount;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\IntegrationTests\TestHelper;
+use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
-use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
-use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
 use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Model\Common\MoneyCollection;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteRequest;
 
 class CartDiscountCreateRequestTest extends ApiTestCase
 {
-    /**
-     * @return CartDiscountDraft
-     */
-    protected function getDraft()
-    {
-        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-            CartDiscountValue::of()->setType('absolute')->setMoney(
-                MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
-            ),
-            '1=1',
-            CartDiscountTarget::of()->setType('lineItems')->setPredicate('1=1'),
-            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
-            true,
-            false
-        )->setKey('foo');
-
-        return $draft;
-    }
-
-    protected function createCartDiscount(CartDiscountDraft $draft)
-    {
-        $request = CartDiscountCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $cartDiscount = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = CartDiscountDeleteRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        );
-
-        return $cartDiscount;
-    }
-
-
     public function testCreate()
     {
-        $draft = $this->getDraft();
-        $cartDiscount = $this->createCartDiscount($draft);
-        $this->assertSame($draft->getName()->en, $cartDiscount->getName()->en);
-        $this->assertSame(
-            $draft->getValue()->getMoney()->current()->getCentAmount(),
-            $cartDiscount->getValue()->getMoney()->current()->getCentAmount()
+        $client = $this->getApiClient();
+
+        CartDiscountFixture::withDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'myCategory'));
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $request = RequestBuilder::of()->cartDiscounts()->query()
+                    ->where('name(en=:name)', ['name' => $cartDiscount->getName()->en]);
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($cartDiscount->getName()->en, $result->current()->getName()->en);
+                $this->assertSame(
+                    $result->current()->getValue()->getMoney()->current()->getCentAmount(),
+                    $result->current()->getValue()->getMoney()->current()->getCentAmount()
+                );
+                $this->assertSame(
+                    $result->current()->getValue()->getMoney()->current()->getCurrencyCode(),
+                    $result->current()->getValue()->getMoney()->current()->getCurrencyCode()
+                );
+                $this->assertSame($cartDiscount->getCartPredicate(), $result->current()->getCartPredicate());
+                $this->assertSame($cartDiscount->getTarget()->getType(), $result->current()->getTarget()->getType());
+                $this->assertSame(
+                    $cartDiscount->getTarget()->getPredicate(),
+                    $result->current()->getTarget()->getPredicate()
+                );
+                $this->assertSame($cartDiscount->getSortOrder(), $result->current()->getSortOrder());
+                $this->assertSame($cartDiscount->getIsActive(), $result->current()->getIsActive());
+                $this->assertSame(
+                    $cartDiscount->getRequiresDiscountCode(),
+                    $result->current()->getRequiresDiscountCode()
+                );
+                $this->assertSame($cartDiscount->getKey(), $result->current()->getKey());
+            }
         );
-        $this->assertSame(
-            $draft->getValue()->getMoney()->current()->getCurrencyCode(),
-            $cartDiscount->getValue()->getMoney()->current()->getCurrencyCode()
-        );
-        $this->assertSame($draft->getCartPredicate(), $cartDiscount->getCartPredicate());
-        $this->assertSame($draft->getTarget()->getType(), $cartDiscount->getTarget()->getType());
-        $this->assertSame($draft->getTarget()->getPredicate(), $cartDiscount->getTarget()->getPredicate());
-        $this->assertSame($draft->getSortOrder(), $cartDiscount->getSortOrder());
-        $this->assertSame($draft->getIsActive(), $cartDiscount->getIsActive());
-        $this->assertSame($draft->getRequiresDiscountCode(), $cartDiscount->getRequiresDiscountCode());
-        $this->assertSame($draft->getKey(), $cartDiscount->getKey());
     }
 }

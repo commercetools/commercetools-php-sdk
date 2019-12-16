@@ -24,7 +24,8 @@ class CategoryCreateRequestTest extends ApiTestCase
                     ->setSlug(LocalizedString::ofLangAndText('en', 'my-category'));
             },
             function (Category $category) use ($client) {
-                $request = RequestBuilder::of()->categories()->query()->where('name(en="myCategory")');
+                $request = RequestBuilder::of()->categories()->query()
+                    ->where('name(en=:name)', ['name' => $category->getName()->en]);
                 $response = $client->execute($request);
                 $result = $request->mapFromResponse($response);
 
