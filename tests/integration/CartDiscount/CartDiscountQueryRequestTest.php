@@ -8,16 +8,7 @@ namespace Commercetools\Core\IntegrationTests\CartDiscount;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\IntegrationTests\TestHelper;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
-use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
-use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
-use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
-use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Model\Common\MoneyCollection;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteRequest;
 
 class CartDiscountQueryRequestTest extends ApiTestCase
 {
@@ -70,8 +61,8 @@ class CartDiscountQueryRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertCount(1, $result);
-                $this->assertInstanceOf(CartDiscount::class, $result->getAt(0));
-                $this->assertSame($cartDiscount->getId(), $result->getAt(0)->getId());
+                $this->assertInstanceOf(CartDiscount::class, $result->current());
+                $this->assertSame($cartDiscount->getId(), $result->current()->getId());
             }
         );
     }
