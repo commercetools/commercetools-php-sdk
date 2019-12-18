@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\IntegrationTests\Channel;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Channel\ChannelDraft;
@@ -59,151 +60,180 @@ class ChannelUpdateRequestTest extends ApiTestCase
 
     public function testChangeName()
     {
-        $draft = $this->getDraft('change-name');
-        $channel = $this->createChannel($draft);
+        $client = $this->getApiClient();
 
-        $name = $this->getTestRun() . '-new name';
-        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
-            ->addAction(
-                ChannelChangeNameAction::ofName(
-                    LocalizedString::ofLangAndText('en', $name)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ChannelFixture::withUpdateableChannel(
+            $client,
+            function (Channel $channel) use ($client) {
+                $name = $this->getTestRun() . '-new name';
+                $request = RequestBuilder::of()->channels()->update($channel)->addAction(
+                    ChannelChangeNameAction::ofName(
+                        LocalizedString::ofLangAndText('en', $name)
+                    )
+                );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Channel::class, $result);
-        $this->assertSame($name, $result->getName()->en);
-        $this->assertNotSame($channel->getVersion(), $result->getVersion());
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(Channel::class, $result);
+                $this->assertSame($name, $result->getName()->en);
+                $this->assertNotSame($channel->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeDescription()
     {
-        $draft = $this->getDraft('update-description');
-        $channel = $this->createChannel($draft);
+        $client = $this->getApiClient();
 
+        ChannelFixture::withUpdateableChannel(
+            $client,
+            function (Channel $channel) use ($client) {
+                $description = $this->getTestRun() . '-new description';
+                $request = RequestBuilder::of()->channels()->update($channel)->addAction(
+                    ChannelChangeDescriptionAction::ofDescription(
+                        LocalizedString::ofLangAndText('en', $description)
+                    )
+                );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $description = $this->getTestRun() . '-new description';
-        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
-            ->addAction(
-                ChannelChangeDescriptionAction::ofDescription(
-                    LocalizedString::ofLangAndText('en', $description)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $this->assertInstanceOf(Channel::class, $result);
+                $this->assertSame($description, $result->getDescription()->en);
+                $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(Channel::class, $result);
-        $this->assertSame($description, $result->getDescription()->en);
-        $this->assertNotSame($channel->getVersion(), $result->getVersion());
-
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testChangeKey()
     {
-        $draft = $this->getDraft('update-key');
-        $channel = $this->createChannel($draft);
+        $client = $this->getApiClient();
 
+        ChannelFixture::withUpdateableChannel(
+            $client,
+            function (Channel $channel) use ($client) {
+                $key = $this->getTestRun() . '-new key';
+                $request = RequestBuilder::of()->channels()->update($channel)->addAction(
+                    ChannelChangeKeyAction::ofKey($key)
+                );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $key = $this->getTestRun() . '-new key';
-        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
-            ->addAction(ChannelChangeKeyAction::ofKey($key))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $this->assertInstanceOf(Channel::class, $result);
+                $this->assertSame($key, $result->getKey());
+                $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(Channel::class, $result);
-        $this->assertSame($key, $result->getKey());
-        $this->assertNotSame($channel->getVersion(), $result->getVersion());
-
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testSetAddress()
     {
-        $draft = $this->getDraft('set-address');
-        $draft->setAddress(Address::of()->setCountry('US'));
-        $channel = $this->createChannel($draft);
+        $client = $this->getApiClient();
 
-        $this->assertSame('US', $channel->getAddress()->getCountry());
+        ChannelFixture::withUpdateableDraftChannel(
+            $client,
+            function (ChannelDraft $draft) {
+                return $draft->setAddress(Address::of()->setCountry('US'));
+            },
+            function (Channel $channel) use ($client) {
+                $this->assertSame('US', $channel->getAddress()->getCountry());
 
-        $address = Address::of()->setCountry('DE');
-        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
-            ->addAction(ChannelSetAddressAction::of()->setAddress($address))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $address = Address::of()->setCountry('DE');
+                $request = RequestBuilder::of()->channels()->update($channel)->addAction(
+                    ChannelSetAddressAction::of()->setAddress($address)
+                );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Channel::class, $result);
-        $this->assertSame('DE', $result->getAddress()->getCountry());
-        $this->assertNotSame($channel->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Channel::class, $result);
+                $this->assertSame('DE', $result->getAddress()->getCountry());
+                $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testAddRoles()
     {
-        $draft = $this->getDraft('add-roles');
-        $channel = $this->createChannel($draft);
+        $client = $this->getApiClient();
 
-        $roles = [ChannelRole::PRIMARY];
-        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
-            ->addAction(ChannelAddRolesAction::ofRoles($roles))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ChannelFixture::withUpdateableChannel(
+            $client,
+            function (Channel $channel) use ($client) {
+                $roles = [ChannelRole::PRIMARY];
+                $request = RequestBuilder::of()->channels()->update($channel)->addAction(
+                    ChannelAddRolesAction::ofRoles($roles)
+                );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Channel::class, $result);
-        $this->assertSame([ChannelRole::INVENTORY_SUPPLY, ChannelRole::PRIMARY], $result->getRoles());
-        $this->assertNotSame($channel->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Channel::class, $result);
+                $this->assertSame([ChannelRole::INVENTORY_SUPPLY, ChannelRole::PRIMARY], $result->getRoles());
+                $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testRemoveRoles()
     {
-        $draft = $this->getDraft('remove-roles');
-        $draft->setRoles([ChannelRole::INVENTORY_SUPPLY, ChannelRole::PRIMARY]);
-        $channel = $this->createChannel($draft);
+        $client = $this->getApiClient();
 
-        $roles = [ChannelRole::INVENTORY_SUPPLY];
-        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
-            ->addAction(ChannelRemoveRolesAction::ofRoles($roles))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ChannelFixture::withUpdateableDraftChannel(
+            $client,
+            function (ChannelDraft $draft) {
+                return $draft->setRoles([ChannelRole::INVENTORY_SUPPLY, ChannelRole::PRIMARY]);
+            },
+            function (Channel $channel) use ($client) {
+                $roles = [ChannelRole::INVENTORY_SUPPLY];
+                $request = RequestBuilder::of()->channels()->update($channel)->addAction(
+                    ChannelRemoveRolesAction::ofRoles($roles)
+                );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Channel::class, $result);
-        $this->assertSame([ChannelRole::PRIMARY], $result->getRoles());
-        $this->assertNotSame($channel->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Channel::class, $result);
+                $this->assertSame([ChannelRole::PRIMARY], $result->getRoles());
+                $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testSetRoles()
     {
-        $draft = $this->getDraft('add-roles');
-        $channel = $this->createChannel($draft);
-        $this->assertSame([ChannelRole::INVENTORY_SUPPLY], $channel->getRoles());
+        $client = $this->getApiClient();
 
-        $roles = [ChannelRole::PRIMARY, ChannelRole::PRODUCT_DISTRIBUTION];
-        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
-            ->addAction(ChannelSetRolesAction::ofRoles($roles))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ChannelFixture::withUpdateableChannel(
+            $client,
+            function (Channel $channel) use ($client) {
+                $this->assertSame([ChannelRole::INVENTORY_SUPPLY], $channel->getRoles());
 
-        $this->assertInstanceOf(Channel::class, $result);
-        $this->assertSame($roles, $result->getRoles());
-        $this->assertNotSame($channel->getVersion(), $result->getVersion());
+                $roles = [ChannelRole::PRIMARY, ChannelRole::PRODUCT_DISTRIBUTION];
+                $request = RequestBuilder::of()->channels()->update($channel)->addAction(
+                    ChannelSetRolesAction::ofRoles($roles)
+                );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(Channel::class, $result);
+                $this->assertSame($roles, $result->getRoles());
+                $this->assertNotSame($channel->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
+//    TODO to migrate: depends of Type
     public function testChannelCustom()
     {
         $customType = $this->getType('channel_custom', 'channel');
@@ -249,27 +279,30 @@ class ChannelUpdateRequestTest extends ApiTestCase
 
     public function testSetGeoLocation()
     {
+        $client = $this->getApiClient();
         $brandenburgerTor = [13.37770, 52.51627];
         $friedrichstadtPalast = [13.38881, 52.52394];
 
-        $draft = $this->getDraft('set-geolocation');
-        $draft->setGeoLocation(GeoPoint::of()->setCoordinates($brandenburgerTor));
-        $channel = $this->createChannel($draft);
+        ChannelFixture::withUpdateableDraftChannel(
+            $client,
+            function (ChannelDraft $draft) use ($brandenburgerTor) {
+                return $draft->setGeoLocation(GeoPoint::of()->setCoordinates($brandenburgerTor));
+            },
+            function (Channel $channel) use ($client, $friedrichstadtPalast) {
+                $request = RequestBuilder::of()->channels()->update($channel)
+                    ->addAction(
+                        ChannelSetGeoLocation::of()->setGeoLocation(GeoPoint::of()
+                            ->setCoordinates($friedrichstadtPalast))
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($brandenburgerTor, $channel->getGeoLocation()->getCoordinates());
+                $this->assertInstanceOf(Channel::class, $result);
+                $this->assertSame($friedrichstadtPalast, $result->getGeoLocation()->getCoordinates());
+                $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
-        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
-            ->addAction(
-                ChannelSetGeoLocation::of()->setGeoLocation(GeoPoint::of()->setCoordinates($friedrichstadtPalast))
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertInstanceOf(Channel::class, $result);
-        $this->assertSame($friedrichstadtPalast, $result->getGeoLocation()->getCoordinates());
-        $this->assertNotSame($channel->getVersion(), $result->getVersion());
-
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $result;
+            }
+        );
     }
 }
